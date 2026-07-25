@@ -1,22 +1,51 @@
-const CACHE='vedator-temata-v12';
+const CACHE='vedator-temata-v13';
 const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','summary-enhancer.js'];
-self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
-self.addEventListener('activate',e=>e.waitUntil(Promise.all([self.clients.claim(),caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k))))])));
-self.addEventListener('fetch',e=>{
- if(e.request.method!=='GET')return;
- const url=new URL(e.request.url);
- const isPage=e.request.mode==='navigate'||url.pathname.endsWith('/index.html');
- if(isPage){
-  e.respondWith(fetch(e.request).then(async res=>{
-   const html=await res.text();
-   const enhanced=html.includes('summary-enhancer.js')?html:html.replace('</body>','<script src="summary-enhancer.js"></script></body>');
-   const out=new Response(enhanced,{status:res.status,statusText:res.statusText,headers:{'Content-Type':'text/html; charset=utf-8'}});
-   caches.open(CACHE).then(c=>c.put(e.request,out.clone()));
-   return out;
-  }).catch(()=>caches.match(e.request).then(r=>r||caches.match('./'))));
-  return;
- }
- const networkFirst=url.pathname.endsWith('/episodes.json')||url.pathname.endsWith('/summary-enhancer.js');
- if(networkFirst){e.respondWith(fetch(e.request).then(res=>{const copy=res.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return res}).catch(()=>caches.match(e.request)));return}
- e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{const copy=res.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return res})));
+
+self.addEventListener('install',event=>{
+  self.skipWaiting();
+  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)));
+});
+
+self.addEventListener('activate',event=>{
+  event.waitUntil((async()=>{
+    await Promise.all((await caches.keys()).filter(key=>key!==CACHE).map(key=>caches.delete(key)));
+    await self.clients.claim();
+    const clients=await self.clients.matchAll({type:'window',includeUncontrolled:true});
+    for(const client of clients){
+      try{await client.navigate(client.url)}catch(e){}
+    }
+  })());
+});
+
+self.addEventListener('fetch',event=>{
+  if(event.request.method!=='GET')return;
+  const url=new URL(event.request.url);
+  const isPage=event.request.mode==='navigate'||url.pathname.endsWith('/index.html')||url.pathname.endsWith('/vedator/');
+
+  if(isPage){
+    event.respondWith((async()=>{
+      try{
+        const response=await fetch(event.request,{cache:'no-store'});
+        const html=await response.text();
+        const enhanced=html.includes('summary-enhancer.js')
+          ? html
+          : html.replace('</body>','<script src="summary-enhancer.js?v=3"></script></body>');
+        return new Response(enhanced,{
+          status:response.status,
+          statusText:response.statusText,
+          headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}
+        });
+      }catch(error){
+        return (await caches.match('index.html'))||(await caches.match('./'));
+      }
+    })());
+    return;
+  }
+
+  if(url.pathname.endsWith('/episodes.json')||url.pathname.endsWith('/summary-enhancer.js')){
+    event.respondWith(fetch(event.request,{cache:'no-store'}).catch(()=>caches.match(event.request)));
+    return;
+  }
+
+  event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request)));
 });
