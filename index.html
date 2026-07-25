@@ -48,8 +48,7 @@ const FIXED_SERIES=[
 {name:'STARMUS',test:e=>norm(e.title).includes('starmus')},
 {name:'Černé díry',test:e=>[296,227,173,132,104,68].includes(Number(e.number))},
 {name:'Tmavá hmota a energie',test:e=>[210,182,145,48,2].includes(Number(e.number))},
-{name:'Částice',test:e=>[10,34,163,175,180,187,225].includes(Number(e.number))},
-{name:'Genetika a evoluce',test:e=>{const t=norm(e.title+' '+cleanHtml(e.description));const keys=['dna','rna','gen','geny','genetika','geneticky','genom','chromozom','mutacia','mutace','dedicnost','epigenetika','evolucia','evoluce','darwin','prirodzeny vyber','prirozeny vyber','adaptacia','adaptace','speciacia','speciace','vyhynutie','vyhynuti','extinkcia','extinkce','fosilia','fosilie'];return keys.some(k=>t.includes(norm(k)))}}
+{name:'Částice',test:e=>[10,34,163,175,180,187,225].includes(Number(e.number))}
 ];
 let episodes=[],active='Vše',view='episodes';
 const norm=s=>(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
