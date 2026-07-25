@@ -51,6 +51,7 @@
 </main>
 <script>
 const FEED='https://feed.podbean.com/vedatorskypodcast/feed.xml';
+const RSS2JSON='https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(FEED);
 const PROXIES=[
   u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),
   u=>'https://corsproxy.io/?'+encodeURIComponent(u)
@@ -95,19 +96,47 @@ function parse(xml){
    return {title,description,date,link,enclosure,number:m?+m[1]:0,id:link||title+i};
  });
 }
+function saveEpisodes(data){
+ episodes=data;
+ localStorage.setItem('vedatorEpisodes',JSON.stringify(data));
+ localStorage.setItem('vedatorUpdated',new Date().toISOString());
+ render();
+}
 async function load(){
  document.querySelector('#count').textContent='Aktualizuji katalog…';
- let lastErr;
+ const errors=[];
+ try{
+   const r=await fetch(RSS2JSON+'&_='+Date.now(),{cache:'no-store'});
+   if(!r.ok) throw new Error('RSS2JSON HTTP '+r.status);
+   const json=await r.json();
+   if(json.status!=='ok'||!Array.isArray(json.items)) throw new Error(json.message||'Neplatná odpověď RSS2JSON');
+   const data=json.items.map((it,i)=>{
+     const title=(it.title||'Bez názvu').trim();
+     const description=it.description||it.content||'';
+     const enclosure=it.enclosure?.link||it.enclosure||'';
+     const link=it.link||enclosure;
+     const date=it.pubDate||'';
+     const m=title.match(/podcast\s+(\d+)/i);
+     return {title,description,date,link,enclosure,number:m?+m[1]:0,id:it.guid||link||title+i};
+   });
+   if(data.length<20) throw new Error('Neúplný katalog');
+   saveEpisodes(data); return;
+ }catch(e){errors.push(e.message)}
  for(const proxy of PROXIES){
    try{
-     const r=await fetch(proxy(FEED)); if(!r.ok) throw new Error('HTTP '+r.status);
+     const r=await fetch(proxy(FEED),{cache:'no-store'}); if(!r.ok) throw new Error('HTTP '+r.status);
      const xml=await r.text(); const data=parse(xml); if(data.length<20) throw new Error('Neúplný RSS');
-     episodes=data; localStorage.setItem('vedatorEpisodes',JSON.stringify(data)); localStorage.setItem('vedatorUpdated',new Date().toISOString()); render(); return;
-   }catch(e){lastErr=e}
+     saveEpisodes(data); return;
+   }catch(e){errors.push(e.message)}
  }
  const saved=localStorage.getItem('vedatorEpisodes');
- if(saved){episodes=JSON.parse(saved);render();alert('Aktualizace se nepodařila, zobrazuji poslední uložený katalog.');}
- else {document.querySelector('#episodes').innerHTML='<div class="status">Katalog se nepodařilo načíst. Zkontroluj připojení a zkus tlačítko Aktualizovat díly.</div>';document.querySelector('#count').textContent='Bez dat';}
+ if(saved){
+   episodes=JSON.parse(saved);render();
+   document.querySelector('#count').textContent+=' · z uložené kopie';
+ } else {
+   document.querySelector('#episodes').innerHTML='<div class="status"><strong>Katalog se nepodařilo načíst.</strong><br>Zkus stránku obnovit za chvíli. Technická informace: '+escapeHtml(errors.join(' · '))+'</div>';
+   document.querySelector('#count').textContent='Bez dat';
+ }
 }
 function renderTopics(){
  const el=document.querySelector('#topics'); el.innerHTML='';
