@@ -49,5 +49,67 @@
       .filter(episode=>!queries.length||episode.searchMatch<99);
   };
 
+  const absoluteUrl=value=>{
+    try{return new URL(value,location.href).href}catch(error){return String(value||'')}
+  };
+
+  function findSeriesEpisode(link){
+    if(!Array.isArray(episodes))return null;
+    const href=absoluteUrl(link.getAttribute('href'));
+    const title=(link.querySelector('.episode-title')?.textContent||link.textContent||'').trim();
+    return episodes.find(episode=>
+      absoluteUrl(episode.link)===href||
+      absoluteUrl(episode.enclosure)===href||
+      episode.title===title
+    )||null;
+  }
+
+  function prepareSeriesLinks(){
+    document.querySelectorAll('#series .series-body a').forEach(link=>{
+      const episode=findSeriesEpisode(link);
+      if(!episode?.enclosure)return;
+      link.dataset.vedatorAudioUrl=episode.enclosure;
+      link.dataset.vedatorEpisodeTitle=episode.title;
+      link.href=episode.enclosure;
+      link.removeAttribute('target');
+      link.removeAttribute('rel');
+    });
+  }
+
+  function openSeriesEpisodeInPlayer(link){
+    const url=link.dataset.vedatorAudioUrl;
+    const title=link.dataset.vedatorEpisodeTitle;
+    if(!url||!title)return false;
+
+    const proxy=document.createElement('article');
+    proxy.hidden=true;
+    const heading=document.createElement('h2');
+    heading.textContent=title;
+    const links=document.createElement('div');
+    links.className='links';
+    const play=document.createElement('a');
+    play.className='primary';
+    play.href=url;
+    play.textContent='Přehrát';
+    links.appendChild(play);
+    proxy.append(heading,links);
+    document.body.appendChild(proxy);
+    play.click();
+    proxy.remove();
+    return true;
+  }
+
+  document.addEventListener('click',event=>{
+    const link=event.target.closest('#series .series-body a[data-vedator-audio-url]');
+    if(!link)return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    openSeriesEpisodeInPlayer(link);
+  },true);
+
+  const seriesBox=document.querySelector('#series');
+  if(seriesBox)new MutationObserver(prepareSeriesLinks).observe(seriesBox,{childList:true,subtree:true});
+  prepareSeriesLinks();
+
   if(Array.isArray(episodes)&&episodes.length&&typeof render==='function')render();
 })();
