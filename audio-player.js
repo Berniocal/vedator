@@ -36,17 +36,26 @@
   const back=modal.querySelector('.vedator-audio-modal__back');
   const barTitle=modal.querySelector('.vedator-audio-modal__title');
   const cardTitle=modal.querySelector('.vedator-audio-card__title');
+  const help=modal.querySelector('.vedator-audio-card__help');
   const audio=modal.querySelector('audio');
+
   let historyEntry=false;
   let currentKey='';
   let currentTitle='';
+  let currentUrl='';
+  let currentSession=0;
+  let switchingSource=false;
   let lastSavedSecond=-1;
+  let resumeGuard=0;
 
   const visible=()=>!modal.hidden;
   const episodeTitle=element=>element.closest('article')?.querySelector('h2')?.textContent?.trim()||'Vedátorský podcast';
   const episodeKey=title=>{
     const number=String(title||'').match(/\bpodcast\s+(\d+)\b/i)?.[1];
     return number?`episode-${number}`:`title-${String(title||'').trim().toLowerCase()}`;
+  };
+  const absoluteUrl=url=>{
+    try{return new URL(url,location.href).href}catch(error){return url}
   };
   const formatTime=seconds=>{
     const total=Math.max(0,Math.floor(Number(seconds)||0));
@@ -62,17 +71,27 @@
   }
 
   function saveCurrentProgress(force=false,ended=false){
-    if(!currentKey)return;
-    const time=ended&&Number.isFinite(audio.duration)?audio.duration:audio.currentTime;
-    const duration=audio.duration;
+    if(!currentKey||switchingSource||audio.readyState===0)return;
+    if(currentUrl&&audio.currentSrc&&absoluteUrl(currentUrl)!==audio.currentSrc)return;
+
+    const duration=Number.isFinite(audio.duration)?audio.duration:(progress[currentKey]?.duration||0);
+    const time=ended&&duration>0?duration:audio.currentTime;
     if(!Number.isFinite(time)||time<0)return;
+
+    if(resumeGuard>0){
+      if(time<resumeGuard-5)return;
+      resumeGuard=0;
+    }
+
     const second=Math.floor(time);
     if(!force&&lastSavedSecond>=0&&Math.abs(second-lastSavedSecond)<5)return;
     lastSavedSecond=second;
+
+    const previous=progress[currentKey]||{};
     progress[currentKey]={
       currentTime:time,
-      duration:Number.isFinite(duration)?duration:(progress[currentKey]?.duration||0),
-      completed:isCompleted(time,Number.isFinite(duration)?duration:0,ended),
+      duration,
+      completed:Boolean(previous.completed)||isCompleted(time,duration,ended),
       title:currentTitle,
       updatedAt:Date.now()
     };
@@ -119,25 +138,45 @@
     });
   }
 
+  function resetAudio(save=true){
+    if(save)saveCurrentProgress(true);
+
+    switchingSource=true;
+    currentSession+=1;
+    audio.onloadedmetadata=null;
+    audio.onerror=null;
+    try{audio.pause()}catch(error){}
+    audio.removeAttribute('src');
+    audio.load();
+
+    currentKey='';
+    currentTitle='';
+    currentUrl='';
+    lastSavedSecond=-1;
+    resumeGuard=0;
+    switchingSource=false;
+  }
+
   function openAudio(url,title){
     if(!url)return;
-    saveCurrentProgress(true);
+    resetAudio(true);
+
+    const session=++currentSession;
+    const key=episodeKey(title);
+    const record=progress[key];
+
     currentTitle=title;
-    currentKey=episodeKey(title);
+    currentKey=key;
+    currentUrl=url;
     lastSavedSecond=-1;
-    const record=progress[currentKey];
+    resumeGuard=record&&!record.completed&&record.currentTime>10?record.currentTime:0;
+    switchingSource=true;
 
     barTitle.textContent=title;
     cardTitle.textContent=title;
-    audio.src=url;
-
-    audio.addEventListener('loadedmetadata',()=>{
-      if(record&&record.currentTime>5&&Number.isFinite(audio.duration)){
-        const nearlyAtEnd=record.currentTime>=audio.duration-5;
-        audio.currentTime=nearlyAtEnd?0:Math.min(record.currentTime,Math.max(0,audio.duration-1));
-      }
-      audio.play().catch(()=>{});
-    },{once:true});
+    help.textContent=record&&!record.completed&&record.currentTime>10
+      ?`Pokračování od ${formatTime(record.currentTime)} se načítá…`
+      :'Pozice se ukládá do tohoto zařízení.';
 
     if(!visible()){
       modal.hidden=false;
@@ -146,19 +185,47 @@
       historyEntry=true;
     }
 
-    audio.play().catch(()=>{});
+    audio.onloadedmetadata=()=>{
+      if(session!==currentSession||currentKey!==key)return;
+
+      if(record&&!record.completed&&record.currentTime>5&&Number.isFinite(audio.duration)){
+        const target=Math.min(record.currentTime,Math.max(0,audio.duration-1));
+        try{audio.currentTime=target}catch(error){}
+      }else{
+        resumeGuard=0;
+      }
+
+      switchingSource=false;
+      help.textContent=record&&!record.completed&&record.currentTime>10
+        ?`Pokračuje od ${formatTime(record.currentTime)}.`
+        :'Pozice se ukládá do tohoto zařízení.';
+    };
+
+    audio.onerror=()=>{
+      if(session!==currentSession)return;
+      switchingSource=false;
+      help.textContent='Zvuk se nepodařilo načíst. Zkuste přehrávání spustit znovu.';
+    };
+
+    audio.src=url;
+    audio.load();
+
+    const playPromise=audio.play();
+    if(playPromise&&typeof playPromise.catch==='function'){
+      playPromise.catch(()=>{
+        if(session!==currentSession)return;
+        switchingSource=false;
+        help.textContent='Klepněte na tlačítko přehrávání v přehrávači.';
+      });
+    }
+
     if('mediaSession'in navigator&&'MediaMetadata'in window){
       navigator.mediaSession.metadata=new MediaMetadata({title,artist:'Vedátorský podcast'});
     }
   }
 
   function hideAudio(){
-    saveCurrentProgress(true);
-    audio.pause();
-    audio.removeAttribute('src');
-    audio.load();
-    currentKey='';
-    currentTitle='';
+    resetAudio(true);
     modal.hidden=true;
     document.body.classList.remove('vedator-audio-open');
   }
@@ -168,6 +235,14 @@
     else hideAudio();
   }
 
+  audio.addEventListener('playing',()=>{
+    switchingSource=false;
+    if(currentKey)help.textContent='Pozice se průběžně ukládá do tohoto zařízení.';
+  });
+  audio.addEventListener('seeked',()=>{
+    if(resumeGuard>0&&audio.currentTime>=resumeGuard-5)resumeGuard=0;
+    saveCurrentProgress(true);
+  });
   audio.addEventListener('timeupdate',()=>saveCurrentProgress(false));
   audio.addEventListener('pause',()=>saveCurrentProgress(true));
   audio.addEventListener('ended',()=>saveCurrentProgress(true,true));
