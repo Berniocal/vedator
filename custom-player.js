@@ -3,7 +3,7 @@
   window.__vedatorCustomPlayer=true;
 
   const RATES=[1,1.25,1.5,1.75,2,.8];
-  let context={label:'Všechny epizody',titles:[]};
+  let context={type:'episodes',label:'Všechny epizody',titles:[]};
   let currentTitle='';
   let rate=1;
 
@@ -13,7 +13,7 @@
     .vedator-custom-controls{display:grid;gap:13px;margin-top:18px}
     .vedator-custom-main{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;align-items:center}
     .vedator-custom-secondary{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-    .vedator-custom-btn{border:1px solid #d8d1ff;background:linear-gradient(180deg,#f7f5ff,#ebe7ff);color:#392b9b;border-radius:17px;min-height:56px;padding:8px 5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:inherit;font-weight:800;cursor:pointer;box-shadow:0 7px 18px rgba(91,75,219,.13)}
+    .vedator-custom-btn{border:1px solid #d8d1ff;background:linear-gradient(180deg,#f7f5ff,#ebe7ff);color:#392b9b;border-radius:17px;min-height:56px;padding:8px 5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:inherit;font-weight:800;cursor:pointer;box-shadow:0 7px 18px rgba(91,75,219,.13);text-decoration:none}
     .vedator-custom-btn:active{transform:translateY(1px)}
     .vedator-custom-btn:disabled{opacity:.38;cursor:not-allowed;box-shadow:none}
     .vedator-custom-btn.main{min-height:68px;border-radius:21px;background:linear-gradient(180deg,#7f70ed,#5b4bdb);border-color:#7565e3;color:#fff;font-size:1.65rem;box-shadow:0 10px 24px rgba(91,75,219,.28)}
@@ -26,15 +26,28 @@
   `;
   document.head.appendChild(style);
 
+  function episodeNumber(title){
+    const match=String(title||'').match(/\bpodcast\s+(\d+)\b/i);
+    return match?Number(match[1]):null;
+  }
   function episodeKey(title){
-    const number=String(title||'').match(/\bpodcast\s+(\d+)\b/i)?.[1];
-    return number?`episode-${number}`:`title-${String(title||'').trim().toLowerCase()}`;
+    const number=episodeNumber(title);
+    return number!==null?`episode-${number}`:`title-${String(title||'').trim().toLowerCase()}`;
   }
   function getEpisode(title){
     return typeof episodes!=='undefined'&&Array.isArray(episodes)?episodes.find(e=>episodeKey(e.title)===episodeKey(title)):null;
   }
   function visibleEpisodeTitles(){
     return [...document.querySelectorAll('#episodes article h2')].map(x=>x.textContent.trim()).filter(Boolean);
+  }
+  function sortEpisodeTitlesAscending(titles){
+    return [...new Set(titles)].sort((a,b)=>{
+      const na=episodeNumber(a),nb=episodeNumber(b);
+      if(na!==null&&nb!==null)return na-nb;
+      if(na!==null)return-1;
+      if(nb!==null)return 1;
+      return a.localeCompare(b,'cs');
+    });
   }
   function setEpisodeContext(){
     let titles=visibleEpisodeTitles();
@@ -44,14 +57,16 @@
     const topic=typeof active==='string'?active:'Vše';
     const query=document.querySelector('#search')?.value?.trim();
     context={
+      type:'episodes',
       label:query?`Vyhledávání: ${query}`:(topic&&topic!=='Vše'?`Téma: ${topic}`:'Všechny epizody'),
-      titles
+      titles:sortEpisodeTitlesAscending(titles)
     };
   }
   function setSeriesContext(link){
     const card=link.closest('.series-card');
     const links=[...(card?.querySelectorAll('.series-body a')||[])];
     context={
+      type:'series',
       label:card?.querySelector('summary span')?.textContent?.trim()||'Série',
       titles:links.map(a=>a.dataset.vedatorEpisodeTitle||a.querySelector('.episode-title')?.textContent||a.textContent).map(x=>String(x||'').trim()).filter(Boolean)
     };
@@ -59,7 +74,7 @@
   function consumeSharedContext(){
     const shared=window.__vedatorPlaybackContext;
     if(!shared||!Array.isArray(shared.titles)||!shared.titles.length)return;
-    context={label:shared.label||'Série',titles:[...shared.titles]};
+    context={type:'series',label:shared.label||'Série',titles:[...shared.titles]};
     window.__vedatorPlaybackContext=null;
   }
   function currentIndex(){return context.titles.findIndex(t=>episodeKey(t)===episodeKey(currentTitle))}
@@ -87,6 +102,10 @@
     if(play)setEpisodeContext();
   },true);
 
+  function safeFilename(title){
+    return (title||'vedatorsky-podcast').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'').toLowerCase()+'.mp3';
+  }
+
   function install(){
     const card=document.querySelector('.vedator-audio-card');
     const audio=card?.querySelector('audio');
@@ -103,7 +122,7 @@
         <button class="vedator-custom-btn next" type="button" aria-label="Další díl"><span class="vedator-custom-icon">|▶</span><span class="vedator-custom-label">Další</span></button>
       </div>
       <div class="vedator-custom-secondary">
-        <a class="vedator-custom-btn download" href="#" download><span>⇩</span><span>Stáhnout</span></a>
+        <button class="vedator-custom-btn download" type="button"><span>⇩</span><span>Stáhnout</span></button>
         <button class="vedator-custom-btn speed" type="button"><span>Rychlost</span><span class="speed-value">1×</span></button>
       </div>`;
     audio.insertAdjacentElement('afterend',controls);
@@ -116,14 +135,13 @@
     const speed=controls.querySelector('.speed');
     const speedValue=controls.querySelector('.speed-value');
     const titleNode=card.querySelector('.vedator-audio-card__title');
+    const help=card.querySelector('.vedator-audio-card__help');
 
     function sync(){
       consumeSharedContext();
       currentTitle=titleNode?.textContent?.trim()||currentTitle;
       playIcon.textContent=audio.paused?'▶':'Ⅱ';
       play.setAttribute('aria-label',audio.paused?'Přehrát':'Pozastavit');
-      download.href=audio.currentSrc||audio.src||'#';
-      download.download=(currentTitle||'vedatorsky-podcast').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'').toLowerCase()+'.mp3';
       const i=currentIndex();
       prev.disabled=i<=0;
       next.disabled=i<0||i>=context.titles.length-1;
@@ -136,11 +154,47 @@
       const title=context.titles[i+delta];
       if(title&&openEpisode(title))setTimeout(sync,0);
     }
+    async function downloadCurrent(){
+      const url=audio.currentSrc||audio.src;
+      if(!url)return;
+      const original=download.innerHTML;
+      download.disabled=true;
+      download.innerHTML='<span>…</span><span>Stahuji</span>';
+      try{
+        const response=await fetch(url,{mode:'cors'});
+        if(!response.ok)throw new Error(`HTTP ${response.status}`);
+        const blob=await response.blob();
+        const objectUrl=URL.createObjectURL(blob);
+        const link=document.createElement('a');
+        link.href=objectUrl;
+        link.download=safeFilename(currentTitle);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(()=>URL.revokeObjectURL(objectUrl),30000);
+        if(help)help.textContent='Soubor se stáhl do zařízení.';
+      }catch(error){
+        const link=document.createElement('a');
+        link.href=url;
+        link.download=safeFilename(currentTitle);
+        link.target='_blank';
+        link.rel='noopener';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        if(help)help.textContent='Prohlížeč nepovolil přímé stažení; otevřel se zvukový soubor.';
+      }finally{
+        download.disabled=false;
+        download.innerHTML=original;
+      }
+    }
+
     play.onclick=()=>audio.paused?audio.play():audio.pause();
     controls.querySelector('.back10').onclick=()=>{audio.currentTime=Math.max(0,audio.currentTime-10)};
     controls.querySelector('.forward10').onclick=()=>{audio.currentTime=Math.min(audio.duration||Infinity,audio.currentTime+10)};
     prev.onclick=()=>relative(-1);
     next.onclick=()=>relative(1);
+    download.onclick=downloadCurrent;
     speed.onclick=()=>{
       const i=RATES.findIndex(x=>Math.abs(x-rate)<.001);
       rate=RATES[(i+1)%RATES.length];
