@@ -37,7 +37,10 @@
     return [...document.querySelectorAll('#episodes article h2')].map(x=>x.textContent.trim()).filter(Boolean);
   }
   function setEpisodeContext(){
-    const titles=visibleEpisodeTitles();
+    let titles=visibleEpisodeTitles();
+    if(!titles.length&&typeof filtered==='function'){
+      try{titles=filtered().map(e=>e.title).filter(Boolean)}catch(error){}
+    }
     const topic=typeof active==='string'?active:'Vše';
     const query=document.querySelector('#search')?.value?.trim();
     context={
@@ -47,11 +50,17 @@
   }
   function setSeriesContext(link){
     const card=link.closest('.series-card');
-    const links=[...card.querySelectorAll('.series-body a')];
+    const links=[...(card?.querySelectorAll('.series-body a')||[])];
     context={
-      label:card.querySelector('summary span')?.textContent?.trim()||'Série',
-      titles:links.map(a=>a.dataset.vedatorEpisodeTitle||a.querySelector('.episode-title')?.textContent||a.textContent).map(x=>x.trim()).filter(Boolean)
+      label:card?.querySelector('summary span')?.textContent?.trim()||'Série',
+      titles:links.map(a=>a.dataset.vedatorEpisodeTitle||a.querySelector('.episode-title')?.textContent||a.textContent).map(x=>String(x||'').trim()).filter(Boolean)
     };
+  }
+  function consumeSharedContext(){
+    const shared=window.__vedatorPlaybackContext;
+    if(!shared||!Array.isArray(shared.titles)||!shared.titles.length)return;
+    context={label:shared.label||'Série',titles:[...shared.titles]};
+    window.__vedatorPlaybackContext=null;
   }
   function currentIndex(){return context.titles.findIndex(t=>episodeKey(t)===episodeKey(currentTitle))}
 
@@ -64,6 +73,7 @@
     proxy.querySelector('h2').textContent=episode.title;
     const play=proxy.querySelector('a');
     play.href=episode.enclosure;
+    play.dataset.vedatorEpisodeTitle=episode.title;
     document.body.appendChild(proxy);
     play.click();
     proxy.remove();
@@ -108,6 +118,7 @@
     const titleNode=card.querySelector('.vedator-audio-card__title');
 
     function sync(){
+      consumeSharedContext();
       currentTitle=titleNode?.textContent?.trim()||currentTitle;
       playIcon.textContent=audio.paused?'▶':'Ⅱ';
       play.setAttribute('aria-label',audio.paused?'Přehrát':'Pozastavit');
@@ -119,9 +130,11 @@
       speedValue.textContent=String(rate).replace('.',',')+'×';
     }
     function relative(delta){
+      consumeSharedContext();
       const i=currentIndex();
+      if(i<0)return;
       const title=context.titles[i+delta];
-      if(title)openEpisode(title);
+      if(title&&openEpisode(title))setTimeout(sync,0);
     }
     play.onclick=()=>audio.paused?audio.play():audio.pause();
     controls.querySelector('.back10').onclick=()=>{audio.currentTime=Math.max(0,audio.currentTime-10)};
@@ -139,8 +152,8 @@
     audio.addEventListener('loadedmetadata',()=>{audio.playbackRate=rate;sync()});
     audio.addEventListener('ratechange',()=>{rate=audio.playbackRate;sync()});
     audio.addEventListener('ended',()=>relative(1));
-    new MutationObserver(sync).observe(titleNode,{childList:true,subtree:true,characterData:true});
-    setInterval(sync,1000);
+    if(titleNode)new MutationObserver(sync).observe(titleNode,{childList:true,subtree:true,characterData:true});
+    setInterval(sync,500);
     sync();
     return true;
   }
