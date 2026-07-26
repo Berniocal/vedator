@@ -49,6 +49,7 @@ const FIXED_SERIES=[
 {name:'FAQ – dobré otázky',test:e=>/\bfaq\b/i.test(e.title)},
 {name:'Rozhovory o vesmíre',test:e=>norm(e.title).includes('rozhovory o vesmire')},
 {name:'Žijem vedu',test:e=>norm(e.title).includes('zijem vedu')},
+{name:'Genetický speciál',test:e=>norm(e.title).includes('geneticky special')},
 {name:'Nobelovy ceny',test:e=>{const n=norm(e.title);return(n.includes('nobelove ceny')&&!n.includes('ig nobelove'))||Number(e.number)===152}},
 {name:'Ig Nobelovy ceny',test:e=>norm(e.title).includes('ig nobelove ceny')},
 {name:'Teorie her',test:e=>[29,105,120,245,254].includes(Number(e.number))},
