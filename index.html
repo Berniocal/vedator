@@ -43,7 +43,19 @@ article h2{font-size:1.08rem;line-height:1.35;margin:.35rem 0 .55rem}.date{color
 <script>
 const TOPICS={'Vše':[],'FAQ':['faq','dobre otazky'],'Mimozemský život':['mimozem','astrobiolog','exoplanet','civiliz','biosignat'],'Kosmologie':['kozmolog','kosmolog','velky tresk','rozpin','casopriestor'],'Temná energie':['tmava energia','temna energie','dark energy'],'Černé díry':['cierna diera','cerna dira','cierne diery','cerne diry','black hole'],'Kvantová fyzika':['kvant','superpoz','previazan','provazan'],'Relativita':['relativit','dilatacia casu','rychlost svetla'],'Astronomie':['hviezd','hvezd','planet','galaxi','teleskop','slnko','slunce','mesiac','mesic','mars','jupiter'],'Biologie a medicína':['bunk','mozog','mozek','gen','evol','virus','bakter','sperm','vajic','alzheimer','dopamin'],'Matematika':['matemat','geometri','fraktal','nekonec','chaos','pravdepodob'],'Technologie a AI':['umela inteligencia','umela inteligence','internet','pocitac','robot','algoritm'],'Země a příroda':['zemetrasen','sopk','tornad','hurikan','klima','ocean','geolog'],'Chemie a materiály':['chem','molekul','atom','prvok','prvek','helium','material'],'Společnost a psychologie':['socialne siete','socialni site','psychol','spolocnost','spolecnost','moral','radikaliz','ekonom','peniaz','penez']};
 const QUERY_EQUIV=[['cerna dira','cierna diera'],['cerne diry','cierne diery'],['cernych der','ciernych dier'],['temna energie','tmava energia'],['temna hmota','tmava hmota'],['umela inteligence','umela inteligencia'],['slunce','slnko'],['mesic','mesiac'],['hvezda','hviezda'],['hvezdy','hviezdy'],['mozek','mozog'],['zivot ve vesmiru','zivot vo vesmire'],['casoprostor','casopriestor'],['spolecnost','spolocnost'],['socialni site','socialne siete'],['penize','peniaze']];
-const SCIENTIST_EPISODES={men:[18,66,77,92,188,206,207,230,324],women:[320,305,302,288,222,220,205,199,140,85,70,53]};
+const SCIENTIST_EPISODES={men:[18,66,77,92,97,107,188,206,207,230,324],women:[320,305,302,288,222,220,205,199,140,85,70,53]};
+const VEDATOR_SPECIAL_TITLES=new Set([
+'vedatorsky special udrzatelnost pripadova studia ikea',
+'vedatorsky special preco je v nealko pive alkohol',
+'vedatorsky special astrologia',
+'vedatorsky special prenos signalu vzduchom',
+'vedatorsky special obycajne zazraky ukazka z knihy',
+'vedatorsky special vdaka comu su jadrove elektrarne bezpecne',
+'vedatorsky special zelena energia',
+'vedatorsky special kusky reality',
+'vedatorsky special ako znie vesmir',
+'vedatorsky special dungeon vedator'
+]);
 const FIXED_SERIES=[
 {name:'Hľadanie mimozemského života',test:e=>norm(e.title).includes('hladanie mimozemskeho zivota')},
 {name:'FAQ – dobré otázky',test:e=>/\bfaq\b/i.test(e.title)},
@@ -53,7 +65,9 @@ const FIXED_SERIES=[
 {name:'Nobelovy ceny',test:e=>{const n=norm(e.title);return(n.includes('nobelove ceny')&&!n.includes('ig nobelove'))||Number(e.number)===152}},
 {name:'Ig Nobelovy ceny',test:e=>norm(e.title).includes('ig nobelove ceny')},
 {name:'Teorie her',test:e=>[29,105,120,245,254].includes(Number(e.number))},
-{name:'STARMUS',test:e=>norm(e.title).includes('starmus')},
+{name:'Rozhovory v angličtině',test:e=>[234,236,238,240,242,246,250,256,265,267].includes(Number(e.number))},
+{name:'Internet',test:e=>[223,258,333].includes(Number(e.number))},
+{name:'Vedátorský špeciál',test:e=>VEDATOR_SPECIAL_TITLES.has(norm(e.title))},
 {name:'Černé díry',test:e=>[296,227,173,132,104,68].includes(Number(e.number))},
 {name:'Tmavá hmota a energie',test:e=>[210,182,145,48,2].includes(Number(e.number))},
 {name:'Částice',test:e=>[10,34,163,175,180,187,225].includes(Number(e.number))},
