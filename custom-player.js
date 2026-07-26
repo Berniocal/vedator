@@ -31,14 +31,14 @@
     return number?`episode-${number}`:`title-${String(title||'').trim().toLowerCase()}`;
   }
   function getEpisode(title){
-    return Array.isArray(window.episodes)?window.episodes.find(e=>episodeKey(e.title)===episodeKey(title)):null;
+    return typeof episodes!=='undefined'&&Array.isArray(episodes)?episodes.find(e=>episodeKey(e.title)===episodeKey(title)):null;
   }
   function visibleEpisodeTitles(){
     return [...document.querySelectorAll('#episodes article h2')].map(x=>x.textContent.trim()).filter(Boolean);
   }
   function setEpisodeContext(){
     const titles=visibleEpisodeTitles();
-    const topic=typeof window.active==='string'?window.active:'Vše';
+    const topic=typeof active==='string'?active:'Vše';
     const query=document.querySelector('#search')?.value?.trim();
     context={
       label:query?`Vyhledávání: ${query}`:(topic&&topic!=='Vše'?`Téma: ${topic}`:'Všechny epizody'),
