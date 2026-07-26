@@ -1,4 +1,4 @@
-const CACHE='vedator-temata-v15';
+const CACHE='vedator-temata-v16';
 const ASSETS=['./','index.html','manifest.webmanifest','icon.svg'];
 self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)))});
 self.addEventListener('activate',event=>{event.waitUntil((async()=>{await Promise.all((await caches.keys()).filter(key=>key!==CACHE).map(key=>caches.delete(key)));await self.clients.claim()})())});
