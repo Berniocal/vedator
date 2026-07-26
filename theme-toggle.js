@@ -18,6 +18,7 @@
     html.theme-dark body{background:var(--bg);color:var(--ink)}
     html.theme-dark .panel,html.theme-dark article,html.theme-dark .series-card{background:var(--card);border-color:var(--line);box-shadow:0 8px 30px rgba(0,0,0,.25)}
     html.theme-dark .search,html.theme-dark .sort,html.theme-dark .topic,html.theme-dark .tab{background:#1d2534;color:var(--ink);border-color:var(--line)}
+    html.theme-dark .topic.active,html.theme-dark .tab.active{background:#3a326d;color:#f3f0ff;border-color:#8b7ee8;box-shadow:0 0 0 1px rgba(139,126,232,.18) inset}
     html.theme-dark .search::placeholder{color:#8994a9}
     html.theme-dark .desc,html.theme-dark .episode-summary-body{color:#c8d0df}
     html.theme-dark .tag{background:#29264c;color:#c7c0ff}
