@@ -1,0 +1,80 @@
+name: Upravit podcastové série
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-series-groups-2026-07-26.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-series:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Upravit definice sérií
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          old_scientists = "const SCIENTIST_EPISODES={men:[18,66,77,92,188,206,207,230,324],women:[320,305,302,288,222,220,205,199,140,85,70,53]};"
+          new_scientists = """const SCIENTIST_EPISODES={men:[18,66,77,92,97,107,188,206,207,230,324],women:[320,305,302,288,222,220,205,199,140,85,70,53]};
+          const VEDATOR_SPECIAL_TITLES=new Set([
+          'vedatorsky special udrzatelnost pripadova studia ikea',
+          'vedatorsky special preco je v nealko pive alkohol',
+          'vedatorsky special astrologia',
+          'vedatorsky special prenos signalu vzduchom',
+          'vedatorsky special obycajne zazraky ukazka z knihy',
+          'vedatorsky special vdaka comu su jadrove elektrarne bezpecne',
+          'vedatorsky special zelena energia',
+          'vedatorsky special kusky reality',
+          'vedatorsky special ako znie vesmir',
+          'vedatorsky special dungeon vedator'
+          ]);"""
+          if old_scientists not in text:
+              raise SystemExit('Původní seznam vědců nebyl nalezen.')
+          text = text.replace(old_scientists, new_scientists, 1)
+
+          old_series = """{name:'Teorie her',test:e=>[29,105,120,245,254].includes(Number(e.number))},
+          {name:'STARMUS',test:e=>norm(e.title).includes('starmus')},"""
+          new_series = """{name:'Teorie her',test:e=>[29,105,120,245,254].includes(Number(e.number))},
+          {name:'Rozhovory v angličtině',test:e=>[234,236,238,240,242,246,250,256,265,267].includes(Number(e.number))},
+          {name:'Internet',test:e=>[223,258,333].includes(Number(e.number))},
+          {name:'Vedátorský špeciál',test:e=>VEDATOR_SPECIAL_TITLES.has(norm(e.title))},"""
+          if old_series not in text:
+              raise SystemExit('Původní řádek série STARMUS nebyl nalezen.')
+          text = text.replace(old_series, new_series, 1)
+
+          path.write_text(text, encoding='utf-8')
+
+          sw = Path('sw.js')
+          sw_text = sw.read_text(encoding='utf-8')
+          if "vedator-temata-v17" not in sw_text:
+              raise SystemExit('Očekávaná verze cache v17 nebyla nalezena.')
+          sw.write_text(sw_text.replace('vedator-temata-v17', 'vedator-temata-v18', 1), encoding='utf-8')
+          PY
+
+      - name: Ověřit JavaScript
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('index.html').read_text(encoding='utf-8')
+          start = text.index('<script>') + len('<script>')
+          end = text.rindex('</script>')
+          Path('/tmp/vedator-index.js').write_text(text[start:end], encoding='utf-8')
+          PY
+          node --check /tmp/vedator-index.js
+
+      - name: Commitnout změny
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html sw.js
+          git commit -m 'Upravit podcastové série'
+          git push
