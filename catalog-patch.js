@@ -76,10 +76,24 @@
     });
   }
 
+  function seriesPlaybackContext(link){
+    const card=link.closest('.series-card');
+    const links=[...(card?.querySelectorAll('.series-body a')||[])];
+    return {
+      label:card?.querySelector('summary span')?.textContent?.trim()||'Série',
+      titles:links
+        .map(item=>item.dataset.vedatorEpisodeTitle||item.querySelector('.episode-title')?.textContent||item.textContent)
+        .map(title=>String(title||'').trim())
+        .filter(Boolean)
+    };
+  }
+
   function openSeriesEpisodeInPlayer(link){
     const url=link.dataset.vedatorAudioUrl;
     const title=link.dataset.vedatorEpisodeTitle;
     if(!url||!title)return false;
+
+    window.__vedatorPlaybackContext=seriesPlaybackContext(link);
 
     const proxy=document.createElement('article');
     proxy.hidden=true;
@@ -90,6 +104,7 @@
     const play=document.createElement('a');
     play.className='primary';
     play.href=url;
+    play.dataset.vedatorEpisodeTitle=title;
     play.textContent='Přehrát';
     links.appendChild(play);
     proxy.append(heading,links);
