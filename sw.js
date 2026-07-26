@@ -1,5 +1,5 @@
-const CACHE='vedator-temata-v28';
-const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js'];
+const CACHE='vedator-temata-v29';
+const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js','theme-toggle.js'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
@@ -13,7 +13,7 @@ self.addEventListener('activate',event=>{
   })());
 });
 
-async function injectAudioPlayer(response){
+async function injectEnhancements(response){
   if(!response)return response;
   const type=response.headers.get('content-type')||'';
   if(!type.includes('text/html'))return response;
@@ -27,6 +27,9 @@ async function injectAudioPlayer(response){
   }
   if(!html.includes('catalog-patch.js')){
     html=html.replace('</body>','<script src="./catalog-patch.js" defer></script></body>');
+  }
+  if(!html.includes('theme-toggle.js')){
+    html=html.replace('</body>','<script src="./theme-toggle.js" defer></script></body>');
   }
 
   const headers=new Headers(response.headers);
@@ -43,7 +46,6 @@ self.addEventListener('fetch',event=>{
   const isMedia=event.request.destination==='audio'||event.request.headers.has('range')||/\.(?:mp3|m4a|aac|ogg|wav|webm)(?:$|\?)/i.test(url.pathname);
 
   // Zvuk a požadavky na části souboru musí obsloužit přímo prohlížeč/CDN.
-  // Cache API by jinak mohla rozbít posun a pokračování u dlouhých MP3.
   if(isMedia||url.origin!==self.location.origin)return;
 
   const isPage=event.request.mode==='navigate'||url.pathname.endsWith('/index.html')||url.pathname.endsWith('/vedator/');
@@ -53,24 +55,22 @@ self.addEventListener('fetch',event=>{
     event.respondWith((async()=>{
       try{
         let response=await fetch(event.request,{cache:'no-store'});
-        if(isPage)response=await injectAudioPlayer(response);
+        if(isPage)response=await injectEnhancements(response);
         const copy=response.clone();
         caches.open(CACHE).then(cache=>cache.put(event.request,copy)).catch(()=>{});
         return response;
       }catch(error){
         const cached=await caches.match(event.request)||await caches.match('./');
         if(!cached)throw error;
-        return isPage?injectAudioPlayer(cached):cached;
+        return isPage?injectEnhancements(cached):cached;
       }
     })());
     return;
   }
 
   event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request).then(response=>{
-    if(response.ok){
-      const copy=response.clone();
-      caches.open(CACHE).then(cache=>cache.put(event.request,copy)).catch(()=>{});
-    }
+    const copy=response.clone();
+    caches.open(CACHE).then(cache=>cache.put(event.request,copy)).catch(()=>{});
     return response;
   })));
 });
