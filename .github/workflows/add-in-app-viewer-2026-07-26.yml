@@ -1,0 +1,99 @@
+name: Přidat interní přehrávač a prohlížeč
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-in-app-viewer-2026-07-26.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Upravit PWA
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          css_marker = "@media(max-width:550px){.controls{grid-template-columns:1fr}.refresh{padding:12px}.meta{align-items:flex-start;flex-direction:column}.series-list{grid-template-columns:1fr}}"
+          css_insert = """body.viewer-open{overflow:hidden}.links button{flex:1;border:0;text-align:center;border-radius:10px;padding:9px;font-weight:700;cursor:pointer}.viewer{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex}.viewer-shell{width:100%;height:100%;display:flex;flex-direction:column;background:#fff}.viewer-bar{min-height:58px;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:8px;background:#151b2f;color:#fff}.viewer-title{font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.viewer-icon,.viewer-external{height:40px;min-width:40px;border:0;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.12);color:#fff;text-decoration:none;font-size:1.2rem;cursor:pointer}.viewer-external{padding:0 12px;font-size:.88rem;font-weight:750}.viewer-note{padding:8px 14px;background:#fff7d6;color:#665200;border-bottom:1px solid #f1dfa0;font-size:.83rem;text-align:center}.viewer-frame{width:100%;flex:1;border:0;background:#fff}.audio-panel{flex:1;display:grid;place-items:center;padding:22px;background:linear-gradient(160deg,#f4f6fb,#ede9fe)}.audio-card{width:min(620px,100%);background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 14px 45px rgba(15,23,42,.14)}.audio-kicker{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:800}.audio-title{font-size:1.25rem;line-height:1.35;margin:.5rem 0 1rem}.audio-card audio{width:100%}.audio-help{margin:.8rem 0 0;color:var(--muted);font-size:.85rem;line-height:1.4}.series-body a.inapp-detail{display:block;text-decoration:none}
+"""
+          if css_marker not in text:
+              raise SystemExit('CSS marker nebyl nalezen')
+          text = text.replace(css_marker, css_insert + css_marker, 1)
+
+          html_marker = "</main>\n<script>"
+          html_insert = """</main>
+<div id=\"viewer\" class=\"viewer hidden\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"viewerTitle\">
+  <div class=\"viewer-shell\">
+    <div class=\"viewer-bar\">
+      <button id=\"viewerClose\" class=\"viewer-icon\" type=\"button\" aria-label=\"Zavřít\">←</button>
+      <div id=\"viewerTitle\" class=\"viewer-title\">Detail dílu</div>
+      <a id=\"viewerExternal\" class=\"viewer-external\" href=\"#\" target=\"_blank\" rel=\"noopener\">Prohlížeč ↗</a>
+    </div>
+    <div id=\"viewerNote\" class=\"viewer-note\">Pokud se stránka nezobrazí, její provozovatel zakázal vložení. Použijte tlačítko „Prohlížeč“.</div>
+    <iframe id=\"viewerFrame\" class=\"viewer-frame\" title=\"Detail podcastu\" allow=\"autoplay; encrypted-media; picture-in-picture\" referrerpolicy=\"strict-origin-when-cross-origin\"></iframe>
+    <div id=\"audioPanel\" class=\"audio-panel hidden\">
+      <div class=\"audio-card\">
+        <div class=\"audio-kicker\">Vedátorský podcast</div>
+        <div id=\"audioTitle\" class=\"audio-title\"></div>
+        <audio id=\"audioPlayer\" controls preload=\"metadata\"></audio>
+        <p class=\"audio-help\">Přehrávání zůstává uvnitř aplikace. Po zavření okna se přehrávač zastaví.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>"""
+          if html_marker not in text:
+              raise SystemExit('HTML marker nebyl nalezen')
+          text = text.replace(html_marker, html_insert, 1)
+
+          esc_line = "const esc=s=>String(s).replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c]));"
+          viewer_js = r"""
+const viewer=document.querySelector('#viewer'),viewerTitle=document.querySelector('#viewerTitle'),viewerExternal=document.querySelector('#viewerExternal'),viewerFrame=document.querySelector('#viewerFrame'),viewerNote=document.querySelector('#viewerNote'),audioPanel=document.querySelector('#audioPanel'),audioPlayer=document.querySelector('#audioPlayer'),audioTitle=document.querySelector('#audioTitle');
+function openViewer(url,title,mode='page'){if(!url)return;viewerTitle.textContent=title||'Detail dílu';viewerExternal.href=url;viewer.classList.remove('hidden');document.body.classList.add('viewer-open');if(mode==='audio'){viewerFrame.classList.add('hidden');viewerNote.classList.add('hidden');audioPanel.classList.remove('hidden');audioTitle.textContent=title||'Vedátorský podcast';audioPlayer.src=url;audioPlayer.play().catch(()=>{});if('mediaSession'in navigator&&'MediaMetadata'in window)navigator.mediaSession.metadata=new MediaMetadata({title:title||'Vedátorský podcast',artist:'Vedátorský podcast'})}else{audioPlayer.pause();audioPlayer.removeAttribute('src');audioPlayer.load();audioPanel.classList.add('hidden');viewerFrame.classList.remove('hidden');viewerNote.classList.remove('hidden');viewerFrame.src=url}}
+function closeViewer(){audioPlayer.pause();audioPlayer.removeAttribute('src');audioPlayer.load();viewerFrame.src='about:blank';viewer.classList.add('hidden');document.body.classList.remove('viewer-open')}
+document.querySelector('#viewerClose').addEventListener('click',closeViewer);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!viewer.classList.contains('hidden'))closeViewer()});
+document.addEventListener('click',e=>{const play=e.target.closest('.inapp-play');if(play){e.preventDefault();openViewer(play.dataset.url,play.dataset.title,'audio');return}const detail=e.target.closest('.inapp-detail');if(detail){e.preventDefault();openViewer(detail.dataset.url||detail.href,detail.dataset.title||detail.textContent.trim(),'page')}});
+"""
+          if esc_line not in text:
+              raise SystemExit('JS marker nebyl nalezen')
+          text = text.replace(esc_line, esc_line + viewer_js, 1)
+
+          old_links = """<div class=\"links\">${e.enclosure?`<a class=\"primary\" href=\"${esc(e.enclosure)}\" target=\"_blank\" rel=\"noopener\">Přehrát</a>`:''}<a class=\"secondary\" href=\"${esc(e.link||e.enclosure)}\" target=\"_blank\" rel=\"noopener\">Detail dílu</a></div>"""
+          new_links = """<div class=\"links\">${e.enclosure?`<button class=\"primary inapp-play\" type=\"button\" data-url=\"${esc(e.enclosure)}\" data-title=\"${esc(e.title)}\">Přehrát</button>`:''}<button class=\"secondary inapp-detail\" type=\"button\" data-url=\"${esc(e.link||e.enclosure)}\" data-title=\"${esc(e.title)}\">Detail dílu</button></div>"""
+          if old_links not in text:
+              raise SystemExit('Odkazy epizod nebyly nalezeny')
+          text = text.replace(old_links, new_links, 1)
+
+          old_series = """<li><a href=\"${esc(e.link||e.enclosure)}\" target=\"_blank\" rel=\"noopener\">${g.people?`<span class=\"person-name\">${esc(e.person)}</span><span class=\"episode-title\">${esc(e.title)}</span>`:esc(e.title)}</a></li>"""
+          new_series = """<li><a class=\"inapp-detail\" href=\"${esc(e.link||e.enclosure)}\" data-url=\"${esc(e.link||e.enclosure)}\" data-title=\"${esc(e.title)}\">${g.people?`<span class=\"person-name\">${esc(e.person)}</span><span class=\"episode-title\">${esc(e.title)}</span>`:esc(e.title)}</a></li>"""
+          if old_series not in text:
+              raise SystemExit('Odkazy sérií nebyly nalezeny')
+          text = text.replace(old_series, new_series, 1)
+
+          path.write_text(text, encoding='utf-8')
+
+          sw = Path('sw.js')
+          sw_text = sw.read_text(encoding='utf-8')
+          if "vedator-temata-v19" not in sw_text:
+              raise SystemExit('Neočekávaná verze cache')
+          sw.write_text(sw_text.replace('vedator-temata-v19','vedator-temata-v20',1), encoding='utf-8')
+          PY
+      - name: Commitnout změny
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html sw.js
+          git commit -m "Přidat interní přehrávač a prohlížeč"
+          git push
