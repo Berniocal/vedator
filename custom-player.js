@@ -15,7 +15,7 @@
     .vedator-custom-secondary{display:grid;grid-template-columns:1fr 1fr;gap:11px}
     .vedator-custom-btn{border:1px solid #d8d1ff;background:linear-gradient(180deg,#f7f5ff,#ebe7ff);color:#392b9b;border-radius:17px;min-height:56px;padding:8px 5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:inherit;font-weight:800;cursor:pointer;box-shadow:0 7px 18px rgba(91,75,219,.13);text-decoration:none}
     .vedator-custom-btn:active{transform:translateY(1px)}
-    .vedator-custom-btn:disabled{opacity:.38;cursor:not-allowed;box-shadow:none}
+    .vedator-custom-btn:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
     .vedator-custom-btn.main{min-height:68px;border-radius:21px;background:linear-gradient(180deg,#7f70ed,#5b4bdb);border-color:#7565e3;color:#fff;font-size:1.65rem;box-shadow:0 10px 24px rgba(91,75,219,.28)}
     .vedator-custom-icon{font-size:1.3rem;line-height:1}.vedator-custom-label{font-size:.68rem;line-height:1.1;text-align:center}
     .vedator-custom-btn.main .vedator-custom-label{display:none}
@@ -105,6 +105,7 @@
   function safeFilename(title){
     return (title||'vedatorsky-podcast').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'').toLowerCase()+'.mp3';
   }
+  function formatMb(bytes){return `${(bytes/1048576).toFixed(1).replace('.',',')} MB`}
 
   function install(){
     const card=document.querySelector('.vedator-audio-card');
@@ -122,7 +123,7 @@
         <button class="vedator-custom-btn next" type="button" aria-label="Další díl"><span class="vedator-custom-icon">|▶</span><span class="vedator-custom-label">Další</span></button>
       </div>
       <div class="vedator-custom-secondary">
-        <button class="vedator-custom-btn download" type="button"><span>⇩</span><span>Stáhnout</span></button>
+        <button class="vedator-custom-btn download" type="button"><span>⇩</span><span class="download-label">Stáhnout</span></button>
         <button class="vedator-custom-btn speed" type="button"><span>Rychlost</span><span class="speed-value">1×</span></button>
       </div>`;
     audio.insertAdjacentElement('afterend',controls);
@@ -132,6 +133,7 @@
     const prev=controls.querySelector('.prev');
     const next=controls.querySelector('.next');
     const download=controls.querySelector('.download');
+    const downloadLabel=controls.querySelector('.download-label');
     const speed=controls.querySelector('.speed');
     const speedValue=controls.querySelector('.speed-value');
     const titleNode=card.querySelector('.vedator-audio-card__title');
@@ -157,13 +159,40 @@
     async function downloadCurrent(){
       const url=audio.currentSrc||audio.src;
       if(!url)return;
-      const original=download.innerHTML;
       download.disabled=true;
-      download.innerHTML='<span>…</span><span>Stahuji</span>';
+      downloadLabel.textContent='Připravuji…';
       try{
-        const response=await fetch(url,{mode:'cors'});
+        const response=await fetch(url,{mode:'cors',cache:'no-store'});
         if(!response.ok)throw new Error(`HTTP ${response.status}`);
-        const blob=await response.blob();
+        const total=Number(response.headers.get('content-length'))||0;
+        const type=response.headers.get('content-type')||'audio/mpeg';
+        const reader=response.body?.getReader();
+        let loaded=0;
+        let blob;
+
+        if(reader){
+          const chunks=[];
+          while(true){
+            const {done,value}=await reader.read();
+            if(done)break;
+            chunks.push(value);
+            loaded+=value.byteLength;
+            if(total){
+              const percent=Math.min(99,Math.floor(loaded/total*100));
+              downloadLabel.textContent=`Stahuji ${percent} %`;
+              if(help)help.textContent=`Staženo ${formatMb(loaded)} z ${formatMb(total)}.`;
+            }else{
+              downloadLabel.textContent=`Stahuji ${formatMb(loaded)}`;
+              if(help)help.textContent=`Staženo ${formatMb(loaded)}.`;
+            }
+          }
+          blob=new Blob(chunks,{type});
+        }else{
+          downloadLabel.textContent='Stahuji…';
+          blob=await response.blob();
+        }
+
+        downloadLabel.textContent='Ukládám…';
         const objectUrl=URL.createObjectURL(blob);
         const link=document.createElement('a');
         link.href=objectUrl;
@@ -172,20 +201,12 @@
         link.click();
         link.remove();
         setTimeout(()=>URL.revokeObjectURL(objectUrl),30000);
-        if(help)help.textContent='Soubor se stáhl do zařízení.';
+        if(help)help.textContent=`Soubor byl stažen (${formatMb(blob.size)}).`;
       }catch(error){
-        const link=document.createElement('a');
-        link.href=url;
-        link.download=safeFilename(currentTitle);
-        link.target='_blank';
-        link.rel='noopener';
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        if(help)help.textContent='Prohlížeč nepovolil přímé stažení; otevřel se zvukový soubor.';
+        if(help)help.textContent='Stažení se nepodařilo. Zkontrolujte připojení a zkuste to znovu.';
       }finally{
         download.disabled=false;
-        download.innerHTML=original;
+        downloadLabel.textContent='Stáhnout';
       }
     }
 
