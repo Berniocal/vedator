@@ -1,4 +1,4 @@
-const CACHE='vedator-temata-v26';
+const CACHE='vedator-temata-v27';
 const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js'];
 
 self.addEventListener('install',event=>{
@@ -38,7 +38,14 @@ async function injectAudioPlayer(response){
 
 self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET')return;
+
   const url=new URL(event.request.url);
+  const isMedia=event.request.destination==='audio'||event.request.headers.has('range')||/\.(?:mp3|m4a|aac|ogg|wav|webm)(?:$|\?)/i.test(url.pathname);
+
+  // Zvuk a požadavky na části souboru musí obsloužit přímo prohlížeč/CDN.
+  // Cache API by jinak mohla rozbít posun a pokračování u dlouhých MP3.
+  if(isMedia||url.origin!==self.location.origin)return;
+
   const isPage=event.request.mode==='navigate'||url.pathname.endsWith('/index.html')||url.pathname.endsWith('/vedator/');
   const networkFirst=isPage||url.pathname.endsWith('/episodes.json');
 
@@ -48,7 +55,7 @@ self.addEventListener('fetch',event=>{
         let response=await fetch(event.request,{cache:'no-store'});
         if(isPage)response=await injectAudioPlayer(response);
         const copy=response.clone();
-        caches.open(CACHE).then(cache=>cache.put(event.request,copy));
+        caches.open(CACHE).then(cache=>cache.put(event.request,copy)).catch(()=>{});
         return response;
       }catch(error){
         const cached=await caches.match(event.request)||await caches.match('./');
@@ -60,8 +67,10 @@ self.addEventListener('fetch',event=>{
   }
 
   event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request).then(response=>{
-    const copy=response.clone();
-    caches.open(CACHE).then(cache=>cache.put(event.request,copy));
+    if(response.ok){
+      const copy=response.clone();
+      caches.open(CACHE).then(cache=>cache.put(event.request,copy)).catch(()=>{});
+    }
     return response;
   })));
 });
