@@ -1,0 +1,78 @@
+name: Upravit hledání tematickými tlačítky
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-topic-button-search-2026-07-26.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Upravit tematické hledání
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          anchor = "function matchLevel(ep,queries){if(!queries.length)return 0;const title=norm(ep.title),desc=norm(cleanHtml(ep.description));if(queries.some(q=>title.includes(q)))return 0;if(queries.some(q=>q.split(' ').every(w=>title.includes(w))))return 1;if(queries.some(q=>desc.includes(q)))return 2;if(queries.some(q=>q.split(' ').every(w=>desc.includes(w))))return 3;return 99}"
+          addition = anchor + "\nfunction selectedTopicQueries(){return active==='Vše'?[]:[...new Set((TOPICS[active]||[]).flatMap(expandedQuery))]}"
+          if text.count(anchor) != 1:
+              raise SystemExit(f'Kotva matchLevel nalezena {text.count(anchor)}×')
+          text = text.replace(anchor, addition, 1)
+
+          old_filtered = "function filtered(){const queries=expandedQuery(document.querySelector('#search').value);return episodes.map(e=>({...e,cats:categories(e),match:matchLevel(e,queries)})).filter(e=>(active==='Vše'||e.cats.includes(active))&&(!queries.length||e.match<99))}"
+          new_filtered = "function filtered(){const queries=expandedQuery(document.querySelector('#search').value),topics=selectedTopicQueries();return episodes.map(e=>{const searchMatch=matchLevel(e,queries),topicMatch=matchLevel(e,topics);return{...e,cats:categories(e),searchMatch,topicMatch}}).filter(e=>(!queries.length||e.searchMatch<99)&&(!topics.length||e.topicMatch<99))}"
+          if text.count(old_filtered) != 1:
+              raise SystemExit(f'Původní filtered nalezen {text.count(old_filtered)}×')
+          text = text.replace(old_filtered, new_filtered, 1)
+
+          old_sort = "function renderEpisodes(){let arr=filtered(),queries=expandedQuery(document.querySelector('#search').value);const sort=document.querySelector('#episodeSort').value;arr.sort((a,b)=>{if(queries.length&&a.match!==b.match)return a.match-b.match;return "
+          new_sort = "function renderEpisodes(){let arr=filtered(),queries=expandedQuery(document.querySelector('#search').value),topics=selectedTopicQueries();const sort=document.querySelector('#episodeSort').value;arr.sort((a,b)=>{if(topics.length&&a.topicMatch!==b.topicMatch)return a.topicMatch-b.topicMatch;if(queries.length&&a.searchMatch!==b.searchMatch)return a.searchMatch-b.searchMatch;return "
+          if text.count(old_sort) != 1:
+              raise SystemExit(f'Původní řazení nalezeno {text.count(old_sort)}×')
+          text = text.replace(old_sort, new_sort, 1)
+
+          path.write_text(text, encoding='utf-8')
+
+          sw = Path('sw.js')
+          sw_text = sw.read_text(encoding='utf-8')
+          old_cache = "const CACHE='vedator-temata-v18';"
+          new_cache = "const CACHE='vedator-temata-v19';"
+          if sw_text.count(old_cache) != 1:
+              raise SystemExit(f'Cache v18 nalezena {sw_text.count(old_cache)}×')
+          sw.write_text(sw_text.replace(old_cache, new_cache, 1), encoding='utf-8')
+          PY
+
+      - name: Ověřit JavaScript
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path('index.html').read_text(encoding='utf-8')
+          scripts = re.findall(r'<script>([\s\S]*?)</script>', html)
+          if not scripts:
+              raise SystemExit('Nenalezen JavaScript')
+          Path('/tmp/vedator.js').write_text('\n'.join(scripts), encoding='utf-8')
+          PY
+          node --check /tmp/vedator.js
+          grep -F "function selectedTopicQueries()" index.html
+          grep -F "topicMatch=matchLevel(e,topics)" index.html
+          grep -F "a.topicMatch-b.topicMatch" index.html
+          grep -F "vedator-temata-v19" sw.js
+
+      - name: Commitnout změnu
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html sw.js
+          git commit -m 'Zlepšit hledání tematickými tlačítky'
+          git push
