@@ -1,5 +1,5 @@
-const CACHE='vedator-temata-v22';
-const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js'];
+const CACHE='vedator-temata-v23';
+const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
@@ -24,6 +24,9 @@ async function injectAudioPlayer(response){
   }
   if(!html.includes('audio-player.js')){
     html=html.replace('</body>','<script src="./audio-player.js" defer></script></body>');
+  }
+  if(!html.includes('catalog-patch.js')){
+    html=html.replace('</body>','<script src="./catalog-patch.js" defer></script></body>');
   }
 
   const headers=new Headers(response.headers);
