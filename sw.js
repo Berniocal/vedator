@@ -1,6 +1,6 @@
-const CACHE='vedator-temata-v37';
-const VERSION='v37';
-const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js'];
+const CACHE='vedator-temata-v38';
+const VERSION='v38';
+const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
@@ -35,6 +35,7 @@ async function injectEnhancements(response){
   if(!html.includes('catalog-patch.js'))html=html.replace('</body>','<script src="./catalog-patch.js" defer></script></body>');
   if(!html.includes('custom-player.js'))html=html.replace('</body>','<script src="./custom-player.js" defer></script></body>');
   if(!html.includes('theme-toggle.js'))html=html.replace('</body>','<script src="./theme-toggle.js" defer></script></body>');
+  if(!html.includes('ui-cleanup.js'))html=html.replace('</body>','<script src="./ui-cleanup.js" defer></script></body>');
   if(!html.includes('__vedatorSwUpdater'))html=html.replace('</body>',updaterScript()+'</body>');
 
   const headers=new Headers(response.headers);
