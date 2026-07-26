@@ -1,0 +1,51 @@
+name: Přidání série Roky ve vědě
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-years-series.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch-series:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Přidat sérii a obnovit PWA cache
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          index_path = Path('index.html')
+          index = index_path.read_text(encoding='utf-8')
+          series_line = "{name:'Roky ve vědě',test:e=>[108,160,212,318].includes(Number(e.number))}"
+
+          if series_line not in index:
+              anchor = "{name:'Částice',test:e=>[10,34,163,175,180,187,225].includes(Number(e.number))}"
+              if anchor not in index:
+                  raise SystemExit('Nenašel jsem místo pro vložení série.')
+              index = index.replace(anchor, anchor + ',\n' + series_line, 1)
+              index_path.write_text(index, encoding='utf-8')
+
+              sw_path = Path('sw.js')
+              sw = sw_path.read_text(encoding='utf-8')
+              sw = sw.replace("vedator-temata-v16", "vedator-temata-v17", 1)
+              sw_path.write_text(sw, encoding='utf-8')
+          PY
+
+      - name: Commitnout změnu
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html sw.js
+          if git diff --cached --quiet; then
+            echo 'Série už je přidaná.'
+          else
+            git commit -m 'Přidat sérii Roky ve vědě'
+            git push
+          fi
