@@ -1,0 +1,104 @@
+name: Přehled nezařazených epizod
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/report-unassigned-episodes-2026-07-26.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vypočítat nezařazené epizody
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, re, unicodedata
+          from pathlib import Path
+
+          data=json.loads(Path('episodes.json').read_text(encoding='utf-8'))
+          episodes=data['episodes'] if isinstance(data,dict) else data
+
+          def norm(s):
+              s=unicodedata.normalize('NFD',(s or '').lower())
+              s=''.join(c for c in s if unicodedata.category(c)!='Mn')
+              return re.sub(r'[^a-z0-9]+',' ',s).strip()
+
+          special={
+            'vedatorsky special udrzatelnost pripadova studia ikea',
+            'vedatorsky special preco je v nealko pive alkohol',
+            'vedatorsky special astrologia',
+            'vedatorsky special prenos signalu vzduchom',
+            'vedatorsky special obycajne zazraky ukazka z knihy',
+            'vedatorsky special vdaka comu su jadrove elektrarne bezpecne',
+            'vedatorsky special zelena energia',
+            'vedatorsky special kusky reality',
+            'vedatorsky special ako znie vesmir',
+            'vedatorsky special dungeon vedator'
+          }
+          men=[18,66,77,92,97,107,188,206,207,230,324]
+          women=[320,305,302,288,222,220,205,199,140,85,70,53]
+
+          tests=[
+            lambda e:'hladanie mimozemskeho zivota' in norm(e.get('title')),
+            lambda e:bool(re.search(r'\bfaq\b',e.get('title',''),re.I)),
+            lambda e:'rozhovory o vesmire' in norm(e.get('title')),
+            lambda e:'zijem vedu' in norm(e.get('title')),
+            lambda e:'geneticky special' in norm(e.get('title')),
+            lambda e:(('nobelove ceny' in norm(e.get('title')) and 'ig nobelove' not in norm(e.get('title'))) or int(e.get('number') or -1)==152),
+            lambda e:'ig nobelove ceny' in norm(e.get('title')),
+            lambda e:int(e.get('number') or -1) in [29,105,120,245,254],
+            lambda e:int(e.get('number') or -1) in [234,236,238,240,242,246,250,256,265,267],
+            lambda e:int(e.get('number') or -1) in [223,258,333],
+            lambda e:norm(e.get('title')) in special,
+            lambda e:int(e.get('number') or -1) in [296,227,173,132,104,68],
+            lambda e:int(e.get('number') or -1) in [210,182,145,48,2],
+            lambda e:int(e.get('number') or -1) in [10,34,163,175,180,187,225],
+            lambda e:int(e.get('number') or -1) in [108,160,212,318]
+          ]
+
+          def key(e): return e.get('id') or e.get('link') or e.get('title')
+          groups=[]
+          for test in tests:
+              items=[e for e in episodes if test(e)]
+              if len(items)>=2: groups.append(items)
+          for nums in (men,women):
+              items=[]
+              for n in nums:
+                  item=next((e for e in episodes if int(e.get('number') or -1)==n),None)
+                  if item: items.append(item)
+              if items: groups.append(items)
+
+          automatic={}
+          prefix=re.compile(r'^Vedátorský podcast\s*\d+\s*[–—-]?\s*',re.I)
+          suffix=re.compile(r'\b(?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii|\d+)\b\s*$',re.I)
+          for e in episodes:
+              core=norm(suffix.sub('',prefix.sub('',e.get('title',''))))
+              if core=='najvacsia bitka v matematike': continue
+              if len(core)>8: automatic.setdefault(core,[]).append(e)
+          for items0 in automatic.values():
+              if len(items0)<2: continue
+              assigned={key(e) for g in groups for e in g}
+              items=[e for e in items0 if key(e) not in assigned]
+              if len(items)>=2: groups.append(items)
+
+          assigned={key(e) for g in groups for e in g}
+          unassigned=[e for e in episodes if key(e) not in assigned]
+          unassigned.sort(key=lambda e:(int(e.get('number') or -1),e.get('title','')))
+          lines=[f'Celkem nezařazených: {len(unassigned)} z {len(episodes)}','']
+          lines += [f"{e.get('number','?')} – {e.get('title','')}" for e in unassigned]
+          Path('unassigned-episodes-report.txt').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+          PY
+      - name: Uložit report
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add unassigned-episodes-report.txt
+          git commit -m "Vytvořit přehled nezařazených epizod"
+          git push
