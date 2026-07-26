@@ -1,4 +1,4 @@
-const CACHE='vedator-temata-v24';
+const CACHE='vedator-temata-v25';
 const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js'];
 
 self.addEventListener('install',event=>{
