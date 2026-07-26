@@ -11,4 +11,9 @@ body.vedator-audio-open{overflow:hidden}
 .vedator-audio-card__title{font-size:1.25rem;line-height:1.35;margin:.5rem 0 1rem;font-weight:800}
 .vedator-audio-card audio{width:100%}
 .vedator-audio-card__help{margin:.8rem 0 0;color:#64748b;font-size:.85rem;line-height:1.4}
+.vedator-listen-status{align-self:flex-start;width:max-content;max-width:100%;margin:-.15rem 0 .45rem;padding:4px 8px;border-radius:999px;font-size:.76rem;font-weight:800;line-height:1.2}
+.vedator-listen-status.in-progress{background:#ede9fe;color:#4c3db8}
+.vedator-listen-status.completed{background:#dcfce7;color:#166534}
+article.vedator-listened{border-color:#bbf7d0}
+article.vedator-in-progress{border-color:#ddd6fe}
 @media(max-width:500px){.vedator-audio-card{padding:18px}.vedator-audio-modal__content{padding:16px}}
