@@ -1,6 +1,6 @@
-const CACHE='vedator-temata-v42';
-const VERSION='v42';
-const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js'];
+const CACHE='vedator-temata-v43';
+const VERSION='v43';
+const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
@@ -37,6 +37,7 @@ async function injectEnhancements(response){
   if(!html.includes('theme-toggle.js'))html=html.replace('</body>','<script src="./theme-toggle.js" defer></script></body>');
   if(!html.includes('ui-cleanup.js'))html=html.replace('</body>','<script src="./ui-cleanup.js" defer></script></body>');
   if(!html.includes('highlight-patch.js'))html=html.replace('</body>','<script src="./highlight-patch.js" defer></script></body>');
+  if(!html.includes('playlist-patch.js'))html=html.replace('</body>','<script src="./playlist-patch.js" defer></script></body>');
   if(!html.includes('__vedatorSwUpdater'))html=html.replace('</body>',updaterScript()+'</body>');
 
   const headers=new Headers(response.headers);
