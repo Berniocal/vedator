@@ -126,7 +126,7 @@
     progress[currentKey]={
       currentTime:time,
       duration,
-      completed:Boolean(previous.completed)||isCompleted(time,duration,ended),
+      completed:isCompleted(time,duration,ended),
       title:currentTitle,
       updatedAt:Date.now()
     };
@@ -216,7 +216,22 @@
 
     const session=++currentSession;
     const key=episodeKey(title);
-    const record=progress[key];
+    let record=progress[key];
+
+    if(record?.completed){
+      progress[key]={
+        currentTime:0,
+        duration:record.duration||0,
+        completed:false,
+        title,
+        updatedAt:Date.now()
+      };
+      persistProgress();
+      decorateArticles();
+      record=progress[key];
+      allowBackwardSaveUntil=Date.now()+5000;
+    }
+
     const shouldResume=Boolean(record&&!record.completed&&record.currentTime>10);
 
     currentTitle=title;
