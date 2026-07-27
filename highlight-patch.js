@@ -17,6 +17,7 @@
   document.head.appendChild(style);
 
   const normalize=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  const isWordChar=char=>/[a-z0-9]/.test(char||'');
 
   function currentTerms(){
     const query=document.querySelector('#search')?.value?.trim()||'';
@@ -24,7 +25,7 @@
     try{
       if(typeof active==='string'&&active!=='Vše'&&typeof TOPICS!=='undefined'){
         const topicTerms=Array.isArray(TOPICS[active])?TOPICS[active]:[];
-        return [...new Set([active,...topicTerms].map(normalize).filter(term=>term.length>=2))].sort((a,b)=>b.length-a.length);
+        return [...new Set(topicTerms.map(normalize).filter(term=>term.length>=2))].sort((a,b)=>b.length-a.length);
       }
     }catch(error){}
     return [];
@@ -39,14 +40,24 @@
     return {normalized,map};
   }
 
+  function validOccurrence(text,index,term){
+    const before=text[index-1]||'';
+    const after=text[index+term.length]||'';
+    if(isWordChar(before))return false;
+    if(term.includes(' ')||term.length<=3)return !isWordChar(after);
+    return true;
+  }
+
   function rangesFor(text,terms){
     const {normalized,map}=normalizedTextWithMap(text);const ranges=[];
     for(const term of terms){
       let from=0;
       while(from<normalized.length){
         const index=normalized.indexOf(term,from);if(index<0)break;
-        const start=map[index],end=(map[index+term.length-1]??start)+1;
-        if(!ranges.some(range=>start<range.end&&end>range.start))ranges.push({start,end});
+        if(validOccurrence(normalized,index,term)){
+          const start=map[index],end=(map[index+term.length-1]??start)+1;
+          if(!ranges.some(range=>start<range.end&&end>range.start))ranges.push({start,end,index,length:term.length});
+        }
         from=index+Math.max(1,term.length);
       }
     }
@@ -59,36 +70,27 @@
   }
 
   function safeRichDescription(value){
-    const source=document.createElement('div');
-    source.innerHTML=String(value||'');
+    const source=document.createElement('div');source.innerHTML=String(value||'');
     source.querySelectorAll('script,style,iframe,object,embed,form,input,button').forEach(node=>node.remove());
     source.querySelectorAll('*').forEach(node=>{
-      [...node.attributes].forEach(attr=>{
-        const name=attr.name.toLowerCase();
-        if(name.startsWith('on')||name==='style')node.removeAttribute(attr.name);
-      });
+      [...node.attributes].forEach(attr=>{const name=attr.name.toLowerCase();if(name.startsWith('on')||name==='style')node.removeAttribute(attr.name);});
       if(node.tagName==='A'){
         const href=node.getAttribute('href')||'';
         if(!/^https?:\/\//i.test(href)){node.replaceWith(document.createTextNode(node.textContent||''));return;}
         node.target='_blank';node.rel='noopener noreferrer';
       }
     });
-
-    const walker=document.createTreeWalker(source,NodeFilter.SHOW_TEXT);
-    const texts=[];while(walker.nextNode())texts.push(walker.currentNode);
+    const walker=document.createTreeWalker(source,NodeFilter.SHOW_TEXT);const texts=[];while(walker.nextNode())texts.push(walker.currentNode);
     const urlPattern=/(https?:\/\/[^\s<>]+)/g;
     texts.forEach(textNode=>{
       if(textNode.parentElement?.closest('a'))return;
-      const text=textNode.nodeValue||'';if(!urlPattern.test(text))return;
-      urlPattern.lastIndex=0;
-      const frag=document.createDocumentFragment();let pos=0;let match;
+      const text=textNode.nodeValue||'';if(!urlPattern.test(text))return;urlPattern.lastIndex=0;
+      const frag=document.createDocumentFragment();let pos=0,match;
       while((match=urlPattern.exec(text))){
         if(match.index>pos)frag.append(document.createTextNode(text.slice(pos,match.index)));
-        const a=document.createElement('a');a.href=match[0];a.textContent=match[0];a.target='_blank';a.rel='noopener noreferrer';frag.append(a);
-        pos=match.index+match[0].length;
+        const a=document.createElement('a');a.href=match[0];a.textContent=match[0];a.target='_blank';a.rel='noopener noreferrer';frag.append(a);pos=match.index+match[0].length;
       }
-      if(pos<text.length)frag.append(document.createTextNode(text.slice(pos)));
-      textNode.replaceWith(frag);
+      if(pos<text.length)frag.append(document.createTextNode(text.slice(pos)));textNode.replaceWith(frag);
     });
     return source;
   }
@@ -107,13 +109,11 @@
 
   function excerptAroundMatch(text,terms){
     const clean=String(text||'').replace(/\s+/g,' ').trim();
-    if(!clean)return 'Popis není k dispozici.';
+    if(!clean)return 'Popis nie je k dispozícii.';
     if(!terms.length)return clean.length>330?clean.slice(0,327).trimEnd()+'…':clean;
-    const {normalized,map}=normalizedTextWithMap(clean);let matchIndex=-1,matchLength=0;
-    for(const term of terms){const index=normalized.indexOf(term);if(index>=0&&(matchIndex<0||index<matchIndex)){matchIndex=index;matchLength=term.length;}}
-    if(matchIndex<0)return clean.length>330?clean.slice(0,327).trimEnd()+'…':clean;
-    const matchStart=map[matchIndex]??0,matchEnd=(map[matchIndex+matchLength-1]??matchStart)+1;
-    let start=Math.max(0,matchStart-115),end=Math.min(clean.length,Math.max(matchEnd+180,start+330));
+    const ranges=rangesFor(clean,terms);
+    if(!ranges.length)return clean.length>330?clean.slice(0,327).trimEnd()+'…':clean;
+    const first=ranges[0];let start=Math.max(0,first.start-115),end=Math.min(clean.length,Math.max(first.end+180,start+330));
     while(start>0&&!/\s/.test(clean[start-1]))start--;
     while(end<clean.length&&!/\s/.test(clean[end]))end++;
     return (start>0?'…':'')+clean.slice(start,end).trim()+(end<clean.length?'…':'');
@@ -122,14 +122,13 @@
   function unwrapMarks(root){root.querySelectorAll('mark.vedator-match').forEach(mark=>mark.replaceWith(document.createTextNode(mark.textContent||'')));root.normalize();}
 
   function highlightTextNode(textNode,terms){
-    const text=textNode.nodeValue||'';const ranges=rangesFor(text,terms);if(!ranges.length)return;
+    const text=textNode.nodeValue||'',ranges=rangesFor(text,terms);if(!ranges.length)return;
     const fragment=document.createDocumentFragment();let position=0;
     for(const range of ranges){
       if(range.start>position)fragment.append(document.createTextNode(text.slice(position,range.start)));
       const mark=document.createElement('mark');mark.className='vedator-match';mark.textContent=text.slice(range.start,range.end);fragment.append(mark);position=range.end;
     }
-    if(position<text.length)fragment.append(document.createTextNode(text.slice(position)));
-    textNode.replaceWith(fragment);
+    if(position<text.length)fragment.append(document.createTextNode(text.slice(position)));textNode.replaceWith(fragment);
   }
 
   function highlightElement(element,terms){
@@ -144,7 +143,7 @@
     const links=article.querySelector('.links');if(!links)return;
     const oldDetail=links.querySelector('a.secondary');let button=links.querySelector('.vedator-read-more');
     if(!button){button=document.createElement('button');button.type='button';button.className='vedator-read-more';if(oldDetail)oldDetail.replaceWith(button);else links.appendChild(button);}
-    const expanded=article.dataset.descriptionExpanded==='true';button.textContent=expanded?'Číst méně':'Číst více';button.setAttribute('aria-expanded',String(expanded));
+    const expanded=article.dataset.descriptionExpanded==='true';button.textContent=expanded?'Čítať menej':'Čítať viac';button.setAttribute('aria-expanded',String(expanded));
   }
 
   function apply(){
@@ -154,7 +153,7 @@
       if(desc){
         unwrapMarks(desc);const episode=episodeForArticle(article);
         if(episode){
-          const fullPlain=plainDescription(episode.description)||'Popis není k dispozici.';
+          const fullPlain=plainDescription(episode.description)||'Popis nie je k dispozícii.';
           const expanded=article.dataset.descriptionExpanded==='true';article.classList.toggle('vedator-description-expanded',expanded);
           if(expanded){const rich=safeRichDescription(episode.description);desc.replaceChildren(...rich.childNodes);}
           else desc.textContent=excerptAroundMatch(fullPlain,terms);
