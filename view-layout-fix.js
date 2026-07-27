@@ -15,10 +15,20 @@
 
   function sync(){
     const active=tabs.querySelector('.tab.active');
-    topics.classList.toggle('hidden',!isEpisodesTab(active));
+    const show=isEpisodesTab(active);
+    topics.classList.toggle('hidden',!show);
+    topics.hidden=!show;
+    topics.style.setProperty('display',show?'':'none',show?'':'important');
+    topics.setAttribute('aria-hidden',String(!show));
   }
 
-  tabs.addEventListener('click',()=>setTimeout(sync,0));
+  tabs.addEventListener('click',()=>{
+    requestAnimationFrame(sync);
+    setTimeout(sync,0);
+    setTimeout(sync,80);
+  },true);
+
   new MutationObserver(sync).observe(tabs,{subtree:true,attributes:true,attributeFilter:['class'],childList:true});
+  new MutationObserver(sync).observe(topics,{attributes:true,attributeFilter:['class','style','hidden']});
   sync();
 })();
