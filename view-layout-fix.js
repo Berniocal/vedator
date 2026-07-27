@@ -14,21 +14,14 @@
   }
 
   function sync(){
-    const active=tabs.querySelector('.tab.active');
-    const show=isEpisodesTab(active);
+    const show=isEpisodesTab(tabs.querySelector('.tab.active'));
     topics.classList.toggle('hidden',!show);
     topics.hidden=!show;
-    topics.style.setProperty('display',show?'':'none',show?'':'important');
+    topics.style.display=show?'':'none';
     topics.setAttribute('aria-hidden',String(!show));
   }
 
-  tabs.addEventListener('click',()=>{
-    requestAnimationFrame(sync);
-    setTimeout(sync,0);
-    setTimeout(sync,80);
-  },true);
-
+  tabs.addEventListener('click',()=>setTimeout(sync,0));
   new MutationObserver(sync).observe(tabs,{subtree:true,attributes:true,attributeFilter:['class'],childList:true});
-  new MutationObserver(sync).observe(topics,{attributes:true,attributeFilter:['class','style','hidden']});
   sync();
 })();
