@@ -17,9 +17,10 @@
     .vedator-playlist-item:last-child{border-bottom:0}.vedator-playlist-order{display:flex;flex-direction:column;gap:2px}
     .vedator-playlist-move{padding:1px 6px;line-height:1}.vedator-playlist-move:disabled{opacity:.25;cursor:not-allowed}
     .vedator-playlist-play{border:0;border-radius:10px;background:var(--accent);color:#fff;padding:8px 11px;font-weight:750;cursor:pointer}
-    .vedator-add-to-playlist{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--accent);font-size:1.35rem;cursor:pointer;z-index:2}#episodes article{position:relative}
+    .links .vedator-add-to-playlist{flex:1;text-align:center;border-radius:10px;padding:9px;font-weight:750;border:1px solid var(--line);background:var(--card);color:var(--accent);cursor:pointer;white-space:nowrap}
+    .links .vedator-add-to-playlist:active{transform:translateY(1px)}
     .vedator-playlist-empty{padding:28px;text-align:center;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:18px}
-    @media(max-width:550px){.vedator-playlist-item{grid-template-columns:auto 1fr auto}.vedator-playlist-remove{grid-column:3}.vedator-playlist-play{grid-row:1 / span 2;grid-column:3}}
+    @media(max-width:550px){.vedator-playlist-item{grid-template-columns:auto 1fr auto}.vedator-playlist-remove{grid-column:3}.vedator-playlist-play{grid-row:1 / span 2;grid-column:3}.links{flex-wrap:wrap}.links .vedator-add-to-playlist{flex-basis:100%}}
   `;
   document.head.appendChild(style);
 
@@ -30,7 +31,14 @@
   function allEpisodes(){try{return typeof episodes!=='undefined'&&Array.isArray(episodes)?episodes:[]}catch{return []}}
   function episodeId(e){return String(e.id||e.number||e.title)}
   function episodeById(id){return allEpisodes().find(e=>String(e.id||e.number||e.title)===String(id))||null}
-  function episodeForArticle(article){const title=article.querySelector('h2')?.textContent?.trim()||'';const number=title.match(/\bpodcast\s+(\d+)\b/i)?.[1];if(number){const found=allEpisodes().find(e=>String(e.number)===number);if(found)return found}return allEpisodes().find(e=>String(e.title||'').trim()===title)||null}
+  function episodeForArticle(article){
+    const title=article.querySelector('h2')?.textContent?.trim()||'';
+    const number=title.match(/\bpodcast\s+(\d+)\b/i)?.[1];
+    if(number){const found=allEpisodes().find(e=>String(e.number)===number);if(found)return found}
+    const primary=article.querySelector('.links a.primary');
+    if(primary?.href){const found=allEpisodes().find(e=>String(e.enclosure||'')===primary.href);if(found)return found}
+    return allEpisodes().find(e=>String(e.title||'').trim()===title)||null;
+  }
   function b64urlEncode(value){const bytes=new TextEncoder().encode(value);let s='';bytes.forEach(b=>s+=String.fromCharCode(b));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
   function b64urlDecode(value){let s=value.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const bin=atob(s);return new TextDecoder().decode(Uint8Array.from(bin,c=>c.charCodeAt(0)))}
 
@@ -47,7 +55,16 @@
 
   function createPlaylist(){const name=prompt('Názov nového playlistu:')?.trim();if(!name)return;const p=loadPlaylists();if(p.some(x=>x.name.toLocaleLowerCase('sk')===name.toLocaleLowerCase('sk'))){alert('Playlist s týmto názvom už existuje.');return}p.push({id:uid(),name,items:[]});savePlaylists(p);renderPlaylists()}
   function choosePlaylistForEpisode(episode){let p=loadPlaylists();if(!p.length){const name=prompt('Najprv vytvorte playlist. Zadajte jeho názov:')?.trim();if(!name)return;p=[{id:uid(),name,items:[]}]}const answer=prompt(`Do ktorého playlistu pridať diel?\n\n${p.map((x,i)=>`${i+1}. ${x.name}`).join('\n')}\n\nNapíšte číslo playlistu:`)?.trim();const i=Number(answer)-1;if(!Number.isInteger(i)||i<0||i>=p.length)return;const id=episodeId(episode);if(!p[i].items.includes(id))p[i].items.push(id);savePlaylists(p);alert(`Pridané do playlistu „${p[i].name}“.`)}
-  function addEpisodeButtons(){episodesSection.querySelectorAll('article').forEach(article=>{if(article.querySelector('.vedator-add-to-playlist'))return;const episode=episodeForArticle(article);if(!episode)return;const b=document.createElement('button');b.type='button';b.className='vedator-add-to-playlist';b.title='Pridať do playlistu';b.setAttribute('aria-label','Pridať do playlistu');b.textContent='+';b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();choosePlaylistForEpisode(episode)});article.appendChild(b)})}
+  function addEpisodeButtons(){
+    episodesSection.querySelectorAll('article').forEach(article=>{
+      const links=article.querySelector('.links');
+      if(!links||links.querySelector('.vedator-add-to-playlist'))return;
+      const episode=episodeForArticle(article);if(!episode)return;
+      const b=document.createElement('button');b.type='button';b.className='vedator-add-to-playlist';b.title='Pridať do playlistu';b.setAttribute('aria-label','Pridať do playlistu');b.textContent='+ Playlist';
+      b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();choosePlaylistForEpisode(episode)});
+      links.appendChild(b);
+    });
+  }
   function playEpisode(episode,playlist){if(!episode?.enclosure)return;window.__vedatorPlaybackContext={type:'series',label:`Playlist: ${playlist.name}`,titles:playlist.items.map(episodeById).filter(Boolean).map(e=>e.title)};const proxy=document.createElement('article');proxy.hidden=true;proxy.innerHTML='<h2></h2><div class="links"><a class="primary"></a></div>';proxy.querySelector('h2').textContent=episode.title;const a=proxy.querySelector('a');a.href=episode.enclosure;a.dataset.vedatorEpisodeTitle=episode.title;document.body.appendChild(proxy);a.click();proxy.remove()}
   async function sharePlaylist(playlist){const payload=b64urlEncode(JSON.stringify({n:playlist.name,i:playlist.items}));const url=new URL(location.href);url.hash=`${SHARE_KEY}=${payload}`;const data={title:playlist.name,text:`Playlist Vedátorského podcastu: ${playlist.name}`,url:url.href};try{if(navigator.share){await navigator.share(data)}else{await navigator.clipboard.writeText(url.href);alert('Odkaz na playlist bol skopírovaný.')}}catch(error){if(error?.name!=='AbortError')prompt('Skopírujte odkaz:',url.href)}}
   function importSharedPlaylist(){const match=location.hash.match(new RegExp(`(?:^#|&)${SHARE_KEY}=([^&]+)`));if(!match)return;try{const data=JSON.parse(b64urlDecode(match[1]));if(!data||!Array.isArray(data.i))return;const name=String(data.n||'Zdieľaný playlist').trim();if(!confirm(`Uložiť zdieľaný playlist „${name}“?`))return;const p=loadPlaylists();let final=name,n=2;while(p.some(x=>x.name.toLocaleLowerCase('sk')===final.toLocaleLowerCase('sk')))final=`${name} (${n++})`;p.push({id:uid(),name:final,items:data.i.map(String)});savePlaylists(p);history.replaceState(null,'',location.pathname+location.search);setTimeout(showPlaylistView,0)}catch(error){console.warn('Neplatný playlistový odkaz',error)}}
@@ -56,5 +73,5 @@
   view.querySelector('.vedator-playlist-add').addEventListener('click',createPlaylist);
   list.addEventListener('click',event=>{const card=event.target.closest('.vedator-playlist-card');if(!card)return;const p=loadPlaylists(),pi=p.findIndex(x=>x.id===card.dataset.playlistId);if(pi<0)return;if(event.target.closest('.vedator-playlist-share')){sharePlaylist(p[pi]);return}if(event.target.closest('.vedator-playlist-delete')){if(confirm(`Zmazať playlist „${p[pi].name}“?`)){p.splice(pi,1);savePlaylists(p);renderPlaylists()}return}const item=event.target.closest('.vedator-playlist-item');if(!item)return;const ii=p[pi].items.indexOf(item.dataset.episodeId);if(event.target.closest('.vedator-playlist-remove')){p[pi].items=p[pi].items.filter(id=>id!==item.dataset.episodeId);savePlaylists(p);renderPlaylists();return}if(event.target.closest('.up')&&ii>0){[p[pi].items[ii-1],p[pi].items[ii]]=[p[pi].items[ii],p[pi].items[ii-1]];savePlaylists(p);renderPlaylists();return}if(event.target.closest('.down')&&ii>=0&&ii<p[pi].items.length-1){[p[pi].items[ii+1],p[pi].items[ii]]=[p[pi].items[ii],p[pi].items[ii+1]];savePlaylists(p);renderPlaylists();return}if(event.target.closest('.vedator-playlist-play'))playEpisode(episodeById(item.dataset.episodeId),p[pi])});
 
-  const observer=new MutationObserver(addEpisodeButtons);observer.observe(episodesSection,{childList:true,subtree:true});addEpisodeButtons();setTimeout(importSharedPlaylist,700);
+  const observer=new MutationObserver(()=>setTimeout(addEpisodeButtons,0));observer.observe(episodesSection,{childList:true,subtree:true});addEpisodeButtons();setTimeout(importSharedPlaylist,700);
 })();
