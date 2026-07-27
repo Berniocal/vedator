@@ -4,6 +4,7 @@
 
   const STORAGE_KEY='vedator-user-playlists-v1';
   const SHARE_KEY='playlist';
+  const SHARE_ALPHABET='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
   const style=document.createElement('style');
   style.textContent=`
     .vedator-playlist-view{display:none}.vedator-playlist-view.active{display:block}
@@ -44,8 +45,12 @@
   const allEpisodes=()=>{try{return typeof episodes!=='undefined'&&Array.isArray(episodes)?episodes:[]}catch{return []}};
   const episodeId=e=>String(e.id||e.number||e.title);
   const episodeById=id=>allEpisodes().find(e=>episodeId(e)===String(id))||null;
+  const episodeByNumber=number=>allEpisodes().find(e=>Number(e.number)===Number(number))||null;
   const b64urlEncode=value=>{const bytes=new TextEncoder().encode(value);let s='';bytes.forEach(b=>s+=String.fromCharCode(b));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
   const b64urlDecode=value=>{let s=value.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const bin=atob(s);return new TextDecoder().decode(Uint8Array.from(bin,c=>c.charCodeAt(0)))};
+  const encodeEpisodeNumber=number=>{const n=Number(number);if(!Number.isInteger(n)||n<0||n>=4096)return'';return SHARE_ALPHABET[(n>>6)&63]+SHARE_ALPHABET[n&63]};
+  const decodeEpisodeNumbers=value=>{if(typeof value!=='string'||value.length%2)return[];const out=[];for(let i=0;i<value.length;i+=2){const high=SHARE_ALPHABET.indexOf(value[i]),low=SHARE_ALPHABET.indexOf(value[i+1]);if(high<0||low<0)return[];out.push((high<<6)|low)}return out};
+  const compactItems=items=>items.map(episodeById).filter(e=>Number.isInteger(Number(e.number))).map(e=>encodeEpisodeNumber(e.number)).join('');
 
   const tabs=document.querySelector('.tabs'),episodesSection=document.querySelector('#episodes'),seriesSection=document.querySelector('#series');
   const topics=document.querySelector('#topics'),episodeSort=document.querySelector('#episodeSort'),seriesSort=document.querySelector('#seriesSort'),count=document.querySelector('#count');
@@ -81,8 +86,25 @@
   editor.querySelector('.vedator-editor-cancel').addEventListener('click',closeEditor);editor.querySelector('.vedator-editor-close').addEventListener('click',closeEditor);editor.addEventListener('click',e=>{if(e.target===editor)closeEditor()});
 
   function playEpisode(episode,playlist){if(!episode?.enclosure)return;window.__vedatorPlaybackContext={type:'series',label:`Playlist: ${playlist.name}`,titles:playlist.items.map(episodeById).filter(Boolean).map(e=>e.title)};const proxy=document.createElement('article');proxy.hidden=true;proxy.innerHTML='<h2></h2><div class="links"><a class="primary"></a></div>';proxy.querySelector('h2').textContent=episode.title;const a=proxy.querySelector('a');a.href=episode.enclosure;a.dataset.vedatorEpisodeTitle=episode.title;document.body.appendChild(proxy);a.click();proxy.remove()}
-  async function sharePlaylist(p){const payload=b64urlEncode(JSON.stringify({n:p.name,i:p.items}));const url=new URL(location.href);url.hash=`${SHARE_KEY}=${payload}`;try{if(navigator.share)await navigator.share({title:p.name,text:`Playlist Vedátorského podcastu: ${p.name}`,url:url.href});else{await navigator.clipboard.writeText(url.href);alert('Odkaz bol skopírovaný.')}}catch(error){if(error?.name!=='AbortError')prompt('Skopírujte odkaz:',url.href)}}
-  function importSharedPlaylist(){const m=location.hash.match(new RegExp(`(?:^#|&)${SHARE_KEY}=([^&]+)`));if(!m)return;try{const d=JSON.parse(b64urlDecode(m[1]));if(!d||!Array.isArray(d.i))return;const name=String(d.n||'Zdieľaný playlist').trim();if(!confirm(`Uložiť zdieľaný playlist „${name}“?`))return;const p=loadPlaylists();let final=name,n=2;while(p.some(x=>x.name.toLocaleLowerCase('sk')===final.toLocaleLowerCase('sk')))final=`${name} (${n++})`;p.push({id:uid(),name:final,items:d.i.map(String)});savePlaylists(p);history.replaceState(null,'',location.pathname+location.search);setTimeout(showPlaylistView,0)}catch{}}
+  async function sharePlaylist(p){
+    const compact=compactItems(p.items);
+    const payload=b64urlEncode(JSON.stringify({v:2,n:p.name,e:compact}));
+    const url=new URL(location.href);url.hash=`${SHARE_KEY}=${payload}`;
+    try{if(navigator.share)await navigator.share({title:p.name,text:`Playlist Vedátorského podcastu: ${p.name}`,url:url.href});else{await navigator.clipboard.writeText(url.href);alert('Odkaz bol skopírovaný.')}}catch(error){if(error?.name!=='AbortError')prompt('Skopírujte odkaz:',url.href)}
+  }
+  function importSharedPlaylist(){
+    const m=location.hash.match(new RegExp(`(?:^#|&)${SHARE_KEY}=([^&]+)`));if(!m)return;
+    try{
+      const d=JSON.parse(b64urlDecode(m[1]));
+      let items=[];
+      if(d?.v===2&&typeof d.e==='string')items=decodeEpisodeNumbers(d.e).map(episodeByNumber).filter(Boolean).map(episodeId);
+      else if(Array.isArray(d?.i))items=d.i.map(String);
+      else return;
+      const name=String(d.n||'Zdieľaný playlist').trim();if(!confirm(`Uložiť zdieľaný playlist „${name}“?`))return;
+      const p=loadPlaylists();let final=name,n=2;while(p.some(x=>x.name.toLocaleLowerCase('sk')===final.toLocaleLowerCase('sk')))final=`${name} (${n++})`;
+      p.push({id:uid(),name:final,items});savePlaylists(p);history.replaceState(null,'',location.pathname+location.search);setTimeout(showPlaylistView,0)
+    }catch(error){console.warn('Neplatný playlistový odkaz',error)}
+  }
 
   function renderPlaylists(){const p=loadPlaylists();if(count)count.textContent=`${p.length} ${p.length===1?'playlist':'playlistov'}`;if(!p.length){list.innerHTML='<div class="vedator-playlist-empty">Zatiaľ nemáte žiadny playlist.</div>';return}list.innerHTML=p.map(pl=>{const items=pl.items.map(episodeById).filter(Boolean);return `<details class="vedator-playlist-card" data-id="${esc(pl.id)}"><summary><span class="vedator-playlist-title">${esc(pl.name)}</span><span class="vedator-playlist-count">${items.length} dielov</span><span class="vedator-playlist-actions"><button class="vedator-playlist-icon edit" title="Upraviť">✎</button><button class="vedator-playlist-icon share" title="Zdieľať">🔗</button><button class="vedator-playlist-icon delete" title="Zmazať">🗑</button></span></summary><div class="vedator-playlist-body"><ol class="vedator-playlist-items">${items.length?items.map(e=>`<li class="vedator-playlist-item"><button class="vedator-playlist-episode" data-id="${esc(episodeId(e))}">${esc(e.title)}</button></li>`).join(''):'<li class="vedator-playlist-empty">Playlist je prázdny.</li>'}</ol></div></details>`}).join('')}
 
