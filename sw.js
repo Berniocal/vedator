@@ -1,6 +1,6 @@
-const CACHE='vedator-temata-v47';
-const VERSION='v47';
-const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','slovak-ui.js'];
+const CACHE='vedator-temata-v48';
+const VERSION='v48';
+const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
@@ -37,6 +37,7 @@ async function injectEnhancements(response){
   if(!html.includes('theme-toggle.js'))html=html.replace('</body>','<script src="./theme-toggle.js" defer></script></body>');
   if(!html.includes('ui-cleanup.js'))html=html.replace('</body>','<script src="./ui-cleanup.js" defer></script></body>');
   if(!html.includes('slovak-topics-patch.js'))html=html.replace('</body>','<script src="./slovak-topics-patch.js" defer></script></body>');
+  if(!html.includes('topic-filter-fix.js'))html=html.replace('</body>','<script src="./topic-filter-fix.js" defer></script></body>');
   if(!html.includes('highlight-patch.js'))html=html.replace('</body>','<script src="./highlight-patch.js" defer></script></body>');
   if(!html.includes('playlist-patch.js'))html=html.replace('</body>','<script src="./playlist-patch.js" defer></script></body>');
   if(!html.includes('slovak-ui.js'))html=html.replace('</body>','<script src="./slovak-ui.js" defer></script></body>');
