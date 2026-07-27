@@ -56,6 +56,56 @@
     return ranges.sort((a,b)=>a.start-b.start);
   }
 
+  function plainDescription(value){
+    const box=document.createElement('div');
+    box.innerHTML=String(value||'');
+    return (box.textContent||'').replace(/\s+/g,' ').trim();
+  }
+
+  function episodeForArticle(article){
+    const title=article.querySelector('h2')?.textContent?.trim();
+    if(!title)return null;
+    try{
+      if(typeof episodes!=='undefined'&&Array.isArray(episodes)){
+        const number=title.match(/\bpodcast\s+(\d+)\b/i)?.[1];
+        if(number){
+          const byNumber=episodes.find(item=>String(item.number)===number);
+          if(byNumber)return byNumber;
+        }
+        return episodes.find(item=>String(item.title||'').trim()===title)||null;
+      }
+    }catch(error){}
+    return null;
+  }
+
+  function excerptAroundMatch(text,terms){
+    const clean=String(text||'').replace(/\s+/g,' ').trim();
+    if(!clean)return 'Popis není k dispozici.';
+    if(!terms.length)return clean.length>330?clean.slice(0,327).trimEnd()+'…':clean;
+
+    const {normalized,map}=normalizedTextWithMap(clean);
+    let matchIndex=-1;
+    let matchLength=0;
+    for(const term of terms){
+      const index=normalized.indexOf(term);
+      if(index>=0&&(matchIndex<0||index<matchIndex)){
+        matchIndex=index;
+        matchLength=term.length;
+      }
+    }
+    if(matchIndex<0)return clean.length>330?clean.slice(0,327).trimEnd()+'…':clean;
+
+    const matchStart=map[matchIndex]??0;
+    const matchEnd=(map[matchIndex+matchLength-1]??matchStart)+1;
+    let start=Math.max(0,matchStart-115);
+    let end=Math.min(clean.length,Math.max(matchEnd+180,start+330));
+
+    while(start>0&&!/\s/.test(clean[start-1]))start--;
+    while(end<clean.length&&!/\s/.test(clean[end]))end++;
+
+    return (start>0?'…':'')+clean.slice(start,end).trim()+(end<clean.length?'…':'');
+  }
+
   function unwrapMarks(root){
     root.querySelectorAll('mark.vedator-match').forEach(mark=>mark.replaceWith(document.createTextNode(mark.textContent||'')));
     root.normalize();
@@ -89,8 +139,22 @@
   function apply(){
     observer.disconnect();
     const terms=currentTerms();
-    episodesBox.querySelectorAll('article h2,article .desc').forEach(element=>unwrapMarks(element));
-    if(terms.length)episodesBox.querySelectorAll('article h2,article .desc').forEach(element=>highlightElement(element,terms));
+
+    episodesBox.querySelectorAll('article').forEach(article=>{
+      const title=article.querySelector('h2');
+      const desc=article.querySelector('.desc');
+      if(title)unwrapMarks(title);
+      if(desc){
+        unwrapMarks(desc);
+        const episode=episodeForArticle(article);
+        if(episode)desc.textContent=excerptAroundMatch(plainDescription(episode.description),terms);
+      }
+      if(terms.length){
+        if(title)highlightElement(title,terms);
+        if(desc)highlightElement(desc,terms);
+      }
+    });
+
     observer.observe(episodesBox,{childList:true,subtree:true});
   }
 
