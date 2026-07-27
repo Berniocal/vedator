@@ -1,6 +1,6 @@
-const CACHE='vedator-temata-v77';
-const VERSION='v77';
-const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','fast-touch.css','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js','data-backup.js','view-layout-fix.js','title-truncate.js','scientist-title-fix.js','media-session-skip.js','lazy-render.js','episode-300-chapters.js','episode-332-summary.js','episode-340-summary.js'];
+const CACHE='vedator-temata-v78';
+const VERSION='v78';
+const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','fast-touch.css','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js','data-backup.js','view-layout-fix.js','title-truncate.js','scientist-title-fix.js','media-session-skip.js','lazy-render.js','episode-300-chapters.js','episode-332-summary.js','episode-337-summary.js','episode-340-summary.js'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
@@ -28,7 +28,6 @@ async function injectEnhancements(response){
   if(!response)return response;
   const type=response.headers.get('content-type')||'';
   if(!type.includes('text/html'))return response;
-
   let html=await response.text();
   if(!html.includes('fast-touch.css'))html=html.replace('</head>','<link rel="stylesheet" href="./fast-touch.css"></head>');
   if(!html.includes('audio-player.css'))html=html.replace('</head>','<link rel="stylesheet" href="./audio-player.css"></head>');
@@ -50,14 +49,12 @@ async function injectEnhancements(response){
   if(!html.includes('lazy-render.js'))html=html.replace('</body>','<script src="./lazy-render.js" defer></script></body>');
   if(!html.includes('episode-300-chapters.js'))html=html.replace('</body>','<script src="./episode-300-chapters.js" defer></script></body>');
   if(!html.includes('episode-332-summary.js'))html=html.replace('</body>','<script src="./episode-332-summary.js" defer></script></body>');
+  if(!html.includes('episode-337-summary.js'))html=html.replace('</body>','<script src="./episode-337-summary.js" defer></script></body>');
   if(!html.includes('episode-340-summary.js'))html=html.replace('</body>','<script src="./episode-340-summary.js" defer></script></body>');
   if(!html.includes('__vedatorSwUpdater'))html=html.replace('</body>',updaterScript()+'</body>');
-
   const headers=new Headers(response.headers);
-  headers.delete('content-length');
-  headers.delete('content-encoding');
-  headers.set('content-type','text/html; charset=utf-8');
-  headers.set('cache-control','no-store');
+  headers.delete('content-length');headers.delete('content-encoding');
+  headers.set('content-type','text/html; charset=utf-8');headers.set('cache-control','no-store');
   return new Response(html,{status:response.status,statusText:response.statusText,headers});
 }
 
@@ -73,8 +70,7 @@ self.addEventListener('fetch',event=>{
       try{
         let response=await fetch(event.request,{cache:'no-store'});
         if(isPage)response=await injectEnhancements(response);
-        const copy=response.clone();
-        caches.open(CACHE).then(cache=>cache.put(event.request,copy)).catch(()=>{});
+        const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy)).catch(()=>{});
         return response;
       }catch(error){
         const cached=await caches.match(event.request)||await caches.match('./');
@@ -85,8 +81,6 @@ self.addEventListener('fetch',event=>{
     return;
   }
   event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request).then(response=>{
-    const copy=response.clone();
-    caches.open(CACHE).then(cache=>cache.put(event.request,copy)).catch(()=>{});
-    return response;
+    const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy)).catch(()=>{});return response;
   })));
 });
