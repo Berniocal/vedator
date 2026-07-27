@@ -52,7 +52,7 @@
   function setEpisodeContext(){
     let titles=visibleEpisodeTitles();
     if(!titles.length&&typeof filtered==='function'){
-      try{titles=filtered().map(e=>e.title).filter(Boolean)}catch(error){}
+      try{titles=filtered().map(e=>e.title).filter(Boolean)}catch{}
     }
     const topic=typeof active==='string'?active:'Vše';
     const query=document.querySelector('#search')?.value?.trim();
@@ -84,7 +84,7 @@
     if(!episode?.enclosure)return false;
     const proxy=document.createElement('article');
     proxy.hidden=true;
-    proxy.innerHTML=`<h2></h2><div class="links"><a class="primary"></a></div>`;
+    proxy.innerHTML='<h2></h2><div class="links"><a class="primary"></a></div>';
     proxy.querySelector('h2').textContent=episode.title;
     const play=proxy.querySelector('a');
     play.href=episode.enclosure;
@@ -110,7 +110,8 @@
   function install(){
     const card=document.querySelector('.vedator-audio-card');
     const audio=card?.querySelector('audio');
-    if(!card||!audio||card.querySelector('.vedator-custom-controls'))return false;
+    if(!card||!audio)return false;
+    if(card.querySelector('.vedator-custom-controls'))return true;
 
     const controls=document.createElement('div');
     controls.className='vedator-custom-controls';
@@ -139,74 +140,68 @@
     const titleNode=card.querySelector('.vedator-audio-card__title');
     const help=card.querySelector('.vedator-audio-card__help');
 
+    function setText(node,value){if(node&&node.textContent!==value)node.textContent=value}
     function sync(){
       consumeSharedContext();
       currentTitle=titleNode?.textContent?.trim()||currentTitle;
-      playIcon.textContent=audio.paused?'▶':'Ⅱ';
-      play.setAttribute('aria-label',audio.paused?'Přehrát':'Pozastavit');
+      const paused=audio.paused;
+      setText(playIcon,paused?'▶':'Ⅱ');
+      const label=paused?'Přehrát':'Pozastavit';
+      if(play.getAttribute('aria-label')!==label)play.setAttribute('aria-label',label);
       const i=currentIndex();
-      prev.disabled=i<=0;
-      next.disabled=i<0||i>=context.titles.length-1;
-      speedValue.textContent=String(rate).replace('.',',')+'×';
+      const prevDisabled=i<=0;
+      const nextDisabled=i<0||i>=context.titles.length-1;
+      if(prev.disabled!==prevDisabled)prev.disabled=prevDisabled;
+      if(next.disabled!==nextDisabled)next.disabled=nextDisabled;
+      setText(speedValue,String(rate).replace('.',',')+'×');
     }
     function relative(delta){
       consumeSharedContext();
       const i=currentIndex();
       if(i<0)return;
       const title=context.titles[i+delta];
-      if(title&&openEpisode(title))setTimeout(sync,0);
+      if(title&&openEpisode(title))queueMicrotask(sync);
     }
     async function downloadCurrent(){
       const url=audio.currentSrc||audio.src;
       if(!url)return;
       download.disabled=true;
-      downloadLabel.textContent='Připravuji…';
+      setText(downloadLabel,'Připravuji…');
       try{
         const response=await fetch(url,{mode:'cors',cache:'no-store'});
         if(!response.ok)throw new Error(`HTTP ${response.status}`);
         const total=Number(response.headers.get('content-length'))||0;
         const type=response.headers.get('content-type')||'audio/mpeg';
         const reader=response.body?.getReader();
-        let loaded=0;
-        let blob;
-
+        let loaded=0,blob;
         if(reader){
           const chunks=[];
           while(true){
             const {done,value}=await reader.read();
             if(done)break;
-            chunks.push(value);
-            loaded+=value.byteLength;
+            chunks.push(value);loaded+=value.byteLength;
             if(total){
               const percent=Math.min(99,Math.floor(loaded/total*100));
-              downloadLabel.textContent=`Stahuji ${percent} %`;
-              if(help)help.textContent=`Staženo ${formatMb(loaded)} z ${formatMb(total)}.`;
+              setText(downloadLabel,`Stahuji ${percent} %`);
+              if(help)setText(help,`Staženo ${formatMb(loaded)} z ${formatMb(total)}.`);
             }else{
-              downloadLabel.textContent=`Stahuji ${formatMb(loaded)}`;
-              if(help)help.textContent=`Staženo ${formatMb(loaded)}.`;
+              setText(downloadLabel,`Stahuji ${formatMb(loaded)}`);
+              if(help)setText(help,`Staženo ${formatMb(loaded)}.`);
             }
           }
           blob=new Blob(chunks,{type});
-        }else{
-          downloadLabel.textContent='Stahuji…';
-          blob=await response.blob();
-        }
-
-        downloadLabel.textContent='Ukládám…';
+        }else blob=await response.blob();
+        setText(downloadLabel,'Ukládám…');
         const objectUrl=URL.createObjectURL(blob);
         const link=document.createElement('a');
-        link.href=objectUrl;
-        link.download=safeFilename(currentTitle);
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
+        link.href=objectUrl;link.download=safeFilename(currentTitle);
+        document.body.appendChild(link);link.click();link.remove();
         setTimeout(()=>URL.revokeObjectURL(objectUrl),30000);
-        if(help)help.textContent=`Soubor byl stažen (${formatMb(blob.size)}).`;
-      }catch(error){
-        if(help)help.textContent='Stažení se nepodařilo. Zkontrolujte připojení a zkuste to znovu.';
+        if(help)setText(help,`Soubor byl stažen (${formatMb(blob.size)}).`);
+      }catch{
+        if(help)setText(help,'Stažení se nepodařilo. Zkontrolujte připojení a zkuste to znovu.');
       }finally{
-        download.disabled=false;
-        downloadLabel.textContent='Stáhnout';
+        download.disabled=false;setText(downloadLabel,'Stáhnout');
       }
     }
 
@@ -218,20 +213,21 @@
     download.onclick=downloadCurrent;
     speed.onclick=()=>{
       const i=RATES.findIndex(x=>Math.abs(x-rate)<.001);
-      rate=RATES[(i+1)%RATES.length];
-      audio.playbackRate=rate;
-      sync();
+      rate=RATES[(i+1)%RATES.length];audio.playbackRate=rate;sync();
     };
     audio.addEventListener('play',sync);
     audio.addEventListener('pause',sync);
     audio.addEventListener('loadedmetadata',()=>{audio.playbackRate=rate;sync()});
     audio.addEventListener('ratechange',()=>{rate=audio.playbackRate;sync()});
     audio.addEventListener('ended',()=>relative(1));
-    if(titleNode)new MutationObserver(sync).observe(titleNode,{childList:true,subtree:true,characterData:true});
-    setInterval(sync,500);
+    if(titleNode)new MutationObserver(sync).observe(titleNode,{childList:true,characterData:true,subtree:true});
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync()});
     sync();
     return true;
   }
 
-  if(!install())new MutationObserver(()=>install()).observe(document.body,{childList:true,subtree:true});
+  if(!install()){
+    const observer=new MutationObserver((_,self)=>{if(install())self.disconnect()});
+    observer.observe(document.body,{childList:true,subtree:true});
+  }
 })();
