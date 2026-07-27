@@ -60,7 +60,7 @@
   }
 
   function apply(root=document){
-    root.querySelectorAll?.('button,option,strong,.topic,.tab,.status,.vedator-playlist-empty,.vedator-playlist-count,input,[aria-label],[title]').forEach(translateElement);
+    root.querySelectorAll?.('button,option,strong,.topic,.tag,.tab,.status,.vedator-playlist-empty,.vedator-playlist-count,input,[aria-label],[title]').forEach(translateElement);
     translateCount();
   }
 
