@@ -50,6 +50,7 @@
 
   const visible=()=>!modal.hidden;
   const episodeTitle=element=>element.closest('article')?.querySelector('h2')?.textContent?.trim()||'Vedátorský podcast';
+  const episodeNumber=title=>Number(String(title||'').match(/\bpodcast\s+(\d+)\b/i)?.[1]||0);
   const episodeKey=title=>{
     const number=String(title||'').match(/\bpodcast\s+(\d+)\b/i)?.[1];
     return number?`episode-${number}`:`title-${String(title||'').trim().toLowerCase()}`;
@@ -128,38 +129,45 @@
   function cancelAutomaticRestore(message='Automatické pokračování bylo zrušeno ručním posunem.'){if(restoreTarget===null)return;clearRestore();setText(help,message)}
   function resetAudio(save=true){
     if(save)saveCurrentProgress(true);currentSession+=1;clearRestore();audio.onloadedmetadata=null;audio.onerror=null;
-    try{audio.pause()}catch{}audio.removeAttribute('src');audio.load();
+    try{audio.pause()}catch{}audio.muted=false;audio.removeAttribute('src');audio.load();
     currentKey='';currentTitle='';currentUrl='';currentArticle=null;lastSavedSecond=-1;isUserSeeking=false;
     seek.disabled=true;seek.value='0';setText(currentTimeLabel,'0:00');setText(durationLabel,'–:––');
   }
-  function attemptPlay(session,shouldResume,record){
+  function attemptPlay(session,hasTarget,target){
     const promise=audio.play();
-    if(promise&&typeof promise.catch==='function')promise.catch(()=>{if(session!==currentSession)return;setText(help,shouldResume?`Pozice ${formatTime(record.currentTime)} je připravena. Klepněte na přehrávání.`:'Klepněte na tlačítko přehrávání v přehrávači.')});
+    if(promise&&typeof promise.catch==='function')promise.catch(()=>{if(session!==currentSession)return;setText(help,hasTarget?`Pozice ${formatTime(target)} je připravena. Klepněte na přehrávání.`:'Klepněte na tlačítko přehrávání v přehrávači.')});
   }
 
   function openAudio(url,title,article){
     if(!url)return;resetAudio(true);
-    const session=++currentSession,key=episodeKey(title);let record=progress[key];
+    const session=++currentSession,key=episodeKey(title),number=episodeNumber(title);let record=progress[key];
+    const request=window.__vedatorRequestedStart;
+    const requestedStart=request&&request.episode===number&&Number.isFinite(request.time)&&Date.now()-(request.createdAt||0)<5000?Math.max(0,request.time):null;
+    if(requestedStart!==null)delete window.__vedatorRequestedStart;
     const resumeReplay=Boolean(record?.completed&&record.replaying&&record.currentTime>10);
-    if(record?.completed&&!resumeReplay){
+    if(record?.completed&&!resumeReplay&&requestedStart===null){
       progress[key]={currentTime:0,duration:record.duration||0,completed:true,replaying:true,title,updatedAt:Date.now()};
       persistProgress();record=progress[key];allowBackwardSaveUntil=Date.now()+5000;
     }
-    const shouldResume=Boolean(record&&record.currentTime>10&&(!record.completed||record.replaying));
+    const shouldResume=Boolean(requestedStart===null&&record&&record.currentTime>10&&(!record.completed||record.replaying));
+    const initialTarget=requestedStart!==null?requestedStart:(shouldResume?record.currentTime:null);
+    const hasInitialTarget=initialTarget!==null;
+    if(requestedStart!==null)allowBackwardSaveUntil=Date.now()+10000;
     currentTitle=title;currentKey=key;currentUrl=url;currentArticle=article||null;lastSavedSecond=-1;
     setText(barTitle,title);setText(cardTitle,title);
-    setText(help,shouldResume?`Načítá se pokračování od ${formatTime(record.currentTime)}…`:'Pozice se ukládá do tohoto zařízení.');
+    setText(help,hasInitialTarget?`Načítá se od ${formatTime(initialTarget)}…`:'Pozice se ukládá do tohoto zařízení.');
     if(!visible()){modal.hidden=false;document.body.classList.add('vedator-audio-open');history.pushState({vedatorAudio:true},'');historyEntry=true}
+    audio.muted=hasInitialTarget;
     audio.onloadedmetadata=()=>{
       if(session!==currentSession||currentKey!==key)return;updateSeekDisplay();
-      if(shouldResume&&Number.isFinite(audio.duration)&&audio.duration>0){
-        const target=Math.min(record.currentTime,Math.max(0,audio.duration-1));restoreTarget=target;
-        try{audio.currentTime=target;seek.value=String(Math.floor(target));updateSeekDisplay(true)}catch{clearRestore();setText(help,'Uloženou pozici se nepodařilo načíst. Můžete se posunout ručně.')}
-        restoreTimer=setTimeout(()=>{if(session!==currentSession||restoreTarget===null)return;clearRestore();setText(help,'Automatický posun trval příliš dlouho. Ruční posun je plně dostupný.')},4000);
-      }else{clearRestore();setText(help,'Pozice se ukládá do tohoto zařízení.')}
+      if(hasInitialTarget&&Number.isFinite(audio.duration)&&audio.duration>0){
+        const target=Math.min(initialTarget,Math.max(0,audio.duration-1));restoreTarget=target;
+        try{audio.currentTime=target;seek.value=String(Math.floor(target));updateSeekDisplay(true)}catch{clearRestore();audio.muted=false;setText(help,'Požadovanou pozici se nepodařilo načíst. Můžete se posunout ručně.')}
+        restoreTimer=setTimeout(()=>{if(session!==currentSession||restoreTarget===null)return;clearRestore();audio.muted=false;setText(help,'Automatický posun trval příliš dlouho. Ruční posun je plně dostupný.')},4000);
+      }else{clearRestore();audio.muted=false;setText(help,'Pozice se ukládá do tohoto zařízení.')}
     };
-    audio.onerror=()=>{if(session!==currentSession)return;clearRestore();setText(help,'Zvuk se nepodařilo načíst. Zkuste epizodu zavřít a spustit znovu.')};
-    audio.src=url;audio.load();attemptPlay(session,shouldResume,record||{});
+    audio.onerror=()=>{if(session!==currentSession)return;clearRestore();audio.muted=false;setText(help,'Zvuk se nepodařilo načíst. Zkuste epizodu zavřít a spustit znovu.')};
+    audio.src=url;audio.load();attemptPlay(session,hasInitialTarget,initialTarget||0);
     if('mediaSession'in navigator&&'MediaMetadata'in window)navigator.mediaSession.metadata=new MediaMetadata({title,artist:'Vedátorský podcast'});
   }
 
@@ -179,7 +187,7 @@
   seek.addEventListener('keyup',event=>{if(['ArrowLeft','ArrowRight','Home','End','PageUp','PageDown'].includes(event.key))commitManualSeek()});
   audio.addEventListener('durationchange',updateSeekDisplay);audio.addEventListener('loadeddata',updateSeekDisplay);
   audio.addEventListener('timeupdate',()=>{updateSeekDisplay();saveCurrentProgress(false)});
-  audio.addEventListener('seeked',()=>{if(restoreTarget!==null){const target=restoreTarget;clearRestore();setText(help,`Pokračuje od ${formatTime(target)}. Pozice se průběžně ukládá.`)}isUserSeeking=false;updateSeekDisplay();saveCurrentProgress(true)});
+  audio.addEventListener('seeked',()=>{if(restoreTarget!==null){const target=restoreTarget;clearRestore();audio.muted=false;setText(help,`Pokračuje od ${formatTime(target)}. Pozice se průběžně ukládá.`)}isUserSeeking=false;updateSeekDisplay();saveCurrentProgress(true)});
   audio.addEventListener('pause',()=>saveCurrentProgress(true));audio.addEventListener('ended',()=>saveCurrentProgress(true,true));
   window.addEventListener('pagehide',()=>saveCurrentProgress(true));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveCurrentProgress(true)});
   back.addEventListener('click',requestClose);
