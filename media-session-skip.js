@@ -14,6 +14,8 @@
 
     try{navigator.mediaSession.setActionHandler('seekbackward',details=>seek(-(details.seekOffset||10)))}catch(error){}
     try{navigator.mediaSession.setActionHandler('seekforward',details=>seek(details.seekOffset||10))}catch(error){}
+    try{navigator.mediaSession.setActionHandler('previoustrack',()=>seek(-10))}catch(error){}
+    try{navigator.mediaSession.setActionHandler('nexttrack',()=>seek(10))}catch(error){}
     try{navigator.mediaSession.setActionHandler('seekto',details=>{
       if(typeof details.seekTime!=='number')return;
       const duration=Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:Infinity;
