@@ -1,20 +1,39 @@
 (()=>{
-  if(window.__vedatorEpisode300Chapters)return;
-  window.__vedatorEpisode300Chapters=true;
+  if(window.__vedatorEpisodeChapters)return;
+  window.__vedatorEpisodeChapters=true;
 
-  const CHAPTERS=[
-    {seconds:89,title:'Jak bychom se domlouvali s mimozemskou civilizací?'},
-    {seconds:393,title:'Existují barevné galaxie?'},
-    {seconds:494,title:'Poznali bychom úplně jinou mimozemskou civilizaci?'},
-    {seconds:642,title:'Proč se světlo ve vakuu šíří jinak než v látce?'},
-    {seconds:782,title:'Co je vlastně velký třesk?'},
-    {seconds:1152,title:'Jakými zákony regulovat AI?'},
-    {seconds:1449,title:'Proč mají objekty vysokou excentricitu?'},
-    {seconds:1793,title:'Jaké technologie mohou pomoci klimatu?'},
-    {seconds:2192,title:'Jak vznikly Saturnovy prstence?'},
-    {seconds:2347,title:'Změní se souhvězdí v budoucnosti?'},
-    {seconds:2506,title:'Kdy budou další rozhovory o vesmíru?'}
-  ];
+  const CHAPTERS={
+    300:[
+      {seconds:89,title:'Jak bychom se domlouvali s mimozemskou civilizací?'},
+      {seconds:393,title:'Existují barevné galaxie?'},
+      {seconds:494,title:'Poznali bychom úplně jinou mimozemskou civilizaci?'},
+      {seconds:642,title:'Proč se světlo ve vakuu šíří jinak než v látce?'},
+      {seconds:782,title:'Co je vlastně velký třesk?'},
+      {seconds:1152,title:'Jakými zákony regulovat AI?'},
+      {seconds:1449,title:'Proč mají objekty vysokou excentricitu?'},
+      {seconds:1793,title:'Jaké technologie mohou pomoci klimatu?'},
+      {seconds:2192,title:'Jak vznikly Saturnovy prstence?'},
+      {seconds:2347,title:'Změní se souhvězdí v budoucnosti?'},
+      {seconds:2506,title:'Kdy budou další rozhovory o vesmíru?'}
+    ],
+    340:[
+      {seconds:120,title:'Entropie, absolutní nula a směr času'},
+      {seconds:260,title:'Může kovová kulička opravit rozbitou stěnu?'},
+      {seconds:461,title:'Může se Země převrátit kvůli Džanibekovovu efektu?'},
+      {seconds:703,title:'Proč černá díra pohlcuje věci?'},
+      {seconds:806,title:'Co je kometa 3I/ATLAS?'},
+      {seconds:922,title:'Cíl v počtu přehrání podcastu'},
+      {seconds:1117,title:'Pokrok v solárních plachetnicích'},
+      {seconds:1327,title:'Proč kope kolo pod vysokým napětím?'},
+      {seconds:1411,title:'Může pochodující vojsko zničit most?'},
+      {seconds:1587,title:'Na jaké škole učí Samuel?'},
+      {seconds:1664,title:'Co kdyby galaxie rotovala opačně?'},
+      {seconds:1759,title:'Co znamená slovo rozumět?'},
+      {seconds:1930,title:'Hrajete ještě Magic: The Gathering?'},
+      {seconds:1991,title:'Proč tornádo nepřekročí rovník?'},
+      {seconds:2131,title:'Musí se při letu počítat s rotací Země?'}
+    ]
+  };
 
   const style=document.createElement('style');
   style.textContent=`
@@ -26,6 +45,8 @@
     .vedator-question-btn{border:1px solid #d8d1ff;background:linear-gradient(180deg,#f7f5ff,#ebe7ff);color:#392b9b;border-radius:14px;min-height:46px;padding:8px 10px;font:inherit;font-weight:800;cursor:pointer;touch-action:manipulation}
     .vedator-question-btn:disabled{opacity:.5;cursor:not-allowed}
     html.theme-dark .vedator-question-btn{background:linear-gradient(180deg,#273147,#1d2534);border-color:#3c4963;color:#ece8ff}
+    html.theme-dark #episodes article .episode-summary>summary{color:#c8bdff}
+    html.theme-dark #episodes article .episode-summary .summary-time{color:#b9adff}
   `;
   document.head.appendChild(style);
 
@@ -40,12 +61,13 @@
     const block=event.target.closest('#episodes article .episode-summary .summary-block');
     if(!block)return;
     const article=block.closest('article');
-    if(episodeNumber(article?.querySelector('h2')?.textContent)!==300)return;
+    const number=episodeNumber(article?.querySelector('h2')?.textContent);
+    if(!CHAPTERS[number])return;
     const seconds=parseTime(block.querySelector('.summary-time')?.textContent);
     const play=article.querySelector('.links .primary');
     if(!Number.isFinite(seconds)||!play)return;
     event.preventDefault();event.stopPropagation();
-    window.__vedatorRequestedStart={episode:300,time:seconds,createdAt:Date.now()};
+    window.__vedatorRequestedStart={episode:number,time:seconds,createdAt:Date.now()};
     play.click();
   },true);
 
@@ -64,30 +86,32 @@
     const previous=row.querySelector('.previous-question');
     const next=row.querySelector('.next-question');
 
-    function isEpisode300(){return episodeNumber(titleNode.textContent)===300}
+    function activeChapters(){return CHAPTERS[episodeNumber(titleNode.textContent)]||null}
     function sync(){
-      const active=isEpisode300();
-      row.classList.toggle('active',active);
-      if(!active)return;
+      const chapters=activeChapters();
+      row.classList.toggle('active',Boolean(chapters));
+      if(!chapters)return;
       const current=audio.currentTime||0;
-      previous.disabled=!CHAPTERS.some(chapter=>chapter.seconds<current-1);
-      next.disabled=!CHAPTERS.some(chapter=>chapter.seconds>current+1);
+      previous.disabled=!chapters.some(chapter=>chapter.seconds<current-1);
+      next.disabled=!chapters.some(chapter=>chapter.seconds>current+1);
     }
     function jump(seconds){
-      if(!isEpisode300())return;
+      if(!activeChapters())return;
       try{audio.currentTime=seconds}catch{return}
       audio.play().catch(()=>{});
       sync();
     }
     previous.onclick=()=>{
+      const chapters=activeChapters();if(!chapters)return;
       const current=audio.currentTime||0;
-      const earlier=CHAPTERS.filter(chapter=>chapter.seconds<current-1);
+      const earlier=chapters.filter(chapter=>chapter.seconds<current-1);
       const target=earlier[earlier.length-1];
       if(target)jump(target.seconds);
     };
     next.onclick=()=>{
+      const chapters=activeChapters();if(!chapters)return;
       const current=audio.currentTime||0;
-      const target=CHAPTERS.find(chapter=>chapter.seconds>current+1);
+      const target=chapters.find(chapter=>chapter.seconds>current+1);
       if(target)jump(target.seconds);
     };
 
