@@ -3,6 +3,9 @@
   window.__vedatorEpisodeChapters=true;
 
   const CHAPTERS={
+    284:[
+      {seconds:100,title:'Proč vrhám další stín, i když stojím ve stínu?'},{seconds:202,title:'Jak je možné, že gravitace existuje?'},{seconds:308,title:'Kolik by stála cesta k nejbližší černé díře?'},{seconds:499,title:'Dá se zhubnout psychickou aktivitou?'},{seconds:637,title:'Proč v rovnicích u singularit vychází nekonečno?'},{seconds:719,title:'Může černá díra pohltit něco většího než ona sama?'},{seconds:808,title:'Co drží atmosféru na Zemi?'},{seconds:896,title:'Ovlivňuje úplněk spánek?'},{seconds:1012,title:'Oblíbené videohry'},{seconds:1101,title:'Co si myslíte o Majorana 1 od Microsoftu?'},{seconds:1239,title:'Oblíbené anime'},{seconds:1457,title:'Proč oheň nemá stín?'}
+    ],
     289:[
       {seconds:121,title:'Proč se po vypnutí plynu začne z hrnce víc pářit?'},{seconds:204,title:'Jak vznikl čas a proč má den 24 hodin a rok 365 dní?'},{seconds:454,title:'Jak se ze Slunce získává vitamín D?'},{seconds:559,title:'Dá se vytvořit umělá gravitace otáčením lodi?'},{seconds:595,title:'Byla by bez rotace Země gravitace silnější?'},{seconds:625,title:'Jak se vědcům ze Starmusu líbilo na Slovensku?'},{seconds:866,title:'Z čeho je černá díra?'},{seconds:1067,title:'Co je kvantové spletení a jaké má využití?'},{seconds:1341,title:'Mohou být extra dimenze jen v jádrech atomů?'},{seconds:1496,title:'Existuje 3D mapa vesmíru?'},{seconds:1611,title:'Oblíbené recepty'},{seconds:1718,title:'Je Wikipedia spolehlivý zdroj?'}
     ],
