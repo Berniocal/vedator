@@ -1,6 +1,6 @@
-const CACHE='vedator-temata-v57';
-const VERSION='v57';
-const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js','data-backup.js','view-layout-fix.js','title-truncate.js'];
+const CACHE='vedator-temata-v58';
+const VERSION='v58';
+const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js','data-backup.js','view-layout-fix.js','title-truncate.js','scientist-title-fix.js'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
@@ -44,6 +44,7 @@ async function injectEnhancements(response){
   if(!html.includes('data-backup.js'))html=html.replace('</body>','<script src="./data-backup.js" defer></script></body>');
   if(!html.includes('view-layout-fix.js'))html=html.replace('</body>','<script src="./view-layout-fix.js" defer></script></body>');
   if(!html.includes('title-truncate.js'))html=html.replace('</body>','<script src="./title-truncate.js" defer></script></body>');
+  if(!html.includes('scientist-title-fix.js'))html=html.replace('</body>','<script src="./scientist-title-fix.js" defer></script></body>');
   if(!html.includes('__vedatorSwUpdater'))html=html.replace('</body>',updaterScript()+'</body>');
 
   const headers=new Headers(response.headers);
