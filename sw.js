@@ -1,6 +1,6 @@
-const CACHE='vedator-temata-v76';
-const VERSION='v76';
-const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','fast-touch.css','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js','data-backup.js','view-layout-fix.js','title-truncate.js','scientist-title-fix.js','media-session-skip.js','lazy-render.js','episode-300-chapters.js','episode-340-summary.js'];
+const CACHE='vedator-temata-v77';
+const VERSION='v77';
+const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','fast-touch.css','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js','data-backup.js','view-layout-fix.js','title-truncate.js','scientist-title-fix.js','media-session-skip.js','lazy-render.js','episode-300-chapters.js','episode-332-summary.js','episode-340-summary.js'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
@@ -49,6 +49,7 @@ async function injectEnhancements(response){
   if(!html.includes('media-session-skip.js'))html=html.replace('</body>','<script src="./media-session-skip.js" defer></script></body>');
   if(!html.includes('lazy-render.js'))html=html.replace('</body>','<script src="./lazy-render.js" defer></script></body>');
   if(!html.includes('episode-300-chapters.js'))html=html.replace('</body>','<script src="./episode-300-chapters.js" defer></script></body>');
+  if(!html.includes('episode-332-summary.js'))html=html.replace('</body>','<script src="./episode-332-summary.js" defer></script></body>');
   if(!html.includes('episode-340-summary.js'))html=html.replace('</body>','<script src="./episode-340-summary.js" defer></script></body>');
   if(!html.includes('__vedatorSwUpdater'))html=html.replace('</body>',updaterScript()+'</body>');
 
