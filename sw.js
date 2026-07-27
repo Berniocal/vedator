@@ -1,6 +1,6 @@
-const CACHE='vedator-temata-v51';
-const VERSION='v51';
-const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js','data-backup.js'];
+const CACHE='vedator-temata-v52';
+const VERSION='v52';
+const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js','data-backup.js','view-layout-fix.js'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
@@ -42,6 +42,7 @@ async function injectEnhancements(response){
   if(!html.includes('playlist-patch.js'))html=html.replace('</body>','<script src="./playlist-patch.js" defer></script></body>');
   if(!html.includes('slovak-ui.js'))html=html.replace('</body>','<script src="./slovak-ui.js" defer></script></body>');
   if(!html.includes('data-backup.js'))html=html.replace('</body>','<script src="./data-backup.js" defer></script></body>');
+  if(!html.includes('view-layout-fix.js'))html=html.replace('</body>','<script src="./view-layout-fix.js" defer></script></body>');
   if(!html.includes('__vedatorSwUpdater'))html=html.replace('</body>',updaterScript()+'</body>');
 
   const headers=new Headers(response.headers);
