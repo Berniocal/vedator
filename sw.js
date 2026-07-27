@@ -1,5 +1,5 @@
-const CACHE='vedator-temata-v71';
-const VERSION='v71';
+const CACHE='vedator-temata-v72';
+const VERSION='v72';
 const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js','data-backup.js','view-layout-fix.js','title-truncate.js','scientist-title-fix.js','media-session-skip.js'];
 
 self.addEventListener('install',event=>{
