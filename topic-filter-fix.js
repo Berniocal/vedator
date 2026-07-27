@@ -13,13 +13,34 @@
       'logaritmus','logaritmický','regresia','korelácia','náhodná veličina'
     ];
     TOPICS.Matematika=[...new Set([...(TOPICS.Matematika||[]),...extraMath])];
-  }catch(error){console.warn('Nepodarilo sa rozšíriť matematické kľúčové slová',error)}
+
+    const biologyKey=Object.keys(TOPICS).find(key=>/biologie|biológia/i.test(key));
+    if(biologyKey){
+      TOPICS[biologyKey]=[...new Set((TOPICS[biologyKey]||[]).filter(word=>norm(word)!=='gen').concat([
+        'gén','gény','génov','genet','genóm','genom','genetick'
+      ]))];
+    }
+  }catch(error){console.warn('Nepodarilo sa rozšíriť tematické kľúčové slová',error)}
+
+  function keywordRegex(keyword){
+    const value=norm(keyword);
+    if(!value)return null;
+    const escaped=value.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+');
+    if(value.includes(' '))return new RegExp(`(?:^|\\s)${escaped}(?=\\s|$)`);
+    if(value.length<=3)return new RegExp(`(?:^|\\s)${escaped}(?=\\s|$)`);
+    return new RegExp(`(?:^|\\s)${escaped}[a-z0-9]*(?=\\s|$)`);
+  }
+
+  function containsKeyword(text,keyword){
+    const regex=keywordRegex(keyword);
+    return regex?regex.test(text):false;
+  }
 
   function strictTopicLevel(ep,queries){
     if(!queries.length)return 0;
     const title=norm(ep.title),desc=norm(cleanHtml(ep.description));
-    if(queries.some(q=>title.includes(q)))return 0;
-    if(queries.some(q=>desc.includes(q)))return 2;
+    if(queries.some(query=>containsKeyword(title,query)))return 0;
+    if(queries.some(query=>containsKeyword(desc,query)))return 2;
     return 99;
   }
 
@@ -27,7 +48,7 @@
     categories=function(ep){
       const txt=norm(ep.title+' '+cleanHtml(ep.description));
       return Object.entries(TOPICS)
-        .filter(([key,words])=>key!=='Vše'&&words.some(word=>txt.includes(norm(word))))
+        .filter(([key,words])=>key!=='Vše'&&words.some(word=>containsKeyword(txt,word)))
         .map(([key])=>key);
     };
 
