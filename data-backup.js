@@ -49,7 +49,7 @@
         <button class="vedator-data-button vedator-data-import" type="button">Načítať zálohu</button>
       </div>
       <input class="vedator-data-file" type="file" accept="application/json,.json" hidden>
-      <div class="vedator-data-note"><strong>Súkromie:</strong> export aj import prebiehajú iba lokálne v prehliadači. Žiadne údaje sa neposielajú na GitHub ani na iný server.</div>
+      <div class="vedator-data-note"><strong>Súkromie:</strong> export aj import prebiehajú iba lokálne v prehliadači. Žiadne údaje sa neposielajú na žádný server.</div>
       <div class="vedator-data-status" aria-live="polite"></div>
     </div>`;
   (playlistView||seriesSection).insertAdjacentElement('afterend',view);
@@ -57,89 +57,15 @@
   const status=view.querySelector('.vedator-data-status');
   const fileInput=view.querySelector('.vedator-data-file');
 
-  function readJsonStorage(key,fallback){
-    try{
-      const raw=localStorage.getItem(key);
-      return raw===null?fallback:JSON.parse(raw);
-    }catch(error){
-      return fallback;
-    }
-  }
-
-  function showDataView(){
-    document.querySelectorAll('.tabs .tab').forEach(item=>item.classList.toggle('active',item===tab));
-    episodesSection.classList.add('hidden');
-    seriesSection.classList.add('hidden');
-    playlistView?.classList.remove('active');
-    view.classList.add('active');
-    topics?.classList.add('hidden');
-    episodeSort?.classList.add('hidden');
-    seriesSort?.classList.add('hidden');
-    if(count)count.textContent='Lokálna záloha dát';
-  }
-
+  function readJsonStorage(key,fallback){try{const raw=localStorage.getItem(key);return raw===null?fallback:JSON.parse(raw)}catch{return fallback}}
+  function showDataView(){document.querySelectorAll('.tabs .tab').forEach(item=>item.classList.toggle('active',item===tab));episodesSection.classList.add('hidden');seriesSection.classList.add('hidden');playlistView?.classList.remove('active');view.classList.add('active');topics?.classList.add('hidden');episodeSort?.classList.add('hidden');seriesSort?.classList.add('hidden');if(count)count.textContent='Lokálna záloha dát'}
   document.querySelectorAll('.tabs .tab:not([data-view="data"])').forEach(item=>item.addEventListener('click',()=>view.classList.remove('active')));
   tab.addEventListener('click',showDataView);
 
-  function fileName(){
-    const stamp=new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
-    return `vedator-zaloha-${stamp}.json`;
-  }
-
-  function exportData(){
-    const progress=readJsonStorage(PROGRESS_KEY,{});
-    const playlists=readJsonStorage(PLAYLISTS_KEY,[]);
-    const payload={
-      app:'vedator',
-      formatVersion:1,
-      exportedAt:new Date().toISOString(),
-      data:{
-        playbackProgress:progress&&typeof progress==='object'&&!Array.isArray(progress)?progress:{},
-        playlists:Array.isArray(playlists)?playlists:[]
-      }
-    };
-    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8'});
-    const url=URL.createObjectURL(blob);
-    const link=document.createElement('a');
-    link.href=url;
-    link.download=fileName();
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    setTimeout(()=>URL.revokeObjectURL(url),1000);
-    status.textContent=`Záloha bola vytvorená: ${Object.keys(payload.data.playbackProgress).length} epizód a ${payload.data.playlists.length} playlistov.`;
-  }
-
-  function validateBackup(value){
-    if(!value||typeof value!=='object'||value.app!=='vedator')throw new Error('Tento súbor nie je záloha aplikácie Vedátor.');
-    if(value.formatVersion!==1)throw new Error('Táto verzia zálohy nie je podporovaná.');
-    const data=value.data;
-    if(!data||typeof data!=='object')throw new Error('V zálohe chýbajú údaje.');
-    if(!data.playbackProgress||typeof data.playbackProgress!=='object'||Array.isArray(data.playbackProgress))throw new Error('Neplatné údaje o počúvaní.');
-    if(!Array.isArray(data.playlists))throw new Error('Neplatné údaje playlistov.');
-    return data;
-  }
-
-  async function importFile(file){
-    try{
-      const text=await file.text();
-      const value=JSON.parse(text);
-      const data=validateBackup(value);
-      const progressCount=Object.keys(data.playbackProgress).length;
-      const playlistCount=data.playlists.length;
-      const approved=confirm(`Načítať zálohu s ${progressCount} epizódami a ${playlistCount} playlistami?\n\nSúčasné údaje v tomto zariadení budú nahradené.`);
-      if(!approved){status.textContent='Import bol zrušený.';return;}
-      localStorage.setItem(PROGRESS_KEY,JSON.stringify(data.playbackProgress));
-      localStorage.setItem(PLAYLISTS_KEY,JSON.stringify(data.playlists));
-      status.textContent='Záloha bola úspešne načítaná. Aplikácia sa obnoví…';
-      setTimeout(()=>location.reload(),500);
-    }catch(error){
-      status.textContent=error instanceof SyntaxError?'Súbor nie je platný JSON.':(error.message||'Zálohu sa nepodarilo načítať.');
-    }finally{
-      fileInput.value='';
-    }
-  }
-
+  function fileName(){const stamp=new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');return `vedator-zaloha-${stamp}.json`}
+  function exportData(){const progress=readJsonStorage(PROGRESS_KEY,{});const playlists=readJsonStorage(PLAYLISTS_KEY,[]);const payload={app:'vedator',formatVersion:1,exportedAt:new Date().toISOString(),data:{playbackProgress:progress&&typeof progress==='object'&&!Array.isArray(progress)?progress:{},playlists:Array.isArray(playlists)?playlists:[]}};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=fileName();document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent=`Záloha bola vytvorená: ${Object.keys(payload.data.playbackProgress).length} epizód a ${payload.data.playlists.length} playlistov.`}
+  function validateBackup(value){if(!value||typeof value!=='object'||value.app!=='vedator')throw new Error('Tento súbor nie je záloha aplikácie Vedátor.');if(value.formatVersion!==1)throw new Error('Táto verzia zálohy nie je podporovaná.');const data=value.data;if(!data||typeof data!=='object')throw new Error('V zálohe chýbajú údaje.');if(!data.playbackProgress||typeof data.playbackProgress!=='object'||Array.isArray(data.playbackProgress))throw new Error('Neplatné údaje o počúvaní.');if(!Array.isArray(data.playlists))throw new Error('Neplatné údaje playlistov.');return data}
+  async function importFile(file){try{const text=await file.text();const value=JSON.parse(text);const data=validateBackup(value);const progressCount=Object.keys(data.playbackProgress).length;const playlistCount=data.playlists.length;const approved=confirm(`Načítať zálohu s ${progressCount} epizódami a ${playlistCount} playlistami?\n\nSúčasné údaje v tomto zariadení budú nahradené.`);if(!approved){status.textContent='Import bol zrušený.';return}localStorage.setItem(PROGRESS_KEY,JSON.stringify(data.playbackProgress));localStorage.setItem(PLAYLISTS_KEY,JSON.stringify(data.playlists));status.textContent='Záloha bola úspešne načítaná. Aplikácia sa obnoví…';setTimeout(()=>location.reload(),500)}catch(error){status.textContent=error instanceof SyntaxError?'Súbor nie je platný JSON.':(error.message||'Zálohu sa nepodarilo načítať.')}finally{fileInput.value=''}}
   view.querySelector('.vedator-data-export').addEventListener('click',exportData);
   view.querySelector('.vedator-data-import').addEventListener('click',()=>fileInput.click());
   fileInput.addEventListener('change',()=>{const file=fileInput.files?.[0];if(file)importFile(file)});
