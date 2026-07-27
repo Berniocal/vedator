@@ -13,8 +13,8 @@
     .vedator-custom-controls{display:grid;gap:13px;margin-top:18px}
     .vedator-custom-main{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;align-items:center}
     .vedator-custom-secondary{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-    .vedator-custom-btn{border:1px solid #d8d1ff;background:linear-gradient(180deg,#f7f5ff,#ebe7ff);color:#392b9b;border-radius:17px;min-height:56px;padding:8px 5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:inherit;font-weight:800;cursor:pointer;box-shadow:0 7px 18px rgba(91,75,219,.13);text-decoration:none}
-    .vedator-custom-btn:active{transform:translateY(1px)}
+    .vedator-custom-btn{border:1px solid #d8d1ff;background:linear-gradient(180deg,#f7f5ff,#ebe7ff);color:#392b9b;border-radius:17px;min-height:56px;padding:8px 5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:inherit;font-weight:800;cursor:pointer;box-shadow:0 7px 18px rgba(91,75,219,.13);text-decoration:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+    .vedator-custom-btn:active,.vedator-custom-btn.is-pressed{transform:translateY(1px)}
     .vedator-custom-btn:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
     .vedator-custom-btn.main{min-height:68px;border-radius:21px;background:linear-gradient(180deg,#7f70ed,#5b4bdb);border-color:#7565e3;color:#fff;font-size:1.65rem;box-shadow:0 10px 24px rgba(91,75,219,.28)}
     .vedator-custom-icon{font-size:1.3rem;line-height:1}.vedator-custom-label{font-size:.68rem;line-height:1.1;text-align:center}
@@ -133,6 +133,8 @@
     const playIcon=play.querySelector('.vedator-custom-icon');
     const prev=controls.querySelector('.prev');
     const next=controls.querySelector('.next');
+    const back10=controls.querySelector('.back10');
+    const forward10=controls.querySelector('.forward10');
     const download=controls.querySelector('.download');
     const downloadLabel=controls.querySelector('.download-label');
     const speed=controls.querySelector('.speed');
@@ -141,13 +143,15 @@
     const help=card.querySelector('.vedator-audio-card__help');
 
     function setText(node,value){if(node&&node.textContent!==value)node.textContent=value}
-    function sync(){
-      consumeSharedContext();
-      currentTitle=titleNode?.textContent?.trim()||currentTitle;
-      const paused=audio.paused;
+    function setPlayVisual(paused){
       setText(playIcon,paused?'▶':'Ⅱ');
       const label=paused?'Přehrát':'Pozastavit';
       if(play.getAttribute('aria-label')!==label)play.setAttribute('aria-label',label);
+    }
+    function sync(){
+      consumeSharedContext();
+      currentTitle=titleNode?.textContent?.trim()||currentTitle;
+      setPlayVisual(audio.paused);
       const i=currentIndex();
       const prevDisabled=i<=0;
       const nextDisabled=i<0||i>=context.titles.length-1;
@@ -161,6 +165,25 @@
       if(i<0)return;
       const title=context.titles[i+delta];
       if(title&&openEpisode(title))queueMicrotask(sync);
+    }
+    function bindFast(button,handler){
+      let handledAt=0;
+      button.addEventListener('pointerdown',()=>button.classList.add('is-pressed'),{passive:true});
+      const clear=()=>button.classList.remove('is-pressed');
+      button.addEventListener('pointercancel',clear,{passive:true});
+      button.addEventListener('pointerleave',clear,{passive:true});
+      button.addEventListener('pointerup',event=>{
+        clear();
+        if(button.disabled||event.button!==0)return;
+        handledAt=performance.now();
+        event.preventDefault();
+        handler(event);
+      });
+      button.addEventListener('click',event=>{
+        if(performance.now()-handledAt<500){event.preventDefault();return}
+        if(button.disabled)return;
+        handler(event);
+      });
     }
     async function downloadCurrent(){
       const url=audio.currentSrc||audio.src;
@@ -205,16 +228,32 @@
       }
     }
 
-    play.onclick=()=>audio.paused?audio.play():audio.pause();
-    controls.querySelector('.back10').onclick=()=>{audio.currentTime=Math.max(0,audio.currentTime-10)};
-    controls.querySelector('.forward10').onclick=()=>{audio.currentTime=Math.min(audio.duration||Infinity,audio.currentTime+10)};
-    prev.onclick=()=>relative(-1);
-    next.onclick=()=>relative(1);
-    download.onclick=downloadCurrent;
-    speed.onclick=()=>{
+    bindFast(play,()=>{
+      if(audio.paused){
+        setPlayVisual(false);
+        const promise=audio.play();
+        if(promise?.catch)promise.catch(()=>setPlayVisual(true));
+      }else{
+        setPlayVisual(true);
+        audio.pause();
+      }
+    });
+    bindFast(back10,()=>{
+      audio.currentTime=Math.max(0,(audio.currentTime||0)-10);
+    });
+    bindFast(forward10,()=>{
+      audio.currentTime=Math.min(audio.duration||Infinity,(audio.currentTime||0)+10);
+    });
+    bindFast(prev,()=>relative(-1));
+    bindFast(next,()=>relative(1));
+    bindFast(download,downloadCurrent);
+    bindFast(speed,()=>{
       const i=RATES.findIndex(x=>Math.abs(x-rate)<.001);
-      rate=RATES[(i+1)%RATES.length];audio.playbackRate=rate;sync();
-    };
+      rate=RATES[(i+1)%RATES.length];
+      setText(speedValue,String(rate).replace('.',',')+'×');
+      audio.playbackRate=rate;
+    });
+
     audio.addEventListener('play',sync);
     audio.addEventListener('pause',sync);
     audio.addEventListener('loadedmetadata',()=>{audio.playbackRate=rate;sync()});
