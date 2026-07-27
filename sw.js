@@ -1,6 +1,6 @@
-const CACHE='vedator-temata-v72';
-const VERSION='v72';
-const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js','data-backup.js','view-layout-fix.js','title-truncate.js','scientist-title-fix.js','media-session-skip.js'];
+const CACHE='vedator-temata-v73';
+const VERSION='v73';
+const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','fast-touch.css','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js','data-backup.js','view-layout-fix.js','title-truncate.js','scientist-title-fix.js','media-session-skip.js'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
@@ -30,6 +30,7 @@ async function injectEnhancements(response){
   if(!type.includes('text/html'))return response;
 
   let html=await response.text();
+  if(!html.includes('fast-touch.css'))html=html.replace('</head>','<link rel="stylesheet" href="./fast-touch.css"></head>');
   if(!html.includes('audio-player.css'))html=html.replace('</head>','<link rel="stylesheet" href="./audio-player.css"></head>');
   if(!html.includes('audio-player.js'))html=html.replace('</body>','<script src="./audio-player.js" defer></script></body>');
   if(!html.includes('catalog-patch.js'))html=html.replace('</body>','<script src="./catalog-patch.js" defer></script></body>');
