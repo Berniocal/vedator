@@ -3,6 +3,9 @@
   window.__vedatorEpisodeChapters=true;
 
   const CHAPTERS={
+    289:[
+      {seconds:121,title:'Proč se po vypnutí plynu začne z hrnce víc pářit?'},{seconds:204,title:'Jak vznikl čas a proč má den 24 hodin a rok 365 dní?'},{seconds:454,title:'Jak se ze Slunce získává vitamín D?'},{seconds:559,title:'Dá se vytvořit umělá gravitace otáčením lodi?'},{seconds:595,title:'Byla by bez rotace Země gravitace silnější?'},{seconds:625,title:'Jak se vědcům ze Starmusu líbilo na Slovensku?'},{seconds:866,title:'Z čeho je černá díra?'},{seconds:1067,title:'Co je kvantové spletení a jaké má využití?'},{seconds:1341,title:'Mohou být extra dimenze jen v jádrech atomů?'},{seconds:1496,title:'Existuje 3D mapa vesmíru?'},{seconds:1611,title:'Oblíbené recepty'},{seconds:1718,title:'Je Wikipedia spolehlivý zdroj?'}
+    ],
     295:[
       {seconds:37,title:'Rozdíl mezi spalovacím a vodíkovým motorem'},{seconds:225,title:'Proč částice rychlejší než světlo v médiu nezpůsobují paradox?'},{seconds:388,title:'Existují magnetické monopóly?'},{seconds:512,title:'Problém tří těles'},{seconds:685,title:'Můžeme gravitačním zrcadlem vidět Zemi v minulosti?'},{seconds:731,title:'Má úplněk vliv na spánek?'},{seconds:920,title:'Mají zvířata cizí jazyky nebo dialekty?'},{seconds:1022,title:'Jak velká část atmosféry musí být čistá, aby nebyly vidět mraky?'},{seconds:1205,title:'Jak daleko je oblak těsně nad horizontem?'},{seconds:1313,title:'Padá do černé díry i tmavá hmota?'},{seconds:1407,title:'Může elektron vyčerpat energii při obíhání jádra?'},{seconds:1519,title:'Je rychlost světla nepřekonatelná?'},{seconds:1576,title:'Astronomické jednotky, parsek, světelný rok a červený posuv'},{seconds:1760,title:'Posluchač chválí podcast'}
     ],
