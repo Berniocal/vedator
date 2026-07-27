@@ -49,7 +49,7 @@
         <button class="vedator-data-button vedator-data-import" type="button">Načítať zálohu</button>
       </div>
       <input class="vedator-data-file" type="file" accept="application/json,.json" hidden>
-      <div class="vedator-data-note"><strong>Súkromie:</strong> export aj import prebiehajú iba lokálne v prehliadači. Žiadne údaje sa neposielajú na žádný server.</div>
+      <div class="vedator-data-note"><strong>Súkromie:</strong> export aj import prebiehajú iba lokálne v prehliadači. Žiadne údaje sa neposielajú na žiadny server.</div>
       <div class="vedator-data-status" aria-live="polite"></div>
     </div>`;
   (playlistView||seriesSection).insertAdjacentElement('afterend',view);
