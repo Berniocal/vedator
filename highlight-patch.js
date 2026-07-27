@@ -6,6 +6,9 @@
   style.textContent=`
     mark.vedator-match{background:#ffe66b;color:inherit;border-radius:.28em;padding:.03em .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
     html.theme-dark mark.vedator-match{background:#8a6d00;color:#fff4b3}
+    .links button.vedator-read-more{flex:1;text-align:center;border-radius:10px;padding:9px;font-weight:700;border:1px solid var(--line);color:var(--ink);background:transparent;cursor:pointer}
+    .links button.vedator-read-more:active{transform:translateY(1px)}
+    article.vedator-description-expanded .desc{-webkit-line-clamp:unset;display:block;overflow:visible}
   `;
   document.head.appendChild(style);
 
@@ -17,7 +20,6 @@
       return [...new Set([query,...query.split(/\s+/)].map(normalize).filter(term=>term.length>=2))]
         .sort((a,b)=>b.length-a.length);
     }
-
     try{
       if(typeof active==='string'&&active!=='Vše'&&typeof TOPICS!=='undefined'){
         const topicTerms=Array.isArray(TOPICS[active])?TOPICS[active]:[];
@@ -99,10 +101,8 @@
     const matchEnd=(map[matchIndex+matchLength-1]??matchStart)+1;
     let start=Math.max(0,matchStart-115);
     let end=Math.min(clean.length,Math.max(matchEnd+180,start+330));
-
     while(start>0&&!/\s/.test(clean[start-1]))start--;
     while(end<clean.length&&!/\s/.test(clean[end]))end++;
-
     return (start>0?'…':'')+clean.slice(start,end).trim()+(end<clean.length?'…':'');
   }
 
@@ -115,7 +115,6 @@
     const text=element.textContent||'';
     const ranges=rangesFor(text,terms);
     if(!ranges.length)return;
-
     const fragment=document.createDocumentFragment();
     let position=0;
     for(const range of ranges){
@@ -136,6 +135,22 @@
   let timer=0;
   const observer=new MutationObserver(()=>schedule());
 
+  function prepareReadMore(article){
+    const links=article.querySelector('.links');
+    if(!links)return;
+    const oldDetail=links.querySelector('a.secondary');
+    let button=links.querySelector('.vedator-read-more');
+    if(!button){
+      button=document.createElement('button');
+      button.type='button';
+      button.className='vedator-read-more';
+      if(oldDetail)oldDetail.replaceWith(button);else links.appendChild(button);
+    }
+    const expanded=article.dataset.descriptionExpanded==='true';
+    button.textContent=expanded?'Číst méně':'Číst více';
+    button.setAttribute('aria-expanded',String(expanded));
+  }
+
   function apply(){
     observer.disconnect();
     const terms=currentTerms();
@@ -147,8 +162,15 @@
       if(desc){
         unwrapMarks(desc);
         const episode=episodeForArticle(article);
-        if(episode)desc.textContent=excerptAroundMatch(plainDescription(episode.description),terms);
+        if(episode){
+          const full=plainDescription(episode.description)||'Popis není k dispozici.';
+          article.dataset.fullDescription=full;
+          const expanded=article.dataset.descriptionExpanded==='true';
+          article.classList.toggle('vedator-description-expanded',expanded);
+          desc.textContent=expanded?full:excerptAroundMatch(full,terms);
+        }
       }
+      prepareReadMore(article);
       if(terms.length){
         if(title)highlightElement(title,terms);
         if(desc)highlightElement(desc,terms);
@@ -162,6 +184,15 @@
     clearTimeout(timer);
     timer=setTimeout(apply,0);
   }
+
+  episodesBox.addEventListener('click',event=>{
+    const button=event.target.closest('.vedator-read-more');
+    if(!button)return;
+    const article=button.closest('article');
+    if(!article)return;
+    article.dataset.descriptionExpanded=String(article.dataset.descriptionExpanded!=='true');
+    schedule();
+  });
 
   document.querySelector('#search')?.addEventListener('input',schedule);
   document.querySelector('#topics')?.addEventListener('click',schedule);
