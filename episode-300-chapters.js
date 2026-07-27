@@ -16,6 +16,23 @@
       {seconds:2347,title:'Změní se souhvězdí v budoucnosti?'},
       {seconds:2506,title:'Kdy budou další rozhovory o vesmíru?'}
     ],
+    332:[
+      {seconds:140,title:'Jak může být vesmír nekonečný, když se rozpíná?'},
+      {seconds:275,title:'Jak by fungovalo cestování do budoucnosti?'},
+      {seconds:399,title:'Jak velký by musel být člověk, aby překročil všechny lidi?'},
+      {seconds:529,title:'Co bylo dřív – slepice nebo vejce?'},
+      {seconds:667,title:'Jak vznikla naše planeta, hvězdy a kameny?'},
+      {seconds:788,title:'Kdyby se vesmír přestal rozpínat, vznikl by život později?'},
+      {seconds:931,title:'Proč Vikingové měli rohy na přilbách?'},
+      {seconds:1025,title:'Jak čůrají netopýři?'},
+      {seconds:1090,title:'Jaké číslo je před nekonečnem?'},
+      {seconds:1141,title:'Proč není vidět vzduch?'},
+      {seconds:1342,title:'Proč jsou některé rostliny jedovaté?'},
+      {seconds:1520,title:'Proč si ryby nemohou sednout?'},
+      {seconds:1610,title:'Existují draci?'},
+      {seconds:1743,title:'Dá se podívat dovnitř sopky?'},
+      {seconds:1915,title:'Existují mimozemšťané?'}
+    ],
     340:[
       {seconds:120,title:'Entropie, absolutní nula a směr času'},
       {seconds:260,title:'Může kovová kulička opravit rozbitou stěnu?'},
