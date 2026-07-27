@@ -3,6 +3,9 @@
   window.__vedatorEpisodeChapters=true;
 
   const CHAPTERS={
+    295:[
+      {seconds:37,title:'Rozdíl mezi spalovacím a vodíkovým motorem'},{seconds:225,title:'Proč částice rychlejší než světlo v médiu nezpůsobují paradox?'},{seconds:388,title:'Existují magnetické monopóly?'},{seconds:512,title:'Problém tří těles'},{seconds:685,title:'Můžeme gravitačním zrcadlem vidět Zemi v minulosti?'},{seconds:731,title:'Má úplněk vliv na spánek?'},{seconds:920,title:'Mají zvířata cizí jazyky nebo dialekty?'},{seconds:1022,title:'Jak velká část atmosféry musí být čistá, aby nebyly vidět mraky?'},{seconds:1205,title:'Jak daleko je oblak těsně nad horizontem?'},{seconds:1313,title:'Padá do černé díry i tmavá hmota?'},{seconds:1407,title:'Může elektron vyčerpat energii při obíhání jádra?'},{seconds:1519,title:'Je rychlost světla nepřekonatelná?'},{seconds:1576,title:'Astronomické jednotky, parsek, světelný rok a červený posuv'},{seconds:1760,title:'Posluchač chválí podcast'}
+    ],
     300:[
       {seconds:89,title:'Jak bychom se domlouvali s mimozemskou civilizací?'},{seconds:393,title:'Existují barevné galaxie?'},{seconds:494,title:'Poznali bychom úplně jinou mimozemskou civilizaci?'},{seconds:642,title:'Proč se světlo ve vakuu šíří jinak než v látce?'},{seconds:782,title:'Co je vlastně velký třesk?'},{seconds:1152,title:'Jakými zákony regulovat AI?'},{seconds:1449,title:'Proč mají objekty vysokou excentricitu?'},{seconds:1793,title:'Jaké technologie mohou pomoci klimatu?'},{seconds:2192,title:'Jak vznikly Saturnovy prstence?'},{seconds:2347,title:'Změní se souhvězdí v budoucnosti?'},{seconds:2506,title:'Kdy budou další rozhovory o vesmíru?'}
     ],
