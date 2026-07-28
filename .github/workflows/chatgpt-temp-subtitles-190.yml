@@ -17,6 +17,15 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Mark workflow as started
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          printf 'started %s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > subtitle-workflow-status.txt
+          git add subtitle-workflow-status.txt
+          git commit -m "Mark temporary subtitle workflow started [skip ci]"
+          git push
+
       - name: Install dependencies
         run: |
           sudo apt-get update
@@ -87,8 +96,7 @@ jobs:
 
       - name: Commit temporary result
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
           git add vedatorsky-podcast-190-faq-dobre-otazky-18.srt
           git commit -m "Add temporary generated subtitles [skip ci]"
           git push
