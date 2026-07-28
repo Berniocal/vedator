@@ -20,6 +20,9 @@
         'gén','gény','génov','genet','genóm','genom','genetick'
       ]))];
     }
+
+    const faqKey=Object.keys(TOPICS).find(key=>/^faq$/i.test(key));
+    if(faqKey)TOPICS[faqKey]=[...new Set([...(TOPICS[faqKey]||[]),'otázka','otázky','otazka','otazky'])];
   }catch(error){console.warn('Nepodarilo sa rozšíriť tematické kľúčové slová',error)}
 
   function keywordRegex(keyword){
