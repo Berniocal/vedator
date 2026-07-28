@@ -2,7 +2,7 @@
   if(window.__vedatorQuestionControlsStability)return;
   window.__vedatorQuestionControlsStability=true;
 
-  const FAQ_EPISODES=new Set([190,218,226,244,248,257,263,270,272,278,284,289,295,300,313,319,326,332,337,340]);
+  const FAQ_EPISODES=new Set([190,211,218,226,244,248,257,263,270,272,278,284,289,295,300,313,319,326,332,337,340]);
   const SPECIAL={190:'vedator-190-218-226-controls',218:'vedator-190-218-226-controls',226:'vedator-190-218-226-controls',244:'vedator-244-controls'};
   const style=document.createElement('style');
   style.textContent='.vedator-question-controls{display:none!important}.vedator-question-controls.vedator-faq-visible{display:grid!important}';
