@@ -1,6 +1,6 @@
 (()=>{
   if(window.__vedatorEpisode211Chapters)return;window.__vedatorEpisode211Chapters=true;
-  const CHAPTERS=[84,229,547,822,952,1004,1116,1205,1322,1410,1587,1726];
+  const CHAPTERS=[60,181,289,348,425,530,939,1058,1129,1180,1278,1342,1397,1493,1605,1731,1803,1884,1936,1972,2023,2143,2243,2330,2369,2483,2560,2720,2777,2867,2927,3004,3060,3114,3196,3271,3364,3429,3554,3646,3741,3801,3900,4020,4089,4153,4265,4318,4360,4415,4499];
   const episodeNumber=value=>Number(String(value||'').match(/\b(?:podcast\s*)?(\d{2,4})\b/i)?.[1]||0);
   function install(){
     const card=document.querySelector('.vedator-audio-card'),audio=card?.querySelector('audio'),title=card?.querySelector('.vedator-audio-card__title'),row=card?.querySelector('.vedator-question-controls');
