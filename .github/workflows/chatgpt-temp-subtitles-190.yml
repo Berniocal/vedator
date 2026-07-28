@@ -1,0 +1,91 @@
+name: Temporary subtitle generation 190
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/chatgpt-temp-subtitles-190.yml
+
+permissions:
+  contents: read
+
+jobs:
+  transcribe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          python -m pip install --upgrade pip
+          python -m pip install faster-whisper
+
+      - name: Download episode
+        run: |
+          curl -L --fail --retry 4 --retry-delay 3 \
+            -o episode.mp3 \
+            "https://mcdn.podbean.com/mf/web/u2uyme/ep_190_FAQ.mp3"
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 episode.mp3
+
+      - name: Transcribe to SRT
+        run: |
+          cat > transcribe.py <<'PY'
+          from pathlib import Path
+          from faster_whisper import WhisperModel
+
+          AUDIO = "episode.mp3"
+          OUTPUT = Path("vedatorsky-podcast-190-faq-dobre-otazky-18.srt")
+
+          def srt_time(seconds: float) -> str:
+              milliseconds = max(0, round(seconds * 1000))
+              hours, milliseconds = divmod(milliseconds, 3_600_000)
+              minutes, milliseconds = divmod(milliseconds, 60_000)
+              secs, milliseconds = divmod(milliseconds, 1_000)
+              return f"{hours:02d}:{minutes:02d}:{secs:02d},{milliseconds:03d}"
+
+          model = WhisperModel("small", device="cpu", compute_type="int8")
+          segments, info = model.transcribe(
+              AUDIO,
+              language="sk",
+              beam_size=5,
+              vad_filter=True,
+              condition_on_previous_text=True,
+              initial_prompt=(
+                  "Vedátorský podcast, Jozef, Samuel, Euclid, James Webb, "
+                  "Nancy Grace Roman, temná hmota, temná energia, Fibonacciho "
+                  "postupnosť, zlatý rez, tachyón, CERN, Perseverance, Jupiter, Európa."
+              ),
+          )
+
+          rows = []
+          index = 1
+          for segment in segments:
+              text = " ".join(segment.text.strip().split())
+              if not text:
+                  continue
+              rows.append(
+                  f"{index}\n{srt_time(segment.start)} --> {srt_time(segment.end)}\n{text}\n"
+              )
+              index += 1
+
+          OUTPUT.write_text("\n".join(rows), encoding="utf-8")
+          print(f"language={info.language} probability={info.language_probability:.3f}")
+          print(f"subtitles={index - 1}")
+          print(f"output={OUTPUT}")
+          PY
+          python transcribe.py
+
+      - name: Validate subtitles
+        run: |
+          test -s vedatorsky-podcast-190-faq-dobre-otazky-18.srt
+          head -n 12 vedatorsky-podcast-190-faq-dobre-otazky-18.srt
+          tail -n 12 vedatorsky-podcast-190-faq-dobre-otazky-18.srt
+
+      - name: Upload subtitles
+        uses: actions/upload-artifact@v4
+        with:
+          name: vedatorsky-podcast-190-subtitles
+          path: vedatorsky-podcast-190-faq-dobre-otazky-18.srt
+          if-no-files-found: error
+          retention-days: 1
