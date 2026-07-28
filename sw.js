@@ -1,6 +1,6 @@
-const CACHE='vedator-temata-v103';
-const VERSION='v103';
-const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','fast-touch.css','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js','data-backup.js','view-layout-fix.js','title-truncate.js','scientist-title-fix.js','media-session-skip.js','lazy-render.js','episode-300-chapters.js','question-controls-stability.js','episode-190-218-226-chapters.js','episode-190-summary.js','episode-218-summary.js','episode-226-summary.js','episode-244-chapters.js','episode-244-summary.js','episode-248-chapters.js','episode-248-summary.js','episode-257-chapters.js','episode-257-summary.js','episode-263-summary.js','episode-270-summary.js','episode-272-summary.js','episode-278-summary.js','episode-284-summary.js','episode-289-summary.js','episode-295-summary.js','episode-313-summary.js','episode-319-summary.js','episode-326-summary.js','episode-332-summary.js','episode-337-summary.js','episode-340-summary.js','questions-view.js'];
+const CACHE='vedator-temata-v104';
+const VERSION='v104';
+const ASSETS=['./','index.html','manifest.webmanifest','icon.svg','fast-touch.css','audio-player.css','audio-player.js','catalog-patch.js','custom-player.js','theme-toggle.js','ui-cleanup.js','highlight-patch.js','playlist-patch.js','slovak-topics-patch.js','topic-filter-fix.js','slovak-ui.js','data-backup.js','view-layout-fix.js','title-truncate.js','scientist-title-fix.js','media-session-skip.js','lazy-render.js','episode-300-chapters.js','question-controls-stability.js','episode-190-218-226-chapters.js','episode-190-summary.js','episode-211-chapters.js','episode-211-summary.js','episode-218-summary.js','episode-226-summary.js','episode-244-chapters.js','episode-244-summary.js','episode-248-chapters.js','episode-248-summary.js','episode-257-chapters.js','episode-257-summary.js','episode-263-summary.js','episode-270-summary.js','episode-272-summary.js','episode-278-summary.js','episode-284-summary.js','episode-289-summary.js','episode-295-summary.js','episode-313-summary.js','episode-319-summary.js','episode-326-summary.js','episode-332-summary.js','episode-337-summary.js','episode-340-summary.js','questions-view.js'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
@@ -51,6 +51,8 @@ async function injectEnhancements(response){
   if(!html.includes('question-controls-stability.js'))html=html.replace('</body>','<script src="./question-controls-stability.js" defer></script></body>');
   if(!html.includes('episode-190-218-226-chapters.js'))html=html.replace('</body>','<script src="./episode-190-218-226-chapters.js" defer></script></body>');
   if(!html.includes('episode-190-summary.js'))html=html.replace('</body>','<script src="./episode-190-summary.js" defer></script></body>');
+  if(!html.includes('episode-211-chapters.js'))html=html.replace('</body>','<script src="./episode-211-chapters.js" defer></script></body>');
+  if(!html.includes('episode-211-summary.js'))html=html.replace('</body>','<script src="./episode-211-summary.js" defer></script></body>');
   if(!html.includes('episode-218-summary.js'))html=html.replace('</body>','<script src="./episode-218-summary.js" defer></script></body>');
   if(!html.includes('episode-226-summary.js'))html=html.replace('</body>','<script src="./episode-226-summary.js" defer></script></body>');
   if(!html.includes('episode-244-chapters.js'))html=html.replace('</body>','<script src="./episode-244-chapters.js" defer></script></body>');
