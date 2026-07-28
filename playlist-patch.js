@@ -1,7 +1,7 @@
 (()=>{
 if(window.__vedatorPlaylistPatch)return;window.__vedatorPlaylistPatch=true;
 const KEY='vedator-user-playlists-v1',HASH='playlist',A='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
-const FAQ=[340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,133,128,119,112,100,89];
+const FAQ=[340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,133,128,119,112,100,89,82];
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const sec=v=>{const p=String(v||'').match(/\d{1,2}:\d{2}(?::\d{2})?/)?.[0].split(':').map(Number);return!p?0:p.length===3?p[0]*3600+p[1]*60+p[2]:p[0]*60+p[1]};
