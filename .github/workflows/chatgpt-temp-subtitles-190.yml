@@ -9,8 +9,6 @@ on:
 permissions:
   contents: write
 
-tasks:
-
 jobs:
   package:
     runs-on: ubuntu-latest
