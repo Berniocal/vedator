@@ -53,7 +53,7 @@
     event.stopImmediatePropagation();
     window.__vedatorRequestedStart={episode:number,time:seconds,createdAt:Date.now()};
     play.click();
-    setTimeout(sync,0);
+    requestAnimationFrame(sync);
   },true);
 
   let titleObserver=null;
@@ -74,5 +74,4 @@
   new MutationObserver(sync).observe(document.body,{childList:true,subtree:true});
   document.addEventListener('play',sync,true);
   document.addEventListener('loadedmetadata',sync,true);
-  setInterval(sync,500);
 })();
