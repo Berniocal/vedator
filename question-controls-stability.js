@@ -55,7 +55,7 @@
     if(!card||!title||!rows.length)return false;
     const chosen=FAQ_EPISODES.has(number)?chooseRow(number,rows):null;
     rows.forEach(row=>row.classList.toggle('vedator-faq-visible',row===chosen));
-    if(chosen&&audio){
+    if(chosen&&audio&&!window.__vedatorQuestionContext){
       const chapters=chaptersFor(number),time=audio.currentTime||0;
       const previous=chosen.querySelector('.previous-question');
       const next=chosen.querySelector('.next-question');
@@ -64,6 +64,11 @@
     }
     return true;
   }
+
+  document.addEventListener('click',event=>{
+    const normalPlay=event.target.closest('#episodes article .links .primary');
+    if(normalPlay&&!event.target.closest('.episode-summary'))window.__vedatorQuestionContext=null;
+  },true);
 
   document.addEventListener('click',event=>{
     const block=event.target.closest('#episodes article .episode-summary .summary-block');
@@ -76,6 +81,7 @@
     if(!Number.isFinite(seconds)||!play)return;
     event.preventDefault();
     event.stopImmediatePropagation();
+    window.__vedatorQuestionContext=null;
     window.__vedatorRequestedStart={episode:number,time:seconds,createdAt:Date.now()};
     play.click();
     requestAnimationFrame(sync);
@@ -83,7 +89,7 @@
 
   document.addEventListener('click',event=>{
     const button=event.target.closest('.vedator-question-btn');
-    if(!button)return;
+    if(!button||window.__vedatorQuestionContext)return;
     const {audio,number}=playerState();
     if(!audio||!FAQ_EPISODES.has(number))return;
     const chapters=chaptersFor(number);
