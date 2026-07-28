@@ -29,14 +29,39 @@
     return rows.find(row=>!row.classList.contains('vedator-190-218-226-controls')&&!row.classList.contains('vedator-244-controls'))||rows[0]||null;
   }
 
-  function sync(){
+  function articleFor(number){
+    return [...document.querySelectorAll('#episodes article')].find(article=>episodeNumber(article.querySelector('h2')?.textContent)===number)||null;
+  }
+
+  function chaptersFor(number){
+    const article=articleFor(number);
+    if(!article)return [];
+    return [...new Set([...article.querySelectorAll('.episode-summary .summary-time')]
+      .map(node=>parseTime(node.textContent))
+      .filter(Number.isFinite))].sort((a,b)=>a-b);
+  }
+
+  function playerState(){
     const card=document.querySelector('.vedator-audio-card');
     const title=card?.querySelector('.vedator-audio-card__title');
+    const audio=card?.querySelector('audio');
     const rows=[...(card?.querySelectorAll('.vedator-question-controls')||[])];
+    const number=episodeNumber(title?.textContent);
+    return {card,title,audio,rows,number};
+  }
+
+  function sync(){
+    const {card,title,audio,rows,number}=playerState();
     if(!card||!title||!rows.length)return false;
-    const number=episodeNumber(title.textContent);
     const chosen=FAQ_EPISODES.has(number)?chooseRow(number,rows):null;
     rows.forEach(row=>row.classList.toggle('vedator-faq-visible',row===chosen));
+    if(chosen&&audio){
+      const chapters=chaptersFor(number),time=audio.currentTime||0;
+      const previous=chosen.querySelector('.previous-question');
+      const next=chosen.querySelector('.next-question');
+      if(previous)previous.disabled=!chapters.some(chapter=>chapter<time-1);
+      if(next)next.disabled=!chapters.some(chapter=>chapter>time+1);
+    }
     return true;
   }
 
@@ -54,6 +79,26 @@
     window.__vedatorRequestedStart={episode:number,time:seconds,createdAt:Date.now()};
     play.click();
     requestAnimationFrame(sync);
+  },true);
+
+  document.addEventListener('click',event=>{
+    const button=event.target.closest('.vedator-question-btn');
+    if(!button)return;
+    const {audio,number}=playerState();
+    if(!audio||!FAQ_EPISODES.has(number))return;
+    const chapters=chaptersFor(number);
+    if(!chapters.length)return;
+    const time=audio.currentTime||0;
+    const target=button.classList.contains('previous-question')
+      ? [...chapters].reverse().find(chapter=>chapter<time-1)
+      : chapters.find(chapter=>chapter>time+1);
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    if(Number.isFinite(target)){
+      audio.currentTime=target;
+      audio.play().catch(()=>{});
+      requestAnimationFrame(sync);
+    }
   },true);
 
   let titleObserver=null;
@@ -74,4 +119,6 @@
   new MutationObserver(sync).observe(document.body,{childList:true,subtree:true});
   document.addEventListener('play',sync,true);
   document.addEventListener('loadedmetadata',sync,true);
+  document.addEventListener('timeupdate',sync,true);
+  setInterval(sync,350);
 })();
