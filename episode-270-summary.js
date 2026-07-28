@@ -17,7 +17,7 @@
   ];
   const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function html(){return '<details class="episode-summary"><summary>Shrnutí dílu</summary>'+items.map((x,i)=>'<div class="summary-block"><h4>'+ (i+1)+') '+esc(x[2]?x[1]:x[0])+'</h4><div class="summary-time">'+esc(x[0])+'</div><ul>'+x[2].map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul></div>').join('')+'</details>'}
-  function decorate(article){if(article.dataset.episode270Summary||!/\bpodcast\s+270\b/i.test(article.querySelector('h2')?.textContent||''))return;article.dataset.episode270Summary='1';const links=article.querySelector('.links');(links||article).insertAdjacentHTML(links?'beforebegin':'beforeend',html())}
+  function decorate(article){if(article.dataset.episode270Summary||!/\bpodcast\s+270\b/i.test(article.querySelector('h2')?.textContent||''))return;article.dataset.episode270Summary='1';const links=article.querySelector('.links');(links||article).insertAdjacentHTML(links?'afterend':'beforeend',html())}
   function scan(root=document){root.querySelectorAll?.('#episodes article').forEach(decorate)}
   scan();const episodes=document.querySelector('#episodes');if(episodes)new MutationObserver(m=>m.forEach(r=>r.addedNodes.forEach(n=>{if(n.nodeType!==1)return;if(n.matches?.('article'))decorate(n);scan(n)}))).observe(episodes,{childList:true,subtree:true});
 })();
