@@ -75,11 +75,11 @@
     const card=document.querySelector('.vedator-data-card');if(!card)return;
     const b=T.backup,head=card.querySelector('h2'),intro=card.querySelector('p'),exp=card.querySelector('.vedator-data-export'),imp=card.querySelector('.vedator-data-import'),note=card.querySelector('.vedator-data-note');
     if(head)head.textContent=b.heading[language];if(intro)intro.textContent=b.intro[language];if(exp)exp.textContent=b.export[language];if(imp)imp.textContent=b.import[language];
-    if(note)note.innerHTML=`<strong>${b.privacy[language]}</strong>${b.privacyText[language]}`;
+    if(note){const html=`<strong>${b.privacy[language]}</strong>${b.privacyText[language]}`;if(note.innerHTML!==html)note.innerHTML=html}
   }
 
   function translatePlaylistHeading(){
-    const el=document.querySelector('.vedator-playlist-toolbar strong');if(el)el.textContent=language==='sk'?'Moje playlisty':'Moje playlisty';
+    const el=document.querySelector('.vedator-playlist-toolbar strong');if(el)el.textContent='Moje playlisty';
   }
 
   function translateDynamicBackupStatus(){
@@ -101,9 +101,25 @@
     translateCount();translateDates();translatePlaylistHeading();translateBackup();translateDynamicBackupStatus();
   }
 
-  function setLanguage(next){language=next==='cz'?'cz':'sk';try{localStorage.setItem(KEY,language)}catch{}apply();window.dispatchEvent(new CustomEvent('vedatorlanguagechange',{detail:{language}}))}
+  let timer=0;
+  const observer=new MutationObserver(records=>{
+    if(!records.some(record=>record.addedNodes.length||record.removedNodes.length))return;
+    clearTimeout(timer);
+    timer=setTimeout(runApply,60);
+  });
+  const observe=()=>observer.observe(document.body,{childList:true,subtree:true});
+  function runApply(){
+    clearTimeout(timer);
+    observer.disconnect();
+    try{apply()}finally{observe()}
+  }
+  function setLanguage(next){
+    language=next==='cz'?'cz':'sk';
+    try{localStorage.setItem(KEY,language)}catch{}
+    runApply();
+    window.dispatchEvent(new CustomEvent('vedatorlanguagechange',{detail:{language}}));
+  }
   window.vedatorUiLanguage=()=>language;
 
-  let queued=false;const observer=new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;apply()})});
-  observer.observe(document.body,{childList:true,subtree:true,characterData:true});apply();
+  runApply();
 })();
