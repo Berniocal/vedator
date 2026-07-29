@@ -50,4 +50,12 @@
   window.addEventListener('vedatorlanguagechange',apply);
   window.addEventListener('vedatorcontentchange',apply);
   apply();
+
+  if(!document.querySelector('script[data-vedator-question-highlight-translated]')){
+    const script=document.createElement('script');
+    script.src='./question-highlight-translated.js';
+    script.defer=true;
+    script.dataset.vedatorQuestionHighlightTranslated='1';
+    document.head.appendChild(script);
+  }
 })();
