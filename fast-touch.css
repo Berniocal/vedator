@@ -6,7 +6,6 @@ input[type="button"],
 input[type="submit"],
 input[type="reset"],
 label[for],
-select,
 .topic,
 .chip,
 .card,
@@ -24,10 +23,19 @@ summary,
 input[type="button"],
 input[type="submit"],
 input[type="reset"],
-label[for],
-select {
+label[for] {
   user-select: none;
   -webkit-user-select: none;
+}
+
+/* Nativní výběry musí na telefonu zůstat bez zásahů do dotykového chování.
+   Vynucené touch-action: manipulation může v některých mobilních prohlížečích
+   spotřebovat první dotyk pouze na aktivaci prvku. */
+select {
+  touch-action: auto;
+  user-select: auto;
+  -webkit-user-select: auto;
+  -webkit-tap-highlight-color: rgba(91,75,219,.16);
 }
 
 @media (pointer: coarse) {
