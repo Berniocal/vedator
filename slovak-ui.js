@@ -10,6 +10,7 @@
     title:{sk:'Vedátorský podcast podľa tém',cz:'Vedátorský podcast podle témat'},
     eyebrow:{sk:'Neoficiálny tematický katalóg',cz:'Neoficiální tematický katalog'},
     search:{sk:'Hľadať',cz:'Hledat'},
+    install:{sk:'Inštalovať',cz:'Instalovat'},
     tabs:{episodes:{sk:'Epizódy',cz:'Epizody'},series:{sk:'Série',cz:'Série'},questions:{sk:'Otázky',cz:'Otázky'},playlists:{sk:'Playlisty',cz:'Playlisty'},data:{sk:'Moje dáta',cz:'Moje data'}},
     topics:{
       'Vše':['Všetko','Vše'],'Všetko':['Všetko','Vše'],'FAQ':['FAQ','FAQ'],
@@ -25,6 +26,12 @@
     options:{
       new:{sk:'Najnovšie',cz:'Nejnovější'},old:{sk:'Najstaršie',cz:'Nejstarší'},number:{sk:'Podľa čísla dielu',cz:'Podle čísla dílu'},
       count:{sk:'Podľa počtu dielov',cz:'Podle počtu dílů'},alpha:{sk:'Podľa abecedy',cz:'Podle abecedy'},first:{sk:'Podľa veku prvého dielu',cz:'Podle stáří prvního dílu'}
+    },
+    buttons:{
+      'Přehrát':{sk:'Prehrať',cz:'Přehrát'},'Prehrať':{sk:'Prehrať',cz:'Přehrát'},
+      'Pokračovat':{sk:'Pokračovať',cz:'Pokračovat'},'Pokračovať':{sk:'Pokračovať',cz:'Pokračovat'},
+      'Číst více':{sk:'Čítať viac',cz:'Číst více'},'Čítať viac':{sk:'Čítať viac',cz:'Číst více'},
+      'Číst méně':{sk:'Čítať menej',cz:'Číst méně'},'Čítať menej':{sk:'Čítať menej',cz:'Číst méně'}
     },
     backup:{
       heading:{sk:'Záloha dát aplikácie',cz:'Záloha dat aplikace'},
@@ -48,14 +55,16 @@
     toggle.onclick=e=>{const b=e.target.closest('button[data-lang]');if(b)setLanguage(b.dataset.lang)};
   }
 
-  function topicKey(button){return button.dataset.topic||button.dataset.vedatorTopicKey||button.textContent.trim()}
-  function langIndex(){return language==='sk'?0:1}
+  const langIndex=()=>language==='sk'?0:1;
+  function originalKey(el,attribute='vedatorI18nKey'){
+    if(!el.dataset[attribute])el.dataset[attribute]=el.textContent.trim();
+    return el.dataset[attribute];
+  }
 
   function translateCount(){
-    const el=document.querySelector('#count');if(!el)return;
-    const raw=el.textContent.trim();let m;
+    const el=document.querySelector('#count');if(!el)return;const raw=el.textContent.trim();let m;
     if((m=raw.match(/^(?:Nalezeno|Nájdených)\s+(\d+)\s+z\s+(\d+)\s+(?:epizod|epizód)$/i)))el.textContent=language==='sk'?`Nájdených ${m[1]} z ${m[2]} epizód`:`Nalezeno ${m[1]} z ${m[2]} epizod`;
-    else if((m=raw.match(/^(?:Nalezeno|Nájdených)\s+(\d+)\s+(?:sérií|serii|sérií)$/i)))el.textContent=language==='sk'?`Nájdených ${m[1]} sérií`:`Nalezeno ${m[1]} sérií`;
+    else if((m=raw.match(/^(?:Nalezeno|Nájdených)\s+(\d+)\s+(?:sérií|serii)$/i)))el.textContent=language==='sk'?`Nájdených ${m[1]} sérií`:`Nalezeno ${m[1]} sérií`;
     else if((m=raw.match(/^(\d+)\s+(?:otázek|otázok)$/i)))el.textContent=language==='sk'?`${m[1]} otázok`:`${m[1]} otázek`;
     else if(/Lokálna záloha dát|Lokální záloha dat/i.test(raw))el.textContent=language==='sk'?'Lokálna záloha dát':'Lokální záloha dat';
     else if(/Načítávám|Načítavam|Načítám/.test(raw))el.textContent=language==='sk'?'Načítavam epizódy…':'Načítám epizody…';
@@ -65,9 +74,29 @@
     let list=[];try{list=Array.isArray(episodes)?episodes:[]}catch{}
     document.querySelectorAll('#episodes article').forEach(article=>{
       const date=article.querySelector('.date'),title=article.querySelector('h2')?.textContent.trim();if(!date||!title)return;
-      const ep=list.find(x=>String(x.title||'').trim()===title);if(!ep?.date)return;
-      const parsed=new Date(ep.date);if(Number.isNaN(parsed.getTime()))return;
+      const ep=list.find(x=>String(x.title||'').trim()===title);if(!ep?.date)return;const parsed=new Date(ep.date);if(Number.isNaN(parsed.getTime()))return;
       date.textContent=new Intl.DateTimeFormat(language==='sk'?'sk-SK':'cs-CZ',{day:'numeric',month:'long',year:'numeric'}).format(parsed);
+    });
+  }
+
+  function translateTheme(){
+    const text=document.querySelector('.theme-switch__text'),input=document.querySelector('.theme-switch input');if(!text)return;
+    const dark=document.documentElement.classList.contains('theme-dark');
+    const value=language==='sk'?(dark?'Svetlý režim':'Tmavý režim'):(dark?'Světlý režim':'Tmavý režim');
+    text.textContent=value;if(input)input.setAttribute('aria-label',value);
+  }
+
+  function translateButtons(){
+    document.querySelectorAll('#episodes .links .primary,#questions .faq-play,#questions .faq-more').forEach(button=>{
+      const current=button.textContent.trim(),item=T.buttons[current]||T.buttons[button.dataset.vedatorButtonKey];
+      if(!button.dataset.vedatorButtonKey)button.dataset.vedatorButtonKey=current;
+      if(item)button.textContent=item[language];
+    });
+  }
+
+  function translateTags(){
+    document.querySelectorAll('#episodes .tag,#questions .tag').forEach(tag=>{
+      const key=originalKey(tag,'vedatorTagKey');const item=T.topics[key]||T.topics[tag.textContent.trim()];if(item)tag.textContent=item[langIndex()];
     });
   }
 
@@ -76,10 +105,6 @@
     const b=T.backup,head=card.querySelector('h2'),intro=card.querySelector('p'),exp=card.querySelector('.vedator-data-export'),imp=card.querySelector('.vedator-data-import'),note=card.querySelector('.vedator-data-note');
     if(head)head.textContent=b.heading[language];if(intro)intro.textContent=b.intro[language];if(exp)exp.textContent=b.export[language];if(imp)imp.textContent=b.import[language];
     if(note){const html=`<strong>${b.privacy[language]}</strong>${b.privacyText[language]}`;if(note.innerHTML!==html)note.innerHTML=html}
-  }
-
-  function translatePlaylistHeading(){
-    const el=document.querySelector('.vedator-playlist-toolbar strong');if(el)el.textContent='Moje playlisty';
   }
 
   function translateDynamicBackupStatus(){
@@ -92,37 +117,24 @@
 
   function apply(){
     installSwitch();document.documentElement.lang=language==='sk'?'sk':'cs';document.title=T.title[language];
-    const title=document.querySelector('header h1'),eyebrow=document.querySelector('header .eyebrow'),search=document.querySelector('#search');
-    if(title)title.textContent=T.title[language];if(eyebrow)eyebrow.textContent=T.eyebrow[language];if(search)search.placeholder=T.search[language];
+    const title=document.querySelector('header h1'),eyebrow=document.querySelector('header .eyebrow'),search=document.querySelector('#search'),install=document.querySelector('#installApp');
+    if(title)title.textContent=T.title[language];if(eyebrow)eyebrow.textContent=T.eyebrow[language];if(search)search.placeholder=T.search[language];if(install)install.textContent=T.install[language];
     document.querySelectorAll('.tabs .tab').forEach(b=>{const x=T.tabs[b.dataset.view];if(x)b.textContent=x[language]});
-    document.querySelectorAll('.topics .topic').forEach(b=>{const key=topicKey(b);if(!b.dataset.vedatorTopicKey)b.dataset.vedatorTopicKey=key;const x=T.topics[key]||T.topics[b.textContent.trim()];if(x)b.textContent=x[langIndex()]});
+    document.querySelectorAll('.topics .topic').forEach(b=>{const key=b.dataset.topic||b.dataset.vedatorTopicKey||b.textContent.trim();if(!b.dataset.vedatorTopicKey)b.dataset.vedatorTopicKey=key;const x=T.topics[key]||T.topics[b.textContent.trim()];if(x)b.textContent=x[langIndex()]});
     document.querySelectorAll('select option').forEach(o=>{const x=T.options[o.value];if(x)o.textContent=x[language]});
     document.querySelectorAll('.vedator-language-switch button').forEach(b=>{const active=b.dataset.lang===language;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});
-    translateCount();translateDates();translatePlaylistHeading();translateBackup();translateDynamicBackupStatus();
+    const playlist=document.querySelector('.vedator-playlist-toolbar strong');if(playlist)playlist.textContent='Moje playlisty';
+    translateCount();translateDates();translateTheme();translateButtons();translateTags();translateBackup();translateDynamicBackupStatus();
   }
 
   let queued=false;
-  const observer=new MutationObserver(records=>{
-    if(!records.some(record=>record.addedNodes.length||record.removedNodes.length))return;
-    scheduleApply();
-  });
+  const observer=new MutationObserver(records=>{if(records.some(r=>r.addedNodes.length||r.removedNodes.length))scheduleApply()});
   const observe=()=>observer.observe(document.body,{childList:true,subtree:true});
-  function runApply(){
-    observer.disconnect();
-    try{apply()}finally{observe()}
-  }
-  function scheduleApply(){
-    if(queued)return;
-    queued=true;
-    queueMicrotask(()=>{queued=false;runApply()});
-  }
-  function setLanguage(next){
-    language=next==='cz'?'cz':'sk';
-    try{localStorage.setItem(KEY,language)}catch{}
-    runApply();
-    window.dispatchEvent(new CustomEvent('vedatorlanguagechange',{detail:{language}}));
-  }
+  function runApply(){observer.disconnect();try{apply()}finally{observe()}}
+  function scheduleApply(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;runApply()})}
+  function setLanguage(next){language=next==='cz'?'cz':'sk';try{localStorage.setItem(KEY,language)}catch{}runApply();window.dispatchEvent(new CustomEvent('vedatorlanguagechange',{detail:{language}}))}
   window.vedatorUiLanguage=()=>language;
-
+  document.addEventListener('change',event=>{if(event.target.matches?.('.theme-switch input'))queueMicrotask(runApply)},true);
+  document.addEventListener('click',event=>{if(event.target.closest?.('.faq-more'))queueMicrotask(runApply)},true);
   runApply();
 })();
