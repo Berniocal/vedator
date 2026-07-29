@@ -101,17 +101,20 @@
     translateCount();translateDates();translatePlaylistHeading();translateBackup();translateDynamicBackupStatus();
   }
 
-  let timer=0;
+  let queued=false;
   const observer=new MutationObserver(records=>{
     if(!records.some(record=>record.addedNodes.length||record.removedNodes.length))return;
-    clearTimeout(timer);
-    timer=setTimeout(runApply,60);
+    scheduleApply();
   });
   const observe=()=>observer.observe(document.body,{childList:true,subtree:true});
   function runApply(){
-    clearTimeout(timer);
     observer.disconnect();
     try{apply()}finally{observe()}
+  }
+  function scheduleApply(){
+    if(queued)return;
+    queued=true;
+    queueMicrotask(()=>{queued=false;runApply()});
   }
   function setLanguage(next){
     language=next==='cz'?'cz':'sk';
