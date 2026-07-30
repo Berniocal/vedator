@@ -28,21 +28,19 @@
     try{return localStorage.getItem('vedator-ui-language')||localStorage.getItem('vedator-language')||'cs'}catch(_){return 'cs'}
   };
   let applying=false,scheduled=false;
+  const selector='.summary-title, .episode-summary li, .faq-question-card h2, .faq-question-card li';
   function translateElement(el,toSk){
     if(!el||el.closest?.('mark.vedator-match'))return;
     const raw=el.textContent||'';
-    const prefix=/^\s*Otázka:\s*/i.exec(raw);
-    const body=normalize(prefix?raw.slice(prefix[0].length):raw);
+    const body=normalize(raw);
     const next=(toSk?csToSk:skToCs).get(body);
-    if(!next)return;
-    el.textContent=(prefix?prefix[0]:'')+next;
+    if(next)el.textContent=next;
   }
   function apply(root=document){
     if(applying)return;
     applying=true;
     try{
       const toSk=language()==='sk';
-      const selector='.summary-title, .episode-summary li, .question-title, .question-text, .question-heading, .faq-question, .question-card h2, .question-card h3, h3, h4, li';
       if(root.nodeType===1&&root.matches?.(selector))translateElement(root,toSk);
       root.querySelectorAll?.(selector).forEach(el=>translateElement(el,toSk));
     }finally{applying=false}
