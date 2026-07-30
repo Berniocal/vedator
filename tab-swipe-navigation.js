@@ -23,13 +23,15 @@
     return false;
   };
 
+  const swipeFriendlySummary=summary=>!!summary?.closest('.series-card,.vedator-playlist-card');
+
   const blockedTarget=target=>{
     const element=target instanceof Element?target:null;
     if(!element)return true;
     if(element.closest(INTERACTIVE))return true;
-    if(element.closest('.tabs,.topics,.links,.episode-summary'))return true;
+    if(element.closest('.tabs,.topics,.links,.episode-summary,.vedator-editor'))return true;
     const summary=element.closest('summary');
-    if(summary&&!summary.closest('.series-card'))return true;
+    if(summary&&!swipeFriendlySummary(summary))return true;
     return horizontallyScrollable(element);
   };
 
@@ -69,7 +71,7 @@
   document.addEventListener('click',event=>{
     if(performance.now()>suppressClickUntil)return;
     if(!(event.target instanceof Element))return;
-    if(!event.target.closest('.series-card>summary'))return;
+    if(!event.target.closest('.series-card>summary,.vedator-playlist-card>summary'))return;
     event.preventDefault();
     event.stopImmediatePropagation();
     suppressClickUntil=0;
