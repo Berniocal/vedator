@@ -89,12 +89,10 @@
         if(node.textContent!==value)node.textContent=value;
       });
     });
-    window.dispatchEvent(new Event('vedatorcontentchange'));
   };
   let queued=false;
   const schedule=()=>{if(queued)return;queued=true;queueMicrotask(()=>{queued=false;apply()})};
   new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});
   window.addEventListener('vedatorlanguagechange',apply);
-  window.addEventListener('vedatorcontentchange',schedule);
   apply();
 })();
