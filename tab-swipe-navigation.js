@@ -5,9 +5,10 @@
   const MIN_DISTANCE=85;
   const MAX_DURATION=900;
   const HORIZONTAL_RATIO=1.55;
-  const INTERACTIVE='a,button,input,select,textarea,label,summary,audio,video,[contenteditable="true"],[role="button"],[data-no-swipe]';
+  const INTERACTIVE='a,button,input,select,textarea,label,audio,video,[contenteditable="true"],[role="button"],[data-no-swipe]';
 
   let start=null;
+  let suppressClickUntil=0;
 
   const visibleTabs=()=>[...document.querySelectorAll('.tabs .tab')].filter(tab=>{
     const style=getComputedStyle(tab);
@@ -26,25 +27,28 @@
     const element=target instanceof Element?target:null;
     if(!element)return true;
     if(element.closest(INTERACTIVE))return true;
-    if(element.closest('.tabs,.topics,.links,.episode-summary,.series-card'))return true;
+    if(element.closest('.tabs,.topics,.links,.episode-summary'))return true;
+    const summary=element.closest('summary');
+    if(summary&&!summary.closest('.series-card'))return true;
     return horizontallyScrollable(element);
   };
 
   document.addEventListener('touchstart',event=>{
     if(event.touches.length!==1||blockedTarget(event.target)){start=null;return}
     const touch=event.touches[0];
-    start={x:touch.clientX,y:touch.clientY,time:performance.now(),id:touch.identifier};
+    start={x:touch.clientX,y:touch.clientY,time:performance.now(),id:touch.identifier,target:event.target};
   },{passive:true});
 
   document.addEventListener('touchend',event=>{
     if(!start||event.changedTouches.length!==1){start=null;return}
+    const gesture=start;
     const touch=event.changedTouches[0];
-    if(touch.identifier!==start.id){start=null;return}
-
-    const dx=touch.clientX-start.x;
-    const dy=touch.clientY-start.y;
-    const duration=performance.now()-start.time;
     start=null;
+    if(touch.identifier!==gesture.id)return;
+
+    const dx=touch.clientX-gesture.x;
+    const dy=touch.clientY-gesture.y;
+    const duration=performance.now()-gesture.time;
 
     if(duration>MAX_DURATION||Math.abs(dx)<MIN_DISTANCE)return;
     if(Math.abs(dx)<Math.abs(dy)*HORIZONTAL_RATIO)return;
@@ -56,9 +60,20 @@
 
     const next=index+(dx<0?1:-1);
     if(next<0||next>=tabs.length)return;
+
+    suppressClickUntil=performance.now()+650;
     tabs[next].click();
     tabs[next].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
   },{passive:true});
+
+  document.addEventListener('click',event=>{
+    if(performance.now()>suppressClickUntil)return;
+    if(!(event.target instanceof Element))return;
+    if(!event.target.closest('.series-card>summary'))return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    suppressClickUntil=0;
+  },true);
 
   document.addEventListener('touchcancel',()=>{start=null},{passive:true});
 })();
