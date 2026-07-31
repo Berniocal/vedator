@@ -2,26 +2,78 @@
   if(window.__vedatorQuestionCountLanguage)return;
   window.__vedatorQuestionCountLanguage=true;
 
-  if(!window.__vedatorLanguageMutationGuard){
-    const NativeMutationObserver=window.MutationObserver;
+  const NativeMutationObserver=window.MutationObserver;
+  const nativeAddEventListener=window.addEventListener.bind(window);
+  const nativeRemoveEventListener=window.removeEventListener.bind(window);
+
+  if(!window.__vedatorLanguageBatchController){
+    const listeners=[];
+    let generation=0;
+
+    window.__vedatorLanguageBatching=false;
+
     window.MutationObserver=class VedatorMutationObserver extends NativeMutationObserver{
       constructor(callback){
         super((records,observer)=>{
-          if(window.__vedatorLanguageChanging)return;
+          if(window.__vedatorLanguageBatching)return;
           callback(records,observer);
         });
       }
     };
-    window.__vedatorLanguageMutationGuard=true;
-    let switchToken=0;
-    document.addEventListener('click',event=>{
-      if(!event.target.closest?.('.vedator-language-switch button[data-lang]'))return;
-      const token=++switchToken;
-      window.__vedatorLanguageChanging=true;
-      requestAnimationFrame(()=>requestAnimationFrame(()=>{
-        if(token===switchToken)window.__vedatorLanguageChanging=false;
-      }));
-    },true);
+
+    window.addEventListener=function(type,listener,options){
+      if(type==='vedatorlanguagechange'&&listener){
+        listeners.push({listener,options});
+        return;
+      }
+      return nativeAddEventListener(type,listener,options);
+    };
+
+    window.removeEventListener=function(type,listener,options){
+      if(type==='vedatorlanguagechange'&&listener){
+        const index=listeners.findIndex(item=>item.listener===listener);
+        if(index>=0)listeners.splice(index,1);
+        return;
+      }
+      return nativeRemoveEventListener(type,listener,options);
+    };
+
+    nativeAddEventListener('vedatorlanguagechange',event=>{
+      const current=++generation;
+      const queue=listeners.slice();
+      let index=0;
+      window.__vedatorLanguageBatching=true;
+
+      const finish=()=>{
+        setTimeout(()=>{
+          if(current===generation)window.__vedatorLanguageBatching=false;
+        },0);
+      };
+
+      const step=()=>{
+        if(current!==generation)return;
+        const end=Math.min(index+4,queue.length);
+        for(;index<end;index++){
+          const entry=queue[index];
+          try{
+            if(typeof entry.listener==='function')entry.listener.call(window,event);
+            else entry.listener?.handleEvent?.(event);
+          }catch(error){
+            setTimeout(()=>{throw error},0);
+          }
+          if(entry.options&&typeof entry.options==='object'&&entry.options.once){
+            const originalIndex=listeners.findIndex(item=>item.listener===entry.listener);
+            if(originalIndex>=0)listeners.splice(originalIndex,1);
+          }
+        }
+        if(index<queue.length)requestAnimationFrame(step);
+        else finish();
+      };
+
+      requestAnimationFrame(step);
+    });
+
+    window.__vedatorLanguageBatchController={listeners};
   }
 
   const normalizeLanguage=value=>{
@@ -78,8 +130,8 @@
   }
 
   apply();
-  new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
-  window.addEventListener('vedatorlanguagechange',schedule);
+  new NativeMutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+  nativeAddEventListener('vedatorlanguagechange',schedule);
 
   if(!document.querySelector('script[data-vedator-translations-158-end-143-part1]')){
     const script=document.createElement('script');
