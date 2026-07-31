@@ -2,6 +2,28 @@
   if(window.__vedatorQuestionCountLanguage)return;
   window.__vedatorQuestionCountLanguage=true;
 
+  if(!window.__vedatorLanguageMutationGuard){
+    const NativeMutationObserver=window.MutationObserver;
+    window.MutationObserver=class VedatorMutationObserver extends NativeMutationObserver{
+      constructor(callback){
+        super((records,observer)=>{
+          if(window.__vedatorLanguageChanging)return;
+          callback(records,observer);
+        });
+      }
+    };
+    window.__vedatorLanguageMutationGuard=true;
+    let switchToken=0;
+    document.addEventListener('click',event=>{
+      if(!event.target.closest?.('.vedator-language-switch button[data-lang]'))return;
+      const token=++switchToken;
+      window.__vedatorLanguageChanging=true;
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        if(token===switchToken)window.__vedatorLanguageChanging=false;
+      }));
+    },true);
+  }
+
   const normalizeLanguage=value=>{
     const lang=String(value||'').toLowerCase();
     if(lang.startsWith('sk'))return 'sk';
