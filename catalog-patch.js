@@ -13,6 +13,18 @@
   `;
   document.head.appendChild(style);
 
+  function loadEpisodeTranslations(){
+    if(window.__vedatorEpisodeTranslationBootstrap)return;
+    window.__vedatorEpisodeTranslationBootstrap=true;
+    if(document.querySelector('script[data-vedator-episode-translation-bootstrap]'))return;
+    const script=document.createElement('script');
+    script.src='./question-translations-17-end.js?v=20260801-2323';
+    script.async=false;
+    script.dataset.vedatorEpisodeTranslationBootstrap='1';
+    document.head.appendChild(script);
+  }
+  loadEpisodeTranslations();
+
   if(typeof FIXED_SERIES==='undefined'||typeof filtered!=='function'||typeof categories!=='function')return;
 
   const faqSeries=FIXED_SERIES.find(series=>series.name==='FAQ – dobré otázky');
