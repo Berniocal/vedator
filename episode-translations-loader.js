@@ -14,6 +14,61 @@
     ['episode-translations-291-284.js','data-vedator-episode-translations-291-284']
   ];
 
+  const normalizeLanguage=value=>{
+    const lang=String(value||'').toLowerCase();
+    if(lang.startsWith('sk'))return 'sk';
+    if(lang.startsWith('cs')||lang.startsWith('cz'))return 'cs';
+    return '';
+  };
+
+  const language=()=>{
+    try{
+      const ui=normalizeLanguage(window.vedatorUiLanguage?.());
+      if(ui)return ui;
+    }catch(_){}
+    const html=normalizeLanguage(document.documentElement.lang);
+    if(html)return html;
+    try{
+      const stored=localStorage.getItem('vedator-ui-language-v1')
+        ||localStorage.getItem('vedator-ui-language')
+        ||localStorage.getItem('vedator-language');
+      return normalizeLanguage(stored)||'cs';
+    }catch(_){return 'cs'}
+  };
+
+  let labelScheduled=false;
+  function applyReadMoreLabels(){
+    const slovak=language()==='sk';
+    document.querySelectorAll('button.vedator-read-more').forEach(button=>{
+      const article=button.closest('article');
+      const expanded=article?.dataset.descriptionExpanded==='true'
+        ||button.getAttribute('aria-expanded')==='true';
+      const next=slovak
+        ?(expanded?'Čítať menej':'Čítať viac')
+        :(expanded?'Číst méně':'Číst víc');
+      if(button.textContent!==next)button.textContent=next;
+    });
+  }
+
+  function scheduleReadMoreLabels(){
+    if(labelScheduled)return;
+    labelScheduled=true;
+    queueMicrotask(()=>{
+      labelScheduled=false;
+      applyReadMoreLabels();
+    });
+  }
+
+  new MutationObserver(scheduleReadMoreLabels).observe(document.documentElement,{
+    childList:true,
+    subtree:true,
+    characterData:true,
+    attributes:true,
+    attributeFilter:['aria-expanded','data-description-expanded']
+  });
+  window.addEventListener('vedatorlanguagechange',scheduleReadMoreLabels);
+  scheduleReadMoreLabels();
+
   function loadScript(source,marker){
     return new Promise(resolve=>{
       const existing=document.querySelector(`script[${marker}]`);
@@ -45,6 +100,7 @@
       try{dataReady=Array.isArray(episodes)&&episodes.length>0}catch(_){}
       if(dataReady&&typeof render==='function'){
         render();
+        scheduleReadMoreLabels();
         window.dispatchEvent(new Event('vedatorepisodetranslationsready'));
         return;
       }
