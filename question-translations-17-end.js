@@ -64,4 +64,12 @@
   apply();
   new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true});
   window.addEventListener('vedatorlanguagechange',schedule);
+
+  if(!document.querySelector('script[data-vedator-episode-translations-346-337]')){
+    const script=document.createElement('script');
+    script.src='./episode-translations-346-337.js';
+    script.async=false;
+    script.dataset.vedatorEpisodeTranslations346337='1';
+    document.head.appendChild(script);
+  }
 })();
