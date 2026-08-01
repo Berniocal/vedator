@@ -105,4 +105,12 @@
   apply();
   new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true});
   window.addEventListener('vedatorlanguagechange',schedule);
+
+  if(!document.querySelector('script[data-vedator-translations-75-end-51-part1]')){
+    const script=document.createElement('script');
+    script.src='./question-translations-75-end-51-part1.js';
+    script.async=false;
+    script.dataset.vedatorTranslations75End51Part1='1';
+    document.head.appendChild(script);
+  }
 })();
