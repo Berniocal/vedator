@@ -103,4 +103,12 @@
   apply();
   new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true});
   window.addEventListener('vedatorlanguagechange',schedule);
+
+  if(!document.querySelector('script[data-vedator-translations-100-part4]')){
+    const script=document.createElement('script');
+    script.src='./question-translations-100-part4.js';
+    script.async=false;
+    script.dataset.vedatorTranslations100Part4='1';
+    document.head.appendChild(script);
+  }
 })();
