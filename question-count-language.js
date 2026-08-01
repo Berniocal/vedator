@@ -140,4 +140,12 @@
     script.dataset.vedatorTranslations158End143Part1='1';
     document.head.appendChild(script);
   }
+
+  if(!document.querySelector('script[data-vedator-translations-143-end-138-part1]')){
+    const script=document.createElement('script');
+    script.src='./question-translations-143-end-138-part1.js';
+    script.async=false;
+    script.dataset.vedatorTranslations143End138Part1='1';
+    document.head.appendChild(script);
+  }
 })();
