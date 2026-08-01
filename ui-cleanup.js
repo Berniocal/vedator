@@ -2,6 +2,11 @@
   if(window.__vedatorUiCleanup)return;
   window.__vedatorUiCleanup=true;
 
+  let searchElement=null;
+  let committedSearchValue='';
+  let searchTimer=0;
+  let lastViewportHeight=window.visualViewport?.height||0;
+
   function uiLanguage(){
     try{
       const lang=String(window.vedatorUiLanguage?.()||document.documentElement.lang||'').toLowerCase();
@@ -35,10 +40,37 @@
     button.title=label;
   }
 
+  function runSearch(search){
+    if(!search?.isConnected||search.value===committedSearchValue)return;
+    committedSearchValue=search.value;
+    if(typeof window.render==='function')window.render();
+    else document.querySelector('#episodeSort')?.dispatchEvent(new Event('change',{bubbles:true}));
+  }
+
+  function scheduleSearch(search,delay=90){
+    clearTimeout(searchTimer);
+    searchTimer=setTimeout(()=>runSearch(search),delay);
+  }
+
+  function prepareDeferredSearch(search){
+    if(searchElement===search)return;
+    searchElement=search;
+    committedSearchValue=search.value;
+    search.enterKeyHint='search';
+
+    search.addEventListener('blur',()=>scheduleSearch(search));
+    search.addEventListener('keydown',event=>{
+      if(event.key!=='Enter'||event.isComposing)return;
+      event.preventDefault();
+      search.blur();
+    });
+  }
+
   function ensureSearchClear(){
     const search=document.querySelector('#search');
     if(!search)return;
 
+    prepareDeferredSearch(search);
     ensureSearchClearStyles();
 
     let wrap=search.parentElement;
@@ -55,14 +87,14 @@
       button.type='button';
       button.className='search-clear-button';
       button.textContent='×';
+      button.addEventListener('pointerdown',event=>event.preventDefault());
       button.addEventListener('click',()=>{
         if(!search.value)return;
         search.value='';
-        search.dispatchEvent(new Event('input',{bubbles:true}));
-        try{search.focus({preventScroll:true})}catch(_){search.focus()}
         updateSearchClearButton(search,button);
+        runSearch(search);
+        try{search.focus({preventScroll:true})}catch(_){search.focus()}
       });
-      search.addEventListener('input',()=>updateSearchClearButton(search,button));
       wrap.appendChild(button);
     }
 
@@ -88,9 +120,24 @@
     }
   }
 
+  document.addEventListener('input',event=>{
+    const search=event.target.closest?.('#search');
+    if(!search)return;
+    const button=search.parentElement?.querySelector('.search-clear-button');
+    if(button)updateSearchClearButton(search,button);
+    event.stopImmediatePropagation();
+  },true);
+
   document.addEventListener('click',event=>{
     if(event.target.closest('.tab'))setTimeout(updateUi,0);
   },true);
+
+  window.visualViewport?.addEventListener('resize',()=>{
+    const height=window.visualViewport.height;
+    const keyboardClosed=height>lastViewportHeight+60;
+    lastViewportHeight=height;
+    if(keyboardClosed&&searchElement&&document.activeElement===searchElement)scheduleSearch(searchElement,120);
+  });
 
   window.addEventListener('vedatorlanguagechange',updateUi);
   new MutationObserver(updateUi).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
