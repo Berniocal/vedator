@@ -180,4 +180,12 @@
     script.dataset.vedatorTranslations119End112Part1='1';
     document.head.appendChild(script);
   }
+
+  if(!document.querySelector('script[data-vedator-translations-112-part2]')){
+    const script=document.createElement('script');
+    script.src='./question-translations-112-part2.js';
+    script.async=false;
+    script.dataset.vedatorTranslations112Part2='1';
+    document.head.appendChild(script);
+  }
 })();
