@@ -50,7 +50,7 @@
     ["Univerzální čas, který by všude plynul stejně, neexistuje.", "Univerzálny čas, ktorý by všade plynul rovnako, neexistuje."],
     ["Čas plyne pomaleji v silnějším gravitačním poli a mění se také v závislosti na rychlosti pozorovatele.", "Čas plynie pomalšie v silnejšom gravitačnom poli a mení sa aj v závislosti od rýchlosti pozorovateľa."],
     ["U černé díry může pro jednoho pozorovatele uplynout mnohem méně času než ve vzdálené části vesmíru.", "Pri čiernej diere môže uplynúť pre jedného pozorovateľa oveľa menej času než vo vzdialenej časti vesmíru."],
-    ["O společném stáří vesmíru lze mluvit proto, že většina prostoru je téměř prázdná a relativistické odchylky jsou tam malé.", "O spoločnom veku vesmíru možno hovoriť preto, že väčšina priestoru je takmer prázdna a relativistické odchýlky sú tam malé."],
+    ["O společném stáří vesmíru lze mluvit proto, že většina prostoru je téměř prázdná a relativistické odchylky jsou tam malé.", "O spoločnom veku vesmíru možno hovoriť preto, že väčšina priestoru je takmer prázdna a relativistické odchylky sú tam malé."],
     ["Proč některé nemoci dostaneme opakovaně a jiné jen jednou?", "Prečo niektoré choroby dostaneme opakovane a iné iba raz?"],
     ["Imunitní systém si po infekci nebo očkování vytváří paměť.", "Imunitný systém si po infekcii alebo očkovaní vytvára pamäť."],
     ["U některých nemocí ochrana vydrží celý život, u jiných postupně slábne.", "Pri niektorých chorobách ochrana vydrží celý život, pri iných postupne slabne."],
@@ -108,4 +108,12 @@
   apply();
   new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true});
   window.addEventListener('vedatorlanguagechange',schedule);
+
+  if(!document.querySelector('script[data-vedator-translations-17-end]')){
+    const script=document.createElement('script');
+    script.src='./question-translations-17-end.js';
+    script.async=false;
+    script.dataset.vedatorTranslations17End='1';
+    document.head.appendChild(script);
+  }
 })();
