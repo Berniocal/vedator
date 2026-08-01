@@ -204,4 +204,12 @@
     script.dataset.vedatorTranslations100Part2='1';
     document.head.appendChild(script);
   }
+
+  if(!document.querySelector('script[data-vedator-translations-100-part3]')){
+    const script=document.createElement('script');
+    script.src='./question-translations-100-part3.js';
+    script.async=false;
+    script.dataset.vedatorTranslations100Part3='1';
+    document.head.appendChild(script);
+  }
 })();
