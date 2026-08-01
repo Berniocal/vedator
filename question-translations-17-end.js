@@ -96,4 +96,12 @@
     script.dataset.vedatorEpisodeTranslations322316='1';
     document.head.appendChild(script);
   }
+
+  if(!document.querySelector('script[data-vedator-episode-translations-315-308]')){
+    const script=document.createElement('script');
+    script.src='./episode-translations-315-308.js';
+    script.async=false;
+    script.dataset.vedatorEpisodeTranslations315308='1';
+    document.head.appendChild(script);
+  }
 })();
