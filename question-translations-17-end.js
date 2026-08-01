@@ -112,4 +112,12 @@
     script.dataset.vedatorEpisodeTranslations307300='1';
     document.head.appendChild(script);
   }
+
+  if(!document.querySelector('script[data-vedator-episode-translations-299-292]')){
+    const script=document.createElement('script');
+    script.src='./episode-translations-299-292.js';
+    script.async=false;
+    script.dataset.vedatorEpisodeTranslations299292='1';
+    document.head.appendChild(script);
+  }
 })();
