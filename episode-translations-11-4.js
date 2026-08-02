@@ -53,12 +53,19 @@
     return 'cs';
   };
 
+  const escapeRegExp=value=>String(value).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const flexiblePattern=value=>new RegExp(String(value)
+    .split(/[\s\u00a0]+/)
+    .map(escapeRegExp)
+    .join('[\\s\\u00a0]+'),'g');
+
   function translateText(text,toCzech){
     let result=String(text||'');
     for(const [sk,cs] of DESCRIPTION_TEXT_PAIRS){
       const from=toCzech?sk:cs;
       const to=toCzech?cs:sk;
       if(result.includes(from))result=result.split(from).join(to);
+      else result=result.replace(flexiblePattern(from),to);
     }
     return result;
   }
