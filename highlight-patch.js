@@ -3,9 +3,10 @@
   window.__vedatorHighlightPatch=true;
 
   const style=document.createElement('style');
+  style.dataset.vedatorMatchStyle='1';
   style.textContent=`
-    mark.vedator-match{background:#ffe66b;color:inherit;border-radius:.28em;padding:.03em .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
-    html.theme-dark mark.vedator-match{background:#8a6d00;color:#fff4b3}
+    mark.vedator-match{background:#ffe66b!important;color:inherit!important;border-radius:.28em;padding:.03em .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+    html.theme-dark mark.vedator-match{background:#8a6d00!important;color:#fff4b3!important}
     .links button.vedator-read-more{flex:1;text-align:center;border-radius:10px;padding:9px;font-weight:700;border:1px solid var(--line);color:var(--ink);background:transparent;cursor:pointer}
     .links button.vedator-read-more:active{transform:translateY(1px)}
     article.vedator-description-expanded .desc{-webkit-line-clamp:unset;display:block;overflow:visible}
@@ -190,9 +191,11 @@
     const article=button.closest('article');if(!article)return;
     article.dataset.descriptionExpanded=String(article.dataset.descriptionExpanded!=='true');schedule();
   });
-  document.querySelector('#search')?.addEventListener('input',schedule);
-  document.querySelector('#topics')?.addEventListener('click',schedule);
-  document.querySelector('#episodeSort')?.addEventListener('change',schedule);
+  document.addEventListener('input',event=>{if(event.target?.id==='search')schedule()},true);
+  document.addEventListener('click',event=>{if(event.target.closest?.('#topics .topic'))setTimeout(schedule,0)},true);
+  document.addEventListener('change',event=>{if(event.target?.id==='episodeSort')schedule()},true);
   window.addEventListener('vedatorlanguagechange',schedule);
+  window.addEventListener('vedatorcontentchange',schedule);
+  window.addEventListener('vedatorepisodetranslationsready',schedule);
   observer.observe(episodesBox,{childList:true,subtree:true});schedule();
 })();
