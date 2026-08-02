@@ -37,6 +37,26 @@
   }
   loadDeepLinks();
 
+  function ensureSearchHighlighting(){
+    const version='20260802-1940';
+    const ensure=(source,flag,marker)=>{
+      if(window[flag]||document.querySelector(`script[${marker}]`))return;
+      const script=document.createElement('script');
+      script.src=`./${source}?v=${version}`;
+      script.async=false;
+      script.setAttribute(marker,'1');
+      document.head.appendChild(script);
+    };
+    const check=()=>{
+      ensure('highlight-patch.js','__vedatorHighlightPatch','data-vedator-highlight-bootstrap');
+      ensure('question-highlight-translated.js','__vedatorTranslatedQuestionHighlight','data-vedator-question-highlight-bootstrap');
+    };
+    setTimeout(check,600);
+    window.addEventListener('vedatorcontentchange',check);
+    window.addEventListener('vedatorepisodetranslationsready',check);
+  }
+  ensureSearchHighlighting();
+
   if(typeof FIXED_SERIES==='undefined'||typeof filtered!=='function'||typeof categories!=='function')return;
 
   const faqSeries=FIXED_SERIES.find(series=>series.name==='FAQ – dobré otázky');
