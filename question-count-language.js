@@ -8,14 +8,82 @@
 
   if(!window.__vedatorLanguageBatchController){
     const listeners=[];
+    const translationObserverQueue=new Map();
     let generation=0;
+    let translationObserverTimer=0;
+    let translationObserverGeneration=0;
+    let translationObserverBatching=false;
 
     window.__vedatorLanguageBatching=false;
+    window.__vedatorTranslationObserverBatching=false;
+    window.__vedatorSuppressTranslationObservers=false;
+
+    const isTranslationScript=source=>/(?:^|\/)(?:episode-translations-|question-translations-)[^/]+\.js(?:[?#]|$)/i.test(String(source||''));
+
+    function cancelTranslationObserverQueue(){
+      clearTimeout(translationObserverTimer);
+      translationObserverTimer=0;
+      translationObserverQueue.clear();
+      translationObserverGeneration+=1;
+      translationObserverBatching=false;
+      window.__vedatorTranslationObserverBatching=false;
+    }
+
+    function flushTranslationObservers(){
+      translationObserverTimer=0;
+      if(window.__vedatorLanguageBatching||window.__vedatorSuppressTranslationObservers){
+        translationObserverQueue.clear();
+        return;
+      }
+
+      const current=++translationObserverGeneration;
+      const queue=[...translationObserverQueue.values()];
+      translationObserverQueue.clear();
+      let index=0;
+      translationObserverBatching=true;
+      window.__vedatorTranslationObserverBatching=true;
+
+      const finish=()=>{
+        setTimeout(()=>{
+          if(current!==translationObserverGeneration)return;
+          translationObserverBatching=false;
+          window.__vedatorTranslationObserverBatching=false;
+        },0);
+      };
+
+      const step=()=>{
+        if(current!==translationObserverGeneration)return;
+        const end=Math.min(index+6,queue.length);
+        for(;index<end;index++){
+          const entry=queue[index];
+          try{entry.callback(entry.records,entry.observer)}catch(error){setTimeout(()=>{throw error},0)}
+        }
+        if(index<queue.length)requestAnimationFrame(step);
+        else finish();
+      };
+
+      if(queue.length)requestAnimationFrame(step);
+      else finish();
+    }
+
+    function scheduleTranslationObserver(callback,records,observer){
+      if(window.__vedatorLanguageBatching||window.__vedatorSuppressTranslationObservers||translationObserverBatching)return;
+      const existing=translationObserverQueue.get(callback);
+      if(existing)existing.records.push(...records);
+      else translationObserverQueue.set(callback,{callback,records:[...records],observer});
+      clearTimeout(translationObserverTimer);
+      translationObserverTimer=setTimeout(flushTranslationObservers,90);
+    }
 
     window.MutationObserver=class VedatorMutationObserver extends NativeMutationObserver{
       constructor(callback){
+        const translationObserver=isTranslationScript(document.currentScript?.src);
         super((records,observer)=>{
           if(window.__vedatorLanguageBatching)return;
+          if(translationObserver){
+            scheduleTranslationObserver(callback,records,observer);
+            return;
+          }
           callback(records,observer);
         });
       }
@@ -39,6 +107,7 @@
     };
 
     nativeAddEventListener('vedatorlanguagechange',event=>{
+      cancelTranslationObserverQueue();
       const current=++generation;
       const queue=listeners.slice();
       let index=0;
@@ -73,7 +142,7 @@
       requestAnimationFrame(step);
     });
 
-    window.__vedatorLanguageBatchController={listeners};
+    window.__vedatorLanguageBatchController={listeners,translationObserverQueue};
   }
 
   const normalizeLanguage=value=>{
@@ -94,6 +163,93 @@
       return normalizeLanguage(stored)||'cs';
     }catch(_){return 'cs'}
   };
+
+  let episodeTranslationsReady=false;
+  nativeAddEventListener('vedatorepisodetranslationsready',()=>{
+    episodeTranslationsReady=true;
+  });
+
+  if(typeof matchLevel==='function'&&typeof categories==='function'&&typeof render==='function'){
+    const searchDocumentCache=new WeakMap();
+    const originalCategories=categories;
+
+    const searchDocument=episode=>{
+      const title=String(episode?.title||'');
+      const description=String(episode?.description||'');
+      const signature=`${title}\u0000${description}`;
+      let cached=searchDocumentCache.get(episode);
+      if(!cached||cached.signature!==signature){
+        cached={
+          signature,
+          title:norm(title),
+          description:norm(cleanHtml(description)),
+          categories:null
+        };
+        searchDocumentCache.set(episode,cached);
+      }
+      return cached;
+    };
+
+    matchLevel=function(episode,queries){
+      if(!queries.length)return 0;
+      const document=searchDocument(episode);
+      if(queries.some(query=>document.title.includes(query)))return 0;
+      if(queries.some(query=>query.split(' ').every(word=>document.title.includes(word))))return 1;
+      if(queries.some(query=>document.description.includes(query)))return 2;
+      if(queries.some(query=>query.split(' ').every(word=>document.description.includes(word))))return 3;
+      return 99;
+    };
+
+    categories=function(episode){
+      const document=searchDocument(episode);
+      if(document.categories)return document.categories;
+      document.categories=originalCategories(episode);
+      return document.categories;
+    };
+
+    const searchInput=document.querySelector('#search');
+    if(searchInput){
+      const immediateRender=render;
+      let searchTimer=0;
+      let searchFrame=0;
+      let composing=false;
+
+      const renderSearch=()=>{
+        searchFrame=0;
+        const suppressTranslations=episodeTranslationsReady&&language()==='cs';
+        if(suppressTranslations)window.__vedatorSuppressTranslationObservers=true;
+        try{immediateRender()}
+        finally{
+          if(suppressTranslations){
+            setTimeout(()=>{
+              window.__vedatorSuppressTranslationObservers=false;
+            },0);
+          }
+        }
+      };
+
+      const scheduleSearchRender=()=>{
+        clearTimeout(searchTimer);
+        if(searchFrame)cancelAnimationFrame(searchFrame);
+        const delay=searchInput.value.trim()?90:0;
+        searchTimer=setTimeout(()=>{
+          searchTimer=0;
+          searchFrame=requestAnimationFrame(renderSearch);
+        },delay);
+      };
+
+      searchInput.removeEventListener('input',immediateRender);
+      searchInput.addEventListener('compositionstart',()=>{composing=true});
+      searchInput.addEventListener('compositionend',()=>{
+        composing=false;
+        scheduleSearchRender();
+      });
+      searchInput.addEventListener('input',event=>{
+        if(composing||event.isComposing)return;
+        scheduleSearchRender();
+      });
+    }
+  }
 
   const numberFrom=text=>Number(String(text).match(/^\s*(\d+)/)?.[1]);
   const foundPattern=/^\s*\d+\s+(?:nalezená otázka|nalezené otázky|nalezených otázek|nájdená otázka|nájdené otázky|nájdených otázok)\s*$/i;
