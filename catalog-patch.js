@@ -25,6 +25,18 @@
   }
   loadEpisodeTranslations();
 
+  function loadDeepLinks(){
+    if(window.__vedatorDeepLinksBootstrap)return;
+    window.__vedatorDeepLinksBootstrap=true;
+    if(document.querySelector('script[data-vedator-deep-links-bootstrap]'))return;
+    const script=document.createElement('script');
+    script.src='./deep-links.js?v=20260802-1603';
+    script.async=false;
+    script.dataset.vedatorDeepLinksBootstrap='1';
+    document.head.appendChild(script);
+  }
+  loadDeepLinks();
+
   if(typeof FIXED_SERIES==='undefined'||typeof filtered!=='function'||typeof categories!=='function')return;
 
   const faqSeries=FIXED_SERIES.find(series=>series.name==='FAQ – dobré otázky');
