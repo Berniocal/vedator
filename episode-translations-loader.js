@@ -2,7 +2,7 @@
   if(window.__vedatorEpisodeTranslationsLoader)return;
   window.__vedatorEpisodeTranslationsLoader=true;
 
-  const VERSION='20260802-1328';
+  const VERSION='20260802-1406';
   const SOURCES=[
     ['episode-translations-346-337.js','data-vedator-episode-translations-346-337'],
     ['episode-translations-336-330.js','data-vedator-episode-translations-336-330'],
@@ -32,7 +32,8 @@
     ['episode-translations-147-140.js','data-vedator-episode-translations-147-140'],
     ['episode-translations-139-132.js','data-vedator-episode-translations-139-132'],
     ['episode-translations-131-124.js','data-vedator-episode-translations-131-124'],
-    ['episode-translations-123-116.js','data-vedator-episode-translations-123-116']
+    ['episode-translations-123-116.js','data-vedator-episode-translations-123-116'],
+    ['episode-translations-115-108.js','data-vedator-episode-translations-115-108']
   ];
 
   const normalizeLanguage=value=>{
