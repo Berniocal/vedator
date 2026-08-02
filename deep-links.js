@@ -142,10 +142,9 @@
     const strings=labels();
     const url=new URL(location.href);
     url.hash=`${kind}=${encodeURIComponent(value)}`;
-    const kindLabel=strings[kind]||'';
     try{
       if(navigator.share){
-        await navigator.share({title:title||kindLabel,text:`${kindLabel}: ${title||''}`.trim(),url:url.href});
+        await navigator.share({url:url.href});
         return;
       }
       if(navigator.clipboard?.writeText){
