@@ -2,7 +2,7 @@
   if(window.__vedatorEpisodeTranslationsLoader)return;
   window.__vedatorEpisodeTranslationsLoader=true;
 
-  const VERSION='20260802-1030';
+  const VERSION='20260802-1038';
   const SOURCES=[
     ['episode-translations-346-337.js','data-vedator-episode-translations-346-337'],
     ['episode-translations-336-330.js','data-vedator-episode-translations-336-330'],
@@ -76,15 +76,33 @@
     });
   }
 
-  new MutationObserver(scheduleReadMoreLabels).observe(document.documentElement,{
-    childList:true,
-    subtree:true,
-    characterData:true,
-    attributes:true,
-    attributeFilter:['aria-expanded','data-description-expanded']
-  });
-  window.addEventListener('vedatorlanguagechange',scheduleReadMoreLabels);
-  scheduleReadMoreLabels();
+  let readMoreLocalizationStarted=false;
+  function startReadMoreLocalization(){
+    if(readMoreLocalizationStarted)return;
+    readMoreLocalizationStarted=true;
+    new MutationObserver(scheduleReadMoreLabels).observe(document.documentElement,{
+      childList:true,
+      subtree:true,
+      characterData:true,
+      attributes:true,
+      attributeFilter:['aria-expanded','data-description-expanded']
+    });
+    window.addEventListener('vedatorlanguagechange',scheduleReadMoreLabels);
+    scheduleReadMoreLabels();
+  }
+
+  function waitForLanguageBatchController(timeout=8000){
+    if(window.__vedatorLanguageBatchController)return Promise.resolve(true);
+    return new Promise(resolve=>{
+      const started=Date.now();
+      const check=()=>{
+        if(window.__vedatorLanguageBatchController){resolve(true);return}
+        if(Date.now()-started>=timeout){resolve(false);return}
+        setTimeout(check,16);
+      };
+      check();
+    });
+  }
 
   function loadScript(source,marker){
     return new Promise(resolve=>{
@@ -128,6 +146,8 @@
   }
 
   (async()=>{
+    await waitForLanguageBatchController();
+    startReadMoreLocalization();
     for(const [source,marker] of SOURCES)await loadScript(source,marker);
     refreshCatalogWhenReady();
   })();
