@@ -2,7 +2,7 @@
   if(window.__vedatorEpisodeTranslationsLoader)return;
   window.__vedatorEpisodeTranslationsLoader=true;
 
-  const VERSION='20260802-2005';
+  const VERSION='20260802-2012';
   const SOURCES=[
     ['episode-translations-346-337.js','data-vedator-episode-translations-346-337'],
     ['episode-translations-336-330.js','data-vedator-episode-translations-336-330'],
@@ -39,7 +39,8 @@
     ['episode-translations-91-84.js','data-vedator-episode-translations-91-84'],
     ['episode-translations-83-76.js','data-vedator-episode-translations-83-76'],
     ['episode-translations-75-68.js','data-vedator-episode-translations-75-68'],
-    ['episode-translations-67-60.js','data-vedator-episode-translations-67-60']
+    ['episode-translations-67-60.js','data-vedator-episode-translations-67-60'],
+    ['episode-translations-59-52.js','data-vedator-episode-translations-59-52']
   ];
 
   function waitForLanguageBatchController(timeout=8000){
