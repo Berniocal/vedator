@@ -2,6 +2,13 @@
   if(window.__vedatorTranslatedQuestionHighlight)return;
   window.__vedatorTranslatedQuestionHighlight=true;
 
+  if(!document.querySelector('style[data-vedator-match-style]')){
+    const style=document.createElement('style');
+    style.dataset.vedatorMatchStyle='1';
+    style.textContent='mark.vedator-match{background:#ffe66b!important;color:inherit!important;border-radius:.28em;padding:.03em .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}html.theme-dark mark.vedator-match{background:#8a6d00!important;color:#fff4b3!important}';
+    document.head.appendChild(style);
+  }
+
   const TOPIC_TERMS={
     'Vesmír':['vesmir','hvezd','hviezd','planet','galaxi','slunce','slnko','mesic','mesiac','jupiter','kosmolog','rozpin'],
     'Černé díry':['cerna dira','cierna diera','cernych der','ciernych dier','hawking','singularit'],
@@ -25,15 +32,17 @@
   const norm=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   const questionsTopics=()=>[...document.querySelectorAll('.topics')].find(box=>box.querySelector('.topic[data-topic="Vše"],.topic[data-topic="Všetko"]'));
   const terms=()=>{
-    const searchTerms=norm(document.querySelector('#search')?.value||'').split(/\s+/).filter(Boolean);
+    const query=String(document.querySelector('#search')?.value||'').trim();
+    const normalizedQuery=norm(query);
+    const searchTerms=query?[normalizedQuery,...normalizedQuery.split(/\s+/).filter(Boolean)]:[];
     const active=questionsTopics()?.querySelector('.topic.active');
     const topic=active?.dataset.topic||active?.textContent?.trim()||'';
     const topicTerms=topic&&topic!=='Vše'&&topic!=='Všetko'?(TOPIC_TERMS[topic]||[]):[];
-    return [...new Set([...searchTerms,...topicTerms.map(norm)])].sort((a,b)=>b.length-a.length);
+    return [...new Set([...searchTerms,...topicTerms.map(norm)].filter(term=>term.length>=2))].sort((a,b)=>b.length-a.length);
   };
 
   function unwrapMarks(root){
-    root.querySelectorAll('mark').forEach(mark=>mark.replaceWith(document.createTextNode(mark.textContent||'')));
+    root.querySelectorAll('mark.vedator-match').forEach(mark=>mark.replaceWith(document.createTextNode(mark.textContent||'')));
     root.normalize();
   }
 
@@ -61,7 +70,7 @@
   function apply(){
     const view=document.querySelector('#questions');if(!view)return;
     observer?.disconnect();const needles=terms();
-    view.querySelectorAll('.faq-question-card h2,.faq-question-card li').forEach(element=>{
+    view.querySelectorAll('.faq-question-card h2,.faq-question-card li,.faq-question-card p').forEach(element=>{
       unwrapMarks(element);if(!needles.length)return;
       const walker=document.createTreeWalker(element,NodeFilter.SHOW_TEXT,{acceptNode(node){return node.parentElement?.closest('mark,mjx-container,script,style')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;}});
       const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);nodes.forEach(node=>markTextNode(node,needles));
@@ -81,5 +90,6 @@
   document.addEventListener('click',event=>{if(event.target.closest?.('.topics .topic'))setTimeout(schedule,0)},true);
   window.addEventListener('vedatorlanguagechange',()=>setTimeout(schedule,0));
   window.addEventListener('vedatorcontentchange',schedule);
+  window.addEventListener('vedatorepisodetranslationsready',schedule);
   observe();schedule();
 })();
