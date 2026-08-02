@@ -5,6 +5,14 @@
   const MATHEMATICS_EPISODES=[91,93,98,113,115,116,117,118,156,181,198,201,216,249,282,286,328,329,336];
   const MATHEMATICS_SET=new Set(MATHEMATICS_EPISODES);
   const FAQ_EXTRA_EPISODES=new Set([138,300]);
+  const SERIES_TITLE_REWRITES=[
+    [/Hledání mimozemského života/gi,'Hľadanie mimozemského života'],
+    [/Rozhovory o vesmíru/gi,'Rozhovory o vesmíre'],
+    [/(?:Žiji|Žiju) vědu/gi,'Žijem vedu'],
+    [/Genetický speciál/gi,'Genetický špeciál'],
+    [/Vedátorský speciál/gi,'Vedátorský špeciál'],
+    [/Nobelovy ceny/gi,'Nobelove ceny']
+  ];
 
   const style=document.createElement('style');
   style.textContent=`
@@ -18,7 +26,7 @@
     window.__vedatorEpisodeTranslationBootstrap=true;
     if(document.querySelector('script[data-vedator-episode-translation-bootstrap]'))return;
     const script=document.createElement('script');
-    script.src='./episode-translations-loader.js?v=20260802-2130';
+    script.src='./episode-translations-loader.js?v=20260802-2140';
     script.async=false;
     script.dataset.vedatorEpisodeTranslationBootstrap='1';
     document.head.appendChild(script);
@@ -70,6 +78,25 @@
       name:'Matematika',
       test:episode=>MATHEMATICS_SET.has(Number(episode.number))
     });
+  }
+
+  function slovakSeriesTitle(value){
+    let title=String(value||'');
+    for(const [pattern,replacement] of SERIES_TITLE_REWRITES)title=title.replace(pattern,replacement);
+    return title;
+  }
+
+  for(const series of FIXED_SERIES){
+    if(series.__vedatorBilingualSeriesTest||typeof series.test!=='function')continue;
+    const originalTest=series.test;
+    series.test=episode=>{
+      try{if(originalTest(episode))return true}catch(_){}
+      const title=String(episode?.title||'');
+      const slovakTitle=slovakSeriesTitle(title);
+      if(slovakTitle===title)return false;
+      try{return originalTest({...episode,title:slovakTitle})}catch(_){return false}
+    };
+    series.__vedatorBilingualSeriesTest=true;
   }
 
   const originalCategories=categories;
