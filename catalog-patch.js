@@ -2,6 +2,18 @@
   if(window.__vedatorCatalogPatch)return;
   window.__vedatorCatalogPatch=true;
 
+  function loadCollectionProgress(){
+    if(window.__vedatorCollectionProgressBootstrap)return;
+    window.__vedatorCollectionProgressBootstrap=true;
+    if(document.querySelector('script[data-vedator-collection-progress-bootstrap]'))return;
+    const script=document.createElement('script');
+    script.src='./collection-progress.js?v=20260802-2251';
+    script.async=false;
+    script.dataset.vedatorCollectionProgressBootstrap='1';
+    document.head.appendChild(script);
+  }
+  loadCollectionProgress();
+
   const MATHEMATICS_EPISODES=[91,93,98,113,115,116,117,118,156,181,198,201,216,249,282,286,328,329,336];
   const MATHEMATICS_SET=new Set(MATHEMATICS_EPISODES);
   const FAQ_EXTRA_EPISODES=new Set([138,300]);
