@@ -18,7 +18,7 @@
     window.__vedatorEpisodeTranslationBootstrap=true;
     if(document.querySelector('script[data-vedator-episode-translation-bootstrap]'))return;
     const script=document.createElement('script');
-    script.src='./episode-translations-loader.js?v=20260802-2101';
+    script.src='./episode-translations-loader.js?v=20260802-2106';
     script.async=false;
     script.dataset.vedatorEpisodeTranslationBootstrap='1';
     document.head.appendChild(script);
