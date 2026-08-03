@@ -136,8 +136,102 @@
   }
 
   scan(false);
+  const contentRoot=document.querySelector('main')||document.documentElement;
   new MutationObserver(records=>{
     if(records.some(record=>record.addedNodes.length||record.type==='characterData'))scheduleScan(false);
-  }).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+  }).observe(contentRoot,{childList:true,subtree:true,characterData:true});
   window.addEventListener('vedatorlanguagechange',()=>scheduleScan(true));
+})();
+
+(()=>{
+  if(window.__vedatorViewStability)return;
+  window.__vedatorViewStability=true;
+
+  const tabs=document.querySelector('.tabs');
+  const search=document.querySelector('#search');
+  if(!tabs)return;
+
+  let scheduled=false;
+  const activeView=()=>tabs.querySelector('.tab.active')?.dataset.view||window.__vedatorActiveView||'episodes';
+
+  function sync(){
+    scheduled=false;
+    const current=activeView();
+    window.__vedatorActiveView=current;
+
+    const episodes=document.querySelector('#episodes');
+    const series=document.querySelector('#series');
+    const questions=document.querySelector('#questions');
+    const playlists=document.querySelector('.vedator-playlist-view');
+    const data=document.querySelector('.vedator-data-view');
+    const topics=document.querySelector('#topics');
+    const questionTopics=[...document.querySelectorAll('.topics')].find(node=>node!==topics);
+    const episodeSort=document.querySelector('#episodeSort');
+    const seriesSort=document.querySelector('#seriesSort');
+    const questionSort=document.querySelector('#questionSort');
+
+    episodes?.classList.toggle('hidden',current!=='episodes');
+    series?.classList.toggle('hidden',current!=='series');
+    questions?.classList.toggle('hidden',current!=='questions');
+    playlists?.classList.toggle('active',current==='playlists');
+    data?.classList.toggle('active',current==='data');
+    topics?.classList.toggle('hidden',current!=='episodes');
+    questionTopics?.classList.toggle('hidden',current!=='questions');
+    episodeSort?.classList.toggle('hidden',current!=='episodes');
+    seriesSort?.classList.toggle('hidden',current!=='series');
+    questionSort?.classList.toggle('hidden',current!=='questions');
+  }
+
+  function scheduleSync(){
+    if(scheduled)return;
+    scheduled=true;
+    queueMicrotask(sync);
+  }
+
+  tabs.addEventListener('click',event=>{
+    const tab=event.target.closest('.tab');
+    if(!tab)return;
+    window.__vedatorActiveView=tab.dataset.view||'episodes';
+    queueMicrotask(sync);
+    requestAnimationFrame(sync);
+  },true);
+
+  new MutationObserver(scheduleSync).observe(tabs,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
+
+  const viewObserver=new MutationObserver(()=>{
+    const current=activeView();
+    const visibleWrong=
+      (current!=='episodes'&&!document.querySelector('#episodes')?.classList.contains('hidden'))||
+      (current!=='series'&&!document.querySelector('#series')?.classList.contains('hidden'))||
+      (current!=='questions'&&!document.querySelector('#questions')?.classList.contains('hidden'))||
+      (current!=='playlists'&&document.querySelector('.vedator-playlist-view')?.classList.contains('active'))||
+      (current!=='data'&&document.querySelector('.vedator-data-view')?.classList.contains('active'));
+    if(visibleWrong)scheduleSync();
+  });
+
+  function observeViews(){
+    for(const node of [document.querySelector('#episodes'),document.querySelector('#series'),document.querySelector('#questions'),document.querySelector('.vedator-playlist-view'),document.querySelector('.vedator-data-view')]){
+      if(node&&node.dataset.vedatorViewObserved!=='1'){
+        node.dataset.vedatorViewObserved='1';
+        viewObserver.observe(node,{attributes:true,attributeFilter:['class']});
+      }
+    }
+  }
+
+  new MutationObserver(()=>{observeViews();scheduleSync()}).observe(tabs.parentElement||tabs,{childList:true,subtree:true});
+
+  if(search){
+    search.addEventListener('input',event=>{
+      const current=activeView();
+      if(current==='episodes'||current==='questions')return;
+      event.stopImmediatePropagation();
+    },true);
+    search.addEventListener('compositionend',event=>{
+      if(activeView()==='episodes')return;
+      event.stopImmediatePropagation();
+    },true);
+  }
+
+  observeViews();
+  sync();
 })();
