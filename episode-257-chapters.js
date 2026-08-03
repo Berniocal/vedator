@@ -24,8 +24,4 @@
     window.__vedatorQuestionContext={items:CHAPTERS.map((x,i)=>({episode:257,time:x.seconds,end:CHAPTERS[i+1]?.seconds??Infinity})),index:Math.max(0,CHAPTERS.findIndex(x=>Math.abs(x.seconds-time)<2))};
     window.__vedatorRequestedStart={episode:257,time,createdAt:Date.now()};play.click();
   },true);
-  setInterval(()=>{
-    const card=document.querySelector('.vedator-audio-card'),title=card?.querySelector('.vedator-audio-card__title'),row=card?.querySelector('.vedator-question-controls');
-    if(!row||!title)return;const active=episodeNumber(title.textContent)===257;row.classList.toggle('active',active||Boolean(window.__vedatorQuestionContext));
-  },350);
 })();
