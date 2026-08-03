@@ -2,17 +2,49 @@
   if(window.__vedatorCatalogPatch)return;
   window.__vedatorCatalogPatch=true;
 
+  function installPlainSeriesTextStyle(){
+    document.querySelector('style[data-vedator-plain-series-text]')?.remove();
+    const plainStyle=document.createElement('style');
+    plainStyle.dataset.vedatorPlainSeriesText='1';
+    plainStyle.textContent=`
+      #series .series-card>summary>span:first-child,
+      #series .series-card>summary>span:first-child.vedator-collection-title-active,
+      #series .series-card>summary>span:first-child.vedator-collection-title-complete,
+      #series .series-card>summary>span:first-child.vedator-series-started-persisted,
+      #series .series-body a,
+      #series .series-body a:visited,
+      #series .series-body a:hover,
+      #series .series-body a:active,
+      #series .series-body a .vedator-collection-item-title,
+      #series .series-body a .person-name,
+      #series .series-body a .episode-title,
+      #series .series-body a .vedator-collection-progress-text,
+      #series .series-body a .vedator-collection-complete-text{
+        color:var(--ink,#e5e7eb)!important;
+        background:none!important;
+        text-decoration:none!important;
+        -webkit-background-clip:border-box!important;
+        background-clip:border-box!important;
+        -webkit-text-fill-color:currentColor!important;
+      }
+      #series .series-body a *{text-decoration:none!important}
+    `;
+    document.head.appendChild(plainStyle);
+  }
+
   function loadCollectionProgress(){
     if(window.__vedatorCollectionProgressBootstrap)return;
     window.__vedatorCollectionProgressBootstrap=true;
     if(document.querySelector('script[data-vedator-collection-progress-bootstrap]'))return;
     const script=document.createElement('script');
-    script.src='./collection-progress.js?v=20260802-2251';
+    script.src='./collection-progress.js?v=20260803-1828';
     script.async=false;
     script.dataset.vedatorCollectionProgressBootstrap='1';
+    script.addEventListener('load',installPlainSeriesTextStyle,{once:true});
     document.head.appendChild(script);
   }
   loadCollectionProgress();
+  setTimeout(installPlainSeriesTextStyle,1200);
 
   const MATHEMATICS_EPISODES=[91,93,98,113,115,116,117,118,156,181,198,201,216,249,282,286,328,329,336];
   const MATHEMATICS_SET=new Set(MATHEMATICS_EPISODES);
