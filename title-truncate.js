@@ -456,6 +456,12 @@
   }
 
   window.addEventListener('click',event=>{
+    const seriesSummary=event.target.closest?.('#series .series-card>summary');
+    if(seriesSummary&&!event.target.closest?.('.vedator-deep-share')){
+      const card=seriesSummary.closest('.series-card');
+      setTimeout(()=>card?.dispatchEvent(new Event('toggle',{bubbles:true})),0);
+    }
+
     const seriesLink=event.target.closest?.('#series .series-card .series-body a');
     if(seriesLink){
       markSeriesStarted(seriesLink.closest('.series-card'));
