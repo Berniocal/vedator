@@ -21,14 +21,72 @@
       overflow-wrap:anywhere;
     }
 
-    .vedator-series-started-persisted:not(.vedator-collection-title-complete){
-      color:#d97706!important;
+    .vedator-collection-title-active,
+    .vedator-collection-title-complete,
+    .vedator-series-started-persisted,
+    .vedator-collection-progress-text,
+    .vedator-collection-complete-text{
+      color:inherit!important;
+      background:none!important;
+      -webkit-background-clip:border-box!important;
+      background-clip:border-box!important;
+      -webkit-text-fill-color:currentColor!important;
     }
-    html.theme-dark .vedator-series-started-persisted:not(.vedator-collection-title-complete){
-      color:#fbbf24!important;
+
+    .vedator-series-status-badge,
+    .vedator-series-item-status-badge{
+      display:inline-flex;
+      align-items:center;
+      width:max-content;
+      max-width:100%;
+      border-radius:999px;
+      padding:3px 8px;
+      font-size:.76rem;
+      line-height:1.25;
+      font-weight:800;
+      white-space:nowrap;
+      color:#92400e;
+      background:#fef3c7;
+      border:1px solid #fcd34d;
     }
+
+    .vedator-series-status-badge.completed,
+    .vedator-series-item-status-badge.completed{
+      color:#166534;
+      background:#dcfce7;
+      border-color:#86efac;
+    }
+
+    html.theme-dark .vedator-series-status-badge,
+    html.theme-dark .vedator-series-item-status-badge{
+      color:#fde68a;
+      background:rgba(180,83,9,.25);
+      border-color:rgba(251,191,36,.55);
+    }
+
+    html.theme-dark .vedator-series-status-badge.completed,
+    html.theme-dark .vedator-series-item-status-badge.completed{
+      color:#bbf7d0;
+      background:rgba(22,101,52,.28);
+      border-color:rgba(74,222,128,.5);
+    }
+
+    .series-card>summary .vedator-series-status-badge{
+      flex:0 0 auto;
+      margin-left:6px;
+    }
+
+    #series .series-body a .vedator-series-item-status-badge{
+      display:flex;
+      margin-top:5px;
+    }
+
     .vedator-playlist-sort{max-width:230px}
-    @media(max-width:650px){.vedator-playlist-sort{max-width:190px}}
+    @media(max-width:650px){
+      .vedator-playlist-sort{max-width:190px}
+      .series-card>summary{flex-wrap:wrap}
+      .series-card>summary .vedator-series-status-badge{order:3;margin:6px 0 0 0}
+    }
   `;
   document.head.appendChild(style);
 
@@ -114,12 +172,57 @@
     return Boolean(record&&(record.completed||Number(record.percent)>0||Number(record.currentTime)>Number(record.start||0)+3));
   }
 
+  function recordPercent(record){
+    if(!record)return 0;
+    if(record.completed)return 100;
+    const saved=Number(record.percent);
+    if(Number.isFinite(saved)&&saved>0)return Math.min(99,Math.max(1,saved));
+    const current=Number(record.currentTime)||0;
+    const start=Number(record.start)||0;
+    const end=Number(record.end)||Number(record.duration)||0;
+    if(end>start&&current>start)return Math.min(99,Math.max(1,(current-start)/(end-start)*100));
+    return 0;
+  }
+
   function recordForEpisode(records,episode){
     const direct=records[episodeCollectionItemId(episode)];
     if(direct)return direct;
     const title=norm(episode?.title);
     if(!title)return null;
     return Object.values(records).find(record=>norm(record?.title)===title)||null;
+  }
+
+  function recordForSeriesLink(records,link){
+    const itemId=link?.dataset?.vedatorCollectionItemId;
+    if(itemId&&records[itemId])return records[itemId];
+    const title=norm(link?.dataset?.vedatorEpisodeTitle||link?.querySelector('.episode-title')?.textContent||link?.textContent||'');
+    if(!title)return null;
+    return Object.values(records).find(record=>norm(record?.title)===title)||null;
+  }
+
+  function expectedSeriesCount(card){
+    return Number(card?.querySelector('.series-count')?.textContent?.match(/\d+/)?.[0]||0);
+  }
+
+  function seriesStats(card,progress=loadObject(COLLECTION_PROGRESS_KEY)){
+    const id=seriesId(card);
+    const collection=progress[id];
+    const records=collection&&typeof collection.items==='object'&&collection.items?collection.items:{};
+    const links=[...card.querySelectorAll('.series-body a')];
+    const expected=Math.max(expectedSeriesCount(card),links.length,Object.keys(records).length);
+    const matched=links.length?links.map(link=>recordForSeriesLink(records,link)):Object.values(records);
+    const unique=[...new Set(matched.filter(Boolean))];
+    const completed=unique.filter(record=>record.completed).length;
+    const heard=unique.filter(heardRecord).length;
+    const percent=expected>0?Math.round(unique.reduce((sum,record)=>sum+recordPercent(record),0)/expected):0;
+    return {
+      id,
+      records,
+      expected,
+      completed:expected>0&&completed>=expected,
+      started:Boolean(startedSeries[id])||heard>0,
+      percent:Math.max(0,Math.min(100,percent))
+    };
   }
 
   function collectionStateForSeries(group,progress){
@@ -131,6 +234,40 @@
     if(items.every(item=>recordForEpisode(records,item)?.completed))return 'completed';
     if(startedSeries[id]||items.some(item=>heardRecord(recordForEpisode(records,item))))return 'started';
     return 'unheard';
+  }
+
+  function updateBadge(parent,className,state,percent,beforeNode=null){
+    let badge=parent?.querySelector(`:scope > .${className}`);
+    if(state==='unheard'){
+      badge?.remove();
+      return;
+    }
+    if(!badge){
+      badge=document.createElement('span');
+      badge.className=className;
+      if(beforeNode)parent.insertBefore(badge,beforeNode);
+      else parent.appendChild(badge);
+    }
+    const completed=state==='completed';
+    badge.classList.toggle('completed',completed);
+    const text=completed?'✓ Poslechnuto':`Rozposloucháno · ${Math.max(0,Math.min(99,Math.round(percent||0)))} %`;
+    if(badge.textContent!==text)badge.textContent=text;
+  }
+
+  function decorateSeriesStatuses(){
+    const progress=loadObject(COLLECTION_PROGRESS_KEY);
+    document.querySelectorAll('#series .series-card').forEach(card=>{
+      const summary=card.querySelector(':scope > summary');
+      const count=summary?.querySelector('.series-count');
+      const stats=seriesStats(card,progress);
+      const state=stats.completed?'completed':stats.started?'started':'unheard';
+      if(summary)updateBadge(summary,'vedator-series-status-badge',state,stats.percent,count);
+      card.querySelectorAll('.series-body a').forEach(link=>{
+        const record=recordForSeriesLink(stats.records,link);
+        const itemState=record?.completed?'completed':heardRecord(record)?'started':'unheard';
+        updateBadge(link,'vedator-series-item-status-badge',itemState,recordPercent(record));
+      });
+    });
   }
 
   function addStatusOptions(select){
@@ -255,15 +392,7 @@
     if(!id||startedSeries[id])return;
     startedSeries[id]=true;
     saveStartedSeries();
-    decorateStartedSeries();
-  }
-
-  function decorateStartedSeries(){
-    document.querySelectorAll('#series .series-card').forEach(card=>{
-      const title=card.querySelector('summary span:first-child');
-      if(!title)return;
-      title.classList.toggle('vedator-series-started-persisted',Boolean(startedSeries[seriesId(card)]));
-    });
+    decorateSeriesStatuses();
   }
 
   function dispatchCollectionRefresh(){
@@ -286,15 +415,16 @@
 
   function refreshCollectionProgress(){
     refreshQueued=false;
-    decorateStartedSeries();
+    decorateSeriesStatuses();
     schedulePlaylistSort();
     if(!dispatchCollectionRefresh()){
       if(refreshAttempts++<100)setTimeout(queueCollectionRefresh,80);
       return;
     }
     refreshAttempts=0;
-    setTimeout(dispatchCollectionRefresh,60);
-    setTimeout(dispatchCollectionRefresh,220);
+    setTimeout(decorateSeriesStatuses,0);
+    setTimeout(decorateSeriesStatuses,80);
+    setTimeout(decorateSeriesStatuses,240);
   }
 
   function queueCollectionRefresh(){
@@ -311,8 +441,9 @@
       schedulePlaylistSort();
     }).observe(view,{
       attributes:true,
-      attributeFilter:['class'],
-      childList:true
+      attributeFilter:['class','open'],
+      childList:true,
+      subtree:true
     });
   }
 
@@ -326,7 +457,10 @@
 
   window.addEventListener('click',event=>{
     const seriesLink=event.target.closest?.('#series .series-card .series-body a');
-    if(seriesLink)markSeriesStarted(seriesLink.closest('.series-card'));
+    if(seriesLink){
+      markSeriesStarted(seriesLink.closest('.series-card'));
+      setTimeout(decorateSeriesStatuses,80);
+    }
 
     const tab=event.target.closest?.('.tab[data-view="series"],.tab[data-view="playlists"]');
     if(!tab)return;
@@ -339,7 +473,7 @@
   window.addEventListener('storage',event=>{
     if(event.key===STARTED_SERIES_KEY){
       startedSeries=loadObject(STARTED_SERIES_KEY);
-      decorateStartedSeries();
+      decorateSeriesStatuses();
       return;
     }
     if(event.key===PLAYLIST_SORT_KEY){
@@ -351,7 +485,7 @@
     }
     if(event.key===COLLECTION_PROGRESS_KEY){
       migrateCollectionProgress();
-      decorateStartedSeries();
+      decorateSeriesStatuses();
       schedulePlaylistSort();
       if(event.isTrusted&&STATUS_SORTS.has(document.querySelector('#seriesSort')?.value)&&typeof window.renderSeries==='function')window.renderSeries();
     }
