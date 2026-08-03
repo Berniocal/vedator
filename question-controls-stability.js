@@ -30,7 +30,7 @@
   }
 
   function articleFor(number){
-    return [...document.querySelectorAll('#episodes article')].find(article=>episodeNumber(article.querySelector('h2')?.textContent)===number)||null;
+    return [...document.querySelectorAll('#episodes article:not([data-vedator-question-source])')].find(article=>episodeNumber(article.querySelector('h2')?.textContent)===number)||null;
   }
 
   function chaptersFor(number){
@@ -74,6 +74,7 @@
     const block=event.target.closest('#episodes article .episode-summary .summary-block');
     if(!block)return;
     const article=block.closest('article');
+    if(article?.dataset.vedatorQuestionSource==='1')return;
     const number=episodeNumber(article?.querySelector('h2')?.textContent);
     if(!FAQ_EPISODES.has(number))return;
     const seconds=parseTime(block.querySelector('.summary-time')?.textContent);
@@ -108,23 +109,28 @@
   },true);
 
   let titleObserver=null;
+  let waitingObserver=null;
   function install(){
     const title=document.querySelector('.vedator-audio-card__title');
-    if(!title||!sync())return false;
+    if(!title)return false;
     titleObserver?.disconnect();
     titleObserver=new MutationObserver(sync);
     titleObserver.observe(title,{childList:true,characterData:true,subtree:true});
+    sync();
     return true;
   }
 
   if(!install()){
-    const observer=new MutationObserver(()=>{if(install())observer.disconnect()});
-    observer.observe(document.body,{childList:true,subtree:true});
+    waitingObserver=new MutationObserver(()=>{
+      if(!install())return;
+      waitingObserver.disconnect();
+      waitingObserver=null;
+    });
+    waitingObserver.observe(document.body,{childList:true,subtree:true});
   }
 
-  new MutationObserver(sync).observe(document.body,{childList:true,subtree:true});
   document.addEventListener('play',sync,true);
   document.addEventListener('loadedmetadata',sync,true);
   document.addEventListener('timeupdate',sync,true);
-  setInterval(sync,350);
+  window.addEventListener('vedatorcontentchange',sync);
 })();
