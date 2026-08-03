@@ -65,7 +65,7 @@
 
     suppressClickUntil=performance.now()+650;
     tabs[next].click();
-    tabs[next].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+    tabs[next].scrollIntoView({behavior:'auto',block:'nearest',inline:'center'});
   },{passive:true});
 
   document.addEventListener('click',event=>{
