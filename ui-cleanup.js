@@ -132,13 +132,6 @@
     if(controls)controls.style.gridTemplateColumns='1fr';
 
     ensureSearchControls();
-
-    const seriesTab=document.querySelector('.tab[data-view="series"]');
-    const topics=document.querySelector('#topics');
-    if(topics){
-      const seriesActive=seriesTab?.classList.contains('active');
-      topics.classList.toggle('hidden',Boolean(seriesActive));
-    }
   }
 
   document.addEventListener('input',event=>{
@@ -151,7 +144,7 @@
   },true);
 
   document.addEventListener('click',event=>{
-    if(event.target.closest('.tab'))setTimeout(updateUi,0);
+    if(event.target.closest('.tab'))queueMicrotask(updateUi);
   },true);
 
   window.visualViewport?.addEventListener('resize',()=>{
@@ -184,6 +177,5 @@
   });
 
   window.addEventListener('vedatorlanguagechange',updateUi);
-  new MutationObserver(updateUi).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
   updateUi();
 })();
