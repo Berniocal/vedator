@@ -97,9 +97,9 @@
   const setText=(node,value)=>{if(node&&node.textContent!==value)node.textContent=value};
   const setHtml=(node,value)=>{if(node&&node.innerHTML!==value)node.innerHTML=value};
   const plural=(number,one,few,many)=>{
-    const value=Math.abs(Number(number)||0),last=value%10,lastTwo=value%100;
-    if(last===1&&lastTwo!==11)return one;
-    if(last>=2&&last<=4&&(lastTwo<12||lastTwo>14))return few;
+    const value=Math.abs(Number(number)||0);
+    if(value===1)return one;
+    if(value>=2&&value<=4)return few;
     return many;
   };
 
