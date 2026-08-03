@@ -10,16 +10,7 @@
       #series .series-card>summary>span:first-child,
       #series .series-card>summary>span:first-child.vedator-collection-title-active,
       #series .series-card>summary>span:first-child.vedator-collection-title-complete,
-      #series .series-card>summary>span:first-child.vedator-series-started-persisted,
-      #series .series-body a,
-      #series .series-body a:visited,
-      #series .series-body a:hover,
-      #series .series-body a:active,
-      #series .series-body a .vedator-collection-item-title,
-      #series .series-body a .person-name,
-      #series .series-body a .episode-title,
-      #series .series-body a .vedator-collection-progress-text,
-      #series .series-body a .vedator-collection-complete-text{
+      #series .series-card>summary>span:first-child.vedator-series-started-persisted{
         color:var(--ink,#e5e7eb)!important;
         background:none!important;
         text-decoration:none!important;
@@ -27,7 +18,50 @@
         background-clip:border-box!important;
         -webkit-text-fill-color:currentColor!important;
       }
-      #series .series-body a *{text-decoration:none!important}
+
+      #series .series-body a,
+      #series .series-body a:visited,
+      #series .series-body a:hover,
+      #series .series-body a:active{
+        color:#392b9b!important;
+        background:none!important;
+        text-decoration:none!important;
+        -webkit-background-clip:border-box!important;
+        background-clip:border-box!important;
+        -webkit-text-fill-color:currentColor!important;
+      }
+
+      #series .series-body a>.vedator-collection-item-title,
+      #series .series-body a>.person-name,
+      #series .series-body a>.episode-title,
+      #series .series-body a>.vedator-collection-progress-text,
+      #series .series-body a>.vedator-collection-complete-text{
+        color:#392b9b!important;
+        background:none!important;
+        text-decoration:underline!important;
+        text-decoration-thickness:from-font!important;
+        text-underline-offset:.12em;
+        -webkit-background-clip:border-box!important;
+        background-clip:border-box!important;
+        -webkit-text-fill-color:currentColor!important;
+      }
+
+      #series .series-body a>.vedator-series-item-status-badge{
+        text-decoration:none!important;
+        -webkit-text-fill-color:currentColor!important;
+      }
+
+      html.theme-dark #series .series-body a,
+      html.theme-dark #series .series-body a:visited,
+      html.theme-dark #series .series-body a:hover,
+      html.theme-dark #series .series-body a:active,
+      html.theme-dark #series .series-body a>.vedator-collection-item-title,
+      html.theme-dark #series .series-body a>.person-name,
+      html.theme-dark #series .series-body a>.episode-title,
+      html.theme-dark #series .series-body a>.vedator-collection-progress-text,
+      html.theme-dark #series .series-body a>.vedator-collection-complete-text{
+        color:#c4b5fd!important;
+      }
     `;
     document.head.appendChild(plainStyle);
   }
@@ -168,10 +202,22 @@
     try{return new URL(value,location.href).href}catch(error){return String(value||'')}
   };
 
+  function stripSeriesStatusSuffix(value){
+    let text=String(value||'').trim();
+    const suffix=/(?:\s*(?:✓\s*)?Poslechnuto|\s*Rozposloucháno\s*·?\s*\d+\s*%)+\s*$/i;
+    let previous='';
+    while(text&&text!==previous){
+      previous=text;
+      text=text.replace(suffix,'').trim();
+    }
+    return text;
+  }
+
   function findSeriesEpisode(link){
     if(!Array.isArray(episodes))return null;
     const href=absoluteUrl(link.getAttribute('href'));
-    const title=(link.querySelector('.episode-title')?.textContent||link.textContent||'').trim();
+    const visibleTitle=link.querySelector('.episode-title')?.textContent||link.querySelector('.vedator-collection-item-title')?.textContent||link.textContent||'';
+    const title=stripSeriesStatusSuffix(visibleTitle);
     return episodes.find(episode=>
       absoluteUrl(episode.link)===href||
       absoluteUrl(episode.enclosure)===href||
@@ -179,15 +225,48 @@
     )||null;
   }
 
+  function normalizeSeriesLinkTitle(link,episode){
+    const canonical=String(episode?.title||link.dataset.vedatorEpisodeTitle||'').trim();
+    if(!canonical)return;
+
+    const badges=[...link.querySelectorAll(':scope > .vedator-series-item-status-badge')];
+    badges.slice(1).forEach(badge=>badge.remove());
+
+    const person=link.querySelector(':scope > .person-name');
+    const episodeTitle=link.querySelector(':scope > .episode-title');
+    if(person||episodeTitle){
+      if(episodeTitle&&episodeTitle.textContent!==canonical)episodeTitle.textContent=canonical;
+      return;
+    }
+
+    let title=link.querySelector(':scope > .vedator-collection-item-title');
+    if(!title){
+      title=document.createElement('span');
+      title.className='vedator-collection-item-title';
+      const badge=link.querySelector(':scope > .vedator-series-item-status-badge');
+      link.insertBefore(title,badge||link.firstChild);
+    }
+    if(title.textContent!==canonical)title.textContent=canonical;
+
+    for(const child of [...link.childNodes]){
+      if(child===title)continue;
+      if(child.nodeType===1&&child.classList?.contains('vedator-series-item-status-badge'))continue;
+      if(child.nodeType===3&&child.textContent.trim())child.remove();
+    }
+  }
+
   function prepareSeriesLinks(){
     document.querySelectorAll('#series .series-body a').forEach(link=>{
       const episode=findSeriesEpisode(link);
-      if(!episode?.enclosure)return;
-      link.dataset.vedatorAudioUrl=episode.enclosure;
-      link.dataset.vedatorEpisodeTitle=episode.title;
-      link.href=episode.enclosure;
-      link.removeAttribute('target');
-      link.removeAttribute('rel');
+      if(!episode)return;
+      if(episode.enclosure){
+        link.dataset.vedatorAudioUrl=episode.enclosure;
+        link.dataset.vedatorEpisodeTitle=episode.title;
+        link.href=episode.enclosure;
+        link.removeAttribute('target');
+        link.removeAttribute('rel');
+      }
+      normalizeSeriesLinkTitle(link,episode);
     });
   }
 
@@ -197,7 +276,7 @@
     return {
       label:card?.querySelector('summary span')?.textContent?.trim()||'Série',
       titles:links
-        .map(item=>item.dataset.vedatorEpisodeTitle||item.querySelector('.episode-title')?.textContent||item.textContent)
+        .map(item=>item.dataset.vedatorEpisodeTitle||item.querySelector('.episode-title')?.textContent||item.querySelector('.vedator-collection-item-title')?.textContent||stripSeriesStatusSuffix(item.textContent))
         .map(title=>String(title||'').trim())
         .filter(Boolean)
     };
