@@ -1,8 +1,9 @@
 (()=>{
   if(window.__vedatorEpisodeTranslationsLoader)return;
   window.__vedatorEpisodeTranslationsLoader=true;
+  window.__vedatorEpisodeTranslationsReady=false;
 
-  const VERSION='20260802-2236';
+  const VERSION='20260803-stable-series';
   const SOURCES=[
     ['episode-translations-346-337.js','data-vedator-episode-translations-346-337'],
     ['episode-translations-336-330.js','data-vedator-episode-translations-336-330'],
@@ -59,7 +60,7 @@
       const check=()=>{
         if(window.__vedatorLanguageBatchController){resolve(true);return}
         if(Date.now()-started>=timeout){resolve(false);return}
-        setTimeout(check,16);
+        setTimeout(check,50);
       };
       check();
     });
@@ -84,18 +85,19 @@
     });
   }
 
-  function refreshCatalogWhenReady(){
+  function finishWhenCatalogReady(){
     let attempts=0;
     const check=()=>{
       let dataReady=false;
       try{dataReady=Array.isArray(episodes)&&episodes.length>0}catch(_){}
-      if(dataReady&&typeof render==='function'){
-        render();
+      if(dataReady){
+        window.__vedatorEpisodeTranslationsReady=true;
         window.dispatchEvent(new Event('vedatorepisodetranslationsready'));
+        if(typeof render==='function')render();
         return;
       }
       attempts+=1;
-      if(attempts<400)setTimeout(check,25);
+      if(attempts<100)setTimeout(check,100);
     };
     check();
   }
@@ -103,6 +105,6 @@
   (async()=>{
     await waitForLanguageBatchController();
     for(const [source,marker] of SOURCES)await loadScript(source,marker);
-    refreshCatalogWhenReady();
+    finishWhenCatalogReady();
   })();
 })();
