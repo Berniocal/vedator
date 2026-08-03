@@ -8,6 +8,7 @@
   const dateFormatter=new Intl.DateTimeFormat('cs-CZ',{day:'numeric',month:'long',year:'numeric'});
   let episodeObserver=null;
   let renderGeneration=0;
+  let seriesSignature='';
 
   function readObject(key){
     try{
@@ -197,19 +198,40 @@
     return body;
   }
 
+  function groupId(group){
+    const items=(group.items||[]).map(item=>item.id||item.link||item.enclosure||item.title).join('|');
+    return `${group.name}::${items}`;
+  }
+
   window.renderSeries=function(){
     disconnectEpisodeObserver();
     ++renderGeneration;
-    const groups=seriesGroups();
     const count=document.querySelector('#count');
-    if(count)count.textContent=`Nalezeno ${groups.length} sérií`;
     const box=document.querySelector('#series');
+
+    if(!window.__vedatorEpisodeTranslationsReady){
+      if(count)count.textContent='Připravuji série…';
+      if(box.dataset.vedatorSeriesState!=='loading'){
+        box.dataset.vedatorSeriesState='loading';
+        box.innerHTML='<div class="status">Připravuji série v konečné podobě…</div>';
+      }
+      return;
+    }
+
+    const groups=seriesGroups();
+    const nextSignature=groups.map(groupId).join('\n');
+    if(count)count.textContent=`Nalezeno ${groups.length} sérií`;
+    if(nextSignature===seriesSignature&&box.dataset.vedatorSeriesState==='ready'&&box.querySelector('.series-card'))return;
+
+    const openGroups=new Set([...box.querySelectorAll('.series-card[open]')].map(card=>card.dataset.vedatorSeriesId).filter(Boolean));
     const fragment=document.createDocumentFragment();
     box.replaceChildren();
 
     groups.forEach(group=>{
       const details=document.createElement('details');
       details.className='series-card';
+      details.dataset.vedatorSeriesId=groupId(group);
+      details.open=openGroups.has(details.dataset.vedatorSeriesId);
       const summary=document.createElement('summary');
       const name=document.createElement('span');
       name.textContent=group.name;
@@ -218,15 +240,20 @@
       amount.textContent=`${group.items.length} dílů`;
       summary.append(name,amount);
       details.appendChild(summary);
-      details.addEventListener('toggle',()=>{
-        if(details.open&&details.dataset.loaded!=='1'){
-          details.dataset.loaded='1';
-          details.appendChild(seriesBody(group));
-        }
-      });
+      const loadBody=()=>{
+        if(details.dataset.loaded==='1')return;
+        details.dataset.loaded='1';
+        details.appendChild(seriesBody(group));
+      };
+      details.addEventListener('toggle',()=>{if(details.open)loadBody()});
+      if(details.open)loadBody();
       fragment.appendChild(details);
     });
     box.appendChild(fragment);
+    box.dataset.vedatorSeriesState='ready';
+    seriesSignature=nextSignature;
+    window.__vedatorDecorateCollections?.();
+    window.dispatchEvent(new Event('vedatorcontentchange'));
   };
 
   ensureSortOptions();
@@ -240,5 +267,4 @@
       if(typeof render==='function')render();
     }
   });
-  queueMicrotask(()=>{if(typeof render==='function')render()});
 })();
