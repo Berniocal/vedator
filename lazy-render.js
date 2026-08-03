@@ -3,9 +3,68 @@
   window.__vedatorLazyRender=true;
 
   const BATCH_SIZE=20;
+  const PLAYBACK_PROGRESS_KEY='vedatorPlaybackProgressV1';
+  const SORT_PREFERENCES_KEY='vedatorSortPreferencesV1';
   const dateFormatter=new Intl.DateTimeFormat('cs-CZ',{day:'numeric',month:'long',year:'numeric'});
   let episodeObserver=null;
   let renderGeneration=0;
+
+  function readObject(key){
+    try{
+      const value=JSON.parse(localStorage.getItem(key)||'{}');
+      return value&&typeof value==='object'&&!Array.isArray(value)?value:{};
+    }catch{return {}}
+  }
+
+  function ensureSortOptions(){
+    const select=document.querySelector('#episodeSort');
+    if(!select)return;
+    const options=[
+      ['started','Rozposlouchané první'],
+      ['completed','Poslechnuté první'],
+      ['unheard','Neposlechnuté první']
+    ];
+    for(const [value,label] of options){
+      if(select.querySelector(`option[value="${value}"]`))continue;
+      const option=document.createElement('option');
+      option.value=value;
+      option.textContent=label;
+      select.appendChild(option);
+    }
+  }
+
+  function restoreSortPreferences(){
+    ensureSortOptions();
+    const preferences=readObject(SORT_PREFERENCES_KEY);
+    const episodeSort=document.querySelector('#episodeSort');
+    const seriesSort=document.querySelector('#seriesSort');
+    if(episodeSort&&[...episodeSort.options].some(option=>option.value===preferences.episode))episodeSort.value=preferences.episode;
+    if(seriesSort&&[...seriesSort.options].some(option=>option.value===preferences.series))seriesSort.value=preferences.series;
+  }
+
+  function saveSortPreferences(){
+    const episodeSort=document.querySelector('#episodeSort');
+    const seriesSort=document.querySelector('#seriesSort');
+    try{
+      localStorage.setItem(SORT_PREFERENCES_KEY,JSON.stringify({
+        episode:episodeSort?.value||'new',
+        series:seriesSort?.value||'count'
+      }));
+    }catch{}
+  }
+
+  function installSortPersistence(){
+    const episodeSort=document.querySelector('#episodeSort');
+    const seriesSort=document.querySelector('#seriesSort');
+    if(episodeSort&&episodeSort.dataset.vedatorSortPersistence!=='1'){
+      episodeSort.dataset.vedatorSortPersistence='1';
+      episodeSort.addEventListener('change',saveSortPreferences);
+    }
+    if(seriesSort&&seriesSort.dataset.vedatorSortPersistence!=='1'){
+      seriesSort.dataset.vedatorSortPersistence='1';
+      seriesSort.addEventListener('change',saveSortPreferences);
+    }
+  }
 
   function disconnectEpisodeObserver(){
     if(episodeObserver){episodeObserver.disconnect();episodeObserver=null}
@@ -18,15 +77,48 @@
     return article;
   }
 
+  function episodeKey(title){
+    const number=String(title||'').match(/\bpodcast\s+(\d+)\b/i)?.[1];
+    return number?`episode-${number}`:`title-${String(title||'').trim().toLowerCase()}`;
+  }
+
+  function listenState(episode,progress){
+    const record=progress[episodeKey(episode.title)];
+    if(record?.completed)return 'completed';
+    if(Number(record?.currentTime)>=10)return 'started';
+    return 'unheard';
+  }
+
+  function compareNewest(a,b){
+    const dateDifference=new Date(b.date)-new Date(a.date);
+    if(dateDifference)return dateDifference;
+    return (Number(b.number)||0)-(Number(a.number)||0);
+  }
+
+  function compareListenState(a,b,sort,progress){
+    const orders={
+      started:{started:0,unheard:1,completed:2},
+      completed:{completed:0,started:1,unheard:2},
+      unheard:{unheard:0,started:1,completed:2}
+    };
+    const order=orders[sort];
+    if(!order)return 0;
+    const difference=order[listenState(a,progress)]-order[listenState(b,progress)];
+    return difference||compareNewest(a,b);
+  }
+
   function sortedEpisodes(){
     const arr=filtered();
     const queries=expandedQuery(document.querySelector('#search').value);
     const topics=selectedTopicQueries();
     const sort=document.querySelector('#episodeSort').value;
+    const progress=['started','completed','unheard'].includes(sort)?readObject(PLAYBACK_PROGRESS_KEY):{};
     arr.sort((a,b)=>{
       if(topics.length&&a.topicMatch!==b.topicMatch)return a.topicMatch-b.topicMatch;
       if(queries.length&&a.searchMatch!==b.searchMatch)return a.searchMatch-b.searchMatch;
-      return sort==='old'?new Date(a.date)-new Date(b.date):sort==='number'?(b.number||0)-(a.number||0):new Date(b.date)-new Date(a.date);
+      const listenDifference=compareListenState(a,b,sort,progress);
+      if(listenDifference)return listenDifference;
+      return sort==='old'?new Date(a.date)-new Date(b.date):sort==='number'?(b.number||0)-(a.number||0):compareNewest(a,b);
     });
     return arr;
   }
@@ -136,4 +228,17 @@
     });
     box.appendChild(fragment);
   };
+
+  ensureSortOptions();
+  restoreSortPreferences();
+  installSortPersistence();
+  window.addEventListener('storage',event=>{
+    if(event.key===SORT_PREFERENCES_KEY){
+      restoreSortPreferences();
+      if(typeof render==='function')render();
+    }else if(event.key===PLAYBACK_PROGRESS_KEY&&['started','completed','unheard'].includes(document.querySelector('#episodeSort')?.value)){
+      if(typeof render==='function')render();
+    }
+  });
+  queueMicrotask(()=>{if(typeof render==='function')render()});
 })();
