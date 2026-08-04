@@ -2,7 +2,7 @@
   if(window.__vedatorDirectAppLoader)return;
   window.__vedatorDirectAppLoader=true;
 
-  const VERSION='direct-v205';
+  const VERSION='direct-v206';
   const knownPath=src=>{
     try{return new URL(src,location.href).pathname.split('/').pop()}
     catch{return''}
@@ -14,7 +14,7 @@
     if(hasStyle(name))return;
     const link=document.createElement('link');
     link.rel='stylesheet';
-    link.href=`./${name}?v=${VERSION}`;
+    link.href=`./${name}`;
     document.head.appendChild(link);
   }
 
@@ -23,7 +23,7 @@
       if(name==='first-load-recovery.js'||hasScript(name))continue;
       const script=document.createElement('script');
       script.async=false;
-      script.src=`./${name}?v=${VERSION}`;
+      script.src=`./${name}`;
       script.dataset.vedatorDirectAsset='1';
       document.head.appendChild(script);
     }
