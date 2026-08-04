@@ -2,6 +2,135 @@
   if(window.__vedatorFirstLoadRecovery)return;
   window.__vedatorFirstLoadRecovery=true;
 
+  // Sjednotí postup sérií, jejichž český a slovenský název se liší.
+  // collection-progress.js dál používá svoje původní ID, ale obě jazykové varianty
+  // dostanou při čtení i zápisu stejný sloučený záznam.
+  if(!window.__vedatorSeriesProgressLanguageSync){
+    window.__vedatorSeriesProgressLanguageSync=true;
+    const SERIES_PROGRESS_KEY='vedatorCollectionProgressV1';
+    const nativeStorageGet=Storage.prototype.getItem;
+    const nativeStorageSet=Storage.prototype.setItem;
+    const normalizeSeries=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+    const aliasGroups=[
+      ['cerne diry','cierne diery'],
+      ['hledani mimozemskeho zivota','hladanie mimozemskeho zivota'],
+      ['rozhovory o vesmiru','rozhovory o vesmire'],
+      ['ziji vedu','ziju vedu','zijem vedu'],
+      ['teorie her','teoria hier'],
+      ['roky ve vede','roky vo vede'],
+      ['zeny ve vede','zeny vo vede'],
+      ['temna hmota a energie','temna hmota a energia','tmava hmota a energie','tmava hmota a energia'],
+      ['nobelovy ceny','nobelove ceny'],
+      ['ig nobelovy ceny','ig nobelove ceny']
+    ].map(group=>[...new Set(group.map(normalizeSeries))]);
+    const aliasToCanonical=new Map();
+    const canonicalToAliases=new Map();
+    aliasGroups.forEach(group=>{
+      const canonical=group[group.length-1];
+      canonicalToAliases.set(canonical,group);
+      group.forEach(alias=>aliasToCanonical.set(alias,canonical));
+    });
+    const canonicalSeries=value=>{
+      const normalized=normalizeSeries(value);
+      return aliasToCanonical.get(normalized)||normalized;
+    };
+    const aliasesFor=canonical=>canonicalToAliases.get(canonical)||[canonical];
+
+    function mergeItemRecords(first,second){
+      if(!first)return second&&typeof second==='object'?{...second}:{};
+      if(!second)return {...first};
+      const firstUpdated=Number(first.updatedAt)||0;
+      const secondUpdated=Number(second.updatedAt)||0;
+      const newer=secondUpdated>=firstUpdated?second:first;
+      const older=newer===second?first:second;
+      return {
+        ...older,
+        ...newer,
+        percent:Math.max(Number(first.percent)||0,Number(second.percent)||0),
+        completed:Boolean(first.completed)||Boolean(second.completed),
+        updatedAt:Math.max(firstUpdated,secondUpdated)
+      };
+    }
+
+    function mergeCollectionRecords(records,canonical){
+      const valid=records.filter(record=>record&&typeof record==='object');
+      if(!valid.length)return null;
+      const newest=valid.reduce((best,record)=>(Number(record.updatedAt)||0)>=(Number(best.updatedAt)||0)?record:best,valid[0]);
+      const items={};
+      for(const record of valid){
+        for(const [itemId,itemRecord] of Object.entries(record.items||{}))items[itemId]=mergeItemRecords(items[itemId],itemRecord);
+      }
+      return {
+        ...newest,
+        type:'series',
+        label:newest.label||canonical,
+        lastItemId:newest.lastItemId||'',
+        updatedAt:Math.max(...valid.map(record=>Number(record.updatedAt)||0)),
+        items
+      };
+    }
+
+    function synchronizeSeriesState(raw){
+      const source=String(raw??'');
+      if(!source)return source;
+      let value;
+      try{value=JSON.parse(source)}catch{return source}
+      if(!value||typeof value!=='object'||Array.isArray(value))return source;
+      const groups=new Map();
+      for(const [key,record] of Object.entries(value)){
+        if(!key.startsWith('series:')||!record||typeof record!=='object')continue;
+        const keyLabel=key.slice(7);
+        const canonical=canonicalSeries(record.label||keyLabel);
+        if(!groups.has(canonical))groups.set(canonical,[]);
+        groups.get(canonical).push({key,record});
+      }
+      for(const [canonical,entries] of groups){
+        const aliases=aliasesFor(canonical);
+        if(entries.length<2&&aliases.length<2)continue;
+        const merged=mergeCollectionRecords(entries.map(entry=>entry.record),canonical);
+        if(!merged)continue;
+        const keys=new Set(entries.map(entry=>entry.key));
+        aliases.forEach(alias=>keys.add(`series:${alias}`));
+        keys.forEach(key=>{value[key]={...merged,items:Object.fromEntries(Object.entries(merged.items).map(([itemId,item])=>[itemId,{...item}]))}});
+      }
+      try{return JSON.stringify(value)}catch{return source}
+    }
+
+    let storageEventQueued=false;
+    let queuedStorageValue='';
+    function notifyCollectionProgress(value){
+      queuedStorageValue=value;
+      if(storageEventQueued)return;
+      storageEventQueued=true;
+      queueMicrotask(()=>{
+        storageEventQueued=false;
+        let event;
+        try{event=new StorageEvent('storage',{key:SERIES_PROGRESS_KEY,newValue:queuedStorageValue,storageArea:localStorage,url:location.href})}
+        catch{
+          event=new Event('storage');
+          try{Object.defineProperties(event,{key:{value:SERIES_PROGRESS_KEY},newValue:{value:queuedStorageValue},storageArea:{value:localStorage}})}catch{}
+        }
+        window.dispatchEvent(event);
+      });
+    }
+
+    Storage.prototype.getItem=function(key){
+      const raw=nativeStorageGet.call(this,key);
+      if(this!==localStorage||key!==SERIES_PROGRESS_KEY||raw==null)return raw;
+      const synchronized=synchronizeSeriesState(raw);
+      if(synchronized!==raw)nativeStorageSet.call(this,key,synchronized);
+      return synchronized;
+    };
+    Storage.prototype.setItem=function(key,value){
+      if(this!==localStorage||key!==SERIES_PROGRESS_KEY)return nativeStorageSet.call(this,key,value);
+      const raw=String(value);
+      const synchronized=synchronizeSeriesState(raw);
+      const result=nativeStorageSet.call(this,key,synchronized);
+      if(synchronized!==raw)notifyCollectionProgress(synchronized);
+      return result;
+    };
+  }
+
   // Obnoví otázky z trvalé cache synchronně při vložení skryté epizody.
   // Původní vyhledávač tak po restartu nemusí čekat jeden snímek na každý díl.
   if(!window.__vedatorQuestionCacheStartupBridge){
