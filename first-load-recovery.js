@@ -2,7 +2,8 @@
   if(window.__vedatorFirstLoadRecovery)return;
   window.__vedatorFirstLoadRecovery=true;
 
-  const RETRY_KEY='vedator-first-load-recovery-v1';
+  const SW_URL='./sw-fast.js';
+  const RETRY_KEY='vedator-first-load-recovery-v2';
   const hasEnhancedUi=()=>Boolean(
     document.querySelector('.tab[data-view="questions"]')&&
     document.querySelector('.tab[data-view="playlists"]')
@@ -13,6 +14,23 @@
   });
   const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 
+  if('serviceWorker'in navigator&&!navigator.serviceWorker.__vedatorFastRegister){
+    const container=navigator.serviceWorker;
+    const originalRegister=container.register.bind(container);
+    const fastRegister=(scriptUrl,options)=>{
+      let nextUrl=scriptUrl;
+      try{
+        const resolved=new URL(scriptUrl,location.href);
+        if(resolved.pathname.endsWith('/sw.js'))nextUrl=SW_URL;
+      }catch{}
+      return originalRegister(nextUrl,options);
+    };
+    try{
+      Object.defineProperty(container,'register',{value:fastRegister,configurable:true});
+      Object.defineProperty(container,'__vedatorFastRegister',{value:true});
+    }catch{}
+  }
+
   async function waitForEnhancedUi(timeout=1800){
     const started=performance.now();
     while(performance.now()-started<timeout){
@@ -22,7 +40,7 @@
     return hasEnhancedUi();
   }
 
-  async function waitForController(timeout=3000){
+  async function waitForController(timeout=1600){
     if(navigator.serviceWorker.controller)return true;
     return new Promise(resolve=>{
       let settled=false;
@@ -58,16 +76,23 @@
 
     sessionStorage.setItem(RETRY_KEY,'1');
     try{
-      const registration=await navigator.serviceWorker.register('./sw.js');
+      const registration=await navigator.serviceWorker.register(SW_URL);
       registration.update().catch(()=>{});
       if(registration.waiting)registration.waiting.postMessage({type:'SKIP_WAITING'});
       await navigator.serviceWorker.ready;
-      await waitForController();
+      const controlled=await waitForController();
+      if(!controlled){
+        sessionStorage.removeItem(RETRY_KEY);
+        setTimeout(recover,250);
+        return;
+      }
     }catch(error){
+      sessionStorage.removeItem(RETRY_KEY);
       console.warn('Nepodařilo se připravit aktuální verzi aplikace.',error);
+      return;
     }
     location.reload();
   }
 
-  setTimeout(recover,250);
+  setTimeout(recover,25);
 })();
