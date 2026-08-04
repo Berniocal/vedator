@@ -3,7 +3,7 @@
   window.__vedatorFirstLoadRecovery=true;
 
   const SW_URL='./sw-fast.js';
-  const RETRY_KEY='vedator-first-load-recovery-v2';
+  const RETRY_KEY='vedator-first-load-recovery-v3';
   const hasEnhancedUi=()=>Boolean(
     document.querySelector('.tab[data-view="questions"]')&&
     document.querySelector('.tab[data-view="playlists"]')
@@ -13,23 +13,6 @@
     catch{return false}
   });
   const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-
-  if('serviceWorker'in navigator&&!navigator.serviceWorker.__vedatorFastRegister){
-    const container=navigator.serviceWorker;
-    const originalRegister=container.register.bind(container);
-    const fastRegister=(scriptUrl,options)=>{
-      let nextUrl=scriptUrl;
-      try{
-        const resolved=new URL(scriptUrl,location.href);
-        if(resolved.pathname.endsWith('/sw.js'))nextUrl=SW_URL;
-      }catch{}
-      return originalRegister(nextUrl,options);
-    };
-    try{
-      Object.defineProperty(container,'register',{value:fastRegister,configurable:true});
-      Object.defineProperty(container,'__vedatorFastRegister',{value:true});
-    }catch{}
-  }
 
   async function waitForEnhancedUi(timeout=1800){
     const started=performance.now();
@@ -57,6 +40,18 @@
     });
   }
 
+  async function removeCompetingFirstRegistration(){
+    if(navigator.serviceWorker.controller)return;
+    const registration=await navigator.serviceWorker.getRegistration();
+    if(!registration)return;
+    const workers=[registration.installing,registration.waiting,registration.active].filter(Boolean);
+    const names=workers.map(worker=>{
+      try{return new URL(worker.scriptURL).pathname.split('/').pop()}
+      catch{return''}
+    });
+    if(names.includes('sw.js')&&!names.includes('sw-fast.js'))await registration.unregister();
+  }
+
   async function recover(){
     if(hasEnhancedUi()){
       sessionStorage.removeItem(RETRY_KEY);
@@ -69,13 +64,11 @@
     }
 
     if(!('serviceWorker'in navigator))return;
-    if(sessionStorage.getItem(RETRY_KEY)==='1'){
-      sessionStorage.removeItem(RETRY_KEY);
-      return;
-    }
+    if(sessionStorage.getItem(RETRY_KEY)==='1')return;
 
     sessionStorage.setItem(RETRY_KEY,'1');
     try{
+      await removeCompetingFirstRegistration();
       const registration=await navigator.serviceWorker.register(SW_URL);
       registration.update().catch(()=>{});
       if(registration.waiting)registration.waiting.postMessage({type:'SKIP_WAITING'});
@@ -91,7 +84,7 @@
       console.warn('Nepodařilo se připravit aktuální verzi aplikace.',error);
       return;
     }
-    location.reload();
+    location.replace(location.href);
   }
 
   setTimeout(recover,25);
