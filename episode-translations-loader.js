@@ -3,8 +3,9 @@
   window.__vedatorEpisodeTranslationsLoader=true;
   window.__vedatorEpisodeTranslationsReady=false;
 
-  const VERSION='20260804-episode-346-summary';
+  const VERSION='20260804-service-worker-update-fix';
   const SOURCES=[
+    ['service-worker-update-fix.js','data-vedator-service-worker-update-fix'],
     ['episode-346-summary.js','data-vedator-episode-346-summary'],
     ['episode-translations-346-337.js','data-vedator-episode-translations-346-337'],
     ['episode-translations-336-330.js','data-vedator-episode-translations-336-330'],
