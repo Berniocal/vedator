@@ -3,7 +3,7 @@
   window.__vedatorFirstLoadRecovery=true;
 
   // Původní zvýrazňovač zůstane vypnutý, aby neběžely dva současně.
-  // Výkonnostní modul se načte po dokončení všech stávajících defer skriptů.
+  // Výkonnostní moduly se načtou po dokončení všech stávajících defer skriptů.
   window.__vedatorHighlightPatch=true;
   const loadPerformanceBoost=()=>{
     if(window.__vedatorPerformanceBoostLoading||window.__vedatorPerformanceBoost)return;
@@ -11,7 +11,16 @@
     const performanceScript=document.createElement('script');
     performanceScript.src='./performance-boost.js';
     performanceScript.async=false;
-    performanceScript.onload=()=>{window.__vedatorPerformanceBoostLoading=false};
+    performanceScript.onload=()=>{
+      window.__vedatorPerformanceBoostLoading=false;
+      if(!window.__vedatorPersistentPerformanceCache&&!document.querySelector('script[data-vedator-persistent-performance]')){
+        const persistentScript=document.createElement('script');
+        persistentScript.src='./performance-persistent-cache.js';
+        persistentScript.async=false;
+        persistentScript.dataset.vedatorPersistentPerformance='1';
+        document.head.appendChild(persistentScript);
+      }
+    };
     performanceScript.onerror=()=>{
       window.__vedatorPerformanceBoostLoading=false;
       window.__vedatorHighlightPatch=false;
