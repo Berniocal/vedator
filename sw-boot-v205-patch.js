@@ -1,6 +1,6 @@
 (()=>{
-  if(self.__vedatorBootV205Patch)return;
-  self.__vedatorBootV205Patch=true;
+  if(self.__vedatorBootV206Patch)return;
+  self.__vedatorBootV206Patch=true;
 
   const nativeFetch=self.fetch.bind(self);
 
@@ -29,7 +29,7 @@
     if(!html.includes('direct-app-loader.js')){
       html=html.replace(
         '<script src="./first-load-recovery.js" defer></script>',
-        '<script src="./first-load-recovery.js" defer></script><script src="./direct-app-loader.js?v=205" defer data-vedator-direct-loader="1"></script>'
+        '<script src="./first-load-recovery.js" defer></script><script src="./direct-app-loader.js?v=206" defer data-vedator-direct-loader="1"></script>'
       );
     }
     return html;
