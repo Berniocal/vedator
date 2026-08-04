@@ -14,5 +14,6 @@
       return originalAddAll.call(this,core);
     };
   }
+  importScripts('./sw-346-patch.js');
   importScripts('./sw.js');
 })();
