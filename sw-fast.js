@@ -1,5 +1,5 @@
 (()=>{
-  const VEDATOR_SW_WRAPPER_VERSION='v205';
+  const VEDATOR_SW_WRAPPER_VERSION='v206';
   self.__vedatorSwWrapperVersion=VEDATOR_SW_WRAPPER_VERSION;
 
   const originalAddAll=typeof Cache!=='undefined'?Cache.prototype.addAll:null;
@@ -20,5 +20,6 @@
   importScripts('./sw-boot-v205-patch.js');
   importScripts('./sw-v204-overlay.js');
   importScripts('./sw-346-patch.js');
+  importScripts('./sw-cache-first-v206.js');
   importScripts('./sw.js');
 })();
