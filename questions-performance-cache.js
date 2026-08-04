@@ -244,10 +244,10 @@
     if(reset)warmGeneration++;
     if(warmScheduled)return;
     warmScheduled=true;
-    const generation=warmGeneration;
-    const lang=language();
     const start=()=>{
       warmScheduled=false;
+      const generation=warmGeneration;
+      const lang=language();
       if(!window.__vedatorQuestionsView){setTimeout(()=>scheduleWarm(),120);return}
       void warmAll(generation,lang);
     };
