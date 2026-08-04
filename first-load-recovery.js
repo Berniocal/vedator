@@ -2,10 +2,11 @@
   if(window.__vedatorFirstLoadRecovery)return;
   window.__vedatorFirstLoadRecovery=true;
 
-  // Výkonnostní modul se načte ještě před ostatními rozšířeními aplikace.
-  // Původní zvýrazňovač mezitím zůstane vypnutý, aby neběžely dva současně.
+  // Původní zvýrazňovač zůstane vypnutý, aby neběžely dva současně.
+  // Výkonnostní modul se načte po dokončení všech stávajících defer skriptů.
   window.__vedatorHighlightPatch=true;
-  if(!window.__vedatorPerformanceBoostLoading&&!window.__vedatorPerformanceBoost){
+  const loadPerformanceBoost=()=>{
+    if(window.__vedatorPerformanceBoostLoading||window.__vedatorPerformanceBoost)return;
     window.__vedatorPerformanceBoostLoading=true;
     const performanceScript=document.createElement('script');
     performanceScript.src='./performance-boost.js';
@@ -22,7 +23,9 @@
       }
     };
     document.head.appendChild(performanceScript);
-  }
+  };
+  if(document.readyState==='complete')loadPerformanceBoost();
+  else document.addEventListener('DOMContentLoaded',loadPerformanceBoost,{once:true});
 
   // Posluchače rozbalení sérií zaregistrované později přesune do dalšího snímku.
   // Šipka a otevření karty se tak vykreslí ihned, obsah se doplní vzápětí.
