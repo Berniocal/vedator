@@ -204,7 +204,21 @@
     });
   }
 
+  function addSlovakEpisodeAliases(){
+    document.querySelectorAll('.vedator-playlist-open[data-ref] .vedator-item-sub').forEach(subtitle=>{
+      if(subtitle.querySelector('.vedator-playlist-episode-alias'))return;
+      const match=subtitle.textContent.match(/\bDiel\s*(\d+)/i);
+      if(!match)return;
+      const alias=document.createElement('span');
+      alias.className='vedator-playlist-episode-alias';
+      alias.hidden=true;
+      alias.textContent=` Díl ${match[1]}`;
+      subtitle.appendChild(alias);
+    });
+  }
+
   function decorateAll(){
+    addSlovakEpisodeAliases();
     document.querySelectorAll('.vedator-playlist-list .vedator-playlist-card[data-id]').forEach(decorateCard);
     translateCollectionButtons();
   }
