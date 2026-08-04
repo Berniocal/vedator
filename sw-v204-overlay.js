@@ -1,10 +1,10 @@
 (()=>{
-  if(self.__vedatorSwV204Overlay)return;
-  self.__vedatorSwV204Overlay=true;
+  if(self.__vedatorSwV205Overlay)return;
+  self.__vedatorSwV205Overlay=true;
 
   const OLD_CACHE='vedator-temata-v203';
-  const NEW_CACHE='vedator-temata-v204';
-  const VERSION='v204';
+  const NEW_CACHE='vedator-temata-v205';
+  const VERSION='v205';
 
   // Starší sw.js dál odkazuje na v203. Přesměrováním CacheStorage jej bezpečně
   // necháme pracovat s novou cache, aniž bychom přepisovali jeho ostatní logiku.
@@ -21,7 +21,7 @@
       return names.map(name=>name===NEW_CACHE?OLD_CACHE:name);
     };
   }catch(error){
-    console.warn('Nepodařilo se přesměrovat cache na v204.',error);
+    console.warn('Nepodařilo se přesměrovat cache na v205.',error);
   }
 
   self.addEventListener('install',()=>self.skipWaiting());
