@@ -13,13 +13,14 @@
     performanceScript.async=false;
     performanceScript.onload=()=>{
       window.__vedatorPerformanceBoostLoading=false;
-      if(!window.__vedatorPersistentPerformanceCache&&!document.querySelector('script[data-vedator-persistent-performance]')){
+      setTimeout(()=>{
+        if(window.__vedatorPersistentPerformanceCache||document.querySelector('script[data-vedator-persistent-performance]'))return;
         const persistentScript=document.createElement('script');
         persistentScript.src='./performance-persistent-cache.js';
         persistentScript.async=false;
         persistentScript.dataset.vedatorPersistentPerformance='1';
         document.head.appendChild(persistentScript);
-      }
+      },100);
     };
     performanceScript.onerror=()=>{
       window.__vedatorPerformanceBoostLoading=false;
