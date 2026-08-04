@@ -2,6 +2,42 @@
   if(window.__vedatorFirstLoadRecovery)return;
   window.__vedatorFirstLoadRecovery=true;
 
+  // Výkonnostní modul se načte ještě před ostatními rozšířeními aplikace.
+  // Původní zvýrazňovač mezitím zůstane vypnutý, aby neběžely dva současně.
+  window.__vedatorHighlightPatch=true;
+  if(!window.__vedatorPerformanceBoostLoading&&!window.__vedatorPerformanceBoost){
+    window.__vedatorPerformanceBoostLoading=true;
+    const performanceScript=document.createElement('script');
+    performanceScript.src='./performance-boost.js';
+    performanceScript.async=false;
+    performanceScript.onload=()=>{window.__vedatorPerformanceBoostLoading=false};
+    performanceScript.onerror=()=>{
+      window.__vedatorPerformanceBoostLoading=false;
+      window.__vedatorHighlightPatch=false;
+      if(!document.querySelector('script[data-vedator-highlight-fallback]')){
+        const fallback=document.createElement('script');
+        fallback.src='./highlight-patch.js';
+        fallback.dataset.vedatorHighlightFallback='1';
+        document.head.appendChild(fallback);
+      }
+    };
+    document.head.appendChild(performanceScript);
+  }
+
+  // Posluchače rozbalení sérií zaregistrované později přesune do dalšího snímku.
+  // Šipka a otevření karty se tak vykreslí ihned, obsah se doplní vzápětí.
+  const nativeAddEventListener=EventTarget.prototype.addEventListener;
+  if(!EventTarget.prototype.__vedatorDeferredSeriesToggle){
+    Object.defineProperty(EventTarget.prototype,'__vedatorDeferredSeriesToggle',{value:true,configurable:true});
+    EventTarget.prototype.addEventListener=function(type,listener,options){
+      if(type==='toggle'&&typeof listener==='function'&&this instanceof HTMLElement&&this.classList.contains('series-card')){
+        const deferred=function(event){requestAnimationFrame(()=>listener.call(this,event))};
+        return nativeAddEventListener.call(this,type,deferred,options);
+      }
+      return nativeAddEventListener.call(this,type,listener,options);
+    };
+  }
+
   const SW_URL='./sw-fast.js';
   const RETRY_KEY='vedator-first-load-recovery-v3';
   const hasEnhancedUi=()=>Boolean(
