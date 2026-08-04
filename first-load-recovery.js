@@ -2,6 +2,17 @@
   if(window.__vedatorFirstLoadRecovery)return;
   window.__vedatorFirstLoadRecovery=true;
 
+  // Cache otázek se instaluje co nejdříve, aby zachytila i první vyhledávání.
+  if(!window.__vedatorQuestionCacheBoostLoading&&!window.__vedatorQuestionCacheBoost){
+    window.__vedatorQuestionCacheBoostLoading=true;
+    const questionCacheScript=document.createElement('script');
+    questionCacheScript.src='./questions-performance-cache.js';
+    questionCacheScript.async=false;
+    questionCacheScript.onload=()=>{window.__vedatorQuestionCacheBoostLoading=false};
+    questionCacheScript.onerror=()=>{window.__vedatorQuestionCacheBoostLoading=false};
+    document.head.appendChild(questionCacheScript);
+  }
+
   // Původní zvýrazňovač zůstane vypnutý, aby neběžely dva současně.
   // Výkonnostní moduly se načtou po dokončení všech stávajících defer skriptů.
   window.__vedatorHighlightPatch=true;
