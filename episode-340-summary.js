@@ -2,6 +2,55 @@
   if(window.__vedatorEpisode340Summary)return;
   window.__vedatorEpisode340Summary=true;
 
+  // Díl 346 musí fungovat i na instalacích, které stále používají přímo sw.js.
+  // Tento soubor se vždy spouští těsně před questions-view.js, takže zde
+  // synchronně zablokujeme starou verzi Otázek, načteme shrnutí 346 a následně
+  // spustíme stejný questions-view.js s doplněným dílem 346 a počtem 734.
+  if(!window.__vedatorEpisode346DirectRuntime){
+    window.__vedatorEpisode346DirectRuntime=true;
+    window.__vedatorQuestionsView=true;
+
+    const startPatchedQuestions=async()=>{
+      if(window.__vedatorQuestionsView346Started)return;
+      window.__vedatorQuestionsView346Started=true;
+      try{
+        const response=await fetch('./questions-view.js?episode346-direct=v1',{cache:'no-store'});
+        let code=await response.text();
+        code=code.replace(/const FAQ=\[([^\]]*)\]/,(_,source)=>{
+          const values=source.split(',').map(value=>value.trim()).filter(Boolean);
+          if(!values.includes('346'))values.unshift('346');
+          return `const FAQ=[${values.join(',')}]`;
+        });
+        code=code.replace(/TOTAL_QUESTIONS=\d+\b/,'TOTAL_QUESTIONS=734');
+        delete window.__vedatorQuestionsView;
+        const script=document.createElement('script');
+        script.dataset.vedatorQuestions346Runtime='1';
+        script.textContent=code+'\n//# sourceURL=questions-view-346-runtime.js';
+        document.head.appendChild(script);
+        script.remove();
+      }catch(error){
+        console.warn('Nepodařilo se spustit rozšířené Otázky pro díl 346.',error);
+        delete window.__vedatorQuestionsView;
+        const fallback=document.createElement('script');
+        fallback.src='./questions-view.js?episode346-fallback=v1';
+        fallback.defer=true;
+        document.head.appendChild(fallback);
+      }
+    };
+
+    if(window.__vedatorEpisode346Summary){
+      void startPatchedQuestions();
+    }else{
+      const summaryScript=document.createElement('script');
+      summaryScript.src='./episode-346-summary.js?direct=v1';
+      summaryScript.async=false;
+      summaryScript.dataset.vedatorEpisode346Direct='1';
+      summaryScript.onload=()=>void startPatchedQuestions();
+      summaryScript.onerror=()=>void startPatchedQuestions();
+      document.head.appendChild(summaryScript);
+    }
+  }
+
   const QUESTIONS=[
     {time:'2:00',title:'Entropie, absolutní nula a směr času',question:'Je při absolutní nule entropie nulová? A zastavil by se čas?',points:['Při absolutní nule systém padne do nejnižšího energetického stavu → entropie je minimální (v praxi téměř nulová).','Nic se nehýbe → v tomto smyslu „čas neplyne“, protože není žádná dynamika.','Směr času souvisí s růstem entropie; pokud se nic nemění, není „co měřit“.']},
     {time:'4:20',title:'Může kovová kulička narazit do rozbité mramorové stěny a opravit ji?',points:['Fyzikálně povolené, statisticky absolutně nemožné.','Aby se stěna „složila zpět“, musely by se všechny molekuly přesně vrátit opačným směrem.','Pravděpodobnost je extrémně malá: řádově 10^(10^20).','Je to příklad jednosměrnosti času a růstu entropie.']},
