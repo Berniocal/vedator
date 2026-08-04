@@ -33,7 +33,11 @@
 
   function currentTerms(){
     const query=document.querySelector('#search')?.value?.trim()||'';
-    if(query)return [...new Set([query,...query.split(/\s+/)].map(normalize).filter(term=>term.length>=2))].sort((a,b)=>b.length-a.length);
+    if(query){
+      let queries=[query];
+      try{if(typeof expandedQuery==='function')queries=expandedQuery(query)}catch(_){}
+      return [...new Set(queries.flatMap(value=>[value,...String(value).split(/\s+/)]).map(normalize).filter(term=>term.length>=2))].sort((a,b)=>b.length-a.length);
+    }
     try{
       if(typeof active==='string'&&active!=='Vše'&&typeof TOPICS!=='undefined'){
         const topicTerms=Array.isArray(TOPICS[active])?TOPICS[active]:[];
