@@ -5,7 +5,7 @@
   const STORAGE_KEY='vedatorTheme';
   const style=document.createElement('style');
   style.textContent=`
-    .header-actions{display:flex;flex-direction:column;align-items:stretch;gap:9px;min-width:138px}
+    .header-actions{display:flex;flex-direction:column;align-items:flex-end;gap:9px;min-width:138px}
     .theme-switch{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border:1px solid rgba(255,255,255,.35);border-radius:12px;background:rgba(255,255,255,.1);color:#fff;font-size:.82rem;font-weight:750;cursor:pointer;user-select:none}
     .theme-switch input{position:absolute;opacity:0;pointer-events:none}
     .theme-switch__track{position:relative;flex:0 0 auto;width:38px;height:22px;border-radius:999px;background:rgba(255,255,255,.28);transition:.2s}
@@ -13,6 +13,9 @@
     .theme-switch input:checked+.theme-switch__track{background:#8b7ee8}
     .theme-switch input:checked+.theme-switch__track::after{transform:translateX(16px)}
     .theme-switch:focus-within{outline:2px solid rgba(255,255,255,.75);outline-offset:2px}
+    .vedator-header-actions{justify-content:flex-end;max-width:100%;flex-wrap:nowrap}
+    .vedator-header-actions .install-app{order:0;width:auto;flex:0 1 auto}
+    .vedator-header-actions .vedator-language-switch{order:1;flex:0 0 auto}
 
     html.theme-dark{color-scheme:dark;--bg:#0d111b;--card:#171d2a;--ink:#edf2ff;--muted:#aab4c8;--line:#30394b;--accent:#7c6ee6;--accent2:#29244b}
     html.theme-dark body{background:var(--bg);color:var(--ink)}
@@ -39,10 +42,10 @@
       .header-row{flex-direction:column;align-items:stretch;gap:14px}
       .header-row>div:first-child{width:100%;min-width:0}
       .header-row h1{max-width:none}
-      .header-actions{width:100%;min-width:0}
-      .theme-switch,.install-app{width:100%;min-height:42px}
-      .theme-switch{font-size:.82rem;padding:8px 10px}
-      .install-app{padding:9px 11px;font-size:.9rem}
+      .header-actions{width:auto;min-width:0;max-width:100%;align-self:flex-end;align-items:flex-end}
+      .theme-switch{width:auto;min-height:42px;font-size:.82rem;padding:8px 10px}
+      .vedator-header-actions{width:auto;max-width:100%;justify-content:flex-end}
+      .vedator-header-actions .install-app{width:auto;min-height:42px;padding:9px 11px;font-size:.9rem}
     }
   `;
   document.head.appendChild(style);
