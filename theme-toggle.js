@@ -35,23 +35,38 @@
     html.theme-dark .vedator-audio-seek-label{color:#c7c0ff}
     html.theme-dark .vedator-audio-seek::-webkit-slider-runnable-track{background:#4a426f}
     html.theme-dark .vedator-audio-seek::-moz-range-track{background:#4a426f}
-    @media(max-width:550px){.header-actions{min-width:126px}.theme-switch{font-size:.76rem;padding:7px 8px}}
+    @media(max-width:550px){
+      .header-row{flex-direction:column;align-items:stretch;gap:14px}
+      .header-row>div:first-child{width:100%;min-width:0}
+      .header-row h1{max-width:none}
+      .header-actions{width:100%;min-width:0}
+      .theme-switch,.install-app{width:100%;min-height:42px}
+      .theme-switch{font-size:.82rem;padding:8px 10px}
+      .install-app{padding:9px 11px;font-size:.9rem}
+    }
   `;
   document.head.appendChild(style);
 
   const headerRow=document.querySelector('.header-row');
-  const installButton=document.querySelector('#installApp');
+  const originalInstallButton=document.querySelector('#installApp');
   if(!headerRow)return;
+
+  let installButton=null;
+  if(originalInstallButton){
+    installButton=originalInstallButton.cloneNode(true);
+    originalInstallButton.replaceWith(installButton);
+    installButton.classList.add('hidden');
+  }
 
   const actions=document.createElement('div');
   actions.className='header-actions';
   headerRow.appendChild(actions);
-  if(installButton)actions.appendChild(installButton);
 
   const label=document.createElement('label');
   label.className='theme-switch';
   label.innerHTML=`<span class="theme-switch__text">Tmavý režim</span><input type="checkbox" aria-label="Tmavý režim"><span class="theme-switch__track" aria-hidden="true"></span>`;
   actions.appendChild(label);
+  if(installButton)actions.appendChild(installButton);
 
   const checkbox=label.querySelector('input');
   const text=label.querySelector('.theme-switch__text');
@@ -74,4 +89,58 @@
 
   checkbox.addEventListener('change',()=>applyTheme(checkbox.checked,true));
   applyTheme(preferredDark(),false);
+
+  if(!installButton)return;
+
+  let deferredInstallPrompt=null;
+  const userAgent=navigator.userAgent||'';
+  const isIos=/iphone|ipad|ipod/i.test(userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const isIosSafari=isIos&&/safari/i.test(userAgent)&&!/crios|fxios|edgios|opios/i.test(userAgent);
+  const isInstalled=()=>window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+
+  function updateInstallButton(){
+    const available=!isInstalled()&&(Boolean(deferredInstallPrompt)||isIos);
+    installButton.classList.toggle('hidden',!available);
+    installButton.textContent=isIos?'Přidat na plochu':'Instalovat aplikaci';
+    installButton.setAttribute('aria-label',installButton.textContent);
+  }
+
+  window.addEventListener('beforeinstallprompt',event=>{
+    event.preventDefault();
+    deferredInstallPrompt=event;
+    updateInstallButton();
+  });
+
+  window.addEventListener('appinstalled',()=>{
+    deferredInstallPrompt=null;
+    updateInstallButton();
+  });
+
+  installButton.addEventListener('click',async()=>{
+    if(isInstalled()){
+      updateInstallButton();
+      return;
+    }
+
+    if(deferredInstallPrompt){
+      const prompt=deferredInstallPrompt;
+      deferredInstallPrompt=null;
+      updateInstallButton();
+      try{
+        await prompt.prompt();
+        await prompt.userChoice;
+      }catch(error){
+        console.warn('Instalační dialog se nepodařilo otevřít.',error);
+      }
+      return;
+    }
+
+    if(isIos){
+      alert(isIosSafari
+        ?'V Safari klepněte na Sdílet a potom na Přidat na plochu.'
+        :'Pro přidání aplikace na plochu otevřete tuto stránku v Safari. Potom klepněte na Sdílet a na Přidat na plochu.');
+    }
+  });
+
+  updateInstallButton();
 })();
