@@ -5,9 +5,10 @@
   self.__vedatorSwWrapperVersion=VEDATOR_SW_WRAPPER_VERSION;
   self.__vedatorBootstrapVersion=VEDATOR_BOOTSTRAP_VERSION;
 
+  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
   const originalAddAll=typeof Cache!=='undefined'?Cache.prototype.addAll:null;
   if(originalAddAll){
-    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg']);
+    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png']);
     Cache.prototype.addAll=function(requests){
       const core=[...(requests||[])].filter(request=>{
         try{
@@ -83,6 +84,10 @@
   importScripts('./sw-346-patch.js');
   importScripts('./sw.js');
   self.addEventListener=nativeAddEventListener;
+
+  nativeAddEventListener('install',event=>event.waitUntil(
+    caches.open('vedator-temata-v203').then(cache=>cache.addAll(INSTALL_UI_FILES))
+  ));
 
   nativeAddEventListener('activate',event=>event.waitUntil((async()=>{
     const keep='vedator-temata-v203';
