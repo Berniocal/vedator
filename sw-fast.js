@@ -1,5 +1,5 @@
 (()=>{
-  const VEDATOR_SW_WRAPPER_VERSION='v204';
+  const VEDATOR_SW_WRAPPER_VERSION='v204-layout-1';
   const VEDATOR_BOOTSTRAP_VERSION='v204-reload-fix-1';
   const HAD_ACTIVE_WORKER=Boolean(self.registration.active);
   self.__vedatorSwWrapperVersion=VEDATOR_SW_WRAPPER_VERSION;
