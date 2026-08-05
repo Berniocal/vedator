@@ -54,7 +54,30 @@
   }
 
   function patchFirstLoad(code){
-    return code.replace(/const FAQ=new Set\(\[([^\]]*)\]\)/,(_,items)=>`const FAQ=new Set([${addNumbers(items,[346],true)}])`);
+    const bootstrapVersion=String(self.__vedatorBootstrapVersion||self.__vedatorSwWrapperVersion||'current');
+    const bootstrapKey=`vedator-bootstrap-${bootstrapVersion}`;
+    code=code.replace(/const FAQ=new Set\(\[([^\]]*)\]\)/,(_,items)=>`const FAQ=new Set([${addNumbers(items,[346],true)}])`);
+    code=code.replace(
+      "const RETRY_KEY='vedator-first-load-recovery-v3';",
+      `const RETRY_KEY='vedator-first-load-recovery-v3';\n  const BOOTSTRAP_KEY=${JSON.stringify(bootstrapKey)};`
+    );
+    code=code.replace(
+      'async function recover(){',
+      "async function recover(){\n    try{if(localStorage.getItem(BOOTSTRAP_KEY)==='1'){sessionStorage.removeItem(RETRY_KEY);return}}catch{}"
+    );
+    code=code.replace(
+      "if(hasEnhancedUi()){\n      sessionStorage.removeItem(RETRY_KEY);",
+      "if(hasEnhancedUi()){\n      try{localStorage.setItem(BOOTSTRAP_KEY,'1')}catch{}\n      sessionStorage.removeItem(RETRY_KEY);"
+    );
+    code=code.replace(
+      "if(enhancementsAreQueued()&&await waitForEnhancedUi()){\n      sessionStorage.removeItem(RETRY_KEY);",
+      "if(enhancementsAreQueued()&&await waitForEnhancedUi()){\n      try{localStorage.setItem(BOOTSTRAP_KEY,'1')}catch{}\n      sessionStorage.removeItem(RETRY_KEY);"
+    );
+    code=code.replace(
+      '    location.replace(location.href);',
+      "    try{localStorage.setItem(BOOTSTRAP_KEY,'1')}catch{}\n    location.replace(location.href);"
+    );
+    return code;
   }
 
   function patchQuestionControls(code){
