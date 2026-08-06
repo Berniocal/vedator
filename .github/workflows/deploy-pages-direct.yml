@@ -1,0 +1,46 @@
+name: Přímé nasazení GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/deploy-pages-direct.yml'
+      - '.nojekyll'
+      - 'index.html'
+      - '*.js'
+      - '*.css'
+      - '*.json'
+      - 'icons/**'
+      - 'assets/**'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-direct
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Načíst repozitář
+        uses: actions/checkout@v4
+
+      - name: Nahrát statické soubory
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+
+      - name: Nasadit GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+        with:
+          timeout: 1800000
+          reporting_interval: 10000
