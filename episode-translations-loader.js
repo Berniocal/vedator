@@ -3,8 +3,9 @@
   window.__vedatorEpisodeTranslationsLoader=true;
   window.__vedatorEpisodeTranslationsReady=false;
 
-  const VERSION='20260803-stable-series';
+  const VERSION='20260806-episode-347';
   const SOURCES=[
+    ['episode-translations-347.js','data-vedator-episode-translations-347'],
     ['episode-translations-346-337.js','data-vedator-episode-translations-346-337'],
     ['episode-translations-336-330.js','data-vedator-episode-translations-336-330'],
     ['episode-translations-329-323.js','data-vedator-episode-translations-329-323'],
