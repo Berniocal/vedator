@@ -25,6 +25,10 @@
     if(faqKey)TOPICS[faqKey]=[...new Set([...(TOPICS[faqKey]||[]),'otázka','otázky','otazka','otazky'])];
   }catch(error){console.warn('Nepodarilo sa rozšíriť tematické kľúčové slová',error)}
 
+  function searchableDescription(description){
+    return cleanHtml(description).replace(/Podcast vzniká[\s\S]*/i,'').trim();
+  }
+
   function keywordRegex(keyword){
     const value=norm(keyword);
     if(!value)return null;
@@ -39,32 +43,75 @@
     return regex?regex.test(text):false;
   }
 
+  function correctedMatchLevel(ep,queries){
+    if(!queries.length)return 0;
+    const title=norm(ep.title),desc=norm(searchableDescription(ep.description));
+    if(queries.some(query=>title.includes(query)))return 0;
+    if(queries.some(query=>query.split(' ').every(word=>title.includes(word))))return 1;
+    if(queries.some(query=>desc.includes(query)))return 2;
+    if(queries.some(query=>query.split(' ').every(word=>desc.includes(word))))return 3;
+    return 99;
+  }
+
   function strictTopicLevel(ep,queries){
     if(!queries.length)return 0;
-    const title=norm(ep.title),desc=norm(cleanHtml(ep.description));
+    const title=norm(ep.title),desc=norm(searchableDescription(ep.description));
     if(queries.some(query=>containsKeyword(title,query)))return 0;
     if(queries.some(query=>containsKeyword(desc,query)))return 2;
     return 99;
   }
 
-  try{
-    categories=function(ep){
-      const txt=norm(ep.title+' '+cleanHtml(ep.description));
-      return Object.entries(TOPICS)
-        .filter(([key,words])=>key!=='Vše'&&words.some(word=>containsKeyword(txt,word)))
-        .map(([key])=>key);
-    };
+  function correctedCategories(ep){
+    const txt=norm(ep.title+' '+searchableDescription(ep.description));
+    return Object.entries(TOPICS)
+      .filter(([key,words])=>key!=='Vše'&&words.some(word=>containsKeyword(txt,word)))
+      .map(([key])=>key);
+  }
 
-    filtered=function(){
-      const queries=expandedQuery(document.querySelector('#search').value);
-      const topics=selectedTopicQueries();
-      return episodes
-        .map(ep=>{
-          const searchMatch=matchLevel(ep,queries);
-          const topicMatch=strictTopicLevel(ep,topics);
-          return {...ep,cats:categories(ep),searchMatch,topicMatch};
-        })
-        .filter(ep=>(!queries.length||ep.searchMatch<99)&&(!topics.length||ep.topicMatch<99));
+  function correctedFiltered(){
+    const queries=expandedQuery(document.querySelector('#search').value);
+    const topics=selectedTopicQueries();
+    return episodes
+      .map(ep=>{
+        const searchMatch=correctedMatchLevel(ep,queries);
+        const topicMatch=strictTopicLevel(ep,topics);
+        return {...ep,cats:correctedCategories(ep),searchMatch,topicMatch};
+      })
+      .filter(ep=>(!queries.length||ep.searchMatch<99)&&(!topics.length||ep.topicMatch<99));
+  }
+  correctedFiltered.__vedatorSearchBoundary=true;
+
+  function installCorrectedFilter(){
+    try{
+      matchLevel=correctedMatchLevel;
+      categories=correctedCategories;
+      filtered=correctedFiltered;
+      window.matchLevel=correctedMatchLevel;
+      window.categories=correctedCategories;
+      window.filtered=correctedFiltered;
+    }catch(error){console.warn('Nepodarilo sa opraviť tematické filtrovanie',error)}
+  }
+
+  installCorrectedFilter();
+
+  // Výkonnostní moduly později nahrazují funkci filtered vlastní verzí.
+  // Po jejich načtení proto znovu nasadíme stejný omezený filtr.
+  try{
+    const performanceScript=/\/(?:performance-boost|performance-persistent-cache)\.js(?:[?#]|$)/;
+    const watched=new WeakSet();
+    const watchScript=script=>{
+      if(!script||script.tagName!=='SCRIPT'||watched.has(script)||!performanceScript.test(script.src||''))return;
+      watched.add(script);
+      script.addEventListener('load',()=>queueMicrotask(installCorrectedFilter),{once:true});
     };
-  }catch(error){console.warn('Nepodarilo sa opraviť tematické filtrovanie',error)}
+    document.querySelectorAll('script[src]').forEach(watchScript);
+    const observer=new MutationObserver(records=>{
+      for(const record of records)for(const node of record.addedNodes){
+        watchScript(node);
+        node.querySelectorAll?.('script[src]').forEach(watchScript);
+      }
+    });
+    observer.observe(document.head,{childList:true,subtree:true});
+    window.addEventListener('load',()=>setTimeout(installCorrectedFilter,0),{once:true});
+  }catch(error){console.warn('Nepodarilo sa zachovať opravené filtrovanie',error)}
 })();
