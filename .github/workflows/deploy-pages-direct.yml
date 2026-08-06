@@ -2,8 +2,10 @@ name: Přímé nasazení GitHub Pages
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '30 18 6 8 *'
   workflow_run:
-    workflows: ['pages-build-deployment']
+    workflows: ['pages-build-deployment', 'pages build and deployment']
     types: [completed]
   push:
     branches: [main]
@@ -18,13 +20,14 @@ on:
       - 'assets/**'
 
 permissions:
+  actions: write
   contents: read
   pages: write
   id-token: write
 
 concurrency:
   group: pages-direct
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -50,3 +53,15 @@ jobs:
         with:
           timeout: 1800000
           reporting_interval: 10000
+
+      - name: Vypnout jednorázový plán
+        if: always() && github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl --fail --silent --show-error \
+            -X PUT \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/deploy-pages-direct.yml/disable"
