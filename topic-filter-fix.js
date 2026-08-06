@@ -95,7 +95,7 @@
   installCorrectedFilter();
 
   // Výkonnostní moduly později nahrazují funkci filtered vlastní verzí.
-  // Po jejich načtení proto znovu nasadíme stejný omezený filtr.
+  // Po jejich načtení proto znovu nasadíme tentýž omezený filtr.
   try{
     const performanceScript=/\/(?:performance-boost|performance-persistent-cache)\.js(?:[?#]|$)/;
     const watched=new WeakSet();
