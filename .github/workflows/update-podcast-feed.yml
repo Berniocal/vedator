@@ -11,8 +11,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   update-feed:
@@ -84,27 +82,3 @@ jobs:
             git commit -m 'Automatická aktualizace katalogu epizod'
             git push
           fi
-
-  deploy-pages:
-    name: Přímé nasazení webu
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Načíst repozitář
-        uses: actions/checkout@v4
-        with:
-          ref: main
-
-      - name: Nahrát statické soubory
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: '.'
-
-      - name: Nasadit GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
-        with:
-          timeout: 1800000
-          reporting_interval: 10000
