@@ -2,22 +2,8 @@ name: Přímé nasazení GitHub Pages
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '30 18 6 8 *'
-  workflow_run:
-    workflows: ['pages-build-deployment', 'pages build and deployment']
-    types: [completed]
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/deploy-pages-direct.yml'
-      - '.nojekyll'
-      - 'index.html'
-      - '*.js'
-      - '*.css'
-      - '*.json'
-      - 'icons/**'
-      - 'assets/**'
+  issues:
+    types: [opened]
 
 permissions:
   actions: write
@@ -31,7 +17,7 @@ concurrency:
 
 jobs:
   deploy:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.head_branch == 'main'
+    if: github.event_name != 'issues' || startsWith(github.event.issue.title, '[deploy-pages]')
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -54,8 +40,8 @@ jobs:
           timeout: 1800000
           reporting_interval: 10000
 
-      - name: Vypnout jednorázový plán
-        if: always() && github.event_name == 'schedule'
+      - name: Vypnout jednorázové workflow
+        if: always() && github.event_name == 'issues'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
