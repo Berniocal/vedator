@@ -2,6 +2,9 @@ name: Přímé nasazení GitHub Pages
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ['pages-build-deployment']
+    types: [completed]
   push:
     branches: [main]
     paths:
@@ -25,6 +28,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.head_branch == 'main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -32,6 +36,8 @@ jobs:
     steps:
       - name: Načíst repozitář
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Nahrát statické soubory
         uses: actions/upload-pages-artifact@v4
