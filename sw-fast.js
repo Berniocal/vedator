@@ -1,5 +1,5 @@
 (()=>{
-  const VEDATOR_SW_WRAPPER_VERSION='v204-layout-3-offline';
+  const VEDATOR_SW_WRAPPER_VERSION='v204-layout-4-offline-switch';
   const VEDATOR_BOOTSTRAP_VERSION='v204-reload-fix-1';
   const HAD_ACTIVE_WORKER=Boolean(self.registration.active);
   const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
@@ -7,10 +7,10 @@
   self.__vedatorSwWrapperVersion=VEDATOR_SW_WRAPPER_VERSION;
   self.__vedatorBootstrapVersion=VEDATOR_BOOTSTRAP_VERSION;
 
-  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./offline-audio.js'];
+  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./offline-switch-fix.js','./offline-audio.js'];
   const originalAddAll=typeof Cache!=='undefined'?Cache.prototype.addAll:null;
   if(originalAddAll){
-    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png','offline-audio.js']);
+    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png','offline-switch-fix.js','offline-audio.js']);
     Cache.prototype.addAll=function(requests){
       const core=[...(requests||[])].filter(request=>{
         try{
@@ -57,9 +57,14 @@
     let html=await response.text();
     html=html.replace(/navigator\.serviceWorker\.register\((['"])(?:\.\/)?sw\.js\1\)/g,"navigator.serviceWorker.register('sw-fast.js')");
     html=removeAutomaticUpdater(html);
+    const beforeData='<script src="./data-backup.js" defer></script>';
+    if(!html.includes('offline-switch-fix.js')){
+      const tag='<script src="./offline-switch-fix.js" defer></script>';
+      if(html.includes('offline-audio.js'))html=html.replace('<script src="./offline-audio.js" defer></script>',tag+'<script src="./offline-audio.js" defer></script>');
+      else html=html.includes(beforeData)?html.replace(beforeData,tag+beforeData):html.replace('</body>',tag+'</body>');
+    }
     if(!html.includes('offline-audio.js')){
       const tag='<script src="./offline-audio.js" defer></script>';
-      const beforeData='<script src="./data-backup.js" defer></script>';
       html=html.includes(beforeData)?html.replace(beforeData,tag+beforeData):html.replace('</body>',tag+'</body>');
     }
     if(!html.includes('data-vedator-bootstrap-ready')){
@@ -70,8 +75,6 @@
   }
 
   self.addEventListener=function(type,listener,options){
-    // Aktivaci řídí obal níže. Původní vrstvy by jinak převzaly otevřenou
-    // stránku a poslaly několik zpráv, na které starší verze reaguje reloadem.
     if(type==='activate')return;
     if(type==='fetch'){
       return nativeAddEventListener('fetch',event=>{
@@ -155,9 +158,6 @@
   nativeAddEventListener('activate',event=>event.waitUntil((async()=>{
     const keep=new Set(['vedator-temata-v203',OFFLINE_AUDIO_CACHE]);
     await Promise.all((await caches.keys()).filter(name=>!keep.has(name)).map(name=>caches.delete(name)));
-    // Při úplně první instalaci musí worker převzít stránku, aby následoval
-    // jediný bootstrap reload. Při aktualizaci nechá rozehraný podcast doběhnout
-    // a nová verze se použije až při příštím otevření nebo ručním obnovení.
     if(!HAD_ACTIVE_WORKER)await self.clients.claim();
   })()));
 })();
