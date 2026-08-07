@@ -2,13 +2,15 @@
   const VEDATOR_SW_WRAPPER_VERSION='v204-layout-2';
   const VEDATOR_BOOTSTRAP_VERSION='v204-reload-fix-1';
   const HAD_ACTIVE_WORKER=Boolean(self.registration.active);
+  const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
+  const OFFLINE_AUDIO_PATH='/__vedator_offline_audio__/';
   self.__vedatorSwWrapperVersion=VEDATOR_SW_WRAPPER_VERSION;
   self.__vedatorBootstrapVersion=VEDATOR_BOOTSTRAP_VERSION;
 
-  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
+  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./offline-audio.js'];
   const originalAddAll=typeof Cache!=='undefined'?Cache.prototype.addAll:null;
   if(originalAddAll){
-    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png']);
+    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png','offline-audio.js']);
     Cache.prototype.addAll=function(requests){
       const core=[...(requests||[])].filter(request=>{
         try{
@@ -55,6 +57,11 @@
     let html=await response.text();
     html=html.replace(/navigator\.serviceWorker\.register\((['"])(?:\.\/)?sw\.js\1\)/g,"navigator.serviceWorker.register('sw-fast.js')");
     html=removeAutomaticUpdater(html);
+    if(!html.includes('offline-audio.js')){
+      const tag='<script src="./offline-audio.js" defer></script>';
+      const beforeData='<script src="./data-backup.js" defer></script>';
+      html=html.includes(beforeData)?html.replace(beforeData,tag+beforeData):html.replace('</body>',tag+'</body>');
+    }
     if(!html.includes('data-vedator-bootstrap-ready')){
       const marker=`<script data-vedator-bootstrap-ready>try{localStorage.setItem(${JSON.stringify(bootstrapKey)},'1')}catch{}</script>`;
       html=html.replace('</head>',marker+'</head>');
@@ -85,13 +92,69 @@
   importScripts('./sw.js');
   self.addEventListener=nativeAddEventListener;
 
+  function isOfflineAudioRequest(request){
+    if(request.method!=='GET')return false;
+    try{return new URL(request.url).pathname.includes(OFFLINE_AUDIO_PATH)}catch{return false}
+  }
+
+  function parseRange(value,size){
+    const match=String(value||'').match(/^bytes=(\d*)-(\d*)$/i);
+    if(!match||size<=0)return null;
+    let start=match[1]?Number(match[1]):null;
+    let end=match[2]?Number(match[2]):null;
+    if(start===null&&end===null)return null;
+    if(start===null){
+      const suffix=Math.max(0,end||0);
+      if(!suffix)return null;
+      start=Math.max(0,size-suffix);
+      end=size-1;
+    }else{
+      if(!Number.isFinite(start)||start<0||start>=size)return null;
+      if(end===null||!Number.isFinite(end)||end>=size)end=size-1;
+      if(end<start)return null;
+    }
+    return {start,end};
+  }
+
+  async function offlineAudioResponse(request){
+    const cache=await caches.open(OFFLINE_AUDIO_CACHE);
+    const cached=await cache.match(request.url);
+    if(!cached)return new Response('Offline audio nenalezeno.',{status:404});
+    const range=request.headers.get('range');
+    if(!range)return cached;
+    const blob=await cached.blob();
+    const parsed=parseRange(range,blob.size);
+    if(!parsed){
+      return new Response(null,{
+        status:416,
+        headers:{'Content-Range':`bytes */${blob.size}`,'Accept-Ranges':'bytes'}
+      });
+    }
+    const {start,end}=parsed;
+    const part=blob.slice(start,end+1,blob.type||cached.headers.get('content-type')||'audio/mpeg');
+    return new Response(part,{
+      status:206,
+      headers:{
+        'Content-Type':part.type||'audio/mpeg',
+        'Content-Length':String(part.size),
+        'Content-Range':`bytes ${start}-${end}/${blob.size}`,
+        'Accept-Ranges':'bytes',
+        'Cache-Control':'no-store'
+      }
+    });
+  }
+
+  nativeAddEventListener('fetch',event=>{
+    if(isOfflineAudioRequest(event.request))event.respondWith(offlineAudioResponse(event.request));
+  });
+
   nativeAddEventListener('install',event=>event.waitUntil(
     caches.open('vedator-temata-v203').then(cache=>cache.addAll(INSTALL_UI_FILES))
   ));
 
   nativeAddEventListener('activate',event=>event.waitUntil((async()=>{
-    const keep='vedator-temata-v203';
-    await Promise.all((await caches.keys()).filter(name=>name!==keep).map(name=>caches.delete(name)));
+    const keep=new Set(['vedator-temata-v203',OFFLINE_AUDIO_CACHE]);
+    await Promise.all((await caches.keys()).filter(name=>!keep.has(name)).map(name=>caches.delete(name)));
     // Při úplně první instalaci musí worker převzít stránku, aby následoval
     // jediný bootstrap reload. Při aktualizaci nechá rozehraný podcast doběhnout
     // a nová verze se použije až při příštím otevření nebo ručním obnovení.
