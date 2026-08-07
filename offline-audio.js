@@ -5,6 +5,7 @@
   const CACHE='vedator-offline-audio-v1';
   const INDEX_KEY='vedatorOfflineAudioIndexV1';
   const CLEAR_NOTICE_KEY='vedatorDataClearedNoticeV1';
+  const objectUrls=new Map();
   let index=loadIndex();
   let verifyStarted=false;
 
@@ -52,7 +53,8 @@
     if(number&&index[`episode-${number}`])return index[`episode-${number}`];
     return Object.values(index).find(record=>record&&(
       (raw&&absoluteUrl(record.originalUrl)===raw)||
-      (raw&&absoluteUrl(record.cacheUrl)===raw)
+      (raw&&absoluteUrl(record.cacheUrl)===raw)||
+      (raw&&objectUrls.get(record.key)===raw)
     ))||null;
   }
   function currentInfo(){
@@ -93,6 +95,23 @@
     }
     return {blob,type,total:loaded||blob.size};
   }
+  function rememberBlobUrl(key,blob){
+    const old=objectUrls.get(key);
+    if(old)try{URL.revokeObjectURL(old)}catch{}
+    const value=URL.createObjectURL(blob);
+    objectUrls.set(key,value);
+    return value;
+  }
+  async function blobUrlFor(record){
+    if(!record)return '';
+    const existing=objectUrls.get(record.key);
+    if(existing)return existing;
+    const cache=await caches.open(CACHE);
+    const cached=await cache.match(record.cacheUrl);
+    if(!cached)return '';
+    const blob=await cached.blob();
+    return rememberBlobUrl(record.key,blob);
+  }
   async function verifyIndex(){
     if(verifyStarted)return;
     verifyStarted=true;
@@ -101,6 +120,9 @@
       let changed=false;
       for(const [key,record] of Object.entries(index)){
         if(!record?.cacheUrl||!(await cache.match(record.cacheUrl))){
+          const objectUrl=objectUrls.get(key);
+          if(objectUrl)try{URL.revokeObjectURL(objectUrl)}catch{}
+          objectUrls.delete(key);
           delete index[key];
           changed=true;
         }
@@ -111,7 +133,7 @@
   }
   function sourceFor(title,url){
     const record=recordFor(title,url);
-    return record?.cacheUrl||url;
+    return record?(objectUrls.get(record.key)||record.cacheUrl):url;
   }
   window.__vedatorOfflineSource=sourceFor;
 
@@ -167,6 +189,51 @@
     button.title=saved?'Epizoda je uložená pro poslech bez internetu':'Uložit epizodu do této aplikace pro poslech bez internetu';
   }
 
+  function originalPlayLink(record){
+    const number=Number(record?.number)||episodeNumber(record?.title);
+    const articles=[...document.querySelectorAll('#episodes article')];
+    for(const article of articles){
+      const title=article.querySelector('h2')?.textContent?.trim()||'';
+      if((number&&episodeNumber(title)===number)||(!number&&title===record?.title)){
+        const link=article.querySelector('.links .primary');
+        if(link)return link;
+      }
+    }
+    return null;
+  }
+  function reopenCurrentFromBlob(record,blobUrl,time,wasPaused){
+    if(!blobUrl||!record)return;
+    const number=Number(record.number)||episodeNumber(record.title);
+    if(number)window.__vedatorRequestedStart={episode:number,time:Math.max(0,Number(time)||0),createdAt:Date.now()};
+    const existing=originalPlayLink(record);
+    let proxy=null;
+    let play=existing;
+    if(!play){
+      const box=document.querySelector('#episodes');
+      if(!box)return;
+      proxy=document.createElement('article');
+      proxy.hidden=true;
+      proxy.innerHTML='<h2></h2><div class="links"><a class="primary"></a></div>';
+      proxy.querySelector('h2').textContent=record.title||`Podcast ${number||''}`;
+      play=proxy.querySelector('a');
+      box.appendChild(proxy);
+    }
+    const oldHref=play.getAttribute('href');
+    const oldFlag=play.dataset.vedatorOfflineReplay;
+    play.dataset.vedatorOfflineReplay='1';
+    play.setAttribute('href',blobUrl);
+    const audio=document.querySelector('.vedator-audio-card audio');
+    if(wasPaused&&audio){
+      audio.addEventListener('play',()=>{try{audio.pause()}catch{}},{once:true});
+    }
+    try{play.click()}catch{}
+    queueMicrotask(()=>{
+      if(oldHref===null)play.removeAttribute('href');else play.setAttribute('href',oldHref);
+      if(oldFlag===undefined)delete play.dataset.vedatorOfflineReplay;else play.dataset.vedatorOfflineReplay=oldFlag;
+      proxy?.remove();
+    });
+  }
+
   async function saveCurrent(button,info){
     const label=button.querySelector('.vedator-offline-label');
     const originalUrl=absoluteUrl(info.episode?.enclosure||info.originalUrl);
@@ -177,6 +244,8 @@
     const title=info.episode?.title||info.title||'Vedátorský podcast';
     const key=episodeKey(title,originalUrl);
     const cacheUrl=cacheUrlFor(key);
+    const currentTime=Number(info.audio?.currentTime)||0;
+    const wasPaused=info.audio?info.audio.paused:true;
     button.disabled=true;
     if(label)label.textContent='Připravuji…';
     try{
@@ -197,7 +266,7 @@
         'X-Vedator-Original-Url':originalUrl
       });
       await cache.put(cacheUrl,new Response(blob,{status:200,headers}));
-      index[key]={
+      const record=index[key]={
         key,
         title,
         number:Number(info.episode?.number)||episodeNumber(title)||0,
@@ -208,7 +277,11 @@
         savedAt:Date.now()
       };
       persistIndex();
+      const blobUrl=rememberBlobUrl(key,blob);
       setHelp(`Epizoda je uložená offline (${formatMb(blob.size)}).`);
+      if(info.audio&&info.title&&recordFor(info.title,info.audio.currentSrc||info.audio.src)===record){
+        reopenCurrentFromBlob(record,blobUrl,currentTime,wasPaused);
+      }
     }catch(error){
       console.warn('Offline uložení se nepodařilo',error);
       if(error?.name==='QuotaExceededError')setHelp('Pro offline uložení není v zařízení dostatek místa.');
@@ -228,6 +301,9 @@
     try{
       const cache=await caches.open(CACHE);
       await cache.delete(record.cacheUrl);
+      const objectUrl=objectUrls.get(record.key);
+      if(objectUrl)try{URL.revokeObjectURL(objectUrl)}catch{}
+      objectUrls.delete(record.key);
       delete index[record.key];
       persistIndex();
       setHelp('Offline kopie byla smazána. Epizodu lze dál přehrávat přes internet.');
@@ -247,29 +323,69 @@
     return saveCurrent(button,info);
   }
 
-  // Window capture proběhne před stávajícím document-capture přehrávačem.
-  // Odkaz změníme jen po dobu jednoho kliknutí a hned jej vrátíme zpět.
+  // Uložené epizody přehráváme přímo z Cache Storage přes lokální blob URL.
+  // Tím offline poslech není závislý na síti ani na media fetch routování SW.
   window.addEventListener('click',event=>{
     const play=event.target?.closest?.('.links .primary');
-    if(!play)return;
+    if(!play||play.dataset.vedatorOfflineReplay==='1')return;
     const raw=play.getAttribute('href')||play.dataset.url||'';
     if(!raw)return;
     const title=play.closest('article')?.querySelector('h2')?.textContent?.trim()||'';
-    const offline=sourceFor(title,raw);
-    if(!offline||offline===raw)return;
-    play.setAttribute('href',offline);
-    queueMicrotask(()=>{
-      if(play.isConnected)play.setAttribute('href',raw);
-    });
+    const record=recordFor(title,raw);
+    if(!record)return;
+    const ready=objectUrls.get(record.key);
+    if(ready){
+      const oldHref=play.getAttribute('href');
+      play.setAttribute('href',ready);
+      queueMicrotask(()=>{
+        if(oldHref===null)play.removeAttribute('href');else play.setAttribute('href',oldHref);
+      });
+      return;
+    }
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    void (async()=>{
+      try{
+        const blobUrl=await blobUrlFor(record);
+        if(!blobUrl){
+          delete index[record.key];
+          persistIndex();
+          syncButton();
+          play.dataset.vedatorOfflineReplay='1';
+          try{play.click()}finally{queueMicrotask(()=>delete play.dataset.vedatorOfflineReplay)}
+          return;
+        }
+        const oldHref=play.getAttribute('href');
+        play.dataset.vedatorOfflineReplay='1';
+        play.setAttribute('href',blobUrl);
+        try{play.click()}finally{
+          queueMicrotask(()=>{
+            if(oldHref===null)play.removeAttribute('href');else play.setAttribute('href',oldHref);
+            delete play.dataset.vedatorOfflineReplay;
+          });
+        }
+      }catch(error){
+        console.warn('Offline epizodu se nepodařilo otevřít',error);
+        setHelp('Offline kopii se nepodařilo otevřít. Zkuste aplikaci zavřít a znovu otevřít.');
+      }
+    })();
   },true);
 
   // „Smazat veškerá data“ už používá tento marker. Proto smažeme i velkou
   // offline cache, ale do existujícího data-backup.js nemusíme zasahovat.
   if(sessionStorage.getItem(CLEAR_NOTICE_KEY)==='1'){
+    for(const value of objectUrls.values())try{URL.revokeObjectURL(value)}catch{}
+    objectUrls.clear();
     index={};
     try{localStorage.removeItem(INDEX_KEY)}catch{}
     caches.delete(CACHE).catch(()=>{});
   }
+
+  window.addEventListener('pagehide',()=>{
+    for(const value of objectUrls.values())try{URL.revokeObjectURL(value)}catch{}
+    objectUrls.clear();
+  });
 
   if(!ensureButton()){
     const observer=new MutationObserver(()=>{if(ensureButton())observer.disconnect()});
