@@ -1,5 +1,5 @@
 (()=>{
-  const VEDATOR_SW_WRAPPER_VERSION='v204-layout-7-player-actions-disabled';
+  const VEDATOR_SW_WRAPPER_VERSION='v204-layout-5-offline-unified';
   const VEDATOR_BOOTSTRAP_VERSION='v204-reload-fix-1';
   const HAD_ACTIVE_WORKER=Boolean(self.registration.active);
   const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
@@ -58,11 +58,10 @@
     html=html.replace(/navigator\.serviceWorker\.register\((['"])(?:\.\/)?sw\.js\1\)/g,"navigator.serviceWorker.register('sw-fast.js')");
     html=removeAutomaticUpdater(html);
     html=html.replace(/<script[^>]*src=["'](?:\.\/)?offline-switch-fix\.js["'][^>]*><\/script>/gi,'');
-    html=html.replace(/<script[^>]*src=["'](?:\.\/)?player-actions\.js["'][^>]*><\/script>/gi,'');
-    const beforeData='<script src="./data-backup.js" defer></script>';
-    const offlineTag='<script src="./offline-audio.js" defer></script>';
     if(!html.includes('offline-audio.js')){
-      html=html.includes(beforeData)?html.replace(beforeData,offlineTag+beforeData):html.replace('</body>',offlineTag+'</body>');
+      const tag='<script src="./offline-audio.js" defer></script>';
+      const beforeData='<script src="./data-backup.js" defer></script>';
+      html=html.includes(beforeData)?html.replace(beforeData,tag+beforeData):html.replace('</body>',tag+'</body>');
     }
     if(!html.includes('data-vedator-bootstrap-ready')){
       const marker=`<script data-vedator-bootstrap-ready>try{localStorage.setItem(${JSON.stringify(bootstrapKey)},'1')}catch{}</script>`;
