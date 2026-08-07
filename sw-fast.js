@@ -1,5 +1,5 @@
 (()=>{
-  const VEDATOR_SW_WRAPPER_VERSION='v204-layout-6-player-actions';
+  const VEDATOR_SW_WRAPPER_VERSION='v204-layout-7-player-actions-disabled';
   const VEDATOR_BOOTSTRAP_VERSION='v204-reload-fix-1';
   const HAD_ACTIVE_WORKER=Boolean(self.registration.active);
   const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
@@ -7,10 +7,10 @@
   self.__vedatorSwWrapperVersion=VEDATOR_SW_WRAPPER_VERSION;
   self.__vedatorBootstrapVersion=VEDATOR_BOOTSTRAP_VERSION;
 
-  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./offline-audio.js','./player-actions.js'];
+  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./offline-audio.js'];
   const originalAddAll=typeof Cache!=='undefined'?Cache.prototype.addAll:null;
   if(originalAddAll){
-    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png','offline-audio.js','player-actions.js']);
+    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png','offline-audio.js']);
     Cache.prototype.addAll=function(requests){
       const core=[...(requests||[])].filter(request=>{
         try{
@@ -58,14 +58,11 @@
     html=html.replace(/navigator\.serviceWorker\.register\((['"])(?:\.\/)?sw\.js\1\)/g,"navigator.serviceWorker.register('sw-fast.js')");
     html=removeAutomaticUpdater(html);
     html=html.replace(/<script[^>]*src=["'](?:\.\/)?offline-switch-fix\.js["'][^>]*><\/script>/gi,'');
+    html=html.replace(/<script[^>]*src=["'](?:\.\/)?player-actions\.js["'][^>]*><\/script>/gi,'');
     const beforeData='<script src="./data-backup.js" defer></script>';
     const offlineTag='<script src="./offline-audio.js" defer></script>';
     if(!html.includes('offline-audio.js')){
       html=html.includes(beforeData)?html.replace(beforeData,offlineTag+beforeData):html.replace('</body>',offlineTag+'</body>');
-    }
-    if(!html.includes('player-actions.js')){
-      const actionsTag='<script src="./player-actions.js" defer></script>';
-      html=html.includes(offlineTag)?html.replace(offlineTag,offlineTag+actionsTag):html.includes(beforeData)?html.replace(beforeData,actionsTag+beforeData):html.replace('</body>',actionsTag+'</body>');
     }
     if(!html.includes('data-vedator-bootstrap-ready')){
       const marker=`<script data-vedator-bootstrap-ready>try{localStorage.setItem(${JSON.stringify(bootstrapKey)},'1')}catch{}</script>`;
