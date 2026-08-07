@@ -1,5 +1,5 @@
 (()=>{
-  const VEDATOR_SW_WRAPPER_VERSION='v204-layout-4-offline-switch';
+  const VEDATOR_SW_WRAPPER_VERSION='v204-layout-5-offline-unified';
   const VEDATOR_BOOTSTRAP_VERSION='v204-reload-fix-1';
   const HAD_ACTIVE_WORKER=Boolean(self.registration.active);
   const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
@@ -7,10 +7,10 @@
   self.__vedatorSwWrapperVersion=VEDATOR_SW_WRAPPER_VERSION;
   self.__vedatorBootstrapVersion=VEDATOR_BOOTSTRAP_VERSION;
 
-  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./offline-switch-fix.js','./offline-audio.js'];
+  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./offline-audio.js'];
   const originalAddAll=typeof Cache!=='undefined'?Cache.prototype.addAll:null;
   if(originalAddAll){
-    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png','offline-switch-fix.js','offline-audio.js']);
+    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png','offline-audio.js']);
     Cache.prototype.addAll=function(requests){
       const core=[...(requests||[])].filter(request=>{
         try{
@@ -57,14 +57,10 @@
     let html=await response.text();
     html=html.replace(/navigator\.serviceWorker\.register\((['"])(?:\.\/)?sw\.js\1\)/g,"navigator.serviceWorker.register('sw-fast.js')");
     html=removeAutomaticUpdater(html);
-    const beforeData='<script src="./data-backup.js" defer></script>';
-    if(!html.includes('offline-switch-fix.js')){
-      const tag='<script src="./offline-switch-fix.js" defer></script>';
-      if(html.includes('offline-audio.js'))html=html.replace('<script src="./offline-audio.js" defer></script>',tag+'<script src="./offline-audio.js" defer></script>');
-      else html=html.includes(beforeData)?html.replace(beforeData,tag+beforeData):html.replace('</body>',tag+'</body>');
-    }
+    html=html.replace(/<script[^>]*src=["'](?:\.\/)?offline-switch-fix\.js["'][^>]*><\/script>/gi,'');
     if(!html.includes('offline-audio.js')){
       const tag='<script src="./offline-audio.js" defer></script>';
+      const beforeData='<script src="./data-backup.js" defer></script>';
       html=html.includes(beforeData)?html.replace(beforeData,tag+beforeData):html.replace('</body>',tag+'</body>');
     }
     if(!html.includes('data-vedator-bootstrap-ready')){
