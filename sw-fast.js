@@ -1,6 +1,6 @@
 (()=>{
-  const VEDATOR_SW_WRAPPER_VERSION='v207-playlist-editor-1';
-  const VEDATOR_BOOTSTRAP_VERSION='v207-playlist-editor-1';
+  const VEDATOR_SW_WRAPPER_VERSION='v208-playlist-drag-1';
+  const VEDATOR_BOOTSTRAP_VERSION='v208-playlist-drag-1';
   const HAD_ACTIVE_WORKER=Boolean(self.registration.active);
   const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
   const OFFLINE_AUDIO_PATH='/__vedator_offline_audio__/';
