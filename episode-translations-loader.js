@@ -6,6 +6,8 @@
   const VERSION='20260808-episode-343-summary-seek';
   const SOURCES=[
     ['episode-translations-347.js','data-vedator-episode-translations-347'],
+    ['episode-347-summary.js','data-vedator-episode-347-summary'],
+    ['episode-347-summary-interactive.js','data-vedator-episode-347-summary-interactive'],
     ['episode-345-summary.js','data-vedator-episode-345-summary'],
     ['episode-345-summary-interactive.js','data-vedator-episode-345-summary-interactive'],
     ['episode-344-summary.js','data-vedator-episode-344-summary'],
@@ -61,7 +63,7 @@
   ];
 
   const NONQUESTIONS_CACHE_KEY='vedatorNonQuestionsData:20260808-v1';
-  const EXTRA_NONQUESTION_EPISODES=[344,345];
+  const EXTRA_NONQUESTION_EPISODES=[344,345,347];
 
   function mergeExtraEpisodesIntoNonQuestions(payload){
     if(!payload?.episodes||typeof payload.episodes!=='object')return false;
