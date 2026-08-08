@@ -1,16 +1,16 @@
 (()=>{
-  const VEDATOR_SW_WRAPPER_VERSION='v206-player-layout-1';
-  const VEDATOR_BOOTSTRAP_VERSION='v206-player-layout-1';
+  const VEDATOR_SW_WRAPPER_VERSION='v207-playlist-editor-1';
+  const VEDATOR_BOOTSTRAP_VERSION='v207-playlist-editor-1';
   const HAD_ACTIVE_WORKER=Boolean(self.registration.active);
   const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
   const OFFLINE_AUDIO_PATH='/__vedator_offline_audio__/';
   self.__vedatorSwWrapperVersion=VEDATOR_SW_WRAPPER_VERSION;
   self.__vedatorBootstrapVersion=VEDATOR_BOOTSTRAP_VERSION;
 
-  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./offline-audio.js','./player-actions.js'];
+  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./offline-audio.js','./player-actions.js','./playlist-editor-mobile.js'];
   const originalAddAll=typeof Cache!=='undefined'?Cache.prototype.addAll:null;
   if(originalAddAll){
-    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png','player-actions.js','offline-audio.js']);
+    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png','player-actions.js','offline-audio.js','playlist-editor-mobile.js']);
     Cache.prototype.addAll=function(requests){
       const core=[...(requests||[])].filter(request=>{
         try{
@@ -61,6 +61,8 @@
     const beforeData='<script src="./data-backup.js" defer></script>';
     const offlineTag='<script src="./offline-audio.js" defer></script>';
     const actionsTag='<script src="./player-actions.js" defer></script>';
+    const slovakTag='<script src="./slovak-ui.js" defer></script>';
+    const playlistEditorTag='<script src="./playlist-editor-mobile.js" defer></script>';
     if(!html.includes('offline-audio.js')){
       if(html.includes(actionsTag))html=html.replace(actionsTag,offlineTag+actionsTag);
       else html=html.includes(beforeData)?html.replace(beforeData,offlineTag+beforeData):html.replace('</body>',offlineTag+'</body>');
@@ -74,6 +76,10 @@
     if(actionsAt>=0&&offlineAt>=0&&actionsAt<offlineAt){
       html=html.replace(actionsTag,'');
       html=html.replace(offlineTag,offlineTag+actionsTag);
+    }
+    if(!html.includes('playlist-editor-mobile.js')){
+      if(html.includes(slovakTag))html=html.replace(slovakTag,slovakTag+playlistEditorTag);
+      else html=html.includes(beforeData)?html.replace(beforeData,playlistEditorTag+beforeData):html.replace('</body>',playlistEditorTag+'</body>');
     }
     if(!html.includes('data-vedator-bootstrap-ready')){
       const marker=`<script data-vedator-bootstrap-ready>try{localStorage.setItem(${JSON.stringify(bootstrapKey)},'1')}catch{}</script>`;
