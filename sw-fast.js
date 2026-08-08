@@ -1,9 +1,15 @@
 (()=>{
-  const VEDATOR_SW_WRAPPER_VERSION='v208-playlist-drag-1';
-  const VEDATOR_BOOTSTRAP_VERSION='v208-playlist-drag-1';
+  const VEDATOR_SW_WRAPPER_VERSION='v210-single-sw-1';
+  const VEDATOR_BOOTSTRAP_VERSION='v210-single-sw-1';
   const HAD_ACTIVE_WORKER=Boolean(self.registration.active);
   const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
   const OFFLINE_AUDIO_PATH='/__vedator_offline_audio__/';
+  const CURRENT_APP_CACHE='vedator-temata-v204';
+  // Uložíme si původní CacheStorage API ještě před overlayem. Overlay záměrně
+  // přejmenovává v203 na v204, takže přes něj nelze spolehlivě poznat a odstranit
+  // skutečně starou v203 cache.
+  const nativeCacheKeys=caches.keys.bind(caches);
+  const nativeCacheDelete=caches.delete.bind(caches);
   self.__vedatorSwWrapperVersion=VEDATOR_SW_WRAPPER_VERSION;
   self.__vedatorBootstrapVersion=VEDATOR_BOOTSTRAP_VERSION;
 
@@ -104,9 +110,10 @@
     return nativeAddEventListener(type,listener,options);
   };
 
-  importScripts('./sw-v204-overlay.js');
-  importScripts('./sw-346-patch.js');
-  importScripts('./sw.js');
+  const importVersion=encodeURIComponent(VEDATOR_SW_WRAPPER_VERSION);
+  importScripts(`./sw-v204-overlay.js?v=${importVersion}`);
+  importScripts(`./sw-346-patch.js?v=${importVersion}`);
+  importScripts(`./sw.js?v=${importVersion}`);
   self.addEventListener=nativeAddEventListener;
 
   function isOfflineAudioRequest(request){
@@ -170,8 +177,12 @@
   ));
 
   nativeAddEventListener('activate',event=>event.waitUntil((async()=>{
-    const keep=new Set(['vedator-temata-v203',OFFLINE_AUDIO_CACHE]);
-    await Promise.all((await caches.keys()).filter(name=>!keep.has(name)).map(name=>caches.delete(name)));
+    // Mažeme jen staré aplikační cache Vedátoru. Offline audio a případné cache
+    // jiných aplikací na stejném github.io originu zůstanou nedotčené.
+    const names=await nativeCacheKeys();
+    await Promise.all(names
+      .filter(name=>name.startsWith('vedator-temata-')&&name!==CURRENT_APP_CACHE)
+      .map(name=>nativeCacheDelete(name)));
     if(!HAD_ACTIVE_WORKER)await self.clients.claim();
   })()));
 })();
