@@ -3,10 +3,11 @@
   window.__vedatorEpisodeTranslationsLoader=true;
   window.__vedatorEpisodeTranslationsReady=false;
 
-  const VERSION='20260808-episode-343-summary';
+  const VERSION='20260808-episode-343-summary-seek';
   const SOURCES=[
     ['episode-translations-347.js','data-vedator-episode-translations-347'],
     ['episode-343-summary.js','data-vedator-episode-343-summary'],
+    ['episode-343-summary-interactive.js','data-vedator-episode-343-summary-interactive'],
     ['episode-translations-346-337.js','data-vedator-episode-translations-346-337'],
     ['episode-translations-336-330.js','data-vedator-episode-translations-336-330'],
     ['episode-translations-329-323.js','data-vedator-episode-translations-329-323'],
