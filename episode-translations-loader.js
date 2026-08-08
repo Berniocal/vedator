@@ -6,6 +6,8 @@
   const VERSION='20260808-episode-343-summary-seek';
   const SOURCES=[
     ['episode-translations-347.js','data-vedator-episode-translations-347'],
+    ['episode-344-summary.js','data-vedator-episode-344-summary'],
+    ['episode-344-summary-interactive.js','data-vedator-episode-344-summary-interactive'],
     ['episode-343-summary.js','data-vedator-episode-343-summary'],
     ['episode-343-summary-interactive.js','data-vedator-episode-343-summary-interactive'],
     ['episode-translations-346-337.js','data-vedator-episode-translations-346-337'],
@@ -55,6 +57,34 @@
     ['episode-translations-space-talks-1-7.js','data-vedator-episode-translations-space-talks-1-7'],
     ['episode-translations-space-talks-8-15.js','data-vedator-episode-translations-space-talks-8-15']
   ];
+
+  const NONQUESTIONS_CACHE_KEY='vedatorNonQuestionsData:20260808-v1';
+
+  function mergeEpisode344IntoNonQuestions(payload){
+    const extra=window.__vedatorEpisode344SummaryData;
+    if(!extra||!payload?.episodes||typeof payload.episodes!=='object')return false;
+    payload.episodes['344']=extra;
+    return true;
+  }
+
+  function upgradeEpisode344NonQuestionsCache(){
+    try{
+      const saved=JSON.parse(localStorage.getItem(NONQUESTIONS_CACHE_KEY)||'null');
+      if(saved?.version!=='20260808-v1'||!saved?.episodes||saved.episodes['344'])return;
+      if(!mergeEpisode344IntoNonQuestions(saved))return;
+      localStorage.setItem(NONQUESTIONS_CACHE_KEY,JSON.stringify(saved));
+    }catch(_){}
+  }
+
+  function installEpisode344NonQuestionsBridge(){
+    if(!window.__vedatorEpisode344NonQuestionsBridge){
+      window.__vedatorEpisode344NonQuestionsBridge=true;
+      window.addEventListener('vedatornonquestionsdataready',()=>{
+        mergeEpisode344IntoNonQuestions(window.__vedatorNonQuestionsDataPayload);
+      });
+    }
+    upgradeEpisode344NonQuestionsCache();
+  }
 
   function installNonQuestionsUiOwnership(){
     const tabs=document.querySelector('.tabs');
@@ -187,7 +217,34 @@
     },{once:true});
     document.head.appendChild(script);
   }
-  loadNonQuestionsView();
+
+  function bootstrapNonQuestions(){
+    let settled=false;
+    const finish=()=>{
+      if(settled)return;
+      settled=true;
+      installEpisode344NonQuestionsBridge();
+      loadNonQuestionsView();
+    };
+    const marker='data-vedator-episode-344-summary';
+    const existing=document.querySelector(`script[${marker}]`);
+    if(window.__vedatorEpisode344SummaryData){finish();return}
+    if(existing){
+      existing.addEventListener('load',()=>{installEpisode344NonQuestionsBridge();finish()},{once:true});
+      existing.addEventListener('error',finish,{once:true});
+      setTimeout(finish,2500);
+      return;
+    }
+    const script=document.createElement('script');
+    script.src=`./episode-344-summary.js?v=${VERSION}`;
+    script.async=true;
+    script.setAttribute(marker,'1');
+    script.addEventListener('load',()=>{script.dataset.vedatorLoaded='1';installEpisode344NonQuestionsBridge();finish()},{once:true});
+    script.addEventListener('error',finish,{once:true});
+    document.head.appendChild(script);
+    setTimeout(finish,2500);
+  }
+  bootstrapNonQuestions();
 
   function waitForLanguageBatchController(timeout=8000){
     if(window.__vedatorLanguageBatchController)return Promise.resolve(true);
@@ -241,6 +298,7 @@
   (async()=>{
     await waitForLanguageBatchController();
     for(const [source,marker] of SOURCES)await loadScript(source,marker);
+    installEpisode344NonQuestionsBridge();
     finishWhenCatalogReady();
   })();
 })();
