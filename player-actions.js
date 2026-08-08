@@ -5,7 +5,7 @@
   const PLAYLIST_KEY='vedator-user-playlists-v1';
   const REF_ALPHABET='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
 
-  const language=()=>{try{return window.vedatorUiLanguage?.()==='sk'?'sk':'cz'}catch{return'cz'};
+  const language=()=>{try{return window.vedatorUiLanguage?.()==='sk'?'sk':'cz'}catch{return'cz'}};
   const text=(cz,sk)=>language()==='sk'?sk:cz;
   const setText=(node,value)=>{if(node&&node.textContent!==value)node.textContent=value};
   const normalize=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
@@ -177,7 +177,7 @@
     const offline=secondary.querySelector('.vedator-offline-btn');
     if(!speed||!originalDownload||!offline)return false;
 
-    const speedFirst= speed.querySelector('span:not(.speed-value)');
+    const speedFirst=speed.querySelector('span:not(.speed-value)');
     if(speedFirst)speedFirst.classList.add('vedator-speed-label','vedator-action-label');
     const offlineLabel=offline.querySelector('.vedator-offline-label');
     offlineLabel?.classList.add('vedator-action-label');
@@ -217,7 +217,7 @@
   const legacyDownloadLabel=document.querySelector('.vedator-custom-secondary .download-label');
   if(legacyDownloadLabel)legacyDownloadLabel.__vedatorOfflineObserver=true;
 
-  const init=()=>{organize();};
+  const init=()=>{organize()};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
   else init();
 
