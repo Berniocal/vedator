@@ -2,6 +2,72 @@
   if(window.__vedatorThemeToggle)return;
   window.__vedatorThemeToggle=true;
 
+  const SW_URL='./sw-fast.js';
+  const SW_TAKEOVER_KEY='vedator-sw-fast-takeover-v209';
+  const workerName=worker=>{
+    if(!worker)return'';
+    try{return new URL(worker.scriptURL,location.href).pathname.split('/').pop()}
+    catch{return''}
+  };
+  const isFastWorker=worker=>workerName(worker)==='sw-fast.js';
+  const waitForWorkerState=(worker,timeout=2200)=>new Promise(resolve=>{
+    if(!worker||['installed','activated','redundant'].includes(worker.state)){resolve(worker?.state||'');return}
+    let settled=false;
+    const finish=()=>{
+      if(settled)return;
+      settled=true;
+      clearTimeout(timer);
+      worker.removeEventListener('statechange',onState);
+      resolve(worker.state||'');
+    };
+    const onState=()=>{if(['installed','activated','redundant'].includes(worker.state))finish()};
+    const timer=setTimeout(finish,timeout);
+    worker.addEventListener('statechange',onState);
+  });
+  const waitForControllerChange=(timeout=2200)=>new Promise(resolve=>{
+    let settled=false;
+    const finish=()=>{
+      if(settled)return;
+      settled=true;
+      clearTimeout(timer);
+      navigator.serviceWorker.removeEventListener('controllerchange',onChange);
+      resolve(navigator.serviceWorker.controller);
+    };
+    const onChange=()=>finish();
+    const timer=setTimeout(finish,timeout);
+    navigator.serviceWorker.addEventListener('controllerchange',onChange);
+  });
+
+  async function ensureCurrentWorker(){
+    if(!('serviceWorker'in navigator))return;
+    try{
+      const initialController=navigator.serviceWorker.controller;
+      const initialWasFast=isFastWorker(initialController);
+      const registration=await navigator.serviceWorker.register(SW_URL,{updateViaCache:'none'});
+      let sawUpdate=Boolean(registration.installing||registration.waiting);
+      const onUpdate=()=>{sawUpdate=true};
+      registration.addEventListener('updatefound',onUpdate,{once:true});
+      await registration.update();
+      if(registration.installing){
+        sawUpdate=true;
+        await waitForWorkerState(registration.installing);
+      }
+      if(registration.waiting){
+        sawUpdate=true;
+        registration.waiting.postMessage({type:'SKIP_WAITING'});
+      }
+      if(!isFastWorker(navigator.serviceWorker.controller)||sawUpdate)await waitForControllerChange();
+      const nowFast=isFastWorker(navigator.serviceWorker.controller);
+      if(nowFast&&(!initialWasFast||sawUpdate)&&sessionStorage.getItem(SW_TAKEOVER_KEY)!=='1'){
+        sessionStorage.setItem(SW_TAKEOVER_KEY,'1');
+        location.replace(location.href);
+      }
+    }catch(error){
+      console.warn('Aktualizaci aplikace se nepodařilo zkontrolovat.',error);
+    }
+  }
+  void ensureCurrentWorker();
+
   const loadBootstrapScript=(src,selector,readyFlag,dataKey)=>new Promise(resolve=>{
     if(window[readyFlag]){resolve();return}
     let script=document.querySelector(selector);
@@ -22,21 +88,14 @@
     document.head.appendChild(script);
   });
 
-  const ensurePlayerActions=async()=>{
-    await loadBootstrapScript('./offline-audio.js?v=20260808-3','script[src*="offline-audio.js"]','__vedatorOfflineAudio','vedatorOfflineBootstrap');
-    await loadBootstrapScript('./player-actions.js?v=20260808-3','script[src*="player-actions.js"]','__vedatorPlayerActions','vedatorPlayerActionsBootstrap');
+  const ensureCurrentEnhancements=async()=>{
+    await loadBootstrapScript('./offline-audio.js?v=20260808-4','script[src*="offline-audio.js"]','__vedatorOfflineAudio','vedatorOfflineBootstrap');
+    await loadBootstrapScript('./player-actions.js?v=20260808-4','script[src*="player-actions.js"]','__vedatorPlayerActions','vedatorPlayerActionsBootstrap');
+    await loadBootstrapScript('./playlist-editor-mobile.js?v=20260808-4','script[src*="playlist-editor-mobile.js"]','__vedatorPlaylistEditorMobile','vedatorPlaylistEditorBootstrap');
   };
 
-  const ensureCurrentWorker=()=>{
-    if(!('serviceWorker'in navigator))return;
-    navigator.serviceWorker.register('./sw-fast.js',{updateViaCache:'none'})
-      .then(registration=>registration.update().catch(()=>{}))
-      .catch(error=>console.warn('Aktualizaci aplikace se nepodařilo zkontrolovat.',error));
-  };
-  ensureCurrentWorker();
-
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{void ensurePlayerActions()},{once:true});
-  else void ensurePlayerActions();
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{void ensureCurrentEnhancements()},{once:true});
+  else void ensureCurrentEnhancements();
 
   const STORAGE_KEY='vedatorTheme';
   const style=document.createElement('style');
