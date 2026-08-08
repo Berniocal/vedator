@@ -117,7 +117,7 @@ window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();def
 window.addEventListener('appinstalled',()=>{deferredInstallPrompt=null;installButton.classList.add('hidden')});
 installButton.addEventListener('click',async()=>{if(isInstalled()){installButton.classList.add('hidden');return}if(deferredInstallPrompt){deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;updateInstallButton();return}const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);alert(ios?'V Safari klepněte na Sdílet a potom na Přidat na plochu.':'Instalaci otevřete v nabídce prohlížeče a zvolte Instalovat aplikaci nebo Přidat na plochu.')});
 updateInstallButton();
-if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');load();
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw-fast.js',{updateViaCache:'none'});load();
 </script>
 </body>
 </html>
