@@ -56,12 +56,131 @@
     ['episode-translations-space-talks-8-15.js','data-vedator-episode-translations-space-talks-8-15']
   ];
 
+  function installNonQuestionsUiOwnership(){
+    const tabs=document.querySelector('.tabs');
+    if(!tabs||tabs.__vedatorNonQuestionsUiOwnership)return false;
+    const nonQuestionsTab=tabs.querySelector('.tab[data-view="nonquestions"]');
+    if(!nonQuestionsTab)return false;
+    tabs.__vedatorNonQuestionsUiOwnership=true;
+
+    tabs.addEventListener('click',event=>{
+      const clicked=event.target.closest?.('.tab');
+      if(!clicked)return;
+      if(clicked.dataset.view==='nonquestions'){
+        document.querySelectorAll('.topics').forEach(row=>row.classList.add('hidden'));
+      }else{
+        document.querySelector('.nonquestions-topics')?.classList.add('hidden');
+        document.querySelector('#nonquestionSort')?.classList.add('hidden');
+        document.querySelector('#nonquestions')?.classList.add('hidden');
+      }
+    },true);
+
+    if(!document.querySelector('style[data-vedator-nonquestions-highlight-fix]')){
+      const style=document.createElement('style');
+      style.dataset.vedatorNonquestionsHighlightFix='1';
+      style.textContent='#nonquestions mark{background:#ffe66b!important;color:inherit!important;border-radius:.28em;padding:.03em .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}html.theme-dark #nonquestions mark{background:#8a6d00!important;color:#fff4b3!important}';
+      document.head.appendChild(style);
+    }
+    return true;
+  }
+
+  function prepareNonQuestionsEventPriority(){
+    const search=document.querySelector('#search');
+    if(!search||search.__vedatorNonQuestionsEventPriority)return;
+    search.__vedatorNonQuestionsEventPriority=true;
+
+    const nativeSearchAdd=search.addEventListener.bind(search);
+    const nativeDocumentAdd=document.addEventListener.bind(document);
+    let searchCaptured=false;
+    let hideCaptured=false;
+
+    const restore=()=>{
+      if(!(searchCaptured&&hideCaptured))return;
+      try{delete search.addEventListener}catch{}
+      try{delete document.addEventListener}catch{}
+      search.__vedatorNonQuestionsEventPriority='captured';
+    };
+
+    Object.defineProperty(search,'addEventListener',{
+      configurable:true,
+      writable:true,
+      value:function(type,listener,options){
+        let source='';
+        try{if(typeof listener==='function')source=Function.prototype.toString.call(listener)}catch{}
+        const capture=options===true||Boolean(options&&typeof options==='object'&&options.capture);
+        const isNonQuestionsSearch=
+          type==='input'&&capture&&
+          source.includes('if(!active)return')&&
+          source.includes('stopImmediatePropagation')&&
+          source.includes('if(data)filter()');
+
+        if(!isNonQuestionsSearch)return nativeSearchAdd(type,listener,options);
+
+        nativeDocumentAdd('input',event=>{
+          if(event.target!==search)return;
+          listener.call(search,event);
+        },true);
+        searchCaptured=true;
+        restore();
+      }
+    });
+
+    Object.defineProperty(document,'addEventListener',{
+      configurable:true,
+      writable:true,
+      value:function(type,listener,options){
+        let source='';
+        try{if(typeof listener==='function')source=Function.prototype.toString.call(listener)}catch{}
+        const isNonQuestionsHide=
+          type==='click'&&
+          source.includes("closest?.('.tabs .tab')")&&
+          source.includes('other&&other!==tab')&&
+          source.includes('hide()');
+
+        if(!isNonQuestionsHide)return nativeDocumentAdd(type,listener,options);
+
+        nativeDocumentAdd('click',listener,true);
+        hideCaptured=true;
+        restore();
+      }
+    });
+  }
+
   function loadNonQuestionsView(){
     if(window.__vedatorNonQuestionsView||document.querySelector('script[data-vedator-nonquestions-view]'))return;
+    prepareNonQuestionsEventPriority();
+
+    const tabs=document.querySelector('.tabs');
+    let tabObserver=null;
+    const finishUiInstall=()=>{
+      if(!installNonQuestionsUiOwnership())return false;
+      tabObserver?.disconnect();
+      tabObserver=null;
+      const search=document.querySelector('#search');
+      if(search&&search.__vedatorNonQuestionsEventPriority!=='captured'){
+        try{delete search.addEventListener}catch{}
+        try{delete document.addEventListener}catch{}
+      }
+      return true;
+    };
+    if(tabs&&!finishUiInstall()){
+      tabObserver=new MutationObserver(finishUiInstall);
+      tabObserver.observe(tabs,{childList:true});
+    }
+
     const script=document.createElement('script');
-    script.src='./nonquestions-view.js?v=20260808-v1';
+    script.src='./nonquestions-view.js?v=20260808-v2-search-topics';
     script.async=true;
     script.dataset.vedatorNonquestionsView='1';
+    script.addEventListener('load',finishUiInstall,{once:true});
+    script.addEventListener('error',()=>{
+      tabObserver?.disconnect();
+      const search=document.querySelector('#search');
+      if(search){
+        try{delete search.addEventListener}catch{}
+        try{delete document.addEventListener}catch{}
+      }
+    },{once:true});
     document.head.appendChild(script);
   }
   loadNonQuestionsView();
