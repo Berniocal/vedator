@@ -7,10 +7,10 @@
   self.__vedatorSwWrapperVersion=VEDATOR_SW_WRAPPER_VERSION;
   self.__vedatorBootstrapVersion=VEDATOR_BOOTSTRAP_VERSION;
 
-  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./offline-audio.js'];
+  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./player-actions.js','./offline-audio.js'];
   const originalAddAll=typeof Cache!=='undefined'?Cache.prototype.addAll:null;
   if(originalAddAll){
-    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png','offline-audio.js']);
+    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png','player-actions.js','offline-audio.js']);
     Cache.prototype.addAll=function(requests){
       const core=[...(requests||[])].filter(request=>{
         try{
@@ -58,10 +58,16 @@
     html=html.replace(/navigator\.serviceWorker\.register\((['"])(?:\.\/)?sw\.js\1\)/g,"navigator.serviceWorker.register('sw-fast.js')");
     html=removeAutomaticUpdater(html);
     html=html.replace(/<script[^>]*src=["'](?:\.\/)?offline-switch-fix\.js["'][^>]*><\/script>/gi,'');
+    const beforeData='<script src="./data-backup.js" defer></script>';
+    const actionsTag='<script src="./player-actions.js" defer></script>';
+    const offlineTag='<script src="./offline-audio.js" defer></script>';
+    if(!html.includes('player-actions.js')){
+      if(html.includes(offlineTag))html=html.replace(offlineTag,actionsTag+offlineTag);
+      else html=html.includes(beforeData)?html.replace(beforeData,actionsTag+beforeData):html.replace('</body>',actionsTag+'</body>');
+    }
     if(!html.includes('offline-audio.js')){
-      const tag='<script src="./offline-audio.js" defer></script>';
-      const beforeData='<script src="./data-backup.js" defer></script>';
-      html=html.includes(beforeData)?html.replace(beforeData,tag+beforeData):html.replace('</body>',tag+'</body>');
+      if(html.includes(actionsTag))html=html.replace(actionsTag,actionsTag+offlineTag);
+      else html=html.includes(beforeData)?html.replace(beforeData,offlineTag+beforeData):html.replace('</body>',offlineTag+'</body>');
     }
     if(!html.includes('data-vedator-bootstrap-ready')){
       const marker=`<script data-vedator-bootstrap-ready>try{localStorage.setItem(${JSON.stringify(bootstrapKey)},'1')}catch{}</script>`;
