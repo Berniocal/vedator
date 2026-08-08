@@ -21,6 +21,24 @@
   const style=document.createElement('style');
   style.textContent=`
     .vedator-editor-work-switch{display:none}
+    .vedator-editor-mobile-enhanced .vedator-edit-controls{
+      position:relative;display:flex;align-items:center;justify-content:center;width:30px;height:34px;
+      gap:0;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none
+    }
+    .vedator-editor-mobile-enhanced .vedator-edit-controls:active{cursor:grabbing}
+    .vedator-editor-mobile-enhanced .vedator-edit-controls::before,
+    .vedator-editor-mobile-enhanced .vedator-edit-controls::after{
+      content:"";position:absolute;left:6px;width:18px;height:2px;border-radius:999px;background:var(--muted)
+    }
+    .vedator-editor-mobile-enhanced .vedator-edit-controls::before{top:12px}
+    .vedator-editor-mobile-enhanced .vedator-edit-controls::after{top:20px}
+    .vedator-editor-mobile-enhanced .vedator-edit-move{display:none!important}
+    .vedator-editor-mobile-enhanced .vedator-edit-row.vedator-dragging{
+      opacity:.97;box-shadow:0 10px 28px rgba(0,0,0,.34);border-color:var(--accent);background:rgba(124,92,255,.14)
+    }
+    .vedator-editor-mobile-enhanced .vedator-edit-placeholder{
+      box-sizing:border-box;border:1px dashed var(--accent);border-radius:10px;background:rgba(124,92,255,.08)
+    }
     @media(max-width:650px){
       .vedator-editor{padding:6px;align-items:stretch}
       .vedator-editor-box.vedator-editor-mobile-enhanced{
@@ -178,7 +196,7 @@
 
   order.addEventListener('pointerdown',event=>{
     const handle=event.target.closest('.vedator-edit-controls');
-    if(!handle||!isMobile()||drag)return;
+    if(!handle||drag)return;
     const row=handle.closest('.vedator-edit-row[data-ref]');
     if(!row)return;
     if(event.pointerType==='mouse'&&event.button!==0)return;
