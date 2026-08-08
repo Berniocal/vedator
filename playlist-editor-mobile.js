@@ -12,6 +12,7 @@
   const search=editor.querySelector('.vedator-editor-search');
   if(!box||!sourceSwitch||!columns||!order||!choices)return;
 
+  const PLAYLIST_KEY='vedator-user-playlists-v1';
   const language=()=>{try{return window.vedatorUiLanguage?.()==='sk'?'sk':'cz'}catch{return'cz'}};
   const text=(cz,sk)=>language()==='sk'?sk:cz;
   const setText=(node,value)=>{if(node&&node.textContent!==value)node.textContent=value};
@@ -79,8 +80,8 @@
     addButton.classList.toggle('active',value==='add');
     if(focus&&value==='add')search?.focus({preventScroll:true});
   }
-  function sync(){
-    const count=selectedCount();
+  function sync(countOverride){
+    const count=Number.isInteger(countOverride)?countOverride:selectedCount();
     setText(addedButton,text(`Přidané (${count})`,`Pridané (${count})`));
     setText(addButton,currentMode()==='q'?text('Přidat otázky','Pridať otázky'):text('Přidat epizody','Pridať epizódy'));
     if(!box.dataset.mobileSection)setSection(count?'added':'add');
@@ -98,9 +99,18 @@
   window.addEventListener('vedatorlanguagechange',sync);
 
   document.addEventListener('click',event=>{
-    if(!event.target.closest('.vedator-playlist-icon.edit'))return;
+    const edit=event.target.closest('.vedator-playlist-icon.edit');
+    if(!edit)return;
     delete box.dataset.mobileSection;
-    queueMicrotask(sync);
+    let count=null;
+    try{
+      const id=edit.closest('.vedator-playlist-card')?.dataset.id;
+      const playlists=JSON.parse(localStorage.getItem(PLAYLIST_KEY)||'[]');
+      const playlist=Array.isArray(playlists)?playlists.find(item=>String(item?.id)===String(id)):null;
+      if(playlist)count=Array.isArray(playlist.items)?playlist.items.length:0;
+    }catch{}
+    if(Number.isInteger(count))sync(count);
+    else queueMicrotask(sync);
   });
 
   sync();
