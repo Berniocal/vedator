@@ -2,16 +2,41 @@
   if(window.__vedatorThemeToggle)return;
   window.__vedatorThemeToggle=true;
 
-  const ensurePlayerActions=()=>{
-    if(window.__vedatorPlayerActions||document.querySelector('script[data-vedator-player-actions-bootstrap]'))return;
-    const script=document.createElement('script');
-    script.src='./player-actions.js?v=20260808-2';
+  const loadBootstrapScript=(src,selector,readyFlag,dataKey)=>new Promise(resolve=>{
+    if(window[readyFlag]){resolve();return}
+    let script=document.querySelector(selector);
+    if(script){
+      let done=false;
+      const finish=()=>{if(done)return;done=true;resolve()};
+      script.addEventListener('load',finish,{once:true});
+      script.addEventListener('error',finish,{once:true});
+      setTimeout(finish,2000);
+      return;
+    }
+    script=document.createElement('script');
+    script.src=src;
     script.async=false;
-    script.dataset.vedatorPlayerActionsBootstrap='1';
+    script.dataset[dataKey]='1';
+    script.onload=resolve;
+    script.onerror=resolve;
     document.head.appendChild(script);
+  });
+
+  const ensurePlayerActions=async()=>{
+    await loadBootstrapScript('./offline-audio.js?v=20260808-3','script[src*="offline-audio.js"]','__vedatorOfflineAudio','vedatorOfflineBootstrap');
+    await loadBootstrapScript('./player-actions.js?v=20260808-3','script[src*="player-actions.js"]','__vedatorPlayerActions','vedatorPlayerActionsBootstrap');
   };
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ensurePlayerActions,{once:true});
-  else ensurePlayerActions();
+
+  const ensureCurrentWorker=()=>{
+    if(!('serviceWorker'in navigator))return;
+    navigator.serviceWorker.register('./sw-fast.js',{updateViaCache:'none'})
+      .then(registration=>registration.update().catch(()=>{}))
+      .catch(error=>console.warn('Aktualizaci aplikace se nepodařilo zkontrolovat.',error));
+  };
+  ensureCurrentWorker();
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{void ensurePlayerActions()},{once:true});
+  else void ensurePlayerActions();
 
   const STORAGE_KEY='vedatorTheme';
   const style=document.createElement('style');
