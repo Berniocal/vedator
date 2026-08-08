@@ -2,6 +2,17 @@
   if(window.__vedatorThemeToggle)return;
   window.__vedatorThemeToggle=true;
 
+  const ensurePlayerActions=()=>{
+    if(window.__vedatorPlayerActions||document.querySelector('script[data-vedator-player-actions-bootstrap]'))return;
+    const script=document.createElement('script');
+    script.src='./player-actions.js?v=20260808-2';
+    script.async=false;
+    script.dataset.vedatorPlayerActionsBootstrap='1';
+    document.head.appendChild(script);
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ensurePlayerActions,{once:true});
+  else ensurePlayerActions();
+
   const STORAGE_KEY='vedatorTheme';
   const style=document.createElement('style');
   style.textContent=`
