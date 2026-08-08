@@ -16,6 +16,7 @@
   const language=()=>{try{return window.vedatorUiLanguage?.()==='sk'?'sk':'cz'}catch{return'cz'}};
   const text=(cz,sk)=>language()==='sk'?sk:cz;
   const setText=(node,value)=>{if(node&&node.textContent!==value)node.textContent=value};
+  const isMobile=()=>window.matchMedia?window.matchMedia('(max-width:650px)').matches:window.innerWidth<=650;
 
   const style=document.createElement('style');
   style.textContent=`
@@ -51,9 +52,25 @@
       .vedator-editor-mobile-enhanced .vedator-edit-row{grid-template-columns:32px minmax(0,1fr) 30px;font-size:.91rem;line-height:1.18}
       .vedator-editor-mobile-enhanced .vedator-edit-row b{font-size:.93rem}
       .vedator-editor-mobile-enhanced .vedator-item-sub{font-size:.76rem}
-      .vedator-editor-mobile-enhanced .vedator-edit-controls{gap:0}
-      .vedator-editor-mobile-enhanced .vedator-edit-move,
+      .vedator-editor-mobile-enhanced .vedator-edit-controls{
+        position:relative;display:flex;align-items:center;justify-content:center;width:30px;height:34px;
+        gap:0;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none
+      }
+      .vedator-editor-mobile-enhanced .vedator-edit-controls:active{cursor:grabbing}
+      .vedator-editor-mobile-enhanced .vedator-edit-controls::before,
+      .vedator-editor-mobile-enhanced .vedator-edit-controls::after{
+        content:"";position:absolute;left:6px;width:18px;height:2px;border-radius:999px;background:var(--muted)
+      }
+      .vedator-editor-mobile-enhanced .vedator-edit-controls::before{top:12px}
+      .vedator-editor-mobile-enhanced .vedator-edit-controls::after{top:20px}
+      .vedator-editor-mobile-enhanced .vedator-edit-move{display:none!important}
       .vedator-editor-mobile-enhanced .vedator-edit-remove{min-width:28px;min-height:27px;padding:2px;font-size:.88rem}
+      .vedator-editor-mobile-enhanced .vedator-edit-row.vedator-dragging{
+        opacity:.97;box-shadow:0 10px 28px rgba(0,0,0,.34);border-color:var(--accent);background:rgba(124,92,255,.14)
+      }
+      .vedator-editor-mobile-enhanced .vedator-edit-placeholder{
+        box-sizing:border-box;border:1px dashed var(--accent);border-radius:10px;background:rgba(124,92,255,.08)
+      }
       .vedator-editor-mobile-enhanced .vedator-playlist-empty{padding:18px 8px}
       .vedator-editor-mobile-enhanced .vedator-editor-foot{padding:8px 10px max(8px,env(safe-area-inset-bottom));gap:8px}
       .vedator-editor-mobile-enhanced .vedator-editor-save,
@@ -70,6 +87,7 @@
 
   const addedButton=workSwitch.querySelector('[data-section="added"]');
   const addButton=workSwitch.querySelector('[data-section="add"]');
+  let drag=null;
 
   function currentMode(){return sourceSwitch.querySelector('button.active')?.dataset.mode==='q'?'q':'e'}
   function selectedCount(){return order.querySelectorAll('.vedator-edit-row[data-ref]').length}
@@ -89,6 +107,99 @@
   }
   const syncAfterEvent=()=>queueMicrotask(sync);
 
+  function cleanupRow(row){
+    if(!row)return;
+    row.classList.remove('vedator-dragging');
+    row.style.position='';row.style.left='';row.style.top='';row.style.width='';row.style.zIndex='';row.style.pointerEvents='';
+  }
+  function targetIndex(placeholder,row){
+    return Array.from(order.children)
+      .filter(el=>el!==row&&(el===placeholder||el.classList?.contains('vedator-edit-row')))
+      .indexOf(placeholder);
+  }
+  function rowByRef(ref){return Array.from(order.querySelectorAll('.vedator-edit-row[data-ref]')).find(row=>row.dataset.ref===ref)||null}
+  function applyMove(ref,from,to){
+    if(from===to||to<0)return;
+    let at=from;
+    while(at>to){
+      const button=rowByRef(ref)?.querySelector('.up');
+      if(!button||button.disabled)break;
+      button.click();at--;
+    }
+    while(at<to){
+      const button=rowByRef(ref)?.querySelector('.down');
+      if(!button||button.disabled)break;
+      button.click();at++;
+    }
+    queueMicrotask(sync);
+  }
+  function movePlaceholder(clientY){
+    if(!drag)return;
+    const {row,placeholder}=drag;
+    const rows=Array.from(order.querySelectorAll('.vedator-edit-row')).filter(item=>item!==row);
+    let inserted=false;
+    for(const candidate of rows){
+      const rect=candidate.getBoundingClientRect();
+      if(clientY<rect.top+rect.height/2){order.insertBefore(placeholder,candidate);inserted=true;break}
+    }
+    if(!inserted)order.appendChild(placeholder);
+  }
+  function autoScroll(clientY){
+    const scroller=drag?.scroller;if(!scroller)return;
+    const rect=scroller.getBoundingClientRect();
+    if(clientY<rect.top+46)scroller.scrollTop-=18;
+    else if(clientY>rect.bottom-46)scroller.scrollTop+=18;
+  }
+  function pointerMove(event){
+    if(!drag||event.pointerId!==drag.pointerId)return;
+    event.preventDefault();
+    drag.row.style.top=`${event.clientY-drag.offsetY}px`;
+    autoScroll(event.clientY);
+    movePlaceholder(event.clientY);
+  }
+  function pointerEnd(event){
+    if(!drag||event.pointerId!==drag.pointerId)return;
+    event.preventDefault();
+    const state=drag;
+    const to=targetIndex(state.placeholder,state.row);
+    cleanupRow(state.row);
+    state.placeholder.replaceWith(state.row);
+    drag=null;
+    applyMove(state.ref,state.from,to);
+  }
+  function cancelDrag(){
+    if(!drag)return;
+    const state=drag;
+    cleanupRow(state.row);
+    state.placeholder.replaceWith(state.row);
+    drag=null;
+    sync();
+  }
+
+  order.addEventListener('pointerdown',event=>{
+    const handle=event.target.closest('.vedator-edit-controls');
+    if(!handle||!isMobile()||drag)return;
+    const row=handle.closest('.vedator-edit-row[data-ref]');
+    if(!row)return;
+    if(event.pointerType==='mouse'&&event.button!==0)return;
+    event.preventDefault();
+    const rows=Array.from(order.querySelectorAll('.vedator-edit-row[data-ref]'));
+    const from=rows.indexOf(row);
+    if(from<0)return;
+    const rect=row.getBoundingClientRect();
+    const placeholder=document.createElement('div');
+    placeholder.className='vedator-edit-placeholder';
+    placeholder.style.height=`${rect.height}px`;
+    row.after(placeholder);
+    row.classList.add('vedator-dragging');
+    row.style.position='fixed';row.style.left=`${rect.left}px`;row.style.top=`${rect.top}px`;row.style.width=`${rect.width}px`;row.style.zIndex='10002';row.style.pointerEvents='none';
+    drag={pointerId:event.pointerId,row,placeholder,ref:row.dataset.ref,from,offsetY:event.clientY-rect.top,scroller:row.closest('.vedator-editor-scroll')};
+    try{handle.setPointerCapture(event.pointerId)}catch{}
+  });
+  window.addEventListener('pointermove',pointerMove,{passive:false});
+  window.addEventListener('pointerup',pointerEnd,{passive:false});
+  window.addEventListener('pointercancel',cancelDrag,{passive:false});
+
   workSwitch.addEventListener('click',event=>{
     const button=event.target.closest('button[data-section]');
     if(button)setSection(button.dataset.section,true);
@@ -97,6 +208,7 @@
   order.addEventListener('click',syncAfterEvent);
   sourceSwitch.addEventListener('click',syncAfterEvent);
   window.addEventListener('vedatorlanguagechange',sync);
+  window.addEventListener('resize',()=>{if(!isMobile())cancelDrag()});
 
   document.addEventListener('click',event=>{
     const edit=event.target.closest('.vedator-playlist-icon.edit');
