@@ -3,12 +3,11 @@
   window.__vedatorEpisodeTranslationsLoader=true;
   window.__vedatorEpisodeTranslationsReady=false;
 
-  const VERSION='20260808-nonquestions-v1';
+  const VERSION='20260808-episode-343-summary-seek';
   const SOURCES=[
     ['episode-translations-347.js','data-vedator-episode-translations-347'],
     ['episode-343-summary.js','data-vedator-episode-343-summary'],
     ['episode-343-summary-interactive.js','data-vedator-episode-343-summary-interactive'],
-    ['nonquestions-view.js','data-vedator-nonquestions-view'],
     ['episode-translations-346-337.js','data-vedator-episode-translations-346-337'],
     ['episode-translations-336-330.js','data-vedator-episode-translations-336-330'],
     ['episode-translations-329-323.js','data-vedator-episode-translations-329-323'],
@@ -56,6 +55,16 @@
     ['episode-translations-space-talks-1-7.js','data-vedator-episode-translations-space-talks-1-7'],
     ['episode-translations-space-talks-8-15.js','data-vedator-episode-translations-space-talks-8-15']
   ];
+
+  function loadNonQuestionsView(){
+    if(window.__vedatorNonQuestionsView||document.querySelector('script[data-vedator-nonquestions-view]'))return;
+    const script=document.createElement('script');
+    script.src='./nonquestions-view.js?v=20260808-v1';
+    script.async=true;
+    script.dataset.vedatorNonquestionsView='1';
+    document.head.appendChild(script);
+  }
+  loadNonQuestionsView();
 
   function waitForLanguageBatchController(timeout=8000){
     if(window.__vedatorLanguageBatchController)return Promise.resolve(true);
