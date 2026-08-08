@@ -60,20 +60,24 @@
     const tabs=document.querySelector('.tabs');
     if(!tabs||tabs.__vedatorNonQuestionsUiOwnership)return false;
     const nonQuestionsTab=tabs.querySelector('.tab[data-view="nonquestions"]');
-    if(!nonQuestionsTab)return false;
+    const nonQuestionsTopics=document.querySelector('.nonquestions-topics');
+    const episodeTopics=document.querySelector('#topics');
+    const questionTopics=[...document.querySelectorAll('.panel .topics')].find(row=>
+      row!==episodeTopics&&row!==nonQuestionsTopics
+    );
+    if(!nonQuestionsTab||!nonQuestionsTopics||!questionTopics)return false;
     tabs.__vedatorNonQuestionsUiOwnership=true;
+    questionTopics.classList.add('question-topics');
 
-    tabs.addEventListener('click',event=>{
-      const clicked=event.target.closest?.('.tab');
-      if(!clicked)return;
-      if(clicked.dataset.view==='nonquestions'){
-        document.querySelectorAll('.topics').forEach(row=>row.classList.add('hidden'));
-      }else{
-        document.querySelector('.nonquestions-topics')?.classList.add('hidden');
-        document.querySelector('#nonquestionSort')?.classList.add('hidden');
-        document.querySelector('#nonquestions')?.classList.add('hidden');
-      }
-    },true);
+    const syncTopicRows=()=>{
+      const current=tabs.querySelector('.tab.active')?.dataset.view||'';
+      episodeTopics?.classList.toggle('hidden',current!=='episodes');
+      questionTopics.classList.toggle('hidden',current!=='questions');
+      nonQuestionsTopics.classList.toggle('hidden',current!=='nonquestions');
+    };
+
+    tabs.addEventListener('click',()=>requestAnimationFrame(syncTopicRows));
+    syncTopicRows();
 
     if(!document.querySelector('style[data-vedator-nonquestions-highlight-fix]')){
       const style=document.createElement('style');
