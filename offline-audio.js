@@ -44,7 +44,7 @@
   }
   function setHelp(text){
     const help=document.querySelector('.vedator-audio-card__help');
-    if(help)help.textContent=text;
+    if(help&&help.textContent!==text)help.textContent=text;
   }
 
   function rememberBlobUrl(key,blob){
@@ -109,14 +109,6 @@
       secondary.insertBefore(button,download||secondary.firstChild);
       button.addEventListener('click',handleOfflineClick);
     }
-    const downloadLabel=secondary.querySelector('.download-label');
-    if(downloadLabel&&['Stáhnout','Stiahnuť'].includes(downloadLabel.textContent.trim()))downloadLabel.textContent='MP3';
-    if(downloadLabel&&!downloadLabel.__vedatorOfflineObserver){
-      downloadLabel.__vedatorOfflineObserver=true;
-      new MutationObserver(()=>{
-        if(['Stáhnout','Stiahnuť'].includes(downloadLabel.textContent.trim()))downloadLabel.textContent='MP3';
-      }).observe(downloadLabel,{childList:true,characterData:true,subtree:true});
-    }
     syncButton();
     return true;
   }
@@ -126,10 +118,17 @@
     if(!button)return;
     const label=button.querySelector('.vedator-offline-label');
     const saved=Boolean(recordForTitle(currentTitle()));
+    const slovak=(()=>{try{return window.vedatorUiLanguage?.()==='sk'}catch{return false}})();
+    const nextLabel=saved
+      ?(slovak?'✓ Uložené offline':'✓ Uloženo offline')
+      :(slovak?'Uložiť offline':'Uložit offline');
+    const nextTitle=saved
+      ?(slovak?'Epizóda je uložená na počúvanie bez internetu':'Epizoda je uložená pro poslech bez internetu')
+      :(slovak?'Uložiť epizódu do tejto aplikácie na počúvanie bez internetu':'Uložit epizodu do této aplikace pro poslech bez internetu');
     button.classList.toggle('saved',saved);
     if(!button.dataset.vedatorBusy)button.disabled=false;
-    if(label&&!button.dataset.vedatorBusy)label.textContent=saved?'✓ Offline':'Uložit offline';
-    button.title=saved?'Epizoda je uložená pro poslech bez internetu':'Uložit epizodu do této aplikace pro poslech bez internetu';
+    if(label&&!button.dataset.vedatorBusy&&label.textContent!==nextLabel)label.textContent=nextLabel;
+    if(button.title!==nextTitle)button.title=nextTitle;
   }
 
   function playLinkForRecord(record){
@@ -201,7 +200,7 @@
 
     button.dataset.vedatorBusy='1';
     button.disabled=true;
-    if(label)label.textContent='Připravuji…';
+    if(label&&label.textContent!=='Připravuji…')label.textContent='Připravuji…';
 
     try{
       try{await navigator.storage?.persist?.()}catch{}
@@ -219,7 +218,10 @@
           if(done)break;
           chunks.push(value);
           loaded+=value.byteLength;
-          if(label)label.textContent=total?`${Math.min(99,Math.floor(loaded/total*100))} %`:formatMb(loaded);
+          if(label){
+            const next=total?`${Math.min(99,Math.floor(loaded/total*100))} %`:formatMb(loaded);
+            if(label.textContent!==next)label.textContent=next;
+          }
           setHelp(total?`Ukládám offline: ${formatMb(loaded)} z ${formatMb(total)}.`:`Ukládám offline: ${formatMb(loaded)}.`);
         }
         blob=new Blob(chunks,{type});
@@ -266,7 +268,7 @@
     const label=button.querySelector('.vedator-offline-label');
     button.dataset.vedatorBusy='1';
     button.disabled=true;
-    if(label)label.textContent='Mažu…';
+    if(label&&label.textContent!=='Mažu…')label.textContent='Mažu…';
     try{
       const cache=await caches.open(CACHE);
       await cache.delete(record.cacheUrl);
