@@ -1,6 +1,6 @@
 (()=>{
-  const VEDATOR_SW_WRAPPER_VERSION='v204-layout-5-offline-unified';
-  const VEDATOR_BOOTSTRAP_VERSION='v204-reload-fix-1';
+  const VEDATOR_SW_WRAPPER_VERSION='v205-update-fix-1';
+  const VEDATOR_BOOTSTRAP_VERSION='v205-update-fix-1';
   const HAD_ACTIVE_WORKER=Boolean(self.registration.active);
   const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
   const OFFLINE_AUDIO_PATH='/__vedator_offline_audio__/';
