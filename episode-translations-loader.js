@@ -26,6 +26,10 @@
     ['episode-335-summary-data-sk.js','data-vedator-episode-335-summary-data-sk'],
     ['episode-335-summary.js','data-vedator-episode-335-summary'],
     ['episode-335-summary-interactive.js','data-vedator-episode-335-summary-interactive'],
+    ['episode-334-summary-data-cs.js','data-vedator-episode-334-summary-data-cs'],
+    ['episode-334-summary-data-sk.js','data-vedator-episode-334-summary-data-sk'],
+    ['episode-334-summary.js','data-vedator-episode-334-summary'],
+    ['episode-334-summary-interactive.js','data-vedator-episode-334-summary-interactive'],
     ['episode-translations-346-337.js','data-vedator-episode-translations-346-337'],
     ['episode-translations-336-330.js','data-vedator-episode-translations-336-330'],
     ['episode-translations-329-323.js','data-vedator-episode-translations-329-323'],
@@ -75,8 +79,12 @@
   ];
 
   const NONQUESTIONS_CACHE_KEY='vedatorNonQuestionsData:20260808-v1';
-  const EXTRA_NONQUESTION_EPISODES=[335,338,339,341,342,344,345,347];
+  const EXTRA_NONQUESTION_EPISODES=[334,335,338,339,341,342,344,345,347];
   const EXTRA_SUMMARY_DEPENDENCIES={
+    334:[
+      ['episode-334-summary-data-cs.js','data-vedator-episode-334-summary-data-cs'],
+      ['episode-334-summary-data-sk.js','data-vedator-episode-334-summary-data-sk']
+    ],
     335:[
       ['episode-335-summary-data-cs.js','data-vedator-episode-335-summary-data-cs'],
       ['episode-335-summary-data-sk.js','data-vedator-episode-335-summary-data-sk']
