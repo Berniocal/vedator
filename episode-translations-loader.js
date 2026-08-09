@@ -20,6 +20,8 @@
     ['episode-341-summary-interactive.js','data-vedator-episode-341-summary-interactive'],
     ['episode-339-summary.js','data-vedator-episode-339-summary'],
     ['episode-339-summary-interactive.js','data-vedator-episode-339-summary-interactive'],
+    ['episode-338-summary.js','data-vedator-episode-338-summary'],
+    ['episode-338-summary-interactive.js','data-vedator-episode-338-summary-interactive'],
     ['episode-translations-346-337.js','data-vedator-episode-translations-346-337'],
     ['episode-translations-336-330.js','data-vedator-episode-translations-336-330'],
     ['episode-translations-329-323.js','data-vedator-episode-translations-329-323'],
@@ -69,7 +71,7 @@
   ];
 
   const NONQUESTIONS_CACHE_KEY='vedatorNonQuestionsData:20260808-v1';
-  const EXTRA_NONQUESTION_EPISODES=[339,341,342,344,345,347];
+  const EXTRA_NONQUESTION_EPISODES=[338,339,341,342,344,345,347];
 
   function mergeExtraEpisodesIntoNonQuestions(payload){
     if(!payload?.episodes||typeof payload.episodes!=='object')return false;
