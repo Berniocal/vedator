@@ -857,8 +857,6 @@
   }
 
   function seriesFirstDate(series){return Math.min(...series.episodes.map(number=>new Date(episodeByNumber(number)?.date||0).getTime()).filter(Number.isFinite))}
-  function seriesLastDate(series){return Math.max(...series.episodes.map(number=>new Date(episodeByNumber(number)?.date||0).getTime()).filter(Number.isFinite))}
-  function seriesHighestNumber(series){return Math.max(...series.episodes.map(number=>Number(number)||0))}
   function seriesListenRank(series,sort){
     const info=seriesProgressInfo(series),status=info.finished?'done':info.started?'progress':'unheard';
     const orders={started:{progress:0,unheard:1,done:2},completed:{done:0,progress:1,unheard:2},unheard:{unheard:0,progress:1,done:2}};
@@ -871,9 +869,6 @@
       if(['started','completed','unheard'].includes(sort)){const difference=seriesListenRank(a.series,sort)-seriesListenRank(b.series,sort);if(difference)return difference}
       if(sort==='alpha')return seriesLabel(a.series).localeCompare(seriesLabel(b.series),sk()?'sk':'cs');
       if(sort==='first')return seriesFirstDate(a.series)-seriesFirstDate(b.series);
-      if(sort==='new')return seriesLastDate(b.series)-seriesLastDate(a.series)||seriesLabel(a.series).localeCompare(seriesLabel(b.series),sk()?'sk':'cs');
-      if(sort==='old')return seriesLastDate(a.series)-seriesLastDate(b.series)||seriesLabel(a.series).localeCompare(seriesLabel(b.series),sk()?'sk':'cs');
-      if(sort==='number')return seriesHighestNumber(b.series)-seriesHighestNumber(a.series)||seriesLabel(a.series).localeCompare(seriesLabel(b.series),sk()?'sk':'cs');
       return b.series.episodes.length-a.series.episodes.length||seriesLabel(a.series).localeCompare(seriesLabel(b.series),sk()?'sk':'cs');
     });
     return groups;
@@ -897,7 +892,7 @@
   function parityControlLabel(topic){return sk()?(topic.sk||topic.cs):(topic.cs||topic.sk)}
   function paritySortOptions(view){
     if(view==='episodes')return[['new',text('Nejnovější','Najnovšie')],['old',text('Nejstarší','Najstaršie')],['number',text('Podle čísla dílu','Podľa čísla dielu')],['started',text('Rozposlouchané první','Rozpočúvané prvé')],['completed',text('Poslechnuté první','Vypočuté prvé')],['unheard',text('Neposlechnuté první','Nevypočuté prvé')]];
-    if(view==='series')return[['count',text('Podle počtu dílů','Podľa počtu dielov')],['alpha',text('Podle abecedy','Podľa abecedy')],['first',text('Podle stáří prvního dílu','Podľa veku prvého dielu')],['new',text('Nejnovější','Najnovšie')],['old',text('Nejstarší','Najstaršie')],['number',text('Podle čísla dílu','Podľa čísla dielu')],['started',text('Rozposlouchané první','Rozpočúvané prvé')],['completed',text('Poslechnuté první','Vypočuté prvé')],['unheard',text('Neposlechnuté první','Nevypočuté prvé')]];
+    if(view==='series')return[['count',text('Podle počtu dílů','Podľa počtu dielov')],['alpha',text('Podle abecedy','Podľa abecedy')],['first',text('Podle stáří prvního dílu','Podľa veku prvého dielu')],['started',text('Rozposlouchané první','Rozpočúvané prvé')],['completed',text('Poslechnuté první','Vypočuté prvé')],['unheard',text('Neposlechnuté první','Nevypočuté prvé')]];
     if(view==='questions'||view==='nonquestions')return[['new',text('Nejnovější','Najnovšie')],['old',text('Nejstarší','Najstaršie')]];
     return[];
   }
