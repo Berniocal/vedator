@@ -1,0 +1,110 @@
+name: Temporary fix series sorting
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/tmp-fix-series-sort.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch series sorting
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+
+          const appPath = 'app-v2.js';
+          let app = fs.readFileSync(appPath, 'utf8');
+
+          const oldSeriesBlock = `  function seriesFirstDate(series){return Math.min(...series.episodes.map(number=>new Date(episodeByNumber(number)?.date||0).getTime()).filter(Number.isFinite))}
+  function sortedParitySeries(){
+    const query=norm(state.query.trim());let groups=(state.data?.series||[]).map((series,index)=>({series,index}));
+    if(query)groups=groups.filter(({series})=>norm(seriesLabel(series)+' '+series.episodes.map(number=>allEpisodeSearch(episodeByNumber(number))).join(' ')).includes(query));
+    groups.sort((a,b)=>parityUi.seriesSort==='alpha'?seriesLabel(a.series).localeCompare(seriesLabel(b.series),sk()?'sk':'cs'):parityUi.seriesSort==='first'?seriesFirstDate(a.series)-seriesFirstDate(b.series):b.series.episodes.length-a.series.episodes.length||seriesLabel(a.series).localeCompare(seriesLabel(b.series),sk()?'sk':'cs'));
+    return groups;
+  }`;
+
+          const newSeriesBlock = `  function seriesFirstDate(series){return Math.min(...series.episodes.map(number=>new Date(episodeByNumber(number)?.date||0).getTime()).filter(Number.isFinite))}
+  function seriesLastDate(series){return Math.max(...series.episodes.map(number=>new Date(episodeByNumber(number)?.date||0).getTime()).filter(Number.isFinite))}
+  function seriesHighestNumber(series){return Math.max(...series.episodes.map(number=>Number(number)||0))}
+  function seriesListenRank(series,sort){
+    const info=seriesProgressInfo(series),status=info.finished?'done':info.started?'progress':'unheard';
+    const orders={started:{progress:0,unheard:1,done:2},completed:{done:0,progress:1,unheard:2},unheard:{unheard:0,progress:1,done:2}};
+    return orders[sort]?.[status]??0;
+  }
+  function sortedParitySeries(){
+    const query=norm(state.query.trim()),sort=parityUi.seriesSort;let groups=(state.data?.series||[]).map((series,index)=>({series,index}));
+    if(query)groups=groups.filter(({series})=>norm(seriesLabel(series)+' '+series.episodes.map(number=>allEpisodeSearch(episodeByNumber(number))).join(' ')).includes(query));
+    groups.sort((a,b)=>{
+      if(['started','completed','unheard'].includes(sort)){const difference=seriesListenRank(a.series,sort)-seriesListenRank(b.series,sort);if(difference)return difference}
+      if(sort==='alpha')return seriesLabel(a.series).localeCompare(seriesLabel(b.series),sk()?'sk':'cs');
+      if(sort==='first')return seriesFirstDate(a.series)-seriesFirstDate(b.series);
+      if(sort==='new')return seriesLastDate(b.series)-seriesLastDate(a.series)||seriesLabel(a.series).localeCompare(seriesLabel(b.series),sk()?'sk':'cs');
+      if(sort==='old')return seriesLastDate(a.series)-seriesLastDate(b.series)||seriesLabel(a.series).localeCompare(seriesLabel(b.series),sk()?'sk':'cs');
+      if(sort==='number')return seriesHighestNumber(b.series)-seriesHighestNumber(a.series)||seriesLabel(a.series).localeCompare(seriesLabel(b.series),sk()?'sk':'cs');
+      return b.series.episodes.length-a.series.episodes.length||seriesLabel(a.series).localeCompare(seriesLabel(b.series),sk()?'sk':'cs');
+    });
+    return groups;
+  }`;
+
+          if (!app.includes(oldSeriesBlock)) throw new Error('Expected series sorting block not found; refusing to patch.');
+          app = app.replace(oldSeriesBlock, newSeriesBlock);
+
+          const oldSeriesOptions = `    if(view==='series')return[['count',text('Podle počtu dílů','Podľa počtu dielov')],['alpha',text('Podle abecedy','Podľa abecedy')],['first',text('Podle stáří prvního dílu','Podľa veku prvého dielu')]];`;
+          const newSeriesOptions = `    if(view==='series')return[['count',text('Podle počtu dílů','Podľa počtu dielov')],['alpha',text('Podle abecedy','Podľa abecedy')],['first',text('Podle stáří prvního dílu','Podľa veku prvého dielu')],['new',text('Nejnovější','Najnovšie')],['old',text('Nejstarší','Najstaršie')],['number',text('Podle čísla dílu','Podľa čísla dielu')],['started',text('Rozposlouchané první','Rozpočúvané prvé')],['completed',text('Poslechnuté první','Vypočuté prvé')],['unheard',text('Neposlechnuté první','Nevypočuté prvé')]];`;
+          if (!app.includes(oldSeriesOptions)) throw new Error('Expected series sort options not found; refusing to patch.');
+          app = app.replace(oldSeriesOptions, newSeriesOptions);
+
+          const oldSync = `    const options=paritySortOptions(view);sort.classList.toggle('hidden',!options.length);sort.innerHTML=options.map(([value,label])=>'<option value=\\"'+value+'\\">'+esc(label)+'</option>').join('');if(options.length)sort.value=currentParitySort(view);`;
+          const newSync = `    const options=paritySortOptions(view);sort.classList.toggle('hidden',!options.length);sort.innerHTML=options.map(([value,label])=>'<option value=\\"'+value+'\\">'+esc(label)+'</option>').join('');if(options.length){const current=currentParitySort(view),valid=options.some(([value])=>value===current),selected=valid?current:options[0][0];if(!valid)setParitySort(view,selected);sort.value=selected}`;
+          if (!app.includes(oldSync)) throw new Error('Expected sort control sync not found; refusing to patch.');
+          app = app.replace(oldSync, newSync);
+
+          fs.writeFileSync(appPath, app);
+
+          const testPath = 'tools/test-v2-full-parity.mjs';
+          let test = fs.readFileSync(testPath, 'utf8');
+          const oldTest = `assert(window.document.querySelectorAll('#parity-sort-v2 option').length===3,'Series sort should contain 3 legacy modes');`;
+          const newTest = `assert(window.document.querySelectorAll('#parity-sort-v2 option').length===9,'Series sort should contain 9 modes');\nassert(window.document.querySelector('#parity-sort-v2').selectedIndex>=0,'Series sort should visibly select the current mode');`;
+          if (!test.includes(oldTest)) throw new Error('Expected series sort test not found; refusing to patch.');
+          test = test.replace(oldTest, newTest);
+          fs.writeFileSync(testPath, test);
+          NODE
+
+      - name: Verify patch
+        shell: bash
+        run: |
+          node --check app-v2.js
+          node <<'NODE'
+          const fs=require('fs');
+          const app=fs.readFileSync('app-v2.js','utf8');
+          const required=[
+            "function seriesLastDate(series)",
+            "function seriesHighestNumber(series)",
+            "function seriesListenRank(series,sort)",
+            "['new',text('Nejnovější','Najnovšie')]",
+            "['started',text('Rozposlouchané první','Rozpočúvané prvé')]",
+            "valid=options.some(([value])=>value===current)"
+          ];
+          for(const item of required)if(!app.includes(item))throw new Error('Missing expected patch fragment: '+item);
+          NODE
+          git diff --check
+
+      - name: Commit patch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app-v2.js tools/test-v2-full-parity.mjs
+          git commit -m "Fix series sorting controls"
+          git push
