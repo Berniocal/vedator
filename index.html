@@ -254,12 +254,21 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
 @media(max-width:700px){#series-v2:not(.hidden){grid-template-columns:minmax(0,1fr)!important;gap:10px!important}#series-v2 .series,#series-v2 .series[open]{grid-column:auto!important}}
 
 </style>
+
+<style id="v2-search-clear-style">
+.search-clear-wrap{position:relative;width:100%;min-width:0}
+.search-clear-wrap .search{padding-right:48px}
+.search-clear-button{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:999px;background:transparent;color:var(--muted,#64748b);font-size:1.65rem;line-height:1;cursor:pointer;z-index:2}
+.search-clear-button[hidden]{display:none!important}
+.search-clear-button:hover{background:var(--accent2,#ede9fe);color:var(--ink,#162033)}
+.search-clear-button:focus-visible{outline:2px solid var(--accent,#5b4bdb);outline-offset:1px}
+</style>
 </head>
 <body>
 <header><div class="wrap header-v2"><div class="header-title-v2"><div id="eyebrow-v2" style="opacity:.72;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Neoficiální tematický katalog</div><h1 id="heading-v2" style="margin:.25rem 0 0">Vedátorský podcast podle témat</h1></div><div class="header-actions-v2"><button id="install-v2" class="install-v2" type="button">Instalovat</button><div class="language-v2" role="group" aria-label="Jazyk aplikace / Jazyk aplikácie"><button type="button" data-lang="sk">SK</button><button type="button" data-lang="cz">CZ</button></div><button id="theme-toggle-v2" class="theme-toggle-v2" type="button" aria-pressed="false" title="Tmavý režim">☾</button></div></div></header>
 <main class="wrap">
   <section class="panel">
-    <div class="controls"><input id="search-v2" class="search" placeholder="Hledat v právě otevřené záložce…"></div>
+    <div class="controls"><div class="search-clear-wrap"><input id="search-v2" class="search" placeholder="Hledat v právě otevřené záložce…"><button id="search-clear-v2" class="search-clear-button" type="button" hidden aria-label="Smazat vyhledávání" title="Smazat vyhledávání">×</button></div></div>
     <div class="tabs" aria-label="Pohledy">
       <button class="tab-v2 active" data-view="episodes" type="button">Epizody</button>
       <button class="tab-v2" data-view="series" type="button">Série</button>
@@ -307,6 +316,29 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
 <input id="data-file-v2" type="file" accept="application/json,.json" hidden>
 
 <script src="./app-v2.js" defer></script>
+<script id="v2-search-clear-script">
+(()=>{
+  const search=document.getElementById('search-v2'),button=document.getElementById('search-clear-v2');
+  if(!search||!button)return;
+  const sync=()=>{
+    const hasText=search.value.length>0;
+    button.hidden=!hasText;button.tabIndex=hasText?0:-1;
+    const sk=String(document.documentElement.lang||'').toLowerCase().startsWith('sk');
+    const label=sk?'Vymazať vyhľadávanie':'Smazat vyhledávání';
+    button.setAttribute('aria-label',label);button.title=label;
+  };
+  search.addEventListener('input',sync);
+  button.addEventListener('pointerdown',event=>event.preventDefault());
+  button.addEventListener('click',()=>{
+    if(!search.value)return;
+    search.value='';sync();
+    search.dispatchEvent(new Event('input',{bubbles:true}));
+  });
+  window.addEventListener('vedatorlanguagechange',sync);
+  sync();
+})();
+</script>
+
 
 <script>
 (()=>{if(!('serviceWorker' in navigator))return;window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js',{scope:'./'}).then(reg=>reg.update()).catch(err=>console.warn('SW registration failed',err));});})();
