@@ -1,0 +1,180 @@
+name: Prepare tested V2 production cutover v2
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - cutover/v2-production
+    paths:
+      - '.github/workflows/prepare-v2-production-cutover-v2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout production cutover branch
+        uses: actions/checkout@v4
+        with:
+          ref: cutover/v2-production
+          fetch-depth: 0
+
+      - name: Preserve legacy source index and fetch tested V2
+        run: |
+          set -euo pipefail
+          if [ ! -f legacy-source-index.html ]; then cp index.html legacy-source-index.html; fi
+          rm -rf /tmp/vedator-test
+          git clone --depth 1 --branch main https://github.com/Berniocal/vedator-test.git /tmp/vedator-test
+          cp /tmp/vedator-test/v2.html index.html
+          cp /tmp/vedator-test/app-v2.js app-v2.js
+          cp /tmp/vedator-test/content-v2.json content-v2.json
+          cp /tmp/vedator-test/manifest-v2.webmanifest manifest.webmanifest
+          cp /tmp/vedator-test/icon.svg icon.svg
+          cp /tmp/vedator-test/icon-192.png icon-192.png
+          cp /tmp/vedator-test/icon-512.png icon-512.png
+          cp /tmp/vedator-test/V2-MAINTENANCE.md V2-MAINTENANCE.md
+          rm -rf tools
+          cp -R /tmp/vedator-test/tools tools
+          cp /tmp/vedator-test/.github/workflows/update-podcast-feed.yml .github/workflows/update-podcast-feed.yml
+
+      - name: Adapt V2 to production root and preserved source index
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+
+          index = Path('index.html')
+          text = index.read_text(encoding='utf-8')
+          text = text.replace('./manifest-v2.webmanifest', './manifest.webmanifest')
+          registration = """\n<script>\n(()=>{\n  if(!('serviceWorker' in navigator)) return;\n  window.addEventListener('load',()=>{\n    navigator.serviceWorker.register('./sw.js',{scope:'./'}).then(reg=>reg.update()).catch(err=>console.warn('SW registration failed',err));\n  });\n})();\n</script>\n"""
+          if "serviceWorker.register('./sw.js'" not in text:
+              text = text.replace('</body>', registration + '</body>')
+          index.write_text(text, encoding='utf-8')
+
+          manifest_path = Path('manifest.webmanifest')
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          manifest['id'] = './'
+          manifest['name'] = 'Vedátorský podcast – podle témat'
+          manifest['short_name'] = 'Vedátor'
+          manifest['start_url'] = './'
+          manifest['scope'] = './'
+          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          builder = Path('tools/build-content-v2.mjs')
+          b = builder.read_text(encoding='utf-8')
+          b = b.replace("const index=read('index.html');", "const indexSource=exists('legacy-source-index.html')?'legacy-source-index.html':'index.html';\n  const index=read(indexSource);")
+          b = b.replace("evalLiteral(literal,'index.html SUMMARIES')", "evalLiteral(literal,'legacy source index SUMMARIES')")
+          builder.write_text(b, encoding='utf-8')
+          PY
+
+      - name: Rebuild V2 content from production source data
+        run: |
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+
+      - name: Add atomic production service worker builder
+        run: |
+          cat > tools/build-production-sw.mjs <<'EOF'
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+
+          const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
+          const shell=['index.html','app-v2.js','content-v2.json','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'];
+          for(const file of shell){if(!fs.existsSync(file))throw new Error(`Missing production shell file: ${file}`)}
+          const hash=crypto.createHash('sha256');
+          for(const file of shell){hash.update(file);hash.update(fs.readFileSync(file))}
+          const version=hash.digest('hex').slice(0,16);
+          const cache=`vedator-v2-app-${version}`;
+          const urls=['./','./index.html','./app-v2.js','./content-v2.json','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
+          const code=`const APP_CACHE=${JSON.stringify(cache)};\nconst APP_URLS=${JSON.stringify(urls)};\nconst OFFLINE_AUDIO_CACHE=${JSON.stringify(OFFLINE_AUDIO_CACHE)};\nself.addEventListener('install',event=>{event.waitUntil((async()=>{const cache=await caches.open(APP_CACHE);await cache.addAll(APP_URLS.map(url=>new Request(url,{cache:'reload'})));await self.skipWaiting()})())});\nself.addEventListener('activate',event=>{event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(key=>key.startsWith('vedator-v2-app-')&&key!==APP_CACHE).map(key=>caches.delete(key)));await self.clients.claim()})())});\nself.addEventListener('fetch',event=>{const request=event.request;if(request.method!=='GET')return;const url=new URL(request.url);if(url.origin!==self.location.origin)return;if(request.mode==='navigate'){event.respondWith((async()=>{const cache=await caches.open(APP_CACHE);const cached=await cache.match('./index.html');if(cached)return cached;try{return await fetch(request)}catch(error){return Response.error()}})());return}const path=url.pathname.split('/').pop();const shellNames=new Set(['app-v2.js','content-v2.json','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png']);if(!shellNames.has(path))return;event.respondWith((async()=>{const cache=await caches.open(APP_CACHE);const cached=await cache.match(request,{ignoreSearch:true});if(cached)return cached;const response=await fetch(request);if(response&&response.ok)await cache.put(request,response.clone());return response})())});\n`;
+          fs.writeFileSync('sw.js',code);
+          console.log(JSON.stringify({cache,offlineAudioCachePreserved:OFFLINE_AUDIO_CACHE},null,2));
+          EOF
+          node tools/build-production-sw.mjs
+
+      - name: Make feed updater rebuild production content and service worker atomically
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('.github/workflows/update-podcast-feed.yml')
+          s=p.read_text(encoding='utf-8')
+          needle="          node tools/augment-v2-parity-content.mjs\n"
+          if "node tools/build-production-sw.mjs" not in s:
+              s=s.replace(needle, needle+"          node tools/build-production-sw.mjs\n")
+          s=s.replace("git add -- episodes.json content-v2.json", "git add -- episodes.json content-v2.json sw.js")
+          s=s.replace("Katalog i V2 balík jsou beze změny.", "Katalog, V2 balík i service worker jsou beze změny.")
+          p.write_text(s,encoding='utf-8')
+          PY
+
+      - name: Remove obsolete legacy runtime entry points
+        run: |
+          rm -f \
+            audio-player.css audio-player.js catalog-patch.js collection-progress.js custom-player.js \
+            data-backup.js deep-links.js episode-translations-loader.js first-load-recovery.js \
+            lazy-render.js media-session-skip.js nonquestions-view.js offline-audio.js \
+            performance-boost.js player-actions.js playlist-editor-mobile.js playlist-patch.js \
+            questions-performance-cache.js questions-view.js question-controls-stability.js \
+            question-highlight-translated.js question-temperature-mathjax.js slovak-ui.js \
+            startup-fast.js summary-enhancer.js tab-swipe-navigation.js theme-toggle.js \
+            sw-fast.js sw-v204-overlay.js sw-346-patch.js
+
+      - name: Validate production runtime
+        run: |
+          node --check app-v2.js
+          node --check sw.js
+          node --check tools/build-content-v2.mjs
+          node --check tools/build-production-sw.mjs
+          grep -q "app-v2.js" index.html
+          grep -q "content-v2.json" app-v2.js
+          grep -q "serviceWorker.register('./sw.js'" index.html
+          test -f legacy-source-index.html
+          test ! -f v2.html
+          test ! -f sw-fast.js
+          test ! -f startup-fast.js
+
+      - name: Run V2 DOM and browser regression tests against production index
+        run: |
+          cp index.html v2.html
+          npm install --no-save --no-package-lock jsdom@26 puppeteer-core@24
+          node tools/test-app-v2.mjs
+          node tools/test-v2-question-experience.mjs
+          node tools/test-v2-episode-experience.mjs
+          node tools/test-v2-full-parity.mjs
+          node tools/test-v2-playlist-parity.mjs
+          node tools/test-v2-final-ui-faq-guide.mjs
+          node tools/test-v2-last-ux-browser.mjs
+          node tools/test-v2-real-readmore-browser.mjs
+          rm -f v2.html
+
+      - name: Verify old user data and deep links remain compatible
+        run: |
+          grep -q "vedator-user-playlists-v1" app-v2.js
+          grep -q "vedatorPlaybackProgressV1" app-v2.js
+          grep -q "vedatorCollectionProgressV1" app-v2.js
+          grep -q "vedatorOfflineAudioIndexV1" app-v2.js
+          grep -q "vedator-offline-audio-v1" app-v2.js
+          grep -q "sheet@" app-v2.js
+          grep -q "vedator-offline-audio-v1" sw.js
+
+      - name: Commit prepared production V2
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- \
+            index.html app-v2.js content-v2.json manifest.webmanifest sw.js \
+            icon.svg icon-192.png icon-512.png legacy-source-index.html V2-MAINTENANCE.md \
+            tools .github/workflows/update-podcast-feed.yml
+          git add -u
+          if git diff --cached --quiet; then
+            echo 'Nothing to commit.'
+          else
+            git commit -m 'Replace legacy runtime with tested V2 app'
+            git push origin HEAD:cutover/v2-production
+          fi
