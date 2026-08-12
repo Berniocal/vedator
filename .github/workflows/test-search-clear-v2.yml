@@ -1,0 +1,85 @@
+name: Test search clear V2
+
+on:
+  push:
+    branches: [fix/search-clear-v2]
+    paths: ['.github/workflows/test-search-clear-v2.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test-and-prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/search-clear-v2
+          fetch-depth: 0
+
+      - name: Add isolated search clear control
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old='<div class="controls"><input id="search-v2" class="search" placeholder="Hledat v právě otevřené záložce…"></div>'
+          new='<div class="controls"><div class="search-clear-wrap"><input id="search-v2" class="search" placeholder="Hledat v právě otevřené záložce…"><button id="search-clear-v2" class="search-clear-button" type="button" hidden aria-label="Smazat vyhledávání" title="Smazat vyhledávání">×</button></div></div>'
+          if old not in s:
+              raise SystemExit('Search markup not found; refusing broad patch')
+          s=s.replace(old,new,1)
+          css='''\n<style id="v2-search-clear-style">\n.search-clear-wrap{position:relative;width:100%;min-width:0}\n.search-clear-wrap .search{padding-right:48px}\n.search-clear-button{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:999px;background:transparent;color:var(--muted,#64748b);font-size:1.65rem;line-height:1;cursor:pointer;z-index:2}\n.search-clear-button[hidden]{display:none!important}\n.search-clear-button:hover{background:var(--accent2,#ede9fe);color:var(--ink,#162033)}\n.search-clear-button:focus-visible{outline:2px solid var(--accent,#5b4bdb);outline-offset:1px}\n</style>\n'''
+          if 'id="v2-search-clear-style"' not in s:
+              s=s.replace('</head>',css+'</head>',1)
+          js='''\n<script id="v2-search-clear-script">\n(()=>{\n  const search=document.getElementById('search-v2'),button=document.getElementById('search-clear-v2');\n  if(!search||!button)return;\n  const sync=()=>{\n    const hasText=search.value.length>0;\n    button.hidden=!hasText;button.tabIndex=hasText?0:-1;\n    const sk=String(document.documentElement.lang||'').toLowerCase().startsWith('sk');\n    const label=sk?'Vymazať vyhľadávanie':'Smazat vyhledávání';\n    button.setAttribute('aria-label',label);button.title=label;\n  };\n  search.addEventListener('input',sync);\n  button.addEventListener('pointerdown',event=>event.preventDefault());\n  button.addEventListener('click',()=>{\n    if(!search.value)return;\n    search.value='';sync();\n    search.dispatchEvent(new Event('input',{bubbles:true}));\n  });\n  window.addEventListener('vedatorlanguagechange',sync);\n  sync();\n})();\n</script>\n'''
+          marker='<script src="./app-v2.js" defer></script>'
+          if marker not in s:
+              raise SystemExit('V2 app marker not found; refusing broad patch')
+          if 'id="v2-search-clear-script"' not in s:
+              s=s.replace(marker,marker+js,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+          node tools/build-production-sw.mjs
+
+      - name: Regression test search clear
+        run: |
+          npm install --no-save --no-package-lock jsdom@26
+          cp index.html v2.html
+          node tools/test-app-v2.mjs
+          rm -f v2.html
+          node - <<'NODE'
+          const fs=require('fs');
+          const {JSDOM}=require('jsdom');
+          const html=fs.readFileSync('index.html','utf8');
+          const dom=new JSDOM(html,{runScripts:'dangerously',url:'https://example.test/vedator/'});
+          const {document,Event}=dom.window;
+          const search=document.getElementById('search-v2');
+          const clear=document.getElementById('search-clear-v2');
+          if(!search||!clear)throw new Error('Missing search clear control');
+          if(!clear.hidden)throw new Error('Clear button must start hidden');
+          let inputs=0;search.addEventListener('input',()=>inputs++);
+          search.value='kvant';search.dispatchEvent(new Event('input',{bubbles:true}));
+          if(clear.hidden)throw new Error('Clear button did not appear after typing');
+          clear.click();
+          if(search.value!=='')throw new Error('Clear button did not empty search');
+          if(!clear.hidden)throw new Error('Clear button did not hide after clearing');
+          if(inputs!==2)throw new Error(`Unexpected input event count: ${inputs}`);
+          if(!html.includes("$('#search-v2').addEventListener('input'")){
+            // handler lives in app-v2.js; ensure that file is unchanged instead below
+          }
+          console.log(JSON.stringify({ok:true,clearButton:true,oneClearInputEvent:true}));
+          NODE
+          git diff --exit-code -- app-v2.js content-v2.json
+
+      - name: Commit only tested runtime files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- index.html sw.js
+          git diff --cached --stat
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m 'Add clear button to V2 search'
+            git push origin HEAD:fix/search-clear-v2
+          fi
