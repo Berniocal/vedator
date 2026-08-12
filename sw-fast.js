@@ -1,6 +1,6 @@
 (()=>{
-  const VEDATOR_SW_WRAPPER_VERSION='v211-startup-fast-1';
-  const VEDATOR_BOOTSTRAP_VERSION='v211-startup-fast-1';
+  const VEDATOR_SW_WRAPPER_VERSION='v210-single-sw-1';
+  const VEDATOR_BOOTSTRAP_VERSION='v210-single-sw-1';
   const HAD_ACTIVE_WORKER=Boolean(self.registration.active);
   const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
   const OFFLINE_AUDIO_PATH='/__vedator_offline_audio__/';
@@ -13,10 +13,10 @@
   self.__vedatorSwWrapperVersion=VEDATOR_SW_WRAPPER_VERSION;
   self.__vedatorBootstrapVersion=VEDATOR_BOOTSTRAP_VERSION;
 
-  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./offline-audio.js','./player-actions.js','./playlist-editor-mobile.js','./startup-fast.js'];
+  const INSTALL_UI_FILES=['./theme-toggle.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./offline-audio.js','./player-actions.js','./playlist-editor-mobile.js'];
   const originalAddAll=typeof Cache!=='undefined'?Cache.prototype.addAll:null;
   if(originalAddAll){
-    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png','player-actions.js','offline-audio.js','playlist-editor-mobile.js','startup-fast.js']);
+    const CORE_FILES=new Set(['index.html','manifest.webmanifest','icon.svg','theme-toggle.js','icon-192.png','icon-512.png','player-actions.js','offline-audio.js','playlist-editor-mobile.js']);
     Cache.prototype.addAll=function(requests){
       const core=[...(requests||[])].filter(request=>{
         try{
@@ -69,8 +69,6 @@
     const actionsTag='<script src="./player-actions.js" defer></script>';
     const slovakTag='<script src="./slovak-ui.js" defer></script>';
     const playlistEditorTag='<script src="./playlist-editor-mobile.js" defer></script>';
-    const startupFastTag='<script src="./startup-fast.js?v=20260812-1"></script>';
-    if(!html.includes('startup-fast.js'))html=html.replace('</head>',startupFastTag+'</head>');
     if(!html.includes('offline-audio.js')){
       if(html.includes(actionsTag))html=html.replace(actionsTag,offlineTag+actionsTag);
       else html=html.includes(beforeData)?html.replace(beforeData,offlineTag+beforeData):html.replace('</body>',offlineTag+'</body>');
