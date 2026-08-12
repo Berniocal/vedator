@@ -66,10 +66,10 @@ jobs:
           if (!app.includes(oldSeriesOptions)) throw new Error('Expected series sort options not found; refusing to patch.');
           app = app.replace(oldSeriesOptions, newSeriesOptions);
 
-          const oldSync = "    const options=paritySortOptions(view);sort.classList.toggle('hidden',!options.length);sort.innerHTML=options.map(([value,label])=>'<option value=\\\"'+value+'\\\">'+esc(label)+'</option>').join('');if(options.length)sort.value=currentParitySort(view);";
-          const newSync = "    const options=paritySortOptions(view);sort.classList.toggle('hidden',!options.length);sort.innerHTML=options.map(([value,label])=>'<option value=\\\"'+value+'\\\">'+esc(label)+'</option>').join('');if(options.length){const current=currentParitySort(view),valid=options.some(([value])=>value===current),selected=valid?current:options[0][0];if(!valid)setParitySort(view,selected);sort.value=selected}";
-          if (!app.includes(oldSync)) throw new Error('Expected sort control sync not found; refusing to patch.');
-          app = app.replace(oldSync, newSync);
+          const syncLine = app.split('\n').find(line=>line.includes('const options=paritySortOptions(view);')&&line.includes('if(options.length)sort.value=currentParitySort(view);'));
+          if (!syncLine) throw new Error('Expected sort control sync not found; refusing to patch.');
+          const newSyncLine = syncLine.replace('if(options.length)sort.value=currentParitySort(view);',"if(options.length){const current=currentParitySort(view),valid=options.some(([value])=>value===current),selected=valid?current:options[0][0];if(!valid)setParitySort(view,selected);sort.value=selected}");
+          app = app.replace(syncLine, newSyncLine);
           fs.writeFileSync(appPath, app);
 
           const testPath = 'tools/test-v2-full-parity.mjs';
