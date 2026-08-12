@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
+const shell=['index.html','app-v2.js','content-v2.json','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'];
+for(const file of shell){if(!fs.existsSync(file))throw new Error(`Missing shell file: ${file}`)}
+const h=crypto.createHash('sha256');for(const file of shell){h.update(file);h.update(fs.readFileSync(file))}
+const APP_CACHE=`vedator-v2-app-${h.digest('hex').slice(0,16)}`;
+const APP_URLS=['./','./index.html','./app-v2.js','./content-v2.json','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
+fs.writeFileSync('sw.js',`const APP_CACHE=${JSON.stringify(APP_CACHE)};\nconst APP_URLS=${JSON.stringify(APP_URLS)};\nconst OFFLINE_AUDIO_CACHE=${JSON.stringify(OFFLINE_AUDIO_CACHE)};\nself.addEventListener('install',e=>e.waitUntil((async()=>{const c=await caches.open(APP_CACHE);await c.addAll(APP_URLS.map(u=>new Request(u,{cache:'reload'})));await self.skipWaiting()})()));\nself.addEventListener('activate',e=>e.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>k.startsWith('vedator-v2-app-')&&k!==APP_CACHE).map(k=>caches.delete(k)));await self.clients.claim()})()));\nself.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET')return;const u=new URL(r.url);if(u.origin!==self.location.origin)return;if(r.mode==='navigate'){e.respondWith((async()=>{const c=await caches.open(APP_CACHE),x=await c.match('./index.html');if(x)return x;try{return await fetch(r)}catch{return Response.error()}})());return}const n=u.pathname.split('/').pop();if(!new Set(['app-v2.js','content-v2.json','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png']).has(n))return;e.respondWith((async()=>{const c=await caches.open(APP_CACHE),x=await c.match(r,{ignoreSearch:true});if(x)return x;const y=await fetch(r);if(y&&y.ok)await c.put(r,y.clone());return y})())});\n`);
+console.log({APP_CACHE,OFFLINE_AUDIO_CACHE});

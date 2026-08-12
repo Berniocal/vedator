@@ -3,121 +3,313 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827">
+<meta name="theme-color" content="#151b2f">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
 <title>Vedátorský podcast – podle témat</title>
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon.svg" type="image/svg+xml">
-<script src="./first-load-recovery.js" defer></script>
+<script>
+(()=>{try{const key='vedator-ui-theme-v1',saved=localStorage.getItem(key),dark=matchMedia?.('(prefers-color-scheme: dark)').matches;document.documentElement.dataset.theme=saved==='light'||saved==='dark'?saved:(dark?'dark':'light')}catch{document.documentElement.dataset.theme='light'}})();
+</script>
 <style>
-:root{--bg:#f4f6fb;--card:#fff;--ink:#162033;--muted:#64748b;--line:#dbe2ea;--accent:#5b4bdb;--accent2:#ede9fe}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-header{background:linear-gradient(135deg,#151b2f,#32256c);color:#fff;padding:28px 18px 24px}.wrap{max-width:1050px;margin:auto}.header-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.install-app{border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.14);color:#fff;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer;white-space:nowrap}.install-app:hover{background:rgba(255,255,255,.22)}.install-app.hidden{display:none!important}
-.eyebrow{opacity:.75;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.76rem}h1{font-size:clamp(1.7rem,5vw,2.7rem);margin:.25rem 0 .4rem}
-main{padding:18px}.panel,article,.series-card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 30px rgba(15,23,42,.06)}
-.panel{padding:16px}.controls{display:grid;grid-template-columns:1fr auto;gap:10px}.search{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;font-size:1rem}
-button,select{font:inherit}.refresh{border:0;border-radius:12px;background:var(--accent);color:#fff;padding:0 16px;font-weight:700;cursor:pointer}
-.tabs,.topics{display:flex;gap:8px;overflow:auto;scrollbar-width:thin}.tabs{padding:14px 0 2px}.topics{padding:10px 0 4px}
-.topic,.tab{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer}.topic.active,.tab.active{background:var(--accent2);border-color:#8b7ee8;color:#392b9b;font-weight:700}
-.meta{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:18px 2px 10px;color:var(--muted)}.sort{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:13px}article{padding:16px;display:flex;flex-direction:column;min-height:260px}
-article h2{font-size:1.08rem;line-height:1.35;margin:.35rem 0 .55rem}.date{color:var(--muted);font-size:.85rem}.desc{line-height:1.48;color:#354158;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}.tag{font-size:.76rem;background:#eef2ff;color:#3730a3;border-radius:999px;padding:4px 8px}
-.links{display:flex;gap:8px;margin-top:auto}.links a{flex:1;text-align:center;text-decoration:none;border-radius:10px;padding:9px;font-weight:700}.primary{background:var(--accent);color:#fff}.secondary{border:1px solid var(--line);color:var(--ink)}
-.episode-summary{margin-top:10px;border:1px solid var(--line);border-radius:12px;background:#fafaff}.episode-summary>summary{cursor:pointer;font-weight:800;padding:10px 12px;color:#392b9b;list-style:none}.episode-summary>summary::-webkit-details-marker{display:none}.episode-summary>summary::after{content:'▾';float:right;transition:.2s}.episode-summary[open]>summary::after{transform:rotate(180deg)}
-.episode-summary-body{padding:0 12px 12px;color:#354158;line-height:1.45}.summary-block{margin:.8rem 0}.summary-time{font-weight:800;color:#392b9b}.summary-title{font-weight:800;color:var(--ink);margin:.15rem 0}.episode-summary-body ul{margin:.25rem 0;padding-left:1.2rem}.episode-summary-body li{margin:.22rem 0}.summary-note{font-size:.78rem;color:var(--muted);margin-top:.7rem}
-.status{padding:28px;text-align:center;color:var(--muted)}.series-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:10px;align-items:start}.series-card{overflow:hidden}.series-card>summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:750;display:flex;justify-content:flex-start;gap:10px;align-items:center}.series-card>summary::-webkit-details-marker{display:none}.series-card>summary::after{content:'▾';transition:.2s}.series-card[open]>summary::after{transform:rotate(180deg)}.series-card[open]>summary{border-bottom:1px solid var(--line);background:#fafaff}.series-count{color:var(--muted);font-weight:600;font-size:.85rem;white-space:nowrap;margin-left:auto;text-align:right;min-width:4.6rem}.series-body{padding:8px 16px 14px}.series-body ol{margin:.25rem 0 0;padding-left:1.35rem}.series-body li{padding:.38rem 0;line-height:1.35}.series-body a{color:#392b9b}.person-name{font-weight:750;color:var(--ink);display:block;font-size:.9rem}.episode-title{font-size:.82rem;color:var(--muted)}.hidden{display:none!important}
-@media(max-width:550px){.controls{grid-template-columns:1fr}.refresh{padding:12px}.meta{align-items:flex-start;flex-direction:column}.series-list{grid-template-columns:1fr}.header-row{align-items:center}.install-app{padding:9px 11px;font-size:.9rem}h1{max-width:13ch}}
+:root{color-scheme:light;--bg:#f4f6fb;--card:#fff;--raised:#fafbff;--ink:#162033;--muted:#64748b;--line:#dbe2ea;--accent:#5b4bdb;--accent-hover:#4b3cc7;--accent2:#ede9fe;--ok:#15803d;--warn:#b45309;--danger:#b91c1c;--header1:#151b2f;--header2:#32256c;--player:rgba(255,255,255,.97);--shadow:0 8px 24px rgba(15,23,42,.07);--shadow-strong:0 14px 38px rgba(15,23,42,.14);--focus:#7c6eef}
+html[data-theme="dark"]{color-scheme:dark;--bg:#0e1118;--card:#171b25;--raised:#1c2130;--ink:#edf1f8;--muted:#9ca8ba;--line:#2d3544;--accent:#9285ff;--accent-hover:#a399ff;--accent2:#2b2649;--ok:#4ade80;--warn:#fbbf24;--danger:#fb7185;--header1:#0b0e16;--header2:#201842;--player:rgba(23,27,37,.97);--shadow:0 8px 24px rgba(0,0,0,.22);--shadow-strong:0 16px 42px rgba(0,0,0,.38);--focus:#aa9fff}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding-bottom:132px;transition:background .18s ease,color .18s ease}
+button,input,select{font:inherit}
+button,a,input,select{touch-action:manipulation}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+header{background:linear-gradient(135deg,var(--header1),var(--header2));color:white;padding:20px 18px;box-shadow:0 5px 22px rgba(0,0,0,.12)}
+.wrap{max-width:1100px;margin:auto}
+.header-v2{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.header-title-v2{min-width:0}
+.header-actions-v2{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.language-v2{display:flex;gap:3px;padding:3px;border:1px solid rgba(255,255,255,.38);border-radius:12px;background:rgba(255,255,255,.1)}
+.language-v2 button,.theme-toggle-v2{min-height:38px;border:0;border-radius:8px;padding:7px 10px;background:transparent;color:rgba(255,255,255,.8);font-weight:850;cursor:pointer}
+.language-v2 button.active{background:#fff;color:#29205f;box-shadow:0 2px 8px rgba(0,0,0,.16)}
+.theme-toggle-v2{min-width:42px;border:1px solid rgba(255,255,255,.38);background:rgba(255,255,255,.1);font-size:1.04rem}
+.theme-toggle-v2:hover,.language-v2 button:hover{background:rgba(255,255,255,.2)}
+main{padding:16px 18px 24px}
+.panel,.card,.series,.data-card,.playlist-card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.panel{padding:12px}
+.controls{display:grid;grid-template-columns:1fr;gap:10px}
+.search,.modal-search,.question-sort{width:100%;min-height:44px;padding:11px 13px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
+.search::placeholder,.modal-search::placeholder{color:var(--muted)}
+.tabs{display:flex;gap:7px;overflow:auto;padding-top:10px;scroll-snap-type:x proximity;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab-v2{scroll-snap-align:start;white-space:nowrap;min-height:40px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 12px;cursor:pointer}
+.tab-v2:hover{border-color:var(--accent)}
+.tab-v2.active{background:var(--accent2);border-color:var(--accent);color:var(--accent);font-weight:800}
+.status-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:.88rem;margin:12px 2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,315px),1fr));gap:12px}
+.card{padding:15px;display:flex;flex-direction:column;min-height:0;transition:transform .14s ease,box-shadow .14s ease,border-color .14s ease}
+@media(hover:hover){.card:hover,.series:hover,.playlist-card:hover{border-color:color-mix(in srgb,var(--accent) 35%,var(--line));box-shadow:var(--shadow-strong)}}
+.card h2{font-size:1.04rem;line-height:1.35;margin:.42rem 0 .58rem}
+.card p,.card li{line-height:1.46}
+.card p{margin:.3rem 0 .85rem;color:color-mix(in srgb,var(--ink) 88%,var(--muted))}
+.card ul{padding-left:1.15rem}
+.meta{font-size:.8rem;color:var(--muted)}
+.listen-status{font-size:.83rem;font-weight:800;margin:.12rem 0 .45rem;min-height:1em}
+.listen-status.done{color:var(--ok)}
+.listen-status.progress{color:var(--warn)}
+.actions{display:flex;gap:7px;margin-top:auto;flex-wrap:wrap;align-items:stretch}
+.actions a,.actions button,.primary-button,.secondary-button,.danger-button{min-height:42px;flex:1 1 120px;text-align:center;text-decoration:none;border:0;border-radius:10px;padding:9px 10px;background:var(--accent);color:white;font-weight:750;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:5px}
+.actions a:hover,.actions button:hover,.primary-button:hover{background:var(--accent-hover)}
+.actions .secondary,.secondary-button{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.actions .secondary:hover,.secondary-button:hover{background:var(--raised);border-color:var(--accent)}
+.danger-button{background:var(--danger)}
+.actions .play{flex:2 1 145px}
+.series{margin-bottom:10px;padding:0 14px;transition:box-shadow .14s ease,border-color .14s ease}
+.series summary,.playlist-card summary{cursor:pointer;padding:14px 0;display:flex;justify-content:space-between;gap:12px;align-items:center;min-height:48px}
+.series ol{padding:0 0 10px;margin:0;list-style:none;border-top:1px solid var(--line)}
+.series li{border-bottom:1px solid color-mix(in srgb,var(--line) 80%,transparent)}
+.series-item{width:100%;min-height:42px;border:0;background:transparent;color:var(--ink);text-align:left;padding:8px 4px;border-radius:8px;cursor:pointer}
+.series-item:hover{background:var(--accent2)}
+.playlist-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.playlist-add{width:44px;height:44px;border:0;border-radius:50%;background:var(--accent);color:white;font-size:1.7rem;cursor:pointer;box-shadow:var(--shadow)}
+.playlist-card{padding:0 14px;transition:box-shadow .14s ease,border-color .14s ease}
+.playlist-card summary{list-style:none}
+.playlist-card summary::-webkit-details-marker{display:none}
+.playlist-title{font-weight:800;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.playlist-count{color:var(--muted);font-size:.82rem;white-space:nowrap}
+.playlist-actions{display:flex;gap:2px}
+.icon-button{min-width:38px;min-height:38px;border:0;background:transparent;color:var(--muted);padding:6px;cursor:pointer;border-radius:9px}
+.icon-button:hover{background:var(--raised);color:var(--ink)}
+.playlist-items{list-style:none;margin:0;padding:0 0 10px;border-top:1px solid var(--line)}
+.playlist-item{border-bottom:1px solid var(--line)}
+.playlist-open{display:block;width:100%;min-height:48px;border:0;background:transparent;text-align:left;padding:10px 2px;color:var(--ink);cursor:pointer}
+.playlist-open:hover{background:var(--raised)}
+.playlist-open small{color:var(--muted)}
+.empty{padding:24px;border:1px dashed var(--line);border-radius:14px;color:var(--muted);background:var(--card)}
+.data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.data-card{padding:18px}
+.data-card h2{margin-top:0}
+.data-actions{display:flex;gap:8px;flex-wrap:wrap}
+.data-note{font-size:.87rem;color:var(--muted);line-height:1.45}
+.hidden,.filtered-out{display:none!important}
+#status-v2.error{color:var(--danger)}
+.player-shell{position:fixed;left:0;right:0;bottom:0;z-index:5000;background:var(--player);border-top:1px solid var(--line);box-shadow:0 -8px 28px rgba(0,0,0,.16);backdrop-filter:blur(12px)}
+.player-shell.hidden{display:none}
+.player-inner{max-width:1100px;margin:auto;padding:9px 16px max(9px,env(safe-area-inset-bottom));display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;align-items:center}
+.player-title{font-weight:850;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.player-sub{font-size:.78rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.player-main{min-width:0}
+.player-controls{display:flex;gap:6px;align-items:center}
+.player-controls button,.player-controls a{min-height:40px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:7px 9px;text-decoration:none;cursor:pointer;font-weight:750;display:inline-flex;align-items:center;justify-content:center}
+.player-controls button:hover,.player-controls a:hover{background:var(--raised);border-color:var(--accent)}
+.player-controls .play-toggle{background:var(--accent);color:#fff;border-color:var(--accent);min-width:78px}
+.player-controls .play-toggle:hover{background:var(--accent-hover)}
+.player-seek-row{grid-column:1/-1;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;font-size:.77rem;color:var(--muted)}
+.player-seek{width:100%;accent-color:var(--accent)}
+.player-help{grid-column:1/-1;font-size:.76rem;color:var(--muted);min-height:1em}
+audio#audio-v2{display:none}
+.back-top-v2{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:4500;width:46px;height:46px;border:1px solid var(--line);border-radius:50%;background:var(--card);color:var(--ink);box-shadow:var(--shadow-strong);cursor:pointer;font-size:1.2rem;transition:transform .16s ease,opacity .16s ease}
+.back-top-v2:hover{transform:translateY(-2px);border-color:var(--accent)}
+body:has(#player-v2:not(.hidden)) .back-top-v2{bottom:145px}
+.modal-v2{position:fixed;inset:0;z-index:9000;background:rgba(3,7,18,.7);display:flex;align-items:center;justify-content:center;padding:14px}
+.modal-v2.hidden{display:none}
+.modal-box{width:min(900px,100%);max-height:min(90dvh,860px);background:var(--card);color:var(--ink);border-radius:18px;border:1px solid var(--line);display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;box-shadow:var(--shadow-strong)}
+.modal-head,.modal-foot{display:flex;align-items:center;gap:8px;padding:12px 14px}
+.modal-head{border-bottom:1px solid var(--line)}
+.modal-head strong{flex:1}
+.modal-foot{border-top:1px solid var(--line);justify-content:flex-end;flex-wrap:wrap}
+.modal-body{overflow:auto;padding:14px}
+.editor-switch{display:flex;gap:6px;margin-bottom:10px}
+.editor-switch button{min-height:40px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 12px;cursor:pointer}
+.editor-switch button.active{background:var(--accent);color:white;border-color:var(--accent)}
+.editor-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.editor-list{display:grid;gap:7px}
+.editor-row,.editor-choice,.picker-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:9px;background:var(--card)}
+.editor-choice{grid-template-columns:auto minmax(0,1fr)}
+.editor-row small,.editor-choice small{color:var(--muted)}
+.editor-move{display:flex;flex-direction:column}
+.editor-move button,.editor-remove{min-width:34px;min-height:30px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.picker-row{grid-template-columns:auto minmax(0,1fr)}
+html[data-theme="dark"] .question-topic,html[data-theme="dark"] .question-sort,html[data-theme="dark"] .question-more,html[data-theme="dark"] .deep-share{background:var(--card)!important;color:var(--ink)!important;border-color:var(--line)!important}
+html[data-theme="dark"] .question-topic.active{background:var(--accent2)!important;color:var(--accent)!important;border-color:var(--accent)!important}
+html[data-theme="dark"] .episode-summary-v2{background:var(--raised)!important}
+html[data-theme="dark"] .episode-summary-v2>summary{color:var(--accent)!important}
+html[data-theme="dark"] .episode-chapter-play-v2{background:var(--accent2)!important;color:var(--accent)!important}
+html[data-theme="dark"] .question-card mark{background:#8a6f00;color:#fff7c2}
+@media(max-width:700px){
+  body{padding-bottom:205px}
+  header{padding:14px 12px}
+  .header-v2{align-items:flex-start;gap:10px}
+  .header-title-v2 h1{font-size:1.35rem}
+  .header-actions-v2{gap:5px}
+  .language-v2 button,.theme-toggle-v2{min-height:36px;padding:5px 8px}
+  main{padding:10px 10px 20px}
+  .panel{padding:9px;border-radius:14px}
+  .tabs{margin-right:-9px;padding-right:9px}
+  .tab-v2{min-height:39px;padding:7px 11px}
+  .status-row{margin:9px 2px;font-size:.8rem}
+  .grid{grid-template-columns:1fr;gap:9px}
+  .card{padding:13px;border-radius:14px}
+  .card h2{font-size:1rem}
+  .actions{gap:6px}
+  .actions a,.actions button{min-height:44px;padding:8px}
+  .series,.playlist-card{border-radius:14px;padding:0 11px}
+  .series summary,.playlist-card summary{padding:11px 0;align-items:flex-start}
+  .series-progress-summary-v2{white-space:normal!important;flex-wrap:wrap!important;justify-content:flex-end!important;text-align:right}
+  .player-inner{grid-template-columns:1fr;padding:8px 10px max(8px,env(safe-area-inset-bottom));gap:6px}
+  .player-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+  .player-controls button,.player-controls a{min-width:0;min-height:38px;padding:6px 4px;font-size:.76rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .player-controls .play-toggle{min-width:0}
+  #player-playlist-v2,#player-offline-v2,#player-download-v2{grid-column:span 2}
+  #player-close-v2{grid-column:4}
+  .player-seek-row{grid-column:1}
+  .player-help{grid-column:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  body:has(#player-v2:not(.hidden)) .back-top-v2{bottom:218px}
+  .back-top-v2{width:44px;height:44px;right:12px}
+  .modal-v2{align-items:flex-end;padding:0}
+  .modal-box{width:100%;max-height:92dvh;border-radius:18px 18px 0 0;border-bottom:0}
+  .editor-columns{grid-template-columns:1fr}
+  .modal-foot>button{flex:1 1 120px}
+}
+@media(max-width:420px){
+  .header-actions-v2{flex-direction:column;align-items:flex-end}
+  .player-controls{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #player-playlist-v2,#player-offline-v2,#player-download-v2{grid-column:auto}
+  #player-close-v2{grid-column:auto}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+/* V2_MOBILE_DEEP_POLISH_CSS_V2 */
+html body .topic-v2.active,html body .question-topic.active{background:#5b4bdb!important;color:#fff!important;border-color:#7c6eef!important}
+html[data-theme="dark"] body .topic-v2.active,html[data-theme="dark"] body .question-topic.active{background:#5b4bdb!important;color:#fff!important;border-color:#a399ff!important}
+html body .tag{background:var(--accent2)!important;color:#4636b7!important;border:1px solid var(--accent)!important;box-shadow:none!important}
+html[data-theme="dark"] body .tag{background:rgba(146,133,255,.14)!important;color:#ddd8ff!important;border-color:#9285ff!important}
+.parity-topics-v2,.question-topics{scrollbar-width:none!important;-ms-overflow-style:none}
+.parity-topics-v2::-webkit-scrollbar,.question-topics::-webkit-scrollbar{display:none!important}
+.question-card mark.vedator-match,.episode-card-v2 mark.vedator-match{background:#ffe66b!important;color:#171717!important;border-radius:.28em;padding:.02em .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+html[data-theme="dark"] .question-card mark.vedator-match,html[data-theme="dark"] .episode-card-v2 mark.vedator-match{background:#8a6d00!important;color:#fff4b3!important}
+.question-card .actions,.episode-card-v2 .actions{display:grid!important;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) 44px;gap:8px!important;align-items:stretch}
+.question-card .actions>*,.episode-card-v2 .actions>*{min-width:0!important;width:100%;margin:0!important}
+.question-card .play,.episode-card-v2 .play{grid-column:1}
+.question-card .question-more,.episode-card-v2 .secondary{grid-column:2}
+.question-card .deep-share,.episode-card-v2 .deep-share{grid-column:3;width:44px!important;min-width:44px!important;padding:0!important}
+.episode-card-v2 .actions:not(:has(.secondary)) .play{grid-column:1/3}
+.actions .play,.actions .secondary,.question-more{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.series>summary .deep-share{width:44px!important;min-width:44px!important;padding:0!important}
+#player-download-v2[aria-disabled="true"]{opacity:.65;pointer-events:none}
+.desc-v2{color:color-mix(in srgb,var(--ink) 86%,var(--muted))!important}
+@media(max-width:700px){
+  body{padding-bottom:250px}
+  body:has(#player-v2.hidden){padding-bottom:20px}
+  .player-inner{position:relative!important;grid-template-columns:1fr!important;padding:9px 9px max(9px,env(safe-area-inset-bottom))!important;gap:7px!important}
+  .player-main{padding-right:43px}.player-title{font-size:.92rem;line-height:1.25}.player-sub{font-size:.72rem}
+  .player-controls{display:grid!important;grid-template-columns:repeat(20,minmax(0,1fr))!important;gap:6px!important;align-items:stretch!important}
+  #player-prev-v2,#player-back10-v2,#player-play-v2,#player-forward10-v2,#player-next-v2{grid-column:span 4!important;grid-row:1!important;min-width:0!important;min-height:50px!important;border-radius:14px!important;font-size:.82rem!important;padding:5px 2px!important}
+  #player-play-v2{min-height:56px!important;font-size:.9rem!important;box-shadow:0 7px 18px rgba(91,75,219,.24)}
+  #player-playlist-v2,#player-offline-v2,#player-download-v2,#player-speed-v2{grid-column:span 5!important;grid-row:2!important;min-width:0!important;min-height:43px!important;border-radius:12px!important;font-size:.7rem!important;white-space:normal!important;line-height:1.12!important;padding:6px 3px!important}
+  #player-close-v2{position:absolute!important;top:7px!important;right:7px!important;width:36px!important;min-width:36px!important;height:36px!important;min-height:36px!important;padding:0!important;border-radius:50%!important;z-index:2}
+  .player-seek-row{grid-column:1!important;gap:6px!important;font-size:.72rem!important}
+  .player-help{grid-column:1!important;white-space:normal!important;overflow:hidden!important;display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;font-size:.72rem!important;line-height:1.25!important;min-height:1.8em!important}
+  body:has(#player-v2:not(.hidden)) .back-top-v2{bottom:255px!important}
+  .series>summary{display:grid!important;grid-template-columns:minmax(0,1fr) 44px!important;align-items:center!important;gap:5px 8px!important}
+  .series>summary>strong{grid-column:1;grid-row:1;min-width:0}.series>summary .series-progress-summary-v2{grid-column:1;grid-row:2;align-items:flex-start!important;justify-content:flex-start!important;text-align:left!important;flex-direction:row!important;flex-wrap:wrap!important}.series>summary .deep-share{grid-column:2;grid-row:1/3;align-self:center}
+  .parity-topics-v2{margin-left:-2px;margin-right:-2px;padding-left:2px;padding-right:2px}
+}
+@media(max-width:420px){
+  .player-controls{grid-template-columns:repeat(20,minmax(0,1fr))!important}
+  .question-card .actions,.episode-card-v2 .actions{grid-template-columns:minmax(0,1.28fr) minmax(0,1fr) 42px;gap:6px!important}
+  .question-card .deep-share,.episode-card-v2 .deep-share{width:42px!important;min-width:42px!important}
+  .actions .play,.actions .secondary,.question-more{font-size:.86rem!important;padding-left:5px!important;padding-right:5px!important}
+}
+
+/* V2_MOBILE_WIDTH_CONTAINMENT_V1 */
+/* Contain intrinsic widths instead of hiding horizontal overflow. */
+main,.wrap,.view-v2,.grid,.grid>*,.card,.episode-card-v2,.question-card,.series,.playlist-card,.actions,.episode-summary-v2,.episode-summary-v2>summary,.episode-summary-v2>summary>*,.player-shell,.player-inner,.player-main,.player-controls{min-width:0!important}
+.card,.episode-card-v2,.question-card,.series,.playlist-card,.episode-summary-v2,.actions{max-width:100%!important}
+.card h2,.card p,.card li,.episode-summary-v2 summary,.series summary,.playlist-card summary{overflow-wrap:anywhere;word-break:normal}
+.episode-summary-v2>summary{width:100%!important}
+.episode-summary-v2>summary>span{min-width:0!important;flex:1 1 auto!important}
+.episode-summary-v2>summary>small{min-width:0!important;flex:0 1 auto!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+@media(max-width:700px){
+  main.wrap{width:100%!important;max-width:100%!important}
+  .view-v2,.grid{width:100%!important;max-width:100%!important}
+  .card,.episode-card-v2,.question-card,.series,.playlist-card{width:100%!important;max-width:100%!important}
+  .actions{width:100%!important;max-width:100%!important}
+  .player-shell{width:100%!important;max-width:100vw!important;left:0!important;right:0!important}
+  .player-inner{width:100%!important;max-width:100vw!important}
+  .player-controls{width:100%!important;max-width:100%!important}
+  .player-controls>*{min-width:0!important;max-width:100%!important}
+}
+
+
+/* V2_FINAL_UI_FAQ_GUIDE_CSS_V1 */
+.install-v2{min-height:38px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.14);color:#fff;border-radius:10px;padding:7px 11px;font-weight:850;cursor:pointer;white-space:nowrap}.install-v2:hover{background:rgba(255,255,255,.24)}.install-v2.hidden{display:none!important}
+html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.active,html[data-theme="dark"] body .tab-v2.active,html[data-theme="dark"] body .topic-v2.active,html[data-theme="dark"] body .question-topic.active{background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important}
+.status-row{justify-content:flex-start!important}.status-row #count-v2{margin-right:auto;text-align:left}.status-row #status-v2:empty{display:none}.parity-refresh-v2{display:none!important}
+#series-v2:not(.hidden){display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:start}#series-v2 .series{margin:0;min-width:0}
+.series-progress-label-v2,.series-progress-main-v2,.playlist-progress-main-v2,.series-item-status-v2,.playlist-item-status-v2{display:none!important}.series-progress-box-v2,.playlist-progress-box-v2{grid-template-columns:1fr!important;padding:0 0 10px!important}.series-resume-v2,.playlist-resume-v2{width:100%!important}.playlist-open{grid-template-columns:minmax(0,1fr)!important}
+.v2-collection-title-active{color:#d97706!important}.v2-collection-title-complete{color:#15803d!important}.v2-collection-progress-text{--vedator-heard:#16a34a;--vedator-unheard:#392b9b;background:linear-gradient(90deg,var(--vedator-heard) 0 var(--vedator-progress),var(--vedator-unheard) var(--vedator-progress) 100%);-webkit-background-clip:text;background-clip:text;color:transparent!important}.v2-collection-complete-text{color:#15803d!important}html[data-theme="dark"] .v2-collection-title-active{color:#fbbf24!important}html[data-theme="dark"] .v2-collection-title-complete{color:#4ade80!important}html[data-theme="dark"] .v2-collection-progress-text{--vedator-heard:#4ade80;--vedator-unheard:#c4b5fd}html[data-theme="dark"] .v2-collection-complete-text{color:#4ade80!important}
+#player-play-v2{font-size:1.2rem!important;letter-spacing:-.08em}
+@media(max-width:900px){#series-v2:not(.hidden){grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){#series-v2:not(.hidden){grid-template-columns:1fr}.install-v2{min-height:36px;padding:5px 8px;font-size:.82rem}}
+
+
+
+/* V2_SERIES_DESKTOP_THREE_MOBILE_ONE_V1 */
+#series-v2:not(.hidden){grid-template-columns:repeat(3,minmax(0,1fr))!important}
+#series-v2 .series[open]{grid-column:1/-1}
+@media(max-width:700px){#series-v2:not(.hidden){grid-template-columns:minmax(0,1fr)!important;gap:10px!important}#series-v2 .series,#series-v2 .series[open]{grid-column:auto!important}}
+
 </style>
 </head>
 <body>
-<header><div class="wrap header-row"><div><div class="eyebrow">Neoficiální tematický katalog</div><h1>Vedátorský podcast podle témat</h1></div><button id="installApp" class="install-app hidden" type="button">Instalovat</button></div></header>
+<header><div class="wrap header-v2"><div class="header-title-v2"><div id="eyebrow-v2" style="opacity:.72;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Neoficiální tematický katalog</div><h1 id="heading-v2" style="margin:.25rem 0 0">Vedátorský podcast podle témat</h1></div><div class="header-actions-v2"><button id="install-v2" class="install-v2" type="button">Instalovat</button><div class="language-v2" role="group" aria-label="Jazyk aplikace / Jazyk aplikácie"><button type="button" data-lang="sk">SK</button><button type="button" data-lang="cz">CZ</button></div><button id="theme-toggle-v2" class="theme-toggle-v2" type="button" aria-pressed="false" title="Tmavý režim">☾</button></div></div></header>
 <main class="wrap">
-<section class="panel">
-<div class="controls"><input id="search" class="search" placeholder="Hledat česky nebo slovensky: černé/čierne díry, vesmír…"><button id="refresh" class="refresh">Znovu načíst</button></div>
-<div class="tabs"><button class="tab active" data-view="episodes">Epizody</button><button class="tab" data-view="series">Série</button></div>
-<div id="topics" class="topics"></div>
-</section>
-<div class="meta"><div id="count">Načítám epizody…</div><select id="episodeSort" class="sort"><option value="new">Nejnovější</option><option value="old">Nejstarší</option><option value="number">Podle čísla dílu</option></select><select id="seriesSort" class="sort hidden"><option value="count">Podle počtu dílů</option><option value="alpha">Podle abecedy</option><option value="first">Podle stáří prvního dílu</option></select></div>
-<section id="episodes" class="grid"><div class="status">Načítám katalog…</div></section>
-<section id="series" class="series-list hidden"></section>
+  <section class="panel">
+    <div class="controls"><input id="search-v2" class="search" placeholder="Hledat v právě otevřené záložce…"></div>
+    <div class="tabs" aria-label="Pohledy">
+      <button class="tab-v2 active" data-view="episodes" type="button">Epizody</button>
+      <button class="tab-v2" data-view="series" type="button">Série</button>
+      <button class="tab-v2" data-view="questions" type="button">Otázky</button>
+      <button class="tab-v2" data-view="nonquestions" type="button">Neotázky</button>
+      <button class="tab-v2" data-view="playlists" type="button">Playlisty</button>
+      <button class="tab-v2" data-view="data" type="button">Moje data</button>
+    </div>
+  </section>
+  <div class="status-row"><div id="status-v2">Načítám jediný datový balík…</div><div id="count-v2"></div></div>
+  <section id="episodes-v2" class="view-v2 grid" data-view="episodes"></section>
+  <section id="series-v2" class="view-v2 hidden" data-view="series"></section>
+  <section id="questions-v2" class="view-v2 grid hidden" data-view="questions"></section>
+  <section id="nonquestions-v2" class="view-v2 grid hidden" data-view="nonquestions"></section>
+  <section id="playlists-v2" class="view-v2 hidden" data-view="playlists"></section>
+  <section id="data-v2" class="view-v2 hidden" data-view="data"></section>
 </main>
+
+<audio id="audio-v2" playsinline preload="metadata"></audio>
+
+<section id="player-v2" class="player-shell hidden" aria-label="Přehrávač">
+  <div class="player-inner">
+    <div class="player-main">
+      <div id="player-title-v2" class="player-title">Vedátorský podcast</div>
+      <div id="player-sub-v2" class="player-sub"></div>
+    </div>
+    <div class="player-controls">
+      <button id="player-prev-v2" type="button" title="Předchozí">◀</button>
+      <button id="player-play-v2" class="play-toggle" type="button">Přehrát</button>
+      <button id="player-next-v2" type="button" title="Další">▶</button>
+      <button id="player-speed-v2" type="button">1×</button>
+      <button id="player-playlist-v2" type="button">＋ Playlist</button>
+      <button id="player-offline-v2" type="button">📱 Offline</button>
+      <a id="player-download-v2" href="#" target="_blank" rel="noopener">⇩ MP3</a>
+      <button id="player-close-v2" type="button" aria-label="Sbalit přehrávač" title="Sbalit přehrávač">↓</button>
+    </div>
+    <div class="player-seek-row"><span id="player-current-v2">0:00</span><input id="player-seek-v2" class="player-seek" type="range" min="0" max="1" value="0" step="1"><span id="player-duration-v2">–:––</span></div>
+    <div id="player-help-v2" class="player-help"></div>
+  </div>
+</section>
+
+<button id="back-top-v2" class="back-top-v2 hidden" type="button" aria-label="Nahoru" title="Nahoru">↑</button>
+<div id="playlist-editor-v2" class="modal-v2 hidden" aria-hidden="true"></div>
+<div id="playlist-picker-v2" class="modal-v2 hidden" aria-hidden="true"></div>
+<input id="data-file-v2" type="file" accept="application/json,.json" hidden>
+
+<script src="./app-v2.js" defer></script>
+
 <script>
-const TOPICS={'Vše':[],'FAQ':['faq','dobre otazky'],'Mimozemský život':['mimozem','astrobiolog','exoplanet','civiliz','biosignat'],'Kosmologie':['kozmolog','kosmolog','velky tresk','rozpin','casopriestor'],'Temná energie':['tmava energia','temna energie','dark energy'],'Černé díry':['cierna diera','cerna dira','cierne diery','cerne diry','black hole'],'Kvantová fyzika':['kvant','superpoz','previazan','provazan'],'Relativita':['relativit','dilatacia casu','rychlost svetla'],'Astronomie':['hviezd','hvezd','planet','galaxi','teleskop','slnko','slunce','mesiac','mesic','mars','jupiter'],'Biologie a medicína':['bunk','mozog','mozek','gen','evol','virus','bakter','sperm','vajic','alzheimer','dopamin'],'Matematika':['matemat','geometri','fraktal','nekonec','chaos','pravdepodob'],'Technologie a AI':['umela inteligencia','umela inteligence','internet','pocitac','robot','algoritm'],'Země a příroda':['zemetrasen','sopk','tornad','hurikan','klima','ocean','geolog'],'Chemie a materiály':['chem','molekul','atom','prvok','prvek','helium','material'],'Společnost a psychologie':['socialne siete','socialni site','psychol','spolocnost','spolecnost','moral','radikaliz','ekonom','peniaz','penez']};
-const QUERY_EQUIV=[['cerna dira','cierna diera'],['cerne diry','cierne diery'],['cernych der','ciernych dier'],['temna energie','tmava energia'],['temna hmota','tmava hmota'],['umela inteligence','umela inteligencia'],['slunce','slnko'],['mesic','mesiac'],['hvezda','hviezda'],['hvezdy','hviezdy'],['mozek','mozog'],['zivot ve vesmiru','zivot vo vesmire'],['casoprostor','casopriestor'],['spolecnost','spolocnost'],['socialni site','socialne siete'],['penize','peniaze']];
-const SCIENTIST_EPISODES={men:[18,66,77,92,97,107,188,206,207,230,324],women:[320,305,302,288,222,220,205,199,140,85,70,53]};
-const MATHEMATICS_EPISODES=new Set([91,93,98,113,115,116,117,118,156,181,198,201,216,249,282,286,328,329,336]);
-const VEDATOR_SPECIAL_TITLES=new Set([
-'vedatorsky special udrzatelnost pripadova studia ikea',
-'vedatorsky special preco je v nealko pive alkohol',
-'vedatorsky special astrologia',
-'vedatorsky special prenos signalu vzduchom',
-'vedatorsky special obycajne zazraky ukazka z knihy',
-'vedatorsky special vdaka comu su jadrove elektrarne bezpecne',
-'vedatorsky special zelena energia',
-'vedatorsky special kusky reality',
-'vedatorsky special ako znie vesmir',
-'vedatorsky special dungeon vedator'
-]);
-const FIXED_SERIES=[
-{name:'Hľadanie mimozemského života',test:e=>norm(e.title).includes('hladanie mimozemskeho zivota')},
-{name:'FAQ – dobré otázky',test:e=>/\bfaq\b/i.test(e.title)||[138,300].includes(Number(e.number))},
-{name:'Rozhovory o vesmíre',test:e=>norm(e.title).includes('rozhovory o vesmire')},
-{name:'Žijem vedu',test:e=>norm(e.title).includes('zijem vedu')},
-{name:'Genetický speciál',test:e=>norm(e.title).includes('geneticky special')},
-{name:'Nobelovy ceny',test:e=>{const n=norm(e.title);return(n.includes('nobelove ceny')&&!n.includes('ig nobelove'))||Number(e.number)===152}},
-{name:'Ig Nobelovy ceny',test:e=>norm(e.title).includes('ig nobelove ceny')},
-{name:'Matematika',test:e=>MATHEMATICS_EPISODES.has(Number(e.number))},
-{name:'Teorie her',test:e=>[29,105,120,245,254].includes(Number(e.number))},
-{name:'Rozhovory v angličtině',test:e=>[234,236,238,240,242,246,250,256,265,267].includes(Number(e.number))},
-{name:'Internet',test:e=>[223,258,333].includes(Number(e.number))},
-{name:'Vedátorský špeciál',test:e=>VEDATOR_SPECIAL_TITLES.has(norm(e.title))},
-{name:'Černé díry',test:e=>[296,227,173,132,104,68].includes(Number(e.number))},
-{name:'Tmavá hmota a energie',test:e=>[210,182,145,48,2].includes(Number(e.number))},
-{name:'Částice',test:e=>[10,34,163,175,180,187,225].includes(Number(e.number))},
-{name:'Roky ve vědě',test:e=>[108,160,212,318].includes(Number(e.number))}
-];
-const SUMMARIES={300:{sections:[
-{time:'1:29',title:'1) Jak by sme sa dohovárali s mimozemskou civilizáciou?',items:['Největší problém: nevíme, zda nás budou brát jako partnery, nebo jako mravce.','Mohli by nás „vydezinfikovat“ bez přemýšlení, stejně jako člověk zabije bakterie.','Pokud jsou dost vyspělí na cestování vesmírem, musí mít vyspělou etiku, jinak by se sami zničili.','Komunikace by začala ukazováním na objekty (kámen → „kámen“).','Doufají, že bude existovat společná logika jazyka, i když ne slovní zásoba.','Některé pozemské jazyky nemají minulý/budoucí čas nebo rekurenci — mimozemské mohou být ještě odlišnější.','Možná nás už mimozemšťané sledují, ale nejsme schopni jejich signály rozpoznat (přirovnání k gravitačním vlnám).']},
-{time:'6:33',title:'2) Existujú farebné galaxie?',items:['Vzdálené galaxie vypadají červeně kvůli červenému posuvu.','Mladý vesmír → galaxie byly modré (mladé hvězdy).','Dnes jsou spíše do červena.','Zblízka galaxie nemají „jednu barvu“, protože jsou směsí mnoha hvězd.','Existují i rádiově aktivní galaxie (silný rádiový signál).']},
-{time:'8:14',title:'3) Vedeli by sme vôbec rozpoznať mimozemskú civilizáciu, ak by fungovala úplne inak?',items:['Je možné, že by mimozemšťany nepoznali vůbec.','Mohli by být tak technologicky nad námi, že by jejich signály byly neviditelné — jako iPhone pro mravce.','Možná jsme obklopení signály, které neumíme detekovat.','Přirovnání: domorodý kmen bez rádia → netuší, že kolem něj létají rádiové vlny.','Gravitační vlny jsou příklad: existovaly vždy, ale až nedávno jsme je uměli měřit.']},
-{time:'10:42',title:'4) Prečo sa svetlo vo vákuu šíri inak ako v skle/vode/atmosfére? Zrýchli, keď vyjde von?',items:['„Zrýchli“ není správné slovo — ve vakuu má světlo vždy stejnou rychlost.','V materiálu se interaguje s hmotou, což způsobí efektivní zpomalení.','Fotony mezi interakcemi stále letí rychlostí světla.','Vysvětlují to pomocí analogií a zmiňují, že optika je těžká bez rovnic.']},
-{time:'13:02',title:'5) Čo je vlastne veľký tresk? Je to singularita? Alebo stav, keď sa nemohlo šíriť svetlo?',items:['Světlo se nemohlo šířit až 360 000 let po velkém třesku, takže to není definice samotného třesku.','Neexistuje úplný konsenzus, co přesně se stalo.','Existuje mnoho modelů: vesmír se zmenšoval a odrazil, byl „zaseknutý“ a pak se rozbalil, nebo vznikl spolu s časem.','Zmiňují knihu Before the Big Bang a podcast Seana Carrolla.','Budoucí detektor LISA může přinést zásadní poznatky o raném vesmíru.']},
-{time:'19:12',title:'6) Akými zákonmi by ste ohradili/regulovali AI?',items:['Právník v publiku: AI by měla mít kill switch.','Problém: trénování na ukradeném obsahu.','Problém: osobní údaje v trénovacích datech.','Velká regulace může brzdit inovace → Čína by mohla získat náskok.','Možná by měl výrobce nést zodpovědnost za škody, které AI způsobí.','Diskuse o autonomních autech a odpovědnosti.','Zmiňují případy, kdy AI „vymámila“ Google kódy přes příběh o babičce.']},
-{time:'24:09',title:'7) Prečo majú niektoré objekty vysokú excentricitu? Prečo medzi Marsom a Jupiterom nevznikla planéta?',items:['Dva hlavní důvody:','1) Slapové síly – blízké objekty jsou trhány.','2) Nestabilita slnečnej sústavy – kdysi byla chaotická, planéty měnily pořadí.','Dvě období „heavy bombardment“.','Gravitační praky mohou měnit dráhy i bez srážek.','Možná existují bludné planéty, vystřelené gravitační interakcí.','Materiálu mezi Marsem a Jupiterem je málo a je rušen Jupiterem.']},
-{time:'29:53',title:'8) Aké technológie môžu pomôcť odvrátiť klimatickú krízu?',items:['Tóriové reaktory.','Carbon capture (Švýcarsko).','Problém: musí být poháněn zelenou energií, jinak nedává smysl.','Solární panely s vyšší efektivitou by byly revoluční.','Je potřeba změnit výrobu cementu, oceli.','AI může optimalizovat plýtvání energií a potravinami.','Stromy vážou CO₂ do půdy.','Geoengineering (odrážení světla) je riskantní.']},
-{time:'36:32',title:'9) Ako vznikli Saturnove prstence? Kedy zaniknú?',items:['Nevíme přesně.','Prstence jsou dynamické, nestabilní.','Jsou trhané slapovými silami.','Nedávné studie naznačují, že zanikají, ale časový horizont si nepamatují.']},
-{time:'39:07',title:'10) Zmenia sa súhvezdia v budúcnosti?',items:['Ano, hvězdy se hýbou.','ESA má simulaci pohybu hvězd na 500 000 let dopředu.','Souhvězdí se deformují (např. Velký vůz).','Egypťané používali jinou „severku“ kvůli precesi.','Severní pól se posouvá — některá letiště musela přeznačit dráhy.','Andromeda se k nám blíží, ale její boční rychlost neznáme.']},
-{time:'41:46',title:'11) Kedy budú ďalšie rozhovory o vesmíre s Norbym?',items:['Jozef už nepůsobí na Masaryčce, ale rozhovory budou pokračovat.','Mají rozpracovanou druhou knihu.','Mají 3–4 nenastříhané epizody.','Do konce roku chtějí vydat alespoň jednu nebo dvě.']}
-]}};
-let episodes=[],active='Vše',view='episodes';
-const norm=s=>(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
-const cleanHtml=s=>{const d=document.createElement('div');d.innerHTML=s||'';return(d.textContent||'').replace(/\s+/g,' ').trim()};
-const short=s=>{s=cleanHtml(s).replace(/Podcast vzniká[\s\S]*/i,'').trim();return s.length>440?s.slice(0,437).replace(/\s+\S*$/,'')+'…':s};
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function expandedQuery(q){const base=norm(q);if(!base)return[];const out=new Set([base]);for(let pass=0;pass<3;pass++)for(const current of [...out])for(const group of QUERY_EQUIV)for(const source of group){const src=norm(source);const re=new RegExp('(^|\\s)'+src.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?=\\s|$)','g');if(re.test(current))for(const target of group)out.add(current.replace(re,(m,p)=>p+norm(target)))}return[...out]}
-function matchLevel(ep,queries){if(!queries.length)return 0;const title=norm(ep.title),desc=norm(cleanHtml(ep.description));if(queries.some(q=>title.includes(q)))return 0;if(queries.some(q=>q.split(' ').every(w=>title.includes(w))))return 1;if(queries.some(q=>desc.includes(q)))return 2;if(queries.some(q=>q.split(' ').every(w=>desc.includes(w))))return 3;return 99}
-function selectedTopicQueries(){return active==='Vše'?[]:[...new Set((TOPICS[active]||[]).flatMap(expandedQuery))]}
-function categories(ep){const txt=norm(ep.title+' '+cleanHtml(ep.description));const result=Object.entries(TOPICS).filter(([k,w])=>k!=='Vše'&&w.some(x=>txt.includes(norm(x)))).map(x=>x[0]);if(MATHEMATICS_EPISODES.has(Number(ep.number))&&!result.includes('Matematika'))result.push('Matematika');return result}
-function summaryHtml(number){const s=SUMMARIES[number];if(!s)return'';return `<details class="episode-summary"><summary>Shrnutí dílu</summary><div class="episode-summary-body">${s.sections.map(x=>`<div class="summary-block"><div class="summary-time">${esc(x.time)}</div><div class="summary-title">${esc(x.title)}</div><ul>${x.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}<div class="summary-note">Shrnutí vychází z časových kapitol vytvořených pro video.</div></div></details>`}
-async function load(){document.querySelector('#count').textContent='Načítám katalog…';try{const r=await fetch('./episodes.json?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);const data=await r.json();episodes=Array.isArray(data)?data:data.episodes;if(!Array.isArray(episodes)||!episodes.length)throw Error('Katalog je prázdný');localStorage.setItem('vedatorEpisodes',JSON.stringify(episodes));render()}catch(e){const saved=localStorage.getItem('vedatorEpisodes');if(saved){episodes=JSON.parse(saved);render()}else{document.querySelector('#episodes').innerHTML='<div class="status"><strong>Katalog se nepodařilo načíst.</strong><br>'+esc(e.message)+'</div>';document.querySelector('#count').textContent='Bez dat'}}}
-function renderTopics(){const el=document.querySelector('#topics');el.innerHTML='';Object.keys(TOPICS).forEach(t=>{const b=document.createElement('button');b.className='topic'+(t===active?' active':'');b.textContent=t;b.onclick=()=>{active=t;render()};el.appendChild(b)})}
-function filtered(){const queries=expandedQuery(document.querySelector('#search').value),topics=selectedTopicQueries();return episodes.map(e=>{const searchMatch=matchLevel(e,queries),topicMatch=matchLevel(e,topics);return{...e,cats:categories(e),searchMatch,topicMatch}}).filter(e=>(!queries.length||e.searchMatch<99)&&(active==='Matematika'?MATHEMATICS_EPISODES.has(Number(e.number)):(!topics.length||e.topicMatch<99)))}
-function renderEpisodes(){let arr=filtered(),queries=expandedQuery(document.querySelector('#search').value),topics=selectedTopicQueries();const sort=document.querySelector('#episodeSort').value;arr.sort((a,b)=>{if(topics.length&&a.topicMatch!==b.topicMatch)return a.topicMatch-b.topicMatch;if(queries.length&&a.searchMatch!==b.searchMatch)return a.searchMatch-b.searchMatch;return sort==='old'?new Date(a.date)-new Date(b.date):sort==='number'?(b.number||0)-(a.number||0):new Date(b.date)-new Date(a.date)});document.querySelector('#count').textContent=`Nalezeno ${arr.length} z ${episodes.length} epizod`;const box=document.querySelector('#episodes');box.innerHTML='';if(!arr.length){box.innerHTML='<div class="status">Nic jsem nenašel.</div>';return}arr.forEach(e=>{const a=document.createElement('article');const dt=e.date?new Intl.DateTimeFormat('cs-CZ',{day:'numeric',month:'long',year:'numeric'}).format(new Date(e.date)):'';a.innerHTML=`<div class="date">${esc(dt)}</div><h2>${esc(e.title)}</h2><div class="desc">${esc(short(e.description)||'Popis není k dispozici.')}</div><div class="tags">${(e.cats.length?e.cats:['Ostatní']).map(x=>`<span class="tag">${esc(x)}</span>`).join('')}</div><div class="links">${e.enclosure?`<a class="primary" href="${esc(e.enclosure)}" target="_blank" rel="noopener">Přehrát</a>`:''}<a class="secondary" href="${esc(e.link||e.enclosure)}" target="_blank" rel="noopener">Detail dílu</a></div>${summaryHtml(Number(e.number))}`;box.appendChild(a)})}
-function peopleByNumbers(numbers){return numbers.map(n=>episodes.find(e=>Number(e.number)===n)).filter(Boolean).map(e=>({...e,person:e.title.replace(/^Vedátorský podcast\s*\d+\s*[–—-]?\s*/i,'').trim()})).sort((a,b)=>new Date(a.date)-new Date(b.date))}
-function firstDate(g){return Math.min(...g.items.map(e=>new Date(e.date).getTime()).filter(Number.isFinite))}
-function seriesGroups(){const groups=[];for(const s of FIXED_SERIES){const items=episodes.filter(s.test).sort((a,b)=>new Date(a.date)-new Date(b.date));if(items.length>=2)groups.push({name:s.name,items})}const men=peopleByNumbers(SCIENTIST_EPISODES.men);if(men.length)groups.push({name:'Vědci',items:men,people:true});const women=peopleByNumbers(SCIENTIST_EPISODES.women);if(women.length)groups.push({name:'Vědkyně',items:women,people:true});const automatic={};episodes.forEach(e=>{let core=norm(e.title.replace(/^Vedátorský podcast\s*\d+\s*[–—-]?\s*/i,'').replace(/\b(?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii|\d+)\b\s*$/i,''));if(core==='najvacsia bitka v matematike')return;if(core.length>8)(automatic[core]??=[]).push(e)});for(const items0 of Object.values(automatic)){if(items0.length<2)continue;const ids=new Set(groups.flatMap(g=>g.items.map(e=>e.id||e.link||e.title)));const items=items0.filter(e=>!ids.has(e.id||e.link||e.title));if(items.length>=2)groups.push({name:items[0].title.replace(/^Vedátorský podcast\s*\d+\s*[–—-]?\s*/i,'').replace(/\s+(?:I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|\d+)\s*$/i,''),items:items.sort((a,b)=>new Date(a.date)-new Date(b.date))})}const mode=document.querySelector('#seriesSort').value;groups.sort((a,b)=>mode==='alpha'?a.name.localeCompare(b.name,'cs'):mode==='first'?firstDate(a)-firstDate(b):b.items.length-a.items.length||a.name.localeCompare(b.name,'cs'));return groups}
-function renderSeries(){const groups=seriesGroups();document.querySelector('#count').textContent=`Nalezeno ${groups.length} sérií`;document.querySelector('#series').innerHTML=groups.map(g=>`<details class="series-card"><summary><span>${esc(g.name)}</span><span class="series-count">${g.items.length} dílů</span></summary><div class="series-body"><ol>${g.items.map(e=>`<li><a href="${esc(e.link||e.enclosure)}" target="_blank" rel="noopener">${g.people?`<span class="person-name">${esc(e.person)}</span><span class="episode-title">${esc(e.title)}</span>`:esc(e.title)}</a></li>`).join('')}</ol></div></details>`).join('')}
-function render(){renderTopics();document.querySelector('#episodes').classList.toggle('hidden',view!=='episodes');document.querySelector('#series').classList.toggle('hidden',view!=='series');document.querySelector('#episodeSort').classList.toggle('hidden',view!=='episodes');document.querySelector('#seriesSort').classList.toggle('hidden',view!=='series');view==='episodes'?renderEpisodes():renderSeries()}
-document.querySelector('#search').addEventListener('input',render);document.querySelector('#episodeSort').addEventListener('change',render);document.querySelector('#seriesSort').addEventListener('change',render);document.querySelector('#refresh').addEventListener('click',load);document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{view=b.dataset.view;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));render()});
-const installButton=document.querySelector('#installApp');
-let deferredInstallPrompt=null;
-const isInstalled=()=>window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
-function updateInstallButton(){installButton.classList.toggle('hidden',isInstalled())}
-window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();deferredInstallPrompt=event;updateInstallButton()});
-window.addEventListener('appinstalled',()=>{deferredInstallPrompt=null;installButton.classList.add('hidden')});
-installButton.addEventListener('click',async()=>{if(isInstalled()){installButton.classList.add('hidden');return}if(deferredInstallPrompt){deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;updateInstallButton();return}const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);alert(ios?'V Safari klepněte na Sdílet a potom na Přidat na plochu.':'Instalaci otevřete v nabídce prohlížeče a zvolte Instalovat aplikaci nebo Přidat na plochu.')});
-updateInstallButton();
-if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw-fast.js',{updateViaCache:'none'});load();
+(()=>{if(!('serviceWorker' in navigator))return;window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js',{scope:'./'}).then(reg=>reg.update()).catch(err=>console.warn('SW registration failed',err));});})();
 </script>
 </body>
 </html>
