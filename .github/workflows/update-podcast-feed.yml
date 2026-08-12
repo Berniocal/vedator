@@ -11,6 +11,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   update-feed:
@@ -92,3 +94,31 @@ jobs:
             git commit -m 'Automatická aktualizace katalogu a V2 dat'
             git push
           fi
+
+  deploy-pages:
+    needs: update-feed
+    if: ${{ needs.update-feed.result == 'success' }}
+    concurrency:
+      group: pages-direct
+      cancel-in-progress: true
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Načíst aktuální main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Nahrát statické soubory
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+
+      - name: Nasadit GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+        with:
+          timeout: 600000
+          reporting_interval: 10000
