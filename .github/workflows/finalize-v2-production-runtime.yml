@@ -1,0 +1,107 @@
+name: Finalize V2 production runtime
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [cutover/v2-production]
+    paths: ['.github/workflows/finalize-v2-production-runtime.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: cutover/v2-production
+          fetch-depth: 0
+
+      - name: Build production runtime from tested V2
+        run: |
+          set -euo pipefail
+          if [ ! -f legacy-source-index.html ]; then cp index.html legacy-source-index.html; fi
+          rm -rf /tmp/vedator-test
+          git clone --depth 1 --branch main https://github.com/Berniocal/vedator-test.git /tmp/vedator-test
+          cp /tmp/vedator-test/v2.html index.html
+          cp /tmp/vedator-test/app-v2.js app-v2.js
+          cp /tmp/vedator-test/content-v2.json content-v2.json
+          cp /tmp/vedator-test/manifest-v2.webmanifest manifest.webmanifest
+          cp /tmp/vedator-test/icon.svg icon.svg
+          cp /tmp/vedator-test/icon-192.png icon-192.png
+          cp /tmp/vedator-test/icon-512.png icon-512.png
+          cp /tmp/vedator-test/V2-MAINTENANCE.md V2-MAINTENANCE.md
+          rm -rf tools
+          cp -R /tmp/vedator-test/tools tools
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('index.html'); s=p.read_text(encoding='utf-8').replace('./manifest-v2.webmanifest','./manifest.webmanifest')
+          reg="""\n<script>\n(()=>{if(!('serviceWorker' in navigator))return;window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js',{scope:'./'}).then(reg=>reg.update()).catch(err=>console.warn('SW registration failed',err));});})();\n</script>\n"""
+          if "serviceWorker.register('./sw.js'" not in s:s=s.replace('</body>',reg+'</body>')
+          p.write_text(s,encoding='utf-8')
+          m=Path('manifest.webmanifest'); data=json.loads(m.read_text(encoding='utf-8')); data.update({'id':'./','name':'Vedátorský podcast – podle témat','short_name':'Vedátor','start_url':'./','scope':'./'}); m.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          b=Path('tools/build-content-v2.mjs'); x=b.read_text(encoding='utf-8'); x=x.replace("const index=read('index.html');","const indexSource=exists('legacy-source-index.html')?'legacy-source-index.html':'index.html';\n  const index=read(indexSource);"); x=x.replace("evalLiteral(literal,'index.html SUMMARIES')","evalLiteral(literal,'legacy source index SUMMARIES')"); b.write_text(x,encoding='utf-8')
+          PY
+
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+
+          cat > tools/build-production-sw.mjs <<'EOF'
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
+          const shell=['index.html','app-v2.js','content-v2.json','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'];
+          for(const file of shell){if(!fs.existsSync(file))throw new Error(`Missing shell file: ${file}`)}
+          const h=crypto.createHash('sha256');for(const file of shell){h.update(file);h.update(fs.readFileSync(file))}
+          const APP_CACHE=`vedator-v2-app-${h.digest('hex').slice(0,16)}`;
+          const APP_URLS=['./','./index.html','./app-v2.js','./content-v2.json','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
+          fs.writeFileSync('sw.js',`const APP_CACHE=${JSON.stringify(APP_CACHE)};\nconst APP_URLS=${JSON.stringify(APP_URLS)};\nconst OFFLINE_AUDIO_CACHE=${JSON.stringify(OFFLINE_AUDIO_CACHE)};\nself.addEventListener('install',e=>e.waitUntil((async()=>{const c=await caches.open(APP_CACHE);await c.addAll(APP_URLS.map(u=>new Request(u,{cache:'reload'})));await self.skipWaiting()})()));\nself.addEventListener('activate',e=>e.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>k.startsWith('vedator-v2-app-')&&k!==APP_CACHE).map(k=>caches.delete(k)));await self.clients.claim()})()));\nself.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET')return;const u=new URL(r.url);if(u.origin!==self.location.origin)return;if(r.mode==='navigate'){e.respondWith((async()=>{const c=await caches.open(APP_CACHE),x=await c.match('./index.html');if(x)return x;try{return await fetch(r)}catch{return Response.error()}})());return}const n=u.pathname.split('/').pop();if(!new Set(['app-v2.js','content-v2.json','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png']).has(n))return;e.respondWith((async()=>{const c=await caches.open(APP_CACHE),x=await c.match(r,{ignoreSearch:true});if(x)return x;const y=await fetch(r);if(y&&y.ok)await c.put(r,y.clone());return y})())});\n`);
+          console.log({APP_CACHE,OFFLINE_AUDIO_CACHE});
+          EOF
+          node tools/build-production-sw.mjs
+
+          rm -f audio-player.css audio-player.js catalog-patch.js collection-progress.js custom-player.js data-backup.js deep-links.js episode-translations-loader.js first-load-recovery.js lazy-render.js media-session-skip.js nonquestions-view.js offline-audio.js performance-boost.js player-actions.js playlist-editor-mobile.js playlist-patch.js questions-performance-cache.js questions-view.js question-controls-stability.js question-highlight-translated.js question-temperature-mathjax.js slovak-ui.js startup-fast.js summary-enhancer.js tab-swipe-navigation.js theme-toggle.js sw-fast.js sw-v204-overlay.js sw-346-patch.js
+
+      - name: Full regression gate
+        run: |
+          node --check app-v2.js
+          node --check sw.js
+          cp index.html v2.html
+          sed -i 's/manifest-v2\.webmanifest/manifest.webmanifest/g' tools/test-v2-final-ui-faq-guide.mjs
+          npm install --no-save --no-package-lock jsdom@26 puppeteer-core@24
+          node tools/test-app-v2.mjs
+          node tools/test-v2-question-experience.mjs
+          node tools/test-v2-episode-experience.mjs
+          node tools/test-v2-full-parity.mjs
+          node tools/test-v2-playlist-parity.mjs
+          node tools/test-v2-final-ui-faq-guide.mjs
+          node tools/test-v2-last-ux-browser.mjs
+          node tools/test-v2-real-readmore-browser.mjs
+          rm -f v2.html
+          grep -q 'vedator-user-playlists-v1' app-v2.js
+          grep -q 'vedatorPlaybackProgressV1' app-v2.js
+          grep -q 'vedatorCollectionProgressV1' app-v2.js
+          grep -q 'vedatorOfflineAudioIndexV1' app-v2.js
+          grep -q 'vedator-offline-audio-v1' app-v2.js
+          grep -q 'vedator-offline-audio-v1' sw.js
+          test -f legacy-source-index.html
+          test ! -f v2.html
+          test ! -f sw-fast.js
+          test ! -f startup-fast.js
+
+      - name: Commit tested runtime
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- index.html app-v2.js content-v2.json manifest.webmanifest sw.js icon.svg icon-192.png icon-512.png legacy-source-index.html V2-MAINTENANCE.md tools
+          git add -u -- ':!/.github/workflows/**'
+          git diff --cached --stat
+          if ! git diff --cached --quiet; then git commit -m 'Replace legacy runtime with tested V2 app'; git push origin HEAD:cutover/v2-production; fi
