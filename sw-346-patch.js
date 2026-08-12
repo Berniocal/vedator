@@ -8,7 +8,8 @@
     'playlist-patch.js',
     'questions-performance-cache.js',
     'first-load-recovery.js',
-    'question-controls-stability.js'
+    'question-controls-stability.js',
+    'episode-translations-loader.js'
   ]);
 
   function addNumbers(source,numbers,prepend=false){
@@ -50,7 +51,32 @@
   }
 
   function patchQuestionCache(code){
-    return code.replace(/const FAQ=\[([^\]]*)\]/,(_,items)=>`const FAQ=[${addNumbers(items,[346],true)}]`);
+    code=code.replace(/const FAQ=\[([^\]]*)\]/,(_,items)=>`const FAQ=[${addNumbers(items,[346],true)}]`);
+    code=code.replace(/const CONCURRENCY=6\b/,'const CONCURRENCY=1');
+    code=code.replace("requestIdleCallback(start,{timeout:350})","requestIdleCallback(start,{timeout:1800})");
+    code=code.replace('else setTimeout(start,180);','else setTimeout(start,900);');
+    code=code.replace(
+      "if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>scheduleWarm(),{once:true});\n  else scheduleWarm();",
+      "if(document.readyState==='complete')scheduleWarm();\n  else window.addEventListener('load',()=>scheduleWarm(),{once:true});"
+    );
+    return code;
+  }
+
+  function patchEpisodeTranslationsLoader(code){
+    const original=`async function bootstrapNonQuestions(){
+    await Promise.all(EXTRA_NONQUESTION_EPISODES.map(ensureExtraSummaryData));
+    installExtraNonQuestionsBridge();
+    loadNonQuestionsView();
+  }
+  bootstrapNonQuestions();`;
+    const replacement=`function bootstrapNonQuestions(){
+    loadNonQuestionsView();
+    void Promise.all(EXTRA_NONQUESTION_EPISODES.map(ensureExtraSummaryData)).then(()=>{
+      installExtraNonQuestionsBridge();
+    }).catch(()=>{});
+  }
+  bootstrapNonQuestions();`;
+    return code.replace(original,replacement);
   }
 
   function patchFirstLoad(code){
@@ -91,6 +117,9 @@
 
     if(contentType.includes('text/html')){
       let html=await response.text();
+      if(!html.includes('startup-fast.js')){
+        html=html.replace('</head>','<script src="./startup-fast.js?v=20260812-1"></script></head>');
+      }
       if(!html.includes('episode-346-summary.js')){
         html=html.replace('</body>','<script src="./episode-346-summary.js" defer></script></body>');
       }
@@ -102,6 +131,7 @@
     if(name==='questions-view.js')code=patchQuestionsView(code);
     else if(name==='playlist-patch.js')code=patchPlaylist(code);
     else if(name==='questions-performance-cache.js')code=patchQuestionCache(code);
+    else if(name==='episode-translations-loader.js')code=patchEpisodeTranslationsLoader(code);
     else if(name==='first-load-recovery.js')code=patchFirstLoad(code);
     else if(name==='question-controls-stability.js')code=patchQuestionControls(code);
     return responseFrom(response,code,'application/javascript; charset=utf-8');
