@@ -56,7 +56,8 @@ assert(window.document.querySelector('#nonquestions-v2 .tag'),'Nonquestion purpl
 
 tabs.find(tab=>tab.dataset.view==='series').click();await new Promise(resolve=>setTimeout(resolve,20));
 assert(window.document.querySelectorAll('#series-v2 .series').length===data.series.length,'All series cards should be listed');
-assert(window.document.querySelectorAll('#parity-sort-v2 option').length===3,'Series sort should contain 3 legacy modes');
+assert(window.document.querySelectorAll('#parity-sort-v2 option').length===9,'Series sort should contain 9 modes');
+assert(window.document.querySelector('#parity-sort-v2').selectedIndex>=0,'Series sort should visibly select the current mode');
 const peopleSeries=data.series.find(series=>series.people);assert(peopleSeries,'Scientist series flag missing');
 const peopleIndex=data.series.indexOf(peopleSeries);const peopleCard=window.document.querySelector(`#series-v2 .series[data-series-index="${peopleIndex}"]`);assert(peopleCard,'Scientist series card missing');
 assert(!peopleCard.querySelector('.parity-series-body'),'Series body should be lazy before opening');peopleCard.open=true;peopleCard.dispatchEvent(new window.Event('toggle'));await new Promise(resolve=>setTimeout(resolve,10));assert(peopleCard.querySelector('.parity-series-body'),'Series body did not lazy-load on open');assert(peopleCard.querySelector('.person-name-v2'),'Scientist name formatting missing');
