@@ -1,6 +1,6 @@
 (()=>{
-  const VEDATOR_SW_WRAPPER_VERSION='v211-startup-fast-1';
-  const VEDATOR_BOOTSTRAP_VERSION='v211-startup-fast-1';
+  const VEDATOR_SW_WRAPPER_VERSION='v212-repeat-cache-first-1';
+  const VEDATOR_BOOTSTRAP_VERSION='v212-repeat-cache-first-1';
   const HAD_ACTIVE_WORKER=Boolean(self.registration.active);
   const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
   const OFFLINE_AUDIO_PATH='/__vedator_offline_audio__/';
@@ -96,10 +96,55 @@
     return responseFrom(response,html);
   }
 
+  function isRepeatStartupAsset(request){
+    if(!request||request.method!=='GET'||request.mode==='navigate')return false;
+    try{
+      const url=new URL(request.url);
+      if(url.origin!==self.location.origin)return false;
+      if(request.destination==='audio'||request.headers.has('range'))return false;
+      return url.pathname.endsWith('.js')||url.pathname.endsWith('.css');
+    }catch{return false}
+  }
+
+  function listenerResponse(listener,request){
+    let responsePromise=null;
+    const wrappedEvent={
+      request,
+      respondWith(value){
+        responsePromise=Promise.resolve(value).then(stabilizePageResponse);
+      }
+    };
+    listener.call(self,wrappedEvent);
+    return responsePromise;
+  }
+
+  function repeatStartupResponse(event,listener){
+    const cachedPromise=caches.open(CURRENT_APP_CACHE).then(cache=>cache.match(event.request));
+    const backgroundRefresh=cachedPromise.then(async cached=>{
+      if(!cached)return;
+      // Síťová kontrola nesmí soupeřit s prvním vykreslením aplikace.
+      await new Promise(resolve=>setTimeout(resolve,1200));
+      const refresh=listenerResponse(listener,event.request);
+      if(refresh)await refresh;
+    }).catch(()=>{});
+    event.waitUntil(backgroundRefresh);
+
+    return cachedPromise.then(cached=>{
+      if(cached)return cached;
+      const network=listenerResponse(listener,event.request);
+      if(network)return network;
+      return fetch(event.request,{cache:'no-store'});
+    });
+  }
+
   self.addEventListener=function(type,listener,options){
     if(type==='activate')return;
     if(type==='fetch'){
       return nativeAddEventListener('fetch',event=>{
+        if(isRepeatStartupAsset(event.request)){
+          event.respondWith(Promise.resolve(repeatStartupResponse(event,listener)).then(stabilizePageResponse));
+          return;
+        }
         const wrappedEvent={
           request:event.request,
           respondWith(value){
