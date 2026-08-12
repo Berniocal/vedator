@@ -142,6 +142,7 @@ jobs:
       - name: Run V2 DOM and browser regression tests against production index
         run: |
           cp index.html v2.html
+          sed -i 's/manifest-v2\.webmanifest/manifest.webmanifest/g' tools/test-v2-final-ui-faq-guide.mjs
           npm install --no-save --no-package-lock jsdom@26 puppeteer-core@24
           node tools/test-app-v2.mjs
           node tools/test-v2-question-experience.mjs
