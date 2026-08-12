@@ -27,6 +27,39 @@ jobs:
         with:
           ref: main
 
+      - name: Obnovit verzi PWA cache
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const crypto = require('crypto');
+          const files = [
+            'index.html',
+            'app-v2.js',
+            'content-v2.json',
+            'manifest.webmanifest',
+            'icon.svg',
+            'icon-192.png',
+            'icon-512.png'
+          ];
+          const hash = crypto.createHash('sha256');
+          for (const file of files) {
+            hash.update(file + '\0');
+            hash.update(fs.readFileSync(file));
+            hash.update('\0');
+          }
+          const version = hash.digest('hex').slice(0, 16);
+          const path = 'sw.js';
+          let sw = fs.readFileSync(path, 'utf8');
+          const next = sw.replace(
+            /const APP_CACHE="vedator-v2-app-[^"]+";/,
+            `const APP_CACHE="vedator-v2-app-${version}";`
+          );
+          if (next === sw) throw new Error('APP_CACHE marker in sw.js was not found');
+          fs.writeFileSync(path, next);
+          console.log(`PWA cache version: ${version}`);
+          NODE
+
       - name: Nahrát statické soubory
         uses: actions/upload-pages-artifact@v4
         with:
