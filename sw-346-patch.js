@@ -89,7 +89,7 @@
     );
     code=code.replace(
       'async function recover(){',
-      "async function recover(){\n    try{if(localStorage.getItem(BOOTSTRAP_KEY)==='1'){sessionStorage.removeItem(RETRY_KEY);return}}catch{}"
+      "async function recover(){\n    if(navigator.serviceWorker.controller){try{localStorage.setItem(BOOTSTRAP_KEY,'1')}catch{}sessionStorage.removeItem(RETRY_KEY);return}\n    try{if(localStorage.getItem(BOOTSTRAP_KEY)==='1'){sessionStorage.removeItem(RETRY_KEY);return}}catch{}"
     );
     code=code.replace(
       "if(hasEnhancedUi()){\n      sessionStorage.removeItem(RETRY_KEY);",
