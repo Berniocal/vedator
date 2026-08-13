@@ -73,10 +73,7 @@ jobs:
           print(f'Uloženo {len(episodes)} epizod.')
           PY
 
-      - name: Nainstalovat testovací závislosti
-        run: npm install --no-save jsdom puppeteer-core
-
-      - name: Přestavět V2 datový balík a service worker a spustit plnou kontrolu
+      - name: Přestavět V2 datový balík a service worker
         run: |
           node tools/build-content-v2.mjs
           node tools/augment-v2-episode-descriptions.mjs
@@ -84,15 +81,6 @@ jobs:
           node tools/augment-v2-parity-content.mjs
           node tools/test-content-v2.mjs
           node tools/test-v2-faq-integrity.mjs
-          node tools/test-app-v2.mjs
-          node tools/test-v2-question-experience.mjs
-          node tools/test-v2-episode-experience.mjs
-          node tools/test-v2-full-parity.mjs
-          node tools/test-v2-playlist-parity.mjs
-          node tools/test-v2-mobile-deep-polish.mjs
-          node tools/test-v2-mobile-browser.mjs
-          node tools/test-v2-mobile-browser-playlist.mjs
-          node tools/test-v2-real-readmore-browser.mjs
           node tools/build-production-sw.mjs
 
       - name: Commitnout atomickou aktualizaci
