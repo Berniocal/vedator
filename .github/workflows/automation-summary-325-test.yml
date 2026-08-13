@@ -1,0 +1,127 @@
+name: Test episode 325 summary integration
+
+on:
+  push:
+    branches:
+      - automation/summary-325-test
+
+permissions:
+  contents: write
+
+jobs:
+  build-test:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: automation/summary-325-test
+
+      - name: Generate bilingual static summary source
+        shell: bash
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/325-posledna-sanca.html -o /tmp/325-cs.html
+          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/325-posledna-sanca.html -o /tmp/325-sk.html
+          node <<'NODE'
+          const fs=require('fs');
+          function decode(s){
+            return String(s)
+              .replace(/&nbsp;/g,' ')
+              .replace(/&amp;/g,'&')
+              .replace(/&quot;/g,'"')
+              .replace(/&#39;/g,"'")
+              .replace(/&lt;/g,'<')
+              .replace(/&gt;/g,'>')
+              .replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)))
+              .replace(/\s+/g,' ')
+              .trim();
+          }
+          function parse(file){
+            const html=fs.readFileSync(file,'utf8');
+            const out=[];
+            const re=/<section class="faq" data-time="([^"]+)"><h2>([\s\S]*?)<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g;
+            let m;
+            while((m=re.exec(html))){
+              const points=[...m[3].matchAll(/<li>([\s\S]*?)<\/li>/g)].map(x=>decode(x[1].replace(/<[^>]+>/g,' ')));
+              out.push({time:m[1],title:decode(m[2].replace(/<[^>]+>/g,' ')),points});
+            }
+            if(out.length!==20)throw new Error(`${file}: expected 20 sections, got ${out.length}`);
+            if(out.some(x=>!x.time||!x.title||x.points.length<3))throw new Error(`${file}: incomplete section`);
+            return out;
+          }
+          const DATA={cs:parse('/tmp/325-cs.html'),sk:parse('/tmp/325-sk.html')};
+          for(let i=0;i<DATA.cs.length;i++){
+            if(DATA.cs[i].time!==DATA.sk[i].time)throw new Error(`CZ/SK time mismatch at ${i}`);
+          }
+          const src=`(()=>{\n  if(window.__vedatorEpisode325Summary)return;\n  window.__vedatorEpisode325Summary=true;\n  const DATA=${JSON.stringify(DATA)};\n})();\n`;
+          fs.writeFileSync('episode-325-summary.js',src);
+          NODE
+
+      - name: Register episode in V2 build and regression test
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          function replaceOnce(path,from,to){
+            const s=fs.readFileSync(path,'utf8');
+            if(!s.includes(from))throw new Error(`${path}: marker not found`);
+            const n=s.replace(from,to);
+            if(n===s)throw new Error(`${path}: unchanged`);
+            fs.writeFileSync(path,n);
+          }
+          replaceOnce('tools/build-content-v2.mjs',
+            'const EXTRA_NONQUESTION_EPISODES=[331,333,334,335,336,338,339,341,342,344,345,347];',
+            'const EXTRA_NONQUESTION_EPISODES=[331,333,334,335,336,338,339,341,342,344,345,347,325];');
+          replaceOnce('tools/test-content-v2.mjs',
+            'for(const n of [334,335,336,338,339,341,342,343,344,345,347]){',
+            'for(const n of [334,335,336,338,339,341,342,343,344,345,347,325]){');
+          NODE
+
+      - name: Build V2 content bundle
+        run: |
+          BEFORE=$(wc -c < content-v2.json)
+          echo "baseline_bytes=$BEFORE" | tee /tmp/size.txt
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          AFTER=$(wc -c < content-v2.json)
+          GROWTH=$((AFTER-BEFORE))
+          echo "after_bytes=$AFTER" | tee -a /tmp/size.txt
+          echo "growth_bytes=$GROWTH" | tee -a /tmp/size.txt
+          test "$GROWTH" -gt 5000
+          test "$GROWTH" -lt 100000
+
+      - name: Install test dependencies
+        run: npm install --no-save --no-package-lock jsdom@26 puppeteer-core@24
+
+      - name: Run required V2 tests
+        run: |
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/test-app-v2.mjs
+          node tools/test-v2-question-experience.mjs
+          node tools/test-v2-episode-experience.mjs
+          node tools/test-v2-full-parity.mjs
+          node tools/test-v2-playlist-parity.mjs
+          node tools/test-v2-mobile-deep-polish.mjs
+          node tools/test-v2-mobile-browser.mjs
+          node tools/test-v2-mobile-browser-playlist.mjs
+          node tools/test-v2-real-readmore-browser.mjs
+
+      - name: Verify runtime surface unchanged
+        run: |
+          git diff --exit-code HEAD -- app-v2.js v2.html index.html sw.js episode-translations-loader.js
+          git diff --name-only HEAD | tee /tmp/changed.txt
+          if grep -E '(^|/)(app-v2\.js|v2\.html|index\.html|sw\.js|episode-translations-loader\.js)$' /tmp/changed.txt; then
+            echo 'Unexpected runtime file changed' >&2
+            exit 1
+          fi
+
+      - name: Remove temporary workflow and commit tested result to branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -- .github/workflows/automation-summary-325-test.yml
+          git add -- episode-325-summary.js tools/build-content-v2.mjs tools/test-content-v2.mjs content-v2.json
+          git commit -m 'Prepare tested episode 325 summary'
+          git push origin HEAD:automation/summary-325-test
