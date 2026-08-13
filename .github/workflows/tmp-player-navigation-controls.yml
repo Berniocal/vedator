@@ -4,13 +4,15 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '.github/workflows/tmp-player-navigation-controls.yml'
+      - 'tools/tmp-player-navigation-patch.mjs'
 
 permissions:
   contents: write
 
 jobs:
   patch:
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,142 +22,7 @@ jobs:
           fetch-depth: 1
 
       - name: Patch player navigation and controls
-        shell: bash
-        run: |
-          node <<'NODE'
-          const fs=require('fs');
-          const path='app-v2.js';
-          let source=fs.readFileSync(path,'utf8');
-          const marker='/* V2_PLAYER_NAVIGATION_CONTROLS_V1 */';
-          if(source.includes(marker)){
-            console.log('Player navigation patch already present.');
-            process.exit(0);
-          }
-          const block=String.raw`
-
-  /* V2_PLAYER_NAVIGATION_CONTROLS_V1 */
-  const playerNavOriginalEpisodeContext=mobileEpisodePlaybackContext;
-  mobileEpisodePlaybackContext=function(episode){
-    const context=playerNavOriginalEpisodeContext(episode);if(!context)return context;
-    const currentNumber=Number(episode?.number)||0,items=[...(context.items||[])].sort((a,b)=>(Number(a.episode?.number)||0)-(Number(b.episode?.number)||0));
-    const index=items.findIndex(item=>Number(item.episode?.number)===currentNumber);
-    return {...context,items,index:index>=0?index:0};
-  };
-
-  const playerNavOriginalSeriesContext=seriesContext;
-  seriesContext=function(series,index){
-    const targetNumber=Number(series?.episodes?.[index])||0,context=playerNavOriginalSeriesContext(series,index);if(!context)return context;
-    const items=[...(context.items||[])].sort((a,b)=>(Number(a.episode?.number)||0)-(Number(b.episode?.number)||0));
-    const nextIndex=items.findIndex(item=>Number(item.episode?.number)===targetNumber);
-    return {...context,items,index:nextIndex>=0?nextIndex:0};
-  };
-
-  function playerNavQuestionCardItem(card,view){
-    const match=String(card?.dataset.item||'').match(/^[qn]:(\d+):(\d+)$/);if(!match)return null;
-    const episode=Number(match[1]),order=Number(match[2]),items=view==='questions'?(state.data?.questions||[]):flattenNonQuestions(state.data);
-    return items.find(item=>Number(item.episode)===episode&&Number(item.order)===order)||null;
-  }
-  function playerNavFilteredEpisodeContext(view,currentItem){
-    const source=visibleItems(view).slice().sort((a,b)=>(Number(a.episode)||0)-(Number(b.episode)||0)||(Number(a.seconds)||0)-(Number(b.seconds)||0)||(Number(a.order)||0)-(Number(b.order)||0));
-    const items=[],seen=new Set();
-    for(const item of source){
-      const number=Number(item.episode)||0;if(!number||seen.has(number))continue;const episode=episodeByNumber(number);if(!episode)continue;seen.add(number);
-      items.push({id:view+':episode:'+number,episode,start:Math.max(0,Number(item.seconds)||0),ref:view==='questions'?qRef(item):epRef(number)});
-    }
-    items.sort((a,b)=>(Number(a.episode?.number)||0)-(Number(b.episode?.number)||0));
-    const currentNumber=Number(currentItem?.episode)||0,index=items.findIndex(item=>Number(item.episode?.number)===currentNumber),topic=currentTopic(view),topicName=topic===QUESTION_TOPICS.all?'':(sk()?(topic.sk||topic.cs):(topic.cs||topic.sk));
-    let label=view==='questions'?text('Otázky','Otázky'):text('Neotázky','Neotázky');if(topicName)label+=' · '+topicName;if(state.query.trim())label+=' · '+text('Hledání','Hľadanie')+': '+state.query.trim();
-    return {type:view,id:'navigation:'+view,label,items,index:index>=0?index:0};
-  }
-
-  document.addEventListener('click',event=>{
-    const play=event.target.closest?.('#questions-v2 .question-card .play,#nonquestions-v2 .question-card .play');if(!play)return;
-    const card=play.closest('.question-card'),view=card?.closest('#questions-v2')?'questions':'nonquestions',item=playerNavQuestionCardItem(card,view),episode=episodeByNumber(Number(item?.episode));if(!item||!episode)return;
-    event.preventDefault();event.stopImmediatePropagation();const context=playerNavFilteredEpisodeContext(view,item);
-    openPlayback(episode,{start:Math.max(0,Number(item.seconds)||0),context,itemRef:view==='questions'?qRef(item):epRef(episode.number)});
-  },true);
-
-  const playerNavOriginalSaveCollectionProgress=saveCollectionProgress;
-  saveCollectionProgress=function(...args){if(state.context?.type==='questions'||state.context?.type==='nonquestions')return;return playerNavOriginalSaveCollectionProgress(...args)};
-
-  function playerQuestionStops(){
-    const number=Number(state.current?.episode?.number)||0;if(!number)return[];
-    return (state.data?.questions||[]).filter(item=>Number(item.episode)===number&&Number.isFinite(Number(item.seconds))).map(item=>({item,seconds:Math.max(0,Number(item.seconds)||0),order:Number(item.order)||0})).sort((a,b)=>a.seconds-b.seconds||a.order-b.order);
-  }
-  function playerQuestionCurrentIndex(stops){
-    const time=Number(playerNodes().audio.currentTime)||0;let index=-1;for(let i=0;i<stops.length;i++){if(stops[i].seconds<=time+0.75)index=i;else break}return index;
-  }
-  function playerQuestionControlsHtml(){return '<button type="button" id="player-prev-question-v2" class="player-question-jump-v2" data-question-delta="-1"></button><button type="button" id="player-next-question-v2" class="player-question-jump-v2" data-question-delta="1"></button>'}
-  function syncPlayerQuestionControls(){
-    const n=playerNodes(),help=n.help;if(!help||!state.current)return;const stops=playerQuestionStops(),busy=Boolean(n.download?.dataset.busy||n.offline?.dataset.busy);
-    if(stops.length<2){if(help.dataset.questionNav==='1'){help.classList.remove('player-question-nav-v2');delete help.dataset.questionNav}return}
-    if(busy)return;
-    if(help.dataset.questionNav!=='1'||!help.querySelector('#player-prev-question-v2')){help.dataset.questionNav='1';help.classList.add('player-question-nav-v2');help.innerHTML=playerQuestionControlsHtml()}
-    const previous=help.querySelector('#player-prev-question-v2'),next=help.querySelector('#player-next-question-v2'),index=playerQuestionCurrentIndex(stops),previousLabel=text('Předchozí otázka','Predchádzajúca otázka'),nextLabel=text('Další otázka','Ďalšia otázka');
-    previous.textContent=previousLabel;previous.title=previousLabel;previous.setAttribute('aria-label',previousLabel);previous.disabled=index<=0;
-    next.textContent=nextLabel;next.title=nextLabel;next.setAttribute('aria-label',nextLabel);next.disabled=index>=stops.length-1;
-  }
-  function jumpPlayerQuestion(delta){
-    const stops=playerQuestionStops();if(stops.length<2)return;const current=playerQuestionCurrentIndex(stops),targetIndex=delta<0?current-1:current+1;if(targetIndex<0||targetIndex>=stops.length)return;
-    const audio=playerNodes().audio;try{audio.currentTime=stops[targetIndex].seconds}catch{}saveProgress(true,false);syncPlayer();
-  }
-
-  let playerFloatingFrame=0;
-  function syncCollapsedPlayerIcon(){
-    const expand=$('#player-expand-v2');if(!expand)return;expand.textContent='🔊';const label=text('Rozbalit přehrávač','Rozbaliť prehrávač');expand.title=label;expand.setAttribute('aria-label',label);
-  }
-  function syncPlayerFloatingPositions(){
-    playerFloatingFrame=0;const back=$('#back-top-v2'),shell=$('#player-v2'),expand=$('#player-expand-v2');if(!back)return;
-    let bottom='max(14px, env(safe-area-inset-bottom))';
-    if(shell&&!shell.classList.contains('hidden')&&!shell.classList.contains('player-collapsed-v2')){bottom=Math.max(14,Math.ceil(shell.getBoundingClientRect().height)+10)+'px'}
-    else if(expand&&!expand.hidden){const rect=expand.getBoundingClientRect();bottom=Math.max(14,Math.ceil(window.innerHeight-rect.top)+9)+'px'}
-    back.style.setProperty('--vedator-back-bottom',bottom);
-  }
-  function queuePlayerFloatingPositions(){if(playerFloatingFrame)return;playerFloatingFrame=requestAnimationFrame(syncPlayerFloatingPositions)}
-
-  const playerNavOriginalSyncPlayer=syncPlayer;
-  syncPlayer=function(...args){
-    const result=playerNavOriginalSyncPlayer(...args),n=playerNodes();
-    if(n.prev){n.prev.textContent='|◀';n.prev.title=text('Předchozí díl','Predchádzajúci diel');n.prev.setAttribute('aria-label',n.prev.title)}
-    if(n.next){n.next.textContent='▶|';n.next.title=text('Další díl','Ďalší diel');n.next.setAttribute('aria-label',n.next.title)}
-    if(state.current&&(state.context?.type==='questions'||state.context?.type==='nonquestions'))n.sub.textContent=state.context.label;
-    syncCollapsedPlayerIcon();syncPlayerQuestionControls();queuePlayerFloatingPositions();return result;
-  };
-
-  function installPlayerNavigationControls(){
-    if(document.documentElement.dataset.playerNavigationControls==='1')return;document.documentElement.dataset.playerNavigationControls='1';
-    const style=document.createElement('style');style.dataset.v2PlayerNavigationControls='1';style.textContent=[
-      '.player-inner{position:relative!important}',
-      '#player-prev-v2,#player-next-v2{font-weight:900!important;letter-spacing:-.08em!important}',
-      '.player-help{padding-right:38px!important}',
-      '.player-help.player-question-nav-v2{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:6px!important;height:26px!important;min-height:26px!important;overflow:visible!important;-webkit-line-clamp:unset!important;-webkit-box-orient:initial!important}',
-      '.player-question-jump-v2{height:26px!important;min-height:26px!important;min-width:0!important;border:1px solid var(--line)!important;border-radius:8px!important;background:var(--raised)!important;color:var(--ink)!important;font-size:.7rem!important;font-weight:800!important;padding:2px 5px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;cursor:pointer!important}',
-      '.player-question-jump-v2:disabled{opacity:.38!important;cursor:default!important}',
-      '#player-dismiss-v2{position:absolute!important;right:8px!important;bottom:7px!important;width:28px!important;min-width:28px!important;height:28px!important;min-height:28px!important;padding:0!important;border:1px solid var(--line)!important;border-radius:50%!important;background:var(--card)!important;color:var(--muted)!important;font-size:1.05rem!important;font-weight:900!important;line-height:1!important;z-index:4!important;cursor:pointer!important}',
-      '#player-dismiss-v2:hover{color:var(--ink)!important;border-color:var(--accent)!important;background:var(--raised)!important}',
-      '#player-expand-v2{width:48px!important;min-width:48px!important;height:48px!important;min-height:48px!important;padding:0!important;border-radius:50%!important;font-size:1.2rem!important;letter-spacing:0!important}',
-      '#back-top-v2{bottom:var(--vedator-back-bottom,max(14px,env(safe-area-inset-bottom)))!important;background:#7c3aed!important;color:#fff!important;border-color:#a78bfa!important;box-shadow:0 8px 24px rgba(76,29,149,.28)!important}',
-      '#back-top-v2:hover{background:#6d28d9!important;border-color:#c4b5fd!important}',
-      'html[data-theme="dark"] #back-top-v2{background:#6d28d9!important;border-color:#a78bfa!important;color:#fff!important}',
-      '@media(max-width:700px){#player-expand-v2{width:46px!important;min-width:46px!important;height:46px!important;min-height:46px!important}.player-help.player-question-nav-v2{height:26px!important;min-height:26px!important}.player-question-jump-v2{font-size:.68rem!important;padding:2px 4px!important}#player-dismiss-v2{right:7px!important;bottom:6px!important;width:27px!important;min-width:27px!important;height:27px!important;min-height:27px!important}}'
-    ].join('');document.head.appendChild(style);
-    const inner=$('#player-v2 .player-inner');if(inner&&!$('#player-dismiss-v2')){const button=document.createElement('button');button.id='player-dismiss-v2';button.type='button';button.textContent='×';const label=text('Zavřít přehrávač','Zavrieť prehrávač');button.title=label;button.setAttribute('aria-label',label);inner.appendChild(button)}
-    $('#player-dismiss-v2')?.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();closePlayer();queuePlayerFloatingPositions()});
-    $('#player-help-v2')?.addEventListener('click',event=>{const button=event.target.closest?.('[data-question-delta]');if(!button)return;event.preventDefault();jumpPlayerQuestion(Number(button.dataset.questionDelta)||0)});
-    window.addEventListener('resize',queuePlayerFloatingPositions,{passive:true});
-    if('ResizeObserver'in window){const observer=new ResizeObserver(queuePlayerFloatingPositions);const shell=$('#player-v2'),expand=$('#player-expand-v2');if(shell)observer.observe(shell);if(expand)observer.observe(expand)}
-    if('MutationObserver'in window){const observer=new MutationObserver(queuePlayerFloatingPositions),shell=$('#player-v2'),expand=$('#player-expand-v2');observer.observe(document.body,{attributes:true,attributeFilter:['class']});if(shell)observer.observe(shell,{attributes:true,attributeFilter:['class']});if(expand)observer.observe(expand,{attributes:true,attributeFilter:['hidden']})}
-    syncCollapsedPlayerIcon();syncPlayer();queuePlayerFloatingPositions();
-  }
-  window.addEventListener('vedatorlanguagechange',()=>{const dismiss=$('#player-dismiss-v2');if(dismiss){const label=text('Zavřít přehrávač','Zavrieť prehrávač');dismiss.title=label;dismiss.setAttribute('aria-label',label)}syncCollapsedPlayerIcon();syncPlayerQuestionControls()});
-  installPlayerNavigationControls();
-`;
-          const end='\n})();';
-          const at=source.lastIndexOf(end);
-          if(at<0)throw new Error('Could not find final app closure');
-          source=source.slice(0,at)+block+source.slice(at);
-          fs.writeFileSync(path,source);
-          NODE
+        run: node tools/tmp-player-navigation-patch.mjs
 
       - name: Verify patch
         shell: bash
@@ -166,21 +33,20 @@ jobs:
           const source=fs.readFileSync('app-v2.js','utf8');
           const required=[
             'V2_PLAYER_NAVIGATION_CONTROLS_V1',
-            "items=[...(context.items||[])].sort((a,b)=>(Number(a.episode?.number)||0)-(Number(b.episode?.number)||0))",
             "#questions-v2 .question-card .play,#nonquestions-v2 .question-card .play",
-            "player-prev-question-v2",
-            "player-next-question-v2",
-            "player-dismiss-v2",
+            'player-prev-question-v2',
+            'player-next-question-v2',
+            'player-dismiss-v2',
             "n.prev.textContent='|◀'",
             "n.next.textContent='▶|'",
             "expand.textContent='🔊'",
-            "--vedator-back-bottom",
-            "background:#7c3aed"
+            '--vedator-back-bottom',
+            'background:#7c3aed'
           ];
           for(const value of required)if(!source.includes(value))throw new Error('Missing expected fragment: '+value);
           const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
           const counts=new Map();for(const question of data.questions||[]){const n=Number(question.episode)||0;counts.set(n,(counts.get(n)||0)+1)}
-          if(![...counts.values()].some(count=>count>=2))throw new Error('No episode with multiple question timestamps found');
+          if(![...counts.values()].some(count=>count>=2))throw new Error('No episode with multiple questions found');
           console.log('Static player navigation checks passed.');
           NODE
           git diff --check
