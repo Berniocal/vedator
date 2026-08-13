@@ -1520,10 +1520,18 @@
     playerFloatingFrame=0;const back=$('#back-top-v2'),shell=$('#player-v2'),expand=$('#player-expand-v2');if(!back)return;
     let bottom='max(14px, env(safe-area-inset-bottom))';
     if(shell&&!shell.classList.contains('hidden')&&!shell.classList.contains('player-collapsed-v2')){bottom=Math.max(14,Math.ceil(shell.getBoundingClientRect().height)+10)+'px'}
-    else if(expand&&!expand.hidden){const rect=expand.getBoundingClientRect();bottom=Math.max(14,Math.ceil(window.innerHeight-rect.top)+9)+'px'}
+    else if(expand&&!expand.hidden){const rect=expand.getBoundingClientRect(),style=getComputedStyle(expand),base=Math.max(0,parseFloat(style.bottom)||0);bottom=Math.max(14,Math.ceil(base+rect.height+9))+'px'}
     back.style.setProperty('--vedator-back-bottom',bottom);
   }
   function queuePlayerFloatingPositions(){if(playerFloatingFrame)return;playerFloatingFrame=requestAnimationFrame(syncPlayerFloatingPositions)}
+
+  const playerNavOriginalSetPlayerCollapsed=legacyVisualSetPlayerCollapsed;
+  legacyVisualSetPlayerCollapsed=function(collapsed){
+    const result=playerNavOriginalSetPlayerCollapsed(collapsed);
+    queuePlayerFloatingPositions();
+    requestAnimationFrame(queuePlayerFloatingPositions);
+    return result;
+  };
 
   const playerNavOriginalSyncPlayer=syncPlayer;
   syncPlayer=function(...args){
@@ -1546,9 +1554,9 @@
       '#player-dismiss-v2{position:absolute!important;right:8px!important;bottom:7px!important;width:28px!important;min-width:28px!important;height:28px!important;min-height:28px!important;padding:0!important;border:1px solid var(--line)!important;border-radius:50%!important;background:var(--card)!important;color:var(--muted)!important;font-size:1.05rem!important;font-weight:900!important;line-height:1!important;z-index:4!important;cursor:pointer!important}',
       '#player-dismiss-v2:hover{color:var(--ink)!important;border-color:var(--accent)!important;background:var(--raised)!important}',
       '#player-expand-v2{width:48px!important;min-width:48px!important;height:48px!important;min-height:48px!important;padding:0!important;border-radius:50%!important;font-size:1.2rem!important;letter-spacing:0!important}',
-      '#back-top-v2{bottom:var(--vedator-back-bottom,max(14px,env(safe-area-inset-bottom)))!important;background:#7c3aed!important;color:#fff!important;border-color:#a78bfa!important;box-shadow:0 8px 24px rgba(76,29,149,.28)!important}',
-      '#back-top-v2:hover{background:#6d28d9!important;border-color:#c4b5fd!important}',
-      'html[data-theme="dark"] #back-top-v2{background:#6d28d9!important;border-color:#a78bfa!important;color:#fff!important}',
+      '#back-top-v2{bottom:var(--vedator-back-bottom,max(14px,env(safe-area-inset-bottom)))!important;background:linear-gradient(180deg,#55449a,#3f307b)!important;color:#fff!important;border-color:#8f80ff!important;box-shadow:0 6px 18px rgba(31,22,69,.34)!important}',
+      '#back-top-v2:hover{background:linear-gradient(180deg,#5f4da7,#49378a)!important;border-color:#a99fff!important}',
+      'html[data-theme="dark"] #back-top-v2{background:linear-gradient(180deg,#51408f,#3a2c70)!important;border-color:#9788ff!important;color:#fff!important}',
       '@media(max-width:700px){#player-expand-v2{width:46px!important;min-width:46px!important;height:46px!important;min-height:46px!important}.player-help.player-question-nav-v2{height:26px!important;min-height:26px!important}.player-question-jump-v2{font-size:.68rem!important;padding:2px 4px!important}#player-dismiss-v2{right:7px!important;bottom:6px!important;width:27px!important;min-width:27px!important;height:27px!important;min-height:27px!important}}'
     ].join('');document.head.appendChild(style);
     const inner=$('#player-v2 .player-inner');if(inner&&!$('#player-dismiss-v2')){const button=document.createElement('button');button.id='player-dismiss-v2';button.type='button';button.textContent='×';const label=text('Zavřít přehrávač','Zavrieť prehrávač');button.title=label;button.setAttribute('aria-label',label);inner.appendChild(button)}
