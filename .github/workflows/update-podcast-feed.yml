@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: '17 4 * * *'
   push:
-    branches: [main, fix-episode-336-nonquestion]
+    branches: [main]
     paths:
       - '.github/workflows/update-podcast-feed.yml'
 
@@ -19,36 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Převést díl 336 z FAQ do neotázek
-        run: |
-          OLD=c5edb1c7bc642054e3b48c082b879215c52a58b3
-          git show "${OLD}:tools/build-content-v2.mjs" > tools/build-content-v2.mjs
-          git show "${OLD}:tools/augment-v2-parity-content.mjs" > tools/augment-v2-parity-content.mjs
-          git show "${OLD}:tools/test-app-v2.mjs" > tools/test-app-v2.mjs
-          git show "${OLD}:tools/test-content-v2.mjs" > tools/test-content-v2.mjs
-          git show "${OLD}:tools/test-v2-faq-integrity.mjs" > tools/test-v2-faq-integrity.mjs
-          python - <<'PY'
-          from pathlib import Path
-
-          build = Path('tools/build-content-v2.mjs')
-          text = build.read_text(encoding='utf-8')
-          old = 'const EXTRA_NONQUESTION_EPISODES=[331,333,334,335,338,339,341,342,344,345,347];'
-          new = 'const EXTRA_NONQUESTION_EPISODES=[331,333,334,335,336,338,339,341,342,344,345,347];'
-          if old not in text:
-              raise SystemExit('Nelze bezpečně přidat 336 do EXTRA_NONQUESTION_EPISODES')
-          build.write_text(text.replace(old, new, 1), encoding='utf-8')
-
-          test = Path('tools/test-content-v2.mjs')
-          text = test.read_text(encoding='utf-8')
-          old = 'for(const n of [334,335,338,339,341,342,343,344,345,347])'
-          new = 'for(const n of [334,335,336,338,339,341,342,343,344,345,347])'
-          if old not in text:
-              raise SystemExit('Nelze bezpečně přidat kontrolu neotázky 336')
-          test.write_text(text.replace(old, new, 1), encoding='utf-8')
-          PY
 
       - name: Stáhnout RSS a vytvořit episodes.json
         run: |
@@ -103,7 +73,7 @@ jobs:
           print(f'Uloženo {len(episodes)} epizod.')
           PY
 
-      - name: Přestavět V2 datový balík a ověřit klasifikaci 336
+      - name: Přestavět V2 datový balík a service worker
         run: |
           node tools/build-content-v2.mjs
           node tools/augment-v2-episode-descriptions.mjs
@@ -111,36 +81,23 @@ jobs:
           node tools/augment-v2-parity-content.mjs
           node tools/test-content-v2.mjs
           node tools/test-v2-faq-integrity.mjs
-          node - <<'NODE'
-          const fs=require('fs');
-          const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
-          if(data.questions.some(q=>Number(q.episode)===336)) throw new Error('336 je stále ve FAQ otázkách');
-          if(data.questions.length!==734) throw new Error(`FAQ má ${data.questions.length} otázek místo 734`);
-          if(new Set(data.questions.map(q=>Number(q.episode))).size!==42) throw new Error('FAQ nemá 42 dílů');
-          const ep=data.nonquestions?.episodes?.['336'];
-          if(!ep||!Array.isArray(ep.cs)||!Array.isArray(ep.sk)) throw new Error('336 chybí v neotázkách');
-          if(ep.cs.length!==20||ep.sk.length!==20) throw new Error(`336 má špatný počet položek: ${ep.cs.length}/${ep.sk.length}`);
-          if(ep.cs[0]?.[0]!=='03:18'||ep.sk[0]?.[0]!=='03:18') throw new Error('336 má posunutý první čas');
-          if(ep.cs.at(-1)?.[0]!=='41:20'||ep.sk.at(-1)?.[0]!=='41:20') throw new Error('336 má posunutý poslední čas');
-          console.log(JSON.stringify({ok:true,questions:data.questions.length,faqEpisodes:new Set(data.questions.map(q=>q.episode)).size,nonquestion336:{cs:ep.cs.length,sk:ep.sk.length,first:ep.cs[0][0],last:ep.cs.at(-1)[0]}}));
-          NODE
           node tools/build-production-sw.mjs
 
-      - name: Commitnout opravu na pracovní větev
+      - name: Commitnout atomickou aktualizaci
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- episodes.json content-v2.json sw.js tools/build-content-v2.mjs tools/augment-v2-parity-content.mjs tools/test-app-v2.mjs tools/test-content-v2.mjs tools/test-v2-faq-integrity.mjs
+          git add -- episodes.json content-v2.json sw.js
           if git diff --cached --quiet; then
-            echo 'Beze změny.'
+            echo 'Katalog, V2 data i service worker jsou beze změny.'
           else
-            git commit -m 'Move episode 336 from FAQ to nonquestions'
+            git commit -m 'Automatická aktualizace katalogu a V2 dat'
             git push
           fi
 
   deploy-pages:
     needs: update-feed
-    if: ${{ needs.update-feed.result == 'success' && github.ref == 'refs/heads/main' }}
+    if: ${{ needs.update-feed.result == 'success' }}
     concurrency:
       group: pages-direct
       cancel-in-progress: true
