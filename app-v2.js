@@ -1636,7 +1636,7 @@
   function rememberLastPlayback(preferredTime=null){
     const current=state.current;if(!current?.episode)return;
     const audio=playerNodes().audio,record=state.progress[current.key]||{};
-    let time=Number(preferredTime);
+    let time=preferredTime===null||preferredTime===undefined?NaN:Number(preferredTime);
     if(!Number.isFinite(time)){
       const live=audio&&audio.readyState>0?Number(audio.currentTime):NaN;
       time=Number.isFinite(live)?live:Number(record.currentTime)||0;
