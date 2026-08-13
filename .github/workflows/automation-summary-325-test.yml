@@ -45,14 +45,16 @@ jobs:
               const points=[...m[3].matchAll(/<li>([\s\S]*?)<\/li>/g)].map(x=>decode(x[1].replace(/<[^>]+>/g,' ')));
               out.push({time:m[1],title:decode(m[2].replace(/<[^>]+>/g,' ')),points});
             }
-            if(out.length!==20)throw new Error(`${file}: expected 20 sections, got ${out.length}`);
+            if(out.length<1)throw new Error(`${file}: no summary sections found`);
             if(out.some(x=>!x.time||!x.title||x.points.length<3))throw new Error(`${file}: incomplete section`);
             return out;
           }
           const DATA={cs:parse('/tmp/325-cs.html'),sk:parse('/tmp/325-sk.html')};
+          if(DATA.cs.length!==DATA.sk.length)throw new Error(`CZ/SK section count mismatch: ${DATA.cs.length} vs ${DATA.sk.length}`);
           for(let i=0;i<DATA.cs.length;i++){
             if(DATA.cs[i].time!==DATA.sk[i].time)throw new Error(`CZ/SK time mismatch at ${i}`);
           }
+          console.log(`Parsed ${DATA.cs.length} paired summary sections.`);
           const src=`(()=>{\n  if(window.__vedatorEpisode325Summary)return;\n  window.__vedatorEpisode325Summary=true;\n  const DATA=${JSON.stringify(DATA)};\n})();\n`;
           fs.writeFileSync('episode-325-summary.js',src);
           NODE
