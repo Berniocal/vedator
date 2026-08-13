@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: '17 4 * * *'
   push:
-    branches: [main, add-episode-333-summary]
+    branches: [main]
     paths:
       - '.github/workflows/update-podcast-feed.yml'
 
@@ -97,7 +97,7 @@ jobs:
 
   deploy-pages:
     needs: update-feed
-    if: ${{ needs.update-feed.result == 'success' && github.ref == 'refs/heads/main' }}
+    if: ${{ needs.update-feed.result == 'success' }}
     concurrency:
       group: pages-direct
       cancel-in-progress: true
