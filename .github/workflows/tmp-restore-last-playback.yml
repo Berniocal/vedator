@@ -20,7 +20,19 @@ jobs:
           fetch-depth: 1
 
       - name: Patch last playback restore
-        run: node tools/tmp-restore-last-playback.mjs
+        shell: bash
+        run: |
+          node tools/tmp-restore-last-playback.mjs
+          node <<'NODE'
+          const fs=require('fs');
+          const path='app-v2.js';
+          let source=fs.readFileSync(path,'utf8');
+          const old='let time=Number(preferredTime);';
+          const next='let time=preferredTime===null||preferredTime===undefined?NaN:Number(preferredTime);';
+          if(source.includes(old))source=source.replace(old,next);
+          if(!source.includes(next))throw new Error('Preferred-time persistence fix missing');
+          fs.writeFileSync(path,source);
+          NODE
 
       - name: Verify patch
         shell: bash
@@ -40,6 +52,7 @@ jobs:
             "['episodes','questions','nonquestions'].includes(type)",
             'autoplay:false',
             'legacyVisualSetPlayerCollapsed(true)',
+            'preferredTime===null||preferredTime===undefined?NaN:Number(preferredTime)',
             "window.addEventListener('vedator-v2-ready'"
           ];
           for(const value of required)if(!source.includes(value))throw new Error('Missing expected fragment: '+value);
@@ -59,5 +72,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add app-v2.js
-          git commit -m 'Restore last playback context on startup'
+          git commit -m 'Preserve exact last playback position'
           git push origin HEAD:main
