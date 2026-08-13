@@ -4,7 +4,7 @@ import vm from 'node:vm';
 
 const ROOT=process.cwd();
 const FAQ=[346,340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,138,133,128,119,112,100,89,82,75,69,60,51,35,26,17];
-const EXTRA_NONQUESTION_EPISODES=[333,334,335,338,339,341,342,344,345,347];
+const EXTRA_NONQUESTION_EPISODES=[331,333,334,335,338,339,341,342,344,345,347];
 
 const read=name=>fs.readFileSync(path.join(ROOT,name),'utf8');
 const exists=name=>fs.existsSync(path.join(ROOT,name));
