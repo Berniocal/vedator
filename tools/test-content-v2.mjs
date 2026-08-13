@@ -6,17 +6,23 @@ const fail=message=>{throw new Error(message)};
 if(data.schema!==3)fail(`Unexpected schema ${data.schema}`);
 if(!Array.isArray(data.episodes)||data.episodes.length<380)fail(`Too few episodes: ${data.episodes?.length}`);
 if(!Array.isArray(data.questions))fail('Questions missing');
-if(data.questions.length!==754)fail(`Expected 754 questions, got ${data.questions.length}`);
-if(new Set(data.questions.map(q=>q.episode)).size!==43)fail(`Expected 43 FAQ episodes, got ${new Set(data.questions.map(q=>q.episode)).size}`);
+if(data.questions.length!==734)fail(`Expected 734 questions, got ${data.questions.length}`);
+if(new Set(data.questions.map(q=>q.episode)).size!==42)fail(`Expected 42 FAQ episodes, got ${new Set(data.questions.map(q=>q.episode)).size}`);
 if(data.questions.some(q=>!q.title||!Array.isArray(q.points)||!q.points.length))fail('Question with missing title/answer detected');
 if(data.questions.some(q=>!q.i18n?.cs?.title||!q.i18n?.sk?.title||!Array.isArray(q.i18n.cs.points)||!Array.isArray(q.i18n.sk.points)))fail('Question translation bundle missing');
 if(!Array.isArray(data.series)||data.series.length<8)fail(`Too few series: ${data.series?.length}`);
 if(data.series.some(series=>!series.i18n?.cs||!series.i18n?.sk))fail('Series translation missing');
 const nonEpisodes=Object.keys(data.nonquestions?.episodes||{});
 if(nonEpisodes.length<10)fail(`Too few nonquestion episodes: ${nonEpisodes.length}`);
-for(const n of [334,335,338,339,341,342,343,344,345,347]){
+for(const n of [334,335,336,338,339,341,342,343,344,345,347]){
   if(!data.nonquestions.episodes[String(n)])fail(`Missing nonquestion episode ${n}`);
 }
+const n336=data.nonquestions.episodes['336'];
+if(!Array.isArray(n336?.cs)||n336.cs.length!==20)fail(`Episode 336 Czech nonquestions: expected 20, got ${n336?.cs?.length||0}`);
+if(!Array.isArray(n336?.sk)||n336.sk.length!==20)fail(`Episode 336 Slovak nonquestions: expected 20, got ${n336?.sk?.length||0}`);
+if(n336.cs.some(item=>!item?.time||!item?.title||!Array.isArray(item?.points)||!item.points.length))fail('Episode 336 Czech nonquestion item malformed');
+if(n336.sk.some(item=>!item?.time||!item?.title||!Array.isArray(item?.points)||!item.points.length))fail('Episode 336 Slovak nonquestion item malformed');
+if((data.questions||[]).some(q=>Number(q.episode)===336))fail('Episode 336 leaked into real FAQ questions');
 const episodeNumbers=new Set(data.episodes.map(e=>Number(e.number)));
 for(const q of data.questions){if(!episodeNumbers.has(Number(q.episode)))fail(`Question points to missing episode ${q.episode}`)}
 
@@ -43,6 +49,7 @@ console.log(JSON.stringify({
   faqEpisodes:new Set(data.questions.map(q=>q.episode)).size,
   series:data.series.length,
   nonquestionEpisodes:nonEpisodes.length,
+  episode336Nonquestions:{cs:n336.cs.length,sk:n336.sk.length},
   episodeTranslationFiles:data.source?.episodeTranslationFiles,
   questionTranslationFiles:data.source?.questionTranslationFiles
 },null,2));

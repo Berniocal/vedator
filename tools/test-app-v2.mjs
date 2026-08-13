@@ -40,7 +40,7 @@ assert(window.document.querySelectorAll('#episodes-v2 .card').length===20,'Episo
 assert(window.document.querySelectorAll('#questions-v2 .card').length===20,'Questions should initially render 20 cards');
 assert(window.document.querySelectorAll('#series-v2 .series').length===data.series.length,'Series not rendered');
 assert(Number(window.document.querySelector('#nonquestions-v2').dataset.count)>0,'Nonquestions not rendered');
-assert(detail.episodes===data.episodes.length&&detail.questions===754,'Ready event has wrong counts');
+assert(detail.episodes===data.episodes.length&&detail.questions===734,'Ready event has wrong counts');
 assert(detail.playlists===1,'Legacy playlist count not exposed');
 assert(detail.language==='cz','Stored Czech language not restored');
 assert(window.document.documentElement.lang==='cs','HTML language is not Czech');
