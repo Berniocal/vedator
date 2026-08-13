@@ -1,0 +1,18 @@
+name: Baseline episode experience check
+
+on:
+  push:
+    branches:
+      - automation/summary-325-test
+
+jobs:
+  baseline:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - run: npm install --no-save --no-package-lock jsdom@26
+      - run: cp index.html v2.html
+      - run: node tools/test-v2-episode-experience.mjs
