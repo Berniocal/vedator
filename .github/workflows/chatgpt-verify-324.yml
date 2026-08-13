@@ -61,7 +61,8 @@ jobs:
             if(cs[i].time!==sk[i].time)throw new Error(`CZ/SK time mismatch at ${i}: ${cs[i].time}/${sk[i].time}`);
             if(!cs[i].title||!sk[i].title||!cs[i].points.length||!sk[i].points.length)throw new Error(`Incomplete item ${i}`);
           }
-          fs.writeFileSync('episode-324-summary.js',`const DATA=${JSON.stringify({cs,sk})};\n`);
+          const encoded=JSON.stringify({cs,sk}).replace(/;/g,'\\u003b');
+          fs.writeFileSync('episode-324-summary.js',`const DATA=${encoded};\n`);
           const augmenterPath='tools/augment-v2-extra-nonquestions.mjs';
           let augmenter=fs.readFileSync(augmenterPath,'utf8');
           augmenter=augmenter.replace(/const EXTRAS=\[([^\]]*)\];/,(_,body)=>{
