@@ -3,8 +3,8 @@ import path from 'node:path';
 import vm from 'node:vm';
 
 const ROOT=process.cwd();
-const FAQ=[346,340,337,336,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,138,133,128,119,112,100,89,82,75,69,60,51,35,26,17];
-const EXTRA_NONQUESTION_EPISODES=[331,333,334,335,338,339,341,342,344,345,347];
+const FAQ=[346,340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,138,133,128,119,112,100,89,82,75,69,60,51,35,26,17];
+const EXTRA_NONQUESTION_EPISODES=[331,333,334,335,336,338,339,341,342,344,345,347];
 
 const read=name=>fs.readFileSync(path.join(ROOT,name),'utf8');
 const exists=name=>fs.existsSync(path.join(ROOT,name));
@@ -135,6 +135,15 @@ function parseGlobalArray(file,globalName){
   return literal?evalLiteral(literal,file):null;
 }
 
+function normalizeNonQuestionItems(items){
+  if(!Array.isArray(items))return [];
+  return items.map(item=>{
+    if(!Array.isArray(item))return item;
+    const [time,title,points]=item;
+    return {time:String(time||'0:00'),title:String(title||''),points:Array.isArray(points)?points.map(String):[]};
+  });
+}
+
 function parseExtraNonQuestion(episode){
   if(episode===334||episode===335){
     const cs=parseGlobalArray(`episode-${episode}-summary-data-cs.js`,`__vedatorEpisode${episode}SummaryCS`);
@@ -147,7 +156,10 @@ function parseExtraNonQuestion(episode){
   const literal=assignedLiteral(code,'DATA');
   if(!literal)return null;
   const data=evalLiteral(literal,file);
-  if(data&&Array.isArray(data.cs))return data;
+  if(data&&Array.isArray(data.cs))return {
+    cs:normalizeNonQuestionItems(data.cs),
+    ...(Array.isArray(data.sk)?{sk:normalizeNonQuestionItems(data.sk)}:{})
+  };
   return null;
 }
 
@@ -224,7 +236,7 @@ function collectQuestionTranslationPairs(){
 }
 
 const SERIES_RULES=[
-  [{cs:'FAQ – dobré otázky',sk:'FAQ – dobré otázky'},e=>FAQ.includes(Number(e.number))],
+  [{cs:'FAQ – dobré otázky',sk:'FAQ – dobré otázky'},e=>/\bfaq\b/i.test(e.title)||[138,300].includes(Number(e.number))],
   [{cs:'Rozhovory o vesmíru',sk:'Rozhovory o vesmíre'},e=>String(e.title).toLowerCase().includes('rozhovory o vesm')],
   [{cs:'Žiji vědu',sk:'Žijem vedu'},e=>String(e.title).toLowerCase().includes('žijem vedu')||String(e.title).toLowerCase().includes('zijem vedu')],
   [{cs:'Nobelovy ceny',sk:'Nobelove ceny'},e=>/nobel/i.test(e.title)&&!/ig nobel/i.test(e.title)],
@@ -310,7 +322,7 @@ const output={
     episodesUpdatedAt:episodePayload.updatedAt||null,
     episodeCount:episodes.length,
     faqEpisodes:FAQ,
-    expectedQuestionCount:754,
+    expectedQuestionCount:734,
     episodeTranslationFiles:episodeTranslationData.files.length,
     questionTranslationFiles:questionPairData.files.length,
     episodeI18nCount,
