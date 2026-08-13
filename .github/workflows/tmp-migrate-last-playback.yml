@@ -1,0 +1,49 @@
+name: Temporary last playback migration
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Patch migration
+        run: node tools/tmp-migrate-last-playback.mjs
+
+      - name: Verify
+        shell: bash
+        run: |
+          node --check app-v2.js
+          node <<'NODE'
+          const fs=require('fs');
+          const source=fs.readFileSync('app-v2.js','utf8');
+          const required=['V2_LAST_PLAYBACK_LEGACY_MIGRATION_V1','inferLegacyLastPlayback','Math.abs(updatedAt-latest.updatedAt)>10000','finalSeriesCollection(item)===best.record','playlistContext(playlist,0)','saved=inferLegacyLastPlayback()'];
+          for(const value of required)if(!source.includes(value))throw new Error('Missing: '+value);
+          console.log('Legacy last playback migration checks passed.');
+          NODE
+          git diff --check
+
+      - name: Commit fix
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo 'Nothing to commit.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app-v2.js
+          git commit -m 'Migrate previous last playback on startup'
+          git push origin HEAD:main
