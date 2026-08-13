@@ -6,15 +6,15 @@ const fail=message=>{throw new Error(message)};
 if(data.schema!==3)fail(`Unexpected schema ${data.schema}`);
 if(!Array.isArray(data.episodes)||data.episodes.length<380)fail(`Too few episodes: ${data.episodes?.length}`);
 if(!Array.isArray(data.questions))fail('Questions missing');
-if(data.questions.length!==754)fail(`Expected 754 questions, got ${data.questions.length}`);
-if(new Set(data.questions.map(q=>q.episode)).size!==43)fail(`Expected 43 FAQ episodes, got ${new Set(data.questions.map(q=>q.episode)).size}`);
+if(data.questions.length!==734)fail(`Expected 734 questions, got ${data.questions.length}`);
+if(new Set(data.questions.map(q=>q.episode)).size!==42)fail(`Expected 42 FAQ episodes, got ${new Set(data.questions.map(q=>q.episode)).size}`);
 if(data.questions.some(q=>!q.title||!Array.isArray(q.points)||!q.points.length))fail('Question with missing title/answer detected');
 if(data.questions.some(q=>!q.i18n?.cs?.title||!q.i18n?.sk?.title||!Array.isArray(q.i18n.cs.points)||!Array.isArray(q.i18n.sk.points)))fail('Question translation bundle missing');
 if(!Array.isArray(data.series)||data.series.length<8)fail(`Too few series: ${data.series?.length}`);
 if(data.series.some(series=>!series.i18n?.cs||!series.i18n?.sk))fail('Series translation missing');
 const nonEpisodes=Object.keys(data.nonquestions?.episodes||{});
 if(nonEpisodes.length<10)fail(`Too few nonquestion episodes: ${nonEpisodes.length}`);
-for(const n of [334,335,338,339,341,342,343,344,345,347]){
+for(const n of [334,335,336,338,339,341,342,343,344,345,347]){
   if(!data.nonquestions.episodes[String(n)])fail(`Missing nonquestion episode ${n}`);
 }
 const episodeNumbers=new Set(data.episodes.map(e=>Number(e.number)));
