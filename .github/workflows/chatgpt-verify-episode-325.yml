@@ -1,0 +1,163 @@
+name: TEMP verify episode 325
+
+on:
+  push:
+    branches: [chatgpt-ep325-verify-20260813]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test dependency
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save puppeteer-core@24 >/dev/null 2>&1
+          if command -v google-chrome >/dev/null 2>&1; then echo "CHROME_PATH=$(command -v google-chrome)" >> "$GITHUB_ENV"; fi
+          if command -v chromium >/dev/null 2>&1; then echo "CHROME_PATH=$(command -v chromium)" >> "$GITHUB_ENV"; fi
+      - name: Capture clean-main baseline
+        run: |
+          echo "BASE_SIZE=$(wc -c < content-v2.json)" >> "$GITHUB_ENV"
+          echo "APP_SHA=$(sha256sum app-v2.js | cut -d' ' -f1)" >> "$GITHUB_ENV"
+          echo "V2_SHA=$(sha256sum v2.html | cut -d' ' -f1)" >> "$GITHUB_ENV"
+          set +e
+          node tools/test-v2-episode-experience.mjs > /tmp/episode-baseline.log 2>&1
+          status=$?
+          set -e
+          cat /tmp/episode-baseline.log
+          if [ "$status" -eq 0 ]; then
+            echo "BASELINE_KNOWN_FAIL=0" >> "$GITHUB_ENV"
+          elif grep -Fq 'Unexpected series progress: 0 / 42 poslechnuto' /tmp/episode-baseline.log; then
+            echo "BASELINE_KNOWN_FAIL=1" >> "$GITHUB_ENV"
+          else
+            echo 'Baseline episode-experience test failed differently; refusing integration.'
+            exit 1
+          fi
+      - name: Generate exact bilingual episode 325 source
+        run: |
+          curl -fsSL 'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/325-posledna-sanca.html' -o /tmp/325-cs.html
+          curl -fsSL 'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/325-posledna-sanca.html' -o /tmp/325-sk.html
+          node <<'NODE'
+          const fs=require('fs');
+          const decode=s=>String(s)
+            .replace(/<[^>]*>/g,'')
+            .replace(/&nbsp;/g,' ')
+            .replace(/&amp;/g,'&')
+            .replace(/&quot;/g,'"')
+            .replace(/&#39;/g,"'")
+            .replace(/&lt;/g,'<')
+            .replace(/&gt;/g,'>')
+            .replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)))
+            .replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16)))
+            .trim();
+          function parse(file){
+            const html=fs.readFileSync(file,'utf8');
+            const out=[];
+            const re=/<section\s+class="faq"\s+data-time="([^"]+)"[^>]*><h2>([\s\S]*?)<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g;
+            let m;
+            while((m=re.exec(html))){
+              const points=[...m[3].matchAll(/<li>([\s\S]*?)<\/li>/g)].map(x=>decode(x[1]));
+              out.push({time:m[1],title:decode(m[2]),points});
+            }
+            return out;
+          }
+          const cs=parse('/tmp/325-cs.html'),sk=parse('/tmp/325-sk.html');
+          if(cs.length!==20||sk.length!==20)throw new Error(`Expected 20+20 sections, got ${cs.length}+${sk.length}`);
+          for(let i=0;i<20;i++){
+            if(cs[i].time!==sk[i].time)throw new Error(`CZ/SK time mismatch at ${i}: ${cs[i].time} vs ${sk[i].time}`);
+            if(!cs[i].title||!sk[i].title||!cs[i].points.length||!sk[i].points.length)throw new Error(`Incomplete item ${i}`);
+          }
+          const data={cs,sk};
+          const source=`(()=>{\n  if(window.__vedatorEpisode325Summary)return;\n  window.__vedatorEpisode325Summary=true;\n\n  const DATA=${JSON.stringify(data)};\n  window.__vedatorEpisode325SummaryData=DATA;\n})();\n`;
+          fs.writeFileSync('episode-325-summary.js',source);
+
+          const augmenterPath='tools/augment-v2-extra-nonquestions.mjs';
+          let augmenter=fs.readFileSync(augmenterPath,'utf8');
+          const am=augmenter.match(/const EXTRAS=\[([^\]]*)\];/);
+          if(!am)throw new Error('EXTRAS array not found');
+          const extras=am[1].split(',').map(x=>Number(x.trim())).filter(Number.isFinite);
+          if(!extras.includes(325))extras.push(325);
+          extras.sort((a,b)=>a-b);
+          augmenter=augmenter.replace(am[0],`const EXTRAS=[${extras.join(',')}];`);
+          fs.writeFileSync(augmenterPath,augmenter);
+
+          const testPath='tools/test-content-v2.mjs';
+          let test=fs.readFileSync(testPath,'utf8');
+          const old='for(const n of [334,335,336,338,339,341,342,343,344,345,347]){';
+          if(!test.includes(old)&&!test.includes('for(const n of [325,334,335,336,338,339,341,342,343,344,345,347]){'))throw new Error('Required nonquestion regression list not found');
+          test=test.replace(old,'for(const n of [325,334,335,336,338,339,341,342,343,344,345,347]){');
+          fs.writeFileSync(testPath,test);
+          console.log(JSON.stringify({episode:325,cs:cs.length,sk:sk.length,first:cs[0].time,last:cs.at(-1).time,extras},null,2));
+          NODE
+      - name: Build V2 content
+        run: |
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+      - name: Verify payload and runtime stability
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const d=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
+          const x=d.nonquestions?.episodes?.['325'];
+          if(!x||!Array.isArray(x.cs)||!Array.isArray(x.sk))throw new Error('Episode 325 missing from V2 nonquestions');
+          if(x.cs.length!==20||x.sk.length!==20)throw new Error(`Episode 325 count mismatch ${x.cs.length}/${x.sk.length}`);
+          for(let i=0;i<20;i++)if(x.cs[i].time!==x.sk[i].time)throw new Error(`Episode 325 CZ/SK time mismatch at ${i}`);
+          console.log(JSON.stringify({episode325:true,cs:x.cs.length,sk:x.sk.length,first:x.cs[0].time,last:x.cs.at(-1).time}));
+          NODE
+          test "$(sha256sum app-v2.js | cut -d' ' -f1)" = "$APP_SHA"
+          test "$(sha256sum v2.html | cut -d' ' -f1)" = "$V2_SHA"
+          NEW_SIZE=$(wc -c < content-v2.json)
+          DELTA=$((NEW_SIZE-BASE_SIZE))
+          echo "BASE_SIZE=$BASE_SIZE NEW_SIZE=$NEW_SIZE DELTA=$DELTA"
+          if [ "$DELTA" -le 0 ] || [ "$DELTA" -gt 100000 ]; then
+            echo "Unexpected content-v2.json growth: $DELTA bytes"
+            exit 1
+          fi
+          echo "NEW_SIZE=$NEW_SIZE" >> "$GITHUB_ENV"
+          echo "SIZE_DELTA=$DELTA" >> "$GITHUB_ENV"
+      - name: Run required V2 tests
+        run: |
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/test-app-v2.mjs
+          node tools/test-v2-question-experience.mjs
+          set +e
+          node tools/test-v2-episode-experience.mjs > /tmp/episode-new.log 2>&1
+          status=$?
+          set -e
+          cat /tmp/episode-new.log
+          if [ "$status" -ne 0 ]; then
+            if [ "$BASELINE_KNOWN_FAIL" = '1' ] && grep -Fq 'Unexpected series progress: 0 / 42 poslechnuto' /tmp/episode-new.log; then
+              echo 'Ignoring approved pre-existing episode-experience baseline failure.'
+            else
+              echo 'Episode-experience test has a new/different failure.'
+              exit 1
+            fi
+          fi
+          node tools/test-v2-full-parity.mjs
+          node tools/test-v2-playlist-parity.mjs
+          node tools/test-v2-mobile-deep-polish.mjs
+          node tools/test-v2-mobile-browser.mjs
+          node tools/test-v2-mobile-browser-playlist.mjs
+          node tools/test-v2-real-readmore-browser.mjs
+      - name: Commit tested generated state to verification branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add episode-325-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs content-v2.json
+          git diff --cached --stat
+          git commit -m 'TEMP tested episode 325 state [skip ci]'
+          git push origin HEAD:chatgpt-ep325-verify-20260813
+          echo "Verified content size delta: $SIZE_DELTA bytes"
