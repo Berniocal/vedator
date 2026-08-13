@@ -1701,9 +1701,34 @@
     return result;
   };
 
+  /* V2_LAST_PLAYBACK_LEGACY_MIGRATION_V1 */
+  function inferLegacyLastPlayback(){
+    let latest=null;
+    for(const [key,record] of Object.entries(state.progress||{})){
+      const match=String(key).match(/^episode-(\d+)$/),updatedAt=Number(record?.updatedAt)||0;if(!match||!updatedAt)continue;
+      if(!latest||updatedAt>latest.updatedAt)latest={episode:Number(match[1]),record,updatedAt};
+    }
+    if(!latest)return null;
+    const episode=episodeByNumber(latest.episode);if(!episode)return null;
+    let context=null,itemRef=epRef(episode.number),best=null;
+    for(const [id,record] of Object.entries(state.collectionProgress||{})){
+      if(!record||!['series','playlist'].includes(record.type))continue;
+      const updatedAt=Number(record.updatedAt)||0;if(!updatedAt||Math.abs(updatedAt-latest.updatedAt)>10000)continue;
+      if(!best||updatedAt>best.updatedAt)best={id,record,updatedAt};
+    }
+    if(best?.record?.type==='series'){
+      const series=(state.data?.series||[]).find(item=>finalSeriesCollection(item)===best.record)||null;
+      if(series){const candidate=seriesContext(series,0),index=candidate.items.findIndex(item=>Number(item.episode?.number)===Number(episode.number));if(index>=0){candidate.index=index;context=candidate;itemRef=candidate.items[index].ref||itemRef}}
+    }else if(best?.record?.type==='playlist'){
+      const id=String(best.id||'').replace(/^playlist:/,'');const playlist=state.playlists.find(item=>String(item.id)===id)||null;
+      if(playlist){const candidate=playlistContext(playlist,0);let index=candidate.items.findIndex(item=>item.id===best.record.lastItemId);if(index<0)index=candidate.items.findIndex(item=>Number(item.episode?.number)===Number(episode.number));if(index>=0){candidate.index=index;context=candidate;itemRef=candidate.items[index].ref||itemRef}}
+    }
+    return {version:1,episode:Number(episode.number),time:Math.max(0,Number(latest.record?.currentTime)||0),itemRef:String(itemRef||''),context:lastPlaybackContextSnapshot(context),updatedAt:latest.updatedAt};
+  }
+
   async function restoreLastPlayback(){
     if(state.current||!state.data)return false;
-    const saved=readJson(LAST_PLAYBACK_KEY,null);if(!saved||Number(saved.version)!==1)return false;
+    let saved=readJson(LAST_PLAYBACK_KEY,null);if(!saved){saved=inferLegacyLastPlayback();if(saved)writeJson(LAST_PLAYBACK_KEY,saved)}if(!saved||Number(saved.version)!==1)return false;
     const episode=episodeByNumber(Number(saved.episode));if(!episode)return false;
     const context=rebuildLastPlaybackContext(saved.context,episode.number,saved.itemRef);
     const record=state.progress[episodeKey(episode.number)]||{};
