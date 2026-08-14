@@ -24,6 +24,8 @@ jobs:
         run: npm install --no-save jsdom
       - name: Preserve runtime files
         run: sha256sum app-v2.js index.html > /tmp/runtime-before.sha
+      - name: Prepare legacy test filename
+        run: cp index.html v2.html
       - name: Build V2 content
         run: |
           node tools/build-content-v2.mjs
