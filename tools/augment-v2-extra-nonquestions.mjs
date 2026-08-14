@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 
 const CONTENT_FILE='content-v2.json';
-const EXTRAS=[317,321,322,323,324,325];
+const EXTRAS=[317,320,321,322,323,324,325];
 
 function readSummaryData(episode){
   const source=fs.readFileSync(`episode-${episode}-summary.js`,'utf8');
