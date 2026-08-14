@@ -13,6 +13,8 @@ on:
       - 'nonquestions-data.js'
       - 'tools/build-content-v2.mjs'
       - 'tools/augment-v2-extra-nonquestions.mjs'
+      - 'tools/augment-v2-full-descriptions.mjs'
+      - 'tools/test-content-v2.mjs'
 
 permissions:
   contents: write
@@ -80,6 +82,7 @@ jobs:
 
       - name: Přestavět V2 datový balík a service worker
         run: |
+          node --check app-v2.js
           node tools/build-content-v2.mjs
           node tools/augment-v2-extra-nonquestions.mjs
           node tools/augment-v2-episode-descriptions.mjs

@@ -50,6 +50,7 @@
     const copy=episode?.i18n?.[contentLang()];
     return {title:copy?.title||episode?.title||'',description:copy?.description||episode?.description||''};
   }
+  function episodeDisplayNumber(episode){return Number(episode?.displayNumber)||Number(episode?.number)||'–'}
   function questionCopy(question){
     const copy=question?.i18n?.[contentLang()];
     return {title:copy?.title||question?.title||'',points:Array.isArray(copy?.points)?copy.points:(question?.points||[])};
@@ -120,7 +121,7 @@
     if(decoded<0)return null;
     if(decoded<2048){
       const episode=episodeByNumber(decoded);if(!episode)return null;
-      return {type:'e',ref,episode,title:episodeCopy(episode).title,subtitle:`${text('Díl','Diel')} ${episode.number}`,start:0};
+      return {type:'e',ref,episode,title:episodeCopy(episode).title,subtitle:`${text('Díl','Diel')} ${episodeDisplayNumber(episode)}`,start:0};
     }
     const question=state.legacyQuestions[decoded-2048];
     if(!question)return null;
@@ -196,7 +197,7 @@
   function cardEpisode(episode){
     const copy=episodeCopy(episode),status=episodeStatus(episode.number);
     return `<article class="card searchable" data-episode="${Number(episode.number)||0}" data-search="${esc(allEpisodeSearch(episode))}">
-      <div class="meta">${text('Díl','Diel')} ${episode.number||'–'} • ${esc(fmtDate(episode.date))}</div>
+      <div class="meta">${text('Díl','Diel')} ${episodeDisplayNumber(episode)} • ${esc(fmtDate(episode.date))}</div>
       <h2>${esc(copy.title)}</h2>
       <div class="listen-status ${status?.kind||''}">${status?esc(status.label):''}</div>
       ${episodeProgressHtml(episode.number)}
@@ -797,7 +798,7 @@
         const difference=listenRank(a.episode,sort)-listenRank(b.episode,sort);if(difference)return difference;
       }
       if(sort==='old')return new Date(a.episode.date)-new Date(b.episode.date);
-      if(sort==='number')return(Number(b.episode.number)||0)-(Number(a.episode.number)||0);
+      if(sort==='number')return(Number(episodeDisplayNumber(b.episode))||0)-(Number(episodeDisplayNumber(a.episode))||0);
       return new Date(b.episode.date)-new Date(a.episode.date)||(Number(b.episode.number)||0)-(Number(a.episode.number)||0);
     });
     return items.map(item=>item.episode);
@@ -806,7 +807,7 @@
   function cardEpisode(episode){
     const copy=episodeCopy(episode),status=episodeStatus(episode.number);
     return '<article class="card searchable episode-card-v2" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+(episode.number||'–')+' • '+esc(fmtDate(episode.date))+'</div><h2>'+esc(copy.title)+'</h2>'+
+      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+esc(copy.title)+'</h2>'+
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<p class="desc-v2">'+esc(shortParityDescription(copy.description))+'</p>'+episodeTagHtml(episode)+episodeSummaryHtml(episode)+
       '<div class="actions"><button type="button" class="play" data-episode="'+(Number(episode.number)||0)+'" data-seconds="">'+esc(playLabel(episode.number))+'</button>'+
@@ -876,7 +877,7 @@
   function parityPersonName(episode){return episodeCopy(episode).title.replace(/^Vedátorský podcast\s*\d+\s*[–—-]?\s*/i,'').trim()}
   function ensureParitySeriesBody(card){
     if(!card||card.dataset.bodyLoaded==='1')return;const index=Number(card.dataset.seriesIndex),series=state.data.series[index];if(!series)return;card.dataset.bodyLoaded='1';
-    const list=series.episodes.map((number,itemIndex)=>{const episode=episodeByNumber(number);if(!episode)return'';const status=episodeStatus(number),copy=episodeCopy(episode);return '<li><button type="button" class="series-item" data-series-index="'+index+'" data-item-index="'+itemIndex+'"><span class="series-item-status-v2" data-episode="'+number+'" title="'+esc(status?.label||'')+'">'+(status?.kind==='done'?'✓':status?.kind==='progress'?'▶':'')+'</span><span>'+(series.people?'<strong class="person-name-v2">'+esc(parityPersonName(episode))+'</strong><small class="episode-title-v2">'+esc(copy.title)+'</small>':text('Díl','Diel')+' '+number+': '+esc(copy.title))+'</span></button></li>'}).join('');
+    const list=series.episodes.map((number,itemIndex)=>{const episode=episodeByNumber(number);if(!episode)return'';const status=episodeStatus(number),copy=episodeCopy(episode);return '<li><button type="button" class="series-item" data-series-index="'+index+'" data-item-index="'+itemIndex+'"><span class="series-item-status-v2" data-episode="'+number+'" title="'+esc(status?.label||'')+'">'+(status?.kind==='done'?'✓':status?.kind==='progress'?'▶':'')+'</span><span>'+(series.people?'<strong class="person-name-v2">'+esc(parityPersonName(episode))+'</strong><small class="episode-title-v2">'+esc(copy.title)+'</small>':text('Díl','Diel')+' '+episodeDisplayNumber(episode)+': '+esc(copy.title))+'</span></button></li>'}).join('');
     const body=document.createElement('ol');body.className='parity-series-body';body.innerHTML=list;card.appendChild(body);
   }
   function renderSeries(){
@@ -1091,7 +1092,7 @@
   cardEpisode=function(episode){
     const copy=episodeCopy(episode),status=episodeStatus(episode.number),terms=mobileEpisodeHighlightTerms(),description=mobileEpisodeExcerpt(copy.description,terms);
     return '<article class="card searchable episode-card-v2" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+(episode.number||'–')+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+
+      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<p class="desc-v2">'+mobileHighlightHtml(description,terms)+'</p>'+episodeTagHtml(episode)+episodeSummaryHtml(episode)+
       '<div class="actions"><button type="button" class="play" data-episode="'+(Number(episode.number)||0)+'" data-seconds="">'+esc(playLabel(episode.number))+'</button>'+
@@ -1218,7 +1219,7 @@
   cardEpisode=function(episode){
     const copy=episodeCopy(episode),status=episodeStatus(episode.number),terms=mobileEpisodeHighlightTerms(),full=cardPolishCutDescription(copy.description),open=cardPolishEpisodeOpen.has(Number(episode.number)),short=cardPolishCollapsedDescription(full,terms),shown=open?full:short,canExpand=full.length>short.replace(/…$/,'').length+2;
     return '<article class="card searchable episode-card-v2 '+(open?'episode-open-v2':'')+'" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+(episode.number||'–')+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
+      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<p class="desc-v2">'+mobileHighlightHtml(shown,terms)+'</p>'+episodeTagHtml(episode)+
       '<div class="episode-summary-slot-v2">'+episodeSummaryHtml(episode)+'</div>'+ 
@@ -1367,7 +1368,7 @@
     const short=lastUxShortDescription(episode,terms),full=lastUxFullDescription(episode),shown=open?(full||short):short;
     const shownHtml=mobileHighlightHtml(shown,terms).replace(/\n/g,'<br>');
     return '<article class="card searchable episode-card-v2 '+(open?'episode-open-v2':'')+'" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+(episode.number||'–')+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
+      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<p class="desc-v2">'+shownHtml+'</p>'+episodeTagHtml(episode)+
       '<div class="episode-summary-slot-v2">'+episodeSummaryHtml(episode)+'</div>'+ 
@@ -1429,7 +1430,7 @@
     const short=lastUxShortDescription(episode,terms),full=lastUxFullDescription(episode),rich=open?realReadMoreRichHtml(episode):'';
     const shownHtml=open?(rich||(mobileHighlightHtml(full||short,terms).replace(/\n/g,'<br>'))):mobileHighlightHtml(short,terms);
     return '<article class="card searchable episode-card-v2 '+(open?'episode-open-v2':'')+'" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+(episode.number||'–')+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
+      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<div class="desc-v2 episode-description-v2">'+shownHtml+'</div>'+episodeTagHtml(episode)+
       '<div class="episode-summary-slot-v2">'+episodeSummaryHtml(episode)+'</div>'+ 

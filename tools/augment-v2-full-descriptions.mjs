@@ -108,11 +108,12 @@ function translateRichHtml(source,lead){
 
 const feed=JSON.parse(read('episodes.json'));
 const sourceEpisodes=Array.isArray(feed)?feed:(feed.episodes||[]);
-const rawByNumber=new Map(sourceEpisodes.map(episode=>[Number(episode.number)||0,episode]));
+const rawById=new Map(sourceEpisodes.map(episode=>[String(episode.id||''),episode]).filter(([id])=>id));
+const rawByNumber=new Map(sourceEpisodes.filter(episode=>Number(episode.number)>0).map(episode=>[Number(episode.number),episode]));
 const data=JSON.parse(read('content-v2.json'));
 let fullDescriptionCount=0,richDescriptionCount=0,translatedFullDescriptionCount=0,translatedRichDescriptionCount=0;
 for(const episode of data.episodes||[]){
-  const raw=rawByNumber.get(Number(episode.number)||0);if(!raw)continue;
+  const raw=rawById.get(String(episode.id||''))||rawByNumber.get(Number(episode.number)||0);if(!raw)continue;
   const rich=sanitizeRichHtml(raw.description);const full=richHtmlToText(rich);if(!full)continue;
   episode.fullDescription=full;episode.fullDescriptionHtml=rich;fullDescriptionCount++;if(rich)richDescriptionCount++;
   if(episode.i18n?.sk){episode.i18n.sk.fullDescription=full;episode.i18n.sk.fullDescriptionHtml=rich}

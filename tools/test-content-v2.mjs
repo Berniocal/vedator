@@ -19,6 +19,24 @@ for(const n of [316,318,320,321,322,323,324,325,334,335,336,338,339,341,342,343,
 }
 const episodeNumbers=new Set(data.episodes.map(e=>Number(e.number)));
 for(const q of data.questions){if(!episodeNumbers.has(Number(q.episode)))fail(`Question points to missing episode ${q.episode}`)}
+for(const series of data.series){
+  const refs=(series.episodes||[]).map(Number);
+  if(refs.some(number=>!episodeNumbers.has(number)))fail(`Series ${series.name} points to a missing episode`);
+}
+const specialSeriesExpectations=[
+  ['Genetický speciál',7],
+  ['Rozhovory o vesmíru',10],
+  ['Žiji vědu',5]
+];
+for(const [name,minCount] of specialSeriesExpectations){
+  const series=data.series.find(item=>item.name===name);
+  if(!series||series.episodes.length<minCount)fail(`${name} series incomplete: ${series?.episodes?.length||0}`);
+  const items=series.episodes.map(number=>data.episodes.find(episode=>Number(episode.number)===Number(number))).filter(Boolean);
+  if(items.length!==series.episodes.length)fail(`${name} series contains unresolved episodes`);
+  if(items.some(episode=>!Number.isInteger(Number(episode.displayNumber))||Number(episode.displayNumber)<1))fail(`${name} display numbers missing`);
+  if(new Set(items.map(episode=>Number(episode.displayNumber))).size!==items.length)fail(`${name} display numbers are not unique`);
+  if(items.some(episode=>Number(episode.number)<=0||Number(episode.number)>=2048))fail(`${name} internal episode id is outside the safe ref range`);
+}
 
 const episodeI18n=data.episodes.filter(e=>e.i18n?.cs&&e.i18n?.sk);
 if(episodeI18n.length<340)fail(`Too few bilingual episodes: ${episodeI18n.length}`);
@@ -43,6 +61,7 @@ console.log(JSON.stringify({
   faqEpisodes:new Set(data.questions.map(q=>q.episode)).size,
   series:data.series.length,
   nonquestionEpisodes:nonEpisodes.length,
+  specialSeries:Object.fromEntries(specialSeriesExpectations.map(([name])=>[name,data.series.find(series=>series.name===name)?.episodes?.length||0])),
   episodeTranslationFiles:data.source?.episodeTranslationFiles,
   questionTranslationFiles:data.source?.questionTranslationFiles
 },null,2));
