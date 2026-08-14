@@ -1,0 +1,58 @@
+name: Episode 316 verification
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'episode-316-summary.js'
+      - 'tools/augment-v2-extra-nonquestions.mjs'
+      - 'tools/test-content-v2.mjs'
+      - '.github/workflows/episode-316-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Preserve runtime files
+        run: sha256sum app-v2.js index.html > /tmp/runtime-before.sha
+      - name: Build V2 content
+        run: |
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+      - name: Verify episode 316 data
+        run: |
+          node - <<'NODE'
+          const fs=require('fs');
+          const s=fs.readFileSync('episode-316-summary.js','utf8');
+          const marker='const DATA=';
+          const from=s.indexOf(marker)+marker.length;
+          const end=s.indexOf(';',from);
+          const d=JSON.parse(s.slice(from,end));
+          if(d.cs.length!==18||d.sk.length!==18) throw new Error(`Expected 18/18, got ${d.cs.length}/${d.sk.length}`);
+          const a=d.cs.map(x=>x.time), b=d.sk.map(x=>x.time);
+          if(JSON.stringify(a)!==JSON.stringify(b)) throw new Error('CZ/SK times differ');
+          const c=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
+          const e=c.nonquestions?.episodes?.['316'];
+          if(!e||e.cs.length!==18||e.sk.length!==18) throw new Error('Episode 316 missing from generated content-v2.json');
+          NODE
+      - name: Run relevant V2 tests
+        run: |
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/test-app-v2.mjs
+          node tools/test-v2-question-experience.mjs
+          node tools/test-v2-full-parity.mjs
+          node tools/test-v2-playlist-parity.mjs
+          node tools/test-v2-mobile-deep-polish.mjs
+      - name: Verify runtime unchanged
+        run: sha256sum -c /tmp/runtime-before.sha
