@@ -10,6 +10,24 @@ function configRefNumber(raw){
   const match=String(raw||'').trim().toLowerCase().match(/^(vesmir|genetika|veda):(\d+)$/);
   return match?SPECIAL_ALIAS_BASES[match[1]]+Number(match[2]):NaN;
 }
+function configRefNumbers(raw){
+  const number=configRefNumber(raw);
+  if(!Number.isInteger(number))return [number];
+  if(typeof raw==='string')return [number];
+  const matches=data.episodes.filter(episode=>Number(episode.number)===number);
+  return matches.length?matches.map(()=>number):[number];
+}
+function sameMultiset(a,b){
+  if(a.length!==b.length)return false;
+  const counts=new Map();
+  for(const value of a)counts.set(value,(counts.get(value)||0)+1);
+  for(const value of b){
+    const left=(counts.get(value)||0)-1;
+    if(left<0)return false;
+    if(left===0)counts.delete(value);else counts.set(value,left);
+  }
+  return counts.size===0;
+}
 
 if(data.schema!==3)fail(`Unexpected schema ${data.schema}`);
 if(!Array.isArray(data.episodes)||data.episodes.length<380)fail(`Too few episodes: ${data.episodes?.length}`);
@@ -38,10 +56,10 @@ for(const configured of seriesConfig){
   if(!series)fail(`Configured series missing from bundle: ${configured.cs}`);
   if(series.i18n?.cs!==configured.cs||series.i18n?.sk!==configured.sk)fail(`Series language names differ from series.json: ${configured.cs}`);
   if(Boolean(series.people)!==Boolean(configured.people))fail(`Series people flag differs from series.json: ${configured.cs}`);
-  const expected=(configured.episodes||[]).map(configRefNumber);
+  const expected=(configured.episodes||[]).flatMap(configRefNumbers);
   if(expected.some(number=>!Number.isInteger(number)||!episodeNumbers.has(number)))fail(`series.json contains unresolved episode in ${configured.cs}`);
   const actual=(series.episodes||[]).map(Number);
-  if(actual.length!==expected.length||actual.some(number=>!expected.includes(number)))fail(`Series membership differs from series.json: ${configured.cs}`);
+  if(!sameMultiset(actual,expected))fail(`Series membership differs from series.json: ${configured.cs}`);
 
   for(const raw of configured.episodes||[]){
     if(typeof raw!=='string')continue;
