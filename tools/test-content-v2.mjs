@@ -41,7 +41,7 @@ if(!Array.isArray(data.series)||data.series.length!==seriesConfig.length)fail(`E
 if(data.series.some(series=>!series.i18n?.cs||!series.i18n?.sk))fail('Series translation missing');
 const nonEpisodes=Object.keys(data.nonquestions?.episodes||{});
 if(nonEpisodes.length<10)fail(`Too few nonquestion episodes: ${nonEpisodes.length}`);
-for(const n of [311,312,315,318,320,321,322,323,324,325,334,335,336,338,339,341,342,343,344,345,347]){
+for(const n of [310,311,312,315,318,320,321,322,323,324,325,334,335,336,338,339,341,342,343,344,345,347]){
   if(!data.nonquestions.episodes[String(n)])fail(`Missing nonquestion episode ${n}`);
 }
 const episodeNumbers=new Set(data.episodes.map(e=>Number(e.number)));
