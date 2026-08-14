@@ -263,6 +263,9 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
 .search-clear-button:hover{background:var(--accent2,#ede9fe);color:var(--ink,#162033)}
 .search-clear-button:focus-visible{outline:2px solid var(--accent,#5b4bdb);outline-offset:1px}
 </style>
+<style id="v2-question-card-alignment">
+.question-card .tags{margin-top:auto!important}
+</style>
 </head>
 <body>
 <header><div class="wrap header-v2"><div class="header-title-v2"><div id="eyebrow-v2" style="opacity:.72;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Neoficiální tematický katalog</div><h1 id="heading-v2" style="margin:.25rem 0 0">Vedátorský podcast podle témat</h1></div><div class="header-actions-v2"><button id="install-v2" class="install-v2" type="button">Instalovat</button><div class="language-v2" role="group" aria-label="Jazyk aplikace / Jazyk aplikácie"><button type="button" data-lang="sk">SK</button><button type="button" data-lang="cz">CZ</button></div><button id="theme-toggle-v2" class="theme-toggle-v2" type="button" aria-pressed="false" title="Tmavý režim">☾</button></div></div></header>
@@ -338,7 +341,54 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
   sync();
 })();
 </script>
-
+<script id="v2-local-ui-preferences">
+(()=>{
+  // Device-only UI preferences: localStorage only, no network request.
+  const KEY='vedator-ui-view-preferences-v1';
+  const SORT_VIEWS=new Set(['episodes','series','questions','nonquestions']);
+  const TOPIC_VIEWS=new Set(['episodes','questions','nonquestions']);
+  const read=()=>{try{const value=JSON.parse(localStorage.getItem(KEY)||'{}');return value&&typeof value==='object'&&!Array.isArray(value)?value:{}}catch{return{}}};
+  let prefs=read();
+  const entry=view=>{const current=prefs[view];if(current&&typeof current==='object'&&!Array.isArray(current))return current;return prefs[view]={}};
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(prefs))}catch{}};
+  const activeView=()=>document.querySelector('.tab-v2.active[data-view]')?.dataset.view||'episodes';
+  const saveSort=(view,value)=>{if(!SORT_VIEWS.has(view)||!value)return;entry(view).sort=value;save()};
+  const saveTopic=(view,value)=>{if(!TOPIC_VIEWS.has(view)||!value)return;entry(view).topic=value;save()};
+  const apply=view=>{
+    if(!SORT_VIEWS.has(view))return;
+    const pref=prefs[view];if(!pref||typeof pref!=='object')return;
+    const sort=document.getElementById('parity-sort-v2');
+    if(pref.sort&&sort&&!sort.classList.contains('hidden')){
+      const valid=[...sort.options].some(option=>option.value===pref.sort);
+      if(valid&&sort.value!==pref.sort){sort.value=pref.sort;sort.dispatchEvent(new Event('change',{bubbles:true}))}
+      else if(!valid){delete pref.sort;save()}
+    }
+    if(pref.topic&&TOPIC_VIEWS.has(view)){
+      const topics=document.getElementById('parity-topics-v2');
+      if(topics&&!topics.classList.contains('hidden')){
+        const button=[...topics.querySelectorAll('.topic-v2[data-topic]')].find(item=>item.dataset.topic===pref.topic);
+        if(button&&!button.classList.contains('active'))button.click();
+        else if(!button){delete pref.topic;save()}
+      }
+    }
+  };
+  document.addEventListener('change',event=>{
+    const paritySort=event.target.closest?.('#parity-sort-v2');
+    if(paritySort){saveSort(activeView(),paritySort.value);return}
+    const questionSort=event.target.closest?.('.question-sort');
+    if(questionSort)saveSort(questionSort.closest('.question-tools')?.dataset.tools,questionSort.value);
+  });
+  document.addEventListener('click',event=>{
+    const parityTopic=event.target.closest?.('#parity-topics-v2 .topic-v2[data-topic]');
+    if(parityTopic){saveTopic(activeView(),parityTopic.dataset.topic);return}
+    const questionTopic=event.target.closest?.('.question-tools .question-topic[data-topic]');
+    if(questionTopic){saveTopic(questionTopic.closest('.question-tools')?.dataset.tools,questionTopic.dataset.topic);return}
+    const tab=event.target.closest?.('.tab-v2[data-view]');
+    if(tab)apply(tab.dataset.view);
+  });
+  window.addEventListener('vedator-v2-ready',()=>apply(activeView()),{once:true});
+})();
+</script>
 
 <script>
 (()=>{if(!('serviceWorker' in navigator))return;window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js',{scope:'./'}).then(reg=>reg.update()).catch(err=>console.warn('SW registration failed',err));});})();
