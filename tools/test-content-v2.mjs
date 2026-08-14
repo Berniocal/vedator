@@ -1,7 +1,15 @@
 import fs from 'node:fs';
 
 const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
+const seriesConfig=JSON.parse(fs.readFileSync('series.json','utf8'));
 const fail=message=>{throw new Error(message)};
+const SPECIAL_ALIAS_BASES={vesmir:1700,genetika:1800,veda:1900};
+
+function configRefNumber(raw){
+  if(typeof raw==='number')return raw;
+  const match=String(raw||'').trim().toLowerCase().match(/^(vesmir|genetika|veda):(\d+)$/);
+  return match?SPECIAL_ALIAS_BASES[match[1]]+Number(match[2]):NaN;
+}
 
 if(data.schema!==3)fail(`Unexpected schema ${data.schema}`);
 if(!Array.isArray(data.episodes)||data.episodes.length<380)fail(`Too few episodes: ${data.episodes?.length}`);
@@ -10,7 +18,8 @@ if(data.questions.length!==734)fail(`Expected 734 questions, got ${data.question
 if(new Set(data.questions.map(q=>q.episode)).size!==42)fail(`Expected 42 FAQ episodes, got ${new Set(data.questions.map(q=>q.episode)).size}`);
 if(data.questions.some(q=>!q.title||!Array.isArray(q.points)||!q.points.length))fail('Question with missing title/answer detected');
 if(data.questions.some(q=>!q.i18n?.cs?.title||!q.i18n?.sk?.title||!Array.isArray(q.i18n.cs.points)||!Array.isArray(q.i18n.sk.points)))fail('Question translation bundle missing');
-if(!Array.isArray(data.series)||data.series.length<8)fail(`Too few series: ${data.series?.length}`);
+if(!Array.isArray(seriesConfig))fail('series.json root must be an array');
+if(!Array.isArray(data.series)||data.series.length!==seriesConfig.length)fail(`Expected ${seriesConfig.length} configured series, got ${data.series?.length}`);
 if(data.series.some(series=>!series.i18n?.cs||!series.i18n?.sk))fail('Series translation missing');
 const nonEpisodes=Object.keys(data.nonquestions?.episodes||{});
 if(nonEpisodes.length<10)fail(`Too few nonquestion episodes: ${nonEpisodes.length}`);
@@ -23,22 +32,26 @@ for(const series of data.series){
   const refs=(series.episodes||[]).map(Number);
   if(refs.some(number=>!episodeNumbers.has(number)))fail(`Series ${series.name} points to a missing episode`);
 }
-const specialSeriesExpectations=[
-  ['Genetický speciál',7],
-  ['Rozhovory o vesmíru',15],
-  ['Žiji vědu',5]
-];
-for(const [name,expectedCount] of specialSeriesExpectations){
-  const series=data.series.find(item=>item.name===name);
-  if(!series||series.episodes.length!==expectedCount)fail(`${name} series incomplete: expected ${expectedCount}, got ${series?.episodes?.length||0}`);
-  const items=series.episodes.map(number=>data.episodes.find(episode=>Number(episode.number)===Number(number))).filter(Boolean);
-  if(items.length!==series.episodes.length)fail(`${name} series contains unresolved episodes`);
-  if(items.some(episode=>!Number.isInteger(Number(episode.displayNumber))||Number(episode.displayNumber)<1))fail(`${name} display numbers missing`);
-  const displayNumbers=items.map(episode=>Number(episode.displayNumber));
-  if(new Set(displayNumbers).size!==items.length)fail(`${name} display numbers are not unique`);
-  const sortedDisplayNumbers=[...displayNumbers].sort((a,b)=>a-b);
-  if(sortedDisplayNumbers.some((number,index)=>number!==index+1))fail(`${name} display numbers incomplete: ${sortedDisplayNumbers.join(', ')}`);
-  if(items.some(episode=>Number(episode.number)<=0||Number(episode.number)>=2048))fail(`${name} internal episode id is outside the safe ref range`);
+
+for(const configured of seriesConfig){
+  const series=data.series.find(item=>item.name===configured.cs);
+  if(!series)fail(`Configured series missing from bundle: ${configured.cs}`);
+  if(series.i18n?.cs!==configured.cs||series.i18n?.sk!==configured.sk)fail(`Series language names differ from series.json: ${configured.cs}`);
+  if(Boolean(series.people)!==Boolean(configured.people))fail(`Series people flag differs from series.json: ${configured.cs}`);
+  const expected=(configured.episodes||[]).map(configRefNumber);
+  if(expected.some(number=>!Number.isInteger(number)||!episodeNumbers.has(number)))fail(`series.json contains unresolved episode in ${configured.cs}`);
+  const actual=(series.episodes||[]).map(Number);
+  if(actual.length!==expected.length||actual.some(number=>!expected.includes(number)))fail(`Series membership differs from series.json: ${configured.cs}`);
+
+  for(const raw of configured.episodes||[]){
+    if(typeof raw!=='string')continue;
+    const match=raw.trim().toLowerCase().match(/^(vesmir|genetika|veda):(\d+)$/);
+    if(!match)fail(`Unknown series alias in test: ${raw}`);
+    const ordinal=Number(match[2]);
+    const episode=data.episodes.find(item=>Number(item.number)===configRefNumber(raw));
+    if(!episode||Number(episode.displayNumber)!==ordinal)fail(`Special series alias has wrong display number: ${raw}`);
+    if(Number(episode.number)<=0||Number(episode.number)>=2048)fail(`Special series internal id is outside safe range: ${raw}`);
+  }
 }
 
 const episodeI18n=data.episodes.filter(e=>e.i18n?.cs&&e.i18n?.sk);
@@ -51,8 +64,7 @@ if(changedQuestions.length<500)fail(`Too few actually translated questions: ${ch
 const episode343=data.episodes.find(e=>Number(e.number)===343);
 if(!episode343?.i18n?.cs?.title.includes('tečky'))fail('Episode 343 Czech title missing');
 if(!episode343?.i18n?.sk?.title.includes('bodky'))fail('Episode 343 Slovak title missing');
-const blackHoles=data.series.find(series=>series.name==='Černé díry');
-if(!blackHoles||blackHoles.i18n.sk!=='Čierne diery')fail('Series Czech/Slovak mapping missing');
+if(data.meta?.legacyParity?.source!=='series.json')fail('Series source metadata missing');
 
 console.log(JSON.stringify({
   ok:true,
@@ -63,8 +75,8 @@ console.log(JSON.stringify({
   translatedQuestions:changedQuestions.length,
   faqEpisodes:new Set(data.questions.map(q=>q.episode)).size,
   series:data.series.length,
+  configuredSeries:seriesConfig.length,
   nonquestionEpisodes:nonEpisodes.length,
-  specialSeries:Object.fromEntries(specialSeriesExpectations.map(([name])=>[name,data.series.find(series=>series.name===name)?.episodes?.length||0])),
   episodeTranslationFiles:data.source?.episodeTranslationFiles,
   questionTranslationFiles:data.source?.questionTranslationFiles
 },null,2));
