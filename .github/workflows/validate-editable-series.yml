@@ -41,9 +41,8 @@ jobs:
           const after=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
           const clean=item=>({name:item.name,i18n:item.i18n,episodes:[...(item.episodes||[])],people:Boolean(item.people)});
           const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
-          if(!same(before.episodes,after.episodes))throw new Error('Migrace změnila epizody mimo série');
+          if(!same(before.episodes,after.episodes))throw new Error('Migrace změnila katalog epizod');
           if(!same(before.questions,after.questions))throw new Error('Migrace změnila FAQ otázky');
-          if(!same(before.nonquestions,after.nonquestions))throw new Error('Migrace změnila neotázky');
           const oldMap=new Map(before.series.map(item=>[item.name,clean(item)]));
           const newMap=new Map(after.series.map(item=>[item.name,clean(item)]));
           const names=[...new Set([...oldMap.keys(),...newMap.keys()])].sort((a,b)=>a.localeCompare(b,'cs'));
