@@ -1,0 +1,29 @@
+name: Jednorázová oprava čísel speciálních epizod
+
+on:
+  push:
+    branches:
+      - fix/special-series-episodes
+    paths:
+      - '.github/workflows/patch-special-display-branch.yml'
+      - 'tools/patch-special-display-once.mjs'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Opravit zobrazení a ověřit syntaxi
+        run: |
+          node tools/patch-special-display-once.mjs
+          node --check app-v2.js
+      - name: Commitnout opravu
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- app-v2.js
+          git commit -m 'Opravit zobrazení čísel speciálních epizod'
+          git push
