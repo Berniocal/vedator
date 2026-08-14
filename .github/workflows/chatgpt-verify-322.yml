@@ -56,7 +56,7 @@ jobs:
           }
           const cs=parse('/tmp/322-cs.html');
           const sk=parse('/tmp/322-sk.html');
-          if(cs.length!==17||sk.length!==17)throw new Error(`Expected 17+17 sections, got ${cs.length}+${sk.length}`);
+          if(cs.length!==18||sk.length!==18)throw new Error(`Expected 18+18 sections, got ${cs.length}+${sk.length}`);
           for(let i=0;i<cs.length;i++){
             if(cs[i].time!==sk[i].time)throw new Error(`CZ/SK time mismatch at ${i}`);
             if(!cs[i].title||!sk[i].title||!cs[i].points.length||!sk[i].points.length)throw new Error(`Incomplete item ${i}`);
@@ -105,8 +105,8 @@ jobs:
           const fs=require('fs');
           const d=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
           const x=d.nonquestions?.episodes?.['322'];
-          if(!x||x.cs?.length!==17||x.sk?.length!==17)throw new Error('Episode 322 missing or incomplete');
-          for(let i=0;i<17;i++)if(x.cs[i].time!==x.sk[i].time)throw new Error(`time mismatch ${i}`);
+          if(!x||x.cs?.length!==18||x.sk?.length!==18)throw new Error('Episode 322 missing or incomplete');
+          for(let i=0;i<18;i++)if(x.cs[i].time!==x.sk[i].time)throw new Error(`time mismatch ${i}`);
           console.log(JSON.stringify({ok:true,episode:322,cs:x.cs.length,sk:x.sk.length,first:x.cs[0].time,last:x.cs.at(-1).time}));
           NODE
           test "$(sha256sum app-v2.js | cut -d' ' -f1)" = "$APP_SHA"
