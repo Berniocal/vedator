@@ -4,14 +4,17 @@ import {JSDOM} from 'jsdom';
 const html=fs.readFileSync('v2.html','utf8').replace('<script src="./app-v2.js" defer></script>','');
 const app=fs.readFileSync('app-v2.js','utf8');
 const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
+const seriesConfig=JSON.parse(fs.readFileSync('series.json','utf8'));
 const assert=(condition,message)=>{if(!condition)throw new Error(message)};
 
-const requiredSeries=['FAQ – dobré otázky','Matematika','Teorie her','Rozhovory v angličtině','Internet','Černé díry','Temná hmota a energie','Částice','Roky ve vědě','Vědci','Vědkyně'];
-assert(data.series.length>=18,`Expected at least 18 legacy-compatible series, got ${data.series.length}`);
-for(const name of requiredSeries)assert(data.series.some(series=>series.name===name),`Missing series: ${name}`);
-assert(data.meta?.legacyParity?.fixedSeries===16,'Expected 16 fixed legacy series definitions');
-assert(data.meta?.legacyParity?.scientistSeries===2,'Expected scientist series definitions');
-assert(data.meta?.legacyParity?.automaticSeries>=1,'Expected automatically detected repeated-title series');
+assert(Array.isArray(seriesConfig)&&seriesConfig.length>0,'series.json should contain at least one series');
+assert(data.series.length===seriesConfig.length,`Expected ${seriesConfig.length} configured series, got ${data.series.length}`);
+for(const item of seriesConfig){
+  const series=data.series.find(series=>series.name===item.cs);
+  assert(series,`Missing configured series: ${item.cs}`);
+  assert(series.i18n?.cs===item.cs&&series.i18n?.sk===item.sk,`Configured series translation mismatch: ${item.cs}`);
+}
+assert(data.meta?.legacyParity?.source==='series.json','Series bundle should be generated from series.json');
 
 const mediaHandlers={};
 const dom=new JSDOM(html,{url:'https://example.test/v2.html',runScripts:'outside-only',pretendToBeVisual:true});
@@ -59,8 +62,8 @@ assert(window.document.querySelectorAll('#series-v2 .series').length===data.seri
 assert(window.document.querySelectorAll('#parity-sort-v2 option').length===6,'Series sort should contain 6 modes');
 assert(window.document.querySelector('#parity-sort-v2').selectedIndex>=0,'Series sort should visibly select the current mode');
 for(const value of ['started','completed','unheard'])assert(window.document.querySelector(`#parity-sort-v2 option[value="${value}"]`),`Missing series status sort: ${value}`);
-const peopleSeries=data.series.find(series=>series.people);assert(peopleSeries,'Scientist series flag missing');
-const peopleIndex=data.series.indexOf(peopleSeries);const peopleCard=window.document.querySelector(`#series-v2 .series[data-series-index="${peopleIndex}"]`);assert(peopleCard,'Scientist series card missing');
+const peopleSeries=data.series.find(series=>series.people);assert(peopleSeries,'At least one configured people series is required for person formatting test');
+const peopleIndex=data.series.indexOf(peopleSeries);const peopleCard=window.document.querySelector(`#series-v2 .series[data-series-index="${peopleIndex}"]`);assert(peopleCard,'People series card missing');
 assert(!peopleCard.querySelector('.parity-series-body'),'Series body should be lazy before opening');peopleCard.open=true;peopleCard.dispatchEvent(new window.Event('toggle'));await new Promise(resolve=>setTimeout(resolve,10));assert(peopleCard.querySelector('.parity-series-body'),'Series body did not lazy-load on open');assert(peopleCard.querySelector('.person-name-v2'),'Scientist name formatting missing');
 
 assert(window.document.querySelector('#player-back10-v2'),'−10 s player button missing');
@@ -70,4 +73,4 @@ for(const action of ['seekbackward','seekforward','previoustrack','nexttrack','s
 
 const runtimeScripts=[...window.document.querySelectorAll('script[src]')].map(script=>script.getAttribute('src')).filter(Boolean).filter(src=>!src.includes('mathjax'));
 assert(runtimeScripts.length===0,'Test HTML should have no extra runtime scripts after app script removal');
-console.log(JSON.stringify({ok:true,series:data.series.length,automaticSeries:data.meta?.legacyParity?.automaticSeries,episodeBatch:20,questionBatch:20,nonquestionBatch:20,episodeTopics:15,questionTopics:11,episodeSortModes:6,seriesSortModes:3,tags:true,mediaSession:true,lazySeries:true,reloadRemoved:true},null,2));
+console.log(JSON.stringify({ok:true,series:data.series.length,seriesSource:data.meta?.legacyParity?.source,episodeBatch:20,questionBatch:20,nonquestionBatch:20,episodeTopics:15,questionTopics:11,episodeSortModes:6,seriesSortModes:6,tags:true,mediaSession:true,lazySeries:true,reloadRemoved:true},null,2));
