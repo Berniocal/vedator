@@ -39,20 +39,22 @@ jobs:
           const fs=require('fs');
           const before=JSON.parse(fs.readFileSync('/tmp/content-v2-before.json','utf8'));
           const after=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
-          const cleanSeries=list=>list.map(item=>({
-            name:item.name,
-            i18n:item.i18n,
-            episodes:[...(item.episodes||[])],
-            people:Boolean(item.people)
-          })).sort((a,b)=>a.name.localeCompare(b.name,'cs'));
+          const clean=item=>({name:item.name,i18n:item.i18n,episodes:[...(item.episodes||[])],people:Boolean(item.people)});
           const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
           if(!same(before.episodes,after.episodes))throw new Error('Migrace změnila epizody mimo série');
           if(!same(before.questions,after.questions))throw new Error('Migrace změnila FAQ otázky');
           if(!same(before.nonquestions,after.nonquestions))throw new Error('Migrace změnila neotázky');
-          if(!same(cleanSeries(before.series),cleanSeries(after.series))){
-            console.error('PŘED',JSON.stringify(cleanSeries(before.series),null,2));
-            console.error('PO',JSON.stringify(cleanSeries(after.series),null,2));
-            throw new Error('series.json nereprodukuje současné produkční série přesně');
+          const oldMap=new Map(before.series.map(item=>[item.name,clean(item)]));
+          const newMap=new Map(after.series.map(item=>[item.name,clean(item)]));
+          const names=[...new Set([...oldMap.keys(),...newMap.keys()])].sort((a,b)=>a.localeCompare(b,'cs'));
+          const differences=[];
+          for(const name of names){
+            const oldItem=oldMap.get(name),newItem=newMap.get(name);
+            if(!same(oldItem,newItem))differences.push({name,before:oldItem,after:newItem});
+          }
+          if(differences.length){
+            console.error('Rozdílné série:',JSON.stringify(differences,null,2));
+            throw new Error(`series.json nereprodukuje ${differences.length} současných sérií přesně`);
           }
           console.log(`Bezeztrátová migrace OK: ${after.series.length} sérií.`);
           NODE
