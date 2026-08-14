@@ -20,6 +20,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Install test dependency
+        run: npm install --no-save jsdom
       - name: Preserve runtime files
         run: sha256sum app-v2.js index.html > /tmp/runtime-before.sha
       - name: Build V2 content
