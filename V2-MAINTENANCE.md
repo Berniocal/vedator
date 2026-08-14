@@ -82,7 +82,34 @@ Při přidání neotázky zkontroluj:
 
 ## Série
 
-Pevné série se generují v `tools/augment-v2-parity-content.mjs`. Série FAQ se nesmí odvozovat pouze regexem z názvu. Musí odpovídat kanonickému seznamu FAQ dílů a `tools/test-v2-faq-integrity.mjs` musí hlídat shodu.
+**Jediný ručně editovaný seznam sérií je `series.json` v kořeni repozitáře.** `tools/augment-v2-parity-content.mjs` tento seznam při buildu zkontroluje a převede do `content-v2.json`. Samotná aplikace `series.json` za běhu vůbec nenačítá, takže správa sérií nepřidává žádný runtime request ani prohledávání navíc.
+
+Běžná série má tento tvar:
+
+```json
+{
+  "cs": "Černé díry",
+  "sk": "Čierne diery",
+  "episodes": [68, 104, 132, 173, 227, 296]
+}
+```
+
+- novou sérii vytvoř přidáním dalšího objektu do pole;
+- sérii smaž odstraněním celého objektu;
+- název změň úpravou `cs` a `sk`;
+- díl přidej nebo odeber úpravou pole `episodes`;
+- pořadí čísel v `episodes` neurčuje pořadí v aplikaci; build díly seřadí podle skutečného data vydání;
+- série `Vědci` a `Vědkyně` mají navíc `"people": true`, aby se zachovalo speciální formátování jmen.
+
+Běžné díly zapisuj číslem Vedátorského podcastu. Pro tři samostatně číslované série používej čitelné aliasy, ne interní technická čísla:
+
+- `vesmir:1`, `vesmir:2`, ... pro Rozhovory o vesmíru;
+- `genetika:1`, `genetika:2`, ... pro Genetický speciál;
+- `veda:1`, `veda:2`, ... pro Žiji vědu.
+
+Build záměrně skončí chybou, pokud `series.json` obsahuje neexistující díl, neznámý alias, duplicitní název série, stejný odkaz dvakrát nebo chybnou strukturu. Tím se chybný seznam nepřepíše do `content-v2.json`.
+
+**Výjimka: `FAQ – dobré otázky` je systémová série.** Její členství musí přesně odpovídat kanonickému seznamu FAQ dílů v `tools/build-content-v2.mjs`; nelze ji jen smazat nebo svévolně změnit bez současné změny FAQ dat a testů. `tools/test-v2-faq-integrity.mjs` dál hlídá shodu série a záložky Otázky.
 
 Při změně série ověř:
 

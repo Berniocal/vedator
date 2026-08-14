@@ -1,34 +1,25 @@
 import fs from 'node:fs';
 
 const FILE='content-v2.json';
+const SERIES_FILE='series.json';
 const data=JSON.parse(fs.readFileSync(FILE,'utf8'));
 const episodes=Array.isArray(data.episodes)?data.episodes:[];
+const seriesConfig=JSON.parse(fs.readFileSync(SERIES_FILE,'utf8'));
 
 const norm=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();
 const FAQ_EPISODES=new Set([346,340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,138,133,128,119,112,100,89,82,75,69,60,51,35,26,17]);
-const MATHEMATICS=new Set([91,93,98,113,115,116,117,118,156,181,198,201,216,249,282,286,328,329,336]);
-const SCIENTISTS={
-  men:[18,66,77,92,97,107,188,206,207,230,324],
-  women:[320,305,302,288,222,220,205,199,140,85,70,53]
-};
-const VEDATOR_SPECIAL_TITLES=new Set([
-  'vedatorsky special udrzatelnost pripadova studia ikea',
-  'vedatorsky special preco je v nealko pive alkohol',
-  'vedatorsky special astrologia',
-  'vedatorsky special prenos signalu vzduchom',
-  'vedatorsky special obycajne zazraky ukazka z knihy',
-  'vedatorsky special vdaka comu su jadrove elektrarne bezpecne',
-  'vedatorsky special zelena energia',
-  'vedatorsky special kusky reality',
-  'vedatorsky special ako znie vesmir',
-  'vedatorsky special dungeon vedator'
-]);
-
 const SPECIAL_SERIES_ID_RULES=[
   [/^rozhovory o vesmire (\d+)\b/,1700],
   [/^geneticky special (\d+)\b/,1800],
   [/^zijem vedu special (\d+)\b/,1900]
 ];
+const SPECIAL_ALIAS_BASES={vesmir:1700,genetika:1800,veda:1900};
+
+const fail=message=>{throw new Error(`${SERIES_FILE}: ${message}`)};
+const episodeDate=episode=>new Date(episode?.date||0).getTime()||0;
+
+// Starší RSS položky speciálních sérií nemají číslo Vedátorského podcastu.
+// Stabilní interní ID vzniká při buildu, takže aplikace za běhu nic nedohledává.
 const usedEpisodeNumbers=new Set(episodes.map(episode=>Number(episode.number)).filter(number=>number>0));
 for(const episode of episodes){
   if(Number(episode.number)>0)continue;
@@ -47,83 +38,83 @@ for(const episode of episodes){
   }
 }
 
-const titleFor=(episode,lang)=>episode?.i18n?.[lang]?.title||episode?.title||'';
-const episodeDate=episode=>new Date(episode?.date||0).getTime()||0;
-const byNumber=new Map(episodes.map(episode=>[Number(episode.number),episode]));
+const byNumber=new Map();
+const byNumberAll=new Map();
+for(const episode of episodes){
+  const number=Number(episode.number);
+  if(!byNumber.has(number))byNumber.set(number,episode);
+  if(!byNumberAll.has(number))byNumberAll.set(number,[]);
+  byNumberAll.get(number).push(episode);
+}
 
-const fixed=[
-  [{cs:'Hledání mimozemského života',sk:'Hľadanie mimozemského života'},episode=>norm(episode.title).includes('hladanie mimozemskeho zivota')],
-  [{cs:'FAQ – dobré otázky',sk:'FAQ – dobré otázky'},episode=>FAQ_EPISODES.has(Number(episode.number))],
-  [{cs:'Rozhovory o vesmíru',sk:'Rozhovory o vesmíre'},episode=>norm(episode.title).includes('rozhovory o vesmire')],
-  [{cs:'Žiji vědu',sk:'Žijem vedu'},episode=>norm(episode.title).includes('zijem vedu')],
-  [{cs:'Genetický speciál',sk:'Genetický špeciál'},episode=>norm(episode.title).includes('geneticky special')],
-  [{cs:'Nobelovy ceny',sk:'Nobelove ceny'},episode=>{const value=norm(episode.title);return(value.includes('nobelove ceny')&&!value.includes('ig nobelove'))||Number(episode.number)===152}],
-  [{cs:'Ig Nobelovy ceny',sk:'Ig Nobelove ceny'},episode=>norm(episode.title).includes('ig nobelove ceny')],
-  [{cs:'Matematika',sk:'Matematika'},episode=>MATHEMATICS.has(Number(episode.number))],
-  [{cs:'Teorie her',sk:'Teória hier'},episode=>[29,105,120,245,254].includes(Number(episode.number))],
-  [{cs:'Rozhovory v angličtině',sk:'Rozhovory v angličtine'},episode=>[234,236,238,240,242,246,250,256,265,267].includes(Number(episode.number))],
-  [{cs:'Internet',sk:'Internet'},episode=>[223,258,333].includes(Number(episode.number))],
-  [{cs:'Vedátorský speciál',sk:'Vedátorský špeciál'},episode=>VEDATOR_SPECIAL_TITLES.has(norm(episode.title))],
-  [{cs:'Černé díry',sk:'Čierne diery'},episode=>[296,227,173,132,104,68].includes(Number(episode.number))],
-  [{cs:'Temná hmota a energie',sk:'Tmavá hmota a energia'},episode=>[210,182,145,48,2].includes(Number(episode.number))],
-  [{cs:'Částice',sk:'Častice'},episode=>[10,34,163,175,180,187,225].includes(Number(episode.number))],
-  [{cs:'Roky ve vědě',sk:'Roky vo vede'},episode=>[108,160,212,318].includes(Number(episode.number))]
-];
+function resolveEpisodeRef(raw,seriesName){
+  if(typeof raw==='number'){
+    if(!Number.isInteger(raw)||raw<=0)fail(`Série „${seriesName}“ obsahuje neplatné číslo dílu: ${raw}`);
+    if(!byNumber.has(raw))fail(`Série „${seriesName}“ odkazuje na neexistující díl ${raw}`);
+    return raw;
+  }
+  if(typeof raw!=='string')fail(`Série „${seriesName}“ obsahuje neplatný odkaz na díl`);
+  const match=raw.trim().toLowerCase().match(/^(vesmir|genetika|veda):(\d+)$/);
+  if(!match)fail(`Série „${seriesName}“ obsahuje neznámý odkaz „${raw}“. Použij číslo podcastu nebo vesmir:N, genetika:N, veda:N.`);
+  const ordinal=Number(match[2]);
+  if(!Number.isInteger(ordinal)||ordinal<1||ordinal>99)fail(`Série „${seriesName}“ obsahuje neplatný speciální díl „${raw}“`);
+  const number=SPECIAL_ALIAS_BASES[match[1]]+ordinal;
+  const episode=byNumber.get(number);
+  if(!episode)fail(`Série „${seriesName}“ odkazuje na neexistující speciální díl „${raw}“`);
+  if(Number(episode.displayNumber)!==ordinal)fail(`Speciální díl „${raw}“ má nekonzistentní zobrazované číslo`);
+  return number;
+}
 
+if(!Array.isArray(seriesConfig))fail('kořen souboru musí být JSON pole sérií');
 const result=[];
-function addSeries(names,items,extra={}){
-  const sorted=[...items].filter(Boolean).sort((a,b)=>episodeDate(a)-episodeDate(b));
-  if(sorted.length<2)return;
+const seenCs=new Set();
+const seenSk=new Set();
+
+for(const [index,item] of seriesConfig.entries()){
+  if(!item||typeof item!=='object'||Array.isArray(item))fail(`položka ${index+1} musí být objekt`);
+  const unknown=Object.keys(item).filter(key=>!['cs','sk','episodes','people'].includes(key));
+  if(unknown.length)fail(`Série ${index+1} obsahuje neznámé pole: ${unknown.join(', ')}`);
+  const cs=String(item.cs||'').trim();
+  const sk=String(item.sk||'').trim();
+  if(!cs||!sk)fail(`Série ${index+1} musí mít neprázdné „cs“ i „sk“`);
+  if(seenCs.has(norm(cs)))fail(`Český název série „${cs}“ je v seznamu vícekrát`);
+  if(seenSk.has(norm(sk)))fail(`Slovenský název série „${sk}“ je v seznamu vícekrát`);
+  seenCs.add(norm(cs));seenSk.add(norm(sk));
+  if(!Array.isArray(item.episodes)||item.episodes.length<1)fail(`Série „${cs}“ musí obsahovat alespoň jeden díl; pro smazání série smaž celý blok`);
+  if(item.people!==undefined&&typeof item.people!=='boolean')fail(`Série „${cs}“ má neplatné „people“; použij true/false`);
+
+  const refs=item.episodes.map(raw=>resolveEpisodeRef(raw,cs));
+  if(new Set(refs).size!==refs.length)fail(`Série „${cs}“ obsahuje stejný odkaz na díl vícekrát`);
+  // Jeden podcastový number může ve starém RSS výjimečně existovat vícekrát.
+  // Jeden zápis v series.json proto zachová všechny odpovídající zdrojové položky,
+  // stejně jako dosavadní filtrování, aby migrace neměnila existující UI.
+  const sorted=refs.flatMap(number=>byNumberAll.get(number)||[]).sort((a,b)=>episodeDate(a)-episodeDate(b));
   result.push({
-    name:names.cs,
-    i18n:{cs:names.cs,sk:names.sk},
-    episodes:sorted.map(item=>Number(item.number)).filter(Boolean),
-    ...extra
+    name:cs,
+    i18n:{cs,sk},
+    episodes:sorted.map(episode=>Number(episode.number)),
+    ...(item.people?{people:true}:{})
   });
 }
 
-for(const [names,test] of fixed)addSeries(names,episodes.filter(test));
-addSeries({cs:'Vědci',sk:'Vedci'},SCIENTISTS.men.map(number=>byNumber.get(number)),{people:true});
-addSeries({cs:'Vědkyně',sk:'Vedkyne'},SCIENTISTS.women.map(number=>byNumber.get(number)),{people:true});
-
-function coreName(value){
-  return norm(String(value||'')
-    .replace(/^Vedátorský podcast\s*\d+\s*[–—-]?\s*/i,'')
-    .replace(/\b(?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii|\d+)\b\s*$/i,''));
-}
-function displaySeriesName(value){
-  return String(value||'')
-    .replace(/^Vedátorský podcast\s*\d+\s*[–—-]?\s*/i,'')
-    .replace(/\s+(?:I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|\d+)\s*$/i,'')
-    .trim();
-}
-
-const automatic=new Map();
-for(const episode of episodes){
-  const core=coreName(episode.title);
-  if(core==='najvacsia bitka v matematike'||core.length<=8)continue;
-  if(!automatic.has(core))automatic.set(core,[]);
-  automatic.get(core).push(episode);
-}
-for(const items0 of automatic.values()){
-  if(items0.length<2)continue;
-  const alreadyUsed=new Set(result.flatMap(series=>series.episodes));
-  const items=items0.filter(episode=>!alreadyUsed.has(Number(episode.number)));
-  if(items.length<2)continue;
-  const first=items.sort((a,b)=>episodeDate(a)-episodeDate(b))[0];
-  const cs=displaySeriesName(titleFor(first,'cs'))||displaySeriesName(first.title);
-  const sk=displaySeriesName(titleFor(first,'sk'))||displaySeriesName(first.title);
-  addSeries({cs,sk},items,{automatic:true});
+// FAQ je systémová série: její členství musí zůstat shodné s kanonickým FAQ seznamem,
+// jinak by série a záložka Otázky ukazovaly odlišný obsah.
+const faq=result.find(series=>series.name==='FAQ – dobré otázky');
+if(!faq)fail('systémová série „FAQ – dobré otázky“ nesmí být smazána');
+const faqActual=new Set(faq.episodes.map(Number));
+if(faqActual.size!==FAQ_EPISODES.size||[...FAQ_EPISODES].some(number=>!faqActual.has(number))){
+  fail('systémová série „FAQ – dobré otázky“ musí přesně odpovídat kanonickému seznamu FAQ dílů');
 }
 
 result.sort((a,b)=>b.episodes.length-a.episodes.length||String(a.name).localeCompare(String(b.name),'cs'));
 data.series=result;
 data.meta={...(data.meta||{}),legacyParity:{
-  fixedSeries:fixed.length,
-  scientistSeries:2,
-  automaticSeries:result.filter(series=>series.automatic).length,
+  fixedSeries:result.filter(series=>!series.people).length,
+  scientistSeries:result.filter(series=>series.people).length,
+  automaticSeries:0,
   totalSeries:result.length,
-  faqEpisodes:FAQ_EPISODES.size
+  faqEpisodes:FAQ_EPISODES.size,
+  source:SERIES_FILE
 }};
 fs.writeFileSync(FILE,JSON.stringify(data));
 console.log(JSON.stringify(data.meta.legacyParity,null,2));

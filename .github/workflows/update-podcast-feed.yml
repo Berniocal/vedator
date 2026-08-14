@@ -8,13 +8,17 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/update-podcast-feed.yml'
+      - 'series.json'
       - 'episode-*-summary.js'
       - 'episode-*-summary-data-*.js'
       - 'nonquestions-data.js'
       - 'tools/build-content-v2.mjs'
       - 'tools/augment-v2-extra-nonquestions.mjs'
+      - 'tools/augment-v2-episode-descriptions.mjs'
       - 'tools/augment-v2-full-descriptions.mjs'
+      - 'tools/augment-v2-parity-content.mjs'
       - 'tools/test-content-v2.mjs'
+      - 'tools/test-v2-faq-integrity.mjs'
 
 permissions:
   contents: write
