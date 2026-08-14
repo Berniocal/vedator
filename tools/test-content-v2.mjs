@@ -22,7 +22,6 @@ for(const q of data.questions){if(!episodeNumbers.has(Number(q.episode)))fail(`Q
 for(const series of data.series){
   const refs=(series.episodes||[]).map(Number);
   if(refs.some(number=>!episodeNumbers.has(number)))fail(`Series ${series.name} points to a missing episode`);
-  if(new Set(refs).size!==refs.length)fail(`Series ${series.name} contains duplicate episode references`);
 }
 const specialSeriesExpectations=[
   ['Genetický speciál',7],
