@@ -1,0 +1,70 @@
+name: Ověření editovatelných sérií V2
+
+on:
+  push:
+    branches:
+      - refactor/editable-series-config-v2
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Uložit aktuální produkční série jako referenci
+        run: |
+          git fetch origin main
+          git show origin/main:content-v2.json > /tmp/content-v2-before.json
+
+      - name: Sestavit obsah z aktuálního main a series.json
+        run: |
+          node --check app-v2.js
+          node --check tools/augment-v2-parity-content.mjs
+          node --check tools/test-content-v2.mjs
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+
+      - name: Ověřit bezeztrátovou migraci sérií
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const before=JSON.parse(fs.readFileSync('/tmp/content-v2-before.json','utf8'));
+          const after=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
+          const clean=item=>({name:item.name,i18n:item.i18n,episodes:[...(item.episodes||[])],people:Boolean(item.people)});
+          const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+          const oldMap=new Map(before.series.map(item=>[item.name,clean(item)]));
+          const newMap=new Map(after.series.map(item=>[item.name,clean(item)]));
+          const names=[...new Set([...oldMap.keys(),...newMap.keys()])].sort((a,b)=>a.localeCompare(b,'cs'));
+          const differences=[];
+          for(const name of names){
+            const oldItem=oldMap.get(name),newItem=newMap.get(name);
+            if(!same(oldItem,newItem))differences.push({name,before:oldItem,after:newItem});
+          }
+          if(differences.length){
+            console.error(JSON.stringify(differences,null,2));
+            throw new Error(`series.json mění ${differences.length} současných produkčních sérií`);
+          }
+          for(const n of [311,312]){
+            if(!after.nonquestions?.episodes?.[String(n)])throw new Error(`Po rebuildu chybí novější neotázka ${n}`);
+          }
+          console.log(`Bezeztrátová migrace OK: ${after.series.length} sérií.`);
+          NODE
+
+      - name: Ověřit UI datovou kompatibilitu
+        run: |
+          npm install --no-save --no-package-lock jsdom@26
+          node tools/test-app-v2.mjs
+          node tools/test-v2-question-experience.mjs
+          node tools/test-v2-episode-experience.mjs
+          node tools/test-v2-full-parity.mjs
+          node tools/test-v2-playlist-parity.mjs
