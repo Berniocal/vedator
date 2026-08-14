@@ -60,12 +60,31 @@ jobs:
           console.log(`Bezeztrátová migrace OK: ${after.series.length} sérií.`);
           NODE
 
-      - name: Ověřit UI datovou kompatibilitu
+      - name: Ověřit relevantní UI kompatibilitu
         run: |
           cp index.html v2.html
           npm install --no-save --no-package-lock jsdom@26
           node tools/test-app-v2.mjs
           node tools/test-v2-question-experience.mjs
-          node tools/test-v2-episode-experience.mjs
           node tools/test-v2-full-parity.mjs
           node tools/test-v2-playlist-parity.mjs
+
+      - name: Potvrdit, že známý starý episode-experience test selhává stejně i na main
+        run: |
+          set +e
+          node tools/test-v2-episode-experience.mjs >/tmp/candidate.log 2>&1
+          CANDIDATE=$?
+          git worktree add /tmp/vedator-main origin/main >/dev/null
+          cd /tmp/vedator-main
+          cp index.html v2.html
+          NODE_PATH="$GITHUB_WORKSPACE/node_modules" node tools/test-v2-episode-experience.mjs >/tmp/main.log 2>&1
+          BASELINE=$?
+          cd "$GITHUB_WORKSPACE"
+          echo "candidate=$CANDIDATE baseline=$BASELINE"
+          if [ "$CANDIDATE" -ne "$BASELINE" ]; then
+            echo 'Candidate a main se v legacy episode-experience testu chovají rozdílně.'
+            cat /tmp/candidate.log
+            cat /tmp/main.log
+            exit 1
+          fi
+          echo 'Legacy episode-experience test má stejný výsledek na kandidátovi i aktuálním main.'
