@@ -197,7 +197,7 @@
   function cardEpisode(episode){
     const copy=episodeCopy(episode),status=episodeStatus(episode.number);
     return `<article class="card searchable" data-episode="${Number(episode.number)||0}" data-search="${esc(allEpisodeSearch(episode))}">
-      <div class="meta">${text('Díl','Diel')} ${episode.number||'–'} • ${esc(fmtDate(episode.date))}</div>
+      <div class="meta">${text('Díl','Diel')} ${episodeDisplayNumber(episode)} • ${esc(fmtDate(episode.date))}</div>
       <h2>${esc(copy.title)}</h2>
       <div class="listen-status ${status?.kind||''}">${status?esc(status.label):''}</div>
       ${episodeProgressHtml(episode.number)}
@@ -807,7 +807,7 @@
   function cardEpisode(episode){
     const copy=episodeCopy(episode),status=episodeStatus(episode.number);
     return '<article class="card searchable episode-card-v2" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+(episode.number||'–')+' • '+esc(fmtDate(episode.date))+'</div><h2>'+esc(copy.title)+'</h2>'+
+      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+esc(copy.title)+'</h2>'+
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<p class="desc-v2">'+esc(shortParityDescription(copy.description))+'</p>'+episodeTagHtml(episode)+episodeSummaryHtml(episode)+
       '<div class="actions"><button type="button" class="play" data-episode="'+(Number(episode.number)||0)+'" data-seconds="">'+esc(playLabel(episode.number))+'</button>'+
@@ -1092,7 +1092,7 @@
   cardEpisode=function(episode){
     const copy=episodeCopy(episode),status=episodeStatus(episode.number),terms=mobileEpisodeHighlightTerms(),description=mobileEpisodeExcerpt(copy.description,terms);
     return '<article class="card searchable episode-card-v2" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+(episode.number||'–')+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+
+      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<p class="desc-v2">'+mobileHighlightHtml(description,terms)+'</p>'+episodeTagHtml(episode)+episodeSummaryHtml(episode)+
       '<div class="actions"><button type="button" class="play" data-episode="'+(Number(episode.number)||0)+'" data-seconds="">'+esc(playLabel(episode.number))+'</button>'+
@@ -1219,7 +1219,7 @@
   cardEpisode=function(episode){
     const copy=episodeCopy(episode),status=episodeStatus(episode.number),terms=mobileEpisodeHighlightTerms(),full=cardPolishCutDescription(copy.description),open=cardPolishEpisodeOpen.has(Number(episode.number)),short=cardPolishCollapsedDescription(full,terms),shown=open?full:short,canExpand=full.length>short.replace(/…$/,'').length+2;
     return '<article class="card searchable episode-card-v2 '+(open?'episode-open-v2':'')+'" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+(episode.number||'–')+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
+      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<p class="desc-v2">'+mobileHighlightHtml(shown,terms)+'</p>'+episodeTagHtml(episode)+
       '<div class="episode-summary-slot-v2">'+episodeSummaryHtml(episode)+'</div>'+ 
@@ -1368,7 +1368,7 @@
     const short=lastUxShortDescription(episode,terms),full=lastUxFullDescription(episode),shown=open?(full||short):short;
     const shownHtml=mobileHighlightHtml(shown,terms).replace(/\n/g,'<br>');
     return '<article class="card searchable episode-card-v2 '+(open?'episode-open-v2':'')+'" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+(episode.number||'–')+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
+      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<p class="desc-v2">'+shownHtml+'</p>'+episodeTagHtml(episode)+
       '<div class="episode-summary-slot-v2">'+episodeSummaryHtml(episode)+'</div>'+ 
@@ -1430,7 +1430,7 @@
     const short=lastUxShortDescription(episode,terms),full=lastUxFullDescription(episode),rich=open?realReadMoreRichHtml(episode):'';
     const shownHtml=open?(rich||(mobileHighlightHtml(full||short,terms).replace(/\n/g,'<br>'))):mobileHighlightHtml(short,terms);
     return '<article class="card searchable episode-card-v2 '+(open?'episode-open-v2':'')+'" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+(episode.number||'–')+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
+      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<div class="desc-v2 episode-description-v2">'+shownHtml+'</div>'+episodeTagHtml(episode)+
       '<div class="episode-summary-slot-v2">'+episodeSummaryHtml(episode)+'</div>'+ 
