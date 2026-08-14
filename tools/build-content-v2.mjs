@@ -240,10 +240,32 @@ const episodePayload=JSON.parse(read('episodes.json'));
 const sourceEpisodes=Array.isArray(episodePayload)?episodePayload:episodePayload.episodes;
 if(!Array.isArray(sourceEpisodes)||sourceEpisodes.length<300)throw new Error(`Invalid episodes catalog (${sourceEpisodes?.length||0})`);
 const episodeTranslationData=collectEpisodeTranslations();
+const positiveSourceNumbers=new Set(sourceEpisodes.map(e=>Number(e.number)||0).filter(number=>number>0));
+const usedSpecialNumbers=new Set();
+function specialEpisodeIdentity(title){
+  const value=String(title||'');
+  const rules=[
+    [/^Rozhovory o vesmíre\s+(\d+)\b/i,1700],
+    [/^Genetický špeciál\s+(\d+)\b/i,1800],
+    [/^Žijem vedu špeciál\s+(\d+)\b/i,1900]
+  ];
+  for(const [pattern,base] of rules){
+    const match=value.match(pattern);if(!match)continue;
+    const displayNumber=Number(match[1]);
+    if(!Number.isInteger(displayNumber)||displayNumber<1||displayNumber>99)throw new Error(`Invalid special episode ordinal in ${value}`);
+    const number=base+displayNumber;
+    if(number>=2048||positiveSourceNumbers.has(number)||usedSpecialNumbers.has(number))throw new Error(`Special episode id collision: ${number} (${value})`);
+    usedSpecialNumbers.add(number);
+    return {number,displayNumber};
+  }
+  return null;
+}
 const episodes=sourceEpisodes.map(e=>{
-  const number=Number(e.number)||0;
+  const special=Number(e.number)>0?null:specialEpisodeIdentity(e.title);
+  const number=Number(e.number)||special?.number||0;
   const base={
     number,
+    ...(special?{displayNumber:special.displayNumber}:{}),
     title:String(e.title||''),
     date:String(e.date||''),
     description:cleanDescription(e.description),
