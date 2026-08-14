@@ -62,6 +62,7 @@ jobs:
 
       - name: Ověřit UI datovou kompatibilitu
         run: |
+          cp index.html v2.html
           npm install --no-save --no-package-lock jsdom@26
           node tools/test-app-v2.mjs
           node tools/test-v2-question-experience.mjs
