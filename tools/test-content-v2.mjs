@@ -25,16 +25,19 @@ for(const series of data.series){
 }
 const specialSeriesExpectations=[
   ['Genetický speciál',7],
-  ['Rozhovory o vesmíru',10],
+  ['Rozhovory o vesmíru',15],
   ['Žiji vědu',5]
 ];
-for(const [name,minCount] of specialSeriesExpectations){
+for(const [name,expectedCount] of specialSeriesExpectations){
   const series=data.series.find(item=>item.name===name);
-  if(!series||series.episodes.length<minCount)fail(`${name} series incomplete: ${series?.episodes?.length||0}`);
+  if(!series||series.episodes.length!==expectedCount)fail(`${name} series incomplete: expected ${expectedCount}, got ${series?.episodes?.length||0}`);
   const items=series.episodes.map(number=>data.episodes.find(episode=>Number(episode.number)===Number(number))).filter(Boolean);
   if(items.length!==series.episodes.length)fail(`${name} series contains unresolved episodes`);
   if(items.some(episode=>!Number.isInteger(Number(episode.displayNumber))||Number(episode.displayNumber)<1))fail(`${name} display numbers missing`);
-  if(new Set(items.map(episode=>Number(episode.displayNumber))).size!==items.length)fail(`${name} display numbers are not unique`);
+  const displayNumbers=items.map(episode=>Number(episode.displayNumber));
+  if(new Set(displayNumbers).size!==items.length)fail(`${name} display numbers are not unique`);
+  const sortedDisplayNumbers=[...displayNumbers].sort((a,b)=>a-b);
+  if(sortedDisplayNumbers.some((number,index)=>number!==index+1))fail(`${name} display numbers incomplete: ${sortedDisplayNumbers.join(', ')}`);
   if(items.some(episode=>Number(episode.number)<=0||Number(episode.number)>=2048))fail(`${name} internal episode id is outside the safe ref range`);
 }
 
