@@ -38,7 +38,14 @@ for(const episode of episodes){
   }
 }
 
-const byNumber=new Map(episodes.map(episode=>[Number(episode.number),episode]));
+const byNumber=new Map();
+const byNumberAll=new Map();
+for(const episode of episodes){
+  const number=Number(episode.number);
+  if(!byNumber.has(number))byNumber.set(number,episode);
+  if(!byNumberAll.has(number))byNumberAll.set(number,[]);
+  byNumberAll.get(number).push(episode);
+}
 
 function resolveEpisodeRef(raw,seriesName){
   if(typeof raw==='number'){
@@ -77,8 +84,11 @@ for(const [index,item] of seriesConfig.entries()){
   if(item.people!==undefined&&typeof item.people!=='boolean')fail(`Série „${cs}“ má neplatné „people“; použij true/false`);
 
   const refs=item.episodes.map(raw=>resolveEpisodeRef(raw,cs));
-  if(new Set(refs).size!==refs.length)fail(`Série „${cs}“ obsahuje stejný díl vícekrát`);
-  const sorted=refs.map(number=>byNumber.get(number)).sort((a,b)=>episodeDate(a)-episodeDate(b));
+  if(new Set(refs).size!==refs.length)fail(`Série „${cs}“ obsahuje stejný odkaz na díl vícekrát`);
+  // Jeden podcastový number může ve starém RSS výjimečně existovat vícekrát.
+  // Jeden zápis v series.json proto zachová všechny odpovídající zdrojové položky,
+  // stejně jako dosavadní filtrování, aby migrace neměnila existující UI.
+  const sorted=refs.flatMap(number=>byNumberAll.get(number)||[]).sort((a,b)=>episodeDate(a)-episodeDate(b));
   result.push({
     name:cs,
     i18n:{cs,sk},
