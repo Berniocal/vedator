@@ -24,6 +24,29 @@ const VEDATOR_SPECIAL_TITLES=new Set([
   'vedatorsky special dungeon vedator'
 ]);
 
+const SPECIAL_SERIES_ID_RULES=[
+  [/^rozhovory o vesmire (\d+)\b/,1700],
+  [/^geneticky special (\d+)\b/,1800],
+  [/^zijem vedu special (\d+)\b/,1900]
+];
+const usedEpisodeNumbers=new Set(episodes.map(episode=>Number(episode.number)).filter(number=>number>0));
+for(const episode of episodes){
+  if(Number(episode.number)>0)continue;
+  const value=norm(episode.title);
+  for(const [pattern,base] of SPECIAL_SERIES_ID_RULES){
+    const match=value.match(pattern);
+    if(!match)continue;
+    const displayNumber=Number(match[1]);
+    if(!Number.isInteger(displayNumber)||displayNumber<1||displayNumber>99)throw new Error(`Invalid special episode ordinal in ${episode.title}`);
+    const number=base+displayNumber;
+    if(number>=2048||usedEpisodeNumbers.has(number))throw new Error(`Special episode id collision: ${number} (${episode.title})`);
+    episode.number=number;
+    episode.displayNumber=displayNumber;
+    usedEpisodeNumbers.add(number);
+    break;
+  }
+}
+
 const titleFor=(episode,lang)=>episode?.i18n?.[lang]?.title||episode?.title||'';
 const episodeDate=episode=>new Date(episode?.date||0).getTime()||0;
 const byNumber=new Map(episodes.map(episode=>[Number(episode.number),episode]));
