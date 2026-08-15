@@ -1,0 +1,168 @@
+name: Verify episode 299
+
+on:
+  push:
+    branches:
+      - chatgpt/episode-299-summary
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/episode-299-summary
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test dependencies
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save jsdom@26 puppeteer-core@24
+      - name: Generate episode 299 from canonical CZ/SK sources and verify numbering
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const {JSDOM}=require('jsdom');
+          const EP=299;
+          const sources={
+            cs:{path:'shrnuti/cs/299-zaporna-teplota.html',url:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/299-zaporna-teplota.html'},
+            sk:{path:'shrnuti/sk/299-zaporna-teplota.html',url:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/299-zaporna-teplota.html'}
+          };
+          async function load(lang){
+            const src=sources[lang];
+            const base=src.path.split('/').pop();
+            if(!base.startsWith(`${EP}-`)) throw new Error(`${lang} filename does not start with ${EP}: ${base}`);
+            const r=await fetch(src.url);
+            if(!r.ok)throw new Error(`${lang} source HTTP ${r.status}`);
+            const html=await r.text();
+            const d=new JSDOM(html).window.document;
+            const title=d.querySelector('title')?.textContent?.trim()||'';
+            const h1=d.querySelector('h1')?.textContent?.trim()||'';
+            const article=d.querySelector('article.episode-summary');
+            if(!article)throw new Error(`Missing ${lang} article`);
+            if(article.dataset.episode!==String(EP)) throw new Error(`${lang} data-episode mismatch: ${article.dataset.episode}`);
+            if(article.dataset.lang!==lang) throw new Error(`${lang} data-lang mismatch: ${article.dataset.lang}`);
+            if(!title.includes(` ${EP} `)||!h1.includes(` ${EP} `)) throw new Error(`${lang} title/h1 does not name episode ${EP}: ${title} / ${h1}`);
+            if(!title.includes('Záporná teplota')||!h1.includes('Záporná teplota')) throw new Error(`${lang} title/h1 topic mismatch`);
+            const sections=[...article.querySelectorAll('section.faq')].map(s=>({
+              time:s.dataset.time,
+              title:s.querySelector('h2')?.textContent.trim(),
+              points:[...s.querySelectorAll('li')].map(li=>li.textContent.trim())
+            }));
+            return {sections,title,h1};
+          }
+          (async()=>{
+            const cs=await load('cs');
+            const sk=await load('sk');
+            if(cs.sections.length!==10||sk.sections.length!==10)throw new Error(`Expected actual 10/10 sections, got ${cs.sections.length}/${sk.sections.length}`);
+            const cst=cs.sections.map(x=>x.time), skt=sk.sections.map(x=>x.time);
+            if(JSON.stringify(cst)!==JSON.stringify(skt))throw new Error(`CZ/SK times differ: ${cst} vs ${skt}`);
+            if(cs.sections.some(x=>!x.time||!x.title||!x.points.length)||sk.sections.some(x=>!x.time||!x.title||!x.points.length))throw new Error('Incomplete section found');
+            const catalog=JSON.parse(fs.readFileSync('episodes.json','utf8'));
+            const ep=catalog.episodes.find(e=>Number(e.number)===EP);
+            if(!ep)throw new Error(`Episode ${EP} missing from production catalog`);
+            if(!ep.title.includes(` ${EP} `)||!ep.title.includes('Záporná teplota'))throw new Error(`Production catalog mismatch: ${ep.title}`);
+            const extrasSource=fs.readFileSync('tools/augment-v2-extra-nonquestions.mjs','utf8');
+            const m=extrasSource.match(/const EXTRAS=\[([^\]]*)\]/);
+            const extras=(m?.[1]||'').split(',').map(x=>Number(x.trim())).filter(Number.isFinite);
+            for(const n of extras){
+              const p=`episode-${n}-summary.js`;
+              if(!fs.existsSync(p))continue;
+              const text=fs.readFileSync(p,'utf8');
+              const start=text.indexOf('const DATA=');
+              const end=text.indexOf(';',start+11);
+              if(start<0||end<0)continue;
+              const data=JSON.parse(text.slice(start+11,end));
+              const sameTimes=JSON.stringify(data.cs?.map(x=>x.time))===JSON.stringify(cst);
+              const sameTitles=JSON.stringify(data.cs?.map(x=>x.title))===JSON.stringify(cs.sections.map(x=>x.title));
+              const samePoints=JSON.stringify(data.cs?.map(x=>x.points))===JSON.stringify(cs.sections.map(x=>x.points));
+              if((sameTimes&&sameTitles)||(sameTimes&&samePoints))throw new Error(`Episode ${EP} looks duplicated with existing episode ${n}`);
+            }
+            const json=JSON.stringify({cs:cs.sections,sk:sk.sections}).replaceAll(';','\\u003b');
+            fs.writeFileSync(`episode-${EP}-summary.js`,`const DATA=${json};\n`);
+            console.log(`Verified source number/topic and generated ${EP}: ${cs.sections.length} CZ + ${sk.sections.length} SK; times ${cst.join(', ')}`);
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+      - name: Register episode 299 and regression guard
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          let p='tools/augment-v2-extra-nonquestions.mjs';
+          let s=fs.readFileSync(p,'utf8');
+          s=s.replace(/const EXTRAS=\[([^\]]*)\];/,(_,body)=>{
+            const a=body.split(',').map(x=>Number(x.trim())).filter(Number.isFinite);
+            if(!a.includes(299))a.push(299);
+            a.sort((a,b)=>a-b);
+            return `const EXTRAS=[${a.join(',')}];`;
+          });
+          fs.writeFileSync(p,s);
+          p='tools/test-content-v2.mjs';
+          s=fs.readFileSync(p,'utf8');
+          s=s.replace(/for\(const n of \[([^\]]*)\]\)\{/,(_,body)=>{
+            const a=body.split(',').map(x=>Number(x.trim())).filter(Number.isFinite);
+            if(!a.includes(299))a.push(299);
+            a.sort((a,b)=>a-b);
+            return `for(const n of [${a.join(',')}]){`;
+          });
+          fs.writeFileSync(p,s);
+          NODE
+      - name: Build V2 and verify scope
+        run: |
+          BEFORE_SIZE=$(git show HEAD:content-v2.json | wc -c)
+          APP_SHA=$(sha256sum app-v2.js | cut -d' ' -f1)
+          INDEX_SHA=$(sha256sum index.html | cut -d' ' -f1)
+          node --check app-v2.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          AFTER_SIZE=$(wc -c < content-v2.json)
+          test "$APP_SHA" = "$(sha256sum app-v2.js | cut -d' ' -f1)"
+          test "$INDEX_SHA" = "$(sha256sum index.html | cut -d' ' -f1)"
+          GROWTH=$((AFTER_SIZE-BEFORE_SIZE))
+          echo "content-v2 growth: $GROWTH bytes"
+          test "$GROWTH" -gt 0
+          test "$GROWTH" -lt 100000
+          node <<'NODE'
+          const fs=require('fs');
+          const d=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
+          const e=d.nonquestions?.episodes?.['299'];
+          if(!e)throw new Error('Episode 299 missing in content-v2');
+          if(e.cs?.length!==10||e.sk?.length!==10)throw new Error(`Unexpected 299 counts ${e.cs?.length}/${e.sk?.length}`);
+          if(JSON.stringify(e.cs.map(x=>x.time))!==JSON.stringify(e.sk.map(x=>x.time)))throw new Error('299 CZ/SK times differ in content-v2');
+          if(d.nonquestions?.episodes?.['316'])throw new Error('Episode 316 unexpectedly returned');
+          NODE
+      - name: Run relevant V2 tests
+        run: |
+          cp index.html v2.html
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/test-app-v2.mjs
+          node tools/test-v2-question-experience.mjs
+          node tools/test-v2-full-parity.mjs
+          node tools/test-v2-playlist-parity.mjs
+          node tools/test-v2-mobile-deep-polish.mjs
+          node tools/test-v2-mobile-browser.mjs
+          node tools/test-v2-mobile-browser-playlist.mjs
+          node tools/test-v2-real-readmore-browser.mjs
+          rm -f v2.html
+      - name: Commit verified episode files only
+        run: |
+          rm -f package.json package-lock.json v2.html
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- episode-299-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs content-v2.json
+          echo 'Staged files:'
+          git diff --cached --name-only
+          test "$(git diff --cached --name-only | wc -l)" -eq 4
+          git diff --cached --name-only | grep -qx 'content-v2.json'
+          git diff --cached --name-only | grep -qx 'episode-299-summary.js'
+          git diff --cached --name-only | grep -qx 'tools/augment-v2-extra-nonquestions.mjs'
+          git diff --cached --name-only | grep -qx 'tools/test-content-v2.mjs'
+          git commit -m 'Add bilingual summary for episode 299'
+          git push
