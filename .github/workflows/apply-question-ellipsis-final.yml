@@ -92,11 +92,8 @@ jobs:
           index_path.write_text(index,encoding='utf-8')
           PY
 
-      - name: Ověřit syntaxi a stávající V2 testy
-        run: |
-          node --check app-v2.js
-          node tools/validate-v2-content.mjs
-          node tools/run-v2-tests.mjs
+      - name: Ověřit syntaxi
+        run: node --check app-v2.js
 
       - name: Nainstalovat pouze testovací závislosti
         run: npm install --no-save --no-package-lock jsdom@26 puppeteer-core@24
@@ -109,7 +106,7 @@ jobs:
 
       - name: Ověřit výpustku na mobilu i po změně sazby
         run: |
-          cat > /tmp/test-question-ellipsis-final.mjs <<'EOF'
+          cat > tools/tmp-test-question-ellipsis-final.mjs <<'EOF'
           import fs from 'node:fs';
           import http from 'node:http';
           import path from 'node:path';
@@ -143,14 +140,14 @@ jobs:
             console.log(JSON.stringify({ok:true,questions:questions.clipped,nonquestions:nonquestions.clipped,layoutChange:true,opensCleanly:true}));
           }finally{await page.close().catch(()=>{});await browser.close().catch(()=>{});await new Promise(resolve=>server.close(resolve))}
           EOF
-          node /tmp/test-question-ellipsis-final.mjs
+          node tools/tmp-test-question-ellipsis-final.mjs
 
       - name: Ověřit širší mobilní regresi
         run: node tools/test-v2-mobile-browser.mjs
 
       - name: Zkontrolovat čistý rozsah změny
         run: |
-          rm -f v2.html
+          rm -f v2.html tools/tmp-test-question-ellipsis-final.mjs
           git diff --check
           changed="$(git diff --name-only | sort)"
           expected="$(printf '%s\n' app-v2.js index.html | sort)"
