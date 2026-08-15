@@ -53,7 +53,7 @@ jobs:
           }
           (async()=>{
             const cs=await load('cs'), sk=await load('sk');
-            if(cs.sections.length!==14||sk.sections.length!==14)throw new Error(`Expected actual 14/14 sections, got ${cs.sections.length}/${sk.sections.length}`);
+            if(cs.sections.length!==15||sk.sections.length!==15)throw new Error(`Expected actual 15/15 sections, got ${cs.sections.length}/${sk.sections.length}`);
             const cst=cs.sections.map(x=>x.time), skt=sk.sections.map(x=>x.time);
             if(JSON.stringify(cst)!==JSON.stringify(skt))throw new Error(`CZ/SK times differ: ${cst} vs ${skt}`);
             if(cs.sections.some(x=>!x.time||!x.title||!x.points.length)||sk.sections.some(x=>!x.time||!x.title||!x.points.length))throw new Error('Incomplete section found');
@@ -117,7 +117,7 @@ jobs:
           const d=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
           const e=d.nonquestions?.episodes?.['290'];
           if(!e)throw new Error('Episode 290 missing in content-v2');
-          if(e.cs?.length!==14||e.sk?.length!==14)throw new Error(`Unexpected 290 counts ${e.cs?.length}/${e.sk?.length}`);
+          if(e.cs?.length!==15||e.sk?.length!==15)throw new Error(`Unexpected 290 counts ${e.cs?.length}/${e.sk?.length}`);
           if(JSON.stringify(e.cs.map(x=>x.time))!==JSON.stringify(e.sk.map(x=>x.time)))throw new Error('290 CZ/SK times differ in content-v2');
           if(d.nonquestions?.episodes?.['316'])throw new Error('Episode 316 unexpectedly returned');
           NODE
