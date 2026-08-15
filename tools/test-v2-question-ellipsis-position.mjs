@@ -17,7 +17,6 @@ const page=await browser.newPage();await page.setViewport({width:390,height:844,
 
 async function inspectView(view){
   await page.click(`.tab-v2[data-view="${view}"]`);await new Promise(resolve=>setTimeout(resolve,1200));
-  await page.evaluate(()=>window.dispatchEvent(new Event('resize')));await new Promise(resolve=>setTimeout(resolve,120));
   return page.evaluate((view)=>{
     const root=document.querySelector(view==='questions'?'#questions-v2':'#nonquestions-v2');
     const visibleRects=answer=>{const bounds=answer.getBoundingClientRect(),walker=document.createTreeWalker(answer,NodeFilter.SHOW_TEXT),out=[];while(walker.nextNode()){const node=walker.currentNode;if(!node.nodeValue?.trim()||node.parentElement?.closest('.question-ellipsis-v2'))continue;const range=document.createRange();range.selectNodeContents(node);for(const rect of range.getClientRects()){if(rect.width<=0||rect.height<=0||rect.top<bounds.top-1||rect.bottom>bounds.bottom+1)continue;out.push({text:node.nodeValue.trim().slice(0,24),left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom})}}return out};
