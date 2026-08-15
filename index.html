@@ -266,8 +266,10 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
 <style id="v2-card-alignment">
 .question-card .tags,.episode-card-v2 .tags{margin-top:auto!important;padding-top:12px!important}
 .episode-card-v2 .episode-summary-slot-v2{margin-top:0!important}
-.question-card:not(.open):has(.question-more:not(.hidden)) .question-answer{position:relative}
-.question-card:not(.open):has(.question-more:not(.hidden)) .question-answer::after{content:"...";position:absolute;right:0;bottom:0;width:3.2em;height:1.5em;display:flex;align-items:center;justify-content:flex-end;padding-right:.15rem;background:linear-gradient(90deg,transparent 0,var(--card) 42%);color:var(--ink);font-weight:700;pointer-events:none}
+.question-card .question-answer{position:relative}
+.question-card .question-answer::after{content:none!important}
+.question-ellipsis-v2{position:absolute;z-index:2;display:inline-flex;align-items:center;padding:0 .08em;background:var(--card);color:var(--ink);font-weight:700;line-height:1;white-space:nowrap;pointer-events:none}
+.question-ellipsis-v2[hidden]{display:none!important}
 </style>
 </head>
 <body>

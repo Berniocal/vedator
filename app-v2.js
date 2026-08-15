@@ -618,9 +618,30 @@
     else if(state.view==='playlists')$('#count-v2').textContent=q?shown+' '+text('nalezených playlistů','nájdených playlistov'):state.playlists.length+' '+text('playlistů','playlistov');
     else $('#count-v2').textContent=text('Lokální data','Lokálne dáta');
   }
-  function queueQuestionMoreCheck(view){
-    requestAnimationFrame(()=>{const root=view==='questions'?$('#questions-v2'):$('#nonquestions-v2');root?.querySelectorAll('.question-card').forEach(card=>{const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more');if(!answer||!button)return;button.classList.toggle('hidden',!card.classList.contains('open')&&answer.scrollHeight<=answer.clientHeight+2)})});
+  function placeQuestionEllipsis(answer,show){
+    let marker=answer.querySelector('.question-ellipsis-v2');
+    if(!show){marker?.remove();return}
+    if(!marker){marker=document.createElement('span');marker.className='question-ellipsis-v2';marker.setAttribute('aria-hidden','true');marker.textContent='…';answer.appendChild(marker)}
+    marker.hidden=true;
+    const bounds=answer.getBoundingClientRect(),walker=document.createTreeWalker(answer,NodeFilter.SHOW_TEXT);let best=null;
+    while(walker.nextNode()){
+      const node=walker.currentNode,parent=node.parentElement;if(!node.nodeValue?.trim()||parent?.closest('.question-ellipsis-v2'))continue;
+      const range=document.createRange();range.selectNodeContents(node);if(typeof range.getClientRects!=='function'){range.detach?.();continue}
+      for(const rect of range.getClientRects()){
+        if(rect.width<=0||rect.height<=0||rect.top<bounds.top-1||rect.bottom>bounds.bottom+1)continue;
+        if(!best||rect.bottom>best.bottom+1||(Math.abs(rect.bottom-best.bottom)<=1&&rect.right>best.right))best=rect;
+      }
+      range.detach?.();
+    }
+    if(!best){marker.remove();return}
+    const fontSize=parseFloat(getComputedStyle(answer).fontSize)||16,markerWidth=Math.max(18,fontSize*1.15),x=Math.max(0,Math.min(answer.clientWidth-markerWidth,best.right-bounds.left+2)),y=Math.max(0,best.top-bounds.top);
+    marker.style.left=x+'px';marker.style.top=y+'px';marker.style.height=best.height+'px';marker.hidden=false;
   }
+  function queueQuestionMoreCheck(view){
+    requestAnimationFrame(()=>{const root=view==='questions'?$('#questions-v2'):$('#nonquestions-v2');root?.querySelectorAll('.question-card').forEach(card=>{const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more');if(!answer||!button)return;const open=card.classList.contains('open'),marker=answer.querySelector('.question-ellipsis-v2');if(marker)marker.hidden=true;const clipped=!open&&answer.scrollHeight>answer.clientHeight+2;button.classList.toggle('hidden',!open&&!clipped);placeQuestionEllipsis(answer,clipped)})});
+  }
+  let questionEllipsisResizeFrame=0;
+  window.addEventListener('resize',()=>{if(state.view!=='questions'&&state.view!=='nonquestions')return;if(questionEllipsisResizeFrame)cancelAnimationFrame(questionEllipsisResizeFrame);questionEllipsisResizeFrame=requestAnimationFrame(()=>{questionEllipsisResizeFrame=0;queueQuestionMoreCheck(state.view)})},{passive:true});
   function hashText(value){let hash=2166136261;for(const char of String(value||'')){hash^=char.charCodeAt(0);hash=Math.imul(hash,16777619)}return(hash>>>0).toString(36)}
   function slug(value){return norm(value).replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
   function oldEpisodeKey(episode){return Number(episode?.number||0)+'-'+hashText(episode?.id||episode?.link||episode?.enclosure||episode?.title||'')}
@@ -924,7 +945,7 @@
     if(view==='playlists')renderPlaylists();if(view==='data'){loadUserData();renderData()}if(view==='questions'||view==='nonquestions')ensureParityMathJax();filterActive();
   }
 
-  function parityTypeset(root){if(window.MathJax?.typesetPromise)window.MathJax.typesetPromise([root]).catch(()=>{})}
+  function parityTypeset(root){const refresh=()=>{const view=root?.id==='questions-v2'?'questions':root?.id==='nonquestions-v2'?'nonquestions':'';if(view)queueQuestionMoreCheck(view)};if(window.MathJax?.typesetPromise)return window.MathJax.typesetPromise([root]).then(refresh,()=>{});refresh();return Promise.resolve()}
   function ensureParityMathJax(){
     if(window.MathJax?.typesetPromise||document.querySelector('script[data-v2-mathjax]'))return;
     window.MathJax={tex:{inlineMath:[['\\(','\\)']],processEscapes:true},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
