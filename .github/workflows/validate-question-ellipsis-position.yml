@@ -16,110 +16,30 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Opravit umístění výpustky
-        run: |
-          python - <<'PY'
-          from pathlib import Path
+      - name: Aplikovat opravu
+        run: python tools/tmp-fix-question-ellipsis.py
 
-          app_path=Path('app-v2.js')
-          app=app_path.read_text(encoding='utf-8')
-          old="""  function queueQuestionMoreCheck(view){
-    requestAnimationFrame(()=>{const root=view==='questions'?$('#questions-v2'):$('#nonquestions-v2');root?.querySelectorAll('.question-card').forEach(card=>{const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more');if(!answer||!button)return;button.classList.toggle('hidden',!card.classList.contains('open')&&answer.scrollHeight<=answer.clientHeight+2)})});
-  }
-"""
-          new="""  function placeQuestionEllipsis(answer,show){
-    let marker=answer.querySelector('.question-ellipsis-v2');
-    if(!show){marker?.remove();return}
-    if(!marker){marker=document.createElement('span');marker.className='question-ellipsis-v2';marker.setAttribute('aria-hidden','true');marker.textContent='…';answer.appendChild(marker)}
-    marker.hidden=true;
-    const bounds=answer.getBoundingClientRect(),walker=document.createTreeWalker(answer,NodeFilter.SHOW_TEXT);let best=null;
-    while(walker.nextNode()){
-      const node=walker.currentNode,parent=node.parentElement;if(!node.nodeValue?.trim()||parent?.closest('.question-ellipsis-v2'))continue;
-      const range=document.createRange();range.selectNodeContents(node);if(typeof range.getClientRects!=='function'){range.detach?.();continue}
-      for(const rect of range.getClientRects()){
-        if(rect.width<=0||rect.height<=0||rect.top<bounds.top-1||rect.bottom>bounds.bottom+1)continue;
-        if(!best||rect.bottom>best.bottom+1||(Math.abs(rect.bottom-best.bottom)<=1&&rect.right>best.right))best=rect;
-      }
-      range.detach?.();
-    }
-    if(!best){marker.remove();return}
-    const fontSize=parseFloat(getComputedStyle(answer).fontSize)||16,markerWidth=Math.max(18,fontSize*1.15),x=Math.max(0,Math.min(answer.clientWidth-markerWidth,best.right-bounds.left+2)),y=Math.max(0,best.top-bounds.top);
-    marker.style.left=x+'px';marker.style.top=y+'px';marker.style.height=best.height+'px';marker.hidden=false;
-  }
-  function queueQuestionMoreCheck(view){
-    requestAnimationFrame(()=>{const root=view==='questions'?$('#questions-v2'):$('#nonquestions-v2');root?.querySelectorAll('.question-card').forEach(card=>{const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more');if(!answer||!button)return;const open=card.classList.contains('open'),marker=answer.querySelector('.question-ellipsis-v2');if(marker)marker.hidden=true;const clipped=!open&&answer.scrollHeight>answer.clientHeight+2;button.classList.toggle('hidden',!open&&!clipped);placeQuestionEllipsis(answer,clipped)})});
-  }
-  let questionEllipsisResizeFrame=0;
-  window.addEventListener('resize',()=>{if(state.view!=='questions'&&state.view!=='nonquestions')return;if(questionEllipsisResizeFrame)cancelAnimationFrame(questionEllipsisResizeFrame);questionEllipsisResizeFrame=requestAnimationFrame(()=>{questionEllipsisResizeFrame=0;queueQuestionMoreCheck(state.view)})},{passive:true});
-"""
-          if old in app:
-              app=app.replace(old,new,1)
-              app_path.write_text(app,encoding='utf-8')
-          elif 'function placeQuestionEllipsis(answer,show)' not in app:
-              raise SystemExit('Nenalezen očekávaný queueQuestionMoreCheck blok')
-
-          index_path=Path('index.html')
-          index=index_path.read_text(encoding='utf-8')
-          old_css='''.question-card:not(.open):has(.question-more:not(.hidden)) .question-answer{position:relative}\n.question-card:not(.open):has(.question-more:not(.hidden)) .question-answer::after{content:"...";position:absolute;right:0;bottom:0;width:3.2em;height:1.5em;display:flex;align-items:center;justify-content:flex-end;padding-right:.15rem;background:linear-gradient(90deg,transparent 0,var(--card) 42%);color:var(--ink);font-weight:700;pointer-events:none}'''
-          new_css='''.question-card .question-answer{position:relative}\n.question-card .question-answer::after{content:none!important}\n.question-ellipsis-v2{position:absolute;z-index:2;display:inline-flex;align-items:center;padding:0 .08em;background:var(--card);color:var(--ink);font-weight:700;line-height:1;white-space:nowrap;pointer-events:none}\n.question-ellipsis-v2[hidden]{display:none!important}'''
-          if old_css in index:
-              index=index.replace(old_css,new_css,1)
-              index_path.write_text(index,encoding='utf-8')
-          elif '.question-ellipsis-v2{' not in index:
-              raise SystemExit('Nenalezen očekávaný CSS blok výpustky')
-          PY
-
-      - name: Ověřit syntaxi a stávající chování otázek
+      - name: Ověřit syntaxi a otázky
         run: |
           node --check app-v2.js
           cp index.html v2.html
           npm install --no-save --no-package-lock jsdom@26 puppeteer-core@24
           node tools/test-v2-question-experience.mjs
 
-      - name: Ověřit výpustku v reálném Chromiu
-        run: |
-          node <<'NODE'
-          const fs=require('fs'),http=require('http'),path=require('path');
-          const puppeteer=require('puppeteer-core');
-          const assert=(condition,message)=>{if(!condition)throw new Error(message)};
-          const root=process.cwd();
-          const server=http.createServer((req,res)=>{try{const p=decodeURIComponent(new URL(req.url,'http://127.0.0.1').pathname==='/'?'/v2.html':new URL(req.url,'http://127.0.0.1').pathname),file=path.resolve(root,'.'+p);if(!file.startsWith(root)||!fs.existsSync(file)){res.writeHead(404);res.end();return}res.writeHead(200,{'Content-Type':path.extname(file)==='.json'?'application/json; charset=utf-8':path.extname(file)==='.js'?'text/javascript; charset=utf-8':'text/html; charset=utf-8','Cache-Control':'no-store'});fs.createReadStream(file).pipe(res)}catch(error){res.writeHead(500);res.end(String(error))}});
-          await new Promise(resolve=>server.listen(4173,'127.0.0.1',resolve));
-          const executable=['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium','/usr/bin/chromium-browser'].find(fs.existsSync);assert(executable,'Chromium nenalezen');
-          const browser=await puppeteer.launch({headless:true,executablePath:executable,args:['--no-sandbox','--disable-dev-shm-usage']});
-          const page=await browser.newPage();await page.setViewport({width:390,height:844,deviceScaleFactor:1,isMobile:true,hasTouch:true});
-          try{
-            await page.goto('http://127.0.0.1:4173/v2.html',{waitUntil:'domcontentloaded',timeout:15000});
-            await page.waitForFunction(()=>document.documentElement.dataset.vedatorV2Ready==='1',{timeout:15000});
-            await page.click('.tab-v2[data-view="questions"]');await new Promise(r=>setTimeout(r,180));
-            const result=await page.evaluate(()=>{
-              const visibleRects=answer=>{const bounds=answer.getBoundingClientRect(),walker=document.createTreeWalker(answer,NodeFilter.SHOW_TEXT);let best=null;while(walker.nextNode()){const node=walker.currentNode;if(!node.nodeValue?.trim()||node.parentElement?.closest('.question-ellipsis-v2'))continue;const range=document.createRange();range.selectNodeContents(node);for(const rect of range.getClientRects()){if(rect.width<=0||rect.height<=0||rect.top<bounds.top-1||rect.bottom>bounds.bottom+1)continue;if(!best||rect.bottom>best.bottom+1||(Math.abs(rect.bottom-best.bottom)<=1&&rect.right>best.right))best={left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom}}}return best};
-              const cards=[...document.querySelectorAll('#questions-v2 .question-card'),...document.querySelectorAll('#nonquestions-v2 .question-card')];
-              for(const card of cards){const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more'),marker=card.querySelector('.question-ellipsis-v2');if(!answer||!button||button.classList.contains('hidden')||!marker||marker.hidden)continue;const line=visibleRects(answer),box=answer.getBoundingClientRect(),dot=marker.getBoundingClientRect();if(!line)continue;if(line.right<box.right-32)return{item:card.dataset.item,lineRight:line.right,answerRight:box.right,dotLeft:dot.left,dotRight:dot.right,dotTop:dot.top,lineTop:line.top};}
-              return null;
-            });
-            assert(result,'Nenalezena zkrácená karta s kratším posledním řádkem');
-            assert(Math.abs(result.dotLeft-result.lineRight)<=10,`Výpustka není u konce textu: ${JSON.stringify(result)}`);
-            assert(Math.abs(result.dotTop-result.lineTop)<=4,`Výpustka není na stejném řádku: ${JSON.stringify(result)}`);
-            assert(result.dotRight<=result.answerRight+1,`Výpustka přetéká odpověď: ${JSON.stringify(result)}`);
-            const opened=await page.evaluate((id)=>{const card=document.querySelector(`.question-card[data-item="${CSS.escape(id)}"]`);card?.querySelector('.question-more')?.click();return true},result.item);await new Promise(r=>setTimeout(r,80));
-            const markerAfterOpen=await page.evaluate((id)=>{const card=document.querySelector(`.question-card[data-item="${CSS.escape(id)}"]`),marker=card?.querySelector('.question-ellipsis-v2');return marker&&!marker.hidden},result.item);
-            assert(!markerAfterOpen,'Výpustka zůstala po Číst více');
-            console.log(JSON.stringify({ok:true,ellipsisAtTextEnd:true,item:result.item,deltaPx:Number(Math.abs(result.dotLeft-result.lineRight).toFixed(2)),opensCleanly:true},null,2));
-          }finally{await page.close().catch(()=>{});await browser.close().catch(()=>{});await new Promise(resolve=>server.close(resolve))}
-          NODE
+      - name: Ověřit polohu výpustky v Chromiu
+        run: node tools/tmp-test-question-ellipsis.mjs
 
-      - name: Ověřit širší mobilní regresní test
+      - name: Ověřit širší mobilní regresi
         run: node tools/test-v2-mobile-browser.mjs
 
-      - name: Commitnout pouze ověřenou opravu
+      - name: Commitnout ověřenou opravu
         run: |
           rm -f v2.html
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- app-v2.js index.html
           if git diff --cached --quiet; then
-            echo 'Oprava už je na větvi a testy znovu prošly.'
+            echo 'Oprava už je na větvi a testy prošly.'
           else
             git commit -m 'Umístit výpustku odpovědi za poslední viditelný text'
             git push
