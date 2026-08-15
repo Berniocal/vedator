@@ -18,16 +18,13 @@ jobs:
           from pathlib import Path
           p=Path('app-v2.js')
           s=p.read_text(encoding='utf-8')
-          old="""  function queueQuestionMoreCheck(view){
-            requestAnimationFrame(()=>{const root=view==='questions'?$('#questions-v2'):$('#nonquestions-v2');root?.querySelectorAll('.question-card').forEach(card=>{const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more');if(!answer||!button)return;const open=card.classList.contains('open'),marker=answer.querySelector('.question-ellipsis-v2');if(marker)marker.hidden=true;const clipped=!open&&answer.scrollHeight>answer.clientHeight+2;button.classList.toggle('hidden',!open&&!clipped);placeQuestionEllipsis(answer,clipped)})});
-          }
-          let questionEllipsisResizeFrame=0;
-          window.addEventListener('resize',()=>{if(state.view!=='questions'&&state.view!=='nonquestions')return;if(questionEllipsisResizeFrame)cancelAnimationFrame(questionEllipsisResizeFrame);questionEllipsisResizeFrame=requestAnimationFrame(()=>{questionEllipsisResizeFrame=0;queueQuestionMoreCheck(state.view)})},{passive:true});
-          """
-          new="""  let questionEllipsisLayoutFrame=0,questionEllipsisObservedRoot=null;
+          if 'const questionEllipsisLayoutObserver=' not in s:
+              start=s.index('  function queueQuestionMoreCheck(view){')
+              end=s.index('  function hashText(value)', start)
+              new="""  let questionEllipsisLayoutFrame=0,questionEllipsisObservedRoot=null;
           const questionEllipsisObservedNodes=new Set();
           const questionEllipsisLayoutObserver=typeof ResizeObserver==='function'?new ResizeObserver(()=>{
-            if(state.view!=='questions'&&state.view!=='nonquestions'||questionEllipsisLayoutFrame)return;
+            if((state.view!=='questions'&&state.view!=='nonquestions')||questionEllipsisLayoutFrame)return;
             questionEllipsisLayoutFrame=requestAnimationFrame(()=>{questionEllipsisLayoutFrame=0;queueQuestionMoreCheck(state.view)});
           }):null;
           function syncQuestionEllipsisLayoutObserver(root){
@@ -42,10 +39,7 @@ jobs:
           let questionEllipsisResizeFrame=0;
           window.addEventListener('resize',()=>{if(state.view!=='questions'&&state.view!=='nonquestions')return;if(questionEllipsisResizeFrame)cancelAnimationFrame(questionEllipsisResizeFrame);questionEllipsisResizeFrame=requestAnimationFrame(()=>{questionEllipsisResizeFrame=0;queueQuestionMoreCheck(state.view)})},{passive:true});
           """
-          if old in s:
-              s=s.replace(old,new,1)
-          elif 'const questionEllipsisLayoutObserver=' not in s:
-              raise SystemExit('queueQuestionMoreCheck pattern not found')
+              s=s[:start]+new+s[end:]
           p.write_text(s,encoding='utf-8')
           PY
       - run: node --check app-v2.js
