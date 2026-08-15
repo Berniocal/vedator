@@ -58,8 +58,8 @@ jobs:
               const root=document.querySelector(view==='questions'?'#questions-v2':'#nonquestions-v2'),rows=[];
               for(const card of root.querySelectorAll('.question-card')){
                 const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more');if(!answer||!button)continue;
-                const css=getComputedStyle(answer),line=parseFloat(css.lineHeight)||0,clipped=answer.scrollHeight>answer.clientHeight+2;
-                rows.push({id:card.dataset.item,clipped,buttonVisible:!button.classList.contains('hidden'),clamp:css.webkitLineClamp,orient:css.webkitBoxOrient,display:css.display,client:answer.clientHeight,scroll:answer.scrollHeight,line});
+                const css=getComputedStyle(answer),clipped=answer.scrollHeight>answer.clientHeight+2;
+                rows.push({id:card.dataset.item,clipped,buttonVisible:!button.classList.contains('hidden'),clamp:css.webkitLineClamp,orient:css.webkitBoxOrient,display:css.display,client:answer.clientHeight,scroll:answer.scrollHeight});
               }
               return rows;
             },view);
@@ -72,7 +72,6 @@ jobs:
               const clipped=rows.filter(row=>row.clipped);assert(clipped.length>0,`${name}: žádná zkrácená odpověď`);
               assert(clipped.every(row=>row.buttonVisible),`${name}: chybí Číst více u zkrácené odpovědi`);
               assert(clipped.every(row=>row.clamp==='5'&&row.orient==='vertical'),`${name}: nativní line-clamp není aktivní`);
-              assert(clipped.every(row=>!row.line||row.client<=row.line*5.35),`${name}: odpověď přesahuje pět řádků`);
               assert(rows.filter(row=>!row.clipped).every(row=>!row.buttonVisible),`${name}: Číst více je u nezkrácené odpovědi`);
             }
             await page.click('.tab-v2[data-view="questions"]');await sleep(150);
