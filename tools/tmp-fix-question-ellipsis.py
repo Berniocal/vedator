@@ -32,9 +32,18 @@ new = """  function placeQuestionEllipsis(answer,show){
   window.addEventListener('resize',()=>{if(state.view!=='questions'&&state.view!=='nonquestions')return;if(questionEllipsisResizeFrame)cancelAnimationFrame(questionEllipsisResizeFrame);questionEllipsisResizeFrame=requestAnimationFrame(()=>{questionEllipsisResizeFrame=0;queueQuestionMoreCheck(state.view)})},{passive:true});
 """
 if old in app:
-    app_path.write_text(app.replace(old, new, 1), encoding='utf-8')
+    app = app.replace(old, new, 1)
 elif 'function placeQuestionEllipsis(answer,show)' not in app:
     raise SystemExit('Nenalezen očekávaný queueQuestionMoreCheck blok')
+
+old_typeset = "  function parityTypeset(root){if(window.MathJax?.typesetPromise)window.MathJax.typesetPromise([root]).catch(()=>{})}"
+new_typeset = "  function parityTypeset(root){const refresh=()=>{const view=root?.id==='questions-v2'?'questions':root?.id==='nonquestions-v2'?'nonquestions':'';if(view)queueQuestionMoreCheck(view)};if(window.MathJax?.typesetPromise)return window.MathJax.typesetPromise([root]).then(refresh,()=>{});refresh();return Promise.resolve()}"
+if old_typeset in app:
+    app = app.replace(old_typeset, new_typeset, 1)
+elif 'function parityTypeset(root){const refresh=' not in app:
+    raise SystemExit('Nenalezen očekávaný parityTypeset blok')
+
+app_path.write_text(app, encoding='utf-8')
 
 index_path = Path('index.html')
 index = index_path.read_text(encoding='utf-8')
