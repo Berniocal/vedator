@@ -1,0 +1,26 @@
+name: Ověření výpustky otázek
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'app-v2.js'
+      - 'index.html'
+      - 'tools/test-v2-question-ellipsis-position.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node --check app-v2.js
+      - run: npm install --no-save --no-package-lock jsdom@26 puppeteer-core@24
+      - run: |
+          cp index.html v2.html
+          node tools/test-v2-question-experience.mjs
+          rm v2.html
+      - run: node tools/test-v2-question-ellipsis-position.mjs
+      - run: node tools/test-v2-mobile-browser.mjs
