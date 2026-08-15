@@ -1,0 +1,166 @@
+name: Finální ověření výpustky otázek
+
+on:
+  push:
+    branches: [fix/question-ellipsis-final]
+
+permissions:
+  contents: write
+
+jobs:
+  patch-test-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Aplikovat malou opravu výpustky
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          app_path=Path('app-v2.js')
+          app=app_path.read_text(encoding='utf-8')
+          start=app.index('  function queueQuestionMoreCheck(view){')
+          end=app.index('  function hashText(value)',start)
+          new_block="""  function placeQuestionEllipsis(answer,show){
+            let marker=answer.querySelector('.question-ellipsis-v2');
+            if(!show){marker?.remove();return}
+            if(!marker){marker=document.createElement('span');marker.className='question-ellipsis-v2';marker.setAttribute('aria-hidden','true');marker.textContent='…';answer.appendChild(marker)}
+            marker.hidden=true;
+            const bounds=answer.getBoundingClientRect(),walker=document.createTreeWalker(answer,NodeFilter.SHOW_TEXT);let best=null;
+            while(walker.nextNode()){
+              const node=walker.currentNode,parent=node.parentElement;if(!node.nodeValue?.trim()||parent?.closest('.question-ellipsis-v2'))continue;
+              const range=document.createRange();range.selectNodeContents(node);if(typeof range.getClientRects!=='function'){range.detach?.();continue}
+              for(const rect of range.getClientRects()){
+                if(rect.width<=0||rect.height<=0||rect.top<bounds.top-1||rect.bottom>bounds.bottom+1)continue;
+                if(!best||rect.bottom>best.bottom+1||(Math.abs(rect.bottom-best.bottom)<=1&&rect.right>best.right))best=rect;
+              }
+              range.detach?.();
+            }
+            if(!best){marker.remove();return}
+            const fontSize=parseFloat(getComputedStyle(answer).fontSize)||16,markerWidth=Math.max(18,fontSize*1.15),x=Math.max(0,Math.min(answer.clientWidth-markerWidth,best.right-bounds.left+2)),y=Math.max(0,best.top-bounds.top);
+            marker.style.left=x+'px';marker.style.top=y+'px';marker.style.height=best.height+'px';marker.hidden=false;
+          }
+          let questionEllipsisLayoutFrame=0,questionEllipsisObservedRoot=null;
+          const questionEllipsisObservedNodes=new Set();
+          const scheduleQuestionEllipsisLayout=()=>{
+            if((state.view!=='questions'&&state.view!=='nonquestions')||questionEllipsisLayoutFrame)return;
+            questionEllipsisLayoutFrame=requestAnimationFrame(()=>{questionEllipsisLayoutFrame=0;queueQuestionMoreCheck(state.view)});
+          };
+          const questionEllipsisLayoutObserver=typeof ResizeObserver==='function'?new ResizeObserver(scheduleQuestionEllipsisLayout):null;
+          const questionEllipsisMutationObserver=typeof MutationObserver==='function'?new MutationObserver(records=>{
+            const meaningful=records.some(record=>{
+              if(record.type==='characterData')return !record.target.parentElement?.closest?.('.question-ellipsis-v2');
+              const changed=[...record.addedNodes,...record.removedNodes];
+              return changed.some(node=>!(node.nodeType===1&&node.matches?.('.question-ellipsis-v2')));
+            });
+            if(meaningful)scheduleQuestionEllipsisLayout();
+          }):null;
+          function syncQuestionEllipsisLayoutObserver(root){
+            if(!root)return;
+            if(questionEllipsisObservedRoot!==root){
+              questionEllipsisLayoutObserver?.disconnect();questionEllipsisMutationObserver?.disconnect();questionEllipsisObservedNodes.clear();questionEllipsisObservedRoot=root;
+              questionEllipsisMutationObserver?.observe(root,{subtree:true,childList:true,characterData:true});
+            }
+            if(questionEllipsisLayoutObserver)for(const node of [...questionEllipsisObservedNodes])if(!node.isConnected||!root.contains(node)){questionEllipsisLayoutObserver.unobserve(node);questionEllipsisObservedNodes.delete(node)}
+            if(questionEllipsisLayoutObserver)root.querySelectorAll('.question-answer>ul').forEach(node=>{if(questionEllipsisObservedNodes.has(node))return;questionEllipsisObservedNodes.add(node);questionEllipsisLayoutObserver.observe(node)});
+          }
+          function queueQuestionMoreCheck(view){
+            requestAnimationFrame(()=>{const root=view==='questions'?$('#questions-v2'):$('#nonquestions-v2');if(!root)return;root.querySelectorAll('.question-card').forEach(card=>{const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more');if(!answer||!button)return;const open=card.classList.contains('open'),marker=answer.querySelector('.question-ellipsis-v2');if(marker)marker.hidden=true;const clipped=!open&&answer.scrollHeight>answer.clientHeight+2;button.classList.toggle('hidden',!open&&!clipped);placeQuestionEllipsis(answer,clipped)});syncQuestionEllipsisLayoutObserver(root)});
+          }
+          let questionEllipsisResizeFrame=0;
+          window.addEventListener('resize',()=>{if(state.view!=='questions'&&state.view!=='nonquestions')return;if(questionEllipsisResizeFrame)cancelAnimationFrame(questionEllipsisResizeFrame);questionEllipsisResizeFrame=requestAnimationFrame(()=>{questionEllipsisResizeFrame=0;queueQuestionMoreCheck(state.view)})},{passive:true});
+          if(document.fonts?.ready)document.fonts.ready.then(scheduleQuestionEllipsisLayout).catch(()=>{});
+          document.fonts?.addEventListener?.('loadingdone',scheduleQuestionEllipsisLayout);
+          """
+          app=app[:start]+new_block+app[end:]
+
+          old_typeset="  function parityTypeset(root){if(window.MathJax?.typesetPromise)window.MathJax.typesetPromise([root]).catch(()=>{})}"
+          new_typeset="  function parityTypeset(root){const refresh=()=>{const view=root?.id==='questions-v2'?'questions':root?.id==='nonquestions-v2'?'nonquestions':'';if(view)queueQuestionMoreCheck(view)};if(window.MathJax?.typesetPromise)return window.MathJax.typesetPromise([root]).then(refresh,()=>{});refresh();return Promise.resolve()}"
+          if old_typeset not in app:
+              raise SystemExit('Nenalezen očekávaný parityTypeset blok')
+          app=app.replace(old_typeset,new_typeset,1)
+          app_path.write_text(app,encoding='utf-8')
+
+          index_path=Path('index.html')
+          index=index_path.read_text(encoding='utf-8')
+          old_css='.question-card:not(.open):has(.question-more:not(.hidden)) .question-answer{position:relative}\n.question-card:not(.open):has(.question-more:not(.hidden)) .question-answer::after{content:"...";position:absolute;right:0;bottom:0;width:3.2em;height:1.5em;display:flex;align-items:center;justify-content:flex-end;padding-right:.15rem;background:linear-gradient(90deg,transparent 0,var(--card) 42%);color:var(--ink);font-weight:700;pointer-events:none}'
+          new_css='.question-card .question-answer{position:relative}\n.question-card .question-answer::after{content:none!important}\n.question-ellipsis-v2{position:absolute;z-index:2;display:inline-flex;align-items:center;padding:0 .08em;background:var(--card);color:var(--ink);font-weight:700;line-height:1;white-space:nowrap;pointer-events:none}\n.question-ellipsis-v2[hidden]{display:none!important}'
+          if old_css not in index:
+              raise SystemExit('Nenalezen očekávaný CSS blok výpustky')
+          index=index.replace(old_css,new_css,1)
+          index_path.write_text(index,encoding='utf-8')
+          PY
+
+      - name: Ověřit syntaxi a stávající V2 testy
+        run: |
+          node --check app-v2.js
+          node tools/validate-v2-content.mjs
+          node tools/run-v2-tests.mjs
+
+      - name: Nainstalovat pouze testovací závislosti
+        run: npm install --no-save --no-package-lock jsdom@26 puppeteer-core@24
+
+      - name: Připravit testovací vstup
+        run: cp index.html v2.html
+
+      - name: Ověřit stávající chování otázek
+        run: node tools/test-v2-question-experience.mjs
+
+      - name: Ověřit výpustku na mobilu i po změně sazby
+        run: |
+          cat > /tmp/test-question-ellipsis-final.mjs <<'EOF'
+          import fs from 'node:fs';
+          import http from 'node:http';
+          import path from 'node:path';
+          import puppeteer from 'puppeteer-core';
+          const assert=(condition,message)=>{if(!condition)throw new Error(message)};
+          const root=process.cwd();
+          const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.webmanifest':'application/manifest+json'};
+          const server=http.createServer((request,response)=>{try{const url=new URL(request.url,'http://127.0.0.1'),pathname=decodeURIComponent(url.pathname==='/'?'/v2.html':url.pathname),file=path.resolve(root,'.'+pathname);if(!file.startsWith(root)||!fs.existsSync(file)){response.writeHead(404);response.end('not found');return}response.writeHead(200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream','Cache-Control':'no-store'});fs.createReadStream(file).pipe(response)}catch(error){response.writeHead(500);response.end(String(error))}});
+          await new Promise(resolve=>server.listen(4173,'127.0.0.1',resolve));
+          const executablePath=[process.env.CHROME_PATH,'/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium','/usr/bin/chromium-browser'].filter(Boolean).find(fs.existsSync);
+          assert(executablePath,'Chromium/Chrome nenalezen');
+          const browser=await puppeteer.launch({headless:true,executablePath,args:['--no-sandbox','--disable-dev-shm-usage']});
+          const page=await browser.newPage();await page.setViewport({width:390,height:844,deviceScaleFactor:1,isMobile:true,hasTouch:true});
+          const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+          const inspect=async view=>{
+            await page.click(`.tab-v2[data-view="${view}"]`);await sleep(700);
+            await page.evaluate(view=>{const root=document.querySelector(view==='questions'?'#questions-v2':'#nonquestions-v2');root?.querySelectorAll('.question-answer>ul').forEach(ul=>ul.style.fontSize='1.01em')},view);await sleep(250);
+            return page.evaluate(view=>{
+              const root=document.querySelector(view==='questions'?'#questions-v2':'#nonquestions-v2'),errors=[];let clipped=0,first='';
+              const lastVisible=answer=>{const bounds=answer.getBoundingClientRect(),walker=document.createTreeWalker(answer,NodeFilter.SHOW_TEXT);let best=null;while(walker.nextNode()){const node=walker.currentNode;if(!node.nodeValue?.trim()||node.parentElement?.closest('.question-ellipsis-v2'))continue;const range=document.createRange();range.selectNodeContents(node);for(const rect of range.getClientRects()){if(rect.width<=0||rect.height<=0||rect.top<bounds.top-1||rect.bottom>bounds.bottom+1)continue;if(!best||rect.bottom>best.bottom+1||(Math.abs(rect.bottom-best.bottom)<=1&&rect.right>best.right))best={right:rect.right,top:rect.top}}}return best};
+              for(const card of root.querySelectorAll('.question-card')){const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more'),marker=card.querySelector('.question-ellipsis-v2');if(!answer||!button||button.classList.contains('hidden'))continue;clipped++;if(!first)first=card.dataset.item;if(!marker||marker.hidden){errors.push({item:card.dataset.item,reason:'marker'});continue}const line=lastVisible(answer),box=answer.getBoundingClientRect(),dot=marker.getBoundingClientRect();if(!line){errors.push({item:card.dataset.item,reason:'line'});continue}const expected=Math.min(box.right-dot.width,line.right+2),dx=Math.abs(dot.left-expected),dy=Math.abs(dot.top-line.top);if(dx>5||dy>4||dot.right>box.right+1)errors.push({item:card.dataset.item,dx,dy})}
+              return{cards:root.querySelectorAll('.question-card').length,clipped,errors,first};
+            },view);
+          };
+          try{
+            await page.goto('http://127.0.0.1:4173/v2.html',{waitUntil:'domcontentloaded',timeout:15000});await page.waitForFunction(()=>document.documentElement.dataset.vedatorV2Ready==='1',{timeout:15000});
+            const questions=await inspect('questions'),nonquestions=await inspect('nonquestions');
+            for(const [name,result] of [['questions',questions],['nonquestions',nonquestions]]){assert(result.cards>0,`${name}: žádné karty`);assert(result.clipped>0,`${name}: žádná zkrácená karta`);assert(result.errors.length===0,`${name}: ${JSON.stringify(result.errors.slice(0,5))}`)}
+            await page.click('.tab-v2[data-view="questions"]');await sleep(150);await page.evaluate(id=>document.querySelector(`.question-card[data-item="${CSS.escape(id)}"] .question-more`)?.click(),questions.first);await sleep(100);
+            const visible=await page.evaluate(id=>{const marker=document.querySelector(`.question-card[data-item="${CSS.escape(id)}"] .question-ellipsis-v2`);return Boolean(marker&&!marker.hidden)},questions.first);assert(!visible,'Výpustka zůstala po rozbalení');
+            console.log(JSON.stringify({ok:true,questions:questions.clipped,nonquestions:nonquestions.clipped,layoutChange:true,opensCleanly:true}));
+          }finally{await page.close().catch(()=>{});await browser.close().catch(()=>{});await new Promise(resolve=>server.close(resolve))}
+          EOF
+          node /tmp/test-question-ellipsis-final.mjs
+
+      - name: Ověřit širší mobilní regresi
+        run: node tools/test-v2-mobile-browser.mjs
+
+      - name: Zkontrolovat čistý rozsah změny
+        run: |
+          rm -f v2.html
+          git diff --check
+          changed="$(git diff --name-only | sort)"
+          expected="$(printf '%s\n' app-v2.js index.html | sort)"
+          test "$changed" = "$expected"
+
+      - name: Commitnout pouze ověřenou opravu a odstranit dočasný workflow
+        run: |
+          rm -f .github/workflows/apply-question-ellipsis-final.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- app-v2.js index.html .github/workflows/apply-question-ellipsis-final.yml
+          git commit -m 'Srovnat výpustku otázek s koncem textu'
+          git push
