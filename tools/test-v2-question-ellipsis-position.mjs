@@ -5,7 +5,7 @@ import puppeteer from 'puppeteer-core';
 
 const assert=(condition,message)=>{if(!condition)throw new Error(message)};
 const root=process.cwd();
-const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.webmanifest':'application/manifest+json'};
+const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json','.webmanifest':'application/manifest+json'};
 const server=http.createServer((request,response)=>{
   try{
     const url=new URL(request.url,'http://127.0.0.1'),pathname=decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname),file=path.resolve(root,'.'+pathname);
@@ -21,6 +21,7 @@ const page=await browser.newPage();await page.setViewport({width:390,height:844,
 
 async function inspectView(view){
   await page.click(`.tab-v2[data-view="${view}"]`);await new Promise(resolve=>setTimeout(resolve,1200));
+  await page.evaluate(()=>window.dispatchEvent(new Event('resize')));await new Promise(resolve=>setTimeout(resolve,120));
   return page.evaluate((view)=>{
     const root=document.querySelector(view==='questions'?'#questions-v2':'#nonquestions-v2');
     const lastVisibleRect=answer=>{const bounds=answer.getBoundingClientRect(),walker=document.createTreeWalker(answer,NodeFilter.SHOW_TEXT);let best=null;while(walker.nextNode()){const node=walker.currentNode;if(!node.nodeValue?.trim()||node.parentElement?.closest('.question-ellipsis-v2'))continue;const range=document.createRange();range.selectNodeContents(node);for(const rect of range.getClientRects()){if(rect.width<=0||rect.height<=0||rect.top<bounds.top-1||rect.bottom>bounds.bottom+1)continue;if(!best||rect.bottom>best.bottom+1||(Math.abs(rect.bottom-best.bottom)<=1&&rect.right>best.right))best={right:rect.right,top:rect.top}}}return best};
@@ -36,5 +37,5 @@ try{
   for(const [name,result] of [['questions',questions],['nonquestions',nonquestions]]){assert(result.cards>0,`${name}: žádné karty`);assert(result.clipped>0,`${name}: žádná zkrácená karta`);assert(result.shortWithMarker===0,`${name}: výpustka u krátké odpovědi`);assert(result.errors.length===0,`${name}: ${JSON.stringify(result.errors.slice(0,5))}`)}
   await page.click('.tab-v2[data-view="questions"]');await new Promise(resolve=>setTimeout(resolve,120));await page.evaluate(id=>document.querySelector(`.question-card[data-item="${CSS.escape(id)}"] .question-more`)?.click(),questions.firstClipped);await new Promise(resolve=>setTimeout(resolve,80));
   const markerVisible=await page.evaluate(id=>{const marker=document.querySelector(`.question-card[data-item="${CSS.escape(id)}"] .question-ellipsis-v2`);return Boolean(marker&&!marker.hidden)},questions.firstClipped);assert(!markerVisible,'Výpustka zůstala po otevření');
-  console.log(JSON.stringify({ok:true,questions:{cards:questions.cards,clipped:questions.clipped,maxDx:Number(questions.maxDx.toFixed(2)),maxDy:Number(questions.maxDy.toFixed(2))},nonquestions:{cards:nonquestions.cards,clipped:nonquestions.clipped,maxDx:Number(nonquestions.maxDx.toFixed(2)),maxDy:Number(nonquestions.maxDy.toFixed(2))},opensCleanly:true},null,2));
+  console.log(JSON.stringify({ok:true,questions:{cards:questions.cards,clipped:questions.clipped,maxDx:Number(questions.maxDx.toFixed(2)),maxDy:Number(questions.maxDy.toFixed(2))},nonquestions:{cards:nonquestions.cards,clipped:nonquestions.clipped,maxDx:Number(nonquestions.maxDx.toFixed(2)),maxDy:Number(nonquestions.maxDy.toFixed(2))},opensCleanly:true,diagnosticResize:true},null,2));
 }finally{await page.close().catch(()=>{});await browser.close().catch(()=>{});await new Promise(resolve=>server.close(resolve))}
