@@ -266,8 +266,9 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
 <style id="v2-card-alignment">
 .question-card .tags,.episode-card-v2 .tags{margin-top:auto!important;padding-top:12px!important}
 .episode-card-v2 .episode-summary-slot-v2{margin-top:0!important}
-.question-card:not(.open):has(.question-more:not(.hidden)) .question-answer{position:relative}
-.question-card:not(.open):has(.question-more:not(.hidden)) .question-answer::after{content:"...";position:absolute;right:0;bottom:0;width:3.2em;height:1.5em;display:flex;align-items:center;justify-content:flex-end;padding-right:.15rem;background:linear-gradient(90deg,transparent 0,var(--card) 42%);color:var(--ink);font-weight:700;pointer-events:none}
+.question-card:not(.open) .question-answer{display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:5!important;max-height:none!important;overflow:hidden!important}
+.question-card.open .question-answer{display:block!important;-webkit-line-clamp:unset!important;-webkit-box-orient:initial!important;max-height:none!important}
+.question-card .question-answer::after{content:none!important}
 </style>
 </head>
 <body>
