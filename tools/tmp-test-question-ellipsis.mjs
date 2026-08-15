@@ -30,38 +30,34 @@ try{
   await new Promise(resolve=>setTimeout(resolve,1200));
 
   const result=await page.evaluate(()=>{
-    const lastVisibleRect=answer=>{
-      const bounds=answer.getBoundingClientRect(),walker=document.createTreeWalker(answer,NodeFilter.SHOW_TEXT);let best=null;
+    const textRects=answer=>{
+      const walker=document.createTreeWalker(answer,NodeFilter.SHOW_TEXT),out=[];
       while(walker.nextNode()){
         const node=walker.currentNode;
         if(!node.nodeValue?.trim()||node.parentElement?.closest('.question-ellipsis-v2'))continue;
         const range=document.createRange();range.selectNodeContents(node);
-        for(const rect of range.getClientRects()){
-          if(rect.width<=0||rect.height<=0||rect.top<bounds.top-1||rect.bottom>bounds.bottom+1)continue;
-          if(!best||rect.bottom>best.bottom+1||(Math.abs(rect.bottom-best.bottom)<=1&&rect.right>best.right))best={right:rect.right,top:rect.top};
-        }
+        for(const rect of range.getClientRects())if(rect.width>0&&rect.height>0)out.push({text:node.nodeValue.trim().slice(0,30),left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom});
       }
-      return best;
+      return out;
     };
     for(const card of document.querySelectorAll('#questions-v2 .question-card')){
       const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more'),marker=card.querySelector('.question-ellipsis-v2');
       if(!answer||!button||button.classList.contains('hidden')||!marker||marker.hidden)continue;
-      const line=lastVisibleRect(answer),box=answer.getBoundingClientRect(),dot=marker.getBoundingClientRect();
-      if(line&&line.right<box.right-32)return{item:card.dataset.item,lineRight:line.right,lineTop:line.top,answerRight:box.right,dotLeft:dot.left,dotTop:dot.top,dotRight:dot.right};
+      const box=answer.getBoundingClientRect(),rects=textRects(answer),visible=rects.filter(rect=>rect.top>=box.top-1&&rect.bottom<=box.bottom+1),line=visible.sort((a,b)=>a.bottom-b.bottom||a.right-b.right).at(-1),dot=marker.getBoundingClientRect();
+      if(line&&line.right<box.right-32)return{item:card.dataset.item,lineRight:line.right,lineTop:line.top,answer:{left:box.left,right:box.right,top:box.top,bottom:box.bottom,clientHeight:answer.clientHeight,scrollHeight:answer.scrollHeight},dot:{left:dot.left,right:dot.right,top:dot.top,bottom:dot.bottom,styleLeft:marker.style.left,styleTop:marker.style.top},visibleTail:visible.slice(-8),allTail:rects.slice(-12)};
     }
     return null;
   });
   assert(result,'Nenalezena vhodná zkrácená otázka pro kontrolu výpustky');
-  assert(Math.abs(result.dotLeft-result.lineRight)<=10,`Výpustka není u konce textu: ${JSON.stringify(result)}`);
-  assert(Math.abs(result.dotTop-result.lineTop)<=4,`Výpustka není na stejném řádku: ${JSON.stringify(result)}`);
-  assert(result.dotRight<=result.answerRight+1,`Výpustka přetéká odpověď: ${JSON.stringify(result)}`);
+  const deltaX=Math.abs(result.dot.left-result.lineRight),deltaY=Math.abs(result.dot.top-result.lineTop);
+  if(deltaX>10||deltaY>4||result.dot.right>result.answer.right+1)throw new Error('Diagnostika výpustky: '+JSON.stringify(result));
 
   await page.evaluate(id=>document.querySelector(`.question-card[data-item="${CSS.escape(id)}"] .question-more`)?.click(),result.item);
   await new Promise(resolve=>setTimeout(resolve,80));
   const markerVisibleAfterOpen=await page.evaluate(id=>{const marker=document.querySelector(`.question-card[data-item="${CSS.escape(id)}"] .question-ellipsis-v2`);return Boolean(marker&&!marker.hidden)},result.item);
   assert(!markerVisibleAfterOpen,'Výpustka zůstala po otevření odpovědi');
 
-  console.log(JSON.stringify({ok:true,item:result.item,ellipsisAtTextEnd:true,deltaPx:Number(Math.abs(result.dotLeft-result.lineRight).toFixed(2)),opensCleanly:true},null,2));
+  console.log(JSON.stringify({ok:true,item:result.item,ellipsisAtTextEnd:true,deltaPx:Number(deltaX.toFixed(2)),opensCleanly:true},null,2));
 }finally{
   await page.close().catch(()=>{});
   await browser.close().catch(()=>{});
