@@ -48,17 +48,13 @@ jobs:
             if(article.dataset.lang!==lang) throw new Error(`${lang} data-lang mismatch: ${article.dataset.lang}`);
             if(!title.includes(` ${EP} `)||!h1.includes(` ${EP} `)) throw new Error(`${lang} title/h1 does not name episode ${EP}: ${title} / ${h1}`);
             if(!title.includes('Inovatívne využitia húb')||!h1.includes('Inovatívne využitia húb')) throw new Error(`${lang} title/h1 topic mismatch`);
-            const sections=[...article.querySelectorAll('section.faq')].map(s=>({
-              time:s.dataset.time,
-              title:s.querySelector('h2')?.textContent.trim(),
-              points:[...s.querySelectorAll('li')].map(li=>li.textContent.trim())
-            }));
+            const sections=[...article.querySelectorAll('section.faq')].map(s=>({time:s.dataset.time,title:s.querySelector('h2')?.textContent.trim(),points:[...s.querySelectorAll('li')].map(li=>li.textContent.trim())}));
             return {sections,title,h1};
           }
           (async()=>{
             const cs=await load('cs');
             const sk=await load('sk');
-            if(cs.sections.length!==20||sk.sections.length!==20)throw new Error(`Expected actual 20/20 sections, got ${cs.sections.length}/${sk.sections.length}`);
+            if(cs.sections.length!==21||sk.sections.length!==21)throw new Error(`Expected actual 21/21 sections, got ${cs.sections.length}/${sk.sections.length}`);
             const cst=cs.sections.map(x=>x.time), skt=sk.sections.map(x=>x.time);
             if(JSON.stringify(cst)!==JSON.stringify(skt))throw new Error(`CZ/SK times differ: ${cst} vs ${skt}`);
             if(cs.sections.some(x=>!x.time||!x.title||!x.points.length)||sk.sections.some(x=>!x.time||!x.title||!x.points.length))throw new Error('Incomplete section found');
@@ -99,21 +95,11 @@ jobs:
           const fs=require('fs');
           let p='tools/augment-v2-extra-nonquestions.mjs';
           let s=fs.readFileSync(p,'utf8');
-          s=s.replace(/const EXTRAS=\[([^\]]*)\];/,(_,body)=>{
-            const a=body.split(',').map(x=>Number(x.trim())).filter(Number.isFinite);
-            if(!a.includes(303))a.push(303);
-            a.sort((a,b)=>a-b);
-            return `const EXTRAS=[${a.join(',')}];`;
-          });
+          s=s.replace(/const EXTRAS=\[([^\]]*)\];/,(_,body)=>{const a=body.split(',').map(x=>Number(x.trim())).filter(Number.isFinite);if(!a.includes(303))a.push(303);a.sort((a,b)=>a-b);return `const EXTRAS=[${a.join(',')}];`;});
           fs.writeFileSync(p,s);
           p='tools/test-content-v2.mjs';
           s=fs.readFileSync(p,'utf8');
-          s=s.replace(/for\(const n of \[([^\]]*)\]\)\{/,(_,body)=>{
-            const a=body.split(',').map(x=>Number(x.trim())).filter(Number.isFinite);
-            if(!a.includes(303))a.push(303);
-            a.sort((a,b)=>a-b);
-            return `for(const n of [${a.join(',')}]){`;
-          });
+          s=s.replace(/for\(const n of \[([^\]]*)\]\)\{/,(_,body)=>{const a=body.split(',').map(x=>Number(x.trim())).filter(Number.isFinite);if(!a.includes(303))a.push(303);a.sort((a,b)=>a-b);return `for(const n of [${a.join(',')}]){`;});
           fs.writeFileSync(p,s);
           NODE
       - name: Build V2 and verify scope
@@ -139,7 +125,7 @@ jobs:
           const d=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
           const e=d.nonquestions?.episodes?.['303'];
           if(!e)throw new Error('Episode 303 missing in content-v2');
-          if(e.cs?.length!==20||e.sk?.length!==20)throw new Error(`Unexpected 303 counts ${e.cs?.length}/${e.sk?.length}`);
+          if(e.cs?.length!==21||e.sk?.length!==21)throw new Error(`Unexpected 303 counts ${e.cs?.length}/${e.sk?.length}`);
           if(JSON.stringify(e.cs.map(x=>x.time))!==JSON.stringify(e.sk.map(x=>x.time)))throw new Error('303 CZ/SK times differ in content-v2');
           if(d.nonquestions?.episodes?.['316'])throw new Error('Episode 316 unexpectedly returned');
           NODE
