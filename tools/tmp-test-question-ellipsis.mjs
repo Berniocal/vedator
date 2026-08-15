@@ -27,7 +27,7 @@ try{
   await page.goto('http://127.0.0.1:4173/v2.html',{waitUntil:'domcontentloaded',timeout:15000});
   await page.waitForFunction(()=>document.documentElement.dataset.vedatorV2Ready==='1',{timeout:15000});
   await page.click('.tab-v2[data-view="questions"]');
-  await new Promise(resolve=>setTimeout(resolve,180));
+  await new Promise(resolve=>setTimeout(resolve,1200));
 
   const result=await page.evaluate(()=>{
     const lastVisibleRect=answer=>{
