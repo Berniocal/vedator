@@ -45,10 +45,10 @@ jobs:
           function queueQuestionMoreCheck(view,settle=true){
             requestAnimationFrame(()=>{const root=view==='questions'?$('#questions-v2'):$('#nonquestions-v2');root?.querySelectorAll('.question-card').forEach(card=>{const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more');if(!answer||!button)return;const open=card.classList.contains('open'),marker=answer.querySelector('.question-ellipsis-v2');if(marker)marker.hidden=true;const clipped=!open&&answer.scrollHeight>answer.clientHeight+2;button.classList.toggle('hidden',!open&&!clipped);placeQuestionEllipsis(answer,clipped)})});
             if(settle&&questionMoreSettleView!==view){clearTimeout(questionMoreSettleTimer);questionMoreSettleTimer=0;questionMoreSettleView=view}
-            if(settle&&!questionMoreSettleTimer)questionMoreSettleTimer=setTimeout(()=>{questionMoreSettleTimer=0;questionMoreSettleView='';if(state.view===view)queueQuestionMoreCheck(view,false)},1000);
+            if(settle&&!questionMoreSettleTimer)questionMoreSettleTimer=setTimeout(()=>{questionMoreSettleTimer=0;questionMoreSettleView='';if(state.view===view)window.dispatchEvent(new Event('resize'))},900);
           }
           let questionEllipsisResizeFrame=0;
-          window.addEventListener('resize',()=>{if(state.view!=='questions'&&state.view!=='nonquestions')return;if(questionEllipsisResizeFrame)cancelAnimationFrame(questionEllipsisResizeFrame);questionEllipsisResizeFrame=requestAnimationFrame(()=>{questionEllipsisResizeFrame=0;queueQuestionMoreCheck(state.view)})},{passive:true});
+          window.addEventListener('resize',()=>{if(state.view!=='questions'&&state.view!=='nonquestions')return;if(questionEllipsisResizeFrame)cancelAnimationFrame(questionEllipsisResizeFrame);questionEllipsisResizeFrame=requestAnimationFrame(()=>{questionEllipsisResizeFrame=0;queueQuestionMoreCheck(state.view,false)})},{passive:true});
           const refreshQuestionEllipsis=()=>{if(state.view==='questions'||state.view==='nonquestions')queueQuestionMoreCheck(state.view,false)};
           if(document.fonts?.ready)document.fonts.ready.then(refreshQuestionEllipsis).catch(()=>{});
           document.fonts?.addEventListener?.('loadingdone',refreshQuestionEllipsis);
@@ -102,7 +102,7 @@ jobs:
           const page=await browser.newPage();await page.setViewport({width:390,height:844,deviceScaleFactor:1,isMobile:true,hasTouch:true});
           const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
           const inspect=async view=>{
-            await page.click(`.tab-v2[data-view="${view}"]`);await sleep(1350);
+            await page.click(`.tab-v2[data-view="${view}"]`);await sleep(1250);
             return page.evaluate(view=>{
               const root=document.querySelector(view==='questions'?'#questions-v2':'#nonquestions-v2'),errors=[];let clipped=0,first='';
               const lastVisible=answer=>{const bounds=answer.getBoundingClientRect(),walker=document.createTreeWalker(answer,NodeFilter.SHOW_TEXT);let best=null;while(walker.nextNode()){const node=walker.currentNode;if(!node.nodeValue?.trim()||node.parentElement?.closest('.question-ellipsis-v2'))continue;const range=document.createRange();range.selectNodeContents(node);for(const rect of range.getClientRects()){if(rect.width<=0||rect.height<=0||rect.top<bounds.top-1||rect.bottom>bounds.bottom+1)continue;if(!best||rect.bottom>best.bottom+1||(Math.abs(rect.bottom-best.bottom)<=1&&rect.right>best.right))best={right:rect.right,top:rect.top}}}return best};
