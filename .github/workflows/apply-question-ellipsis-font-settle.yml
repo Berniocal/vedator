@@ -1,4 +1,4 @@
-name: Dočasné ověření výpustky při změně sazby
+name: Dočasné ověření stabilní výpustky
 
 on:
   push:
@@ -12,32 +12,47 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Sledovat změny sazby pouze u vyrenderovaných odpovědí
+      - name: Přepočítat výpustku jen při skutečné změně sazby
         run: |
           python - <<'PY'
           from pathlib import Path
           p=Path('app-v2.js')
           s=p.read_text(encoding='utf-8')
-          if 'const questionEllipsisLayoutObserver=' not in s:
+          if 'const questionEllipsisMutationObserver=' not in s:
               start=s.index('  function queueQuestionMoreCheck(view){')
               end=s.index('  function hashText(value)', start)
               new="""  let questionEllipsisLayoutFrame=0,questionEllipsisObservedRoot=null;
           const questionEllipsisObservedNodes=new Set();
-          const questionEllipsisLayoutObserver=typeof ResizeObserver==='function'?new ResizeObserver(()=>{
+          const scheduleQuestionEllipsisLayout=()=>{
             if((state.view!=='questions'&&state.view!=='nonquestions')||questionEllipsisLayoutFrame)return;
             questionEllipsisLayoutFrame=requestAnimationFrame(()=>{questionEllipsisLayoutFrame=0;queueQuestionMoreCheck(state.view)});
+          };
+          const questionEllipsisLayoutObserver=typeof ResizeObserver==='function'?new ResizeObserver(scheduleQuestionEllipsisLayout):null;
+          const questionEllipsisMutationObserver=typeof MutationObserver==='function'?new MutationObserver(records=>{
+            const meaningful=records.some(record=>{
+              if(record.type==='characterData')return !record.target.parentElement?.closest?.('.question-ellipsis-v2');
+              const changed=[...record.addedNodes,...record.removedNodes];
+              if(!changed.length)return true;
+              return changed.some(node=>!(node.nodeType===1&&node.matches?.('.question-ellipsis-v2')));
+            });
+            if(meaningful)scheduleQuestionEllipsisLayout();
           }):null;
           function syncQuestionEllipsisLayoutObserver(root){
-            if(!questionEllipsisLayoutObserver||!root)return;
-            if(questionEllipsisObservedRoot!==root){questionEllipsisLayoutObserver.disconnect();questionEllipsisObservedNodes.clear();questionEllipsisObservedRoot=root}
-            for(const node of [...questionEllipsisObservedNodes])if(!node.isConnected||!root.contains(node)){questionEllipsisLayoutObserver.unobserve(node);questionEllipsisObservedNodes.delete(node)}
-            root.querySelectorAll('.question-answer>ul').forEach(node=>{if(questionEllipsisObservedNodes.has(node))return;questionEllipsisObservedNodes.add(node);questionEllipsisLayoutObserver.observe(node)});
+            if(!root)return;
+            if(questionEllipsisObservedRoot!==root){
+              questionEllipsisLayoutObserver?.disconnect();questionEllipsisMutationObserver?.disconnect();questionEllipsisObservedNodes.clear();questionEllipsisObservedRoot=root;
+              questionEllipsisMutationObserver?.observe(root,{subtree:true,childList:true,characterData:true});
+            }
+            if(questionEllipsisLayoutObserver)for(const node of [...questionEllipsisObservedNodes])if(!node.isConnected||!root.contains(node)){questionEllipsisLayoutObserver.unobserve(node);questionEllipsisObservedNodes.delete(node)}
+            if(questionEllipsisLayoutObserver)root.querySelectorAll('.question-answer>ul').forEach(node=>{if(questionEllipsisObservedNodes.has(node))return;questionEllipsisObservedNodes.add(node);questionEllipsisLayoutObserver.observe(node)});
           }
           function queueQuestionMoreCheck(view){
             requestAnimationFrame(()=>{const root=view==='questions'?$('#questions-v2'):$('#nonquestions-v2');if(!root)return;root.querySelectorAll('.question-card').forEach(card=>{const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more');if(!answer||!button)return;const open=card.classList.contains('open'),marker=answer.querySelector('.question-ellipsis-v2');if(marker)marker.hidden=true;const clipped=!open&&answer.scrollHeight>answer.clientHeight+2;button.classList.toggle('hidden',!open&&!clipped);placeQuestionEllipsis(answer,clipped)});syncQuestionEllipsisLayoutObserver(root)});
           }
           let questionEllipsisResizeFrame=0;
           window.addEventListener('resize',()=>{if(state.view!=='questions'&&state.view!=='nonquestions')return;if(questionEllipsisResizeFrame)cancelAnimationFrame(questionEllipsisResizeFrame);questionEllipsisResizeFrame=requestAnimationFrame(()=>{questionEllipsisResizeFrame=0;queueQuestionMoreCheck(state.view)})},{passive:true});
+          document.fonts?.addEventListener?.('loadingdone',scheduleQuestionEllipsisLayout);
+          document.fonts?.ready?.then?.(scheduleQuestionEllipsisLayout).catch?.(()=>{});
           """
               s=s[:start]+new+s[end:]
           p.write_text(s,encoding='utf-8')
@@ -56,5 +71,5 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add app-v2.js
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'Přepočítat výpustku při změně sazby odpovědi'
+          git commit -m 'Stabilizovat výpustku při změně sazby odpovědi'
           git push
