@@ -67,8 +67,8 @@ jobs:
             const newText=cs.sections.map(x=>x.title+' '+x.points.join(' ')).join(' ');
             for(const file of fs.readdirSync('.').filter(f=>/^episode-\d+-summary\.js$/.test(f))){
               const n=Number(file.match(/^episode-(\d+)/)[1]);
-              const text=fs.readFileSync(file,'utf8'); const a=text.indexOf('const DATA='), b=text.indexOf(';',a+11); if(a<0||b<0)continue;
-              const data=JSON.parse(text.slice(a+11,b));
+              const text=fs.readFileSync(file,'utf8'); const a=text.indexOf('const DATA='), b=text.lastIndexOf(';'); if(a<0||b<a)continue;
+              let data; try{data=JSON.parse(text.slice(a+11,b))}catch{continue}
               const oldTimes=data.cs?.map(x=>x.time)||[];
               const oldText=(data.cs||[]).map(x=>x.title+' '+(x.points||[]).join(' ')).join(' ');
               const sameTimes=JSON.stringify(oldTimes)===JSON.stringify(ct);
