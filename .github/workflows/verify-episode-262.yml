@@ -22,53 +22,47 @@ jobs:
         run: |
           npm init -y >/dev/null 2>&1
           npm install --no-save jsdom@26 puppeteer-core@24
-      - name: Verify source identity and bilingual structure
+      - name: Verify canonical source and normalize safe serialization
         run: |
           node <<'NODE'
           const fs=require('fs');
           const {JSDOM}=require('jsdom');
           const EP=262;
-          const paths={cs:'262-crevny-mikrobiom.html',sk:'262-crevny-mikrobiom.html'};
-          async function source(lang){
-            const url=`https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/${lang}/${paths[lang]}`;
-            const r=await fetch(url); if(!r.ok)throw new Error(`${lang} HTTP ${r.status}`);
-            const html=await r.text(); const d=new JSDOM(html).window.document;
-            const article=d.querySelector('article.episode-summary');
-            const title=d.querySelector('title')?.textContent||''; const h1=d.querySelector('h1')?.textContent||'';
-            if(!paths[lang].startsWith(`${EP}-`))throw new Error(`${lang} filename mismatch`);
-            if(article?.dataset.episode!==String(EP))throw new Error(`${lang} data-episode mismatch`);
-            if(article?.dataset.lang!==lang)throw new Error(`${lang} lang mismatch`);
-            if(!title.includes(` ${EP} `)||!h1.includes(` ${EP} `)||!title.includes('Črevný mikrobióm')||!h1.includes('Črevný mikrobióm'))throw new Error(`${lang} title/h1 mismatch`);
+          const path='262-crevny-mikrobiom.html';
+          async function load(lang){
+            const r=await fetch(`https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/${lang}/${path}`);
+            if(!r.ok)throw new Error(`${lang} source HTTP ${r.status}`);
+            const d=new JSDOM(await r.text()).window.document;
+            const a=d.querySelector('article.episode-summary');
+            const title=d.querySelector('title')?.textContent||'', h1=d.querySelector('h1')?.textContent||'';
+            if(!path.startsWith(`${EP}-`)||a?.dataset.episode!==String(EP)||a?.dataset.lang!==lang)throw new Error(`${lang} identity mismatch`);
+            if(!title.includes(` ${EP} `)||!h1.includes(` ${EP} `)||!title.includes('Črevný mikrobióm')||!h1.includes('Črevný mikrobióm'))throw new Error(`${lang} title mismatch`);
             return [...d.querySelectorAll('section.faq')].map(s=>({time:s.dataset.time,title:s.querySelector('h2')?.textContent.trim(),points:[...s.querySelectorAll('li')].map(x=>x.textContent.trim())}));
           }
           (async()=>{
-            const cs=await source('cs'), sk=await source('sk');
-            if(cs.length!==23||sk.length!==23)throw new Error(`Expected 23/23 sections, got ${cs.length}/${sk.length}`);
+            const cs=await load('cs'), sk=await load('sk');
+            if(cs.length!==23||sk.length!==23)throw new Error(`Expected 23/23, got ${cs.length}/${sk.length}`);
             if(JSON.stringify(cs.map(x=>x.time))!==JSON.stringify(sk.map(x=>x.time)))throw new Error('CZ/SK times differ');
-            const text=fs.readFileSync('episode-262-summary.js','utf8');
-            const m=text.match(/^const DATA=(.*);\s*$/s); if(!m)throw new Error('DATA parse failed');
-            const data=JSON.parse(m[1]);
-            if(JSON.stringify(data.cs)!==JSON.stringify(cs)||JSON.stringify(data.sk)!==JSON.stringify(sk))throw new Error('Stored DATA differs from canonical HTML');
+            const current=fs.readFileSync('episode-262-summary.js','utf8');
+            const m=current.match(/^const DATA=(.*);\s*$/s); if(!m)throw new Error('DATA parse failed');
+            const existing=JSON.parse(m[1]);
+            if(JSON.stringify(existing.cs)!==JSON.stringify(cs)||JSON.stringify(existing.sk)!==JSON.stringify(sk))throw new Error('Stored DATA differs from canonical HTML');
+            fs.writeFileSync('episode-262-summary.js',`const DATA=${JSON.stringify(existing).replaceAll(';','\\u003b')};\n`);
             const catalog=JSON.parse(fs.readFileSync('episodes.json','utf8'));
             const ep=catalog.episodes.find(e=>Number(e.number)===EP);
-            if(!ep||!ep.title.includes(` ${EP} `)||!ep.title.includes('Črevný mikrobióm'))throw new Error(`Production catalog mismatch: ${ep?.title}`);
-            const aug=fs.readFileSync('tools/augment-v2-extra-nonquestions.mjs','utf8');
-            if(!/const EXTRAS=\[[^\]]*\b262\b/.test(aug))throw new Error('262 not registered in EXTRAS');
-            console.log(`Verified ${EP}: ${cs.length} CZ + ${sk.length} SK, canonical content exact`);
+            if(!ep||!ep.title.includes(` ${EP} `)||!ep.title.includes('Črevný mikrobióm'))throw new Error(`Catalog mismatch: ${ep?.title}`);
+            console.log(`Verified ${EP}: ${cs.length} CZ + ${sk.length} SK; safe serialization normalized`);
           })().catch(e=>{console.error(e);process.exit(1)});
           NODE
-      - name: Check for obvious duplicate among existing summaries
+      - name: Check duplicate
         run: |
           node <<'NODE'
           const fs=require('fs');
-          const text=fs.readFileSync('episode-262-summary.js','utf8');
-          const data=JSON.parse(text.match(/^const DATA=(.*);\s*$/s)[1]);
-          const times=JSON.stringify(data.cs.map(x=>x.time));
-          const titles=JSON.stringify(data.cs.map(x=>x.title));
+          const parse=f=>JSON.parse(fs.readFileSync(f,'utf8').match(/^const DATA=(.*);\s*$/s)[1]);
+          const data=parse('episode-262-summary.js'), times=JSON.stringify(data.cs.map(x=>x.time)), titles=JSON.stringify(data.cs.map(x=>x.title));
           for(const f of fs.readdirSync('.').filter(f=>/^episode-\d+-summary\.js$/.test(f)&&f!=='episode-262-summary.js')){
-            const t=fs.readFileSync(f,'utf8'); const m=t.match(/^const DATA=(.*);\s*$/s); if(!m)continue;
-            const d=JSON.parse(m[1]);
-            if(JSON.stringify(d.cs?.map(x=>x.time))===times && JSON.stringify(d.cs?.map(x=>x.title))===titles)throw new Error(`Obvious duplicate: ${f}`);
+            const d=parse(f);
+            if(JSON.stringify(d.cs?.map(x=>x.time))===times&&JSON.stringify(d.cs?.map(x=>x.title))===titles)throw new Error(`Duplicate with ${f}`);
           }
           console.log('No exact time+title duplicate found');
           NODE
@@ -88,11 +82,10 @@ jobs:
           test "$INDEX_SHA" = "$(sha256sum index.html | cut -d' ' -f1)"
           GROWTH=$((AFTER_SIZE-BEFORE_SIZE)); echo "content-v2 growth: $GROWTH bytes"; test "$GROWTH" -gt 0; test "$GROWTH" -lt 150000
           node <<'NODE'
-          const d=JSON.parse(require('fs').readFileSync('content-v2.json','utf8'));
-          const e=d.nonquestions?.episodes?.['262']; if(!e)throw new Error('262 missing from content-v2');
-          if(e.cs?.length!==23||e.sk?.length!==23)throw new Error(`Unexpected 262 counts ${e.cs?.length}/${e.sk?.length}`);
-          if(JSON.stringify(e.cs.map(x=>x.time))!==JSON.stringify(e.sk.map(x=>x.time)))throw new Error('262 times differ in content-v2');
-          if(d.nonquestions?.episodes?.['316'])throw new Error('Episode 316 unexpectedly returned');
+          const d=JSON.parse(require('fs').readFileSync('content-v2.json','utf8')), e=d.nonquestions?.episodes?.['262'];
+          if(!e||e.cs?.length!==23||e.sk?.length!==23)throw new Error('262 missing or count mismatch');
+          if(JSON.stringify(e.cs.map(x=>x.time))!==JSON.stringify(e.sk.map(x=>x.time)))throw new Error('262 times differ');
+          if(d.nonquestions?.episodes?.['316'])throw new Error('316 unexpectedly present');
           NODE
       - name: Run relevant V2 tests
         run: |
@@ -108,12 +101,16 @@ jobs:
           node tools/test-v2-mobile-browser-playlist.mjs
           node tools/test-v2-real-readmore-browser.mjs
           rm -f v2.html
-      - name: Commit rebuilt content only
+      - name: Commit verified episode files
         run: |
           rm -f package.json package-lock.json v2.html
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- content-v2.json
-          test "$(git diff --cached --name-only)" = "content-v2.json"
-          git commit -m 'Rebuild V2 content for episode 262'
+          git add -- episode-262-summary.js content-v2.json
+          NAMES=$(git diff --cached --name-only)
+          echo "$NAMES"
+          echo "$NAMES" | grep -qx 'content-v2.json'
+          echo "$NAMES" | grep -qx 'episode-262-summary.js'
+          test "$(echo "$NAMES" | wc -l)" -eq 2
+          git commit -m 'Finalize bilingual summary for episode 262'
           git push
