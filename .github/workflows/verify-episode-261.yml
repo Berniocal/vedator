@@ -1,0 +1,65 @@
+name: Verify episode 261
+
+on:
+  push:
+    branches: [episode-261-summary]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test dependencies
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save jsdom@26 puppeteer-core@24
+      - name: Verify source data and build
+        run: |
+          APP_SHA=$(sha256sum app-v2.js | cut -d' ' -f1)
+          INDEX_SHA=$(sha256sum index.html | cut -d' ' -f1)
+          node - <<'NODE'
+          const fs=require('fs');
+          const src=fs.readFileSync('episode-261-summary.js','utf8');
+          const from=src.indexOf('const DATA=')+'const DATA='.length;
+          const end=src.indexOf(';',from);
+          const d=JSON.parse(src.slice(from,end));
+          if(d.cs.length!==15||d.sk.length!==15)throw new Error(`Unexpected counts ${d.cs.length}/${d.sk.length}`);
+          if(JSON.stringify(d.cs.map(x=>x.time))!==JSON.stringify(d.sk.map(x=>x.time)))throw new Error('CZ/SK times differ');
+          if(d.cs.some(x=>!x.time||!x.title||!x.points?.length)||d.sk.some(x=>!x.time||!x.title||!x.points?.length))throw new Error('Incomplete section');
+          console.log('Episode 261 source: 15 CZ + 15 SK, matching times');
+          NODE
+          node --check app-v2.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          test "$APP_SHA" = "$(sha256sum app-v2.js | cut -d' ' -f1)"
+          test "$INDEX_SHA" = "$(sha256sum index.html | cut -d' ' -f1)"
+          node - <<'NODE'
+          const fs=require('fs');
+          const d=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
+          const e=d.nonquestions?.episodes?.['261'];
+          if(!e)throw new Error('Episode 261 missing from built content-v2');
+          if(e.cs?.length!==15||e.sk?.length!==15)throw new Error('Episode 261 count mismatch in built content-v2');
+          if(d.nonquestions?.episodes?.['316'])throw new Error('Episode 316 unexpectedly present');
+          NODE
+      - name: Run relevant V2 tests
+        run: |
+          cp index.html v2.html
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/test-app-v2.mjs
+          node tools/test-v2-question-experience.mjs
+          node tools/test-v2-full-parity.mjs
+          node tools/test-v2-playlist-parity.mjs
+          node tools/test-v2-mobile-deep-polish.mjs
+          node tools/test-v2-mobile-browser.mjs
+          node tools/test-v2-mobile-browser-playlist.mjs
+          node tools/test-v2-real-readmore-browser.mjs
