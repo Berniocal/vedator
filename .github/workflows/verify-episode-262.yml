@@ -58,10 +58,15 @@ jobs:
         run: |
           node <<'NODE'
           const fs=require('fs');
-          const parse=f=>JSON.parse(fs.readFileSync(f,'utf8').match(/^const DATA=(.*);\s*$/s)[1]);
-          const data=parse('episode-262-summary.js'), times=JSON.stringify(data.cs.map(x=>x.time)), titles=JSON.stringify(data.cs.map(x=>x.title));
+          function parse(f){
+            const m=fs.readFileSync(f,'utf8').match(/^const DATA=(.*);\s*$/s);
+            if(!m)return null;
+            try{return JSON.parse(m[1])}catch{return null}
+          }
+          const data=parse('episode-262-summary.js'); if(!data)throw new Error('Cannot parse episode 262');
+          const times=JSON.stringify(data.cs.map(x=>x.time)), titles=JSON.stringify(data.cs.map(x=>x.title));
           for(const f of fs.readdirSync('.').filter(f=>/^episode-\d+-summary\.js$/.test(f)&&f!=='episode-262-summary.js')){
-            const d=parse(f);
+            const d=parse(f); if(!d)continue;
             if(JSON.stringify(d.cs?.map(x=>x.time))===times&&JSON.stringify(d.cs?.map(x=>x.title))===titles)throw new Error(`Duplicate with ${f}`);
           }
           console.log('No exact time+title duplicate found');
