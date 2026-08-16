@@ -1,4 +1,4 @@
-const APP_CACHE="vedator-v2-app-c1b70cdd63a8f2c5";
+const APP_CACHE="vedator-v2-app-b48d6586f4efccc6";
 const APP_URLS=["./","./index.html","./app-v2.js","./content-v2.json","./manifest.webmanifest","./icon.svg","./icon-192.png","./icon-512.png"];
 const OFFLINE_AUDIO_CACHE="vedator-offline-audio-v1";
 self.addEventListener('install',e=>e.waitUntil((async()=>{const c=await caches.open(APP_CACHE);await c.addAll(APP_URLS.map(u=>new Request(u,{cache:'reload'})));await self.skipWaiting()})()));
