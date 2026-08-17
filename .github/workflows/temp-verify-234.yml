@@ -54,8 +54,10 @@ jobs:
           const sig=JSON.stringify(cs.map(x=>[x.time,x.title,x.points]));
           for(const p of ['/tmp/233-cs.html','/tmp/235-cs.html'])if(sig===JSON.stringify(parseAny(p).map(x=>[x.time,x.title,x.points])))throw new Error(`Suspicious exact duplicate: ${p}`);
           const payload={cs,sk};
-          fs.writeFileSync('episode-234-summary.js',`const DATA=${JSON.stringify(payload)};\n`);
-          JSON.parse(fs.readFileSync('episode-234-summary.js','utf8').slice('const DATA='.length,-2));
+          const json=JSON.stringify(payload).replace(/;/g,'\\u003b');
+          fs.writeFileSync('episode-234-summary.js',`const DATA=${json};\n`);
+          const roundtrip=JSON.parse(fs.readFileSync('episode-234-summary.js','utf8').slice('const DATA='.length,-2));
+          if(JSON.stringify(roundtrip)!==JSON.stringify(payload))throw new Error('Serialized content differs after roundtrip');
           let a=fs.readFileSync('tools/augment-v2-extra-nonquestions.mjs','utf8');
           if(!a.includes('const EXTRAS=['))throw new Error('EXTRAS marker missing');
           if(!/const EXTRAS=\[[^\]]*235/.test(a))throw new Error('Unexpected EXTRAS layout');
