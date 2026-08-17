@@ -1,0 +1,66 @@
+name: TEMP verify episode 243
+
+on:
+  push:
+    branches: [add-summary-243]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: add-summary-243
+      - name: Build exact bilingual source data and register episode
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const https=require('https');
+          const get=url=>new Promise((resolve,reject)=>https.get(url,r=>{let s='';r.setEncoding('utf8');r.on('data',d=>s+=d);r.on('end',()=>r.statusCode===200?resolve(s):reject(new Error(`HTTP ${r.statusCode} ${url}`)));}).on('error',reject));
+          const decode=s=>s.replace(/<[^>]*>/g,'').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n))).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16))).trim();
+          const parse=html=>[...html.matchAll(/<section class="faq" data-time="([^"]+)">\s*<h2>([\s\S]*?)<\/h2>\s*<ul>([\s\S]*?)<\/ul>\s*<\/section>/g)].map(m=>({time:m[1],title:decode(m[2]),points:[...m[3].matchAll(/<li>([\s\S]*?)<\/li>/g)].map(x=>decode(x[1]))}));
+          (async()=>{
+            const csHtml=await get('https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/243-foteni-nejen-perzeid.html');
+            const skHtml=await get('https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/243-fotenie-nielen-perzeid.html');
+            for(const [lang,html] of [['cs',csHtml],['sk',skHtml]]){
+              if(!html.includes('data-episode="243"')||!html.match(/<title>[^<]*243[^<]*<\/title>/)||!html.match(/<h1>[^<]*243[^<]*<\/h1>/))throw new Error(`${lang}: episode identity mismatch`);
+            }
+            const data={cs:parse(csHtml),sk:parse(skHtml)};
+            if(data.cs.length!==19||data.sk.length!==19)throw new Error(`FAQ count ${data.cs.length}/${data.sk.length}`);
+            const ct=data.cs.map(x=>x.time),st=data.sk.map(x=>x.time);
+            if(JSON.stringify(ct)!==JSON.stringify(st))throw new Error('CZ/SK timestamps differ');
+            if(data.cs.some(x=>x.points.length<3||x.points.length>4)||data.sk.some(x=>x.points.length<3||x.points.length>4))throw new Error('Unexpected points count');
+            const json=JSON.stringify(data).replace(/;/g,'\\u003b');
+            fs.writeFileSync('episode-243-summary.js',`const DATA=${json};\n`);
+            const parsed=JSON.parse(fs.readFileSync('episode-243-summary.js','utf8').slice('const DATA='.length,-2));
+            if(JSON.stringify(parsed)!==JSON.stringify(data))throw new Error('Serialization roundtrip differs');
+            for(const file of ['tools/augment-v2-extra-nonquestions.mjs','tools/test-content-v2.mjs']){
+              let s=fs.readFileSync(file,'utf8');
+              if(s.includes('[243,245,'))continue;
+              if(!s.includes('[245,246,'))throw new Error(`${file}: insertion anchor missing`);
+              s=s.replace('[245,246,','[243,245,246,');
+              fs.writeFileSync(file,s);
+            }
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add episode-243-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
+          git commit -m 'Add episode 243 summary integration'
+          git push origin HEAD:add-summary-243
+      - name: Verify V2 summary integration
+        run: |
+          node --check app-v2.js
+          node --check episode-243-summary.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
