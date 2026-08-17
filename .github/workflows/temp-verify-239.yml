@@ -1,0 +1,75 @@
+name: TEMP verify episode 239
+
+on:
+  push:
+    branches: [add-summary-239]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build episode 239 summary from canonical CZ/SK HTML
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const https=require('https');
+          const get=url=>new Promise((resolve,reject)=>https.get(url,r=>{let s='';r.setEncoding('utf8');r.on('data',d=>s+=d);r.on('end',()=>resolve(s));r.on('error',reject)}));
+          const decode=s=>s.replace(/&quot;/g,'"').replace(/&#39;|&apos;/g,"'").replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&#(\d+);/g,(_,n)=>String.fromCharCode(Number(n))).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCharCode(parseInt(n,16)));
+          function parse(html,episode,lang){
+            if(!html.includes(`data-episode="${episode}"`)||!html.includes(`data-lang="${lang}"`))throw new Error(`metadata mismatch ${lang}`);
+            const title=(html.match(/<title>(.*?)<\/title>/s)||[])[1]||'';
+            const h1=(html.match(/<h1>(.*?)<\/h1>/s)||[])[1]||'';
+            if(!title.includes(String(episode))||!h1.includes(String(episode)))throw new Error(`title/h1 mismatch ${lang}`);
+            const out=[]; const re=/<section class="faq" data-time="([^"]+)"><h2>(.*?)<\/h2><ul>(.*?)<\/ul><\/section>/gs;
+            for(const m of html.matchAll(re)){
+              const points=[...m[3].matchAll(/<li>(.*?)<\/li>/gs)].map(x=>decode(x[1].replace(/<[^>]+>/g,'')));
+              out.push({time:m[1],title:decode(m[2].replace(/<[^>]+>/g,'')),points});
+            }
+            if(out.length!==9)throw new Error(`${lang} expected 9 sections, got ${out.length}`);
+            return out;
+          }
+          (async()=>{
+            const base='https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti';
+            const cs=parse(await get(`${base}/cs/239-warpovy-pohon.html`),239,'cs');
+            const sk=parse(await get(`${base}/sk/239-warpovy-pohon.html`),239,'sk');
+            if(cs.map(x=>x.time).join('|')!==sk.map(x=>x.time).join('|'))throw new Error('CZ/SK times differ');
+            const t238=parseAny(await get(`${base}/cs/238-kip-thorne-starmus-interview.html`));
+            const t240=parseAny(await get(`${base}/cs/240-carole-mundell-starmus-interview.html`));
+            const sig=x=>x.map(v=>v.time+'|'+v.title).join('\n');
+            if(sig(cs)===sig(t238)||sig(cs)===sig(t240))throw new Error('Suspicious duplicate of neighbor');
+            let json=JSON.stringify({cs,sk}).replace(/;/g,'\\u003b');
+            fs.writeFileSync('episode-239-summary.js',`const DATA=${json};\n`);
+            let a=fs.readFileSync('tools/augment-v2-extra-nonquestions.mjs','utf8');
+            a=a.replace('const EXTRAS=[240,','const EXTRAS=[239,240,');
+            fs.writeFileSync('tools/augment-v2-extra-nonquestions.mjs',a);
+            let t=fs.readFileSync('tools/test-content-v2.mjs','utf8');
+            t=t.replace('for(const n of [240,','for(const n of [239,240,');
+            fs.writeFileSync('tools/test-content-v2.mjs',t);
+            function parseAny(html){const out=[];const re=/<section class="faq" data-time="([^"]+)"><h2>(.*?)<\/h2>/gs;for(const m of html.matchAll(re))out.push({time:m[1],title:decode(m[2].replace(/<[^>]+>/g,''))});return out;}
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+      - name: Verify V2 summary integration
+        run: |
+          node --check app-v2.js
+          node --check episode-239-summary.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
+      - name: Commit verified episode and remove temporary workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/temp-verify-239.yml
+          git add -- episode-239-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
+          git commit -m 'Add verified episode 239 summary'
+          git push
