@@ -14,18 +14,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Generate canonical episode 240 data from CZ/SK HTML
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           node <<'NODE'
           const fs=require('fs');
           const sources={
-            cs:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/240-carole-mundell-starmus-interview.html',
-            sk:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/240-carole-mundell-starmus-interview.html'
+            cs:'https://api.github.com/repos/Berniocal/vedator-test/contents/shrnuti/cs/240-carole-mundell-starmus-interview.html?ref=main',
+            sk:'https://api.github.com/repos/Berniocal/vedator-test/contents/shrnuti/sk/240-carole-mundell-starmus-interview.html?ref=main'
           };
           const decode=s=>s
             .replace(/&quot;/g,'"').replace(/&apos;|&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&')
             .replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n))).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16)));
+          async function getHtml(url){
+            const r=await fetch(url,{headers:{Accept:'application/vnd.github+json','User-Agent':'vedator-summary-automation'}});
+            if(!r.ok)throw new Error(`GitHub API ${r.status}`);
+            const j=await r.json();
+            return Buffer.from(j.content,'base64').toString('utf8');
+          }
           async function parse(url,lang){
-            const html=await (await fetch(url)).text();
+            const html=await getHtml(url);
             if(!html.includes(`data-episode="240"`)||!html.includes(`data-lang="${lang}"`))throw new Error(`Wrong ${lang} metadata`);
             const out=[];
             const re=/<section class="faq" data-time="([^"]+)"><h2>([\s\S]*?)<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g;
