@@ -1,0 +1,114 @@
+name: TEMP verify episode 246
+
+on:
+  push:
+    branches: [add-summary-246]
+    paths:
+      - '.github/workflows/temp-verify-246.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: add-summary-246
+      - name: Generate canonical episode 246 data and register it
+        run: |
+          python - <<'PY'
+          import html, json, re, urllib.request
+          from difflib import SequenceMatcher
+          from pathlib import Path
+
+          EP=246
+          BASE='https://raw.githubusercontent.com/Berniocal/vedator-test/main/'
+          paths={
+            'cs':'shrnuti/cs/246-interview-with-stefano-buono.html',
+            'sk':'shrnuti/sk/246-interview-with-stefano-buono.html',
+            'prev':'shrnuti/cs/245-teorie-her-4-nahodnost.html',
+            'next':'shrnuti/cs/247-fosfor.html',
+          }
+          def get(path):
+            req=urllib.request.Request(BASE+path,headers={'User-Agent':'VedatorSummaryCI/1.0'})
+            with urllib.request.urlopen(req,timeout=60) as r:return r.read().decode('utf-8')
+          def clean(s):
+            s=re.sub(r'<[^>]+>','',s)
+            return html.unescape(s).strip()
+          def parse(doc,lang):
+            m=re.search(r'<article\s+class="episode-summary"[^>]*data-episode="(\d+)"[^>]*data-lang="([^"]+)"',doc)
+            if not m or int(m.group(1))!=EP or m.group(2)!=lang: raise SystemExit(f'Bad episode/lang header for {lang}')
+            title=re.search(r'<title>(.*?)</title>',doc,re.S)
+            h1=re.search(r'<h1>(.*?)</h1>',doc,re.S)
+            if not title or not h1 or '246' not in clean(title.group(1)) or '246' not in clean(h1.group(1)): raise SystemExit(f'Bad title/h1 for {lang}')
+            rows=[]
+            for sm in re.finditer(r'<section\s+class="faq"\s+data-time="([^"]+)">\s*<h2>(.*?)</h2>\s*<ul>(.*?)</ul>\s*</section>',doc,re.S):
+              points=[clean(x) for x in re.findall(r'<li>(.*?)</li>',sm.group(3),re.S)]
+              rows.append({'time':sm.group(1),'title':clean(sm.group(2)),'points':points})
+            return rows
+          def times(doc): return re.findall(r'<section\s+class="faq"\s+data-time="([^"]+)"',doc)
+          def text(doc): return ' '.join(clean(x) for x in re.findall(r'<h2>(.*?)</h2>|<li>(.*?)</li>',doc,re.S) for x in x if x)
+
+          docs={k:get(v) for k,v in paths.items()}
+          data={'cs':parse(docs['cs'],'cs'),'sk':parse(docs['sk'],'sk')}
+          if len(data['cs'])!=14 or len(data['sk'])!=14: raise SystemExit(f'Expected 14+14 FAQ, got {len(data["cs"])}+{len(data["sk"])}')
+          if [x['time'] for x in data['cs']] != [x['time'] for x in data['sk']]: raise SystemExit('CZ/SK timestamps differ')
+          for lang in ('cs','sk'):
+            if any(len(x['points']) not in (3,4) for x in data[lang]): raise SystemExit(f'Unexpected point count in {lang}')
+
+          # Duplicate guard against neighboring eligible summaries.
+          cur_times=[x['time'] for x in data['cs']]
+          cur_text=' '.join(x['title']+' '+' '.join(x['points']) for x in data['cs'])
+          for label in ('prev','next'):
+            nt=times(docs[label])
+            ntxt=re.sub(r'\s+',' ',re.sub(r'<[^>]+>',' ',docs[label])).strip()
+            ratio=SequenceMatcher(None,cur_text.lower(),ntxt.lower()).ratio()
+            if cur_times==nt or ratio>0.82: raise SystemExit(f'Suspicious duplicate versus {label}: ratio={ratio:.3f}')
+
+          catalog=json.loads(Path('episodes.json').read_text(encoding='utf-8'))
+          eps=catalog.get('episodes',catalog if isinstance(catalog,list) else [])
+          if not any(int(e.get('number',-1))==EP for e in eps): raise SystemExit('Episode 246 missing from production catalog')
+
+          payload=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace(';','\\u003b')
+          # round-trip proves technical escaping preserves decoded source text
+          if json.loads(payload)!=data: raise SystemExit('Serialization round-trip mismatch')
+          Path(f'episode-{EP}-summary.js').write_text('const DATA='+payload+';\n',encoding='utf-8')
+
+          aug=Path('tools/augment-v2-extra-nonquestions.mjs')
+          s=aug.read_text(encoding='utf-8')
+          if 'const EXTRAS=[246,' not in s:
+            s=s.replace('const EXTRAS=[','const EXTRAS=[246,',1)
+          aug.write_text(s,encoding='utf-8')
+
+          test=Path('tools/test-content-v2.mjs')
+          s=test.read_text(encoding='utf-8')
+          marker='for(const n of ['
+          pos=s.find(marker)
+          if pos<0: raise SystemExit('Nonquestion test list marker missing')
+          start=pos+len(marker)
+          if not re.match(r'246(?:,|\])',s[start:]): s=s[:start]+'246,'+s[start:]
+          test.write_text(s,encoding='utf-8')
+          print('Generated exact bilingual episode 246 data; 14+14 FAQ; timestamps match; duplicate guard passed.')
+          PY
+      - name: Verify V2 summary integration
+        run: |
+          node --check app-v2.js
+          node --check episode-246-summary.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
+      - name: Commit verified target files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- episode-246-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
+          git commit -m 'Add episode 246 summary data and V2 registration'
+          git push origin HEAD:add-summary-246
