@@ -1,0 +1,67 @@
+name: TEMP verify episode 240
+
+on:
+  push:
+    branches: [add-summary-240]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate canonical episode 240 data from CZ/SK HTML
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const sources={
+            cs:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/240-carole-mundell-starmus-interview.html',
+            sk:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/240-carole-mundell-starmus-interview.html'
+          };
+          const decode=s=>s
+            .replace(/&quot;/g,'"').replace(/&apos;|&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&')
+            .replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n))).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16)));
+          async function parse(url,lang){
+            const html=await (await fetch(url)).text();
+            if(!html.includes(`data-episode="240"`)||!html.includes(`data-lang="${lang}"`))throw new Error(`Wrong ${lang} metadata`);
+            const out=[];
+            const re=/<section class="faq" data-time="([^"]+)"><h2>([\s\S]*?)<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g;
+            for(const m of html.matchAll(re)){
+              const points=[...m[3].matchAll(/<li>([\s\S]*?)<\/li>/g)].map(x=>decode(x[1]));
+              out.push({time:m[1],title:decode(m[2]),points});
+            }
+            return out;
+          }
+          (async()=>{
+            const data={cs:await parse(sources.cs,'cs'),sk:await parse(sources.sk,'sk')};
+            if(data.cs.length!==10||data.sk.length!==10)throw new Error(`Expected 10+10, got ${data.cs.length}+${data.sk.length}`);
+            const ct=data.cs.map(x=>x.time).join('|'), st=data.sk.map(x=>x.time).join('|');
+            if(ct!==st)throw new Error('CZ/SK times differ');
+            const json=JSON.stringify(data).replace(/;/g,'\\u003b');
+            fs.writeFileSync('episode-240-summary.js',`const DATA=${json};\n`);
+            const round=JSON.parse(fs.readFileSync('episode-240-summary.js','utf8').slice('const DATA='.length,-2));
+            if(JSON.stringify(round)!==JSON.stringify(data))throw new Error('Serialization round-trip mismatch');
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+      - name: Verify V2 summary integration
+        run: |
+          node --check app-v2.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
+      - name: Commit canonical summary data
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add episode-240-summary.js
+          git commit -m 'Add episode 240 summary data'
+          git push
