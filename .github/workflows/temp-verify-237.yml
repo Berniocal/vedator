@@ -1,0 +1,71 @@
+name: TEMP verify episode 237
+
+on:
+  push:
+    branches: [add-summary-237]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: add-summary-237
+      - name: Build canonical episode 237 data from CZ/SK sources
+        run: |
+          python - <<'PY'
+          import json, re, urllib.request
+          from html.parser import HTMLParser
+
+          URLS={
+            'cs':'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/237-rozpad-protonu.html',
+            'sk':'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/237-rozpad-protonu.html'
+          }
+          class P(HTMLParser):
+            def __init__(self):
+              super().__init__(); self.sections=[]; self.cur=None; self.tag=None; self.buf=''
+            def handle_starttag(self, tag, attrs):
+              a=dict(attrs)
+              if tag=='section' and a.get('class')=='faq': self.cur={'time':a.get('data-time'),'title':'','points':[]}
+              if self.cur is not None and tag in ('h2','li'): self.tag=tag; self.buf=''
+            def handle_data(self,data):
+              if self.tag: self.buf+=data
+            def handle_endtag(self,tag):
+              if self.cur is not None and tag==self.tag:
+                text=' '.join(self.buf.split())
+                if tag=='h2': self.cur['title']=text
+                elif tag=='li': self.cur['points'].append(text)
+                self.tag=None; self.buf=''
+              if tag=='section' and self.cur is not None: self.sections.append(self.cur); self.cur=None
+          out={}
+          for lang,url in URLS.items():
+            html=urllib.request.urlopen(url,timeout=30).read().decode('utf-8')
+            if 'data-episode="237"' not in html: raise SystemExit(f'bad episode metadata {lang}')
+            p=P(); p.feed(html); out[lang]=p.sections
+          if len(out['cs'])!=7 or len(out['sk'])!=7: raise SystemExit(f'bad section counts {len(out["cs"])} {len(out["sk"])}')
+          if [x['time'] for x in out['cs']] != [x['time'] for x in out['sk']]: raise SystemExit('CZ/SK times differ')
+          raw=json.dumps(out,ensure_ascii=False,separators=(',',':')).replace(';','\\u003b')
+          open('episode-237-summary.js','w',encoding='utf-8').write('const DATA='+raw+';\n')
+          PY
+          node --check episode-237-summary.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
+      - name: Commit generated canonical summary
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- episode-237-summary.js
+          if ! git diff --cached --quiet; then
+            git commit -m 'Add episode 237 summary data'
+            git push origin HEAD:add-summary-237
+          fi
