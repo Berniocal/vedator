@@ -55,7 +55,8 @@ jobs:
             assert all(x['time'] and x['title'] and 3 <= len(x['points']) <= 4 for x in p.sections)
             data[lang]=p.sections
           assert [x['time'] for x in data['cs']]==[x['time'] for x in data['sk']]
-          Path('episode-250-summary.js').write_text('const DATA='+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';\n',encoding='utf-8')
+          payload=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace(';','\\u003b')
+          Path('episode-250-summary.js').write_text('const DATA='+payload+';\n',encoding='utf-8')
 
           p=Path('tools/augment-v2-extra-nonquestions.mjs'); s=p.read_text(encoding='utf-8')
           if 'const EXTRAS=[250,' not in s: s=s.replace('const EXTRAS=[251,','const EXTRAS=[250,251,')
