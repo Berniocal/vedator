@@ -1,0 +1,90 @@
+name: TEMP verify episode 249
+
+on:
+  push:
+    branches: [add-summary-249]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build canonical episode 249 data
+        run: |
+          python - <<'PY'
+          import html, json, re, urllib.request
+          EP=249
+          sources={
+            'cs':'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/249-topologie.html',
+            'sk':'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/249-topologia.html',
+          }
+          data={}
+          times={}
+          def clean(s):
+            return html.unescape(re.sub(r'<[^>]+>','',s)).strip()
+          for lang,url in sources.items():
+            text=urllib.request.urlopen(url, timeout=30).read().decode('utf-8')
+            if not re.search(r'data-episode="249"',text): raise SystemExit(f'{lang}: wrong data-episode')
+            if 'Vedátorský podcast 249' not in text: raise SystemExit(f'{lang}: title/h1 mismatch')
+            sections=re.findall(r'<section class="faq" data-time="([^"]+)">(.*?)</section>',text,re.S)
+            if len(sections)!=14: raise SystemExit(f'{lang}: expected 14 FAQ, got {len(sections)}')
+            rows=[]
+            for t,body in sections:
+              hm=re.search(r'<h2>(.*?)</h2>',body,re.S)
+              points=re.findall(r'<li>(.*?)</li>',body,re.S)
+              if not hm or not points: raise SystemExit(f'{lang}: malformed FAQ at {t}')
+              rows.append({'time':t,'title':clean(hm.group(1)),'points':[clean(p) for p in points]})
+            data[lang]=rows
+            times[lang]=[r['time'] for r in rows]
+          if times['cs']!=times['sk']: raise SystemExit('CZ/SK times differ')
+          payload=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace(';','\\u003b')
+          open(f'episode-{EP}-summary.js','w',encoding='utf-8').write('const DATA='+payload+';\n')
+
+          p='tools/augment-v2-extra-nonquestions.mjs'
+          s=open(p,encoding='utf-8').read()
+          m=re.search(r'const EXTRAS=\[([^]]*)\];',s)
+          nums=[int(x) for x in m.group(1).split(',') if x.strip()]
+          if EP not in nums: nums.append(EP)
+          nums.sort()
+          s=s[:m.start()]+f"const EXTRAS=[{','.join(map(str,nums))}];"+s[m.end():]
+          open(p,'w',encoding='utf-8').write(s)
+
+          p='tools/test-content-v2.mjs'
+          s=open(p,encoding='utf-8').read()
+          marker='for(const n of ['
+          start=s.index(marker)+len(marker)
+          end=s.index(']){',start)
+          nums=[int(x) for x in s[start:end].split(',') if x.strip()]
+          if EP not in nums: nums.append(EP)
+          nums.sort()
+          s=s[:start]+','.join(map(str,nums))+s[end:]
+          open(p,'w',encoding='utf-8').write(s)
+          print('Generated episode 249 with 14 CZ + 14 SK FAQs and matching times.')
+          PY
+      - name: Verify V2 summary integration
+        run: |
+          node --check app-v2.js
+          node --check episode-249-summary.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
+      - name: Commit target files if changed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- episode-249-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
+          if git diff --cached --quiet; then
+            echo 'Target files already current.'
+          else
+            git commit -m 'Add episode 249 summary data and V2 registration'
+            git push
+          fi
