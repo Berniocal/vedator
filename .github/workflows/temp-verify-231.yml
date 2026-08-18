@@ -74,3 +74,4 @@ jobs:
           git add episode-231-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
           git diff --cached --quiet || git commit -m 'Přidat ověřená data shrnutí epizody 231'
           git push origin HEAD:add-summary-231
+# trigger retry
