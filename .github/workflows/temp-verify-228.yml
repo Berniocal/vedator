@@ -1,0 +1,74 @@
+name: TEMP verify episode 228
+
+on:
+  push:
+    branches: [add-summary-228]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: add-summary-228
+      - name: Verify canonical source and prepare registration
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/228-brownuv-pohyb.html -o /tmp/cs.html
+          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/228-brownov-pohyb.html -o /tmp/sk.html
+          node <<'NODE'
+          const fs=require('fs');
+          const source=fs.readFileSync('episode-228-summary.js','utf8');
+          const marker='const DATA=';
+          const from=source.indexOf(marker)+marker.length;
+          const end=source.indexOf(';',from);
+          if(from<marker.length||end<0)throw new Error('DATA parse failed');
+          const data=JSON.parse(source.slice(from,end));
+          const decode=s=>s.replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').trim();
+          function parse(path,episode,lang){
+            const html=fs.readFileSync(path,'utf8');
+            if(!html.includes(`data-episode="${episode}"`)||!html.includes(`data-lang="${lang}"`))throw new Error(`${lang} metadata mismatch`);
+            const out=[];
+            for(const m of html.matchAll(/<section class="faq" data-time="([^"]+)"><h2>([\s\S]*?)<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g)){
+              out.push({time:m[1],title:decode(m[2]),points:[...m[3].matchAll(/<li>([\s\S]*?)<\/li>/g)].map(x=>decode(x[1]))});
+            }
+            return out;
+          }
+          const cs=parse('/tmp/cs.html',228,'cs');
+          const sk=parse('/tmp/sk.html',228,'sk');
+          if(cs.length!==9||sk.length!==9)throw new Error(`Expected 9+9 FAQ, got ${cs.length}+${sk.length}`);
+          if(JSON.stringify(cs)!==JSON.stringify(data.cs))throw new Error('CZ DATA differs from canonical HTML');
+          if(JSON.stringify(sk)!==JSON.stringify(data.sk))throw new Error('SK DATA differs from canonical HTML');
+          if(cs.map(x=>x.time).join('|')!==sk.map(x=>x.time).join('|'))throw new Error('Timestamp mismatch');
+          let a=fs.readFileSync('tools/augment-v2-extra-nonquestions.mjs','utf8');
+          a=a.replace('const EXTRAS=[229,','const EXTRAS=[228,229,');
+          if(!a.includes('const EXTRAS=[228,229,'))throw new Error('Failed to register 228 in augment');
+          fs.writeFileSync('tools/augment-v2-extra-nonquestions.mjs',a);
+          let t=fs.readFileSync('tools/test-content-v2.mjs','utf8');
+          t=t.replace('for(const n of [229,','for(const n of [228,229,');
+          if(!t.includes('for(const n of [228,229,'))throw new Error('Failed to register 228 in test');
+          fs.writeFileSync('tools/test-content-v2.mjs',t);
+          console.log('Canonical 228 verified: 9 CZ + 9 SK, timestamps 1:1');
+          NODE
+      - name: Verify V2 summary integration
+        run: |
+          node --check app-v2.js
+          node --check episode-228-summary.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
+      - name: Commit verified target changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
+          git diff --cached --quiet || git commit -m 'Ověřit registraci shrnutí epizody 228'
+          git push origin HEAD:add-summary-228
