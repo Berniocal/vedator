@@ -7,6 +7,7 @@ on:
 permissions:
   contents: write
 
+# trigger retry: workflow už existuje v rodičovském commitu
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -23,9 +24,7 @@ jobs:
           const fs=require('fs');
           const expectedTimes=['01:20','05:50','07:01','09:02','10:19','13:32','15:09','16:24','17:37','19:23','19:40','22:28'];
           function decode(s){
-            return s.replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)))
-              .replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16)))
-              .replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+            return s.replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n))).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16))).replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
           }
           function parse(path,lang){
             const html=fs.readFileSync(path,'utf8');
@@ -38,10 +37,7 @@ jobs:
             const sections=[];
             const re=/<section class="faq" data-time="([^"]+)"><h2>([\s\S]*?)<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g;
             let m;
-            while((m=re.exec(html))){
-              const points=[...m[3].matchAll(/<li>([\s\S]*?)<\/li>/g)].map(x=>decode(x[1]));
-              sections.push({time:m[1],title:decode(m[2]),points});
-            }
+            while((m=re.exec(html))){const points=[...m[3].matchAll(/<li>([\s\S]*?)<\/li>/g)].map(x=>decode(x[1]));sections.push({time:m[1],title:decode(m[2]),points});}
             if(sections.length!==12||declared!==12)throw new Error(`${lang}: expected 12 sections, got ${sections.length}, metadata ${declared}`);
             if(JSON.stringify(sections.map(x=>x.time))!==JSON.stringify(expectedTimes))throw new Error(`${lang}: timestamp mismatch`);
             if(sections.some(s=>!s.title||s.points.length<3||s.points.length>4))throw new Error(`${lang}: invalid section`);
@@ -54,16 +50,11 @@ jobs:
           const serialized=JSON.stringify(data).replace(/;/g,'\\u003b').replace(/</g,'\\u003c').replace(/>/g,'\\u003e').replace(/&/g,'\\u0026');
           if(JSON.stringify(JSON.parse(serialized))!==JSON.stringify(data))throw new Error('serialization round-trip mismatch');
           fs.writeFileSync('episode-216-summary.js',`const DATA=${serialized};\n(window.NONQUESTION_SUMMARIES=window.NONQUESTION_SUMMARIES||{})[216]=DATA;\n`);
-
           let aug=fs.readFileSync('tools/augment-v2-extra-nonquestions.mjs','utf8');
-          if(!/const EXTRAS=\[216,/.test(aug)){
-            aug=aug.replace('const EXTRAS=[','const EXTRAS=[216,');
-            fs.writeFileSync('tools/augment-v2-extra-nonquestions.mjs',aug);
-          }
-
+          if(!/const EXTRAS=\[216,/.test(aug)){aug=aug.replace('const EXTRAS=[','const EXTRAS=[216,');fs.writeFileSync('tools/augment-v2-extra-nonquestions.mjs',aug);}
           let test=fs.readFileSync('tools/test-content-v2.mjs','utf8');
           if(!/for\(const n of \[216,/.test(test))test=test.replace('for(const n of [','for(const n of [216,');
-          if(!test.includes('const episode216=data.nonquestions.episodes[\'216\'];')){
+          if(!test.includes("const episode216=data.nonquestions.episodes['216'];")){
             const marker='const episodeI18n=data.episodes.filter';
             const block=`const episode216=data.nonquestions.episodes['216'];\nif(!episode216||episode216.cs?.length!==12||episode216.sk?.length!==12)fail('Episode 216 bilingual summary count mismatch');\nconst episode216Times=${JSON.stringify(expectedTimes)};\nif(JSON.stringify(episode216.cs.map(item=>item.time))!==JSON.stringify(episode216Times))fail('Episode 216 Czech timestamps mismatch');\nif(JSON.stringify(episode216.sk.map(item=>item.time))!==JSON.stringify(episode216Times))fail('Episode 216 Slovak timestamps mismatch');\n\n`;
             if(!test.includes(marker))throw new Error('test insertion marker missing');
@@ -91,9 +82,4 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- episode-216-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
-          if git diff --cached --quiet; then
-            echo 'Cílové soubory už jsou aktuální.'
-          else
-            git commit -m 'Přidat ověřené shrnutí epizody 216'
-            git push
-          fi
+          if git diff --cached --quiet; then echo 'Cílové soubory už jsou aktuální.'; else git commit -m 'Přidat ověřené shrnutí epizody 216'; git push; fi
