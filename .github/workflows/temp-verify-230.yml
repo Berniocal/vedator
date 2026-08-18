@@ -1,0 +1,61 @@
+name: TEMP verify episode 230
+
+on:
+  push:
+    branches: [add-summary-230]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build canonical episode 230 data
+        shell: bash
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/230-kip-thorne.html -o /tmp/cs.html
+          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/230-kip-thorne.html -o /tmp/sk.html
+          node <<'NODE'
+          const fs=require('fs');
+          function decode(s){return s.replace(/<[^>]+>/g,'').replace(/&quot;/g,'"').replace(/&amp;/g,'&').replace(/&#39;/g,"'").replace(/&nbsp;/g,' ').trim()}
+          function parse(path,lang){
+            const h=fs.readFileSync(path,'utf8');
+            if(!h.includes('data-episode="230"')||!h.includes(`data-lang="${lang}"`)) throw Error(`bad metadata ${lang}`);
+            if(!h.includes('Vedátorský podcast 230 – Kip Thorne')) throw Error(`bad title ${lang}`);
+            const out=[]; const re=/<section class="faq" data-time="([^"]+)"><h2>([\s\S]*?)<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g; let m;
+            while((m=re.exec(h))){ const pts=[...m[3].matchAll(/<li>([\s\S]*?)<\/li>/g)].map(x=>decode(x[1])); out.push({time:m[1],title:decode(m[2]),points:pts}); }
+            if(out.length!==8) throw Error(`${lang} expected 8, got ${out.length}`);
+            return out;
+          }
+          const cs=parse('/tmp/cs.html','cs'), sk=parse('/tmp/sk.html','sk');
+          if(cs.map(x=>x.time).join('|')!==sk.map(x=>x.time).join('|')) throw Error('timestamp mismatch');
+          const DATA={cs,sk};
+          fs.writeFileSync('episode-230-summary.js','const DATA='+JSON.stringify(DATA).replace(/;/g,'\\u003b')+';\n');
+          let a=fs.readFileSync('tools/augment-v2-extra-nonquestions.mjs','utf8');
+          if(!a.includes('230')) a=a.replace('const EXTRAS=[231,','const EXTRAS=[230,231,');
+          fs.writeFileSync('tools/augment-v2-extra-nonquestions.mjs',a);
+          let t=fs.readFileSync('tools/test-content-v2.mjs','utf8');
+          if(!t.includes('for(const n of [230,')) t=t.replace('for(const n of [231,','for(const n of [230,231,');
+          fs.writeFileSync('tools/test-content-v2.mjs',t);
+          NODE
+          node --check app-v2.js
+          node --check episode-230-summary.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
+      - name: Commit verified target files
+        shell: bash
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add episode-230-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
+          git diff --cached --quiet || git commit -m "Přidat ověřená data epizody 230"
+          git push
