@@ -109,3 +109,4 @@ jobs:
           git diff --cached --exit-code --quiet && { echo 'Žádné cílové změny'; exit 1; } || true
           git commit -m 'Přidat ověřená data epizody 215'
           git push origin HEAD:add-summary-215
+          # trigger retry
