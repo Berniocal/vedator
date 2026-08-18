@@ -31,7 +31,7 @@ jobs:
             if(!html.includes(`data-episode="${EP}"`))throw new Error(`${lang}: episode metadata mismatch`);
             if(!new RegExp(`<title>[^<]*\\b${EP}\\b`).test(html)||!new RegExp(`<h1>[^<]*\\b${EP}\\b`).test(html))throw new Error(`${lang}: title/h1 mismatch`);
             const sections=[...html.matchAll(/<section class="faq" data-time="([^"]+)"><h2>([\s\S]*?)<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g)].map(m=>({time:m[1],title:decode(m[2]),points:[...m[3].matchAll(/<li>([\s\S]*?)<\/li>/g)].map(x=>decode(x[1]))}));
-            if(sections.length!==11)throw new Error(`${lang}: expected 11 FAQ, got ${sections.length}`);
+            if(sections.length!==12)throw new Error(`${lang}: expected 12 FAQ, got ${sections.length}`);
             return sections;
           }
           (async()=>{
