@@ -1,0 +1,95 @@
+name: TEMP verify episode 229
+
+on:
+  push:
+    branches: [add-summary-229]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build canonical episode 229 data
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const https=require('https');
+          const EP=229;
+          const urls={
+            cs:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/229-umela-inteligencia-2.html',
+            sk:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/229-umela-inteligencia-2.html'
+          };
+          function get(url){return new Promise((resolve,reject)=>https.get(url,r=>{if(r.statusCode!==200)return reject(new Error(`${url}: HTTP ${r.statusCode}`));let s='';r.setEncoding('utf8');r.on('data',d=>s+=d);r.on('end',()=>resolve(s));}).on('error',reject));}
+          function decode(s){return s.replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;|&apos;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n))).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16))).trim();}
+          function parse(html,lang){
+            if(!html.includes(`data-episode="${EP}"`))throw new Error(`${lang}: wrong data-episode`);
+            if(!new RegExp(`<title>[^<]*\\b${EP}\\b`).test(html))throw new Error(`${lang}: episode missing in title`);
+            if(!new RegExp(`<h1>[^<]*\\b${EP}\\b`).test(html))throw new Error(`${lang}: episode missing in h1`);
+            const meta=html.match(/data-question-count="(\d+)"/); const declared=meta?Number(meta[1]):null;
+            const out=[];
+            const re=/<section class="faq" data-time="([^"]+)"><h2>([\s\S]*?)<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g;
+            let m;
+            while((m=re.exec(html))){
+              const points=[...m[3].matchAll(/<li>([\s\S]*?)<\/li>/g)].map(x=>decode(x[1]));
+              if(!points.length)throw new Error(`${lang}: empty points at ${m[1]}`);
+              out.push({time:m[1],title:decode(m[2]),points});
+            }
+            if(!out.length)throw new Error(`${lang}: no FAQ parsed`);
+            return {declared,out};
+          }
+          (async()=>{
+            const cs=parse(await get(urls.cs),'cs'), sk=parse(await get(urls.sk),'sk');
+            if(cs.out.length!==sk.out.length)throw new Error(`FAQ count mismatch ${cs.out.length}/${sk.out.length}`);
+            const tc=cs.out.map(x=>x.time), ts=sk.out.map(x=>x.time);
+            const sc=[...tc].sort(), ss=[...ts].sort();
+            if(JSON.stringify(sc)!==JSON.stringify(ss))throw new Error('CZ/SK timestamp sets differ');
+            cs.out.sort((a,b)=>a.time.localeCompare(b.time)); sk.out.sort((a,b)=>a.time.localeCompare(b.time));
+            if(JSON.stringify(cs.out.map(x=>x.time))!==JSON.stringify(sk.out.map(x=>x.time)))throw new Error('CZ/SK timestamps do not align after sort');
+            const data={cs:cs.out,sk:sk.out};
+            let json=JSON.stringify(data).replace(/;/g,'\\u003b');
+            const round=JSON.parse(json);
+            if(JSON.stringify(round)!==JSON.stringify(data))throw new Error('Serialization round-trip changed data');
+            fs.writeFileSync(`episode-${EP}-summary.js`,`const DATA=${json};\n`);
+            let aug=fs.readFileSync('tools/augment-v2-extra-nonquestions.mjs','utf8');
+            if(!aug.includes('const EXTRAS=['))throw new Error('EXTRAS marker missing');
+            if(!/const EXTRAS=\[229[,\]]/.test(aug)) aug=aug.replace('const EXTRAS=[','const EXTRAS=[229,');
+            fs.writeFileSync('tools/augment-v2-extra-nonquestions.mjs',aug);
+            let test=fs.readFileSync('tools/test-content-v2.mjs','utf8');
+            const marker='for(const n of [';
+            if(!test.includes(marker))throw new Error('nonquestion test marker missing');
+            const pos=test.indexOf(marker)+marker.length;
+            if(!test.slice(pos,pos+8).startsWith('229,')) test=test.slice(0,pos)+'229,'+test.slice(pos);
+            fs.writeFileSync('tools/test-content-v2.mjs',test);
+            console.log(JSON.stringify({episode:EP,declaredCs:cs.declared,declaredSk:sk.declared,actualCs:cs.out.length,actualSk:sk.out.length,timestamps:cs.out.map(x=>x.time)},null,2));
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+      - name: Verify syntax and V2 integration
+        run: |
+          node --check app-v2.js
+          node --check episode-229-summary.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
+      - name: Commit verified target files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add episode-229-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
+          if git diff --cached --quiet; then
+            echo 'No target changes to commit'
+          else
+            git commit -m 'Přidat ověřená data shrnutí epizody 229'
+            git push
+          fi
