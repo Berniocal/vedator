@@ -1,9 +1,10 @@
-# trigger retry
 name: Temp verify episode 217
 
 on:
   push:
     branches: [add-episode-217-summary]
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: write
@@ -22,82 +23,40 @@ jobs:
           const fs=require('fs');
           const https=require('https');
           const episode=217;
-          const sources={
-            cs:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/217-japonci-na-mesici.html',
-            sk:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/217-japonci-na-mesiaci.html'
-          };
-          const get=url=>new Promise((resolve,reject)=>https.get(url,{headers:{'User-Agent':'vedator-verify'}},res=>{
-            let data=''; res.setEncoding('utf8'); res.on('data',c=>data+=c); res.on('end',()=>res.statusCode===200?resolve(data):reject(new Error(`${url}: HTTP ${res.statusCode}`)));
-          }).on('error',reject));
-          const decode=s=>s
-            .replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)))
-            .replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16)))
-            .replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+          const sources={cs:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/217-japonci-na-mesici.html',sk:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/217-japonci-na-mesiaci.html'};
+          const get=url=>new Promise((resolve,reject)=>https.get(url,{headers:{'User-Agent':'vedator-verify'}},res=>{let data='';res.setEncoding('utf8');res.on('data',c=>data+=c);res.on('end',()=>res.statusCode===200?resolve(data):reject(new Error(`${url}: HTTP ${res.statusCode}`)));}).on('error',reject));
+          const decode=s=>s.replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n))).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16))).replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>');
           const text=s=>decode(String(s).replace(/<[^>]*>/g,''));
           function parse(html,lang){
-            const article=html.match(/<article class="episode-summary"([^>]*)>/);
-            if(!article)throw new Error(`${lang}: article missing`);
-            const attrs=article[1];
-            const attr=name=>attrs.match(new RegExp(`${name}="([^"]+)"`))?.[1];
-            if(attr('data-episode')!==String(episode))throw new Error(`${lang}: wrong data-episode`);
-            if(attr('data-lang')!==lang)throw new Error(`${lang}: wrong data-lang`);
-            const title=text(html.match(/<title>([\s\S]*?)<\/title>/)?.[1]||'');
-            const h1=text(html.match(/<h1>([\s\S]*?)<\/h1>/)?.[1]||'');
-            if(!title.includes(`podcast ${episode} `)&&!title.includes(`podcast ${episode} –`))throw new Error(`${lang}: title episode mismatch: ${title}`);
-            if(!h1.includes(`podcast ${episode} `)&&!h1.includes(`podcast ${episode} –`))throw new Error(`${lang}: h1 episode mismatch: ${h1}`);
-            const items=[];
-            const re=/<section class="faq" data-time="([^"]+)"><h2>([\s\S]*?)<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g;
-            let m;
-            while((m=re.exec(html))){
-              const points=[]; const lr=/<li>([\s\S]*?)<\/li>/g; let lm;
-              while((lm=lr.exec(m[3])))points.push(text(lm[1]));
-              items.push({time:m[1],title:text(m[2]),points});
-            }
-            const metaCount=Number(attr('data-question-count'));
+            const article=html.match(/<article class="episode-summary"([^>]*)>/); if(!article)throw new Error(`${lang}: article missing`);
+            const attrs=article[1], attr=name=>attrs.match(new RegExp(`${name}="([^"]+)"`))?.[1];
+            if(attr('data-episode')!==String(episode)||attr('data-lang')!==lang)throw new Error(`${lang}: metadata mismatch`);
+            const title=text(html.match(/<title>([\s\S]*?)<\/title>/)?.[1]||''), h1=text(html.match(/<h1>([\s\S]*?)<\/h1>/)?.[1]||'');
+            if(!title.includes(`podcast ${episode}`)||!h1.includes(`podcast ${episode}`))throw new Error(`${lang}: title/h1 episode mismatch`);
+            const items=[], re=/<section class="faq" data-time="([^"]+)"><h2>([\s\S]*?)<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g; let m;
+            while((m=re.exec(html))){const points=[],lr=/<li>([\s\S]*?)<\/li>/g;let lm;while((lm=lr.exec(m[3])))points.push(text(lm[1]));items.push({time:m[1],title:text(m[2]),points});}
             if(items.length!==7)throw new Error(`${lang}: expected actual 7 sections, got ${items.length}`);
-            if(metaCount!==items.length)throw new Error(`${lang}: metadata ${metaCount} differs from actual ${items.length}`);
+            if(Number(attr('data-question-count'))!==items.length)throw new Error(`${lang}: metadata count differs from actual`);
             if(items.some(x=>!x.title||x.points.length<1))throw new Error(`${lang}: incomplete section`);
-            return {items,title,h1};
+            return items;
           }
           (async()=>{
-            const html={cs:await get(sources.cs),sk:await get(sources.sk)};
-            const parsed={cs:parse(html.cs,'cs'),sk:parse(html.sk,'sk')};
-            const csTimes=parsed.cs.items.map(x=>x.time), skTimes=parsed.sk.items.map(x=>x.time);
-            if(JSON.stringify(csTimes)!==JSON.stringify(skTimes))throw new Error(`Timestamp mismatch: ${csTimes} vs ${skTimes}`);
+            const data={cs:parse(await get(sources.cs),'cs'),sk:parse(await get(sources.sk),'sk')};
             const expected=['03:43','07:20','11:29','12:50','15:24','16:57','18:41'];
-            if(JSON.stringify(csTimes)!==JSON.stringify(expected))throw new Error(`Unexpected timestamps: ${csTimes}`);
-            const data={cs:parsed.cs.items,sk:parsed.sk.items};
-            for(const file of fs.readdirSync('.').filter(n=>/^episode-\d+-summary\.js$/.test(n))){
-              const src=fs.readFileSync(file,'utf8');
-              const mm=src.match(/^const DATA=([^;]+);/s);
-              if(!mm)continue;
-              try{
-                const old=JSON.parse(mm[1]);
-                if(JSON.stringify(old.cs)===JSON.stringify(data.cs)||JSON.stringify(old.sk)===JSON.stringify(data.sk))throw new Error(`Duplicate summary content found in ${file}`);
-              }catch(e){if(String(e.message).startsWith('Duplicate'))throw e;}
+            const csTimes=data.cs.map(x=>x.time),skTimes=data.sk.map(x=>x.time);
+            if(JSON.stringify(csTimes)!==JSON.stringify(skTimes)||JSON.stringify(csTimes)!==JSON.stringify(expected))throw new Error('CZ/SK timestamp mismatch');
+            for(const file of fs.readdirSync('.').filter(n=>/^episode-\d+-summary\.js$/.test(n)&&n!==`episode-${episode}-summary.js`)){
+              const mm=fs.readFileSync(file,'utf8').match(/^const DATA=([^;]+);/s); if(!mm)continue;
+              try{const old=JSON.parse(mm[1]);if(JSON.stringify(old.cs)===JSON.stringify(data.cs)||JSON.stringify(old.sk)===JSON.stringify(data.sk))throw new Error(`Duplicate summary content found in ${file}`);}catch(e){if(String(e.message).startsWith('Duplicate'))throw e;}
             }
-            let json=JSON.stringify(data).replace(/;/g,'\\u003b').replace(/</g,'\\u003c').replace(/>/g,'\\u003e');
+            const json=JSON.stringify(data).replace(/;/g,'\\u003b').replace(/</g,'\\u003c').replace(/>/g,'\\u003e');
             const out=`const DATA=${json};\nif(typeof window!=="undefined")window.EPISODE_${episode}_SUMMARY=DATA;\n`;
             fs.writeFileSync(`episode-${episode}-summary.js`,out);
-            const round=JSON.parse(out.slice('const DATA='.length,out.indexOf(';')));
-            if(JSON.stringify(round)!==JSON.stringify(data))throw new Error('Serialization round-trip mismatch');
-
-            const augment='tools/augment-v2-extra-nonquestions.mjs';
-            let a=fs.readFileSync(augment,'utf8');
-            if(!a.includes('const EXTRAS=[220,'))throw new Error('Unexpected EXTRAS anchor');
-            a=a.replace('const EXTRAS=[220,','const EXTRAS=[217,220,');
-            fs.writeFileSync(augment,a);
-
-            const test='tools/test-content-v2.mjs';
-            let t=fs.readFileSync(test,'utf8');
-            if(!t.includes('for(const n of [220,'))throw new Error('Unexpected nonquestion test anchor');
-            t=t.replace('for(const n of [220,','for(const n of [217,220,');
-            const anchor="const episode219=data.nonquestions.episodes['219'];";
-            if(!t.includes(anchor))throw new Error('Episode 219 regression anchor missing');
-            const check=`const episode217=data.nonquestions.episodes['217'];\nif(!episode217||episode217.cs?.length!==7||episode217.sk?.length!==7)fail('Episode 217 summary count mismatch');\nconst expected217Times=['03:43','07:20','11:29','12:50','15:24','16:57','18:41'];\nif(episode217.cs.some((item,index)=>item.time!==expected217Times[index])||episode217.sk.some((item,index)=>item.time!==expected217Times[index]))fail('Episode 217 summary times mismatch');\n\n`;
-            t=t.replace(anchor,check+anchor);
-            fs.writeFileSync(test,t);
-            console.log(JSON.stringify({episode,cs:parsed.cs.items.length,sk:parsed.sk.items.length,times:csTimes}));
+            const round=JSON.parse(out.slice('const DATA='.length,out.indexOf(';')));if(JSON.stringify(round)!==JSON.stringify(data))throw new Error('Serialization round-trip mismatch');
+            const augment='tools/augment-v2-extra-nonquestions.mjs';let a=fs.readFileSync(augment,'utf8');if(!a.includes('const EXTRAS=[217,220,')){if(!a.includes('const EXTRAS=[220,'))throw new Error('Unexpected EXTRAS anchor');a=a.replace('const EXTRAS=[220,','const EXTRAS=[217,220,');fs.writeFileSync(augment,a);}
+            const test='tools/test-content-v2.mjs';let t=fs.readFileSync(test,'utf8');if(!t.includes('for(const n of [217,220,')){if(!t.includes('for(const n of [220,'))throw new Error('Unexpected nonquestion test anchor');t=t.replace('for(const n of [220,','for(const n of [217,220,');}
+            if(!t.includes("const episode217=data.nonquestions.episodes['217'];")){const anchor="const episode219=data.nonquestions.episodes['219'];";if(!t.includes(anchor))throw new Error('Episode 219 regression anchor missing');const check=`const episode217=data.nonquestions.episodes['217'];\nif(!episode217||episode217.cs?.length!==7||episode217.sk?.length!==7)fail('Episode 217 summary count mismatch');\nconst expected217Times=['03:43','07:20','11:29','12:50','15:24','16:57','18:41'];\nif(episode217.cs.some((item,index)=>item.time!==expected217Times[index])||episode217.sk.some((item,index)=>item.time!==expected217Times[index]))fail('Episode 217 summary times mismatch');\n\n`;t=t.replace(anchor,check+anchor);}fs.writeFileSync(test,t);
+            console.log(JSON.stringify({episode,cs:data.cs.length,sk:data.sk.length,times:csTimes}));
           })().catch(e=>{console.error(e);process.exit(1)});
           NODE
 
@@ -120,7 +79,10 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- episode-217-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
-          git diff --cached --name-only
-          test "$(git diff --cached --name-only | wc -l)" -eq 3
-          git commit -m 'Přidat ověřená data epizody 217'
-          git push
+          if git diff --cached --quiet; then
+            echo 'Cílové soubory už jsou ověřené a beze změny.'
+          else
+            test "$(git diff --cached --name-only | wc -l)" -eq 3
+            git commit -m 'Přidat ověřená data epizody 217'
+            git push
+          fi
