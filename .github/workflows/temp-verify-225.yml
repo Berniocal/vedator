@@ -1,5 +1,6 @@
 name: TEMP verify episode 225
 
+# trigger retry
 on:
   push:
     branches: [add-summary-225]
@@ -28,41 +29,21 @@ jobs:
             if(!title.includes(` ${EP} `)&&!title.includes(`${EP} –`))throw new Error(`${lang}: title episode mismatch`);
             if(!h1.includes(` ${EP} `)&&!h1.includes(`${EP} –`))throw new Error(`${lang}: h1 episode mismatch`);
             const out=[]; const re=/<section class="faq" data-time="([^"]+)"><h2>([\s\S]*?)<\/h2><ul>([\s\S]*?)<\/ul><\/section>/gi; let m;
-            while((m=re.exec(html))){
-              const points=[...m[3].matchAll(/<li>([\s\S]*?)<\/li>/gi)].map(x=>decode(x[1]));
-              out.push({time:m[1],title:decode(m[2]),points});
-            }
-            if(!out.length)throw new Error(`${lang}: no FAQ sections`);
-            return out;
+            while((m=re.exec(html))){const points=[...m[3].matchAll(/<li>([\s\S]*?)<\/li>/gi)].map(x=>decode(x[1]));out.push({time:m[1],title:decode(m[2]),points});}
+            if(!out.length)throw new Error(`${lang}: no FAQ sections`); return out;
           }
           function timesFrom(html){return [...html.matchAll(/<section class="faq" data-time="([^"]+)"/g)].map(m=>m[1]);}
           (async()=>{
             const base='https://raw.githubusercontent.com/Berniocal/vedator-test/main/';
-            const [csHtml,skHtml,n224,n227]=await Promise.all([
-              get(base+'shrnuti/cs/225-gluony.html'),get(base+'shrnuti/sk/225-gluony.html'),
-              get(base+'shrnuti/sk/224-klimaticka-zmena-2.html'),get(base+'shrnuti/sk/227-expandujuce-mikroskopicke-cierne-diery.html')
-            ]);
+            const [csHtml,skHtml,n224,n227]=await Promise.all([get(base+'shrnuti/cs/225-gluony.html'),get(base+'shrnuti/sk/225-gluony.html'),get(base+'shrnuti/sk/224-klimaticka-zmena-2.html'),get(base+'shrnuti/sk/227-expandujuce-mikroskopicke-cierne-diery.html')]);
             const cs=parse(csHtml,'cs'), sk=parse(skHtml,'sk');
             if(cs.length!==10||sk.length!==10)throw new Error(`Expected actual 10/10, got ${cs.length}/${sk.length}`);
-            const ct=cs.map(x=>x.time), st=sk.map(x=>x.time);
-            if(JSON.stringify(ct)!==JSON.stringify(st))throw new Error('CZ/SK timestamp mismatch');
-            for(const [num,h] of [[224,n224],[227,n227]]){
-              const nt=timesFrom(h);
-              if(JSON.stringify(nt)===JSON.stringify(ct))throw new Error(`Suspicious duplicate timestamps with ${num}`);
-              const norm=h.replace(/\s+/g,' ').toLowerCase();
-              const sample=sk.map(x=>x.title.toLowerCase()).filter(t=>norm.includes(t)).length;
-              if(sample>Math.floor(sk.length/2))throw new Error(`Suspicious duplicate content with ${num}`);
-            }
-            let json=JSON.stringify({cs,sk}).replace(/;/g,'\\u003b');
-            fs.writeFileSync(`episode-${EP}-summary.js`,`const DATA=${json};\n`);
-            const round=JSON.parse(fs.readFileSync(`episode-${EP}-summary.js`,'utf8').slice('const DATA='.length,-2));
-            if(JSON.stringify(round)!==JSON.stringify({cs,sk}))throw new Error('Serialization round-trip failed');
-            let aug=fs.readFileSync('tools/augment-v2-extra-nonquestions.mjs','utf8');
-            aug=aug.replace(/const EXTRAS=\[([^\]]*)\];/,(_,body)=>{const a=body.split(',').map(Number).filter(Number.isFinite);if(!a.includes(EP))a.push(EP);a.sort((x,y)=>x-y);return `const EXTRAS=[${a.join(',')}];`;});
-            fs.writeFileSync('tools/augment-v2-extra-nonquestions.mjs',aug);
-            let test=fs.readFileSync('tools/test-content-v2.mjs','utf8');
-            test=test.replace(/for\(const n of \[([^\]]*)\]\)\{/,(_,body)=>{const a=body.split(',').map(Number).filter(Number.isFinite);if(!a.includes(EP))a.push(EP);a.sort((x,y)=>x-y);return `for(const n of [${a.join(',')}]){`;});
-            fs.writeFileSync('tools/test-content-v2.mjs',test);
+            const ct=cs.map(x=>x.time), st=sk.map(x=>x.time); if(JSON.stringify(ct)!==JSON.stringify(st))throw new Error('CZ/SK timestamp mismatch');
+            for(const [num,h] of [[224,n224],[227,n227]]){const nt=timesFrom(h);if(JSON.stringify(nt)===JSON.stringify(ct))throw new Error(`Suspicious duplicate timestamps with ${num}`);const norm=h.replace(/\s+/g,' ').toLowerCase();const sample=sk.map(x=>x.title.toLowerCase()).filter(t=>norm.includes(t)).length;if(sample>Math.floor(sk.length/2))throw new Error(`Suspicious duplicate content with ${num}`);}
+            let json=JSON.stringify({cs,sk}).replace(/;/g,'\\u003b'); fs.writeFileSync(`episode-${EP}-summary.js`,`const DATA=${json};\n`);
+            const round=JSON.parse(fs.readFileSync(`episode-${EP}-summary.js`,'utf8').slice('const DATA='.length,-2)); if(JSON.stringify(round)!==JSON.stringify({cs,sk}))throw new Error('Serialization round-trip failed');
+            let aug=fs.readFileSync('tools/augment-v2-extra-nonquestions.mjs','utf8'); aug=aug.replace(/const EXTRAS=\[([^\]]*)\];/,(_,body)=>{const a=body.split(',').map(Number).filter(Number.isFinite);if(!a.includes(EP))a.push(EP);a.sort((x,y)=>x-y);return `const EXTRAS=[${a.join(',')}];`;}); fs.writeFileSync('tools/augment-v2-extra-nonquestions.mjs',aug);
+            let test=fs.readFileSync('tools/test-content-v2.mjs','utf8'); test=test.replace(/for\(const n of \[([^\]]*)\]\)\{/,(_,body)=>{const a=body.split(',').map(Number).filter(Number.isFinite);if(!a.includes(EP))a.push(EP);a.sort((x,y)=>x-y);return `for(const n of [${a.join(',')}]){`;}); fs.writeFileSync('tools/test-content-v2.mjs',test);
             console.log(`Canonical ${EP}: ${cs.length} CZ + ${sk.length} SK, timestamps 1:1`);
           })().catch(e=>{console.error(e);process.exit(1)});
           NODE
