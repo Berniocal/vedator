@@ -59,3 +59,5 @@ jobs:
           git add episode-230-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
           git diff --cached --quiet || git commit -m "Přidat ověřená data epizody 230"
           git push
+
+# trigger retry
