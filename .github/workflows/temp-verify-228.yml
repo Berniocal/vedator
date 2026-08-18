@@ -72,3 +72,5 @@ jobs:
           git add tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
           git diff --cached --quiet || git commit -m 'Ověřit registraci shrnutí epizody 228'
           git push origin HEAD:add-summary-228
+
+# trigger retry
