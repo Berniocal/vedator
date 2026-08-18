@@ -53,8 +53,10 @@ jobs:
             const out=`const DATA=${json};\nif(typeof window!=="undefined")window.EPISODE_${episode}_SUMMARY=DATA;\n`;
             fs.writeFileSync(`episode-${episode}-summary.js`,out);
             const round=JSON.parse(out.slice('const DATA='.length,out.indexOf(';')));if(JSON.stringify(round)!==JSON.stringify(data))throw new Error('Serialization round-trip mismatch');
-            const augment='tools/augment-v2-extra-nonquestions.mjs';let a=fs.readFileSync(augment,'utf8');if(!a.includes('const EXTRAS=[217,220,')){if(!a.includes('const EXTRAS=[220,'))throw new Error('Unexpected EXTRAS anchor');a=a.replace('const EXTRAS=[220,','const EXTRAS=[217,220,');fs.writeFileSync(augment,a);}
-            const test='tools/test-content-v2.mjs';let t=fs.readFileSync(test,'utf8');if(!t.includes('for(const n of [217,220,')){if(!t.includes('for(const n of [220,'))throw new Error('Unexpected nonquestion test anchor');t=t.replace('for(const n of [220,','for(const n of [217,220,');}
+            const augment='tools/augment-v2-extra-nonquestions.mjs';let a=fs.readFileSync(augment,'utf8');
+            if(!a.includes('const EXTRAS=[217,219,220,')){if(!a.includes('const EXTRAS=[219,220,'))throw new Error('Unexpected EXTRAS anchor');a=a.replace('const EXTRAS=[219,220,','const EXTRAS=[217,219,220,');fs.writeFileSync(augment,a);}
+            const test='tools/test-content-v2.mjs';let t=fs.readFileSync(test,'utf8');
+            if(!t.includes('for(const n of [217,219,220,')){if(!t.includes('for(const n of [219,220,'))throw new Error('Unexpected nonquestion test anchor');t=t.replace('for(const n of [219,220,','for(const n of [217,219,220,');}
             if(!t.includes("const episode217=data.nonquestions.episodes['217'];")){const anchor="const episode219=data.nonquestions.episodes['219'];";if(!t.includes(anchor))throw new Error('Episode 219 regression anchor missing');const check=`const episode217=data.nonquestions.episodes['217'];\nif(!episode217||episode217.cs?.length!==7||episode217.sk?.length!==7)fail('Episode 217 summary count mismatch');\nconst expected217Times=['03:43','07:20','11:29','12:50','15:24','16:57','18:41'];\nif(episode217.cs.some((item,index)=>item.time!==expected217Times[index])||episode217.sk.some((item,index)=>item.time!==expected217Times[index]))fail('Episode 217 summary times mismatch');\n\n`;t=t.replace(anchor,check+anchor);}fs.writeFileSync(test,t);
             console.log(JSON.stringify({episode,cs:data.cs.length,sk:data.sk.length,times:csTimes}));
           })().catch(e=>{console.error(e);process.exit(1)});
