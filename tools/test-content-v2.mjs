@@ -41,7 +41,7 @@ if(!Array.isArray(data.series)||data.series.length!==seriesConfig.length)fail(`E
 if(data.series.some(series=>!series.i18n?.cs||!series.i18n?.sk))fail('Series translation missing');
 const nonEpisodes=Object.keys(data.nonquestions?.episodes||{});
 if(nonEpisodes.length<10)fail(`Too few nonquestion episodes: ${nonEpisodes.length}`);
-for(const n of [220,221,222,223,224,225,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,243,245,246,247,249,250,251,252,253,254,255,256,258,259,260,261,262,265,266,267,268,269,271,273,274,276,277,279,280,281,282,283,285,286,287,288,290,292,293,294,296,297,298,299,301,302,303,304,305,306,307,308,309,310,311,312,315,318,320,321,322,323,324,325,334,335,336,338,339,341,342,343,344,345,347]){
+for(const n of [219,220,221,222,223,224,225,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,243,245,246,247,249,250,251,252,253,254,255,256,258,259,260,261,262,265,266,267,268,269,271,273,274,276,277,279,280,281,282,283,285,286,287,288,290,292,293,294,296,297,298,299,301,302,303,304,305,306,307,308,309,310,311,312,315,318,320,321,322,323,324,325,334,335,336,338,339,341,342,343,344,345,347]){
   if(!data.nonquestions.episodes[String(n)])fail(`Missing nonquestion episode ${n}`);
 }
 const episodeNumbers=new Set(data.episodes.map(e=>Number(e.number)));
@@ -78,6 +78,11 @@ const changedEpisodes=episodeI18n.filter(e=>e.i18n.cs.title!==e.i18n.sk.title||e
 if(changedEpisodes.length<300)fail(`Too few actually translated episodes: ${changedEpisodes.length}`);
 const changedQuestions=data.questions.filter(q=>q.i18n.cs.title!==q.i18n.sk.title||q.i18n.cs.points.some((point,index)=>point!==q.i18n.sk.points[index]));
 if(changedQuestions.length<500)fail(`Too few actually translated questions: ${changedQuestions.length}`);
+
+const episode219=data.nonquestions.episodes['219'];
+if(!episode219||episode219.cs?.length!==8||episode219.sk?.length!==8)fail('Episode 219 summary count mismatch');
+const expected219Times=['00:49','02:50','04:29','06:54','09:34','11:32','13:53','15:13'];
+if(episode219.cs.some((item,index)=>item.time!==expected219Times[index])||episode219.sk.some((item,index)=>item.time!==expected219Times[index]))fail('Episode 219 summary times mismatch');
 
 const episode343=data.episodes.find(e=>Number(e.number)===343);
 if(!episode343?.i18n?.cs?.title.includes('tečky'))fail('Episode 343 Czech title missing');
