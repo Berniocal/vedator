@@ -44,7 +44,7 @@ jobs:
               const points=[...m[3].matchAll(/<li>(.*?)<\/li>/gs)].map(x=>decode(x[1]));
               out.push({time:m[1],title:decode(m[2]),points});
             }
-            if(out.length!==24)throw new Error(`${lang}: expected 24 FAQ, got ${out.length}`);
+            if(out.length!==26)throw new Error(`${lang}: expected actual 26 FAQ, got ${out.length}`);
             return out;
           };
           const sec=t=>{const [m,s]=t.split(':').map(Number);return m*60+s};
@@ -56,7 +56,7 @@ jobs:
             const skSet=[...sk].sort((a,b)=>sec(a.time)-sec(b.time));
             const ct=csSet.map(x=>x.time), st=skSet.map(x=>x.time);
             if(JSON.stringify(ct)!==JSON.stringify(st))throw new Error(`CZ/SK timestamps differ after chronological alignment: ${ct.join(',')} vs ${st.join(',')}`);
-            if(new Set(ct).size!==24)throw new Error('Duplicate timestamp in episode 232');
+            if(new Set(ct).size!==26)throw new Error('Duplicate timestamp in episode 232');
             const data={cs:csSet,sk:skSet};
             let json=JSON.stringify(data).replace(/;/g,'\\u003b');
             fs.writeFileSync('episode-232-summary.js',`const DATA=${json};\n`);
@@ -103,5 +103,3 @@ jobs:
             git commit -m "Add episode 232 summary data"
             git push origin HEAD:add-summary-232
           fi
-
-# trigger retry
