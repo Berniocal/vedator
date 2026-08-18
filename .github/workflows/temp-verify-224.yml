@@ -1,0 +1,96 @@
+name: TEMP verify episode 224
+
+on:
+  push:
+    branches: [add-summary-224]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build canonical episode 224 data
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/224-klimaticka-zmena-2.html -o /tmp/224-cs.html
+          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/224-klimaticka-zmena-2.html -o /tmp/224-sk.html
+          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/223-jak-funguje-internet.html -o /tmp/223-cs.html
+          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/225-gluony.html -o /tmp/225-cs.html
+          node <<'NODE'
+          const fs=require('fs');
+          function decode(s){
+            return s.replace(/<[^>]*>/g,'').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;|&apos;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n))).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16))).trim();
+          }
+          function parse(path,lang){
+            const html=fs.readFileSync(path,'utf8');
+            const ep=(html.match(/data-episode="(\d+)"/)||[])[1];
+            const title=decode((html.match(/<title>([\s\S]*?)<\/title>/i)||[])[1]||'');
+            const h1=decode((html.match(/<h1>([\s\S]*?)<\/h1>/i)||[])[1]||'');
+            if(ep!=='224'||!title.includes('224')||!h1.includes('224')) throw new Error(`${lang}: episode metadata mismatch`);
+            const out=[];
+            const re=/<section class="faq" data-time="([^"]+)">([\s\S]*?)<\/section>/gi;
+            let m;
+            while((m=re.exec(html))){
+              const body=m[2];
+              const h=(body.match(/<h2>([\s\S]*?)<\/h2>/i)||[])[1];
+              const points=[...body.matchAll(/<li>([\s\S]*?)<\/li>/gi)].map(x=>decode(x[1]));
+              out.push({time:m[1],title:decode(h||''),points});
+            }
+            if(out.length!==13) throw new Error(`${lang}: expected 13 FAQ sections, got ${out.length}`);
+            if(out.some(x=>!x.time||!x.title||x.points.length<3)) throw new Error(`${lang}: incomplete FAQ data`);
+            return out;
+          }
+          const cs=parse('/tmp/224-cs.html','cs');
+          const sk=parse('/tmp/224-sk.html','sk');
+          const tc=cs.map(x=>x.time), ts=sk.map(x=>x.time);
+          if(JSON.stringify(tc)!==JSON.stringify(ts)) throw new Error('CZ/SK timestamps differ');
+          function signature(path){
+            const html=fs.readFileSync(path,'utf8');
+            return [...html.matchAll(/<section class="faq" data-time="([^"]+)">[\s\S]*?<h2>([\s\S]*?)<\/h2>/gi)].map(m=>m[1]+'|'+decode(m[2])).join('\n');
+          }
+          const sig224=tc.map((t,i)=>t+'|'+cs[i].title).join('\n');
+          if(sig224===signature('/tmp/223-cs.html')||sig224===signature('/tmp/225-cs.html')) throw new Error('Suspected duplicate of neighbor episode');
+          let json=JSON.stringify({cs,sk}).replace(/;/g,'\\u003b').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
+          fs.writeFileSync('episode-224-summary.js',`const DATA=${json};\n`);
+          const src=fs.readFileSync('episode-224-summary.js','utf8');
+          const raw=src.slice(src.indexOf('const DATA=')+11,src.lastIndexOf(';'));
+          const round=JSON.parse(raw);
+          if(JSON.stringify(round.cs)!==JSON.stringify(cs)||JSON.stringify(round.sk)!==JSON.stringify(sk)) throw new Error('Serialization round-trip mismatch');
+          let aug=fs.readFileSync('tools/augment-v2-extra-nonquestions.mjs','utf8');
+          aug=aug.replace('const EXTRAS=[225,','const EXTRAS=[224,225,');
+          if(!aug.includes('const EXTRAS=[224,225,')) throw new Error('Could not register episode 224 in augment list');
+          fs.writeFileSync('tools/augment-v2-extra-nonquestions.mjs',aug);
+          let test=fs.readFileSync('tools/test-content-v2.mjs','utf8');
+          test=test.replace('for(const n of [225,','for(const n of [224,225,');
+          if(!test.includes('for(const n of [224,225,')) throw new Error('Could not register episode 224 in regression test');
+          fs.writeFileSync('tools/test-content-v2.mjs',test);
+          console.log(JSON.stringify({episode:224,cs:cs.length,sk:sk.length,timestamps:tc},null,2));
+          NODE
+      - name: Verify V2 summary integration
+        run: |
+          set -euo pipefail
+          node --check app-v2.js
+          node --check episode-224-summary.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
+      - name: Commit verified target files
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add episode-224-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
+          git commit -m "Přidat ověřená data epizody 224"
+          git push origin HEAD:add-summary-224
