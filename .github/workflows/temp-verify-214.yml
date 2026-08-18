@@ -83,7 +83,6 @@ jobs:
           match=[e for e in rows if int(e.get('number',-1))==EP]
           assert match, 'production episodes.json missing 214'
 
-          # Neighbor duplicate check: canonical 213/215 must not be identical in times/titles/content.
           def canonical(n,slug,lang):
               url=f'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/{lang}/{n}-{slug}.html'
               p=Parser(); p.feed(get(url)); return p.sections
@@ -95,11 +94,8 @@ jobs:
 
           data={'cs':cs.sections,'sk':sk.sections}
           payload=json.dumps(data,ensure_ascii=False,separators=(',',':'))
-          # Escape terminator-sensitive / script-sensitive characters while preserving decoded text exactly.
           payload=payload.replace('&','\\u0026').replace('<','\\u003c').replace('>','\\u003e').replace(';','\\u003b').replace('\u2028','\\u2028').replace('\u2029','\\u2029')
           Path(f'episode-{EP}-summary.js').write_text('const DATA='+payload+';\n',encoding='utf-8')
-
-          # Serialization round-trip must reproduce canonical parsed text character-for-character.
           src=Path(f'episode-{EP}-summary.js').read_text(encoding='utf-8')
           encoded=src[len('const DATA='):src.rfind(';')]
           assert json.loads(encoded)==data
@@ -150,3 +146,5 @@ jobs:
           test "$(git diff --cached --name-only | wc -l)" -eq 3
           git commit -m 'Přidat ověřená data epizody 214'
           git push
+
+# trigger retry
