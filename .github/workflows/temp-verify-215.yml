@@ -1,0 +1,111 @@
+name: Temp verify episode 215
+
+on:
+  push:
+    branches: [add-summary-215]
+    paths:
+      - '.github/workflows/temp-verify-215.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: add-summary-215
+          fetch-depth: 0
+
+      - name: Vytvořit kanonická data a registraci 215
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const EXPECTED=['01:30','02:18','05:38','06:14','08:30','11:22','15:19','17:57','19:42'];
+          const sources={
+            cs:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/215-jak-mohl-probihat-velky-tresk.html',
+            sk:'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/215-ako-mozno-prebiehal-velky-tresk.html'
+          };
+          function decode(s){
+            return s.replace(/&#(x?[0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(n[0].toLowerCase()==='x'?parseInt(n.slice(1),16):parseInt(n,10)))
+              .replace(/&quot;/g,'"').replace(/&#39;|&apos;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+          }
+          function text(s){return decode(s.replace(/<[^>]*>/g,'')).trim()}
+          function parse(html,lang){
+            if(!new RegExp(`data-episode="215"`).test(html))throw new Error(`${lang}: data-episode mismatch`);
+            if(!new RegExp(`data-lang="${lang}"`).test(html))throw new Error(`${lang}: data-lang mismatch`);
+            const title=(html.match(/<title>([\s\S]*?)<\/title>/)||[])[1]||'';
+            const h1=(html.match(/<h1>([\s\S]*?)<\/h1>/)||[])[1]||'';
+            if(!text(title).includes('215')||!text(h1).includes('215'))throw new Error(`${lang}: title/h1 episode mismatch`);
+            const out=[];
+            const re=/<section class="faq" data-time="([^"]+)"><h2>([\s\S]*?)<\/h2><ul>([\s\S]*?)<\/ul><\/section>/g;
+            let m;
+            while((m=re.exec(html))){
+              const points=[]; let p; const pre=/<li>([\s\S]*?)<\/li>/g;
+              while((p=pre.exec(m[3])))points.push(text(p[1]));
+              out.push({time:m[1],title:text(m[2]),points});
+            }
+            if(out.length!==9)throw new Error(`${lang}: expected 9 FAQ, got ${out.length}`);
+            if(out.some(x=>!x.title||x.points.length<3||x.points.length>4))throw new Error(`${lang}: malformed FAQ item`);
+            return out;
+          }
+          (async()=>{
+            const htmlCs=await (await fetch(sources.cs)).text();
+            const htmlSk=await (await fetch(sources.sk)).text();
+            const cs=parse(htmlCs,'cs'), sk=parse(htmlSk,'sk');
+            const tc=cs.map(x=>x.time), ts=sk.map(x=>x.time);
+            if(JSON.stringify(tc)!==JSON.stringify(EXPECTED)||JSON.stringify(ts)!==JSON.stringify(EXPECTED))throw new Error(`timestamp mismatch: ${tc} / ${ts}`);
+            const data={cs,sk};
+            const json=JSON.stringify(data).replace(/[<>&;]/g,c=>({'<':'\\u003c','>':'\\u003e','&':'\\u0026',';':'\\u003b'}[c]));
+            const source=`const DATA=${json};`;
+            const round=JSON.parse(source.slice('const DATA='.length,-1));
+            if(JSON.stringify(round)!==JSON.stringify(data))throw new Error('serialization round-trip mismatch');
+            fs.writeFileSync('episode-215-summary.js',source+'\n');
+
+            const augPath='tools/augment-v2-extra-nonquestions.mjs';
+            let aug=fs.readFileSync(augPath,'utf8');
+            if(!aug.includes('const EXTRAS=[215,')){
+              if(!aug.includes('const EXTRAS=[216,'))throw new Error('EXTRAS insertion anchor missing');
+              aug=aug.replace('const EXTRAS=[216,','const EXTRAS=[215,216,');
+              fs.writeFileSync(augPath,aug);
+            }
+
+            const testPath='tools/test-content-v2.mjs';
+            let test=fs.readFileSync(testPath,'utf8');
+            if(!test.includes('for(const n of [215,')){
+              if(!test.includes('for(const n of [216,'))throw new Error('test list insertion anchor missing');
+              test=test.replace('for(const n of [216,','for(const n of [215,216,');
+            }
+            if(!test.includes("const episode215=data.nonquestions.episodes['215'];")){
+              const anchor='const episodeI18n=data.episodes.filter';
+              if(!test.includes(anchor))throw new Error('episode test insertion anchor missing');
+              const block=`const episode215=data.nonquestions.episodes['215'];\nif(!episode215||episode215.cs?.length!==9||episode215.sk?.length!==9)fail('Episode 215 bilingual summary count mismatch');\nconst episode215Times=${JSON.stringify(EXPECTED)};\nif(JSON.stringify(episode215.cs.map(item=>item.time))!==JSON.stringify(episode215Times))fail('Episode 215 Czech timestamps mismatch');\nif(JSON.stringify(episode215.sk.map(item=>item.time))!==JSON.stringify(episode215Times))fail('Episode 215 Slovak timestamps mismatch');\n\n`;
+              test=test.replace(anchor,block+anchor);
+            }
+            fs.writeFileSync(testPath,test);
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+
+      - name: Ověřit V2 build a integritu
+        run: |
+          node --check app-v2.js
+          node --check episode-215-summary.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
+
+      - name: Commitnout ověřené cílové soubory
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- episode-215-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
+          git diff --cached --exit-code --quiet && { echo 'Žádné cílové změny'; exit 1; } || true
+          git commit -m 'Přidat ověřená data epizody 215'
+          git push origin HEAD:add-summary-215
