@@ -1,0 +1,152 @@
+name: Temp verify episode 214
+
+on:
+  push:
+    branches: [add-episode-214-summary]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: add-episode-214-summary
+
+      - name: Připravit a ověřit kanonická data 214
+        run: |
+          python - <<'PY'
+          import html, json, re, urllib.request
+          from html.parser import HTMLParser
+          from pathlib import Path
+
+          EP=214
+          CS_URL='https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/214-klimaticka-zmena-1.html'
+          SK_URL='https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/214-klimaticka-zmena-1.html'
+          INDEX_URL='https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/index.json'
+
+          def get(url):
+              req=urllib.request.Request(url,headers={'User-Agent':'Vedator-verify/1.0'})
+              with urllib.request.urlopen(req,timeout=60) as r:
+                  return r.read().decode('utf-8')
+
+          class Parser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.article={}; self.title=''; self.h1=''; self.sections=[]
+                  self._tag=None; self._sec=None; self._li=None
+              def handle_starttag(self,tag,attrs):
+                  a=dict(attrs)
+                  if tag=='article': self.article=a
+                  if tag=='title': self._tag='title'
+                  elif tag=='h1': self._tag='h1'
+                  elif tag=='section' and 'faq' in a.get('class','').split():
+                      self._sec={'time':a.get('data-time',''),'title':'','points':[]}; self.sections.append(self._sec)
+                  elif tag=='h2' and self._sec is not None: self._tag='h2'
+                  elif tag=='li' and self._sec is not None: self._tag='li'; self._li=''
+              def handle_endtag(self,tag):
+                  if tag=='li' and self._sec is not None and self._li is not None:
+                      self._sec['points'].append(self._li.strip()); self._li=None; self._tag=None
+                  elif tag in ('title','h1','h2'): self._tag=None
+                  elif tag=='section': self._sec=None; self._tag=None
+              def handle_data(self,data):
+                  if self._tag=='title': self.title+=data
+                  elif self._tag=='h1': self.h1+=data
+                  elif self._tag=='h2' and self._sec is not None: self._sec['title']+=data
+                  elif self._tag=='li' and self._li is not None: self._li+=data
+
+          def parse(text,lang):
+              p=Parser(); p.feed(text)
+              assert p.article.get('data-episode')==str(EP), (lang,'data-episode')
+              assert p.article.get('data-lang')==lang, (lang,'data-lang')
+              assert str(EP) in p.title and str(EP) in p.h1, (lang,'title/h1')
+              assert len(p.sections)==13, (lang,len(p.sections))
+              assert p.article.get('data-question-count')=='13', (lang,'question-count')
+              assert p.article.get('data-max-questions')=='13', (lang,'max-questions')
+              assert all(s['time'] and s['title'] and 3 <= len(s['points']) <= 4 for s in p.sections)
+              return p
+
+          cs=parse(get(CS_URL),'cs'); sk=parse(get(SK_URL),'sk')
+          expected=['02:27','03:58','04:59','06:09','07:42','08:30','11:00','14:33','15:29','16:39','21:34','23:38','26:01']
+          cst=[s['time'] for s in cs.sections]; skt=[s['time'] for s in sk.sections]
+          assert cst==expected and skt==expected, (cst,skt)
+          assert set(cst)==set(skt)
+
+          idx=json.loads(get(INDEX_URL))
+          raw=json.dumps(idx,ensure_ascii=False)
+          assert '214' in raw and '214-klimaticka-zmena-1.html' in raw, 'index 214 missing'
+
+          eps=json.loads(Path('episodes.json').read_text(encoding='utf-8'))
+          rows=eps.get('episodes',eps) if isinstance(eps,dict) else eps
+          match=[e for e in rows if int(e.get('number',-1))==EP]
+          assert match, 'production episodes.json missing 214'
+
+          # Neighbor duplicate check: canonical 213/215 must not be identical in times/titles/content.
+          def canonical(n,slug,lang):
+              url=f'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/{lang}/{n}-{slug}.html'
+              p=Parser(); p.feed(get(url)); return p.sections
+          n213cs=canonical(213,'dovera-vo-vedu','cs')
+          n215cs=canonical(215,'ako-mohol-prebiehat-velky-tresk','cs')
+          assert cs.sections != n213cs and cs.sections != n215cs
+          assert [x['title'] for x in cs.sections] != [x['title'] for x in n213cs]
+          assert [x['title'] for x in cs.sections] != [x['title'] for x in n215cs]
+
+          data={'cs':cs.sections,'sk':sk.sections}
+          payload=json.dumps(data,ensure_ascii=False,separators=(',',':'))
+          # Escape terminator-sensitive / script-sensitive characters while preserving decoded text exactly.
+          payload=payload.replace('&','\\u0026').replace('<','\\u003c').replace('>','\\u003e').replace(';','\\u003b').replace('\u2028','\\u2028').replace('\u2029','\\u2029')
+          Path(f'episode-{EP}-summary.js').write_text('const DATA='+payload+';\n',encoding='utf-8')
+
+          # Serialization round-trip must reproduce canonical parsed text character-for-character.
+          src=Path(f'episode-{EP}-summary.js').read_text(encoding='utf-8')
+          encoded=src[len('const DATA='):src.rfind(';')]
+          assert json.loads(encoded)==data
+
+          aug=Path('tools/augment-v2-extra-nonquestions.mjs')
+          s=aug.read_text(encoding='utf-8')
+          assert 'const EXTRAS=[215,' in s
+          s=s.replace('const EXTRAS=[215,','const EXTRAS=[214,215,',1)
+          aug.write_text(s,encoding='utf-8')
+
+          test=Path('tools/test-content-v2.mjs')
+          s=test.read_text(encoding='utf-8')
+          assert 'for(const n of [215,' in s
+          s=s.replace('for(const n of [215,','for(const n of [214,215,',1)
+          marker="const episode216=data.nonquestions.episodes['216'];"
+          assert marker in s
+          block="""const episode214=data.nonquestions.episodes['214'];
+          if(!episode214||episode214.cs?.length!==13||episode214.sk?.length!==13)fail('Episode 214 bilingual summary count mismatch');
+          const episode214Times=[\"02:27\",\"03:58\",\"04:59\",\"06:09\",\"07:42\",\"08:30\",\"11:00\",\"14:33\",\"15:29\",\"16:39\",\"21:34\",\"23:38\",\"26:01\"];
+          if(JSON.stringify(episode214.cs.map(item=>item.time))!==JSON.stringify(episode214Times))fail('Episode 214 Czech timestamps mismatch');
+          if(JSON.stringify(episode214.sk.map(item=>item.time))!==JSON.stringify(episode214Times))fail('Episode 214 Slovak timestamps mismatch');
+
+          """
+          s=s.replace(marker,block+marker,1)
+          test.write_text(s,encoding='utf-8')
+          print('Episode 214 canonical data prepared and source checks passed.')
+          PY
+
+      - name: V2 build a integrita
+        run: |
+          node --check app-v2.js
+          node --check episode-214-summary.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
+
+      - name: Commitnout ověřené cílové soubory
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- episode-214-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
+          test "$(git diff --cached --name-only | wc -l)" -eq 3
+          git commit -m 'Přidat ověřená data epizody 214'
+          git push
