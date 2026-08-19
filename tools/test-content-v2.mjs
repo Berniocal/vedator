@@ -41,7 +41,7 @@ if(!Array.isArray(data.series)||data.series.length!==seriesConfig.length)fail(`E
 if(data.series.some(series=>!series.i18n?.cs||!series.i18n?.sk))fail('Series translation missing');
 const nonEpisodes=Object.keys(data.nonquestions?.episodes||{});
 if(nonEpisodes.length<10)fail(`Too few nonquestion episodes: ${nonEpisodes.length}`);
-for(const n of [210,212,213,214,215,216,217,219,220,221,222,223,224,225,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,243,245,246,247,249,250,251,252,253,254,255,256,258,259,260,261,262,265,266,267,268,269,271,273,274,276,277,279,280,281,282,283,285,286,287,288,290,292,293,294,296,297,298,299,301,302,303,304,305,306,307,308,309,310,311,312,315,318,320,321,322,323,324,325,334,335,336,338,339,341,342,343,344,345,347]){
+for(const n of [207,210,212,213,214,215,216,217,219,220,221,222,223,224,225,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,243,245,246,247,249,250,251,252,253,254,255,256,258,259,260,261,262,265,266,267,268,269,271,273,274,276,277,279,280,281,282,283,285,286,287,288,290,292,293,294,296,297,298,299,301,302,303,304,305,306,307,308,309,310,311,312,315,318,320,321,322,323,324,325,334,335,336,338,339,341,342,343,344,345,347]){
   if(!data.nonquestions.episodes[String(n)])fail(`Missing nonquestion episode ${n}`);
 }
 const episodeNumbers=new Set(data.episodes.map(e=>Number(e.number)));
@@ -126,6 +126,10 @@ const episode212=data.nonquestions.episodes['212'];
 if(!episode212||episode212.cs.length!==12||episode212.sk.length!==12)fail('Episode 212 summary count mismatch');
 const episode212Times=['10:26','11:15','12:52','14:53','16:02','18:18','18:46','21:14','24:25','27:07','29:12','29:48'];
 if(JSON.stringify(episode212.cs.map(x=>x.time))!==JSON.stringify(episode212Times)||JSON.stringify(episode212.sk.map(x=>x.time))!==JSON.stringify(episode212Times))fail('Episode 212 timestamps mismatch');
+const episode207=data.nonquestions.episodes['207'];
+if(!episode207||episode207.cs.length!==32||episode207.sk.length!==32)fail('Episode 207 summary count mismatch');
+const episode207Times=["01:25","02:50","04:55","06:15","08:20","11:35","14:20","16:10","18:20","21:00","23:00","25:25","28:45","31:20","32:45","35:50","37:15","38:45","39:20","42:00","43:20","45:10","46:20","47:55","49:30","52:40","52:52","54:00","55:00","56:15","58:45","59:15"];
+if(JSON.stringify(episode207.cs.map(x=>x.time))!==JSON.stringify(episode207Times)||JSON.stringify(episode207.sk.map(x=>x.time))!==JSON.stringify(episode207Times))fail('Episode 207 timestamps mismatch');
 if(data.meta?.legacyParity?.source!=='series.json')fail('Series source metadata missing');
 
 console.log(JSON.stringify({
