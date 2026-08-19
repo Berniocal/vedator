@@ -5,6 +5,8 @@ name: Temp verify episode 210
 on:
   push:
     branches: [add-summary-210]
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: write
@@ -107,6 +109,7 @@ if(JSON.stringify(episode210.sk.map(x=>x.time))!==JSON.stringify(episode210Times
           node tools/build-production-sw.mjs
           git diff --exit-code -- app-v2.js index.html
       - name: Commitnout ověřené cílové soubory
+        if: github.event_name == 'push'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
