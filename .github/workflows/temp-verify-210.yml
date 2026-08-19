@@ -1,4 +1,5 @@
 name: Temp verify episode 210
+# trigger retry
 
 on:
   push:
@@ -63,7 +64,6 @@ jobs:
           payload={'cs':cs,'sk':sk}
           text='const DATA='+json.dumps(payload,ensure_ascii=False,separators=(',',':'))+';\n'
           open('episode-210-summary.js','w',encoding='utf-8').write(text)
-          # serialization round-trip
           raw=text[len('const DATA='):text.index(';')]
           if json.loads(raw)!=payload: raise SystemExit('serialization round-trip failed')
           print('episode 210: actual counts 9/9, timestamps 1:1, metadata OK')
