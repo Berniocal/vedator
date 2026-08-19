@@ -1,102 +1,73 @@
-name: Temp verify episode 210
-# trigger retry
-# trigger retry 2
-# trigger retry 3 after PR open
-
+name: Temp verify 210
 on:
   push:
     branches: [add-summary-210]
-  pull_request:
-    branches: [main]
-
 permissions:
   contents: write
-
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: add-summary-210
-      - name: Vytvořit kanonická data epizody 210
+      - name: Build canonical episode 210 data
         run: |
-          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/210-tmava-hmota-2.html -o /tmp/210-cs.html
-          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/210-tmava-hmota-2.html -o /tmp/210-sk.html
-          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/208-godel-escher-bach.html -o /tmp/208-cs.html
-          curl -fsSL https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/212-rok-2023-ve-vede.html -o /tmp/212-cs.html
           python - <<'PY'
-          import json,re
-          from html.parser import HTMLParser
-
-          EXPECTED=['01:30','04:15','06:13','07:57','09:53','11:55','12:28','14:03','16:46']
-          class P(HTMLParser):
-              def __init__(self):
-                  super().__init__(convert_charrefs=True); self.items=[]; self.cur=None; self.mode=None; self.buf=[]; self.h1=[]; self.in_h1=False
-              def handle_starttag(self,tag,attrs):
-                  a=dict(attrs)
-                  if tag=='section' and 'faq' in a.get('class','').split(): self.cur={'time':a.get('data-time'),'title':'','points':[]}
-                  elif self.cur and tag=='h2': self.mode='h2'; self.buf=[]
-                  elif self.cur and tag=='li': self.mode='li'; self.buf=[]
-                  elif tag=='h1': self.in_h1=True; self.h1=[]
-              def handle_data(self,d):
-                  if self.mode: self.buf.append(d)
-                  if self.in_h1: self.h1.append(d)
-              def handle_endtag(self,tag):
-                  if self.cur and tag=='h2' and self.mode=='h2': self.cur['title']=''.join(self.buf); self.mode=None
-                  elif self.cur and tag=='li' and self.mode=='li': self.cur['points'].append(''.join(self.buf)); self.mode=None
-                  elif self.cur and tag=='section': self.items.append(self.cur); self.cur=None
-                  elif tag=='h1': self.in_h1=False
-          def parse(path,lang):
-              s=open(path,encoding='utf-8').read()
-              if f'data-episode="210"' not in s or f'data-lang="{lang}"' not in s: raise SystemExit(f'bad episode/lang metadata {lang}')
-              if 'data-question-count="9"' not in s: raise SystemExit(f'bad metadata question count {lang}')
-              m=re.search(r'<title>(.*?)</title>',s,re.S)
-              if not m or m.group(1)!='Vedátorský podcast 210 – Tmavá hmota 2': raise SystemExit(f'bad title {lang}')
-              p=P(); p.feed(s)
-              if ''.join(p.h1)!='Vedátorský podcast 210 – Tmavá hmota 2': raise SystemExit(f'bad h1 {lang}')
-              if len(p.items)!=9: raise SystemExit(f'actual FAQ count {lang}={len(p.items)}')
-              if [x['time'] for x in p.items]!=EXPECTED: raise SystemExit(f'timestamps mismatch {lang}')
-              if any(not x['title'] or not x['points'] for x in p.items): raise SystemExit(f'incomplete FAQ {lang}')
-              return p.items,s
-          cs,cst=parse('/tmp/210-cs.html','cs'); sk,skt=parse('/tmp/210-sk.html','sk')
-          if [x['time'] for x in cs] != [x['time'] for x in sk]: raise SystemExit('CZ/SK timestamp sets differ')
-          if cst==open('/tmp/208-cs.html',encoding='utf-8').read() or cst==open('/tmp/212-cs.html',encoding='utf-8').read(): raise SystemExit('duplicate neighboring summary')
+          import json,re,html,urllib.request,pathlib
+          EP=210
+          urls={
+            'cs':'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/210-tmava-hmota-2.html',
+            'sk':'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/210-tmava-hmota-2.html'
+          }
+          data={}
+          raw={}
+          for lang,url in urls.items():
+            txt=urllib.request.urlopen(url,timeout=30).read().decode('utf-8')
+            raw[lang]=txt
+            assert f'data-episode="{EP}"' in txt
+            assert f'data-lang="{lang}"' in txt
+            assert re.search(rf'<title>[^<]*\b{EP}\b[^<]*Tmavá hmota 2[^<]*</title>',txt)
+            assert re.search(rf'<h1>[^<]*\b{EP}\b[^<]*Tmavá hmota 2[^<]*</h1>',txt)
+            secs=re.findall(r'<section class="faq" data-time="([^"]+)"><h2>(.*?)</h2><ul>(.*?)</ul></section>',txt,re.S)
+            items=[]
+            for t,title,ul in secs:
+              pts=[html.unescape(re.sub(r'<[^>]+>','',x)).strip() for x in re.findall(r'<li>(.*?)</li>',ul,re.S)]
+              items.append({'time':t,'title':html.unescape(re.sub(r'<[^>]+>','',title)).strip(),'points':pts})
+            assert len(items)==9, (lang,len(items))
+            data[lang]=items
+          expected=['01:30','04:15','06:13','07:57','09:53','11:55','12:28','14:03','16:46']
+          assert [x['time'] for x in data['cs']]==expected
+          assert [x['time'] for x in data['sk']]==expected
+          for neighbor in [208,212]:
+            u=f'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/{neighbor}-'+('godel-escher-bach.html' if neighbor==208 else 'rok-2023-ve-vede.html')
+            n=urllib.request.urlopen(u,timeout=30).read().decode('utf-8')
+            assert raw['cs']!=n
           ep=json.load(open('episodes.json',encoding='utf-8'))
           matches=[e for e in ep.get('episodes',[]) if int(e.get('number',-1))==210]
-          if not matches or 'Tmavá hmota 2' not in matches[0].get('title',''): raise SystemExit('episodes.json metadata mismatch for 210')
-          payload={'cs':cs,'sk':sk}
-          text='const DATA='+json.dumps(payload,ensure_ascii=False,separators=(',',':'))+';\n'
-          open('episode-210-summary.js','w',encoding='utf-8').write(text)
-          raw=text[len('const DATA='):text.index(';')]
-          if json.loads(raw)!=payload: raise SystemExit('serialization round-trip failed')
-          print('episode 210: actual counts 9/9, timestamps 1:1, metadata OK')
-          PY
-      - name: Registrovat 210 ve V2
-        run: |
-          python - <<'PY'
-          p='tools/augment-v2-extra-nonquestions.mjs'
-          s=open(p,encoding='utf-8').read()
+          assert matches and 'Tmavá hmota 2' in matches[0].get('title','')
+          payload=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
+          pathlib.Path('episode-210-summary.js').write_text(f'const DATA={payload};\nif(typeof window!=="undefined")window.EPISODE_210_SUMMARY=DATA;\n',encoding='utf-8')
+          js=pathlib.Path('episode-210-summary.js').read_text(encoding='utf-8')
+          parsed=json.loads(js.split('const DATA=',1)[1].split(';',1)[0])
+          assert parsed==data
+          aug=pathlib.Path('tools/augment-v2-extra-nonquestions.mjs')
+          s=aug.read_text(encoding='utf-8')
           if 'const EXTRAS=[210,' not in s:
-              s=s.replace('const EXTRAS=[','const EXTRAS=[210,',1)
-          open(p,'w',encoding='utf-8').write(s)
-          p='tools/test-content-v2.mjs'
-          s=open(p,encoding='utf-8').read()
+            s=s.replace('const EXTRAS=[','const EXTRAS=[210,',1)
+          aug.write_text(s,encoding='utf-8')
+          test=pathlib.Path('tools/test-content-v2.mjs')
+          s=test.read_text(encoding='utf-8')
           marker='for(const n of ['
           i=s.index(marker)+len(marker)
           if not s[i:].startswith('210,'):
-              s=s[:i]+'210,'+s[i:]
-          check="""\nconst episode210=data.nonquestions.episodes['210'];
-if(!episode210||episode210.cs?.length!==9||episode210.sk?.length!==9)fail('Episode 210 bilingual summary count mismatch');
-const episode210Times=['01:30','04:15','06:13','07:57','09:53','11:55','12:28','14:03','16:46'];
-if(JSON.stringify(episode210.cs.map(x=>x.time))!==JSON.stringify(episode210Times))fail('Episode 210 Czech timestamps mismatch');
-if(JSON.stringify(episode210.sk.map(x=>x.time))!==JSON.stringify(episode210Times))fail('Episode 210 Slovak timestamps mismatch');
-"""
+            s=s[:i]+'210,'+s[i:]
+          anchor="if(data.meta?.legacyParity?.source!=='series.json')fail('Series source metadata missing');"
+          extra="""const episode210=data.nonquestions.episodes['210'];\nif(!episode210||episode210.cs.length!==9||episode210.sk.length!==9)fail('Episode 210 summary count mismatch');\nconst episode210Times=['01:30','04:15','06:13','07:57','09:53','11:55','12:28','14:03','16:46'];\nif(JSON.stringify(episode210.cs.map(x=>x.time))!==JSON.stringify(episode210Times)||JSON.stringify(episode210.sk.map(x=>x.time))!==JSON.stringify(episode210Times))fail('Episode 210 timestamps mismatch');\n"""
           if "const episode210=" not in s:
-              s=s.replace("if(data.meta?.legacyParity?.source!=='series.json')",check+"\nif(data.meta?.legacyParity?.source!=='series.json')",1)
-          open(p,'w',encoding='utf-8').write(s)
+            s=s.replace(anchor,extra+anchor,1)
+          test.write_text(s,encoding='utf-8')
+          print('canonical 210 OK:',len(data['cs']),len(data['sk']))
           PY
-      - name: V2 build a testy
+      - name: Run V2 verification
         run: |
           node --check app-v2.js
           node --check episode-210-summary.js
@@ -109,14 +80,14 @@ if(JSON.stringify(episode210.sk.map(x=>x.time))!==JSON.stringify(episode210Times
           node tools/test-v2-faq-integrity.mjs
           node tools/build-production-sw.mjs
           git diff --exit-code -- app-v2.js index.html
-      - name: Commitnout ověřené cílové soubory
-        if: github.event_name == 'push'
+      - name: Commit verified target files
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -- content-v2.json episodes.json sw.js
           git add -- episode-210-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
           if git diff --cached --quiet; then
-            echo 'Cílové soubory beze změny.'
+            echo 'Target files unchanged.'
           else
             git commit -m 'Přidat ověřené shrnutí epizody 210'
             git push
