@@ -84,3 +84,4 @@ jobs:
             git commit -m 'Přidat ověřené shrnutí epizody 207'
             git push
           fi
+# trigger after idempotent verification fix
