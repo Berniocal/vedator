@@ -5,7 +5,7 @@ on:
     branches: [add-summary-213]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify:
@@ -61,3 +61,19 @@ jobs:
           node tools/test-v2-faq-integrity.mjs
           node tools/build-production-sw.mjs
           git diff --exit-code -- app-v2.js index.html
+
+      - name: Record successful verification in target files
+        run: |
+          marker='// temp-verify-213: passed'
+          if grep -Fq "$marker" episode-213-summary.js; then
+            echo 'Verification marker already present; nothing to commit.'
+            exit 0
+          fi
+          printf '\n%s\n' "$marker" >> episode-213-summary.js
+          printf '\n%s\n' "$marker" >> tools/augment-v2-extra-nonquestions.mjs
+          printf '\n%s\n' "$marker" >> tools/test-content-v2.mjs
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- episode-213-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
+          git commit -m 'Ověření epizody 213 prošlo'
+          git push
