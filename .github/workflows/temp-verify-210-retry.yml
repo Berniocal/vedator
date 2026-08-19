@@ -1,0 +1,72 @@
+name: Temp verify 210 retry
+on:
+  push:
+    branches: [add-summary-210-retry]
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build canonical episode 210 data
+        run: |
+          python - <<'PY'
+          import json,re,html,urllib.request,pathlib
+          EP=210
+          urls={'cs':'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/210-tmava-hmota-2.html','sk':'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/210-tmava-hmota-2.html'}
+          data={}
+          for lang,url in urls.items():
+            txt=urllib.request.urlopen(url,timeout=30).read().decode('utf-8')
+            assert f'data-episode="{EP}"' in txt and f'data-lang="{lang}"' in txt
+            assert re.search(rf'<title>[^<]*\b{EP}\b[^<]*</title>',txt)
+            assert re.search(rf'<h1>[^<]*\b{EP}\b[^<]*</h1>',txt)
+            secs=re.findall(r'<section class="faq" data-time="([^"]+)"><h2>(.*?)</h2><ul>(.*?)</ul></section>',txt,re.S)
+            items=[]
+            for t,title,ul in secs:
+              pts=[html.unescape(re.sub(r'<[^>]+>','',x)).strip() for x in re.findall(r'<li>(.*?)</li>',ul,re.S)]
+              items.append({'time':t,'title':html.unescape(re.sub(r'<[^>]+>','',title)).strip(),'points':pts})
+            assert len(items)==9
+            data[lang]=items
+          expected=['01:30','04:15','06:13','07:57','09:53','11:55','12:28','14:03','16:46']
+          assert [x['time'] for x in data['cs']]==expected==[x['time'] for x in data['sk']]
+          ep=json.load(open('episodes.json',encoding='utf-8'))
+          matches=[e for e in ep.get('episodes',[]) if int(e.get('number',-1))==210]
+          assert matches and 'Tmavá hmota 2' in matches[0].get('title','')
+          payload=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
+          pathlib.Path('episode-210-summary.js').write_text(f'const DATA={payload};\nif(typeof window!=="undefined")window.EPISODE_210_SUMMARY=DATA;\n',encoding='utf-8')
+          js=pathlib.Path('episode-210-summary.js').read_text(encoding='utf-8')
+          assert json.loads(js.split('const DATA=',1)[1].split(';',1)[0])==data
+          aug=pathlib.Path('tools/augment-v2-extra-nonquestions.mjs')
+          s=aug.read_text(encoding='utf-8')
+          s=s.replace('const EXTRAS=[','const EXTRAS=[210,',1)
+          aug.write_text(s,encoding='utf-8')
+          test=pathlib.Path('tools/test-content-v2.mjs')
+          s=test.read_text(encoding='utf-8')
+          s=s.replace('for(const n of [','for(const n of [210,',1)
+          anchor="if(data.meta?.legacyParity?.source!=='series.json')fail('Series source metadata missing');"
+          extra="""const episode210=data.nonquestions.episodes['210'];\nif(!episode210||episode210.cs.length!==9||episode210.sk.length!==9)fail('Episode 210 summary count mismatch');\nconst episode210Times=['01:30','04:15','06:13','07:57','09:53','11:55','12:28','14:03','16:46'];\nif(JSON.stringify(episode210.cs.map(x=>x.time))!==JSON.stringify(episode210Times)||JSON.stringify(episode210.sk.map(x=>x.time))!==JSON.stringify(episode210Times))fail('Episode 210 timestamps mismatch');\n"""
+          s=s.replace(anchor,extra+anchor,1)
+          test.write_text(s,encoding='utf-8')
+          PY
+      - name: Run V2 verification
+        run: |
+          node --check app-v2.js
+          node --check episode-210-summary.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
+      - name: Commit verified target files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -- content-v2.json episodes.json sw.js
+          git add -- episode-210-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
+          git commit -m 'Přidat ověřené shrnutí epizody 210'
+          git push
