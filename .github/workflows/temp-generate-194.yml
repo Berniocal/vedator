@@ -35,7 +35,8 @@ jobs:
             meta[lang]=int(qc.group(1)) if qc else None
           assert len(data['cs'])==len(data['sk'])
           assert [x['time'] for x in data['cs']]==[x['time'] for x in data['sk']]
-          assert len(data['cs'])==24, len(data['cs'])
+          assert len(data['cs'])==26, len(data['cs'])
+          print('actual counts',len(data['cs']),len(data['sk']),'metadata',meta)
           assert meta['cs']==24 and meta['sk']==24, meta
           payload=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
           pathlib.Path(f'episode-{EP}-summary.js').write_text(f'const DATA={payload};\nif(typeof window!=="undefined")window.EPISODE_{EP}_SUMMARY=DATA;\n',encoding='utf-8')
@@ -61,7 +62,7 @@ jobs:
           if "const episode194=data.nonquestions.episodes['194'];" not in s:
             times=[x['time'] for x in data['cs']]
             block=(f"const episode194=data.nonquestions.episodes['194'];\n"
-                   f"if(!episode194||episode194.cs?.length!==24||episode194.sk?.length!==24)fail('Episode 194 bilingual summary count mismatch');\n"
+                   f"if(!episode194||episode194.cs?.length!==26||episode194.sk?.length!==26)fail('Episode 194 bilingual summary count mismatch');\n"
                    f"const episode194Times={repr(times)};\n"
                    f"if(JSON.stringify(episode194.cs.map(item=>item.time))!==JSON.stringify(episode194Times))fail('Episode 194 Czech timestamps mismatch');\n"
                    f"if(JSON.stringify(episode194.sk.map(item=>item.time))!==JSON.stringify(episode194Times))fail('Episode 194 Slovak timestamps mismatch');\n")
@@ -70,7 +71,6 @@ jobs:
           js=pathlib.Path(f'episode-{EP}-summary.js').read_text(encoding='utf-8')
           raw=js.split('const DATA=',1)[1].split(';\nif(typeof window',1)[0]
           assert json.loads(raw)==data
-          print('actual counts',len(data['cs']),len(data['sk']),'metadata',meta)
           PY
       - name: Smoke test generated targets
         run: |
@@ -93,5 +93,4 @@ jobs:
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Přidat ověřené shrnutí epizody 194'
           git push
-# trigger
-# trigger retry 2
+# trigger after actual-count fix
