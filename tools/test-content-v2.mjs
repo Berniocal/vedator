@@ -41,7 +41,7 @@ if(!Array.isArray(data.series)||data.series.length!==seriesConfig.length)fail(`E
 if(data.series.some(series=>!series.i18n?.cs||!series.i18n?.sk))fail('Series translation missing');
 const nonEpisodes=Object.keys(data.nonquestions?.episodes||{});
 if(nonEpisodes.length<10)fail(`Too few nonquestion episodes: ${nonEpisodes.length}`);
-for(const n of [205,206,207,210,212,213,214,215,216,217,219,220,221,222,223,224,225,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,243,245,246,247,249,250,251,252,253,254,255,256,258,259,260,261,262,265,266,267,268,269,271,273,274,276,277,279,280,281,282,283,285,286,287,288,290,292,293,294,296,297,298,299,301,302,303,304,305,306,307,308,309,310,311,312,315,318,320,321,322,323,324,325,334,335,336,338,339,341,342,343,344,345,347]){
+for(const n of [202,205,206,207,210,212,213,214,215,216,217,219,220,221,222,223,224,225,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,243,245,246,247,249,250,251,252,253,254,255,256,258,259,260,261,262,265,266,267,268,269,271,273,274,276,277,279,280,281,282,283,285,286,287,288,290,292,293,294,296,297,298,299,301,302,303,304,305,306,307,308,309,310,311,312,315,318,320,321,322,323,324,325,334,335,336,338,339,341,342,343,344,345,347]){
   if(!data.nonquestions.episodes[String(n)])fail(`Missing nonquestion episode ${n}`);
 }
 const episodeNumbers=new Set(data.episodes.map(e=>Number(e.number)));
@@ -71,6 +71,12 @@ for(const configured of seriesConfig){
     if(Number(episode.number)<=0||Number(episode.number)>=2048)fail(`Special series internal id is outside safe range: ${raw}`);
   }
 }
+
+const episode202=data.nonquestions.episodes['202'];
+if(!episode202||episode202.cs?.length!==8||episode202.sk?.length!==8)fail('Episode 202 bilingual summary count mismatch');
+const episode202Times=['01:43','05:02','06:38','07:06','08:29','14:35','15:22','16:39'];
+if(JSON.stringify(episode202.cs.map(item=>item.time))!==JSON.stringify(episode202Times))fail('Episode 202 Czech timestamps mismatch');
+if(JSON.stringify(episode202.sk.map(item=>item.time))!==JSON.stringify(episode202Times))fail('Episode 202 Slovak timestamps mismatch');
 
 const episode205=data.nonquestions.episodes['205'];
 if(!episode205||episode205.cs?.length!==16||episode205.sk?.length!==16)fail('Episode 205 bilingual summary count mismatch');
