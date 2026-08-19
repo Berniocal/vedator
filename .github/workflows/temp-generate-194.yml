@@ -1,0 +1,95 @@
+name: Temp generate 194
+on:
+  push:
+    branches: [add-summary-194]
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate exact bilingual summary from canonical HTML
+        run: |
+          python - <<'PY'
+          import json,re,html,urllib.request,pathlib
+          EP=194
+          urls={
+            'cs':'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/cs/194-supravodivost.html',
+            'sk':'https://raw.githubusercontent.com/Berniocal/vedator-test/main/shrnuti/sk/194-supravodivost.html'
+          }
+          data={}; meta={}
+          for lang,url in urls.items():
+            txt=urllib.request.urlopen(url,timeout=30).read().decode('utf-8')
+            assert f'data-episode="{EP}"' in txt
+            assert re.search(rf'<title>[^<]*\b{EP}\b[^<]*</title>',txt)
+            assert re.search(rf'<h1>[^<]*\b{EP}\b[^<]*</h1>',txt)
+            secs=re.findall(r'<section class="faq" data-time="([^"]+)"><h2>(.*?)</h2><ul>(.*?)</ul></section>',txt,re.S)
+            items=[]
+            for t,title,ul in secs:
+              pts=[html.unescape(re.sub(r'<[^>]+>','',x)).strip() for x in re.findall(r'<li>(.*?)</li>',ul,re.S)]
+              items.append({'time':t,'title':html.unescape(re.sub(r'<[^>]+>','',title)).strip(),'points':pts})
+            assert items, lang
+            data[lang]=items
+            qc=re.search(r'data-question-count="(\d+)"',txt)
+            meta[lang]=int(qc.group(1)) if qc else None
+          assert len(data['cs'])==len(data['sk'])
+          assert [x['time'] for x in data['cs']]==[x['time'] for x in data['sk']]
+          assert len(data['cs'])==24, len(data['cs'])
+          assert meta['cs']==24 and meta['sk']==24, meta
+          payload=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
+          pathlib.Path(f'episode-{EP}-summary.js').write_text(f'const DATA={payload};\nif(typeof window!=="undefined")window.EPISODE_{EP}_SUMMARY=DATA;\n',encoding='utf-8')
+          aug=pathlib.Path('tools/augment-v2-extra-nonquestions.mjs')
+          s=aug.read_text(encoding='utf-8')
+          assert "indexOf(';')" not in s
+          m=re.search(r'const EXTRAS=\[([^\]]+)\]',s); assert m
+          nums=[int(x) for x in m.group(1).split(',') if x.strip()]
+          if EP not in nums:
+            nums.append(EP); nums.sort()
+            s=s[:m.start(1)]+','.join(map(str,nums))+s[m.end(1):]
+          assert nums.count(EP)==1
+          aug.write_text(s,encoding='utf-8')
+          test=pathlib.Path('tools/test-content-v2.mjs')
+          s=test.read_text(encoding='utf-8')
+          m=re.search(r'for\(const n of \[([^\]]+)\]\)',s); assert m
+          nums=[int(x) for x in m.group(1).split(',') if x.strip()]
+          if EP not in nums:
+            nums.append(EP); nums.sort()
+            s=s[:m.start(1)]+','.join(map(str,nums))+s[m.end(1):]
+          marker="const episode195=data.nonquestions.episodes['195'];"
+          assert marker in s
+          if "const episode194=data.nonquestions.episodes['194'];" not in s:
+            times=[x['time'] for x in data['cs']]
+            block=(f"const episode194=data.nonquestions.episodes['194'];\n"
+                   f"if(!episode194||episode194.cs?.length!==24||episode194.sk?.length!==24)fail('Episode 194 bilingual summary count mismatch');\n"
+                   f"const episode194Times={repr(times)};\n"
+                   f"if(JSON.stringify(episode194.cs.map(item=>item.time))!==JSON.stringify(episode194Times))fail('Episode 194 Czech timestamps mismatch');\n"
+                   f"if(JSON.stringify(episode194.sk.map(item=>item.time))!==JSON.stringify(episode194Times))fail('Episode 194 Slovak timestamps mismatch');\n")
+            s=s.replace(marker,block+marker,1)
+          test.write_text(s,encoding='utf-8')
+          js=pathlib.Path(f'episode-{EP}-summary.js').read_text(encoding='utf-8')
+          raw=js.split('const DATA=',1)[1].split(';\nif(typeof window',1)[0]
+          assert json.loads(raw)==data
+          print('actual counts',len(data['cs']),len(data['sk']),'metadata',meta)
+          PY
+      - name: Smoke test generated targets
+        run: |
+          node --check episode-194-summary.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
+      - name: Commit only target files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -- content-v2.json episodes.json sw.js
+          git add -- episode-194-summary.js tools/augment-v2-extra-nonquestions.mjs tools/test-content-v2.mjs
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Přidat ověřené shrnutí epizody 194'
+          git push
