@@ -73,7 +73,7 @@ for(const configured of seriesConfig){
 }
 
 const episode205=data.nonquestions.episodes['205'];
-if(!episode205||episode205.cs?.length!==15||episode205.sk?.length!==15)fail('Episode 205 bilingual summary count mismatch');
+if(!episode205||episode205.cs?.length!==16||episode205.sk?.length!==16)fail('Episode 205 bilingual summary count mismatch');
 const episode205Times=['02:28','04:52','05:37','07:45','09:58','12:14','13:08','15:54','17:57','19:09','22:12','23:38','24:10','26:38','29:36','30:58'];
 if(JSON.stringify(episode205.cs.map(item=>item.time))!==JSON.stringify(episode205Times))fail('Episode 205 Czech timestamps mismatch');
 if(JSON.stringify(episode205.sk.map(item=>item.time))!==JSON.stringify(episode205Times))fail('Episode 205 Slovak timestamps mismatch');
