@@ -1,0 +1,32 @@
+name: Verify V2 summary PR
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'episode-*-summary.js'
+      - 'tools/augment-v2-extra-nonquestions.mjs'
+      - 'tools/test-content-v2.mjs'
+      - '.github/workflows/verify-v2-summary-pr.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify V2 build and tests
+        run: |
+          node --check app-v2.js
+          for f in episode-*-summary.js; do node --check "$f"; done
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/build-production-sw.mjs
+          git diff --exit-code -- app-v2.js index.html
