@@ -41,7 +41,7 @@ if(!Array.isArray(data.series)||data.series.length!==seriesConfig.length)fail(`E
 if(data.series.some(series=>!series.i18n?.cs||!series.i18n?.sk))fail('Series translation missing');
 const nonEpisodes=Object.keys(data.nonquestions?.episodes||{});
 if(nonEpisodes.length<10)fail(`Too few nonquestion episodes: ${nonEpisodes.length}`);
-for(const n of [197,198,199,200,201,202,205,206,207,210,212,213,214,215,216,217,219,220,221,222,223,224,225,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,243,245,246,247,249,250,251,252,253,254,255,256,258,259,260,261,262,265,266,267,268,269,271,273,274,276,277,279,280,281,282,283,285,286,287,288,290,292,293,294,296,297,298,299,301,302,303,304,305,306,307,308,309,310,311,312,315,318,320,321,322,323,324,325,334,335,336,338,339,341,342,343,344,345,347]){
+for(const n of [196,197,198,199,200,201,202,205,206,207,210,212,213,214,215,216,217,219,220,221,222,223,224,225,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,243,245,246,247,249,250,251,252,253,254,255,256,258,259,260,261,262,265,266,267,268,269,271,273,274,276,277,279,280,281,282,283,285,286,287,288,290,292,293,294,296,297,298,299,301,302,303,304,305,306,307,308,309,310,311,312,315,318,320,321,322,323,324,325,334,335,336,338,339,341,342,343,344,345,347]){
   if(!data.nonquestions.episodes[String(n)])fail(`Missing nonquestion episode ${n}`);
 }
 const episodeNumbers=new Set(data.episodes.map(e=>Number(e.number)));
@@ -72,54 +72,52 @@ for(const configured of seriesConfig){
   }
 }
 
+const episode196=data.nonquestions.episodes['196'];
+if(!episode196||episode196.cs?.length!==12||episode196.sk?.length!==12)fail('Episode 196 bilingual summary count mismatch');
+const episode196Times=['00:44','01:59','03:24','04:21','06:02','07:12','10:00','12:41','14:10','15:29','18:49','20:33'];
+if(JSON.stringify(episode196.cs.map(item=>item.time))!==JSON.stringify(episode196Times))fail('Episode 196 Czech timestamps mismatch');
+if(JSON.stringify(episode196.sk.map(item=>item.time))!==JSON.stringify(episode196Times))fail('Episode 196 Slovak timestamps mismatch');
+
 const episode197=data.nonquestions.episodes['197'];
 if(!episode197||episode197.cs?.length!==10||episode197.sk?.length!==10)fail('Episode 197 bilingual summary count mismatch');
 const episode197Times=['02:18','04:48','06:04','07:00','08:05','09:38','10:44','13:29','17:21','18:08'];
 if(JSON.stringify(episode197.cs.map(item=>item.time))!==JSON.stringify(episode197Times))fail('Episode 197 Czech timestamps mismatch');
 if(JSON.stringify(episode197.sk.map(item=>item.time))!==JSON.stringify(episode197Times))fail('Episode 197 Slovak timestamps mismatch');
-
 const episode198=data.nonquestions.episodes['198'];
 if(!episode198||episode198.cs?.length!==12||episode198.sk?.length!==12)fail('Episode 198 bilingual summary count mismatch');
 const episode198Times=['02:40','04:34','06:31','07:09','09:19','11:30','13:21','16:25','18:46','20:38','21:37','23:01'];
 if(JSON.stringify(episode198.cs.map(item=>item.time))!==JSON.stringify(episode198Times))fail('Episode 198 Czech timestamps mismatch');
 if(JSON.stringify(episode198.sk.map(item=>item.time))!==JSON.stringify(episode198Times))fail('Episode 198 Slovak timestamps mismatch');
-
 const episode199=data.nonquestions.episodes['199'];
 if(!episode199||episode199.cs?.length!==10||episode199.sk?.length!==10)fail('Episode 199 bilingual summary count mismatch');
 const episode199Times=['01:10','04:43','07:05','08:11','11:00','14:00','15:09','16:50','18:33','21:02'];
 if(JSON.stringify(episode199.cs.map(item=>item.time))!==JSON.stringify(episode199Times))fail('Episode 199 Czech timestamps mismatch');
 if(JSON.stringify(episode199.sk.map(item=>item.time))!==JSON.stringify(episode199Times))fail('Episode 199 Slovak timestamps mismatch');
-
 const episode200=data.nonquestions.episodes['200'];
 if(!episode200||episode200.cs?.length!==11||episode200.sk?.length!==11)fail('Episode 200 bilingual summary count mismatch');
 const episode200Times=['02:57','03:45','06:22','09:01','13:00','18:49','23:25','26:15','28:33','33:29','39:02'];
 if(JSON.stringify(episode200.cs.map(item=>item.time))!==JSON.stringify(episode200Times))fail('Episode 200 Czech timestamps mismatch');
 if(JSON.stringify(episode200.sk.map(item=>item.time))!==JSON.stringify(episode200Times))fail('Episode 200 Slovak timestamps mismatch');
-
 const episode201=data.nonquestions.episodes['201'];
 if(!episode201||episode201.cs?.length!==14||episode201.sk?.length!==14)fail('Episode 201 bilingual summary count mismatch');
 const episode201Times=['03:13','05:10','05:21','06:36','07:56','11:13','13:00','15:04','18:58','20:21','21:39','22:02','24:55','27:13'];
 if(JSON.stringify(episode201.cs.map(item=>item.time))!==JSON.stringify(episode201Times))fail('Episode 201 Czech timestamps mismatch');
 if(JSON.stringify(episode201.sk.map(item=>item.time))!==JSON.stringify(episode201Times))fail('Episode 201 Slovak timestamps mismatch');
-
 const episode202=data.nonquestions.episodes['202'];
 if(!episode202||episode202.cs?.length!==8||episode202.sk?.length!==8)fail('Episode 202 bilingual summary count mismatch');
 const episode202Times=['01:43','05:02','06:38','07:06','08:29','14:35','15:22','16:39'];
 if(JSON.stringify(episode202.cs.map(item=>item.time))!==JSON.stringify(episode202Times))fail('Episode 202 Czech timestamps mismatch');
 if(JSON.stringify(episode202.sk.map(item=>item.time))!==JSON.stringify(episode202Times))fail('Episode 202 Slovak timestamps mismatch');
-
 const episode205=data.nonquestions.episodes['205'];
 if(!episode205||episode205.cs?.length!==16||episode205.sk?.length!==16)fail('Episode 205 bilingual summary count mismatch');
 const episode205Times=['02:28','04:52','05:37','07:45','09:58','12:14','13:08','15:54','17:57','19:09','22:12','23:38','24:10','26:38','29:36','30:58'];
 if(JSON.stringify(episode205.cs.map(item=>item.time))!==JSON.stringify(episode205Times))fail('Episode 205 Czech timestamps mismatch');
 if(JSON.stringify(episode205.sk.map(item=>item.time))!==JSON.stringify(episode205Times))fail('Episode 205 Slovak timestamps mismatch');
-
 const episode206=data.nonquestions.episodes['206'];
 if(!episode206||episode206.cs?.length!==12||episode206.sk?.length!==12)fail('Episode 206 bilingual summary count mismatch');
 const episode206Times=['01:42','02:20','04:23','06:00','07:47','10:15','12:27','14:32','17:10','19:07','21:20','23:09'];
 if(JSON.stringify(episode206.cs.map(item=>item.time))!==JSON.stringify(episode206Times))fail('Episode 206 Czech timestamps mismatch');
 if(JSON.stringify(episode206.sk.map(item=>item.time))!==JSON.stringify(episode206Times))fail('Episode 206 Slovak timestamps mismatch');
-
 const episode210=data.nonquestions.episodes['210'];
 if(!episode210||episode210.cs?.length!==9||episode210.sk?.length!==9)fail('Episode 210 bilingual summary count mismatch');
 const episode210Times=["01:30","04:15","06:13","07:57","09:53","11:55","12:28","14:03","16:46"];
@@ -130,42 +128,35 @@ if(!episode213||episode213.cs?.length!==8||episode213.sk?.length!==8)fail('Episo
 const episode213Times=["03:22","06:29","08:02","11:31","13:16","13:53","15:01","17:43"];
 if(JSON.stringify(episode213.cs.map(item=>item.time))!==JSON.stringify(episode213Times))fail('Episode 213 Czech timestamps mismatch');
 if(JSON.stringify(episode213.sk.map(item=>item.time))!==JSON.stringify(episode213Times))fail('Episode 213 Slovak timestamps mismatch');
-
 const episode214=data.nonquestions.episodes['214'];
 if(!episode214||episode214.cs?.length!==13||episode214.sk?.length!==13)fail('Episode 214 bilingual summary count mismatch');
 const episode214Times=["02:27","03:58","04:59","06:09","07:42","08:30","11:00","14:33","15:29","16:39","21:34","23:38","26:01"];
 if(JSON.stringify(episode214.cs.map(item=>item.time))!==JSON.stringify(episode214Times))fail('Episode 214 Czech timestamps mismatch');
 if(JSON.stringify(episode214.sk.map(item=>item.time))!==JSON.stringify(episode214Times))fail('Episode 214 Slovak timestamps mismatch');
-
 const episode216=data.nonquestions.episodes['216'];
 if(!episode216||episode216.cs?.length!==12||episode216.sk?.length!==12)fail('Episode 216 bilingual summary count mismatch');
 const episode216Times=["01:20","05:50","07:01","09:02","10:19","13:32","15:09","16:24","17:37","19:23","19:40","22:28"];
 if(JSON.stringify(episode216.cs.map(item=>item.time))!==JSON.stringify(episode216Times))fail('Episode 216 Czech timestamps mismatch');
 if(JSON.stringify(episode216.sk.map(item=>item.time))!==JSON.stringify(episode216Times))fail('Episode 216 Slovak timestamps mismatch');
-
 const episode215=data.nonquestions.episodes['215'];
 if(!episode215||episode215.cs?.length!==9||episode215.sk?.length!==9)fail('Episode 215 bilingual summary count mismatch');
 const episode215Times=["01:30","02:18","05:38","06:14","08:30","11:22","15:19","17:57","19:42"];
 if(JSON.stringify(episode215.cs.map(item=>item.time))!==JSON.stringify(episode215Times))fail('Episode 215 Czech timestamps mismatch');
 if(JSON.stringify(episode215.sk.map(item=>item.time))!==JSON.stringify(episode215Times))fail('Episode 215 Slovak timestamps mismatch');
-
 const episodeI18n=data.episodes.filter(e=>e.i18n?.cs&&e.i18n?.sk);
 if(episodeI18n.length<340)fail(`Too few bilingual episodes: ${episodeI18n.length}`);
 const changedEpisodes=episodeI18n.filter(e=>e.i18n.cs.title!==e.i18n.sk.title||e.i18n.cs.description!==e.i18n.sk.description);
 if(changedEpisodes.length<300)fail(`Too few actually translated episodes: ${changedEpisodes.length}`);
 const changedQuestions=data.questions.filter(q=>q.i18n.cs.title!==q.i18n.sk.title||q.i18n.cs.points.some((point,index)=>point!==q.i18n.sk.points[index]));
 if(changedQuestions.length<500)fail(`Too few actually translated questions: ${changedQuestions.length}`);
-
 const episode217=data.nonquestions.episodes['217'];
 if(!episode217||episode217.cs?.length!==7||episode217.sk?.length!==7)fail('Episode 217 summary count mismatch');
 const expected217Times=['03:43','07:20','11:29','12:50','15:24','16:57','18:41'];
 if(episode217.cs.some((item,index)=>item.time!==expected217Times[index])||episode217.sk.some((item,index)=>item.time!==expected217Times[index]))fail('Episode 217 summary times mismatch');
-
 const episode219=data.nonquestions.episodes['219'];
 if(!episode219||episode219.cs?.length!==8||episode219.sk?.length!==8)fail('Episode 219 summary count mismatch');
 const expected219Times=['00:49','02:50','04:29','06:54','09:34','11:32','13:53','15:13'];
 if(episode219.cs.some((item,index)=>item.time!==expected219Times[index])||episode219.sk.some((item,index)=>item.time!==expected219Times[index]))fail('Episode 219 summary times mismatch');
-
 const episode343=data.episodes.find(e=>Number(e.number)===343);
 if(!episode343?.i18n?.cs?.title.includes('tečky'))fail('Episode 343 Czech title missing');
 if(!episode343?.i18n?.sk?.title.includes('bodky'))fail('Episode 343 Slovak title missing');
