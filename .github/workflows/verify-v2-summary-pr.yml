@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'episode-*-summary.js'
+      - 'episode-translations-*.js'
       - 'tools/augment-v2-extra-nonquestions.mjs'
       - 'tools/test-content-v2.mjs'
       - '.github/workflows/verify-v2-summary-pr.yml'
@@ -21,6 +22,7 @@ jobs:
         run: |
           node --check app-v2.js
           for f in episode-*-summary.js; do node --check "$f"; done
+          for f in episode-translations-*.js; do node --check "$f"; done
           node tools/build-content-v2.mjs
           node tools/augment-v2-extra-nonquestions.mjs
           node tools/augment-v2-episode-descriptions.mjs
