@@ -56,6 +56,15 @@
     return {title:copy?.title||question?.title||'',points:Array.isArray(copy?.points)?copy.points:(question?.points||[])};
   }
   function seriesLabel(series){return series?.i18n?.[contentLang()]||series?.name||text('Série','Séria')}
+  function seriesKind(series){return series?.kind==='topic'?'topic':'series'}
+  function seriesCollectionKeys(series){
+    const names=[series?.name,...(Array.isArray(series?.legacyNames)?series.legacyNames:[])].filter(Boolean);
+    return [...new Set(names.map(name=>'series:'+norm(name)))];
+  }
+  function seriesCollectionId(series){
+    const keys=seriesCollectionKeys(series),existing=keys.find(key=>state.collectionProgress[key]&&typeof state.collectionProgress[key]==='object');
+    return existing||keys[0]||'series:';
+  }
   function allEpisodeSearch(episode){
     const cs=episode?.i18n?.cs||{},skCopy=episode?.i18n?.sk||{};
     return norm(`${episode?.number||''} ${episode?.title||''} ${episode?.description||''} ${cs.title||''} ${cs.description||''} ${skCopy.title||''} ${skCopy.description||''}`);
@@ -158,7 +167,7 @@
     const records=episodes.map(episode=>({episode,record:state.progress[episodeKey(episode.number)]||{}}));
     const completed=records.filter(item=>item.record.completed).length;
     let resumeIndex=-1;
-    const collection=state.collectionProgress['series:'+norm(series?.name||'')];
+    const collection=state.collectionProgress[seriesCollectionId(series)];
     if(collection?.lastItemId){
       const last=records.findIndex(item=>'episode:'+item.episode.number===collection.lastItemId);
       if(last>=0){
@@ -174,10 +183,11 @@
     const finished=total>0&&completed===total;
     return {episodes,records,total,completed,percent,resumeIndex,started,finished};
   }
-  function seriesResumeLabel(info){
-    if(info.finished)return text('Přehrát znovu','Prehrať znova');
-    if(info.started)return text('Pokračovat v sérii','Pokračovať v sérii');
-    return text('Začít sérii','Začať sériu');
+  function seriesResumeLabel(info,series){
+    const topic=seriesKind(series)==='topic';
+    if(info.finished)return topic?text('Přehrát téma znovu','Prehrať tému znova'):text('Přehrát znovu','Prehrať znova');
+    if(info.started)return topic?text('Pokračovat v tématu','Pokračovať v téme'):text('Pokračovat v sérii','Pokračovať v sérii');
+    return topic?text('Začít téma','Začať tému'):text('Začít sérii','Začať sériu');
   }
   function seriesProgressLabel(info){return info.completed+' / '+info.total+' '+text('poslechnuto','vypočuté')}
   function refreshSeriesProgress(){
@@ -185,7 +195,7 @@
       const index=Number(card.dataset.seriesIndex),series=state.data?.series?.[index];if(!series)return;
       const info=seriesProgressInfo(series),label=card.querySelector('.series-progress-label-v2'),progress=card.querySelector('.series-progress-bar-v2'),resume=card.querySelector('.series-resume-v2');
       if(label)label.textContent=seriesProgressLabel(info);if(progress)progress.value=info.percent;
-      if(resume){resume.textContent=seriesResumeLabel(info);resume.dataset.itemIndex=String(info.resumeIndex)}
+      if(resume){resume.textContent=seriesResumeLabel(info,series);resume.dataset.itemIndex=String(info.resumeIndex)}
       card.querySelectorAll('.series-item-status-v2[data-episode]').forEach(node=>{const status=episodeStatus(Number(node.dataset.episode));node.textContent=status?.kind==='done'?'✓':status?.kind==='progress'?'▶':'';node.title=status?.label||''});
     });
   }
@@ -252,14 +262,14 @@
       const episode=episodeByNumber(number);
       return episode?{id:`episode:${episode.number}`,episode,start:0,ref:epRef(episode.number)}:null;
     }).filter(Boolean);
-    return {type:'series',id:`series:${norm(series.name)}`,label:seriesLabel(series),items,index};
+    return {type:'series',id:seriesCollectionId(series),label:seriesLabel(series),items,index};
   }
   function renderSeries(){
     const byNumber=new Map(state.data.episodes.map(e=>[Number(e.number),e]));
     $('#series-v2').innerHTML=state.data.series.map((series,seriesIndex)=>{
       const eps=series.episodes.map(n=>byNumber.get(Number(n))).filter(Boolean),label=seriesLabel(series),info=seriesProgressInfo(series);
       const search=norm(`${series.i18n?.cs||series.name} ${series.i18n?.sk||''} ${eps.map(e=>allEpisodeSearch(e)).join(' ')}`);
-      return `<details class="series searchable" data-series-index="${seriesIndex}" data-search="${esc(search)}"><summary><strong>${esc(label)}</strong><span class="series-progress-summary-v2"><span>${eps.length} ${text('dílů','dielov')}</span><span class="series-progress-label-v2">${esc(seriesProgressLabel(info))}</span></span></summary><div class="series-progress-box-v2"><div class="series-progress-main-v2"><progress class="series-progress-bar-v2" max="100" value="${info.percent}"></progress><small>${esc(info.finished?text('Série je dokončená.','Séria je dokončená.'):text('Průběh se ukládá automaticky.','Priebeh sa ukladá automaticky.'))}</small></div><button type="button" class="series-resume-v2" data-series-index="${seriesIndex}" data-item-index="${info.resumeIndex}">${esc(seriesResumeLabel(info))}</button></div><ol>${eps.map((e,index)=>{const status=episodeStatus(e.number);return `<li><button type="button" class="series-item" data-series-index="${seriesIndex}" data-item-index="${index}"><span class="series-item-status-v2" data-episode="${e.number}" title="${esc(status?.label||'')}">${status?.kind==='done'?'✓':status?.kind==='progress'?'▶':''}</span><span>${text('Díl','Diel')} ${e.number}: ${esc(episodeCopy(e).title)}</span></button></li>`}).join('')}</ol></details>`;
+      return `<details class="series searchable" data-series-index="${seriesIndex}" data-search="${esc(search)}"><summary><strong>${esc(label)}</strong><span class="series-progress-summary-v2"><span>${eps.length} ${text('dílů','dielov')}</span><span class="series-progress-label-v2">${esc(seriesProgressLabel(info))}</span></span></summary><div class="series-progress-box-v2"><div class="series-progress-main-v2"><progress class="series-progress-bar-v2" max="100" value="${info.percent}"></progress><small>${esc(info.finished?text('Série je dokončená.','Séria je dokončená.'):text('Průběh se ukládá automaticky.','Priebeh sa ukladá automaticky.'))}</small></div><button type="button" class="series-resume-v2" data-series-index="${seriesIndex}" data-item-index="${info.resumeIndex}">${esc(seriesResumeLabel(info,series))}</button></div><ol>${eps.map((e,index)=>{const status=episodeStatus(e.number);return `<li><button type="button" class="series-item" data-series-index="${seriesIndex}" data-item-index="${index}"><span class="series-item-status-v2" data-episode="${e.number}" title="${esc(status?.label||'')}">${status?.kind==='done'?'✓':status?.kind==='progress'?'▶':''}</span><span>${text('Díl','Diel')} ${e.number}: ${esc(episodeCopy(e).title)}</span></button></li>`}).join('')}</ol></details>`;
     }).join('');
   }
   function renderQuestions(){$('#questions-v2').innerHTML=state.data.questions.map(question=>cardQuestion(question)).join('')}
@@ -310,7 +320,7 @@
     if(eyebrow)eyebrow.textContent=text('Radikální testovací V2','Radikálna testovacia V2');
     if(heading)heading.textContent=text('Vedátorský podcast','Vedátorský podcast');
     if(search)search.placeholder=text('Hledat v právě otevřené záložce…','Hľadať v práve otvorenej záložke…');
-    const labels={episodes:text('Epizody','Epizódy'),series:text('Série','Série'),questions:text('Otázky','Otázky'),nonquestions:text('Neotázky','Neotázky'),playlists:'Playlisty',data:text('Moje data','Moje dáta')};
+    const labels={episodes:text('Epizody','Epizódy'),series:text('Série a témata','Série a témy'),questions:text('Otázky','Otázky'),nonquestions:text('Neotázky','Neotázky'),playlists:'Playlisty',data:text('Moje data','Moje dáta')};
     $$('.tab-v2').forEach(button=>{if(labels[button.dataset.view])button.textContent=labels[button.dataset.view]});
     $$('.language-v2 button[data-lang]').forEach(button=>{
       const active=button.dataset.lang===state.language;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));
@@ -651,7 +661,7 @@
         if(item)markDeepTarget($("[data-item='"+itemId(item,view==='questions'?'q':'n')+"']"));return;
       }
       if(kind==='series'){
-        const target=decodeURIComponent(value),index=state.data.series.findIndex(series=>slug(series.name)===target||oldSeriesKey(series)===target||oldSeriesKey(series).split('.')[0]===target.split('.')[0]);if(index<0)return;setView('series');state.query='';$('#search-v2').value='';filterActive();markDeepTarget($('#series-v2 .series[data-series-index="'+index+'"]'));
+        const target=decodeURIComponent(value),index=state.data.series.findIndex(series=>slug(series.name)===target||(series.legacyNames||[]).some(name=>slug(name)===target)||oldSeriesKey(series)===target||oldSeriesKey(series).split('.')[0]===target.split('.')[0]);if(index<0)return;setView('series');state.query='';$('#search-v2').value='';filterActive();markDeepTarget($('#series-v2 .series[data-series-index="'+index+'"]'));
       }
     }finally{questionUi.deepProcessing=false}
   }
@@ -880,10 +890,30 @@
     const list=series.episodes.map((number,itemIndex)=>{const episode=episodeByNumber(number);if(!episode)return'';const status=episodeStatus(number),copy=episodeCopy(episode);return '<li><button type="button" class="series-item" data-series-index="'+index+'" data-item-index="'+itemIndex+'"><span class="series-item-status-v2" data-episode="'+number+'" title="'+esc(status?.label||'')+'">'+(status?.kind==='done'?'✓':status?.kind==='progress'?'▶':'')+'</span><span>'+(series.people?'<strong class="person-name-v2">'+esc(parityPersonName(episode))+'</strong><small class="episode-title-v2">'+esc(copy.title)+'</small>':text('Díl','Diel')+' '+episodeDisplayNumber(episode)+': '+esc(copy.title))+'</span></button></li>'}).join('');
     const body=document.createElement('ol');body.className='parity-series-body';body.innerHTML=list;card.appendChild(body);
   }
+  function ensureSeriesTopicStyles(){
+    if(document.querySelector('style[data-v2-series-topics]'))return;
+    const style=document.createElement('style');style.dataset.v2SeriesTopics='1';
+    style.textContent='#series-v2 .series-group-v2{grid-column:1/-1;min-width:0;margin:0 0 20px}#series-v2 .series-group-title-v2{margin:16px 2px 10px;font-size:.9rem;line-height:1.2;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}#series-v2 .series-group-v2:first-child .series-group-title-v2{margin-top:2px}#series-v2 .series-group-grid-v2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:100%}#series-v2 .series-group-grid-v2 .series[open]{grid-column:1/-1}@media(max-width:700px){#series-v2 .series-group-grid-v2{grid-template-columns:minmax(0,1fr)}#series-v2 .series-group-grid-v2 .series,#series-v2 .series-group-grid-v2 .series[open]{grid-column:auto}}';
+    document.head.appendChild(style);
+  }
   function renderSeries(){
-    const groups=sortedParitySeries(),box=$('#series-v2');box.replaceChildren();
-    for(const {series,index} of groups){const info=seriesProgressInfo(series),details=document.createElement('details');details.className='series searchable';details.dataset.seriesIndex=String(index);details.dataset.search=norm(seriesLabel(series));details.innerHTML='<summary><strong>'+esc(seriesLabel(series))+'</strong><span class="series-progress-summary-v2"><span>'+series.episodes.length+' '+text('dílů','dielov')+'</span><span class="series-progress-label-v2">'+esc(seriesProgressLabel(info))+'</span></span>'+shareButton('series',slug(series.name))+'</summary><div class="series-progress-box-v2"><div class="series-progress-main-v2"><progress class="series-progress-bar-v2" max="100" value="'+info.percent+'"></progress><small>'+esc(info.finished?text('Série je dokončená.','Séria je dokončená.'):text('Průběh se ukládá automaticky.','Priebeh sa ukladá automaticky.'))+'</small></div><button type="button" class="series-resume-v2" data-series-index="'+index+'" data-item-index="'+info.resumeIndex+'">'+esc(seriesResumeLabel(info))+'</button></div>';box.appendChild(details)}
-    $('#count-v2').textContent=groups.length+' '+text('sérií','sérií');
+    const groups=sortedParitySeries(),box=$('#series-v2');box.replaceChildren();ensureSeriesTopicStyles();
+    const sections=[['series',text('Série','Série')],['topic',text('Témata','Témy')]];
+    for(const [kind,label] of sections){
+      const items=groups.filter(({series})=>seriesKind(series)===kind);if(!items.length)continue;
+      const section=document.createElement('section');section.className='series-group-v2';section.dataset.seriesKind=kind;
+      const heading=document.createElement('h2');heading.className='series-group-title-v2';heading.textContent=label;section.appendChild(heading);
+      const grid=document.createElement('div');grid.className='series-group-grid-v2';section.appendChild(grid);
+      for(const {series,index} of items){
+        const info=seriesProgressInfo(series),details=document.createElement('details');details.className='series searchable';details.dataset.seriesIndex=String(index);details.dataset.seriesKind=kind;details.dataset.search=norm(seriesLabel(series));
+        const progressHint=info.finished?(kind==='topic'?text('Téma je dokončené.','Téma je dokončená.'):text('Série je dokončená.','Séria je dokončená.')):text('Průběh se ukládá automaticky.','Priebeh sa ukladá automaticky.');
+        details.innerHTML='<summary><strong>'+esc(seriesLabel(series))+'</strong><span class="series-progress-summary-v2"><span>'+series.episodes.length+' '+text('dílů','dielov')+'</span><span class="series-progress-label-v2">'+esc(seriesProgressLabel(info))+'</span></span>'+shareButton('series',slug(series.name))+'</summary><div class="series-progress-box-v2"><div class="series-progress-main-v2"><progress class="series-progress-bar-v2" max="100" value="'+info.percent+'"></progress><small>'+esc(progressHint)+'</small></div><button type="button" class="series-resume-v2" data-series-index="'+index+'" data-item-index="'+info.resumeIndex+'">'+esc(seriesResumeLabel(info,series))+'</button></div>';
+        grid.appendChild(details);
+      }
+      box.appendChild(section);
+    }
+    const seriesCount=groups.filter(({series})=>seriesKind(series)==='series').length,topicCount=groups.length-seriesCount;
+    $('#count-v2').textContent=seriesCount+' '+text('sérií','sérií')+' · '+topicCount+' '+text('témat','tém');
   }
 
   function parityQuestionTopics(view){return QUESTION_TOPICS}
@@ -1157,7 +1187,7 @@
 
   function finalCollectionNorm(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/Hledání mimozemského života/gi,'Hľadanie mimozemského života').replace(/Rozhovory o vesmíru/gi,'Rozhovory o vesmíre').replace(/(?:Žiji|Žiju) vědu/gi,'Žijem vedu').replace(/Genetický speciál/gi,'Genetický špeciál').replace(/Vedátorský speciál/gi,'Vedátorský špeciál').replace(/Nobelovy ceny/gi,'Nobelove ceny').replace(/[^a-z0-9]+/g,' ').trim()}
   function finalCollectionRecord(ids){for(const id of ids){const record=state.collectionProgress[id];if(record&&typeof record==='object')return record}return null}
-  function finalSeriesCollection(series){return finalCollectionRecord(['series:'+norm(series.name),'series:'+finalCollectionNorm(series.name),'series:'+finalCollectionNorm(seriesLabel(series))])}
+  function finalSeriesCollection(series){const names=[series?.name,...(Array.isArray(series?.legacyNames)?series.legacyNames:[]),seriesLabel(series)].filter(Boolean),ids=[...seriesCollectionKeys(series),...names.map(name=>'series:'+finalCollectionNorm(name))];return finalCollectionRecord([...new Set(ids)])}
   function finalSeriesItemRecord(collection,episode){if(!collection)return null;let absolute='';try{absolute=new URL(episode.enclosure,location.href).href}catch{}return collection.items?.['episode:'+episode.number]||collection.items?.['audio:'+absolute]||null}
   function finalHeard(record,start=0){return Boolean(record&&(record.completed||Number(record.percent)>0||Number(record.currentTime)>Number(record.start??start)+3))}
   function finalPercent(record,start=0){if(!record)return 0;if(record.completed)return 100;const direct=Number(record.percent);if(Number.isFinite(direct)&&direct>0)return Math.max(1,Math.min(99,Math.round(direct)));const duration=Number(record.duration)||0,current=Number(record.currentTime)||0,from=Number(record.start??start)||0;return duration>from?Math.max(1,Math.min(99,Math.round((current-from)/(duration-from)*100))):1}
@@ -1657,7 +1687,7 @@
     if(!snapshot||typeof snapshot!=='object')return null;
     const type=String(snapshot.type||'');
     if(type==='series'){
-      const series=(state.data?.series||[]).find(item=>'series:'+norm(item.name)===snapshot.id)||null;
+      const series=(state.data?.series||[]).find(item=>seriesCollectionKeys(item).includes(snapshot.id)||'series:'+finalCollectionNorm(item.name)===snapshot.id||(item.legacyNames||[]).some(name=>'series:'+finalCollectionNorm(name)===snapshot.id))||null;
       if(!series)return null;
       const context=seriesContext(series,0);
       let index=context.items.findIndex(item=>String(item.ref||'')===String(itemRef||'')&&Number(item.episode?.number)===Number(episodeNumber));

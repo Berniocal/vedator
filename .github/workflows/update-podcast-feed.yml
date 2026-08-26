@@ -20,6 +20,7 @@ on:
       - 'tools/augment-v2-parity-content.mjs'
       - 'tools/test-content-v2.mjs'
       - 'tools/test-v2-faq-integrity.mjs'
+      - 'tools/test-v2-series-topics.mjs'
 
 permissions:
   contents: write
@@ -96,6 +97,7 @@ jobs:
           node tools/augment-v2-parity-content.mjs
           node tools/test-content-v2.mjs
           node tools/test-v2-faq-integrity.mjs
+          node tools/test-v2-series-topics.mjs
           node tools/build-production-sw.mjs
 
       - name: Commitnout atomickou aktualizaci
