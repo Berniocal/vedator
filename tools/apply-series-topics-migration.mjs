@@ -14,6 +14,10 @@ app=replaceOnce(app,
   "    const collection=state.collectionProgress['series:'+norm(series?.name||'')];",
   "    const collection=state.collectionProgress[seriesCollectionId(series)];",
   'series progress storage');
+app=replaceOnce(app,
+  "    return {type:'series',id:`series:${norm(series.name)}`,label:seriesLabel(series),items,index};",
+  "    return {type:'series',id:seriesCollectionId(series),label:seriesLabel(series),items,index};",
+  'series context storage id');
 
 const resumeStart=app.indexOf('  function seriesResumeLabel(info){');
 const resumeEnd=app.indexOf('\n  function seriesProgressLabel',resumeStart);
@@ -34,6 +38,14 @@ app=replaceOnce(app,
   "slug(series.name)===target||oldSeriesKey(series)===target",
   "slug(series.name)===target||(series.legacyNames||[]).some(name=>slug(name)===target)||oldSeriesKey(series)===target",
   'legacy deep links');
+app=replaceOnce(app,
+  "  function finalSeriesCollection(series){return finalCollectionRecord(['series:'+norm(series.name),'series:'+finalCollectionNorm(series.name),'series:'+finalCollectionNorm(seriesLabel(series))])}",
+  "  function finalSeriesCollection(series){const names=[series?.name,...(Array.isArray(series?.legacyNames)?series.legacyNames:[]),seriesLabel(series)].filter(Boolean),ids=[...seriesCollectionKeys(series),...names.map(name=>'series:'+finalCollectionNorm(name))];return finalCollectionRecord([...new Set(ids)])}",
+  'legacy collection progress aliases');
+app=replaceOnce(app,
+  "      const series=(state.data?.series||[]).find(item=>'series:'+norm(item.name)===snapshot.id)||null;",
+  "      const series=(state.data?.series||[]).find(item=>seriesCollectionKeys(item).includes(snapshot.id)||'series:'+finalCollectionNorm(item.name)===snapshot.id||(item.legacyNames||[]).some(name=>'series:'+finalCollectionNorm(name)===snapshot.id))||null;",
+  'last playback legacy series id');
 
 const renderStart=app.indexOf('  function renderSeries(){',app.indexOf('  function sortedParitySeries(){'));
 const renderEnd=app.indexOf('\n\n  function parityQuestionTopics',renderStart);
@@ -113,7 +125,7 @@ fs.writeFileSync('.github/workflows/update-podcast-feed.yml',workflow);
 let guide=fs.readFileSync('V2-MAINTENANCE.md','utf8');
 guide=replaceOnce(guide,
   '- série `Vědci` a `Vědkyně` mají navíc `"people": true`, aby se zachovalo speciální formátování jmen.\n',
-  '- `"kind": "series"` označuje skutečný cyklus/formát; `"kind": "topic"` tematickou kolekci. Obě se za běhu chovají stejně a jsou stále součástí jediného `content-v2.json`;\n- `"legacyNames": ["Starý název"]` používej při přejmenování kolekce, aby zůstaly funkční staré deep-linky a uložený průběh;\n- série `Vědci` a `Ženy ve vědě` a téma `Osobnosti vědy` mají `"people": true`, aby se zachovalo speciální formátování jmen.\n',
+  '- `"kind": "series"` označuje skutečný cyklus/formát; `"kind": "topic"` tematickou kolekci. Obě se za běhu chovají stejně a jsou stále součástí jediného `content-v2.json`;\n- `"legacyNames": ["Starý název"]` používej při přejmenování kolekce, aby zůstaly funkční staré deep-linky, poslední přehrávání a uložený průběh;\n- série `Vědci` a `Ženy ve vědě` a téma `Osobnosti vědy` mají `"people": true`, aby se zachovalo speciální formátování jmen.\n',
   'maintenance guide series metadata');
 fs.writeFileSync('V2-MAINTENANCE.md',guide);
 
