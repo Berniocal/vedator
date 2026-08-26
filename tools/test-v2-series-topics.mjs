@@ -39,9 +39,13 @@ assert(built.find(item=>item.name==='Částice a částicová fyzika')?.legacyNa
 for(const key of ['vedatorPlaybackProgressV1','vedator-user-playlists-v1','vedatorCollectionProgressV1','vedatorOfflineAudioIndexV1','vedator-ui-language-v1','vedatorSortPreferencesV1']){
   assert(app.includes(key),`Existing user-data key changed or disappeared: ${key}`);
 }
-assert(app.includes('seriesCollectionId'),'Series/topic progress compatibility helper is missing');
-assert(app.includes('legacyNames'),'Legacy collection aliases are not handled by the app');
+assert(app.includes('function seriesCollectionKeys'),'Series/topic progress compatibility helper is missing');
+assert(app.includes('id:seriesCollectionId(series)'),'Series playback must keep using an existing legacy collection key after a rename');
+assert(app.includes('seriesCollectionKeys(series)'),'Series progress must consider legacy names');
+assert(app.includes('seriesCollectionKeys(item).includes(snapshot.id)'),'Last-playback restore must recognize legacy series ids');
+assert(app.includes('(series.legacyNames||[]).some(name=>slug(name)===target)'),'Old shared/deep links must recognize legacy series names');
+assert(app.includes('function finalSeriesCollection(series){const names=[series?.name,...(Array.isArray(series?.legacyNames)?series.legacyNames:[])'),'Late collection-progress layer must recognize legacy series names');
 assert(!/fetch\([^\n]*series\.json/i.test(app),'app-v2.js must not fetch series.json at runtime');
 assert(!/fetch\([^\n]*topics\.json/i.test(app),'app-v2.js must not fetch a separate topics file at runtime');
 
-console.log(JSON.stringify({ok:true,series:actualSeries.length,topics:topics.length,total:config.length,userDataKeysPreserved:true,runtimeRequestsAdded:false},null,2));
+console.log(JSON.stringify({ok:true,series:actualSeries.length,topics:topics.length,total:config.length,userDataKeysPreserved:true,legacyCollectionProgressPreserved:true,lastPlaybackPreserved:true,runtimeRequestsAdded:false},null,2));
