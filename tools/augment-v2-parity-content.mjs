@@ -72,7 +72,7 @@ const seenSk=new Set();
 
 for(const [index,item] of seriesConfig.entries()){
   if(!item||typeof item!=='object'||Array.isArray(item))fail(`položka ${index+1} musí být objekt`);
-  const unknown=Object.keys(item).filter(key=>!['cs','sk','episodes','people'].includes(key));
+  const unknown=Object.keys(item).filter(key=>!['cs','sk','episodes','people','kind','legacyNames'].includes(key));
   if(unknown.length)fail(`Série ${index+1} obsahuje neznámé pole: ${unknown.join(', ')}`);
   const cs=String(item.cs||'').trim();
   const sk=String(item.sk||'').trim();
@@ -82,6 +82,11 @@ for(const [index,item] of seriesConfig.entries()){
   seenCs.add(norm(cs));seenSk.add(norm(sk));
   if(!Array.isArray(item.episodes)||item.episodes.length<1)fail(`Série „${cs}“ musí obsahovat alespoň jeden díl; pro smazání série smaž celý blok`);
   if(item.people!==undefined&&typeof item.people!=='boolean')fail(`Série „${cs}“ má neplatné „people“; použij true/false`);
+  const kind=item.kind===undefined?'series':String(item.kind).trim();
+  if(kind!=='series'&&kind!=='topic')fail(`Položka „${cs}“ má neplatné „kind“; použij series/topic`);
+  const legacyNames=item.legacyNames===undefined?[]:item.legacyNames;
+  if(!Array.isArray(legacyNames)||legacyNames.some(name=>typeof name!=='string'||!name.trim()))fail(`Položka „${cs}“ má neplatné „legacyNames“`);
+  if(new Set(legacyNames.map(norm)).size!==legacyNames.length)fail(`Položka „${cs}“ má duplicitní „legacyNames“`);
 
   const refs=item.episodes.map(raw=>resolveEpisodeRef(raw,cs));
   if(new Set(refs).size!==refs.length)fail(`Série „${cs}“ obsahuje stejný odkaz na díl vícekrát`);
@@ -92,7 +97,9 @@ for(const [index,item] of seriesConfig.entries()){
   result.push({
     name:cs,
     i18n:{cs,sk},
+    kind,
     episodes:sorted.map(episode=>Number(episode.number)),
+    ...(legacyNames.length?{legacyNames:legacyNames.map(name=>name.trim())}:{}),
     ...(item.people?{people:true}:{})
   });
 }
@@ -106,13 +113,15 @@ if(faqActual.size!==FAQ_EPISODES.size||[...FAQ_EPISODES].some(number=>!faqActual
   fail('systémová série „FAQ – dobré otázky“ musí přesně odpovídat kanonickému seznamu FAQ dílů');
 }
 
-result.sort((a,b)=>b.episodes.length-a.episodes.length||String(a.name).localeCompare(String(b.name),'cs'));
+result.sort((a,b)=>(a.kind==='series'?0:1)-(b.kind==='series'?0:1)||b.episodes.length-a.episodes.length||String(a.name).localeCompare(String(b.name),'cs'));
 data.series=result;
 data.meta={...(data.meta||{}),legacyParity:{
-  fixedSeries:result.filter(series=>!series.people).length,
-  scientistSeries:result.filter(series=>series.people).length,
+  fixedSeries:result.filter(series=>series.kind==='series'&&!series.people).length,
+  scientistSeries:result.filter(series=>series.kind==='series'&&series.people).length,
   automaticSeries:0,
-  totalSeries:result.length,
+  totalSeries:result.filter(series=>series.kind==='series').length,
+  totalTopics:result.filter(series=>series.kind==='topic').length,
+  totalCollections:result.length,
   faqEpisodes:FAQ_EPISODES.size,
   source:SERIES_FILE
 }};

@@ -99,7 +99,9 @@ Běžná série má tento tvar:
 - název změň úpravou `cs` a `sk`;
 - díl přidej nebo odeber úpravou pole `episodes`;
 - pořadí čísel v `episodes` neurčuje pořadí v aplikaci; build díly seřadí podle skutečného data vydání;
-- série `Vědci` a `Vědkyně` mají navíc `"people": true`, aby se zachovalo speciální formátování jmen.
+- `"kind": "series"` označuje skutečný cyklus/formát; `"kind": "topic"` tematickou kolekci. Obě se za běhu chovají stejně a jsou stále součástí jediného `content-v2.json`;
+- `"legacyNames": ["Starý název"]` používej při přejmenování kolekce, aby zůstaly funkční staré deep-linky, poslední přehrávání a uložený průběh;
+- série `Vědci` a `Ženy ve vědě` a téma `Osobnosti vědy` mají `"people": true`, aby se zachovalo speciální formátování jmen.
 
 Běžné díly zapisuj číslem Vedátorského podcastu. Pro tři samostatně číslované série používej čitelné aliasy, ne interní technická čísla:
 
