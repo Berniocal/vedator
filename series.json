@@ -2,113 +2,252 @@
   {
     "cs": "FAQ – dobré otázky",
     "sk": "FAQ – dobré otázky",
+    "kind": "series",
     "episodes": [17, 26, 35, 51, 60, 69, 75, 82, 89, 100, 112, 119, 128, 133, 138, 143, 158, 170, 179, 190, 203, 211, 218, 226, 244, 248, 257, 263, 270, 272, 278, 284, 289, 295, 300, 313, 319, 326, 332, 337, 340, 346]
-  },
-  {
-    "cs": "Matematika",
-    "sk": "Matematika",
-    "episodes": [91, 93, 98, 113, 115, 116, 117, 118, 156, 181, 198, 201, 216, 249, 282, 286, 328, 329, 336]
   },
   {
     "cs": "Rozhovory o vesmíru",
     "sk": "Rozhovory o vesmíre",
+    "kind": "series",
     "episodes": ["vesmir:1", "vesmir:2", "vesmir:3", "vesmir:4", "vesmir:5", "vesmir:6", "vesmir:7", "vesmir:8", "vesmir:9", "vesmir:10", "vesmir:11", "vesmir:12", "vesmir:13", "vesmir:14", "vesmir:15"]
-  },
-  {
-    "cs": "Vědkyně",
-    "sk": "Vedkyne",
-    "people": true,
-    "episodes": [53, 70, 85, 140, 199, 205, 220, 222, 288, 302, 305, 320]
-  },
-  {
-    "cs": "Hledání mimozemského života",
-    "sk": "Hľadanie mimozemského života",
-    "episodes": [27, 32, 36, 40, 45, 49, 54, 58, 62, 67, 197]
-  },
-  {
-    "cs": "Vědci",
-    "sk": "Vedci",
-    "people": true,
-    "episodes": [18, 66, 77, 92, 97, 107, 188, 206, 207, 230, 324]
   },
   {
     "cs": "Rozhovory v angličtině",
     "sk": "Rozhovory v angličtine",
+    "kind": "series",
     "episodes": [234, 236, 238, 240, 242, 246, 250, 256, 265, 267]
-  },
-  {
-    "cs": "Genetický speciál",
-    "sk": "Genetický špeciál",
-    "episodes": ["genetika:1", "genetika:2", "genetika:3", "genetika:4", "genetika:5", "genetika:6", "genetika:7"]
-  },
-  {
-    "cs": "Částice",
-    "sk": "Častice",
-    "episodes": [10, 34, 163, 175, 180, 187, 225]
-  },
-  {
-    "cs": "Černé díry",
-    "sk": "Čierne diery",
-    "episodes": [68, 104, 132, 173, 227, 296]
-  },
-  {
-    "cs": "Ig Nobelovy ceny",
-    "sk": "Ig Nobelove ceny",
-    "episodes": [44, 96, 151, 200, 252, 307]
-  },
-  {
-    "cs": "Nobelovy ceny",
-    "sk": "Nobelove ceny",
-    "episodes": [46, 99, 152, 213, 266, 308]
-  },
-  {
-    "cs": "Temná hmota a energie",
-    "sk": "Tmavá hmota a energia",
-    "episodes": [2, 48, 145, 182, 210]
-  },
-  {
-    "cs": "Teorie her",
-    "sk": "Teória hier",
-    "episodes": [29, 105, 120, 245, 254]
   },
   {
     "cs": "Žiji vědu",
     "sk": "Žijem vedu",
+    "kind": "series",
     "episodes": ["veda:1", "veda:2", "veda:3", "veda:4", "veda:5"]
   },
   {
     "cs": "Roky ve vědě",
     "sk": "Roky vo vede",
+    "kind": "series",
     "episodes": [108, 160, 212, 318]
   },
   {
-    "cs": "Klimatická změna",
-    "sk": "Klimatická zmena",
-    "episodes": [214, 224, 251]
+    "cs": "Ženy ve vědě",
+    "sk": "Ženy vo vede",
+    "kind": "series",
+    "people": true,
+    "legacyNames": ["Vědkyně"],
+    "episodes": [53, 70, 85, 140, 141, 205, 220, 222, 240, 265, 288, 302, 305, 320]
   },
   {
-    "cs": "Internet",
-    "sk": "Internet",
-    "episodes": [223, 258, 333]
+    "cs": "Vědci",
+    "sk": "Vedci",
+    "kind": "series",
+    "people": true,
+    "episodes": [18, 66, 77, 92, 97, 107, 188, 206, 207, 230, 236, 238, 242, 250, 253, 256, 267, 324]
+  },
+  {
+    "cs": "Nobelovy ceny",
+    "sk": "Nobelove ceny",
+    "kind": "series",
+    "episodes": [46, 99, 152, 213, 266, 308]
+  },
+  {
+    "cs": "Ig Nobelovy ceny",
+    "sk": "Ig Nobelove ceny",
+    "kind": "series",
+    "episodes": [44, 96, 151, 200, 252, 307]
+  },
+  {
+    "cs": "Teorie her",
+    "sk": "Teória hier",
+    "kind": "series",
+    "episodes": [29, 105, 120, 245, 254]
+  },
+  {
+    "cs": "Genetický speciál",
+    "sk": "Genetický špeciál",
+    "kind": "series",
+    "episodes": ["genetika:1", "genetika:2", "genetika:3", "genetika:4", "genetika:5", "genetika:6", "genetika:7"]
+  },
+  {
+    "cs": "Hledání mimozemského života",
+    "sk": "Hľadanie mimozemského života",
+    "kind": "series",
+    "episodes": [27, 32, 36, 40, 45, 49, 54, 58, 62, 67, 197]
   },
   {
     "cs": "Teorie strun",
     "sk": "Teória strún",
+    "kind": "series",
     "episodes": [23, 155, 191]
   },
   {
-    "cs": "Nové řešení Fermiho paradoxu",
-    "sk": "Nové riešenie Fermiho paradoxu",
-    "episodes": [130, 261]
+    "cs": "Klimatická změna",
+    "sk": "Klimatická zmena",
+    "kind": "series",
+    "episodes": [214, 224, 251, 285]
   },
   {
     "cs": "Udržitelnost: (ne) je to velká věda",
     "sk": "Udržateľnosť: (nie) je to veľká veda",
+    "kind": "series",
     "episodes": [50, 124]
+  },
+  {
+    "cs": "Internet",
+    "sk": "Internet",
+    "kind": "series",
+    "episodes": [223, 258, 333]
   },
   {
     "cs": "Umělá inteligence",
     "sk": "Umelá inteligencia",
+    "kind": "series",
     "episodes": [183, 229]
+  },
+  {
+    "cs": "Nové řešení Fermiho paradoxu",
+    "sk": "Nové riešenie Fermiho paradoxu",
+    "kind": "series",
+    "episodes": [130, 261]
+  },
+  {
+    "cs": "STARMUS",
+    "sk": "STARMUS",
+    "kind": "series",
+    "episodes": [232, 234, 236, 238, 240, 242]
+  },
+  {
+    "cs": "Miléniové problémy",
+    "sk": "Miléniové problémy",
+    "kind": "series",
+    "episodes": [282, 286]
+  },
+  {
+    "cs": "Budoucnost zdravotnictví",
+    "sk": "Budúcnosť zdravotníctva",
+    "kind": "series",
+    "episodes": [176, 177, 178]
+  },
+  {
+    "cs": "Matematika",
+    "sk": "Matematika",
+    "kind": "topic",
+    "episodes": [43, 61, 65, 71, 80, 90, 91, 93, 98, 107, 113, 115, 116, 117, 118, 120, 146, 153, 156, 174, 181, 184, 195, 198, 201, 206, 208, 216, 228, 245, 249, 254, 271, 282, 286, 328, 329, 336, 341]
+  },
+  {
+    "cs": "Vesmír a kosmologie",
+    "sk": "Vesmír a kozmológia",
+    "kind": "topic",
+    "episodes": [2, 9, 10, 23, 27, 28, 32, 34, 36, 37, 40, 41, 45, 48, 49, 54, 58, 59, 62, 64, 67, 68, 70, 72, 84, 92, 97, 101, 104, 122, 129, 130, 131, 132, 134, 137, 140, 141, 145, 148, 155, 167, 169, 173, 182, 185, 191, 196, 197, 210, 227, 230, 239, 240, 242, 250, 261, 273, 276, 283, 296, 297, 302, 312, 321, 343, 348]
+  },
+  {
+    "cs": "Černé díry",
+    "sk": "Čierne diery",
+    "kind": "topic",
+    "episodes": [9, 41, 68, 104, 122, 132, 173, 185, 227, 296, 343, "vesmir:3", "vesmir:6", "vesmir:8"]
+  },
+  {
+    "cs": "Temná hmota a energie",
+    "sk": "Tmavá hmota a energia",
+    "kind": "topic",
+    "episodes": [2, 48, 145, 182, 210, 276, 283, 302, 348]
+  },
+  {
+    "cs": "Kosmonautika a vesmírné mise",
+    "sk": "Kozmonautika a vesmírne misie",
+    "kind": "topic",
+    "episodes": [16, 30, 37, 67, 129, 139, 148, 167, 196, 199, 217, 240, 273, 297, 312, 321, 343, 348, "vesmir:2", "vesmir:7", "vesmir:9"]
+  },
+  {
+    "cs": "Kvantový svět",
+    "sk": "Kvantový svet",
+    "kind": "topic",
+    "episodes": [23, 38, 41, 64, 78, 79, 86, 87, 102, 122, 125, 131, 144, 154, 155, 172, 191, 194, 225, 237, 269, 280, 299, 306]
+  },
+  {
+    "cs": "Částice a částicová fyzika",
+    "sk": "Častice a časticová fyzika",
+    "kind": "topic",
+    "legacyNames": ["Částice"],
+    "episodes": [10, 28, 34, 68, 135, 163, 175, 180, 187, 202, 225, 237, 267, 274]
+  },
+  {
+    "cs": "Biologie",
+    "sk": "Biológia",
+    "kind": "topic",
+    "episodes": [8, 12, 27, 55, 57, 81, 103, 120, 149, 159, 164, 172, 193, 197, 247, 262, 265, 277, 279, 301, 303, 305, 327, 344, 345, "genetika:1", "genetika:2", "genetika:3", "genetika:4", "genetika:5", "genetika:6", "genetika:7"]
+  },
+  {
+    "cs": "Zvířata",
+    "sk": "Zvieratá",
+    "kind": "topic",
+    "episodes": [8, 57, 73, 103, 120, 149, 159, 172, 193, 301, 305]
+  },
+  {
+    "cs": "Člověk a zdraví",
+    "sk": "Človek a zdravie",
+    "kind": "topic",
+    "episodes": [12, 19, 31, 55, 106, 176, 177, 178, 262, 281, 327, 331, 344, 345, "genetika:1", "genetika:3", "genetika:4", "genetika:7"]
+  },
+  {
+    "cs": "Mozek a mysl",
+    "sk": "Mozog a myseľ",
+    "kind": "topic",
+    "episodes": [106, 161, 168, 208, 259, 281, 327, 331, 335]
+  },
+  {
+    "cs": "Chemie a materiály",
+    "sk": "Chémia a materiály",
+    "kind": "topic",
+    "episodes": [33, 66, 102, 194, 247, 256, 277, 299, 309, 311, 334]
+  },
+  {
+    "cs": "Informatika a AI",
+    "sk": "Informatika a AI",
+    "kind": "topic",
+    "episodes": [74, 76, 90, 107, 117, 121, 154, 168, 171, 178, 183, 208, 223, 229, 253, 258, 288, 294, 304, 333, 335, 349, "genetika:2"]
+  },
+  {
+    "cs": "Ekonomie, peníze a riziko",
+    "sk": "Ekonomika, peniaze a riziko",
+    "kind": "topic",
+    "episodes": [65, 116, 165, 174, 181, 228, 245, 254, 268, 341]
+  },
+  {
+    "cs": "Klima a životní prostředí",
+    "sk": "Klíma a životné prostredie",
+    "kind": "topic",
+    "episodes": [1, 50, 77, 114, 124, 137, 214, 224, 251, 285, 309, 311]
+  },
+  {
+    "cs": "Energie a energetika",
+    "sk": "Energia a energetika",
+    "kind": "topic",
+    "episodes": [1, 114, 147, 236, 246, 309, 322, 323]
+  },
+  {
+    "cs": "Země, počasí a oceány",
+    "sk": "Zem, počasie a oceány",
+    "kind": "topic",
+    "episodes": [6, 15, 21, 63, 66, 73, 84, 94, 101, 111, 166, 169, 220, 233, 291, 293, 298]
+  },
+  {
+    "cs": "Jak funguje věda",
+    "sk": "Ako funguje veda",
+    "kind": "topic",
+    "episodes": [65, 71, 90, 94, 95, 106, 116, 146, 161, 162, 174, 181, 233, 280, 314]
+  },
+  {
+    "cs": "Věda ve sci-fi",
+    "sk": "Veda v sci-fi",
+    "kind": "topic",
+    "episodes": [59, 79, 110, 125, 126, 134, 136, 239, 275, 279, 325]
+  },
+  {
+    "cs": "Osobnosti vědy",
+    "sk": "Osobnosti vedy",
+    "kind": "topic",
+    "people": true,
+    "episodes": [18, 53, 66, 70, 77, 85, 92, 97, 107, 140, 141, 188, 205, 206, 207, 220, 222, 230, 236, 238, 240, 242, 250, 253, 256, 265, 267, 288, 302, 305, 320, 324]
   }
 ]
