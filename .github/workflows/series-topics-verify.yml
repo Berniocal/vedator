@@ -39,6 +39,9 @@ jobs:
           npm install --no-save jsdom puppeteer-core >/dev/null 2>&1
           cp index.html v2.html
 
+      - name: Diagnostika průběhu série
+        run: node tools/debug-series-topics-progress.mjs
+
       - name: Spustit povinné a regresní testy
         run: |
           node tools/test-content-v2.mjs
@@ -61,6 +64,6 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add app-v2.js content-v2.json sw.js series.json V2-MAINTENANCE.md tools/augment-v2-parity-content.mjs tools/test-v2-series-topics.mjs .github/workflows/update-podcast-feed.yml
-          git rm .github/workflows/series-topics-verify.yml tools/apply-series-topics-migration.mjs
+          git rm .github/workflows/series-topics-verify.yml tools/apply-series-topics-migration.mjs tools/debug-series-topics-progress.mjs
           git commit -m 'Rozdělit série a témata bez ztráty uživatelských dat'
           git push origin HEAD:series-topics-rework
