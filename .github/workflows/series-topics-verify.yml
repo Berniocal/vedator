@@ -1,0 +1,192 @@
+name: Dočasné ověření sérií a témat
+
+on:
+  push:
+    branches: [series-topics-rework]
+    paths:
+      - '.github/workflows/series-topics-verify.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  verify-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: series-topics-rework
+          fetch-depth: 0
+
+      - name: Upravit build a UI bez runtime patchů
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const replaceOnce=(source,from,to,label)=>{
+            if(!source.includes(from))throw new Error(`Nenalezen marker: ${label}`);
+            return source.replace(from,to);
+          };
+
+          let app=fs.readFileSync('app-v2.js','utf8');
+          app=replaceOnce(app,
+            "  function seriesLabel(series){return series?.i18n?.[contentLang()]||series?.name||text('Série','Séria')}\n",
+            "  function seriesLabel(series){return series?.i18n?.[contentLang()]||series?.name||text('Série','Séria')}\n  function seriesKind(series){return series?.kind==='topic'?'topic':'series'}\n  function seriesCollectionKeys(series){\n    const names=[series?.name,...(Array.isArray(series?.legacyNames)?series.legacyNames:[])].filter(Boolean);\n    return [...new Set(names.map(name=>'series:'+norm(name)))];\n  }\n  function seriesCollectionId(series){\n    const keys=seriesCollectionKeys(series),existing=keys.find(key=>state.collectionProgress[key]&&typeof state.collectionProgress[key]==='object');\n    return existing||keys[0]||'series:';\n  }\n",
+            'series helpers');
+          app=replaceOnce(app,
+            "    const collection=state.collectionProgress['series:'+norm(series?.name||'')];",
+            "    const collection=state.collectionProgress[seriesCollectionId(series)];",
+            'series progress storage');
+
+          const resumeStart=app.indexOf('  function seriesResumeLabel(info){');
+          const resumeEnd=app.indexOf('\n  function seriesProgressLabel',resumeStart);
+          if(resumeStart<0||resumeEnd<0)throw new Error('Nenalezen seriesResumeLabel');
+          app=app.slice(0,resumeStart)+`  function seriesResumeLabel(info,series){
+    const topic=seriesKind(series)==='topic';
+    if(info.finished)return topic?text('Přehrát téma znovu','Prehrať tému znova'):text('Přehrát znovu','Prehrať znova');
+    if(info.started)return topic?text('Pokračovat v tématu','Pokračovať v téme'):text('Pokračovat v sérii','Pokračovať v sérii');
+    return topic?text('Začít téma','Začať tému'):text('Začít sérii','Začať sériu');
+  }`+app.slice(resumeEnd);
+          app=app.replaceAll('seriesResumeLabel(info)','seriesResumeLabel(info,series)');
+
+          app=replaceOnce(app,
+            "    return {type:'series',id:`series:${norm(series.name)}`,label:seriesLabel(series),items,index};",
+            "    return {type:seriesKind(series),id:seriesCollectionId(series),label:seriesLabel(series),items,index};",
+            'series context');
+          app=replaceOnce(app,
+            "state.context.type==='series'?text('Série','Séria'):'Playlist'",
+            "state.context.type==='topic'?text('Téma','Téma'):state.context.type==='series'?text('Série','Séria'):'Playlist'",
+            'player collection label');
+          app=replaceOnce(app,
+            "series:text('Série','Série')",
+            "series:text('Série a témata','Série a témy')",
+            'series tab label');
+          app=replaceOnce(app,
+            "slug(series.name)===target||oldSeriesKey(series)===target",
+            "slug(series.name)===target||(series.legacyNames||[]).some(name=>slug(name)===target)||oldSeriesKey(series)===target",
+            'legacy deep links');
+
+          const renderStart=app.indexOf('  function renderSeries(){',app.indexOf('  function sortedParitySeries(){'));
+          const renderEnd=app.indexOf('\n\n  function parityQuestionTopics',renderStart);
+          if(renderStart<0||renderEnd<0)throw new Error('Nenalezen aktivní renderSeries');
+          const renderReplacement=`  function ensureSeriesTopicStyles(){
+    if(document.querySelector('style[data-v2-series-topics]'))return;
+    const style=document.createElement('style');style.dataset.v2SeriesTopics='1';
+    style.textContent='.series-group-v2{margin:0 0 20px}.series-group-title-v2{margin:16px 2px 10px;font-size:.9rem;line-height:1.2;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}.series-group-v2:first-child .series-group-title-v2{margin-top:2px}.series-group-grid-v2{display:block;width:100%}';
+    document.head.appendChild(style);
+  }
+  function renderSeries(){
+    const groups=sortedParitySeries(),box=$('#series-v2');box.replaceChildren();ensureSeriesTopicStyles();
+    const sections=[['series',text('Série','Série')],['topic',text('Témata','Témy')]];
+    for(const [kind,label] of sections){
+      const items=groups.filter(({series})=>seriesKind(series)===kind);if(!items.length)continue;
+      const section=document.createElement('section');section.className='series-group-v2';section.dataset.seriesKind=kind;
+      const heading=document.createElement('h2');heading.className='series-group-title-v2';heading.textContent=label;section.appendChild(heading);
+      const grid=document.createElement('div');grid.className='series-group-grid-v2';section.appendChild(grid);
+      for(const {series,index} of items){
+        const info=seriesProgressInfo(series),details=document.createElement('details');details.className='series searchable';details.dataset.seriesIndex=String(index);details.dataset.seriesKind=kind;details.dataset.search=norm(seriesLabel(series));
+        const progressHint=info.finished?text('Dokončeno.','Dokončené.'):text('Průběh se ukládá automaticky.','Priebeh sa ukladá automaticky.');
+        details.innerHTML='<summary><strong>'+esc(seriesLabel(series))+'</strong><span class="series-progress-summary-v2"><span>'+series.episodes.length+' '+text('dílů','dielov')+'</span><span class="series-progress-label-v2">'+esc(seriesProgressLabel(info))+'</span></span>'+shareButton('series',slug(series.name))+'</summary><div class="series-progress-box-v2"><div class="series-progress-main-v2"><progress class="series-progress-bar-v2" max="100" value="'+info.percent+'"></progress><small>'+esc(progressHint)+'</small></div><button type="button" class="series-resume-v2" data-series-index="'+index+'" data-item-index="'+info.resumeIndex+'">'+esc(seriesResumeLabel(info,series))+'</button></div>';
+        grid.appendChild(details);
+      }
+      box.appendChild(section);
+    }
+    const seriesCount=groups.filter(({series})=>seriesKind(series)==='series').length,topicCount=groups.length-seriesCount;
+    $('#count-v2').textContent=seriesCount+' '+text('sérií','sérií')+' · '+topicCount+' '+text('témat','tém');
+  }`;
+          app=app.slice(0,renderStart)+renderReplacement+app.slice(renderEnd);
+          fs.writeFileSync('app-v2.js',app);
+
+          let augment=fs.readFileSync('tools/augment-v2-parity-content.mjs','utf8');
+          augment=replaceOnce(augment,
+            "  const unknown=Object.keys(item).filter(key=>!['cs','sk','episodes','people'].includes(key));",
+            "  const unknown=Object.keys(item).filter(key=>!['cs','sk','episodes','people','kind','legacyNames'].includes(key));",
+            'series config fields');
+          augment=replaceOnce(augment,
+            "  if(item.people!==undefined&&typeof item.people!=='boolean')fail(`Série „${cs}“ má neplatné „people“; použij true/false`);\n\n  const refs=item.episodes.map(raw=>resolveEpisodeRef(raw,cs));",
+            "  if(item.people!==undefined&&typeof item.people!=='boolean')fail(`Série „${cs}“ má neplatné „people“; použij true/false`);\n  const kind=item.kind===undefined?'series':String(item.kind).trim();\n  if(kind!=='series'&&kind!=='topic')fail(`Položka „${cs}“ má neplatné „kind“; použij series/topic`);\n  const legacyNames=item.legacyNames===undefined?[]:item.legacyNames;\n  if(!Array.isArray(legacyNames)||legacyNames.some(name=>typeof name!=='string'||!name.trim()))fail(`Položka „${cs}“ má neplatné „legacyNames“`);\n  if(new Set(legacyNames.map(norm)).size!==legacyNames.length)fail(`Položka „${cs}“ má duplicitní „legacyNames“`);\n\n  const refs=item.episodes.map(raw=>resolveEpisodeRef(raw,cs));",
+            'kind validation');
+          augment=replaceOnce(augment,
+            "  result.push({\n    name:cs,\n    i18n:{cs,sk},\n    episodes:sorted.map(episode=>Number(episode.number)),\n    ...(item.people?{people:true}:{})\n  });",
+            "  result.push({\n    name:cs,\n    i18n:{cs,sk},\n    kind,\n    episodes:sorted.map(episode=>Number(episode.number)),\n    ...(legacyNames.length?{legacyNames:legacyNames.map(name=>name.trim())}:{}),\n    ...(item.people?{people:true}:{})\n  });",
+            'built collection shape');
+          augment=replaceOnce(augment,
+            "result.sort((a,b)=>b.episodes.length-a.episodes.length||String(a.name).localeCompare(String(b.name),'cs'));",
+            "result.sort((a,b)=>(a.kind==='series'?0:1)-(b.kind==='series'?0:1)||b.episodes.length-a.episodes.length||String(a.name).localeCompare(String(b.name),'cs'));",
+            'collection sorting');
+          const metaStart=augment.indexOf('data.meta={...(data.meta||{}),legacyParity:{');
+          const metaEnd=augment.indexOf('\n}};',metaStart);
+          if(metaStart<0||metaEnd<0)throw new Error('Nenalezen legacyParity metadata block');
+          const metaReplacement=`data.meta={...(data.meta||{}),legacyParity:{
+  fixedSeries:result.filter(series=>series.kind==='series'&&!series.people).length,
+  scientistSeries:result.filter(series=>series.kind==='series'&&series.people).length,
+  automaticSeries:0,
+  totalSeries:result.filter(series=>series.kind==='series').length,
+  totalTopics:result.filter(series=>series.kind==='topic').length,
+  totalCollections:result.length,
+  faqEpisodes:FAQ_EPISODES.size,
+  source:SERIES_FILE
+}};`;
+          augment=augment.slice(0,metaStart)+metaReplacement+augment.slice(metaEnd+4);
+          fs.writeFileSync('tools/augment-v2-parity-content.mjs',augment);
+
+          let workflow=fs.readFileSync('.github/workflows/update-podcast-feed.yml','utf8');
+          workflow=replaceOnce(workflow,
+            "      - 'tools/test-v2-faq-integrity.mjs'\n",
+            "      - 'tools/test-v2-faq-integrity.mjs'\n      - 'tools/test-v2-series-topics.mjs'\n",
+            'update workflow trigger');
+          workflow=replaceOnce(workflow,
+            "          node tools/test-v2-faq-integrity.mjs\n          node tools/build-production-sw.mjs",
+            "          node tools/test-v2-faq-integrity.mjs\n          node tools/test-v2-series-topics.mjs\n          node tools/build-production-sw.mjs",
+            'update workflow test');
+          fs.writeFileSync('.github/workflows/update-podcast-feed.yml',workflow);
+
+          let guide=fs.readFileSync('V2-MAINTENANCE.md','utf8');
+          guide=replaceOnce(guide,
+            '- série `Vědci` a `Vědkyně` mají navíc `"people": true`, aby se zachovalo speciální formátování jmen.\n',
+            '- `"kind": "series"` označuje skutečný cyklus/formát; `"kind": "topic"` tematickou kolekci. Obě se za běhu chovají stejně a jsou stále součástí jediného `content-v2.json`;\n- `"legacyNames": ["Starý název"]` používej při přejmenování kolekce, aby zůstaly funkční staré deep-linky a uložený průběh;\n- série `Vědci` a `Ženy ve vědě` a téma `Osobnosti vědy` mají `"people": true`, aby se zachovalo speciální formátování jmen.\n',
+            'maintenance guide series metadata');
+          fs.writeFileSync('V2-MAINTENANCE.md',guide);
+          NODE
+
+      - name: Sestavit jediný V2 datový balík
+        run: |
+          node --check app-v2.js
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/build-production-sw.mjs
+
+      - name: Nainstalovat pouze dočasné testovací závislosti
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save jsdom puppeteer-core >/dev/null 2>&1
+          cp index.html v2.html
+
+      - name: Spustit povinné a regresní testy
+        run: |
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/test-v2-series-topics.mjs
+          node tools/test-app-v2.mjs
+          node tools/test-v2-question-experience.mjs
+          node tools/test-v2-episode-experience.mjs
+          node tools/test-v2-full-parity.mjs
+          node tools/test-v2-playlist-parity.mjs
+          node tools/test-v2-mobile-deep-polish.mjs
+          node tools/test-v2-mobile-browser.mjs
+          node tools/test-v2-mobile-browser-playlist.mjs
+          node tools/test-v2-mobile-browser-series.mjs
+          node tools/test-v2-real-readmore-browser.mjs
+
+      - name: Uklidit testovací soubory a commitnout ověřený výsledek
+        run: |
+          rm -rf node_modules package.json package-lock.json v2.html
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app-v2.js content-v2.json sw.js tools/augment-v2-parity-content.mjs tools/test-v2-series-topics.mjs .github/workflows/update-podcast-feed.yml V2-MAINTENANCE.md series.json
+          git rm .github/workflows/series-topics-verify.yml
+          git commit -m 'Rozdělit série a témata bez ztráty uživatelských dat'
+          git push origin HEAD:series-topics-rework
