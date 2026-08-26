@@ -1,4 +1,4 @@
-# final-run
+# final-run-no-workflow-push
 name: Dočasné ověření sérií a témat
 
 on:
@@ -67,12 +67,11 @@ jobs:
           node tools/test-v2-mobile-browser-series.mjs
           node tools/test-v2-real-readmore-browser.mjs
 
-      - name: Uklidit a uložit ověřený výsledek
+      - name: Uložit ověřený výsledek bez změn workflow
         run: |
           rm -rf node_modules package.json package-lock.json v2.html
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add app-v2.js content-v2.json sw.js series.json V2-MAINTENANCE.md tools/augment-v2-parity-content.mjs tools/test-v2-series-topics.mjs .github/workflows/update-podcast-feed.yml
-          git rm .github/workflows/series-topics-verify.yml tools/apply-series-topics-migration.mjs tools/debug-series-topics-progress.mjs
+          git add app-v2.js content-v2.json sw.js series.json V2-MAINTENANCE.md tools/augment-v2-parity-content.mjs tools/test-v2-series-topics.mjs
           git commit -m 'Rozdělit série a témata bez ztráty uživatelských dat'
           git push origin HEAD:series-topics-rework
