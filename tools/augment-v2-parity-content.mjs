@@ -7,7 +7,7 @@ const episodes=Array.isArray(data.episodes)?data.episodes:[];
 const seriesConfig=JSON.parse(fs.readFileSync(SERIES_FILE,'utf8'));
 
 const norm=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();
-const FAQ_EPISODES=new Set([346,340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,138,133,128,119,112,100,89,82,75,69,60,51,35,26,17]);
+const FAQ_EPISODES=new Set([350,346,340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,138,133,128,119,112,100,89,82,75,69,60,51,35,26,17]);
 const SPECIAL_SERIES_ID_RULES=[
   [/^rozhovory o vesmire (\d+)\b/,1700],
   [/^geneticky special (\d+)\b/,1800],
