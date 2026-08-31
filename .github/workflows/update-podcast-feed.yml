@@ -61,7 +61,10 @@ jobs:
               enclosure_node = item.find('enclosure')
               enclosure = enclosure_node.attrib.get('url', '') if enclosure_node is not None else ''
               guid = text('guid')
-              match = re.search(r'podcast\s+(\d+)', title, re.I)
+              # Běžné názvy jsou „Vedátorský podcast 350 …“, ale některé díly
+              # (např. 351) používají „Epizóda 351 …“. Oba tvary musí dostat
+              # skutečné číslo, jinak se k epizodě nepřipojí shrnutí/FAQ data.
+              match = re.search(r'(?:podcast|epiz[oó]da)\s*(\d+)\b', title, re.I)
               episodes.append({
                   'title': title,
                   'description': description,
@@ -74,6 +77,14 @@ jobs:
 
           if len(episodes) < 20:
               raise SystemExit(f'RSS obsahuje jen {len(episodes)} epizod, soubor nepřepisuji.')
+
+          # Regresní pojistka: nejnovější standardně číslované díly nesmějí
+          # skončit s number=0, protože by se jejich obsah v aplikaci osiřel.
+          broken = [e['title'] for e in episodes[:30]
+                    if re.search(r'(?:podcast|epiz[oó]da)\s*\d+\b', e['title'], re.I)
+                    and not e['number']]
+          if broken:
+              raise SystemExit(f'Nepodařilo se načíst číslo epizody: {broken}')
 
           payload = {
               'updatedAt': datetime.now(timezone.utc).isoformat(),
