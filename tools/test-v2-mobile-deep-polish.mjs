@@ -17,7 +17,8 @@ assert(app.includes("const tabs=$$('.tab-v2').filter"),'Swipe collection fix mis
 assert(app.includes('async function downloadCurrentMp3()'),'Real MP3 downloader missing');
 assert(app.includes('link.download=mobileSafeMp3Filename'),'MP3 Blob download filename missing');
 assert(app.includes("type:'episodes'"),'Episode playback context missing');
-assert(app.includes("setTimeout(()=>navigateContext(1),0)"),'Continuous context playback missing');
+assert(app.includes("$('#audio-v2')?.addEventListener('ended',()=>{if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1)})"),'Direct continuous context playback missing');
+assert(!app.includes("setTimeout(()=>navigateContext(1),0)"),'Ended auto-advance still depends on a background-throttled timer');
 
 const dom=new JSDOM(html,{url:'https://example.test/v2.html',runScripts:'outside-only',pretendToBeVisual:true});
 const {window}=dom;
@@ -30,7 +31,8 @@ window.HTMLElement.prototype.scrollIntoView=()=>{};
 window.scrollTo=()=>{};
 window.requestAnimationFrame=callback=>setTimeout(()=>callback(Date.now()),0);
 window.alert=()=>{};window.prompt=()=>'';window.confirm=()=>true;
-window.HTMLMediaElement.prototype.play=function(){Object.defineProperty(this,'paused',{value:false,configurable:true});this.dispatchEvent(new window.Event('play'));return Promise.resolve()};
+let mediaPlayCalls=0;
+window.HTMLMediaElement.prototype.play=function(){mediaPlayCalls++;Object.defineProperty(this,'paused',{value:false,configurable:true});this.dispatchEvent(new window.Event('play'));return Promise.resolve()};
 window.HTMLMediaElement.prototype.pause=function(){Object.defineProperty(this,'paused',{value:true,configurable:true});this.dispatchEvent(new window.Event('pause'))};
 window.HTMLMediaElement.prototype.load=()=>{};
 window.URL.createObjectURL=()=> 'blob:https://example.test/download';
@@ -97,8 +99,13 @@ assert(downloads.some(item=>item.download.endsWith('.mp3')),'MP3 Blob download w
 assert(!download.dataset.busy,'MP3 download stayed stuck in busy state');
 
 const beforeTitle=window.document.querySelector('#player-title-v2').textContent;
-window.document.querySelector('#audio-v2').dispatchEvent(new window.Event('ended'));await new Promise(resolve=>setTimeout(resolve,50));
+const playCallsBeforeEnded=mediaPlayCalls,savedWindowSetTimeout=window.setTimeout;
+window.setTimeout=()=>0;
+window.document.querySelector('#audio-v2').dispatchEvent(new window.Event('ended'));
+await Promise.resolve();await Promise.resolve();await Promise.resolve();
+window.setTimeout=savedWindowSetTimeout;
 const afterTitle=window.document.querySelector('#player-title-v2').textContent;
-assert(beforeTitle!==afterTitle,'Playback did not advance to the next context item after ended');
+assert(beforeTitle!==afterTitle,'Playback did not advance synchronously when background timers are suspended');
+assert(mediaPlayCalls>playCallsBeforeEnded,'Next context item did not request playback after ended');
 
 console.log(JSON.stringify({ok:true,mobileWidth:390,episodeHighlight:true,questionHighlight:true,darkTopicContrast:true,shareSingleRow:true,realMp3Download:true,episodeContext:true,autoAdvance:true,downloaded:downloads[0]?.download||null},null,2));
