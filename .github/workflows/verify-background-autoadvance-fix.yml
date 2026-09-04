@@ -26,6 +26,58 @@ jobs:
       - name: Install browser-test dependencies
         run: npm install --no-save --package-lock=false jsdom puppeteer-core
 
+      - name: Syntax check baseline
+        run: node --check app-v2.js
+
+      - name: Rebuild V2 data using documented maintenance sequence
+        run: |
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+
+      - name: Keep unrelated generated-content drift out of this fix
+        shell: bash
+        run: |
+          if ! git diff --quiet -- content-v2.json; then
+            echo '::warning::The documented V2 rebuild changes content-v2.json on the current baseline. This player-only fix will leave production content untouched.'
+            git diff --stat -- content-v2.json
+            git restore --source=HEAD -- content-v2.json
+          fi
+          git diff --exit-code -- content-v2.json
+
+      - name: Provide current production markup under legacy V2 test filename
+        shell: bash
+        run: |
+          test ! -e v2.html
+          grep -Fq 'id="audio-v2"' index.html
+          cp index.html v2.html
+
+      - name: Record baseline V2 test results
+        shell: bash
+        run: |
+          tests=(
+            tools/test-content-v2.mjs
+            tools/test-v2-faq-integrity.mjs
+            tools/test-app-v2.mjs
+            tools/test-v2-question-experience.mjs
+            tools/test-v2-episode-experience.mjs
+            tools/test-v2-full-parity.mjs
+            tools/test-v2-playlist-parity.mjs
+            tools/test-v2-mobile-deep-polish.mjs
+            tools/test-v2-mobile-browser.mjs
+            tools/test-v2-mobile-browser-playlist.mjs
+            tools/test-v2-real-readmore-browser.mjs
+          )
+          : > /tmp/baseline-results
+          for testfile in "${tests[@]}"; do
+            echo "=== BASELINE $testfile ==="
+            if node "$testfile"; then status=pass; else status=fail; fi
+            echo "$testfile=$status" | tee -a /tmp/baseline-results
+          done
+          echo '=== BASELINE SUMMARY ==='
+          cat /tmp/baseline-results
+
       - name: Apply minimal auto-advance fix and regression test
         shell: python
         run: |
@@ -67,59 +119,53 @@ jobs:
               'ended regression scenario',
           )
 
-      - name: Verify only intended source files changed
+      - name: Verify minimal tracked diff and syntax
         shell: bash
         run: |
           mapfile -t changed < <(git diff --name-only)
-          printf 'Changed before tests:\n%s\n' "${changed[*]}"
+          printf 'Changed source files:\n%s\n' "${changed[*]}"
           test "${#changed[@]}" -eq 2
           printf '%s\n' "${changed[@]}" | grep -Fxq 'app-v2.js'
           printf '%s\n' "${changed[@]}" | grep -Fxq 'tools/test-v2-mobile-deep-polish.mjs'
+          node --check app-v2.js
 
-      - name: Syntax check
-        run: node --check app-v2.js
-
-      - name: Rebuild V2 data using documented maintenance sequence
-        run: |
-          node tools/build-content-v2.mjs
-          node tools/augment-v2-episode-descriptions.mjs
-          node tools/augment-v2-full-descriptions.mjs
-          node tools/augment-v2-parity-content.mjs
-
-      - name: Keep unrelated generated-content drift out of this fix
+      - name: Run patched V2 suite and compare with baseline
         shell: bash
         run: |
-          if ! git diff --quiet -- content-v2.json; then
-            echo '::warning::The documented V2 rebuild changes content-v2.json on the current baseline. This player-only fix will leave production content untouched.'
-            git diff --stat -- content-v2.json
-            git restore --source=HEAD -- content-v2.json
-          fi
-          git diff --exit-code -- content-v2.json
-          mapfile -t changed < <(git diff --name-only)
-          test "${#changed[@]}" -eq 2
-          printf '%s\n' "${changed[@]}" | grep -Fxq 'app-v2.js'
-          printf '%s\n' "${changed[@]}" | grep -Fxq 'tools/test-v2-mobile-deep-polish.mjs'
+          tests=(
+            tools/test-content-v2.mjs
+            tools/test-v2-faq-integrity.mjs
+            tools/test-app-v2.mjs
+            tools/test-v2-question-experience.mjs
+            tools/test-v2-episode-experience.mjs
+            tools/test-v2-full-parity.mjs
+            tools/test-v2-playlist-parity.mjs
+            tools/test-v2-mobile-deep-polish.mjs
+            tools/test-v2-mobile-browser.mjs
+            tools/test-v2-mobile-browser-playlist.mjs
+            tools/test-v2-real-readmore-browser.mjs
+          )
+          : > /tmp/patched-results
+          for testfile in "${tests[@]}"; do
+            echo "=== PATCHED $testfile ==="
+            if node "$testfile"; then status=pass; else status=fail; fi
+            echo "$testfile=$status" | tee -a /tmp/patched-results
+          done
+          echo '=== PATCHED SUMMARY ==='
+          cat /tmp/patched-results
 
-      - name: Provide current production markup under legacy V2 test filename
-        shell: bash
-        run: |
-          test ! -e v2.html
-          grep -Fq 'id="audio-v2"' index.html
-          cp index.html v2.html
-
-      - name: Run documented V2 test suite
-        run: |
-          node tools/test-content-v2.mjs
-          node tools/test-v2-faq-integrity.mjs
-          node tools/test-app-v2.mjs
-          node tools/test-v2-question-experience.mjs
-          node tools/test-v2-episode-experience.mjs
-          node tools/test-v2-full-parity.mjs
-          node tools/test-v2-playlist-parity.mjs
-          node tools/test-v2-mobile-deep-polish.mjs
-          node tools/test-v2-mobile-browser.mjs
-          node tools/test-v2-mobile-browser-playlist.mjs
-          node tools/test-v2-real-readmore-browser.mjs
+          regression=0
+          while IFS='=' read -r testfile baseline_status; do
+            patched_status=$(awk -F= -v t="$testfile" '$1==t{print $2}' /tmp/patched-results)
+            if [[ "$baseline_status" == pass && "$patched_status" != pass ]]; then
+              echo "Regression: $testfile passed baseline but failed patched"
+              regression=1
+            fi
+          done < /tmp/baseline-results
+          test "$regression" -eq 0
+          grep -Fxq 'tools/test-v2-mobile-deep-polish.mjs=pass' /tmp/patched-results
+          grep -Fxq 'tools/test-v2-playlist-parity.mjs=pass' /tmp/patched-results
+          grep -Fxq 'tools/test-v2-mobile-browser-playlist.mjs=pass' /tmp/patched-results
 
       - name: Verify final diff and commit tested fix
         shell: bash
