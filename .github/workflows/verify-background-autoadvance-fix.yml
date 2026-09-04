@@ -100,6 +100,13 @@ jobs:
           printf '%s\n' "${changed[@]}" | grep -Fxq 'app-v2.js'
           printf '%s\n' "${changed[@]}" | grep -Fxq 'tools/test-v2-mobile-deep-polish.mjs'
 
+      - name: Provide current production markup under legacy V2 test filename
+        shell: bash
+        run: |
+          test ! -e v2.html
+          grep -Fq 'id="audio-v2"' index.html
+          cp index.html v2.html
+
       - name: Run documented V2 test suite
         run: |
           node tools/test-content-v2.mjs
@@ -114,9 +121,14 @@ jobs:
           node tools/test-v2-mobile-browser-playlist.mjs
           node tools/test-v2-real-readmore-browser.mjs
 
-      - name: Commit verified fix to isolated branch
+      - name: Verify final diff and commit tested fix
         shell: bash
         run: |
+          rm -f v2.html
+          mapfile -t changed < <(git diff --name-only)
+          test "${#changed[@]}" -eq 2
+          printf '%s\n' "${changed[@]}" | grep -Fxq 'app-v2.js'
+          printf '%s\n' "${changed[@]}" | grep -Fxq 'tools/test-v2-mobile-deep-polish.mjs'
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add app-v2.js tools/test-v2-mobile-deep-polish.mjs
