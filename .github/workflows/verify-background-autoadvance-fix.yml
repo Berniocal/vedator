@@ -1,0 +1,113 @@
+name: Verify background auto-advance fix
+
+on:
+  push:
+    branches:
+      - fix/background-playlist-autoadvance
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-verify:
+    if: ${{ !contains(github.event.head_commit.message, '[autoadvance-tested]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fix branch
+        uses: actions/checkout@v4
+        with:
+          ref: fix/background-playlist-autoadvance
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install browser-test dependencies
+        run: npm install --no-save --package-lock=false jsdom puppeteer-core
+
+      - name: Apply minimal auto-advance fix and regression test
+        shell: python
+        run: |
+          from pathlib import Path
+
+          def replace_once(path, before, after, label):
+              p = Path(path)
+              text = p.read_text(encoding='utf-8')
+              count = text.count(before)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected exactly one match, found {count}')
+              p.write_text(text.replace(before, after, 1), encoding='utf-8')
+
+          replace_once(
+              'app-v2.js',
+              "  $('#audio-v2')?.addEventListener('ended',()=>{if(state.context&&state.context.index<state.context.items.length-1)setTimeout(()=>navigateContext(1),0)});",
+              "  $('#audio-v2')?.addEventListener('ended',()=>{if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1)});",
+              'runtime ended handler',
+          )
+
+          replace_once(
+              'tools/test-v2-mobile-deep-polish.mjs',
+              "assert(app.includes(\"setTimeout(()=>navigateContext(1),0)\"),'Continuous context playback missing');",
+              "assert(app.includes(\"$('#audio-v2')?.addEventListener('ended',()=>{if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1)})\"),'Direct continuous context playback missing');\nassert(!app.includes(\"setTimeout(()=>navigateContext(1),0)\"),'Ended auto-advance still depends on a background-throttled timer');",
+              'static continuous-playback assertion',
+          )
+
+          replace_once(
+              'tools/test-v2-mobile-deep-polish.mjs',
+              "window.HTMLMediaElement.prototype.play=function(){Object.defineProperty(this,'paused',{value:false,configurable:true});this.dispatchEvent(new window.Event('play'));return Promise.resolve()};",
+              "let mediaPlayCalls=0;\nwindow.HTMLMediaElement.prototype.play=function(){mediaPlayCalls++;Object.defineProperty(this,'paused',{value:false,configurable:true});this.dispatchEvent(new window.Event('play'));return Promise.resolve()};",
+              'media play mock',
+          )
+
+          replace_once(
+              'tools/test-v2-mobile-deep-polish.mjs',
+              "const beforeTitle=window.document.querySelector('#player-title-v2').textContent;\nwindow.document.querySelector('#audio-v2').dispatchEvent(new window.Event('ended'));await new Promise(resolve=>setTimeout(resolve,50));\nconst afterTitle=window.document.querySelector('#player-title-v2').textContent;\nassert(beforeTitle!==afterTitle,'Playback did not advance to the next context item after ended');",
+              "const beforeTitle=window.document.querySelector('#player-title-v2').textContent;\nconst playCallsBeforeEnded=mediaPlayCalls,savedWindowSetTimeout=window.setTimeout;\nwindow.setTimeout=()=>0;\nwindow.document.querySelector('#audio-v2').dispatchEvent(new window.Event('ended'));\nawait Promise.resolve();await Promise.resolve();await Promise.resolve();\nwindow.setTimeout=savedWindowSetTimeout;\nconst afterTitle=window.document.querySelector('#player-title-v2').textContent;\nassert(beforeTitle!==afterTitle,'Playback did not advance synchronously when background timers are suspended');\nassert(mediaPlayCalls>playCallsBeforeEnded,'Next context item did not request playback after ended');",
+              'ended regression scenario',
+          )
+
+      - name: Verify only intended source files changed
+        shell: bash
+        run: |
+          mapfile -t changed < <(git diff --name-only)
+          printf 'Changed before tests:\n%s\n' "${changed[*]}"
+          test "${#changed[@]}" -eq 2
+          printf '%s\n' "${changed[@]}" | grep -Fxq 'app-v2.js'
+          printf '%s\n' "${changed[@]}" | grep -Fxq 'tools/test-v2-mobile-deep-polish.mjs'
+
+      - name: Syntax check
+        run: node --check app-v2.js
+
+      - name: Rebuild V2 data using documented maintenance sequence
+        run: |
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+
+      - name: Ensure rebuild did not change content data
+        run: git diff --exit-code -- content-v2.json
+
+      - name: Run documented V2 test suite
+        run: |
+          node tools/test-content-v2.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/test-app-v2.mjs
+          node tools/test-v2-question-experience.mjs
+          node tools/test-v2-episode-experience.mjs
+          node tools/test-v2-full-parity.mjs
+          node tools/test-v2-playlist-parity.mjs
+          node tools/test-v2-mobile-deep-polish.mjs
+          node tools/test-v2-mobile-browser.mjs
+          node tools/test-v2-mobile-browser-playlist.mjs
+          node tools/test-v2-real-readmore-browser.mjs
+
+      - name: Commit verified fix to isolated branch
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app-v2.js tools/test-v2-mobile-deep-polish.mjs
+          git commit -m 'Fix background playlist auto-advance [autoadvance-tested]'
+          git push origin HEAD:fix/background-playlist-autoadvance
