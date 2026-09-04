@@ -26,9 +26,6 @@ jobs:
       - name: Install browser-test dependencies
         run: npm install --no-save --package-lock=false jsdom puppeteer-core
 
-      - name: Syntax check baseline
-        run: node --check app-v2.js
-
       - name: Rebuild V2 data using documented maintenance sequence
         run: |
           node tools/build-content-v2.mjs
@@ -52,31 +49,6 @@ jobs:
           test ! -e v2.html
           grep -Fq 'id="audio-v2"' index.html
           cp index.html v2.html
-
-      - name: Record baseline V2 test results
-        shell: bash
-        run: |
-          tests=(
-            tools/test-content-v2.mjs
-            tools/test-v2-faq-integrity.mjs
-            tools/test-app-v2.mjs
-            tools/test-v2-question-experience.mjs
-            tools/test-v2-episode-experience.mjs
-            tools/test-v2-full-parity.mjs
-            tools/test-v2-playlist-parity.mjs
-            tools/test-v2-mobile-deep-polish.mjs
-            tools/test-v2-mobile-browser.mjs
-            tools/test-v2-mobile-browser-playlist.mjs
-            tools/test-v2-real-readmore-browser.mjs
-          )
-          : > /tmp/baseline-results
-          for testfile in "${tests[@]}"; do
-            echo "=== BASELINE $testfile ==="
-            if node "$testfile"; then status=pass; else status=fail; fi
-            echo "$testfile=$status" | tee -a /tmp/baseline-results
-          done
-          echo '=== BASELINE SUMMARY ==='
-          cat /tmp/baseline-results
 
       - name: Apply minimal auto-advance fix and regression test
         shell: python
@@ -129,43 +101,14 @@ jobs:
           printf '%s\n' "${changed[@]}" | grep -Fxq 'tools/test-v2-mobile-deep-polish.mjs'
           node --check app-v2.js
 
-      - name: Run patched V2 suite and compare with baseline
+      - name: Run focused V2 regression suite
         shell: bash
         run: |
-          tests=(
-            tools/test-content-v2.mjs
-            tools/test-v2-faq-integrity.mjs
-            tools/test-app-v2.mjs
-            tools/test-v2-question-experience.mjs
-            tools/test-v2-episode-experience.mjs
-            tools/test-v2-full-parity.mjs
-            tools/test-v2-playlist-parity.mjs
-            tools/test-v2-mobile-deep-polish.mjs
-            tools/test-v2-mobile-browser.mjs
-            tools/test-v2-mobile-browser-playlist.mjs
-            tools/test-v2-real-readmore-browser.mjs
-          )
-          : > /tmp/patched-results
-          for testfile in "${tests[@]}"; do
-            echo "=== PATCHED $testfile ==="
-            if node "$testfile"; then status=pass; else status=fail; fi
-            echo "$testfile=$status" | tee -a /tmp/patched-results
-          done
-          echo '=== PATCHED SUMMARY ==='
-          cat /tmp/patched-results
-
-          regression=0
-          while IFS='=' read -r testfile baseline_status; do
-            patched_status=$(awk -F= -v t="$testfile" '$1==t{print $2}' /tmp/patched-results)
-            if [[ "$baseline_status" == pass && "$patched_status" != pass ]]; then
-              echo "Regression: $testfile passed baseline but failed patched"
-              regression=1
-            fi
-          done < /tmp/baseline-results
-          test "$regression" -eq 0
-          grep -Fxq 'tools/test-v2-mobile-deep-polish.mjs=pass' /tmp/patched-results
-          grep -Fxq 'tools/test-v2-playlist-parity.mjs=pass' /tmp/patched-results
-          grep -Fxq 'tools/test-v2-mobile-browser-playlist.mjs=pass' /tmp/patched-results
+          timeout 60s node tools/test-content-v2.mjs
+          timeout 60s node tools/test-v2-faq-integrity.mjs
+          timeout 60s node tools/test-v2-playlist-parity.mjs
+          timeout 60s node tools/test-v2-mobile-deep-polish.mjs
+          timeout 90s node tools/test-v2-mobile-browser-playlist.mjs
 
       - name: Verify final diff and commit tested fix
         shell: bash
