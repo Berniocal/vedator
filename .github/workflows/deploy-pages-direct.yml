@@ -1,6 +1,7 @@
 name: Přímé nasazení GitHub Pages
 
 on:
+  workflow_call:
   workflow_dispatch:
   push:
     branches:

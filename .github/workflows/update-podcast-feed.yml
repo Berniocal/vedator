@@ -24,6 +24,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   update-feed:
@@ -119,3 +121,8 @@ jobs:
             git commit -m 'Automatická aktualizace katalogu a V2 dat'
             git push
           fi
+
+  deploy-pages:
+    needs: update-feed
+    if: ${{ needs.update-feed.result == 'success' }}
+    uses: ./.github/workflows/deploy-pages-direct.yml
