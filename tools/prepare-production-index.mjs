@@ -13,7 +13,42 @@ html=html.replace(seriesTab,'<button class="tab-v2" data-view="series" type="but
 const appHash=crypto.createHash('sha256').update(fs.readFileSync(appPath)).digest('hex').slice(0,12);
 const appScript=/<script src="\.\/app-v2\.js(?:\?v=[0-9a-f]+)?" defer><\/script>/;
 if(!appScript.test(html))throw new Error('app-v2.js script marker in index.html was not found');
-html=html.replace(appScript,`<script src="./app-v2.js?v=${appHash}" defer></script>`);
+const versionedAppScript=`<script src="./app-v2.js?v=${appHash}" defer></script>`;
+html=html.replace(appScript,versionedAppScript);
+
+const summaryOpenState=`<script id="v2-summary-open-state">
+(()=>{
+  const root=document.getElementById('episodes-v2');
+  if(!root||!('MutationObserver' in window))return;
+  const selector='details.episode-summary-v2';
+  const openEpisodes=new Set();
+  const episodeOf=details=>details.closest('article[data-episode]')?.dataset.episode||'';
+  const remember=details=>{
+    if(!(details instanceof Element)||!details.matches(selector))return;
+    const episode=episodeOf(details);if(!episode)return;
+    if(details.open)openEpisodes.add(episode);else openEpisodes.delete(episode);
+  };
+  const restore=node=>{
+    if(!(node instanceof Element))return;
+    const summaries=[];
+    if(node.matches(selector))summaries.push(node);
+    summaries.push(...node.querySelectorAll(selector));
+    for(const details of summaries){const episode=episodeOf(details);if(episode&&openEpisodes.has(episode))details.open=true}
+  };
+  root.querySelectorAll(selector+'[open]').forEach(remember);
+  new MutationObserver(records=>{
+    for(const record of records){
+      if(record.type==='attributes'){remember(record.target);continue}
+      for(const node of record.addedNodes)restore(node);
+    }
+  }).observe(root,{childList:true,subtree:true,attributes:true,attributeFilter:['open']});
+})();
+</script>`;
+if(html.includes('id="v2-summary-open-state"')){
+  html=html.replace(/<script id="v2-summary-open-state">[\s\S]*?<\/script>/,summaryOpenState);
+}else{
+  html=html.replace(versionedAppScript,`${versionedAppScript}\n${summaryOpenState}`);
+}
 
 const swBootstrap=/<script>\s*\(\(\)=>\{if\(!\('serviceWorker' in navigator\)\)return;window\.addEventListener\('load',\(\)=>\{navigator\.serviceWorker\.register\('\.\/sw\.js',\{scope:'\.\/'\}\)\.then\(reg=>reg\.update\(\)\)\.catch\(err=>console\.warn\('SW registration failed',err\)\);\}\);\}\)\(\);\s*<\/script>/;
 const productionBootstrap=`<script id="v2-service-worker-bootstrap">
