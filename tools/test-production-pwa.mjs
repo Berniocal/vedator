@@ -10,6 +10,13 @@ if(!html.includes("updateViaCache:'none'"))fail('Service worker update check may
 if(!html.includes("visibilitychange"))fail('Service worker is not rechecked when the app becomes visible');
 if(!html.includes("setInterval(safeUpdate,CHECK_INTERVAL)"))fail('Periodic service worker update check is missing');
 
+const summaryState=html.match(/<script id="v2-summary-open-state">([\s\S]*?)<\/script>/)?.[1];
+if(!summaryState)fail('Episode summary open-state preservation is missing');
+if(!summaryState.includes("details.episode-summary-v2"))fail('Summary-state helper is not scoped to episode summaries');
+if(!summaryState.includes("attributeFilter:['open']"))fail('Summary-state helper does not observe the open state');
+if(!summaryState.includes('openEpisodes.has(episode)'))fail('Summary-state helper does not restore open episodes');
+try{new Function(summaryState)}catch(error){fail(`Summary-state helper has invalid JavaScript: ${error.message}`)}
+
 if(!sw.includes('const APP_CACHE_PREFIX="vedator-v3-app-";'))fail('New app cache namespace is missing');
 if(!sw.includes('const DATA_CACHE="vedator-v3-data-v1";'))fail('Separate data cache is missing');
 if(!sw.includes("request.mode==='navigate'"))fail('Navigation handler is missing');
