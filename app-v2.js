@@ -840,7 +840,7 @@
     const append=(amount=PARITY_BATCH)=>{
       if(parityUi.generations.get(view)!==generation)return;const end=Math.min(rendered+(rendered===0?firstCount:amount),items.length);
       const html=items.slice(rendered,end).map((item,index)=>renderer(item,rendered+index)).join('');sentinel.insertAdjacentHTML('beforebegin',html);rendered=end;
-      afterAppend?.(container);if(rendered>=items.length){sentinel.remove();disconnectParityObserver(view);return}
+      afterAppend?.(container);applySearchHighlights(container);if(rendered>=items.length){sentinel.remove();disconnectParityObserver(view);return}
       sentinel.textContent=text('Zobrazeno','Zobrazené')+' '+rendered+' / '+items.length+' · '+text('načíst další','načítať ďalšie');
     };
     container.appendChild(sentinel);sentinel.addEventListener('click',()=>append());append();
@@ -945,9 +945,9 @@
     if(state.view==='episodes'){renderEpisodes();return}
     if(state.view==='questions'){renderQuestions();const filtered=Boolean(state.query.trim())||questionUi.qTopic!=='all',count=Number(active.dataset.visible)||0;$('#count-v2').textContent=questionCountLabel('questions',filtered?count:state.data.questions.length,filtered);return}
     if(state.view==='nonquestions'){renderNonQuestions();const filtered=Boolean(state.query.trim())||questionUi.nTopic!=='all',count=Number(active.dataset.visible)||0,total=Number(active.dataset.count)||0;$('#count-v2').textContent=questionCountLabel('nonquestions',filtered?count:total,filtered);return}
-    if(state.view==='series'){renderSeries();return}
+    if(state.view==='series'){renderSeries();applySearchHighlights(active);return}
     const query=norm(state.query.trim()),cards=[...active.querySelectorAll('.searchable')];let shown=0;cards.forEach(card=>{const ok=!query||String(card.dataset.search||'').includes(query);card.classList.toggle('filtered-out',!ok);if(ok)shown++});
-    if(state.view==='playlists')$('#count-v2').textContent=query?shown+' '+text('nalezených playlistů','nájdených playlistov'):state.playlists.length+' '+text('playlistů','playlistov');else $('#count-v2').textContent=text('Lokální data','Lokálne dáta');
+    if(state.view==='playlists')$('#count-v2').textContent=query?shown+' '+text('nalezených playlistů','nájdených playlistov'):state.playlists.length+' '+text('playlistů','playlistov');else $('#count-v2').textContent=text('Lokální data','Lokálne dáta');applySearchHighlights(active);
   }
   function setView(view){
     state.view=view;$$('.tab-v2').forEach(button=>button.classList.toggle('active',button.dataset.view===view));$$('.view-v2').forEach(node=>node.classList.toggle('hidden',node.dataset.view!==view));
@@ -1095,6 +1095,62 @@
     if(position<textValue.length)out+=esc(textValue.slice(position));
     return out.replace(/([A-Za-z0-9]+)\s*\^\s*\{?(-?\d+)\}?/g,'$1<sup>$2</sup>');
   }
+  /* V2_SEARCH_HIGHLIGHT_CONSISTENCY_V1 */
+  function searchHighlightTerms(){
+    const query=norm(state.query.trim());
+    return query?[...new Set([query,...query.split(/\s+/)].filter(Boolean))].sort((a,b)=>b.length-a.length):[];
+  }
+  function searchHighlightRanges(value,terms){
+    const {textValue,normalized,map}=mobileNormalizedTextWithMap(value),ranges=[];
+    for(const rawTerm of terms){
+      const term=norm(rawTerm).trim();if(!term)continue;let from=0;
+      while(from<normalized.length){
+        const index=normalized.indexOf(term,from);if(index<0)break;
+        const start=map[index],end=(map[index+term.length-1]??start)+1;
+        if(!ranges.some(range=>start<range.end&&end>range.start))ranges.push({start,end});
+        from=index+Math.max(1,term.length);
+      }
+    }
+    return {textValue,ranges:ranges.sort((a,b)=>a.start-b.start)};
+  }
+  function ensureSearchHighlightStyles(){
+    if(document.querySelector('style[data-v2-search-highlight]'))return;
+    const style=document.createElement('style');style.dataset.v2SearchHighlight='1';
+    style.textContent='mark.vedator-match{background:#ffe66b!important;color:#171717!important;border-radius:.28em;padding:.02em .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}html[data-theme="dark"] mark.vedator-match{background:#8a6d00!important;color:#fff4b3!important}.question-card.search-match-expanded-v2 .question-answer{display:block!important;-webkit-line-clamp:unset!important;-webkit-box-orient:initial!important;max-height:none!important;overflow:visible!important}';
+    document.head.appendChild(style);
+  }
+  function clearSearchHighlights(root){
+    if(!root)return;const parents=new Set();
+    root.querySelectorAll('mark.vedator-search-dom').forEach(mark=>{if(mark.parentNode)parents.add(mark.parentNode);mark.replaceWith(document.createTextNode(mark.textContent||''))});
+    parents.forEach(parent=>parent.normalize?.());
+    root.querySelectorAll('.search-match-expanded-v2').forEach(card=>card.classList.remove('search-match-expanded-v2'));
+  }
+  function applySearchHighlights(root){
+    if(!root)return;clearSearchHighlights(root);
+    const terms=searchHighlightTerms();if(!terms.length)return;ensureSearchHighlightStyles();
+    const cards=[...root.querySelectorAll('.searchable')].filter(card=>!card.classList.contains('filtered-out'));
+    for(const card of cards){
+      const walker=document.createTreeWalker(card,NodeFilter.SHOW_TEXT,{acceptNode(node){
+        const parent=node.parentElement;
+        if(!parent||!node.nodeValue?.trim())return NodeFilter.FILTER_REJECT;
+        if(parent.closest('mark.vedator-match,script,style,noscript,textarea,input,select,option,svg'))return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }});
+      const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+      for(const node of nodes){
+        const {textValue,ranges}=searchHighlightRanges(node.nodeValue,terms);if(!ranges.length)continue;
+        const fragment=document.createDocumentFragment();let position=0;
+        for(const range of ranges){
+          if(range.start>position)fragment.append(document.createTextNode(textValue.slice(position,range.start)));
+          const mark=document.createElement('mark');mark.className='vedator-match vedator-search-dom';mark.textContent=textValue.slice(range.start,range.end);fragment.append(mark);position=range.end;
+        }
+        if(position<textValue.length)fragment.append(document.createTextNode(textValue.slice(position)));
+        node.replaceWith(fragment);
+      }
+      if(card.classList.contains('question-card')&&card.querySelector('.question-answer mark.vedator-match'))card.classList.add('search-match-expanded-v2');
+    }
+  }
+
   function mobileQuestionHighlightTerms(topic){
     const query=norm(state.query.trim());
     if(query)return [...new Set([query,...query.split(/\s+/)].filter(term=>term.length>=2))].sort((a,b)=>b.length-a.length);
