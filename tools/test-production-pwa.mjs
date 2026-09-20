@@ -41,5 +41,7 @@ if(!app.includes("if(card.matches('.series'))"))fail('Series search fallback is 
 if(!app.includes("if(card.matches('.playlist-card'))"))fail('Playlist search fallback is missing');
 if(!app.includes("if(card.matches('.episode-card-v2'))"))fail('Episode language search fallback is missing');
 if(!app.includes('function firstEpisodeSearchHit(episode,terms)'))fail('Episode search-hit extraction is missing');
+if(!app.includes("const activeSearch=Boolean(state.query.trim())"))fail('Episode excerpt does not switch to search substring mode');
+if(!app.includes("activeSearch?searchHighlightRanges(raw,terms):mobileHighlightRanges(raw,terms)"))fail('Episode search excerpt still uses word-boundary highlighting');
 
 console.log('Production PWA cache/startup checks passed.');
