@@ -1238,7 +1238,9 @@
   function mobileEpisodeExcerpt(value,terms){
     const raw=String(value||'').replace(/\s+/g,' ').trim();if(!raw)return'';
     if(!terms.length)return shortParityDescription(raw);
-    const {ranges}=mobileHighlightRanges(raw,terms);if(!ranges.length)return shortParityDescription(raw);
+    const activeSearch=Boolean(state.query.trim());
+    const {ranges}=activeSearch?searchHighlightRanges(raw,terms):mobileHighlightRanges(raw,terms);
+    if(!ranges.length)return shortParityDescription(raw);
     const first=ranges[0];let start=Math.max(0,first.start-115),end=Math.min(raw.length,Math.max(first.end+185,start+440));
     while(start>0&&!/\s/.test(raw[start-1]))start--;while(end<raw.length&&!/\s/.test(raw[end]))end++;
     return (start>0?'…':'')+raw.slice(start,end).trim()+(end<raw.length?'…':'');
