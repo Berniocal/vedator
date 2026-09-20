@@ -603,7 +603,10 @@
   function enhancedQuestionCard(item,view){
     const prefix=view==='questions'?'q':'n',id=itemId(item,prefix),open=(view==='questions'?questionUi.qOpen:questionUi.nOpen).has(id),copy=copyForViewItem(item,view),topic=currentTopic(view),ref=view==='questions'?qRef(item):'',deep=view==='questions'?Number(item.episode)+':'+Number(item.order):Number(item.episode)+':'+Number(item.order);
     const tags=topicKeysForItem(item,view).map(key=>'<span class="tag">'+esc(topicLabel(key))+'</span>').join('');
-    return '<article class="card searchable question-card '+(open?'open':'')+'" data-item="'+esc(id)+'" data-search="'+esc(itemSearchText(item,view))+'"><div class="meta">'+text('Díl','Diel')+' '+item.episode+' • '+esc(item.sourceTime||item.time||'')+'</div><h2>'+highlightHtml(copy.title,topic)+'</h2><div class="question-answer"><ul>'+copy.points.map(point=>'<li>'+highlightHtml(point,topic)+'</li>').join('')+'</ul></div><div class="tags">'+tags+'</div><div class="actions"><button type="button" class="play" data-episode="'+item.episode+'" data-seconds="'+(Number(item.seconds)||0)+'" data-ref="'+esc(ref)+'">'+text('Přehrát','Prehrať')+'</button><button type="button" class="question-more">'+(open?text('Číst méně','Čítať menej'):text('Číst více','Čítať viac'))+'</button>'+shareButton(view==='questions'?'question':'nonquestion',deep)+'</div></article>';
+    const searchTerms=searchHighlightTerms(),titleHasSearch=searchTerms.length&&searchHighlightRanges(copy.title,searchTerms).ranges.length>0;
+    const searchExcerptText=!open&&searchTerms.length&&!titleHasSearch?searchExcerpt(copy.points.join(' • '),searchTerms):'';
+    const searchExcerptHtml=searchExcerptText?'<div class="question-search-excerpt">'+searchHighlightHtml(searchExcerptText,searchTerms)+'</div>':'';
+    return '<article class="card searchable question-card '+(open?'open':'')+'" data-item="'+esc(id)+'" data-search="'+esc(itemSearchText(item,view))+'"><div class="meta">'+text('Díl','Diel')+' '+item.episode+' • '+esc(item.sourceTime||item.time||'')+'</div><h2>'+highlightHtml(copy.title,topic)+'</h2>'+searchExcerptHtml+'<div class="question-answer"><ul>'+copy.points.map(point=>'<li>'+highlightHtml(point,topic)+'</li>').join('')+'</ul></div><div class="tags">'+tags+'</div><div class="actions"><button type="button" class="play" data-episode="'+item.episode+'" data-seconds="'+(Number(item.seconds)||0)+'" data-ref="'+esc(ref)+'">'+text('Přehrát','Prehrať')+'</button><button type="button" class="question-more">'+(open?text('Číst méně','Čítať menej'):text('Číst více','Čítať viac'))+'</button>'+shareButton(view==='questions'?'question':'nonquestion',deep)+'</div></article>';
   }
   function renderQuestions(){
     const items=visibleItems('questions');$('#questions-v2').innerHTML=questionToolbar('questions')+items.map(item=>enhancedQuestionCard(item,'questions')).join('');$('#questions-v2').dataset.visible=String(items.length);queueQuestionMoreCheck('questions');
@@ -629,7 +632,7 @@
     else $('#count-v2').textContent=text('Lokální data','Lokálne dáta');
   }
   function queueQuestionMoreCheck(view){
-    requestAnimationFrame(()=>{const root=view==='questions'?$('#questions-v2'):$('#nonquestions-v2');root?.querySelectorAll('.question-card').forEach(card=>{const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more');if(!answer||!button)return;button.classList.toggle('hidden',!card.classList.contains('open')&&answer.scrollHeight<=answer.clientHeight+2)})});
+    requestAnimationFrame(()=>{const root=view==='questions'?$('#questions-v2'):$('#nonquestions-v2');root?.querySelectorAll('.question-card').forEach(card=>{const answer=card.querySelector('.question-answer'),button=card.querySelector('.question-more');if(!answer||!button)return;const hasSearchExcerpt=Boolean(card.querySelector('.question-search-excerpt'));button.classList.toggle('hidden',!card.classList.contains('open')&&!hasSearchExcerpt&&answer.scrollHeight<=answer.clientHeight+2)})});
   }
   function hashText(value){let hash=2166136261;for(const char of String(value||'')){hash^=char.charCodeAt(0);hash=Math.imul(hash,16777619)}return(hash>>>0).toString(36)}
   function slug(value){return norm(value).replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
@@ -1116,7 +1119,7 @@
   function ensureSearchHighlightStyles(){
     if(document.querySelector('style[data-v2-search-highlight]'))return;
     const style=document.createElement('style');style.dataset.v2SearchHighlight='1';
-    style.textContent='mark.vedator-match{background:#ffe66b!important;color:#171717!important;border-radius:.28em;padding:.02em .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}html[data-theme="dark"] mark.vedator-match{background:#8a6d00!important;color:#fff4b3!important}.question-card.search-match-expanded-v2 .question-answer{display:block!important;-webkit-line-clamp:unset!important;-webkit-box-orient:initial!important;max-height:none!important;overflow:visible!important}.search-hit-v2{display:block;margin-top:4px;font-size:.76rem;line-height:1.35;color:var(--muted);font-weight:550;white-space:normal}.episode-search-hit-v2{margin:.15rem 0 .65rem}.playlist-title:has(.search-hit-v2){white-space:normal;overflow:visible;text-overflow:clip}';
+    style.textContent='mark.vedator-match{background:#ffe66b!important;color:#171717!important;border-radius:.28em;padding:.02em .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}html[data-theme="dark"] mark.vedator-match{background:#8a6d00!important;color:#fff4b3!important}.question-search-excerpt{line-height:1.48;max-height:7.7em;overflow:hidden;margin:.4rem 0}.question-card:not(.open):has(.question-search-excerpt) .question-answer{display:none!important}.question-card.open .question-search-excerpt{display:none!important}.search-hit-v2{display:block;margin-top:4px;font-size:.76rem;line-height:1.35;color:var(--muted);font-weight:550;white-space:normal}.episode-search-hit-v2{margin:.15rem 0 .65rem}.playlist-title:has(.search-hit-v2){white-space:normal;overflow:visible;text-overflow:clip}';
     document.head.appendChild(style);
   }
   function clearSearchHighlights(root){
@@ -1124,7 +1127,7 @@
     root.querySelectorAll('.search-hit-v2').forEach(node=>node.remove());
     root.querySelectorAll('mark.vedator-search-dom').forEach(mark=>{if(mark.parentNode)parents.add(mark.parentNode);mark.replaceWith(document.createTextNode(mark.textContent||''))});
     parents.forEach(parent=>parent.normalize?.());
-    root.querySelectorAll('.search-match-expanded-v2').forEach(card=>card.classList.remove('search-match-expanded-v2'));
+    root.querySelectorAll('.search-match-expanded-v2').forEach(card=>card.classList.remove('search-match-expanded-v2')); // legacy cleanup
   }
   function searchHighlightHtml(value,terms=searchHighlightTerms()){
     const {textValue,ranges}=searchHighlightRanges(value,terms);if(!ranges.length)return esc(textValue);
@@ -1198,7 +1201,7 @@
       const walker=document.createTreeWalker(card,NodeFilter.SHOW_TEXT,{acceptNode(node){
         const parent=node.parentElement;
         if(!parent||!node.nodeValue?.trim())return NodeFilter.FILTER_REJECT;
-        if(parent.closest('mark.vedator-match,script,style,noscript,textarea,input,select,option,svg,.actions,.listen-status,.episode-progress-v2,.series-progress-summary-v2,.series-progress-box-v2,.playlist-actions,.playlist-count'))return NodeFilter.FILTER_REJECT;
+        if(parent.closest('mark.vedator-match,script,style,noscript,textarea,input,select,option,svg,.actions,.listen-status,.episode-progress-v2,.series-progress-summary-v2,.series-progress-box-v2,.playlist-actions,.playlist-count,.episode-summary-slot-v2'))return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       }});
       const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
@@ -1212,7 +1215,6 @@
         if(position<textValue.length)fragment.append(document.createTextNode(textValue.slice(position)));
         node.replaceWith(fragment);
       }
-      if(card.classList.contains('question-card')&&card.querySelector('.question-answer mark.vedator-match'))card.classList.add('search-match-expanded-v2');
       ensureSearchFallback(card,terms);
     }
   }
