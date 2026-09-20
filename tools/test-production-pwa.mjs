@@ -31,5 +31,10 @@ if(!app.includes('afterAppend?.(container);applySearchHighlights(container)'))fa
 if(!app.includes("if(state.view==='series'){renderSeries();applySearchHighlights(active);return}"))fail('Series search results are not highlighted');
 if(!app.includes('search-match-expanded-v2'))fail('Hidden question-answer matches are not made visible during search');
 if(!app.includes('mark.vedator-search-dom'))fail('Search DOM highlight marker is missing');
+if(!app.includes('function ensureSearchFallback(card,terms)'))fail('Fallback for search results without a visible highlight is missing');
+if(!app.includes("if(card.matches('.series'))"))fail('Series search fallback is missing');
+if(!app.includes("if(card.matches('.playlist-card'))"))fail('Playlist search fallback is missing');
+if(!app.includes("if(card.matches('.episode-card-v2'))"))fail('Episode language search fallback is missing');
+if(!app.includes('function firstEpisodeSearchHit(episode,terms)'))fail('Episode search-hit extraction is missing');
 
 console.log('Production PWA cache/startup checks passed.');
