@@ -29,7 +29,12 @@ if(sw.match(/const APP_URLS=.*content-v2\.json/))fail('content-v2.json must not 
 if(!app.includes('V2_SEARCH_HIGHLIGHT_CONSISTENCY_V1'))fail('Unified search highlight layer is missing');
 if(!app.includes('afterAppend?.(container);applySearchHighlights(container)'))fail('Lazy-rendered search results are not highlighted');
 if(!app.includes("if(state.view==='series'){renderSeries();applySearchHighlights(active);return}"))fail('Series search results are not highlighted');
-if(!app.includes('search-match-expanded-v2'))fail('Hidden question-answer matches are not made visible during search');
+if(!app.includes('question-search-excerpt'))fail('Search-centered compact question excerpt is missing');
+if(app.includes(".question-card.search-match-expanded-v2 .question-answer{display:block"))fail('Question search must not force the full answer open');
+if(!app.includes(".question-card:not(.open):has(.question-search-excerpt) .question-answer{display:none!important}"))fail('Collapsed question search excerpt does not replace the normal leading excerpt');
+if(!app.includes(".question-card.open .question-search-excerpt{display:none!important}"))fail('Full answer does not replace the search excerpt after Read more');
+if(!app.includes('.episode-summary-slot-v2'))fail('Episode summary slot marker is missing');
+if(!app.includes('.playlist-count,.episode-summary-slot-v2'))fail('Hidden episode summary content may suppress visible search fallback');
 if(!app.includes('mark.vedator-search-dom'))fail('Search DOM highlight marker is missing');
 if(!app.includes('function ensureSearchFallback(card,terms)'))fail('Fallback for search results without a visible highlight is missing');
 if(!app.includes("if(card.matches('.series'))"))fail('Series search fallback is missing');
