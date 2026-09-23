@@ -18,6 +18,16 @@ if(!summaryState.includes("attributeFilter:['open']"))fail('Summary-state helper
 if(!summaryState.includes('openEpisodes.has(episode)'))fail('Summary-state helper does not restore open episodes');
 try{new Function(summaryState)}catch(error){fail(`Summary-state helper has invalid JavaScript: ${error.message}`)}
 
+const seriesState=html.match(/<script id="v2-series-open-state">([\s\S]*?)<\/script>/)?.[1];
+if(!seriesState)fail('Series/topic open-state persistence is missing');
+if(!seriesState.includes("const STORAGE_KEY='vedator-series-open-v1'"))fail('Series/topic open state has no isolated storage key');
+if(!seriesState.includes("details.series[data-series-index]"))fail('Series/topic state helper is not scoped to series cards');
+if(!seriesState.includes(".deep-share[data-kind=\"series\"][data-value]"))fail('Series/topic state does not use a stable series identifier');
+if(!seriesState.includes('openSeries.has(key)'))fail('Series/topic state helper does not restore saved open cards');
+if(!seriesState.includes("attributeFilter:['open']"))fail('Series/topic state helper does not observe only open-state changes');
+if(!seriesState.includes('localStorage.setItem(STORAGE_KEY'))fail('Series/topic open state is not persisted locally');
+try{new Function(seriesState)}catch(error){fail(`Series/topic state helper has invalid JavaScript: ${error.message}`)}
+
 if(!sw.includes('const APP_CACHE_PREFIX="vedator-v3-app-";'))fail('New app cache namespace is missing');
 if(!sw.includes('const DATA_CACHE="vedator-v3-data-v1";'))fail('Separate data cache is missing');
 if(!sw.includes("request.mode==='navigate'"))fail('Navigation handler is missing');
