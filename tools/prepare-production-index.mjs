@@ -50,6 +50,52 @@ if(html.includes('id="v2-summary-open-state"')){
   html=html.replace(versionedAppScript,`${versionedAppScript}\n${summaryOpenState}`);
 }
 
+const seriesOpenState=`<script id="v2-series-open-state">
+(()=>{
+  const root=document.getElementById('series-v2');
+  if(!root||!('MutationObserver' in window))return;
+  const STORAGE_KEY='vedator-series-open-v1';
+  const selector='details.series[data-series-index]';
+  const readOpen=()=>{
+    try{
+      const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
+      return new Set(Array.isArray(value)?value.map(String):[]);
+    }catch{return new Set()}
+  };
+  const openSeries=readOpen();
+  const keyOf=details=>details.querySelector(':scope>summary .deep-share[data-kind="series"][data-value]')?.dataset.value||'';
+  const persist=()=>{
+    try{localStorage.setItem(STORAGE_KEY,JSON.stringify([...openSeries].sort()))}catch{}
+  };
+  const remember=details=>{
+    if(!(details instanceof Element)||!details.matches(selector))return;
+    const key=keyOf(details);if(!key)return;
+    const known=openSeries.has(key);
+    if(details.open&&!known){openSeries.add(key);persist()}
+    else if(!details.open&&known){openSeries.delete(key);persist()}
+  };
+  const restore=node=>{
+    if(!(node instanceof Element))return;
+    const cards=[];
+    if(node.matches(selector))cards.push(node);
+    cards.push(...node.querySelectorAll(selector));
+    for(const details of cards){const key=keyOf(details);if(key&&openSeries.has(key)&&!details.open)details.open=true}
+  };
+  restore(root);
+  new MutationObserver(records=>{
+    for(const record of records){
+      if(record.type==='attributes'){remember(record.target);continue}
+      for(const node of record.addedNodes)restore(node);
+    }
+  }).observe(root,{childList:true,subtree:true,attributes:true,attributeFilter:['open']});
+})();
+</script>`;
+if(html.includes('id="v2-series-open-state"')){
+  html=html.replace(/<script id="v2-series-open-state">[\s\S]*?<\/script>/,seriesOpenState);
+}else{
+  html=html.replace(summaryOpenState,`${summaryOpenState}\n${seriesOpenState}`);
+}
+
 const swBootstrap=/<script>\s*\(\(\)=>\{if\(!\('serviceWorker' in navigator\)\)return;window\.addEventListener\('load',\(\)=>\{navigator\.serviceWorker\.register\('\.\/sw\.js',\{scope:'\.\/'\}\)\.then\(reg=>reg\.update\(\)\)\.catch\(err=>console\.warn\('SW registration failed',err\)\);\}\);\}\)\(\);\s*<\/script>/;
 const productionBootstrap=`<script id="v2-service-worker-bootstrap">
 (()=>{
