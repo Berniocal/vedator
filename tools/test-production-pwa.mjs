@@ -36,6 +36,10 @@ if(!sw.includes("networkFirst(request,DATA_CACHE,DATA_URL,1600)"))fail('content-
 if(!sw.includes("networkFirst(request,APP_CACHE,'./app-v2.js',1600)"))fail('app-v2.js is not network-first');
 if(sw.match(/const APP_URLS=.*content-v2\.json/))fail('content-v2.json must not invalidate the whole app cache');
 
+if(app.includes('class="data-note"'))fail('Obsolete Data-tab notes are still present in production app');
+if(app.includes('V2 používá stejné formáty dat jako původní aplikace'))fail('Legacy Data-tab migration note is still present');
+if(app.includes('Tato akce proběhne pouze po dalším výslovném potvrzení.'))fail('Redundant Data-tab confirmation note is still present');
+
 if(!app.includes('V2_SEARCH_HIGHLIGHT_CONSISTENCY_V1'))fail('Unified search highlight layer is missing');
 if(!app.includes('afterAppend?.(container);applySearchHighlights(container)'))fail('Lazy-rendered search results are not highlighted');
 if(!app.includes("if(state.view==='series'){renderSeries();applySearchHighlights(active);return}"))fail('Series search results are not highlighted');
