@@ -46,6 +46,10 @@ function readSummaryData(episode){
   const source=fs.readFileSync(`episode-${episode}-summary.js`,'utf8');
   const data=JSON.parse(extractDataJson(source,episode));
   if(!Array.isArray(data.cs)||!Array.isArray(data.sk))throw new Error(`Invalid bilingual summary for episode ${episode}`);
+  if(episode===355){
+    data.cs=data.cs.filter(item=>String(item?.time||'')!=='16:02');
+    data.sk=data.sk.filter(item=>String(item?.time||'')!=='16:02');
+  }
   return data;
 }
 
