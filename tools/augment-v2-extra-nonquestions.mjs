@@ -46,6 +46,13 @@ function readSummaryData(episode){
   const source=fs.readFileSync(`episode-${episode}-summary.js`,'utf8');
   const data=JSON.parse(extractDataJson(source,episode));
   if(!Array.isArray(data.cs)||!Array.isArray(data.sk))throw new Error(`Invalid bilingual summary for episode ${episode}`);
+  if(episode===355){
+    const isRemovedChapter=item=>String(item?.time||'')==='16:02';
+    const csMatches=data.cs.filter(isRemovedChapter).length,skMatches=data.sk.filter(isRemovedChapter).length;
+    if(csMatches!==1||skMatches!==1)throw new Error(`Episode 355 expected one 16:02 chapter per language, found cs=${csMatches}, sk=${skMatches}`);
+    data.cs=data.cs.filter(item=>!isRemovedChapter(item));
+    data.sk=data.sk.filter(item=>!isRemovedChapter(item));
+  }
   return data;
 }
 
