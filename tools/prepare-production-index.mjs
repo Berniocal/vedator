@@ -10,7 +10,14 @@ const seriesTab=/<button class="tab-v2" data-view="series" type="button">Série(
 if(!seriesTab.test(html))throw new Error('Series tab marker in index.html was not found');
 html=html.replace(seriesTab,'<button class="tab-v2" data-view="series" type="button">Série a témata</button>');
 
-const appHash=crypto.createHash('sha256').update(fs.readFileSync(appPath)).digest('hex').slice(0,12);
+let app=fs.readFileSync(appPath,'utf8');
+const dataNotePattern=/<p class="data-note">\$\{text\('[^']*','[^']*'\)\}<\/p>/g;
+const dataNotes=[...app.matchAll(dataNotePattern)];
+if(dataNotes.length!==2)throw new Error(`Expected exactly 2 removable Data notes, found ${dataNotes.length}`);
+app=app.replace(dataNotePattern,'');
+fs.writeFileSync(appPath,app);
+
+const appHash=crypto.createHash('sha256').update(app).digest('hex').slice(0,12);
 const appScript=/<script src="\.\/app-v2\.js(?:\?v=[0-9a-f]+)?" defer><\/script>/;
 if(!appScript.test(html))throw new Error('app-v2.js script marker in index.html was not found');
 const versionedAppScript=`<script src="./app-v2.js?v=${appHash}" defer></script>`;
