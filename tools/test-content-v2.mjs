@@ -205,6 +205,17 @@ if(13>Math.floor((28*60+54-(1*60+22))/120))fail('Episode 171 chapter limit excee
 if(data.questions.some(q=>Number(q.episode)===171))fail('Episode 171 must remain a nonquestion episode');
 if(!data.episodes.find(e=>Number(e.number)===171)?.i18n?.cs?.title.includes('Konec Mooreova'))fail('Episode 171 Czech title missing');
 
+const summary165=data.nonquestions.episodes['165'];
+const times165=['01:55','04:43','07:51','09:25','10:26','13:06','14:21','15:30','17:15','19:13','22:01','24:19','26:20','28:04'];
+for(const lang of ['cs','sk']){
+  const chapters=summary165?.[lang];
+  if(chapters?.length!==14||JSON.stringify(chapters.map(x=>x.time))!==JSON.stringify(times165))fail(`Episode 165 ${lang} chapters/timestamps mismatch`);
+  if(chapters.some(x=>!x.title||x.points?.length!==3))fail(`Episode 165 ${lang} incomplete chapter`);
+}
+if(14>Math.floor((30*60+49-(1*60+55))/120))fail('Episode 165 chapter limit exceeded');
+if(data.questions.some(q=>Number(q.episode)===165))fail('Episode 165 must remain a nonquestion episode');
+if(!data.episodes.find(e=>Number(e.number)===165)?.i18n?.cs?.title.includes('Nejen Hawkingovy sázky'))fail('Episode 165 Czech title missing');
+
 console.log(JSON.stringify({
   ok:true,
   episodes:data.episodes.length,
