@@ -216,6 +216,20 @@ if(14>Math.floor((30*60+49-(1*60+55))/120))fail('Episode 165 chapter limit excee
 if(data.questions.some(q=>Number(q.episode)===165))fail('Episode 165 must remain a nonquestion episode');
 if(!data.episodes.find(e=>Number(e.number)===165)?.i18n?.cs?.title.includes('Nejen Hawkingovy sázky'))fail('Episode 165 Czech title missing');
 
+const summary163=data.nonquestions.episodes['163'];
+const times163=['01:30','03:19','06:17','08:53','10:36','12:24','14:32','17:01','18:26','19:45','21:38','23:55','27:03','29:24'];
+// SRT: 01:30–31:43, minus unrelated interludes 13:22–13:50 and 16:14–17:01.
+const cleanSeconds163=(31*60+43)-(1*60+30)-28-47;
+for(const lang of ['cs','sk']){
+  const chapters=summary163?.[lang];
+  if(chapters?.length!==14||JSON.stringify(chapters.map(x=>x.time))!==JSON.stringify(times163))fail(`Episode 163 ${lang} chapters/timestamps mismatch`);
+  if(chapters.some(x=>!x.title||x.points?.length!==3))fail(`Episode 163 ${lang} incomplete chapter`);
+  if(chapters.some(x=>x.seconds!==x.time.split(':').reduce((total,value)=>total*60+Number(value),0)-5))fail(`Episode 163 ${lang} playback preroll mismatch`);
+  if(chapters.length>Math.floor(cleanSeconds163/120))fail(`Episode 163 ${lang} chapter limit exceeded`);
+}
+if(data.questions.some(q=>Number(q.episode)===163))fail('Episode 163 must remain a nonquestion episode');
+if(!data.episodes.find(e=>Number(e.number)===163)?.i18n?.cs?.title.includes('Kvarky'))fail('Episode 163 Czech title missing');
+
 console.log(JSON.stringify({
   ok:true,
   episodes:data.episodes.length,
