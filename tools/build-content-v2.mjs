@@ -242,6 +242,12 @@ if(!Array.isArray(sourceEpisodes)||sourceEpisodes.length<300)throw new Error(`In
 const episodeTranslationData=collectEpisodeTranslations();
 const positiveSourceNumbers=new Set(sourceEpisodes.map(e=>Number(e.number)||0).filter(number=>number>0));
 const usedSpecialNumbers=new Set();
+// RSS contains two different recordings published as episode 142. Keep the
+// existing 142 identity for Mochovce and give Webb a stable playlist-safe ID.
+// Match the publisher GUID, so feed ordering and title edits cannot swap them.
+const DUPLICATE_EPISODE_IDENTITIES=new Map([
+  ['vedatorskypodcast.podbean.com/16637ee2-55d2-330a-96db-861b1b9f1c10',{number:1142,displayNumber:142}]
+]);
 function specialEpisodeIdentity(title){
   const value=String(title||'');
   const rules=[
@@ -261,8 +267,13 @@ function specialEpisodeIdentity(title){
   return null;
 }
 const episodes=sourceEpisodes.map(e=>{
-  const special=Number(e.number)>0?null:specialEpisodeIdentity(e.title);
-  const number=Number(e.number)||special?.number||0;
+  const duplicate=DUPLICATE_EPISODE_IDENTITIES.get(String(e.id||''));
+  if(duplicate){
+    if(positiveSourceNumbers.has(duplicate.number)||usedSpecialNumbers.has(duplicate.number))throw new Error(`Duplicate episode id collision: ${duplicate.number}`);
+    usedSpecialNumbers.add(duplicate.number);
+  }
+  const special=duplicate||(Number(e.number)>0?null:specialEpisodeIdentity(e.title));
+  const number=special?.number||Number(e.number)||0;
   const base={
     number,
     ...(special?{displayNumber:special.displayNumber}:{}),

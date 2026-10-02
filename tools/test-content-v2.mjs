@@ -53,6 +53,19 @@ if(JSON.stringify(episode191.sk.map(item=>item.time))!==JSON.stringify(episode19
 const episode351=data.nonquestions?.episodes?.['351'];
 if(!episode351||episode351.cs?.length!==17||episode351.sk?.length!==17)fail('Episode 351 bilingual summary count mismatch');
 const episodeNumbers=new Set(data.episodes.map(e=>Number(e.number)));
+// Duplicate feed entries pointing to the same recording (113) are harmless;
+// different recordings must never share a playback/progress/playlist identity.
+const audioByNumber=new Map();
+for(const episode of data.episodes){
+  const number=Number(episode.number);if(number<=0)continue;
+  const audio=String(episode.enclosure||'');
+  if(audioByNumber.has(number)&&audioByNumber.get(number)!==audio)fail(`Different recordings share episode identity ${number}`);
+  audioByNumber.set(number,audio);
+}
+const webb=data.episodes.find(episode=>episode.id==='vedatorskypodcast.podbean.com/16637ee2-55d2-330a-96db-861b1b9f1c10');
+const nuclear=data.episodes.find(episode=>episode.id==='vedatorskypodcast.podbean.com/1f82b1fe-7f02-3fee-bb80-d8e5c028db88');
+if(!webb||webb.number!==1142||webb.displayNumber!==142||!webb.enclosure.endsWith('/ep_webb.mp3'))fail('Webb episode 142 identity/audio mismatch');
+if(!nuclear||nuclear.number!==142||!nuclear.enclosure.endsWith('/epizoda_JE.mp3'))fail('Nuclear episode 142 identity/audio mismatch');
 for(const q of data.questions){if(!episodeNumbers.has(Number(q.episode)))fail(`Question points to missing episode ${q.episode}`)}
 for(const series of data.series){
   const refs=(series.episodes||[]).map(Number);
