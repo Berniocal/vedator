@@ -930,6 +930,74 @@
     for(const [index,series] of (state.data?.series||[]).entries())set['collection:'+index]={cs:series.i18n?.cs||series.name,sk:series.i18n?.sk||series.name};
     return set;
   }
+  // Short captions belong only to the episode filter row; collection names stay canonical.
+  const episodeFilterShortLabels={
+  "FAQ – dobré otázky": [
+    "FAQ",
+    "FAQ"
+  ],
+  "Rozhovory v angličtině": [
+    "Anglické rozhovory",
+    "Anglické rozhovory"
+  ],
+  "Hledání mimozemského života": [
+    "Mimozemský život",
+    "Mimozemský život"
+  ],
+  "Udržitelnost: (ne) je to velká věda": [
+    "Udržitelnost",
+    "Udržateľnosť"
+  ],
+  "Umělá inteligence": [
+    "AI",
+    "AI"
+  ],
+  "Nové řešení Fermiho paradoxu": [
+    "Fermiho paradox",
+    "Fermiho paradox"
+  ],
+  "Budoucnost zdravotnictví": [
+    "Zdravotnictví",
+    "Zdravotníctvo"
+  ],
+  "Vesmír a kosmologie": [
+    "Kosmologie",
+    "Kozmológia"
+  ],
+  "Kosmonautika a vesmírné mise": [
+    "Kosmonautika",
+    "Kozmonautika"
+  ],
+  "Částice a částicová fyzika": [
+    "Částice",
+    "Častice"
+  ],
+  "Ekonomie, peníze a riziko": [
+    "Ekonomie",
+    "Ekonomika"
+  ],
+  "Klima a životní prostředí": [
+    "Klima a prostředí",
+    "Klíma a prostredie"
+  ],
+  "Energie a energetika": [
+    "Energetika",
+    "Energetika"
+  ],
+  "Země, počasí a oceány": [
+    "Země a počasí",
+    "Zem a počasie"
+  ],
+  "Jak funguje věda": [
+    "Fungování vědy",
+    "Fungovanie vedy"
+  ]
+};
+  function episodeFilterButtonLabel(key,topic){
+    const series=key.startsWith('collection:')?state.data?.series?.[Number(key.slice(11))]:null;
+    const labels=series?episodeFilterShortLabels[series.name]:null;
+    return labels?labels[sk()?1:0]:parityControlLabel(topic);
+  }
   function parityControlLabel(topic){return sk()?(topic.sk||topic.cs):(topic.cs||topic.sk)}
   function paritySortOptions(view){
     if(view==='episodes')return[['new',text('Nejnovější','Najnovšie')],['old',text('Nejstarší','Najstaršie')],['number',text('Podle čísla dílu','Podľa čísla dielu')],['started',text('Rozposlouchané první','Rozpočúvané prvé')],['completed',text('Poslechnuté první','Vypočuté prvé')],['unheard',text('Neposlechnuté první','Nevypočuté prvé')]];
@@ -945,7 +1013,7 @@
   function syncParityControls(){
     const topics=$('#parity-topics-v2'),sort=$('#parity-sort-v2');if(!topics||!sort)return;const view=state.view,set=parityTopicSet(view),showTopics=view==='episodes';
     topics.classList.toggle('hidden',!showTopics);topics.replaceChildren();
-    if(showTopics)for(const [key,topic] of Object.entries(set)){const button=document.createElement('button');button.type='button';button.className='topic-v2'+(activeParityTopic(view)===key?' active':'');button.dataset.topic=key;button.textContent=parityControlLabel(topic);topics.appendChild(button)}
+    if(showTopics)for(const [key,topic] of Object.entries(set)){const button=document.createElement('button');button.type='button';button.className='topic-v2'+(activeParityTopic(view)===key?' active':'');button.dataset.topic=key;button.textContent=episodeFilterButtonLabel(key,topic);button.title=parityControlLabel(topic);topics.appendChild(button)}
     const options=paritySortOptions(view);sort.classList.toggle('hidden',!options.length);sort.innerHTML=options.map(([value,label])=>'<option value="'+value+'">'+esc(label)+'</option>').join('');if(options.length){const current=currentParitySort(view),valid=options.some(([value])=>value===current),selected=valid?current:options[0][0];if(!valid)setParitySort(view,selected);sort.value=selected}
   }
 

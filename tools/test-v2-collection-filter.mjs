@@ -33,7 +33,8 @@ for(const view of ['episodes']){
   for(let i=0;i<data.series.length;i++){
     const series=data.series[i],members=new Set(series.episodes.map(Number));
     const button=window.document.querySelector(`#parity-topics-v2 [data-topic="collection:${i}"]`);
-    assert(button.textContent===(series.i18n?.cs||series.name),`Label mismatch: ${series.name}`);
+    assert(button.title===(series.i18n?.cs||series.name),`Full label mismatch: ${series.name}`);
+    assert(button.textContent.length>0&&button.textContent.length<=button.title.length,`Short label mismatch: ${series.name}`);
     button.click();
     const root=window.document.querySelector(`.view-v2[data-view="${view}"]`);
     let sentinel;let loops=0;
@@ -54,7 +55,7 @@ for(const view of ['episodes']){
 for(const view of ['questions','nonquestions']){window.document.querySelector(`.tab-v2[data-view="${view}"]`).click();assert(window.document.querySelector('#parity-topics-v2').classList.contains('hidden'),`Row must stay hidden: ${view}`)}
 window.document.querySelector('.tab-v2[data-view="episodes"]').click();
 window.document.querySelector('.language-v2 [data-lang="sk"]').click();
-for(let i=0;i<data.series.length;i++)assert(window.document.querySelector(`#parity-topics-v2 [data-topic="collection:${i}"]`).textContent===(data.series[i].i18n?.sk||data.series[i].name),'Slovak label mismatch');
+for(let i=0;i<data.series.length;i++)assert(window.document.querySelector(`#parity-topics-v2 [data-topic="collection:${i}"]`).title===(data.series[i].i18n?.sk||data.series[i].name),'Slovak label mismatch');
 assert(window.getComputedStyle(window.document.querySelector('#parity-topics-v2')).display!=='none','Production collection row hidden');
 console.log('All collection memberships, labels, text highlights and production visibility passed');
 window.close();
