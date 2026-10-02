@@ -546,7 +546,7 @@
     other:{cs:'Ostatní',sk:'Ostatné',keys:['podcast','jazyk','wikipedia','anime','videohry','recept','motiv','pravo','plochozem']}
   };
   const questionUi={qTopic:'all',nTopic:'all',qSort:'new',nSort:'new',qOpen:new Set(),nOpen:new Set(),installed:false,deepProcessing:false};
-  const currentTopic=view=>QUESTION_TOPICS[view==='questions'?questionUi.qTopic:questionUi.nTopic]||QUESTION_TOPICS.all;
+  const currentTopic=view=>{const series=activeFilterSeries(view);return series?{cs:series.i18n?.cs||series.name,sk:series.i18n?.sk||series.name,keys:[]}:QUESTION_TOPICS.all};
   const viewSort=view=>view==='questions'?questionUi.qSort:questionUi.nSort;
   const itemId=(item,prefix='q')=>prefix+':'+Number(item.episode)+':'+Number(item.order);
   const copyForViewItem=(item,view)=>view==='questions'?questionCopy(item):{title:String(item.title||''),points:Array.isArray(item.points)?item.points:[]};
@@ -562,8 +562,7 @@
     return 99;
   }
   function itemMatchesTopic(item,view){
-    const topic=currentTopic(view);if(!topic.keys.length)return true;
-    const content=itemSearchText(item,view);return topic.keys.some(key=>content.includes(norm(key)));
+    return collectionFilterMatches(item.episode,view);
   }
   function topicKeysForItem(item,view){
     const content=itemSearchText(item,view);
@@ -796,16 +795,9 @@
     return orders[sort]?.[status]??0;
   }
   function sortedParityEpisodes(){
-    const queries=expandedEpisodeQuery(state.query.trim()),topic=EPISODE_TOPICS[parityUi.episodeTopic]||EPISODE_TOPICS.all;
-    const topicQueries=topic.keys.flatMap(expandedEpisodeQuery),sort=parityUi.episodeSort;
-    const items=(state.data?.episodes||[]).map(episode=>({episode,searchMatch:episodeMatchLevel(episode,queries),topicMatch:episodeMatchLevel(episode,topicQueries)})).filter(item=>{
-      if(queries.length&&item.searchMatch>=99)return false;
-      if(parityUi.episodeTopic==='math'&&!PARITY_MATH_EPISODES.has(Number(item.episode.number)))return false;
-      if(topicQueries.length&&item.topicMatch>=99)return false;
-      return true;
-    });
+    const queries=expandedEpisodeQuery(state.query.trim()),sort=parityUi.episodeSort;
+    const items=(state.data?.episodes||[]).filter(episode=>collectionFilterMatches(episode.number,'episodes')).map(episode=>({episode,searchMatch:episodeMatchLevel(episode,queries)})).filter(item=>!queries.length||item.searchMatch<99);
     items.sort((a,b)=>{
-      if(topicQueries.length&&a.topicMatch!==b.topicMatch)return a.topicMatch-b.topicMatch;
       if(queries.length&&a.searchMatch!==b.searchMatch)return a.searchMatch-b.searchMatch;
       if(['started','completed','unheard'].includes(sort)){
         const difference=listenRank(a.episode,sort)-listenRank(b.episode,sort);if(difference)return difference;
@@ -922,7 +914,22 @@
   function parityQuestionTopics(view){return QUESTION_TOPICS}
   function activeParityTopic(view){return view==='episodes'?parityUi.episodeTopic:view==='questions'?questionUi.qTopic:view==='nonquestions'?questionUi.nTopic:'all'}
   function setActiveParityTopic(view,key){if(view==='episodes')parityUi.episodeTopic=key;else if(view==='questions')questionUi.qTopic=key;else if(view==='nonquestions')questionUi.nTopic=key}
-  function parityTopicSet(view){return view==='episodes'?EPISODE_TOPICS:parityQuestionTopics(view)}
+  const collectionFilterSets=new WeakMap();
+  function activeFilterSeries(view){
+    const key=activeParityTopic(view);if(!key.startsWith('collection:'))return null;
+    return state.data?.series?.[Number(key.slice(11))]||null;
+  }
+  function collectionFilterMatches(number,view){
+    const series=activeFilterSeries(view);if(!series)return true;
+    let members=collectionFilterSets.get(series);
+    if(!members){members=new Set((series.episodes||[]).map(Number));collectionFilterSets.set(series,members)}
+    return members.has(Number(number));
+  }
+  function parityTopicSet(view){
+    const set={all:{cs:'Vše',sk:'Všetko'}};
+    for(const [index,series] of (state.data?.series||[]).entries())set['collection:'+index]={cs:series.i18n?.cs||series.name,sk:series.i18n?.sk||series.name};
+    return set;
+  }
   function parityControlLabel(topic){return sk()?(topic.sk||topic.cs):(topic.cs||topic.sk)}
   function paritySortOptions(view){
     if(view==='episodes')return[['new',text('Nejnovější','Najnovšie')],['old',text('Nejstarší','Najstaršie')],['number',text('Podle čísla dílu','Podľa čísla dielu')],['started',text('Rozposlouchané první','Rozpočúvané prvé')],['completed',text('Poslechnuté první','Vypočuté prvé')],['unheard',text('Neposlechnuté první','Nevypočuté prvé')]];
@@ -936,7 +943,7 @@
     writeJson(PARITY_SORT_KEY,{episode:parityUi.episodeSort,series:parityUi.seriesSort,question:questionUi.qSort,nonquestion:questionUi.nSort});
   }
   function syncParityControls(){
-    const topics=$('#parity-topics-v2'),sort=$('#parity-sort-v2');if(!topics||!sort)return;const view=state.view,set=parityTopicSet(view),showTopics=['episodes','questions','nonquestions'].includes(view);
+    const topics=$('#parity-topics-v2'),sort=$('#parity-sort-v2');if(!topics||!sort)return;const view=state.view,set=parityTopicSet(view),showTopics=view==='episodes';
     topics.classList.toggle('hidden',!showTopics);topics.replaceChildren();
     if(showTopics)for(const [key,topic] of Object.entries(set)){const button=document.createElement('button');button.type='button';button.className='topic-v2'+(activeParityTopic(view)===key?' active':'');button.dataset.topic=key;button.textContent=parityControlLabel(topic);topics.appendChild(button)}
     const options=paritySortOptions(view);sort.classList.toggle('hidden',!options.length);sort.innerHTML=options.map(([value,label])=>'<option value="'+value+'">'+esc(label)+'</option>').join('');if(options.length){const current=currentParitySort(view),valid=options.some(([value])=>value===current),selected=valid?current:options[0][0];if(!valid)setParitySort(view,selected);sort.value=selected}
@@ -1222,7 +1229,7 @@
   function mobileQuestionHighlightTerms(topic){
     const query=norm(state.query.trim());
     if(query)return [...new Set([query,...query.split(/\s+/)].filter(term=>term.length>=2))].sort((a,b)=>b.length-a.length);
-    return [...new Set((topic?.keys||[]).map(norm).filter(term=>term.length>=2))].sort((a,b)=>b.length-a.length);
+    return [];
   }
   highlightHtml=function(value,topic){return mobileHighlightHtml(value,mobileQuestionHighlightTerms(topic))};
 
@@ -1232,8 +1239,7 @@
       const variants=expandedEpisodeQuery(query);
       return [...new Set(variants.flatMap(value=>[value,...value.split(/\s+/)]).map(norm).filter(term=>term.length>=2))].sort((a,b)=>b.length-a.length);
     }
-    const topic=EPISODE_TOPICS[parityUi.episodeTopic]||EPISODE_TOPICS.all;
-    return [...new Set((topic.keys||[]).map(norm).filter(term=>term.length>=2))].sort((a,b)=>b.length-a.length);
+    return [];
   }
   function mobileEpisodeExcerpt(value,terms){
     const raw=String(value||'').replace(/\s+/g,' ').trim();if(!raw)return'';
@@ -1268,7 +1274,7 @@
     const episodes=parityUi.episodeTopic==='all'&&!state.query.trim()?sortedParityEpisodes().slice().sort((a,b)=>(Number(a.number)||0)-(Number(b.number)||0)):sortedParityEpisodes();
     const items=episodes.map(item=>({id:'episode:'+item.number,episode:item,start:0,ref:epRef(item.number)}));
     const index=items.findIndex(item=>Number(item.episode.number)===Number(episode.number));if(index<0)return null;
-    const topic=EPISODE_TOPICS[parityUi.episodeTopic]||EPISODE_TOPICS.all;
+    const topic=parityTopicSet('episodes')[parityUi.episodeTopic]||EPISODE_TOPICS.all;
     const label=state.query.trim()?text('Hledání','Hľadanie')+': '+state.query.trim():parityUi.episodeTopic!=='all'?text('Téma','Téma')+': '+parityControlLabel(topic):text('Epizody','Epizódy');
     return {type:'episodes',id:'episodes',label,items,index};
   }

@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import {JSDOM} from 'jsdom';
 
-const html=fs.readFileSync('v2.html','utf8').replace('<script src="./app-v2.js" defer></script>','');
+const html=fs.readFileSync('index.html','utf8').replace('<script src="./app-v2.js" defer></script>','');
 const app=fs.readFileSync('app-v2.js','utf8');
 const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const seriesConfig=JSON.parse(fs.readFileSync('series.json','utf8'));
@@ -37,7 +37,7 @@ window.eval(app);window.document.dispatchEvent(new window.Event('DOMContentLoade
 
 assert(window.document.querySelectorAll('#episodes-v2 .episode-card-v2').length===20,'Initial episode batch is not 20');
 assert(window.document.querySelector('#episodes-v2 .parity-sentinel'),'Episode lazy sentinel missing');
-assert(window.document.querySelectorAll('#parity-topics-v2 .topic-v2').length===15,'Episode topic bar should contain 15 choices including All');
+assert(window.document.querySelectorAll('#parity-topics-v2 .topic-v2').length===data.series.length+1,'Episode collection bar mismatch');
 assert(window.document.querySelectorAll('#parity-sort-v2 option').length===6,'Episode sort should contain 6 legacy modes');
 assert(window.document.querySelector('#episodes-v2 .tag'),'Episode purple topic tag missing');
 assert(window.document.querySelector('style[data-v2-full-parity]')?.textContent.includes('.tag'),'Parity tag styles missing');
@@ -48,7 +48,7 @@ assert(window.document.querySelectorAll('#episodes-v2 .episode-card-v2').length=
 const tabs=[...window.document.querySelectorAll('.tab-v2')];
 tabs.find(tab=>tab.dataset.view==='questions').click();await new Promise(resolve=>setTimeout(resolve,20));
 assert(window.document.querySelectorAll('#questions-v2 .question-card').length===20,'Initial question batch is not 20');
-assert(window.document.querySelectorAll('#parity-topics-v2 .topic-v2').length===11,'Question topic bar should contain 11 choices');
+assert(window.document.querySelector('#parity-topics-v2').classList.contains('hidden'),'Question collection bar must stay hidden');
 assert(window.document.querySelector('#questions-v2 .tag'),'Question purple topic tag missing');
 assert(window.document.querySelectorAll('#parity-sort-v2 option').length===2,'Question sort should contain newest/oldest');
 assert(window.document.querySelector('script[data-v2-mathjax]'),'MathJax should be lazy-requested on question view');
@@ -73,4 +73,6 @@ for(const action of ['seekbackward','seekforward','previoustrack','nexttrack','s
 
 const runtimeScripts=[...window.document.querySelectorAll('script[src]')].map(script=>script.getAttribute('src')).filter(Boolean).filter(src=>!src.includes('mathjax'));
 assert(runtimeScripts.length===0,'Test HTML should have no extra runtime scripts after app script removal');
-console.log(JSON.stringify({ok:true,series:data.series.length,seriesSource:data.meta?.legacyParity?.source,episodeBatch:20,questionBatch:20,nonquestionBatch:20,episodeTopics:15,questionTopics:11,episodeSortModes:6,seriesSortModes:6,tags:true,mediaSession:true,lazySeries:true,reloadRemoved:true},null,2));
+console.log(JSON.stringify({ok:true,series:data.series.length,seriesSource:data.meta?.legacyParity?.source,episodeBatch:20,questionBatch:20,nonquestionBatch:20,episodeTopics:data.series.length+1,questionTopics:data.series.length+1,episodeSortModes:6,seriesSortModes:6,tags:true,mediaSession:true,lazySeries:true,reloadRemoved:true},null,2));
+
+window.close();

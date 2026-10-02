@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import {JSDOM} from 'jsdom';
 
-const html=fs.readFileSync('v2.html','utf8').replace('<script src="./app-v2.js" defer></script>','');
+const html=fs.readFileSync('index.html','utf8').replace('<script src="./app-v2.js" defer></script>','');
 const app=fs.readFileSync('app-v2.js','utf8');
 const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const dom=new JSDOM(html,{url:'https://example.test/v2.html',runScripts:'outside-only',pretendToBeVisual:true});
@@ -29,7 +29,7 @@ const questionTab=tabs.find(x=>x.dataset.view==='questions');
 questionTab.click();
 await new Promise(resolve=>setTimeout(resolve,20));
 
-assert(window.document.querySelectorAll('#parity-topics-v2 .topic-v2').length===11,'Question topic bar should contain 11 topics');
+assert(window.document.querySelector('#parity-topics-v2').classList.contains('hidden'),'Question row must stay hidden');
 assert(window.document.querySelectorAll('#questions-v2 .question-card').length===20,'Questions must initially render only 20 cards');
 assert(window.document.querySelector('#parity-sort-v2'),'Question sort missing');
 assert(window.document.querySelector('#questions-v2 .question-more'),'Read-more button missing');
@@ -44,14 +44,6 @@ assert(window.document.querySelector('#questions-v2 mark'),'Search highlighting 
 
 search.value='';search.dispatchEvent(new window.Event('input',{bubbles:true}));
 await new Promise(resolve=>setTimeout(resolve,20));
-const blackHoleTopic=[...window.document.querySelectorAll('#parity-topics-v2 .topic-v2')].find(x=>x.textContent.includes('Čierne')||x.textContent.includes('Černé'));
-assert(blackHoleTopic,'Black-hole topic missing');
-blackHoleTopic.click();
-await new Promise(resolve=>setTimeout(resolve,20));
-const topicCount=window.document.querySelectorAll('#questions-v2 .question-card').length;
-assert(topicCount>0&&topicCount<=20,`Topic filter failed: ${topicCount}`);
-
-const allTopic=[...window.document.querySelectorAll('#parity-topics-v2 .topic-v2')][0];allTopic.click();
 const sort=window.document.querySelector('#parity-sort-v2');sort.value='old';sort.dispatchEvent(new window.Event('change',{bubbles:true}));
 await new Promise(resolve=>setTimeout(resolve,20));
 const firstOld=window.document.querySelector('#questions-v2 .question-card .meta')?.textContent||'';
@@ -62,7 +54,7 @@ assert(card.classList.contains('open'),'Read-more did not open card');
 
 const nonTab=tabs.find(x=>x.dataset.view==='nonquestions');nonTab.click();
 await new Promise(resolve=>setTimeout(resolve,20));
-assert(window.document.querySelectorAll('#parity-topics-v2 .topic-v2').length===11,'Nonquestion topic bar missing');
+assert(window.document.querySelector('#parity-topics-v2').classList.contains('hidden'),'Nonquestion row must stay hidden');
 assert(window.document.querySelectorAll('#nonquestions-v2 .question-card').length===20,'Nonquestions must initially render only 20 cards');
 assert(window.document.querySelector('#nonquestions-v2 .deep-share[data-kind="nonquestion"]'),'Nonquestion share missing');
 
@@ -78,4 +70,6 @@ assert(window.document.querySelector('#episodes-v2 article[data-episode="343"]')
 assert(window.document.querySelector('#episodes-v2 .deep-share[data-kind="episode"]'),'Episode share button missing');
 assert(window.document.querySelector('#series-v2 .deep-share[data-kind="series"]'),'Series share button missing');
 
-console.log(JSON.stringify({ok:true,questionTopics:11,initialQuestions:20,filteredQuestions,topicCount,initialNonquestions:20,deepLinks:true,readMore:true,highlight:true},null,2));
+console.log(JSON.stringify({ok:true,questionTopics:data.series.length+1,initialQuestions:20,filteredQuestions,initialNonquestions:20,deepLinks:true,readMore:true,highlight:true},null,2));
+
+window.close();
