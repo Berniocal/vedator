@@ -194,6 +194,17 @@ const episode207Times=["01:25","02:50","04:55","06:15","08:20","11:35","14:20","
 if(JSON.stringify(episode207.cs.map(x=>x.time))!==JSON.stringify(episode207Times)||JSON.stringify(episode207.sk.map(x=>x.time))!==JSON.stringify(episode207Times))fail('Episode 207 timestamps mismatch');
 if(data.meta?.legacyParity?.source!=='series.json')fail('Series source metadata missing');
 
+const summary171=data.nonquestions.episodes['171'];
+const times171=['01:22','03:41','06:17','09:02','10:42','12:01','14:31','17:15','18:26','20:29','22:09','24:08','27:11'];
+for(const lang of ['cs','sk']){
+  const chapters=summary171?.[lang];
+  if(chapters?.length!==13||JSON.stringify(chapters.map(x=>x.time))!==JSON.stringify(times171))fail(`Episode 171 ${lang} chapters/timestamps mismatch`);
+  if(chapters.some(x=>!x.title||x.points?.length!==3))fail(`Episode 171 ${lang} incomplete chapter`);
+}
+if(13>Math.floor((28*60+54-(1*60+22))/120))fail('Episode 171 chapter limit exceeded');
+if(data.questions.some(q=>Number(q.episode)===171))fail('Episode 171 must remain a nonquestion episode');
+if(!data.episodes.find(e=>Number(e.number)===171)?.i18n?.cs?.title.includes('Konec Mooreova'))fail('Episode 171 Czech title missing');
+
 console.log(JSON.stringify({
   ok:true,
   episodes:data.episodes.length,
