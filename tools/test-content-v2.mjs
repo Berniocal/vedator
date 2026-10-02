@@ -31,6 +31,11 @@ function sameMultiset(a,b){
 
 if(data.schema!==3)fail(`Unexpected schema ${data.schema}`);
 if(!Array.isArray(data.episodes)||data.episodes.length<380)fail(`Too few episodes: ${data.episodes?.length}`);
+const nuclear142=data.episodes.find(e=>e.id==='vedatorskypodcast.podbean.com/1f82b1fe-7f02-3fee-bb80-d8e5c028db88');
+const webb142=data.episodes.find(e=>e.id==='vedatorskypodcast.podbean.com/16637ee2-55d2-330a-96db-861b1b9f1c10');
+if(nuclear142?.number!==142||webb142?.number!==1642||webb142?.displayNumber!==142||webb142?.sourceNumber!==142)fail('The two different episode 142s must have stable separate playback IDs and retain display number 142');
+if(nuclear142.enclosure===webb142.enclosure||!webb142.enclosure.endsWith('/ep_webb.mp3'))fail('Webb episode 142 must play its own audio');
+if(data.episodes.filter(e=>e.number===1642).length!==1)fail('Webb playback ID must be unique');
 if(!Array.isArray(data.questions))fail('Questions missing');
 if(data.questions.length!==749)fail(`Expected 749 questions, got ${data.questions.length}`);
 if(new Set(data.questions.map(q=>q.episode)).size!==43)fail(`Expected 43 FAQ episodes, got ${new Set(data.questions.map(q=>q.episode)).size}`);

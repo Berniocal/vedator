@@ -242,6 +242,12 @@ if(!Array.isArray(sourceEpisodes)||sourceEpisodes.length<300)throw new Error(`In
 const episodeTranslationData=collectEpisodeTranslations();
 const positiveSourceNumbers=new Set(sourceEpisodes.map(e=>Number(e.number)||0).filter(number=>number>0));
 const usedSpecialNumbers=new Set();
+// RSS accidentally published two different episodes as 142. Keep the old
+// reference for the nuclear episode; reserve a stable ID for Webb by RSS GUID.
+// Never derive this from feed order: daily refreshes must preserve saved refs.
+const DUPLICATE_EPISODE_IDS=new Map([
+  ['vedatorskypodcast.podbean.com/16637ee2-55d2-330a-96db-861b1b9f1c10',1642]
+]);
 function specialEpisodeIdentity(title){
   const value=String(title||'');
   const rules=[
@@ -262,10 +268,14 @@ function specialEpisodeIdentity(title){
 }
 const episodes=sourceEpisodes.map(e=>{
   const special=Number(e.number)>0?null:specialEpisodeIdentity(e.title);
-  const number=Number(e.number)||special?.number||0;
+  const duplicateNumber=DUPLICATE_EPISODE_IDS.get(String(e.id||''));
+  if(duplicateNumber&&(positiveSourceNumbers.has(duplicateNumber)||usedSpecialNumbers.has(duplicateNumber)))throw new Error(`Duplicate episode id collision: ${duplicateNumber}`);
+  if(duplicateNumber)usedSpecialNumbers.add(duplicateNumber);
+  const number=duplicateNumber||Number(e.number)||special?.number||0;
   const base={
     number,
     ...(special?{displayNumber:special.displayNumber}:{}),
+    ...(duplicateNumber?{displayNumber:Number(e.number),sourceNumber:Number(e.number)}:{}),
     title:String(e.title||''),
     date:String(e.date||''),
     description:cleanDescription(e.description),

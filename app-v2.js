@@ -51,6 +51,7 @@
     return {title:copy?.title||episode?.title||'',description:copy?.description||episode?.description||''};
   }
   function episodeDisplayNumber(episode){return Number(episode?.displayNumber)||Number(episode?.number)||'–'}
+  function compareEpisodeOrder(a,b){return (Number(a?.sourceNumber)||Number(a?.number)||0)-(Number(b?.sourceNumber)||Number(b?.number)||0)||new Date(a?.date)-new Date(b?.date)||(Number(a?.number)||0)-(Number(b?.number)||0)}
   function questionCopy(question){
     const copy=question?.i18n?.[contentLang()];
     return {title:copy?.title||question?.title||'',points:Array.isArray(copy?.points)?copy.points:(question?.points||[])};
@@ -67,7 +68,7 @@
   }
   function allEpisodeSearch(episode){
     const cs=episode?.i18n?.cs||{},skCopy=episode?.i18n?.sk||{};
-    return norm(`${episode?.number||''} ${episode?.title||''} ${episode?.description||''} ${cs.title||''} ${cs.description||''} ${skCopy.title||''} ${skCopy.description||''}`);
+    return norm(`${episodeDisplayNumber(episode)} ${episode?.title||''} ${episode?.description||''} ${cs.title||''} ${cs.description||''} ${skCopy.title||''} ${skCopy.description||''}`);
   }
   function allQuestionSearch(question){
     const cs=question?.i18n?.cs||{},skCopy=question?.i18n?.sk||{};
@@ -376,7 +377,7 @@
     const n=playerNodes(),audio=n.audio,current=state.current;
     if(!current){n.shell.classList.add('hidden');return}
     n.shell.classList.remove('hidden');n.title.textContent=episodeCopy(current.episode).title;
-    n.sub.textContent=state.context?`${state.context.type==='series'?text('Série','Séria'):'Playlist'}: ${state.context.label}`:`${text('Díl','Diel')} ${current.episode.number}`;
+    n.sub.textContent=state.context?`${state.context.type==='series'?text('Série','Séria'):'Playlist'}: ${state.context.label}`:`${text('Díl','Diel')} ${episodeDisplayNumber(current.episode)}`;
     n.play.textContent=audio.paused?'▶':'❚❚';n.play.title=audio.paused?text('Přehrát','Prehrať'):text('Pauza','Pauza');n.play.setAttribute('aria-label',n.play.title);
     n.prev.title=text('Předchozí','Predchádzajúca');n.next.title=text('Další','Ďalšia');
     n.speed.textContent=`${String(state.speed).replace('.',',')}×`;n.prev.disabled=!state.context||state.context.index<=0;n.next.disabled=!state.context||state.context.index>=state.context.items.length-1;
@@ -1339,7 +1340,7 @@
   saveCollectionProgress=function(time,duration,completed){if(state.context?.type==='episodes')return;return mobileOriginalSaveCollectionProgress(time,duration,completed)};
 
   function mobileEpisodePlaybackContext(episode){
-    const episodes=parityUi.episodeTopic==='all'&&!state.query.trim()?sortedParityEpisodes().slice().sort((a,b)=>(Number(a.number)||0)-(Number(b.number)||0)):sortedParityEpisodes();
+    const episodes=parityUi.episodeTopic==='all'&&!state.query.trim()?sortedParityEpisodes().slice().sort((a,b)=>compareEpisodeOrder(a,b)):sortedParityEpisodes();
     const items=episodes.map(item=>({id:'episode:'+item.number,episode:item,start:0,ref:epRef(item.number)}));
     const index=items.findIndex(item=>Number(item.episode.number)===Number(episode.number));if(index<0)return null;
     const topic=parityTopicSet('episodes')[parityUi.episodeTopic]||EPISODE_TOPICS.all;
@@ -1444,7 +1445,7 @@
   playlistResumeLabel=function(info){return info.started&&!info.finished?text('Pokračovat','Pokračovať'):text('Přehrát','Prehrať')};
   allEpisodeSearch=function(episode){
     const cs=episode?.i18n?.cs||{},skCopy=episode?.i18n?.sk||{};
-    return norm(String(episode?.number||'')+' '+String(episode?.title||'')+' '+cardPolishCutDescription(episode?.description)+' '+String(cs.title||'')+' '+cardPolishCutDescription(cs.description)+' '+String(skCopy.title||'')+' '+cardPolishCutDescription(skCopy.description));
+    return norm(String(episodeDisplayNumber(episode))+' '+String(episode?.title||'')+' '+cardPolishCutDescription(episode?.description)+' '+String(cs.title||'')+' '+cardPolishCutDescription(cs.description)+' '+String(skCopy.title||'')+' '+cardPolishCutDescription(skCopy.description));
   };
   cardEpisode=function(episode){
     const copy=episodeCopy(episode),status=episodeStatus(episode.number),terms=mobileEpisodeHighlightTerms(),full=cardPolishCutDescription(copy.description),open=cardPolishEpisodeOpen.has(Number(episode.number)),short=cardPolishCollapsedDescription(full,terms),shown=open?full:short,canExpand=full.length>short.replace(/…$/,'').length+2;
@@ -1680,7 +1681,7 @@
   const playerNavOriginalEpisodeContext=mobileEpisodePlaybackContext;
   mobileEpisodePlaybackContext=function(episode){
     const context=playerNavOriginalEpisodeContext(episode);if(!context)return context;
-    const currentNumber=Number(episode?.number)||0,items=[...(context.items||[])].sort((a,b)=>(Number(a.episode?.number)||0)-(Number(b.episode?.number)||0));
+    const currentNumber=Number(episode?.number)||0,items=[...(context.items||[])].sort((a,b)=>compareEpisodeOrder(a.episode,b.episode));
     const index=items.findIndex(item=>Number(item.episode?.number)===currentNumber);
     return {...context,items,index:index>=0?index:0};
   };
@@ -1688,7 +1689,7 @@
   const playerNavOriginalSeriesContext=seriesContext;
   seriesContext=function(series,index){
     const targetNumber=Number(series?.episodes?.[index])||0,context=playerNavOriginalSeriesContext(series,index);if(!context)return context;
-    const items=[...(context.items||[])].sort((a,b)=>(Number(a.episode?.number)||0)-(Number(b.episode?.number)||0));
+    const items=[...(context.items||[])].sort((a,b)=>compareEpisodeOrder(a.episode,b.episode));
     const nextIndex=items.findIndex(item=>Number(item.episode?.number)===targetNumber);
     return {...context,items,index:nextIndex>=0?nextIndex:0};
   };
@@ -1705,7 +1706,7 @@
       const number=Number(item.episode)||0;if(!number||seen.has(number))continue;const episode=episodeByNumber(number);if(!episode)continue;seen.add(number);
       items.push({id:view+':episode:'+number,episode,start:Math.max(0,Number(item.seconds)||0),ref:view==='questions'?qRef(item):epRef(number)});
     }
-    items.sort((a,b)=>(Number(a.episode?.number)||0)-(Number(b.episode?.number)||0));
+    items.sort((a,b)=>compareEpisodeOrder(a.episode,b.episode));
     const currentNumber=Number(currentItem?.episode)||0,index=items.findIndex(item=>Number(item.episode?.number)===currentNumber),topic=currentTopic(view),topicName=topic===QUESTION_TOPICS.all?'':(sk()?(topic.sk||topic.cs):(topic.cs||topic.sk));
     let label=view==='questions'?text('Otázky','Otázky'):text('Neotázky','Neotázky');if(topicName)label+=' · '+topicName;if(state.query.trim())label+=' · '+text('Hledání','Hľadanie')+': '+state.query.trim();
     return {type:view,id:'navigation:'+view,label,items,index:index>=0?index:0};
