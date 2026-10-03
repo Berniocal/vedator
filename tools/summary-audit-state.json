@@ -997,7 +997,8 @@
         "note": "Ruční pokračování dílu 191 na výslovný pokyn uživatele. Obnovení zdrojů a důkazů po údržbě pracovního prostoru."
       },
       "auditPath": "summary-audits/episode-191.json",
-      "note": "11 CZ/SK kapitol, plný nový přepis produkční MP3 porovnán se SRT; přímý poslech neproveden. 44 fyzických kliknutí Chromium prošlo. Čeká na přesné PR CI, merge a produkční rebuild/deploy."
+      "note": "11 CZ/SK kapitol; celý nový místní přepis produkční MP3 porovnán se SRT, bez přímého poslechu. 44 fyzických seek kliknutí prošlo i s nativním dekódováním původní MP3. PR 178 čeká na přesné zelené CI a produkční nasazení.",
+      "pr": 178
     },
     "192": {
       "status": "verified",
