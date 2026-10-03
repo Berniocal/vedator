@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "rulesVersion": "descending-193-nonfaq-srt-v2",
-  "updatedAt": "2026-10-03T10:27:30.273296+00:00",
+  "updatedAt": "2026-10-03T10:44:44.057055+00:00",
   "order": [
     193,
     192,
@@ -197,7 +197,7 @@
     2,
     1
   ],
-  "nextEpisode": 189,
+  "nextEpisode": 188,
   "sourceRepository": "Berniocal/vedator-test",
   "sourceDirectory": "titulky",
   "sourceListingCount": 177,
@@ -971,7 +971,7 @@
       ]
     },
     "189": {
-      "status": "awaiting_deploy",
+      "status": "verified",
       "srtCandidates": [
         {
           "path": "titulky/vedatorsky-podcast-189-prvni-temny-vek-vesmiru.srt",
@@ -979,13 +979,15 @@
         }
       ],
       "branch": "audit-summary-189-20261003",
-      "note": "11 CZ/SK kapitol a 38 doložených bodů. Celý lokální přepis MP3, opakované dekódování nejasných čísel, MathJax a 44 fyzických kliknutí s nativní MP3 prošly; přímý poslech neproběhl. Čeká se na PR/CI a produkční nasazení.",
-      "activeManualRun": {
-        "startedAt": "2026-10-03T10:16:36Z",
-        "leaseExpiresAt": "2026-10-03T11:31:36.000Z",
-        "note": "Ruční dokončení dílu 189 na výslovný pokyn uživatele."
-      },
-      "auditPath": "summary-audits/episode-189.json"
+      "note": "11 CZ/SK otázkových kapitol a 38 bodů; čistý obsah 23:44, limit 11. Celý nový lokální přepis produkční MP3 porovnán se SRT a nejasné úseky opakovaně dekódovány; přímý poslech neproběhl. MathJax, 44 fyzických kliknutí s nativní MP3, stejných 44 kliknutí s produkčními daty, přesná shoda main/produkce a oficiální rebuild/nasazení prošly.",
+      "auditPath": "summary-audits/episode-189.json",
+      "pr": 179,
+      "pullRequest": 179,
+      "mergeSha": "2b5cf7d91e948d0a7d7fb4b387f54e44fdd857db",
+      "rebuildSha": "43375a0c38aa9cf15b34576dd1ae70f98cf2d3c0",
+      "verifiedAt": "2026-10-03T10:44:44.057055+00:00",
+      "verificationMethod": "independent_audio_asr_manual_semantic_comparison_and_native_media_browser",
+      "directListening": false
     },
     "190": {
       "status": "skipped_faq"
@@ -1033,6 +1035,5 @@
     "countMutable": true,
     "maxChapters": "floor(cleanContentDurationSeconds / 120)",
     "coverAllImportantTopics": true
-  },
-  "resumeEpisode": 189
+  }
 }
