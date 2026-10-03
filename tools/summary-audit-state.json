@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "rulesVersion": "descending-193-nonfaq-srt-v2",
-  "updatedAt": "2026-10-03T09:49:50.545869+00:00",
+  "updatedAt": "2026-10-03T10:16:36Z",
   "order": [
     193,
     192,
@@ -971,13 +971,20 @@
       ]
     },
     "189": {
-      "status": "pending",
+      "status": "in_progress",
       "srtCandidates": [
         {
           "path": "titulky/vedatorsky-podcast-189-prvni-temny-vek-vesmiru.srt",
           "sha": "d3b715f915ee3e2e05542277eb74d94ea06ec642"
         }
-      ]
+      ],
+      "branch": "audit-summary-189-20261003",
+      "activeManualRun": {
+        "startedAt": "2026-10-03T10:16:36Z",
+        "leaseExpiresAt": "2026-10-03T11:31:36.000Z",
+        "note": "Ruční dokončení dílu 189 na výslovný pokyn uživatele."
+      },
+      "note": "Dokončování již rozpracovaného auditu, nové lokální ASR a browser testy."
     },
     "190": {
       "status": "skipped_faq"
@@ -1025,5 +1032,6 @@
     "countMutable": true,
     "maxChapters": "floor(cleanContentDurationSeconds / 120)",
     "coverAllImportantTopics": true
-  }
+  },
+  "resumeEpisode": 189
 }
