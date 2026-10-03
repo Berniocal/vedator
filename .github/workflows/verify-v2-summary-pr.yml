@@ -6,6 +6,10 @@ on:
     paths:
       - 'episode-*-summary.js'
       - 'episode-translations-*.js'
+      - 'question-translations-*.js'
+      - 'legacy-source-index.html'
+      - 'app-v2.js'
+      - 'tools/test-v2-mathjax-*.mjs'
       - 'tools/augment-v2-extra-nonquestions.mjs'
       - 'tools/test-content-v2.mjs'
       - '.github/workflows/verify-v2-summary-pr.yml'
@@ -18,6 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
       - name: Verify V2 build and tests
         run: |
           node --check app-v2.js
@@ -32,3 +39,7 @@ jobs:
           node tools/test-v2-faq-integrity.mjs
           node tools/build-production-sw.mjs
           git diff --exit-code -- app-v2.js index.html
+      - name: Verify MathJax in the browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/vedator-mathjax-test" --no-audit --no-fund mathjax-full@3.2.2 @sparticuz/chromium@153.0.0 puppeteer-core@25.12.0
+          VEDATOR_TEST_DEPS="$RUNNER_TEMP/vedator-mathjax-test" node tools/test-v2-mathjax-browser.mjs

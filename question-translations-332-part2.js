@@ -6,7 +6,7 @@
     ['Jak velký by musel být člověk, aby překročil všechny lidi na Zemi?','Aký veľký by musel byť človek, aby prekročil všetkých ľudí na Zemi?'],
     ['Výsledek záleží na tom, jak lidi naskládáme.','Výsledok závisí od toho, ako ľudí poukladáme.'],
     ['Vedle sebe by vytvořili řadu dlouhou přibližně 180 milionů km, takže krok by musel být stejně dlouhý.','Vedľa seba by vytvorili rad dlhý približne 180 miliónov km, takže krok by musel byť rovnako dlhý.'],
-    ['Do kostky by lidstvo zabralo asi 1 km³ a člověk by musel být přibližně 1000× větší než běžný člověk.','V kocke by ľudstvo zabralo asi 1 km³ a človek by musel byť približne 1000× väčší než bežný človek.'],
+    ["Do kostky by lidstvo zabralo asi 1 \\(\\mathrm{km}^3\\) a člověk by musel být přibližně 1000× větší než běžný člověk.","V kocke by ľudstvo zabralo asi 1 \\(\\mathrm{km}^3\\) a človek by musel byť približne 1000× väčší než bežný človek."],
     ['Naskládaní na sebe bychom dosáhli až k Měsíci.','Poukladaní na seba by sme dosiahli až k Mesiacu.'],
 
     ['Co bylo dřív – slepice nebo vejce?','Čo bolo skôr – sliepka alebo vajce?'],

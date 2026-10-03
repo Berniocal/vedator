@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import './test-v2-mathjax-data.mjs';
 
 const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const seriesConfig=JSON.parse(fs.readFileSync('series.json','utf8'));

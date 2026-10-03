@@ -69,7 +69,7 @@
     ['Solární panely s vyšší efektivitou by byly revoluční.','Solárne panely s vyššou účinnosťou by boli revolučné.'],
     ['Je potřeba změnit výrobu cementu, oceli.','Je potrebné zmeniť výrobu cementu a ocele.'],
     ['AI může optimalizovat plýtvání energií a potravinami.','AI môže obmedziť plytvanie energiou a potravinami.'],
-    ['Stromy vážou CO₂ do půdy.','Stromy viažu CO₂ do pôdy.'],
+    ["Stromy vážou \\(\\mathrm{CO_2}\\) do půdy.","Stromy viažu \\(\\mathrm{CO_2}\\) do pôdy."],
     ['Geoengineering (odrážení světla) je riskantní.','Geoinžinierstvo (odrážanie svetla) je riskantné.'],
 
     ['Jak vznikly Saturnovy prstence? Kdy zaniknou?','Ako vznikli Saturnove prstence? Kedy zaniknú?'],

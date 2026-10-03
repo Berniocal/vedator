@@ -26,7 +26,7 @@
 
     ['Proč tornádo nepřekročí rovník?','Prečo tornádo neprekročí rovník?'],
     ['Tornáda a hurikány potřebují Koriolisovu sílu.','Tornáda a hurikány potrebujú Coriolisovu silu.'],
-    ['Na rovníku je Koriolis = 0 → rotace se nevytvoří.','Na rovníku je Coriolisova sila nulová → rotácia sa nevytvorí.'],
+    ["Na rovníku je \\(\\text{Koriolis}=0\\) → rotace se nevytvoří.",'Na rovníku je Coriolisova sila nulová → rotácia sa nevytvorí.'],
     ['Silné proudění (jet streams) navíc brání přechodu.','Silné prúdenie (jet streamy) navyše bráni prechodu.'],
     ['Malá tornáda (ne hurikány) rovník překročit mohou.','Malé tornáda (nie hurikány) môžu rovník prekročiť.'],
 

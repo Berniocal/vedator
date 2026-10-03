@@ -39,7 +39,7 @@
     ['Zmiňují také vlastní Vedátorskou aplikaci.','Spomínajú aj vlastnú Vedátorskú aplikáciu.'],
 
     ['Kolik váží Slunce a jak hvězdy hubnou?','Koľko váži Slnko a ako hviezdy chudnú?'],
-    ['Slunce má hmotnost přibližně 2 × 10³⁰ kg.','Slnko má hmotnosť približne 2 × 10³⁰ kg.'],
+    ["Slunce má hmotnost přibližně \\(2\\times 10^{30}\\) kg.","Slnko má hmotnosť približne \\(2\\times 10^{30}\\) kg."],
     ['Hvězdy během života ztrácejí malé procento hmotnosti výrony látky a přeměnou hmoty na energii.','Hviezdy počas života strácajú malé percento hmotnosti výronmi látky a premenou hmoty na energiu.'],
     ['Největší úbytek nastává v závěrečných fázích života hvězdy.','Najväčší úbytok nastáva v záverečných fázach života hviezdy.'],
 

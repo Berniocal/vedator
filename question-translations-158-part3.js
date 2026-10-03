@@ -37,17 +37,17 @@
     ['Zmiňují výzkumy o účincích chůze, spánku a lidského chování.','Spomínajú výskumy o účinkoch chôdze, spánku a ľudského správania.'],
     ['Překvapilo je také, jak silně mohou sociální vztahy a smysluplnost ovlivňovat zdraví.','Prekvapilo ich aj to, ako výrazne môžu sociálne vzťahy a zmysluplnosť ovplyvňovať zdravie.'],
 
-    ['Když je dnes (0,^) a zítra má být dvakrát tepleji, kolik bude?','Keď je dnes (0,^) a zajtra má byť dvakrát teplejšie, koľko bude?'],
+    ["Když je dnes \\(0\\,{}^\\circ\\mathrm{C}\\) a zítra má být dvakrát tepleji, kolik bude?","Keď je dnes \\(0\\,{}^\\circ\\mathrm{C}\\) a zajtra má byť dvakrát teplejšie, koľko bude?"],
     ['Ve stupních Celsia nemá taková otázka jednoznačný smysl, protože nula je zvolený referenční bod.','V stupňoch Celzia nemá takáto otázka jednoznačný zmysel, pretože nula je zvolený referenčný bod.'],
-    ['V absolutní stupnici je (0,^=273{,}15,), takže dvojnásobná teplota by byla (546{,}3,), tedy asi (273,^).','V absolútnej stupnici je (0,^=273{,}15,), takže dvojnásobná teplota by bola (546{,}3,), teda približne (273,^).'],
+    ["V absolutní stupnici je \\(0\\,{}^\\circ\\mathrm{C}=273{,}15\\,\\mathrm{K}\\), takže dvojnásobná teplota by byla \\(546{,}3\\,\\mathrm{K}\\), tedy asi \\(273\\,{}^\\circ\\mathrm{C}\\).","V absolútnej stupnici je \\(0\\,{}^\\circ\\mathrm{C}=273{,}15\\,\\mathrm{K}\\), takže dvojnásobná teplota by bola \\(546{,}3\\,\\mathrm{K}\\), teda približne \\(273\\,{}^\\circ\\mathrm{C}\\)."],
 
     ['Neodporuje bodová singularita existenci Planckovy délky?','Neodporuje bodová singularita existencii Planckovej dĺžky?'],
     ['Pravděpodobně ano; bodová singularita je známkou toho, že klasická obecná relativita přestává stačit.','Pravdepodobne áno; bodová singularita je znakom toho, že klasická všeobecná relativita prestáva postačovať.'],
     ['Kvantová gravitace by měla hmotu „rozmazat“ přibližně na Planckově škále a singularitu odstranit.','Kvantová gravitácia by mala hmotu „rozmazať“ približne na Planckovej škále a singularitu odstrániť.'],
 
     ['Jak je definována absolutní nula?','Ako je definovaná absolútna nula?'],
-    ['Jde o nejnižší možnou termodynamickou teplotu, (0,).','Ide o najnižšiu možnú termodynamickú teplotu, (0,).'],
-    ['Odpovídá hodnotě (-273{,}15,^), ale přibližně (-459{,}67,^), takže ve Fahrenheitově stupnici mohou existovat teploty pod (-300^).','Zodpovedá hodnote (-273{,}15,^), ale približne (-459{,}67,^), takže vo Fahrenheitovej stupnici môžu existovať teploty pod (-300^).'],
+    ["Jde o nejnižší možnou termodynamickou teplotu, \\(0\\,\\mathrm{K}\\).","Ide o najnižšiu možnú termodynamickú teplotu, \\(0\\,\\mathrm{K}\\)."],
+    ["Odpovídá hodnotě \\(-273{,}15\\,{}^\\circ\\mathrm{C}\\), ale přibližně \\(-459{,}67\\,{}^\\circ\\mathrm{F}\\), takže ve Fahrenheitově stupnici mohou existovat teploty pod \\(-300\\,{}^\\circ\\mathrm{F}\\).","Zodpovedá hodnote \\(-273{,}15\\,{}^\\circ\\mathrm{C}\\), ale približne \\(-459{,}67\\,{}^\\circ\\mathrm{F}\\), takže vo Fahrenheitovej stupnici môžu existovať teploty pod \\(-300\\,{}^\\circ\\mathrm{F}\\)."],
 
     ['Jak se určuje pohlaví spermie?','Ako sa určuje pohlavie spermie?'],
     ['Podle toho, zda nese chromozom X, nebo Y.','Podľa toho, či nesie chromozóm X alebo Y.'],

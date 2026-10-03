@@ -58,9 +58,9 @@
     ['Je to podobné mexické vlně na stadionu: pohybuje se vzorec, nikoli stejní lidé kolem celého stadionu.','Je to podobné mexickej vlne na štadióne: pohybuje sa vzorec, nie tí istí ľudia okolo celého štadióna.'],
 
     ['Jaký je nejjednodušší matematický příklad?','Aký je najjednoduchší matematický príklad?'],
-    ['Běžné počítání typu 1 + 1 = 2 je především použitím definovaných pravidel.','Bežné počítanie typu 1 + 1 = 2 je predovšetkým použitím definovaných pravidiel.'],
+    ["Běžné počítání typu \\(1+1=2\\) je především použitím definovaných pravidel.","Bežné počítanie typu \\(1+1=2\\) je predovšetkým použitím definovaných pravidiel."],
     ['Matematika jako věda zkoumá vztahy mezi abstraktními objekty.','Matematika ako veda skúma vzťahy medzi abstraktnými objektmi.'],
-    ['Jako jednoduchý, ale hlubší problém uvádějí otázku, proč 0,999… = 1.','Ako jednoduchý, ale hlbší problém uvádzajú otázku, prečo 0,999… = 1.'],
+    ["Jako jednoduchý, ale hlubší problém uvádějí otázku, proč \\(0{,}999\\ldots=1\\).","Ako jednoduchý, ale hlbší problém uvádzajú otázku, prečo \\(0{,}999\\ldots=1\\)."],
 
     ['Jak se srážejí supermasivní černé díry a dá se z nich uniknout?','Ako sa zrážajú supermasívne čierne diery a dá sa z nich uniknúť?'],
     ['Supermasivní černé díry se mohou spojovat při srážkách galaxií.','Supermasívne čierne diery sa môžu spájať pri zrážkach galaxií.'],

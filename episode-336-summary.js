@@ -27,7 +27,7 @@ const DATA = {
         "Podcast ji popisuje pomocí rotace grafu funkce 1/x kolem osy.",
         "Při výpočtu objemu se objeví druhá mocnina poloměru, takže příslušný člen klesá rychleji.",
         "Při výpočtu povrchu klesá odpovídající člen pomaleji, a proto se celková plocha při prodlužování trubky neomezeně zvětšuje.",
-        "Pro zvolenou normalizaci v podcastu vychází objem konečný, konkrétně π, zatímco povrch je nekonečný."
+        "Pro zvolenou normalizaci v podcastu vychází objem konečný, konkrétně \\(\\pi\\), zatímco povrch je nekonečný."
       ]
     },
     {
@@ -229,7 +229,7 @@ const DATA = {
         "Podcast ju opisuje pomocou rotácie grafu funkcie 1/x okolo osi.",
         "Pri výpočte objemu sa objaví druhá mocnina polomeru, takže príslušný člen klesá rýchlejšie.",
         "Pri výpočte povrchu klesá zodpovedajúci člen pomalšie, a preto sa celková plocha pri predlžovaní trúbky neobmedzene zväčšuje.",
-        "Pre zvolenú normalizáciu v podcaste vychádza objem konečný, konkrétne π, zatiaľ čo povrch je nekonečný."
+        "Pre zvolenú normalizáciu v podcaste vychádza objem konečný, konkrétne \\(\\pi\\), zatiaľ čo povrch je nekonečný."
       ]
     },
     {

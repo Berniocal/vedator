@@ -23,7 +23,7 @@
     ['Lidé nejdřív sledovali pravidelné střídání dne a noci.','Ľudia najprv sledovali pravidelné striedanie dňa a noci.'],
     ['Rok odvodili z počtu východů Slunce mezi opakováním ročních období.','Rok odvodili z počtu východov Slnka medzi opakovaním ročných období.'],
     ['365 dní je aproximace; skutečný rok má přibližně 365,24 dne, proto máme přestupné roky.','365 dní je aproximácia; skutočný rok má približne 365,24 dňa, preto máme priestupné roky.'],
-    ['Hodina je 1/24 dne a číslo 24 je praktické, protože má mnoho dělitelů.','Hodina je 1/24 dňa a číslo 24 je praktické, pretože má veľa deliteľov.'],
+    ["Hodina je \\(\\frac{1}{24}\\) dne a číslo 24 je praktické, protože má mnoho dělitelů.","Hodina je \\(\\frac{1}{24}\\) dňa a číslo 24 je praktické, pretože má veľa deliteľov."],
     ['Siderický den je kratší než 24 hodin, ale občanský den je navázaný na Slunce.','Siderický deň je kratší než 24 hodín, ale občiansky deň je naviazaný na Slnko.'],
     ['Jak se ze Slunce získává vitamín D?','Ako sa zo Slnka získava vitamín D?'],
     ['V kůži máme látku, která je prekurzorem vitamínu D.','V koži máme látku, ktorá je prekurzorom vitamínu D.'],

@@ -4,7 +4,7 @@
 
   const PAIRS=[
     ["Jaký vědecký vtip je naposledy rozesmál?", "Aký vedecký vtip ich naposledy rozosmial?"],
-    ["Zmiňují slovní hříčku s objednávkou H₂O a H₂O₂, tedy vody a peroxidu vodíku.", "Spomínajú slovnú hračku s objednávkou H₂O a H₂O₂, teda vody a peroxidu vodíka."],
+    ["Zmiňují slovní hříčku s objednávkou \\(\\mathrm{H_2O}\\) a \\(\\mathrm{H_2O_2}\\), tedy vody a peroxidu vodíku.", "Spomínajú slovnú hračku s objednávkou \\(\\mathrm{H_2O}\\) a \\(\\mathrm{H_2O_2}\\), teda vody a peroxidu vodíka."],
 
     ["Žije se hloupým lidem snadněji?", "Žije sa hlúpym ľuďom ľahšie?"],
     ["Menší povědomí o problémech může někdy snižovat obavy.", "Menšie povedomie o problémoch môže niekedy znižovať obavy."],
