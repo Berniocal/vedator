@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "rulesVersion": "descending-193-nonfaq-srt-v2",
-  "updatedAt": "2026-10-03T16:59:38.786Z",
+  "updatedAt": "2026-10-03T17:05:26.634Z",
   "order": [
     193,
     192,
@@ -963,8 +963,17 @@
       "branch": "audit-summary-187-20261003",
       "pullRequest": 181,
       "headSha": "7990cdc82981c6da134417aa97163ce62ceb5cd2",
-      "auditFile": "summary-audits/episode-187.json (PR 181)",
-      "blockedReason": "Přímý poslech produkční MP3 a přesnost všech začátků témat do 5 s nejsou ověřeny. Celý SRT a celý nezávislý lokální ASR jsou porovnány; MathJax, 44 routing a 44 nativních MP3 seek kliknutí prošly. PR 181 je otevřen bez merge."
+      "auditFile": "summary-audits/episode-187.json",
+      "blockedReason": "Přímý poslech produkční MP3 a přesnost všech začátků témat do 5 s nejsou ověřeny. Celý SRT a celý nezávislý lokální ASR jsou porovnány; MathJax, 44 routing a 44 nativních MP3 seek kliknutí prošly. PR 181 je otevřen bez merge.",
+      "auditRef": "audit-summary-187-20261003",
+      "ci": {
+        "name": "Verify V2 summary PR",
+        "run": 37138855682,
+        "job": 111248919020,
+        "headSha": "7990cdc82981c6da134417aa97163ce62ceb5cd2",
+        "conclusion": "success"
+      },
+      "requiredReview": "Direct production MP3 listening and all chapter topic anchors within 5 seconds; not replaced by ASR or native seek."
     },
     "188": {
       "status": "blocked",
