@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "rulesVersion": "descending-193-nonfaq-srt-v2",
-  "updatedAt": "2026-10-03T17:05:26.634Z",
+  "updatedAt": "2026-10-03T17:21:13.980Z",
   "order": [
     193,
     192,
@@ -964,8 +964,8 @@
       "pullRequest": 181,
       "headSha": "7990cdc82981c6da134417aa97163ce62ceb5cd2",
       "auditFile": "summary-audits/episode-187.json",
-      "blockedReason": "Přímý poslech produkční MP3 a přesnost všech začátků témat do 5 s nejsou ověřeny. Celý SRT a celý nezávislý lokální ASR jsou porovnány; MathJax, 44 routing a 44 nativních MP3 seek kliknutí prošly. PR 181 je otevřen bez merge.",
-      "auditRef": "audit-summary-187-20261003",
+      "blockedReason": "Oprava nasazena na výslovný pokyn uživatele i bez přímého poslechu. Nasazení a funkční kontroly ověřené; přímý poslech a přesnost začátků témat do 5 s nejsou prohlášeny za ověřené.",
+      "auditRef": "main",
       "ci": {
         "name": "Verify V2 summary PR",
         "run": 37138855682,
@@ -973,7 +973,22 @@
         "headSha": "7990cdc82981c6da134417aa97163ce62ceb5cd2",
         "conclusion": "success"
       },
-      "requiredReview": "Direct production MP3 listening and all chapter topic anchors within 5 seconds; not replaced by ASR or native seek."
+      "requiredReview": "Direct production MP3 listening and all chapter topic anchors within 5 seconds; not replaced by ASR or native seek.",
+      "deploymentAuthorization": {
+        "authorized": true,
+        "scope": "Deploy prepared episode 187 despite missing direct listening and unverified <=5s topic anchors",
+        "userInstruction": "To je jedno nasad to i tak",
+        "userLocalDatetime": "2026-10-03T19:08:30+02:00",
+        "doesNotClaimDirectListeningOrFullAudioVerification": true
+      },
+      "publicationStatus": "verified",
+      "mergeSha": "ec83bcc195a7dc5c8cea867841f654f60415786d",
+      "rebuildSha": "166611b41aca999455e29d180332243b57820250",
+      "officialRebuildRun": 37139487842,
+      "deployJob": 111250815959,
+      "deployConclusion": "success",
+      "productionSeekChecks": 44,
+      "publicationVerifiedAt": "2026-10-03T17:21:13.980Z"
     },
     "188": {
       "status": "blocked",
