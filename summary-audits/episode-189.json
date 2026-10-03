@@ -1,0 +1,1758 @@
+{
+  "schema": 2,
+  "episode": 189,
+  "title": "Vedátorský podcast 189 – Prvý temný vek vesmíru",
+  "rulesVersion": "descending-193-nonfaq-srt-v2",
+  "status": "awaiting_deploy",
+  "source": {
+    "repository": "Berniocal/vedator-test",
+    "listingTreeSha": "445858c31184a13f1956bf29c8e2503a76a62cae",
+    "path": "titulky/vedatorsky-podcast-189-prvni-temny-vek-vesmiru.srt",
+    "srtBlobSha": "d3b715f915ee3e2e05542277eb74d94ea06ec642",
+    "srtSha256": "e06d17b30fdba026ba1bf81be4f065cd18f06ca509153a057db8c8c159a8b700",
+    "srtCueCount": 404,
+    "episodeGuid": "vedatorskypodcast.podbean.com/45f92213-8f66-3d90-9b1c-1236899ded8a",
+    "audioUrl": "https://mcdn.podbean.com/mf/web/z8g8dq/ep_189.mp3",
+    "audioSha256": "2c297851863d5bc3a67a14574949d55e832674ce30d446181d9e27da1ef3d755",
+    "audioDurationSeconds": 1637.433469
+  },
+  "audioVerification": {
+    "method": "independent_local_audio_asr_manual_semantic_comparison",
+    "manualListening": false,
+    "asrModel": "faster-whisper-large-v3-turbo",
+    "asrRevision": "0a363e9161cbc7ed1431c9597a8ceaf0c4f78fcf",
+    "asrSha256": "5ae31076bdfe116e7a485dc5d5085c3cf3dd442dd6efec696c7ff9dad5bee4f5",
+    "asrMetadataSha256": "5f98beedbf07201436ff23fac8776a9f27c3076f4a7894fce97d6f78f1817a3b",
+    "wholeRecordingProcessed": true,
+    "uncertainSourceHandling": "Nejasný název ostrova v historické odbočce není doplněn odhadem; Webbovy a kosmologické hodnoty zachovávají výhrady řečníka.",
+    "detailRecheckSha256": "732eac492a76a3a9093d78cdafebd19bd352e993d75286e042ac6ad43d0dac6f",
+    "timestampMethod": "Word timestamps of decoded production MP3; automated ASR estimates, not a claimed human listening measurement.",
+    "alignmentCheckpoints": [
+      {
+        "srtSeconds": 47.225,
+        "mp3ASRSeconds": 47.62,
+        "differenceSeconds": 0.395
+      },
+      {
+        "srtSeconds": 249.56,
+        "mp3ASRSeconds": 250.32,
+        "differenceSeconds": 0.76
+      },
+      {
+        "srtSeconds": 570.64,
+        "mp3ASRSeconds": 570.12,
+        "differenceSeconds": -0.52
+      },
+      {
+        "srtSeconds": 700.547,
+        "mp3ASRSeconds": 700.7,
+        "differenceSeconds": 0.153
+      },
+      {
+        "srtSeconds": 790.46,
+        "mp3ASRSeconds": 791.26,
+        "differenceSeconds": 0.8
+      },
+      {
+        "srtSeconds": 951.0,
+        "mp3ASRSeconds": 951.4,
+        "differenceSeconds": 0.4
+      },
+      {
+        "srtSeconds": 1030.685,
+        "mp3ASRSeconds": 1031.88,
+        "differenceSeconds": 1.195
+      },
+      {
+        "srtSeconds": 1110.02,
+        "mp3ASRSeconds": 1109.9,
+        "differenceSeconds": -0.12
+      },
+      {
+        "srtSeconds": 1223.5,
+        "mp3ASRSeconds": 1222.02,
+        "differenceSeconds": -1.48
+      },
+      {
+        "srtSeconds": 1344.5,
+        "mp3ASRSeconds": 1344.54,
+        "differenceSeconds": 0.04
+      },
+      {
+        "srtSeconds": 1438.844,
+        "mp3ASRSeconds": 1438.06,
+        "differenceSeconds": -0.784
+      },
+      {
+        "srtSeconds": 1599.5,
+        "mp3ASRSeconds": 1599.26,
+        "differenceSeconds": -0.24
+      }
+    ],
+    "alignmentConclusion": "Na těchto rozložených ASR kontrolních bodech není patrný narůstající posun nebo vložená reklama uprostřed nahrávky; jde o ASR odhady, ne přímý poslech.",
+    "asrLimitation": "Automatický přepis může chybovat. Nejasné názvy nebyly doplňovány z obecné znalosti a nejistoty řečníků zůstaly označené.",
+    "ambiguities": [
+      {
+        "audioRange": [
+          87.5,
+          123.18
+        ],
+        "issue": "Jméno historického autora a předchozí zmatečná zmínka století nejsou přeneseny; rok 1450 a přibližné období jsou doloženy dvěma přepisy."
+      },
+      {
+        "audioRange": [
+          718,
+          752
+        ],
+        "issue": "SRT obsahuje 378 000 a později jiné zkomolené číslo, dva nezávislé průchody MP3 vracejí 370–380 tisíc a poté 380 tisíc; je zachována tato přibližnost."
+      },
+      {
+        "audioRange": [
+          759.94,
+          790.14
+        ],
+        "issue": "Teplota je uvedena s váháním. Shrnutí zachovává řádově několik tisíc a návrh 4 000 K; přesný přepočet do °C není vydáván za potvrzený."
+      },
+      {
+        "audioRange": [
+          615,
+          640
+        ],
+        "issue": "Název ostrova nebyl doplněn podle znalosti; je zachován věcný příklad bez jména."
+      }
+    ]
+  },
+  "cleanContent": {
+    "startSeconds": 47.62,
+    "endSeconds": 1491.5,
+    "excludedInterludes": [
+      [
+        165.12,
+        181.54
+      ],
+      [
+        562.24,
+        565.72
+      ]
+    ],
+    "exclusionReasons": [
+      "Odbočka k rozvážkovým službám jídla a slovní vtipkování.",
+      "Technická poznámka o předchozím nenahraném rozhovoru."
+    ],
+    "durationSeconds": 1423.98,
+    "maximumChapters": 11,
+    "outsideContent": [
+      "0–47.62 s: znělka a poznámka k opakovanému nahrávání úvodu.",
+      "Od 1491.5 s: rekapitulace, upoutávky, podpora podcastu a reklama na jiný podcast."
+    ]
+  },
+  "chapterPolicy": {
+    "chapterCount": 11,
+    "maximumChapters": 11,
+    "upperLimitNotTarget": true,
+    "allMaterialTopicsCovered": true
+  },
+  "chapters": [
+    {
+      "index": 0,
+      "time": "00:48",
+      "seconds": 48,
+      "audioTopicStartSeconds": 47.62,
+      "timestampDifferenceSeconds": 0.38,
+      "questionEvidenceAudioRange": [
+        47.62,
+        59.62
+      ],
+      "points": [
+        {
+          "point": 0,
+          "srtCues": [
+            20,
+            21,
+            22,
+            23,
+            24,
+            25
+          ],
+          "audioRanges": [
+            [
+              64.3,
+              73.86
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 1,
+          "srtCues": [
+            27,
+            32,
+            36
+          ],
+          "audioRanges": [
+            [
+              87.5,
+              123.18
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 2,
+          "srtCues": [
+            64,
+            67,
+            70
+          ],
+          "audioRanges": [
+            [
+              250.32,
+              277.7
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 3,
+          "srtCues": [
+            35,
+            40,
+            45
+          ],
+          "audioRanges": [
+            [
+              123.5,
+              164.22
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 4,
+          "srtCues": [
+            49,
+            53,
+            57
+          ],
+          "audioRanges": [
+            [
+              186.12,
+              214.16
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 5,
+          "srtCues": [
+            56,
+            61,
+            65
+          ],
+          "audioRanges": [
+            [
+              215.42,
+              249.28
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 48,
+        "nonquestionCurrentTime": 48,
+        "byLanguage": [
+          {
+            "language": "cz",
+            "surface": "summary",
+            "currentTime": 48
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 48
+          },
+          {
+            "language": "cz",
+            "surface": "nonquestions",
+            "currentTime": 48
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 48
+          }
+        ]
+      },
+      "nativeMediaSeek": {
+        "status": "passed",
+        "measurements": [
+          {
+            "language": "cs",
+            "surface": "summary",
+            "currentTime": 48,
+            "duration": 1637.396621,
+            "readyState": 1
+          },
+          {
+            "language": "cs",
+            "surface": "nonquestions",
+            "currentTime": 48.572565,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 48,
+            "duration": 1637.396621,
+            "readyState": 1
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 48.661969,
+            "duration": 1637.396621,
+            "readyState": 4
+          }
+        ]
+      }
+    },
+    {
+      "index": 1,
+      "time": "04:10",
+      "seconds": 250,
+      "audioTopicStartSeconds": 250.32,
+      "timestampDifferenceSeconds": 0.32,
+      "questionEvidenceAudioRange": [
+        250.32,
+        262.32
+      ],
+      "points": [
+        {
+          "point": 0,
+          "srtCues": [
+            71,
+            76,
+            81
+          ],
+          "audioRanges": [
+            [
+              282.76,
+              319.36
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 1,
+          "srtCues": [
+            91,
+            97,
+            102,
+            112,
+            113,
+            114,
+            115,
+            116
+          ],
+          "audioRanges": [
+            [
+              369.46,
+              414.64
+            ],
+            [
+              455.36,
+              468.78
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 2,
+          "srtCues": [
+            103,
+            112,
+            120
+          ],
+          "audioRanges": [
+            [
+              421.4,
+              483.6
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 3,
+          "srtCues": [
+            119,
+            127,
+            135
+          ],
+          "audioRanges": [
+            [
+              484.1,
+              551.0
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 250,
+        "nonquestionCurrentTime": 250,
+        "byLanguage": [
+          {
+            "language": "cz",
+            "surface": "summary",
+            "currentTime": 250
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 250
+          },
+          {
+            "language": "cz",
+            "surface": "nonquestions",
+            "currentTime": 250
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 250
+          }
+        ]
+      },
+      "nativeMediaSeek": {
+        "status": "passed",
+        "measurements": [
+          {
+            "language": "cs",
+            "surface": "summary",
+            "currentTime": 250.602482,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "cs",
+            "surface": "nonquestions",
+            "currentTime": 250.157589,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 250.565113,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 250.563437,
+            "duration": 1637.396621,
+            "readyState": 4
+          }
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "time": "09:30",
+      "seconds": 570,
+      "audioTopicStartSeconds": 570.12,
+      "timestampDifferenceSeconds": 0.12,
+      "questionEvidenceAudioRange": [
+        570.12,
+        582.12
+      ],
+      "points": [
+        {
+          "point": 0,
+          "srtCues": [
+            140,
+            144,
+            148
+          ],
+          "audioRanges": [
+            [
+              570.12,
+              602.08
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 1,
+          "srtCues": [
+            151,
+            154,
+            157
+          ],
+          "audioRanges": [
+            [
+              614.44,
+              638.5
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 2,
+          "srtCues": [
+            157,
+            162,
+            167
+          ],
+          "audioRanges": [
+            [
+              644.34,
+              682.0
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 570,
+        "nonquestionCurrentTime": 570,
+        "byLanguage": [
+          {
+            "language": "cz",
+            "surface": "summary",
+            "currentTime": 570
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 570
+          },
+          {
+            "language": "cz",
+            "surface": "nonquestions",
+            "currentTime": 570
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 570
+          }
+        ]
+      },
+      "nativeMediaSeek": {
+        "status": "passed",
+        "measurements": [
+          {
+            "language": "cs",
+            "surface": "summary",
+            "currentTime": 570.534375,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "cs",
+            "surface": "nonquestions",
+            "currentTime": 570,
+            "duration": 1637.396621,
+            "readyState": 1
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 570.552551,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 570.559796,
+            "duration": 1637.396621,
+            "readyState": 4
+          }
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "time": "11:41",
+      "seconds": 701,
+      "audioTopicStartSeconds": 700.7,
+      "timestampDifferenceSeconds": 0.3,
+      "questionEvidenceAudioRange": [
+        700.7,
+        712.7
+      ],
+      "points": [
+        {
+          "point": 0,
+          "srtCues": [
+            171,
+            177,
+            183
+          ],
+          "audioRanges": [
+            [
+              700.7,
+              750.66
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 1,
+          "srtCues": [
+            182,
+            183,
+            184,
+            185
+          ],
+          "audioRanges": [
+            [
+              750.66,
+              757.08
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 2,
+          "srtCues": [
+            185,
+            190,
+            194
+          ],
+          "audioRanges": [
+            [
+              759.94,
+              790.14
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 701,
+        "nonquestionCurrentTime": 701,
+        "byLanguage": [
+          {
+            "language": "cz",
+            "surface": "summary",
+            "currentTime": 701
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 701
+          },
+          {
+            "language": "cz",
+            "surface": "nonquestions",
+            "currentTime": 701
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 701
+          }
+        ]
+      },
+      "nativeMediaSeek": {
+        "status": "passed",
+        "measurements": [
+          {
+            "language": "cs",
+            "surface": "summary",
+            "currentTime": 701.559946,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "cs",
+            "surface": "nonquestions",
+            "currentTime": 701.527683,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 701.582901,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 701.581725,
+            "duration": 1637.396621,
+            "readyState": 4
+          }
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "time": "13:11",
+      "seconds": 791,
+      "audioTopicStartSeconds": 791.26,
+      "timestampDifferenceSeconds": 0.26,
+      "questionEvidenceAudioRange": [
+        791.26,
+        803.26
+      ],
+      "points": [
+        {
+          "point": 0,
+          "srtCues": [
+            193,
+            198,
+            203
+          ],
+          "audioRanges": [
+            [
+              791.26,
+              829.98
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 1,
+          "srtCues": [
+            202,
+            205,
+            208
+          ],
+          "audioRanges": [
+            [
+              829.98,
+              847.8
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 2,
+          "srtCues": [
+            207,
+            218,
+            228
+          ],
+          "audioRanges": [
+            [
+              848.48,
+              938.34
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 3,
+          "srtCues": [
+            209,
+            213,
+            217
+          ],
+          "audioRanges": [
+            [
+              856.52,
+              884.66
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 791,
+        "nonquestionCurrentTime": 791,
+        "byLanguage": [
+          {
+            "language": "cz",
+            "surface": "summary",
+            "currentTime": 791
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 791
+          },
+          {
+            "language": "cz",
+            "surface": "nonquestions",
+            "currentTime": 791
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 791
+          }
+        ]
+      },
+      "nativeMediaSeek": {
+        "status": "passed",
+        "measurements": [
+          {
+            "language": "cs",
+            "surface": "summary",
+            "currentTime": 791.579733,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "cs",
+            "surface": "nonquestions",
+            "currentTime": 791.572319,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 791.566166,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 791.582005,
+            "duration": 1637.396621,
+            "readyState": 4
+          }
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "time": "15:51",
+      "seconds": 951,
+      "audioTopicStartSeconds": 951.4,
+      "timestampDifferenceSeconds": 0.4,
+      "questionEvidenceAudioRange": [
+        951.4,
+        963.4
+      ],
+      "points": [
+        {
+          "point": 0,
+          "srtCues": [
+            231,
+            238,
+            245
+          ],
+          "audioRanges": [
+            [
+              951.4,
+              1006.32
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 1,
+          "srtCues": [
+            244,
+            247,
+            250
+          ],
+          "audioRanges": [
+            [
+              1007.36,
+              1031.28
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 2,
+          "srtCues": [
+            249,
+            250,
+            251
+          ],
+          "audioRanges": [
+            [
+              1031.88,
+              1037.62
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 951,
+        "nonquestionCurrentTime": 951,
+        "byLanguage": [
+          {
+            "language": "cz",
+            "surface": "summary",
+            "currentTime": 951
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 951
+          },
+          {
+            "language": "cz",
+            "surface": "nonquestions",
+            "currentTime": 951
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 951
+          }
+        ]
+      },
+      "nativeMediaSeek": {
+        "status": "passed",
+        "measurements": [
+          {
+            "language": "cs",
+            "surface": "summary",
+            "currentTime": 951.5691,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "cs",
+            "surface": "nonquestions",
+            "currentTime": 951.584508,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 951.574024,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 951.590311,
+            "duration": 1637.396621,
+            "readyState": 4
+          }
+        ]
+      }
+    },
+    {
+      "index": 6,
+      "time": "17:12",
+      "seconds": 1032,
+      "audioTopicStartSeconds": 1031.88,
+      "timestampDifferenceSeconds": 0.12,
+      "questionEvidenceAudioRange": [
+        1031.88,
+        1043.88
+      ],
+      "points": [
+        {
+          "point": 0,
+          "srtCues": [
+            251,
+            255,
+            258
+          ],
+          "audioRanges": [
+            [
+              1038.88,
+              1063.56
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 1,
+          "srtCues": [
+            261,
+            262,
+            263,
+            264
+          ],
+          "audioRanges": [
+            [
+              1077.38,
+              1086.86
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 2,
+          "srtCues": [
+            263,
+            267,
+            270
+          ],
+          "audioRanges": [
+            [
+              1087.12,
+              1109.14
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 1032,
+        "nonquestionCurrentTime": 1032,
+        "byLanguage": [
+          {
+            "language": "cz",
+            "surface": "summary",
+            "currentTime": 1032
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 1032
+          },
+          {
+            "language": "cz",
+            "surface": "nonquestions",
+            "currentTime": 1032
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 1032
+          }
+        ]
+      },
+      "nativeMediaSeek": {
+        "status": "passed",
+        "measurements": [
+          {
+            "language": "cs",
+            "surface": "summary",
+            "currentTime": 1032.559467,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "cs",
+            "surface": "nonquestions",
+            "currentTime": 1032.56978,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 1032.591822,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 1032.590678,
+            "duration": 1637.396621,
+            "readyState": 4
+          }
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "time": "18:30",
+      "seconds": 1110,
+      "audioTopicStartSeconds": 1109.9,
+      "timestampDifferenceSeconds": 0.1,
+      "questionEvidenceAudioRange": [
+        1109.9,
+        1121.9
+      ],
+      "points": [
+        {
+          "point": 0,
+          "srtCues": [
+            269,
+            274,
+            278
+          ],
+          "audioRanges": [
+            [
+              1109.9,
+              1145.96
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 1,
+          "srtCues": [
+            277,
+            282,
+            287
+          ],
+          "audioRanges": [
+            [
+              1146.18,
+              1178.32
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 2,
+          "srtCues": [
+            285,
+            291,
+            296
+          ],
+          "audioRanges": [
+            [
+              1178.32,
+              1215.98
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 1110,
+        "nonquestionCurrentTime": 1110,
+        "byLanguage": [
+          {
+            "language": "cz",
+            "surface": "summary",
+            "currentTime": 1110
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 1110
+          },
+          {
+            "language": "cz",
+            "surface": "nonquestions",
+            "currentTime": 1110
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 1110
+          }
+        ]
+      },
+      "nativeMediaSeek": {
+        "status": "passed",
+        "measurements": [
+          {
+            "language": "cs",
+            "surface": "summary",
+            "currentTime": 1110.559108,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "cs",
+            "surface": "nonquestions",
+            "currentTime": 1110.538903,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 1110.615865,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 1110.538196,
+            "duration": 1637.396621,
+            "readyState": 4
+          }
+        ]
+      }
+    },
+    {
+      "index": 8,
+      "time": "20:22",
+      "seconds": 1222,
+      "audioTopicStartSeconds": 1222.02,
+      "timestampDifferenceSeconds": 0.02,
+      "questionEvidenceAudioRange": [
+        1222.02,
+        1234.02
+      ],
+      "points": [
+        {
+          "point": 0,
+          "srtCues": [
+            296,
+            301,
+            306
+          ],
+          "audioRanges": [
+            [
+              1220.38,
+              1253.46
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 1,
+          "srtCues": [
+            309,
+            312,
+            315
+          ],
+          "audioRanges": [
+            [
+              1271.8,
+              1289.2
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 2,
+          "srtCues": [
+            313,
+            320,
+            326
+          ],
+          "audioRanges": [
+            [
+              1289.82,
+              1333.76
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 1222,
+        "nonquestionCurrentTime": 1222,
+        "byLanguage": [
+          {
+            "language": "cz",
+            "surface": "summary",
+            "currentTime": 1222
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 1222
+          },
+          {
+            "language": "cz",
+            "surface": "nonquestions",
+            "currentTime": 1222
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 1222
+          }
+        ]
+      },
+      "nativeMediaSeek": {
+        "status": "passed",
+        "measurements": [
+          {
+            "language": "cs",
+            "surface": "summary",
+            "currentTime": 1222.545074,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "cs",
+            "surface": "nonquestions",
+            "currentTime": 1222.629953,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 1222.633048,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 1222.698703,
+            "duration": 1637.396621,
+            "readyState": 4
+          }
+        ]
+      }
+    },
+    {
+      "index": 9,
+      "time": "22:25",
+      "seconds": 1345,
+      "audioTopicStartSeconds": 1344.54,
+      "timestampDifferenceSeconds": 0.46,
+      "questionEvidenceAudioRange": [
+        1344.54,
+        1356.54
+      ],
+      "points": [
+        {
+          "point": 0,
+          "srtCues": [
+            328,
+            329,
+            330,
+            331
+          ],
+          "audioRanges": [
+            [
+              1344.54,
+              1354.44
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 1,
+          "srtCues": [
+            330,
+            331,
+            332,
+            333,
+            334
+          ],
+          "audioRanges": [
+            [
+              1354.9,
+              1368.6
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 2,
+          "srtCues": [
+            333,
+            334,
+            335,
+            336,
+            337
+          ],
+          "audioRanges": [
+            [
+              1369.28,
+              1382.74
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 1345,
+        "nonquestionCurrentTime": 1345,
+        "byLanguage": [
+          {
+            "language": "cz",
+            "surface": "summary",
+            "currentTime": 1345
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 1345
+          },
+          {
+            "language": "cz",
+            "surface": "nonquestions",
+            "currentTime": 1345
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 1345
+          }
+        ]
+      },
+      "nativeMediaSeek": {
+        "status": "passed",
+        "measurements": [
+          {
+            "language": "cs",
+            "surface": "summary",
+            "currentTime": 1345.550935,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "cs",
+            "surface": "nonquestions",
+            "currentTime": 1345.593682,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 1345,
+            "duration": 1637.396621,
+            "readyState": 1
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 1345.716777,
+            "duration": 1637.396621,
+            "readyState": 4
+          }
+        ]
+      }
+    },
+    {
+      "index": 10,
+      "time": "23:58",
+      "seconds": 1438,
+      "audioTopicStartSeconds": 1438.06,
+      "timestampDifferenceSeconds": 0.06,
+      "questionEvidenceAudioRange": [
+        1438.06,
+        1450.06
+      ],
+      "points": [
+        {
+          "point": 0,
+          "srtCues": [
+            350,
+            351,
+            352,
+            353,
+            354,
+            355
+          ],
+          "audioRanges": [
+            [
+              1438.06,
+              1452.18
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 1,
+          "srtCues": [
+            354,
+            358,
+            362
+          ],
+          "audioRanges": [
+            [
+              1452.28,
+              1476.08
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        },
+        {
+          "point": 2,
+          "srtCues": [
+            361,
+            362,
+            363,
+            364,
+            365,
+            366
+          ],
+          "audioRanges": [
+            [
+              1477.76,
+              1491.5
+            ]
+          ],
+          "audioASRVerified": true,
+          "directListening": false
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 1438,
+        "nonquestionCurrentTime": 1438,
+        "byLanguage": [
+          {
+            "language": "cz",
+            "surface": "summary",
+            "currentTime": 1438
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 1438
+          },
+          {
+            "language": "cz",
+            "surface": "nonquestions",
+            "currentTime": 1438
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 1438
+          }
+        ]
+      },
+      "nativeMediaSeek": {
+        "status": "passed",
+        "measurements": [
+          {
+            "language": "cs",
+            "surface": "summary",
+            "currentTime": 1438.560816,
+            "duration": 1637.396621,
+            "readyState": 4
+          },
+          {
+            "language": "cs",
+            "surface": "nonquestions",
+            "currentTime": 1438,
+            "duration": 1637.396621,
+            "readyState": 1
+          },
+          {
+            "language": "sk",
+            "surface": "summary",
+            "currentTime": 1438,
+            "duration": 1637.396621,
+            "readyState": 1
+          },
+          {
+            "language": "sk",
+            "surface": "nonquestions",
+            "currentTime": 1438.143799,
+            "duration": 1637.396621,
+            "readyState": 4
+          }
+        ]
+      }
+    }
+  ],
+  "topicCoverage": [
+    {
+      "topic": "Původ a meze historického označení",
+      "chapter": 0
+    },
+    {
+      "topic": "Hospodářský rozpad a postupné pokračování institucí",
+      "chapter": 0
+    },
+    {
+      "topic": "Teologie, kalifát, technologie a stabilita",
+      "chapter": 1
+    },
+    {
+      "topic": "Opatrné ostrovní příklady společenského útlumu",
+      "chapter": 2
+    },
+    {
+      "topic": "Rekombinace, vodík a teplota záření",
+      "chapter": 3
+    },
+    {
+      "topic": "Rudý posuv, 21cm záření a zhasnutí",
+      "chapter": 4
+    },
+    {
+      "topic": "Baryonové oscilace, temná hmota a shlukování",
+      "chapter": 5
+    },
+    {
+      "topic": "Složení, hmotnost a život prvních hvězd",
+      "chapter": 6
+    },
+    {
+      "topic": "Populace III, reionizace a časový vývoj",
+      "chapter": 7
+    },
+    {
+      "topic": "Webbův teleskop, čočkování a rudý posuv",
+      "chapter": 8
+    },
+    {
+      "topic": "Pozorovací mezera a reliktní záření",
+      "chapter": 9
+    },
+    {
+      "topic": "Výslovně hypotetické záblesky v temném věku",
+      "chapter": 10
+    }
+  ],
+  "changes": {
+    "oldChapterCount": 14,
+    "newChapterCount": 11,
+    "removedUnsupportedClaims": [
+      "Arabští učenci podle podcastu rozvíjeli astronomii a další obory; nahrávka výslovně uvádí zachování antických autorů a algebru.",
+      "První hvězdy při zániku vytvořily první těžší prvky.",
+      "Ultrafialové záření vytvářelo ionizované oblasti, které se zvětšovaly a spojovaly.",
+      "Současná kosmologie postupně mapuje pozorovací mezeru.",
+      "Záblesk mohl vzniknout při vzniku nebo zániku primordiální černé díry; podcast konkrétně spekuluje o vypařující se malé černé díře."
+    ],
+    "addedSpecificDetails": [
+      "rok 1450 a období konec 5. století až přibližně rok 1000",
+      "Irsko: přibližně 400 let a pylová zrna, islandská odbočka asi s 20 stromy",
+      "370 000–380 000 let, přibližně 4 000 K, 500 °C a 21 cm",
+      "Webb: 390 světelných let, opatrný odhad 200 milionů let a natažení 20–30krát",
+      "orientační rudý posuv 30–1 000 s výhradou řečníka",
+      "Zpřesnění zdrojové nejistoty: 378 000 ze SRT nahrazeno mluveným rozmezím 370 000–380 000 let."
+    ],
+    "timeChanges": [
+      {
+        "old": "11:14",
+        "new": "11:41",
+        "reason": "Kosmologické téma začíná po ukončení historické odbočky."
+      },
+      {
+        "old": "17:00",
+        "new": "17:12",
+        "reason": "První hvězdy začínají až po vysvětlení shlukování."
+      },
+      {
+        "old": "20:23",
+        "new": "20:22",
+        "reason": "Začátek zmínky o výročí Webbova teleskopu."
+      },
+      {
+        "old": "22:21",
+        "new": "22:25",
+        "reason": "Začátek vysvětlení sledu pozorovatelných epoch."
+      },
+      {
+        "old": "23:55",
+        "new": "23:58",
+        "reason": "Začátek otázky na jiné druhy záření během tmy."
+      }
+    ]
+  },
+  "browserVerification": {
+    "status": "passed",
+    "test": "tools/test-v2-mathjax-browser.mjs",
+    "physicalSeekClicksForEpisode": 44,
+    "allAuditedSeekClicks": 120,
+    "mathjaxVersion": "3.2.2",
+    "singleMathJaxScript": true,
+    "mobileWidth": 390,
+    "mediaStub": true,
+    "audioSynchronizationVerifiedByThisTest": false,
+    "resultSha256": "17640af18ba677f82964f5589e0bf66d1431f5b5cdde1bc0939307f7dd421672"
+  },
+  "nativeMediaVerification": {
+    "status": "passed",
+    "test": "tools/test-v2-summary-real-media-browser.mjs",
+    "executedWithDiagnosticLogging": true,
+    "runnerSha256": "c4823594e7abb05e57d4305cdb64c50054b1d64895cddbee426811d1537e97dc",
+    "physicalSeekClicks": 44,
+    "mediaStub": false,
+    "productionMP3Sha256": "2c297851863d5bc3a67a14574949d55e832674ce30d446181d9e27da1ef3d755",
+    "resultSha256": "ef8f59cc80df7b58062f823d3b6de7f06efa38de1f5a018537cd1b0f5834a708",
+    "decodedDurationSeconds": 1637.396621,
+    "maximumPlaybackClockDifferenceSeconds": 0.7167770000000928,
+    "nativeLoadDecodeSeekPlayPausePreserved": true,
+    "mp3DeliveredLocallyWithProductionURL": true,
+    "httpRangeSupported": true,
+    "directListening": false,
+    "clockNote": "currentTime byl odečten po zahájení nativního přehrávání; rozdíl pod 1 s je přirozený postup hodin. Přesné cílové sekundy jsou ověřeny samostatným routing testem.",
+    "httpRangeSupportCheckedOnProduction": true,
+    "productionRangeHeaderSha256": "894e121f4c33533cd49a5d6d873522346e3cb2358533cb985a9536222e1a6d21"
+  },
+  "publication": {
+    "status": "not_published",
+    "branch": "audit-summary-189-20261003"
+  },
+  "coverageReview": {
+    "fullSRTRead": true,
+    "fullIndependentMP3TranscriptRead": true,
+    "allGapsReviewed": true,
+    "note": "Obě úvodní historické otázky spojeny bez vypuštění bodů. Historický exkurs včetně ostrovních příkladů, celé kosmologické téma i závěrečné hypotetické záblesky jsou zahrnuty. Krátké přechody, osobní překvapení moderátora a opakovaná rekapitulace nepřidávají další hlavní téma.",
+    "unresolvedMinorDetail": {
+      "audioRange": [
+        615,
+        640
+      ],
+      "srtCues": [
+        152,
+        153,
+        154,
+        155,
+        156
+      ],
+      "issue": "SRT i dva ASR průchody vracejí Vianočné ostrovy. Název není bez přímého poslechu spolehlivě rozlišen a nebyl opraven podle obecné znalosti; věcný ostrovní příklad zůstal zachován bez názvu."
+    }
+  },
+  "checks": {
+    "buildAndAugment": "passed",
+    "content": "passed",
+    "faqIntegrity": "passed",
+    "seriesTopics": "passed",
+    "mathjaxData": "passed",
+    "mathjaxBrowser": "passed",
+    "nativeMediaBrowser": "passed",
+    "productionPWAPreparation": "passed",
+    "olderTestAppV2": {
+      "status": "baseline_blocked",
+      "reason": "Test expects removed v2.html on current main; no runtime changes in this PR."
+    }
+  }
+}

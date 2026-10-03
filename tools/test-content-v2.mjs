@@ -61,6 +61,16 @@ for(const lang of ['cs','sk']){
   if(!episode191[lang][9].points.some(point=>point.includes('Dobble')))fail('Episode 191 must retain the young-researcher/geometry discussion');
   if(!episode191[lang][10].points.some(point=>point.includes('Ising')))fail('Episode 191 must cover the fuzzy-sphere collaboration near the end');
 }
+const episode189=data.nonquestions?.episodes?.['189'];
+if(!episode189||episode189.cs?.length!==11||episode189.sk?.length!==11)fail('Episode 189 bilingual summary count mismatch');
+const episode189Times=['00:48','04:10','09:30','11:41','13:11','15:51','17:12','18:30','20:22','22:25','23:58'];
+if(JSON.stringify(episode189.cs.map(item=>item.time))!==JSON.stringify(episode189Times))fail('Episode 189 Czech timestamps mismatch');
+if(JSON.stringify(episode189.sk.map(item=>item.time))!==JSON.stringify(episode189Times))fail('Episode 189 Slovak timestamps mismatch');
+for(const lang of ['cs','sk']){
+  if(!episode189[lang][4].points.some(point=>point.includes('21 cm')))fail('Episode 189 must retain the 21 cm hydrogen detail');
+  if(!episode189[lang][8].points.some(point=>point.includes('20–30')))fail('Episode 189 must retain the qualified Webb redshift estimate');
+  if(!episode189[lang][10].points.some(point=>point.toLowerCase().includes(lang==='cs'?'spekulaci':'špekuláciu')))fail('Episode 189 must label the closing black-hole idea as speculation');
+}
 const episode351=data.nonquestions?.episodes?.['351'];
 if(!episode351||episode351.cs?.length!==17||episode351.sk?.length!==17)fail('Episode 351 bilingual summary count mismatch');
 const episodeNumbers=new Set(data.episodes.map(e=>Number(e.number)));
