@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "rulesVersion": "descending-193-nonfaq-srt-v2",
-  "updatedAt": "2026-10-03T16:37:50.004Z",
+  "updatedAt": "2026-10-03T16:59:38.786Z",
   "order": [
     193,
     192,
@@ -197,7 +197,7 @@
     2,
     1
   ],
-  "nextEpisode": 187,
+  "nextEpisode": 186,
   "sourceRepository": "Berniocal/vedator-test",
   "sourceDirectory": "titulky",
   "sourceListingCount": 177,
@@ -953,7 +953,7 @@
       ]
     },
     "187": {
-      "status": "in_progress",
+      "status": "blocked",
       "srtCandidates": [
         {
           "path": "titulky/vedatorsky-podcast-187-bosony-w-a-z.srt",
@@ -961,11 +961,10 @@
         }
       ],
       "branch": "audit-summary-187-20261003",
-      "activeManualRun": {
-        "startedAt": "2026-10-03T16:37:50.005Z",
-        "leaseExpiresAt": "2026-10-03T18:37:50.005Z",
-        "note": "Ruční audit 187 na výslovný pokyn uživatele."
-      }
+      "pullRequest": 181,
+      "headSha": "7990cdc82981c6da134417aa97163ce62ceb5cd2",
+      "auditFile": "summary-audits/episode-187.json (PR 181)",
+      "blockedReason": "Přímý poslech produkční MP3 a přesnost všech začátků témat do 5 s nejsou ověřeny. Celý SRT a celý nezávislý lokální ASR jsou porovnány; MathJax, 44 routing a 44 nativních MP3 seek kliknutí prošly. PR 181 je otevřen bez merge."
     },
     "188": {
       "status": "blocked",
@@ -1045,6 +1044,5 @@
     "countMutable": true,
     "maxChapters": "floor(cleanContentDurationSeconds / 120)",
     "coverAllImportantTopics": true
-  },
-  "resumeEpisode": 187
+  }
 }
