@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "rulesVersion": "descending-193-nonfaq-srt-v2",
-  "updatedAt": "2026-10-03T09:22:54.744686+00:00",
+  "updatedAt": "2026-10-03T09:49:50.545869+00:00",
   "order": [
     193,
     192,
@@ -197,7 +197,7 @@
     2,
     1
   ],
-  "nextEpisode": 191,
+  "nextEpisode": 189,
   "sourceRepository": "Berniocal/vedator-test",
   "sourceDirectory": "titulky",
   "sourceListingCount": 177,
@@ -983,7 +983,7 @@
       "status": "skipped_faq"
     },
     "191": {
-      "status": "awaiting_deploy",
+      "status": "verified",
       "srtCandidates": [
         {
           "path": "titulky/vedatorsky-podcast-191-teorie-strun-3.srt",
@@ -991,14 +991,15 @@
         }
       ],
       "branch": "audit-summary-191-20261003",
-      "activeManualRun": {
-        "startedAt": "2026-10-03T09:07:11.000Z",
-        "leaseExpiresAt": "2026-10-03T10:22:11.000Z",
-        "note": "Ruční pokračování dílu 191 na výslovný pokyn uživatele. Obnovení zdrojů a důkazů po údržbě pracovního prostoru."
-      },
       "auditPath": "summary-audits/episode-191.json",
-      "note": "11 CZ/SK kapitol; celý nový místní přepis produkční MP3 porovnán se SRT, bez přímého poslechu. 44 fyzických seek kliknutí prošlo i s nativním dekódováním původní MP3. PR 178 čeká na přesné zelené CI a produkční nasazení.",
-      "pr": 178
+      "note": "11 CZ/SK kapitol, celý obsah včetně závěru. Nový místní přepis produkční MP3 porovnán se SRT; přímý poslech neproběhl. MathJax, 44 fyzických kliknutí s nativní MP3, produkční datová shoda a oficiální rebuild/nasazení prošly.",
+      "pr": 178,
+      "pullRequest": 178,
+      "mergeSha": "4da1d643021e2c3394f212d69aa6cd8832b4e8d8",
+      "rebuildSha": "e7bbba4446413409c57d9441c9bc973a8ff1a6a3",
+      "verifiedAt": "2026-10-03T09:49:50.545869+00:00",
+      "verificationMethod": "independent_audio_asr_manual_semantic_comparison_and_native_media_browser",
+      "directListening": false
     },
     "192": {
       "status": "verified",
@@ -1020,7 +1021,6 @@
       "status": "missing_srt"
     }
   },
-  "resumeEpisode": 191,
   "chapterPolicy": {
     "countMutable": true,
     "maxChapters": "floor(cleanContentDurationSeconds / 120)",
