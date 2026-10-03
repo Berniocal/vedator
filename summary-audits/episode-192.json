@@ -2,7 +2,7 @@
   "schema": 1,
   "episode": 192,
   "rulesVersion": "descending-193-nonfaq-srt-v2",
-  "status": "awaiting_deploy",
+  "status": "verified",
   "source": {
     "repository": "Berniocal/vedator-test",
     "path": "titulky/vedatorsky-podcast-192-druhy-temny-vek-vesmiru.srt",
@@ -919,8 +919,23 @@
     "18:26"
   ],
   "publication": {
-    "status": "awaiting_deploy",
-    "branch": "audit-summary-192-20261003"
+    "status": "verified",
+    "branch": "audit-summary-192-20261003",
+    "pullRequest": 177,
+    "pullRequestUrl": "https://github.com/Berniocal/vedator/pull/177",
+    "testedHeadSha": "fa311ebf95f644f387991a5a4269b2f022d5f74f",
+    "prWorkflowRun": 37101571474,
+    "prWorkflowConclusion": "success",
+    "mergeSha": "de23f0e4dae71baf8a4450c6652fd6cf98814041",
+    "rebuildSha": "775e3ec33cb448790edb202c7f3979dc2e5c4e6b",
+    "productionWorkflowRun": 37101678945,
+    "productionWorkflowConclusion": "success",
+    "deploymentJob": 111142311707,
+    "deploymentConclusion": "success",
+    "liveDataUrl": "https://bernio.cz/vedator/content-v2.json",
+    "liveDataMatchesSource": true,
+    "verifiedAt": "2026-10-03T06:03:26.515693+00:00",
+    "verificationMethod": "SRT plus independent audio ASR and manual semantic comparison; direct listening was not performed."
   },
   "browserVerification": {
     "engine": "Chromium 153 / Puppeteer 25.12",

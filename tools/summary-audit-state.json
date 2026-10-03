@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "rulesVersion": "descending-193-nonfaq-srt-v2",
-  "updatedAt": "2026-10-03",
+  "updatedAt": "2026-10-03T06:03:26.515693+00:00",
   "order": [
     193,
     192,
@@ -198,7 +198,6 @@
     1
   ],
   "nextEpisode": 191,
-  "resumeEpisode": 192,
   "sourceRepository": "Berniocal/vedator-test",
   "sourceDirectory": "titulky",
   "sourceListingCount": 177,
@@ -207,7 +206,7 @@
       "status": "missing_srt"
     },
     "192": {
-      "status": "awaiting_deploy",
+      "status": "verified",
       "srtCandidates": [
         {
           "path": "titulky/vedatorsky-podcast-192-druhy-temny-vek-vesmiru.srt",
@@ -215,7 +214,12 @@
         }
       ],
       "audit": "summary-audits/episode-192.json",
-      "branch": "audit-summary-192-20261003"
+      "branch": "audit-summary-192-20261003",
+      "pullRequest": 177,
+      "mergeSha": "de23f0e4dae71baf8a4450c6652fd6cf98814041",
+      "rebuildSha": "775e3ec33cb448790edb202c7f3979dc2e5c4e6b",
+      "verifiedAt": "2026-10-03T06:03:26.515693+00:00",
+      "verificationMethod": "independent_audio_asr_manual_semantic_comparison"
     },
     "191": {
       "status": "pending",
