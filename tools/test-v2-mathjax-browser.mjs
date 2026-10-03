@@ -85,7 +85,8 @@ try{
       const selector=episodeSummary(episode);
       await page.waitForSelector(selector);
       await page.$eval(selector,summary=>{summary.open=true});
-      await waitCompiled(selector);
+      const formulaCount=await page.$eval(selector,summary=>summary.querySelectorAll('.math-tex-v2').length);
+      if(formulaCount)await waitCompiled(selector);
       const audit=audits.find(audit=>Number(audit.episode)===Number(episode));
       if(audit){
         for(const [index,proof] of audit.chapters.entries()){

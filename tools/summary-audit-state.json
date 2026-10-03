@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "rulesVersion": "descending-193-nonfaq-srt-v2",
-  "updatedAt": "2026-10-03T10:16:36Z",
+  "updatedAt": "2026-10-03T10:27:30.273296+00:00",
   "order": [
     193,
     192,
@@ -971,7 +971,7 @@
       ]
     },
     "189": {
-      "status": "in_progress",
+      "status": "awaiting_deploy",
       "srtCandidates": [
         {
           "path": "titulky/vedatorsky-podcast-189-prvni-temny-vek-vesmiru.srt",
@@ -979,12 +979,13 @@
         }
       ],
       "branch": "audit-summary-189-20261003",
+      "note": "11 CZ/SK kapitol a 38 doložených bodů. Celý lokální přepis MP3, opakované dekódování nejasných čísel, MathJax a 44 fyzických kliknutí s nativní MP3 prošly; přímý poslech neproběhl. Čeká se na PR/CI a produkční nasazení.",
       "activeManualRun": {
         "startedAt": "2026-10-03T10:16:36Z",
         "leaseExpiresAt": "2026-10-03T11:31:36.000Z",
         "note": "Ruční dokončení dílu 189 na výslovný pokyn uživatele."
       },
-      "note": "Dokončování již rozpracovaného auditu, nové lokální ASR a browser testy."
+      "auditPath": "summary-audits/episode-189.json"
     },
     "190": {
       "status": "skipped_faq"
