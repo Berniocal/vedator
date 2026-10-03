@@ -1,0 +1,1010 @@
+{
+  "schema": 1,
+  "rulesVersion": "descending-193-nonfaq-srt-v2",
+  "updatedAt": "2026-10-03",
+  "order": [
+    193,
+    192,
+    191,
+    190,
+    189,
+    188,
+    187,
+    186,
+    185,
+    184,
+    183,
+    182,
+    181,
+    180,
+    179,
+    178,
+    177,
+    176,
+    175,
+    174,
+    173,
+    172,
+    171,
+    170,
+    169,
+    168,
+    167,
+    166,
+    165,
+    164,
+    163,
+    162,
+    161,
+    160,
+    159,
+    158,
+    157,
+    156,
+    155,
+    154,
+    153,
+    152,
+    151,
+    150,
+    149,
+    148,
+    147,
+    146,
+    145,
+    144,
+    143,
+    142,
+    141,
+    140,
+    139,
+    138,
+    137,
+    136,
+    135,
+    134,
+    133,
+    132,
+    131,
+    130,
+    129,
+    128,
+    127,
+    126,
+    125,
+    124,
+    123,
+    122,
+    121,
+    120,
+    119,
+    118,
+    117,
+    116,
+    115,
+    114,
+    113,
+    112,
+    111,
+    110,
+    109,
+    108,
+    107,
+    106,
+    105,
+    104,
+    103,
+    102,
+    101,
+    100,
+    99,
+    98,
+    97,
+    96,
+    95,
+    94,
+    93,
+    92,
+    91,
+    90,
+    89,
+    88,
+    87,
+    86,
+    85,
+    84,
+    83,
+    82,
+    81,
+    80,
+    79,
+    78,
+    77,
+    76,
+    75,
+    74,
+    73,
+    72,
+    71,
+    70,
+    69,
+    68,
+    67,
+    66,
+    65,
+    64,
+    63,
+    62,
+    61,
+    60,
+    59,
+    58,
+    57,
+    56,
+    55,
+    54,
+    53,
+    52,
+    51,
+    50,
+    49,
+    48,
+    47,
+    46,
+    45,
+    44,
+    43,
+    42,
+    41,
+    40,
+    39,
+    38,
+    37,
+    36,
+    35,
+    34,
+    33,
+    32,
+    31,
+    30,
+    29,
+    28,
+    27,
+    26,
+    25,
+    24,
+    23,
+    22,
+    21,
+    20,
+    19,
+    18,
+    17,
+    16,
+    15,
+    14,
+    13,
+    12,
+    11,
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1
+  ],
+  "nextEpisode": 191,
+  "resumeEpisode": 192,
+  "sourceRepository": "Berniocal/vedator-test",
+  "sourceDirectory": "titulky",
+  "sourceListingCount": 177,
+  "episodes": {
+    "193": {
+      "status": "missing_srt"
+    },
+    "192": {
+      "status": "awaiting_deploy",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-192-druhy-temny-vek-vesmiru.srt",
+          "sha": "c710ccdb496ba082e343afb1ca456aadacced607"
+        }
+      ],
+      "audit": "summary-audits/episode-192.json",
+      "branch": "audit-summary-192-20261003"
+    },
+    "191": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-191-teorie-strun-3.srt",
+          "sha": "9873bad5d077da9f7769a216be01daf63a600366"
+        }
+      ]
+    },
+    "190": {
+      "status": "skipped_faq"
+    },
+    "189": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-189-prvni-temny-vek-vesmiru.srt",
+          "sha": "d3b715f915ee3e2e05542277eb74d94ea06ec642"
+        }
+      ]
+    },
+    "188": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-188-oppenheimer-a-jeho-parta.srt",
+          "sha": "0c1c35e47aa0447ffb9e2a4d3b3d3f20e92a3e06"
+        }
+      ]
+    },
+    "187": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-187-bosony-w-a-z.srt",
+          "sha": "b2fca553fcff6fa3838eb652132d5972f896947d"
+        }
+      ]
+    },
+    "186": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-186-sum-gravitacnich-vln.srt",
+          "sha": "e0e77f8ee496742b48d49d45db65d7ad8120b00d"
+        }
+      ]
+    },
+    "185": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-185-kvazary.srt",
+          "sha": "95fafe4581132f67d6a6cde1f35b9009d765b305"
+        }
+      ]
+    },
+    "184": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-184-transcendentni-cisla.srt",
+          "sha": "1184d40e95ec43657fd56af3e3cbeac29f43cef9"
+        }
+      ]
+    },
+    "183": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-183-umela-inteligence-1.srt",
+          "sha": "a091f258ded582023e70ee2aaf901c45b7b6c800"
+        }
+      ]
+    },
+    "182": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-182-dynamicka-temna-energie.srt",
+          "sha": "88a6c3e1fcebb6ede5cafe636e161f21f2a724ca"
+        }
+      ]
+    },
+    "181": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-181-normalni-rozdeleni.srt",
+          "sha": "7a6ef2d5fb65a9c1d513d4ba95bb2434a1ebd154"
+        }
+      ]
+    },
+    "180": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-180-elektron.srt",
+          "sha": "f0528ed854858b8ef8c9ac9e2c526baebd3d3992"
+        }
+      ]
+    },
+    "179": {
+      "status": "skipped_faq"
+    },
+    "178": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-178-zdrava-kyberbezpecnost.srt",
+          "sha": "9c519b2fd77ab67c959fd0744046e4c488dffde8"
+        }
+      ]
+    },
+    "177": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-177-rentgen-ct-a-ultrazvuk.srt",
+          "sha": "e6f75acda8b4b9298505145dc7eb1006afe89d74"
+        }
+      ]
+    },
+    "176": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-176-budoucnost-zdravotnictvi.srt",
+          "sha": "32472fecd88fe9186ad44f149a9c56a2ff11bfa6"
+        }
+      ]
+    },
+    "175": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-175-foton.srt",
+          "sha": "f9b1464bce624d122b66ea5239a766787b0453b3"
+        }
+      ]
+    },
+    "174": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-174-jak-skvele-predvidat-budoucnost.srt",
+          "sha": "2dd95bea68c594fe51533a45c9ded885171e734d"
+        }
+      ]
+    },
+    "173": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-173-nafukujici-se-cerne-diry.srt",
+          "sha": "056e43c0873d797fae91b5c646767e35fbf14e69"
+        }
+      ]
+    },
+    "172": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-172-kvantova-biologie.srt",
+          "sha": "9f2d036bdf1330bdcf1f8fc5d247320aee67fc30"
+        }
+      ]
+    },
+    "171": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-171-konec-mooreova-zakona (1).srt",
+          "sha": "d6ecced214cef51f43ceb24fa9e9b8e445e7b3b6"
+        }
+      ]
+    },
+    "170": {
+      "status": "skipped_faq"
+    },
+    "169": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-169-polarni-zare.srt",
+          "sha": "1ae90b0a279900fe96c17a4a1307ad2aa8f353ff"
+        }
+      ]
+    },
+    "168": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-168-turinguv-test.srt",
+          "sha": "a4ce61aa7bcee92216db6e58857cf7bc55c27b4f"
+        }
+      ]
+    },
+    "167": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-167-nejrychlejsi-lidsky-objekt.srt",
+          "sha": "af6c33e4dc88d1f55f2a2defef35eb99f7d36e17"
+        }
+      ]
+    },
+    "166": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-166-zemetreseni.srt",
+          "sha": "bbdb0d1906c0dea7ba9390755514d246cf134c61"
+        }
+      ]
+    },
+    "165": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-165-nejen-hawkingovy-sazky.srt",
+          "sha": "eac9019162c8dde66f50626f020cabf0704d01ae"
+        }
+      ]
+    },
+    "164": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-164-evoluce-jako-uceni.srt",
+          "sha": "ded8ffa7dbe039ebc4d54bec4c89f5fedfcf79e1"
+        }
+      ]
+    },
+    "163": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-163-kvarky.srt",
+          "sha": "97b6e7e385c5d4cc36087de9988b497ec609447c"
+        }
+      ]
+    },
+    "162": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-162-odborne-vedecke-clanky.srt",
+          "sha": "ee4104ee7f4db49a38576dc6dd58a22e8491d20c"
+        }
+      ]
+    },
+    "161": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-161-predsevzeti-a-horoskopy.srt",
+          "sha": "6007332a4b4e0861321c015d85bc6ed4c11e395a"
+        }
+      ]
+    },
+    "160": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-160-vedecky-rok-2022.srt",
+          "sha": "61d2ea2f29a88728430f711d56d8e8ab3d2a1e07"
+        }
+      ]
+    },
+    "159": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-159-zraloci-zuby.srt",
+          "sha": "efd52f95b7472fe3179fc9050bad4501221c63d8"
+        }
+      ]
+    },
+    "158": {
+      "status": "skipped_faq"
+    },
+    "157": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-157-multivesmir.srt",
+          "sha": "90691452439bff68052a2391c89c850966f5bd16"
+        }
+      ]
+    },
+    "156": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-156-zipfuv-zakon.srt",
+          "sha": "171d3cfabee2f445b17d7ddd35ff836a5dd3fd95"
+        }
+      ]
+    },
+    "155": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-155-teorie-strun-2.srt",
+          "sha": "ce9b283fee8d395cea6a72419e7e5bb59fb6ff2c"
+        }
+      ]
+    },
+    "154": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-154-kvantove-pocitace.srt",
+          "sha": "dc859840db2b2632749abd0c1b1fe0bde9844af8"
+        }
+      ]
+    },
+    "153": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-153-nejkrasnejsi-rovnice.srt",
+          "sha": "8ca4262f1c53a6b149b63b08db2e81c8ac86422e"
+        }
+      ]
+    },
+    "152": {
+      "status": "pending",
+      "srtCandidates": [
+        {
+          "path": "titulky/vedatorsky-podcast-152-ted-uz-poradne-nobelovy-ceny.srt",
+          "sha": "dd81919d39ac5c325fb62d591cacf3306b64d824"
+        }
+      ]
+    },
+    "151": {
+      "status": "no_existing_summary"
+    },
+    "150": {
+      "status": "no_existing_summary"
+    },
+    "149": {
+      "status": "no_existing_summary"
+    },
+    "148": {
+      "status": "no_existing_summary"
+    },
+    "147": {
+      "status": "no_existing_summary"
+    },
+    "146": {
+      "status": "no_existing_summary"
+    },
+    "145": {
+      "status": "no_existing_summary"
+    },
+    "144": {
+      "status": "no_existing_summary"
+    },
+    "143": {
+      "status": "skipped_faq"
+    },
+    "142": {
+      "status": "no_existing_summary"
+    },
+    "141": {
+      "status": "no_existing_summary"
+    },
+    "140": {
+      "status": "no_existing_summary"
+    },
+    "139": {
+      "status": "no_existing_summary"
+    },
+    "138": {
+      "status": "skipped_faq"
+    },
+    "137": {
+      "status": "no_existing_summary"
+    },
+    "136": {
+      "status": "no_existing_summary"
+    },
+    "135": {
+      "status": "no_existing_summary"
+    },
+    "134": {
+      "status": "no_existing_summary"
+    },
+    "133": {
+      "status": "skipped_faq"
+    },
+    "132": {
+      "status": "no_existing_summary"
+    },
+    "131": {
+      "status": "no_existing_summary"
+    },
+    "130": {
+      "status": "no_existing_summary"
+    },
+    "129": {
+      "status": "no_existing_summary"
+    },
+    "128": {
+      "status": "skipped_faq"
+    },
+    "127": {
+      "status": "no_existing_summary"
+    },
+    "126": {
+      "status": "no_existing_summary"
+    },
+    "125": {
+      "status": "no_existing_summary"
+    },
+    "124": {
+      "status": "no_existing_summary"
+    },
+    "123": {
+      "status": "no_existing_summary"
+    },
+    "122": {
+      "status": "no_existing_summary"
+    },
+    "121": {
+      "status": "no_existing_summary"
+    },
+    "120": {
+      "status": "no_existing_summary"
+    },
+    "119": {
+      "status": "skipped_faq"
+    },
+    "118": {
+      "status": "no_existing_summary"
+    },
+    "117": {
+      "status": "no_existing_summary"
+    },
+    "116": {
+      "status": "no_existing_summary"
+    },
+    "115": {
+      "status": "no_existing_summary"
+    },
+    "114": {
+      "status": "no_existing_summary"
+    },
+    "113": {
+      "status": "no_existing_summary"
+    },
+    "112": {
+      "status": "skipped_faq"
+    },
+    "111": {
+      "status": "no_existing_summary"
+    },
+    "110": {
+      "status": "no_existing_summary"
+    },
+    "109": {
+      "status": "no_existing_summary"
+    },
+    "108": {
+      "status": "no_existing_summary"
+    },
+    "107": {
+      "status": "no_existing_summary"
+    },
+    "106": {
+      "status": "no_existing_summary"
+    },
+    "105": {
+      "status": "no_existing_summary"
+    },
+    "104": {
+      "status": "no_existing_summary"
+    },
+    "103": {
+      "status": "no_existing_summary"
+    },
+    "102": {
+      "status": "no_existing_summary"
+    },
+    "101": {
+      "status": "no_existing_summary"
+    },
+    "100": {
+      "status": "skipped_faq"
+    },
+    "99": {
+      "status": "no_existing_summary"
+    },
+    "98": {
+      "status": "no_existing_summary"
+    },
+    "97": {
+      "status": "no_existing_summary"
+    },
+    "96": {
+      "status": "no_existing_summary"
+    },
+    "95": {
+      "status": "no_existing_summary"
+    },
+    "94": {
+      "status": "no_existing_summary"
+    },
+    "93": {
+      "status": "no_existing_summary"
+    },
+    "92": {
+      "status": "no_existing_summary"
+    },
+    "91": {
+      "status": "no_existing_summary"
+    },
+    "90": {
+      "status": "no_existing_summary"
+    },
+    "89": {
+      "status": "skipped_faq"
+    },
+    "88": {
+      "status": "no_existing_summary"
+    },
+    "87": {
+      "status": "no_existing_summary"
+    },
+    "86": {
+      "status": "no_existing_summary"
+    },
+    "85": {
+      "status": "no_existing_summary"
+    },
+    "84": {
+      "status": "no_existing_summary"
+    },
+    "83": {
+      "status": "no_existing_summary"
+    },
+    "82": {
+      "status": "skipped_faq"
+    },
+    "81": {
+      "status": "no_existing_summary"
+    },
+    "80": {
+      "status": "no_existing_summary"
+    },
+    "79": {
+      "status": "no_existing_summary"
+    },
+    "78": {
+      "status": "no_existing_summary"
+    },
+    "77": {
+      "status": "no_existing_summary"
+    },
+    "76": {
+      "status": "no_existing_summary"
+    },
+    "75": {
+      "status": "skipped_faq"
+    },
+    "74": {
+      "status": "no_existing_summary"
+    },
+    "73": {
+      "status": "no_existing_summary"
+    },
+    "72": {
+      "status": "no_existing_summary"
+    },
+    "71": {
+      "status": "no_existing_summary"
+    },
+    "70": {
+      "status": "no_existing_summary"
+    },
+    "69": {
+      "status": "skipped_faq"
+    },
+    "68": {
+      "status": "no_existing_summary"
+    },
+    "67": {
+      "status": "no_existing_summary"
+    },
+    "66": {
+      "status": "no_existing_summary"
+    },
+    "65": {
+      "status": "no_existing_summary"
+    },
+    "64": {
+      "status": "no_existing_summary"
+    },
+    "63": {
+      "status": "no_existing_summary"
+    },
+    "62": {
+      "status": "no_existing_summary"
+    },
+    "61": {
+      "status": "no_existing_summary"
+    },
+    "60": {
+      "status": "skipped_faq"
+    },
+    "59": {
+      "status": "no_existing_summary"
+    },
+    "58": {
+      "status": "no_existing_summary"
+    },
+    "57": {
+      "status": "no_existing_summary"
+    },
+    "56": {
+      "status": "no_existing_summary"
+    },
+    "55": {
+      "status": "no_existing_summary"
+    },
+    "54": {
+      "status": "no_existing_summary"
+    },
+    "53": {
+      "status": "no_existing_summary"
+    },
+    "52": {
+      "status": "no_existing_summary"
+    },
+    "51": {
+      "status": "skipped_faq"
+    },
+    "50": {
+      "status": "no_existing_summary"
+    },
+    "49": {
+      "status": "no_existing_summary"
+    },
+    "48": {
+      "status": "no_existing_summary"
+    },
+    "47": {
+      "status": "no_existing_summary"
+    },
+    "46": {
+      "status": "no_existing_summary"
+    },
+    "45": {
+      "status": "no_existing_summary"
+    },
+    "44": {
+      "status": "no_existing_summary"
+    },
+    "43": {
+      "status": "no_existing_summary"
+    },
+    "42": {
+      "status": "no_existing_summary"
+    },
+    "41": {
+      "status": "no_existing_summary"
+    },
+    "40": {
+      "status": "no_existing_summary"
+    },
+    "39": {
+      "status": "no_existing_summary"
+    },
+    "38": {
+      "status": "no_existing_summary"
+    },
+    "37": {
+      "status": "no_existing_summary"
+    },
+    "36": {
+      "status": "no_existing_summary"
+    },
+    "35": {
+      "status": "skipped_faq"
+    },
+    "34": {
+      "status": "no_existing_summary"
+    },
+    "33": {
+      "status": "no_existing_summary"
+    },
+    "32": {
+      "status": "no_existing_summary"
+    },
+    "31": {
+      "status": "no_existing_summary"
+    },
+    "30": {
+      "status": "no_existing_summary"
+    },
+    "29": {
+      "status": "no_existing_summary"
+    },
+    "28": {
+      "status": "no_existing_summary"
+    },
+    "27": {
+      "status": "no_existing_summary"
+    },
+    "26": {
+      "status": "skipped_faq"
+    },
+    "25": {
+      "status": "no_existing_summary"
+    },
+    "24": {
+      "status": "no_existing_summary"
+    },
+    "23": {
+      "status": "no_existing_summary"
+    },
+    "22": {
+      "status": "no_existing_summary"
+    },
+    "21": {
+      "status": "no_existing_summary"
+    },
+    "20": {
+      "status": "no_existing_summary"
+    },
+    "19": {
+      "status": "no_existing_summary"
+    },
+    "18": {
+      "status": "no_existing_summary"
+    },
+    "17": {
+      "status": "skipped_faq"
+    },
+    "16": {
+      "status": "no_existing_summary"
+    },
+    "15": {
+      "status": "no_existing_summary"
+    },
+    "14": {
+      "status": "no_existing_summary"
+    },
+    "13": {
+      "status": "no_existing_summary"
+    },
+    "12": {
+      "status": "no_existing_summary"
+    },
+    "11": {
+      "status": "no_existing_summary"
+    },
+    "10": {
+      "status": "no_existing_summary"
+    },
+    "9": {
+      "status": "no_existing_summary"
+    },
+    "8": {
+      "status": "no_existing_summary"
+    },
+    "7": {
+      "status": "no_existing_summary"
+    },
+    "6": {
+      "status": "no_existing_summary"
+    },
+    "5": {
+      "status": "no_existing_summary"
+    },
+    "4": {
+      "status": "no_existing_summary"
+    },
+    "3": {
+      "status": "no_existing_summary"
+    },
+    "2": {
+      "status": "no_existing_summary"
+    },
+    "1": {
+      "status": "no_existing_summary"
+    }
+  }
+}
