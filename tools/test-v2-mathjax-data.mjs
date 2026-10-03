@@ -2,7 +2,7 @@ import fs from 'node:fs';
 
 const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const math= /\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]/g;
-const rawFormula= /\b[A-Za-z]\s*=\s*(?:[A-Za-z\d])|\b10\^|[A-Za-z0-9ε][²³]|10[⁻⁺⁰¹²³⁴⁵⁶⁷⁸⁹]|\b(?:CO₂|H₂O₂?)\b|\b\d+\s*\+\s*\d+\s*=|\(0,\^?\)/u;
+const rawFormula= /\b[A-Za-z]\s*=\s*(?:[A-Za-z\d])|\b10\^|[A-Za-z0-9ε][²³]|10[⁻⁺⁰¹²³⁴⁵⁶⁷⁸⁹]|\b(?:CO[2₂]|H[2₂]O[2₂]?|O2|H2|N2|CH4)\b|\b\d+\s*\+\s*\d+\s*=|\(0,\^?\)/u;
 let checkedStrings=0,formulaCount=0;
 const episodes=new Set();
 function check(copy,episode,label){
