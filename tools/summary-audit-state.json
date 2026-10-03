@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "rulesVersion": "descending-193-nonfaq-srt-v2",
-  "updatedAt": "2026-10-03T10:44:44.057055+00:00",
+  "updatedAt": "2026-10-03T10:58:52.212Z",
   "order": [
     193,
     192,
@@ -962,13 +962,19 @@
       ]
     },
     "188": {
-      "status": "pending",
+      "status": "in_progress",
       "srtCandidates": [
         {
           "path": "titulky/vedatorsky-podcast-188-oppenheimer-a-jeho-parta.srt",
           "sha": "0c1c35e47aa0447ffb9e2a4d3b3d3f20e92a3e06"
         }
-      ]
+      ],
+      "branch": "audit-summary-188-20261003",
+      "activeManualRun": {
+        "startedAt": "2026-10-03T10:58:52.212Z",
+        "leaseExpiresAt": "2026-10-03T12:58:52.212Z",
+        "note": "Ruční dokončení dílu 188 na výslovný pokyn uživatele."
+      }
     },
     "189": {
       "status": "verified",
@@ -1035,5 +1041,6 @@
     "countMutable": true,
     "maxChapters": "floor(cleanContentDurationSeconds / 120)",
     "coverAllImportantTopics": true
-  }
+  },
+  "resumeEpisode": 188
 }
