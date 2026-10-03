@@ -80,6 +80,12 @@ Při přidání neotázky zkontroluj:
 - že položka je po buildu v `content-v2.json`;
 - `tools/test-v2-question-experience.mjs` a `tools/test-content-v2.mjs`.
 
+## Vzorce ve shrnutích a otázkách
+
+Matematické vztahy, mocniny, zlomky a chemické vzorce v obou jazycích zapisuj jako TeX v MathJax delimiterech `\(...\)` nebo `\[...\]`. V JavaScriptových/JSON řetězcích musí být zpětná lomítka escapovaná, například `"\\(E=mc^2\\)"`. Celý vztah patří do stejného matematického bloku; nerozděluj rovnost mezi prostý text a TeX.
+
+`tools/test-content-v2.mjs` automaticky spouští `tools/test-v2-mathjax-data.mjs`, který zachytí běžné prosté vzorce a neúplné delimitery. PR workflow navíc přes `tools/test-v2-mathjax-browser.mjs` ověřuje skutečný MathJax 3, CZ/SK, rozbalená shrnutí a vyhledávání na mobilu. Závislosti tohoto testu jsou pouze pro CI; aplikace dál používá jediný stávající MathJax skript, načtený až při potřebě vykreslení.
+
 ## Série
 
 **Jediný ručně editovaný seznam sérií je `series.json` v kořeni repozitáře.** `tools/augment-v2-parity-content.mjs` tento seznam při buildu zkontroluje a převede do `content-v2.json`. Samotná aplikace `series.json` za běhu vůbec nenačítá, takže správa sérií nepřidává žádný runtime request ani prohledávání navíc.

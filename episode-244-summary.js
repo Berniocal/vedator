@@ -1,7 +1,7 @@
 (()=>{
   if(window.__vedatorEpisode244Summary)return;window.__vedatorEpisode244Summary=true;
   const items=[
-    ['01:21','Existují různá „nekonečně malá“ čísla?',['Ano, v matematice se pracuje s infinitesimálami.','Lze rozlišovat různé řády malosti, například ε, ε² nebo ε³.','V praktických výpočtech se členy od určitého řádu obvykle zanedbávají.']],
+    ['01:21','Existují různá „nekonečně malá“ čísla?',['Ano, v matematice se pracuje s infinitesimálami.',"Lze rozlišovat různé řády malosti, například \\(\\epsilon\\), \\(\\epsilon^2\\) nebo \\(\\epsilon^3\\).",'V praktických výpočtech se členy od určitého řádu obvykle zanedbávají.']],
     ['04:00','Jakou plochou se dotýká dokonalá koule dokonalé roviny?',['Matematicky se dokonalá koule dotýká dokonalé roviny v jediném bodě, takže styčná plocha je nulová.','Ve skutečnosti se materiály deformují, a proto vznikne nenulová styčná plocha.','Dokonale tuhá koule ani dokonale rovná plocha v realitě neexistují.']],
     ['05:12','Kdyby letadlo zamrzlo v orientaci, vyletí do vesmíru?',['Ne. Letadlo se orientuje vzhledem ke gravitaci a povrchu Země, ne podle vzdálených hvězd.','Při pevně zachované orientaci vůči Zemi by opisovalo zakřivenou dráhu kolem planety, nikoli přímku do vesmíru.']],
     ['06:32','Můžete fungovat ve vztahu s ezoterikem?',['Ano, pokud jsou názory v rozumné míře a oba partneři se respektují.','Problémem mohou být extrémní postoje na kterékoli straně.','Důležité je nesnažit se druhého násilně měnit.']],

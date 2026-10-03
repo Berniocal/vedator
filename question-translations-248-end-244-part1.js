@@ -45,7 +45,7 @@
 
     ['Existují různá „nekonečně malá“ čísla?','Existujú rôzne „nekonečne malé“ čísla?'],
     ['Ano, v matematice se pracuje s infinitesimálami.','Áno, v matematike sa pracuje s infinitezimálami.'],
-    ['Lze rozlišovat různé řády malosti, například ε, ε² nebo ε³.','Možno rozlišovať rôzne rády malosti, napríklad ε, ε² alebo ε³.'],
+    ["Lze rozlišovat různé řády malosti, například \\(\\epsilon\\), \\(\\epsilon^2\\) nebo \\(\\epsilon^3\\).","Možno rozlišovať rôzne rády malosti, napríklad \\(\\epsilon\\), \\(\\epsilon^2\\) alebo \\(\\epsilon^3\\)."],
     ['V praktických výpočtech se členy od určitého řádu obvykle zanedbávají.','V praktických výpočtoch sa členy od určitého rádu zvyčajne zanedbávajú.'],
 
     ['Jakou plochou se dotýká dokonalá koule dokonalé roviny?','Akou plochou sa dotýka dokonalá guľa dokonalej roviny?'],

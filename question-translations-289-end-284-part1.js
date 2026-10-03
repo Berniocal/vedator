@@ -54,7 +54,7 @@
     ['Atmosféru drží gravitace.','Atmosféru drží gravitácia.'],
     ['Molekuly se pohybují a některé se snaží uniknout, gravitace je však většinou udrží.','Molekuly sa pohybujú a niektoré sa pokúšajú uniknúť, gravitácia ich však väčšinou udrží.'],
     ['Hustota vzduchu proto s výškou klesá.','Hustota vzduchu preto s výškou klesá.'],
-    ['Těžký plyn, například CO₂, může zůstat v otevřené nádobě a lze ho „vylít“ na svíčku.','Ťažký plyn, napríklad CO₂, môže zostať v otvorenej nádobe a možno ho „vyliať“ na sviečku.'],
+    ["Těžký plyn, například \\(\\mathrm{CO_2}\\), může zůstat v otevřené nádobě a lze ho „vylít“ na svíčku.","Ťažký plyn, napríklad \\(\\mathrm{CO_2}\\), môže zostať v otvorenej nádobe a možno ho „vyliať“ na sviečku."],
 
     ['Ovlivňuje úplněk spánek?','Ovplyvňuje spln spánok?'],
     ['Ano, především kvůli většímu množství světla.','Áno, predovšetkým pre väčšie množstvo svetla.'],

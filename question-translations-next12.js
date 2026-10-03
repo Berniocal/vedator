@@ -61,7 +61,7 @@
     ['Zaznělo také doporučení na cestování po Irsku.','Odznelo aj odporúčanie na cestovanie po Írsku.'],
 
     ['Jak může být vesmír nekonečný, když se rozpíná?','Ako môže byť vesmír nekonečný, keď sa rozpína?'],
-    ['Nekonečno může růst a pořád zůstat nekonečné („nekonečno × 2 = nekonečno“).','Nekonečno môže rásť a stále zostať nekonečné („nekonečno × 2 = nekonečno“).'],
+    ["Nekonečno může růst a pořád zůstat nekonečné („\\(\\infty\\times2=\\infty\\)“).","Nekonečno môže rásť a stále zostať nekonečné („\\(\\infty\\times2=\\infty\\)“)."],
     ['Jako analogie slouží Hilbertův hotel.','Ako analógia slúži Hilbertov hotel.'],
     ['Vesmír možná není nekonečný – může být jen velmi velký a přitom se rozpínat.','Vesmír možno nie je nekonečný – môže byť iba veľmi veľký a pritom sa rozpínať.'],
     ['Rozpínání lze chápat jako změnu „pravítka“, kterým měříme vzdálenosti (metrický tenzor).','Rozpínanie možno chápať ako zmenu „pravítka“, ktorým meriame vzdialenosti (metrický tenzor).'],

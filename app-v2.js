@@ -158,10 +158,13 @@
     const timeLabel=info.duration>0?fmtTime(info.current)+' / '+fmtTime(info.duration):fmtTime(info.current);
     return '<div class="episode-progress-v2"><progress max="100" value="'+info.percent+'"></progress><span>'+esc(timeLabel)+'</span></div>';
   }
+  function summaryMathHtml(value,renderText=esc){
+    return String(value||'').split(/(\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\])/g).map((part,index)=>index%2?'<span class="math-tex-v2">'+esc(part)+'</span>':renderText(part)).join('');
+  }
   function episodeSummaryHtml(episode){
     const items=episodeSummaryItems(episode.number);if(!items.length)return'';
     const label=items.length===1?text('1 kapitola','1 kapitola'):items.length+' '+text('kapitol','kapitol');
-    return '<details class="episode-summary-v2"><summary><span>'+esc(text('Shrnutí dílu','Zhrnutie dielu'))+'</span><small>'+esc(label)+'</small></summary><div class="episode-summary-body-v2">'+items.map(item=>'<section class="episode-chapter-v2"><div class="episode-chapter-head-v2"><button type="button" class="play episode-chapter-play-v2" data-episode="'+item.episode+'" data-seconds="'+item.seconds+'" data-ref="'+esc(item.ref)+'">▶ '+esc(item.time||fmtTime(item.seconds))+'</button><strong>'+esc(item.title)+'</strong></div>'+(item.points?.length?'<ul>'+item.points.map(point=>'<li>'+esc(point)+'</li>').join('')+'</ul>':'')+'</section>').join('')+'</div></details>';
+    return '<details class="episode-summary-v2"><summary><span>'+esc(text('Shrnutí dílu','Zhrnutie dielu'))+'</span><small>'+esc(label)+'</small></summary><div class="episode-summary-body-v2">'+items.map(item=>'<section class="episode-chapter-v2"><div class="episode-chapter-head-v2"><button type="button" class="play episode-chapter-play-v2" data-episode="'+item.episode+'" data-seconds="'+item.seconds+'" data-ref="'+esc(item.ref)+'">▶ '+esc(item.time||fmtTime(item.seconds))+'</button><strong>'+summaryMathHtml(item.title)+'</strong></div>'+(item.points?.length?'<ul>'+item.points.map(point=>'<li>'+summaryMathHtml(point)+'</li>').join('')+'</ul>':'')+'</section>').join('')+'</div></details>';
   }
   function seriesProgressInfo(series){
     const episodes=(series?.episodes||[]).map(number=>episodeByNumber(number)).filter(Boolean),total=episodes.length;
@@ -301,16 +304,17 @@
     box.innerHTML=`<div class="playlist-toolbar"><strong>${text('Moje playlisty','Moje playlisty')}</strong><button class="playlist-add" type="button" aria-label="${text('Nový playlist','Nový playlist')}">+</button></div><div class="grid">${state.playlists.map(playlist=>{
       const items=playlistRefs(playlist).map(itemInfo).filter(Boolean);
       const search=norm(`${playlist.name} ${items.map(item=>`${item.title} ${item.subtitle}`).join(' ')}`);
-      return `<details class="playlist-card searchable" data-id="${esc(playlist.id)}" data-search="${esc(search)}"><summary><span class="playlist-title">${esc(playlist.name||'Playlist')}</span><span class="playlist-count">${items.length} ${text('položek','položiek')}</span><span class="playlist-actions"><button type="button" class="icon-button edit" title="${text('Upravit','Upraviť')}">✎</button><button type="button" class="icon-button share" title="${text('Sdílet','Zdieľať')}">🔗</button><button type="button" class="icon-button delete" title="${text('Smazat','Zmazať')}">🗑</button></span></summary><ol class="playlist-items">${items.length?items.map((item,index)=>`<li class="playlist-item"><button type="button" class="playlist-open" data-item-index="${index}" data-ref="${esc(item.ref)}"><b>${esc(item.title)}</b><br><small>${esc(item.subtitle)}</small></button></li>`).join(''):`<li class="empty">${text('Playlist je prázdný.','Playlist je prázdny.')}</li>`}</ol></details>`;
+      return `<details class="playlist-card searchable" data-id="${esc(playlist.id)}" data-search="${esc(search)}"><summary><span class="playlist-title">${esc(playlist.name||'Playlist')}</span><span class="playlist-count">${items.length} ${text('položek','položiek')}</span><span class="playlist-actions"><button type="button" class="icon-button edit" title="${text('Upravit','Upraviť')}">✎</button><button type="button" class="icon-button share" title="${text('Sdílet','Zdieľať')}">🔗</button><button type="button" class="icon-button delete" title="${text('Smazat','Zmazať')}">🗑</button></span></summary><ol class="playlist-items">${items.length?items.map((item,index)=>`<li class="playlist-item"><button type="button" class="playlist-open" data-item-index="${index}" data-ref="${esc(item.ref)}"><b>${summaryMathHtml(item.title)}</b><br><small>${esc(item.subtitle)}</small></button></li>`).join(''):`<li class="empty">${text('Playlist je prázdný.','Playlist je prázdny.')}</li>`}</ol></details>`;
     }).join('')}</div>`;
+    parityTypeset(box);
   }
 
   function renderData(){
     const listened=Object.values(state.progress).filter(x=>x?.completed).length;
     const inProgress=Object.values(state.progress).filter(x=>x&&!x.completed&&Number(x.currentTime)>10).length;
     $('#data-v2').innerHTML=`<div class="data-grid">
-      <article class="data-card"><h2>${text('Tvoje data','Tvoje dáta')}</h2><p>${listened} ${text('poslechnutých','vypočutých')}, ${inProgress} ${text('rozposlouchaných epizod','rozpočúvaných epizód')} a ${state.playlists.length} ${text('playlistů','playlistov')}.</p><div class="data-actions"><button class="primary-button data-export" type="button">${text('Stáhnout zálohu','Stiahnuť zálohu')}</button><button class="secondary-button data-import" type="button">${text('Načíst zálohu','Načítať zálohu')}</button></div><p class="data-note">${text('V2 používá stejné formáty dat jako původní aplikace. Při samotném otevření této stránky se stará data nepřepisují ani nepřevádějí.','V2 používa rovnaké formáty dát ako pôvodná aplikácia. Pri samotnom otvorení tejto stránky sa staré dáta neprepisujú ani nekonvertujú.')}</p></article>
-      <article class="data-card"><h2>${text('Smazání dat','Zmazanie dát')}</h2><p>${text('Odstraní data Vedátoru uložená v tomto zařízení včetně offline kopií.','Odstráni dáta Vedátora uložené v tomto zariadení vrátane offline kópií.')}</p><button class="danger-button data-clear" type="button">${text('Smazat veškerá data','Zmazať všetky dáta')}</button><p class="data-note">${text('Tato akce proběhne pouze po dalším výslovném potvrzení.','Táto akcia prebehne iba po ďalšom výslovnom potvrdení.')}</p></article>
+      <article class="data-card"><h2>${text('Tvoje data','Tvoje dáta')}</h2><p>${listened} ${text('poslechnutých','vypočutých')}, ${inProgress} ${text('rozposlouchaných epizod','rozpočúvaných epizód')} a ${state.playlists.length} ${text('playlistů','playlistov')}.</p><div class="data-actions"><button class="primary-button data-export" type="button">${text('Stáhnout zálohu','Stiahnuť zálohu')}</button><button class="secondary-button data-import" type="button">${text('Načíst zálohu','Načítať zálohu')}</button></div></article>
+      <article class="data-card"><h2>${text('Smazání dat','Zmazanie dát')}</h2><p>${text('Odstraní data Vedátoru uložená v tomto zařízení včetně offline kopií.','Odstráni dáta Vedátora uložené v tomto zariadení vrátane offline kópií.')}</p><button class="danger-button data-clear" type="button">${text('Smazat veškerá data','Zmazať všetky dáta')}</button></article>
     </div>`;
   }
 
@@ -421,16 +425,16 @@
 
   function playlistEditorHtml(){
     const editor=state.editor,mode=editor.mode,q=norm(editor.query),selected=new Set(editor.draft);
-    const draftRows=editor.draft.map((ref,index)=>{const item=itemInfo(ref);if(!item)return'';return `<div class="editor-row" data-ref="${esc(ref)}"><span class="editor-move"><button type="button" class="move-up" ${index?'':'disabled'}>▲</button><button type="button" class="move-down" ${index===editor.draft.length-1?'disabled':''}>▼</button></span><span><b>${esc(item.title)}</b><br><small>${esc(item.subtitle)}</small></span><button type="button" class="editor-remove">✕</button></div>`}).join('')||`<div class="empty">${text('Playlist je prázdný.','Playlist je prázdny.')}</div>`;
+    const draftRows=editor.draft.map((ref,index)=>{const item=itemInfo(ref);if(!item)return'';return `<div class="editor-row" data-ref="${esc(ref)}"><span class="editor-move"><button type="button" class="move-up" ${index?'':'disabled'}>▲</button><button type="button" class="move-down" ${index===editor.draft.length-1?'disabled':''}>▼</button></span><span><b>${summaryMathHtml(item.title)}</b><br><small>${esc(item.subtitle)}</small></span><button type="button" class="editor-remove">✕</button></div>`}).join('')||`<div class="empty">${text('Playlist je prázdný.','Playlist je prázdny.')}</div>`;
     let source;
     if(mode==='e')source=state.data.episodes.map(episode=>({ref:epRef(episode.number),title:episodeCopy(episode).title,sub:`${text('Díl','Diel')} ${episode.number}`,search:allEpisodeSearch(episode)}));
     else source=state.legacyQuestions.map(question=>({ref:qRef(question),title:questionCopy(question).title,sub:`${text('Díl','Diel')} ${question.episode} • ${question.sourceTime||question.time}`,search:allQuestionSearch(question)}));
     source=source.filter(x=>!q||norm(x.search).includes(q)).slice(0,350);
-    return `<div class="modal-box"><div class="modal-head"><strong>${text('Upravit playlist','Upraviť playlist')}</strong><button type="button" class="icon-button editor-close">✕</button></div><div class="modal-body"><div class="editor-switch"><button type="button" data-mode="e" class="${mode==='e'?'active':''}">${text('Epizody','Epizódy')}</button><button type="button" data-mode="q" class="${mode==='q'?'active':''}">${text('Otázky','Otázky')}</button></div><div class="editor-columns"><section><h3>${text('Přidané položky','Pridané položky')}</h3><div class="editor-list draft-list">${draftRows}</div></section><section><h3>${mode==='e'?text('Přidat epizody','Pridať epizódy'):text('Přidat otázky','Pridať otázky')}</h3><input class="modal-search editor-search" value="${esc(editor.query)}" placeholder="${text('Hledat…','Hľadať…')}"><div class="editor-list source-list">${source.map(x=>`<label class="editor-choice" data-ref="${esc(x.ref)}"><input type="checkbox" ${selected.has(x.ref)?'checked':''}><span><b>${esc(x.title)}</b><br><small>${esc(x.sub)}</small></span></label>`).join('')||`<div class="empty">${text('Nic nenalezeno.','Nič nenájdené.')}</div>`}</div></section></div></div><div class="modal-foot"><button type="button" class="secondary-button editor-cancel">${text('Zrušit','Zrušiť')}</button><button type="button" class="primary-button editor-save">${text('Uložit','Uložiť')}</button></div></div>`;
+    return `<div class="modal-box"><div class="modal-head"><strong>${text('Upravit playlist','Upraviť playlist')}</strong><button type="button" class="icon-button editor-close">✕</button></div><div class="modal-body"><div class="editor-switch"><button type="button" data-mode="e" class="${mode==='e'?'active':''}">${text('Epizody','Epizódy')}</button><button type="button" data-mode="q" class="${mode==='q'?'active':''}">${text('Otázky','Otázky')}</button></div><div class="editor-columns"><section><h3>${text('Přidané položky','Pridané položky')}</h3><div class="editor-list draft-list">${draftRows}</div></section><section><h3>${mode==='e'?text('Přidat epizody','Pridať epizódy'):text('Přidat otázky','Pridať otázky')}</h3><input class="modal-search editor-search" value="${esc(editor.query)}" placeholder="${text('Hledat…','Hľadať…')}"><div class="editor-list source-list">${source.map(x=>`<label class="editor-choice" data-ref="${esc(x.ref)}"><input type="checkbox" ${selected.has(x.ref)?'checked':''}><span><b>${summaryMathHtml(x.title)}</b><br><small>${esc(x.sub)}</small></span></label>`).join('')||`<div class="empty">${text('Nic nenalezeno.','Nič nenájdené.')}</div>`}</div></section></div></div><div class="modal-foot"><button type="button" class="secondary-button editor-cancel">${text('Zrušit','Zrušiť')}</button><button type="button" class="primary-button editor-save">${text('Uložit','Uložiť')}</button></div></div>`;
   }
-  function openPlaylistEditor(id){const playlist=state.playlists.find(p=>String(p.id)===String(id));if(!playlist)return;state.editor={id:String(id),draft:playlistRefs(playlist),mode:'e',query:''};const modal=$('#playlist-editor-v2');modal.innerHTML=playlistEditorHtml();modal.classList.remove('hidden');modal.setAttribute('aria-hidden','false')}
-  function closePlaylistEditor(){state.editor=null;const modal=$('#playlist-editor-v2');modal.classList.add('hidden');modal.innerHTML='';modal.setAttribute('aria-hidden','true')}
-  function rerenderEditor(){const modal=$('#playlist-editor-v2');if(!state.editor)return;modal.innerHTML=playlistEditorHtml()}
+  function openPlaylistEditor(id){const playlist=state.playlists.find(p=>String(p.id)===String(id));if(!playlist)return;state.editor={id:String(id),draft:playlistRefs(playlist),mode:'e',query:''};const modal=$('#playlist-editor-v2');modal.innerHTML=playlistEditorHtml();modal.classList.remove('hidden');modal.setAttribute('aria-hidden','false');parityTypeset(modal)}
+  function closePlaylistEditor(){state.editor=null;const modal=$('#playlist-editor-v2');modal.classList.add('hidden');window.MathJax?.typesetClear?.([modal]);modal.innerHTML='';modal.setAttribute('aria-hidden','true')}
+  function rerenderEditor(){const modal=$('#playlist-editor-v2');if(!state.editor)return;window.MathJax?.typesetClear?.([modal]);modal.innerHTML=playlistEditorHtml();parityTypeset(modal)}
   function savePlaylistEditor(){const index=state.playlists.findIndex(p=>String(p.id)===String(state.editor?.id));if(index>=0){state.playlists[index]={...state.playlists[index],items:[...state.editor.draft]};writeJson(PLAYLISTS_KEY,state.playlists)}closePlaylistEditor();renderPlaylists()}
   function newPlaylist(){const name=prompt(text('Název nového playlistu:','Názov nového playlistu:'))?.trim();if(!name)return;if(state.playlists.some(p=>norm(p.name)===norm(name)))return alert(text('Playlist s tímto názvem už existuje.','Playlist s týmto názvom už existuje.'));const playlist={id:uid(),name,items:[]};state.playlists.push(playlist);writeJson(PLAYLISTS_KEY,state.playlists);renderPlaylists();openPlaylistEditor(playlist.id)}
 
@@ -552,10 +556,15 @@
   const itemId=(item,prefix='q')=>prefix+':'+Number(item.episode)+':'+Number(item.order);
   const copyForViewItem=(item,view)=>view==='questions'?questionCopy(item):{title:String(item.title||''),points:Array.isArray(item.points)?item.points:[]};
   const itemSearchText=(item,view)=>view==='questions'?allQuestionSearch(item):nonQuestionSearch(item,item.episode,item.order);
-  const queryTerms=()=>norm(state.query.trim()).split(/\s+/).filter(Boolean);
+  function summarySearchText(value){
+    const symbols={pi:'π',epsilon:'ε',nu:'ν',lambda:'λ',infty:'∞',times:'×',cdots:'…',ldots:'…'};
+    const digits=Object.fromEntries([...'⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉'].map((ch,index)=>[ch,String(index%10)]));
+    return norm(String(value||'').replace(/\\frac\{([^{}]*)\}\{([^{}]*)\}/g,'$1/$2').replace(/\\(?:mathrm|text)\{([^{}]*)\}/g,'$1').replace(/\\(pi|epsilon|nu|lambda|infty|times|cdots|ldots)\b/g,(_,name)=>symbols[name]).replace(/\\(?:cos|sin|log)\b/g,match=>match.slice(1)).replace(/\\(?:[()[\],;!]|left|right)/g,'').replace(/[{}^_]/g,'').replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉]/g,ch=>digits[ch]));
+  }
+  const queryTerms=()=>summarySearchText(state.query.trim()).split(/\s+/).filter(Boolean);
   function itemMatchLevel(item,view){
     const terms=queryTerms();if(!terms.length)return 0;
-    const copy=copyForViewItem(item,view),title=norm(copy.title),answer=norm(copy.points.join(' ')),episode=String(item.episode);
+    const copy=copyForViewItem(item,view),title=summarySearchText(copy.title),answer=summarySearchText(copy.points.join(' ')),episode=String(item.episode);
     if(terms.every(term=>title.includes(term)||episode.includes(term)))return 0;
     if(terms.some(term=>title.includes(term)||episode.includes(term)))return 1;
     if(terms.every(term=>answer.includes(term)))return 2;
@@ -586,13 +595,15 @@
   }
   function highlightHtml(value,topic){
     const raw=repairMathText(value),terms=[...new Set([...queryTerms(),...(topic?.keys||[]).map(norm)])].filter(Boolean).sort((a,b)=>b.length-a.length);
-    if(!terms.length)return esc(raw).replace(/([A-Za-z0-9]+)\s*\^\s*\{?(-?\d+)\}?/g,'$1<sup>$2</sup>');
-    const normalized=norm(raw),ranges=[];
+    return summaryMathHtml(raw,plain=>{
+    if(!terms.length)return esc(plain);
+    const normalized=norm(plain),ranges=[];
     for(const term of terms){let at=0;while((at=normalized.indexOf(term,at))>=0){ranges.push([at,at+term.length]);at+=Math.max(1,term.length)}}
     ranges.sort((a,b)=>a[0]-b[0]||b[1]-a[1]);const merged=[];
     for(const range of ranges){const last=merged.at(-1);if(last&&range[0]<=last[1])last[1]=Math.max(last[1],range[1]);else merged.push([...range])}
-    let out='',pos=0;for(const [a,b] of merged){out+=esc(raw.slice(pos,a))+'<mark>'+esc(raw.slice(a,b))+'</mark>';pos=b}out+=esc(raw.slice(pos));
-    return out.replace(/([A-Za-z0-9]+)\s*\^\s*\{?(-?\d+)\}?/g,'$1<sup>$2</sup>');
+    let out='',pos=0;for(const [a,b] of merged){out+=esc(plain.slice(pos,a))+'<mark>'+esc(plain.slice(a,b))+'</mark>';pos=b}out+=esc(plain.slice(pos));
+    return out;
+    });
   }
   function topicLabel(key){const t=QUESTION_TOPICS[key]||QUESTION_TOPICS.all;return sk()?t.sk:t.cs}
   function questionToolbar(view){
@@ -829,7 +840,7 @@
   }
   function disconnectParityObserver(view){const observer=parityUi.observers.get(view);if(observer)observer.disconnect();parityUi.observers.delete(view)}
   function mountParityBatch(view,container,items,renderer,afterAppend){
-    disconnectParityObserver(view);const generation=(parityUi.generations.get(view)||0)+1;parityUi.generations.set(view,generation);container.replaceChildren();
+    disconnectParityObserver(view);const generation=(parityUi.generations.get(view)||0)+1;parityUi.generations.set(view,generation);window.MathJax?.typesetClear?.([container]);container.replaceChildren();
     if(!items.length){container.innerHTML='<div class="empty parity-empty">'+text('Nic jsem nenašel.','Nič som nenašiel.')+'</div>';return}
     let rendered=0;const deepIndex=parityDeepIndex(view,items),firstCount=Math.max(PARITY_BATCH,deepIndex>=0?deepIndex+1:0);
     const sentinel=document.createElement('button');sentinel.type='button';sentinel.className='parity-sentinel';
@@ -845,12 +856,12 @@
 
   function renderEpisodes(){
     const items=sortedParityEpisodes(),container=$('#episodes-v2');if(!container)return;
-    mountParityBatch('episodes',container,items,item=>cardEpisode(item));
+    mountParityBatch('episodes',container,items,item=>cardEpisode(item),root=>parityTypeset(root));
     $('#count-v2').textContent=(state.query.trim()||parityUi.episodeTopic!=='all')?text('Nalezeno ','Nájdených ')+items.length+' / '+state.data.episodes.length:state.data.episodes.length+' '+text('epizod','epizód');
   }
   function refreshEpisodeCard(number){
     if(state.view==='episodes'&&['started','completed','unheard'].includes(parityUi.episodeSort)){renderEpisodes();return}
-    const episode=episodeByNumber(number),old=$('#episodes-v2 article[data-episode="'+Number(number)+'"]');if(!episode||!old)return;const host=document.createElement('div');host.innerHTML=cardEpisode(episode);old.replaceWith(host.firstElementChild);
+    const episode=episodeByNumber(number),old=$('#episodes-v2 article[data-episode="'+Number(number)+'"]');if(!episode||!old)return;const open=old.querySelector('.episode-summary-v2')?.open,host=document.createElement('div');host.innerHTML=cardEpisode(episode);const card=host.firstElementChild;window.MathJax?.typesetClear?.([old]);old.replaceWith(card);const summary=card.querySelector('.episode-summary-v2');if(summary&&open)summary.open=true;parityTypeset(card);
   }
 
   function questionToolbar(){return''}
@@ -1033,12 +1044,28 @@
     if(view==='playlists')renderPlaylists();if(view==='data'){loadUserData();renderData()}if(view==='questions'||view==='nonquestions')ensureParityMathJax();filterActive();
   }
 
-  function parityTypeset(root){if(window.MathJax?.typesetPromise)window.MathJax.typesetPromise([root]).catch(()=>{})}
+  let parityMathQueue=Promise.resolve();
+  const parityPendingMath=new Set();
+  function visibleMathNode(node){
+    const summary=node.closest('.episode-summary-v2,.playlist-card');
+    return node.isConnected&&!node.closest('.view-v2.hidden,.modal-v2.hidden')&&(!summary||summary.open)&&!node.querySelector('mjx-container');
+  }
+  function parityTypeset(root){
+    if(!root)return;
+    for(const node of root.querySelectorAll('.math-tex-v2'))if(visibleMathNode(node))parityPendingMath.add(node);
+    if(!parityPendingMath.size)return;
+    if(!window.MathJax?.typesetPromise){ensureParityMathJax();return}
+    parityMathQueue=parityMathQueue.then(()=>window.MathJax.startup?.promise).then(()=>{
+      const nodes=[...parityPendingMath].filter(visibleMathNode);parityPendingMath.clear();
+      if(nodes.length)return window.MathJax.typesetPromise(nodes).then(()=>{if(state.view==='questions'||state.view==='nonquestions')queueQuestionMoreCheck(state.view)});
+    }).catch(error=>console.warn('MathJax typesetting failed',error));
+  }
   function ensureParityMathJax(){
     if(window.MathJax?.typesetPromise||document.querySelector('script[data-v2-mathjax]'))return;
-    window.MathJax={tex:{inlineMath:[['\\(','\\)']],processEscapes:true},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+    window.MathJax={startup:{typeset:false},tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],processEscapes:true},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
     const script=document.createElement('script');script.src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js';script.async=true;script.dataset.v2Mathjax='1';script.onload=()=>parityTypeset($('.view-v2:not(.hidden)'));document.head.appendChild(script);
   }
+  document.addEventListener('toggle',event=>{const summary=event.target;if(summary.matches?.('.episode-summary-v2,.playlist-card')&&summary.open)parityTypeset(summary)},true);
 
   function seekParity(delta){const audio=$('#audio-v2');if(!audio)return;const duration=Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:Infinity;audio.currentTime=Math.max(0,Math.min(duration,(Number(audio.currentTime)||0)+delta));saveProgress(true,false);syncPlayer()}
   function installParityMediaSession(){
@@ -1108,14 +1135,16 @@
   function playlistResumeStart(playlist,context,index){const collection=state.collectionProgress['playlist:'+playlist.id]||{},item=context.items[index],record=collection.items?.[item?.id]||{};if(item&&!record.completed&&Number(record.currentTime)>Number(item.start||0)+1)return Number(record.currentTime);return Number(item?.start)||0}
   function renderPlaylists(){
     state.playlists=safePlaylists(readJson(PLAYLISTS_KEY,state.playlists));const box=$('#playlists-v2');
+    window.MathJax?.typesetClear?.([box]);
     if(!state.playlists.length){box.innerHTML='<div class="playlist-toolbar"><strong>'+text('Moje playlisty','Moje playlisty')+'</strong><button class="playlist-add" type="button" aria-label="'+text('Nový playlist','Nový playlist')+'">+</button></div><div class="empty">'+text('Zatím nemáte žádný playlist.','Zatiaľ nemáte žiadny playlist.')+'</div>';return}
     box.innerHTML='<div class="playlist-toolbar"><strong>'+text('Moje playlisty','Moje playlisty')+'</strong><button class="playlist-add" type="button" aria-label="'+text('Nový playlist','Nový playlist')+'">+</button></div><div class="grid">'+state.playlists.map(playlist=>{
       const refs=playlistRefs(playlist),items=refs.map(itemInfo).filter(Boolean),progress=playlistProgressInfo(playlist),search=norm(playlist.name+' '+items.map(item=>item.title+' '+item.subtitle).join(' '));
       const stateClass=progress.finished?' complete':progress.started?' active':'';
       return '<details class="playlist-card searchable'+stateClass+'" data-id="'+esc(playlist.id)+'" data-search="'+esc(search)+'"><summary><span class="playlist-title">'+esc(playlist.name||'Playlist')+'</span><span class="playlist-count">'+items.length+' '+text('položek','položiek')+'</span><span class="playlist-actions"><button type="button" class="icon-button edit" title="'+text('Upravit','Upraviť')+'">✎</button><button type="button" class="icon-button share" title="'+text('Sdílet','Zdieľať')+'">🔗</button><button type="button" class="icon-button delete" title="'+text('Smazat','Zmazať')+'">🗑</button></span></summary>'+
         (progress.total?'<div class="playlist-progress-box-v2"><div class="playlist-progress-main-v2"><progress max="100" value="'+progress.percent+'"></progress><small>'+progress.completed+' / '+progress.total+' '+text('poslechnuto','vypočuté')+' · '+progress.percent+' %</small></div><button type="button" class="playlist-resume-v2" data-id="'+esc(playlist.id)+'" data-item-index="'+progress.resumeIndex+'">'+esc(playlistResumeLabel(progress))+'</button></div>':'')+
-        '<ol class="playlist-items">'+(items.length?refs.map((ref,index)=>{const item=itemInfo(ref);if(!item)return'';const status=playlistItemStatus(progress,progress.items.find(x=>x.ref===ref)||{id:'ref:'+ref,info:item});return '<li class="playlist-item '+status.kind+'"><button type="button" class="playlist-open" data-item-index="'+index+'" data-ref="'+esc(ref)+'"><span class="playlist-item-status-v2" title="'+esc(status.label)+'">'+status.symbol+'</span><span class="playlist-item-copy-v2" style="--playlist-item-progress:'+status.percent+'%"><b>'+esc(item.title)+'</b><br><small>'+esc(item.subtitle)+'</small></span></button></li>'}).join(''):'<li class="empty">'+text('Playlist je prázdný.','Playlist je prázdny.')+'</li>')+'</ol></details>';
+        '<ol class="playlist-items">'+(items.length?refs.map((ref,index)=>{const item=itemInfo(ref);if(!item)return'';const status=playlistItemStatus(progress,progress.items.find(x=>x.ref===ref)||{id:'ref:'+ref,info:item});return '<li class="playlist-item '+status.kind+'"><button type="button" class="playlist-open" data-item-index="'+index+'" data-ref="'+esc(ref)+'"><span class="playlist-item-status-v2" title="'+esc(status.label)+'">'+status.symbol+'</span><span class="playlist-item-copy-v2" style="--playlist-item-progress:'+status.percent+'%"><b>'+summaryMathHtml(item.title)+'</b><br><small>'+esc(item.subtitle)+'</small></span></button></li>'}).join(''):'<li class="empty">'+text('Playlist je prázdný.','Playlist je prázdny.')+'</li>')+'</ol></details>';
     }).join('')+'</div>';
+    parityTypeset(box);
   }
   function refreshPlaylistProgress(){if(state.view==='playlists')renderPlaylists()}
   function enhancePlaylistEditorMobile(){
@@ -1164,15 +1193,17 @@
     return {textValue,ranges:ranges.sort((a,b)=>a.start-b.start)};
   }
   function mobileHighlightHtml(value,terms){
-    const raw=repairMathText(value),{textValue,ranges}=mobileHighlightRanges(raw,terms);
-    if(!ranges.length)return esc(textValue).replace(/([A-Za-z0-9]+)\s*\^\s*\{?(-?\d+)\}?/g,'$1<sup>$2</sup>');
+    return summaryMathHtml(repairMathText(value),plain=>{
+    const {textValue,ranges}=mobileHighlightRanges(plain,terms);
+    if(!ranges.length)return esc(textValue);
     let out='',position=0;
     for(const range of ranges){
       if(range.start>position)out+=esc(textValue.slice(position,range.start));
       out+='<mark class="vedator-match">'+esc(textValue.slice(range.start,range.end))+'</mark>';position=range.end;
     }
     if(position<textValue.length)out+=esc(textValue.slice(position));
-    return out.replace(/([A-Za-z0-9]+)\s*\^\s*\{?(-?\d+)\}?/g,'$1<sup>$2</sup>');
+    return out;
+    });
   }
   /* V2_SEARCH_HIGHLIGHT_CONSISTENCY_V1 */
   function searchHighlightTerms(){
@@ -1206,19 +1237,22 @@
     root.querySelectorAll('.search-match-expanded-v2').forEach(card=>card.classList.remove('search-match-expanded-v2')); // legacy cleanup
   }
   function searchHighlightHtml(value,terms=searchHighlightTerms()){
-    const {textValue,ranges}=searchHighlightRanges(value,terms);if(!ranges.length)return esc(textValue);
+    return summaryMathHtml(value,plain=>{
+    const {textValue,ranges}=searchHighlightRanges(plain,terms);if(!ranges.length)return esc(textValue);
     let out='',position=0;
     for(const range of ranges){
       if(range.start>position)out+=esc(textValue.slice(position,range.start));
       out+='<mark class="vedator-match">'+esc(textValue.slice(range.start,range.end))+'</mark>';position=range.end;
     }
     if(position<textValue.length)out+=esc(textValue.slice(position));return out;
+    });
   }
   function searchExcerpt(value,terms){
     const raw=String(value||'').replace(/\s+/g,' ').trim();if(!raw)return'';
     const {ranges}=searchHighlightRanges(raw,terms);if(!ranges.length)return'';
     const first=ranges[0];let start=Math.max(0,first.start-70),end=Math.min(raw.length,first.end+150);
     while(start>0&&!/\s/.test(raw[start-1]))start--;while(end<raw.length&&!/\s/.test(raw[end]))end++;
+    for(const match of raw.matchAll(/\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]/g)){const stop=match.index+match[0].length;if(start>match.index&&start<stop)start=match.index;if(end>match.index&&end<stop)end=stop}
     return (start>0?'…':'')+raw.slice(start,end).trim()+(end<raw.length?'…':'');
   }
   function firstEpisodeSearchHit(episode,terms){
@@ -1277,7 +1311,7 @@
       const walker=document.createTreeWalker(card,NodeFilter.SHOW_TEXT,{acceptNode(node){
         const parent=node.parentElement;
         if(!parent||!node.nodeValue?.trim())return NodeFilter.FILTER_REJECT;
-        if(parent.closest('mark.vedator-match,script,style,noscript,textarea,input,select,option,svg,.actions,.listen-status,.episode-progress-v2,.series-progress-summary-v2,.series-progress-box-v2,.playlist-actions,.playlist-count,.episode-summary-slot-v2'))return NodeFilter.FILTER_REJECT;
+        if(parent.closest('mark.vedator-match,script,style,noscript,textarea,input,select,option,svg,mjx-container,.math-tex-v2,.actions,.listen-status,.episode-progress-v2,.series-progress-summary-v2,.series-progress-box-v2,.playlist-actions,.playlist-count,.episode-summary-slot-v2'))return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       }});
       const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);

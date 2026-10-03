@@ -31,9 +31,9 @@
     ['Zmiňují také Probably Approximately Correct od Leslieho Valianta o matematice učení a umělé inteligenci.','Spomínajú aj Probably Approximately Correct od Leslieho Valianta o matematike učenia a umelej inteligencii.'],
     ['Další knižní tipy lze najít v dřívějších epizodách věnovaných knihám.','Ďalšie knižné tipy možno nájsť v starších epizódach venovaných knihám.'],
 
-    ['Platí E = mc² pro tmavou hmotu a energii?','Platí E = mc² pre tmavú hmotu a energiu?'],
+    ["Platí \\(E=mc^2\\) pro tmavou hmotu a energii?","Platí \\(E=mc^2\\) pre tmavú hmotu a energiu?"],
     ['Pro tmavou hmotu se vztah mezi hmotností a energií používá stejně jako pro běžnou hmotu.','Pre tmavú hmotu sa vzťah medzi hmotnosťou a energiou používa rovnako ako pre bežnú hmotu.'],
-    ['Tmavá energie je forma energie prostoru, proto se na ni jednoduchý vztah E = mc² v tomto významu běžně nepoužívá.','Tmavá energia je forma energie priestoru, preto sa na ňu jednoduchý vzťah E = mc² v tomto význame bežne nepoužíva.'],
+    ["Tmavá energie je forma energie prostoru, proto se na ni jednoduchý vztah \\(E=mc^2\\) v tomto významu běžně nepoužívá.","Tmavá energia je forma energie priestoru, preto sa na ňu jednoduchý vzťah \\(E=mc^2\\) v tomto význame bežne nepoužíva."],
 
     ['Jak fotony přenášejí informaci','Ako fotóny prenášajú informáciu'],
     ['V nejjednodušším případě lze informaci kódovat tím, zda foton přijde, nebo nepřijde.','V najjednoduchšom prípade možno informáciu kódovať tým, či fotón príde, alebo nepríde.'],

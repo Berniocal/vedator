@@ -15,7 +15,7 @@
 
     ['Z kolika atomů se skládá lidské tělo?','Z koľkých atómov sa skladá ľudské telo?'],
     ['Počet lze odhadnout z hmotnosti a chemického složení člověka.','Počet možno odhadnúť z hmotnosti a chemického zloženia človeka.'],
-    ['Tělo o hmotnosti kolem 70 kilogramů obsahuje přibližně 7 × 10²⁷ atomů.','Telo s hmotnosťou okolo 70 kilogramov obsahuje približne 7 × 10²⁷ atómov.'],
+    ["Tělo o hmotnosti kolem 70 kilogramů obsahuje přibližně \\(7\\times 10^{27}\\) atomů.","Telo s hmotnosťou okolo 70 kilogramov obsahuje približne \\(7\\times 10^{27}\\) atómov."],
     ['Jde asi o sedm miliard miliard miliard atomů.','Ide asi o sedem miliárd miliárd miliárd atómov.'],
 
     ['Proč se Vedastorky nenahrávají také do aplikace nebo na jiné úložiště?','Prečo sa Vedastorky nenahrávajú aj do aplikácie alebo na iné úložisko?'],

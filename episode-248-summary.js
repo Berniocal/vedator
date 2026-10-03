@@ -1,7 +1,7 @@
 (()=>{
   if(window.__vedatorEpisode248Summary)return;window.__vedatorEpisode248Summary=true;
   const items=[
-    ['01:49','Platí E = mc² pro tmavou hmotu a energii?',['Pro tmavou hmotu se vztah mezi hmotností a energií používá stejně jako pro běžnou hmotu.','Tmavá energie je forma energie prostoru, proto se na ni jednoduchý vztah E = mc² v tomto významu běžně nepoužívá.']],
+    ['01:49',"Platí \\(E=mc^2\\) pro tmavou hmotu a energii?",['Pro tmavou hmotu se vztah mezi hmotností a energií používá stejně jako pro běžnou hmotu.',"Tmavá energie je forma energie prostoru, proto se na ni jednoduchý vztah \\(E=mc^2\\) v tomto významu běžně nepoužívá."]],
     ['03:25','Jak fotony přenášejí informaci',['V nejjednodušším případě lze informaci kódovat tím, zda foton přijde, nebo nepřijde.','Pokročilejší komunikace využívá vlastnosti fotonu, například polarizaci.','Polarizace se používá také v kvantové komunikaci.']],
     ['05:47','Jaký pohon má sonda Voyager',['Voyager dnes nemá aktivní pohon pro urychlování letu.','Letí díky počátečnímu urychlení a gravitačním prakům u planet.','Malé trysky slouží pouze k jemným změnám orientace a dráhy.']],
     ['08:31','Jak se měří extrémní teplota částic v CERNu',['Uváděná teplota je přepočtem energie částic.','Nejde o běžnou teplotu velkého množství látky.','Částic je málo, ale každá může nést mimořádně velkou energii.']],
