@@ -53,10 +53,14 @@ for(const n of [191,194,195,196,197,198,199,200,201,202,205,206,207,208,210,212,
   if(!data.nonquestions.episodes[String(n)])fail(`Missing nonquestion episode ${n}`);
 }
 const episode191=data.nonquestions?.episodes?.['191'];
-if(!episode191||episode191.cs?.length!==9||episode191.sk?.length!==9)fail('Episode 191 bilingual summary count mismatch');
-const episode191Times=['02:00','06:04','07:29','09:43','12:10','14:21','16:09','18:28','20:15'];
+if(!episode191||episode191.cs?.length!==11||episode191.sk?.length!==11)fail('Episode 191 bilingual summary count mismatch');
+const episode191Times=['01:59','06:04','07:30','09:43','12:10','14:21','16:09','18:49','20:15','21:08','24:01'];
 if(JSON.stringify(episode191.cs.map(item=>item.time))!==JSON.stringify(episode191Times))fail('Episode 191 Czech timestamps mismatch');
 if(JSON.stringify(episode191.sk.map(item=>item.time))!==JSON.stringify(episode191Times))fail('Episode 191 Slovak timestamps mismatch');
+for(const lang of ['cs','sk']){
+  if(!episode191[lang][9].points.some(point=>point.includes('Dobble')))fail('Episode 191 must retain the young-researcher/geometry discussion');
+  if(!episode191[lang][10].points.some(point=>point.includes('Ising')))fail('Episode 191 must cover the fuzzy-sphere collaboration near the end');
+}
 const episode351=data.nonquestions?.episodes?.['351'];
 if(!episode351||episode351.cs?.length!==17||episode351.sk?.length!==17)fail('Episode 351 bilingual summary count mismatch');
 const episodeNumbers=new Set(data.episodes.map(e=>Number(e.number)));
