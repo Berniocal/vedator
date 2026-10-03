@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "rulesVersion": "descending-193-nonfaq-srt-v2",
-  "updatedAt": "2026-10-03T09:07:11.000Z",
+  "updatedAt": "2026-10-03T09:22:54.744686+00:00",
   "order": [
     193,
     192,
@@ -983,7 +983,7 @@
       "status": "skipped_faq"
     },
     "191": {
-      "status": "in_progress",
+      "status": "awaiting_deploy",
       "srtCandidates": [
         {
           "path": "titulky/vedatorsky-podcast-191-teorie-strun-3.srt",
@@ -995,7 +995,9 @@
         "startedAt": "2026-10-03T09:07:11.000Z",
         "leaseExpiresAt": "2026-10-03T10:22:11.000Z",
         "note": "Ruční pokračování dílu 191 na výslovný pokyn uživatele. Obnovení zdrojů a důkazů po údržbě pracovního prostoru."
-      }
+      },
+      "auditPath": "summary-audits/episode-191.json",
+      "note": "11 CZ/SK kapitol, plný nový přepis produkční MP3 porovnán se SRT; přímý poslech neproveden. 44 fyzických kliknutí Chromium prošlo. Čeká na přesné PR CI, merge a produkční rebuild/deploy."
     },
     "192": {
       "status": "verified",

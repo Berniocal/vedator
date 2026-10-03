@@ -71,7 +71,9 @@ try{
   const checkSeek=async(selector,episode,seconds)=>{
     const enclosure=data.episodes.find(row=>Number(row.number)===Number(episode)).enclosure;
     await page.evaluate(()=>{const close=document.querySelector('#player-close-v2');if(close&&close.getClientRects().length)close.click()});
-    await page.click(selector);
+    // Deep-link navigation and closing the player can move the long summary.
+    // Wait for a stable button before issuing the physical pointer click.
+    await page.locator(selector).setWaitForStableBoundingBox(true).click();
     await page.waitForFunction(({enclosure,seconds})=>{const audio=document.querySelector('#audio-v2');return audio?.src===enclosure&&audio.currentTime===seconds},{timeout:5000},{enclosure,seconds}).catch(async error=>{throw new Error(`Seek failed ${selector} expected=${seconds}: ${JSON.stringify(await page.$eval('#audio-v2',audio=>({src:audio.src,time:audio.currentTime,duration:audio.duration,readyState:audio.readyState,help:document.querySelector('#player-help-v2')?.textContent})))}`)});
     return page.$eval('#audio-v2',audio=>audio.currentTime);
   };

@@ -1,0 +1,1527 @@
+{
+  "schema": 1,
+  "episode": 191,
+  "rulesVersion": "descending-193-nonfaq-srt-v2",
+  "status": "awaiting_deploy",
+  "source": {
+    "repository": "Berniocal/vedator-test",
+    "path": "titulky/vedatorsky-podcast-191-teorie-strun-3.srt",
+    "srtBlobSha": "9873bad5d077da9f7769a216be01daf63a600366",
+    "srtSha256": "fc963b8972137d0d96254295457a99c3d4b6d575b934ddbb02af6a69c1cc1906",
+    "srtCueCount": 450,
+    "episodeGuid": "vedatorskypodcast.podbean.com/d635dca1-b06c-392d-9fa6-08f267930e56",
+    "audioUrl": "https://mcdn.podbean.com/mf/web/tka27p/ep_struny3.mp3",
+    "audioSha256": "5e1ecfe986b34f4991df5674fe66f75b6e6a705b3a70aeb03f63933d84d65918",
+    "audioDurationSeconds": 1792.0
+  },
+  "audioVerification": {
+    "status": "independent_transcript_compared",
+    "method": "Full independent local speech recognition of the actual production MP3, then manual semantic comparison of the whole SRT and the full audio-derived transcript, including every summary point. This is automated speech recognition, not direct listening.",
+    "manualListening": false,
+    "independentAudioTranscription": true,
+    "fullSourceRead": true,
+    "fullAudioTranscriptRead": true,
+    "model": "faster-whisper-large-v3-turbo",
+    "modelRevision": "0a363e9161cbc7ed1431c9597a8ceaf0c4f78fcf",
+    "fasterWhisper": "1.2.1",
+    "kernelNetworkBlocked": true,
+    "vad": false,
+    "audioTranscriptSha256": "549058d9931dffe246cd89a1721522b98c1566eae49266c81825455e17266412",
+    "audioMetadataSha256": "5e1ac79c9720543dfde0e3d97a3b46f8ae51180f6b013efc606e9ef997cf788f",
+    "asrIsFallible": true,
+    "timingToleranceSeconds": 5,
+    "timestampEvidence": "Production-audio ASR word timestamps, not a human listening measurement",
+    "topicTimeDifferencesSeconds": [
+      0.3,
+      0.98,
+      0.04,
+      0.22,
+      0.56,
+      0.42,
+      0.26,
+      0.88,
+      0.68,
+      0.36,
+      0.46
+    ],
+    "srtAlignmentCheckpoints": [
+      {
+        "srtSeconds": 119,
+        "audioASRSeconds": 119.3,
+        "differenceSeconds": 0.3
+      },
+      {
+        "srtSeconds": 364.7,
+        "audioASRSeconds": 364.98,
+        "differenceSeconds": 0.28
+      },
+      {
+        "srtSeconds": 449.38,
+        "audioASRSeconds": 450.04,
+        "differenceSeconds": 0.66
+      },
+      {
+        "srtSeconds": 583,
+        "audioASRSeconds": 583.22,
+        "differenceSeconds": 0.22
+      },
+      {
+        "srtSeconds": 730,
+        "audioASRSeconds": 730.56,
+        "differenceSeconds": 0.56
+      },
+      {
+        "srtSeconds": 861.44,
+        "audioASRSeconds": 861.42,
+        "differenceSeconds": -0.02
+      },
+      {
+        "srtSeconds": 969.45,
+        "audioASRSeconds": 969.26,
+        "differenceSeconds": -0.19
+      },
+      {
+        "srtSeconds": 1126.55,
+        "audioASRSeconds": 1129.88,
+        "differenceSeconds": 3.33
+      },
+      {
+        "srtSeconds": 1215.5,
+        "audioASRSeconds": 1215.68,
+        "differenceSeconds": 0.18
+      },
+      {
+        "srtSeconds": 1268.1,
+        "audioASRSeconds": 1268.36,
+        "differenceSeconds": 0.26
+      },
+      {
+        "srtSeconds": 1441.5,
+        "audioASRSeconds": 1441.46,
+        "differenceSeconds": -0.04
+      }
+    ],
+    "insertedAdsWithinScientificContent": "No discontinuity found in the full transcript comparison; sampled alignment offsets remain within 3.33 seconds.",
+    "numberRecheck": {
+      "rangesSeconds": [
+        [
+          1148,
+          1173
+        ],
+        [
+          1152,
+          1161
+        ]
+      ],
+      "method": "Two further local decodes of the same production recording, beam size 5; both read 927. The wider decode also confirms QCD 1200, critical 2500 and qubit 2400.",
+      "sha256": "874ba77a68f8f1632d6bb347511462f2dec81695bd8be33cccee9ff134598813"
+    },
+    "uncertainties": [
+      {
+        "rangeSeconds": [
+          603.44,
+          612.26
+        ],
+        "issue": "The speaker does not recall whether the original discovery was in 1997 or 1999. No definitive year was inserted."
+      },
+      {
+        "rangeSeconds": [
+          0,
+          28.3
+        ],
+        "issue": "Opening jingle was not reliably recognized by ASR; unrelated opening omitted."
+      },
+      {
+        "rangeSeconds": [
+          1764.5,
+          1791.96
+        ],
+        "issue": "Closing advertisement poorly recognized by ASR; unrelated advertisement omitted."
+      }
+    ]
+  },
+  "cleanContent": {
+    "startSeconds": 119.3,
+    "endSeconds": 1650.44,
+    "excludedInterludes": [
+      [
+        751.08,
+        779.74
+      ],
+      [
+        1585.46,
+        1637.48
+      ]
+    ],
+    "durationSeconds": 1450.46,
+    "maximumChapters": 12,
+    "exclusionReasons": [
+      "Žertovná odbočka k Jozefovi, dovolené a bufetu.",
+      "Odbočka k veřejné dopravě; následující věcná rekapitulace zůstává zahrnuta."
+    ],
+    "outsideContent": [
+      "0–119 s: znělka, festival Atmosféra a úvodní vtipkování.",
+      "Od 1650.44 s: vtip o čísle pokračování, podpora podcastu, pozvánky na akce a reklama na Quantum idey."
+    ]
+  },
+  "chapterPolicy": {
+    "countMutable": true,
+    "previousChapterCount": 9,
+    "newChapterCount": 11,
+    "maximumFormula": "floor(cleanContentDurationSeconds / 120)",
+    "upperLimitNotTarget": true,
+    "allImportantTopicsCovered": true
+  },
+  "chapters": [
+    {
+      "time": "01:59",
+      "audioTopicStartSeconds": 119.3,
+      "points": [
+        {
+          "srtCues": [
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48
+          ],
+          "audioRanges": [
+            [
+              119,
+              179.46
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55
+          ],
+          "audioRanges": [
+            [
+              179.5,
+              208.46
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67
+          ],
+          "audioRanges": [
+            [
+              213.5,
+              266.24
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88
+          ],
+          "audioRanges": [
+            [
+              266.28,
+              350.96
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 119,
+        "nonquestionCurrentTime": 119,
+        "languages": [
+          "cs",
+          "sk"
+        ],
+        "byLanguage": {
+          "cs": {
+            "summaryCurrentTime": 119,
+            "nonquestionCurrentTime": 119
+          },
+          "sk": {
+            "summaryCurrentTime": 119,
+            "nonquestionCurrentTime": 119
+          }
+        }
+      },
+      "audioTimingMethod": "Independent production-audio ASR word timestamps"
+    },
+    {
+      "time": "06:04",
+      "audioTopicStartSeconds": 364.98,
+      "points": [
+        {
+          "srtCues": [
+            95,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106
+          ],
+          "audioRanges": [
+            [
+              364.7,
+              412.76
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            108,
+            109,
+            110,
+            111,
+            112,
+            113
+          ],
+          "audioRanges": [
+            [
+              417.8,
+              440.96
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            114,
+            115,
+            116,
+            117,
+            118,
+            119,
+            120
+          ],
+          "audioRanges": [
+            [
+              441,
+              471.5
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 364,
+        "nonquestionCurrentTime": 364,
+        "languages": [
+          "cs",
+          "sk"
+        ],
+        "byLanguage": {
+          "cs": {
+            "summaryCurrentTime": 364,
+            "nonquestionCurrentTime": 364
+          },
+          "sk": {
+            "summaryCurrentTime": 364,
+            "nonquestionCurrentTime": 364
+          }
+        }
+      },
+      "audioTimingMethod": "Independent production-audio ASR word timestamps"
+    },
+    {
+      "time": "07:30",
+      "audioTopicStartSeconds": 450.04,
+      "points": [
+        {
+          "srtCues": [
+            116,
+            117,
+            118,
+            119,
+            120
+          ],
+          "audioRanges": [
+            [
+              449.38,
+              471.5
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            121,
+            122,
+            123,
+            124,
+            125,
+            126
+          ],
+          "audioRanges": [
+            [
+              474,
+              499.36
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            126,
+            127,
+            128,
+            129
+          ],
+          "audioRanges": [
+            [
+              494.52,
+              513.1
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            130,
+            131,
+            132,
+            133,
+            134,
+            135,
+            136,
+            137,
+            138,
+            139,
+            140,
+            141,
+            142,
+            143,
+            144,
+            145,
+            146,
+            147
+          ],
+          "audioRanges": [
+            [
+              514.7,
+              582.96
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 450,
+        "nonquestionCurrentTime": 450,
+        "languages": [
+          "cs",
+          "sk"
+        ],
+        "byLanguage": {
+          "cs": {
+            "summaryCurrentTime": 450,
+            "nonquestionCurrentTime": 450
+          },
+          "sk": {
+            "summaryCurrentTime": 450,
+            "nonquestionCurrentTime": 450
+          }
+        }
+      },
+      "audioTimingMethod": "Independent production-audio ASR word timestamps"
+    },
+    {
+      "time": "09:43",
+      "audioTopicStartSeconds": 583.22,
+      "points": [
+        {
+          "srtCues": [
+            148,
+            149,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
+            156,
+            157
+          ],
+          "audioRanges": [
+            [
+              583,
+              620.42
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            158,
+            159,
+            160
+          ],
+          "audioRanges": [
+            [
+              620.46,
+              634.88
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            161,
+            162,
+            163,
+            164,
+            165,
+            166,
+            167,
+            168,
+            169,
+            170,
+            171,
+            172
+          ],
+          "audioRanges": [
+            [
+              636,
+              689.46
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            173,
+            174,
+            175,
+            176,
+            177,
+            178,
+            179,
+            180,
+            181,
+            182
+          ],
+          "audioRanges": [
+            [
+              689.5,
+              728.88
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 583,
+        "nonquestionCurrentTime": 583,
+        "languages": [
+          "cs",
+          "sk"
+        ],
+        "byLanguage": {
+          "cs": {
+            "summaryCurrentTime": 583,
+            "nonquestionCurrentTime": 583
+          },
+          "sk": {
+            "summaryCurrentTime": 583,
+            "nonquestionCurrentTime": 583
+          }
+        }
+      },
+      "audioTimingMethod": "Independent production-audio ASR word timestamps"
+    },
+    {
+      "time": "12:10",
+      "audioTopicStartSeconds": 730.56,
+      "points": [
+        {
+          "srtCues": [
+            197,
+            198,
+            199,
+            200,
+            201,
+            202
+          ],
+          "audioRanges": [
+            [
+              779.5,
+              807
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            202,
+            203,
+            204,
+            205,
+            206,
+            207
+          ],
+          "audioRanges": [
+            [
+              802.21,
+              827.84
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            208,
+            209,
+            210,
+            211,
+            212,
+            213,
+            214,
+            215
+          ],
+          "audioRanges": [
+            [
+              827.88,
+              860.08
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 730,
+        "nonquestionCurrentTime": 730,
+        "languages": [
+          "cs",
+          "sk"
+        ],
+        "byLanguage": {
+          "cs": {
+            "summaryCurrentTime": 730,
+            "nonquestionCurrentTime": 730
+          },
+          "sk": {
+            "summaryCurrentTime": 730,
+            "nonquestionCurrentTime": 730
+          }
+        }
+      },
+      "audioTimingMethod": "Independent production-audio ASR word timestamps"
+    },
+    {
+      "time": "14:21",
+      "audioTopicStartSeconds": 861.42,
+      "points": [
+        {
+          "srtCues": [
+            216,
+            217,
+            218,
+            219,
+            220,
+            221,
+            222,
+            223
+          ],
+          "audioRanges": [
+            [
+              861.44,
+              894.5
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            223,
+            224,
+            225,
+            226,
+            227,
+            228
+          ],
+          "audioRanges": [
+            [
+              892.97,
+              916
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            229,
+            230
+          ],
+          "audioRanges": [
+            [
+              917,
+              927.46
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            231,
+            232,
+            233,
+            234,
+            235,
+            236,
+            237,
+            238,
+            239,
+            240
+          ],
+          "audioRanges": [
+            [
+              927.5,
+              969.41
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 861,
+        "nonquestionCurrentTime": 861,
+        "languages": [
+          "cs",
+          "sk"
+        ],
+        "byLanguage": {
+          "cs": {
+            "summaryCurrentTime": 861,
+            "nonquestionCurrentTime": 861
+          },
+          "sk": {
+            "summaryCurrentTime": 861,
+            "nonquestionCurrentTime": 861
+          }
+        }
+      },
+      "audioTimingMethod": "Independent production-audio ASR word timestamps"
+    },
+    {
+      "time": "16:09",
+      "audioTopicStartSeconds": 969.26,
+      "points": [
+        {
+          "srtCues": [
+            241,
+            242,
+            243,
+            244,
+            245,
+            246,
+            247,
+            248,
+            249
+          ],
+          "audioRanges": [
+            [
+              969.45,
+              1009.96
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            251,
+            252,
+            253,
+            254,
+            255,
+            256,
+            263,
+            264,
+            265,
+            266
+          ],
+          "audioRanges": [
+            [
+              1012,
+              1038.36
+            ],
+            [
+              1061.5,
+              1079.46
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            255,
+            256,
+            257,
+            258,
+            259,
+            260,
+            261,
+            262
+          ],
+          "audioRanges": [
+            [
+              1031.13,
+              1061.46
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            267,
+            268,
+            269,
+            270,
+            271,
+            272,
+            273,
+            274,
+            275,
+            276,
+            277,
+            278,
+            279
+          ],
+          "audioRanges": [
+            [
+              1079.5,
+              1126.51
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 969,
+        "nonquestionCurrentTime": 969,
+        "languages": [
+          "cs",
+          "sk"
+        ],
+        "byLanguage": {
+          "cs": {
+            "summaryCurrentTime": 969,
+            "nonquestionCurrentTime": 969
+          },
+          "sk": {
+            "summaryCurrentTime": 969,
+            "nonquestionCurrentTime": 969
+          }
+        }
+      },
+      "audioTimingMethod": "Independent production-audio ASR word timestamps"
+    },
+    {
+      "time": "18:49",
+      "audioTopicStartSeconds": 1129.88,
+      "points": [
+        {
+          "srtCues": [
+            280,
+            281,
+            282,
+            283,
+            284,
+            285,
+            286,
+            287,
+            288
+          ],
+          "audioRanges": [
+            [
+              1126.55,
+              1158.19
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            289,
+            290,
+            291
+          ],
+          "audioRanges": [
+            [
+              1158.23,
+              1174.27
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            292,
+            293,
+            294,
+            295,
+            296,
+            297,
+            298,
+            299,
+            300
+          ],
+          "audioRanges": [
+            [
+              1174.31,
+              1213.26
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            296,
+            297,
+            298,
+            299,
+            300,
+            301,
+            410,
+            411,
+            412,
+            413,
+            414
+          ],
+          "audioRanges": [
+            [
+              1192.6,
+              1215.46
+            ],
+            [
+              1637.48,
+              1650.44
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 1129,
+        "nonquestionCurrentTime": 1129,
+        "languages": [
+          "cs",
+          "sk"
+        ],
+        "byLanguage": {
+          "cs": {
+            "summaryCurrentTime": 1129,
+            "nonquestionCurrentTime": 1129
+          },
+          "sk": {
+            "summaryCurrentTime": 1129,
+            "nonquestionCurrentTime": 1129
+          }
+        }
+      },
+      "audioTimingMethod": "Independent production-audio ASR word timestamps"
+    },
+    {
+      "time": "20:15",
+      "audioTopicStartSeconds": 1215.68,
+      "points": [
+        {
+          "srtCues": [
+            305,
+            306,
+            307,
+            308
+          ],
+          "audioRanges": [
+            [
+              1226,
+              1236.96
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            302,
+            303,
+            304
+          ],
+          "audioRanges": [
+            [
+              1215.5,
+              1225.96
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            309,
+            310,
+            311,
+            312,
+            313,
+            314,
+            315
+          ],
+          "audioRanges": [
+            [
+              1237,
+              1268.06
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 1215,
+        "nonquestionCurrentTime": 1215,
+        "languages": [
+          "cs",
+          "sk"
+        ],
+        "byLanguage": {
+          "cs": {
+            "summaryCurrentTime": 1215,
+            "nonquestionCurrentTime": 1215
+          },
+          "sk": {
+            "summaryCurrentTime": 1215,
+            "nonquestionCurrentTime": 1215
+          }
+        }
+      },
+      "audioTimingMethod": "Independent production-audio ASR word timestamps"
+    },
+    {
+      "time": "21:08",
+      "audioTopicStartSeconds": 1268.36,
+      "points": [
+        {
+          "srtCues": [
+            316,
+            317,
+            318,
+            319,
+            320,
+            321,
+            322,
+            323,
+            324,
+            325,
+            326
+          ],
+          "audioRanges": [
+            [
+              1268.1,
+              1304.46
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            325,
+            326,
+            327,
+            328,
+            329,
+            330,
+            331,
+            332,
+            333
+          ],
+          "audioRanges": [
+            [
+              1297.5,
+              1327.96
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            334,
+            335,
+            336,
+            337,
+            338,
+            339
+          ],
+          "audioRanges": [
+            [
+              1328,
+              1354.5
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            340,
+            341,
+            342,
+            343,
+            344,
+            345,
+            346
+          ],
+          "audioRanges": [
+            [
+              1355.14,
+              1388.24
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            347,
+            348,
+            349,
+            350,
+            351,
+            352,
+            353,
+            354,
+            355,
+            356,
+            357,
+            358,
+            359,
+            360,
+            361
+          ],
+          "audioRanges": [
+            [
+              1389.28,
+              1441.46
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 1268,
+        "nonquestionCurrentTime": 1268,
+        "languages": [
+          "cs",
+          "sk"
+        ],
+        "byLanguage": {
+          "cs": {
+            "summaryCurrentTime": 1268,
+            "nonquestionCurrentTime": 1268
+          },
+          "sk": {
+            "summaryCurrentTime": 1268,
+            "nonquestionCurrentTime": 1268
+          }
+        }
+      },
+      "audioTimingMethod": "Independent production-audio ASR word timestamps"
+    },
+    {
+      "time": "24:01",
+      "audioTopicStartSeconds": 1441.46,
+      "points": [
+        {
+          "srtCues": [
+            362,
+            363,
+            364,
+            365,
+            366,
+            367,
+            368,
+            369,
+            370,
+            371,
+            372,
+            373,
+            374,
+            375,
+            376,
+            377
+          ],
+          "audioRanges": [
+            [
+              1441.5,
+              1508.13
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            378,
+            379,
+            380,
+            381,
+            382,
+            383,
+            384
+          ],
+          "audioRanges": [
+            [
+              1508.17,
+              1543.5
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            385,
+            386,
+            387,
+            388
+          ],
+          "audioRanges": [
+            [
+              1544.5,
+              1560.7
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        },
+        {
+          "srtCues": [
+            388,
+            389,
+            390,
+            391,
+            392,
+            393,
+            394
+          ],
+          "audioRanges": [
+            [
+              1556,
+              1584.5
+            ]
+          ],
+          "semanticAudioComparison": "Compared with complete independent MP3 transcript; no direct listening"
+        }
+      ],
+      "browserSeek": {
+        "status": "passed",
+        "summaryCurrentTime": 1441,
+        "nonquestionCurrentTime": 1441,
+        "languages": [
+          "cs",
+          "sk"
+        ],
+        "byLanguage": {
+          "cs": {
+            "summaryCurrentTime": 1441,
+            "nonquestionCurrentTime": 1441
+          },
+          "sk": {
+            "summaryCurrentTime": 1441,
+            "nonquestionCurrentTime": 1441
+          }
+        }
+      },
+      "audioTimingMethod": "Independent production-audio ASR word timestamps"
+    }
+  ],
+  "topicCoverage": [
+    {
+      "topic": "Proč jel Samuel na konferenci Strings do Perimeter Institute?",
+      "chapterIndex": 0,
+      "pointIndices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "sourceRangeSeconds": [
+        119,
+        350.96
+      ],
+      "coverage": "included"
+    },
+    {
+      "topic": "O čem se mluvilo na konferenci Strings, když téměř nezazněly struny?",
+      "chapterIndex": 1,
+      "pointIndices": [
+        0,
+        1,
+        2
+      ],
+      "sourceRangeSeconds": [
+        364.7,
+        471.5
+      ],
+      "coverage": "included"
+    },
+    {
+      "topic": "Jak může dualita spojit gravitační a kvantový popis?",
+      "chapterIndex": 2,
+      "pointIndices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "sourceRangeSeconds": [
+        449.38,
+        582.96
+      ],
+      "coverage": "included"
+    },
+    {
+      "topic": "Co hledá výzkum nebeské sféry a proč se mluví o holografii?",
+      "chapterIndex": 3,
+      "pointIndices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "sourceRangeSeconds": [
+        583,
+        728.88
+      ],
+      "coverage": "included"
+    },
+    {
+      "topic": "Jak by gravitační vlny mohly otestovat strunový model raného vesmíru?",
+      "chapterIndex": 4,
+      "pointIndices": [
+        0,
+        1,
+        2
+      ],
+      "sourceRangeSeconds": [
+        779.5,
+        860.08
+      ],
+      "coverage": "included"
+    },
+    {
+      "topic": "Jaký detektor by mohl zachytit reliktní neutrina?",
+      "chapterIndex": 5,
+      "pointIndices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "sourceRangeSeconds": [
+        861.44,
+        969.41
+      ],
+      "coverage": "included"
+    },
+    {
+      "topic": "Co by vysvětlil další rozměr o velikosti 10 mikrometrů a jak jej testovat?",
+      "chapterIndex": 6,
+      "pointIndices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "sourceRangeSeconds": [
+        969.45,
+        1126.51
+      ],
+      "coverage": "included"
+    },
+    {
+      "topic": "Co publikační statistiky říkají o dnešním vlivu teorie strun?",
+      "chapterIndex": 7,
+      "pointIndices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "coverage": "included",
+      "sourceRangesSeconds": [
+        [
+          1129.88,
+          1215.68
+        ],
+        [
+          1637.48,
+          1650.44
+        ]
+      ]
+    },
+    {
+      "topic": "Co sjednocuje M-teorie a co o ní zatím nevíme?",
+      "chapterIndex": 8,
+      "pointIndices": [
+        0,
+        1,
+        2
+      ],
+      "sourceRangeSeconds": [
+        1215.5,
+        1268.06
+      ],
+      "coverage": "included"
+    },
+    {
+      "topic": "Jak se konference věnuje mladým výzkumníkům a jaké osobnosti Samuel potkal?",
+      "chapterIndex": 9,
+      "pointIndices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceRangeSeconds": [
+        1268.1,
+        1441.46
+      ],
+      "coverage": "included"
+    },
+    {
+      "topic": "Jak fuzzy sféra přivedla Samuela k možné spolupráci ve Waterloo?",
+      "chapterIndex": 10,
+      "pointIndices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "sourceRangeSeconds": [
+        1441.5,
+        1584.5
+      ],
+      "coverage": "included"
+    }
+  ],
+  "changes": {
+    "removedUnsupported": [
+      "Obecné závěry o experimentálním nepotvrzení v kapitolách o konferenci, dualitě a M-teorii nebyly převzaty bez konkrétní řeči v podcastu.",
+      "Věta o tom, že potvrzení jedné předpovědi nepotvrdí celou teorii strun, byla nahrazena skutečnou výhradou řečníka k vylučování některých modelů."
+    ],
+    "addedConcrete": [
+      "1999 a částky 100, 10 a 150 milionů bez nedoložené měny.",
+      "Účast konference a den první strunové přednášky.",
+      "LISA: rok 2037 jako dobový plán řečníka.",
+      "Detektor neutrin: konkrétní tyče, zesílení a rozpočty.",
+      "Cumrun Vafa, vlastnosti modelu a test na 10/30 mikrometrech.",
+      "INSPIRE HEP: přibližně 30 000 článků; struny 927, QCD 1200, critical 2500, qubit 2400, související témata řádově 500–700; čísla porovnána s celým přepisem MP3 a dvěma novými dekódováními.",
+      "Mladí výzkumníci, Dobble, odborná komunikace a historka o Wittenovi.",
+      "Fuzzy sféra, Isingův model a možnost spolupráce ve Waterloo."
+    ],
+    "timeChanges": [
+      {
+        "old": "02:00",
+        "new": "01:59"
+      },
+      {
+        "old": "07:29",
+        "new": "07:30"
+      },
+      {
+        "old": "18:28",
+        "new": "18:49"
+      }
+    ]
+  },
+  "publication": {
+    "status": "not_published",
+    "branch": "audit-summary-191-20261003"
+  },
+  "browserVerification": {
+    "status": "passed",
+    "test": "tools/test-v2-mathjax-browser.mjs",
+    "physicalSeekClicksForEpisode": 44,
+    "mathjaxVersion": "3.2.2",
+    "singleMathJaxScript": true,
+    "mobileWidth": 390,
+    "mediaStub": true,
+    "audioSynchronizationVerifiedByThisTest": false,
+    "note": "Physical Chromium pointer clicks verify the episode URL and seek seconds. Audio synchronization uses separate ASR evidence.",
+    "resultSha256": "d5de6127d3bb6c2226df0970eeff93f0cbf0f7596c404b801799e27c94385393"
+  },
+  "coverageReview": {
+    "allImportantTopicsCovered": true,
+    "wholeSourceReviewed": true,
+    "betweenChapterGapsReviewed": true,
+    "lastScientificRecapCoveredBy": {
+      "chapterIndex": 7,
+      "pointIndex": 3
+    },
+    "unrelatedDialoguesNotSummarizedButKeptInCleanTime": [
+      "Poznámka o historických konferencích před popisem účasti.",
+      "Krátké žerty u drahých detektorů a rychlosti testování.",
+      "Žerty o chování vědců jsou stručně zachyceny v kapitole o osobnostech."
+    ],
+    "noScientificTopicRemovedToReduceChapterLimit": true
+  }
+}
