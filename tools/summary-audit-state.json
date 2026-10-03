@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "rulesVersion": "descending-193-nonfaq-srt-v2",
-  "updatedAt": "2026-10-03T10:58:52.212Z",
+  "updatedAt": "2026-10-03T16:37:50.004Z",
   "order": [
     193,
     192,
@@ -197,7 +197,7 @@
     2,
     1
   ],
-  "nextEpisode": 188,
+  "nextEpisode": 187,
   "sourceRepository": "Berniocal/vedator-test",
   "sourceDirectory": "titulky",
   "sourceListingCount": 177,
@@ -953,16 +953,22 @@
       ]
     },
     "187": {
-      "status": "pending",
+      "status": "in_progress",
       "srtCandidates": [
         {
           "path": "titulky/vedatorsky-podcast-187-bosony-w-a-z.srt",
           "sha": "b2fca553fcff6fa3838eb652132d5972f896947d"
         }
-      ]
+      ],
+      "branch": "audit-summary-187-20261003",
+      "activeManualRun": {
+        "startedAt": "2026-10-03T16:37:50.005Z",
+        "leaseExpiresAt": "2026-10-03T18:37:50.005Z",
+        "note": "Ruční audit 187 na výslovný pokyn uživatele."
+      }
     },
     "188": {
-      "status": "in_progress",
+      "status": "blocked",
       "srtCandidates": [
         {
           "path": "titulky/vedatorsky-podcast-188-oppenheimer-a-jeho-parta.srt",
@@ -970,11 +976,9 @@
         }
       ],
       "branch": "audit-summary-188-20261003",
-      "activeManualRun": {
-        "startedAt": "2026-10-03T10:58:52.212Z",
-        "leaseExpiresAt": "2026-10-03T12:58:52.212Z",
-        "note": "Ruční dokončení dílu 188 na výslovný pokyn uživatele."
-      }
+      "note": "PR #180 je sloučen a obsahová oprava nasazena; úplný audio/seek audit nebyl dokončen. Dřívější lokální podklady byly odstraněny údržbou workspace. Nepočítat jako verified.",
+      "pullRequest": 180,
+      "mergeSha": "e6dc5923af7ef79a33f16b82ff79c9c7c57ff375"
     },
     "189": {
       "status": "verified",
@@ -1042,5 +1046,5 @@
     "maxChapters": "floor(cleanContentDurationSeconds / 120)",
     "coverAllImportantTopics": true
   },
-  "resumeEpisode": 188
+  "resumeEpisode": 187
 }
