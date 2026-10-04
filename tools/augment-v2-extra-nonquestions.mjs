@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import vm from 'node:vm';
 
 const CONTENT_FILE='content-v2.json';
 const EXTRAS=[152,153,154,155,156,157,159,160,161,162,163,164,165,166,167,168,169,171,172,173,174,175,176,177,178,180,181,182,183,184,185,186,187,188,189,191,192,193,194,195,196,197,198,199,200,201,202,205,206,207,208,210,212,213,214,215,216,217,219,220,221,222,223,224,225,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,243,245,246,247,249,250,251,252,253,254,255,256,258,259,260,261,262,265,266,267,268,269,271,273,274,276,277,279,280,281,282,283,285,286,287,288,290,292,293,294,296,297,298,299,301,302,303,304,305,306,307,308,309,310,311,312,314,315,317,318,320,321,322,323,324,325,348,349,351,352,353,354,355,356];
@@ -42,9 +43,30 @@ function extractDataJson(source,episode){
   throw new Error(`Incomplete DATA for episode ${episode}`);
 }
 
+function readLegacySummaryData(source,episode){
+  // Několik ručně upravených shrnutí používá `const DATA={cs:conv(cs),sk:conv(sk)}`.
+  // Spustíme jen deklarativní prefix souboru po DATA a nepouštíme případný UI kód za ním.
+  const marker='const DATA=';
+  const start=source.indexOf(marker);
+  if(start<0)throw new Error(`DATA marker missing for episode ${episode}`);
+  const dataEnd=source.indexOf(';',start);
+  if(dataEnd<0)throw new Error(`DATA terminator missing for episode ${episode}`);
+  const prefix=source.slice(0,dataEnd+1);
+  const sandbox=Object.create(null);
+  vm.runInNewContext(`${prefix}\n;globalThis.__SUMMARY_DATA__=DATA;`,sandbox,{timeout:1000,filename:`episode-${episode}-summary.js`});
+  return sandbox.__SUMMARY_DATA__;
+}
+
 function readSummaryData(episode){
   const source=fs.readFileSync(`episode-${episode}-summary.js`,'utf8');
-  const data=JSON.parse(extractDataJson(source,episode));
+  let data;
+  try{
+    data=JSON.parse(extractDataJson(source,episode));
+  }catch(error){
+    // Zpětná kompatibilita pouze pro známý starší generovaný tvar; ostatní chyby dál zastaví build.
+    if(!source.includes('const DATA={cs:conv(cs),sk:conv(sk)}'))throw error;
+    data=readLegacySummaryData(source,episode);
+  }
   if(!Array.isArray(data.cs)||!Array.isArray(data.sk))throw new Error(`Invalid bilingual summary for episode ${episode}`);
   if(episode===355){
     const isRemovedChapter=item=>String(item?.time||'')==='16:02';
