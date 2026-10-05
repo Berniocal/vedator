@@ -9,90 +9,66 @@ function extractDataJson(source,episode){
   const start=source.indexOf(marker);
   if(start<0)throw new Error(`DATA marker missing for episode ${episode}`);
   const from=start+marker.length;
-  let depth=0;
-  let inString=false;
-  let escaped=false;
-  let started=false;
+  let depth=0,inString=false,escaped=false,started=false;
   for(let i=from;i<source.length;i++){
     const ch=source[i];
-    if(inString){
-      if(escaped)escaped=false;
-      else if(ch==='\\')escaped=true;
-      else if(ch==='"')inString=false;
-      continue;
-    }
+    if(inString){if(escaped)escaped=false;else if(ch==='\\')escaped=true;else if(ch==='"')inString=false;continue;}
     if(ch==='"'){inString=true;continue;}
     if(ch==='{'||ch==='['){depth++;started=true;continue;}
-    if(ch==='}'||ch===']'){
-      depth--;
-      if(depth<0)throw new Error(`Unbalanced DATA for episode ${episode}`);
-      if(started&&depth===0){
-        const tail=source.slice(i+1).trimStart();
-        if(!tail.startsWith(';'))throw new Error(`DATA terminator missing for episode ${episode}`);
-        return source.slice(from,i+1).trim();
-      }
-    }
+    if(ch==='}'||ch===']'){depth--;if(depth<0)throw new Error(`Unbalanced DATA for episode ${episode}`);if(started&&depth===0){const tail=source.slice(i+1).trimStart();if(!tail.startsWith(';'))throw new Error(`DATA terminator missing for episode ${episode}`);return source.slice(from,i+1).trim();}}
   }
   throw new Error(`Incomplete DATA for episode ${episode}`);
 }
 
 function readLegacySummaryData(source,episode){
-  const marker='const DATA=';
-  const start=source.indexOf(marker);
-  if(start<0)throw new Error(`DATA marker missing for episode ${episode}`);
-  const dataEnd=source.indexOf(';',start);
-  if(dataEnd<0)throw new Error(`DATA terminator missing for episode ${episode}`);
-  const prefix=source.slice(0,dataEnd+1);
-  const sandbox=Object.create(null);
+  const marker='const DATA=';const start=source.indexOf(marker);if(start<0)throw new Error(`DATA marker missing for episode ${episode}`);
+  const dataEnd=source.indexOf(';',start);if(dataEnd<0)throw new Error(`DATA terminator missing for episode ${episode}`);
+  const prefix=source.slice(0,dataEnd+1);const sandbox=Object.create(null);
   vm.runInNewContext(`${prefix}\n;globalThis.__SUMMARY_DATA__=DATA;`,sandbox,{timeout:1000,filename:`episode-${episode}-summary.js`});
   return sandbox.__SUMMARY_DATA__;
 }
 
 function textToPoints(text){
-  const sentences=String(text||'').trim().match(/[^.!?]+[.!?]+(?:[”"']|$)|[^.!?]+$/g)?.map(s=>s.trim()).filter(Boolean)||[];
+  const source=String(text||'').trim();
+  if(!source)return [];
+  // Split only at whitespace AFTER sentence punctuation. This keeps every character
+  // of the original answer instead of using a consuming regexp that dropped sentences.
+  const sentences=source.split(/(?<=[.!?])\s+(?=[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽÄÔĽĹŔ])/u).map(s=>s.trim()).filter(Boolean);
   if(sentences.length<=4)return sentences;
-  // Keep the familiar 3–4 bullet layout without dropping any source text:
-  // distribute consecutive sentences as evenly as possible across four points.
   const points=[];
   for(let i=0;i<4;i++){
-    const from=Math.floor(i*sentences.length/4);
-    const to=Math.floor((i+1)*sentences.length/4);
-    const point=sentences.slice(from,to).join(' ').trim();
-    if(point)points.push(point);
+    const from=Math.floor(i*sentences.length/4),to=Math.floor((i+1)*sentences.length/4);
+    const point=sentences.slice(from,to).join(' ').trim();if(point)points.push(point);
   }
   return points;
 }
 
 function preserveTextAnswers(data){
-  for(const language of ['cs','sk']){
-    data[language]=data[language].map(item=>{
-      if(Array.isArray(item?.points)&&item.points.length)return item;
-      const answer=typeof item?.text==='string'?item.text.trim():'';
-      return answer?{...item,points:textToPoints(answer)}:item;
-    });
-  }
+  for(const language of ['cs','sk'])data[language]=data[language].map(item=>{
+    if(Array.isArray(item?.points)&&item.points.length)return item;
+    const answer=typeof item?.text==='string'?item.text.trim():'';
+    if(!answer)return item;
+    const points=textToPoints(answer);
+    // Lossless guard: never publish converted bullets unless their concatenated text
+    // is byte-for-byte the same answer apart from whitespace between sentences.
+    const normalize=s=>String(s).replace(/\s+/g,' ').trim();
+    if(normalize(points.join(' '))!==normalize(answer))throw new Error(`Text-to-points conversion lost content at ${item?.time||'unknown time'} (${language})`);
+    return {...item,points};
+  });
   return data;
 }
 
 function readSummaryData(episode){
-  const source=fs.readFileSync(`episode-${episode}-summary.js`,'utf8');
-  let data;
+  const source=fs.readFileSync(`episode-${episode}-summary.js`,'utf8');let data;
   try{data=JSON.parse(extractDataJson(source,episode));}
   catch(error){if(!source.includes('const DATA={cs:conv(cs),sk:conv(sk)}'))throw error;data=readLegacySummaryData(source,episode);}
   if(!Array.isArray(data.cs)||!Array.isArray(data.sk))throw new Error(`Invalid bilingual summary for episode ${episode}`);
-  if(episode===355){
-    const isRemovedChapter=item=>String(item?.time||'')==='16:02';
-    const csMatches=data.cs.filter(isRemovedChapter).length,skMatches=data.sk.filter(isRemovedChapter).length;
-    if(csMatches!==1||skMatches!==1)throw new Error(`Episode 355 expected one 16:02 chapter per language, found cs=${csMatches}, sk=${skMatches}`);
-    data.cs=data.cs.filter(item=>!isRemovedChapter(item));
-    data.sk=data.sk.filter(item=>!isRemovedChapter(item));
-  }
+  if(episode===355){const isRemovedChapter=item=>String(item?.time||'')==='16:02';const csMatches=data.cs.filter(isRemovedChapter).length,skMatches=data.sk.filter(isRemovedChapter).length;if(csMatches!==1||skMatches!==1)throw new Error(`Episode 355 expected one 16:02 chapter per language, found cs=${csMatches}, sk=${skMatches}`);data.cs=data.cs.filter(item=>!isRemovedChapter(item));data.sk=data.sk.filter(item=>!isRemovedChapter(item));}
   return preserveTextAnswers(data);
 }
 
 const content=JSON.parse(fs.readFileSync(CONTENT_FILE,'utf8'));
-content.nonquestions=content.nonquestions||{};
-content.nonquestions.episodes=content.nonquestions.episodes||{};
+content.nonquestions=content.nonquestions||{};content.nonquestions.episodes=content.nonquestions.episodes||{};
 for(const episode of EXTRAS)content.nonquestions.episodes[String(episode)]=readSummaryData(episode);
 fs.writeFileSync(CONTENT_FILE,JSON.stringify(content));
 console.log(`Added V2 nonquestions: ${EXTRAS.join(', ')}`);
