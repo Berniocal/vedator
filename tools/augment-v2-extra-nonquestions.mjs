@@ -48,6 +48,17 @@ function readLegacySummaryData(source,episode){
   return sandbox.__SUMMARY_DATA__;
 }
 
+function preserveTextAnswers(data){
+  for(const language of ['cs','sk']){
+    data[language]=data[language].map(item=>{
+      if(Array.isArray(item?.points)&&item.points.length)return item;
+      const answer=typeof item?.text==='string'?item.text.trim():'';
+      return answer?{...item,points:[answer]}:item;
+    });
+  }
+  return data;
+}
+
 function readSummaryData(episode){
   const source=fs.readFileSync(`episode-${episode}-summary.js`,'utf8');
   let data;
@@ -61,7 +72,7 @@ function readSummaryData(episode){
     data.cs=data.cs.filter(item=>!isRemovedChapter(item));
     data.sk=data.sk.filter(item=>!isRemovedChapter(item));
   }
-  return data;
+  return preserveTextAnswers(data);
 }
 
 const content=JSON.parse(fs.readFileSync(CONTENT_FILE,'utf8'));
