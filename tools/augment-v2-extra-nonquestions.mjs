@@ -48,12 +48,27 @@ function readLegacySummaryData(source,episode){
   return sandbox.__SUMMARY_DATA__;
 }
 
+function textToPoints(text){
+  const sentences=String(text||'').trim().match(/[^.!?]+[.!?]+(?:[”"']|$)|[^.!?]+$/g)?.map(s=>s.trim()).filter(Boolean)||[];
+  if(sentences.length<=4)return sentences;
+  // Keep the familiar 3–4 bullet layout without dropping any source text:
+  // distribute consecutive sentences as evenly as possible across four points.
+  const points=[];
+  for(let i=0;i<4;i++){
+    const from=Math.floor(i*sentences.length/4);
+    const to=Math.floor((i+1)*sentences.length/4);
+    const point=sentences.slice(from,to).join(' ').trim();
+    if(point)points.push(point);
+  }
+  return points;
+}
+
 function preserveTextAnswers(data){
   for(const language of ['cs','sk']){
     data[language]=data[language].map(item=>{
       if(Array.isArray(item?.points)&&item.points.length)return item;
       const answer=typeof item?.text==='string'?item.text.trim():'';
-      return answer?{...item,points:[answer]}:item;
+      return answer?{...item,points:textToPoints(answer)}:item;
     });
   }
   return data;
