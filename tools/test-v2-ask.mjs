@@ -30,8 +30,9 @@ assert.equal(d.querySelectorAll('#ask-results-v2 article').length,0);
 assert(!d.querySelector('.panel .controls').classList.contains('hidden'));
 assert.equal(d.querySelectorAll('#ask-heading-v2,#ask-intro-v2,#ask-note-v2,[data-ask-suggestion]').length,0);
 assert.equal(d.querySelector('#ask-status-v2').textContent,'');
-assert(d.querySelector('#ask-filters-v2').classList.contains('parity-topics-v2'),'Ask filters must use the episode topic pill row');
-assert([...d.querySelectorAll('#ask-filters-v2 .ask-filter-v2')].every(button=>button.classList.contains('topic-v2')),'Ask filters must reuse episode topic pill styling');
+const askFilterRow=d.querySelector('#parity-topics-v2');
+assert(askFilterRow.closest('.panel'),'Ask filters must live inside the same panel as the main tabs');
+assert([...askFilterRow.querySelectorAll('.ask-filter-v2')].every(button=>button.classList.contains('topic-v2')),'Ask filters must reuse episode topic pill styling');
 assert(d.querySelector('#ask-submit-v2').closest('.controls'));
 assert.equal(d.querySelectorAll('[data-ask-filter]').length,3);
 const input=d.querySelector('#search-v2'),submitButton=d.querySelector('#ask-submit-v2');
@@ -50,9 +51,12 @@ assert(d.querySelector('#audio-v2').src.includes(data.episodes.find(e=>Number(e.
 const more=first.querySelector('[data-ask-answer]');if(more){more.click();assert(d.querySelector('#ask-results-v2 article').classList.contains('ask-open-v2'))}
 for(const filter of ['question','nonquestion']){
  d.querySelector('[data-ask-filter="'+filter+'"]').click();
+ assert.equal(d.querySelector('#parity-topics-v2 .ask-filter-v2.active')?.dataset.askFilter,filter,'Active Ask filter must move to the selected pill');
+ assert.equal(d.querySelectorAll('#parity-topics-v2 .ask-filter-v2.active').length,1,'Only one Ask filter may be active');
  for(const item of d.querySelectorAll('#ask-results-v2 article'))assert(item.dataset.askId.startsWith(filter==='question'?'q:':'n:'));
 }
 d.querySelector('[data-ask-filter="all"]').click();
+assert.equal(d.querySelector('#parity-topics-v2 .ask-filter-v2.active')?.dataset.askFilter,'all','All must become active again');
 submit('černá díra');const synonyms=d.querySelectorAll('#ask-results-v2 article').length;assert(synonyms>0);
 submit('black hole');assert(d.querySelector('#ask-results-v2 mark.ask-search-hit'),'Synonyms must be highlighted');assert(d.querySelectorAll('#ask-results-v2 article').length>0,'English synonym should match');
 submit('qxzvabcnevermatch');assert.equal(d.querySelectorAll('#ask-results-v2 article').length,0);
