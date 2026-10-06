@@ -12,7 +12,7 @@ window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};
 window.HTMLMediaElement.prototype.load=()=>{};
 window.HTMLElement.prototype.scrollIntoView=()=>{};
-window.requestAnimationFrame=callback=>setTimeout(()=>callback(Date.now()),0);
+window.requestAnimationFrame=callback=>window.setTimeout(()=>callback(Date.now()),0);
 window.alert=()=>{};window.prompt=()=>'';window.confirm=()=>true;
 
 const ready=new Promise((resolve,reject)=>{
@@ -58,4 +58,5 @@ window.document.querySelector('.language-v2 [data-lang="sk"]').click();
 for(let i=0;i<data.series.length;i++)assert(window.document.querySelector(`#parity-topics-v2 [data-topic="collection:${i}"]`).title===(data.series[i].i18n?.sk||data.series[i].name),'Slovak label mismatch');
 assert(window.getComputedStyle(window.document.querySelector('#parity-topics-v2')).display!=='none','Production collection row hidden');
 console.log('All collection memberships, labels, text highlights and production visibility passed');
+await new Promise(resolve=>setTimeout(resolve,80));
 window.close();

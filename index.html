@@ -271,17 +271,31 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
 .question-card.open .question-answer{display:block!important;-webkit-line-clamp:unset!important;-webkit-box-orient:initial!important;max-height:none!important}
 .question-card .question-answer::after{content:none!important}
 </style>
+<style id="ask-styles-v2">
+.controls.ask-controls-v2{grid-template-columns:minmax(0,1fr) auto!important;gap:10px}
+.ask-submit-v2,.ask-filter-v2{background:var(--accent2);color:var(--ink);border:1px solid var(--accent);border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer;min-height:44px}
+.ask-filter-v2.active{background:#5b4bdb;color:white}
+.ask-type-filters-v2{padding:0 0 14px;margin:0;gap:8px}
+.ask-card-v2{display:flex;flex-direction:column;min-width:0}.ask-card-v2 h2{overflow-wrap:anywhere}
+.ask-answer-v2{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;line-height:1.5}.ask-open-v2 .ask-answer-v2{display:block}
+.ask-actions-v2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}.ask-actions-v2>*{min-width:0;width:100%;min-height:44px;text-decoration:none;display:flex;align-items:center;justify-content:center;font-weight:700}.ask-actions-v2>a{grid-column:1/-1}.ask-actions-v2:not(:has([data-ask-answer])) .play{grid-column:1/-1}
+.ask-actions-v2 .play{background:var(--accent);color:white;border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}
+#ask-v2 .secondary{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer}
+.ask-card-v2 .tags{margin-top:auto;padding-top:12px}#ask-status-v2{overflow-wrap:anywhere}.ask-card-v2 mark.vedator-match{background:#ffe66b!important;color:#171717!important;border-radius:.28em;padding:.02em .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}html[data-theme="dark"] .ask-card-v2 mark.vedator-match{background:#8a6d00!important;color:#fff4b3!important}#ask-more-v2{margin:16px 0;min-height:44px}
+@media(max-width:600px){.ask-type-filters-v2{margin-right:0}.ask-submit-v2{padding:9px 12px}}
+</style>
 </head>
 <body>
 <header><div class="wrap header-v2"><div class="header-title-v2"><div id="eyebrow-v2" style="opacity:.72;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Neoficiální tematický katalog</div><h1 id="heading-v2" style="margin:.25rem 0 0">Vedátorský podcast podle témat</h1></div><div class="header-actions-v2"><button id="install-v2" class="install-v2" type="button">Instalovat</button><div class="language-v2" role="group" aria-label="Jazyk aplikace / Jazyk aplikácie"><button type="button" data-lang="sk">SK</button><button type="button" data-lang="cz">CZ</button></div><button id="theme-toggle-v2" class="theme-toggle-v2" type="button" aria-pressed="false" title="Tmavý režim">☾</button></div></div></header>
 <main class="wrap">
   <section class="panel">
-    <div class="controls"><div class="search-clear-wrap"><input id="search-v2" class="search" placeholder="Hledat v právě otevřené záložce…"><button id="search-clear-v2" class="search-clear-button" type="button" hidden aria-label="Smazat vyhledávání" title="Smazat vyhledávání">×</button></div></div>
+    <div class="controls"><div class="search-clear-wrap"><input id="search-v2" class="search" placeholder="Hledat v právě otevřené záložce…"><button id="search-clear-v2" class="search-clear-button" type="button" hidden aria-label="Smazat vyhledávání" title="Smazat vyhledávání">×</button></div><button id="ask-submit-v2" class="ask-submit-v2 hidden" type="button">Hledat</button></div>
     <div class="tabs" aria-label="Pohledy">
       <button class="tab-v2 active" data-view="episodes" type="button">Epizody</button>
       <button class="tab-v2" data-view="series" type="button">Série</button>
       <button class="tab-v2" data-view="questions" type="button">Otázky</button>
       <button class="tab-v2" data-view="nonquestions" type="button">Neotázky</button>
+      <button class="tab-v2" data-view="ask" type="button">Zeptej se</button>
       <button class="tab-v2" data-view="playlists" type="button">Playlisty</button>
       <button class="tab-v2" data-view="data" type="button">Moje data</button>
     </div>
@@ -291,6 +305,7 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
   <section id="series-v2" class="view-v2 hidden" data-view="series"></section>
   <section id="questions-v2" class="view-v2 grid hidden" data-view="questions"></section>
   <section id="nonquestions-v2" class="view-v2 grid hidden" data-view="nonquestions"></section>
+  <section id="ask-v2" class="view-v2 hidden" data-view="ask"></section>
   <section id="playlists-v2" class="view-v2 hidden" data-view="playlists"></section>
   <section id="data-v2" class="view-v2 hidden" data-view="data"></section>
 </main>
@@ -343,6 +358,7 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
     search.dispatchEvent(new Event('input',{bubbles:true}));
   });
   window.addEventListener('vedatorlanguagechange',sync);
+  window.addEventListener('vedatorviewchange',sync);
   sync();
 })();
 </script>

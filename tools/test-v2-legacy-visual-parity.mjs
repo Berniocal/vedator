@@ -63,7 +63,7 @@ assert(collapse.textContent==='↓','Player collapse button should be down arrow
 collapse.click();await new Promise(resolve=>setTimeout(resolve,20));
 assert(window.document.querySelector('#player-v2').classList.contains('player-collapsed-v2'),'Player did not collapse');
 const expand=window.document.querySelector('#player-expand-v2');
-assert(expand&&!expand.hidden&&expand.textContent.includes('♫')&&expand.textContent.includes('↑'),'Distinct floating player expand control missing after collapse');
+assert(expand&&!expand.hidden&&expand.textContent==='🔊'&&expand.getAttribute('aria-label')==='Rozbalit přehrávač','Distinct floating player expand control missing after collapse');
 assert(window.document.querySelector('#back-top-v2')?.textContent==='↑','Back-to-top control must remain plain up arrow');
 expand.click();await new Promise(resolve=>setTimeout(resolve,20));
 assert(!window.document.querySelector('#player-v2').classList.contains('player-collapsed-v2'),'Player did not expand again');

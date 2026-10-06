@@ -34,13 +34,13 @@ const detail=await ready;await new Promise(resolve=>setTimeout(resolve,30));
 
 const assert=(condition,message)=>{if(!condition)throw new Error(message)};
 const tabs=[...window.document.querySelectorAll('.tab-v2')];
-assert(tabs.length===6,`Expected 6 tabs, got ${tabs.length}`);
-assert(tabs.map(x=>x.dataset.view).join(',')==='episodes,series,questions,nonquestions,playlists,data','Unexpected tab order');
+assert(tabs.length===7,`Expected 7 tabs, got ${tabs.length}`);
+assert(tabs.map(x=>x.dataset.view).join(',')==='episodes,series,questions,nonquestions,ask,playlists,data','Unexpected tab order');
 assert(window.document.querySelectorAll('#episodes-v2 .card').length===20,'Episodes should initially render 20 cards');
 assert(window.document.querySelectorAll('#questions-v2 .card').length===20,'Questions should initially render 20 cards');
 assert(window.document.querySelectorAll('#series-v2 .series').length===data.series.length,'Series not rendered');
 assert(Number(window.document.querySelector('#nonquestions-v2').dataset.count)>0,'Nonquestions not rendered');
-assert(detail.episodes===data.episodes.length&&detail.questions===734,'Ready event has wrong counts');
+assert(detail.episodes===data.episodes.length&&detail.questions===data.questions.length,'Ready event has wrong counts');
 assert(detail.playlists===1,'Legacy playlist count not exposed');
 assert(detail.language==='cz','Stored Czech language not restored');
 assert(window.document.documentElement.lang==='cs','HTML language is not Czech');
