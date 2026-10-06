@@ -2488,7 +2488,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   function renderAsk(){
     const root=$('#ask-v2');if(!root)return;
     if(!root.querySelector('#ask-filters-v2')){
-      root.innerHTML='<div id="ask-filters-v2" class="tabs ask-type-filters-v2"></div><p id="ask-status-v2" class="hidden" role="status" aria-live="polite"></p><div id="ask-results-v2" class="grid"></div><button id="ask-more-v2" class="secondary hidden" type="button"></button>';
+      root.innerHTML='<div id="ask-filters-v2" class="parity-topics-v2 ask-type-filters-v2"></div><p id="ask-status-v2" class="hidden" role="status" aria-live="polite"></p><div id="ask-results-v2" class="grid"></div><button id="ask-more-v2" class="secondary hidden" type="button"></button>';
       root.addEventListener('click',event=>{
         const filter=event.target.closest('[data-ask-filter]');
         if(filter){askUi.filter=filter.dataset.askFilter;if(askUi.query&&askUi.ready)askUi.ranked=askEngine().search(askUi.query,askUi.filter);askUi.visible=30;renderAskResults();return}
@@ -2499,7 +2499,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
         if(event.target.closest('#ask-more-v2')){askUi.visible+=30;renderAskResults()}
       });
     }
-    $('#ask-filters-v2').innerHTML=[['all',text('Vše','Všetko')],['question','Otázky'],['nonquestion','Neotázky']].map(([value,label])=>'<button type="button" class="ask-filter-v2 '+(askUi.filter===value?'active':'')+'" data-ask-filter="'+value+'" aria-pressed="'+(askUi.filter===value)+'">'+label+'</button>').join('');
+    $('#ask-filters-v2').innerHTML=[['all',text('Vše','Všetko')],['question','Otázky'],['nonquestion','Neotázky']].map(([value,label])=>'<button type="button" class="topic-v2 ask-filter-v2 '+(askUi.filter===value?'active':'')+'" data-ask-filter="'+value+'" aria-pressed="'+(askUi.filter===value)+'">'+label+'</button>').join('');
     renderAskResults();
     ensureAskEngine().catch(()=>{});
   }
