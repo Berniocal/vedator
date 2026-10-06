@@ -2071,7 +2071,7 @@ socialni site|dezinformace|0.58
 'use strict';
 
 const MAPS = searchScope.VEDATOR_SEARCH_MAPS || {equivalents:[],queryPhrases:[],semanticEdges:[]};
-const state = {index:[],df:new Map(),postings:new Map(),corpusSize:1,filter:'all'};
+const state = {index:[],df:new Map(),postings:new Map(),corpusSize:1,filter:'all',buildVersion:0};
 
 const norm = value => String(value??'')
   .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
@@ -2221,13 +2221,7 @@ function flattenData(data){
   return items;
 }
 
-function resetIndex(items){
-  state.df=new Map();
-  state.postings=new Map();
-  state.index=new Array(items.length);
-  state.corpusSize=Math.max(1,items.length);
-}
-function indexItem(item,idx){
+function makeIndexEntry(item,idx,df,postings,index){
   const title=[item.cs.title,item.sk.title].join(' ');
   const full=[item.cs.title,...item.cs.points,item.sk.title,...item.sk.points].join(' ');
   const titleTerms=extractTerms(title,{query:true});
@@ -2238,40 +2232,45 @@ function indexItem(item,idx){
   const termSet=new Set(terms.map(t=>t.key));
   const titleSet=new Set(titleTerms.map(t=>t.key));
   for(const key of termSet){
-    state.df.set(key,(state.df.get(key)||0)+1);
-    if(!state.postings.has(key))state.postings.set(key,[]);
-    state.postings.get(key).push(idx);
+    df.set(key,(df.get(key)||0)+1);
+    if(!postings.has(key))postings.set(key,[]);
+    postings.get(key).push(idx);
   }
   const entry={item,title,full,normTitle:norm(title),normFull:norm(full),terms,termSet,titleSet};
-  state.index[idx]=entry;
+  index[idx]=entry;
   return entry;
 }
-function buildIndex(items){
-  resetIndex(items);
-  items.forEach((item,idx)=>indexItem(item,idx));
+function installIndex(index,df,postings){
+  state.index=index;state.df=df;state.postings=postings;state.corpusSize=Math.max(1,index.length);
   return state.index;
 }
+function buildIndex(items){
+  const version=++state.buildVersion,df=new Map(),postings=new Map(),index=new Array(items.length);
+  items.forEach((item,idx)=>makeIndexEntry(item,idx,df,postings,index));
+  if(version!==state.buildVersion)return state.index;
+  return installIndex(index,df,postings);
+}
 function buildIndexAsync(items,onProgress){
-  resetIndex(items);
-  const total=items.length;let index=0;
+  const version=++state.buildVersion,total=items.length,df=new Map(),postings=new Map(),index=new Array(total);let position=0;
   if(onProgress)onProgress(0,total);
   return new Promise((resolve,reject)=>{
     const now=()=>typeof performance!=='undefined'&&typeof performance.now==='function'?performance.now():Date.now();
     const step=()=>{
       try{
+        if(version!==state.buildVersion){resolve(null);return}
         const started=now();let processed=0;
-        while(index<total){
-          indexItem(items[index],index);index++;processed++;
+        while(position<total){
+          makeIndexEntry(items[position],position,df,postings,index);position++;processed++;
           if(processed>=32||now()-started>=8)break;
         }
-        if(onProgress)onProgress(total?Math.round(index/total*100):100,total);
-        if(index<total)setTimeout(step,0);else resolve(state.index);
+        if(onProgress)onProgress(total?Math.round(position/total*100):100,total);
+        if(version!==state.buildVersion){resolve(null);return}
+        if(position<total)setTimeout(step,0);else resolve(installIndex(index,df,postings));
       }catch(error){reject(error)}
     };
     setTimeout(step,0);
   });
 }
-
 function idf(key){
   const df=state.df.get(key)||0;
   return Math.max(1,Math.min(5.2,Math.log((state.corpusSize+1)/(df+1))+1));
