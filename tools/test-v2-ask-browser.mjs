@@ -6,7 +6,7 @@ await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.
 const executablePath=[process.env.CHROME_PATH,'/usr/bin/google-chrome','/usr/bin/chromium'].find(p=>p&&fs.existsSync(p));
 const browser=await puppeteer.launch({executablePath,headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
 try{
- const page=await browser.newPage();page.on('pageerror',e=>errors.push(String(e)));
+ const page=await browser.newPage();await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'reduce'}]);page.on('pageerror',e=>errors.push(String(e)));
  await page.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
  await page.setRequestInterception(true);page.on('request',r=>r.url().startsWith(base)?r.continue():r.abort());
  await page.evaluateOnNewDocument(()=>localStorage.setItem('vedator-ui-language-v1','cz'));
@@ -31,10 +31,12 @@ try{
  await page.click('#theme-toggle-v2');const lightHit=await page.$eval('.ask-card-v2 mark',e=>({background:getComputedStyle(e).backgroundColor,color:getComputedStyle(e).color}));assert.deepEqual(lightHit,{background:'rgb(255, 230, 107)',color:'rgb(23, 23, 23)'});await page.click('#theme-toggle-v2');
  fs.mkdirSync('mobile-browser-artifacts',{recursive:true});await page.screenshot({path:'mobile-browser-artifacts/ask-mobile.png',fullPage:false});
  await page.click('.ask-card-v2 [data-ask-answer]');assert.equal(await page.$eval('.ask-card-v2 [data-ask-answer]',e=>e.getAttribute('aria-expanded')),'true');
- await page.click('.ask-card-v2 a');await page.waitForFunction(()=>['questions','nonquestions'].includes(document.querySelector('.tab-v2.active').dataset.view));
+ await page.$eval('.ask-card-v2 a',e=>e.scrollIntoView({block:'center',behavior:'instant'}));
+ await page.locator('.ask-card-v2 a').setWaitForStableBoundingBox(true).click();await page.waitForFunction(()=>['questions','nonquestions'].includes(document.querySelector('.tab-v2.active').dataset.view));
  await page.evaluate(()=>document.querySelector('.tab-v2[data-view="ask"]').click());
  assert.equal(await page.$eval('#search-v2',e=>e.value),'kolik váží Slunce');
- await page.click('.ask-card-v2 a');await page.waitForFunction(()=>['questions','nonquestions'].includes(document.querySelector('.tab-v2.active').dataset.view));
+ await page.$eval('.ask-card-v2 a',e=>e.scrollIntoView({block:'center',behavior:'instant'}));
+ await page.locator('.ask-card-v2 a').setWaitForStableBoundingBox(true).click();await page.waitForFunction(()=>['questions','nonquestions'].includes(document.querySelector('.tab-v2.active').dataset.view));
  await page.evaluate(()=>document.querySelector('.tab-v2[data-view=ask]').click());
  await page.click('[data-lang="sk"]');assert.equal(await page.$eval('#ask-submit-v2',e=>e.textContent),'Hľadať');
  await page.evaluate(()=>document.querySelector('.tab-v2[data-view=episodes]').click());
