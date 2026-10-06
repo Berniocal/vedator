@@ -377,10 +377,31 @@
   }
 
   function playerNodes(){return{shell:$('#player-v2'),audio:$('#audio-v2'),title:$('#player-title-v2'),sub:$('#player-sub-v2'),play:$('#player-play-v2'),prev:$('#player-prev-v2'),next:$('#player-next-v2'),speed:$('#player-speed-v2'),seek:$('#player-seek-v2'),current:$('#player-current-v2'),duration:$('#player-duration-v2'),help:$('#player-help-v2'),download:$('#player-download-v2'),offline:$('#player-offline-v2')}}
+  let playerTitleMarqueeFrame=0,playerTitleResizeObserver=null;
+  function updatePlayerTitleMarquee(){
+    playerTitleMarqueeFrame=0;const title=$('#player-title-v2');if(!title)return;const value=title.dataset.marqueeText??title.textContent;
+    title.classList.remove('player-title-scroll');title.style.removeProperty('--player-title-distance');title.style.removeProperty('--player-title-duration');
+    if(title.querySelector('.player-title-track'))title.textContent=value;
+    if(!value||title.clientWidth<=0||(typeof matchMedia==='function'&&matchMedia('(prefers-reduced-motion: reduce)').matches))return;
+    const overflow=Math.ceil(title.scrollWidth-title.clientWidth);if(overflow<=2)return;
+    const track=document.createElement('span');track.className='player-title-track';track.textContent=value;title.textContent='';title.appendChild(track);
+    const distance=Math.max(0,Math.ceil(track.scrollWidth-title.clientWidth));if(distance<=2){title.textContent=value;return}
+    const speed=34,duration=Math.max(12,(2*distance/speed)/.76);
+    title.style.setProperty('--player-title-distance',distance+'px');title.style.setProperty('--player-title-duration',duration.toFixed(2)+'s');title.classList.add('player-title-scroll');
+  }
+  function queuePlayerTitleMarquee(){
+    if(playerTitleMarqueeFrame)cancelAnimationFrame(playerTitleMarqueeFrame);playerTitleMarqueeFrame=requestAnimationFrame(updatePlayerTitleMarquee);
+  }
+  function syncPlayerTitle(value){
+    const title=$('#player-title-v2');if(!title)return;const next=String(value||''),changed=title.dataset.marqueeText!==next;
+    title.dataset.marqueeText=next;title.title=next;
+    if(changed){title.textContent=next;title.classList.remove('player-title-scroll');queuePlayerTitleMarquee()}
+    if(!playerTitleResizeObserver&&'ResizeObserver'in window){playerTitleResizeObserver=new ResizeObserver(queuePlayerTitleMarquee);playerTitleResizeObserver.observe(title)}
+  }
   function syncPlayer(){
     const n=playerNodes(),audio=n.audio,current=state.current;
     if(!current){n.shell.classList.add('hidden');return}
-    n.shell.classList.remove('hidden');n.title.textContent=episodeCopy(current.episode).title;
+    n.shell.classList.remove('hidden');syncPlayerTitle(episodeCopy(current.episode).title);
     n.sub.textContent=state.context?`${state.context.type==='series'?text('Série','Séria'):'Playlist'}: ${state.context.label}`:`${text('Díl','Diel')} ${episodeDisplayNumber(current.episode)}`;
     n.play.textContent=audio.paused?'▶':'❚❚';n.play.title=audio.paused?text('Přehrát','Prehrať'):text('Pauza','Pauza');n.play.setAttribute('aria-label',n.play.title);
     n.prev.title=text('Předchozí','Predchádzajúca');n.next.title=text('Další','Ďalšia');
