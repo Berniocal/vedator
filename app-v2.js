@@ -2221,29 +2221,58 @@ function flattenData(data){
   return items;
 }
 
-function buildIndex(items){
+function resetIndex(items){
   state.df=new Map();
   state.postings=new Map();
-  const index=items.map((item,idx)=>{
-    const title=[item.cs.title,item.sk.title].join(' ');
-    const full=[item.cs.title,...item.cs.points,item.sk.title,...item.sk.points].join(' ');
-    const titleTerms=extractTerms(title,{query:true});
-    const bodyTerms=extractTerms(full);
-    const byKey=new Map();
-    for(const t of [...titleTerms,...bodyTerms])if(!byKey.has(t.key))byKey.set(t.key,t);
-    const terms=[...byKey.values()];
-    const termSet=new Set(terms.map(t=>t.key));
-    const titleSet=new Set(titleTerms.map(t=>t.key));
-    for(const key of termSet){
-      state.df.set(key,(state.df.get(key)||0)+1);
-      if(!state.postings.has(key))state.postings.set(key,[]);
-      state.postings.get(key).push(idx);
-    }
-    return {item,title,full,normTitle:norm(title),normFull:norm(full),terms,termSet,titleSet};
-  });
-  state.corpusSize=Math.max(1,index.length);
-  return index;
+  state.index=new Array(items.length);
+  state.corpusSize=Math.max(1,items.length);
 }
+function indexItem(item,idx){
+  const title=[item.cs.title,item.sk.title].join(' ');
+  const full=[item.cs.title,...item.cs.points,item.sk.title,...item.sk.points].join(' ');
+  const titleTerms=extractTerms(title,{query:true});
+  const bodyTerms=extractTerms(full);
+  const byKey=new Map();
+  for(const t of [...titleTerms,...bodyTerms])if(!byKey.has(t.key))byKey.set(t.key,t);
+  const terms=[...byKey.values()];
+  const termSet=new Set(terms.map(t=>t.key));
+  const titleSet=new Set(titleTerms.map(t=>t.key));
+  for(const key of termSet){
+    state.df.set(key,(state.df.get(key)||0)+1);
+    if(!state.postings.has(key))state.postings.set(key,[]);
+    state.postings.get(key).push(idx);
+  }
+  const entry={item,title,full,normTitle:norm(title),normFull:norm(full),terms,termSet,titleSet};
+  state.index[idx]=entry;
+  return entry;
+}
+function buildIndex(items){
+  resetIndex(items);
+  items.forEach((item,idx)=>indexItem(item,idx));
+  return state.index;
+}
+function buildIndexAsync(items,onProgress){
+  resetIndex(items);
+  const total=items.length;let index=0;
+  if(onProgress)onProgress(0,total);
+  return new Promise((resolve,reject)=>{
+    const now=()=>typeof performance!=='undefined'&&typeof performance.now==='function'?performance.now():Date.now();
+    const step=()=>{
+      try{
+        const started=now();let processed=0;
+        while(index<total){
+          indexItem(items[index],index);index++;processed++;
+          if(processed>=32||now()-started>=8)break;
+        }
+        if(onProgress)onProgress(total?Math.round(index/total*100):100,total);
+        if(index<total)setTimeout(step,0);else resolve(state.index);
+      }catch(error){reject(error)}
+    };
+    setTimeout(step,0);
+  });
+}
+
+function idf
 
 function idf(key){
   const df=state.df.get(key)||0;
@@ -2382,17 +2411,65 @@ function highlightText(value,keys){
   }
   return out+esc(raw.slice(position));
 }
-return {load(data){state.items=flattenData(data);state.index=buildIndex(state.items)},search(query,filter='all'){state.filter=filter;return rank(query)},highlightKeys,highlightText};
+return {load(data){state.items=flattenData(data);state.index=buildIndex(state.items)},loadAsync(data,onProgress){state.items=flattenData(data);return buildIndexAsync(state.items,onProgress)},search(query,filter='all'){state.filter=filter;return rank(query)},highlightKeys,highlightText};
   }
 
 
-  const askUi={engine:null,data:null,draft:'',query:'',filter:'all',ranked:[],visible:30,open:new Set()};
+  const askUi={engine:null,data:null,draft:'',query:'',filter:'all',ranked:[],visible:30,open:new Set(),ready:false,loading:false,progress:0,error:'',loadPromise:null,loadToken:0};
   function askEngine(){
     if(!askUi.engine)askUi.engine=createAskSearchEngine();
-    if(askUi.data!==state.data){askUi.engine.load(state.data);askUi.data=state.data;if(askUi.query)askUi.ranked=askUi.engine.search(askUi.query,askUi.filter)}
     return askUi.engine;
   }
-  function askReason(result){
+  function updateAskLoadingStatus(){
+    const status=$('#ask-status-v2');if(!status)return;
+    if(askUi.loading){
+      const progress=Math.max(0,Math.min(100,Math.round(askUi.progress||0)));
+      status.classList.remove('hidden');
+      status.innerHTML='<span class="ask-loading-v2"><span class="ask-loading-label-v2">'+text('Připravuji vyhledávání','Pripravujem vyhľadávanie')+' <strong data-ask-percent>'+progress+' %</strong></span><span class="ask-progress-track-v2" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+progress+'"><span class="ask-progress-fill-v2" style="width:'+progress+'%"></span></span></span>';
+      if(state.view==='ask')$('#count-v2').textContent=progress+' %';
+      return;
+    }
+    if(askUi.error){
+      status.textContent=text('Vyhledávání se nepodařilo připravit. Zkus stránku znovu načíst.','Vyhľadávanie sa nepodarilo pripraviť. Skús stránku znovu načítať.');
+      status.classList.remove('hidden');
+    }
+  }
+  function ensureAskEngine(){
+    if(askUi.data===state.data&&askUi.ready)return Promise.resolve(askEngine());
+    if(askUi.data===state.data&&askUi.loading&&askUi.loadPromise)return askUi.loadPromise;
+    askUi.data=state.data;askUi.ready=false;askUi.loading=true;askUi.progress=0;askUi.error='';askUi.ranked=[];
+    const token=++askUi.loadToken;
+    document.documentElement.dataset.vedatorAskLoading='1';delete document.documentElement.dataset.vedatorAskReady;
+    updateAskLoadingStatus();
+    askUi.loadPromise=new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        try{
+          const engine=askEngine();
+          engine.loadAsync(state.data,progress=>{
+            if(token!==askUi.loadToken)return;
+            askUi.progress=progress;
+            if(state.view==='ask')updateAskLoadingStatus();
+          }).then(()=>resolve(engine),reject);
+        }catch(error){reject(error)}
+      },0);
+    }).then(engine=>{
+      if(token!==askUi.loadToken)return engine;
+      askUi.loading=false;askUi.ready=true;askUi.progress=100;askUi.error='';
+      delete document.documentElement.dataset.vedatorAskLoading;document.documentElement.dataset.vedatorAskReady='1';
+      if(askUi.query)askUi.ranked=engine.search(askUi.query,askUi.filter);
+      if(state.view==='ask')renderAskResults();
+      return engine;
+    }).catch(error=>{
+      if(token===askUi.loadToken){
+        askUi.loading=false;askUi.ready=false;askUi.error=String(error?.message||error||'error');
+        delete document.documentElement.dataset.vedatorAskLoading;
+        if(state.view==='ask'){updateAskLoadingStatus();$('#count-v2').textContent=''}
+      }
+      console.error('Ask index failed',error);throw error;
+    });
+    return askUi.loadPromise;
+  }
+  function askReason(result){  function askReason(result){
     const labels={
       'exact-title':text('Přesná shoda v názvu','Presná zhoda v názve'),
       'exact-any':text('Přesná shoda v textu','Presná zhoda v texte'),
@@ -2413,12 +2490,11 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   }
   function renderAsk(){
     const root=$('#ask-v2');if(!root)return;
-    askEngine();
     if(!root.querySelector('#ask-filters-v2')){
       root.innerHTML='<div id="ask-filters-v2" class="tabs ask-type-filters-v2"></div><p id="ask-status-v2" class="hidden" role="status" aria-live="polite"></p><div id="ask-results-v2" class="grid"></div><button id="ask-more-v2" class="secondary hidden" type="button"></button>';
       root.addEventListener('click',event=>{
         const filter=event.target.closest('[data-ask-filter]');
-        if(filter){askUi.filter=filter.dataset.askFilter;if(askUi.query)askUi.ranked=askEngine().search(askUi.query,askUi.filter);askUi.visible=30;renderAsk();return}
+        if(filter){askUi.filter=filter.dataset.askFilter;if(askUi.query&&askUi.ready)askUi.ranked=askEngine().search(askUi.query,askUi.filter);askUi.visible=30;renderAskResults();return}
         const catalog=event.target.closest('a[href]');
         if(catalog&&catalog.getAttribute('href')===location.hash){event.preventDefault();processDeepLink().catch(error=>console.warn('Ask catalog navigation failed',error));return}
         const more=event.target.closest('[data-ask-answer]');
@@ -2428,12 +2504,20 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     }
     $('#ask-filters-v2').innerHTML=[['all',text('Vše','Všetko')],['question','Otázky'],['nonquestion','Neotázky']].map(([value,label])=>'<button type="button" class="ask-filter-v2 '+(askUi.filter===value?'active':'')+'" data-ask-filter="'+value+'" aria-pressed="'+(askUi.filter===value)+'">'+label+'</button>').join('');
     renderAskResults();
+    ensureAskEngine().catch(()=>{});
   }
   function renderAskResults(){
+    const results=$('#ask-results-v2'),moreButton=$('#ask-more-v2'),status=$('#ask-status-v2');if(!results||!moreButton||!status)return;
+    if(askUi.loading||!askUi.ready){
+      results.innerHTML='';moreButton.classList.add('hidden');updateAskLoadingStatus();return;
+    }
+    if(askUi.error){
+      results.innerHTML='';moreButton.classList.add('hidden');updateAskLoadingStatus();return;
+    }
     const noMatch=Boolean(askUi.query)&&!askUi.ranked.length;
-    $('#ask-status-v2').textContent=noMatch?text('Nenašel jsem použitelnou shodu. Zkus otázku přeformulovat.','Nenašiel som použiteľnú zhodu. Skús otázku preformulovať.'):'';
-    $('#ask-status-v2').classList.toggle('hidden',!noMatch);
-    $('#ask-results-v2').innerHTML=askUi.ranked.slice(0,askUi.visible).map(result=>{
+    status.textContent=noMatch?text('Nenašel jsem použitelnou shodu. Zkus otázku přeformulovat.','Nenašiel som použiteľnú zhodu. Skús otázku preformulovať.'):'';
+    status.classList.toggle('hidden',!noMatch);
+    results.innerHTML=askUi.ranked.slice(0,askUi.visible).map(result=>{
       const item=result.entry.item,copy=sk()?item.sk:item.cs,open=askUi.open.has(item.id),kind=item.type==='question'?'question':'nonquestion';
       const q=kind==='question'?state.data.questions.find(q=>Number(q.episode)===item.episode&&Number(q.order)===item.order):null;
       const ref=q?qRef(q):'',keys=askEngine().highlightKeys(askUi.query,result);
@@ -2441,17 +2525,20 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
       const percent=Math.max(1,Math.round(Math.min(result.reason==='semantic'?.69:result.reason==='distant-semantic'?.49:1,result.score)*100));
       return '<article class="card ask-card-v2 '+(open?'ask-open-v2':'')+'" data-ask-id="'+esc(item.id)+'"><div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episodeByNumber(item.episode))+' · '+(kind==='question'?'Otázka':'Neotázka')+(item.time?' · '+esc(item.time):'')+'</div><h2>'+highlight(copy.title)+'</h2><div class="ask-answer-v2"><ul>'+copy.points.map(point=>'<li>'+highlight(point)+'</li>').join('')+'</ul></div><div class="tags"><span class="tag">'+esc(askReason(result))+'</span><span class="tag">'+text('Podobnost','Podobnosť')+' '+percent+' %</span></div><div class="ask-actions-v2"><button type="button" class="play" data-episode="'+item.episode+'" data-seconds="'+item.seconds+'" data-ref="'+esc(ref)+'">▶ '+text('Přehrát','Prehrať')+'</button>'+(copy.points.length?'<button type="button" class="secondary" data-ask-answer="'+esc(item.id)+'" aria-expanded="'+open+'">'+(open?text('Číst méně','Čítať menej'):text('Číst více','Čítať viac'))+'</button>':'')+'<a class="secondary" href="#'+kind+'='+item.episode+':'+item.order+'">'+text('Zobrazit v katalogu','Zobraziť v katalógu')+'</a></div></article>';
     }).join('');
-    parityTypeset($('#ask-results-v2'));
-    $('#ask-more-v2').textContent=text('Zobrazit další','Zobraziť ďalšie');
-    $('#ask-more-v2').classList.toggle('hidden',askUi.visible>=askUi.ranked.length);
+    parityTypeset(results);
+    moreButton.textContent=text('Zobrazit další','Zobraziť ďalšie');
+    moreButton.classList.toggle('hidden',askUi.visible>=askUi.ranked.length);
     if(state.view==='ask')$('#count-v2').textContent=askUi.query?askUi.ranked.length+' '+text('výsledků','výsledkov'):'';
   }
   function submitAsk(){
     if(state.view!=='ask')return;
     askUi.draft=$('#search-v2').value;askUi.query=askUi.draft.trim();askUi.visible=30;askUi.open.clear();
+    if(!askUi.ready){askUi.ranked=[];renderAskResults();ensureAskEngine().catch(()=>{});return}
     askUi.ranked=askEngine().search(askUi.query,askUi.filter);renderAskResults();
   }
 
+
+  async function start(){
 
   async function start(){
     const status=$('#status-v2');
