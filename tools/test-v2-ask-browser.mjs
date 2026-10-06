@@ -14,6 +14,13 @@ try{
  assert.equal(await page.$eval('#search-v2',e=>e.placeholder),'Může světlo uniknout z černé díry?');
  assert.equal(await page.$eval('.tab-v2.active',e=>e.dataset.view),'ask');
  assert.equal(await page.$eval('#ask-submit-v2',e=>e.closest('.controls')!==null),true);
+ const loading=await page.evaluate(()=>document.documentElement.dataset.vedatorAskLoading==='1');
+ if(loading){
+  assert(/\d+\s*%/.test(await page.$eval('#ask-status-v2',e=>e.textContent)),'Loading percentage must be visible');
+  await page.click('.tab-v2[data-view="episodes"]');assert.equal(await page.$eval('.tab-v2.active',e=>e.dataset.view),'episodes');
+  await page.click('.tab-v2[data-view="ask"]');assert.equal(await page.$eval('.tab-v2.active',e=>e.dataset.view),'ask');
+ }
+ await page.waitForFunction(()=>document.documentElement.dataset.vedatorAskReady==='1',{timeout:20000});
  assert.equal(await page.$eval('#ask-status-v2',e=>e.textContent),'');
  assert.equal(await page.$$eval('[data-ask-suggestion],#ask-heading-v2,#ask-note-v2',els=>els.length),0);
  await page.type('#search-v2','kolik váží Slunce');await page.click('#ask-submit-v2');await page.waitForSelector('.ask-card-v2');

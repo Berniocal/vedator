@@ -15,6 +15,14 @@ const ready=new Promise(resolve=>w.addEventListener('vedator-v2-ready',resolve,{
 w.eval(fs.readFileSync('app-v2.js','utf8'));d.dispatchEvent(new w.Event('DOMContentLoaded'));await ready;
 await new Promise(resolve=>setTimeout(resolve,50));
 assert.equal(d.querySelector('.tab-v2.active').dataset.view,'ask');
+const waitFor=async(predicate,timeout=20000)=>{const started=Date.now();while(!predicate()){if(Date.now()-started>timeout)throw new Error('Timed out waiting for Ask index');await new Promise(resolve=>setTimeout(resolve,20))}};
+assert(['1',undefined].includes(d.documentElement.dataset.vedatorAskLoading)||d.documentElement.dataset.vedatorAskReady==='1');
+if(d.documentElement.dataset.vedatorAskLoading==='1'){
+ assert(/\d+\s*%/.test(d.querySelector('#ask-status-v2').textContent),'Loading percentage must be visible');
+ d.querySelector('.tab-v2[data-view="playlists"]').click();assert.equal(d.querySelector('.tab-v2.active').dataset.view,'playlists','Other tabs must stay responsive while Ask indexes');
+ d.querySelector('.tab-v2[data-view="ask"]').click();
+}
+await waitFor(()=>d.documentElement.dataset.vedatorAskReady==='1');
 assert.equal(d.querySelector('#search-v2').placeholder,'Může světlo uniknout z černé díry?');
 assert.equal(w.localStorage.getItem('vedatorPlaybackProgressV1'),savedProgress);assert.equal(w.localStorage.getItem('vedator-user-playlists-v1'),savedPlaylists);
 assert.equal(d.querySelectorAll('.tab-v2').length,7);
