@@ -1025,9 +1025,11 @@
     writeJson(PARITY_SORT_KEY,{episode:parityUi.episodeSort,series:parityUi.seriesSort,question:questionUi.qSort,nonquestion:questionUi.nSort});
   }
   function syncParityControls(){
-    const topics=$('#parity-topics-v2'),sort=$('#parity-sort-v2');if(!topics||!sort)return;const view=state.view,set=parityTopicSet(view),showTopics=view==='episodes';
+    const topics=$('#parity-topics-v2'),sort=$('#parity-sort-v2');if(!topics||!sort)return;const view=state.view,set=parityTopicSet(view),showTopics=view==='episodes'||view==='ask';
     topics.classList.toggle('hidden',!showTopics);topics.replaceChildren();
-    if(showTopics)for(const [key,topic] of Object.entries(set)){const button=document.createElement('button');button.type='button';button.className='topic-v2'+(activeParityTopic(view)===key?' active':'');button.dataset.topic=key;button.textContent=episodeFilterButtonLabel(key,topic);button.title=parityControlLabel(topic);topics.appendChild(button)}
+    if(view==='ask'){
+      for(const [value,label] of [['all',text('Vše','Všetko')],['question','Otázky'],['nonquestion','Neotázky']]){const button=document.createElement('button');button.type='button';button.className='topic-v2 ask-filter-v2'+(askUi.filter===value?' active':'');button.dataset.askFilter=value;button.setAttribute('aria-pressed',String(askUi.filter===value));button.textContent=label;topics.appendChild(button)}
+    }else if(showTopics)for(const [key,topic] of Object.entries(set)){const button=document.createElement('button');button.type='button';button.className='topic-v2'+(activeParityTopic(view)===key?' active':'');button.dataset.topic=key;button.textContent=episodeFilterButtonLabel(key,topic);button.title=parityControlLabel(topic);topics.appendChild(button)}
     const options=paritySortOptions(view);sort.classList.toggle('hidden',!options.length);sort.innerHTML=options.map(([value,label])=>'<option value="'+value+'">'+esc(label)+'</option>').join('');if(options.length){const current=currentParitySort(view),valid=options.some(([value])=>value===current),selected=valid?current:options[0][0];if(!valid)setParitySort(view,selected);sort.value=selected}
   }
 
@@ -1109,7 +1111,7 @@
     const statusRow=$('.status-row');if(statusRow&&!$('#parity-sort-v2')){const sort=document.createElement('select');sort.id='parity-sort-v2';sort.className='parity-sort-v2';statusRow.appendChild(sort)}
     const controls=$('.controls');if(controls&&!$('#parity-refresh-v2')){const button=document.createElement('button');button.id='parity-refresh-v2';button.type='button';button.className='parity-refresh-v2';button.textContent=text('Znovu načíst','Znovu načítať');controls.appendChild(button)}
     const playerControls=$('.player-controls');if(playerControls&&!$('#player-back10-v2')){const back=document.createElement('button');back.id='player-back10-v2';back.type='button';back.className='skip-ten-v2';back.textContent='−10';const forward=document.createElement('button');forward.id='player-forward10-v2';forward.type='button';forward.className='skip-ten-v2';forward.textContent='+10';const play=$('#player-play-v2');play?.insertAdjacentElement('beforebegin',back);play?.insertAdjacentElement('afterend',forward)}
-    $('#parity-topics-v2')?.addEventListener('click',event=>{const button=event.target.closest('.topic-v2[data-topic]');if(!button)return;setActiveParityTopic(state.view,button.dataset.topic);filterActive()});
+    $('#parity-topics-v2')?.addEventListener('click',event=>{const askFilter=event.target.closest('.topic-v2[data-ask-filter]');if(askFilter){askUi.filter=askFilter.dataset.askFilter;if(askUi.query&&askUi.ready)askUi.ranked=askEngine().search(askUi.query,askUi.filter);askUi.visible=30;syncParityControls();renderAskResults();return}const button=event.target.closest('.topic-v2[data-topic]');if(!button)return;setActiveParityTopic(state.view,button.dataset.topic);filterActive()});
     $('#parity-sort-v2')?.addEventListener('change',event=>{setParitySort(state.view,event.target.value);filterActive()});
     $('#parity-refresh-v2')?.addEventListener('click',refreshParityContent);$('#player-back10-v2')?.addEventListener('click',()=>seekParity(-10));$('#player-forward10-v2')?.addEventListener('click',()=>seekParity(10));
     document.addEventListener('toggle',event=>{const card=event.target.closest?.('#series-v2 .series[data-series-index]');if(card?.open)ensureParitySeriesBody(card)},true);
@@ -2487,11 +2489,9 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   }
   function renderAsk(){
     const root=$('#ask-v2');if(!root)return;
-    if(!root.querySelector('#ask-filters-v2')){
-      root.innerHTML='<div id="ask-filters-v2" class="parity-topics-v2 ask-type-filters-v2"></div><p id="ask-status-v2" class="hidden" role="status" aria-live="polite"></p><div id="ask-results-v2" class="grid"></div><button id="ask-more-v2" class="secondary hidden" type="button"></button>';
+    if(!root.querySelector('#ask-results-v2')){
+      root.innerHTML='<p id="ask-status-v2" class="hidden" role="status" aria-live="polite"></p><div id="ask-results-v2" class="grid"></div><button id="ask-more-v2" class="secondary hidden" type="button"></button>';
       root.addEventListener('click',event=>{
-        const filter=event.target.closest('[data-ask-filter]');
-        if(filter){askUi.filter=filter.dataset.askFilter;if(askUi.query&&askUi.ready)askUi.ranked=askEngine().search(askUi.query,askUi.filter);askUi.visible=30;renderAskResults();return}
         const catalog=event.target.closest('a[href]');
         if(catalog&&catalog.getAttribute('href')===location.hash){event.preventDefault();processDeepLink().catch(error=>console.warn('Ask catalog navigation failed',error));return}
         const more=event.target.closest('[data-ask-answer]');
@@ -2499,7 +2499,6 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
         if(event.target.closest('#ask-more-v2')){askUi.visible+=30;renderAskResults()}
       });
     }
-    $('#ask-filters-v2').innerHTML=[['all',text('Vše','Všetko')],['question','Otázky'],['nonquestion','Neotázky']].map(([value,label])=>'<button type="button" class="topic-v2 ask-filter-v2 '+(askUi.filter===value?'active':'')+'" data-ask-filter="'+value+'" aria-pressed="'+(askUi.filter===value)+'">'+label+'</button>').join('');
     renderAskResults();
     ensureAskEngine().catch(()=>{});
   }
