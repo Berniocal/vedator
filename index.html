@@ -92,6 +92,12 @@ main{padding:16px 18px 24px}
 .player-shell.hidden{display:none}
 .player-inner{max-width:1100px;margin:auto;padding:9px 16px max(9px,env(safe-area-inset-bottom));display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;align-items:center}
 .player-title{font-weight:850;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.player-title-track{display:inline-block;min-width:max-content;will-change:transform}
+.player-title.player-title-scroll{text-overflow:clip}
+.player-title.player-title-scroll .player-title-track{animation:player-title-marquee var(--player-title-duration,14s) linear infinite}
+.player-title.player-title-scroll:hover .player-title-track{animation-play-state:paused}
+@keyframes player-title-marquee{0%,8%{transform:translateX(0)}46%,54%{transform:translateX(calc(-1 * var(--player-title-distance,0px)))}92%,100%{transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){.player-title.player-title-scroll .player-title-track{animation:none!important;transform:none!important}}
 .player-sub{font-size:.78rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .player-main{min-width:0}
 .player-controls{display:flex;gap:6px;align-items:center}

@@ -78,7 +78,16 @@ try{
   await page.screenshot({path:path.join(artifactDir,'02-questions-search-highlight.png'),fullPage:false});
 
   await page.click('.tab-v2[data-view="episodes"]');await sleep(80);await page.$eval('#search-v2',input=>{input.value='';input.dispatchEvent(new Event('input',{bubbles:true}))});await sleep(100);
-  const episodePlay=await page.$('#episodes-v2 .episode-card-v2 .actions .play');assert(episodePlay,'Episode play button missing in real browser');await episodePlay.click();await sleep(180);
+  const allTopic=await page.$('#parity-topics-v2 .topic-v2[data-topic="all"]');if(allTopic){await allTopic.click();await sleep(80)}
+  await page.setViewport({width:320,height:844,deviceScaleFactor:1,isMobile:true,hasTouch:true});
+  const longestEpisode=await page.evaluate(()=>[...document.querySelectorAll('#episodes-v2 .episode-card-v2:not(.filtered-out)')].sort((a,b)=>(b.querySelector('h2')?.textContent.length||0)-(a.querySelector('h2')?.textContent.length||0))[0]?.dataset.episode||'');
+  assert(longestEpisode,'Could not find an episode for the player marquee test');
+  const episodePlay=await page.$('#episodes-v2 .episode-card-v2[data-episode="'+longestEpisode+'"] .actions .play');assert(episodePlay,'Episode play button missing in real browser');await episodePlay.click();await sleep(220);
+  const marquee=await page.evaluate(()=>{const title=document.querySelector('#player-title-v2'),track=title?.querySelector('.player-title-track'),style=title?getComputedStyle(title):null,trackStyle=track?getComputedStyle(track):null;return{scrolling:Boolean(title?.classList.contains('player-title-scroll')),distance:parseFloat(title?.style.getPropertyValue('--player-title-distance'))||0,duration:parseFloat(title?.style.getPropertyValue('--player-title-duration'))||0,clientWidth:title?.clientWidth||0,trackWidth:track?.scrollWidth||0,animationName:trackStyle?.animationName||'',text:title?.textContent||''}}); 
+  assert(marquee.trackWidth>marquee.clientWidth+2,'Selected long player title does not overflow at mobile width');
+  assert(marquee.scrolling&&marquee.distance>0,'Long player title did not enable scrolling');
+  assert(marquee.duration>=12,'Player title scroll is too fast to read');
+  assert(marquee.animationName==='player-title-marquee','Player title marquee animation is not active');
   const playerLayout=await page.evaluate(()=>{
     const shell=document.querySelector('#player-v2'),controls=document.querySelector('.player-controls'),ids=['player-prev-v2','player-back10-v2','player-play-v2','player-forward10-v2','player-next-v2','player-playlist-v2','player-offline-v2','player-download-v2','player-speed-v2'];
     const rects=Object.fromEntries(ids.map(id=>{const r=document.getElementById(id)?.getBoundingClientRect();return[id,r&&{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height}]}));
@@ -99,7 +108,7 @@ try{
   const finalOverflow=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,clientWidth:document.documentElement.clientWidth}));
   assert(finalOverflow.scrollWidth<=finalOverflow.clientWidth+1,`Body overflows after player opens: ${finalOverflow.scrollWidth}px > ${finalOverflow.clientWidth}px`);
 
-  console.log(JSON.stringify({ok:true,browser:path.basename(executablePath),viewport:'390x844',bodyOverflow:false,topicContrast:Number(topicContrast.toFixed(2)),topicScrollbarHidden:true,questionActionsOneRow:true,searchHighlight:true,visibleSearchWord,playerPrimaryRow:5,playerSecondaryRow:4,playerOverflow:false,screenshots:fs.readdirSync(artifactDir).sort()},null,2));
+  console.log(JSON.stringify({ok:true,browser:path.basename(executablePath),viewport:'320x844 player / 390x844 browsing',bodyOverflow:false,topicContrast:Number(topicContrast.toFixed(2)),topicScrollbarHidden:true,questionActionsOneRow:true,searchHighlight:true,visibleSearchWord,playerPrimaryRow:5,playerSecondaryRow:4,playerOverflow:false,playerTitleMarquee:true,playerTitleDuration:marquee.duration,screenshots:fs.readdirSync(artifactDir).sort()},null,2));
 }finally{
   await page.close().catch(()=>{});await browser.close().catch(()=>{});await new Promise(resolve=>server.close(resolve));
 }
