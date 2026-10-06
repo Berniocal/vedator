@@ -131,7 +131,7 @@ try{
   const mathQuestion=data.questions.find(question=>question.i18n.cs.points.some(point=>/\\[([]/.test(point)));
   assert(mathQuestion,'Missing real question with a math formula');
   await page.evaluate(()=>{location.hash='#ask'});
-  await page.waitForSelector('#ask-filters-v2');
+  await page.waitForSelector('#parity-topics-v2 [data-ask-filter]');
   for(const lang of ['cz','sk']){
     await page.click(`[data-lang="${lang}"]`);
     await page.$eval('#search-v2',input=>{input.value='';input.dispatchEvent(new Event('input',{bubbles:true}))});
