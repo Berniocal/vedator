@@ -54,6 +54,8 @@ d.querySelector('[data-lang="sk"]').click();assert.equal(d.querySelector('.tab-v
 assert.equal(requests,1,'Ask tab must reuse loaded data');
 const target=d.querySelector('#ask-results-v2 article a').getAttribute('href');w.location.hash=target;
 await new Promise(resolve=>setTimeout(resolve,30));assert(['questions','nonquestions'].includes(d.querySelector('.tab-v2.active').dataset.view));
+d.querySelector('.tab-v2[data-view=ask]').click();assert.equal(w.location.hash,target);d.querySelector('#ask-results-v2 article a').click();
+await new Promise(resolve=>setTimeout(resolve,30));assert(['questions','nonquestions'].includes(d.querySelector('.tab-v2.active').dataset.view),'Repeated catalog link must reopen the answer');
 assert.equal(d.querySelector('#ask-submit-v2').classList.contains('hidden'),true);
 assert(!d.body.textContent.includes('Napiš otázku a zjisti'));
 console.log(JSON.stringify({ok:true,tabPosition:5,confirmedSearch:true,synonyms:true,filters:true,sharedPlayer:true,sharedDataRequests:requests,languageSwitch:true,catalogDeepLink:true}));dom.window.close();

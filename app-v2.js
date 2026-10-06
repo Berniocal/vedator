@@ -2419,6 +2419,8 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
       root.addEventListener('click',event=>{
         const filter=event.target.closest('[data-ask-filter]');
         if(filter){askUi.filter=filter.dataset.askFilter;if(askUi.query)askUi.ranked=askEngine().search(askUi.query,askUi.filter);askUi.visible=30;renderAsk();return}
+        const catalog=event.target.closest('a[href]');
+        if(catalog&&catalog.getAttribute('href')===location.hash){event.preventDefault();processDeepLink().catch(error=>console.warn('Ask catalog navigation failed',error));return}
         const more=event.target.closest('[data-ask-answer]');
         if(more){const id=more.dataset.askAnswer;if(askUi.open.has(id))askUi.open.delete(id);else askUi.open.add(id);renderAskResults();return}
         if(event.target.closest('#ask-more-v2')){askUi.visible+=30;renderAskResults()}

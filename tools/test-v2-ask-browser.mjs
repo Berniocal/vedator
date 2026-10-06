@@ -34,6 +34,8 @@ try{
  await page.click('.ask-card-v2 a');await page.waitForFunction(()=>['questions','nonquestions'].includes(document.querySelector('.tab-v2.active').dataset.view));
  await page.evaluate(()=>document.querySelector('.tab-v2[data-view="ask"]').click());
  assert.equal(await page.$eval('#search-v2',e=>e.value),'kolik váží Slunce');
+ await page.click('.ask-card-v2 a');await page.waitForFunction(()=>['questions','nonquestions'].includes(document.querySelector('.tab-v2.active').dataset.view));
+ await page.evaluate(()=>document.querySelector('.tab-v2[data-view=ask]').click());
  await page.click('[data-lang="sk"]');assert.equal(await page.$eval('#ask-submit-v2',e=>e.textContent),'Hľadať');
  await page.evaluate(()=>document.querySelector('.tab-v2[data-view=episodes]').click());
  assert.equal(await page.$eval('#ask-submit-v2',e=>e.classList.contains('hidden')),true);
