@@ -30,6 +30,8 @@ assert.equal(d.querySelectorAll('#ask-results-v2 article').length,0);
 assert(!d.querySelector('.panel .controls').classList.contains('hidden'));
 assert.equal(d.querySelectorAll('#ask-heading-v2,#ask-intro-v2,#ask-note-v2,[data-ask-suggestion]').length,0);
 assert.equal(d.querySelector('#ask-status-v2').textContent,'');
+assert(d.querySelector('#ask-filters-v2').classList.contains('parity-topics-v2'),'Ask filters must use the episode topic pill row');
+assert([...d.querySelectorAll('#ask-filters-v2 .ask-filter-v2')].every(button=>button.classList.contains('topic-v2')),'Ask filters must reuse episode topic pill styling');
 assert(d.querySelector('#ask-submit-v2').closest('.controls'));
 assert.equal(d.querySelectorAll('[data-ask-filter]').length,3);
 const input=d.querySelector('#search-v2'),submitButton=d.querySelector('#ask-submit-v2');
