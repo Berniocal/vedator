@@ -2272,8 +2272,6 @@ function buildIndexAsync(items,onProgress){
   });
 }
 
-function idf
-
 function idf(key){
   const df=state.df.get(key)||0;
   return Math.max(1,Math.min(5.2,Math.log((state.corpusSize+1)/(df+1))+1));
@@ -2469,7 +2467,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     });
     return askUi.loadPromise;
   }
-  function askReason(result){  function askReason(result){
+  function askReason(result){
     const labels={
       'exact-title':text('Přesná shoda v názvu','Presná zhoda v názve'),
       'exact-any':text('Přesná shoda v textu','Presná zhoda v texte'),
@@ -2537,8 +2535,6 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     askUi.ranked=askEngine().search(askUi.query,askUi.filter);renderAskResults();
   }
 
-
-  async function start(){
 
   async function start(){
     const status=$('#status-v2');
