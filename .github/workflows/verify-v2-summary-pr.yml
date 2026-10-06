@@ -9,6 +9,8 @@ on:
       - 'question-translations-*.js'
       - 'legacy-source-index.html'
       - 'app-v2.js'
+      - 'index.html'
+      - 'tools/test-v2-ask*.mjs'
       - 'tools/test-v2-mathjax-*.mjs'
       - 'tools/augment-v2-extra-nonquestions.mjs'
       - 'tools/test-content-v2.mjs'
@@ -39,6 +41,26 @@ jobs:
           node tools/test-v2-faq-integrity.mjs
           node tools/build-production-sw.mjs
           git diff --exit-code -- app-v2.js index.html
+      - name: Verify application and ask integration
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund jsdom@26 puppeteer-core@25.12.0
+          ln -s index.html v2.html
+          node tools/test-app-v2.mjs
+          node tools/test-v2-ask.mjs
+          node tools/test-v2-question-experience.mjs
+          node tools/test-v2-episode-experience.mjs
+          node tools/test-v2-full-parity.mjs
+          node tools/test-v2-playlist-parity.mjs
+          node tools/test-v2-mobile-deep-polish.mjs
+          node tools/test-v2-card-player-polish.mjs
+          node tools/test-v2-legacy-visual-parity.mjs
+          node tools/test-v2-duplicate-142.mjs
+          node tools/test-v2-episode-context-order.mjs
+          node tools/test-v2-series-topics.mjs
+          node tools/test-v2-collection-filter.mjs
+          node tools/test-v2-mobile-browser.mjs
+          node tools/test-v2-mobile-browser-playlist.mjs
+          node tools/test-v2-real-readmore-browser.mjs
       - name: Verify MathJax in the browser
         run: |
           npm install --prefix "$RUNNER_TEMP/vedator-mathjax-test" --no-audit --no-fund mathjax-full@3.2.2 @sparticuz/chromium@153.0.0 puppeteer-core@25.12.0
@@ -49,3 +71,5 @@ jobs:
           node tools/build-production-sw.mjs
           node --check sw.js
           node tools/test-production-pwa.mjs
+      - name: Verify ask in prepared production PWA
+        run: node tools/test-v2-ask-browser.mjs

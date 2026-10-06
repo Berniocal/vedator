@@ -42,7 +42,7 @@ search.value='142';search.dispatchEvent(new w.Event('input',{bubbles:true}));awa
 const cards=[...w.document.querySelectorAll('#episodes-v2 .episode-card-v2')].filter(c=>!c.hidden&&[142,1642].includes(Number(c.dataset.episode)));
 assert.equal(cards.length,2,'Search 142 must show both episodes');
 assert(cards.every(c=>c.querySelector('.meta').textContent.includes('142')));
-const play=async number=>{w.document.querySelector(`#episodes-v2 [data-episode="${number}"] .play`).click();await wait();const audio=w.document.querySelector('#audio-v2');audio.dispatchEvent(new w.Event('loadedmetadata'));await wait();return audio};
+const play=async number=>{w.document.querySelector(`#episodes-v2 [data-episode="${number}"] .actions .play`).click();await wait();const audio=w.document.querySelector('#audio-v2');audio.dispatchEvent(new w.Event('loadedmetadata'));await wait();return audio};
 let audio=await play(1642);
 assert.equal(audio.src,webb.enclosure,'Webb card must play Webb');
 assert.equal(audio.currentTime,0,'Webb must not inherit the nuclear resume position');
@@ -66,7 +66,7 @@ for(const [number,episode] of [[142,nuclear],[1642,webb]]){
   const {dom,w}=await setup('#episode='+number);
   const card=w.document.querySelector(`#episodes-v2 [data-episode="${number}"]`);
   assert(card,'Direct link must target the right card');
-  card.querySelector('.play').click();await wait();
+  card.querySelector('.actions .play').click();await wait();
   assert.equal(w.document.querySelector('#audio-v2').src,episode.enclosure,'Direct link must play the correct audio');
   dom.window.close();
 }

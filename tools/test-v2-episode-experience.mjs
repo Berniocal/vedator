@@ -18,7 +18,7 @@ window.localStorage.setItem('vedatorPlaybackProgressV1',JSON.stringify({
   [`episode-${completedEpisode}`]:{currentTime:3600,duration:3600,completed:true,replaying:false,title:'Done',updatedAt:1}
 }));
 window.localStorage.setItem('vedatorCollectionProgressV1',JSON.stringify({
-  [`series:${norm(faqSeries.name)}`]:{type:'series',label:faqSeries.name,lastItemId:'episode:340',updatedAt:1,items:{}}
+  [`series:${norm(faqSeries.name)}`]:{type:'series',label:faqSeries.name,lastItemId:'episode:340',updatedAt:1,items:{'episode:340':{currentTime:600,duration:3600,percent:17,completed:false},['episode:'+completedEpisode]:{currentTime:3600,duration:3600,percent:100,completed:true}}}
 }));
 window.fetch=async()=>({ok:true,status:200,json:async()=>data});
 window.HTMLMediaElement.prototype.play=()=>Promise.resolve();

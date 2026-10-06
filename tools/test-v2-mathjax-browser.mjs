@@ -32,6 +32,7 @@ let mathScriptRequests=0;
 try{
   browser=await puppeteer.launch({executablePath:process.env.CHROME_PATH||await chromium.executablePath(),args:['--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--no-zygote','--single-process','--disable-software-rasterizer'],headless:'shell',pipe:true});
   const page=await browser.newPage();
+  await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'reduce'}]);
   await page.setViewport({width:390,height:844,deviceScaleFactor:1,isMobile:true,hasTouch:true});
   page.on('pageerror',error=>errors.push(error.message));
   await page.setRequestInterception(true);
@@ -73,6 +74,7 @@ try{
     await page.evaluate(()=>{const close=document.querySelector('#player-close-v2');if(close&&close.getClientRects().length)close.click()});
     // Deep-link navigation and closing the player can move the long summary.
     // Wait for a stable button before issuing the physical pointer click.
+    await page.$eval(selector,button=>button.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'}));
     await page.locator(selector).setWaitForStableBoundingBox(true).click();
     await page.waitForFunction(({enclosure,seconds})=>{const audio=document.querySelector('#audio-v2');return audio?.src===enclosure&&audio.currentTime===seconds},{timeout:5000},{enclosure,seconds}).catch(async error=>{throw new Error(`Seek failed ${selector} expected=${seconds}: ${JSON.stringify(await page.$eval('#audio-v2',audio=>({src:audio.src,time:audio.currentTime,duration:audio.duration,readyState:audio.readyState,help:document.querySelector('#player-help-v2')?.textContent})))}`)});
     return page.$eval('#audio-v2',audio=>audio.currentTime);
@@ -125,6 +127,19 @@ try{
     await page.$eval('#search-v2',(input,query)=>{input.value=query;input.dispatchEvent(new Event('input',{bubbles:true}))},query);
     await waitCompiled(`#${view}-v2`);
   }
+  // Search results must use the same math rendering without inserting marks in TeX.
+  const mathQuestion=data.questions.find(question=>question.i18n.cs.points.some(point=>/\\[([]/.test(point)));
+  assert(mathQuestion,'Missing real question with a math formula');
+  await page.evaluate(()=>{location.hash='#ask'});
+  await page.waitForSelector('#ask-filters-v2');
+  for(const lang of ['cz','sk']){
+    await page.click(`[data-lang="${lang}"]`);
+    await page.$eval('#search-v2',input=>{input.value='';input.dispatchEvent(new Event('input',{bubbles:true}))});
+    await page.type('#search-v2',mathQuestion.i18n.cs.title);
+    await page.click('#ask-submit-v2');
+    await waitCompiled('#ask-results-v2');
+    assert(await page.$$eval('#ask-results-v2 .math-tex-v2 mark',nodes=>nodes.length)===0,'Ask highlighting split a math formula');
+  }
   const allFormulas=await page.evaluate(async expressions=>{
     const root=document.createElement('div');root.id='mathjax-expression-audit';
     for(const expression of expressions){const node=document.createElement('div');node.textContent='\\('+expression+'\\)';root.appendChild(node)}
@@ -137,5 +152,5 @@ try{
   assert(mathScriptRequests===1,`MathJax script loaded ${mathScriptRequests} times`);
   assert(errors.length===0,'Browser errors: '+errors.join('; '));
   if(process.env.VEDATOR_AUDIT_BROWSER_OUTPUT)fs.writeFileSync(process.env.VEDATOR_AUDIT_BROWSER_OUTPUT,JSON.stringify({ok:true,mediaStub:true,audioSynchronizationVerifiedByThisTest:false,seekResults},null,2));
-  console.log(JSON.stringify({ok:true,mathjaxVersion:require('mathjax-full/package.json').version,uniqueFormulas:expressions.size,renderedCases,languages:['cs','sk'],searchPreservesFormulas:true,lazyLoad:true,singleMathJaxScript:true,mobileWidth:390,noMathErrors:true,auditedSummarySeekClicks:seekResults.length},null,2));
+  console.log(JSON.stringify({ok:true,mathjaxVersion:require('mathjax-full/package.json').version,uniqueFormulas:expressions.size,renderedCases,languages:['cs','sk'],searchPreservesFormulas:true,askPreservesFormulas:true,lazyLoad:true,singleMathJaxScript:true,mobileWidth:390,noMathErrors:true,auditedSummarySeekClicks:seekResults.length},null,2));
 }finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve))}
