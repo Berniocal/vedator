@@ -1129,6 +1129,7 @@
     if(parityUi.installed)return;parityUi.installed=true;
     const style=document.createElement('style');style.dataset.v2FullParity='1';style.textContent='.controls{grid-template-columns:minmax(0,1fr) auto!important}.parity-refresh-v2{border:0;border-radius:12px;background:var(--accent);color:#fff;padding:0 15px;font-weight:800;cursor:pointer}.parity-topics-v2{display:flex;gap:8px;overflow-x:auto;padding:10px 0 1px;scrollbar-width:thin}.topic-v2{white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 12px;cursor:pointer}.topic-v2.active{background:var(--accent2);border-color:#8b7ee8;color:#392b9b;font-weight:800}html.theme-dark .topic-v2.active{color:#c4b5fd}.parity-sort-v2{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px;max-width:240px}.tags{display:flex!important;flex-wrap:wrap!important;gap:6px!important;margin:12px 0!important;min-height:0!important}.tag{display:inline-flex!important;align-items:center!important;width:auto!important;font-size:.76rem!important;background:#eef2ff!important;color:#3730a3!important;border:1px solid #c7d2fe!important;border-radius:999px!important;padding:4px 8px!important;line-height:1.2!important}html.theme-dark .tag{background:rgba(91,75,219,.24)!important;color:#c4b5fd!important;border-color:rgba(167,139,250,.5)!important}.desc-v2{line-height:1.48;color:var(--text-soft);display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}.episode-card-v2{min-height:260px}.parity-sentinel{grid-column:1/-1;width:100%;border:1px dashed var(--line);border-radius:12px;background:var(--card-soft);color:var(--muted);padding:13px;cursor:pointer}.parity-empty{grid-column:1/-1}.parity-series-body{margin:.2rem 0 .9rem;padding-left:1.35rem}.parity-series-body li{padding:.28rem 0}.person-name-v2{display:block}.episode-title-v2{display:block;color:var(--muted);font-size:.8rem}.skip-ten-v2{min-width:48px}.series>summary .deep-share{margin-left:4px}.series>summary{align-items:center}.series-progress-summary-v2{margin-left:auto}.question-card .tags{margin-top:auto}.question-card .actions{margin-top:0}@media(max-width:700px){.controls{grid-template-columns:1fr!important}.parity-refresh-v2{padding:11px}.parity-sort-v2{width:100%;max-width:none}.status-row{align-items:stretch}.series-progress-summary-v2{flex-direction:column;align-items:flex-end;gap:1px}}';document.head.appendChild(style);
     const panel=$('.panel'),tabs=panel?.querySelector('.tabs');if(tabs&&!$('#parity-topics-v2')){const topics=document.createElement('div');topics.id='parity-topics-v2';topics.className='parity-topics-v2';tabs.insertAdjacentElement('afterend',topics)}
+    if(panel&&!$('#ask-intro-v2')){const intro=document.createElement('p');intro.id='ask-intro-v2';intro.className='ask-intro-v2 hidden';panel.insertAdjacentElement('afterend',intro)}
     const statusRow=$('.status-row');if(statusRow&&!$('#parity-sort-v2')){const sort=document.createElement('select');sort.id='parity-sort-v2';sort.className='parity-sort-v2';statusRow.appendChild(sort)}
     const controls=$('.controls');if(controls&&!$('#parity-refresh-v2')){const button=document.createElement('button');button.id='parity-refresh-v2';button.type='button';button.className='parity-refresh-v2';button.textContent=text('Znovu načíst','Znovu načítať');controls.appendChild(button)}
     const playerControls=$('.player-controls');if(playerControls&&!$('#player-back10-v2')){const back=document.createElement('button');back.id='player-back10-v2';back.type='button';back.className='skip-ten-v2';back.textContent='−10';const forward=document.createElement('button');forward.id='player-forward10-v2';forward.type='button';forward.className='skip-ten-v2';forward.textContent='+10';const play=$('#player-play-v2');play?.insertAdjacentElement('beforebegin',back);play?.insertAdjacentElement('afterend',forward)}
@@ -2500,6 +2501,11 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
       'distant-semantic':text('Vzdálenější souvislost','Vzdialenejšia súvislosť')
     };return labels[result.reason]||'';
   }
+  function syncAskIntro(){
+    const intro=$('#ask-intro-v2');if(!intro)return;
+    intro.textContent=text('Zkuste se na něco zeptat a zjistěte, jestli už na to Vedátoři neodpověděli.','Skúste sa na niečo opýtať a zistite, či na to už Vedátori neodpovedali.');
+    intro.classList.toggle('hidden',state.view!=='ask'||Boolean(askUi.query));
+  }
   function syncAskSearchControls(){
     const ask=state.view==='ask',search=$('#search-v2'),controls=search.closest('.controls');
     controls.classList.remove('hidden');controls.classList.toggle('ask-controls-v2',ask);
@@ -2507,6 +2513,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     $('#ask-submit-v2').textContent=text('Hledat','Hľadať');
     search.placeholder=ask?text('Může světlo uniknout z černé díry?','Môže svetlo uniknúť z čiernej diery?'):text('Hledat v právě otevřené záložce…','Hľadať v práve otvorenej záložke…');
     search.setAttribute('aria-label',ask?text('Tvoje otázka','Tvoja otázka'):text('Vyhledávání','Vyhľadávanie'));
+    syncAskIntro();
   }
   function renderAsk(){
     const root=$('#ask-v2');if(!root)return;
@@ -2524,6 +2531,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     ensureAskEngine().catch(()=>{});
   }
   function renderAskResults(){
+    syncAskIntro();
     const results=$('#ask-results-v2'),moreButton=$('#ask-more-v2'),status=$('#ask-status-v2');if(!results||!moreButton||!status)return;
     if(askUi.loading||!askUi.ready){
       results.innerHTML='';moreButton.classList.add('hidden');updateAskLoadingStatus();return;

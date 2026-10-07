@@ -26,8 +26,16 @@ try{
  }
  await page.waitForFunction(()=>document.documentElement.dataset.vedatorAskReady==='1',{timeout:20000});
  assert.equal(await page.$eval('#ask-status-v2',e=>e.textContent),'');
- assert.equal(await page.$$eval('[data-ask-suggestion],#ask-heading-v2,#ask-note-v2',els=>els.length),0);
- await page.type('#search-v2','kolik váží Slunce');await page.click('#ask-submit-v2');await page.waitForSelector('.ask-card-v2');
+ assert.equal(await page.evaluate(()=>document.querySelectorAll('[data-ask-suggestion],#ask-heading-v2,#ask-note-v2').length),0);
+ const introState=await page.$eval('#ask-intro-v2',e=>({hidden:e.classList.contains('hidden'),insidePanel:Boolean(e.closest('.panel')),directlyBelowPanel:e.previousElementSibling?.classList.contains('panel')||false,text:e.textContent}));
+ assert.equal(introState.hidden,false,'Ask helper sentence must be visible initially');
+ assert.equal(introState.insidePanel,false,'Ask helper sentence must be outside the top panel');
+ assert.equal(introState.directlyBelowPanel,true,'Ask helper sentence must be directly below the top panel');
+ assert(introState.text.includes('Vedátoři'),'Ask helper sentence text missing');
+ await page.type('#search-v2','kolik váží Slunce');
+ assert.equal(await page.$eval('#ask-intro-v2',e=>e.classList.contains('hidden')),false,'Helper sentence must stay visible before Hledat');
+ await page.click('#ask-submit-v2');await page.waitForSelector('.ask-card-v2');
+ assert.equal(await page.$eval('#ask-intro-v2',e=>e.classList.contains('hidden')),true,'Helper sentence must hide after Hledat');
  for(const width of [390,320,1280]){
   await page.setViewport({width,height:844,isMobile:true,hasTouch:true});
   const dimensions=await page.evaluate(()=>({width:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth}));
