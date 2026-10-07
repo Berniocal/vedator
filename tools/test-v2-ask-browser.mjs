@@ -26,7 +26,7 @@ try{
  }
  await page.waitForFunction(()=>document.documentElement.dataset.vedatorAskReady==='1',{timeout:20000});
  assert.equal(await page.$eval('#ask-status-v2',e=>e.textContent),'');
- assert.equal(await page.$eval('[data-ask-suggestion],#ask-heading-v2,#ask-note-v2',els=>els.length),0);
+ assert.equal(await page.evaluate(()=>document.querySelectorAll('[data-ask-suggestion],#ask-heading-v2,#ask-note-v2').length),0);
  const introState=await page.$eval('#ask-intro-v2',e=>({hidden:e.classList.contains('hidden'),insidePanel:Boolean(e.closest('.panel')),directlyBelowPanel:e.previousElementSibling?.classList.contains('panel')||false,text:e.textContent}));
  assert.equal(introState.hidden,false,'Ask helper sentence must be visible initially');
  assert.equal(introState.insidePanel,false,'Ask helper sentence must be outside the top panel');
