@@ -2095,7 +2095,7 @@ socialni site|dezinformace|0.58
 'use strict';
 
 const MAPS = searchScope.VEDATOR_SEARCH_MAPS || {equivalents:[],queryPhrases:[],semanticEdges:[]};
-const state = {index:[],df:new Map(),postings:new Map(),corpusSize:1,filter:'all',buildVersion:0};
+const state = {index:[],df:new Map(),postings:new Map(),corpusSize:1,filter:'all',buildVersion:0,formTrigrams:new Map(),formCache:new Map()};
 
 const norm = value => String(value??'')
   .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
@@ -2171,6 +2171,52 @@ for(const [a,b,w] of MAPS.semanticEdges){addSemantic(a,b,w);addSemantic(b,a,w*.9
 function canon(value){
   const n=norm(value);
   return alias.get(n)||alias.get(stem(n))||stem(n);
+}
+
+// V2_ASK_WORD_FORM_SIMILARITY_V1
+// Lehká morfologická vrstva pro tvary typu "meril" <-> "zmeril".
+// Nepřepisuje stávající synonyma ani semantiku; jen přidává slabší signál pro významová slova.
+const FORM_SIM_MIN=.72,FORM_SIM_WEIGHT=.84,FORM_SIM_LIMIT=12;
+function formEligible(key){
+  key=norm(key);
+  return key.length>=5&&!key.includes(' ')&&!STOP.has(key)&&/^[a-z0-9]+$/.test(key);
+}
+function formTrigramSet(key){
+  key=norm(key);const grams=new Set();
+  for(let i=0;i<=key.length-3;i++)grams.add(key.slice(i,i+3));
+  return grams;
+}
+function formDice(a,b){
+  const A=formTrigramSet(a),B=formTrigramSet(b);
+  if(!A.size||!B.size)return 0;
+  let common=0;for(const g of A)if(B.has(g))common++;
+  return 2*common/(A.size+B.size);
+}
+function rebuildFormIndex(df){
+  const index=new Map();
+  for(const key of df.keys()){
+    if(!formEligible(key))continue;
+    for(const gram of formTrigramSet(key)){
+      if(!index.has(gram))index.set(gram,new Set());
+      index.get(gram).add(key);
+    }
+  }
+  state.formTrigrams=index;state.formCache=new Map();
+}
+function similarForms(key){
+  key=canon(key);
+  if(!formEligible(key))return[];
+  if(state.formCache.has(key))return state.formCache.get(key);
+  const candidates=new Set();
+  for(const gram of formTrigramSet(key))for(const other of state.formTrigrams.get(gram)||[])candidates.add(other);
+  const matches=[];
+  for(const other of candidates){
+    if(other===key||Math.abs(other.length-key.length)>3)continue;
+    const similarity=formDice(key,other);
+    if(similarity>=FORM_SIM_MIN)matches.push([other,similarity]);
+  }
+  matches.sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+  const result=matches.slice(0,FORM_SIM_LIMIT);state.formCache.set(key,result);return result;
 }
 
 function hasPhrase(haystack,phrase){
@@ -2266,6 +2312,7 @@ function makeIndexEntry(item,idx,df,postings,index){
 }
 function installIndex(index,df,postings){
   state.index=index;state.df=df;state.postings=postings;state.corpusSize=Math.max(1,index.length);
+  rebuildFormIndex(df);
   return state.index;
 }
 function buildIndex(items){
@@ -2320,6 +2367,9 @@ function queryCandidates(qTerms,qNorm){
     for(const [related] of semanticGraph.get(key)||[]){
       for(const id of state.postings.get(related)||[])ids.add(id);
     }
+    for(const [related] of similarForms(key)){
+      for(const id of state.postings.get(related)||[])ids.add(id);
+    }
   }
 
   // Přesná fráze má absolutní prioritu, proto ji dohledáme i mimo postings.
@@ -2334,6 +2384,26 @@ function queryCandidates(qTerms,qNorm){
     for(let i=0;i<state.index.length;i++)ids.add(i);
   }
   return ids;
+}
+
+function formScore(qTerms,entry){
+  let weighted=0,titleWeighted=0,total=0;const matches=[];
+  for(const q of qTerms){
+    const qw=queryWeight(q);total+=qw;
+    if(q.kind!=='word'||entry.termSet.has(q.key))continue;
+    let best=0,bestKey='',bestTitle=0;
+    for(const [related,similarity] of similarForms(q.key)){
+      if(!entry.termSet.has(related))continue;
+      if(similarity>best){best=similarity;bestKey=related;}
+      if(entry.titleSet.has(related)&&similarity>bestTitle)bestTitle=similarity;
+    }
+    if(best){
+      weighted+=qw*best*FORM_SIM_WEIGHT;
+      if(bestTitle)titleWeighted+=qw*bestTitle*FORM_SIM_WEIGHT;
+      matches.push(`${q.label} ~ ${bestKey}`);
+    }
+  }
+  return {score:total?weighted/total:0,titleScore:total?titleWeighted/total:0,matches};
 }
 
 function semanticScore(qTerms,entry){
@@ -2376,24 +2446,29 @@ function rank(query){
     }
     const coverage=directWeight/qWeightTotal;
     const titleCoverage=titleWeight/qWeightTotal;
+    const form=formScore(qTerms,entry);
     const semantic=semanticScore(qTerms,entry);
+    const effectiveCoverage=Math.min(1,coverage+form.score);
+    const effectiveTitleCoverage=Math.min(1,titleCoverage+form.titleScore);
 
     let tier=99,reason='';
     if(exactTitle){tier=0;reason='exact-title';}
     else if(exactAny){tier=1;reason='exact-any';}
-    else if(coverage>=.78){tier=2;reason='same-meaning';}
+    else if(effectiveCoverage>=.78){tier=2;reason='same-meaning';}
     else if(coverage>=.42 && directCount>=1){tier=3;reason='direct';}
-    else if(semantic.score>=.42){tier=4;reason='semantic';}
-    else if(coverage>=.18 && directCount>=1){tier=5;reason='weak-direct';}
-    else if(semantic.score>=.20){tier=6;reason='distant-semantic';}
+    else if(form.score>=.42){tier=4;reason='similar-form';}
+    else if(semantic.score>=.42){tier=5;reason='semantic';}
+    else if(coverage>=.18 && directCount>=1){tier=6;reason='weak-direct';}
+    else if(form.score>=.18){tier=7;reason='similar-form';}
+    else if(semantic.score>=.20){tier=8;reason='distant-semantic';}
     if(tier===99)continue;
 
-    let score=.68*coverage+.20*titleCoverage+.12*semantic.score;
+    let score=.68*effectiveCoverage+.20*effectiveTitleCoverage+.12*semantic.score;
     if(exactAny)score=Math.max(score,.86);
     if(exactTitle)score=Math.max(score,.97);
-    if(reason==='same-meaning')score=Math.max(score,.72+.18*titleCoverage);
+    if(reason==='same-meaning')score=Math.max(score,.72+.18*effectiveTitleCoverage);
     score=Math.min(1,score);
-    results.push({entry,score,tier,reason,coverage,titleCoverage,semantic,matchedDirect:[...new Set(matched)]});
+    results.push({entry,score,tier,reason,coverage,titleCoverage,effectiveCoverage,effectiveTitleCoverage,form,semantic,matchedDirect:[...new Set(matched)]});
   }
 
   return results.sort((a,b)=>
@@ -2414,6 +2489,7 @@ function highlightKeys(query,result){
   const keys=new Set(),tokens=new Set(),qTerms=extractTerms(query,{query:true});
   for(const q of qTerms){
     if(result.entry.termSet.has(q.key))keys.add(q.key);
+    for(const [related] of similarForms(q.key))if(result.entry.termSet.has(related))keys.add(related);
     for(const [related] of semanticGraph.get(q.key)||[])if(result.entry.termSet.has(related))keys.add(related);
   }
   const addToken=token=>{const n=norm(token);if(!n||n.length<2)return;tokens.add(canon(n));tokens.add(n)};
@@ -2498,6 +2574,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
       'direct':text('Přímá věcná shoda','Priama vecná zhoda'),
       'semantic':text('Příbuzné téma','Príbuzné téma'),
       'weak-direct':text('Slabší přímá shoda','Slabšia priama zhoda'),
+      'similar-form':text('Podobný tvar slova','Podobný tvar slova'),
       'distant-semantic':text('Vzdálenější souvislost','Vzdialenejšia súvislosť')
     };return labels[result.reason]||'';
   }
