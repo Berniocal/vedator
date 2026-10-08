@@ -2149,6 +2149,63 @@ for(const [canonicalRaw,forms] of MAPS.equivalents){
 }
 phraseAliases.sort((a,b)=>b[0].length-a[0].length);
 
+// V2_ASK_VERB_FAMILY_CANON_V1
+// Konzervativní slovesná normalizace: rodiny se učí pouze z již schválených
+// ekvivalentů (např. "změřit" -> "měření"), nikoli z libovolných slov v katalogu.
+const askMorphNorm=value=>String(value??'').normalize('NFC').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+const ASK_VERB_INFINITIVE_ENDINGS=['ovat','ovať','nout','nuť','out','ať','at','iť','it','eť','et','ět','uť','ut'].sort((a,b)=>b.length-a.length);
+const ASK_VERB_FORM_ENDINGS=[
+  'ovali','ovaly','ovala','ovalo','oval',
+  'ili','ily','ila','ilo','il',
+  'eli','ely','ela','elo','el',
+  'ali','aly','ala','alo','al',
+  ...ASK_VERB_INFINITIVE_ENDINGS
+].sort((a,b)=>b.length-a.length);
+const ASK_VERB_PREFIXES=['pře','pre','roz','pro','vy','na','od','do','za','po','u','z','s'].sort((a,b)=>b.length-a.length);
+
+function askVerbFamilyCores(value,{infinitiveOnly=false}={}){
+  const word=askMorphNorm(value);
+  if(!word||word.includes(' ')||word.length<5)return[];
+  const endings=infinitiveOnly?ASK_VERB_INFINITIVE_ENDINGS:ASK_VERB_FORM_ENDINGS;
+  let base='';
+  for(const ending of endings){
+    if(word.endsWith(ending)&&word.length-ending.length>=3){base=word.slice(0,-ending.length);break;}
+  }
+  if(!base)return[];
+  const cores=new Set([base]);
+  for(const prefix of ASK_VERB_PREFIXES){
+    if(base.startsWith(prefix)&&base.length-prefix.length>=3)cores.add(base.slice(prefix.length));
+  }
+  return [...cores];
+}
+
+const askVerbFamilyBuckets=new Map();
+for(const [canonicalRaw,forms] of MAPS.equivalents||[]){
+  const canonical=norm(canonicalRaw);
+  for(const formRaw of [canonicalRaw,...(forms||[])]){
+    // Seedujeme jen skutečně česko/slovensky zapsané infinitivy.
+    // Tím se např. anglické "orbit" omylem nepovažuje za sloveso.
+    if(!/[^\x00-\x7F]/.test(String(formRaw)))continue;
+    for(const core of askVerbFamilyCores(formRaw,{infinitiveOnly:true})){
+      if(!askVerbFamilyBuckets.has(core))askVerbFamilyBuckets.set(core,new Set());
+      askVerbFamilyBuckets.get(core).add(canonical);
+    }
+  }
+}
+const askVerbFamilyAlias=new Map();
+for(const [core,canonicals] of askVerbFamilyBuckets){
+  // Nejednoznačné kořeny raději úplně ignorujeme.
+  if(canonicals.size===1)askVerbFamilyAlias.set(core,[...canonicals][0]);
+}
+function askVerbFamilyCanon(value){
+  const matches=new Set();
+  for(const core of askVerbFamilyCores(value)){
+    const canonical=askVerbFamilyAlias.get(core);
+    if(canonical)matches.add(canonical);
+  }
+  return matches.size===1?[...matches][0]:'';
+}
+
 const queryPhrases=[];
 for(const [canonicalRaw,forms] of MAPS.queryPhrases){
   const canonical=norm(canonicalRaw);
@@ -2169,8 +2226,11 @@ function addSemantic(a,b,w){
 for(const [a,b,w] of MAPS.semanticEdges){addSemantic(a,b,w);addSemantic(b,a,w*.94);}
 
 function canon(value){
-  const n=norm(value);
-  return alias.get(n)||alias.get(stem(n))||stem(n);
+  const n=norm(value),exact=alias.get(n);
+  if(exact)return exact;
+  const verb=askVerbFamilyCanon(value);
+  if(verb)return verb;
+  return alias.get(stem(n))||stem(n);
 }
 
 // V2_ASK_WORD_FORM_SIMILARITY_V1
@@ -2245,10 +2305,11 @@ function extractTerms(text,{query=false}={}){
     }
   }
 
-  const tokens=normalized.split(/\s+/).filter(Boolean);
-  for(const token of tokens){
+  const tokens=String(text??'').match(/[\p{L}\p{N}]+/gu)||[];
+  for(const rawToken of tokens){
+    const token=norm(rawToken);
     if(token.length<2||STOP.has(token))continue;
-    const key=canon(token);
+    const key=canon(rawToken);
     if(!key||STOP.has(key))continue;
     add(key,token,'word');
   }
