@@ -36,7 +36,27 @@ function textToPoints(text){
   const points=[];
   for(let i=0;i<4;i++){const from=Math.floor(i*sentences.length/4),to=Math.floor((i+1)*sentences.length/4);const point=sentences.slice(from,to).join(' ').trim();if(point)points.push(point);}return points;
 }
+// Normalize common plain-text physics formulas before MathJax validation.
+// Keep existing MathJax expressions intact and process both languages identically.
+function normalizeMathText(value){
+  if(typeof value!=='string')return value;
+  return value.split(/(\\\\\\([\\s\\S]*?\\\\\\)|\\\\\\[[\\s\\S]*?\\\\\\])/g).map((part,index)=>{
+    if(index%2)return part;
+    return part
+      .replace(/\\bE\\s*=\\s*mc[²2]\\b/gu,'\\\\\\(E = mc^2\\\\\\)')
+      .replace(/\\bE\\s*=\\s*m\\s*c\\s*\\^\\s*2\\b/gu,'\\\\\\(E = mc^2\\\\\\)');
+  }).join('');
+}
+function normalizeChapterMath(data){
+  for(const language of ['cs','sk'])data[language]=data[language].map(item=>({
+    ...item,
+    title:normalizeMathText(item.title),
+    points:Array.isArray(item.points)?item.points.map(normalizeMathText):item.points,
+    text:normalizeMathText(item.text)
+  }));
+  return data;
+}
 function preserveTextAnswers(data){for(const language of ['cs','sk'])data[language]=data[language].map(item=>{if(Array.isArray(item?.points)&&item.points.length)return item;const answer=typeof item?.text==='string'?item.text.trim():'';if(!answer)return item;const points=textToPoints(answer);const normalize=s=>String(s).replace(/\s+/g,' ').trim();if(normalize(points.join(' '))!==normalize(answer))throw new Error(`Text-to-points conversion lost content at ${item?.time||'unknown time'} (${language})`);return {...item,points};});return data;}
-function readSummaryData(episode){const source=fs.readFileSync(`episode-${episode}-summary.js`,'utf8');let data;try{data=JSON.parse(extractDataJson(source,episode));}catch(error){if(!source.includes('const DATA={cs:conv(cs),sk:conv(sk)}'))throw error;data=readLegacySummaryData(source,episode);}if(!Array.isArray(data.cs)||!Array.isArray(data.sk))throw new Error(`Invalid bilingual summary for episode ${episode}`);if(episode===355){const isRemovedChapter=item=>String(item?.time||'')==='16:02';const csMatches=data.cs.filter(isRemovedChapter).length,skMatches=data.sk.filter(isRemovedChapter).length;if(csMatches!==1||skMatches!==1)throw new Error(`Episode 355 expected one 16:02 chapter per language, found cs=${csMatches}, sk=${skMatches}`);data.cs=data.cs.filter(item=>!isRemovedChapter(item));data.sk=data.sk.filter(item=>!isRemovedChapter(item));}return preserveTextAnswers(data);}
+function readSummaryData(episode){const source=fs.readFileSync(`episode-${episode}-summary.js`,'utf8');let data;try{data=JSON.parse(extractDataJson(source,episode));}catch(error){if(!source.includes('const DATA={cs:conv(cs),sk:conv(sk)}'))throw error;data=readLegacySummaryData(source,episode);}if(!Array.isArray(data.cs)||!Array.isArray(data.sk))throw new Error(`Invalid bilingual summary for episode ${episode}`);if(episode===355){const isRemovedChapter=item=>String(item?.time||'')==='16:02';const csMatches=data.cs.filter(isRemovedChapter).length,skMatches=data.sk.filter(isRemovedChapter).length;if(csMatches!==1||skMatches!==1)throw new Error(`Episode 355 expected one 16:02 chapter per language, found cs=${csMatches}, sk=${skMatches}`);data.cs=data.cs.filter(item=>!isRemovedChapter(item));data.sk=data.sk.filter(item=>!isRemovedChapter(item));}return normalizeChapterMath(preserveTextAnswers(data));}
 const content=JSON.parse(fs.readFileSync(CONTENT_FILE,'utf8'));content.nonquestions=content.nonquestions||{};content.nonquestions.episodes=content.nonquestions.episodes||{};for(const episode of EXTRAS)content.nonquestions.episodes[String(episode)]=readSummaryData(episode);fs.writeFileSync(CONTENT_FILE,JSON.stringify(content));console.log(`Added V2 nonquestions: ${EXTRAS.join(', ')}`);
 // temp-verify-213: passed
