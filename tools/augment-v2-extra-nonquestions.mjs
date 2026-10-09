@@ -40,11 +40,12 @@ function textToPoints(text){
 // Keep existing MathJax expressions intact and process both languages identically.
 function normalizeMathText(value){
   if(typeof value!=='string')return value;
-  return value.split(/(\\\\\\([\\s\\S]*?\\\\\\)|\\\\\\[[\\s\\S]*?\\\\\\])/g).map((part,index)=>{
+  // Avoid touching formulas that are already delimited for MathJax.
+  return value.split(/(\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\])/g).map((part,index)=>{
     if(index%2)return part;
     return part
-      .replace(/\\bE\\s*=\\s*mc[²2]\\b/gu,'\\\\\\(E = mc^2\\\\\\)')
-      .replace(/\\bE\\s*=\\s*m\\s*c\\s*\\^\\s*2\\b/gu,'\\\\\\(E = mc^2\\\\\\)');
+      .replace(/\bE\s*=\s*mc(?:²|\^?2)(?![\w])/gu,'\\(E = mc^2\\)')
+      .replace(/\bE\s*=\s*m\s*c\s*\^\s*2\b/gu,'\\(E = mc^2\\)');
   }).join('');
 }
 function normalizeChapterMath(data){
