@@ -28,6 +28,10 @@ for(const series of data.series){
 
 const non=data.nonquestions?.episodes;
 if(!non||Object.keys(non).length<10)fail('Nonquestion summaries missing');
+for(const n of [50,52]){
+  const episode=non[String(n)];
+  if(!episode||!Array.isArray(episode.cs)||!Array.isArray(episode.sk)||episode.cs.length<10||episode.cs.length!==episode.sk.length)fail(`Required episode ${n} bilingual summary missing or incomplete`);
+}
 for(const n of [157,159,160,161,162,163,164,165,166]){
   const episode=non[String(n)];
   if(!episode||!Array.isArray(episode.cs)||!Array.isArray(episode.sk)||!episode.cs.length||episode.cs.length!==episode.sk.length)fail(`Episode ${n} bilingual summary missing or mismatched`);
