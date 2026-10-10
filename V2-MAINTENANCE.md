@@ -117,7 +117,7 @@ Běžné díly zapisuj číslem Vedátorského podcastu. Pro tři samostatně č
 
 Build záměrně skončí chybou, pokud `series.json` obsahuje neexistující díl, neznámý alias, duplicitní název série, stejný odkaz dvakrát nebo chybnou strukturu. Tím se chybný seznam nepřepíše do `content-v2.json`.
 
-**Výjimka: `FAQ – dobré otázky` je systémová série.** Její členství musí přesně odpovídat kanonickému seznamu FAQ dílů v `tools/build-content-v2.mjs`; nelze ji jen smazat nebo svévolně změnit bez současné změny FAQ dat a testů. `tools/test-v2-faq-integrity.mjs` dál hlídá shodu série a záložky Otázky.
+**Výjimka: `FAQ – dobré otázky` je systémová série.** Musí vždy obsahovat všechny kanonické FAQ díly z `tools/build-content-v2.mjs`, protože ty mají zpracované otázky pro záložku Otázky. Série ale smí navíc obsahovat nový díl, jehož název skutečně obsahuje „FAQ“, i když pro něj ještě není hotové `episode-XXX-summary.js`; takový díl se zobrazí v sérii, ale do záložky Otázky se dostane až po doplnění otázkových dat a kanonického FAQ seznamu. `tools/test-v2-faq-integrity.mjs` hlídá, že žádný z kanonických FAQ dílů ani jejich otázky nezmizí.
 
 Při změně série ověř:
 
