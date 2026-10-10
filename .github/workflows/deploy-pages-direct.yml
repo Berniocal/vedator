@@ -28,6 +28,14 @@ jobs:
         with:
           ref: main
 
+      - name: Sestavit aktuální shrnutí pro nasazení
+        run: |
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+
       - name: Zkontrolovat aplikaci a data
         run: |
           node --check app-v2.js
