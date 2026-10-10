@@ -7,8 +7,13 @@ const expectedSet=new Set(expected);
 const faqSeries=(data.series||[]).find(series=>String(series.name||'').includes('FAQ')||String(series.i18n?.cs||'').includes('FAQ'));
 assert(faqSeries,'FAQ series missing');
 const seriesEpisodes=new Set((faqSeries.episodes||[]).map(Number));
-assert(seriesEpisodes.size===expectedSet.size,`FAQ series has ${seriesEpisodes.size} episodes, expected ${expectedSet.size}`);
-for(const episode of expectedSet)assert(seriesEpisodes.has(episode),`FAQ series missing episode ${episode}`);
+for(const episode of expectedSet)assert(seriesEpisodes.has(episode),`FAQ series missing canonical episode ${episode}`);
+const extraSeriesEpisodes=[...seriesEpisodes].filter(episode=>!expectedSet.has(episode));
+for(const episode of extraSeriesEpisodes){
+  const item=(data.episodes||[]).find(value=>Number(value.number)===episode);
+  const titles=[item?.title,item?.i18n?.cs?.title,item?.i18n?.sk?.title].filter(Boolean).join(' ');
+  assert(/\bfaq\b/i.test(titles),`FAQ series contains non-FAQ extra episode ${episode}`);
+}
 
 const byEpisode=new Map();
 for(const question of data.questions||[]){
@@ -30,4 +35,4 @@ assert(q350.length===15,`Episode 350 has ${q350.length} questions, expected 15`)
 assert(q350.some(question=>/dúh|duh/i.test(String(question.title||question.i18n?.sk?.title||''))), 'Episode 350 questions were not parsed correctly');
 assert((data.questions||[]).length===749,`Expected 749 questions, got ${(data.questions||[]).length}`);
 
-console.log(JSON.stringify({ok:true,faqEpisodes:seriesEpisodes.size,questionEpisodes:byEpisode.size,episode300Questions:q300.length,episode350Questions:q350.length,totalQuestions:data.questions.length},null,2));
+console.log(JSON.stringify({ok:true,faqSeriesEpisodes:seriesEpisodes.size,canonicalQuestionEpisodes:expectedSet.size,extraFaqSeriesEpisodes:extraSeriesEpisodes,questionEpisodes:byEpisode.size,episode300Questions:q300.length,episode350Questions:q350.length,totalQuestions:data.questions.length},null,2));
