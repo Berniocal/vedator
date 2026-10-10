@@ -109,8 +109,15 @@ for(const [index,item] of seriesConfig.entries()){
 const faq=result.find(series=>series.name==='FAQ – dobré otázky');
 if(!faq)fail('systémová série „FAQ – dobré otázky“ nesmí být smazána');
 const faqActual=new Set(faq.episodes.map(Number));
-if(faqActual.size!==FAQ_EPISODES.size||[...FAQ_EPISODES].some(number=>!faqActual.has(number))){
-  fail('systémová série „FAQ – dobré otázky“ musí přesně odpovídat kanonickému seznamu FAQ dílů');
+const missingCanonicalFaq=[...FAQ_EPISODES].filter(number=>!faqActual.has(number));
+if(missingCanonicalFaq.length){
+  fail(`systémová série „FAQ – dobré otázky“ postrádá kanonické FAQ díly: ${missingCanonicalFaq.join(', ')}`);
+}
+const extraFaq=[...faqActual].filter(number=>!FAQ_EPISODES.has(number));
+for(const number of extraFaq){
+  const episode=byNumber.get(number);
+  const titles=[episode?.title,episode?.i18n?.cs?.title,episode?.i18n?.sk?.title].filter(Boolean).join(' ');
+  if(!/\bfaq\b/i.test(titles))fail(`série „FAQ – dobré otázky“ obsahuje navíc díl ${number}, jehož název není FAQ`);
 }
 
 result.sort((a,b)=>(a.kind==='series'?0:1)-(b.kind==='series'?0:1)||b.episodes.length-a.episodes.length||String(a.name).localeCompare(String(b.name),'cs'));
