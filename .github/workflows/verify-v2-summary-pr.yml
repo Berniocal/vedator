@@ -12,8 +12,13 @@ on:
       - 'index.html'
       - 'tools/test-v2-ask*.mjs'
       - 'tools/test-v2-mathjax-*.mjs'
+      - 'series.json'
+      - 'tools/build-content-v2.mjs'
       - 'tools/augment-v2-extra-nonquestions.mjs'
+      - 'tools/augment-v2-parity-content.mjs'
       - 'tools/test-content-v2.mjs'
+      - 'tools/test-v2-faq-integrity.mjs'
+      - 'tools/test-v2-series-topics.mjs'
       - '.github/workflows/verify-v2-summary-pr.yml'
 
 permissions:
