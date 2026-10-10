@@ -34,7 +34,7 @@ for(const [n,expectedChapters] of [[49,23],[50,30],[52,14]]){
   if(!episode||!Array.isArray(episode.cs)||!Array.isArray(episode.sk)||episode.cs.length!==expectedChapters||episode.sk.length!==expectedChapters)fail(`Episode ${n} summary not published in both languages (expected ${expectedChapters} chapters)`);
   for(const lang of ['cs','sk']){
     for(const item of episode[lang]){
-      if(!item?.title?.trim()||!/^\\d{2}:\\d{2}$/.test(item.time||'')||!Array.isArray(item.points)||item.points.length===0)fail(`Episode ${n} ${lang} has incomplete chapter data`);
+      if(!item?.title?.trim()||!/^\d{2}:\d{2}$/.test(item.time||'')||!Array.isArray(item.points)||item.points.length===0)fail(`Episode ${n} ${lang} has incomplete chapter data`);
     }
   }
 }
