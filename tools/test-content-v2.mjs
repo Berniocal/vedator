@@ -28,9 +28,15 @@ for(const series of data.series){
 
 const non=data.nonquestions?.episodes;
 if(!non||Object.keys(non).length<10)fail('Nonquestion summaries missing');
-for(const n of [50,52]){
+// Regression: every chapter must survive the summary build and be available to the V2 renderer.
+for(const [n,expectedChapters] of [[49,23],[50,30],[52,14]]){
   const episode=non[String(n)];
-  if(!episode||!Array.isArray(episode.cs)||!Array.isArray(episode.sk)||episode.cs.length<10||episode.cs.length!==episode.sk.length)fail(`Required episode ${n} bilingual summary missing or incomplete`);
+  if(!episode||!Array.isArray(episode.cs)||!Array.isArray(episode.sk)||episode.cs.length!==expectedChapters||episode.sk.length!==expectedChapters)fail(`Episode ${n} summary not published in both languages (expected ${expectedChapters} chapters)`);
+  for(const lang of ['cs','sk']){
+    for(const item of episode[lang]){
+      if(!item?.title?.trim()||!/^\\d{2}:\\d{2}$/.test(item.time||'')||!Array.isArray(item.points)||item.points.length===0)fail(`Episode ${n} ${lang} has incomplete chapter data`);
+    }
+  }
 }
 for(const n of [157,159,160,161,162,163,164,165,166]){
   const episode=non[String(n)];
