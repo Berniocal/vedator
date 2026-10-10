@@ -3,7 +3,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 
 const ROOT=process.cwd();
-const FAQ=[350,346,340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,138,133,128,119,112,100,89,82,75,69,60,51,35,26,17];
+const FAQ=[358,350,346,340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,138,133,128,119,112,100,89,82,75,69,60,51,35,26,17];
 const EXTRA_NONQUESTION_EPISODES=[42,43,44,45,46,47,48,49,50,52,53,54,55,56,57,58,59,61,62,63,64,65,66,67,68,331,333,334,335,336,338,339,341,342,344,345,347,357];
 
 const read=name=>fs.readFileSync(path.join(ROOT,name),'utf8');
@@ -342,7 +342,7 @@ const output={
     episodesUpdatedAt:episodePayload.updatedAt||null,
     episodeCount:episodes.length,
     faqEpisodes:FAQ,
-    expectedQuestionCount:749,
+    expectedQuestionCount:762,
     episodeTranslationFiles:episodeTranslationData.files.length,
     questionTranslationFiles:questionPairData.files.length,
     episodeI18nCount,
