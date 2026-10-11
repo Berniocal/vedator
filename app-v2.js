@@ -446,7 +446,7 @@
   function mseEligible(context){
     if(!mseBetaEnabled||!('MediaSource'in window)||!window.MediaSource.isTypeSupported?.('audio/mpeg'))return false;
     if(!context||!['series','playlist'].includes(context.type)||context.index>=context.items.length-1)return false;
-    return context.items.slice(context.index).every(item=>item?.episode?.enclosure&&!(Number(item.start)>0)&&!state.offlineIndex[episodeKey(item.episode.number)]);
+    return context.items.slice(context.index).every(item=>item?.episode?.enclosure&&!item.question&&!(Number(item.start)>0)&&!state.offlineIndex[episodeKey(item.episode.number)]);
   }
   function msePart(){return mseSession?.parts.find(part=>part.index===state.context?.index)||null}
   function playbackTime(){
