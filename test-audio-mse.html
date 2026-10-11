@@ -122,7 +122,7 @@ function append(buffer,data){
   try{buffer.appendBuffer(data)}catch(e){cleanup();reject(e)}
  });
 }
-async function fill(buffer,sample,requestedSeconds,runId){
+async function fill(buffer,sample,requestedSeconds,runId,already,goal){
  // Each MP3 frame is 576 samples at 24 kHz; 8 complete frames = 0.192 s.
  const blockSeconds=sample.length/72*576/24000,iterations=Math.round(requestedSeconds/blockSeconds);
  let remaining=iterations,appended=0;
@@ -131,7 +131,7 @@ async function fill(buffer,sample,requestedSeconds,runId){
   const count=Math.min(150,remaining);
   await append(buffer,repeated(sample,count));
   remaining-=count;appended+=count;
-  $('bar').style.width=(100*(appended*blockSeconds+Number(buffer.datasetOffset||0))/(Number($('length').value)+30)).toFixed(1)+'%';
+  $('bar').style.width=Math.min(100,100*(already+appended*blockSeconds)/goal).toFixed(1)+'%';
  }
  return iterations*blockSeconds;
 }
@@ -157,10 +157,10 @@ async function prepare(){
   if(runId!==generation)return;
   const buffer=ms.addSourceBuffer('audio/mpeg');
   buffer.mode='sequence';
-  const firstDuration=await fill(buffer,first,requested,runId);
+  const firstDuration=await fill(buffer,first,requested,runId,0,requested+secondLength);
   boundary=buffer.buffered.length?buffer.buffered.end(buffer.buffered.length-1):firstDuration;
   diagnostic('Úsek A připraven do '+fmt(boundary)+'. Buffer: '+timeRanges(buffer.buffered));
-  const secondDuration=await fill(buffer,second,secondLength,runId);
+  const secondDuration=await fill(buffer,second,secondLength,runId,boundary,requested+secondLength);
   if(runId!==generation)return;
   ms.endOfStream();
   total=Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:boundary+secondDuration;
