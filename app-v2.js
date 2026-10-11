@@ -406,16 +406,11 @@
     n.play.textContent=audio.paused?'▶':'❚❚';n.play.title=audio.paused?text('Přehrát','Prehrať'):text('Pauza','Pauza');n.play.setAttribute('aria-label',n.play.title);
     n.prev.title=text('Předchozí','Predchádzajúca');n.next.title=text('Další','Ďalšia');
     n.speed.textContent=`${String(state.speed).replace('.',',')}×`;n.prev.disabled=!state.context||state.context.index<=0;n.next.disabled=!state.context||state.context.index>=state.context.items.length-1;
-    const mseToggle=$('#player-mse-v2'),hasNext=state.context&&['series','playlist'].includes(state.context.type)&&state.context.items.length>state.context.index+1;
-    if(mseToggle){mseToggle.classList.toggle('hidden',!hasNext);mseToggle.textContent=mseBetaEnabled?'♾ Plynule ✓':'♾ Plynule';mseToggle.setAttribute('aria-pressed',String(mseBetaEnabled));mseToggle.title=text('Experimentální režim: použije se při novém otevření série nebo playlistu.','Experimentálny režim: použije sa pri novom otvorení série alebo playlistu.')}
     if(!n.download.dataset.busy)n.download.textContent=text('⇩ MP3','⇩ MP3');n.download.removeAttribute('href');n.download.setAttribute('role','button');
     if(!n.offline.dataset.busy)n.offline.textContent=currentOfflineRecord()?text('✓ Offline','✓ Offline'):text('📱 Offline','📱 Offline');
-    const duration=playbackDuration(),time=playbackTime();
-    const loaded=mseSession?Math.max(0,mseEnd(mseSession.buffer)-(msePart()?.start||0)):0;
-    n.seek.max=String(Math.max(1,Math.floor(duration||Math.max(loaded,time,1))));
-    if(document.activeElement!==n.seek)n.seek.value=String(Math.min(Number(n.seek.max),Math.max(0,Math.floor(time))));
-    n.current.textContent=document.activeElement===n.seek?fmtTime(n.seek.value):fmtTime(time);
-    n.duration.textContent=duration?fmtTime(duration):mseSession?text('Načítám…','Načítavam…'):'–:––';
+    const duration=Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:0,time=Number.isFinite(audio.currentTime)?audio.currentTime:0;
+    n.seek.max=String(Math.max(1,Math.floor(duration||1)));if(document.activeElement!==n.seek)n.seek.value=String(Math.min(Number(n.seek.max),Math.max(0,Math.floor(time))));
+    n.current.textContent=fmtTime(n.seek.value);n.duration.textContent=duration?fmtTime(duration):'–:––';
     $('#player-playlist-v2').textContent=text('＋ Playlist','＋ Playlist');$('#player-close-v2').title=text('Zavřít','Zavrieť');
   }
   function saveCollectionProgress(time,duration,completed){
@@ -429,7 +424,7 @@
   }
   function saveProgress(force=false,ended=false){
     const n=playerNodes(),audio=n.audio,current=state.current;if(!current||audio.readyState===0)return;
-    const duration=playbackDuration()||Number(state.progress[current.key]?.duration)||0,time=ended&&duration>0?duration:playbackTime(),second=Math.floor(time);
+    const duration=Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:Number(state.progress[current.key]?.duration)||0,time=ended&&duration>0?duration:Number(audio.currentTime)||0,second=Math.floor(time);
     if(!force&&state.lastSavedSecond>=0&&Math.abs(second-state.lastSavedSecond)<5)return;state.lastSavedSecond=second;
     const previous=state.progress[current.key]||{},completed=Boolean(previous.completed)||(ended||(duration>0&&(time/duration>=.9||duration-time<=120)));
     state.progress[current.key]={currentTime:time,duration,completed,replaying:Boolean(previous.completed)&&!ended,title:episodeCopy(current.episode).title,updatedAt:Date.now()};
@@ -439,154 +434,6 @@
   // Keep a request id so a slow offline MP3 lookup cannot replace a newer episode.
   let playbackSequence=0,playbackMetadataHandler=null,playbackAutoplayWanted=false,playbackNeedsReload=false,playbackSourcePending=false;
   let playbackSwitchingSource=false;
-  // Experimental rolling MediaSource playback. Disabled by default until tested on real devices.
-  // Reuses one <audio> element across complete series/playlist episodes.
-  const MSE_BETA_KEY='vedator-mse-continuous-beta-v1',MSE_CHUNK_BYTES=262144,MSE_AHEAD_SECONDS=420;
-  let mseBetaEnabled=readJson(MSE_BETA_KEY,false)===true,mseSession=null;
-  function mseEligible(context){
-    if(!mseBetaEnabled||!('MediaSource'in window)||!window.MediaSource.isTypeSupported?.('audio/mpeg'))return false;
-    if(!context||!['series','playlist'].includes(context.type)||context.index>=context.items.length-1)return false;
-    return context.items.slice(context.index).every(item=>item?.episode?.enclosure&&!item.question&&!(Number(item.start)>0)&&!state.offlineIndex[episodeKey(item.episode.number)]);
-  }
-  function msePart(){return mseSession?.parts.find(part=>part.index===state.context?.index)||null}
-  function playbackTime(){
-    const audio=playerNodes().audio,part=msePart();
-    return Math.max(0,(Number(audio.currentTime)||0)-(part?.start||0));
-  }
-  function playbackDuration(){
-    const audio=playerNodes().audio,part=msePart();
-    if(part)return part.end===null?0:Math.max(0,part.end-part.start);
-    return Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:0;
-  }
-  function mseStop(){
-    const session=mseSession;if(!session)return;
-    mseSession=null;session.controller.abort();
-    try{if(session.url)URL.revokeObjectURL(session.url)}catch{}
-  }
-  function mseEnd(buffer){
-    try{return buffer?.buffered.length?buffer.buffered.end(buffer.buffered.length-1):0}catch{return 0}
-  }
-  function mseMutation(session,change){
-    const buffer=session.buffer;
-    return new Promise((resolve,reject)=>{
-      if(session!==mseSession||session.controller.signal.aborted){reject(new Error('MSE cancelled'));return}
-      function cleanup(){buffer.removeEventListener('updateend',done);buffer.removeEventListener('error',failed);session.controller.signal.removeEventListener('abort',cancelled)}
-      function done(){cleanup();resolve()}
-      function failed(){cleanup();reject(new Error('SourceBuffer failed'))}
-      function cancelled(){cleanup();reject(new Error('MSE cancelled'))}
-      buffer.addEventListener('updateend',done,{once:true});buffer.addEventListener('error',failed,{once:true});
-      session.controller.signal.addEventListener('abort',cancelled,{once:true});
-      try{change(buffer)}catch(error){cleanup();reject(error)}
-    });
-  }
-  async function mseBufferRoom(session){
-    const audio=playerNodes().audio;
-    const room=()=>session!==mseSession||session.controller.signal.aborted||mseEnd(session.buffer)-audio.currentTime<MSE_AHEAD_SECONDS;
-    if(room())return;
-    await new Promise(resolve=>{
-      const check=()=>{if(room()){cleanup();resolve()}};
-      function cleanup(){
-        audio.removeEventListener('timeupdate',check);
-        audio.removeEventListener('playing',check);
-        audio.removeEventListener('seeked',check);
-        session.controller.signal.removeEventListener('abort',check);
-      }
-      audio.addEventListener('timeupdate',check);audio.addEventListener('playing',check);audio.addEventListener('seeked',check);
-      session.controller.signal.addEventListener('abort',check,{once:true});check();
-    });
-  }
-  function mseUpdateContext(){
-    const session=mseSession,audio=playerNodes().audio;
-    if(!session||!state.context)return;
-    let part=msePart();
-    while(part&&part.end!==null&&Number.isFinite(part.end)&&audio.currentTime>=part.end-0.025){
-      const next=session.parts.find(candidate=>candidate.index===part.index+1);
-      if(!next||!next.ready)break;
-      saveProgress(true,true);
-      state.context={...state.context,index:next.index};
-      const item=state.context.items[next.index];
-      state.current={episode:item.episode,key:episodeKey(item.episode.number),itemRef:item.ref||epRef(item.episode.number)};
-      state.lastSavedSecond=-1;part=next;
-      syncPlayer();
-      try{if('mediaSession'in navigator&&typeof MediaMetadata!=='undefined')navigator.mediaSession.metadata=new MediaMetadata({title:episodeCopy(item.episode).title,artist:'Vedátorský podcast'})}catch{}
-      saveProgress(true,false);
-    }
-  }
-  function mseSeek(seconds){
-    const session=mseSession,part=msePart();
-    if(!session||!part)return false;
-    const target=Math.max(0,Number(seconds)||0),absolute=part.start+target,audio=playerNodes().audio;
-    let available=false;
-    try{for(let i=0;i<audio.buffered.length;i++)if(absolute>=audio.buffered.start(i)&&absolute<audio.buffered.end(i)-.05)available=true}catch{}
-    if(available){audio.currentTime=absolute;saveProgress(true,false);syncPlayer();return true}
-    const item=state.context.items[state.context.index],context={...state.context},autoplay=!audio.paused;
-    openPlayback(item.episode,{start:target,context,itemRef:item.ref,autoplay,forceLegacy:true});
-    return true;
-  }
-  function mseStart(context){
-    const audio=playerNodes().audio,source=new MediaSource();
-    const session={context,parts:[],source,buffer:null,url:URL.createObjectURL(source),controller:new AbortController()};
-    mseSession=session;
-    audio.src=session.url;audio.playbackRate=state.speed;audio.load();
-    const n=playerNodes();n.shell.classList.remove('hidden');
-    n.help.textContent=text('♾ Plynulé přehrávání (beta): připravuji zvuk po částech…','♾ Plynulé prehrávanie (beta): pripravujem zvuk po častiach…');
-    syncPlayer();startCurrentAudio(playbackSequence);
-    void msePump(session);
-  }
-  async function msePump(session){
-    const audio=playerNodes().audio,signal=session.controller.signal;
-    try{
-      await new Promise((resolve,reject)=>{
-        const done=()=>{cleanup();resolve()},cancelled=()=>{cleanup();reject(new Error('MSE cancelled'))};
-        function cleanup(){session.source.removeEventListener('sourceopen',done);signal.removeEventListener('abort',cancelled)}
-        session.source.addEventListener('sourceopen',done,{once:true});signal.addEventListener('abort',cancelled,{once:true});
-        if(session.source.readyState==='open')done();
-      });
-      if(mseSession!==session)return;
-      const sb=session.source.addSourceBuffer('audio/mpeg');session.buffer=sb;sb.mode='sequence';
-      for(let i=session.context.index;i<session.context.items.length;i++){
-        if(signal.aborted||mseSession!==session)return;
-        const entry=session.context.items[i],last=session.parts[session.parts.length-1];
-        const part={index:i,start:last?.end||0,end:null,ready:false};
-        session.parts.push(part);
-        if(last){sb.abort();sb.timestampOffset=part.start}
-        let offset=0,received=0;
-        while(true){
-          if(signal.aborted||mseSession!==session)return;
-          await mseBufferRoom(session);
-          if(signal.aborted||mseSession!==session)return;
-          if(audio.currentTime>150&&sb.buffered.length){
-            const trimBefore=audio.currentTime-120,oldest=sb.buffered.start(0);
-            if(trimBefore>oldest+20)await mseMutation(session,buffer=>buffer.remove(oldest,trimBefore));
-          }
-          const response=await fetch(entry.episode.enclosure,{mode:'cors',cache:'no-store',headers:{Range:'bytes='+offset+'-'+(offset+MSE_CHUNK_BYTES-1)},signal});
-          if(response.status===416)break;
-          if(response.status!==206)throw new Error('MP3 range request: HTTP '+response.status);
-          const data=new Uint8Array(await response.arrayBuffer());
-          if(!data.byteLength||data.byteLength>MSE_CHUNK_BYTES)throw new Error('Invalid MP3 range response');
-          await mseMutation(session,buffer=>buffer.appendBuffer(data));
-          // The next title can be shown as soon as its first audio bytes exist.
-          if(!part.ready){part.ready=true;mseUpdateContext()}
-          offset+=data.byteLength;received+=data.byteLength;
-          if(data.byteLength<MSE_CHUNK_BYTES)break;
-        }
-        if(!received)throw new Error('Empty MP3 episode');
-        part.end=mseEnd(sb);part.ready=true;
-        if(part.end<=part.start+.1)throw new Error('Cannot join MP3 episode');
-        if(state.context?.index===i){
-          playerNodes().help.textContent=text('♾ Plynulé přehrávání zapnuto.','♾ Plynulé prehrávanie zapnuté.');
-          syncPlayer();
-        }
-      }
-      if(mseSession===session&&session.source.readyState==='open')session.source.endOfStream();
-    }catch(error){
-      if(mseSession!==session||signal.aborted)return;
-      console.warn('Vedátor: MSE playlist fallback',error);
-      const context=state.context,item=context?.items[context.index],time=playbackTime(),autoplay=playbackAutoplayWanted;
-      if(item)openPlayback(item.episode,{start:time,context,itemRef:item.ref||epRef(item.episode.number),autoplay,forceLegacy:true});
-      if(state.current)playerNodes().help.textContent=text('Plynulé přehrávání selhalo; pokračuji běžným přehrávačem.','Plynulé prehrávanie zlyhalo; pokračujem bežným prehrávačom.');
-    }
-  }
   function playbackFailure(error){
     console.warn('Vedátor: audio playback could not start',error);
     playerNodes().help.textContent=text('Přehrávání se nepodařilo spustit. Klepněte na Přehrát pro obnovení.','Prehrávanie sa nepodarilo spustiť. Klepnite na Prehrať pre obnovenie.');
@@ -614,7 +461,7 @@
       playbackAutoplayWanted=false;audio.pause();syncPlayer();return;
     }
     playbackAutoplayWanted=true;
-    if(!mseSession&&!playbackSourcePending&&audio.getAttribute('src')&&(playbackNeedsReload||audio.error||audio.readyState===0||!audio.currentSrc)){
+    if(!playbackSourcePending&&audio.getAttribute('src')&&(playbackNeedsReload||audio.error||audio.readyState===0||!audio.currentSrc)){
       // Unlike play() alone, load() can recover a suspended/failed MP3 request.
       const sequence=playbackSequence,resume=Number(audio.currentTime)||0;
       if(resume>1&&!audio.ended)audio.addEventListener('loadedmetadata',()=>{
@@ -629,10 +476,10 @@
     if(document.hidden||!playbackAutoplayWanted||playbackSourcePending||!state.current)return;
     const audio=playerNodes().audio;
     if(!audio.paused||(!playbackNeedsReload&&!audio.error&&audio.readyState!==0))return;
-    if(!mseSession&&(audio.error||audio.readyState===0))audio.load();
+    if(audio.error||audio.readyState===0)audio.load();
     startCurrentAudio(playbackSequence);
   }
-  async function openPlayback(episode,{start=null,context=null,itemRef='',autoplay=true,forceLegacy=false}={}){
+  async function openPlayback(episode,{start=null,context=null,itemRef='',autoplay=true}={}){
     if(!episode?.enclosure)return;
     const sequence=++playbackSequence;
     saveProgress(true,false);
@@ -641,10 +488,8 @@
     if(target===null&&Number(record.currentTime)>10&&(!record.completed||record.replaying))target=Number(record.currentTime);
     if(target===null&&record.completed){state.progress[key]={...record,currentTime:0,replaying:true,updatedAt:Date.now()};writeJson(PROGRESS_KEY,state.progress);target=0}
     if(playbackMetadataHandler)audio.removeEventListener('loadedmetadata',playbackMetadataHandler);
-    // A pause caused by changing streams must not overwrite saved episode-relative progress.
-    playbackSwitchingSource=true;
-    mseStop();
     // Do not explicitly pause at the end of a track: it can release the Android media session.
+    playbackSwitchingSource=true;
     if(!audio.ended)audio.pause();
     playbackSwitchingSource=false;
     state.context=context;
@@ -653,7 +498,6 @@
     playbackAutoplayWanted=Boolean(autoplay);
     playbackNeedsReload=false;
     playbackSourcePending=false; // Clear a cancelled/older offline lookup before the synchronous path.
-    if(autoplay&&!forceLegacy&&!(Number(target)>0)&&mseEligible(context)){mseStart(context);return}
     // Online episodes already have their MP3 URL in the data bundle.
     // Avoid *any* await when a track ends: Android can suspend audio between tasks.
     // Offline MP3s likewise switch synchronously if their Blob URL is already cached.
@@ -689,13 +533,10 @@
   function closePlayer(){
     ++playbackSequence;playbackAutoplayWanted=false;playbackNeedsReload=false;playbackSourcePending=false;
     saveProgress(true,false);
-    playbackSwitchingSource=true;
-    mseStop();
     const n=playerNodes();
     if(playbackMetadataHandler)n.audio.removeEventListener('loadedmetadata',playbackMetadataHandler);
     playbackMetadataHandler=null;
     n.audio.pause();n.audio.removeAttribute('src');n.audio.load();
-    playbackSwitchingSource=false;
     state.current=null;state.context=null;n.shell.classList.add('hidden');
   }
   function navigateContext(delta){const context=state.context;if(!context)return;const index=context.index+delta;if(index<0||index>=context.items.length)return;const next={...context,index},item=next.items[index];openPlayback(item.episode,{start:item.start||0,context:next,itemRef:item.ref||epRef(item.episode.number)})}
@@ -812,7 +653,7 @@
     editorModal.addEventListener('change',event=>{const choice=event.target.closest('.editor-choice[data-ref]');if(!choice||!state.editor)return;const ref=choice.dataset.ref;if(event.target.checked){if(!state.editor.draft.includes(ref))state.editor.draft.push(ref)}else state.editor.draft=state.editor.draft.filter(item=>item!==ref);rerenderEditor()});
 
     const picker=$('#playlist-picker-v2');picker.addEventListener('click',event=>{if(event.target===picker||event.target.closest('.picker-close')||event.target.closest('.picker-cancel'))return closePlaylistPicker();if(event.target.closest('.picker-save'))return savePlaylistPicker();if(event.target.closest('.picker-new')){closePlaylistPicker();newPlaylist()}});
-    const n=playerNodes();n.play.addEventListener('click',restartCurrentAudio);$('#player-mse-v2')?.addEventListener('click',()=>{mseBetaEnabled=!mseBetaEnabled;writeJson(MSE_BETA_KEY,mseBetaEnabled);syncPlayer();playerNodes().help.textContent=mseBetaEnabled?text('♾ Zapnuto: otevřete znovu první díl série nebo playlistu.','♾ Zapnuté: otvorte znova prvý diel série alebo playlistu.'):text('♾ Vypnuto: po dalším spuštění se použije běžný přehrávač.','♾ Vypnuté: po ďalšom spustení sa použije bežný prehrávač.');});n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{if(state.current){try{if(mseSession){mseSeek(Number(n.seek.value)||0);return}n.audio.currentTime=Number(n.seek.value)||0}catch{}saveProgress(true,false)}});n.audio.addEventListener('playing',()=>{playbackNeedsReload=false});n.audio.addEventListener('stalled',()=>{playbackNeedsReload=true});n.audio.addEventListener('error',()=>{playbackNeedsReload=true;if(mseSession&&state.current){const context=state.context,item=context?.items[context.index],position=playbackTime();if(item)openPlayback(item.episode,{start:position,context,itemRef:item.ref,autoplay:playbackAutoplayWanted,forceLegacy:true});return}if(playbackAutoplayWanted&&state.current)playbackFailure(n.audio.error)});document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePendingAudioWhenVisible()});window.addEventListener('pageshow',resumePendingAudioWhenVisible);n.audio.addEventListener('play',()=>{try{if('mediaSession'in navigator)navigator.mediaSession.playbackState='playing'}catch{}syncPlayer()});n.audio.addEventListener('pause',()=>{if(playbackSwitchingSource){syncPlayer();return}if(!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=false;try{if('mediaSession'in navigator)navigator.mediaSession.playbackState='paused'}catch{}saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{mseUpdateContext();syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
+    const n=playerNodes();n.play.addEventListener('click',restartCurrentAudio);n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{if(state.current){try{n.audio.currentTime=Number(n.seek.value)||0}catch{}saveProgress(true,false)}});n.audio.addEventListener('playing',()=>{playbackNeedsReload=false});n.audio.addEventListener('stalled',()=>{playbackNeedsReload=true});n.audio.addEventListener('error',()=>{playbackNeedsReload=true;if(playbackAutoplayWanted&&state.current)playbackFailure(n.audio.error)});document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePendingAudioWhenVisible()});window.addEventListener('pageshow',resumePendingAudioWhenVisible);n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=false;saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
   }
 
 
@@ -1354,19 +1195,17 @@
   }
   document.addEventListener('toggle',event=>{const summary=event.target;if(summary.matches?.('.episode-summary-v2,.playlist-card')&&summary.open)parityTypeset(summary)},true);
 
-  function seekParity(delta){const audio=$('#audio-v2');if(!audio)return;const duration=playbackDuration()||Infinity,target=Math.max(0,Math.min(duration,playbackTime()+delta));if(mseSession){mseSeek(target);return}audio.currentTime=target;saveProgress(true,false);syncPlayer()}
+  function seekParity(delta){const audio=$('#audio-v2');if(!audio)return;const duration=Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:Infinity;audio.currentTime=Math.max(0,Math.min(duration,(Number(audio.currentTime)||0)+delta));saveProgress(true,false);syncPlayer()}
   function installParityMediaSession(){
     if(!('mediaSession'in navigator))return;const audio=$('#audio-v2');if(!audio)return;
-    try{navigator.mediaSession.setActionHandler('play',()=>{if(audio.paused)restartCurrentAudio()})}catch{}
-    try{navigator.mediaSession.setActionHandler('pause',()=>{if(!audio.paused)restartCurrentAudio()})}catch{}
     try{navigator.mediaSession.setActionHandler('seekbackward',details=>seekParity(-(details.seekOffset||10)))}catch{}
     try{navigator.mediaSession.setActionHandler('seekforward',details=>seekParity(details.seekOffset||10))}catch{}
-    try{navigator.mediaSession.setActionHandler('previoustrack',()=>navigateContext(-1))}catch{}
-    try{navigator.mediaSession.setActionHandler('nexttrack',()=>navigateContext(1))}catch{}
-    try{navigator.mediaSession.setActionHandler('seekto',details=>{if(typeof details.seekTime==='number'){if(mseSession)mseSeek(details.seekTime);else{audio.currentTime=Math.max(0,Math.min(audio.duration||Infinity,details.seekTime));saveProgress(true,false)}}})}catch{}
+    try{navigator.mediaSession.setActionHandler('previoustrack',()=>seekParity(-10))}catch{}
+    try{navigator.mediaSession.setActionHandler('nexttrack',()=>seekParity(10))}catch{}
+    try{navigator.mediaSession.setActionHandler('seekto',details=>{if(typeof details.seekTime==='number'){audio.currentTime=Math.max(0,Math.min(audio.duration||Infinity,details.seekTime));saveProgress(true,false)}})}catch{}
     const update=()=>{
       if(!state.current)return;try{if(typeof MediaMetadata!=='undefined')navigator.mediaSession.metadata=new MediaMetadata({title:episodeCopy(state.current.episode).title,artist:'Vedátorský podcast',album:text('Vedátorský podcast','Vedátorský podcast')})}catch{}
-      try{if(playbackDuration()>0)navigator.mediaSession.setPositionState({duration:playbackDuration(),playbackRate:audio.playbackRate||1,position:Math.min(playbackDuration(),Math.max(0,playbackTime()))})}catch{}
+      try{if(audio.duration>0&&Number.isFinite(audio.duration))navigator.mediaSession.setPositionState({duration:audio.duration,playbackRate:audio.playbackRate||1,position:Math.min(audio.duration,Math.max(0,audio.currentTime||0))})}catch{}
     };
     audio.addEventListener('play',update);audio.addEventListener('loadedmetadata',update);audio.addEventListener('durationchange',update);audio.addEventListener('timeupdate',()=>{const now=Date.now();if(now-parityUi.mediaTick>3000){parityUi.mediaTick=now;update()}});
   }
@@ -1675,7 +1514,7 @@
   function mobileSafeMp3Filename(title){return (title||'vedatorsky-podcast').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'').toLowerCase()+'.mp3'}
   const mobileFormatMb=bytes=>((Number(bytes)||0)/1048576).toFixed(1).replace('.',',')+' MB';
   async function downloadCurrentMp3(){
-    const current=state.current,n=playerNodes();if(!current||n.download.dataset.busy)return;const url=mseSession?current.episode.enclosure:(n.audio.currentSrc||current.episode.enclosure);if(!url)return;
+    const current=state.current,n=playerNodes();if(!current||n.download.dataset.busy)return;const url=n.audio.currentSrc||current.episode.enclosure;if(!url)return;
     n.download.dataset.busy='1';n.download.setAttribute('aria-disabled','true');n.download.textContent=text('Připravuji…','Pripravujem…');n.help.textContent=text('Připravuji stažení MP3…','Pripravujem stiahnutie MP3…');
     try{
       const response=await fetch(url,{mode:'cors',cache:'no-store'});if(!response.ok)throw new Error('HTTP '+response.status);
@@ -3422,7 +3261,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     const audio=playerNodes().audio,record=state.progress[current.key]||{};
     let time=preferredTime===null||preferredTime===undefined?NaN:Number(preferredTime);
     if(!Number.isFinite(time)){
-      const live=audio&&audio.readyState>0?playbackTime():NaN;
+      const live=audio&&audio.readyState>0?Number(audio.currentTime):NaN;
       time=Number.isFinite(live)?live:Number(record.currentTime)||0;
     }
     const contextItem=state.context?.items?.[state.context.index];
