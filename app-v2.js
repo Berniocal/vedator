@@ -434,6 +434,152 @@
   // Keep a request id so a slow offline MP3 lookup cannot replace a newer episode.
   let playbackSequence=0,playbackMetadataHandler=null,playbackAutoplayWanted=false,playbackNeedsReload=false,playbackSourcePending=false;
   let playbackSwitchingSource=false;
+  // Experimental rolling MediaSource playback. Disabled by default until tested on real devices.
+  // Reuses one <audio> element across complete series/playlist episodes.
+  const MSE_BETA_KEY='vedator-mse-continuous-beta-v1',MSE_CHUNK_BYTES=262144,MSE_AHEAD_SECONDS=420;
+  let mseBetaEnabled=readJson(MSE_BETA_KEY,false)===true,mseSession=null;
+  function mseEligible(context){
+    if(!mseBetaEnabled||!('MediaSource'in window)||!window.MediaSource.isTypeSupported?.('audio/mpeg'))return false;
+    if(!context||!['series','playlist'].includes(context.type)||context.index>=context.items.length-1)return false;
+    return context.items.slice(context.index).every(item=>item?.episode?.enclosure&&!(Number(item.start)>0)&&!state.offlineIndex[episodeKey(item.episode.number)]);
+  }
+  function msePart(){return mseSession?.parts.find(part=>part.index===state.context?.index)||null}
+  function playbackTime(){
+    const audio=playerNodes().audio,part=msePart();
+    return Math.max(0,(Number(audio.currentTime)||0)-(part?.start||0));
+  }
+  function playbackDuration(){
+    const audio=playerNodes().audio,part=msePart();
+    if(part)return part.end===null?0:Math.max(0,part.end-part.start);
+    return Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:0;
+  }
+  function mseStop(){
+    const session=mseSession;if(!session)return;
+    mseSession=null;session.controller.abort();
+    try{if(session.url)URL.revokeObjectURL(session.url)}catch{}
+  }
+  function mseEnd(buffer){
+    try{return buffer?.buffered.length?buffer.buffered.end(buffer.buffered.length-1):0}catch{return 0}
+  }
+  function mseMutation(session,change){
+    const buffer=session.buffer;
+    return new Promise((resolve,reject)=>{
+      if(session!==mseSession||session.controller.signal.aborted){reject(new Error('MSE cancelled'));return}
+      function cleanup(){buffer.removeEventListener('updateend',done);buffer.removeEventListener('error',failed);session.controller.signal.removeEventListener('abort',cancelled)}
+      function done(){cleanup();resolve()}
+      function failed(){cleanup();reject(new Error('SourceBuffer failed'))}
+      function cancelled(){cleanup();reject(new Error('MSE cancelled'))}
+      buffer.addEventListener('updateend',done,{once:true});buffer.addEventListener('error',failed,{once:true});
+      session.controller.signal.addEventListener('abort',cancelled,{once:true});
+      try{change(buffer)}catch(error){cleanup();reject(error)}
+    });
+  }
+  async function mseBufferRoom(session){
+    const audio=playerNodes().audio;
+    const room=()=>session!==mseSession||session.controller.signal.aborted||mseEnd(session.buffer)-audio.currentTime<MSE_AHEAD_SECONDS;
+    if(room())return;
+    await new Promise(resolve=>{
+      const check=()=>{if(room()){cleanup();resolve()}};
+      function cleanup(){
+        audio.removeEventListener('timeupdate',check);
+        audio.removeEventListener('playing',check);
+        audio.removeEventListener('seeked',check);
+        session.controller.signal.removeEventListener('abort',check);
+      }
+      audio.addEventListener('timeupdate',check);audio.addEventListener('playing',check);audio.addEventListener('seeked',check);
+      session.controller.signal.addEventListener('abort',check,{once:true});check();
+    });
+  }
+  function mseUpdateContext(){
+    const session=mseSession,audio=playerNodes().audio;
+    if(!session||!state.context)return;
+    let part=msePart();
+    while(part&&part.end!==null&&Number.isFinite(part.end)&&audio.currentTime>=part.end-0.025){
+      const next=session.parts.find(candidate=>candidate.index===part.index+1);
+      if(!next||!next.ready)break;
+      saveProgress(true,true);
+      state.context={...state.context,index:next.index};
+      const item=state.context.items[next.index];
+      state.current={episode:item.episode,key:episodeKey(item.episode.number),itemRef:item.ref||epRef(item.episode.number)};
+      state.lastSavedSecond=-1;part=next;
+      syncPlayer();
+      try{if('mediaSession'in navigator&&typeof MediaMetadata!=='undefined')navigator.mediaSession.metadata=new MediaMetadata({title:episodeCopy(item.episode).title,artist:'Vedátorský podcast'})}catch{}
+      saveProgress(true,false);
+    }
+  }
+  function mseSeek(seconds){
+    const session=mseSession,part=msePart();
+    if(!session||!part)return false;
+    const target=Math.max(0,Number(seconds)||0),absolute=part.start+target,audio=playerNodes().audio;
+    let available=false;
+    try{for(let i=0;i<audio.buffered.length;i++)if(absolute>=audio.buffered.start(i)&&absolute<audio.buffered.end(i)-.05)available=true}catch{}
+    if(available){audio.currentTime=absolute;saveProgress(true,false);syncPlayer();return true}
+    const item=state.context.items[state.context.index],context={...state.context},autoplay=!audio.paused;
+    openPlayback(item.episode,{start:target,context,itemRef:item.ref,autoplay,forceLegacy:true});
+    return true;
+  }
+  function mseStart(context){
+    const audio=playerNodes().audio,source=new MediaSource();
+    const session={context,parts:[],source,buffer:null,url:URL.createObjectURL(source),controller:new AbortController()};
+    mseSession=session;
+    audio.src=session.url;audio.playbackRate=state.speed;audio.load();
+    const n=playerNodes();n.shell.classList.remove('hidden');
+    n.help.textContent=text('♾ Plynulé přehrávání (beta): připravuji zvuk po částech…','♾ Plynulé prehrávanie (beta): pripravujem zvuk po častiach…');
+    syncPlayer();startCurrentAudio(playbackSequence);
+    void msePump(session);
+  }
+  async function msePump(session){
+    const audio=playerNodes().audio,signal=session.controller.signal;
+    try{
+      await new Promise((resolve,reject)=>{
+        const done=()=>{cleanup();resolve()},cancelled=()=>{cleanup();reject(new Error('MSE cancelled'))};
+        function cleanup(){session.source.removeEventListener('sourceopen',done);signal.removeEventListener('abort',cancelled)}
+        session.source.addEventListener('sourceopen',done,{once:true});signal.addEventListener('abort',cancelled,{once:true});
+        if(session.source.readyState==='open')done();
+      });
+      if(mseSession!==session)return;
+      const sb=session.source.addSourceBuffer('audio/mpeg');session.buffer=sb;sb.mode='sequence';
+      for(let i=session.context.index;i<session.context.items.length;i++){
+        if(signal.aborted||mseSession!==session)return;
+        const entry=session.context.items[i],last=session.parts[session.parts.length-1];
+        const part={index:i,start:last?.end||0,end:null,ready:false};
+        session.parts.push(part);
+        if(last){sb.abort();sb.timestampOffset=part.start}
+        let offset=0,received=0;
+        while(true){
+          if(signal.aborted||mseSession!==session)return;
+          await mseBufferRoom(session);
+          if(signal.aborted||mseSession!==session)return;
+          if(audio.currentTime>150&&sb.buffered.length){
+            const trimBefore=audio.currentTime-120,oldest=sb.buffered.start(0);
+            if(trimBefore>oldest+20)await mseMutation(session,buffer=>buffer.remove(oldest,trimBefore));
+          }
+          const response=await fetch(entry.episode.enclosure,{mode:'cors',cache:'no-store',headers:{Range:'bytes='+offset+'-'+(offset+MSE_CHUNK_BYTES-1)},signal});
+          if(response.status===416)break;
+          if(response.status!==206)throw new Error('MP3 range request: HTTP '+response.status);
+          const data=new Uint8Array(await response.arrayBuffer());
+          if(!data.byteLength||data.byteLength>MSE_CHUNK_BYTES)throw new Error('Invalid MP3 range response');
+          await mseMutation(session,buffer=>buffer.appendBuffer(data));
+          offset+=data.byteLength;received+=data.byteLength;
+          if(data.byteLength<MSE_CHUNK_BYTES)break;
+        }
+        if(!received)throw new Error('Empty MP3 episode');
+        part.end=mseEnd(sb);part.ready=true;
+        if(part.end<=part.start+.1)throw new Error('Cannot join MP3 episode');
+        if(state.context?.index===i){
+          playerNodes().help.textContent=text('♾ Plynulé přehrávání zapnuto.','♾ Plynulé prehrávanie zapnuté.');
+          syncPlayer();
+        }
+      }
+      if(mseSession===session&&session.source.readyState==='open')session.source.endOfStream();
+    }catch(error){
+      if(mseSession!==session||signal.aborted)return;
+      console.warn('Vedátor: MSE playlist fallback',error);
+      const context=state.context,item=context?.items[context.index],time=playbackTime(),autoplay=playbackAutoplayWanted;
+      if(item)openPlayback(item.episode,{start:time,context,itemRef:item.ref||epRef(item.episode.number),autoplay,forceLegacy:true});
+      if(state.current)playerNodes().help.textContent=text('Plynulé přehrávání selhalo; pokračuji běžným přehrávačem.','Plynulé prehrávanie zlyhalo; pokračujem bežným prehrávačom.');
+    }
+  }
   function playbackFailure(error){
     console.warn('Vedátor: audio playback could not start',error);
     playerNodes().help.textContent=text('Přehrávání se nepodařilo spustit. Klepněte na Přehrát pro obnovení.','Prehrávanie sa nepodarilo spustiť. Klepnite na Prehrať pre obnovenie.');
