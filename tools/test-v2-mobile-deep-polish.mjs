@@ -108,4 +108,36 @@ const afterTitle=window.document.querySelector('#player-title-v2').textContent;
 assert(beforeTitle!==afterTitle,'Playback did not advance synchronously when background timers are suspended');
 assert(mediaPlayCalls>playCallsBeforeEnded,'Next context item did not request playback after ended');
 
-console.log(JSON.stringify({ok:true,mobileWidth:390,episodeHighlight:true,questionHighlight:true,darkTopicContrast:true,shareSingleRow:true,realMp3Download:true,episodeContext:true,autoAdvance:true,downloaded:downloads[0]?.download||null},null,2));
+
+// Regression: the next MP3 may be rejected after a long period in the background.
+// Play must recover the same episode without stepping to another episode and back.
+const testAudio=window.document.querySelector('#audio-v2');
+const originalTestPlay=window.HTMLMediaElement.prototype.play;
+const originalTestLoad=window.HTMLMediaElement.prototype.load;
+let blockBackgroundPlay=true,extraLoads=0;
+window.HTMLMediaElement.prototype.play=function(){
+  if(blockBackgroundPlay){blockBackgroundPlay=false;return Promise.reject(new Error('Simulated background playback rejection'))}
+  return originalTestPlay.call(this);
+};
+window.HTMLMediaElement.prototype.load=function(){extraLoads++;return originalTestLoad.call(this)};
+const beforeRejectedEpisode=window.document.querySelector('#player-title-v2').textContent;
+testAudio.dispatchEvent(new window.Event('ended'));
+for(let tick=0;tick<6;tick++)await Promise.resolve();
+const rejectedEpisode=window.document.querySelector('#player-title-v2').textContent;
+assert(rejectedEpisode!==beforeRejectedEpisode,'Failed background playback did not select next episode');
+assert(testAudio.paused,'Rejected background playback should remain paused');
+const loadsBeforeRecovery=extraLoads,playsBeforeRecovery=mediaPlayCalls;
+window.document.querySelector('#player-play-v2').click();
+for(let tick=0;tick<4;tick++)await Promise.resolve();
+assert(extraLoads>loadsBeforeRecovery,'Play button did not reload a failed MP3');
+assert(mediaPlayCalls>playsBeforeRecovery&&!testAudio.paused,'Play button did not restart the current MP3');
+assert(window.document.querySelector('#player-title-v2').textContent===rejectedEpisode,'Recovery unexpectedly changed the episode');
+// A user pause must not be undone when the page becomes visible again.
+window.document.querySelector('#player-play-v2').click();
+const playsAfterPause=mediaPlayCalls;
+window.document.dispatchEvent(new window.Event('visibilitychange'));
+assert(mediaPlayCalls===playsAfterPause,'Foreground recovery restarted audio paused by the user');
+window.HTMLMediaElement.prototype.play=originalTestPlay;
+window.HTMLMediaElement.prototype.load=originalTestLoad;
+
+console.log(JSON.stringify({ok:true,mobileWidth:390,episodeHighlight:true,questionHighlight:true,darkTopicContrast:true,shareSingleRow:true,realMp3Download:true,episodeContext:true,autoAdvance:true,backgroundRecovery:true,downloaded:downloads[0]?.download||null},null,2));
