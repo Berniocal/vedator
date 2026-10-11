@@ -22,6 +22,14 @@ assert(!app.includes('vedator-playback-keepalive')&&!app.includes('startPlayback
 assert(app.includes('let source=episode.enclosure;'),'Synchronous online MP3 source switch is missing');
 assert(app.includes('if(cachedOfflineUrl)source=cachedOfflineUrl;'),'Cached offline MP3 should also be switchable synchronously');
 assert(!app.includes("setTimeout(()=>navigateContext(1),0)"),'Ended auto-advance still depends on a background-throttled timer');
+assert(html.includes('id="player-mse-v2"'),'Optional seamless player button missing');
+assert(html.includes('MSE_BETA_PLAYER_CONTROL'),'Mobile layout for seamless button missing');
+assert(app.includes("MSE_BETA_KEY='vedator-mse-continuous-beta-v1'"),'Seamless playback is not separately gated');
+assert(app.includes("addSourceBuffer('audio/mpeg')")&&app.includes("sb.mode='sequence'"),'Rolling MP3 MediaSource missing');
+assert(app.includes("Range:'bytes='+offset+'-'")&&app.includes('MSE_AHEAD_SECONDS=420'),'MSE streaming must use bounded byte ranges and limited buffering');
+assert(app.includes('mseUpdateContext();syncPlayer();saveProgress(false,false)'),'Audio timeupdate does not update the episode context');
+assert(app.includes('forceLegacy:true'),'MSE failure has no conventional player fallback');
+assert(!app.includes('falsesaveProgress'),'Pause handler contains invalid function call');
 
 const dom=new JSDOM(html,{url:'https://example.test/v2.html',runScripts:'outside-only',pretendToBeVisual:true});
 const {window}=dom;
@@ -93,6 +101,8 @@ const episodeCards=[...window.document.querySelectorAll('#episodes-v2 .episode-c
 assert(episodeCards.length>=2,'Need at least two episode cards for mobile player test');
 const secondPlay=episodeCards[1].querySelector('.actions .play');secondPlay.click();await new Promise(resolve=>setTimeout(resolve,20));
 assert(!window.document.querySelector('#vedator-playback-keepalive'),'Unexpected video keepalive element');
+assert(window.document.querySelector('#player-mse-v2'),'Seamless beta toggle missing in the DOM');
+assert(window.document.querySelector('#player-mse-v2').classList.contains('hidden'),'Seamless beta toggle should be hidden for ordinary episode browsing');
 const prev=window.document.querySelector('#player-prev-v2'),next=window.document.querySelector('#player-next-v2');
 assert(!(prev.disabled&&next.disabled),'Regular episode playback has no prev/next context');
 
@@ -148,4 +158,4 @@ assert(mediaPlayCalls===playsAfterPause,'Foreground recovery restarted audio pau
 window.HTMLMediaElement.prototype.play=originalTestPlay;
 window.HTMLMediaElement.prototype.load=originalTestLoad;
 
-console.log(JSON.stringify({ok:true,mobileWidth:390,episodeHighlight:true,questionHighlight:true,darkTopicContrast:true,shareSingleRow:true,realMp3Download:true,episodeContext:true,autoAdvance:true,backgroundRecovery:true,synchronousSwitch:true,videoRemoved:true,downloaded:downloads[0]?.download||null},null,2));
+console.log(JSON.stringify({ok:true,mobileWidth:390,episodeHighlight:true,questionHighlight:true,darkTopicContrast:true,shareSingleRow:true,realMp3Download:true,episodeContext:true,autoAdvance:true,backgroundRecovery:true,synchronousSwitch:true,videoRemoved:true,mseBetaGuarded:true,downloaded:downloads[0]?.download||null},null,2));
