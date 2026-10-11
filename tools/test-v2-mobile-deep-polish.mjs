@@ -17,7 +17,9 @@ assert(app.includes("const tabs=$$('.tab-v2').filter"),'Swipe collection fix mis
 assert(app.includes('async function downloadCurrentMp3()'),'Real MP3 downloader missing');
 assert(app.includes('link.download=mobileSafeMp3Filename'),'MP3 Blob download filename missing');
 assert(app.includes("type:'episodes'"),'Episode playback context missing');
-assert(app.includes("$('#audio-v2')?.addEventListener('ended',()=>{if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1)})"),'Direct continuous context playback missing');
+assert(app.includes("$('#audio-v2')?.addEventListener('ended',()=>{if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else{playbackAutoplayWanted=false;stopPlaybackKeepAlive()}})"),'Continuous playback or playlist-end keepalive cleanup missing');
+assert(app.includes('function startPlaybackKeepAlive()'),'Background keepalive start missing');
+assert(app.includes('function stopPlaybackKeepAlive()'),'Background keepalive stop missing');
 assert(!app.includes("setTimeout(()=>navigateContext(1),0)"),'Ended auto-advance still depends on a background-throttled timer');
 
 const dom=new JSDOM(html,{url:'https://example.test/v2.html',runScripts:'outside-only',pretendToBeVisual:true});
@@ -89,6 +91,11 @@ const etab=[...window.document.querySelectorAll('.tab-v2')].find(tab=>tab.datase
 const episodeCards=[...window.document.querySelectorAll('#episodes-v2 .episode-card-v2')];
 assert(episodeCards.length>=2,'Need at least two episode cards for mobile player test');
 const secondPlay=episodeCards[1].querySelector('.actions .play');secondPlay.click();await new Promise(resolve=>setTimeout(resolve,20));
+const keepAliveVideo=window.document.querySelector('#vedator-playback-keepalive');
+assert(keepAliveVideo,'Audio did not start the auxiliary video');
+assert(keepAliveVideo.muted&&keepAliveVideo.loop&&keepAliveVideo.playsInline,'Auxiliary video must be muted, looping and inline');
+assert(keepAliveVideo.src.startsWith('data:video/mp4;base64,'),'Auxiliary video must be self-contained and work offline');
+assert(!keepAliveVideo.paused,'Auxiliary video did not start together with audio');
 const prev=window.document.querySelector('#player-prev-v2'),next=window.document.querySelector('#player-next-v2');
 assert(!(prev.disabled&&next.disabled),'Regular episode playback has no prev/next context');
 
@@ -134,10 +141,11 @@ assert(mediaPlayCalls>playsBeforeRecovery&&!testAudio.paused,'Play button did no
 assert(window.document.querySelector('#player-title-v2').textContent===rejectedEpisode,'Recovery unexpectedly changed the episode');
 // A user pause must not be undone when the page becomes visible again.
 window.document.querySelector('#player-play-v2').click();
+assert(keepAliveVideo.paused,'Auxiliary video kept playing after manual pause');
 const playsAfterPause=mediaPlayCalls;
 window.document.dispatchEvent(new window.Event('visibilitychange'));
 assert(mediaPlayCalls===playsAfterPause,'Foreground recovery restarted audio paused by the user');
 window.HTMLMediaElement.prototype.play=originalTestPlay;
 window.HTMLMediaElement.prototype.load=originalTestLoad;
 
-console.log(JSON.stringify({ok:true,mobileWidth:390,episodeHighlight:true,questionHighlight:true,darkTopicContrast:true,shareSingleRow:true,realMp3Download:true,episodeContext:true,autoAdvance:true,backgroundRecovery:true,downloaded:downloads[0]?.download||null},null,2));
+console.log(JSON.stringify({ok:true,mobileWidth:390,episodeHighlight:true,questionHighlight:true,darkTopicContrast:true,shareSingleRow:true,realMp3Download:true,episodeContext:true,autoAdvance:true,backgroundRecovery:true,videoKeepAlive:true,downloaded:downloads[0]?.download||null},null,2));
