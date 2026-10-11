@@ -430,17 +430,102 @@
     state.progress[current.key]={currentTime:time,duration,completed,replaying:Boolean(previous.completed)&&!ended,title:episodeCopy(current.episode).title,updatedAt:Date.now()};
     writeJson(PROGRESS_KEY,state.progress);saveCollectionProgress(time,duration,completed);refreshEpisodeCard(current.episode.number);if(force||completed!==Boolean(previous.completed)){refreshSeriesProgress();refreshPlaylistProgress()}
   }
+  // Playback changes must stay on the same audio element (Android background media session).
+  // Keep a request id so a slow offline MP3 lookup cannot replace a newer episode.
+  let playbackSequence=0,playbackMetadataHandler=null,playbackAutoplayWanted=false,playbackNeedsReload=false,playbackSourcePending=false;
+  function playbackFailure(error){
+    console.warn('Vedátor: audio playback could not start',error);
+    playerNodes().help.textContent=text('Přehrávání se nepodařilo spustit. Klepněte na Přehrát pro obnovení.','Prehrávanie sa nepodarilo spustiť. Klepnite na Prehrať pre obnovenie.');
+  }
+  function startCurrentAudio(sequence){
+    if(sequence!==playbackSequence||playbackSourcePending||!state.current)return;
+    const audio=playerNodes().audio;
+    try{
+      Promise.resolve(audio.play()).then(()=>{
+        if(sequence!==playbackSequence)return;
+        playbackNeedsReload=false;syncPlayer();
+      },error=>{
+        if(sequence!==playbackSequence||!playbackAutoplayWanted)return;
+        playbackNeedsReload=true;playbackFailure(error);syncPlayer();
+      });
+    }catch(error){
+      if(sequence!==playbackSequence||!playbackAutoplayWanted)return;
+      playbackNeedsReload=true;playbackFailure(error);syncPlayer();
+    }
+  }
+  function restartCurrentAudio(){
+    const audio=playerNodes().audio;
+    if(!state.current)return;
+    if(!audio.paused){
+      playbackAutoplayWanted=false;audio.pause();syncPlayer();return;
+    }
+    playbackAutoplayWanted=true;
+    if(!playbackSourcePending&&audio.getAttribute('src')&&(playbackNeedsReload||audio.error||audio.readyState===0||!audio.currentSrc)){
+      // Unlike play() alone, load() can recover a suspended/failed MP3 request.
+      const sequence=playbackSequence,resume=Number(audio.currentTime)||0;
+      if(resume>1&&!audio.ended)audio.addEventListener('loadedmetadata',()=>{
+        if(sequence!==playbackSequence)return;
+        try{audio.currentTime=Math.min(resume,Math.max(0,(audio.duration||resume)-1))}catch{}
+      },{once:true});
+      audio.load();
+    }
+    startCurrentAudio(playbackSequence);syncPlayer();
+  }
+  function resumePendingAudioWhenVisible(){
+    if(document.hidden||!playbackAutoplayWanted||playbackSourcePending||!state.current)return;
+    const audio=playerNodes().audio;
+    if(!audio.paused||(!playbackNeedsReload&&!audio.error&&audio.readyState!==0))return;
+    if(audio.error||audio.readyState===0)audio.load();
+    startCurrentAudio(playbackSequence);
+  }
   async function openPlayback(episode,{start=null,context=null,itemRef='',autoplay=true}={}){
-    if(!episode?.enclosure)return;saveProgress(true,false);
-    const n=playerNodes(),audio=n.audio,key=episodeKey(episode.number),record=state.progress[key]||{};state.context=context;let target=start;
+    if(!episode?.enclosure)return;
+    const sequence=++playbackSequence;
+    saveProgress(true,false);
+    const n=playerNodes(),audio=n.audio,key=episodeKey(episode.number),record=state.progress[key]||{};
+    let target=start;
     if(target===null&&Number(record.currentTime)>10&&(!record.completed||record.replaying))target=Number(record.currentTime);
     if(target===null&&record.completed){state.progress[key]={...record,currentTime:0,replaying:true,updatedAt:Date.now()};writeJson(PROGRESS_KEY,state.progress);target=0}
-    state.current={episode,key,itemRef:itemRef||epRef(episode.number)};state.lastSavedSecond=-1;audio.pause();audio.src=await playbackUrl(episode);audio.playbackRate=state.speed;
-    n.help.textContent=target>0?`${text('Načítám od','Načítavam od')} ${fmtTime(target)}…`:text('Pozice se průběžně ukládá do tohoto zařízení.','Pozícia sa priebežne ukladá do tohto zariadenia.');
-    audio.addEventListener('loadedmetadata',()=>{if(state.current?.key!==key)return;if(Number.isFinite(target)&&target>0){try{audio.currentTime=Math.min(target,Math.max(0,(audio.duration||target)-1))}catch{}}syncPlayer();if(autoplay)audio.play().catch(()=>{n.help.textContent=target>0?`${text('Pozice','Pozícia')} ${fmtTime(target)} ${text('je připravená. Klepněte na Přehrát.','je pripravená. Klepnite na Prehrať.')}`:text('Klepněte na Přehrát.','Klepnite na Prehrať.')});else n.help.textContent=target>0?`${text('Pozice','Pozícia')} ${fmtTime(target)} ${text('je připravená. Klepněte na Přehrát.','je pripravená. Klepnite na Prehrať.')}`:text('Klepněte na Přehrát.','Klepnite na Prehrať.')},{once:true});
-    audio.load();n.shell.classList.remove('hidden');syncPlayer();if(autoplay)audio.play().catch(()=>{});
+    if(playbackMetadataHandler)audio.removeEventListener('loadedmetadata',playbackMetadataHandler);
+    // Do not explicitly pause at the end of a track: it can release the Android media session.
+    if(!audio.ended)audio.pause();
+    state.context=context;
+    state.current={episode,key,itemRef:itemRef||epRef(episode.number)};
+    state.lastSavedSecond=-1;
+    playbackAutoplayWanted=Boolean(autoplay);
+    playbackNeedsReload=false;
+    playbackSourcePending=true;
+    let source;
+    try{source=await playbackUrl(episode)}catch(error){
+      if(sequence===playbackSequence){playbackSourcePending=false;playbackNeedsReload=true;playbackFailure(error)}
+      return;
+    }
+    if(sequence!==playbackSequence)return;
+    playbackSourcePending=false;
+    audio.src=source;audio.playbackRate=state.speed;
+    n.help.textContent=target>0?text('Načítám od ','Načítavam od ')+fmtTime(target)+'…':text('Pozice se průběžně ukládá do tohoto zařízení.','Pozícia sa priebežne ukladá do tohto zariadenia.');
+    playbackMetadataHandler=()=>{
+      if(sequence!==playbackSequence)return;
+      playbackMetadataHandler=null;
+      if(Number.isFinite(target)&&target>0){
+        try{audio.currentTime=Math.min(target,Math.max(0,(audio.duration||target)-1))}catch{}
+      }
+      if(!autoplay)n.help.textContent=target>0?text('Pozice ','Pozícia ')+fmtTime(target)+text(' je připravená. Klepněte na Přehrát.',' je pripravená. Klepnite na Prehrať.'):text('Klepněte na Přehrát.','Klepnite na Prehrať.');
+      syncPlayer();
+    };
+    audio.addEventListener('loadedmetadata',playbackMetadataHandler,{once:true});
+    audio.load();n.shell.classList.remove('hidden');syncPlayer();
+    if(autoplay)startCurrentAudio(sequence);
   }
-  function closePlayer(){saveProgress(true,false);const n=playerNodes();n.audio.pause();n.audio.removeAttribute('src');n.audio.load();state.current=null;state.context=null;n.shell.classList.add('hidden')}
+  function closePlayer(){
+    ++playbackSequence;playbackAutoplayWanted=false;playbackNeedsReload=false;playbackSourcePending=false;
+    saveProgress(true,false);
+    const n=playerNodes();
+    if(playbackMetadataHandler)n.audio.removeEventListener('loadedmetadata',playbackMetadataHandler);
+    playbackMetadataHandler=null;
+    n.audio.pause();n.audio.removeAttribute('src');n.audio.load();
+    state.current=null;state.context=null;n.shell.classList.add('hidden');
+  }
   function navigateContext(delta){const context=state.context;if(!context)return;const index=context.index+delta;if(index<0||index>=context.items.length)return;const next={...context,index},item=next.items[index];openPlayback(item.episode,{start:item.start||0,context:next,itemRef:item.ref||epRef(item.episode.number)})}
   function changeSpeed(){const speeds=[1,1.25,1.5,1.75,2,.75],i=speeds.indexOf(state.speed);state.speed=speeds[(i+1)%speeds.length];playerNodes().audio.playbackRate=state.speed;syncPlayer()}
 
@@ -555,7 +640,7 @@
     editorModal.addEventListener('change',event=>{const choice=event.target.closest('.editor-choice[data-ref]');if(!choice||!state.editor)return;const ref=choice.dataset.ref;if(event.target.checked){if(!state.editor.draft.includes(ref))state.editor.draft.push(ref)}else state.editor.draft=state.editor.draft.filter(item=>item!==ref);rerenderEditor()});
 
     const picker=$('#playlist-picker-v2');picker.addEventListener('click',event=>{if(event.target===picker||event.target.closest('.picker-close')||event.target.closest('.picker-cancel'))return closePlaylistPicker();if(event.target.closest('.picker-save'))return savePlaylistPicker();if(event.target.closest('.picker-new')){closePlaylistPicker();newPlaylist()}});
-    const n=playerNodes();n.play.addEventListener('click',()=>{if(n.audio.paused)n.audio.play().catch(()=>{});else n.audio.pause();syncPlayer()});n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{if(state.current){try{n.audio.currentTime=Number(n.seek.value)||0}catch{}saveProgress(true,false)}});n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
+    const n=playerNodes();n.play.addEventListener('click',restartCurrentAudio);n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{if(state.current){try{n.audio.currentTime=Number(n.seek.value)||0}catch{}saveProgress(true,false)}});n.audio.addEventListener('playing',()=>{playbackNeedsReload=false});n.audio.addEventListener('stalled',()=>{playbackNeedsReload=true});n.audio.addEventListener('error',()=>{playbackNeedsReload=true;if(playbackAutoplayWanted&&state.current)playbackFailure(n.audio.error)});document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePendingAudioWhenVisible()});window.addEventListener('pageshow',resumePendingAudioWhenVisible);n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
   }
 
 
