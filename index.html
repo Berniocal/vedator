@@ -260,6 +260,14 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
 @media(max-width:700px){#series-v2:not(.hidden){grid-template-columns:minmax(0,1fr)!important;gap:10px!important}#series-v2 .series,#series-v2 .series[open]{grid-column:auto!important}}
 
 
+/* MSE_BETA_PLAYER_CONTROL */
+#player-mse-v2.hidden{display:none!important}
+@media(max-width:700px){
+  #player-mse-v2{grid-column:1/-1!important;grid-row:3!important;width:100%!important;min-height:32px!important;font-size:.75rem!important;padding:4px 8px!important}
+  body:has(#player-v2:not(.hidden)){padding-bottom:295px!important}
+  body:has(#player-v2:not(.hidden)) .back-top-v2{bottom:290px!important}
+}
+
 </style>
 
 <style id="v2-search-clear-style">
@@ -330,6 +338,7 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
       <button id="player-play-v2" class="play-toggle" type="button">Přehrát</button>
       <button id="player-next-v2" type="button" title="Další">▶</button>
       <button id="player-speed-v2" type="button">1×</button>
+      <button id="player-mse-v2" type="button" class="hidden" title="Experimentální souvislé přehrávání sérií a playlistů">♾ Plynule</button>
       <button id="player-playlist-v2" type="button">＋ Playlist</button>
       <button id="player-offline-v2" type="button">📱 Offline</button>
       <a id="player-download-v2" href="#" target="_blank" rel="noopener">⇩ MP3</a>
