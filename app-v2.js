@@ -411,8 +411,11 @@
     if(!n.download.dataset.busy)n.download.textContent=text('⇩ MP3','⇩ MP3');n.download.removeAttribute('href');n.download.setAttribute('role','button');
     if(!n.offline.dataset.busy)n.offline.textContent=currentOfflineRecord()?text('✓ Offline','✓ Offline'):text('📱 Offline','📱 Offline');
     const duration=playbackDuration(),time=playbackTime();
-    n.seek.max=String(Math.max(1,Math.floor(duration||1)));if(document.activeElement!==n.seek)n.seek.value=String(Math.min(Number(n.seek.max),Math.max(0,Math.floor(time))));
-    n.current.textContent=fmtTime(n.seek.value);n.duration.textContent=duration?fmtTime(duration):'–:––';
+    const loaded=mseSession?Math.max(0,mseEnd(mseSession.buffer)-(msePart()?.start||0)):0;
+    n.seek.max=String(Math.max(1,Math.floor(duration||Math.max(loaded,time,1))));
+    if(document.activeElement!==n.seek)n.seek.value=String(Math.min(Number(n.seek.max),Math.max(0,Math.floor(time))));
+    n.current.textContent=document.activeElement===n.seek?fmtTime(n.seek.value):fmtTime(time);
+    n.duration.textContent=duration?fmtTime(duration):mseSession?text('Načítám…','Načítavam…'):'–:––';
     $('#player-playlist-v2').textContent=text('＋ Playlist','＋ Playlist');$('#player-close-v2').title=text('Zavřít','Zavrieť');
   }
   function saveCollectionProgress(time,duration,completed){
@@ -562,6 +565,8 @@
           const data=new Uint8Array(await response.arrayBuffer());
           if(!data.byteLength||data.byteLength>MSE_CHUNK_BYTES)throw new Error('Invalid MP3 range response');
           await mseMutation(session,buffer=>buffer.appendBuffer(data));
+          // The next title can be shown as soon as its first audio bytes exist.
+          if(!part.ready){part.ready=true;mseUpdateContext()}
           offset+=data.byteLength;received+=data.byteLength;
           if(data.byteLength<MSE_CHUNK_BYTES)break;
         }
