@@ -464,6 +464,8 @@
   }
   function playbackFailure(error){
     console.warn('Vedátor: audio playback could not start',error);
+    // Do not run a silent background video indefinitely when the MP3 cannot start.
+    stopPlaybackKeepAlive();
     playerNodes().help.textContent=text('Přehrávání se nepodařilo spustit. Klepněte na Přehrát pro obnovení.','Prehrávanie sa nepodarilo spustiť. Klepnite na Prehrať pre obnovenie.');
   }
   function startCurrentAudio(sequence){
