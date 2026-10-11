@@ -433,39 +433,9 @@
   // Playback changes must stay on the same audio element (Android background media session).
   // Keep a request id so a slow offline MP3 lookup cannot replace a newer episode.
   let playbackSequence=0,playbackMetadataHandler=null,playbackAutoplayWanted=false,playbackNeedsReload=false,playbackSourcePending=false;
-  // Tiny, muted 2-second H.264 clip (16x16, 1 fps, ~1.5 kB): experimental
-  // Android background keep-alive. It is not a guarantee against OS suspension.
-  // Keep the element in the viewport; never use display:none or autoplay.
-  let playbackKeepAliveVideo=null,playbackKeepAliveWarningShown=false,playbackSwitchingSource=false;
-  const PLAYBACK_KEEPALIVE_MP4='data:video/mp4;base64,AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAMqbW9vdgAAAGxtdmhkAAAAAAAAAAAAAAAAAAAD6AAAB9AAAQAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAlV0cmFrAAAAXHRraGQAAAADAAAAAAAAAAAAAAABAAAAAAAAB9AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAABAAAAAQAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAAAfQAAAAAAABAAAAAAHNbWRpYQAAACBtZGhkAAAAAAAAAAAAAAAAAABAAAAAgABVxAAAAAAALWhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAABWaWRlb0hhbmRsZXIAAAABeG1pbmYAAAAUdm1oZAAAAAEAAAAAAAAAAAAAACRkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAx1cmwgAAAAAQAAAThzdGJsAAAAuHN0c2QAAAAAAAAAAQAAAKhhdmMxAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAABAAEABIAAAASAAAAAAAAAABFUxhdmM2MS4xOS4xMDEgbGlieDI2NAAAAAAAAAAAAAAAGP//AAAALmF2Y0MBQsAK/+EAFmdCwArZHsBEAAADAAQAAAMACDxImSABAAVoy4PLIAAAABBwYXNwAAAAAQAAAAEAAAAUYnRydAAAAAAAAApAAAAAAAAAABhzdHRzAAAAAAAAAAEAAAACAABAAAAAABRzdHNzAAAAAAAAAAEAAAABAAAAHHN0c2MAAAAAAAAAAQAAAAEAAAACAAAAAQAAABxzdHN6AAAAAAAAAAAAAAACAAAChgAAAAoAAAAUc3RjbwAAAAAAAAABAAADWgAAAGF1ZHRhAAAAWW1ldGEAAAAAAAAAIWhkbHIAAAAAAAAAAG1kaXJhcHBsAAAAAAAAAAAAAAAALGlsc3QAAAAkqXRvbwAAABxkYXRhAAAAAQAAAABMYXZmNjEuNy4xMDMAAAAIZnJlZQAAAphtZGF0AAACcAYF//9s3EXpvebZSLeWLNgg2SPu73gyNjQgLSBjb3JlIDE2NCByMzEwOCAzMWUxOWY5IC0gSC4yNjQvTVBFRy00IEFWQyBjb2RlYyAtIENvcHlsZWZ0IDIwMDMtMjAyMyAtIGh0dHA6Ly93d3cudmlkZW9sYW4ub3JnL3gyNjQuaHRtbCAtIG9wdGlvbnM6IGNhYmFjPTAgcmVmPTMgZGVibG9jaz0xOjA6MCBhbmFseXNlPTB4MToweDExMSBtZT1oZXggc3VibWU9NyBwc3k9MSBwc3lfcmQ9MS4wMDowLjAwIG1peGVkX3JlZj0xIG1lX3JhbmdlPTE2IGNocm9tYV9tZT0xIHRyZWxsaXM9MSA4eDhkY3Q9MCBjcW09MCBkZWFkem9uZT0yMSwxMSBmYXN0X3Bza2lwPTEgY2hyb21hX3FwX29mZnNldD0tMiB0aHJlYWRzPTEgbG9va2FoZWFkX3RocmVhZHM9MSBzbGljZWRfdGhyZWFkcz0wIG5yPTAgZGVjaW1hdGU9MSBpbnRlcmxhY2VkPTAgYmx1cmF5X2NvbXBhdD0wIGNvbnN0cmFpbmVkX2ludHJhPTAgYmZyYW1lcz0wIHdlaWdodHA9MCBrZXlpbnQ9MjUwIGtleWludF9taW49MSBzY2VuZWN1dD00MCBpbnRyYV9yZWZyZXNoPTAgcmNfbG9va2FoZWFkPTQwIHJjPWNyZiBtYnRyZWU9MSBjcmY9MjMuMCBxY29tcD0wLjYwIHFwbWluPTAgcXBtYXg9NjkgcXBzdGVwPTQgaXBfcmF0aW89MS40MCBhcT0xOjEuMDAAgAAAAA5liIQFv///D0UAAU9/gAAAAAZBmjgK+oA=';
-  function startPlaybackKeepAlive(){
-    try{
-      if(!playbackKeepAliveVideo){
-        const video=document.createElement('video');
-        video.id='vedator-playback-keepalive';
-        video.muted=true;video.defaultMuted=true;video.loop=true;video.playsInline=true;
-        video.preload='auto';video.disablePictureInPicture=true;
-        video.setAttribute('muted','');video.setAttribute('playsinline','');video.setAttribute('webkit-playsinline','');
-        video.setAttribute('aria-hidden','true');
-        video.style.cssText='position:fixed;right:0;bottom:0;width:1px;height:1px;opacity:.01;pointer-events:none;z-index:0';
-        video.src=PLAYBACK_KEEPALIVE_MP4;document.body.appendChild(video);playbackKeepAliveVideo=video;
-      }
-      if(!playbackKeepAliveVideo.paused)return;
-      const result=playbackKeepAliveVideo.play();
-      if(result&&typeof result.catch==='function')result.catch(error=>{
-        if(!playbackKeepAliveWarningShown){console.warn('Vedátor: background video keep-alive is unavailable',error);playbackKeepAliveWarningShown=true}
-      });
-    }catch(error){
-      if(!playbackKeepAliveWarningShown){console.warn('Vedátor: background video keep-alive could not start',error);playbackKeepAliveWarningShown=true}
-    }
-  }
-  function stopPlaybackKeepAlive(){
-    if(playbackKeepAliveVideo)try{playbackKeepAliveVideo.pause()}catch{}
-  }
+  let playbackSwitchingSource=false;
   function playbackFailure(error){
     console.warn('Vedátor: audio playback could not start',error);
-    // Do not run a silent background video indefinitely when the MP3 cannot start.
-    stopPlaybackKeepAlive();
     playerNodes().help.textContent=text('Přehrávání se nepodařilo spustit. Klepněte na Přehrát pro obnovení.','Prehrávanie sa nepodarilo spustiť. Klepnite na Prehrať pre obnovenie.');
   }
   function startCurrentAudio(sequence){
@@ -488,9 +458,9 @@
     const audio=playerNodes().audio;
     if(!state.current)return;
     if(!audio.paused){
-      playbackAutoplayWanted=false;stopPlaybackKeepAlive();audio.pause();syncPlayer();return;
+      playbackAutoplayWanted=false;audio.pause();syncPlayer();return;
     }
-    playbackAutoplayWanted=true;startPlaybackKeepAlive();
+    playbackAutoplayWanted=true;
     if(!playbackSourcePending&&audio.getAttribute('src')&&(playbackNeedsReload||audio.error||audio.readyState===0||!audio.currentSrc)){
       // Unlike play() alone, load() can recover a suspended/failed MP3 request.
       const sequence=playbackSequence,resume=Number(audio.currentTime)||0;
@@ -512,7 +482,6 @@
   async function openPlayback(episode,{start=null,context=null,itemRef='',autoplay=true}={}){
     if(!episode?.enclosure)return;
     const sequence=++playbackSequence;
-    if(autoplay)startPlaybackKeepAlive();else stopPlaybackKeepAlive();
     saveProgress(true,false);
     const n=playerNodes(),audio=n.audio,key=episodeKey(episode.number),record=state.progress[key]||{};
     let target=start;
@@ -528,14 +497,24 @@
     state.lastSavedSecond=-1;
     playbackAutoplayWanted=Boolean(autoplay);
     playbackNeedsReload=false;
-    playbackSourcePending=true;
-    let source;
-    try{source=await playbackUrl(episode)}catch(error){
-      if(sequence===playbackSequence){playbackSourcePending=false;playbackNeedsReload=true;playbackFailure(error)}
-      return;
+    playbackSourcePending=false; // Clear a cancelled/older offline lookup before the synchronous path.
+    // Online episodes already have their MP3 URL in the data bundle.
+    // Avoid *any* await when a track ends: Android can suspend audio between tasks.
+    // Offline MP3s likewise switch synchronously if their Blob URL is already cached.
+    let source=episode.enclosure;
+    const offlineRecord=state.offlineIndex[key];
+    const cachedOfflineUrl=offlineRecord?state.blobUrls.get(key):null;
+    if(cachedOfflineUrl)source=cachedOfflineUrl;
+    else if(offlineRecord){
+      playbackSourcePending=true;
+      try{source=await playbackUrl(episode)}catch(error){
+        if(sequence===playbackSequence){playbackSourcePending=false;playbackNeedsReload=true;playbackFailure(error)}
+        return;
+      }
+      if(sequence!==playbackSequence)return;
+      playbackSourcePending=false;
     }
     if(sequence!==playbackSequence)return;
-    playbackSourcePending=false;
     audio.src=source;audio.playbackRate=state.speed;
     n.help.textContent=target>0?text('Načítám od ','Načítavam od ')+fmtTime(target)+'…':text('Pozice se průběžně ukládá do tohoto zařízení.','Pozícia sa priebežne ukladá do tohto zariadenia.');
     playbackMetadataHandler=()=>{
@@ -552,7 +531,7 @@
     if(autoplay)startCurrentAudio(sequence);
   }
   function closePlayer(){
-    ++playbackSequence;playbackAutoplayWanted=false;playbackNeedsReload=false;playbackSourcePending=false;stopPlaybackKeepAlive();
+    ++playbackSequence;playbackAutoplayWanted=false;playbackNeedsReload=false;playbackSourcePending=false;
     saveProgress(true,false);
     const n=playerNodes();
     if(playbackMetadataHandler)n.audio.removeEventListener('loadedmetadata',playbackMetadataHandler);
@@ -674,7 +653,7 @@
     editorModal.addEventListener('change',event=>{const choice=event.target.closest('.editor-choice[data-ref]');if(!choice||!state.editor)return;const ref=choice.dataset.ref;if(event.target.checked){if(!state.editor.draft.includes(ref))state.editor.draft.push(ref)}else state.editor.draft=state.editor.draft.filter(item=>item!==ref);rerenderEditor()});
 
     const picker=$('#playlist-picker-v2');picker.addEventListener('click',event=>{if(event.target===picker||event.target.closest('.picker-close')||event.target.closest('.picker-cancel'))return closePlaylistPicker();if(event.target.closest('.picker-save'))return savePlaylistPicker();if(event.target.closest('.picker-new')){closePlaylistPicker();newPlaylist()}});
-    const n=playerNodes();n.play.addEventListener('click',restartCurrentAudio);n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{if(state.current){try{n.audio.currentTime=Number(n.seek.value)||0}catch{}saveProgress(true,false)}});n.audio.addEventListener('playing',()=>{playbackNeedsReload=false});n.audio.addEventListener('stalled',()=>{playbackNeedsReload=true});n.audio.addEventListener('error',()=>{playbackNeedsReload=true;if(playbackAutoplayWanted&&state.current)playbackFailure(n.audio.error)});document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePendingAudioWhenVisible()});window.addEventListener('pageshow',resumePendingAudioWhenVisible);n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended){playbackAutoplayWanted=false;stopPlaybackKeepAlive()}saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
+    const n=playerNodes();n.play.addEventListener('click',restartCurrentAudio);n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{if(state.current){try{n.audio.currentTime=Number(n.seek.value)||0}catch{}saveProgress(true,false)}});n.audio.addEventListener('playing',()=>{playbackNeedsReload=false});n.audio.addEventListener('stalled',()=>{playbackNeedsReload=true});n.audio.addEventListener('error',()=>{playbackNeedsReload=true;if(playbackAutoplayWanted&&state.current)playbackFailure(n.audio.error)});document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePendingAudioWhenVisible()});window.addEventListener('pageshow',resumePendingAudioWhenVisible);n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=falsesaveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
   }
 
 
@@ -1553,7 +1532,7 @@
     event.preventDefault();event.stopImmediatePropagation();const seconds=play.dataset.seconds===''?null:Number(play.dataset.seconds)||0;openPlayback(episode,{start:seconds,context:mobileEpisodePlaybackContext(episode),itemRef:play.dataset.ref||epRef(episode.number)});
   },true);
   $('#player-download-v2')?.addEventListener('click',event=>{event.preventDefault();downloadCurrentMp3()});
-  $('#audio-v2')?.addEventListener('ended',()=>{if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else{playbackAutoplayWanted=false;stopPlaybackKeepAlive()}});
+  $('#audio-v2')?.addEventListener('ended',()=>{if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else playbackAutoplayWanted=false});
 
   /* V2_FINAL_UI_FAQ_GUIDE_V1 */
   const finalFormatMb=bytes=>((Number(bytes)||0)/1048576).toFixed(1).replace('.',',')+' MB';
