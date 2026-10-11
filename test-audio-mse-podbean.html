@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101a2d">
+<title>Vedátor – test skutečných podcastů v jednom proudu</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark;background:#101725;color:#edf4ff}
+*{box-sizing:border-box}
+body{margin:0;padding:18px 14px 60px;max-width:760px;margin-inline:auto;line-height:1.5}
+h1{font-size:1.45rem;margin:6px 0}h2{font-size:1.1rem;margin:0 0 10px}
+p{margin:8px 0 14px;color:#c8d5e6}
+a{color:#9bc8ff}small{color:#afbed2}
+.card{background:#192539;border:1px solid #34445c;border-radius:15px;padding:16px;margin:14px 0}
+label{display:block;margin:0 0 6px;font-weight:650}
+select,button{font:inherit;border-radius:10px;padding:10px 13px;min-height:44px}
+select{width:100%;background:#25354c;color:white;border:1px solid #52617a;margin-bottom:12px}
+button{background:#315eae;color:white;border:1px solid #5482cc;cursor:pointer}
+button:disabled{opacity:.4;cursor:not-allowed}
+button.secondary{background:#263751;border-color:#4a607e}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.status{font-weight:700;padding:10px 12px;border:1px solid #62718c;border-radius:10px;min-height:44px}
+.status.good{color:#94e2c7;border-color:#328f75}
+.status.bad{color:#ffb6b6;border-color:#af6666}
+.meter{height:10px;background:#27374e;border-radius:12px;overflow:hidden;margin:10px 0}
+.bar{height:100%;width:0;background:#69b8a2;transition:width .25s}
+audio{display:block;width:100%;margin:14px 0}
+.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.metric{background:#243349;padding:9px;border-radius:9px}
+.metric b{display:block;font-size:1.08rem;font-variant-numeric:tabular-nums}
+pre{height:260px;max-height:40vh;overflow:auto;margin:0;background:#0c1422;color:#c8e5ef;border:1px solid #33465d;border-radius:10px;padding:12px;font-size:.76rem;white-space:pre-wrap;overflow-wrap:anywhere}
+.note{font-size:.89rem;color:#b7c8dc}
+</style>
+</head>
+<body>
+<a href="./">← Zpět na Vedátor</a>
+<h1>Test skutečných podcastů se zamčenou obrazovkou</h1>
+<p>Oddělená diagnostická stránka. Nezasahuje do hlavního přehrávače, uložených playlistů ani stažených epizod.</p>
+<section class="card">
+<h2>1. Podcast 358 → podcast 357 bez nového přehrávače</h2>
+<p>Tento test používá <strong>skutečné MP3 z Podbeanu</strong>. Nejprve stáhne krátký úsek dílu 358 a následně úsek dílu 357, oba připraví do <strong>jediného zvukového proudu</strong> pomocí Media Source Extensions. Při přechodu pod zamčenou obrazovkou již neběží žádné přepínací skripty. Jde o diagnostiku, nikoli běžný poslech celého podcastu.</p>
+<label for="length">Délka první „epizody“</label>
+<select id="length">
+<option value="15">Rychlý test: 15 sekund dílu 358 + 15 sekund dílu 357</option>
+<option value="180" selected>Po 3 minutách dílu 358 → 30 sekund dílu 357</option>
+</select>
+<div class="controls">
+<button id="prepare">Připravit celý proud</button>
+<button id="play" disabled>Přehrát</button>
+<button id="pause" class="secondary" disabled>Pozastavit</button>
+<button id="stop" class="secondary" disabled>Zastavit</button>
+</div>
+<div class="status" id="status">Zatím nepřipraveno.</div>
+<div class="meter"><div class="bar" id="bar"></div></div>
+<audio id="audio" controls playsinline preload="auto"></audio>
+<div class="metrics">
+<div class="metric">Úsek<b id="section">—</b></div>
+<div class="metric">Pozice / celkem<b id="position">0:00 / 0:00</b></div>
+<div class="metric">Stav zvuku<b id="audstate">—</b></div>
+<div class="metric">Stav stránky<b id="visibility">viditelná</b></div>
+</div>
+<p class="note">Postup: přes Wi-Fi připrav celý proud (stáhne několik megabajtů), počkej na „Připraveno“, stiskni Přehrát a zamkni telefon. Zhruba po 3 minutách by měl bez odemknutí začít mluvit jiný díl. Po odemknutí zkopíruj diagnostiku. Přechod záměrně přeruší první epizodu po třech minutách; v běžné aplikaci se to dít nebude.</p>
+</section>
+<section class="card">
+<h2>2. Rychlá kontrola CORS</h2>
+<p>Ověří pouze prvních 4096 bajtů obou podcastů. Podle minulého testu CORS fungovalo; tato kontrola je tu pro případ neúspěšné přípravy.</p>
+<button id="cors" class="secondary">Ověřit Podbean / CORS</button>
+<div class="status" id="corsstatus" style="margin-top:10px">Ještě neověřeno.</div>
+</section>
+<section class="card">
+<h2>Diagnostický záznam</h2>
+<p class="note">Zaznamenává události přehrávače, připojování skutečných MP3 a viditelnost stránky. Nezaznamenává hesla ani jiné osobní údaje. Po testu mi jeho obsah zkopíruj do chatu.</p>
+<div class="controls"><button id="copy" class="secondary">Kopírovat diagnostiku</button><button id="clear" class="secondary">Vymazat záznam</button></div>
+<pre id="log" aria-live="off"></pre>
+</section>
+<script>
+'use strict';
+const REMOTE=[
+ {name:'358 – FAQ dobré otázky',url:'https://mcdn.podbean.com/mf/web/s5n2v3cdd8jcuhw8/Vedatorsky_podcast_358_MAIN6knaf.mp3'},
+ {name:'357 – Ig Nobelove ceny 2026',url:'https://mcdn.podbean.com/mf/web/ybmbaqxa7aww3z3m/Vedatorsky_podcast_357_MAINacakq.mp3'}
+];
+const CHUNK=256*1024;
+const $=id=>document.getElementById(id),audio=$('audio');
+let mediaSource=null,objectUrl='',generation=0,controller=null,prepared=false,boundary=0,total=0,notedBoundary=false;
+const history=[];
+function fmt(seconds){const s=Math.max(0,Math.floor(Number(seconds)||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function diagnostic(message){
+ const line=new Date().toLocaleTimeString('cs-CZ',{hour12:false})+' | '+message;
+ history.push(line);if(history.length>360)history.shift();
+ $('log').textContent=history.join('\n');$('log').scrollTop=$('log').scrollHeight;
+}
+function status(message,kind=''){
+ $('status').textContent=message;$('status').className='status'+(kind?' '+kind:'');diagnostic('STAV: '+message);
+}
+function bufferedEnd(sb){try{return sb.buffered.length?sb.buffered.end(sb.buffered.length-1):0}catch{return 0}}
+function bufferLabel(sb){try{return Array.from({length:sb.buffered.length},(_,i)=>fmt(sb.buffered.start(i))+'–'+fmt(sb.buffered.end(i))).join(', ')||'prázdné'}catch{return 'nedostupné'}}
+function reset(){
+ generation++;
+ if(controller){controller.abort();controller=null}
+ audio.pause();audio.removeAttribute('src');audio.load();
+ if(objectUrl){URL.revokeObjectURL(objectUrl);objectUrl=''}
+ mediaSource=null;prepared=false;boundary=0;total=0;notedBoundary=false;
+ $('play').disabled=true;$('pause').disabled=true;$('stop').disabled=true;
+ $('bar').style.width='0%';$('section').textContent='—';$('position').textContent='0:00 / 0:00';
+}
+function append(sb,bytes){
+ return new Promise((resolve,reject)=>{
+  const complete=()=>{cleanup();resolve()};
+  const fail=()=>{cleanup();reject(new Error('SourceBuffer: chyba při přidání MP3'))};
+  function cleanup(){sb.removeEventListener('updateend',complete);sb.removeEventListener('error',fail)}
+  sb.addEventListener('updateend',complete,{once:true});
+  sb.addEventListener('error',fail,{once:true});
+  try{sb.appendBuffer(bytes)}catch(e){cleanup();reject(e)}
+ });
+}
+async function appendClip(sb,entry,absoluteEnd,maxBytes,runId,totalTarget){
+ let offset=0,chunkNumber=0;
+ while(bufferedEnd(sb)<absoluteEnd-.09){
+  if(runId!==generation)throw Error('Příprava byla zrušena');
+  if(offset>=maxBytes)throw Error('Nepodařilo se dosáhnout potřebného času do limitu '+(maxBytes/1048576)+' MB');
+  const last=offset+CHUNK-1;
+  const response=await fetch(entry.url,{mode:'cors',headers:{Range:'bytes='+offset+'-'+last},cache:'no-store',signal:controller.signal});
+  if(response.status!==206)throw Error('Podbean '+entry.name+' vrátil HTTP '+response.status+' místo 206 Partial Content');
+  const data=new Uint8Array(await response.arrayBuffer());
+  if(data.byteLength===0||data.byteLength>CHUNK)throw Error('Neočekávaná velikost odpovědi MP3: '+data.byteLength);
+  await append(sb,data);
+  offset+=data.byteLength;chunkNumber++;
+  const current=bufferedEnd(sb);
+  $('bar').style.width=Math.min(100,Math.max(0,100*current/totalTarget)).toFixed(1)+'%';
+  if(chunkNumber===1||chunkNumber%4===0||current>=absoluteEnd-.09){
+   diagnostic(entry.name+' | staženo '+(offset/1048576).toFixed(1)+' MB | vyrovnávací paměť do '+fmt(current));
+  }
+  if(data.byteLength<CHUNK&&current<absoluteEnd-.09)throw Error('MP3 skončila před požadovanou délkou');
+ }
+ return offset;
+}
+async function prepare(){
+ reset();const runId=generation,seconds=Number($('length').value),secondSeconds=seconds===15?15:30;
+ $('prepare').disabled=true;$('length').disabled=true;
+ if(!('MediaSource'in window)||!MediaSource.isTypeSupported('audio/mpeg')){
+  status('Tento prohlížeč nepodporuje MSE audio/mpeg.','bad');$('prepare').disabled=false;$('length').disabled=false;return;
+ }
+ try{
+  controller=new AbortController();
+  diagnostic('Prohlížeč: '+navigator.userAgent);
+  status('Připravuji díl 358 a díl 357 z Podbeanu. Může se stáhnout několik MB…');
+  mediaSource=new MediaSource();const ms=mediaSource;
+  objectUrl=URL.createObjectURL(ms);audio.src=objectUrl;
+  await new Promise((resolve,reject)=>{
+   const done=()=>{cleanup();resolve()};
+   const fail=()=>{cleanup();reject(Error('MediaSource se zavřel dříve než byl připraven'))};
+   function cleanup(){ms.removeEventListener('sourceopen',done);ms.removeEventListener('sourceclose',fail)}
+   ms.addEventListener('sourceopen',done,{once:true});ms.addEventListener('sourceclose',fail,{once:true});
+  });
+  if(runId!==generation)return;
+  const sb=ms.addSourceBuffer('audio/mpeg');sb.mode='sequence';
+  sb.appendWindowEnd=seconds+.04;
+  const firstBytes=await appendClip(sb,REMOTE[0],seconds,16*1048576,runId,seconds+secondSeconds);
+  if(runId!==generation)return;
+  boundary=bufferedEnd(sb);
+  diagnostic('Konec podcastu 358 ve společném proudu: '+boundary.toFixed(3)+' s; staženo '+(firstBytes/1048576).toFixed(2)+' MB');
+  if(boundary<seconds-.5)throw Error('První úsek není dostatečně dlouhý');
+  // Reset MP3 parser state at the boundary while keeping the *same* MediaSource and <audio>.
+  // Sequence mode makes the second file follow the first in one continuous media timeline.
+  sb.abort();sb.timestampOffset=boundary;sb.appendWindowEnd=boundary+secondSeconds+.04;
+  status('První podcast připraven. Připojuji druhý podcast do stejného proudu…');
+  const secondBytes=await appendClip(sb,REMOTE[1],boundary+secondSeconds,8*1048576,runId,seconds+secondSeconds);
+  if(runId!==generation)return;
+  const actualEnd=bufferedEnd(sb);
+  if(actualEnd<boundary+secondSeconds-.5)throw Error('Druhý podcast nenavázal: konec bufferu '+fmt(actualEnd));
+  ms.endOfStream();total=Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:actualEnd;
+  diagnostic('Podcast 357 navázal; celkem '+fmt(total)+'; buffer: '+bufferLabel(sb)+'; druhý soubor '+(secondBytes/1048576).toFixed(2)+' MB');
+  $('bar').style.width='100%';prepared=true;
+  $('play').disabled=false;$('pause').disabled=false;$('stop').disabled=false;
+  status('Připraveno: dva SKUTEČNÉ podcasty v jednom proudu. Pusť a zamkni telefon.','good');
+ }catch(error){
+  if(runId!==generation)return;
+  status('Příprava selhala: '+(error.name||'Chyba')+' – '+error.message,'bad');
+  diagnostic('CHYBA: '+String(error));
+ }finally{
+  if(runId===generation){controller=null;$('prepare').disabled=false;$('length').disabled=false}
+ }
+}
+function refresh(){
+ const t=Number(audio.currentTime)||0;
+ $('position').textContent=fmt(t)+' / '+fmt(total||audio.duration);
+ $('section').textContent=prepared?(t>=boundary?'357 – druhý díl':'358 – první díl'):'—';
+ $('audstate').textContent=audio.ended?'dokončeno':audio.paused?'pozastaveno':'hraje';
+ $('visibility').textContent=document.hidden?'skrytá':'viditelná';
+ if(prepared&&t>=boundary&&!notedBoundary){notedBoundary=true;diagnostic('PŘECHOD 358 → 357 v čase '+fmt(t)+'; hidden='+document.hidden+'; paused='+audio.paused)}
+}
+function playAudio(){
+ if(!prepared)return;
+ if(audio.ended)audio.currentTime=0;
+ try{const p=audio.play();if(p&&p.catch)p.catch(error=>{diagnostic('play() odmítnuto: '+error.name+' '+error.message);status('Přehrávání zablokováno: '+error.name,'bad')})}
+ catch(error){status('play(): '+error.message,'bad')}
+}
+$('prepare').addEventListener('click',prepare);
+$('play').addEventListener('click',playAudio);
+$('pause').addEventListener('click',()=>audio.pause());
+$('stop').addEventListener('click',()=>{reset();status('Zastaveno.')});
+$('length').addEventListener('change',()=>{if(prepared){reset();status('Změněna délka; připrav znovu.')}});
+for(const ev of ['playing','pause','waiting','stalled','ended','error','emptied']){
+ audio.addEventListener(ev,()=>{
+  if(ev!=='emptied'){
+   diagnostic('audio.'+ev+' | t='+fmt(audio.currentTime)+' | hidden='+document.hidden+' | readyState='+audio.readyState+' | error='+String(audio.error?.code||'0'));
+  }
+  refresh();
+ });
+}
+audio.addEventListener('timeupdate',refresh);
+document.addEventListener('visibilitychange',()=>{diagnostic('visibilitychange hidden='+document.hidden+' t='+fmt(audio.currentTime)+' paused='+audio.paused);refresh()});
+window.addEventListener('pageshow',()=>{diagnostic('pageshow t='+fmt(audio.currentTime));refresh()});
+window.addEventListener('pagehide',()=>diagnostic('pagehide t='+fmt(audio.currentTime)));
+$('clear').addEventListener('click',()=>{history.length=0;$('log').textContent='';diagnostic('Záznam vymazán')});
+$('copy').addEventListener('click',async()=>{
+ const report='Vedátor – skutečné MP3 přes MSE\n'+navigator.userAgent+'\n'+history.join('\n')+'\nAktuální: '+fmt(audio.currentTime)+'/'+fmt(total)+'; hranice='+fmt(boundary)+'; hidden='+document.hidden+'; paused='+audio.paused;
+ try{await navigator.clipboard.writeText(report);$('copy').textContent='Zkopírováno ✓'}
+ catch{const area=document.createElement('textarea');area.value=report;document.body.appendChild(area);area.select();document.execCommand('copy');area.remove();$('copy').textContent='Zkopírováno (náhradně)'}
+});
+$('cors').addEventListener('click',async()=>{
+ $('cors').disabled=true;$('corsstatus').textContent='Ověřuji Podbean…';
+ let ok=0;
+ for(const item of REMOTE){
+  const aborter=new AbortController();
+  try{
+   const response=await fetch(item.url,{mode:'cors',headers:{Range:'bytes=0-4095'},cache:'no-store',signal:aborter.signal});
+   diagnostic(item.name+': HTTP '+response.status+' / '+response.type);
+   if(response.status!==206)throw Error('HTTP '+response.status);
+   const reader=response.body?.getReader(),data=reader?await reader.read():null;
+   diagnostic(item.name+': přečteno '+String(data?.value?.length||0)+' bajtů');
+   if(reader)reader.cancel().catch(()=>{});
+   ok++;
+  }catch(error){diagnostic(item.name+': '+error.name+' – '+error.message)}
+  finally{aborter.abort()}
+ }
+ $('corsstatus').textContent='Podbean: '+ok+'/2 čitelných MP3; podrobnosti v diagnostice.';
+ $('corsstatus').className='status '+(ok===2?'good':'bad');
+ $('cors').disabled=false;
+});
+try{
+ if('mediaSession'in navigator){
+  navigator.mediaSession.metadata=new MediaMetadata({title:'Vedátor – skutečné MP3 v jednom proudu',artist:'Test Podbean MSE'});
+  navigator.mediaSession.setActionHandler('play',playAudio);
+  navigator.mediaSession.setActionHandler('pause',()=>audio.pause());
+  audio.addEventListener('play',()=>navigator.mediaSession.playbackState='playing');
+  audio.addEventListener('pause',()=>navigator.mediaSession.playbackState='paused');
+ }
+}catch(error){diagnostic('Media Session nelze nastavit: '+error.message)}
+diagnostic('Stránka připravena; MSE audio/mpeg: '+(('MediaSource'in window)&&MediaSource.isTypeSupported('audio/mpeg')));
+refresh();
+</script>
+</body></html>
