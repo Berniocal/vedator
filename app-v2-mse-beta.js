@@ -503,8 +503,11 @@
       Number(record.currentTime)>10&&(!record.completed||record.replaying)?Number(record.currentTime):0;
     if(preferred>0.1||betaIncompatibleSources.has(episode.enclosure))return false;
     const parts=items.slice(index);
-    if(parts.some(item=>betaHistoricalPodbean(item.episode?.enclosure))){
-      betaWrite('PŮVODNÍ PŘEHRÁVAČ ZVOLEN PŘED SPUŠTĚNÍM: série obsahuje starší MP3 Podbean bez ověřené podpory MSE; díl='+episode.number);
+    // Check the current and directly following episode only. Checking the
+    // entire series would disable MSE even for modern episodes much earlier
+    // than a historical recording in a long playlist.
+    if(parts.slice(0,2).some(item=>betaHistoricalPodbean(item.episode?.enclosure))){
+      betaWrite('PŮVODNÍ PŘEHRÁVAČ ZVOLEN PŘED SPUŠTĚNÍM: aktuální nebo navazující díl má starší MP3 Podbean bez ověřené podpory MSE; díl='+episode.number);
       return false;
     }
     return parts.length>1&&parts.every(item=>
