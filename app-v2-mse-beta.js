@@ -517,7 +517,7 @@
       if(res.status!==206)throw Error('HTTP '+res.status+' (vyžadujeme 206 Partial Content)');
       const data=await res.arrayBuffer();
       if(data.byteLength!==4096)throw Error('Doručeno '+data.byteLength+' B místo 4096 B');
-      betaVerifiedSources.add(url);
+      betaVerifiedSources.add(url);betaIncompatibleSources.delete(url);
       betaWrite('MSE OVĚŘENO díl='+episodeNumber+' HTTP 206 Range bytes=0-4095; CORS OK');
       return true;
     }catch(error){
@@ -608,8 +608,18 @@
     if(betaMse!==s||s.recovering)return;
     const item=s.context.items[index];
     if(!item?.episode?.enclosure)return;
+    const start=Math.max(0,Number(position)||0);
+    if(document.hidden){
+      // Chrome can reject a new media source while the page is locked
+      // (the user's old logs show MEDIA_ERR_SRC_NOT_SUPPORTED, code 4).
+      // Do not disturb the existing MSE audio element on a hidden page.
+      s.deferredNativeOnVisible={index,position:start};
+      betaWrite('MSE CHYBA PŘI ZAMČENÍ: odložena výměna zdroje do odemčení díl='+item.episode.number);
+      playerNodes().help.textContent='MSE selhalo při zamčené obrazovce. Odemkni telefon, potom případně klepni na Přehrát.';
+      return;
+    }
     s.recovering=true;
-    const context={...s.context,index},start=Math.max(0,Number(position)||0);
+    const context={...s.context,index};
     betaWrite('AUTOMATICKÝ NÁVRAT K PŮVODNÍMU PŘEHRÁVAČI díl='+item.episode.number+' od '+start.toFixed(2)+' s; hidden='+document.hidden);
     const fallback=openPlayback(item.episode,{start,context,itemRef:item.ref||epRef(item.episode.number),autoplay:true});
     Promise.resolve(fallback).then(()=>{
@@ -646,6 +656,14 @@
     const pending=s.pendingSeek?.index===destination?s.pendingSeek.wanted:NaN;
     betaStartNative(s,destination,destination===currentIndex?(Number.isFinite(pending)?pending:betaLogicalTime()):0);
   }
+  document.addEventListener('visibilitychange',()=>{
+    const s=betaMse;
+    if(!document.hidden&&s?.deferredNativeOnVisible&&!s.recovering){
+      const next=s.deferredNativeOnVisible;s.deferredNativeOnVisible=null;
+      betaWrite('ODEMČENO: pokus o původní přehrávač (pokud Chrome zablokuje autoplay, klepni na ▶)');
+      betaStartNative(s,next.index,next.position);
+    }
+  });
   function betaMutation(s,fn){
     return new Promise((resolve,reject)=>{
       if(betaMse!==s||s.controller.signal.aborted)return reject(Error('MSE cancelled'));
