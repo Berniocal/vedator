@@ -39,10 +39,10 @@ pre{height:260px;max-height:40vh;overflow:auto;margin:0;background:#0c1422;color
 <p>Oddělená diagnostická stránka. Nezasahuje do hlavního přehrávače, uložených playlistů ani stažených epizod.</p>
 <section class="card">
 <h2>1. Přechod na skutečném konci MP3</h2>
-<p>Test používá skutečné MP3 dílů 358 a 357 a přechází na <strong>skutečném konci prvního souboru</strong>. Rychlá volba načte poslední část dílu 358 (skutečný konec souboru), nikoli uměle oříznuté první tři minuty. Druhá volba streamuje celý díl od začátku.</p>
+<p>Test používá skutečné MP3 dílů 358 a 357 a přechází na <strong>skutečném konci prvního souboru</strong>. Rychlá volba načte dostatečně dlouhý skutečný konec dílu 358 (nejméně 3 minuty, při běžné datové rychlosti přibližně 4 minuty), nikoli uměle oříznutý začátek. Druhá volba streamuje celý díl od začátku.</p>
 <label for="length">Režim testu</label>
 <select id="length">
-<option value="tail" selected>Rychlý: poslední asi minuta dílu 358 → začátek dílu 357</option>
+<option value="tail" selected>Rychlý: nejméně poslední 3 minuty dílu 358 → díl 357</option>
 <option value="full">Celý díl 358 od začátku do konce → začátek dílu 357</option>
 </select>
 <div class="controls">
@@ -60,7 +60,7 @@ pre{height:260px;max-height:40vh;overflow:auto;margin:0;background:#0c1422;color
 <div class="metric">Stav zvuku<b id="audstate">—</b></div>
 <div class="metric">Stav stránky<b id="visibility">viditelná</b></div>
 </div>
-<p class="note">V rychlém režimu si telefon stáhne skutečný konec souboru 358 (poslední 2 MiB, obvykle přibližně minutu), zarovná MP3 rámce a spustí jej od tohoto místa. Druhý díl navazuje v jednom zvukovém proudu. V režimu Celý díl se od začátku načítá jen asi 30 sekund a dále průběžně, i při zamčeném telefonu; přechod proběhne až po skutečném EOF. Pak zkopíruj diagnostiku. V obou režimech je délka ukázky druhého dílu 35 sekund.</p>
+<p class="note">V rychlém režimu si telefon stáhne posledních 8 MiB MP3 dílu 358, zarovná MP3 rámce a ověří, že je připraveno alespoň 3:00 zvuku. Podle datového toku může být první část přibližně 4 minuty dlouhá. Druhý díl navazuje v jednom zvukovém proudu. V režimu Celý díl se od začátku načítá jen asi 30 sekund a dále průběžně, i při zamčeném telefonu; přechod proběhne až po skutečném EOF. Pak zkopíruj diagnostiku. V obou režimech je délka ukázky druhého dílu 35 sekund.</p>
 </section>
 <section class="card">
 <h2>2. Stav streamu a hranice dílů</h2>
@@ -80,7 +80,7 @@ const EP=[
  {name:'357',url:'https://mcdn.podbean.com/mf/web/ybmbaqxa7aww3z3m/Vedatorsky_podcast_357_MAINacakq.mp3'}
 ];
 const $=id=>document.getElementById(id),audio=$('audio');
-const CHUNK=262144,INITIAL=30,LEAD=55,TAIL_BYTES=2097152,LOG_KEY='vedator-mse-real-eof-log-v1';
+const CHUNK=262144,INITIAL=30,LEAD=55,TAIL_BYTES=8388608,MIN_TAIL_SECONDS=180,LOG_KEY='vedator-mse-real-eof-log-v1';
 const log=[];try{const older=JSON.parse(localStorage.getItem(LOG_KEY)||'[]');if(Array.isArray(older))log.push(...older.slice(-250))}catch{}
 $('log').textContent=log.join('\n');
 let active=null,lastTick=0,passedBoundary=false,waitStart=0;
@@ -184,7 +184,9 @@ async function tailChunk(s){
  const aligned=alignTail(bytes);
  await mut(s,()=>s.buffer.appendBuffer(aligned));
  s.bytes+=bytes.byteLength;s.blocks++;s.sourceEnded=true;
- record('SKUTEČNÝ KONEC 358: suffix Range='+range+', načteno='+bytes.byteLength+' B, zarovnáno='+aligned.byteLength+' B; t='+fmt(audio.currentTime)+' hidden='+document.hidden+' (start hidden='+hidden+') buffered='+bufferEnd(s).toFixed(3)+' s');
+ const actual=bufferEnd(s);
+ record('SKUTEČNÝ KONEC 358: suffix Range='+range+', načteno='+bytes.byteLength+' B, zarovnáno='+aligned.byteLength+' B; délka zvuku='+fmt(actual)+' ('+actual.toFixed(3)+' s); t='+fmt(audio.currentTime)+' hidden='+document.hidden+' (start hidden='+hidden+')');
+ if(actual<MIN_TAIL_SECONDS)throw Error('Posledních 8 MiB MP3 obsahuje jen '+fmt(actual)+' zvuku. Test vyžaduje aspoň 3:00.');
  refresh();
 }
 async function getChunk(s){
@@ -257,7 +259,7 @@ function prepare(){
  active=s;passedBoundary=false;audio.src=s.url;audio.load();
  $('prepare').disabled=true;$('length').disabled=true;
  record('NOVÝ TEST mode='+mode+' first=SKUTEČNÝ EOF 358 druhý='+second+'s, chunk='+CHUNK+' B, suffix='+TAIL_BYTES+' B, dopředu='+LEAD+'s; UA='+navigator.userAgent);
- status(mode==='tail'?'Načítám posledních 2 MiB skutečné MP3 dílu 358…':'Načítám nejprve jen 30 s; celý díl 358 se bude stahovat postupně…');
+ status(mode==='tail'?'Načítám posledních 8 MiB dílu 358 (nejméně 3 minuty zvuku)…':'Načítám nejprve jen 30 s; celý díl 358 se bude stahovat postupně…');
  void pump(s);refresh();
 }
 function start(){
