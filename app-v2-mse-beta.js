@@ -790,8 +790,17 @@
   }
   function betaSeek(local){
     const s=betaMse,part=betaPart();
-    if(!s||!part)return false;
-    const wanted=Math.max(0,Number(local)||0),absolute=part.start+wanted,audio=playerNodes().audio;
+    if(!s)return false;
+    const wanted=Math.max(0,Number(local)||0);
+    if(!part){
+      if(wanted<=15&&!s.failed){
+        s.pendingSeek={index:state.context?.index,wanted};
+        betaWrite('SKOK ČEKÁ NA PRVNÍ BUFFER: pozice='+wanted.toFixed(2)+' s');
+        return true;
+      }
+      return false;
+    }
+    const absolute=part.start+wanted,audio=playerNodes().audio;
     // Pressing +10s or moving the slider during the first network fetch
     // is not a reason to destroy the MSE MediaSession and swap audio.src.
     if(wanted<=15&&betaBufferEnd()<absolute+.1&&!s.failed){
