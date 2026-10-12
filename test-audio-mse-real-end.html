@@ -60,7 +60,7 @@ pre{height:260px;max-height:40vh;overflow:auto;margin:0;background:#0c1422;color
 <div class="metric">Stav zvuku<b id="audstate">—</b></div>
 <div class="metric">Stav stránky<b id="visibility">viditelná</b></div>
 </div>
-<p class="note">V rychlém režimu si telefon stáhne posledních 8 MiB MP3 dílu 358, zarovná MP3 rámce a ověří, že je připraveno alespoň 3:00 zvuku. Podle datového toku může být první část přibližně 4 minuty dlouhá. Druhý díl navazuje v jednom zvukovém proudu. V režimu Celý díl se od začátku načítá jen asi 30 sekund a dále průběžně, i při zamčeném telefonu; přechod proběhne až po skutečném EOF. Pak zkopíruj diagnostiku. V obou režimech je délka ukázky druhého dílu 35 sekund.</p>
+<p class="note">V rychlém režimu se nejprve zjistí velikost souboru a posledních 8 MiB se stáhne po menších číselných rozsazích, aby nevznikal CORS preflight. Následně se zarovnají MP3 rámce a ověří aspoň 3:00 zvuku. Podle datového toku může být první část přibližně 4 minuty dlouhá. Druhý díl navazuje v jednom zvukovém proudu. V režimu Celý díl se od začátku načítá jen asi 30 sekund a dále průběžně, i při zamčeném telefonu; přechod proběhne až po skutečném EOF. Pak zkopíruj diagnostiku. V obou režimech je délka ukázky druhého dílu 35 sekund.</p>
 </section>
 <section class="card">
 <h2>2. Stav streamu a hranice dílů</h2>
@@ -174,19 +174,53 @@ function alignTail(bytes){
  }
  throw Error('V konci MP3 se nepodařilo najít celé MP3 rámce');
 }
+async function sizeOfFirstMp3(s){
+ const url=EP[0].url,signal=s.controller.signal;
+ let size=0;
+ try{
+  const r=await fetch(url,{mode:'cors',cache:'no-store',headers:{Range:'bytes=0-'},signal});
+  if(r.status!==206&&r.status!==200)throw Error('HTTP '+r.status);
+  size=Number(r.headers.get('content-length'));
+  record('VELIKOST: rozsah bytes=0-, HTTP '+r.status+', Content-Length='+r.headers.get('content-length'));
+  try{r.body?.cancel().catch(()=>{})}catch{}
+ }catch(e){if(signal.aborted)throw e;record('NELZE ZJISTIT VELIKOST Z GET: '+e.message)}
+ if(!Number.isSafeInteger(size)||size<=TAIL_BYTES){
+  try{
+   const r=await fetch(url,{method:'HEAD',mode:'cors',cache:'no-store',signal});
+   if(!r.ok)throw Error('HTTP '+r.status);
+   size=Number(r.headers.get('content-length'));
+   record('VELIKOST: HEAD Content-Length='+r.headers.get('content-length'));
+  }catch(e){if(signal.aborted)throw e;record('NELZE ZJISTIT VELIKOST Z HEAD: '+e.message)}
+ }
+ if(!Number.isSafeInteger(size)||size<=TAIL_BYTES)throw Error('Podbean nesdělil Content-Length. Můžeš spustit režim Celý díl.');
+ return size;
+}
 async function tailChunk(s){
- const hidden=document.hidden,ep=EP[0],range='bytes=-'+TAIL_BYTES;
- const response=await fetch(ep.url,{mode:'cors',cache:'no-store',headers:{Range:range},signal:s.controller.signal});
- if(response.status!==206)throw Error('Podbean nepovolil suffix byte range: HTTP '+response.status);
- const bytes=new Uint8Array(await response.arrayBuffer());
- if(bytes.byteLength!==TAIL_BYTES)throw Error('Podbean vrátil jinou délku konce MP3: '+bytes.byteLength+' B (očekáváno '+TAIL_BYTES+')');
- if(active!==s)return;
- const aligned=alignTail(bytes);
- await mut(s,()=>s.buffer.appendBuffer(aligned));
- s.bytes+=bytes.byteLength;s.blocks++;s.sourceEnded=true;
+ const total=await sizeOfFirstMp3(s);
+ if(s!==active)return;
+ const begin=total-TAIL_BYTES;
+ record('STAHUJI KONEC: velikost souboru='+total+' B, od='+begin+' do='+(total-1));
+ let loaded=0,first=true;
+ for(let offset=begin;offset<total;offset+=CHUNK){
+  if(s!==active||s.controller.signal.aborted)return;
+  const stop=Math.min(total-1,offset+CHUNK-1),range='bytes='+offset+'-'+stop;
+  const hidden=document.hidden,started=Date.now();
+  const response=await fetch(EP[0].url,{mode:'cors',cache:'no-store',headers:{Range:range},signal:s.controller.signal});
+  if(response.status!==206)throw Error('Podbean HTTP '+response.status+' pro '+range);
+  const data=new Uint8Array(await response.arrayBuffer());
+  if(data.byteLength!==stop-offset+1)throw Error('Špatná délka '+range+': '+data.byteLength);
+  if(s!==active)return;
+  const payload=first?alignTail(data):data;first=false;
+  await mut(s,()=>s.buffer.appendBuffer(payload));
+  s.blocks++;s.bytes+=data.byteLength;loaded+=data.byteLength;
+  if(s.blocks===1||s.blocks%4===0||stop===total-1)record('fetch #'+s.blocks+' díl=358 range='+range+' bytes='+data.byteLength+' t='+fmt(audio.currentTime)+' hidden='+document.hidden+' (start hidden='+hidden+') síť='+((Date.now()-started)/1000).toFixed(1)+'s buffer='+fmt(bufferEnd(s)));
+  refresh();
+ }
+ if(loaded!==TAIL_BYTES)throw Error('Nekompletní konec MP3: '+loaded+' bajtů');
+ s.sourceEnded=true;
  const actual=bufferEnd(s);
- record('SKUTEČNÝ KONEC 358: suffix Range='+range+', načteno='+bytes.byteLength+' B, zarovnáno='+aligned.byteLength+' B; délka zvuku='+fmt(actual)+' ('+actual.toFixed(3)+' s); t='+fmt(audio.currentTime)+' hidden='+document.hidden+' (start hidden='+hidden+')');
- if(actual<MIN_TAIL_SECONDS)throw Error('Posledních 8 MiB MP3 obsahuje jen '+fmt(actual)+' zvuku. Test vyžaduje aspoň 3:00.');
+ record('SKUTEČNÝ KONEC 358: posledních 8 MiB připojeno, délka='+fmt(actual)+' ('+actual.toFixed(3)+' s)');
+ if(actual<MIN_TAIL_SECONDS)throw Error('Konec má jen '+fmt(actual)+' zvuku, potřebuji alespoň 3:00.');
  refresh();
 }
 async function getChunk(s){
