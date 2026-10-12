@@ -229,6 +229,9 @@ async function pump(s){
     record('MSE endOfStream: oba díly spojeny; t='+fmt(audio.currentTime)+' hidden='+document.hidden+' buffer='+bufferRanges());
     status('Dva díly úspěšně navázány přes skutečný konec MP3.',true);break;
    }
+   // Do not prefetch the entire file before the user starts playback.
+   // The full-length test must really stream while the phone is locked.
+   if(s.ready&&!s.started){await untilNeedData(s);continue}
    if(s.started&&ahead()>=LEAD){await untilNeedData(s);continue}
    if(s.mode==='full'&&s.started&&audio.currentTime>180&&s.buffer.buffered.length){
     const old=s.buffer.buffered.start(0),keep=audio.currentTime-125;
