@@ -52,7 +52,7 @@ pre{height:260px;max-height:40vh;overflow:auto;margin:0;background:#0c1422;color
 <button id="pause" class="secondary" disabled>Pozastavit</button>
 <button id="stop" class="secondary" disabled>Zastavit</button>
 </div>
-<div class="status" id="status">Zatím nepřipraveno.</div>
+<div class="status" id="status">Stiskni Načíst krátký úvod a poté Přehrát.</div>
 <div class="meter"><div class="bar" id="bar"></div></div>
 <audio id="audio" controls playsinline preload="auto"></audio>
 <div class="metrics">
@@ -228,6 +228,7 @@ $('length').addEventListener('change',()=>{stop();refresh()});
 for(const event of ['playing','waiting','stalled','pause','ended','error','seeking']){
  audio.addEventListener(event,()=>{
   const s=active;record('audio.'+event+' t='+fmt(audio.currentTime)+' hidden='+document.hidden+' paused='+audio.paused+' ahead='+ahead().toFixed(1)+'s ready='+audio.readyState+' error='+(audio.error?.code||0));
+  if(event==='playing'&&s?.ready)s.started=true; // Also support the built-in audio controls.
   if(event==='waiting')s&&(s.waitAt=Date.now());
   if(event==='playing'&&s?.waitAt){record('waiting trvalo '+((Date.now()-s.waitAt)/1000).toFixed(1)+'s');s.waitAt=0}
   if(event==='ended'&&s)s.started=false;
