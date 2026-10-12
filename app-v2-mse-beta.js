@@ -445,7 +445,9 @@
 
   /* V2_BETA_MSE_REAL_PLAYER_V1: isolated beta only; original player is untouched */
   const MSE_BETA_CHUNK=262144,MSE_BETA_LEAD=55,MSE_BETA_INITIAL=30;
-  let betaMse=null;
+  let betaMse=null,betaSuppressSaves=false;
+  const betaLogKey='vedator-mse-integrated-beta-log-v1';
+  let betaDiagnostic=[];try{const old=JSON.parse(localStorage.getItem(betaLogKey)||'[]');if(Array.isArray(old))betaDiagnostic=old.slice(-400)}catch{}
   const betaSupported=()=>typeof MediaSource!=='undefined'&&MediaSource.isTypeSupported('audio/mpeg');
   const betaPart=()=>betaMse?.parts.find(part=>part.contextIndex===state.context?.index)||null;
   const betaLogicalTime=()=>{
@@ -460,7 +462,19 @@
     try{const b=betaMse?.buffer?.buffered;return b?.length?b.end(b.length-1):0}catch{return 0}
   }
   function betaAhead(){return Math.max(0,betaBufferEnd()-(Number(playerNodes().audio.currentTime)||0))}
-  function betaWrite(msg){console.info('[Vedátor MSE beta]',msg);if(betaMse){betaMse.logs.push(new Date().toISOString()+' '+msg);if(betaMse.logs.length>250)betaMse.logs.shift()}}
+  function betaWrite(msg){
+    const line=new Date().toLocaleTimeString('cs-CZ',{hour12:false})+' | '+msg;
+    console.info('[Vedátor MSE beta]',line);
+    betaDiagnostic.push(line);if(betaDiagnostic.length>700)betaDiagnostic.shift();
+    try{localStorage.setItem(betaLogKey,JSON.stringify(betaDiagnostic))}catch{}
+  }
+  window.vedatorMseBetaCopyLog=async()=>{
+    const text='Vedátor – MSE integrace do skutečného přehrávače (beta)\n'+navigator.userAgent+'\n'+betaDiagnostic.join('\n')+'\nStav: '+(betaMse?'MSE':'původní přehrávač');
+    try{await navigator.clipboard.writeText(text)}catch{
+      const box=document.createElement('textarea');box.value=text;document.body.appendChild(box);box.select();document.execCommand('copy');box.remove();
+    }
+    return text;
+  };
   function betaStop(){
     const s=betaMse;betaMse=null;if(!s)return;
     s.controller.abort();
@@ -614,8 +628,9 @@
   }
   function betaBegin(episode,options){
     if(!betaCanRun(episode,options))return false;
-    betaStop();const audio=playerNodes().audio,n=playerNodes(),seq=++playbackSequence;
     saveProgress(true,false);
+    betaSuppressSaves=true;
+    betaStop();const audio=playerNodes().audio,n=playerNodes(),seq=++playbackSequence;
     if(playbackMetadataHandler)audio.removeEventListener('loadedmetadata',playbackMetadataHandler);
     playbackMetadataHandler=null;playbackSwitchingSource=true;
     audio.pause();playbackSwitchingSource=false;
@@ -627,6 +642,7 @@
     const s={media,url,controller,buffer:null,parts:[],context:options.context,started:false,logs:[],failed:false};
     betaMse=s;
     audio.src=url;audio.playbackRate=state.speed;audio.load();n.shell.classList.remove('hidden');
+    betaSuppressSaves=false;
     n.help.textContent='♾ MSE beta: průběžné navazování dílů. Posun mimo buffer použije původní přehrávač.';
     betaWrite('Nový MSE playlist '+options.context.label+' od '+episode.number);
     syncPlayer();
@@ -652,6 +668,7 @@
   };
   const betaOldSaveProgress=saveProgress;
   saveProgress=function(force=false,ended=false){
+    if(betaSuppressSaves)return;
     if(!betaMse)return betaOldSaveProgress(force,ended);
     const current=state.current;if(!current)return;
     const duration=betaLogicalDuration(),time=ended&&duration>0?duration:betaLogicalTime(),second=Math.floor(time);
@@ -719,9 +736,12 @@
     if(!episode?.enclosure)return;
     const betaOptions={start,context,itemRef,autoplay};
     if(betaBegin(episode,betaOptions))return;
+    const betaWasActive=Boolean(betaMse);
+    if(betaWasActive)saveProgress(true,false);
+    betaSuppressSaves=betaWasActive;
     betaStop();
     const sequence=++playbackSequence;
-    saveProgress(true,false);
+    if(!betaWasActive)saveProgress(true,false);
     const n=playerNodes(),audio=n.audio,key=episodeKey(episode.number),record=state.progress[key]||{};
     let target=start;
     if(target===null&&Number(record.currentTime)>10&&(!record.completed||record.replaying))target=Number(record.currentTime);
@@ -734,6 +754,7 @@
     state.context=context;
     state.current={episode,key,itemRef:itemRef||epRef(episode.number)};
     state.lastSavedSecond=-1;
+    betaSuppressSaves=false;
     playbackAutoplayWanted=Boolean(autoplay);
     playbackNeedsReload=false;
     playbackSourcePending=false; // Clear a cancelled/older offline lookup before the synchronous path.
@@ -770,13 +791,12 @@
     if(autoplay)startCurrentAudio(sequence);
   }
   function closePlayer(){
-    betaStop();++playbackSequence;playbackAutoplayWanted=false;playbackNeedsReload=false;playbackSourcePending=false;
-    saveProgress(true,false);
+    saveProgress(true,false);betaSuppressSaves=true;betaStop();++playbackSequence;playbackAutoplayWanted=false;playbackNeedsReload=false;playbackSourcePending=false;
     const n=playerNodes();
     if(playbackMetadataHandler)n.audio.removeEventListener('loadedmetadata',playbackMetadataHandler);
     playbackMetadataHandler=null;
     n.audio.pause();n.audio.removeAttribute('src');n.audio.load();
-    state.current=null;state.context=null;n.shell.classList.add('hidden');
+    state.current=null;state.context=null;betaSuppressSaves=false;n.shell.classList.add('hidden');
   }
   function navigateContext(delta){const context=state.context;if(!context)return;const index=context.index+delta;if(index<0||index>=context.items.length)return;const next={...context,index},item=next.items[index];openPlayback(item.episode,{start:item.start||0,context:next,itemRef:item.ref||epRef(item.episode.number)})}
   function changeSpeed(){const speeds=[1,1.25,1.5,1.75,2,.75],i=speeds.indexOf(state.speed);state.speed=speeds[(i+1)%speeds.length];playerNodes().audio.playbackRate=state.speed;syncPlayer()}
