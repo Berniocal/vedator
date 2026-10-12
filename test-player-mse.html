@@ -26,6 +26,7 @@ button.secondary{background:#263751;border-color:#4a607e}
 .meter{height:10px;background:#27374e;border-radius:12px;overflow:hidden;margin:10px 0}
 .bar{height:100%;width:0;background:#69b8a2;transition:width .25s}
 audio{display:block;width:100%;margin:14px 0}
+#play,#pause{display:none!important}
 .metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .metric{background:#243349;padding:9px;border-radius:9px}
 .metric b{display:block;font-size:1.08rem;font-variant-numeric:tabular-nums}
@@ -54,9 +55,9 @@ pre{height:260px;max-height:40vh;overflow:auto;margin:0;background:#0c1422;color
 <div class="status" id="status">Vyber režim a stiskni Připravit test.</div>
 <div class="meter"><div class="bar" id="bar"></div></div>
 <audio id="audio" controls playsinline preload="auto"></audio>
-<div class="controls" id="player-controls"><button type="button" id="prev" class="secondary" disabled>⏮ Díl 358</button><button type="button" id="back10" class="secondary" disabled>−10 s</button><button type="button" id="toggle" disabled>▶ Přehrát</button><button type="button" id="forward10" class="secondary" disabled>+10 s</button><button type="button" id="next" class="secondary" disabled>Díl 357 ⏭</button><button type="button" id="speed" class="secondary">1×</button></div>
+<div class="controls" id="player-controls"><button type="button" id="prev" class="secondary" disabled>⏮ Díl 358</button><button type="button" id="back10" class="secondary" disabled>−10 s</button><button type="button" id="toggle" disabled>▶ Přehrát</button><button type="button" id="forward10" class="secondary" disabled>+10 s</button><button type="button" id="next" class="secondary" disabled>Díl 357 ⏭</button><button type="button" id="speed" class="secondary">1×</button><button type="button" id="resume-test" class="secondary" disabled>↺ Uložená pozice</button></div>
 <div style="display:flex;align-items:center;gap:8px"><span id="localpos">0:00</span><input id="seek-test" aria-label="Posun v načtené části dílu" type="range" min="0" max="1" value="0" step="1" style="flex:1;min-width:0;accent-color:#8c7cf0"><span id="localduration">—:——</span></div>
-<p class="note">Čas se při přechodu vrátí na nulu. Posuvník a přeskakování fungují pouze v již načtené části. Automatický přechod nevyměňuje zvukový zdroj a znovu nespouští <code>play()</code>.</p>
+<p class="note">Čas se při přechodu vrátí na nulu. Posuvník a přeskakování fungují pouze v již načtené části. Totéž platí pro návrat na uloženou pozici; pozice mimo buffer nenačítáme skokem. Automatický přechod nevyměňuje zvukový zdroj a znovu nespouští <code>play()</code>.</p>
 <div class="metrics">
 <div class="metric">Úsek<b id="section">—</b></div>
 <div class="metric">Pozice / celkem<b id="position">0:00 / 0:00</b></div>
