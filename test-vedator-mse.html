@@ -293,7 +293,12 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
 </style>
 </head>
 <body>
-<div style="position:sticky;top:0;z-index:6001;background:#352a6b;color:white;padding:7px 12px;font-size:13px;font-weight:700;text-align:center">TESTOVACÍ KOPIE • Ověření MSE ve skutečném Vedátoru • <a href="./" style="color:#fff;text-decoration:underline">Přejít na běžný Vedátor</a></div>
+<div style="position:sticky;top:0;z-index:6001;background:#352a6b;color:white;padding:7px 12px;font-size:13px;font-weight:700;text-align:center">
+  TESTOVACÍ KOPIE – skutečné rozhraní Vedátoru s MSE betou
+  <button id="beta-mse-copy" type="button" style="margin-left:9px;background:#fff;color:#352a6b;border-radius:8px;padding:6px 9px;font-size:12px;font-weight:700" onclick="window.vedatorMseBetaCopyLog?.().then(()=>{this.textContent='Diagnostika zkopírována ✓'}).catch(()=>{this.textContent='Kopírování se nezdařilo'})">Kopírovat MSE diagnostiku</button>
+  <a href="./" style="color:#fff;text-decoration:underline;margin-left:8px">Běžný Vedátor</a>
+  <div style="font-size:12px;font-weight:400;margin-top:5px">MSE se zkouší jen pro souvislé série/playlisty běžných online epizod od začátku. Otázky, offline poslech a rozposlouchané díly používají původní přehrávač. Testovací data a playlisty se ukládají odděleně.</div>
+</div>
 <header><div class="wrap header-v2"><div class="header-title-v2"><div id="eyebrow-v2" style="opacity:.72;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Neoficiální tematický katalog</div><h1 id="heading-v2" style="margin:.25rem 0 0">Vedátorský podcast podle témat</h1></div><div class="header-actions-v2"><button id="install-v2" class="install-v2" type="button">Instalovat</button><div class="language-v2" role="group" aria-label="Jazyk aplikace / Jazyk aplikácie"><button type="button" data-lang="sk">SK</button><button type="button" data-lang="cz">CZ</button></div><button id="theme-toggle-v2" class="theme-toggle-v2" type="button" aria-pressed="false" title="Tmavý režim">☾</button></div></div></header>
 <main class="wrap">
   <section class="panel">
