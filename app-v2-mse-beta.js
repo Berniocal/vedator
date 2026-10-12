@@ -447,6 +447,10 @@
   const MSE_BETA_CHUNK=262144,MSE_BETA_LEAD=55,MSE_BETA_INITIAL=30;
   let betaMse=null,betaSuppressSaves=false;
   const betaIncompatibleSources=new Set(); // Only this tab: never disable MSE permanently due to one network error.
+  const betaVerifiedSources=new Set();
+  let betaProbeRunning=false;
+  const BETA_PREFLIGHT_LIMIT=50;
+
   // Some historical Podbean files (six-character storage IDs) can be played by
   // a native <audio> tag but are unreliable through cross-origin fetch/Range.
   // A hidden-tab audio.src replacement may then be blocked by Android Chrome.
@@ -483,6 +487,87 @@
     }
     return text;
   };
+
+  function betaCandidateContext(){
+    const context=state.context,index=Number(context?.index);
+    if(!context?.items||!Number.isInteger(index)||index<0||index>=context.items.length-1)return null;
+    const entries=context.items.slice(index);
+    if(entries.length>BETA_PREFLIGHT_LIMIT)return null;
+    if(entries.some(item=>!item.episode?.enclosure||Number(item.start||0)>0||state.offlineIndex[episodeKey(item.episode.number)]))return null;
+    return {context,entries,index};
+  }
+  function betaCanVerifyAll(entries){
+    return entries.every(item=>betaVerifiedSources.has(item.episode.enclosure));
+  }
+  function betaProbeReport(label,ready=false){
+    betaWrite(label);
+    const start=document.getElementById('beta-mse-start-verified'),verify=document.getElementById('beta-mse-verify');
+    if(start)start.disabled=!ready;
+    if(verify)verify.disabled=betaProbeRunning;
+    const out=document.getElementById('beta-mse-verify-status');
+    if(out)out.textContent=label;
+  }
+  async function betaProbeSource(url,episodeNumber){
+    const controller=new AbortController();
+    const abortTimer=setTimeout(()=>controller.abort(),15000);
+    try{
+      // Same CORS-safe numeric Range form used by the actual MSE pump.
+      // A HEAD or extension-based heuristic cannot establish CORS support.
+      const res=await fetch(url,{mode:'cors',cache:'no-store',headers:{Range:'bytes=0-4095'},signal:controller.signal});
+      if(res.status!==206)throw Error('HTTP '+res.status+' (vyžadujeme 206 Partial Content)');
+      const data=await res.arrayBuffer();
+      if(data.byteLength!==4096)throw Error('Doručeno '+data.byteLength+' B místo 4096 B');
+      betaVerifiedSources.add(url);
+      betaWrite('MSE OVĚŘENO díl='+episodeNumber+' HTTP 206 Range bytes=0-4095; CORS OK');
+      return true;
+    }catch(error){
+      betaIncompatibleSources.add(url);
+      betaWrite('MSE NEOVĚŘENO díl='+episodeNumber+' '+error.message);
+      return false;
+    }finally{clearTimeout(abortTimer)}
+  }
+  window.vedatorMseBetaVerifyCurrentPlaylist=async()=>{
+    if(betaProbeRunning)return;
+    const candidate=betaCandidateContext();
+    if(!candidate){
+      betaProbeReport('Nejprve spusť běžný online díl v sérii/playlistu (nejvýše 50 navazujících epizod, bez offline kopií).');
+      return;
+    }
+    betaProbeRunning=true;
+    betaProbeReport('Ověřuji dostupnost MP3 přes CORS/Range; současné přehrávání nepřerušuji.');
+    const unique=new Map();
+    for(const item of candidate.entries)unique.set(item.episode.enclosure,item.episode.number);
+    const pending=[...unique.entries()];
+    let passed=0,failed=0,processed=0;
+    try{
+      // Three concurrent 4KiB probes; no MP3 audio source is changed.
+      const concurrency=Math.min(3,pending.length);
+      await Promise.all(Array.from({length:concurrency},async()=>{
+        while(pending.length){
+          const [url,id]=pending.shift();
+          const ok=betaVerifiedSources.has(url)||(await betaProbeSource(url,id));
+          ok?passed++:failed++;
+          processed++;
+          betaProbeReport('Kontroluji MP3 '+processed+'/'+unique.size+' (prošlo '+passed+', selhalo '+failed+')…');
+        }
+      }));
+    }finally{betaProbeRunning=false}
+    const now=betaCandidateContext();
+    const ready=Boolean(now&&betaCanVerifyAll(now.entries));
+    betaProbeReport(ready
+      ?'MSE ověřeno pro navazující díly. Klepni na „Spustit ověřené MSE“; přehrávání začne od začátku vybraného dílu.'
+      :'Některá MP3 nelze ověřit přes MSE. Původní přehrávač zůstává aktivní; nic nepřepínám.',ready);
+  };
+  window.vedatorMseBetaStartVerifiedPlaylist=()=>{
+    const candidate=betaCandidateContext();
+    if(!candidate||!betaCanVerifyAll(candidate.entries)){
+      betaProbeReport('Nejprve ověř všechny MP3 tlačítkem „Ověřit MSE“.');
+      return;
+    }
+    const {context,index}=candidate,item=context.items[index];
+    betaWrite('UŽIVATEL SPUSTIL OVĚŘENÉ MSE díl='+item.episode.number+' od začátku');
+    openPlayback(item.episode,{start:0,context:{...context,index},itemRef:item.ref||epRef(item.episode.number),autoplay:true});
+  };
   function betaStop(){
     const s=betaMse;betaMse=null;if(!s)return;
     s.controller.abort();
@@ -503,16 +588,18 @@
       Number(record.currentTime)>10&&(!record.completed||record.replaying)?Number(record.currentTime):0;
     if(preferred>0.1||betaIncompatibleSources.has(episode.enclosure))return false;
     const parts=items.slice(index);
-    // Check the current and directly following episode only. Checking the
-    // entire series would disable MSE even for modern episodes much earlier
-    // than a historical recording in a long playlist.
-    if(parts.slice(0,2).some(item=>betaHistoricalPodbean(item.episode?.enclosure))){
-      betaWrite('PŮVODNÍ PŘEHRÁVAČ ZVOLEN PŘED SPUŠTĚNÍM: aktuální nebo navazující díl má starší MP3 Podbean bez ověřené podpory MSE; díl='+episode.number);
-      return false;
-    }
-    return parts.length>1&&parts.every(item=>
+    if(parts.length>BETA_PREFLIGHT_LIMIT)return false;
+    // CORS compatibility is per MP3 file, NOT the age/shape of its Podbean URL.
+    // Never place an unverified source into MSE when the listener may lock
+    // Android Chrome immediately after tapping Play.
+    const valid=parts.length>1&&parts.every(item=>
       item.episode?.enclosure&&Number(item.start||0)===0&&
       !state.offlineIndex[episodeKey(item.episode.number)]);
+    if(valid&&!betaCanVerifyAll(parts)){
+      betaWrite('PŮVODNÍ MP3: MSE nebylo předem ověřeno pro všechny navazující soubory; díl='+episode.number);
+      return false;
+    }
+    return valid;
   }
   // A failed CORS/range request must not strand Android's single audio element
   // on an empty or exhausted MediaSource. Play the same episode using the
@@ -556,7 +643,8 @@
       return;
     }
     const destination=index>currentIndex?index:currentIndex;
-    betaStartNative(s,destination,destination===currentIndex?betaLogicalTime():0);
+    const pending=s.pendingSeek?.index===destination?s.pendingSeek.wanted:NaN;
+    betaStartNative(s,destination,destination===currentIndex?(Number.isFinite(pending)?pending:betaLogicalTime()):0);
   }
   function betaMutation(s,fn){
     return new Promise((resolve,reject)=>{
@@ -627,6 +715,12 @@
           if(s!==betaMse)return;
           await betaMutation(s,b=>b.appendBuffer(bytes));
           offset+=bytes.length;part.bytes+=bytes.length;
+          if(s.pendingSeek?.index===k&&betaBufferEnd()>=part.start+s.pendingSeek.wanted+.15){
+            const seek=s.pendingSeek;s.pendingSeek=null;
+            playerNodes().audio.currentTime=part.start+seek.wanted;
+            betaWrite('ČEKAJÍCÍ SKOK PROVEDEN díl='+ep.number+' t='+seek.wanted.toFixed(2));
+            saveProgress(true,false);syncPlayer();
+          }
           if(!firstDuration&&offset>=MSE_BETA_CHUNK){
             firstDuration=Math.max(.1,betaBufferEnd()-part.start);
             if(size>0)part.estimatedDuration=size/(offset/firstDuration);
@@ -680,6 +774,14 @@
     const s=betaMse,part=betaPart();
     if(!s||!part)return false;
     const wanted=Math.max(0,Number(local)||0),absolute=part.start+wanted,audio=playerNodes().audio;
+    // Pressing +10s or moving the slider during the first network fetch
+    // is not a reason to destroy the MSE MediaSession and swap audio.src.
+    if(wanted<=15&&betaBufferEnd()<absolute+.1&&!s.failed){
+      s.pendingSeek={index:state.context.index,wanted};
+      betaWrite('SKOK ČEKÁ NA DATA: díl='+part.episode.number+' pozice='+wanted.toFixed(2)+' s');
+      playerNodes().help.textContent='Načítám začátek zvuku; malý posun provedu po načtení.';
+      return true;
+    }
     try{
       for(let k=0;k<audio.buffered.length;k++){
         if(absolute>=audio.buffered.start(k)&&absolute<audio.buffered.end(k)-.06){
