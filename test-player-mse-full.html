@@ -67,6 +67,18 @@ pre{height:260px;max-height:40vh;overflow:auto;margin:0;background:#0c1422;color
 <p class="note">**Postup:** Nech výchozí „Celý díl“, stiskni Připravit test a po načtení 30 sekund Přehrát. Na začátku vyzkoušej pauzu/pokračování, skoky ±10 sekund a rychlost, pak ji vrať na 1×. Zamkni telefon a nech epizodu 358 celou dohrát. Díl 357 má začít automaticky; po 35 sekundách jeho ukázky test skončí. Délka celé epizody se může počítat na desítky minut, zvuk se průběžně doplňuje. Po skončení zkopíruj diagnostiku. Volba „Rychlý“ je jen záložní kontrola již otestovaného scénáře.</p>
 </section>
 <section class="card">
+<h2>Kontroly při poslechu</h2>
+<div class="metrics">
+<div class="metric">Pauza a pokračování<b id="check-pause">—</b></div>
+<div class="metric">Přeskakování ±10 s<b id="check-seek">—</b></div>
+<div class="metric">Změna rychlosti<b id="check-speed">—</b></div>
+<div class="metric">Uložení pozice<b id="check-progress">—</b></div>
+<div class="metric">Přehrávání na pozadí<b id="check-hidden">—</b></div>
+<div class="metric">Automatický přechod 358 → 357<b id="check-transition">—</b></div>
+</div>
+<p class="note">Zelené „✓“ znamená, že příslušná událost byla zaznamenána. V závěru mi ještě napiš, zda přechod proběhl bez slyšitelné mezery.</p>
+</section>
+<section class="card">
 <h2>2. Stav streamu a hranice dílů</h2>
 <p>Diagnostika rozlišuje, zda přehrávač používá rychlý konec, nebo celý díl. Uvidíš stahování, zásobu zvuku, skutečnou hranici MP3 a případné přerušení.</p>
 <div class="metrics"><div class="metric">Skutečný režim<b id="mode">Neaktivní</b></div><div class="metric">Načteno dopředu<b id="ahead">0 s</b></div><div class="metric">Stažené bloky<b id="network">0</b></div><div class="metric">Buffer<b id="buffer">Prázdný</b></div><div class="metric">Hranice MP3<b id="boundary">Zatím neznámá</b></div><div class="metric">Uložená pozice testu<b id="saved">—</b></div><div class="metric">MP3 zdroj<b id="source-identity">—</b></div></div>
@@ -85,14 +97,14 @@ const EP=[
 ];
 const $=id=>document.getElementById(id),audio=$('audio');
 const CHUNK=262144,INITIAL=30,LEAD=55,TAIL_BYTES=8388608,MIN_TAIL_SECONDS=180,LOG_KEY='vedator-mse-clone-log-v1',POS_KEY='vedator-mse-clone-progress-v1';
-const log=[];try{const older=JSON.parse(localStorage.getItem(LOG_KEY)||'[]');if(Array.isArray(older))log.push(...older.slice(-250))}catch{}
+const log=[];try{const older=JSON.parse(localStorage.getItem(LOG_KEY)||'[]');if(Array.isArray(older))log.push(...older.slice(-1150))}catch{}
 $('log').textContent=log.join('\n');
-let active=null,lastTick=0,passedBoundary=false,waitStart=0,progress={},lastProgressSecond=-1;
+let active=null,lastTick=0,passedBoundary=false,waitStart=0,progress={},lastProgressSecond=-1,checks={pause:false,seek:false,speed:false,progress:false,hidden:false,transition:false},wasPlaying=false;
 try{const old=JSON.parse(localStorage.getItem(POS_KEY)||'{}');if(old&&typeof old==='object'&&!Array.isArray(old))progress=old}catch{}
 function fmt(t){const s=Math.floor(Math.max(0,Number(t)||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
 function record(message){
  const line=new Date().toLocaleTimeString('cs-CZ',{hour12:false})+' | '+message;
- log.push(line);if(log.length>360)log.shift();
+ log.push(line);if(log.length>1200)log.shift();
  $('log').textContent=log.join('\n');$('log').scrollTop=$('log').scrollHeight;
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch{}
 }
@@ -121,7 +133,7 @@ function saveProgressTest(force=false,done=false){
  if(!force&&Math.abs(lastProgressSecond-second)<5)return;
  lastProgressSecond=second;
  progress[key]={seconds:second,done:done||Boolean(progress[key]?.done),mode:active.mode,updatedAt:Date.now()};
- try{localStorage.setItem(POS_KEY,JSON.stringify(progress))}catch{}
+ try{localStorage.setItem(POS_KEY,JSON.stringify(progress));checks.progress=true;checkDisplay()}catch{}
 }
 function updateMediaMetadata(index=activeIndex()){
  try{
@@ -135,7 +147,7 @@ function seekTo(t){
  const buffer=audio.buffered;
  try{for(let i=0;i<buffer.length;i++){
   if(t>=buffer.start(i)&&t<buffer.end(i)-.05){
-   audio.currentTime=t;record('OVLÁDÁNÍ: skok na '+fmt(t)+' (díl='+EP[activeIndex()].name+', hidden='+document.hidden+')');saveProgressTest(true);refresh();return true;
+   audio.currentTime=t;checks.seek=true;checkDisplay();record('OVLÁDÁNÍ: skok na '+fmt(t)+' (díl='+EP[activeIndex()].name+', hidden='+document.hidden+')');saveProgressTest(true);refresh();return true;
   }
  }}catch{}
  status('Požadované místo ještě není načtené.',false);refresh();return false;
@@ -167,6 +179,9 @@ function refreshExtra(){
  $('source-identity').textContent=audio.currentSrc?.startsWith('blob:')?'1× MediaSource':'—';
 }
 
+function checkDisplay(){
+ for(const [key,id] of Object.entries({pause:'check-pause',seek:'check-seek',speed:'check-speed',progress:'check-progress',hidden:'check-hidden',transition:'check-transition'}))$(id).textContent=checks[key]?'✓ Ověřeno':'—';
+}
 function bufferRanges(){
  try{const b=audio.buffered;return Array.from({length:b.length},(_,i)=>fmt(b.start(i))+'–'+fmt(b.end(i))).join(', ')||'prázdný'}catch{return 'chyba'}
 }
@@ -367,7 +382,7 @@ function prepare(){
  if(!window.MediaSource?.isTypeSupported?.('audio/mpeg')){status('Prohlížeč nepodporuje MSE audio/mpeg');return}
  const mode=$('length').value||'full',second=35,media=new MediaSource();
  const s={mode,media,url:URL.createObjectURL(media),controller:new AbortController(),buffer:null,offset:[0,0],phase:0,second,boundary:0,blocks:0,bytes:0,ready:false,started:false,finished:false,error:null,sourceEnded:false};
- active=s;passedBoundary=false;audio.src=s.url;audio.load();
+ active=s;passedBoundary=false;wasPlaying=false;checks={pause:false,seek:false,speed:false,progress:false,hidden:false,transition:false};checkDisplay();audio.src=s.url;audio.load();
  $('prepare').disabled=true;$('length').disabled=true;
  record('NOVÝ TEST mode='+mode+' first=SKUTEČNÝ EOF 358 druhý='+second+'s, chunk='+CHUNK+' B, suffix='+TAIL_BYTES+' B, dopředu='+LEAD+'s; UA='+navigator.userAgent);
  status(mode==='tail'?'Načítám posledních 8 MiB dílu 358 (nejméně 3 minuty zvuku)…':'Načítám nejprve jen 30 s; celý díl 358 se bude stahovat postupně…');
@@ -391,7 +406,7 @@ $('speed').addEventListener('click',()=>{
  const speeds=[1,1.25,1.5,1.75,2,.75];
  const n=speeds.indexOf(Number(audio.playbackRate)||1),rate=speeds[(n+1)%speeds.length];
  audio.playbackRate=rate;$('speed').textContent=String(rate).replace('.',',')+'×';
- record('OVLÁDÁNÍ: rychlost '+rate+'×');updateMediaMetadata();
+ record('OVLÁDÁNÍ: rychlost '+rate+'×');checks.speed=true;checkDisplay();updateMediaMetadata();
 });
 $('seek-test').addEventListener('input',()=>{$('localpos').textContent=fmt($('seek-test').value)});
 $('seek-test').addEventListener('change',()=>{
@@ -418,7 +433,8 @@ $('length').addEventListener('change',()=>{stop();refresh()});
 for(const event of ['playing','waiting','stalled','pause','ended','error','seeking']){
  audio.addEventListener(event,()=>{
   const s=active;record('audio.'+event+' t='+fmt(audio.currentTime)+' hidden='+document.hidden+' paused='+audio.paused+' ahead='+ahead().toFixed(1)+'s ready='+audio.readyState+' error='+(audio.error?.code||0));
-  if(event==='playing'&&s?.ready)s.started=true; // Also support the built-in audio controls.
+  if(event==='playing'&&s?.ready){s.started=true;wasPlaying=true} // Also support the built-in audio controls.
+  if(event==='pause'&&wasPlaying&&!audio.ended){checks.pause=true;checkDisplay()}
   if(event==='waiting')s&&(s.waitAt=Date.now());
   if(event==='playing'&&s?.waitAt){record('waiting trvalo '+((Date.now()-s.waitAt)/1000).toFixed(1)+'s');s.waitAt=0}
   if(event==='ended'&&s){s.started=false;saveProgressTest(true,false);record('KONEC TESTU: skončila 35s ukázka dílu 357, nikoli celý díl 357');}
@@ -430,14 +446,14 @@ audio.addEventListener('timeupdate',()=>{
  const s=active,t=Number(audio.currentTime)||0;
  if(Date.now()-lastTick>12000){lastTick=Date.now();record('tick t='+fmt(t)+' hidden='+document.hidden+' ahead='+ahead().toFixed(1)+'s bloky='+(s?.blocks||0))}
  if(s&&s.boundary>0&&s.phase===1&&!passedBoundary&&t>=s.boundary){
-  passedBoundary=true;
+  passedBoundary=true;checks.transition=true;checkDisplay();
   progress['358']={seconds:Math.floor(s.boundary),done:true,updatedAt:Date.now(),mode:s.mode};try{localStorage.setItem(POS_KEY,JSON.stringify(progress))}catch{}
   record('PŘECHOD NA SKUTEČNÉM KONCI 358 → 357 t='+t.toFixed(3)+' hidden='+document.hidden+' paused='+audio.paused+' ahead='+ahead().toFixed(1)+'s src='+audio.currentSrc);
   updateMediaMetadata(1);saveProgressTest(true);
  }
  saveProgressTest(false);refresh();
 });
-document.addEventListener('visibilitychange',()=>{record('visibilitychange hidden='+document.hidden+' t='+fmt(audio.currentTime)+' ahead='+ahead().toFixed(1)+'s');saveProgressTest(true);refresh()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&active?.started&&!audio.paused){checks.hidden=true;checkDisplay()}record('visibilitychange hidden='+document.hidden+' t='+fmt(audio.currentTime)+' ahead='+ahead().toFixed(1)+'s');saveProgressTest(true);refresh()});
 window.addEventListener('pageshow',()=>{record('pageshow t='+fmt(audio.currentTime));refresh()});
 window.addEventListener('pagehide',()=>{record('pagehide t='+fmt(audio.currentTime)+' hidden='+document.hidden);saveProgressTest(true)});
 $('copy').addEventListener('click',async()=>{
@@ -457,6 +473,6 @@ try{if('mediaSession'in navigator){
  navigator.mediaSession.setActionHandler('seekto',d=>{if(typeof d.seekTime==='number')seekTo((activeIndex()===1?(active?.boundary||0):0)+d.seekTime)});
 }}catch(e){record('MediaSession: '+e.message)}
 record('STRÁNKA NAČTENA; MSE audio/mpeg='+Boolean(window.MediaSource?.isTypeSupported?.('audio/mpeg')));
-refresh();
+refresh();checkDisplay();
 </script>
 </body></html>
