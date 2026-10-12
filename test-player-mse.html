@@ -38,8 +38,8 @@ pre{height:260px;max-height:40vh;overflow:auto;margin:0;background:#0c1422;color
 <h1>Testovací přehrávač Vedátoru</h1>
 <p>Oddělená diagnostická stránka. Nezasahuje do hlavního přehrávače, uložených playlistů ani stažených epizod.</p>
 <section class="card">
-<h2>1. Přechod na skutečném konci MP3</h2>
-<p>Test používá skutečné MP3 dílů 358 a 357 a přechází na <strong>skutečném konci prvního souboru</strong>. Rychlá volba načte dostatečně dlouhý skutečný konec dílu 358 (nejméně 3 minuty, při běžné datové rychlosti přibližně 4 minuty), nikoli uměle oříznutý začátek. Druhá volba streamuje celý díl od začátku.</p>
+<h2>1. Playlist: díly 358 → 357</h2>
+<p>Toto je samostatná testovací kopie ovládání Vedátoru. Přehrává skutečné MP3 dílů 358 a 357 pomocí jediného MSE zvukového proudu; přechod nastává na <strong>skutečném konci</strong> dílu 358. Rychlý režim připraví poslední nejméně 3 minuty. Z důvodu krátkého ověřování přehraje test 35 sekund dalšího dílu. Hlavní aplikaci nemění.</p>
 <label for="length">Režim testu</label>
 <select id="length">
 <option value="tail" selected>Rychlý: nejméně poslední 3 minuty dílu 358 → díl 357</option>
@@ -54,6 +54,9 @@ pre{height:260px;max-height:40vh;overflow:auto;margin:0;background:#0c1422;color
 <div class="status" id="status">Vyber režim a stiskni Připravit test.</div>
 <div class="meter"><div class="bar" id="bar"></div></div>
 <audio id="audio" controls playsinline preload="auto"></audio>
+<div class="controls" id="player-controls"><button type="button" id="prev" class="secondary" disabled>⏮ Díl 358</button><button type="button" id="back10" class="secondary" disabled>−10 s</button><button type="button" id="toggle" disabled>▶ Přehrát</button><button type="button" id="forward10" class="secondary" disabled>+10 s</button><button type="button" id="next" class="secondary" disabled>Díl 357 ⏭</button><button type="button" id="speed" class="secondary">1×</button></div>
+<div style="display:flex;align-items:center;gap:8px"><span id="localpos">0:00</span><input id="seek-test" aria-label="Posun v načtené části dílu" type="range" min="0" max="1" value="0" step="1" style="flex:1;min-width:0;accent-color:#8c7cf0"><span id="localduration">—:——</span></div>
+<p class="note">Čas se při přechodu vrátí na nulu. Posuvník a přeskakování fungují pouze v již načtené části. Automatický přechod nevyměňuje zvukový zdroj a znovu nespouští <code>play()</code>.</p>
 <div class="metrics">
 <div class="metric">Úsek<b id="section">—</b></div>
 <div class="metric">Pozice / celkem<b id="position">0:00 / 0:00</b></div>
@@ -63,14 +66,14 @@ pre{height:260px;max-height:40vh;overflow:auto;margin:0;background:#0c1422;color
 <p class="note">V rychlém režimu se nejprve zjistí velikost souboru a posledních 8 MiB se stáhne po menších číselných rozsazích, aby nevznikal CORS preflight. Následně se zarovnají MP3 rámce a ověří aspoň 3:00 zvuku. Podle datového toku může být první část přibližně 4 minuty dlouhá. Druhý díl navazuje v jednom zvukovém proudu. V režimu Celý díl se od začátku načítá jen asi 30 sekund a dále průběžně, i při zamčeném telefonu; přechod proběhne až po skutečném EOF. Pak zkopíruj diagnostiku. V obou režimech je délka ukázky druhého dílu 35 sekund.</p>
 </section>
 <section class="card">
-<h2>2. Stav streamu a hranice dílů</h2>
+<h2>3. Stav streamu a hranice dílů</h2>
 <p>Diagnostika rozlišuje, zda přehrávač používá rychlý konec, nebo celý díl. Uvidíš stahování, zásobu zvuku, skutečnou hranici MP3 a případné přerušení.</p>
-<div class="metrics"><div class="metric">Skutečný režim<b id="mode">Neaktivní</b></div><div class="metric">Načteno dopředu<b id="ahead">0 s</b></div><div class="metric">Stažené bloky<b id="network">0</b></div><div class="metric">Buffer<b id="buffer">Prázdný</b></div><div class="metric">Pozice v dílu<b id="localpos">0:00</b></div><div class="metric">Hranice MP3<b id="boundary">Zatím neznámá</b></div></div>
+<div class="metrics"><div class="metric">Skutečný režim<b id="mode">Neaktivní</b></div><div class="metric">Načteno dopředu<b id="ahead">0 s</b></div><div class="metric">Stažené bloky<b id="network">0</b></div><div class="metric">Buffer<b id="buffer">Prázdný</b></div><div class="metric">Hranice MP3<b id="boundary">Zatím neznámá</b></div><div class="metric">Uložená pozice testu<b id="saved">—</b></div><div class="metric">MP3 zdroj<b id="source-identity">—</b></div></div>
 </section>
 <section class="card">
 <h2>Diagnostický záznam</h2>
 <p class="note">Záznam obsahuje skutečné EOF prvního MP3, připojení druhého dílu, síťové bloky, přechod pod zamčenou obrazovkou, možné čekání i chyby dekódování. Uchovává se v prohlížeči i při obnovení stránky.</p>
-<div class="controls"><button id="copy" class="secondary">Kopírovat diagnostiku</button><button id="clear" class="secondary">Vymazat záznam</button></div>
+<div class="controls"><button id="copy" class="secondary">Kopírovat diagnostiku</button><button id="clear" class="secondary">Vymazat záznam</button><button id="reset-pos" class="secondary">Smazat testovací pozice</button></div>
 <pre id="log" aria-live="off"></pre>
 </section>
 <script>
