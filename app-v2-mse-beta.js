@@ -447,6 +447,26 @@
   const MSE_BETA_CHUNK=262144,MSE_BETA_LEAD=55,MSE_BETA_INITIAL=30;
   let betaMse=null,betaSuppressSaves=false;
   const betaIncompatibleSources=new Set(); // Only this tab: never disable MSE permanently due to one network error.
+  // Device-validated seamless source pair. Other Podbean files might fail
+  // cross-origin fetch even if the native HTML audio element can play them.
+  const betaVerifiedMsePair=(items,index)=>Number(items?.[index]?.episode?.number)===358&&
+    Number(items?.[index+1]?.episode?.number)===357&&
+    /\/s5n2v3cdd8jcuhw8\//.test(items[index].episode.enclosure)&&
+    /\/ybmbaqxa7aww3z3m\//.test(items[index+1].episode.enclosure);
+  let betaAllowUnverified=false; // opt-in for this tab only; default must play.
+  function betaSyncModeButton(){
+    const node=document.getElementById('beta-mse-experimental');
+    if(!node)return;
+    node.textContent=betaAllowUnverified?'MSE pro další díly: ZAPNUTO (pokusné)':'MSE pro další díly: vypnuto (bezpečný režim)';
+    node.setAttribute('aria-pressed',String(betaAllowUnverified));
+  }
+  window.vedatorMseBetaToggleExperiments=()=>{
+    betaAllowUnverified=!betaAllowUnverified;
+    betaSyncModeButton();
+    betaWrite('REŽIM '+(betaAllowUnverified?'POKUSNÉ MSE i pro neověřené MP3':'BEZPEČNÝ – neověřené MP3 přes původní přehrávač'));
+    return betaAllowUnverified;
+  };
+  document.addEventListener('DOMContentLoaded',betaSyncModeButton,{once:true});
   // Some historical Podbean files (six-character storage IDs) can be played by
   // a native <audio> tag but are unreliable through cross-origin fetch/Range.
   // A hidden-tab audio.src replacement may then be blocked by Android Chrome.
@@ -503,6 +523,14 @@
       Number(record.currentTime)>10&&(!record.completed||record.replaying)?Number(record.currentTime):0;
     if(preferred>0.1||betaIncompatibleSources.has(episode.enclosure))return false;
     const parts=items.slice(index);
+    // Conservative default: the only pair acoustically validated on this
+    // Android device is 358 -> 357. Everything else starts as native audio on
+    // the user's original play gesture, so a failing MSE fetch cannot cause
+    // a later hidden-tab source switch that requires a second tap.
+    if(!betaAllowUnverified&&!betaVerifiedMsePair(items,index)){
+      betaWrite('BEZPEČNÝ REŽIM: díl '+episode.number+' → původní přehrávač ještě před Play (MSE pro tuto dvojici neověřeno)');
+      return false;
+    }
     // Check the current and directly following episode only. Checking the
     // entire series would disable MSE even for modern episodes much earlier
     // than a historical recording in a long playlist.
@@ -557,6 +585,20 @@
     }
     const destination=index>currentIndex?index:currentIndex;
     betaStartNative(s,destination,destination===currentIndex?betaLogicalTime():0);
+  }
+  function betaFlushPendingSeek(s){
+    const pending=s.pendingSeek;
+    if(!pending||s!==betaMse)return;
+    const part=s.parts.find(p=>p.contextIndex===pending.index);
+    if(!part)return;
+    const target=part.start+pending.seconds,audio=playerNodes().audio;
+    try{for(let i=0;i<audio.buffered.length;i++){
+      if(target>=audio.buffered.start(i)&&target<audio.buffered.end(i)-.08){
+        s.pendingSeek=null;audio.currentTime=target;
+        betaWrite('ÚVODNÍ SKOK proveden v MSE až po načtení: '+pending.seconds.toFixed(2)+' s, žádná změna audio.src');
+        syncPlayer();return;
+      }
+    }}catch{}
   }
   function betaMutation(s,fn){
     return new Promise((resolve,reject)=>{
@@ -618,14 +660,22 @@
           if(s.started&&betaAhead()>=MSE_BETA_LEAD)
             await betaWait(s,()=>betaAhead()<MSE_BETA_LEAD);
           if(s!==betaMse)return;
-          const response=await fetch(ep.enclosure,{mode:'cors',cache:'no-store',
-            headers:{Range:'bytes='+offset+'-'+(offset+MSE_BETA_CHUNK-1)},signal:s.controller.signal});
+          let response;
+          const range='bytes='+offset+'-'+(offset+MSE_BETA_CHUNK-1);
+          try{response=await fetch(ep.enclosure,{mode:'cors',cache:'no-store',
+            headers:{Range:range},signal:s.controller.signal})}
+          catch(fetchError){
+            betaWrite('FETCH MP3 SELHAL díl='+ep.number+' range='+range+' hidden='+document.hidden+' důvod='+fetchError.message);
+            throw fetchError;
+          }
+          if(offset===0)betaWrite('FETCH MP3 PRVNÍ BLOK díl='+ep.number+' HTTP '+response.status+' hidden='+document.hidden);
           if(response.status===416){betaWrite('EOF dílu '+ep.number+' (HTTP 416)');break}
           if(response.status!==206)throw Error('Podbean HTTP '+response.status+' (díl '+ep.number+')');
           const bytes=new Uint8Array(await response.arrayBuffer());
           if(bytes.length===0||bytes.length>MSE_BETA_CHUNK)throw Error('Neplatný MP3 blok');
           if(s!==betaMse)return;
           await betaMutation(s,b=>b.appendBuffer(bytes));
+          betaFlushPendingSeek(s);
           offset+=bytes.length;part.bytes+=bytes.length;
           if(!firstDuration&&offset>=MSE_BETA_CHUNK){
             firstDuration=Math.max(.1,betaBufferEnd()-part.start);
@@ -677,9 +727,20 @@
     }
   }
   function betaSeek(local){
-    const s=betaMse,part=betaPart();
-    if(!s||!part)return false;
-    const wanted=Math.max(0,Number(local)||0),absolute=part.start+wanted,audio=playerNodes().audio;
+    const s=betaMse;
+    if(!s)return false;
+    const wanted=Math.max(0,Number(local)||0),part=betaPart();
+    // The original UI may seek to the first question at 1 s just after Play,
+    // before the first asynchronous Range response arrives. Deferring such a
+    // near-zero seek avoids an unnecessary native source swap.
+    if(!part){
+      if(wanted<=3){
+        s.pendingSeek={index:state.context?.index??s.context.index,seconds:wanted};
+        betaWrite('ÚVODNÍ SKOK '+wanted.toFixed(2)+' s odložen: čekám na první MP3 data');return true;
+      }
+      return false;
+    }
+    const absolute=part.start+wanted,audio=playerNodes().audio;
     try{
       for(let k=0;k<audio.buffered.length;k++){
         if(absolute>=audio.buffered.start(k)&&absolute<audio.buffered.end(k)-.06){
@@ -687,6 +748,10 @@
         }
       }
     }catch{}
+    if(wanted<=3&&part.contextIndex===s.context.index&&betaBufferEnd()<absolute+.12){
+      s.pendingSeek={index:part.contextIndex,seconds:wanted};
+      betaWrite('ÚVODNÍ SKOK '+wanted.toFixed(2)+' s odložen do načtení prvního bufferu; zůstávám na MSE');return true;
+    }
     betaWrite('Přeskok mimo MSE buffer, přechod do legacy na '+wanted.toFixed(2));
     // Manual seek preserves the expected behavior by asking the original player
     // for this position. The new nonzero start excludes MSE.
