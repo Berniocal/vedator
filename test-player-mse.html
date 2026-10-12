@@ -182,8 +182,10 @@ function refresh(){
  $('localpos').textContent=fmt(s&&s.phase===1&&t>=s.boundary?t-s.boundary:t);
  $('boundary').textContent=s?.boundary?fmt(s.boundary):'Neznámá';
  $('bar').style.width=s?.boundary?(100*Math.min(1,t/(s.boundary+s.second))).toFixed(1)+'%':'0%';
+ refreshExtra();
 }
 function stop(){
+ saveProgressTest(true);
  const s=active;active=null;
  if(s){s.controller.abort();try{URL.revokeObjectURL(s.url)}catch{}}
  audio.pause();audio.removeAttribute('src');audio.load();
@@ -367,10 +369,35 @@ function prepare(){
 }
 function start(){
  if(!active?.ready)return;
+ if(!audio.paused){audio.pause();return}
+ if(audio.ended){status('Test už skončil. Stiskni znovu Připravit test.');return}
  active.started=true;
  const p=audio.play();
  if(p?.catch)p.catch(e=>{record('play() ODMÍTNUTO '+e.name+': '+e.message);status('Přehrání odmítnuto: '+e.name)});
 }
+
+$('toggle').addEventListener('click',start);
+$('prev').addEventListener('click',()=>selectEpisode(0));
+$('next').addEventListener('click',()=>selectEpisode(1));
+$('back10').addEventListener('click',()=>skipSeconds(-10));
+$('forward10').addEventListener('click',()=>skipSeconds(10));
+$('speed').addEventListener('click',()=>{
+ const speeds=[1,1.25,1.5,1.75,2,.75];
+ const n=speeds.indexOf(Number(audio.playbackRate)||1),rate=speeds[(n+1)%speeds.length];
+ audio.playbackRate=rate;$('speed').textContent=String(rate).replace('.',',')+'×';
+ record('RYCHLOST '+rate+'×');updateMediaMetadata();
+});
+$('seek-test').addEventListener('input',()=>{$('localpos').textContent=fmt($('seek-test').value)});
+$('seek-test').addEventListener('change',()=>{
+ const absolute=(activeIndex()===1?(active?.boundary||0):0)+Number($('seek-test').value||0);
+ seekTo(absolute);
+});
+$('reset-pos').addEventListener('click',()=>{
+ progress={};lastProgressSecond=-1;
+ try{localStorage.removeItem(POS_KEY)}catch{}
+ record('TESTOVACÍ POZICE VYMAZÁNY');refresh();
+});
+
 $('prepare').addEventListener('click',prepare);
 $('play').addEventListener('click',start);
 $('pause').addEventListener('click',()=>audio.pause());
@@ -382,7 +409,8 @@ for(const event of ['playing','waiting','stalled','pause','ended','error','seeki
   if(event==='playing'&&s?.ready)s.started=true; // Also support the built-in audio controls.
   if(event==='waiting')s&&(s.waitAt=Date.now());
   if(event==='playing'&&s?.waitAt){record('waiting trvalo '+((Date.now()-s.waitAt)/1000).toFixed(1)+'s');s.waitAt=0}
-  if(event==='ended'&&s)s.started=false;
+  if(event==='ended'&&s){s.started=false;saveProgressTest(true,true)}
+  if(event==='pause'||event==='seeking')saveProgressTest(true);
   refresh();
  });
 }
@@ -390,15 +418,18 @@ audio.addEventListener('timeupdate',()=>{
  const s=active,t=Number(audio.currentTime)||0;
  if(Date.now()-lastTick>12000){lastTick=Date.now();record('tick t='+fmt(t)+' hidden='+document.hidden+' ahead='+ahead().toFixed(1)+'s bloky='+(s?.blocks||0))}
  if(s&&s.boundary>0&&s.phase===1&&!passedBoundary&&t>=s.boundary){
-  passedBoundary=true;record('PŘECHOD NA SKUTEČNÉM KONCI 358 → 357 t='+t.toFixed(3)+' hidden='+document.hidden+' paused='+audio.paused+' ahead='+ahead().toFixed(1)+'s src='+audio.currentSrc);try{if('mediaSession'in navigator&&typeof MediaMetadata!=='undefined')navigator.mediaSession.metadata=new MediaMetadata({title:'357 – Ig Nobelove ceny',artist:'Vedátor – MSE test'})}catch{}
+  passedBoundary=true;
+  progress['358']={seconds:Math.floor(s.boundary),done:true,updatedAt:Date.now(),mode:s.mode};try{localStorage.setItem(POS_KEY,JSON.stringify(progress))}catch{}
+  record('PŘECHOD NA SKUTEČNÉM KONCI 358 → 357 t='+t.toFixed(3)+' hidden='+document.hidden+' paused='+audio.paused+' ahead='+ahead().toFixed(1)+'s src='+audio.currentSrc);
+  updateMediaMetadata(1);saveProgressTest(true);
  }
- refresh();
+ saveProgressTest(false);refresh();
 });
-document.addEventListener('visibilitychange',()=>{record('visibilitychange hidden='+document.hidden+' t='+fmt(audio.currentTime)+' ahead='+ahead().toFixed(1)+'s');refresh()});
+document.addEventListener('visibilitychange',()=>{record('visibilitychange hidden='+document.hidden+' t='+fmt(audio.currentTime)+' ahead='+ahead().toFixed(1)+'s');saveProgressTest(true);refresh()});
 window.addEventListener('pageshow',()=>{record('pageshow t='+fmt(audio.currentTime));refresh()});
-window.addEventListener('pagehide',()=>record('pagehide t='+fmt(audio.currentTime)+' hidden='+document.hidden));
+window.addEventListener('pagehide',()=>{record('pagehide t='+fmt(audio.currentTime)+' hidden='+document.hidden);saveProgressTest(true)});
 $('copy').addEventListener('click',async()=>{
- const txt='Vedátor – MSE SKUTEČNÝ KONEC MP3\n'+navigator.userAgent+'\n'+log.join('\n')+'\nAktuálně t='+fmt(audio.currentTime)+' ahead='+ahead().toFixed(1)+'s hidden='+document.hidden;
+ const txt='Vedátor – TESTOVACÍ KOPIE PŘEHRÁVAČE MSE\n'+navigator.userAgent+'\n'+log.join('\n')+'\nAktuálně t='+fmt(audio.currentTime)+' ahead='+ahead().toFixed(1)+'s hidden='+document.hidden;
  try{await navigator.clipboard.writeText(txt);$('copy').textContent='Zkopírováno ✓'}
  catch{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();$('copy').textContent='Zkopírováno'}
 });
@@ -407,6 +438,11 @@ try{if('mediaSession'in navigator){
  navigator.mediaSession.metadata=new MediaMetadata({title:'Vedátor – diagnostika průběžného streamu',artist:'Test'});
  navigator.mediaSession.setActionHandler('play',start);
  navigator.mediaSession.setActionHandler('pause',()=>audio.pause());
+ navigator.mediaSession.setActionHandler('seekbackward',d=>skipSeconds(-(d.seekOffset||10)));
+ navigator.mediaSession.setActionHandler('seekforward',d=>skipSeconds(d.seekOffset||10));
+ navigator.mediaSession.setActionHandler('previoustrack',()=>selectEpisode(0));
+ navigator.mediaSession.setActionHandler('nexttrack',()=>selectEpisode(1));
+ navigator.mediaSession.setActionHandler('seekto',d=>{if(typeof d.seekTime==='number')seekTo((activeIndex()===1?(active?.boundary||0):0)+d.seekTime)});
 }}catch(e){record('MediaSession: '+e.message)}
 record('STRÁNKA NAČTENA; MSE audio/mpeg='+Boolean(window.MediaSource?.isTypeSupported?.('audio/mpeg')));
 refresh();
