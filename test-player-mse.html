@@ -83,10 +83,11 @@ const EP=[
  {name:'357',url:'https://mcdn.podbean.com/mf/web/ybmbaqxa7aww3z3m/Vedatorsky_podcast_357_MAINacakq.mp3'}
 ];
 const $=id=>document.getElementById(id),audio=$('audio');
-const CHUNK=262144,INITIAL=30,LEAD=55,TAIL_BYTES=8388608,MIN_TAIL_SECONDS=180,LOG_KEY='vedator-mse-real-eof-log-v1';
+const CHUNK=262144,INITIAL=30,LEAD=55,TAIL_BYTES=8388608,MIN_TAIL_SECONDS=180,LOG_KEY='vedator-mse-clone-log-v1',POS_KEY='vedator-mse-clone-progress-v1';
 const log=[];try{const older=JSON.parse(localStorage.getItem(LOG_KEY)||'[]');if(Array.isArray(older))log.push(...older.slice(-250))}catch{}
 $('log').textContent=log.join('\n');
-let active=null,lastTick=0,passedBoundary=false,waitStart=0;
+let active=null,lastTick=0,passedBoundary=false,waitStart=0,progress={},lastProgressSecond=-1;
+try{const old=JSON.parse(localStorage.getItem(POS_KEY)||'{}');if(old&&typeof old==='object'&&!Array.isArray(old))progress=old}catch{}
 function fmt(t){const s=Math.floor(Math.max(0,Number(t)||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
 function record(message){
  const line=new Date().toLocaleTimeString('cs-CZ',{hour12:false})+' | '+message;
@@ -100,6 +101,70 @@ function status(message,ok=false){
 }
 function bufferEnd(s){try{return s?.buffer?.buffered.length?s.buffer.buffered.end(s.buffer.buffered.length-1):0}catch{return 0}}
 function ahead(){return active?Math.max(0,bufferEnd(active)-(Number(audio.currentTime)||0)):0}
+
+function activeIndex(){
+ const s=active;
+ return s&&s.phase===1&&s.boundary>0&&Number(audio.currentTime)>=s.boundary-.025?1:0;
+}
+function episodeTime(){
+ const s=active,t=Number(audio.currentTime)||0;
+ return activeIndex()===1?Math.max(0,t-s.boundary):t;
+}
+function episodeDuration(){
+ const s=active;if(!s)return 0;
+ return activeIndex()===0?s.boundary||0:s.finished?Math.max(0,bufferEnd(s)-s.boundary):0;
+}
+function saveProgressTest(force=false,done=false){
+ if(!active||audio.readyState===0)return;
+ const index=activeIndex(),key=EP[index].name,second=Math.floor(episodeTime());
+ if(!force&&Math.abs(lastProgressSecond-second)<5)return;
+ lastProgressSecond=second;
+ progress[key]={seconds:second,done:done||Boolean(progress[key]?.done),mode:active.mode,updatedAt:Date.now()};
+ try{localStorage.setItem(POS_KEY,JSON.stringify(progress))}catch{}
+}
+function updateMediaMetadata(index=activeIndex()){
+ try{
+  if(!('mediaSession'in navigator)||typeof MediaMetadata==='undefined')return;
+  navigator.mediaSession.metadata=new MediaMetadata({title:index?'357 – Ig Nobelovy ceny':'358 – FAQ dobré otázky',artist:'Vedátor – testovací MSE přehrávač'});
+  const duration=episodeDuration();
+  if(duration>0&&Number.isFinite(duration))navigator.mediaSession.setPositionState({duration,position:Math.min(duration,Math.max(0,episodeTime())),playbackRate:audio.playbackRate||1});
+ }catch(e){record('MediaSession chyba '+e.message)}
+}
+function seekTo(t){
+ const buffer=audio.buffered;
+ try{for(let i=0;i<buffer.length;i++){
+  if(t>=buffer.start(i)&&t<buffer.end(i)-.05){
+   audio.currentTime=t;saveProgressTest(true);refresh();return true;
+  }
+ }}catch{}
+ status('Požadované místo ještě není načtené.',false);refresh();return false;
+}
+function skipSeconds(delta){
+ const s=active;if(!s)return;
+ const first=activeIndex()===0,begin=first?0:s.boundary;
+ const upper=first&&s.boundary>0?s.boundary-.05:bufferEnd(s)-.05;
+ seekTo(Math.max(begin,Math.min(upper,(Number(audio.currentTime)||0)+delta)));
+}
+function selectEpisode(index){
+ const s=active;if(!s)return;
+ if(index===1&&!(s.phase===1&&s.boundary>0)){status('Díl 357 ještě není v bufferu.',false);return}
+ seekTo((index===1?s.boundary:0)+.05);
+}
+function refreshExtra(){
+ const s=active,index=activeIndex(),position=episodeTime(),duration=episodeDuration(),limit=Math.max(0,bufferEnd(s)-(index?(s?.boundary||0):0));
+ $('toggle').disabled=!s?.ready;
+ $('toggle').textContent=audio.paused?'▶ Přehrát':'❚❚ Pauza';
+ $('back10').disabled=!s?.ready;$('forward10').disabled=!s?.ready;
+ $('prev').disabled=!s?.ready||index===0;
+ $('next').disabled=!s?.ready||!(s.phase===1&&s.boundary>0);
+ $('localpos').textContent=fmt(position);
+ $('localduration').textContent=duration?fmt(duration):'načítání';
+ $('seek-test').max=String(Math.max(1,Math.floor(duration||limit||1)));
+ if(document.activeElement!==$('seek-test'))$('seek-test').value=String(Math.min(Number($('seek-test').max),Math.floor(position)));
+ $('saved').textContent=progress[EP[index].name]?fmt(progress[EP[index].name].seconds)+(progress[EP[index].name].done?' ✓':''):'—';
+ $('source-identity').textContent=audio.currentSrc?.startsWith('blob:')?'1× MediaSource':'—';
+}
+
 function bufferRanges(){
  try{const b=audio.buffered;return Array.from({length:b.length},(_,i)=>fmt(b.start(i))+'–'+fmt(b.end(i))).join(', ')||'prázdný'}catch{return 'chyba'}
 }
