@@ -154,6 +154,7 @@ function selectEpisode(index){
 function refreshExtra(){
  const s=active,index=activeIndex(),position=episodeTime(),duration=episodeDuration(),limit=Math.max(0,bufferEnd(s)-(index?(s?.boundary||0):0));
  $('toggle').disabled=!s?.ready;
+ $('resume-test').disabled=!s?.ready||!progress[EP[index].name]||!Number.isFinite(Number(progress[EP[index].name].seconds));
  $('toggle').textContent=audio.paused?'▶ Přehrát':'❚❚ Pauza';
  $('back10').disabled=!s?.ready;$('forward10').disabled=!s?.ready;
  $('prev').disabled=!s?.ready||index===0;
@@ -329,6 +330,7 @@ async function pump(s){
    moveToSecond(s);
    s.ready=true;$('play').disabled=false;$('pause').disabled=false;
    refresh();
+   updateMediaMetadata(0);
    status('Skutečný konec MP3 připraven ('+fmt(s.boundary)+'). Spusť a zamkni telefon.',true);
   }
   while(active===s&&!s.controller.signal.aborted){
@@ -350,6 +352,7 @@ async function pump(s){
    if(!s.ready&&ahead()>=INITIAL){
     s.ready=true;$('play').disabled=false;$('pause').disabled=false;
    refresh();
+   updateMediaMetadata(0);
     status('Prvních '+fmt(INITIAL)+' zvuku načteno. Spusť přehrávání a zamkni telefon.',true);
    }
   }
@@ -394,6 +397,12 @@ $('seek-test').addEventListener('input',()=>{$('localpos').textContent=fmt($('se
 $('seek-test').addEventListener('change',()=>{
  const absolute=(activeIndex()===1?(active?.boundary||0):0)+Number($('seek-test').value||0);
  seekTo(absolute);
+});
+$('resume-test').addEventListener('click',()=>{
+ if(!active)return;
+ const seconds=Number(progress[EP[activeIndex()].name]?.seconds);
+ if(!Number.isFinite(seconds)){status('Pro tento díl dosud není uložená pozice.');return}
+ seekTo((activeIndex()===1?active.boundary:0)+Math.max(0,seconds));
 });
 $('reset-pos').addEventListener('click',()=>{
  progress={};lastProgressSecond=-1;
