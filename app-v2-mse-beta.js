@@ -446,6 +446,7 @@
   /* V2_BETA_MSE_REAL_PLAYER_V1: isolated beta only; original player is untouched */
   const MSE_BETA_CHUNK=262144,MSE_BETA_LEAD=55,MSE_BETA_INITIAL=30;
   let betaMse=null,betaSuppressSaves=false;
+  const betaIncompatibleSources=new Set(); // Only this tab: never disable MSE permanently due to one network error.
   const betaLogKey='vedator-mse-integrated-beta-log-v1';
   let betaDiagnostic=[];try{const old=JSON.parse(localStorage.getItem(betaLogKey)||'[]');if(Array.isArray(old))betaDiagnostic=old.slice(-400)}catch{}
   const betaSupported=()=>typeof MediaSource!=='undefined'&&MediaSource.isTypeSupported('audio/mpeg');
@@ -493,11 +494,55 @@
     const record=state.progress[episodeKey(episode.number)]||{};
     const preferred=options.start!==null&&options.start!==undefined?Number(options.start):
       Number(record.currentTime)>10&&(!record.completed||record.replaying)?Number(record.currentTime):0;
-    if(preferred>0.1)return false;
+    if(preferred>0.1||betaIncompatibleSources.has(episode.enclosure))return false;
     const parts=items.slice(index);
     return parts.length>1&&parts.every(item=>
       item.episode?.enclosure&&Number(item.start||0)===0&&
       !state.offlineIndex[episodeKey(item.episode.number)]);
+  }
+  // A failed CORS/range request must not strand Android's single audio element
+  // on an empty or exhausted MediaSource. Play the same episode using the
+  // original native MP3 path, preserving its real episode-relative position.
+  function betaStartNative(s,index,position=0){
+    if(betaMse!==s||s.recovering)return;
+    const item=s.context.items[index];
+    if(!item?.episode?.enclosure)return;
+    s.recovering=true;
+    const context={...s.context,index},start=Math.max(0,Number(position)||0);
+    betaWrite('AUTOMATICKÝ NÁVRAT K PŮVODNÍMU PŘEHRÁVAČI díl='+item.episode.number+' od '+start.toFixed(2)+' s; hidden='+document.hidden);
+    const fallback=openPlayback(item.episode,{start,context,itemRef:item.ref||epRef(item.episode.number),autoplay:true});
+    Promise.resolve(fallback).then(()=>{
+      if(betaMse)return;
+      const n=playerNodes();
+      n.help.textContent=text(
+        'MSE zde není dostupné. Přehrávám běžné MP3; pokud se nespustí automaticky, klepněte na ▶.',
+        'MSE tu nie je dostupné. Prehrávam bežné MP3; ak sa nespustí automaticky, klepnite na ▶.');
+      betaWrite('PŮVODNÍ PŘEHRÁVAČ připraven díl='+item.episode.number);
+    }).catch(error=>{
+      betaWrite('CHYBA PŮVODNÍHO PŘEHRÁVAČE '+error.message);
+      playerNodes().help.textContent='Nepodařilo se přepnout na původní přehrávač. Klepněte na díl znovu.';
+    });
+  }
+  function betaNetworkFailure(s,index,error){
+    if(s!==betaMse||s.controller.signal.aborted)return;
+    s.failed=true;
+    const entry=s.context.items[index];
+    if(entry?.episode?.enclosure)betaIncompatibleSources.add(entry.episode.enclosure);
+    betaWrite('MSE NEDOSTUPNÉ díl='+entry?.episode?.number+' důvod='+String(error.message||error)+' hidden='+document.hidden);
+    const activeIndex=Number(state.context?.index);
+    const currentIndex=Number.isInteger(activeIndex)?activeIndex:s.context.index;
+    const current=s.parts.find(p=>p.contextIndex===currentIndex);
+    const audio=playerNodes().audio;
+    // If a later MP3 fails while the current episode is still audible, keep
+    // that audio intact until its real end, then hand the next track to native.
+    if(index>currentIndex&&current?.end!=null&&audio.currentTime<current.end-.15){
+      s.deferredFallbackIndex=index;
+      betaWrite('ODLOŽENÝ NÁVRAT: nechávám dohrát díl '+current.episode.number+' do '+current.end.toFixed(3)+' s; poté běžný přehrávač');
+      playerNodes().help.textContent='Další díl není dostupný přes MSE. Současný díl dohraje; další použije původní přehrávač.';
+      return;
+    }
+    const destination=index>currentIndex?index:currentIndex;
+    betaStartNative(s,destination,destination===currentIndex?betaLogicalTime():0);
   }
   function betaMutation(s,fn){
     return new Promise((resolve,reject)=>{
@@ -532,6 +577,7 @@
     }catch(err){if(s.controller.signal.aborted)throw err;betaWrite('Bez Content-Length: '+err.message);return 0}
   }
   async function betaPump(s){
+    let failedIndex=s.context.index;
     try{
       if(s.media.readyState!=='open')await new Promise((resolve,reject)=>{
         function clean(){s.media.removeEventListener('sourceopen',open);s.controller.signal.removeEventListener('abort',abort)}
@@ -542,7 +588,9 @@
       s.buffer=s.media.addSourceBuffer('audio/mpeg');s.buffer.mode='sequence';
       for(let k=s.context.index;k<s.context.items.length;k++){
         if(s!==betaMse)return;
+        failedIndex=k;
         const entry=s.context.items[k],ep=entry.episode,start=s.parts.length?s.parts[s.parts.length-1].end:0;
+        if(betaIncompatibleSources.has(ep.enclosure))throw Error('Díl '+ep.number+' není kompatibilní s MSE v tomto testu');
         if(s.parts.length){s.buffer.abort();s.buffer.timestampOffset=start}
         const part={contextIndex:k,episode:ep,start,end:null,estimatedDuration:0,bytes:0};
         s.parts.push(part);
@@ -585,10 +633,8 @@
       if(s===betaMse&&s.media.readyState==='open'){s.media.endOfStream();betaWrite('endOfStream - celý playlist načten')}
     }catch(err){
       if(s!==betaMse||s.controller.signal.aborted)return;
-      betaWrite('CHYBA '+err.message);
-      playerNodes().help.textContent='MSE beta: '+err.message+'. Zvolte díl znovu pro původní přehrávač.';
-      // No silent source swap during locked playback. The user can retry manually.
-      s.failed=true;
+      betaWrite('CHYBA MSE '+err.message);
+      betaNetworkFailure(s,failedIndex,err);
     }
   }
   function betaAdvanceOnTime(){
@@ -597,6 +643,13 @@
     while(state.context.index<s.context.items.length-1){
       const nextIndex=state.context.index+1;
       const prior=s.parts.find(part=>part.contextIndex===state.context.index);
+      if(nextIndex===s.deferredFallbackIndex){
+        if(prior?.end!=null&&audio.currentTime>=prior.end-.15){
+          betaWrite('KONEC DÍLU '+prior.episode.number+' → původní přehrávač pro díl '+s.context.items[nextIndex].episode.number);
+          betaStartNative(s,nextIndex,0);
+        }
+        break;
+      }
       const next=s.parts.find(part=>part.contextIndex===nextIndex);
       if(!prior?.end||!next||audio.currentTime<prior.end-.045)break;
       saveProgress(true,true);
@@ -912,7 +965,7 @@
     editorModal.addEventListener('change',event=>{const choice=event.target.closest('.editor-choice[data-ref]');if(!choice||!state.editor)return;const ref=choice.dataset.ref;if(event.target.checked){if(!state.editor.draft.includes(ref))state.editor.draft.push(ref)}else state.editor.draft=state.editor.draft.filter(item=>item!==ref);rerenderEditor()});
 
     const picker=$('#playlist-picker-v2');picker.addEventListener('click',event=>{if(event.target===picker||event.target.closest('.picker-close')||event.target.closest('.picker-cancel'))return closePlaylistPicker();if(event.target.closest('.picker-save'))return savePlaylistPicker();if(event.target.closest('.picker-new')){closePlaylistPicker();newPlaylist()}});
-    const n=playerNodes();n.play.addEventListener('click',restartCurrentAudio);n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{if(state.current){if(betaMse)return betaSeek(Number(n.seek.value)||0);try{n.audio.currentTime=Number(n.seek.value)||0}catch{}saveProgress(true,false)}});n.audio.addEventListener('playing',()=>{playbackNeedsReload=false;if(betaMse){betaMse.started=true;betaWrite('PŘEHRÁVÁNÍ spuštěno t='+Number(n.audio.currentTime).toFixed(2)+' hidden='+document.hidden)}});n.audio.addEventListener('stalled',()=>{playbackNeedsReload=true});n.audio.addEventListener('error',()=>{playbackNeedsReload=true;if(playbackAutoplayWanted&&state.current)playbackFailure(n.audio.error)});document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePendingAudioWhenVisible()});window.addEventListener('pageshow',resumePendingAudioWhenVisible);n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=false;saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{if(betaMse)betaAdvanceOnTime();syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
+    const n=playerNodes();n.play.addEventListener('click',restartCurrentAudio);n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{if(state.current){if(betaMse)return betaSeek(Number(n.seek.value)||0);try{n.audio.currentTime=Number(n.seek.value)||0}catch{}saveProgress(true,false)}});n.audio.addEventListener('playing',()=>{playbackNeedsReload=false;if(betaMse){betaMse.started=true;betaWrite('PŘEHRÁVÁNÍ spuštěno t='+Number(n.audio.currentTime).toFixed(2)+' hidden='+document.hidden)}else if(betaIncompatibleSources.has(state.current?.episode?.enclosure)){betaWrite('PŮVODNÍ MP3 SKUTEČNĚ HRAJE díl='+state.current.episode.number+' t='+Number(n.audio.currentTime).toFixed(2)+' hidden='+document.hidden)}});n.audio.addEventListener('stalled',()=>{playbackNeedsReload=true});n.audio.addEventListener('error',()=>{playbackNeedsReload=true;if(betaMse){const code=n.audio.error?.code||'?',message=n.audio.error?.message||'chyba zvukového dekodéru';betaNetworkFailure(betaMse,state.context?.index??betaMse.context.index,new Error('MSE audio error '+code+': '+message));return}if(betaIncompatibleSources.has(state.current?.episode?.enclosure))betaWrite('PŮVODNÍ MP3 CHYBA díl='+state.current.episode.number+' code='+(n.audio.error?.code||'?'));if(playbackAutoplayWanted&&state.current)playbackFailure(n.audio.error)});document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePendingAudioWhenVisible()});window.addEventListener('pageshow',resumePendingAudioWhenVisible);n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=false;saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{if(betaMse)betaAdvanceOnTime();syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
   }
 
 
