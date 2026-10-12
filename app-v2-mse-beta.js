@@ -640,17 +640,16 @@
   function betaAdvanceOnTime(){
     const s=betaMse;if(!s||!state.context||s!==betaMse)return;
     const audio=playerNodes().audio;
-    if(s.deferredFallbackIndex!==undefined){
-      const part=s.parts.find(p=>p.contextIndex===state.context.index);
-      if(part?.end!=null&&audio.currentTime>=part.end-.15){
-        betaWrite('KONEC DÍLU '+part.episode.number+' → původní přehrávač pro další díl');
-        betaStartNative(s,s.deferredFallbackIndex,0);
-      }
-      return;
-    }
     while(state.context.index<s.context.items.length-1){
       const nextIndex=state.context.index+1;
       const prior=s.parts.find(part=>part.contextIndex===state.context.index);
+      if(nextIndex===s.deferredFallbackIndex){
+        if(prior?.end!=null&&audio.currentTime>=prior.end-.15){
+          betaWrite('KONEC DÍLU '+prior.episode.number+' → původní přehrávač pro díl '+s.context.items[nextIndex].episode.number);
+          betaStartNative(s,nextIndex,0);
+        }
+        break;
+      }
       const next=s.parts.find(part=>part.contextIndex===nextIndex);
       if(!prior?.end||!next||audio.currentTime<prior.end-.045)break;
       saveProgress(true,true);
