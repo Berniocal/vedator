@@ -447,6 +447,13 @@
   const MSE_BETA_CHUNK=262144,MSE_BETA_LEAD=55,MSE_BETA_INITIAL=30;
   let betaMse=null,betaSuppressSaves=false;
   const betaIncompatibleSources=new Set(); // Only this tab: never disable MSE permanently due to one network error.
+  // Some historical Podbean files (six-character storage IDs) can be played by
+  // a native <audio> tag but are unreliable through cross-origin fetch/Range.
+  // A hidden-tab audio.src replacement may then be blocked by Android Chrome.
+  // Select the native player BEFORE the user's first tap for any playlist
+  // containing one of these files, rather than attempting MSE and recovering
+  // after playback has begun. Do not apply this rule to newer 16-character IDs.
+  const betaHistoricalPodbean=(url)=>/\/mf\/web\/[a-z0-9]{6}\//i.test(String(url||''));
   const betaLogKey='vedator-mse-integrated-beta-log-v1';
   let betaDiagnostic=[];try{const old=JSON.parse(localStorage.getItem(betaLogKey)||'[]');if(Array.isArray(old))betaDiagnostic=old.slice(-400)}catch{}
   const betaSupported=()=>typeof MediaSource!=='undefined'&&MediaSource.isTypeSupported('audio/mpeg');
@@ -496,6 +503,13 @@
       Number(record.currentTime)>10&&(!record.completed||record.replaying)?Number(record.currentTime):0;
     if(preferred>0.1||betaIncompatibleSources.has(episode.enclosure))return false;
     const parts=items.slice(index);
+    // Check the current and directly following episode only. Checking the
+    // entire series would disable MSE even for modern episodes much earlier
+    // than a historical recording in a long playlist.
+    if(parts.slice(0,2).some(item=>betaHistoricalPodbean(item.episode?.enclosure))){
+      betaWrite('PŮVODNÍ PŘEHRÁVAČ ZVOLEN PŘED SPUŠTĚNÍM: aktuální nebo navazující díl má starší MP3 Podbean bez ověřené podpory MSE; díl='+episode.number);
+      return false;
+    }
     return parts.length>1&&parts.every(item=>
       item.episode?.enclosure&&Number(item.start||0)===0&&
       !state.offlineIndex[episodeKey(item.episode.number)]);
@@ -517,7 +531,7 @@
       n.help.textContent=text(
         'MSE zde není dostupné. Přehrávám běžné MP3; pokud se nespustí automaticky, klepněte na ▶.',
         'MSE tu nie je dostupné. Prehrávam bežné MP3; ak sa nespustí automaticky, klepnite na ▶.');
-      betaWrite('PŮVODNÍ PŘEHRÁVAČ připraven díl='+item.episode.number);
+      betaWrite('PŮVODNÍ PŘEHRÁVAČ: požadavek na spuštění odeslán, čekám na audio.playing díl='+item.episode.number+' hidden='+document.hidden);
     }).catch(error=>{
       betaWrite('CHYBA PŮVODNÍHO PŘEHRÁVAČE '+error.message);
       playerNodes().help.textContent='Nepodařilo se přepnout na původní přehrávač. Klepněte na díl znovu.';
@@ -965,7 +979,7 @@
     editorModal.addEventListener('change',event=>{const choice=event.target.closest('.editor-choice[data-ref]');if(!choice||!state.editor)return;const ref=choice.dataset.ref;if(event.target.checked){if(!state.editor.draft.includes(ref))state.editor.draft.push(ref)}else state.editor.draft=state.editor.draft.filter(item=>item!==ref);rerenderEditor()});
 
     const picker=$('#playlist-picker-v2');picker.addEventListener('click',event=>{if(event.target===picker||event.target.closest('.picker-close')||event.target.closest('.picker-cancel'))return closePlaylistPicker();if(event.target.closest('.picker-save'))return savePlaylistPicker();if(event.target.closest('.picker-new')){closePlaylistPicker();newPlaylist()}});
-    const n=playerNodes();n.play.addEventListener('click',restartCurrentAudio);n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{if(state.current){if(betaMse)return betaSeek(Number(n.seek.value)||0);try{n.audio.currentTime=Number(n.seek.value)||0}catch{}saveProgress(true,false)}});n.audio.addEventListener('playing',()=>{playbackNeedsReload=false;if(betaMse){betaMse.started=true;betaWrite('PŘEHRÁVÁNÍ spuštěno t='+Number(n.audio.currentTime).toFixed(2)+' hidden='+document.hidden)}else if(betaIncompatibleSources.has(state.current?.episode?.enclosure)){betaWrite('PŮVODNÍ MP3 SKUTEČNĚ HRAJE díl='+state.current.episode.number+' t='+Number(n.audio.currentTime).toFixed(2)+' hidden='+document.hidden)}});n.audio.addEventListener('stalled',()=>{playbackNeedsReload=true});n.audio.addEventListener('error',()=>{playbackNeedsReload=true;if(betaMse){const code=n.audio.error?.code||'?',message=n.audio.error?.message||'chyba zvukového dekodéru';betaNetworkFailure(betaMse,state.context?.index??betaMse.context.index,new Error('MSE audio error '+code+': '+message));return}if(betaIncompatibleSources.has(state.current?.episode?.enclosure))betaWrite('PŮVODNÍ MP3 CHYBA díl='+state.current.episode.number+' code='+(n.audio.error?.code||'?'));if(playbackAutoplayWanted&&state.current)playbackFailure(n.audio.error)});document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePendingAudioWhenVisible()});window.addEventListener('pageshow',resumePendingAudioWhenVisible);n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=false;saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{if(betaMse)betaAdvanceOnTime();syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
+    const n=playerNodes();n.play.addEventListener('click',restartCurrentAudio);n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{if(state.current){if(betaMse)return betaSeek(Number(n.seek.value)||0);try{n.audio.currentTime=Number(n.seek.value)||0}catch{}saveProgress(true,false)}});n.audio.addEventListener('playing',()=>{playbackNeedsReload=false;if(betaMse){betaMse.started=true;betaWrite('PŘEHRÁVÁNÍ spuštěno t='+Number(n.audio.currentTime).toFixed(2)+' hidden='+document.hidden)}else if(betaIncompatibleSources.has(state.current?.episode?.enclosure)||betaHistoricalPodbean(state.current?.episode?.enclosure)){betaWrite('PŮVODNÍ MP3 SKUTEČNĚ HRAJE díl='+state.current.episode.number+' t='+Number(n.audio.currentTime).toFixed(2)+' hidden='+document.hidden)}});n.audio.addEventListener('stalled',()=>{playbackNeedsReload=true});n.audio.addEventListener('error',()=>{playbackNeedsReload=true;if(betaMse){const code=n.audio.error?.code||'?',message=n.audio.error?.message||'chyba zvukového dekodéru';betaNetworkFailure(betaMse,state.context?.index??betaMse.context.index,new Error('MSE audio error '+code+': '+message));return}if(betaIncompatibleSources.has(state.current?.episode?.enclosure)||betaHistoricalPodbean(state.current?.episode?.enclosure))betaWrite('PŮVODNÍ MP3 CHYBA díl='+state.current.episode.number+' code='+(n.audio.error?.code||'?'));if(playbackAutoplayWanted&&state.current)playbackFailure(n.audio.error)});document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePendingAudioWhenVisible()});window.addEventListener('pageshow',resumePendingAudioWhenVisible);n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=false;saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{if(betaMse)betaAdvanceOnTime();syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
   }
 
 
