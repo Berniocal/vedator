@@ -135,7 +135,7 @@ function seekTo(t){
  const buffer=audio.buffered;
  try{for(let i=0;i<buffer.length;i++){
   if(t>=buffer.start(i)&&t<buffer.end(i)-.05){
-   audio.currentTime=t;saveProgressTest(true);refresh();return true;
+   audio.currentTime=t;record('OVLÁDÁNÍ: skok na '+fmt(t)+' (díl='+EP[activeIndex()].name+', hidden='+document.hidden+')');saveProgressTest(true);refresh();return true;
   }
  }}catch{}
  status('Požadované místo ještě není načtené.',false);refresh();return false;
@@ -365,7 +365,7 @@ async function pump(s){
 function prepare(){
  stop();
  if(!window.MediaSource?.isTypeSupported?.('audio/mpeg')){status('Prohlížeč nepodporuje MSE audio/mpeg');return}
- const mode=$('length').value||'tail',second=35,media=new MediaSource();
+ const mode=$('length').value||'full',second=35,media=new MediaSource();
  const s={mode,media,url:URL.createObjectURL(media),controller:new AbortController(),buffer:null,offset:[0,0],phase:0,second,boundary:0,blocks:0,bytes:0,ready:false,started:false,finished:false,error:null,sourceEnded:false};
  active=s;passedBoundary=false;audio.src=s.url;audio.load();
  $('prepare').disabled=true;$('length').disabled=true;
@@ -391,7 +391,7 @@ $('speed').addEventListener('click',()=>{
  const speeds=[1,1.25,1.5,1.75,2,.75];
  const n=speeds.indexOf(Number(audio.playbackRate)||1),rate=speeds[(n+1)%speeds.length];
  audio.playbackRate=rate;$('speed').textContent=String(rate).replace('.',',')+'×';
- record('RYCHLOST '+rate+'×');updateMediaMetadata();
+ record('OVLÁDÁNÍ: rychlost '+rate+'×');updateMediaMetadata();
 });
 $('seek-test').addEventListener('input',()=>{$('localpos').textContent=fmt($('seek-test').value)});
 $('seek-test').addEventListener('change',()=>{
@@ -421,7 +421,7 @@ for(const event of ['playing','waiting','stalled','pause','ended','error','seeki
   if(event==='playing'&&s?.ready)s.started=true; // Also support the built-in audio controls.
   if(event==='waiting')s&&(s.waitAt=Date.now());
   if(event==='playing'&&s?.waitAt){record('waiting trvalo '+((Date.now()-s.waitAt)/1000).toFixed(1)+'s');s.waitAt=0}
-  if(event==='ended'&&s){s.started=false;saveProgressTest(true,true)}
+  if(event==='ended'&&s){s.started=false;saveProgressTest(true,false);record('KONEC TESTU: skončila 35s ukázka dílu 357, nikoli celý díl 357');}
   if(event==='pause'||event==='seeking')saveProgressTest(true);
   refresh();
  });
