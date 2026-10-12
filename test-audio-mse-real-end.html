@@ -246,6 +246,7 @@ function moveToSecond(s){
  s.buffer.appendWindowEnd=s.boundary+s.second+.04;
  s.phase=1;s.sourceEnded=false;
  record('NAVÁZÁN SKUTEČNÝ EOF 358 → začátek 357 v '+s.boundary.toFixed(3)+' s, t='+fmt(audio.currentTime)+' hidden='+document.hidden+' ahead='+ahead().toFixed(1)+'s');
+ refresh();
 }
 async function pump(s){
  try{
