@@ -327,6 +327,7 @@ async function pump(s){
    if(active!==s)return;
    moveToSecond(s);
    s.ready=true;$('play').disabled=false;$('pause').disabled=false;
+   refresh();
    status('Skutečný konec MP3 připraven ('+fmt(s.boundary)+'). Spusť a zamkni telefon.',true);
   }
   while(active===s&&!s.controller.signal.aborted){
@@ -347,6 +348,7 @@ async function pump(s){
    await getChunk(s);
    if(!s.ready&&ahead()>=INITIAL){
     s.ready=true;$('play').disabled=false;$('pause').disabled=false;
+   refresh();
     status('Prvních '+fmt(INITIAL)+' zvuku načteno. Spusť přehrávání a zamkni telefon.',true);
    }
   }
