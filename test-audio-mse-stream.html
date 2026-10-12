@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101a2d">
+<title>Vedátor – diagnostika průběžného MP3 streamu</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark;background:#101725;color:#edf4ff}
+*{box-sizing:border-box}
+body{margin:0;padding:18px 14px 60px;max-width:760px;margin-inline:auto;line-height:1.5}
+h1{font-size:1.45rem;margin:6px 0}h2{font-size:1.1rem;margin:0 0 10px}
+p{margin:8px 0 14px;color:#c8d5e6}
+a{color:#9bc8ff}small{color:#afbed2}
+.card{background:#192539;border:1px solid #34445c;border-radius:15px;padding:16px;margin:14px 0}
+label{display:block;margin:0 0 6px;font-weight:650}
+select,button{font:inherit;border-radius:10px;padding:10px 13px;min-height:44px}
+select{width:100%;background:#25354c;color:white;border:1px solid #52617a;margin-bottom:12px}
+button{background:#315eae;color:white;border:1px solid #5482cc;cursor:pointer}
+button:disabled{opacity:.4;cursor:not-allowed}
+button.secondary{background:#263751;border-color:#4a607e}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.status{font-weight:700;padding:10px 12px;border:1px solid #62718c;border-radius:10px;min-height:44px}
+.status.good{color:#94e2c7;border-color:#328f75}
+.status.bad{color:#ffb6b6;border-color:#af6666}
+.meter{height:10px;background:#27374e;border-radius:12px;overflow:hidden;margin:10px 0}
+.bar{height:100%;width:0;background:#69b8a2;transition:width .25s}
+audio{display:block;width:100%;margin:14px 0}
+.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.metric{background:#243349;padding:9px;border-radius:9px}
+.metric b{display:block;font-size:1.08rem;font-variant-numeric:tabular-nums}
+pre{height:260px;max-height:40vh;overflow:auto;margin:0;background:#0c1422;color:#c8e5ef;border:1px solid #33465d;border-radius:10px;padding:12px;font-size:.76rem;white-space:pre-wrap;overflow-wrap:anywhere}
+.note{font-size:.89rem;color:#b7c8dc}
+</style>
+</head>
+<body>
+<a href="./">← Zpět na Vedátor</a>
+<h1>Test průběžného MP3 streamování</h1>
+<p>Oddělená diagnostická stránka. Nezasahuje do hlavního přehrávače, uložených playlistů ani stažených epizod.</p>
+<section class="card">
+<h2>1. Průběžné stahování při zamčeném telefonu</h2>
+<p>Tento test používá skutečné díly 358 a 357. <strong>Nejdřív načte pouze zhruba 30 sekund.</strong> Zbytek zvuku se stahuje postupně i po zamčení telefonu. Druhý díl se začne stahovat až během poslechu. Nepoužívá se původní přehrávač Vedátoru.</p>
+<label for="length">Délka první „epizody“</label>
+<select id="length">
+<option value="15">Rychlý test: 15 sekund dílu 358 + 15 sekund dílu 357</option>
+<option value="180" selected>3 minuty dílu 358 → 30 sekund dílu 357</option>
+<option value="360">6 minut dílu 358 → 30 sekund dílu 357</option>
+</select>
+<div class="controls">
+<button id="prepare">Načíst krátký úvod</button>
+<button id="play" disabled>Přehrát</button>
+<button id="pause" class="secondary" disabled>Pozastavit</button>
+<button id="stop" class="secondary" disabled>Zastavit</button>
+</div>
+<div class="status" id="status">Stiskni Načíst krátký úvod a poté Přehrát.</div>
+<div class="meter"><div class="bar" id="bar"></div></div>
+<audio id="audio" controls playsinline preload="auto"></audio>
+<div class="metrics">
+<div class="metric">Úsek<b id="section">—</b></div>
+<div class="metric">Pozice / celkem<b id="position">0:00 / 0:00</b></div>
+<div class="metric">Stav zvuku<b id="audstate">—</b></div>
+<div class="metric">Stav stránky<b id="visibility">viditelná</b></div>
+</div>
+<p class="note">Postup: přes Wi-Fi klepni na Připravit (načte jen přibližně 30 sekund), poté na Přehrát a zamkni telefon. Během poslechu se musí stahovat další části. Přibližně po 3 minutách má začít díl 357. Po odemknutí zkopíruj diagnostiku. Tento test záměrně krátí první epizodu.</p>
+</section>
+<section class="card">
+<h2>2. Kontrola průběžného načítání</h2>
+<p>Režim i hodnoty bufferu se zaznamenávají průběžně. Každý požadavek MP3 je v diagnostice označen časem a údajem hidden=true/false. Pokud se po zamčení nové bloky nestahují, poznáme to ze záznamu.</p>
+<div class="metrics"><div class="metric">Skutečný režim<b id="mode">Neaktivní</b></div><div class="metric">Načteno dopředu<b id="ahead">0 s</b></div><div class="metric">Stažené bloky<b id="network">0</b></div><div class="metric">Buffer<b id="buffer">Prázdný</b></div></div>
+</section>
+<section class="card">
+<h2>Diagnostický záznam</h2>
+<p class="note">Zaznamenává každý stažený blok, délku zásoby zvuku, přepnutí na díl 357, čekání i chyby. Záznam se uchovává lokálně v prohlížeči, aby šel zkopírovat po odemknutí nebo obnovení stránky.</p>
+<div class="controls"><button id="copy" class="secondary">Kopírovat diagnostiku</button><button id="clear" class="secondary">Vymazat záznam</button></div>
+<pre id="log" aria-live="off"></pre>
+</section>
+<script>
+'use strict';
+const EP=[
+ {name:'358',url:'https://mcdn.podbean.com/mf/web/s5n2v3cdd8jcuhw8/Vedatorsky_podcast_358_MAIN6knaf.mp3'},
+ {name:'357',url:'https://mcdn.podbean.com/mf/web/ybmbaqxa7aww3z3m/Vedatorsky_podcast_357_MAINacakq.mp3'}
+];
+const $=id=>document.getElementById(id),audio=$('audio');
+const CHUNK=262144,INITIAL=30,LEAD=45,LOG_KEY='vedator-mse-rolling-test-log-v1';
+const log=[];try{const older=JSON.parse(localStorage.getItem(LOG_KEY)||'[]');if(Array.isArray(older))log.push(...older.slice(-250))}catch{}
+$('log').textContent=log.join('\n');
+let active=null,lastTick=0,passedBoundary=false,waitStart=0;
+function fmt(t){const s=Math.floor(Math.max(0,Number(t)||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function record(message){
+ const line=new Date().toLocaleTimeString('cs-CZ',{hour12:false})+' | '+message;
+ log.push(line);if(log.length>360)log.shift();
+ $('log').textContent=log.join('\n');$('log').scrollTop=$('log').scrollHeight;
+ try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch{}
+}
+function status(message,ok=false){
+ $('status').textContent=message;$('status').className='status'+(ok?' good':'');
+ record('STAV '+message);
+}
+function bufferEnd(s){try{return s?.buffer?.buffered.length?s.buffer.buffered.end(s.buffer.buffered.length-1):0}catch{return 0}}
+function ahead(){return active?Math.max(0,bufferEnd(active)-(Number(audio.currentTime)||0)):0}
+function bufferRanges(){
+ try{const b=audio.buffered;return Array.from({length:b.length},(_,i)=>fmt(b.start(i))+'–'+fmt(b.end(i))).join(', ')||'prázdný'}catch{return 'chyba'}
+}
+function refresh(){
+ const s=active,t=Number(audio.currentTime)||0,first=Number($('length').value)||180,last=first===15?15:30;
+ $('position').textContent=fmt(t)+' / '+fmt(first+last);
+ $('section').textContent=s&&s.phase===1&&t>=s.boundary?'357 – druhý díl':'358 – první díl';
+ $('audstate').textContent=audio.ended?'dokončeno':audio.paused?'pozastaveno':'hraje';
+ $('visibility').textContent=document.hidden?'skrytá':'viditelná';
+ $('mode').textContent=!s?'Vypnuto':s.error?'CHYBA':s.finished?'Připraveno celé':s.started?'MSE streamuje':s.ready?'MSE čeká na Play':'MSE načítá úvod';
+ $('ahead').textContent=ahead().toFixed(1)+' s';
+ $('network').textContent=s?s.blocks+' / '+(s.bytes/1048576).toFixed(1)+' MB':'0';
+ $('buffer').textContent=bufferRanges();
+ $('bar').style.width=(100*Math.min(1,t/(first+last))).toFixed(1)+'%';
+}
+function stop(){
+ const s=active;active=null;
+ if(s){s.controller.abort();try{URL.revokeObjectURL(s.url)}catch{}}
+ audio.pause();audio.removeAttribute('src');audio.load();
+ $('play').disabled=true;$('pause').disabled=true;
+ $('prepare').disabled=false;$('length').disabled=false;refresh();
+}
+function mut(s,action){
+ return new Promise((resolve,reject)=>{
+  if(active!==s||s.controller.signal.aborted)return reject(Error('Zrušeno'));
+  const b=s.buffer,signal=s.controller.signal;
+  function clean(){b.removeEventListener('updateend',done);b.removeEventListener('error',fail);signal.removeEventListener('abort',cancel)}
+  function done(){clean();resolve()}
+  function fail(){clean();reject(Error('SourceBuffer error'))}
+  function cancel(){clean();reject(Error('Zrušeno'))}
+  b.addEventListener('updateend',done,{once:true});b.addEventListener('error',fail,{once:true});
+  signal.addEventListener('abort',cancel,{once:true});
+  try{action()}catch(e){clean();reject(e)}
+ });
+}
+function awaitOpen(s){
+ return new Promise((resolve,reject)=>{
+  const signal=s.controller.signal,m=s.media;
+  function clean(){m.removeEventListener('sourceopen',done);m.removeEventListener('sourceclose',fail);signal.removeEventListener('abort',cancel)}
+  function done(){clean();resolve()}
+  function fail(){clean();reject(Error('MediaSource closed'))}
+  function cancel(){clean();reject(Error('Zrušeno'))}
+  m.addEventListener('sourceopen',done,{once:true});m.addEventListener('sourceclose',fail,{once:true});
+  signal.addEventListener('abort',cancel,{once:true});if(m.readyState==='open')done();
+ });
+}
+function untilNeedData(s){
+ return new Promise(resolve=>{
+  const signal=s.controller.signal;
+  const needed=()=>active!==s||signal.aborted||audio.ended||(s.started&&ahead()<LEAD);
+  function clean(){for(const e of ['timeupdate','playing','waiting','stalled','seeked'])audio.removeEventListener(e,check);signal.removeEventListener('abort',check);document.removeEventListener('visibilitychange',check)}
+  function check(){if(needed()){clean();resolve()}}
+  for(const e of ['timeupdate','playing','waiting','stalled','seeked'])audio.addEventListener(e,check);
+  signal.addEventListener('abort',check,{once:true});document.addEventListener('visibilitychange',check);check();
+ });
+}
+async function getChunk(s){
+ const ix=s.phase,ep=EP[ix],offset=s.offset[ix],hidden=document.hidden;
+ const response=await fetch(ep.url,{mode:'cors',cache:'no-store',headers:{Range:'bytes='+offset+'-'+(offset+CHUNK-1)},signal:s.controller.signal});
+ if(response.status!==206)throw Error('Podbean HTTP '+response.status+' (čekal jsem 206)');
+ const data=new Uint8Array(await response.arrayBuffer());
+ if(!data.length||data.length>CHUNK)throw Error('Neplatný rozsah MP3: '+data.length+' bajtů');
+ if(active!==s)return;
+ await mut(s,()=>s.buffer.appendBuffer(data));
+ s.offset[ix]+=data.length;s.bytes+=data.length;s.blocks++;
+ record('fetch #'+s.blocks+' díl='+ep.name+' bytes='+data.length+' t='+fmt(audio.currentTime)+' hidden='+document.hidden+' (start hidden='+hidden+') ahead='+ahead().toFixed(1)+'s');
+ if(data.length<CHUNK)s.sourceEnded=true;
+ refresh();
+}
+function moveToSecond(s){
+ s.boundary=bufferEnd(s);
+ if(s.boundary<s.first-.5)throw Error('První díl nebyl načten do 3:00');
+ s.buffer.abort();s.buffer.timestampOffset=s.boundary;
+ s.buffer.appendWindowEnd=s.boundary+s.second+.04;
+ s.phase=1;s.sourceEnded=false;
+ record('DRUHÝ DÍL: začátek přípravy při t='+fmt(audio.currentTime)+' hidden='+document.hidden+' hranice='+s.boundary.toFixed(3)+' ahead='+ahead().toFixed(1)+'s');
+}
+async function pump(s){
+ try{
+  await awaitOpen(s);if(active!==s)return;
+  s.buffer=s.media.addSourceBuffer('audio/mpeg');s.buffer.mode='sequence';
+  s.buffer.appendWindowEnd=s.first+.04;
+  while(active===s&&!s.controller.signal.aborted){
+   const target=s.phase===0?s.first+.04:s.boundary+s.second+.04;
+   if(bufferEnd(s)>=target-.12){
+    if(s.phase===0){moveToSecond(s);continue}
+    s.finished=true;if(s.media.readyState==='open')s.media.endOfStream();
+    record('MSE endOfStream: t='+fmt(audio.currentTime)+' hidden='+document.hidden+' buffer='+bufferRanges());
+    status('Oba díly úspěšně spojeny do jednoho proudu.',true);break;
+   }
+   if(s.sourceEnded)throw Error('Podbean MP3 skončila před cílovou délkou');
+   if(!s.ready&&ahead()<INITIAL || s.started&&ahead()<LEAD){
+    await getChunk(s);
+    if(!s.ready&&ahead()>=Math.min(INITIAL,s.first-.4)){
+     s.ready=true;$('play').disabled=false;$('pause').disabled=false;
+     status('Úvod načten ('+Math.floor(ahead())+' s). Spusť Přehrát a zamkni telefon.',true);
+    }
+   }else await untilNeedData(s);
+  }
+ }catch(error){
+  if(active!==s||s.controller.signal.aborted)return;
+  s.error=error;record('CHYBA '+error.name+': '+error.message+' t='+fmt(audio.currentTime)+' hidden='+document.hidden+' ahead='+ahead().toFixed(1)+'s');
+  status('Test selhal: '+error.message);refresh();
+ }finally{if(active===s){$('prepare').disabled=false;$('length').disabled=false}}
+}
+function prepare(){
+ stop();
+ if(!window.MediaSource?.isTypeSupported?.('audio/mpeg')){status('Prohlížeč nepodporuje MSE audio/mpeg');return}
+ const first=Number($('length').value)||180,second=first===15?15:30,media=new MediaSource();
+ const s={media,url:URL.createObjectURL(media),controller:new AbortController(),buffer:null,offset:[0,0],phase:0,first,second,boundary:0,blocks:0,bytes:0,ready:false,started:false,finished:false,error:null,sourceEnded:false};
+ active=s;passedBoundary=false;audio.src=s.url;audio.load();
+ $('prepare').disabled=true;$('length').disabled=true;
+ record('NOVÝ TEST první='+first+'s druhý='+second+'s, úvod='+INITIAL+'s, bufferLimit='+LEAD+'s, blok='+CHUNK+' B; userAgent='+navigator.userAgent);
+ status('Načítám POUZE krátký úvod, další data až během poslechu.');
+ void pump(s);refresh();
+}
+function start(){
+ if(!active?.ready)return;
+ active.started=true;
+ const p=audio.play();
+ if(p?.catch)p.catch(e=>{record('play() ODMÍTNUTO '+e.name+': '+e.message);status('Přehrání odmítnuto: '+e.name)});
+}
+$('prepare').addEventListener('click',prepare);
+$('play').addEventListener('click',start);
+$('pause').addEventListener('click',()=>audio.pause());
+$('stop').addEventListener('click',()=>{stop();status('Test zastaven.')});
+$('length').addEventListener('change',()=>{stop();refresh()});
+for(const event of ['playing','waiting','stalled','pause','ended','error','seeking']){
+ audio.addEventListener(event,()=>{
+  const s=active;record('audio.'+event+' t='+fmt(audio.currentTime)+' hidden='+document.hidden+' paused='+audio.paused+' ahead='+ahead().toFixed(1)+'s ready='+audio.readyState+' error='+(audio.error?.code||0));
+  if(event==='playing'&&s?.ready)s.started=true; // Also support the built-in audio controls.
+  if(event==='waiting')s&&(s.waitAt=Date.now());
+  if(event==='playing'&&s?.waitAt){record('waiting trvalo '+((Date.now()-s.waitAt)/1000).toFixed(1)+'s');s.waitAt=0}
+  if(event==='ended'&&s)s.started=false;
+  refresh();
+ });
+}
+audio.addEventListener('timeupdate',()=>{
+ const s=active,t=Number(audio.currentTime)||0;
+ if(Date.now()-lastTick>12000){lastTick=Date.now();record('tick t='+fmt(t)+' hidden='+document.hidden+' ahead='+ahead().toFixed(1)+'s bloky='+(s?.blocks||0))}
+ if(s&&s.phase===1&&!passedBoundary&&t>=s.boundary){
+  passedBoundary=true;record('PŘECHOD 358 → 357 t='+fmt(t)+' hidden='+document.hidden+' paused='+audio.paused+' ahead='+ahead().toFixed(1)+'s');
+ }
+ refresh();
+});
+document.addEventListener('visibilitychange',()=>{record('visibilitychange hidden='+document.hidden+' t='+fmt(audio.currentTime)+' ahead='+ahead().toFixed(1)+'s');refresh()});
+window.addEventListener('pageshow',()=>{record('pageshow t='+fmt(audio.currentTime));refresh()});
+window.addEventListener('pagehide',()=>record('pagehide t='+fmt(audio.currentTime)+' hidden='+document.hidden));
+$('copy').addEventListener('click',async()=>{
+ const txt='Vedátor – PRŮBĚŽNÝ MSE TEST\n'+navigator.userAgent+'\n'+log.join('\n')+'\nAktuálně t='+fmt(audio.currentTime)+' ahead='+ahead().toFixed(1)+'s hidden='+document.hidden;
+ try{await navigator.clipboard.writeText(txt);$('copy').textContent='Zkopírováno ✓'}
+ catch{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();$('copy').textContent='Zkopírováno'}
+});
+$('clear').addEventListener('click',()=>{log.length=0;try{localStorage.removeItem(LOG_KEY)}catch{}$('log').textContent='';record('Záznam vymazán')});
+try{if('mediaSession'in navigator){
+ navigator.mediaSession.metadata=new MediaMetadata({title:'Vedátor – diagnostika průběžného streamu',artist:'Test'});
+ navigator.mediaSession.setActionHandler('play',start);
+ navigator.mediaSession.setActionHandler('pause',()=>audio.pause());
+}}catch(e){record('MediaSession: '+e.message)}
+record('STRÁNKA NAČTENA; MSE audio/mpeg='+Boolean(window.MediaSource?.isTypeSupported?.('audio/mpeg')));
+refresh();
+</script>
+</body></html>
