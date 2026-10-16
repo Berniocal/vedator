@@ -35,7 +35,7 @@ for(const source of sourceEpisodes){
 // Regression: the special-series local ordinal 8..15 must never translate the
 // unrelated Vedátorský podcast 8..15 (and inherit its earlier publication date).
 for(let ordinal=1;ordinal<=15;ordinal++){
-  const source=sourceEpisodes.find(e=>new RegExp('^Rozhovory o vesmíre\\s+'+ordinal+'\\b','i').test(String(e.title).replace(/\\s+/g,' ')));
+  const source=sourceEpisodes.find(e=>new RegExp('^Rozhovory o vesmíre\\s+'+ordinal+'\\b','i').test(String(e.title).replace(/\s+/g,' ')));
   if(!source)fail(`Space talk ${ordinal} missing in RSS`);
   const special=byGuid.get(source.id);
   if(!special||special.number!==1700+ordinal)fail(`Space talk ${ordinal} points to wrong internal ID`);
@@ -44,7 +44,7 @@ for(let ordinal=1;ordinal<=15;ordinal++){
     fail(`Space talk ${ordinal} missing Czech title or translated wrong record`);
   if(String(special.i18n?.sk?.title||'').replace(/\s+/g,' ').trim()!==String(source.title||'').replace(/\s+/g,' ').trim())fail(`Space talk ${ordinal} lost original Slovak title`);
   const regular=data.episodes.find(e=>e.number===ordinal);
-  if(regular&&/^Rozhovory o vesmíru\\s+\\d+/i.test(regular.i18n?.cs?.title||''))
+  if(regular&&/^Rozhovory o vesmíru\s+\d+/i.test(regular.i18n?.cs?.title||''))
     fail(`Regular podcast ${ordinal} received a special-series Czech translation`);
 }
 const duplicate113=data.episodes.find(e=>e.id==='vedatorskypodcast.podbean.com/f7a0b29b-66bb-3090-9661-9c2b597593f9');
