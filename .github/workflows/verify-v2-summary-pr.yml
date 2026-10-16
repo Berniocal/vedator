@@ -11,6 +11,7 @@ on:
       - 'app-v2.js'
       - 'index.html'
       - 'tools/test-v2-ask*.mjs'
+      - 'tools/test-v2-playback-identity.mjs'
       - 'tools/test-v2-mathjax-*.mjs'
       - 'series.json'
       - 'tools/build-content-v2.mjs'
