@@ -60,6 +60,7 @@ jobs:
           node tools/test-v2-card-player-polish.mjs
           node tools/test-v2-legacy-visual-parity.mjs
           node tools/test-v2-duplicate-142.mjs
+          node tools/test-v2-playback-identity.mjs
           node tools/test-v2-episode-context-order.mjs
           node tools/test-v2-series-topics.mjs
           node tools/test-v2-collection-filter.mjs
