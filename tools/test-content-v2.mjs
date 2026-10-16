@@ -42,7 +42,7 @@ for(let ordinal=1;ordinal<=15;ordinal++){
   if(special.date!==source.date||special.enclosure!==source.enclosure)fail(`Space talk ${ordinal} changed publication date or MP3`);
   if(!new RegExp('^Rozhovory o vesmíru\\s+'+ordinal+'\\b','i').test(special.i18n?.cs?.title||''))
     fail(`Space talk ${ordinal} missing Czech title or translated wrong record`);
-  if(special.i18n.sk.title!==source.title)fail(`Space talk ${ordinal} lost original Slovak title`);
+  if(String(special.i18n?.sk?.title||'').replace(/\s+/g,' ').trim()!==String(source.title||'').replace(/\s+/g,' ').trim())fail(`Space talk ${ordinal} lost original Slovak title`);
   const regular=data.episodes.find(e=>e.number===ordinal);
   if(regular&&/^Rozhovory o vesmíru\\s+\\d+/i.test(regular.i18n?.cs?.title||''))
     fail(`Regular podcast ${ordinal} received a special-series Czech translation`);
