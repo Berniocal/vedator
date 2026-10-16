@@ -11,6 +11,7 @@ on:
       - 'app-v2.js'
       - 'index.html'
       - 'tools/test-v2-ask*.mjs'
+      - 'tools/test-v2-playback-identity.mjs'
       - 'tools/test-v2-mathjax-*.mjs'
       - 'series.json'
       - 'tools/build-content-v2.mjs'
@@ -60,6 +61,7 @@ jobs:
           node tools/test-v2-card-player-polish.mjs
           node tools/test-v2-legacy-visual-parity.mjs
           node tools/test-v2-duplicate-142.mjs
+          node tools/test-v2-playback-identity.mjs
           node tools/test-v2-episode-context-order.mjs
           node tools/test-v2-series-topics.mjs
           node tools/test-v2-collection-filter.mjs

@@ -50,7 +50,8 @@
     const copy=episode?.i18n?.[contentLang()];
     return {title:copy?.title||episode?.title||'',description:copy?.description||episode?.description||''};
   }
-  function episodeDisplayNumber(episode){return Number(episode?.displayNumber)||Number(episode?.number)||'–'}
+  function episodeDisplayNumber(episode){return episode?.unnumbered?'–':Number(episode?.displayNumber)||Number(episode?.number)||'–'}
+  function episodeDisplayLabel(episode){return episode?.unnumbered?text('Speciál','Špeciál'):`${text('Díl','Diel')} ${episodeDisplayNumber(episode)}`}
   function compareEpisodeOrder(a,b){return (Number(a?.sourceNumber)||Number(a?.number)||0)-(Number(b?.sourceNumber)||Number(b?.number)||0)||new Date(a?.date)-new Date(b?.date)||(Number(a?.number)||0)-(Number(b?.number)||0)}
   function questionCopy(question){
     const copy=question?.i18n?.[contentLang()];
@@ -68,7 +69,7 @@
   }
   function allEpisodeSearch(episode){
     const cs=episode?.i18n?.cs||{},skCopy=episode?.i18n?.sk||{};
-    return norm(`${episodeDisplayNumber(episode)} ${episode?.title||''} ${episode?.description||''} ${cs.title||''} ${cs.description||''} ${skCopy.title||''} ${skCopy.description||''}`);
+    return norm(`${episodeDisplayLabel(episode)} ${episode?.title||''} ${episode?.description||''} ${cs.title||''} ${cs.description||''} ${skCopy.title||''} ${skCopy.description||''}`);
   }
   function allQuestionSearch(question){
     const cs=question?.i18n?.cs||{},skCopy=question?.i18n?.sk||{};
@@ -131,7 +132,7 @@
     if(decoded<0)return null;
     if(decoded<2048){
       const episode=episodeByNumber(decoded);if(!episode)return null;
-      return {type:'e',ref,episode,title:episodeCopy(episode).title,subtitle:`${text('Díl','Diel')} ${episodeDisplayNumber(episode)}`,start:0};
+      return {type:'e',ref,episode,title:episodeCopy(episode).title,subtitle:episodeDisplayLabel(episode),start:0};
     }
     const question=state.legacyQuestions[decoded-2048];
     if(!question)return null;
@@ -211,7 +212,7 @@
   function cardEpisode(episode){
     const copy=episodeCopy(episode),status=episodeStatus(episode.number);
     return `<article class="card searchable" data-episode="${Number(episode.number)||0}" data-search="${esc(allEpisodeSearch(episode))}">
-      <div class="meta">${text('Díl','Diel')} ${episodeDisplayNumber(episode)} • ${esc(fmtDate(episode.date))}</div>
+      <div class="meta">${episodeDisplayLabel(episode)} • ${esc(fmtDate(episode.date))}</div>
       <h2>${esc(copy.title)}</h2>
       <div class="listen-status ${status?.kind||''}">${status?esc(status.label):''}</div>
       ${episodeProgressHtml(episode.number)}
@@ -273,7 +274,7 @@
     $('#series-v2').innerHTML=state.data.series.map((series,seriesIndex)=>{
       const eps=series.episodes.map(n=>byNumber.get(Number(n))).filter(Boolean),label=seriesLabel(series),info=seriesProgressInfo(series);
       const search=norm(`${series.i18n?.cs||series.name} ${series.i18n?.sk||''} ${eps.map(e=>allEpisodeSearch(e)).join(' ')}`);
-      return `<details class="series searchable" data-series-index="${seriesIndex}" data-search="${esc(search)}"><summary><strong>${esc(label)}</strong><span class="series-progress-summary-v2"><span>${eps.length} ${text('dílů','dielov')}</span><span class="series-progress-label-v2">${esc(seriesProgressLabel(info))}</span></span></summary><div class="series-progress-box-v2"><div class="series-progress-main-v2"><progress class="series-progress-bar-v2" max="100" value="${info.percent}"></progress><small>${esc(info.finished?text('Série je dokončená.','Séria je dokončená.'):text('Průběh se ukládá automaticky.','Priebeh sa ukladá automaticky.'))}</small></div><button type="button" class="series-resume-v2" data-series-index="${seriesIndex}" data-item-index="${info.resumeIndex}">${esc(seriesResumeLabel(info,series))}</button></div><ol>${eps.map((e,index)=>{const status=episodeStatus(e.number);return `<li><button type="button" class="series-item" data-series-index="${seriesIndex}" data-item-index="${index}"><span class="series-item-status-v2" data-episode="${e.number}" title="${esc(status?.label||'')}">${status?.kind==='done'?'✓':status?.kind==='progress'?'▶':''}</span><span>${text('Díl','Diel')} ${e.number}: ${esc(episodeCopy(e).title)}</span></button></li>`}).join('')}</ol></details>`;
+      return `<details class="series searchable" data-series-index="${seriesIndex}" data-search="${esc(search)}"><summary><strong>${esc(label)}</strong><span class="series-progress-summary-v2"><span>${eps.length} ${text('dílů','dielov')}</span><span class="series-progress-label-v2">${esc(seriesProgressLabel(info))}</span></span></summary><div class="series-progress-box-v2"><div class="series-progress-main-v2"><progress class="series-progress-bar-v2" max="100" value="${info.percent}"></progress><small>${esc(info.finished?text('Série je dokončená.','Séria je dokončená.'):text('Průběh se ukládá automaticky.','Priebeh sa ukladá automaticky.'))}</small></div><button type="button" class="series-resume-v2" data-series-index="${seriesIndex}" data-item-index="${info.resumeIndex}">${esc(seriesResumeLabel(info,series))}</button></div><ol>${eps.map((e,index)=>{const status=episodeStatus(e.number);return `<li><button type="button" class="series-item" data-series-index="${seriesIndex}" data-item-index="${index}"><span class="series-item-status-v2" data-episode="${e.number}" title="${esc(status?.label||'')}">${status?.kind==='done'?'✓':status?.kind==='progress'?'▶':''}</span><span>${episodeDisplayLabel(e)}: ${esc(episodeCopy(e).title)}</span></button></li>`}).join('')}</ol></details>`;
     }).join('');
   }
   function renderQuestions(){$('#questions-v2').innerHTML=state.data.questions.map(question=>cardQuestion(question)).join('')}
@@ -402,7 +403,7 @@
     const n=playerNodes(),audio=n.audio,current=state.current;
     if(!current){n.shell.classList.add('hidden');return}
     n.shell.classList.remove('hidden');syncPlayerTitle(episodeCopy(current.episode).title);
-    n.sub.textContent=state.context?`${state.context.type==='series'?text('Série','Séria'):'Playlist'}: ${state.context.label}`:`${text('Díl','Diel')} ${episodeDisplayNumber(current.episode)}`;
+    n.sub.textContent=state.context?`${state.context.type==='series'?text('Série','Séria'):'Playlist'}: ${state.context.label}`:episodeDisplayLabel(current.episode);
     n.play.textContent=audio.paused?'▶':'❚❚';n.play.title=audio.paused?text('Přehrát','Prehrať'):text('Pauza','Pauza');n.play.setAttribute('aria-label',n.play.title);
     n.prev.title=text('Předchozí','Predchádzajúca');n.next.title=text('Další','Ďalšia');
     n.speed.textContent=`${String(state.speed).replace('.',',')}×`;n.prev.disabled=!state.context||state.context.index<=0;n.next.disabled=!state.context||state.context.index>=state.context.items.length-1;
@@ -546,7 +547,7 @@
     const editor=state.editor,mode=editor.mode,q=norm(editor.query),selected=new Set(editor.draft);
     const draftRows=editor.draft.map((ref,index)=>{const item=itemInfo(ref);if(!item)return'';return `<div class="editor-row" data-ref="${esc(ref)}"><span class="editor-move"><button type="button" class="move-up" ${index?'':'disabled'}>▲</button><button type="button" class="move-down" ${index===editor.draft.length-1?'disabled':''}>▼</button></span><span><b>${summaryMathHtml(item.title)}</b><br><small>${esc(item.subtitle)}</small></span><button type="button" class="editor-remove">✕</button></div>`}).join('')||`<div class="empty">${text('Playlist je prázdný.','Playlist je prázdny.')}</div>`;
     let source;
-    if(mode==='e')source=state.data.episodes.map(episode=>({ref:epRef(episode.number),title:episodeCopy(episode).title,sub:`${text('Díl','Diel')} ${episode.number}`,search:allEpisodeSearch(episode)}));
+    if(mode==='e')source=state.data.episodes.map(episode=>({ref:epRef(episode.number),title:episodeCopy(episode).title,sub:episodeDisplayLabel(episode),search:allEpisodeSearch(episode)}));
     else source=state.legacyQuestions.map(question=>({ref:qRef(question),title:questionCopy(question).title,sub:`${text('Díl','Diel')} ${question.episode} • ${question.sourceTime||question.time}`,search:allQuestionSearch(question)}));
     source=source.filter(x=>!q||norm(x.search).includes(q)).slice(0,350);
     return `<div class="modal-box"><div class="modal-head"><strong>${text('Upravit playlist','Upraviť playlist')}</strong><button type="button" class="icon-button editor-close">✕</button></div><div class="modal-body"><div class="editor-switch"><button type="button" data-mode="e" class="${mode==='e'?'active':''}">${text('Epizody','Epizódy')}</button><button type="button" data-mode="q" class="${mode==='q'?'active':''}">${text('Otázky','Otázky')}</button></div><div class="editor-columns"><section><h3>${text('Přidané položky','Pridané položky')}</h3><div class="editor-list draft-list">${draftRows}</div></section><section><h3>${mode==='e'?text('Přidat epizody','Pridať epizódy'):text('Přidat otázky','Pridať otázky')}</h3><input class="modal-search editor-search" value="${esc(editor.query)}" placeholder="${text('Hledat…','Hľadať…')}"><div class="editor-list source-list">${source.map(x=>`<label class="editor-choice" data-ref="${esc(x.ref)}"><input type="checkbox" ${selected.has(x.ref)?'checked':''}><span><b>${summaryMathHtml(x.title)}</b><br><small>${esc(x.sub)}</small></span></label>`).join('')||`<div class="empty">${text('Nic nenalezeno.','Nič nenájdené.')}</div>`}</div></section></div></div><div class="modal-foot"><button type="button" class="secondary-button editor-cancel">${text('Zrušit','Zrušiť')}</button><button type="button" class="primary-button editor-save">${text('Uložit','Uložiť')}</button></div></div>`;
@@ -945,7 +946,7 @@
   function cardEpisode(episode){
     const copy=episodeCopy(episode),status=episodeStatus(episode.number);
     return '<article class="card searchable episode-card-v2" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+esc(copy.title)+'</h2>'+
+      '<div class="meta">'+episodeDisplayLabel(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+esc(copy.title)+'</h2>'+
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<p class="desc-v2">'+esc(shortParityDescription(copy.description))+'</p>'+episodeTagHtml(episode)+episodeSummaryHtml(episode)+
       '<div class="actions"><button type="button" class="play" data-episode="'+(Number(episode.number)||0)+'" data-seconds="">'+esc(playLabel(episode.number))+'</button>'+
@@ -1015,7 +1016,7 @@
   function parityPersonName(episode){return episodeCopy(episode).title.replace(/^Vedátorský podcast\s*\d+\s*[–—-]?\s*/i,'').trim()}
   function ensureParitySeriesBody(card){
     if(!card||card.dataset.bodyLoaded==='1')return;const index=Number(card.dataset.seriesIndex),series=state.data.series[index];if(!series)return;card.dataset.bodyLoaded='1';
-    const list=series.episodes.map((number,itemIndex)=>{const episode=episodeByNumber(number);if(!episode)return'';const status=episodeStatus(number),copy=episodeCopy(episode);return '<li><button type="button" class="series-item" data-series-index="'+index+'" data-item-index="'+itemIndex+'"><span class="series-item-status-v2" data-episode="'+number+'" title="'+esc(status?.label||'')+'">'+(status?.kind==='done'?'✓':status?.kind==='progress'?'▶':'')+'</span><span>'+(series.people?'<strong class="person-name-v2">'+esc(parityPersonName(episode))+'</strong><small class="episode-title-v2">'+esc(copy.title)+'</small>':text('Díl','Diel')+' '+episodeDisplayNumber(episode)+': '+esc(copy.title))+'</span></button></li>'}).join('');
+    const list=series.episodes.map((number,itemIndex)=>{const episode=episodeByNumber(number);if(!episode)return'';const status=episodeStatus(number),copy=episodeCopy(episode);return '<li><button type="button" class="series-item" data-series-index="'+index+'" data-item-index="'+itemIndex+'"><span class="series-item-status-v2" data-episode="'+number+'" title="'+esc(status?.label||'')+'">'+(status?.kind==='done'?'✓':status?.kind==='progress'?'▶':'')+'</span><span>'+(series.people?'<strong class="person-name-v2">'+esc(parityPersonName(episode))+'</strong><small class="episode-title-v2">'+esc(copy.title)+'</small>':episodeDisplayLabel(episode)+': '+esc(copy.title))+'</span></button></li>'}).join('');
     const body=document.createElement('ol');body.className='parity-series-body';body.innerHTML=list;card.appendChild(body);
   }
   function ensureSeriesTopicStyles(){
@@ -1486,7 +1487,7 @@
   cardEpisode=function(episode){
     const copy=episodeCopy(episode),status=episodeStatus(episode.number),terms=mobileEpisodeHighlightTerms(),description=mobileEpisodeExcerpt(copy.description,terms);
     return '<article class="card searchable episode-card-v2" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+
+      '<div class="meta">'+episodeDisplayLabel(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<p class="desc-v2">'+mobileHighlightHtml(description,terms)+'</p>'+episodeTagHtml(episode)+episodeSummaryHtml(episode)+
       '<div class="actions"><button type="button" class="play" data-episode="'+(Number(episode.number)||0)+'" data-seconds="">'+esc(playLabel(episode.number))+'</button>'+
@@ -2841,7 +2842,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   cardEpisode=function(episode){
     const copy=episodeCopy(episode),status=episodeStatus(episode.number),terms=mobileEpisodeHighlightTerms(),full=cardPolishCutDescription(copy.description),open=cardPolishEpisodeOpen.has(Number(episode.number)),short=cardPolishCollapsedDescription(full,terms),shown=open?full:short,canExpand=full.length>short.replace(/…$/,'').length+2;
     return '<article class="card searchable episode-card-v2 '+(open?'episode-open-v2':'')+'" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
+      '<div class="meta">'+episodeDisplayLabel(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<p class="desc-v2">'+mobileHighlightHtml(shown,terms)+'</p>'+episodeTagHtml(episode)+
       '<div class="episode-summary-slot-v2">'+episodeSummaryHtml(episode)+'</div>'+ 
@@ -2990,7 +2991,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     const short=lastUxShortDescription(episode,terms),full=lastUxFullDescription(episode),shown=open?(full||short):short;
     const shownHtml=mobileHighlightHtml(shown,terms).replace(/\n/g,'<br>');
     return '<article class="card searchable episode-card-v2 '+(open?'episode-open-v2':'')+'" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
+      '<div class="meta">'+episodeDisplayLabel(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<p class="desc-v2">'+shownHtml+'</p>'+episodeTagHtml(episode)+
       '<div class="episode-summary-slot-v2">'+episodeSummaryHtml(episode)+'</div>'+ 
@@ -3052,7 +3053,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     const short=lastUxShortDescription(episode,terms),full=lastUxFullDescription(episode),rich=open?realReadMoreRichHtml(episode):'';
     const shownHtml=open?(rich||(mobileHighlightHtml(full||short,terms).replace(/\n/g,'<br>'))):mobileHighlightHtml(short,terms);
     return '<article class="card searchable episode-card-v2 '+(open?'episode-open-v2':'')+'" data-episode="'+(Number(episode.number)||0)+'" data-search="'+esc(allEpisodeSearch(episode))+'">'+
-      '<div class="meta">'+text('Díl','Diel')+' '+episodeDisplayNumber(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
+      '<div class="meta">'+episodeDisplayLabel(episode)+' • '+esc(fmtDate(episode.date))+'</div><h2>'+mobileHighlightHtml(copy.title,terms)+'</h2>'+              
       '<div class="listen-status '+(status?.kind||'')+'">'+(status?esc(status.label):'')+'</div>'+episodeProgressHtml(episode.number)+
       '<div class="desc-v2 episode-description-v2">'+shownHtml+'</div>'+episodeTagHtml(episode)+
       '<div class="episode-summary-slot-v2">'+episodeSummaryHtml(episode)+'</div>'+ 

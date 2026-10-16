@@ -242,14 +242,48 @@ if(!Array.isArray(sourceEpisodes)||sourceEpisodes.length<300)throw new Error(`In
 const episodeTranslationData=collectEpisodeTranslations();
 const positiveSourceNumbers=new Set(sourceEpisodes.map(e=>Number(e.number)||0).filter(number=>number>0));
 const usedSpecialNumbers=new Set();
+// RSS GUID -> fixed playback ID. Stable across reordering, titles, and RSS refreshes.
+// These IDs are internal; public episode numbers and titles remain unchanged.
+const FIXED_UNNUMBERED_IDS=new Map([
+  ["vedatorskypodcast.podbean.com/a21e9635-db31-3d26-a8cc-8e8bfeacd06c", 1501], // Vedátorský špeciál – Dungeon Vedátor
+  ["vedatorskypodcast.podbean.com/98733858-4390-30e7-bc2f-332e12e6cef4", 1502], // Posledná šanca (so spoilermi)
+  ["vedatorskypodcast.podbean.com/985a02e0-47dc-35f4-85a0-628a788f7bd9", 1503], // Vedátorský labák je spustený 🚀
+  ["vedatorskypodcast.podbean.com/81702fb2-8405-32db-92a1-179ed982d47e", 1504], // Tajná pozvánka
+  ["vedatorskypodcast.podbean.com/99da7bc3-8ba0-3ea0-aca0-dd3ccf5af41d", 1505], // Vedátorský špeciál – Ako znie vesmír?
+  ["vedatorskypodcast.podbean.com/73b4813c-ef03-38d4-8c05-30169394e85b", 1506], // Vedátorský špeciál – Kúsky reality
+  ["vedatorskypodcast.podbean.com/48b3b261-64cc-386e-8d32-1a0d4076f39f", 1507], // Vedátorský podcast – Interview with David Eicher
+  ["vedatorskypodcast.podbean.com/ee89c25b-9d94-3f84-a412-3ec94f1c59c1", 1508], // Vedátorský špeciál – Zelená energia
+  ["vedatorskypodcast.podbean.com/51a7d710-5c52-3c86-a60a-1812fe5a87d9", 1509], // Vedátorský špeciál – Vďaka čomu sú jadrové elektrárne bezpečné?
+  ["vedatorskypodcast.podbean.com/d9ef3462-499c-36f2-97d6-561acfa27863", 1510], // Vedátorský špeciál – Obyčajné zázraky (ukážka z knihy)
+  ["vedatorskypodcast.podbean.com/4f19a8cb-d5c5-304a-ad61-200f56d0e2b0", 1511], // Vedátorský špeciál  – Prenos signálu vzduchom
+  ["vedatorskypodcast.podbean.com/fb9f1ece-e3f1-32a9-9fa3-2d3b0b4fabc0", 1512], // Vedátorský špeciál – Astrológia
+  ["vedatorskypodcast.podbean.com/18069dae-6933-35c4-9b1c-5a3a77bd94d5", 1513], // Vedátorský špeciál – Prečo je v nealko pive alkohol?
+  ["vedatorskypodcast.podbean.com/1f91b174-a2c1-33c9-9da6-aba875312359", 1514], // Vedátorský špeciál – Udržateľnosť, prípadová štúdia: IKEA
+]);
+function unlistedSpecialIdentity(episode){
+  const guid=String(episode.id||'').trim();
+  if(!guid||!episode.enclosure)throw new Error(`Unnumbered episode lacks GUID/audio: ${episode.title}`);
+  let number=FIXED_UNNUMBERED_IDS.get(guid);
+  if(!number){
+    // Future standalones are assigned a stable GUID-based ID in a separate range.
+    // On the rare hash collision, fail build instead of linking the wrong audio.
+    let hash=2166136261;
+    for(let i=0;i<guid.length;i++)hash=Math.imul(hash^guid.charCodeAt(i),16777619);
+    number=1515+(hash>>>0)%185; // IDs 1515..1699, below question reference 2048.
+  }
+  if(positiveSourceNumbers.has(number)||usedSpecialNumbers.has(number))throw new Error(`Unnumbered playback ID collision: ${number} (${episode.title}, ${guid})`);
+  usedSpecialNumbers.add(number);
+  return {number,unnumbered:true};
+}
 // RSS accidentally published two different episodes as 142. Keep the old
 // reference for the nuclear episode; reserve a stable ID for Webb by RSS GUID.
 // Never derive this from feed order: daily refreshes must preserve saved refs.
 const DUPLICATE_EPISODE_IDS=new Map([
-  ['vedatorskypodcast.podbean.com/16637ee2-55d2-330a-96db-861b1b9f1c10',1642]
+  ['vedatorskypodcast.podbean.com/16637ee2-55d2-330a-96db-861b1b9f1c10',1642],
+  ['vedatorskypodcast.podbean.com/f7a0b29b-66bb-3090-9661-9c2b597593f9',1613] // Reposted episode 113
 ]);
 function specialEpisodeIdentity(title){
-  const value=String(title||'');
+  const value=String(title||'').replace(/\s+/g,' ').trim();
   const rules=[
     [/^Rozhovory o vesmíre\s+(\d+)\b/i,1700],
     [/^Genetický špeciál\s+(\d+)\b/i,1800],
@@ -268,13 +302,15 @@ function specialEpisodeIdentity(title){
 }
 const episodes=sourceEpisodes.map(e=>{
   const special=Number(e.number)>0?null:specialEpisodeIdentity(e.title);
+  const unnumbered=Number(e.number)>0||special?null:unlistedSpecialIdentity(e);
   const duplicateNumber=DUPLICATE_EPISODE_IDS.get(String(e.id||''));
   if(duplicateNumber&&(positiveSourceNumbers.has(duplicateNumber)||usedSpecialNumbers.has(duplicateNumber)))throw new Error(`Duplicate episode id collision: ${duplicateNumber}`);
   if(duplicateNumber)usedSpecialNumbers.add(duplicateNumber);
-  const number=duplicateNumber||Number(e.number)||special?.number||0;
+  const number=duplicateNumber||Number(e.number)||special?.number||unnumbered?.number||0;
   const base={
     number,
     ...(special?{displayNumber:special.displayNumber}:{}),
+    ...(unnumbered?{unnumbered:true}:{}),
     ...(duplicateNumber?{displayNumber:Number(e.number),sourceNumber:Number(e.number)}:{}),
     title:String(e.title||''),
     date:String(e.date||''),
@@ -291,6 +327,16 @@ const episodes=sourceEpisodes.map(e=>{
   }};
 });
 
+// Do not silently route two independent RSS entries to the same player.
+const seenEpisodeNumbers=new Set(),seenEpisodeGuids=new Set();
+for(const episode of episodes){
+  if(!Number.isInteger(episode.number)||episode.number<=0||episode.number>=2048||seenEpisodeNumbers.has(episode.number))
+    throw new Error(`Invalid/duplicate playback number ${episode.number}: ${episode.title}`);
+  if(!episode.id||seenEpisodeGuids.has(episode.id)||!episode.enclosure)
+    throw new Error(`Missing/duplicate podcast GUID or audio: ${episode.title}`);
+  seenEpisodeNumbers.add(episode.number);
+  seenEpisodeGuids.add(episode.id);
+}
 let indexSummaries={};
 try{
   const indexSource=exists('legacy-source-index.html')?'legacy-source-index.html':'index.html';

@@ -19,6 +19,21 @@ const webb142=data.episodes.find(e=>e.id==='vedatorskypodcast.podbean.com/16637e
 if(nuclear142?.number!==142||webb142?.number!==1642||webb142?.displayNumber!==142||webb142?.sourceNumber!==142)fail('The two different episode 142s must retain separate playback IDs');
 if(nuclear142?.enclosure===webb142?.enclosure||!webb142?.enclosure?.endsWith('/ep_webb.mp3'))fail('Webb episode 142 must play its own audio');
 
+// Every RSS item, including the unnumbered specials, must have its own player
+// identity and preserve the exact source MP3. Also guards daily RSS rebuilds.
+const sourceEpisodes=JSON.parse(fs.readFileSync('episodes.json','utf8')).episodes;
+const byGuid=new Map(data.episodes.map(e=>[e.id,e]));
+const numbers=data.episodes.map(e=>Number(e.number));
+if(data.episodes.length!==sourceEpisodes.length||byGuid.size!==sourceEpisodes.length)fail('RSS items were lost or duplicated in V2');
+if(new Set(numbers).size!==numbers.length||numbers.some(n=>!Number.isInteger(n)||n<1||n>=2048))fail('Playback IDs must be unique integers in the playlist-ref range');
+for(const source of sourceEpisodes){
+  const built=byGuid.get(source.id);
+  if(!built||built.enclosure!==source.enclosure)fail(`Wrong MP3 for RSS item: ${source.title}`);
+  if(!Number(source.number)&&(!built.number||(!built.displayNumber&&!built.unnumbered)))fail(`Unnumbered special lacks playback identity: ${source.title}`);
+  if(built.unnumbered&&Number(source.number))fail(`Regular episode incorrectly marked as standalone: ${source.title}`);
+}
+const duplicate113=data.episodes.find(e=>e.id==='vedatorskypodcast.podbean.com/f7a0b29b-66bb-3090-9661-9c2b597593f9');
+if(duplicate113?.number!==1613||duplicate113.displayNumber!==113)fail('Reposted episode 113 must retain distinct playback identity');
 const episodeNumbers=new Set(data.episodes.map(e=>Number(e.number)));
 for(const q of data.questions){if(!episodeNumbers.has(Number(q.episode)))fail(`Question points to missing episode ${q.episode}`)}
 for(const series of data.series){
