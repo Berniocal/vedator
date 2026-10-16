@@ -17,5 +17,7 @@
     }
   ];
 
-  const DESCRIPTION_TEXT_PAIRS=[];
+  const DESCRIPTION_TEXT_PAIRS=[
+    ['Knihu Rozhovory vo vesmíre môžete podporiť cez Startlab','Knihu Rozhovory o vesmíru můžete podpořit přes Startlab']
+  ];
 })();
