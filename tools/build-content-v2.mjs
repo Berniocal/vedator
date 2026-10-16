@@ -160,6 +160,43 @@ function episodeTranslationValue(item){
   return {skTitle,csTitle,skDescription,csDescription};
 }
 
+// Translation object keys were historically used as local series ordinals.
+// Resolve them to the same stable IDs as the RSS build, not regular podcast 8–15.
+const SPECIAL_TRANSLATION_BASES={vesmir:1700,genetika:1800,veda:1900};
+function specialTranslationInfo(item){
+  for(const title of [item.skTitle,item.csTitle]){
+    const value=String(title||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();
+    for(const [re,kind] of [
+      [/^rozhovory o vesmir[eu]\s+(\d+)\b/,'vesmir'],
+      [/^geneticky special\s+(\d+)\b/,'genetika'],
+      [/^(?:zijem vedu|ziji vedu) special\s+(\d+)\b/,'veda']
+    ]){
+      const m=value.match(re);
+      if(m)return {kind,ordinal:Number(m[1]),number:SPECIAL_TRANSLATION_BASES[kind]+Number(m[1])};
+    }
+  }
+  return null;
+}
+function translationObjectNumber(raw,item,file){
+  const value=String(raw||'').trim().toLowerCase();
+  const alias=value.match(/^(vesmir|genetika|veda):(\d+)$/);
+  const info=specialTranslationInfo(item);
+  const fail=message=>{const error=new Error(`${file}: ${message}`);error.code='TRANSLATION_IDENTITY';throw error};
+  if(alias){
+    const number=SPECIAL_TRANSLATION_BASES[alias[1]]+Number(alias[2]);
+    if(!Number.isInteger(number)||number>=2048||Number(alias[2])<1||Number(alias[2])>99)fail(`Invalid special translation reference ${raw}`);
+    if(info&&number!==info.number)fail(`Reference ${raw} disagrees with special title ${item.csTitle||item.skTitle}`);
+    return number;
+  }
+  const number=Number(value);
+  if(!Number.isInteger(number)||number<=0)return 0;
+  if(info){
+    if(info.ordinal<1||info.ordinal>99||info.number>=2048)fail(`Invalid special title ${item.csTitle||item.skTitle}`);
+    if(number!==info.ordinal&&number!==info.number)fail(`Episode key ${raw} disagrees with special title ${item.csTitle||item.skTitle}`);
+    return info.number;
+  }
+  return number;
+}
 function collectEpisodeTranslations(){
   const byNumber=new Map(),byTitle=new Map(),files=[];
   for(const file of rootFiles().filter(name=>/^episode-translations-.*\.js$/.test(name)&&name!=='episode-translations-loader.js').sort()){
@@ -177,8 +214,8 @@ function collectEpisodeTranslations(){
         }else if(value&&typeof value==='object'){
           for(const [key,raw] of Object.entries(value)){
             const item=episodeTranslationValue(raw);if(!item)continue;
-            const number=Number(key);
-            if(Number.isFinite(number)&&number>0)byNumber.set(number,item);
+            const number=translationObjectNumber(key,item,file);
+            if(number>0)byNumber.set(number,item);
             if(item.skTitle)byTitle.set(titleKey(item.skTitle),item);
             if(item.csTitle)byTitle.set(titleKey(item.csTitle),item);
           }
@@ -196,7 +233,7 @@ function collectEpisodeTranslations(){
           if(item.csTitle)byTitle.set(titleKey(item.csTitle),item);
         }
       }
-    }catch(error){console.warn(`Translation parse skipped: ${error.message}`)}
+    }catch(error){if(error.code==='TRANSLATION_IDENTITY')throw error;console.warn(`Translation parse skipped: ${error.message}`)}
   }
   return {byNumber,byTitle,files};
 }
