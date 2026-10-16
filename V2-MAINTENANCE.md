@@ -58,6 +58,10 @@ Zdrojové překlady epizod jsou v `episode-translations-*.js`. `tools/build-cont
 Při přidání překladu:
 
 - zachovej existující strukturu `TRANSLATIONS` nebo `TRANSLATION`;
+- u samostatně číslovaných sérií musí překlad patřit původní RSS položce (stejné GUID, datum i MP3), nikoliv běžnému Vedátorskému podcastu se stejným číslem;
+- pro objekt `TRANSLATIONS` používej klíče `"vesmir:8"`, `"genetika:3"`, `"veda:2"` (čísla v rámci série). Build je převede na 1708/1803/1902. Staré číselné klíče 8–15 s názvem „Rozhovory o vesmíru“ build rozpozná jako čísla *této série*, nikoli běžná čísla podcastu;
+- nikdy nevytvářej samostatnou českou položku s novým datem: `i18n.cs` a `i18n.sk` jsou dvě verze téhož záznamu; ověř pro speciály 1–15 v `tools/test-content-v2.mjs`;
+
 - nepřidávej nový runtime loader;
 - pokud soubor obsahuje `DESCRIPTION_TEXT_PAIRS` nebo `COMMON_TEXT_PAIRS`, používají se také při sestavení českého plného HTML popisu;
 - po buildu ověř počet bilingvních epizod v `tools/test-content-v2.mjs`.
