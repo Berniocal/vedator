@@ -20,7 +20,7 @@ window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};
 window.HTMLMediaElement.prototype.load=()=>{};
 window.HTMLElement.prototype.scrollIntoView=()=>{};
-window.requestAnimationFrame=callback=>setTimeout(()=>callback(Date.now()),0);
+window.requestAnimationFrame=callback=>window.setTimeout(()=>callback(Date.now()),0);
 window.alert=()=>{};window.prompt=()=>'';window.confirm=()=>true;
 const ready=new Promise((resolve,reject)=>{
   const timer=setTimeout(()=>reject(new Error('Player test boot timeout')),10000);
