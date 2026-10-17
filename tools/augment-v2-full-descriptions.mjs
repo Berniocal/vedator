@@ -31,7 +31,7 @@ function sanitizeRichHtml(value){
       if(tag==='br')return '<br>';
       if(tag==='a'){
         const match=String(attrs||'').match(/\bhref\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i);
-        const href=String(match?.[1]??match?.[2]??match?.[3]??'').trim();
+        const href=decodeEntities(String(match?.[1]??match?.[2]??match?.[3]??'')).trim();
         if(!/^https?:\/\//i.test(href))return '<a>';
         return `<a href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">`;
       }
@@ -85,11 +85,20 @@ function translatePlain(source){
   for(const pair of pairs){if(pair.sk.length<40)continue;if(value.includes(pair.sk))value=value.split(pair.sk).join(pair.cs)}
   return value;
 }
-function translateRichHtml(source,lead){
+function translateRichHtml(source,lead,sourceLead){
   let html=String(source||'');
   if(lead){
     let replaced=false;
-    html=html.replace(/<p>([\s\S]*?)<\/p>/i,()=>{replaced=true;return `<p>${escapeHtml(lead)}</p>`});
+    html=html.replace(/<p>([\s\S]*?)<\/p>/i,(_,body)=>{
+      replaced=true;
+      // Podbean also separates paragraphs with blank lines inside one <p>.
+      // Replace the descriptive lead; retain the following HTML and links.
+      const boundary=body.search(/\r?\n[ \t\u00a0]*\r?\n|<br>\s*<br>/i);
+      const escaped=compact(sourceLead).replace(/[.*+?^${}()|[\]\\]/g,'\\$&').split(/\s+/).join('\\s+');
+      const matched=escaped?new RegExp('^\\s*'+escaped).exec(body):null;
+      const tail=matched?body.slice(matched[0].length):(boundary<0?'':body.slice(boundary));
+      return `<p>${escapeHtml(lead)}${tail}</p>`;
+    });
     if(!replaced)html=`<p>${escapeHtml(lead)}</p>${html}`;
   }
   let inAnchor=false;
@@ -119,7 +128,7 @@ for(const episode of data.episodes||[]){
   if(episode.i18n?.sk){episode.i18n.sk.fullDescription=full;episode.i18n.sk.fullDescriptionHtml=rich}
   if(episode.i18n?.cs){
     const lead=String(episode.i18n.cs.description||'').trim()||translatePlain(String(episode.description||''));
-    const translatedRich=sanitizeRichHtml(translateRichHtml(rich,lead));
+    const translatedRich=sanitizeRichHtml(translateRichHtml(rich,lead,episode.i18n?.sk?.description));
     const translated=richHtmlToText(translatedRich)||translatePlain(full)||full;
     episode.i18n.cs.fullDescription=translated;
     episode.i18n.cs.fullDescriptionHtml=translatedRich||rich;

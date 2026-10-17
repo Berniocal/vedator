@@ -32,6 +32,20 @@ for(const source of sourceEpisodes){
   if(!Number(source.number)&&(!built.number||(!built.displayNumber&&!built.unnumbered)))fail(`Unnumbered special lacks playback identity: ${source.title}`);
   if(built.unnumbered&&Number(source.number))fail(`Regular episode incorrectly marked as standalone: ${source.title}`);
 }
+// Special translations must retain every original RSS link, including query
+// separators and promo links inside a multi-paragraph Podbean <p>.
+const decodeHref=value=>String(value).replace(/&amp;/gi,'&').replace(/&quot;/gi,'"').replace(/&#39;|&apos;/gi,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n))).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16)));
+const htmlLinks=value=>[...String(value||'').matchAll(/\bhref\s*=\s*(?:"([^"]*)"|'([^']*)')/gi)].map(m=>decodeHref(m[1]??m[2])).filter(url=>/^https?:\/\//i.test(url)).sort();
+for(const source of sourceEpisodes.filter(e=>!Number(e.number))){
+  const built=byGuid.get(source.id),expected=htmlLinks(source.description);
+  if(built.date!==source.date)fail(`Special changed publication date: ${source.title}`);
+  for(const [label,rich] of [['base',built.fullDescriptionHtml],['sk',built.i18n?.sk?.fullDescriptionHtml],['cs',built.i18n?.cs?.fullDescriptionHtml]]){
+    if(label!=='base'&&!built.i18n?.[label])continue;
+    if(JSON.stringify(htmlLinks(rich))!==JSON.stringify(expected))fail(`Special ${label} HTML lost or changed RSS URLs: ${source.title}`);
+  }
+}
+const nanosatellite=byGuid.get('vedatorskypodcast.podbean.com/5004d1e0-bb5f-31da-b4a8-22641ddb2a2d');
+if(/V podcaste rozprávame/.test(nanosatellite?.i18n?.cs?.fullDescriptionHtml||''))fail('Space talk 7 duplicated its translated second paragraph in Slovak');
 // Regression: the special-series local ordinal 8..15 must never translate the
 // unrelated Vedátorský podcast 8..15 (and inherit its earlier publication date).
 for(let ordinal=1;ordinal<=15;ordinal++){
