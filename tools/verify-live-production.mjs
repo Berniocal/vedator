@@ -30,7 +30,8 @@ const decodeHref = value => String(value)
   .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)));
 const htmlUrls = (html, label) => {
   const result = [...String(html ?? '').matchAll(/\bhref\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/gi)]
-    .map(match => decodeHref(match[1] ?? match[2] ?? match[3]));
+    .map(match => decodeHref(match[1] ?? match[2] ?? match[3]))
+    .filter(url => /^https?:\/\//i.test(url));
   for (const url of result) asHttpUrl(url, label);
   return result.sort();
 };
