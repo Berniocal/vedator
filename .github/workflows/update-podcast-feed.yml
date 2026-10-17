@@ -21,6 +21,10 @@ on:
       - 'tools/test-content-v2.mjs'
       - 'tools/test-v2-faq-integrity.mjs'
       - 'tools/test-v2-series-topics.mjs'
+      - '.github/workflows/deploy-pages-direct.yml'
+      - '.github/workflows/verify-v2-summary-pr.yml'
+      - 'tools/verify-live-production.mjs'
+      - 'tools/test-live-production-verifier.mjs'
 
 permissions:
   contents: write
@@ -109,6 +113,7 @@ jobs:
           node tools/test-content-v2.mjs
           node tools/test-v2-faq-integrity.mjs
           node tools/test-v2-series-topics.mjs
+          node tools/test-live-production-verifier.mjs
 
       - name: Commitnout atomickou aktualizaci
         run: |
