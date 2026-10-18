@@ -97,7 +97,16 @@ function translateRichHtml(source,lead,sourceLead){
       const escaped=compact(sourceLead).replace(/[.*+?^${}()|[\]\\]/g,'\\$&').split(/\s+/).join('\\s+');
       const matched=escaped?new RegExp('^\\s*'+escaped).exec(body):null;
       const tail=matched?body.slice(matched[0].length):(boundary<0?'':body.slice(boundary));
-      return `<p>${escapeHtml(lead)}${tail}</p>`;
+      // A translated lead can replace the first <p> containing RSS links.
+      // Reinsert original link markup at its translated visible label so no URL is lost.
+      let translatedLead=escapeHtml(lead);
+      for(const match of body.matchAll(/<a\b[^>]*>[\s\S]*?<\/a>/gi)){
+        const anchor=match[0];
+        if(tail.includes(anchor))continue;
+        const label=escapeHtml(anchor.replace(/<[^>]*>/g,'').trim());
+        if(label&&translatedLead.includes(label))translatedLead=translatedLead.replace(label,anchor);
+      }
+      return `<p>${translatedLead}${tail}</p>`;
     });
     if(!replaced)html=`<p>${escapeHtml(lead)}</p>${html}`;
   }
