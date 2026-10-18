@@ -377,6 +377,8 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
   const TOPIC_VIEWS=new Set(['episodes','questions','nonquestions']);
   const read=()=>{try{const value=JSON.parse(localStorage.getItem(KEY)||'{}');return value&&typeof value==='object'&&!Array.isArray(value)?value:{}}catch{return{}}};
   let prefs=read();
+  // Each new app session starts with All; recent filter order is stored separately.
+  if(prefs.episodes&&typeof prefs.episodes==='object')delete prefs.episodes.topic;
   const entry=view=>{const current=prefs[view];if(current&&typeof current==='object'&&!Array.isArray(current))return current;return prefs[view]={}};
   const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(prefs))}catch{}};
   const activeView=()=>document.querySelector('.tab-v2.active[data-view]')?.dataset.view||'episodes';
