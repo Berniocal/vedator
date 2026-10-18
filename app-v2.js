@@ -869,6 +869,9 @@
   /* V2_FULL_PARITY_V1 */
   const PARITY_BATCH=20;
   const PARITY_SORT_KEY='vedatorSortPreferencesV1';
+  const EPISODE_FILTER_HISTORY_KEY='vedator-episode-filter-history-v1';
+  const savedEpisodeFilterHistory=readJson(EPISODE_FILTER_HISTORY_KEY,[]);
+  let recentEpisodeFilters=Array.isArray(savedEpisodeFilterHistory)?[...new Set(savedEpisodeFilterHistory.filter(key=>typeof key==='string'))].slice(0,500):[];
   const PARITY_MATH_EPISODES=new Set([91,93,98,113,115,116,117,118,156,181,198,201,216,249,282,286,328,329,336]);
   const EPISODE_TOPICS={
     all:{cs:'Vše',sk:'Všetko',keys:[]},
@@ -1064,6 +1067,21 @@
     for(const [index,series] of (state.data?.series||[]).entries())set['collection:'+index]={cs:series.i18n?.cs||series.name,sk:series.i18n?.sk||series.name};
     return set;
   }
+  function rememberEpisodeFilter(key){
+    if(!key.startsWith('collection:'))return;
+    const series=state.data?.series?.[Number(key.slice(11))],aliases=seriesCollectionKeys(series);
+    if(!aliases.length)return;
+    recentEpisodeFilters=[aliases[0],...recentEpisodeFilters.filter(value=>!aliases.includes(value))].slice(0,500);
+    writeJson(EPISODE_FILTER_HISTORY_KEY,recentEpisodeFilters);
+  }
+  function episodeFilterEntries(set){
+    const ranks=new Map(recentEpisodeFilters.map((key,index)=>[key,index]));
+    return Object.entries(set).map(([key,topic],index)=>{
+      const series=key.startsWith('collection:')?state.data?.series?.[Number(key.slice(11))]:null;
+      const rank=key==='all'?-1:Math.min(...seriesCollectionKeys(series).map(alias=>ranks.get(alias)??Infinity));
+      return {key,topic,index,rank};
+    }).sort((a,b)=>(a.rank===b.rank?a.index-b.index:a.rank-b.rank)).map(({key,topic})=>[key,topic]);
+  }
   // Short captions belong only to the episode filter row; collection names stay canonical.
   const episodeFilterShortLabels={
   "FAQ – dobré otázky": [
@@ -1149,7 +1167,7 @@
     topics.classList.toggle('hidden',!showTopics);topics.replaceChildren();
     if(view==='ask'){
       for(const [value,label] of [['all',text('Vše','Všetko')],['question','Otázky'],['nonquestion','Neotázky']]){const button=document.createElement('button');button.type='button';button.className='topic-v2 ask-filter-v2'+(askUi.filter===value?' active':'');button.dataset.askFilter=value;button.setAttribute('aria-pressed',String(askUi.filter===value));button.textContent=label;topics.appendChild(button)}
-    }else if(showTopics)for(const [key,topic] of Object.entries(set)){const button=document.createElement('button');button.type='button';button.className='topic-v2'+(activeParityTopic(view)===key?' active':'');button.dataset.topic=key;button.textContent=episodeFilterButtonLabel(key,topic);button.title=parityControlLabel(topic);topics.appendChild(button)}
+    }else if(showTopics)for(const [key,topic] of episodeFilterEntries(set)){const button=document.createElement('button');button.type='button';button.className='topic-v2'+(activeParityTopic(view)===key?' active':'');button.dataset.topic=key;button.textContent=episodeFilterButtonLabel(key,topic);button.title=parityControlLabel(topic);topics.appendChild(button)}
     const options=paritySortOptions(view);sort.classList.toggle('hidden',!options.length);sort.innerHTML=options.map(([value,label])=>'<option value="'+value+'">'+esc(label)+'</option>').join('');if(options.length){const current=currentParitySort(view),valid=options.some(([value])=>value===current),selected=valid?current:options[0][0];if(!valid)setParitySort(view,selected);sort.value=selected}
   }
 
@@ -1232,7 +1250,17 @@
     const statusRow=$('.status-row');if(statusRow&&!$('#parity-sort-v2')){const sort=document.createElement('select');sort.id='parity-sort-v2';sort.className='parity-sort-v2';statusRow.appendChild(sort)}
     const controls=$('.controls');if(controls&&!$('#parity-refresh-v2')){const button=document.createElement('button');button.id='parity-refresh-v2';button.type='button';button.className='parity-refresh-v2';button.textContent=text('Znovu načíst','Znovu načítať');controls.appendChild(button)}
     const playerControls=$('.player-controls');if(playerControls&&!$('#player-back10-v2')){const back=document.createElement('button');back.id='player-back10-v2';back.type='button';back.className='skip-ten-v2';back.textContent='−10';const forward=document.createElement('button');forward.id='player-forward10-v2';forward.type='button';forward.className='skip-ten-v2';forward.textContent='+10';const play=$('#player-play-v2');play?.insertAdjacentElement('beforebegin',back);play?.insertAdjacentElement('afterend',forward)}
-    $('#parity-topics-v2')?.addEventListener('click',event=>{const askFilter=event.target.closest('.topic-v2[data-ask-filter]');if(askFilter){askUi.filter=askFilter.dataset.askFilter;if(askUi.query&&askUi.ready)askUi.ranked=askEngine().search(askUi.query,askUi.filter);askUi.visible=30;syncParityControls();renderAskResults();return}const button=event.target.closest('.topic-v2[data-topic]');if(!button)return;setActiveParityTopic(state.view,button.dataset.topic);filterActive()});
+    $('#parity-topics-v2')?.addEventListener('click',event=>{
+      const askFilter=event.target.closest('.topic-v2[data-ask-filter]');if(askFilter){askUi.filter=askFilter.dataset.askFilter;if(askUi.query&&askUi.ready)askUi.ranked=askEngine().search(askUi.query,askUi.filter);askUi.visible=30;syncParityControls();renderAskResults();return}
+      const button=event.target.closest('.topic-v2[data-topic]');if(!button)return;
+      const key=button.dataset.topic,focused=document.activeElement===button;
+      if(state.view==='episodes'&&!event.detail?.restoreTopic)rememberEpisodeFilter(key);
+      setActiveParityTopic(state.view,key);filterActive();
+      if(state.view==='episodes'){
+        const topics=$('#parity-topics-v2');topics.scrollLeft=0;
+        if(focused)[...topics.querySelectorAll('[data-topic]')].find(item=>item.dataset.topic===key)?.focus({preventScroll:true});
+      }
+    });
     $('#parity-sort-v2')?.addEventListener('change',event=>{setParitySort(state.view,event.target.value);filterActive()});
     $('#parity-refresh-v2')?.addEventListener('click',refreshParityContent);$('#player-back10-v2')?.addEventListener('click',()=>seekParity(-10));$('#player-forward10-v2')?.addEventListener('click',()=>seekParity(10));
     document.addEventListener('toggle',event=>{const card=event.target.closest?.('#series-v2 .series[data-series-index]');if(card?.open)ensureParitySeriesBody(card)},true);

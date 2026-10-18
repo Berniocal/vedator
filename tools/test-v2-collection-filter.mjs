@@ -35,7 +35,12 @@ for(const view of ['episodes']){
     const button=window.document.querySelector(`#parity-topics-v2 [data-topic="collection:${i}"]`);
     assert(button.title===(series.i18n?.cs||series.name),`Full label mismatch: ${series.name}`);
     assert(button.textContent.length>0&&button.textContent.length<=button.title.length,`Short label mismatch: ${series.name}`);
+    const before=[...window.document.querySelectorAll('#parity-topics-v2 [data-topic]')].map(item=>item.dataset.topic);
+    window.document.querySelector('#parity-topics-v2').scrollLeft=500;
     button.click();
+    const after=[...window.document.querySelectorAll('#parity-topics-v2 [data-topic]')].map(item=>item.dataset.topic);
+    assert(after.join('|')===['all',button.dataset.topic,...before.filter(key=>key!=='all'&&key!==button.dataset.topic)].join('|'),`Recent filter order: ${series.name}`);
+    assert(window.document.querySelector('#parity-topics-v2').scrollLeft===0,`Recent filter not visible: ${series.name}`);
     const root=window.document.querySelector(`.view-v2[data-view="${view}"]`);
     let sentinel;let loops=0;
     while((sentinel=root.querySelector('.parity-sentinel'))&&loops++<200)sentinel.click();
@@ -46,7 +51,10 @@ for(const view of ['episodes']){
     assert(cards.length===source.filter(item=>members.has(Number(view==='episodes'?item.number:item.episode))).length,`Missing members: ${view}/${series.name}`);
     assert(!root.querySelector('mark'),`Unexpected highlight: ${view}/${series.name}`);
   }
+  const history=window.localStorage.getItem('vedator-episode-filter-history-v1');
+  assert(JSON.parse(history).length===data.series.length,'Filter history was not saved');
   window.document.querySelector('#parity-topics-v2 [data-topic="all"]').click();
+  assert(window.localStorage.getItem('vedator-episode-filter-history-v1')===history,'All changed filter history');
   const search=window.document.querySelector('#search-v2');search.value='kvant';search.dispatchEvent(new window.Event('input',{bubbles:true}));
   await new Promise(resolve=>setTimeout(resolve,30));
   assert(window.document.querySelector(`#${view}-v2 mark`),`Text highlighting broken: ${view}`);

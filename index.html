@@ -395,7 +395,7 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
       const topics=document.getElementById('parity-topics-v2');
       if(topics&&!topics.classList.contains('hidden')){
         const button=[...topics.querySelectorAll('.topic-v2[data-topic]')].find(item=>item.dataset.topic===pref.topic);
-        if(button&&!button.classList.contains('active'))button.click();
+        if(button&&!button.classList.contains('active'))button.dispatchEvent(new CustomEvent('click',{bubbles:true,detail:{restoreTopic:true}}));
         else if(!button){delete pref.topic;save()}
       }
     }
@@ -407,7 +407,8 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
     if(questionSort)saveSort(questionSort.closest('.question-tools')?.dataset.tools,questionSort.value);
   });
   document.addEventListener('click',event=>{
-    const parityTopic=event.target.closest?.('#parity-topics-v2 .topic-v2[data-topic]');
+    // The app rebuilds the row before this bubbling listener runs.
+    const parityTopic=event.composedPath().some(item=>item.id==='parity-topics-v2')?event.composedPath().find(item=>item.matches?.('.topic-v2[data-topic]')):null;
     if(parityTopic){saveTopic(activeView(),parityTopic.dataset.topic);return}
     const questionTopic=event.target.closest?.('.question-tools .question-topic[data-topic]');
     if(questionTopic){saveTopic(questionTopic.closest('.question-tools')?.dataset.tools,questionTopic.dataset.topic);return}
