@@ -100,7 +100,7 @@ function translateRichHtml(source,lead,sourceLead){
       // A translated lead can replace the first <p> containing RSS links.
       // Reinsert original link markup at its translated visible label so no URL is lost.
       let translatedLead=escapeHtml(lead);
-      for(const match of body.matchAll(/<a\\b[^>]*>[\\s\\S]*?<\\/a>/gi)){
+      for(const match of body.matchAll(/<a\b[^>]*>[\s\S]*?<\/a>/gi)){
         const anchor=match[0];
         if(tail.includes(anchor))continue;
         const label=escapeHtml(anchor.replace(/<[^>]*>/g,'').trim());
