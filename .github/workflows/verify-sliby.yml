@@ -1,0 +1,60 @@
+name: Verify promises report
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'sliby/**'
+      - '.github/workflows/verify-sliby.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'sliby/**'
+      - '.github/workflows/verify-sliby.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check report data and time links
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import assert from 'node:assert/strict';
+          import vm from 'node:vm';
+          const html=fs.readFileSync('sliby/index.html','utf8');
+          const data=JSON.parse(html.match(/<script type="application\/json" id="audit-data">([\s\S]*?)<\/script>/)[1]);
+          assert.equal(data.schema,2);
+          assert(data.findings.length>0);
+          assert.deepEqual(data.classification.categories,['Sliby','Návrhy / nápady']);
+          assert.deepEqual(data.classification.statuses,['Splněno později','Splněno už dříve','Nesplněno']);
+          assert.equal(data.archive.findings.length,data.findings.length);
+          const keys=new Set();
+          for(const row of data.findings){
+            const key=JSON.stringify([row.candidate,row.tema]);
+            assert(!keys.has(key),'Duplicate finding');keys.add(key);
+            assert(data.classification.categories.includes(row.kategorie));
+            assert(data.classification.statuses.includes(row.stav));
+            assert(Number.isFinite(row.seconds)&&row.seconds>=0);
+            assert(/^https:.*#t=\d/.test(row.timeURL));
+            assert(row.vysvetleni.trim().length>0);
+            for(const target of row.targets){
+              assert(/^https:.*#t=\d/.test(target.timeURL));
+              for(const evidence of target.evidence||[])assert(/^https:.*#t=\d/.test(evidence.timeURL));
+            }
+          }
+          const read=data.readingProgress.files;
+          assert.equal(new Set(read.map(row=>row.episode)).size,read.length);
+          assert.equal(read.length,data.readingProgress.availabilityCheck.episodes.length);
+          assert(data.readingProgress.completedBatches.every(batch=>batch.sourceAvailability.srt+batch.sourceAvailability.txt+batch.sourceAvailability.missingEpisodes.length===batch.episodes.length));
+          assert(!/__AVAILABILITY|__NEXT__|__DATA__/.test(html));
+          new vm.Script(html.match(/<script>([\s\S]*?)<\/script>/)[1]);
+          console.log(`Report checked: ${data.findings.length} findings, ${read.length} complete transcripts.`);
+          JS

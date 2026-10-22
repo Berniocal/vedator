@@ -1,4 +1,6 @@
 import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
 
 const fail=message=>{throw new Error(message)};
 const html=fs.readFileSync('index.html','utf8');
@@ -58,4 +60,27 @@ if(!app.includes('function firstEpisodeSearchHit(episode,terms)'))fail('Episode 
 if(!app.includes("const activeSearch=Boolean(state.query.trim())"))fail('Episode excerpt does not switch to search substring mode');
 if(!app.includes("activeSearch?searchHighlightRanges(raw,terms):mobileHighlightRanges(raw,terms)"))fail('Episode search excerpt still uses word-boundary highlighting');
 
-console.log('Production PWA cache/startup checks passed.');
+// A standalone page must never replace the cached application document.
+const handlers=new Map(),writes=[],requests=[];
+vm.runInNewContext(sw,{
+  self:{location:{href:'https://bernio.cz/vedator/sw.js',origin:'https://bernio.cz'},addEventListener:(name,handler)=>handlers.set(name,handler)},
+  URL,Response,setTimeout,
+  caches:{open:async()=>({put:async(key,response)=>writes.push([key,await response.text()]),match:async()=>undefined})},
+  fetch:async request=>{requests.push(request.url);return new Response('application document')}
+});
+for(const pathname of ['/vedator/sliby/','/vedator/sliby/index.html','/vedator/other.html']){
+  let intercepted=false;
+  handlers.get('fetch')({request:{method:'GET',mode:'navigate',url:'https://bernio.cz'+pathname},respondWith:()=>{intercepted=true}});
+  assert.equal(intercepted,false,`Standalone page intercepted: ${pathname}`);
+}
+assert.equal(writes.length,0);
+for(const pathname of ['/vedator/','/vedator/index.html?from=shortcut']){
+  let response;
+  handlers.get('fetch')({request:{method:'GET',mode:'navigate',url:'https://bernio.cz'+pathname},respondWith:value=>{response=value}});
+  assert(response,`Application navigation bypassed: ${pathname}`);
+  assert.equal(await (await response).text(),'application document');
+}
+assert.equal(requests.length,2);
+assert.deepEqual(writes,[['./index.html','application document'],['./index.html','application document']]);
+
+console.log('Production PWA cache/startup checks passed; standalone pages bypass the application cache.');

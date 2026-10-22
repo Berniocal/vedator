@@ -20,6 +20,7 @@ const DATA_URL="./content-v2.json";
 const APP_URLS=${JSON.stringify(APP_URLS)};
 const OFFLINE_AUDIO_CACHE=${JSON.stringify(OFFLINE_AUDIO_CACHE)};
 const STATIC_NAMES=new Set(["manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"]);
+const APP_PAGES=new Set([new URL('./',self.location.href).pathname,new URL('./index.html',self.location.href).pathname]);
 
 const delay=ms=>new Promise(resolve=>setTimeout(()=>resolve(null),ms));
 
@@ -86,6 +87,7 @@ self.addEventListener('fetch',event=>{
   const name=url.pathname.split('/').pop();
 
   if(request.mode==='navigate'){
+    if(!APP_PAGES.has(url.pathname))return;
     event.respondWith(networkFirst(request,APP_CACHE,'./index.html',1600));
     return;
   }
