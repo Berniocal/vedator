@@ -17,6 +17,8 @@ on:
       - 'tools/build-content-v2.mjs'
       - 'tools/augment-v2-extra-nonquestions.mjs'
       - 'tools/augment-v2-parity-content.mjs'
+      - 'tools/build-production-sw.mjs'
+      - 'tools/test-production-pwa.mjs'
       - 'tools/test-content-v2.mjs'
       - 'tools/test-v2-faq-integrity.mjs'
       - 'tools/test-v2-series-topics.mjs'
