@@ -5,11 +5,13 @@ on:
     branches: [main]
     paths:
       - 'sliby/**'
+      - 'tools/test-sliby-player.cjs'
       - '.github/workflows/verify-sliby.yml'
   push:
     branches: [main]
     paths:
       - 'sliby/**'
+      - 'tools/test-sliby-player.cjs'
       - '.github/workflows/verify-sliby.yml'
 
 permissions:
@@ -58,3 +60,5 @@ jobs:
           new vm.Script(html.match(/<script>([\s\S]*?)<\/script>/)[1]);
           console.log(`Report checked: ${data.findings.length} findings, ${read.length} complete transcripts.`);
           JS
+      - name: Check player seeking and report rendering
+        run: node tools/test-sliby-player.cjs
