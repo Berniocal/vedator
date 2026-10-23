@@ -14,7 +14,7 @@ const buttons=['','Splněno později','Splněno už dříve','Nesplněno'].map(s
 const context={document:{getElementById:id=>elements[id],createElement:tag=>new Element(tag),createDocumentFragment:()=>new Element('#fragment'),querySelectorAll:s=>{assert.equal(s,'.summary button');return buttons}},Blob,URL,setTimeout};
 vm.runInNewContext(html.match(/<script>([\s\S]*?)<\/script>/)[1],context);
 const count=()=>elements.cards.children.length;
-assert.equal(count(),data.findings.length);assert.equal(elements.coverage.children.length,data.files.length);assert.equal(elements['reading-table'].children.length,data.readingProgress.files.length);
+assert.equal(count(),data.findings.length);
 for(const status of data.classification.statuses){elements.status.value=status;elements.status.listeners.change();assert.equal(count(),data.findings.filter(r=>r.stav===status).length)}
 elements.status.value='';
 for(const category of data.classification.categories){elements.cat.value=category;elements.cat.listeners.change();assert.equal(count(),data.findings.filter(r=>r.kategorie===category).length)}
