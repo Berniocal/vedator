@@ -13,12 +13,33 @@ const elements={};for(const m of html.matchAll(/id="([\w-]+)"/g))elements[m[1]]=
 const buttons=['','Splněno později','Splněno už dříve','Nesplněno'].map(status=>{const e=new Element('button');e.dataset.status=status;return e});
 const context={document:{getElementById:id=>elements[id],createElement:tag=>new Element(tag),createDocumentFragment:()=>new Element('#fragment'),querySelectorAll:s=>{assert.equal(s,'.summary button');return buttons}},Blob,URL,setTimeout};
 vm.runInNewContext(html.match(/<script>([\s\S]*?)<\/script>/)[1],context);
-const count=()=>elements.cards.children.length;
-assert.equal(count(),data.findings.length);
+const count=()=>elements.cards.children.filter(n=>n.tag==='article').length;
+const sections=elements.sections.children;
+const openSection=id=>{const button=sections.find(b=>b.dataset.section===id);assert(button);button.onclick()};
+const inSection=id=>data.findings.filter(r=>id==='all'||r.section===id);
+const rendered=()=>elements.cards.children.filter(n=>n.tag==='article').map(card=>[Number(card.dataset.candidate),card.children[1].children[0].textContent]);
+const expected=rows=>rows.map(r=>[r.candidate,r.tema]);
+assert.equal(data.sections.default,'episodes');
+assert.deepEqual(rendered(),expected(inSection('episodes')));
+assert.equal(sections.find(b=>b.dataset.section==='episodes').attrs['aria-pressed'],'true');
+// Content promises must not appear alongside announcements, merchandise or partial answers.
+for(const candidate of [1072,1077,1080,1102,1110,1126,1128,1145,1146,1147,1154,1155,1157,1158,1160,777]){
+ const rows=data.findings.filter(r=>r.candidate===candidate&&r.kategorie==='Sliby');assert(rows.length);assert(rows.every(r=>r.section==='other'));
+}
+for(const candidate of [19,1047,58,181,195,217,516,836])assert(data.findings.filter(r=>r.candidate===candidate&&r.kategorie==='Sliby').every(r=>r.section==='episodes'));
+for(const section of data.sections.options){
+ openSection(section.id);assert.deepEqual(rendered(),expected(inSection(section.id)));
+ assert.equal(Number(elements.nfind.textContent),inSection(section.id).length);
+ for(const status of data.classification.statuses){elements.status.value=status;elements.status.listeners.change();assert.deepEqual(rendered(),expected(inSection(section.id).filter(r=>r.stav===status)))}
+ elements.status.value='';elements.status.listeners.change();
+}
+// Searching never leaks matches from a different section.
+openSection('episodes');elements.q.value='ponožky';elements.q.listeners.input();assert.equal(count(),0);
+openSection('other');assert(count()>0);elements.q.value='';elements.q.listeners.input();
+openSection('all');assert.equal(count(),data.findings.length);
 for(const status of data.classification.statuses){elements.status.value=status;elements.status.listeners.change();assert.equal(count(),data.findings.filter(r=>r.stav===status).length)}
 elements.status.value='';
-for(const category of data.classification.categories){elements.cat.value=category;elements.cat.listeners.change();assert.equal(count(),data.findings.filter(r=>r.kategorie===category).length)}
-elements.cat.value='';elements['read-state'].value='done';elements['read-state'].listeners.change();assert.equal(count(),data.findings.filter(r=>r.fullRead).length);
+elements['read-state'].value='done';elements['read-state'].listeners.change();assert.equal(count(),data.findings.filter(r=>r.fullRead).length);
 elements['read-state'].value='';elements.q.value='feynman';elements.q.listeners.input();assert(count()>0&&count()<data.findings.length);
 elements.q.value='';elements.q.listeners.input();assert.equal(count(),data.findings.length);
 const allNodes=n=>[n,...n.children.filter(c=>c instanceof Element).flatMap(allNodes)];
@@ -57,4 +78,4 @@ a.readyState=1;a.duration=20000;a.listeners.loadedmetadata();assert.equal(a.curr
 click(first);a.readyState=1;a.duration=5;a.listeners.loadedmetadata();assert.equal(a.currentTime,Math.min(5,r.seconds));
 elements['audio-close'].onclick();assert(!a.played&&elements['audio-panel'].hidden);
 buttons[2].onclick();assert.equal(count(),data.findings.filter(r=>r.stav==='Splněno už dříve').length);assert.equal(buttons[2].attrs['aria-pressed'],'true');
-console.log(`PASS: ${data.findings.length} records, filters, time links, pending seeks, rapid ±10 s presses, duration bounds and paused playback.`);
+console.log(`PASS: ${data.findings.length} records, episode default, separate sections, scoped counts/search/filters, time links, pending seeks, rapid ±10 s presses, duration bounds and paused playback.`);
