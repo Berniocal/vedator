@@ -16,36 +16,45 @@ vm.runInNewContext(html.match(/<script>([\s\S]*?)<\/script>/)[1],context);
 const count=()=>elements.cards.children.filter(n=>n.tag==='article').length;
 const sections=elements.sections.children;
 const openSection=id=>{const button=sections.find(b=>b.dataset.section===id);assert(button);button.onclick()};
-const inSection=id=>data.findings.filter(r=>id==='all'||r.section===id);
+const inSection=id=>data.findings.filter(r=>r.section===id);
 const rendered=()=>elements.cards.children.filter(n=>n.tag==='article').map(card=>[Number(card.dataset.candidate),card.children[1].children[0].textContent]);
 const expected=rows=>rows.map(r=>[r.candidate,r.tema]);
 assert.equal(data.sections.default,'episodes');
+assert.deepEqual(data.sections.options.map(s=>s.id),['episodes','other']);
+assert.equal(sections.length,2);
 assert.deepEqual(rendered(),expected(inSection('episodes')));
 assert.equal(sections.find(b=>b.dataset.section==='episodes').attrs['aria-pressed'],'true');
-// Content promises must not appear alongside announcements, merchandise or partial answers.
-for(const candidate of [1072,1077,1080,1102,1110,1126,1128,1145,1146,1147,1154,1155,1157,1158,1160,777]){
- const rows=data.findings.filter(r=>r.candidate===candidate&&r.kategorie==='Sliby');assert(rows.length);assert(rows.every(r=>r.section==='other'));
+// Each section combines promises and ideas, classified by the thing proposed.
+for(const section of ['episodes','other']){
+ const categories=new Set(inSection(section).map(r=>r.kategorie));
+ assert(categories.has('Sliby'));assert(categories.has('Návrhy / nápady'));
 }
-for(const candidate of [19,1047,58,181,195,217,516,836])assert(data.findings.filter(r=>r.candidate===candidate&&r.kategorie==='Sliby').every(r=>r.section==='episodes'));
+for(const candidate of [19,1047,195,217,1035,1045,210,1043]){
+ const rows=data.findings.filter(r=>r.candidate===candidate);assert(rows.length);assert(rows.every(r=>r.section==='episodes'));
+}
+for(const candidate of [1072,1077,1080,1102,1110,1126,1128,1145,1146,1147,1154,1155,1157,1158,1160,777,1111,1133,1141,1144]){
+ const rows=data.findings.filter(r=>r.candidate===candidate);assert(rows.length);assert(rows.every(r=>r.section==='other'));
+}
+const allNodes=n=>[n,...n.children.filter(c=>c instanceof Element).flatMap(allNodes)];
+const links=[],seen=[];
 for(const section of data.sections.options){
- openSection(section.id);assert.deepEqual(rendered(),expected(inSection(section.id)));
- assert.equal(Number(elements.nfind.textContent),inSection(section.id).length);
- for(const status of data.classification.statuses){elements.status.value=status;elements.status.listeners.change();assert.deepEqual(rendered(),expected(inSection(section.id).filter(r=>r.stav===status)))}
+ openSection(section.id);const rows=inSection(section.id);
+ assert.deepEqual(rendered(),expected(rows));seen.push(...rendered());
+ assert.equal(section.count,rows.length);assert.equal(Number(elements.nfind.textContent),rows.length);
+ for(const status of data.classification.statuses){elements.status.value=status;elements.status.listeners.change();assert.deepEqual(rendered(),expected(rows.filter(r=>r.stav===status)))}
  elements.status.value='';elements.status.listeners.change();
+ elements['read-state'].value='done';elements['read-state'].listeners.change();assert.deepEqual(rendered(),expected(rows.filter(r=>r.fullRead)));
+ elements['read-state'].value='';elements['read-state'].listeners.change();
+ const nodes=allNodes(elements.cards);links.push(...nodes.filter(n=>n.tag==='a'));assert(!nodes.some(n=>n.tag==='details'));
+ for(const r of rows)assert(elements.cards.textContent.includes(r.vysvetleni));
+ assert(!elements.cards.textContent.includes('Krátká doslovná formulace'));assert(!elements.cards.textContent.includes('Otevřít titulky'));
+ buttons[3].onclick();assert.deepEqual(rendered(),expected(rows.filter(r=>r.stav==='Nesplněno')));buttons[0].onclick();
 }
+assert.equal(seen.length,data.findings.length);assert.equal(new Set(seen.map(r=>JSON.stringify(r))).size,data.findings.length);
+assert(links.length>=data.findings.length);assert(links.every(a=>/^https:.*#t=\d/.test(a.href)));
 // Searching never leaks matches from a different section.
 openSection('episodes');elements.q.value='ponožky';elements.q.listeners.input();assert.equal(count(),0);
-openSection('other');assert(count()>0);elements.q.value='';elements.q.listeners.input();
-openSection('all');assert.equal(count(),data.findings.length);
-for(const status of data.classification.statuses){elements.status.value=status;elements.status.listeners.change();assert.equal(count(),data.findings.filter(r=>r.stav===status).length)}
-elements.status.value='';
-elements['read-state'].value='done';elements['read-state'].listeners.change();assert.equal(count(),data.findings.filter(r=>r.fullRead).length);
-elements['read-state'].value='';elements.q.value='feynman';elements.q.listeners.input();assert(count()>0&&count()<data.findings.length);
-elements.q.value='';elements.q.listeners.input();assert.equal(count(),data.findings.length);
-const allNodes=n=>[n,...n.children.filter(c=>c instanceof Element).flatMap(allNodes)];
-const nodes=allNodes(elements.cards),links=nodes.filter(n=>n.tag==='a');assert(links.length>=data.findings.length);assert(links.every(a=>/^https:.*#t=\d/.test(a.href)));assert(!nodes.some(n=>n.tag==='details'));
-for(const r of data.findings)assert(elements.cards.textContent.includes(r.vysvetleni));
-assert(!elements.cards.textContent.includes('Krátká doslovná formulace'));assert(!elements.cards.textContent.includes('Otevřít titulky'));
+openSection('other');assert(count()>0);elements.q.value='';elements.q.listeners.input();openSection('episodes');
 // Exercise the real report script against audio metadata and seek events.
 const a=elements.audio,back=elements['audio-back'],forward=elements['audio-forward'];
 const click=link=>link.listeners.click({button:0,preventDefault(){}});
@@ -77,5 +86,5 @@ a.readyState=1;a.duration=20000;a.listeners.loadedmetadata();assert.equal(a.curr
 // A short recording clamps any requested start to its actual duration.
 click(first);a.readyState=1;a.duration=5;a.listeners.loadedmetadata();assert.equal(a.currentTime,Math.min(5,r.seconds));
 elements['audio-close'].onclick();assert(!a.played&&elements['audio-panel'].hidden);
-buttons[2].onclick();assert.equal(count(),data.findings.filter(r=>r.stav==='Splněno už dříve').length);assert.equal(buttons[2].attrs['aria-pressed'],'true');
-console.log(`PASS: ${data.findings.length} records, episode default, separate sections, scoped counts/search/filters, time links, pending seeks, rapid ±10 s presses, duration bounds and paused playback.`);
+buttons[2].onclick();assert.equal(count(),inSection('episodes').filter(r=>r.stav==='Splněno už dříve').length);assert.equal(buttons[2].attrs['aria-pressed'],'true');
+console.log(`PASS: ${data.findings.length} records, two sections combining promises and ideas, episode default, scoped counts/search/filters, time links, pending seeks, rapid ±10 s presses, duration bounds and paused playback.`);
