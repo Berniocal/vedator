@@ -18,7 +18,7 @@
 <button data-status="Splněno už dříve" aria-pressed="false"><strong id="nprior"></strong><span>Splněno už dříve</span></button>
 <button data-status="Nesplněno" aria-pressed="false"><strong id="nopen"></strong><span>Nesplněno</span></button>
 </section>
-<div class="toolbar"><input id="q" type="search" placeholder="Hledat téma, jméno nebo číslo dílu…" aria-label="Hledat"><select id="status" aria-label="Výsledek"><option value="">Všechny výsledky</option></select><select id="read-state" aria-label="Rozsah kontroly"><option value="">Všechny zdroje</option><option value="done">Souvisle přečtené zdroje</option><option value="pending">Zdroje po prvním hledání</option></select></div>
+<div class="toolbar"><input id="q" type="search" placeholder="Hledat téma, jméno nebo číslo dílu…" aria-label="Hledat"><select id="status" aria-label="Výsledek"><option value="">Všechny výsledky</option></select><select id="category" aria-label="Sliby nebo nápady"><option value="">Sliby i nápady</option><option value="Sliby">Sliby</option><option value="Návrhy / nápady">Nápady</option></select></div>
 <div id="shown" class="count" aria-live="polite"></div><section id="cards" aria-label="Záznamy"></section>
 </main>
 <aside id="audio-panel" class="audio-panel" aria-label="Přehrávač výroku" hidden><div class="audio-inner"><div><div id="audio-name" class="audio-name"></div><div id="audio-hint" class="audio-hint"></div><div id="audio-error" class="audio-error" role="status"></div></div><div class="audio-controls"><button id="audio-back" type="button" aria-label="Posunout o 10 sekund zpět">−10 s</button><audio id="audio" controls preload="none"></audio><button id="audio-forward" type="button" aria-label="Posunout o 10 sekund vpřed">+10 s</button></div><button id="audio-close" type="button" aria-label="Zavřít přehrávač">✕</button></div></aside>
@@ -47,12 +47,12 @@ let activeSection=D.sections.default;
 for(const section of D.sections.options){const button=node('button',section.label+' ('+section.count+')');button.type='button';button.dataset.section=section.id;button.setAttribute('aria-pressed',String(section.id===activeSection));button.onclick=()=>{activeSection=section.id;render()};el('sections').append(button)}
 function sectionRows(){return D.findings.filter(r=>r.section===activeSection)}
 for(const v of D.classification.statuses){const o=node('option',v);o.value=v;el('status').append(o)}
-function render(){const q=fold(el('q').value),st=el('status').value,scope=el('read-state').value;
- const inSection=sectionRows();
+function render(){const q=fold(el('q').value),st=el('status').value,category=el('category').value;
+ const inSection=sectionRows().filter(r=>!category||r.kategorie===category);
  el('nfind').textContent=inSection.length;el('nlater').textContent=inSection.filter(r=>r.stav==='Splněno později').length;el('nprior').textContent=inSection.filter(r=>r.stav==='Splněno už dříve').length;el('nopen').textContent=inSection.filter(r=>r.stav==='Nesplněno').length;
  for(const button of el('sections').children)button.setAttribute('aria-pressed',String(button.dataset.section===activeSection));
- const rows=inSection.filter(r=>(!st||r.stav===st)&&(!scope||(scope==='done'?r.fullRead:!r.fullRead))&&(!q||fold([r.tema,r.episodeLabel,r.sourceTitle,r.vysvetleni,r.outcomeNote,...r.targets.map(t=>t.title)].join(' ')).includes(q)));
- el('shown').textContent='Zobrazeno '+rows.length+' z '+inSection.length+' záznamů · '+D.sections.options.find(s=>s.id===activeSection).label;
+ const rows=inSection.filter(r=>(!st||r.stav===st)&&(!q||fold([r.tema,r.episodeLabel,r.sourceTitle,r.vysvetleni,r.outcomeNote,...r.targets.map(t=>t.title)].join(' ')).includes(q)));
+ el('shown').textContent='Zobrazeno '+rows.length+' z '+inSection.length+' záznamů · '+D.sections.options.find(s=>s.id===activeSection).label+(category?' · '+category:'');
  document.querySelectorAll('.summary button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.status===st)));
  const frag=document.createDocumentFragment();
  for(const r of rows){const card=node('article',undefined,'finding');card.dataset.candidate=r.candidate;const source=node('div',undefined,'source');source.append(node('strong',r.episode===null?'Rozhovory 15':'Díl '+r.episodeLabel),node('div',r.sourceTitle,'title'),timeLink(r.time,r.timeURL,r.sourceRecording,r.seconds));
@@ -65,7 +65,7 @@ function render(){const q=fold(el('q').value),st=el('status').value,scope=el('re
  }
  if(!rows.length)frag.append(node('p','Těmto filtrům neodpovídá žádný záznam.','empty'));el('cards').replaceChildren(frag)
 }
-for(const id of ['q','status','read-state'])el(id).addEventListener(id==='q'?'input':'change',render);
+for(const id of ['q','status','category'])el(id).addEventListener(id==='q'?'input':'change',render);
 document.querySelectorAll('.summary button').forEach(b=>b.onclick=()=>{el('status').value=b.dataset.status;render()});
 render();
 </script></body></html>

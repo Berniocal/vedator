@@ -43,8 +43,6 @@ for(const section of data.sections.options){
  assert.equal(section.count,rows.length);assert.equal(Number(elements.nfind.textContent),rows.length);
  for(const status of data.classification.statuses){elements.status.value=status;elements.status.listeners.change();assert.deepEqual(rendered(),expected(rows.filter(r=>r.stav===status)))}
  elements.status.value='';elements.status.listeners.change();
- elements['read-state'].value='done';elements['read-state'].listeners.change();assert.deepEqual(rendered(),expected(rows.filter(r=>r.fullRead)));
- elements['read-state'].value='';elements['read-state'].listeners.change();
  const nodes=allNodes(elements.cards);links.push(...nodes.filter(n=>n.tag==='a'));assert(!nodes.some(n=>n.tag==='details'));
  for(const r of rows)assert(elements.cards.textContent.includes(r.vysvetleni));
  assert(!elements.cards.textContent.includes('Krátká doslovná formulace'));assert(!elements.cards.textContent.includes('Otevřít titulky'));
@@ -52,6 +50,35 @@ for(const section of data.sections.options){
 }
 assert.equal(seen.length,data.findings.length);assert.equal(new Set(seen.map(r=>JSON.stringify(r))).size,data.findings.length);
 assert(links.length>=data.findings.length);assert(links.every(a=>/^https:.*#t=\d/.test(a.href)));
+// The category dropdown replaces source scope and composes with other filters.
+assert(!html.includes('id="read-state"'));
+assert(html.includes('<select id="category" aria-label="Sliby nebo nápady">'));
+assert(html.includes('<option value="">Sliby i nápady</option>'));
+assert(html.includes('<option value="Sliby">Sliby</option>'));
+assert(html.includes('<option value="Návrhy / nápady">Nápady</option>'));
+for(const section of ['episodes','other']){
+ openSection(section);
+ for(const category of ['',...data.classification.categories]){
+  elements.category.value=category;elements.category.listeners.change();
+  const rows=inSection(section).filter(r=>!category||r.kategorie===category);
+  assert.deepEqual(rendered(),expected(rows));
+  assert.equal(Number(elements.nfind.textContent),rows.length);
+  assert.equal(Number(elements.nlater.textContent),rows.filter(r=>r.stav==='Splněno později').length);
+  assert.equal(Number(elements.nprior.textContent),rows.filter(r=>r.stav==='Splněno už dříve').length);
+  assert.equal(Number(elements.nopen.textContent),rows.filter(r=>r.stav==='Nesplněno').length);
+  for(const status of ['',...data.classification.statuses]){
+   elements.status.value=status;elements.status.listeners.change();
+   assert.deepEqual(rendered(),expected(rows.filter(r=>!status||r.stav===status)));
+  }
+  elements.status.value='';elements.q.value='Sagan';elements.q.listeners.input();
+  const fold=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  assert.deepEqual(rendered(),expected(rows.filter(r=>fold([r.tema,r.episodeLabel,r.sourceTitle,r.vysvetleni,r.outcomeNote,...r.targets.map(t=>t.title)].join(' ')).includes('sagan'))));
+  elements.q.value='';elements.q.listeners.input();
+ }
+}
+elements.category.value='Sliby';openSection('episodes');
+assert.deepEqual(rendered(),expected(inSection('episodes').filter(r=>r.kategorie==='Sliby')));
+elements.category.value='';elements.category.listeners.change();
 // Searching never leaks matches from a different section.
 openSection('episodes');elements.q.value='ponožky';elements.q.listeners.input();assert.equal(count(),0);
 openSection('other');assert(count()>0);elements.q.value='';elements.q.listeners.input();openSection('episodes');
