@@ -19,6 +19,8 @@ const openSection=id=>{const button=sections.find(b=>b.dataset.section===id);ass
 const inSection=id=>data.findings.filter(r=>r.section===id);
 const rendered=()=>elements.cards.children.filter(n=>n.tag==='article').map(card=>[Number(card.dataset.candidate),card.children[1].children[0].textContent]);
 const expected=rows=>rows.map(r=>[r.candidate,r.tema]);
+// Split topics can share a candidate id; their archival records must remain distinct.
+assert.deepEqual(data.archive.findings.map(r=>[r.candidate,r.tema]),data.findings.map(r=>[r.candidate,r.tema]));
 assert.equal(data.sections.default,'episodes');
 assert.deepEqual(data.sections.options.map(s=>s.id),['episodes','other']);
 assert.equal(sections.length,2);
