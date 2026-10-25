@@ -15,7 +15,9 @@ const context={document:{getElementById:id=>elements[id],createElement:tag=>new 
 vm.runInNewContext(html.match(/<script>([\s\S]*?)<\/script>/)[1],context);
 const count=()=>elements.cards.children.filter(n=>n.tag==='article').length;
 const sections=elements.sections.children;
-const openSection=id=>{const button=sections.find(b=>b.dataset.section===id);assert(button);button.onclick()};
+const toggle=(label,checked)=>{const input=label.children[0];if(input.checked!==checked){input.checked=checked;input.listeners.change()}};
+const openSection=id=>{assert(sections.some(b=>b.dataset.section===id));for(const label of sections)toggle(label,label.dataset.section===id)};
+const setCategory=value=>{for(const label of elements.categories.children)toggle(label,!value||label.dataset.category===value)};
 const inSection=id=>data.findings.filter(r=>r.section===id);
 const rendered=()=>elements.cards.children.filter(n=>n.tag==='article').map(card=>[Number(card.dataset.candidate),card.children[1].children[0].textContent]);
 const expected=rows=>rows.map(r=>[r.candidate,r.tema]);
@@ -25,7 +27,7 @@ assert.equal(data.sections.default,'episodes');
 assert.deepEqual(data.sections.options.map(s=>s.id),['episodes','other']);
 assert.equal(sections.length,2);
 assert.deepEqual(rendered(),expected(inSection('episodes')));
-assert.equal(sections.find(b=>b.dataset.section==='episodes').attrs['aria-pressed'],'true');
+assert.equal(sections.find(b=>b.dataset.section==='episodes').children[0].checked,true);
 // Each section combines promises and ideas, classified by the thing proposed.
 for(const section of ['episodes','other']){
  const categories=new Set(inSection(section).map(r=>r.kategorie));
@@ -59,16 +61,17 @@ for(const section of data.sections.options){
 }
 assert.equal(seen.length,data.findings.length);assert.equal(new Set(seen.map(r=>JSON.stringify(r))).size,data.findings.length);
 assert(links.length>=data.findings.length);assert(links.every(a=>/^https:.*#t=\d/.test(a.href)));
-// The category dropdown replaces source scope and composes with other filters.
-assert(!html.includes('id="read-state"'));
-assert(html.includes('<select id="category" aria-label="Sliby nebo nápady">'));
-assert(html.includes('<option value="">Sliby i nápady</option>'));
-assert(html.includes('<option value="Sliby">Sliby</option>'));
-assert(html.includes('<option value="Návrhy / nápady">Nápady</option>'));
+// Two rows of native checkbox controls replace both old tabs and descriptions.
+assert(!html.includes('id="read-state"'));assert(!html.includes('<select id="category"'));
+assert(!html.includes('class="personal-help"'));assert(!html.includes('class="section-nav"'));
+assert.equal(elements.categories.children.length,2);
+assert.deepEqual(elements.categories.children.map(e=>e.textContent),['Sliby','Nápady']);
+assert.deepEqual(sections.map(e=>e.textContent),['Epizody','Ostatní']);
+for(const label of [...sections,...elements.categories.children]){assert.equal(label.tag,'label');assert.equal(label.children[0].type,'checkbox');assert(label.children[0].attrs['aria-label'])}
 for(const section of ['episodes','other']){
  openSection(section);
  for(const category of ['',...data.classification.categories]){
-  elements.category.value=category;elements.category.listeners.change();
+  setCategory(category);
   const rows=inSection(section).filter(r=>!category||r.kategorie===category);
   assert.deepEqual(rendered(),expected(rows));
   assert.equal(Number(elements.nfind.textContent),rows.length);
@@ -85,9 +88,14 @@ for(const section of ['episodes','other']){
   elements.q.value='';elements.q.listeners.input();
  }
 }
-elements.category.value='Sliby';openSection('episodes');
+setCategory('Sliby');openSection('episodes');
 assert.deepEqual(rendered(),expected(inSection('episodes').filter(r=>r.kategorie==='Sliby')));
-elements.category.value='';elements.category.listeners.change();
+setCategory('');
+// All four checkbox combinations compose, including both scopes and no selection.
+for(const e of sections)toggle(e,true);assert.equal(count(),data.findings.length);
+for(const e of sections)toggle(e,false);assert.equal(count(),0);assert.equal(Number(elements.nfind.textContent),0);
+openSection('episodes');for(const e of elements.categories.children)toggle(e,false);assert.equal(count(),0);
+setCategory('');
 // Searching never leaks matches from a different section.
 openSection('episodes');elements.q.value='ponožky';elements.q.listeners.input();assert.equal(count(),0);
 openSection('other');assert(count()>0);elements.q.value='';elements.q.listeners.input();openSection('episodes');
@@ -123,4 +131,5 @@ a.readyState=1;a.duration=20000;a.listeners.loadedmetadata();assert.equal(a.curr
 click(first);a.readyState=1;a.duration=5;a.listeners.loadedmetadata();assert.equal(a.currentTime,Math.min(5,r.seconds));
 elements['audio-close'].onclick();assert(!a.played&&elements['audio-panel'].hidden);
 buttons[2].onclick();assert.equal(count(),inSection('episodes').filter(r=>r.stav==='Splněno už dříve').length);assert.equal(buttons[2].attrs['aria-pressed'],'true');
-console.log(`PASS: ${data.findings.length} records, two sections combining promises and ideas, episode default, scoped counts/search/filters, time links, pending seeks, rapid ±10 s presses, duration bounds and paused playback.`);
+console.log(`PASS: ${data.findings.length} records, four checkbox filters, both/neither scopes and categories, episode default, scoped counts/search/filters, time links, pending seeks, rapid ±10 s presses, duration bounds and paused playback.`);
+

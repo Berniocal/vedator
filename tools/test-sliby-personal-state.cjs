@@ -21,7 +21,7 @@ function boot(storage=new Map(),options={}){
  vm.runInNewContext(script,context);
  const cards=()=>elements.cards.children.filter(e=>e.tag==='article');
  const card=r=>cards().find(e=>Number(e.dataset.candidate)===r.candidate&&e.children[1].children[0].textContent===r.tema);
- const selectSection=id=>elements.sections.children.find(e=>e.dataset.section===id).onclick();
+ const selectSection=id=>{for(const e of elements.sections.children){const input=e.children[0],checked=e.dataset.section===id;if(input.checked!==checked){input.checked=checked;input.listeners.change()}}};
  const check=(r,value)=>{const input=nodes(card(r)).find(e=>e.tag==='input'&&e.type==='checkbox');assert(input);input.checked=value;input.listeners.change()};
  const remove=r=>nodes(card(r)).find(e=>e.tag==='button'&&e.textContent==='Smazat').onclick();
  return {elements,context,storage,events,blobs,body,timeouts,revoked,nodes,cards,card,selectSection,check,remove,options};
@@ -80,3 +80,4 @@ async function main(){
  console.log('PASS: fulfilled/unfulfilled overrides, counters/filters, reload persistence, independent shared ids, delete/restore, both-section JSON download, multi-tab merge, and storage failures.');
 }
 main().catch(e=>{console.error(e);process.exitCode=1});
+
