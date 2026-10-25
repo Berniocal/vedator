@@ -8,6 +8,7 @@
 @media(max-width:700px){.section-nav{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding:22px 14px 230px}.summary{grid-template-columns:repeat(2,1fr)}.summary button{padding:12px}.summary button[aria-pressed=true]{padding:11px}.finding{grid-template-columns:1fr;gap:13px;padding:17px}.source{border-right:0;border-bottom:1px solid #e4eaea;padding:0 0 12px;display:grid;grid-template-columns:1fr auto;gap:3px 10px}.source strong{font-size:17px}.source .title{grid-column:1;margin:0}.source .time{grid-column:2;grid-row:1/3;align-self:center}.toolbar{position:relative;padding-top:13px}input{flex-basis:100%}select{max-width:none;flex:1;min-width:130px}.audio-inner{grid-template-columns:1fr auto;gap:7px 12px}.audio-controls{grid-column:1/3;grid-row:2;display:grid;grid-template-columns:1fr 1fr;gap:7px}.audio-controls audio{grid-column:1/3;grid-row:1}.audio-controls button{grid-row:2}.audio-panel{padding:10px 14px}.target-date{display:block;margin-left:0}}
 @media print{.toolbar,.audio-panel,.summary,.finding{break-inside:avoid}body{background:white}main{padding:0}.coverage-details{break-inside:avoid}}
 .details-body{overflow-wrap:anywhere}.audio-inner>div{min-width:0}.audio-name{overflow-wrap:anywhere}
+.report-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0 5px}.report-actions button{border:1px solid #bccdce;border-radius:7px;background:#fff;color:var(--ink);padding:9px 14px;min-height:44px}.report-actions #export-json{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:650}.report-actions button[aria-pressed=true]{background:#fff1b4;border-color:#b59835}.personal-help{margin:5px 0;font-size:13px;color:#607681}.save-status{font-size:13px;color:#8a421b;margin:6px 0}.save-status:empty{display:none}.finding-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:13px 0 8px}.completion-label{display:inline-flex;gap:9px;align-items:center;min-height:44px;cursor:pointer;font-weight:650;color:var(--ink)}.completion-label input[type=checkbox]{width:21px;height:21px;min-width:21px;min-height:21px;flex:none;accent-color:var(--ink);margin:0}.finding-actions button{border:1px solid #e2c6c0;background:#fff8f6;color:#943d2c;border-radius:6px;padding:8px 14px;min-height:44px}.finding-actions .restore-button{border-color:#bccdce;background:#f1f8f7;color:var(--ink)}.personal-note{font-size:13px;color:#315b67;background:#edf5f6;padding:8px 11px;border-radius:6px}.finding>div{min-width:0}.finding h3{overflow-wrap:anywhere}@media print{.report-actions,.finding-actions,.save-status{display:none}}
 </style></head>
 <body><main>
 <header><div class="eyebrow">Vedátor · průběžný přehled · 25. října 2026</div><h1>Sliby a nápady na další epizody</h1></header>
@@ -18,6 +19,9 @@
 <button data-status="Splněno už dříve" aria-pressed="false"><strong id="nprior"></strong><span>Splněno už dříve</span></button>
 <button data-status="Nesplněno" aria-pressed="false"><strong id="nopen"></strong><span>Nesplněno</span></button>
 </section>
+<div class="report-actions"><button id="export-json" type="button">Export do JSON</button><button id="show-deleted" type="button" aria-pressed="false">Smazané (0)</button></div>
+<p class="personal-help">Zaškrtnutí znamená splněno. Vaše hodnocení a smazání se ukládají v tomto prohlížeči. Export zahrnuje obě sekce i smazané položky.</p>
+<p id="save-status" class="save-status" role="status" aria-live="polite"></p>
 <div class="toolbar"><input id="q" type="search" placeholder="Hledat téma, jméno nebo číslo dílu…" aria-label="Hledat"><select id="status" aria-label="Výsledek"><option value="">Všechny výsledky</option></select><select id="category" aria-label="Sliby nebo nápady"><option value="">Sliby i nápady</option><option value="Sliby">Sliby</option><option value="Návrhy / nápady">Nápady</option></select></div>
 <div id="shown" class="count" aria-live="polite"></div><section id="cards" aria-label="Záznamy"></section>
 </main>
@@ -29,6 +33,62 @@ const D=JSON.parse(document.getElementById('audit-data').textContent),el=id=>doc
 function node(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e}
 function fold(s){return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
 function fmtDate(s){return new Date(s).toLocaleDateString('cs-CZ')}
+const STORAGE_KEY='vedator-sliby-user-state-v1';
+const recordKey=r=>JSON.stringify([r.candidate,r.tema]);
+let storageProblem='',showDeleted=false;
+function readPersonalState(){
+ try{
+  const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return {};
+  const saved=JSON.parse(raw);
+  if(saved.schema!==1||!saved.items||typeof saved.items!=='object'||Array.isArray(saved.items))throw new Error('Invalid saved state');
+  const items={};
+  for(const [key,value] of Object.entries(saved.items)){
+   if(!value||typeof value!=='object')continue;
+   const item={};
+   if(typeof value.fulfilled==='boolean')item.fulfilled=value.fulfilled;
+   if(typeof value.deleted==='boolean')item.deleted=value.deleted;
+   if(typeof value.updatedAt==='string')item.updatedAt=value.updatedAt;
+   if('fulfilled' in item||'deleted' in item)items[key]=item;
+  }
+  storageProblem='';return items;
+ }catch(e){storageProblem='Uložené změny se nepodařilo načíst. Nové změny si zálohujte exportem do JSON.';return null}
+}
+let personalState=readPersonalState()||{},unsavedState={};
+function personal(r){return personalState[recordKey(r)]||{}}
+function fulfilled(r){const value=personal(r).fulfilled;return typeof value==='boolean'?value:r.stav!=='Nesplněno'}
+function effective(r){return {...r,auditStatus:r.stav,stav:fulfilled(r)?(r.stav==='Splněno už dříve'?'Splněno už dříve':'Splněno později'):'Nesplněno'}}
+function setPersonal(r,patch){
+ const latest=readPersonalState();personalState={...(latest||personalState),...unsavedState};
+ const key=recordKey(r);personalState[key]={...personalState[key],...patch,updatedAt:new Date().toISOString()};
+ unsavedState[key]=personalState[key];
+ try{localStorage.setItem(STORAGE_KEY,JSON.stringify({schema:1,items:personalState}));storageProblem='';unsavedState={}}
+ catch(e){storageProblem='Změna platí na této stránce, ale nepodařilo se ji uložit do prohlížeče. Zálohujte ji exportem do JSON.'}
+ render();
+}
+function exportRow(r){return {...effective(r),fulfilled:fulfilled(r),deleted:personal(r).deleted===true,personalReview:personalState[recordKey(r)]||null}}
+function exportSnapshot(){
+ const all=D.findings.map(exportRow),findings=all.filter(r=>!r.deleted),deletedFindings=all.filter(r=>r.deleted);
+ const counts=field=>Object.fromEntries([...new Set(findings.map(r=>r[field]))].map(value=>[value,findings.filter(r=>r[field]===value).length]));
+ return {format:'vedator-sliby-personal-export',schema:1,exportedAt:new Date().toISOString(),reportDate:D.date,sourceSHA:D.sourceSHA,catalogSHA:D.catalogSHA,
+  classification:{...D.classification,categoryCounts:counts('kategorie'),statusCounts:counts('stav')},
+  sections:{...D.sections,options:D.sections.options.map(s=>({...s,count:findings.filter(r=>r.section===s.id).length}))},
+  readingProgress:D.readingProgress,findings,deletedFindings,personalState:{schema:1,items:personalState}};
+}
+el('export-json').onclick=()=>{
+ let url;
+ try{
+  const snapshot=exportSnapshot(),blob=new Blob([JSON.stringify(snapshot,null,2)+'\n'],{type:'application/json;charset=utf-8'});
+  url=URL.createObjectURL(blob);const link=node('a');link.href=url;link.download='Vedator_sliby_a_napady_'+snapshot.exportedAt.slice(0,10)+'.json';
+  document.body.append(link);link.click();link.remove();
+  el('save-status').textContent='JSON export obsahuje všechny záznamy z obou sekcí, vaše hodnocení i smazané položky.';
+ }catch(e){if(url)URL.revokeObjectURL(url);el('save-status').textContent='Export se nepodařilo vytvořit. Zkuste to prosím znovu.';return}
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+el('show-deleted').onclick=()=>{showDeleted=!showDeleted;render()};
+if(typeof window!=='undefined')window.addEventListener('storage',event=>{
+ if(event.key!==STORAGE_KEY&&event.key!==null)return;
+ const latest=readPersonalState();if(latest)personalState={...latest,...unsavedState};render();
+});
 const audio=el('audio');let pendingStart=null;
 function boundedTime(seconds){const value=Number.isFinite(seconds)?Math.max(0,seconds):0;return audio.readyState>=1&&Number.isFinite(audio.duration)?Math.min(value,Math.max(0,audio.duration)):value}
 function seekPending(){if(pendingStart===null||audio.readyState<1)return;try{audio.currentTime=boundedTime(pendingStart);pendingStart=null}catch(e){}}
@@ -45,20 +105,29 @@ function timeLink(time,url,recording,seconds){const a=node('a','▶ '+time,'time
 el('audio-close').onclick=()=>{audio.pause();el('audio-panel').hidden=true};
 let activeSection=D.sections.default;
 for(const section of D.sections.options){const button=node('button',section.label+' ('+section.count+')');button.type='button';button.dataset.section=section.id;button.setAttribute('aria-pressed',String(section.id===activeSection));button.onclick=()=>{activeSection=section.id;render()};el('sections').append(button)}
-function sectionRows(){return D.findings.filter(r=>r.section===activeSection)}
+function sectionRows(){return D.findings.filter(r=>r.section===activeSection&&(personal(r).deleted===true)===showDeleted).map(effective)}
 for(const v of D.classification.statuses){const o=node('option',v);o.value=v;el('status').append(o)}
 function render(){const q=fold(el('q').value),st=el('status').value,category=el('category').value;
  const inSection=sectionRows().filter(r=>!category||r.kategorie===category);
  el('nfind').textContent=inSection.length;el('nlater').textContent=inSection.filter(r=>r.stav==='Splněno později').length;el('nprior').textContent=inSection.filter(r=>r.stav==='Splněno už dříve').length;el('nopen').textContent=inSection.filter(r=>r.stav==='Nesplněno').length;
- for(const button of el('sections').children)button.setAttribute('aria-pressed',String(button.dataset.section===activeSection));
+ for(const button of el('sections').children){const section=D.sections.options.find(s=>s.id===button.dataset.section);button.textContent=section.label+' ('+D.findings.filter(r=>r.section===section.id&&(personal(r).deleted===true)===showDeleted).length+')';button.setAttribute('aria-pressed',String(button.dataset.section===activeSection))}
+ el('show-deleted').textContent=showDeleted?'Zpět na aktivní záznamy':'Smazané ('+D.findings.filter(r=>personal(r).deleted===true).length+')';
+ el('show-deleted').setAttribute('aria-pressed',String(showDeleted));
+ el('save-status').textContent=storageProblem;
  const rows=inSection.filter(r=>(!st||r.stav===st)&&(!q||fold([r.tema,r.episodeLabel,r.sourceTitle,r.vysvetleni,r.outcomeNote,...r.targets.map(t=>t.title)].join(' ')).includes(q)));
- el('shown').textContent='Zobrazeno '+rows.length+' z '+inSection.length+' záznamů · '+D.sections.options.find(s=>s.id===activeSection).label+(category?' · '+category:'');
+ el('shown').textContent='Zobrazeno '+rows.length+' z '+inSection.length+' záznamů · '+D.sections.options.find(s=>s.id===activeSection).label+(category?' · '+category:'')+(showDeleted?' · Smazané':'');
  document.querySelectorAll('.summary button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.status===st)));
  const frag=document.createDocumentFragment();
  for(const r of rows){const card=node('article',undefined,'finding');card.dataset.candidate=r.candidate;const source=node('div',undefined,'source');source.append(node('strong',r.episode===null?'Rozhovory 15':'Díl '+r.episodeLabel),node('div',r.sourceTitle,'title'),timeLink(r.time,r.timeURL,r.sourceRecording,r.seconds));
   const body=node('div');body.append(node('h3',r.tema));const chips=node('div',undefined,'chips');chips.append(node('span',r.kategorie,'chip'),node('span',r.stav,'chip '+(r.stav==='Splněno později'?'yes':r.stav==='Splněno už dříve'?'prior':'no')));if(r.timingStatus)chips.append(node('span',r.timingStatus,'chip no'));body.append(chips);
+  const actions=node('div',undefined,'finding-actions'),label=node('label',undefined,'completion-label'),checkbox=node('input');
+  checkbox.type='checkbox';checkbox.id='complete-'+r.index;checkbox.checked=fulfilled(r);checkbox.setAttribute('aria-label','Splněno: '+r.tema);
+  checkbox.addEventListener('change',()=>{setPersonal(r,{fulfilled:checkbox.checked});el(checkbox.id)?.focus?.()});label.append(checkbox,node('span','Splněno'));
+  const remove=node('button',showDeleted?'Obnovit':'Smazat',showDeleted?'restore-button':'delete-button');remove.type='button';remove.setAttribute('aria-label',(showDeleted?'Obnovit: ':'Smazat: ')+r.tema);
+  remove.onclick=()=>{setPersonal(r,{deleted:!showDeleted});el('show-deleted').focus?.()};actions.append(label,remove);body.append(actions);
+  if(typeof personal(r).fulfilled==='boolean')body.append(node('p','Vaše hodnocení: '+(fulfilled(r)?'splněno':'nesplněno')+'. Původní výsledek auditu: '+r.auditStatus+'.','personal-note'));
   if(r.outcomeNote)body.append(node('p',r.outcomeNote,'outcome'));body.append(node('p',r.vysvetleni,'explanation'));if(r.categoryNote)body.append(node('p',r.categoryNote,'smallnote'));
-  if(r.targets.length){body.append(node('div',r.stav==='Nesplněno'?'Související nebo možné naplnění:':'Dohledané naplnění:','muted'));const ul=node('ul',undefined,'targets');for(const t of r.targets){const li=node('li'),head=node('div');head.append(node('span',t.title,'target-title'),node('span',fmtDate(t.date),'target-date'));li.append(head);
+  if(r.targets.length){body.append(node('div',typeof personal(r).fulfilled==='boolean'?'Související epizody:':r.stav==='Nesplněno'?'Související nebo možné naplnění:':'Dohledané naplnění:','muted'));const ul=node('ul',undefined,'targets');for(const t of r.targets){const li=node('li'),head=node('div');head.append(node('span',t.title,'target-title'),node('span',fmtDate(t.date),'target-date'));li.append(head);
     for(const ev of t.evidence||[]){const e=node('div',undefined,'evidence');e.append(timeLink(ev.time,ev.timeURL,t,ev.sec),' · '+ev.label);li.append(e)}
     if(!(t.evidence||[]).length){const e=node('div',undefined,'evidence');e.append(timeLink('00:00:00',t.timeURL,t,0),node('span',' · celá epizoda','muted'));li.append(e)}ul.append(li)}body.append(ul)}
   body.append(node('div',r.fullRead?'Zdroj souvisle přečten; čas podle přepisu.':'Zdroj po prvním hledání; souvislé čtení ještě zbývá.','smallnote'));card.append(source,body);frag.append(card)
