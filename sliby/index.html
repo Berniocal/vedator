@@ -19,7 +19,7 @@
 <button data-status="Splněno už dříve" aria-pressed="false"><strong id="nprior"></strong><span>Splněno už dříve</span></button>
 <button data-status="Nesplněno" aria-pressed="false"><strong id="nopen"></strong><span>Nesplněno</span></button>
 </section>
-<div class="report-actions"><button id="export-json" type="button">Export do JSON</button><button id="show-deleted" type="button" aria-pressed="false">Smazané (0)</button></div>
+<div class="report-actions"><button id="export-json" type="button">Export do JSON</button><button id="show-deleted" type="button" aria-pressed="false">Smazané (0)</button><button id="reset-defaults" type="button" title="Vrátit původní hodnocení všech záznamů a obnovit smazané položky">Obnovit výchozí</button></div>
 <p class="personal-help">Zaškrtnutí znamená splněno. Vaše hodnocení a smazání se ukládají v tomto prohlížeči. Export zahrnuje obě sekce i smazané položky.</p>
 <p id="save-status" class="save-status" role="status" aria-live="polite"></p>
 <div class="toolbar"><input id="q" type="search" placeholder="Hledat téma, jméno nebo číslo dílu…" aria-label="Hledat"><select id="status" aria-label="Výsledek"><option value="">Všechny výsledky</option></select><select id="category" aria-label="Sliby nebo nápady"><option value="">Sliby i nápady</option><option value="Sliby">Sliby</option><option value="Návrhy / nápady">Nápady</option></select></div>
@@ -85,6 +85,14 @@ el('export-json').onclick=()=>{
  setTimeout(()=>URL.revokeObjectURL(url),1000);
 };
 el('show-deleted').onclick=()=>{showDeleted=!showDeleted;render()};
+el('reset-defaults').onclick=()=>{
+ try{localStorage.removeItem(STORAGE_KEY)}
+ catch(e){el('save-status').textContent='Původní třídění se nepodařilo obnovit. Změny zůstaly zachované. Zkuste to prosím znovu.';return}
+ personalState={};unsavedState={};storageProblem='';showDeleted=false;
+ el('status').value='';
+ render();
+ el('save-status').textContent='Obnoveno původní třídění: původní hodnocení splněno/nesplněno a všechny smazané položky.';
+};
 if(typeof window!=='undefined')window.addEventListener('storage',event=>{
  if(event.key!==STORAGE_KEY&&event.key!==null)return;
  const latest=readPersonalState();if(latest)personalState={...latest,...unsavedState};render();
