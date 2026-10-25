@@ -6,12 +6,14 @@ on:
     paths:
       - 'sliby/**'
       - 'tools/test-sliby-player.cjs'
+      - 'tools/test-sliby-personal-state.cjs'
       - '.github/workflows/verify-sliby.yml'
   push:
     branches: [main]
     paths:
       - 'sliby/**'
       - 'tools/test-sliby-player.cjs'
+      - 'tools/test-sliby-personal-state.cjs'
       - '.github/workflows/verify-sliby.yml'
 
 permissions:
@@ -62,3 +64,5 @@ jobs:
           JS
       - name: Check player seeking and report rendering
         run: node tools/test-sliby-player.cjs
+      - name: Check personal status, persistence, deletion and JSON export
+        run: node tools/test-sliby-personal-state.cjs
