@@ -20,7 +20,7 @@ const openSection=id=>{assert(sections.some(b=>b.dataset.section===id));for(cons
 const setCategory=value=>{for(const label of elements.categories.children)toggle(label,!value||label.dataset.category===value)};
 const inSection=id=>data.findings.filter(r=>r.section===id);
 const rendered=()=>elements.cards.children.filter(n=>n.tag==='article').map(card=>[Number(card.dataset.candidate),card.children[1].children[0].textContent]);
-const expected=rows=>rows.map(r=>[r.candidate,r.tema]);
+const expected=rows=>rows.map(r=>[r.candidate,r.displayTema||r.tema]);
 // Split topics can share a candidate id; their archival records must remain distinct.
 assert.deepEqual(data.archive.findings.map(r=>[r.candidate,r.tema]),data.findings.map(r=>[r.candidate,r.tema]));
 assert.equal(data.sections.default,'episodes');
@@ -84,7 +84,7 @@ for(const section of ['episodes','other']){
   }
   elements.status.value='';elements.q.value='Sagan';elements.q.listeners.input();
   const fold=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-  assert.deepEqual(rendered(),expected(rows.filter(r=>fold([r.tema,r.episodeLabel,r.sourceTitle,r.vysvetleni,r.outcomeNote,...r.targets.map(t=>t.title)].join(' ')).includes('sagan'))));
+  assert.deepEqual(rendered(),expected(rows.filter(r=>fold([r.displayTema||r.tema,r.tema,r.episodeLabel,r.sourceTitle,r.vysvetleni,r.outcomeNote,...(r.mergedFrom||[]).flatMap(m=>[m.tema,m.episodeLabel,m.sourceTitle,m.vysvetleni]),...r.targets.map(t=>t.title)].join(' ')).includes('sagan'))));
   elements.q.value='';elements.q.listeners.input();
  }
 }
@@ -107,7 +107,7 @@ for(const r of data.findings){
  const [h,m,s]=r.time.split(':').map(Number);assert.equal(h*3600+m*60+s,Math.floor(r.seconds));
 }
 for(const review of data.anchorReview||[]){
- const r=data.findings.find(r=>r.candidate===review.candidate&&r.tema===review.tema);
+ const r=data.findings.flatMap(r=>r.mergedFrom||[r]).find(r=>r.candidate===review.candidate&&r.tema===review.tema);
  assert(r);assert.equal(r.seconds,review.seconds);assert.equal(r.time,review.time);
 }
 const first=links[0],r=data.findings[0];let prevented=false;
@@ -133,3 +133,17 @@ elements['audio-close'].onclick();assert(!a.played&&elements['audio-panel'].hidd
 buttons[2].onclick();assert.equal(count(),inSection('episodes').filter(r=>r.stav==='Splněno už dříve').length);assert.equal(buttons[2].attrs['aria-pressed'],'true');
 console.log(`PASS: ${data.findings.length} records, four checkbox filters, both/neither scopes and categories, episode default, scoped counts/search/filters, time links, pending seeks, rapid ±10 s presses, duration bounds and paused playback.`);
 
+
+const groups=data.findings.filter(r=>r.mergedFrom);
+for(const id of [42,1353,1599,87])assert(groups.some(r=>r.candidate===id));
+const originals=data.findings.flatMap(r=>r.mergedFrom||[r]);
+assert.equal(new Set(originals.map(r=>JSON.stringify([r.candidate,r.tema]))).size,originals.length);
+for(const r of groups){
+ assert(r.mergedFrom.length>1);
+ assert(r.mergedFrom.some(m=>m.candidate===r.candidate&&m.tema===r.tema));
+ for(const m of r.mergedFrom){
+  if(m.candidate!==r.candidate)assert(!data.findings.some(row=>row.candidate===m.candidate));
+  assert(links.some(a=>a.href===m.timeURL),'Every original statement must retain its playback link');
+ }
+}
+console.log('PASS: consolidated series preserve original statements and playback links without duplicate cards.');

@@ -20,7 +20,7 @@ function boot(storage=new Map(),options={}){
  const context={document,Blob,URL:{createObjectURL(blob){blobs.push(blob);return 'blob:test-'+blobs.length},revokeObjectURL(url){revoked.push(url)}},setTimeout:f=>timeouts.push(f),window:{addEventListener:(name,fn)=>events[name]=fn},localStorage:{getItem(k){if(options.readError)throw Error('Storage unavailable');return storage.get(k)??null},setItem(k,v){if(options.writeError)throw Error('Storage full');storage.set(k,v)}}};
  vm.runInNewContext(script,context);
  const cards=()=>elements.cards.children.filter(e=>e.tag==='article');
- const card=r=>cards().find(e=>Number(e.dataset.candidate)===r.candidate&&e.children[1].children[0].textContent===r.tema);
+ const card=r=>cards().find(e=>Number(e.dataset.candidate)===r.candidate&&e.children[1].children[0].textContent===(r.displayTema||r.tema));
  const selectSection=id=>{for(const e of elements.sections.children){const input=e.children[0],checked=e.dataset.section===id;if(input.checked!==checked){input.checked=checked;input.listeners.change()}}};
  const check=(r,value)=>{const input=nodes(card(r)).find(e=>e.tag==='input'&&e.type==='checkbox');assert(input);input.checked=value;input.listeners.change()};
  const remove=r=>nodes(card(r)).find(e=>e.tag==='button'&&e.textContent==='Smazat').onclick();
@@ -76,6 +76,32 @@ async function main(){
  assert(unavailable.elements['save-status'].textContent.includes('nepodařilo'));
  unavailable.elements['export-json'].onclick();const fallback=JSON.parse(await unavailable.blobs[0].text());assert(fallback.findings.find(r=>key(r)===key(pending)).fulfilled);assert(!fallback.findings.find(r=>key(r)===key(done)).fulfilled);
  const quota=boot(new Map(),{writeError:true});quota.check(pending,true);quota.check(done,false);quota.elements['export-json'].onclick();const unsaved=JSON.parse(await quota.blobs[0].text());assert(unsaved.findings.find(r=>key(r)===key(pending)).fulfilled);assert(!unsaved.findings.find(r=>key(r)===key(done)).fulfilled);
+
+ // Reviews saved against any former duplicate apply to the unified card.
+ for(const unified of data.findings.filter(r=>r.mergedFrom)){
+  const legacy=unified.mergedFrom.find(r=>key(r)!==key(unified));
+  const value=unified.stav==='Nesplněno';
+  const savedItems={[key(legacy)]:{fulfilled:value,deleted:true,updatedAt:'2025-01-01T00:00:00.000Z'}};
+  const saved=new Map([[KEY,JSON.stringify({schema:1,items:savedItems})]]);
+  const merged=boot(saved);assert(!merged.card(unified));
+  assert.equal(merged.elements['show-deleted'].textContent,'Smazané (1)');
+  merged.elements['show-deleted'].onclick();assert(merged.card(unified));
+  assert.equal(merged.nodes(merged.card(unified)).find(e=>e.type==='checkbox').checked,value);
+  merged.elements['export-json'].onclick();const snapshot=JSON.parse(await merged.blobs[0].text());
+  assert.equal(snapshot.deletedFindings.length,1);
+  assert.equal(key(snapshot.deletedFindings[0]),key(unified));
+  assert.equal(snapshot.deletedFindings[0].personalReview.fulfilled,value);
+  assert.equal(snapshot.deletedFindings[0].mergedFrom.length,unified.mergedFrom.length);
+  merged.nodes(merged.card(unified)).find(e=>e.tag==='button'&&e.textContent==='Obnovit').onclick();
+  merged.elements['show-deleted'].onclick();assert(merged.card(unified));
+  merged.check(unified,!value);const again=boot(saved);
+  assert(again.card(unified));assert.equal(again.nodes(again.card(unified)).find(e=>e.type==='checkbox').checked,!value);
+  assert(JSON.parse(saved.get(KEY)).items[key(legacy)],'Keep original review keys in storage');
+  const conflict={[key(unified)]:{fulfilled:false,updatedAt:'2024-01-01T00:00:00.000Z'},[key(legacy)]:{fulfilled:true,deleted:true,updatedAt:'2025-01-01T00:00:00.000Z'}};
+  const latest=boot(new Map([[KEY,JSON.stringify({schema:1,items:conflict})]]));
+  latest.elements['show-deleted'].onclick();assert(latest.card(unified));assert(latest.nodes(latest.card(unified)).find(e=>e.type==='checkbox').checked);
+ }
+ console.log('PASS: legacy merged reviews, latest conflicting review, delete/restore, reload and unified export.');
  assert.equal(JSON.stringify(data),original,'Personal changes must never rewrite the audit source');
  console.log('PASS: fulfilled/unfulfilled overrides, counters/filters, reload persistence, independent shared ids, delete/restore, both-section JSON download, multi-tab merge, and storage failures.');
 }
