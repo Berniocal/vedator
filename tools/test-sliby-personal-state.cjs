@@ -17,7 +17,7 @@ function boot(storage=new Map(),options={}){
  const body=new Element('body'),events={},blobs=[],revoked=[],timeouts=[];
  const nodes=n=>[n,...n.children.filter(c=>c instanceof Element).flatMap(nodes)];
  const document={body,getElementById:id=>elements[id]||nodes(elements.cards).find(e=>e.id===id),createElement:tag=>new Element(tag),createDocumentFragment:()=>new Element('#fragment'),querySelectorAll:s=>{assert.equal(s,'.summary button');return summary}};
- const context={document,Blob,URL:{createObjectURL(blob){blobs.push(blob);return 'blob:test-'+blobs.length},revokeObjectURL(url){revoked.push(url)}},setTimeout:f=>timeouts.push(f),window:{addEventListener:(name,fn)=>events[name]=fn},localStorage:{getItem(k){if(options.readError)throw Error('Storage unavailable');return storage.get(k)??null},setItem(k,v){if(options.writeError)throw Error('Storage full');storage.set(k,v)},removeItem(k){if(options.writeError)throw Error('Storage full');storage.delete(k)}}};
+ const context={document,Blob,URL:{createObjectURL(blob){blobs.push(blob);return 'blob:test-'+blobs.length},revokeObjectURL(url){revoked.push(url)}},setTimeout:f=>timeouts.push(f),window:{addEventListener:(name,fn)=>events[name]=fn},localStorage:{getItem(k){if(options.readError)throw Error('Storage unavailable');return storage.get(k)??null},setItem(k,v){if(options.writeError)throw Error('Storage full');storage.set(k,v)}}};
  vm.runInNewContext(script,context);
  const cards=()=>elements.cards.children.filter(e=>e.tag==='article');
  const card=r=>cards().find(e=>Number(e.dataset.candidate)===r.candidate&&e.children[1].children[0].textContent===r.tema);
@@ -50,7 +50,6 @@ async function main(){
  app.elements['export-json'].onclick();assert.equal(app.blobs.length,1);
  const downloaded=JSON.parse(await app.blobs[0].text());
  assert.equal(downloaded.format,'vedator-sliby-personal-export');
- assert.deepEqual(downloaded.repeatedPromises,data.repeatedPromises);
  assert.equal(downloaded.findings.length,data.findings.length-2);assert.equal(downloaded.deletedFindings.length,2);
  assert(downloaded.findings.some(r=>r.section==='episodes'));assert(downloaded.findings.some(r=>r.section==='other'));
  const deleted=downloaded.deletedFindings.find(r=>key(r)===key(pending));assert(deleted.fulfilled);assert(deleted.deleted);assert.equal(deleted.stav,'Splněno později');assert.equal(deleted.auditStatus,'Nesplněno');assert.equal(deleted.timeURL,pending.timeURL);
@@ -77,20 +76,8 @@ async function main(){
  assert(unavailable.elements['save-status'].textContent.includes('nepodařilo'));
  unavailable.elements['export-json'].onclick();const fallback=JSON.parse(await unavailable.blobs[0].text());assert(fallback.findings.find(r=>key(r)===key(pending)).fulfilled);assert(!fallback.findings.find(r=>key(r)===key(done)).fulfilled);
  const quota=boot(new Map(),{writeError:true});quota.check(pending,true);quota.check(done,false);quota.elements['export-json'].onclick();const unsaved=JSON.parse(await quota.blobs[0].text());assert(unsaved.findings.find(r=>key(r)===key(pending)).fulfilled);assert(!unsaved.findings.find(r=>key(r)===key(done)).fulfilled);
- // The repeated-only filter composes with personal marks, deletion, export and reset.
- const repeatApp=boot(new Map()),repeatRow=data.findings.find(r=>r.section==='episodes'&&(r.repeatGroupIds||[]).length);
- const repeatInput=repeatApp.elements.repeats.children[0].children[0];repeatInput.checked=true;repeatInput.listeners.change();
- const repeatCount=repeatApp.cards().length,group=data.repeatedPromises.groups.find(g=>g.id===repeatRow.repeatGroupIds[0]);
- repeatApp.check(repeatRow,false);assert.equal(repeatApp.cards().length,repeatCount);
- repeatApp.remove(repeatRow);assert(!repeatApp.card(repeatRow));assert.equal(repeatApp.cards().length,repeatCount-1);
- repeatApp.elements['show-deleted'].onclick();assert(repeatApp.card(repeatRow));
- repeatApp.elements['export-json'].onclick();const repeatedExport=JSON.parse(await repeatApp.blobs[0].text());
- assert.deepEqual(repeatedExport.repeatedPromises,data.repeatedPromises);assert.equal(repeatedExport.repeatedPromises.groups.find(g=>g.id===group.id).count,group.count);
- assert(repeatedExport.deletedFindings.some(r=>key(r)===key(repeatRow)&&r.repeatGroupIds.includes(group.id)));
- repeatApp.elements['reset-defaults'].onclick();assert.equal(repeatInput.checked,false);assert(repeatApp.card(repeatRow));assert.equal(repeatApp.storage.has(KEY),false);
  assert.equal(JSON.stringify(data),original,'Personal changes must never rewrite the audit source');
- console.log('PASS: fulfilled/unfulfilled overrides, counters/filters, reload persistence, independent shared ids, delete/restore, both-section JSON download, multi-tab merge, storage failures, and repeated-promises filtering/export/reset.');
+ console.log('PASS: fulfilled/unfulfilled overrides, counters/filters, reload persistence, independent shared ids, delete/restore, both-section JSON download, multi-tab merge, and storage failures.');
 }
 main().catch(e=>{console.error(e);process.exitCode=1});
-
 

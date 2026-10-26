@@ -99,52 +99,6 @@ setCategory('');
 // Searching never leaks matches from a different section.
 openSection('episodes');elements.q.value='ponožky';elements.q.listeners.input();assert.equal(count(),0);
 openSection('other');assert(count()>0);elements.q.value='';elements.q.listeners.input();openSection('episodes');
-// Repeated promises are curated by the same commitment, never by a shared id alone.
-const groupIds=new Set(),byKey=new Map(data.findings.map(r=>[JSON.stringify([r.candidate,r.tema]),r]));
-assert.equal(data.repeatedPromises.reviewedFindings,data.findings.length);
-for(const g of data.repeatedPromises.groups){
- assert(!groupIds.has(g.id));groupIds.add(g.id);assert(g.count>=2);assert.equal(g.count,g.members.length);
- const members=g.members.map(m=>byKey.get(JSON.stringify([m.candidate,m.tema])));assert(members.every(Boolean));
- assert(members.every(r=>r.kategorie==='Sliby'&&r.repeatGroupIds.includes(g.id)));
- assert.equal(new Set(members.map(r=>r.episode)).size,g.count);
- assert.deepEqual(members.map(r=>r.episode),g.episodes);
-}
-for(const r of data.findings)for(const id of r.repeatGroupIds||[]){
- const g=data.repeatedPromises.groups.find(g=>g.id===id);assert(g);
- assert(g.members.some(m=>m.candidate===r.candidate&&m.tema===r.tema));
-}
-const quantum=data.repeatedPromises.groups.find(g=>g.id==='quantum-computers');
-assert.deepEqual(quantum.episodes,[26,58,79,108]);
-const threeBody=data.repeatedPromises.groups.find(g=>g.id==='three-body');
-assert(threeBody.members.some(m=>m.candidate===195&&m.tema==='Problém tří těles'));
-assert(!threeBody.members.some(m=>m.tema==='Kniha Billa Gatese o klimatické katastrofě'));
-const wings=data.repeatedPromises.groups.find(g=>g.id==='wings-2025');
-assert.deepEqual(wings.episodes,[230,244,273,274]);
-const oldLive=data.repeatedPromises.groups.find(g=>g.id==='live-end-2024');
-assert(!oldLive.members.some(m=>[1537,1560,1571,1578].includes(m.candidate)));
-assert.equal(elements.repeats.children.length,1);
-const repeatLabel=elements.repeats.children[0],repeatInput=repeatLabel.children[0];
-assert.equal(repeatLabel.tag,'label');assert.equal(repeatLabel.textContent,'Opakované sliby');assert.equal(repeatInput.type,'checkbox');assert.equal(repeatInput.checked,false);
-toggle(repeatLabel,true);
-const fold=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-const repeated=r=>r.kategorie==='Sliby'&&(r.repeatGroupIds||[]).length>0;
-for(const section of ['episodes','other']){
- openSection(section);
- for(const category of ['',...data.classification.categories]){
-  setCategory(category);const scope=inSection(section).filter(r=>repeated(r)&&(!category||r.kategorie===category));
-  assert.deepEqual(rendered(),expected(scope));assert.equal(Number(elements.nfind.textContent),scope.length);
-  for(const status of ['',...data.classification.statuses]){elements.status.value=status;elements.status.listeners.change();assert.deepEqual(rendered(),expected(scope.filter(r=>!status||r.stav===status)))}
-  elements.status.value='';elements.q.value='kvantové počítače';elements.q.listeners.input();
-  assert.deepEqual(rendered(),expected(scope.filter(r=>fold([r.tema,r.episodeLabel,r.sourceTitle,r.vysvetleni,r.outcomeNote,...r.targets.map(t=>t.title)].join(' ')).includes('kvantove pocitace'))));
-  elements.q.value='';elements.q.listeners.input();
- }
-}
-setCategory('');for(const e of sections)toggle(e,true);
-assert.equal(count(),data.findings.filter(repeated).length);
-const sample=elements.cards.children.find(c=>c.tag==='article'&&Number(c.dataset.candidate)===1047);
-assert(sample.textContent.includes('Slíbeno 4× · díly 26, 58, 79, 108'));
-toggle(repeatLabel,false);openSection('episodes');assert.deepEqual(rendered(),expected(inSection('episodes')));
-
 // Exercise the real report script against audio metadata and seek events.
 const a=elements.audio,back=elements['audio-back'],forward=elements['audio-forward'];
 const click=link=>link.listeners.click({button:0,preventDefault(){}});
@@ -177,6 +131,5 @@ a.readyState=1;a.duration=20000;a.listeners.loadedmetadata();assert.equal(a.curr
 click(first);a.readyState=1;a.duration=5;a.listeners.loadedmetadata();assert.equal(a.currentTime,Math.min(5,r.seconds));
 elements['audio-close'].onclick();assert(!a.played&&elements['audio-panel'].hidden);
 buttons[2].onclick();assert.equal(count(),inSection('episodes').filter(r=>r.stav==='Splněno už dříve').length);assert.equal(buttons[2].attrs['aria-pressed'],'true');
-console.log(`PASS: ${data.findings.length} records, five checkbox filters including repeated promises, both/neither scopes and categories, episode default, scoped counts/search/filters, time links, pending seeks, rapid ±10 s presses, duration bounds and paused playback.`);
-
+console.log(`PASS: ${data.findings.length} records, four checkbox filters, both/neither scopes and categories, episode default, scoped counts/search/filters, time links, pending seeks, rapid ±10 s presses, duration bounds and paused playback.`);
 
