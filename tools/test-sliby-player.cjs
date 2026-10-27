@@ -147,3 +147,22 @@ for(const r of groups){
  }
 }
 console.log('PASS: consolidated series preserve original statements and playback links without duplicate cards.');
+
+
+// Compact view changes presentation only; every item and action stays available.
+elements.status.value='';elements.q.value='';for(const label of sections)toggle(label,true);setCategory('');
+const totalBefore=count(),compact=elements['compact-view'];
+compact.checked=true;compact.listeners.change();
+assert.equal(count(),totalBefore);
+for(const card of elements.cards.children.filter(n=>n.tag==='article')){
+ assert.equal(card.children[0].hidden,true);
+ const body=card.children[1],details=body.children.find(n=>n.className==='finding-details'),title=body.children[0].children[0];
+ assert(details.hidden);assert.equal(title.tag,'button');assert.equal(title.attrs['aria-expanded'],'false');
+ assert(allNodes(body).some(n=>n.type==='checkbox'));assert(allNodes(body).some(n=>n.tag==='button'&&n.textContent==='Smazat'));
+}
+const compactCard=elements.cards.children.find(n=>n.tag==='article'),compactBody=compactCard.children[1],compactTitle=compactBody.children[0].children[0],compactDetails=compactBody.children.find(n=>n.className==='finding-details');
+compactTitle.listeners.click();assert.equal(compactDetails.hidden,false);assert.equal(compactCard.children[0].hidden,false);assert.equal(compactTitle.attrs['aria-expanded'],'true');
+compactTitle.listeners.click();assert(compactDetails.hidden);assert(compactCard.children[0].hidden);assert.equal(compactTitle.attrs['aria-expanded'],'false');
+compact.checked=false;compact.listeners.change();assert.equal(count(),totalBefore);
+for(const card of elements.cards.children.filter(n=>n.tag==='article')){assert.equal(card.children[0].hidden,false);assert.equal(card.children[1].children.find(n=>n.className==='finding-details').hidden,false)}
+console.log('PASS: compact view preserves all records and actions, title toggles details, full view expands everything.');
