@@ -170,7 +170,7 @@ for(const card of elements.cards.children.filter(n=>n.tag==='article')){assert.e
 console.log('PASS: compact view preserves all records and actions, title toggles details, full view expands everything.');
 
 compact.checked=true;compact.listeners.change();
-const playCard=elements.cards.children.find(n=>n.tag==='article'),playBody=playCard.children[1],play=playBody.children[0].children.find(n=>n.className==='promise-play'),playDetails=playBody.children.find(n=>n.className==='finding-details');
+const playCard=elements.cards.children.find(n=>n.tag==='article'),playBody=playCard.children[1],play=playBody.children.find(n=>n.className==='finding-actions').children.find(n=>n.className==='promise-play'),playDetails=playBody.children.find(n=>n.className==='finding-details');
 const playRow=data.findings.find(r=>r.candidate===Number(playCard.dataset.candidate));
 assert(play&&!play.hidden);assert(playDetails.hidden);a.readyState=0;play.listeners.click();assert(playDetails.hidden,'Playing must not expand details');
 assert.equal(a.src,playRow.sourceRecording.audioURL);a.readyState=1;a.duration=20000;a.listeners.loadedmetadata();assert.equal(a.currentTime,playRow.seconds);assert(a.played);
