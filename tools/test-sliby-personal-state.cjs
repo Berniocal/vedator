@@ -9,7 +9,7 @@ class Element{
  append(...items){for(const item of items)this.children.push(...(item.tag==='#fragment'?item.children:[item]))}
  replaceChildren(...items){this.children=[];this._text='';this.append(...items)}
  setAttribute(k,v){this.attrs[k]=String(v)}getAttribute(k){return this.attrs[k]??null}
- addEventListener(k,f){this.listeners[k]=f}click(){this.clicked=true}remove(){this.removed=true}focus(){this.focused=true}
+ addEventListener(k,f){this.listeners[k]=f}click(){this.clicked=true}remove(){this.removed=true}focus(options){this.focused=true;this.focusOptions=options}showModal(){this.open=true}close(){this.open=false}
 }
 function boot(storage=new Map(),options={}){
  const elements={};for(const m of html.matchAll(/id="([\w-]+)"/g))elements[m[1]]=new Element('div');elements['audit-data'].textContent=JSON.stringify(data);
@@ -17,17 +17,29 @@ function boot(storage=new Map(),options={}){
  const body=new Element('body'),events={},blobs=[],revoked=[],timeouts=[];
  const nodes=n=>[n,...n.children.filter(c=>c instanceof Element).flatMap(nodes)];
  const document={body,getElementById:id=>elements[id]||nodes(elements.cards).find(e=>e.id===id),createElement:tag=>new Element(tag),createDocumentFragment:()=>new Element('#fragment'),querySelectorAll:s=>{assert.equal(s,'.summary button');return summary}};
- const context={document,Blob,URL:{createObjectURL(blob){blobs.push(blob);return 'blob:test-'+blobs.length},revokeObjectURL(url){revoked.push(url)}},setTimeout:f=>timeouts.push(f),window:{addEventListener:(name,fn)=>events[name]=fn},localStorage:{getItem(k){if(options.readError)throw Error('Storage unavailable');return storage.get(k)??null},setItem(k,v){if(options.writeError)throw Error('Storage full');storage.set(k,v)}}};
+ const context={document,Blob,URL:{createObjectURL(blob){blobs.push(blob);return 'blob:test-'+blobs.length},revokeObjectURL(url){revoked.push(url)}},setTimeout:f=>timeouts.push(f),window:{scrollY:2800,scrollX:0,scrollTo(position){this.lastScroll=position},addEventListener:(name,fn)=>events[name]=fn},localStorage:{getItem(k){if(options.readError)throw Error('Storage unavailable');return storage.get(k)??null},setItem(k,v){if(options.writeError)throw Error('Storage full');storage.set(k,v)}}};
  vm.runInNewContext(script,context);
  const cards=()=>elements.cards.children.filter(e=>e.tag==='article');
  const card=r=>cards().find(e=>Number(e.dataset.candidate)===r.candidate&&e.children[1].children[0].children.find(n=>n.className==='topic-toggle').textContent===(elements['compact-view'].checked?(r.compactTitle||r.displayTema||r.tema):(r.displayTema||r.tema)));
  const selectSection=id=>{for(const e of elements.sections.children){const input=e.children[0],checked=e.dataset.section===id;if(input.checked!==checked){input.checked=checked;input.listeners.change()}}};
  const check=(r,value)=>{const input=nodes(card(r)).find(e=>e.tag==='input'&&e.type==='checkbox');assert(input);input.checked=value;input.listeners.change()};
- const remove=r=>nodes(card(r)).find(e=>e.tag==='button'&&e.textContent==='Smazat').onclick();
+ const remove=r=>{nodes(card(r)).find(e=>e.tag==='button'&&e.textContent==='Smazat').onclick();if(elements['delete-dialog'].open)elements['delete-confirm'].onclick()};
  return {elements,context,storage,events,blobs,body,timeouts,revoked,nodes,cards,card,selectSection,check,remove,options};
 }
 async function main(){
  const storage=new Map(),app=boot(storage),original=JSON.stringify(data);
+ const confirmStorage=new Map(),confirmApp=boot(confirmStorage),first=data.findings.find(r=>r.section==='episodes');
+ const clickDelete=()=>confirmApp.nodes(confirmApp.card(first)).find(e=>e.tag==='button'&&e.textContent==='Smazat').onclick();
+ clickDelete();assert(confirmApp.elements['delete-dialog'].open);assert(confirmApp.card(first));assert.equal(confirmApp.elements['delete-dialog-text'].textContent,first.displayTema||first.tema);
+ confirmApp.elements['delete-cancel'].onclick();assert(confirmApp.card(first));assert(!confirmApp.elements['delete-dialog'].open);assert(!confirmStorage.has(KEY));
+ clickDelete();confirmApp.elements['delete-dialog'].listeners.cancel();confirmApp.elements['delete-dialog'].close();assert(confirmApp.card(first));
+ clickDelete();confirmApp.elements['delete-confirm'].onclick();assert(!confirmApp.card(first));assert.equal(confirmApp.context.window.lastScroll.top,2800);assert(!confirmStorage.has('vedator-sliby-delete-confirm-v1'));
+ const focused=confirmApp.nodes(confirmApp.elements.cards).find(e=>e.focused);assert(focused);assert.equal(focused.focusOptions.preventScroll,true);assert(!confirmApp.elements['show-deleted'].focused);
+ confirmApp.elements['show-deleted'].onclick();confirmApp.nodes(confirmApp.card(first)).find(e=>e.textContent==='Obnovit').onclick();assert(!confirmApp.elements['delete-dialog'].open);confirmApp.elements['show-deleted'].onclick();
+ clickDelete();confirmApp.elements['delete-always'].onclick();assert(!confirmApp.card(first));assert.equal(confirmStorage.get('vedator-sliby-delete-confirm-v1'),'skip');
+ const noPrompt=boot(confirmStorage),second=data.findings.find(r=>r.section==='episodes'&&key(r)!==key(first));noPrompt.nodes(noPrompt.card(second)).find(e=>e.tag==='button'&&e.textContent==='Smazat').onclick();assert(!noPrompt.elements['delete-dialog'].open);assert(!noPrompt.card(second));
+ console.log('PASS: delete confirmation, cancel and Escape, remembered opt-out, immediate restore, nearby focus and preserved scroll position.');
+
  const pending=data.findings.find(r=>r.section==='episodes'&&r.stav==='Nesplněno');
  const done=data.findings.find(r=>r.section==='episodes'&&r.stav!=='Nesplněno');
  const other=data.findings.find(r=>r.section==='other');
