@@ -83,7 +83,7 @@ async function main(){
   const value=unified.stav==='Nesplněno';
   const savedItems={[key(legacy)]:{fulfilled:value,deleted:true,updatedAt:'2025-01-01T00:00:00.000Z'}};
   const saved=new Map([[KEY,JSON.stringify({schema:1,items:savedItems})]]);
-  const merged=boot(saved);assert(!merged.card(unified));
+  const merged=boot(saved);merged.selectSection(unified.section);assert(!merged.card(unified));
   assert.equal(merged.elements['show-deleted'].textContent,'Smazané (1)');
   merged.elements['show-deleted'].onclick();assert(merged.card(unified));
   assert.equal(merged.nodes(merged.card(unified)).find(e=>e.type==='checkbox').checked,value);
@@ -94,11 +94,12 @@ async function main(){
   assert.equal(snapshot.deletedFindings[0].mergedFrom.length,unified.mergedFrom.length);
   merged.nodes(merged.card(unified)).find(e=>e.tag==='button'&&e.textContent==='Obnovit').onclick();
   merged.elements['show-deleted'].onclick();assert(merged.card(unified));
-  merged.check(unified,!value);const again=boot(saved);
+  merged.check(unified,!value);const again=boot(saved);again.selectSection(unified.section);
   assert(again.card(unified));assert.equal(again.nodes(again.card(unified)).find(e=>e.type==='checkbox').checked,!value);
   assert(JSON.parse(saved.get(KEY)).items[key(legacy)],'Keep original review keys in storage');
   const conflict={[key(unified)]:{fulfilled:false,updatedAt:'2024-01-01T00:00:00.000Z'},[key(legacy)]:{fulfilled:true,deleted:true,updatedAt:'2025-01-01T00:00:00.000Z'}};
   const latest=boot(new Map([[KEY,JSON.stringify({schema:1,items:conflict})]]));
+  latest.selectSection(unified.section);
   latest.elements['show-deleted'].onclick();assert(latest.card(unified));assert(latest.nodes(latest.card(unified)).find(e=>e.type==='checkbox').checked);
  }
  console.log('PASS: legacy merged reviews, latest conflicting review, delete/restore, reload and unified export.');
