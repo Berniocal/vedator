@@ -20,7 +20,7 @@ function boot(storage=new Map(),options={}){
  const context={document,Blob,URL:{createObjectURL(blob){blobs.push(blob);return 'blob:test-'+blobs.length},revokeObjectURL(url){revoked.push(url)}},setTimeout:f=>timeouts.push(f),window:{addEventListener:(name,fn)=>events[name]=fn},localStorage:{getItem(k){if(options.readError)throw Error('Storage unavailable');return storage.get(k)??null},setItem(k,v){if(options.writeError)throw Error('Storage full');storage.set(k,v)}}};
  vm.runInNewContext(script,context);
  const cards=()=>elements.cards.children.filter(e=>e.tag==='article');
- const card=r=>cards().find(e=>Number(e.dataset.candidate)===r.candidate&&e.children[1].children[0].textContent===(elements['compact-view'].checked?(r.compactTitle||r.displayTema||r.tema):(r.displayTema||r.tema)));
+ const card=r=>cards().find(e=>Number(e.dataset.candidate)===r.candidate&&e.children[1].children[0].children.find(n=>n.className==='topic-toggle').textContent===(elements['compact-view'].checked?(r.compactTitle||r.displayTema||r.tema):(r.displayTema||r.tema)));
  const selectSection=id=>{for(const e of elements.sections.children){const input=e.children[0],checked=e.dataset.section===id;if(input.checked!==checked){input.checked=checked;input.listeners.change()}}};
  const check=(r,value)=>{const input=nodes(card(r)).find(e=>e.tag==='input'&&e.type==='checkbox');assert(input);input.checked=value;input.listeners.change()};
  const remove=r=>nodes(card(r)).find(e=>e.tag==='button'&&e.textContent==='Smazat').onclick();
@@ -104,11 +104,14 @@ async function main(){
  console.log('PASS: legacy merged reviews, latest conflicting review, delete/restore, reload and unified export.');
 
  // Compact preference persists independently of personal reviews, and open state survives an edit.
- const viewStorage=new Map(),view=boot(viewStorage);
+ const priorView=boot(new Map([['vedator-sliby-view-v1',JSON.stringify({compact:false})]]));
+ assert(priorView.elements['compact-view'].checked,'Old view preference must not defeat the new default');
+ const viewStorage=new Map(),view=boot(viewStorage);assert(view.elements['compact-view'].checked);
+
  view.elements['compact-view'].checked=true;view.elements['compact-view'].listeners.change();
  const topic=data.findings.find(r=>r.section==='episodes'&&r.stav==='Nesplněno'),topicKey=key(topic);
  let compactCard=view.card(topic),details=()=>view.card(topic).children[1].children.find(n=>n.className==='finding-details');
- assert(details().hidden);compactCard.children[1].children[0].children[0].listeners.click();assert.equal(details().hidden,false);
+ assert(details().hidden);compactCard.children[1].children[0].children.find(n=>n.className==='topic-toggle').listeners.click();assert.equal(details().hidden,false);
  view.check(topic,true);assert.equal(details().hidden,false);assert(view.nodes(view.card(topic)).some(n=>n.tag==='span'&&n.textContent==='Splněno'));
  view.remove(topic);assert(!view.card(topic));assert.equal(view.elements['show-deleted'].textContent,'Smazané (1)');
  const viewReloaded=boot(viewStorage);assert(viewReloaded.elements['compact-view'].checked);assert(!viewReloaded.card(topic));

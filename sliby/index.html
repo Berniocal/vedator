@@ -11,14 +11,16 @@
 .report-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0 5px}.report-actions button{border:1px solid #bccdce;border-radius:7px;background:#fff;color:var(--ink);padding:9px 14px;min-height:44px}.report-actions #export-json{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:650}.report-actions button[aria-pressed=true]{background:#fff1b4;border-color:#b59835}.personal-help{margin:5px 0;font-size:13px;color:#607681}.save-status{font-size:13px;color:#8a421b;margin:6px 0}.save-status:empty{display:none}.finding-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:13px 0 8px}.completion-label{display:inline-flex;gap:9px;align-items:center;min-height:44px;cursor:pointer;font-weight:650;color:var(--ink)}.completion-label input[type=checkbox]{width:21px;height:21px;min-width:21px;min-height:21px;flex:none;accent-color:var(--ink);margin:0}.finding-actions button{border:1px solid #e2c6c0;background:#fff8f6;color:#943d2c;border-radius:6px;padding:8px 14px;min-height:44px}.finding-actions .restore-button{border-color:#bccdce;background:#f1f8f7;color:var(--ink)}.personal-note{font-size:13px;color:#315b67;background:#edf5f6;padding:8px 11px;border-radius:6px}.finding>div{min-width:0}.finding h3{overflow-wrap:anywhere}@media print{.report-actions,.finding-actions,.save-status{display:none}}
 
 .view-actions{display:flex;margin:10px 0}.compact-option{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:9px 14px;border:1px solid #bccdce;border-radius:7px;background:white;color:var(--ink);cursor:pointer;font-weight:650}.compact-option input{min-width:21px;width:21px;height:21px;flex:none;margin:0;accent-color:var(--ink)}
-.topic-toggle{display:block;text-align:left;border:0;background:transparent;color:inherit;padding:0;font:inherit;font-weight:inherit;line-height:inherit;overflow-wrap:anywhere;width:100%}.topic-toggle:disabled{opacity:1;cursor:default}.topic-toggle:not(:disabled)::before{content:'▸';display:inline-block;width:1.1em;color:var(--ink)}.topic-toggle[aria-expanded=true]:not(:disabled)::before{content:'▾'}.finding-details[hidden],.source[hidden]{display:none}.finding.compact{display:block;padding:10px 14px;margin-bottom:6px}.finding.compact .finding-main{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;align-items:center}.finding.compact h3{margin:0;font-size:16px}.finding.compact .finding-actions{margin:0;gap:7px;flex-wrap:nowrap}.finding.compact .finding-actions button{padding:7px 9px}.finding.compact .completion-label{font-size:13px;gap:6px;white-space:nowrap}.finding.compact .source{border-right:0;border-bottom:1px solid var(--line);padding:0 0 10px;margin-bottom:10px}.finding.compact .finding-details{grid-column:1/-1}.finding.compact .source .title{margin:3px 0}.finding.compact .topic-toggle{min-height:44px}.finding.compact .source .evidence{display:inline-block;margin:4px 10px 0 0}
+.topic-toggle{display:block;text-align:left;border:0;background:transparent;color:inherit;padding:0;font:inherit;font-weight:inherit;line-height:inherit;overflow-wrap:anywhere;width:100%}.topic-toggle:disabled{opacity:1;cursor:default}.topic-toggle:not(:disabled)::after{content:'›';display:inline-block;margin-left:.45em;color:var(--ink)}.topic-toggle[aria-expanded=true]:not(:disabled)::after{content:'⌄'}.finding-details[hidden],.source[hidden]{display:none}.finding.compact{display:block;padding:10px 14px;margin-bottom:6px}.finding.compact .finding-main{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;align-items:center}.finding.compact h3{margin:0;font-size:16px}.finding.compact .finding-actions{margin:0;gap:7px;flex-wrap:nowrap}.finding.compact .finding-actions button{padding:7px 9px}.finding.compact .completion-label{font-size:13px;gap:6px;white-space:nowrap}.finding.compact .source{border-right:0;border-bottom:1px solid var(--line);padding:0 0 10px;margin-bottom:10px}.finding.compact .finding-details{grid-column:1/-1}.finding.compact .source .title{margin:3px 0}.finding.compact .topic-toggle{min-height:44px}.finding.compact .source .evidence{display:inline-block;margin:4px 10px 0 0}
 @media(max-width:480px){.finding.compact{padding:8px 10px}.finding.compact .finding-main{gap:6px 8px}.finding.compact .completion-label span{font-size:12px}.finding.compact .finding-actions{gap:5px}.finding.compact .finding-actions button{font-size:12px;padding:7px}.finding.compact h3{font-size:15px}}
 @media print{.view-actions{display:none}.finding-details[hidden],.source[hidden]{display:block}.finding.compact .finding-main{display:block}.topic-toggle::before{display:none!important}}
+
+.promise-play{display:inline-flex;align-items:center;justify-content:center;width:48px;min-width:48px;height:48px;min-height:48px;padding:0;border:1px solid #d4b342;border-radius:8px;background:#fff1b4;color:#273d46;font-size:22px;line-height:1;flex:none}.promise-play:hover{background:#f4d45c}.promise-play[hidden]{display:none}.finding.compact h3{display:flex;gap:10px;align-items:center}.finding.compact .topic-toggle{min-width:0}.finding.compact .finding-main{gap:8px 12px}
 </style></head>
 <body><main>
 <header><div class="eyebrow">Vedátor · průběžný přehled · 27. října 2026</div><h1>Sliby a nápady na další epizody</h1></header>
 <div class="filter-groups"><div id="categories" class="filter-row" role="group" aria-label="Typ záznamu"></div><div id="sections" class="filter-row" role="group" aria-label="Obsah záznamu"></div></div>
-<div class="view-actions"><label class="compact-option"><input id="compact-view" type="checkbox">Stručně</label></div>
+<div class="view-actions"><label class="compact-option"><input id="compact-view" type="checkbox" checked>Stručně</label></div>
 <section class="summary" aria-label="Výsledky auditu">
 <button data-status="" aria-pressed="true"><strong id="nfind"></strong><span>Všechny záznamy</span></button>
 <button data-status="Splněno později" aria-pressed="false"><strong id="nlater"></strong><span>Splněno později</span></button>
@@ -42,9 +44,9 @@ function fmtDate(s){return new Date(s).toLocaleDateString('cs-CZ')}
 const STORAGE_KEY='vedator-sliby-user-state-v1';
 const recordKey=r=>JSON.stringify([r.candidate,r.tema]);
 let storageProblem='',showDeleted=false;
-const VIEW_KEY='vedator-sliby-view-v1',expandedKeys=new Set();
-let compactMode=false;
-try{compactMode=JSON.parse(localStorage.getItem(VIEW_KEY)||'null')?.compact===true}catch(e){}
+const VIEW_KEY='vedator-sliby-view-v2',expandedKeys=new Set();
+let compactMode=true;
+try{const saved=JSON.parse(localStorage.getItem(VIEW_KEY)||'null');if(typeof saved?.compact==='boolean')compactMode=saved.compact}catch(e){}
 el('compact-view').checked=compactMode;
 el('compact-view').addEventListener('change',()=>{
  compactMode=el('compact-view').checked;expandedKeys.clear();
@@ -163,7 +165,10 @@ function render(){const q=fold(el('q').value),st=el('status').value;
   const body=node('div',undefined,'finding-main'),heading=node('h3'),titleButton=node('button',compactMode?(r.compactTitle||findingTitle(r)):findingTitle(r),'topic-toggle');
   const open=!compactMode||expandedKeys.has(recordKey(r));
   titleButton.type='button';titleButton.disabled=!compactMode;titleButton.setAttribute('aria-expanded',String(open));titleButton.setAttribute('aria-controls','details-'+r.index+' source-'+r.index);titleButton.id='topic-'+r.index;
-  heading.append(titleButton);body.append(heading);source.id='source-'+r.index;source.hidden=!open;
+  const playButton=node('button','▶','promise-play');playButton.type='button';playButton.hidden=!compactMode;
+  playButton.setAttribute('aria-label','Přehrát příslib: '+findingTitle(r));playButton.title='Přehrát místo s příslibem od '+r.time;
+  playButton.addEventListener('click',()=>playSegment(r.sourceRecording,r.seconds,r.time));
+  heading.append(playButton,titleButton);body.append(heading);source.id='source-'+r.index;source.hidden=!open;
   const details=node('div',undefined,'finding-details');details.id='details-'+r.index;details.hidden=!open;
   if(compactMode)card.className='finding compact';
   titleButton.addEventListener('click',()=>{

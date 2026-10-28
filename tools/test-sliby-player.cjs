@@ -19,8 +19,8 @@ const toggle=(label,checked)=>{const input=label.children[0];if(input.checked!==
 const openSection=id=>{assert(sections.some(b=>b.dataset.section===id));for(const label of sections)toggle(label,label.dataset.section===id)};
 const setCategory=value=>{for(const label of elements.categories.children)toggle(label,!value||label.dataset.category===value)};
 const inSection=id=>data.findings.filter(r=>r.section===id);
-const rendered=()=>elements.cards.children.filter(n=>n.tag==='article').map(card=>[Number(card.dataset.candidate),card.children[1].children[0].textContent]);
-const expected=rows=>rows.map(r=>[r.candidate,r.displayTema||r.tema]);
+const rendered=()=>elements.cards.children.filter(n=>n.tag==='article').map(card=>[Number(card.dataset.candidate),card.children[1].children[0].children.find(n=>n.className==='topic-toggle').textContent]);
+const expected=rows=>rows.map(r=>[r.candidate,elements['compact-view'].checked?(r.compactTitle||r.displayTema||r.tema):(r.displayTema||r.tema)]);
 // Split topics can share a candidate id; their archival records must remain distinct.
 assert.deepEqual(data.archive.findings.map(r=>[r.candidate,r.tema]),data.findings.map(r=>[r.candidate,r.tema]));
 assert.equal(data.sections.default,'episodes');
@@ -149,6 +149,8 @@ for(const r of groups){
 console.log('PASS: consolidated series preserve original statements and playback links without duplicate cards.');
 
 
+assert.equal(elements['compact-view'].checked,true,'Compact is the default');
+assert(elements.categories.children.every(label=>label.children[0].checked));
 // Compact view changes presentation only; every item and action stays available.
 elements.status.value='';elements.q.value='';for(const label of sections)toggle(label,true);setCategory('');
 const totalBefore=count(),compact=elements['compact-view'];
@@ -156,13 +158,20 @@ compact.checked=true;compact.listeners.change();
 assert.equal(count(),totalBefore);
 for(const card of elements.cards.children.filter(n=>n.tag==='article')){
  assert.equal(card.children[0].hidden,true);
- const body=card.children[1],details=body.children.find(n=>n.className==='finding-details'),title=body.children[0].children[0];
+ const body=card.children[1],details=body.children.find(n=>n.className==='finding-details'),title=body.children[0].children.find(n=>n.className==='topic-toggle');
  assert(details.hidden);assert.equal(title.tag,'button');assert.equal(title.attrs['aria-expanded'],'false');
  assert(allNodes(body).some(n=>n.type==='checkbox'));assert(allNodes(body).some(n=>n.tag==='button'&&n.textContent==='Smazat'));
 }
-const compactCard=elements.cards.children.find(n=>n.tag==='article'),compactBody=compactCard.children[1],compactTitle=compactBody.children[0].children[0],compactDetails=compactBody.children.find(n=>n.className==='finding-details');
+const compactCard=elements.cards.children.find(n=>n.tag==='article'),compactBody=compactCard.children[1],compactTitle=compactBody.children[0].children.find(n=>n.className==='topic-toggle'),compactDetails=compactBody.children.find(n=>n.className==='finding-details');
 compactTitle.listeners.click();assert.equal(compactDetails.hidden,false);assert.equal(compactCard.children[0].hidden,false);assert.equal(compactTitle.attrs['aria-expanded'],'true');
 compactTitle.listeners.click();assert(compactDetails.hidden);assert(compactCard.children[0].hidden);assert.equal(compactTitle.attrs['aria-expanded'],'false');
 compact.checked=false;compact.listeners.change();assert.equal(count(),totalBefore);
 for(const card of elements.cards.children.filter(n=>n.tag==='article')){assert.equal(card.children[0].hidden,false);assert.equal(card.children[1].children.find(n=>n.className==='finding-details').hidden,false)}
 console.log('PASS: compact view preserves all records and actions, title toggles details, full view expands everything.');
+
+compact.checked=true;compact.listeners.change();
+const playCard=elements.cards.children.find(n=>n.tag==='article'),playBody=playCard.children[1],play=playBody.children[0].children.find(n=>n.className==='promise-play'),playDetails=playBody.children.find(n=>n.className==='finding-details');
+const playRow=data.findings.find(r=>r.candidate===Number(playCard.dataset.candidate));
+assert(play&&!play.hidden);assert(playDetails.hidden);a.readyState=0;play.listeners.click();assert(playDetails.hidden,'Playing must not expand details');
+assert.equal(a.src,playRow.sourceRecording.audioURL);a.readyState=1;a.duration=20000;a.listeners.loadedmetadata();assert.equal(a.currentTime,playRow.seconds);assert(a.played);
+console.log('PASS: compact default and a separate large play button seek to the promise without expanding details.');
