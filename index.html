@@ -490,6 +490,38 @@ html[data-theme="dark"] .delete-dialog::backdrop{background:#05070bbd}
 html[data-theme="dark"] button:focus-visible,html[data-theme="dark"] a:focus-visible,
 html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus-visible{outline-color:#aa9fff}
 `;
+  // Only the embedded Sliby UI changes; the source report and its data stay intact.
+  const installOrderSelector=doc=>{
+    const status=doc.getElementById('status');
+    const toolbar=status?.closest('.toolbar');
+    const page=iframe.contentWindow;
+    if(!toolbar||!page||doc.getElementById('vedator-sliby-order'))return;
+    if(typeof page.sectionRows!=='function'||typeof page.render!=='function')return;
+    const select=doc.createElement('select');
+    select.id='vedator-sliby-order';
+    select.setAttribute('aria-label','Řazení slibů');
+    for(const [value,label] of [['newest','Nejnovější první'],['oldest','Nejstarší první']]){
+      const option=doc.createElement('option');
+      option.value=value;option.textContent=label;select.appendChild(option);
+    }
+    const originalSectionRows=page.sectionRows;
+    page.sectionRows=function(){
+      const rows=originalSectionRows();
+      const direction=select.value==='oldest'?1:-1;
+      rows.sort((a,b)=>{
+        const dates=Date.parse(a.sourceRecording?.date||'')-Date.parse(b.sourceRecording?.date||'');
+        const withinEpisode=(Number(a.seconds)||0)-(Number(b.seconds)||0);
+        return direction*(dates||withinEpisode||((Number(a.index)||0)-(Number(b.index)||0)));
+      });
+      return rows;
+    };
+    status.hidden=true;
+    status.setAttribute('aria-hidden','true');
+    status.tabIndex=-1;
+    toolbar.appendChild(select);
+    select.addEventListener('change',()=>page.render());
+    page.render();
+  };
   const sync=()=>{
     try{
       const doc=iframe.contentDocument;
@@ -501,6 +533,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
         doc.head.appendChild(style);
       }
       doc.documentElement.dataset.theme=document.documentElement.dataset.theme==='light'?'light':'dark';
+      installOrderSelector(doc);
     }catch(error){console.warn('Sliby theme synchronization unavailable',error)}
   };
   iframe.addEventListener('load',sync);
