@@ -522,6 +522,70 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     select.addEventListener('change',()=>page.render());
     page.render();
   };
+  // Per-item completion/deletion and compact display already persist on Sliby itself.
+  const slibyViewKey='vedator-sliby-embedded-view-v1';
+  const initializedSlibyDocuments=new WeakSet();
+  const installSlibyViewMemory=doc=>{
+    const page=iframe.contentWindow;
+    const order=doc.getElementById('vedator-sliby-order');
+    const status=doc.getElementById('status');
+    const search=doc.getElementById('q');
+    if(!page||!order||!status||!search||initializedSlibyDocuments.has(doc))return;
+    initializedSlibyDocuments.add(doc);
+    const groupValues=(id,key)=>[...doc.querySelectorAll('#'+id+' .filter-option')]
+      .filter(label=>label.querySelector('input')?.checked)
+      .map(label=>label.dataset[key]).filter(Boolean);
+    const remember=()=>{
+      const prefs={
+        version:1,
+        categories:groupValues('categories','category'),
+        sections:groupValues('sections','section'),
+        order:order.value==='oldest'?'oldest':'newest',
+        status:status.value,
+        search:search.value,
+        showDeleted:doc.getElementById('show-deleted')?.getAttribute('aria-pressed')==='true'
+      };
+      try{localStorage.setItem(slibyViewKey,JSON.stringify(prefs))}catch(error){}
+    };
+    let saved=null;
+    try{
+      const raw=JSON.parse(localStorage.getItem(slibyViewKey)||'null');
+      if(raw?.version===1&&typeof raw==='object')saved=raw;
+    }catch(error){}
+    if(saved){
+      order.value=saved.order==='oldest'?'oldest':'newest';
+      if(typeof saved.search==='string')search.value=saved.search;
+      if(typeof saved.status==='string'&&[...status.options].some(o=>o.value===saved.status))status.value=saved.status;
+      const restoreGroup=(id,key,values)=>{
+        if(!Array.isArray(values))return;
+        const selected=new Set(values.filter(value=>typeof value==='string'));
+        for(const label of doc.querySelectorAll('#'+id+' .filter-option')){
+          const checkbox=label.querySelector('input');
+          const desired=selected.has(label.dataset[key]);
+          if(checkbox&&checkbox.checked!==desired){
+            checkbox.checked=desired;
+            checkbox.dispatchEvent(new page.Event('change',{bubbles:true}));
+          }
+        }
+      };
+      restoreGroup('categories','category',saved.categories);
+      restoreGroup('sections','section',saved.sections);
+      if(typeof saved.showDeleted==='boolean'){
+        const toggle=doc.getElementById('show-deleted');
+        if(toggle&&((toggle.getAttribute('aria-pressed')==='true')!==saved.showDeleted))toggle.click();
+      }
+      page.render();
+    }
+    doc.addEventListener('change',event=>{
+      if(event.target.matches?.('#vedator-sliby-order,#status,#categories input,#sections input'))remember();
+    });
+    doc.addEventListener('input',event=>{
+      if(event.target===search)remember();
+    });
+    doc.addEventListener('click',event=>{
+      if(event.target.closest?.('.summary button,#show-deleted'))remember();
+    });
+  };
   const sync=()=>{
     try{
       const doc=iframe.contentDocument;
@@ -534,6 +598,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       }
       doc.documentElement.dataset.theme=document.documentElement.dataset.theme==='light'?'light':'dark';
       installOrderSelector(doc);
+      installSlibyViewMemory(doc);
     }catch(error){console.warn('Sliby theme synchronization unavailable',error)}
   };
   iframe.addEventListener('load',sync);
