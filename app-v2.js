@@ -326,7 +326,7 @@
     if(eyebrow)eyebrow.textContent=text('Radikální testovací V2','Radikálna testovacia V2');
     if(heading)heading.textContent=text('Vedátorský podcast','Vedátorský podcast');
     if(search)search.placeholder=text('Hledat v právě otevřené záložce…','Hľadať v práve otvorenej záložke…');
-    const labels={episodes:text('Epizody','Epizódy'),series:text('Série a témata','Série a témy'),questions:text('Otázky','Otázky'),nonquestions:text('Neotázky','Neotázky'),ask:text('Zeptej se','Spýtaj sa'),playlists:'Playlisty',data:text('Moje data','Moje dáta')};
+    const labels={episodes:text('Epizody','Epizódy'),series:text('Série a témata','Série a témy'),questions:text('Otázky','Otázky'),nonquestions:text('Neotázky','Neotázky'),ask:text('Zeptej se','Spýtaj sa'),playlists:'Playlisty',sliby:text('Sliby','Sľuby'),data:text('Moje data','Moje dáta')};
     $$('.tab-v2').forEach(button=>{if(labels[button.dataset.view])button.textContent=labels[button.dataset.view]});
     $$('.language-v2 button[data-lang]').forEach(button=>{
       const active=button.dataset.lang===state.language;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));
@@ -1175,6 +1175,7 @@
     const active=$('.view-v2[data-view="'+state.view+'"]');if(!active)return;
     syncParityControls();
     syncAskSearchControls();
+    if(state.view==='sliby'){$('#count-v2').textContent='';return}
     if(state.view==='ask'){renderAsk();return}
     if(state.view==='episodes'){renderEpisodes();return}
     if(state.view==='questions'){renderQuestions();const filtered=Boolean(state.query.trim())||questionUi.qTopic!=='all',count=Number(active.dataset.visible)||0;$('#count-v2').textContent=questionCountLabel('questions',filtered?count:state.data.questions.length,filtered);return}
@@ -1186,7 +1187,7 @@
   function setView(view){
     if(state.view==='ask')askUi.draft=$('#search-v2').value;
     $('#search-v2').value=view==='ask'?askUi.draft:state.query;
-    state.view=view;$$('.tab-v2').forEach(button=>button.classList.toggle('active',button.dataset.view===view));$$('.view-v2').forEach(node=>node.classList.toggle('hidden',node.dataset.view!==view));
+    state.view=view;document.body.classList.toggle('vedator-sliby-active',view==='sliby');$$('.tab-v2').forEach(button=>button.classList.toggle('active',button.dataset.view===view));$$('.view-v2').forEach(node=>node.classList.toggle('hidden',node.dataset.view!==view));
     if(view==='playlists')renderPlaylists();if(view==='data'){loadUserData();renderData()}if(view==='questions'||view==='nonquestions')ensureParityMathJax();filterActive();
     window.dispatchEvent(new CustomEvent('vedatorviewchange',{detail:{view}}));
   }
