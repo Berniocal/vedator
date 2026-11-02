@@ -583,7 +583,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       if(event.target===search)remember();
     });
     doc.addEventListener('click',event=>{
-      if(event.target.closest?.('.summary button,#show-deleted'))remember();
+      if(event.target.closest?.('.summary button,#show-deleted,#reset-defaults'))remember();
     });
   };
   const sync=()=>{
