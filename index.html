@@ -291,6 +291,13 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
 .ask-loading-v2{display:block;padding:14px 0 4px}.ask-loading-label-v2{display:flex;justify-content:space-between;gap:12px;align-items:center;font-weight:700}.ask-loading-label-v2 strong{font-variant-numeric:tabular-nums;white-space:nowrap}.ask-progress-track-v2{display:block;height:8px;margin-top:9px;border-radius:999px;overflow:hidden;background:var(--accent2)}.ask-progress-fill-v2{display:block;height:100%;border-radius:inherit;background:var(--accent);transition:width .12s linear}
 @media(max-width:600px){.ask-type-filters-v2{margin-right:0}.ask-submit-v2{padding:9px 12px}}
 </style>
+<style id="sliby-embedded-view-v2">
+body.vedator-sliby-active main .panel > .controls,
+body.vedator-sliby-active main > .status-row{display:none!important}
+#sliby-v2{width:100%;max-width:100%;min-width:0}
+#sliby-frame-v2{display:block;width:100%;height:calc(100dvh - 190px);min-height:460px;border:1px solid var(--line,#d5d7e0);border-radius:12px;background:var(--card,#fff)}
+@media(max-width:700px){#sliby-frame-v2{height:calc(100dvh - 165px);min-height:420px}}
+</style>
 </head>
 <body>
 <header><div class="wrap header-v2"><div class="header-title-v2"><div id="eyebrow-v2" style="opacity:.72;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Neoficiální tematický katalog</div><h1 id="heading-v2" style="margin:.25rem 0 0">Vedátorský podcast podle témat</h1></div><div class="header-actions-v2"><button id="install-v2" class="install-v2" type="button">Instalovat</button><div class="language-v2" role="group" aria-label="Jazyk aplikace / Jazyk aplikácie"><button type="button" data-lang="sk">SK</button><button type="button" data-lang="cz">CZ</button></div><button id="theme-toggle-v2" class="theme-toggle-v2" type="button" aria-pressed="false" title="Tmavý režim">☾</button></div></div></header>
@@ -302,8 +309,9 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
       <button class="tab-v2" data-view="series" type="button">Série</button>
       <button class="tab-v2" data-view="questions" type="button">Otázky</button>
       <button class="tab-v2" data-view="nonquestions" type="button">Neotázky</button>
-      <button class="tab-v2" data-view="ask" type="button">Zeptej se</button>
       <button class="tab-v2" data-view="playlists" type="button">Playlisty</button>
+      <button class="tab-v2" data-view="sliby" type="button">Sliby</button>
+      <button class="tab-v2" data-view="ask" type="button">Zeptej se</button>
       <button class="tab-v2" data-view="data" type="button">Moje data</button>
     </div>
   </section>
@@ -312,8 +320,13 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
   <section id="series-v2" class="view-v2 hidden" data-view="series"></section>
   <section id="questions-v2" class="view-v2 grid hidden" data-view="questions"></section>
   <section id="nonquestions-v2" class="view-v2 grid hidden" data-view="nonquestions"></section>
-  <section id="ask-v2" class="view-v2 hidden" data-view="ask"></section>
   <section id="playlists-v2" class="view-v2 hidden" data-view="playlists"></section>
+  <section id="sliby-v2" class="view-v2 hidden" data-view="sliby" aria-label="Sliby a náměty">
+    <iframe id="sliby-frame-v2" title="Sliby a náměty Vedátora" src="./sliby/" loading="lazy">
+      <a href="./sliby/">Otevřít Sliby</a>
+    </iframe>
+  </section>
+  <section id="ask-v2" class="view-v2 hidden" data-view="ask"></section>
   <section id="data-v2" class="view-v2 hidden" data-view="data"></section>
 </main>
 
