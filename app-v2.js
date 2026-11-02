@@ -817,9 +817,7 @@
 
   /* V2_UI_EXPERIENCE_V1 */
   const THEME_KEY='vedator-ui-theme-v1';
-  function systemPreferredTheme(){
-    try{return window.matchMedia?.('(prefers-color-scheme: dark)').matches?'dark':'light'}catch{return'light'}
-  }
+  function systemPreferredTheme(){return'dark'}
   function storedTheme(){
     try{const saved=localStorage.getItem(THEME_KEY);return saved==='dark'||saved==='light'?saved:''}catch{return''}
   }
@@ -861,7 +859,7 @@
     window.addEventListener('vedatorlanguagechange',()=>{updateThemeButton();updateBackTopLabel()});
     try{
       const media=window.matchMedia?.('(prefers-color-scheme: dark)');
-      media?.addEventListener?.('change',event=>{if(!storedTheme())applyTheme(event.matches?'dark':'light',false)});
+      // Explicit theme choices remain stored; the default stays dark regardless of OS appearance.
     }catch{}
   }
 
