@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#151b2f">
+<meta name="theme-color" content="#0b0e16">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
 <title>Vedátorský podcast – podle témat</title>
 <script>
-(()=>{try{const key='vedator-ui-theme-v1',saved=localStorage.getItem(key),dark=matchMedia?.('(prefers-color-scheme: dark)').matches;document.documentElement.dataset.theme=saved==='light'||saved==='dark'?saved:(dark?'dark':'light')}catch{document.documentElement.dataset.theme='light'}})();
+(()=>{try{const saved=localStorage.getItem('vedator-ui-theme-v1');document.documentElement.dataset.theme=saved==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}})();
 </script>
 <style>
 :root{color-scheme:light;--bg:#f4f6fb;--card:#fff;--raised:#fafbff;--ink:#162033;--muted:#64748b;--line:#dbe2ea;--accent:#5b4bdb;--accent-hover:#4b3cc7;--accent2:#ede9fe;--ok:#15803d;--warn:#b45309;--danger:#b91c1c;--header1:#151b2f;--header2:#32256c;--player:rgba(255,255,255,.97);--shadow:0 8px 24px rgba(15,23,42,.07);--shadow-strong:0 14px 38px rgba(15,23,42,.14);--focus:#7c6eef}
@@ -431,6 +431,21 @@ body.vedator-sliby-active main > .status-row {display:none!important}
     if(tab)apply(tab.dataset.view);
   });
   window.addEventListener('vedator-v2-ready',()=>apply(activeView()),{once:true});
+})();
+</script>
+
+<script id="vedator-sliby-theme-sync">
+(()=>{
+  const iframe=document.getElementById('sliby-frame-v2');
+  if(!iframe)return;
+  const sync=()=>{
+    try{
+      const root=iframe.contentDocument?.documentElement;
+      if(root)root.dataset.theme=document.documentElement.dataset.theme==='light'?'light':'dark';
+    }catch(error){console.warn('Sliby theme synchronization unavailable',error)}
+  };
+  iframe.addEventListener('load',sync);
+  window.addEventListener('vedatorthemechange',sync);
 })();
 </script>
 
