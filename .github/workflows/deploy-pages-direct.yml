@@ -42,6 +42,9 @@ jobs:
           node tools/test-content-v2.mjs
           node tools/test-v2-faq-integrity.mjs
           node tools/test-v2-series-topics.mjs
+          node tools/test-sliby-episode-update.mjs
+          node tools/test-sliby-player.cjs
+          node tools/test-sliby-personal-state.cjs
 
       - name: Připravit produkční PWA
         run: |
@@ -67,3 +70,4 @@ jobs:
         run: |
           node tools/test-live-production-verifier.mjs
           DEPLOY_CHECKOUT_SHA="$(git rev-parse HEAD)" node tools/verify-live-production.mjs
+          DEPLOY_CHECKOUT_SHA="$(git rev-parse HEAD)" node tools/verify-live-sliby.mjs

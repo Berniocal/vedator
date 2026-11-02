@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'sliby/**'
+      - 'tools/*sliby*.mjs'
+      - 'tools/sliby-reviews/**'
       - 'tools/test-sliby-player.cjs'
       - 'tools/test-sliby-personal-state.cjs'
       - '.github/workflows/verify-sliby.yml'
@@ -12,6 +14,8 @@ on:
     branches: [main]
     paths:
       - 'sliby/**'
+      - 'tools/*sliby*.mjs'
+      - 'tools/sliby-reviews/**'
       - 'tools/test-sliby-player.cjs'
       - 'tools/test-sliby-personal-state.cjs'
       - '.github/workflows/verify-sliby.yml'
@@ -62,6 +66,8 @@ jobs:
           new vm.Script(html.match(/<script>([\s\S]*?)<\/script>/)[1]);
           console.log(`Report checked: ${data.findings.length} findings, ${read.length} complete transcripts.`);
           JS
+      - name: Check incremental episode review and live verifier
+        run: node tools/test-sliby-episode-update.mjs
       - name: Check player seeking and report rendering
         run: node tools/test-sliby-player.cjs
       - name: Check personal status, persistence, deletion and JSON export
