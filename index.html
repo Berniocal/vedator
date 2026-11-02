@@ -438,10 +438,69 @@ body.vedator-sliby-active main > .status-row {display:none!important}
 (()=>{
   const iframe=document.getElementById('sliby-frame-v2');
   if(!iframe)return;
+  const embeddedDarkCSS=`
+/* Embedded Sliby: Vedator dark palette; styling only */
+html[data-theme="dark"]{color-scheme:dark;color:#edf1f8;background:#0e1118;--ink:#c4b5fd;--line:#2d3544;--yellow:#9285ff}
+html[data-theme="dark"] body{background:#0e1118;color:#edf1f8}
+html[data-theme="dark"] a{color:#b8acff}
+html[data-theme="dark"] .eyebrow,html[data-theme="dark"] .muted,html[data-theme="dark"] .count,
+html[data-theme="dark"] .source .title,html[data-theme="dark"] .smallnote,
+html[data-theme="dark"] .target-date,html[data-theme="dark"] .personal-help,
+html[data-theme="dark"] .audio-hint{color:#9ca8ba}
+html[data-theme="dark"] .toolbar{background:#0e1118f2}
+html[data-theme="dark"] .summary button,html[data-theme="dark"] .finding,
+html[data-theme="dark"] .coverage-details,html[data-theme="dark"] .empty,
+html[data-theme="dark"] .audio-panel,html[data-theme="dark"] .delete-dialog{
+background:#171b25;color:#edf1f8;border-color:#2d3544
+}
+html[data-theme="dark"] .summary button[aria-pressed="true"]{background:#2b2649;border-color:#9285ff}
+html[data-theme="dark"] .summary strong{color:#c4b5fd}
+html[data-theme="dark"] .filter-option,html[data-theme="dark"] .compact-option,
+html[data-theme="dark"] .report-actions button,html[data-theme="dark"] .delete-dialog button{
+background:#1c2130;color:#edf1f8;border-color:#414a5e
+}
+html[data-theme="dark"] .filter-option.is-selected{background:#5b4bdb;border-color:#9285ff;color:#fff}
+html[data-theme="dark"] .filter-option input,html[data-theme="dark"] .compact-option input,
+html[data-theme="dark"] .completion-label input{accent-color:#9285ff}
+html[data-theme="dark"] input[type="search"],html[data-theme="dark"] select{
+background:#171b25;color:#edf1f8;border:1px solid #414a5e;border-radius:8px;padding:10px
+}
+html[data-theme="dark"] input::placeholder{color:#9ca8ba}
+html[data-theme="dark"] .source,html[data-theme="dark"] .targets>li,
+html[data-theme="dark"] td,html[data-theme="dark"] th{border-color:#2d3544}
+html[data-theme="dark"] th{background:#252b3b}
+html[data-theme="dark"] .chip{background:#252b3b;color:#dde5f1}
+html[data-theme="dark"] .chip.yes{background:#173b2b;color:#a7f3d0}
+html[data-theme="dark"] .chip.prior{background:#1c3454;color:#bfdbfe}
+html[data-theme="dark"] .chip.no{background:#48351e;color:#fcd34d}
+html[data-theme="dark"] .time,html[data-theme="dark"] .promise-play{
+background:#2b2649;color:#ddd8ff;border-color:#9285ff
+}
+html[data-theme="dark"] .time:hover,html[data-theme="dark"] .promise-play:hover{background:#3b3263}
+html[data-theme="dark"] .outcome{background:#32291c;color:#fcd34d}
+html[data-theme="dark"] .personal-note{background:#1b303f;color:#b6e3f0}
+html[data-theme="dark"] .report-actions #export-json,
+html[data-theme="dark"] .delete-dialog .confirm-delete{background:#5b4bdb;border-color:#9285ff;color:#fff}
+html[data-theme="dark"] .report-actions button[aria-pressed="true"]{background:#2b2649;color:#ddd8ff;border-color:#9285ff}
+html[data-theme="dark"] .finding-actions button{background:#38232e;border-color:#794453;color:#ffc8d2}
+html[data-theme="dark"] .finding-actions .restore-button{background:#252b3b;border-color:#414a5e;color:#dde5f1}
+html[data-theme="dark"] .audio-panel button{background:#252b3b;color:#edf1f8}
+html[data-theme="dark"] .audio-error,html[data-theme="dark"] .save-status{color:#ffb1ad}
+html[data-theme="dark"] .delete-dialog::backdrop{background:#05070bbd}
+html[data-theme="dark"] button:focus-visible,html[data-theme="dark"] a:focus-visible,
+html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus-visible{outline-color:#aa9fff}
+`;
   const sync=()=>{
     try{
-      const root=iframe.contentDocument?.documentElement;
-      if(root)root.dataset.theme=document.documentElement.dataset.theme==='light'?'light':'dark';
+      const doc=iframe.contentDocument;
+      if(!doc?.documentElement)return;
+      if(doc.head&&!doc.getElementById('vedator-sliby-embedded-theme')){
+        const style=doc.createElement('style');
+        style.id='vedator-sliby-embedded-theme';
+        style.textContent=embeddedDarkCSS;
+        doc.head.appendChild(style);
+      }
+      doc.documentElement.dataset.theme=document.documentElement.dataset.theme==='light'?'light':'dark';
     }catch(error){console.warn('Sliby theme synchronization unavailable',error)}
   };
   iframe.addEventListener('load',sync);
