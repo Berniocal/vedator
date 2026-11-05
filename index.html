@@ -293,10 +293,13 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
 </style>
 <style id="v2-sliby-embed-css">
 body.vedator-sliby-active main > .panel > .controls,
-body.vedator-sliby-active main > .status-row {display:none!important}
-#sliby-v2{width:100%;min-width:0;max-width:100%}
-#sliby-frame-v2{display:block;width:100%;height:calc(100dvh - 180px);min-height:450px;border:1px solid var(--line,#d5d7e0);border-radius:12px;background:var(--card,#fff)}
-@media(max-width:700px){#sliby-frame-v2{height:calc(100dvh - 155px);min-height:420px}}
+body.vedator-sliby-active main > .status-row,
+body.vedator-feedback-active main > .panel > .controls,
+body.vedator-feedback-active main > .status-row {display:none!important}
+#sliby-v2,#feedback-v2{width:100%;min-width:0;max-width:100%}
+#sliby-frame-v2,#feedback-frame-v2{display:block;width:100%;height:calc(100dvh - 180px);min-height:450px;border:1px solid var(--line,#d5d7e0);border-radius:12px;background:var(--card,#fff)}
+#feedback-v2 .feedback-link{display:inline-block;margin-top:10px;color:var(--accent);font-size:.85rem}
+@media(max-width:700px){#sliby-frame-v2,#feedback-frame-v2{height:calc(100dvh - 155px);min-height:420px}}
 </style>
 </head>
 <body>
@@ -312,6 +315,7 @@ body.vedator-sliby-active main > .status-row {display:none!important}
       <button class="tab-v2" data-view="ask" type="button">Zeptej se</button>
       <button class="tab-v2" data-view="sliby" type="button">Sliby</button>
       <button class="tab-v2" data-view="playlists" type="button">Playlisty</button>
+      <button class="tab-v2" data-view="feedback" type="button">Zpětná vazba</button>
       <button class="tab-v2" data-view="data" type="button">Moje data</button>
     </div>
   </section>
@@ -327,6 +331,10 @@ body.vedator-sliby-active main > .status-row {display:none!important}
     </iframe>
   </section>
   <section id="ask-v2" class="view-v2 hidden" data-view="ask"></section>
+  <section id="feedback-v2" class="view-v2 hidden" data-view="feedback" aria-label="Zpětná vazba">
+    <iframe id="feedback-frame-v2" title="Zpětná vazba k aplikaci Vedátor" data-src="https://docs.google.com/forms/d/e/1FAIpQLSeOSB0XYMtVbpUfbI5KWzYOjfTFBwq-GX1Lv_4O_mXzHa9GOQ/viewform?embedded=true" loading="lazy"></iframe>
+    <a id="feedback-link-v2" class="feedback-link" href="https://forms.gle/jSH539Nh3M1fdQrHA" target="_blank" rel="noopener noreferrer">Otevřít formulář samostatně</a>
+  </section>
   <section id="data-v2" class="view-v2 hidden" data-view="data"></section>
 </main>
 
@@ -610,7 +618,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
 (()=>{
   // Do not overwrite the last tab while the app initializes its default Episodes view.
   const KEY='vedator-last-tab-v1';
-  const validViews=new Set(['episodes','series','questions','nonquestions','ask','sliby','playlists','data']);
+  const validViews=new Set(['episodes','series','questions','nonquestions','ask','sliby','playlists','feedback','data']);
   let appReady=false;
   window.addEventListener('vedatorviewchange',event=>{
     if(!appReady)return;

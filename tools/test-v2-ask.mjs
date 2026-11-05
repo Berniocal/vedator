@@ -25,7 +25,7 @@ if(d.documentElement.dataset.vedatorAskLoading==='1'){
 await waitFor(()=>d.documentElement.dataset.vedatorAskReady==='1');
 assert.equal(d.querySelector('#search-v2').placeholder,'Může světlo uniknout z černé díry?');
 assert.equal(w.localStorage.getItem('vedatorPlaybackProgressV1'),savedProgress);assert.equal(w.localStorage.getItem('vedator-user-playlists-v1'),savedPlaylists);
-assert.equal(d.querySelectorAll('.tab-v2').length,8);
+assert.equal(d.querySelectorAll('.tab-v2').length,9);
 assert.equal(d.querySelectorAll('#ask-results-v2 article').length,0);
 assert(!d.querySelector('.panel .controls').classList.contains('hidden'));
 assert.equal(d.querySelectorAll('#ask-heading-v2,#ask-note-v2,[data-ask-suggestion]').length,0);

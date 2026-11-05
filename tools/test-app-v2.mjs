@@ -35,8 +35,16 @@ const detail=await ready;await new Promise(resolve=>setTimeout(resolve,30));
 
 const assert=(condition,message)=>{if(!condition)throw new Error(message)};
 const tabs=[...window.document.querySelectorAll('.tab-v2')];
-assert(tabs.length===8,`Expected 8 tabs, got ${tabs.length}`);
-assert(tabs.map(x=>x.dataset.view).join(',')==='episodes,series,questions,nonquestions,ask,sliby,playlists,data','Unexpected tab order');
+assert(tabs.length===9,`Expected 9 tabs, got ${tabs.length}`);
+assert(tabs.map(x=>x.dataset.view).join(',')==='episodes,series,questions,nonquestions,ask,sliby,playlists,feedback,data','Unexpected tab order');
+const feedback=tabs.find(tab=>tab.dataset.view==='feedback'),feedbackFrame=window.document.querySelector('#feedback-frame-v2');
+assert(!feedbackFrame.hasAttribute('src'),'Feedback must not load before opening its tab');
+feedback.click();
+assert(!window.document.querySelector('#feedback-v2').classList.contains('hidden'),'Feedback tab did not open');
+assert(window.document.body.classList.contains('vedator-feedback-active'),'Feedback must hide unrelated search controls');
+assert(feedbackFrame.src==='https://docs.google.com/forms/d/e/1FAIpQLSeOSB0XYMtVbpUfbI5KWzYOjfTFBwq-GX1Lv_4O_mXzHa9GOQ/viewform?embedded=true','Wrong embedded feedback form');
+tabs.find(tab=>tab.dataset.view==='episodes').click();
+assert(!window.document.body.classList.contains('vedator-feedback-active'),'Search controls must return after leaving Feedback');
 assert(window.document.querySelectorAll('#episodes-v2 .card').length===20,'Episodes should initially render 20 cards');
 assert(window.document.querySelectorAll('#questions-v2 .card').length===20,'Questions should initially render 20 cards');
 assert(window.document.querySelectorAll('#series-v2 .series').length===data.series.length,'Series not rendered');
@@ -64,6 +72,7 @@ const skButton=window.document.querySelector('.language-v2 [data-lang="sk"]');sk
 assert(window.document.documentElement.lang==='sk','HTML language did not switch to Slovak');
 assert(window.document.querySelector('.tab-v2[data-view="episodes"]').textContent==='Epizódy','Episodes tab did not translate to Slovak');
 assert(window.document.querySelector('.tab-v2[data-view="data"]').textContent==='Moje dáta','Data tab did not translate to Slovak');
+assert(feedback.textContent==='Spätná väzba','Feedback tab did not translate to Slovak');
 assert(window.localStorage.getItem('vedator-ui-language-v1')==='sk','Slovak language preference not persisted');
 assert(window.localStorage.getItem('vedatorPlaybackProgressV1')===progressBefore,'Language switch rewrote legacy progress');
 assert(window.localStorage.getItem('vedator-user-playlists-v1')===playlistsBefore,'Language switch rewrote legacy playlists');
