@@ -70,18 +70,24 @@ for(const language of ['cz','sk']){
       }
     }
   }
-  const series=data.series.find(item=>item.name==='Černé díry'),index=series.episodes.indexOf(1706);
-  const card=w.document.querySelector(`.series[data-series-index="${data.series.indexOf(series)}"]`);
-  card.querySelectorAll('.series-item')[index].click();await expectEpisode(1706,series);
-  audio.currentTime=125;audio.dispatchEvent(new w.Event('timeupdate'));await settle();
-  card.querySelector('.series-resume-v2').click();await expectEpisode(1706,series);
+  dom.window.close();
+  console.log(`Series row/queue/navigation checks passed: ${language}`);
+}
+const blackHoles=data.series.find(series=>series.name==='Černé díry');
+// A fresh partial-listen fixture keeps resume separate from tracks completed above.
+{
+  const {dom,w,audio,snapshot,expectEpisode}=await setup('cz',{
+    vedatorPlaybackProgressV1:JSON.stringify({'episode-1706':{currentTime:125,duration:3600,completed:false,updatedAt:1}})
+  });
+  w.document.querySelector('.tab-v2[data-view="series"]').click();
+  const card=w.document.querySelector(`.series[data-series-index="${data.series.indexOf(blackHoles)}"]`);
+  card.querySelector('.series-resume-v2').click();await expectEpisode(1706,blackHoles);
   assert.equal(audio.currentTime,125,'Resume must keep the special and its own position');
-  assert.equal(snapshot().context.index,index);
+  assert.equal(snapshot().context.index,blackHoles.episodes.indexOf(1706));
   restoreState=Object.fromEntries(['vedatorLastPlaybackV1','vedatorPlaybackProgressV1','vedatorCollectionProgressV1'].map(key=>[key,w.localStorage.getItem(key)]));
   dom.window.close();
 }
 const {dom,w,audio,expectEpisode}=await setup('cz',restoreState);
-const blackHoles=data.series.find(series=>series.name==='Černé díry');
 await expectEpisode(1706,blackHoles);
 assert.equal(audio.currentTime,125,'Restart must restore the special position');
 w.document.querySelector('#player-next-v2').click();await expectEpisode(1708,blackHoles);
