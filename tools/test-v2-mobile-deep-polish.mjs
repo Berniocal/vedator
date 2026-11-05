@@ -34,7 +34,8 @@ window.matchMedia=()=>({matches:true,addEventListener:()=>{},removeEventListener
 window.IntersectionObserver=class{observe(){} disconnect(){}};
 window.HTMLElement.prototype.scrollIntoView=()=>{};
 window.scrollTo=()=>{};
-window.requestAnimationFrame=callback=>setTimeout(()=>callback(Date.now()),0);
+window.requestAnimationFrame=callback=>window.setTimeout(()=>callback(Date.now()),0);
+window.cancelAnimationFrame=id=>window.clearTimeout(id);
 window.alert=()=>{};window.prompt=()=>'';window.confirm=()=>true;
 let mediaPlayCalls=0;
 window.HTMLMediaElement.prototype.play=function(){mediaPlayCalls++;Object.defineProperty(this,'paused',{value:false,configurable:true});this.dispatchEvent(new window.Event('play'));return Promise.resolve()};
@@ -151,3 +152,4 @@ window.HTMLMediaElement.prototype.play=originalTestPlay;
 window.HTMLMediaElement.prototype.load=originalTestLoad;
 
 console.log(JSON.stringify({ok:true,mobileWidth:390,episodeHighlight:true,questionHighlight:true,darkTopicContrast:true,shareSingleRow:true,realMp3Download:true,episodeContext:true,autoAdvance:true,backgroundRecovery:true,synchronousSwitch:true,videoRemoved:true,downloaded:downloads[0]?.download||null},null,2));
+window.close();

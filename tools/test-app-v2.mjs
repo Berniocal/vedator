@@ -22,7 +22,8 @@ window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};
 window.HTMLMediaElement.prototype.load=()=>{};
 window.HTMLElement.prototype.scrollIntoView=()=>{};
-window.requestAnimationFrame=callback=>setTimeout(()=>callback(Date.now()),0);
+window.requestAnimationFrame=callback=>window.setTimeout(()=>callback(Date.now()),0);
+window.cancelAnimationFrame=id=>window.clearTimeout(id);
 
 const ready=new Promise((resolve,reject)=>{
   const timer=setTimeout(()=>reject(new Error('V2 ready event timeout')),5000);
@@ -34,8 +35,8 @@ const detail=await ready;await new Promise(resolve=>setTimeout(resolve,30));
 
 const assert=(condition,message)=>{if(!condition)throw new Error(message)};
 const tabs=[...window.document.querySelectorAll('.tab-v2')];
-assert(tabs.length===7,`Expected 7 tabs, got ${tabs.length}`);
-assert(tabs.map(x=>x.dataset.view).join(',')==='episodes,series,questions,nonquestions,ask,playlists,data','Unexpected tab order');
+assert(tabs.length===8,`Expected 8 tabs, got ${tabs.length}`);
+assert(tabs.map(x=>x.dataset.view).join(',')==='episodes,series,questions,nonquestions,ask,sliby,playlists,data','Unexpected tab order');
 assert(window.document.querySelectorAll('#episodes-v2 .card').length===20,'Episodes should initially render 20 cards');
 assert(window.document.querySelectorAll('#questions-v2 .card').length===20,'Questions should initially render 20 cards');
 assert(window.document.querySelectorAll('#series-v2 .series').length===data.series.length,'Series not rendered');
@@ -80,3 +81,4 @@ assert(window.document.querySelector('.data-export'),'Data export action missing
 assert(window.document.querySelector('.data-import'),'Data import action missing');
 
 console.log(JSON.stringify({ok:true,tabs:tabs.length,initialEpisodeCards:20,initialQuestionCards:20,newestEpisode:latestEpisode.number,series:data.series.length,nonquestions:Number(window.document.querySelector('#nonquestions-v2').dataset.count),legacyPlaylistItems:window.document.querySelectorAll('#playlists-v2 .playlist-open').length,startupPreservedLegacyData:true,languageSwitch:true,searchVisible:visible},null,2));
+window.close();

@@ -3105,13 +3105,8 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     return {...context,items,index:index>=0?index:0};
   };
 
-  const playerNavOriginalSeriesContext=seriesContext;
-  seriesContext=function(series,index){
-    const targetNumber=Number(series?.episodes?.[index])||0,context=playerNavOriginalSeriesContext(series,index);if(!context)return context;
-    const items=[...(context.items||[])].sort((a,b)=>compareEpisodeOrder(a.episode,b.episode));
-    const nextIndex=items.findIndex(item=>Number(item.episode?.number)===targetNumber);
-    return {...context,items,index:nextIndex>=0?nextIndex:0};
-  };
+  // Series already follow release dates in content-v2.json. Keep that order for
+  // row/resume indices, navigation and restore; special IDs are not episode order.
 
   function playerNavQuestionCardItem(card,view){
     const match=String(card?.dataset.item||'').match(/^[qn]:(\d+):(\d+)$/);if(!match)return null;

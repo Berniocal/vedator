@@ -12,7 +12,8 @@ window.IntersectionObserver=class{observe(){}disconnect(){}};
 window.matchMedia=()=>({matches:false,addEventListener:()=>{},removeEventListener:()=>{}});
 window.HTMLElement.prototype.scrollIntoView=()=>{};
 window.scrollTo=()=>{};
-window.requestAnimationFrame=cb=>setTimeout(()=>cb(Date.now()),0);
+window.requestAnimationFrame=cb=>window.setTimeout(()=>cb(Date.now()),0);
+window.cancelAnimationFrame=id=>window.clearTimeout(id);
 window.HTMLMediaElement.prototype.play=function(){return Promise.resolve()};
 window.HTMLMediaElement.prototype.pause=function(){};
 window.HTMLMediaElement.prototype.load=function(){};
@@ -38,3 +39,4 @@ const ep345=data.episodes.find(episode=>Number(episode.number)===345);
 assert(window.document.querySelector('#player-title-v2').textContent===(ep345?.i18n?.sk?.title||ep345?.title||''),'Previous from episode 346 must decrease the episode number to 345');
 
 console.log(JSON.stringify({ok:true,episode:346,next:347,previous:345,numericNavigation:true},null,2));
+window.close();

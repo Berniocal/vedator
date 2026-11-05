@@ -25,7 +25,8 @@ window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};
 window.HTMLMediaElement.prototype.load=()=>{};
 window.HTMLElement.prototype.scrollIntoView=()=>{};
-window.requestAnimationFrame=callback=>setTimeout(callback,0);
+window.requestAnimationFrame=callback=>window.setTimeout(callback,0);
+window.cancelAnimationFrame=id=>window.clearTimeout(id);
 
 const ready=new Promise((resolve,reject)=>{
   const timer=setTimeout(()=>reject(new Error('V2 ready timeout')),5000);
@@ -86,3 +87,4 @@ seriesTab.click();await new Promise(resolve=>setTimeout(resolve,20));
 assert(window.document.querySelector(`#series-v2 .series[data-series-index="${seriesIndex}"] .series-resume-v2`)?.textContent.includes('Pokračovať'),'Series resume did not translate to Slovak');
 
 console.log(JSON.stringify({ok:true,episode:340,episodeProgressBadge:17,episodeTimeline:false,chapters:chapterButtons.length,series:faqSeries.name,seriesEpisodes:faqSeries.episodes.length,completed:1,resumeEpisode:340,translated:true,lazySeriesBody:true},null,2));
+window.close();
