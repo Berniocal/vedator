@@ -38,3 +38,4 @@ const ep345=data.episodes.find(episode=>Number(episode.number)===345);
 assert(window.document.querySelector('#player-title-v2').textContent===(ep345?.i18n?.sk?.title||ep345?.title||''),'Previous from episode 346 must decrease the episode number to 345');
 
 console.log(JSON.stringify({ok:true,episode:346,next:347,previous:345,numericNavigation:true},null,2));
+window.close();

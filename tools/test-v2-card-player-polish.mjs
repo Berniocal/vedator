@@ -56,3 +56,4 @@ assert(style?.textContent.includes('.player-shell')&&style.textContent.includes(
 assert(style.textContent.includes('grid-template-columns:minmax(0,1fr)!important'),'Phone one-column series style missing');
 
 console.log(JSON.stringify({ok:true,simpleEpisodeLabels:true,pauseIcon:'Ⅱ',episodeReadMore:true,summaryBeforeActions:true,purplePlayer:true,mobileSeriesPerRow:1,smeSearchCutoff:true},null,2));
+window.close();

@@ -86,3 +86,4 @@ seriesTab.click();await new Promise(resolve=>setTimeout(resolve,20));
 assert(window.document.querySelector(`#series-v2 .series[data-series-index="${seriesIndex}"] .series-resume-v2`)?.textContent.includes('Pokračovať'),'Series resume did not translate to Slovak');
 
 console.log(JSON.stringify({ok:true,episode:340,episodeProgressBadge:17,episodeTimeline:false,chapters:chapterButtons.length,series:faqSeries.name,seriesEpisodes:faqSeries.episodes.length,completed:1,resumeEpisode:340,translated:true,lazySeriesBody:true},null,2));
+window.close();

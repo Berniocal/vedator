@@ -69,3 +69,4 @@ expand.click();await new Promise(resolve=>setTimeout(resolve,20));
 assert(!window.document.querySelector('#player-v2').classList.contains('player-collapsed-v2'),'Player did not expand again');
 
 console.log(JSON.stringify({ok:true,legacyHeader:true,activePills:true,legacyBadges:true,noEpisodeTimeline:true,purpleTags:true,collapsiblePlayer:true,episodeTitleClamp:false,seriesTitleEllipsis:true},null,2));
+window.close();
