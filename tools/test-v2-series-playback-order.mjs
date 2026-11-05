@@ -69,6 +69,8 @@ for(const language of ['cz','sk']){
         audio.dispatchEvent(new w.Event('ended'));await expectEpisode(series.episodes[index+1],series);transitions++;
       }
     }
+    // Keep the fixture bounded: only the current collection needs rendered rows.
+    card.open=false;card.querySelector('ol')?.remove();delete card.dataset.bodyLoaded;
   }
   dom.window.close();
   console.log(`Series row/queue/navigation checks passed: ${language}`);
@@ -77,7 +79,8 @@ const blackHoles=data.series.find(series=>series.name==='Černé díry');
 // A fresh partial-listen fixture keeps resume separate from tracks completed above.
 {
   const {dom,w,audio,snapshot,expectEpisode}=await setup('cz',{
-    vedatorPlaybackProgressV1:JSON.stringify({'episode-1706':{currentTime:125,duration:3600,completed:false,updatedAt:1}})
+    vedatorPlaybackProgressV1:JSON.stringify({'episode-1706':{currentTime:125,duration:3600,completed:false,updatedAt:1}}),
+    vedatorCollectionProgressV1:JSON.stringify({'series:cerne diry':{type:'series',label:'Černé díry',lastItemId:'episode:1706',items:{'episode:1706':{currentTime:125,duration:3600,percent:4,completed:false}},updatedAt:1}})
   });
   w.document.querySelector('.tab-v2[data-view="series"]').click();
   const card=w.document.querySelector(`.series[data-series-index="${data.series.indexOf(blackHoles)}"]`);
