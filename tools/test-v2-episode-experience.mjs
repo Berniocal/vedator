@@ -25,7 +25,8 @@ window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};
 window.HTMLMediaElement.prototype.load=()=>{};
 window.HTMLElement.prototype.scrollIntoView=()=>{};
-window.requestAnimationFrame=callback=>setTimeout(callback,0);
+window.requestAnimationFrame=callback=>window.setTimeout(callback,0);
+window.cancelAnimationFrame=id=>window.clearTimeout(id);
 
 const ready=new Promise((resolve,reject)=>{
   const timer=setTimeout(()=>reject(new Error('V2 ready timeout')),5000);

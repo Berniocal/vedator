@@ -34,7 +34,8 @@ window.matchMedia=()=>({matches:true,addEventListener:()=>{},removeEventListener
 window.IntersectionObserver=class{observe(){} disconnect(){}};
 window.HTMLElement.prototype.scrollIntoView=()=>{};
 window.scrollTo=()=>{};
-window.requestAnimationFrame=callback=>setTimeout(()=>callback(Date.now()),0);
+window.requestAnimationFrame=callback=>window.setTimeout(()=>callback(Date.now()),0);
+window.cancelAnimationFrame=id=>window.clearTimeout(id);
 window.alert=()=>{};window.prompt=()=>'';window.confirm=()=>true;
 let mediaPlayCalls=0;
 window.HTMLMediaElement.prototype.play=function(){mediaPlayCalls++;Object.defineProperty(this,'paused',{value:false,configurable:true});this.dispatchEvent(new window.Event('play'));return Promise.resolve()};

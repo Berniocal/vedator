@@ -27,7 +27,8 @@ window.matchMedia=()=>({matches:false,addEventListener:()=>{},removeEventListene
 window.IntersectionObserver=class{observe(){}disconnect(){}};
 window.HTMLElement.prototype.scrollIntoView=()=>{};
 window.scrollTo=()=>{};
-window.requestAnimationFrame=cb=>setTimeout(()=>cb(Date.now()),0);
+window.requestAnimationFrame=cb=>window.setTimeout(()=>cb(Date.now()),0);
+window.cancelAnimationFrame=id=>window.clearTimeout(id);
 window.alert=()=>{};window.confirm=()=>true;window.prompt=()=>'';
 window.HTMLMediaElement.prototype.load=function(){};
 window.HTMLMediaElement.prototype.play=function(){Object.defineProperty(this,'paused',{value:false,configurable:true});this.dispatchEvent(new window.Event('play'));return Promise.resolve()};
