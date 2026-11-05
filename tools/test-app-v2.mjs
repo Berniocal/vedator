@@ -80,3 +80,4 @@ assert(window.document.querySelector('.data-export'),'Data export action missing
 assert(window.document.querySelector('.data-import'),'Data import action missing');
 
 console.log(JSON.stringify({ok:true,tabs:tabs.length,initialEpisodeCards:20,initialQuestionCards:20,newestEpisode:latestEpisode.number,series:data.series.length,nonquestions:Number(window.document.querySelector('#nonquestions-v2').dataset.count),legacyPlaylistItems:window.document.querySelectorAll('#playlists-v2 .playlist-open').length,startupPreservedLegacyData:true,languageSwitch:true,searchVisible:visible},null,2));
+window.close();
