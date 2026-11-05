@@ -34,6 +34,7 @@ async function setup(language,saved){
   w.eval(app);w.document.dispatchEvent(new w.Event('DOMContentLoaded',{bubbles:true}));
   await ready;await settle();await settle();
   const audio=w.document.querySelector('#audio-v2');
+  audio.dispatchEvent(new w.Event('loadedmetadata'));await settle();
   const snapshot=()=>JSON.parse(w.localStorage.getItem('vedatorLastPlaybackV1'));
   async function expectEpisode(number,series){
     await settle();audio.dispatchEvent(new w.Event('loadedmetadata'));await settle();
