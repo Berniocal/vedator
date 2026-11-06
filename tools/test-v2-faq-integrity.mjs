@@ -2,7 +2,7 @@ import fs from 'node:fs';
 
 const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const assert=(condition,message)=>{if(!condition)throw new Error(message)};
-const expected=[361,358,350,346,340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,138,133,128,119,112,100,89,82,75,69,60,51,35,26,17];
+const expected=[362,361,358,350,346,340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,138,133,128,119,112,100,89,82,75,69,60,51,35,26,17];
 const expectedSet=new Set(expected);
 const faqSeries=(data.series||[]).find(series=>String(series.name||'').includes('FAQ')||String(series.i18n?.cs||'').includes('FAQ'));
 assert(faqSeries,'FAQ series missing');
@@ -33,7 +33,7 @@ assert(q300.some(question=>/mimozem/i.test(String(question.title||question.i18n?
 const q350=byEpisode.get(350)||[];
 assert(q350.length===15,`Episode 350 has ${q350.length} questions, expected 15`);
 assert(q350.some(question=>/dúh|duh/i.test(String(question.title||question.i18n?.sk?.title||''))), 'Episode 350 questions were not parsed correctly');
-assert((data.questions||[]).length===785,`Expected 785 questions, got ${(data.questions||[]).length}`);
+assert((data.questions||[]).length===803,`Expected 803 questions, got ${(data.questions||[]).length}`);
 
 // Episode 361 is a listener Q&A even though its title does not contain FAQ.
 const q361=byEpisode.get(361)||[];
@@ -42,7 +42,7 @@ const episode361=data.episodes.find(item=>Number(item.number)===361);
 assert(episode361&&!/\bFAQ\b/i.test(episode361.title),'Episode 361 must remain a non-FAQ-titled Q&A regression case');
 assert(q361.some(item=>/nestabiln/i.test(item.i18n.cs.title))&&q361.some(item=>/tma/i.test(item.i18n.cs.title)),'Episode 361 lost its opening or closing question');
 assert(!data.nonquestions?.episodes?.['361'],'Episode 361 must not appear in Nonquestions');
-assert((data.questions||[]).filter(item=>Number(item.episode)!==361).length===762,'Existing FAQ question count changed');
+assert((data.questions||[]).filter(item=>![361,362].includes(Number(item.episode))).length===762,'Existing FAQ question count changed');
 assert(new Set(data.source.faqEpisodes).size===expectedSet.size&&data.source.faqEpisodes.every(item=>expectedSet.has(item)),'Canonical FAQ list and integrity list differ');
 assert(data.meta?.legacyParity?.faqEpisodes===expectedSet.size,'Parity FAQ count differs from canonical list');
 for(const [index,question] of q361.entries()){
@@ -55,3 +55,8 @@ for(const [index,question] of q361.entries()){
 }
 
 console.log(JSON.stringify({ok:true,faqSeriesEpisodes:seriesEpisodes.size,canonicalQuestionEpisodes:expectedSet.size,extraFaqSeriesEpisodes:extraSeriesEpisodes,questionEpisodes:byEpisode.size,episode300Questions:q300.length,episode350Questions:q350.length,totalQuestions:data.questions.length},null,2));
+
+const q362=byEpisode.get(362)||[];
+assert(q362.length===18,"Episode 362 must preserve all 18 question parts");
+assert(!data.nonquestions?.episodes?.[362],"FAQ 362 must stay in Questions");
+for(const q of q362){assert(q.i18n.cs.points.length===3&&q.i18n.sk.points.length===3,"362 answer points");assert(q.i18n.cs.title.endsWith("?")&&q.i18n.sk.title.endsWith("?"),"362 titles");}
