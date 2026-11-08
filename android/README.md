@@ -65,7 +65,6 @@ Výstup Actions je nepodepsaná release APK, která se podepisuje uchovaným kl�
 ```
 java -jar apksigner.jar sign --ks /soukroma/cesta/vedator-signing.p12 \
   --ks-key-alias vedator --ks-pass file:/soukroma/cesta/signing-password.txt \
-  --key-pass file:/soukroma/cesta/signing-password.txt \
   --out Vedator-0.1.0.apk Vedator-0.1.0-unsigned.apk
 java -jar apksigner.jar verify --verbose --print-certs Vedator-0.1.0.apk
 ```
