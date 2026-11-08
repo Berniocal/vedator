@@ -329,6 +329,10 @@ try{
       const p=window.vedatorContinuousTest.player,a=document.getElementById('audio');
       return p.session?.seekTo==null&&Math.abs(p.position()-5)<.2;
     },{timeout:15000});
+    await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;p.lead=10;p.onAudio('timeupdate')});
+    await page.waitForFunction(()=>window.vedatorContinuousTest.player.part()?.end!=null);
+    const endClock=await page.evaluate(()=>{const part=window.vedatorContinuousTest.player.part();return part.end-part.start});
+    assert(Math.abs(endClock-6.060408)<.08,'A far seek near the end must preserve the actual episode duration');
     const jumped=await state();
     assert(jumped.src.startsWith('blob:'),'An unbuffered jump must stay in MSE for continuous episode boundaries');
     assert(jumped.paused,'A user pause must survive a far seek');
@@ -355,4 +359,3 @@ try{
   assert.deepEqual(errors,[],'No page runtime errors allowed');
 }catch(error){console.error(JSON.stringify(await state(),null,2));throw error}
 finally{await browser.close();await new Promise(resolve=>server.close(resolve))}
-

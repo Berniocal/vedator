@@ -4,6 +4,9 @@ on:
     branches: [main]
     paths:
       - 'continuous-audio.mjs'
+      - 'app-v2.js'
+      - 'tools/sync-continuous-player.mjs'
+      - 'tools/test-main-continuous-browser.mjs'
       - 'continuous-test-ui.mjs'
       - 'test-souvisle.html'
       - 'tools/test-continuous-audio-browser.mjs'
@@ -26,13 +29,20 @@ jobs:
         run: |
           node --check continuous-audio.mjs
           node --check continuous-test-ui.mjs
+          node --check app-v2.js
+          node --check tools/test-main-continuous-browser.mjs
+          node tools/sync-continuous-player.mjs --check
           node --check tools/test-continuous-audio-browser.mjs
       - name: Install browser test dependencies
         run: npm install --prefix "$RUNNER_TEMP/continuous-audio-test" --no-audit --no-fund puppeteer-core@25.12.0 @sparticuz/chromium@153.0.0
       - name: Test real MP3 decoding and continuous hidden playback
         run: VEDATOR_TEST_DEPS="$RUNNER_TEMP/continuous-audio-test" node tools/test-continuous-audio-browser.mjs
 
+      - name: Test integrated main playback, progress, mixed playlists and offline audio
+        run: VEDATOR_TEST_DEPS="$RUNNER_TEMP/continuous-audio-test" node tools/test-main-continuous-browser.mjs
       - name: Download the exact reported episode for a long-seek regression
         run: curl --fail --location --retry 2 --max-time 120 'https://mcdn.podbean.com/mf/web/4mbanm/podcast_ep9.mp3' -o "$RUNNER_TEMP/vedator-episode-9.mp3"
       - name: Verify episode 9 at 26:22 and continuous handoff after seeking
         run: VEDATOR_REAL_EP9_FILE="$RUNNER_TEMP/vedator-episode-9.mp3" VEDATOR_TEST_DEPS="$RUNNER_TEMP/continuous-audio-test" node tools/test-continuous-audio-browser.mjs
+      - name: Test actual long seek in the main application
+        run: VEDATOR_REAL_EP9_FILE="$RUNNER_TEMP/vedator-episode-9.mp3" VEDATOR_TEST_DEPS="$RUNNER_TEMP/continuous-audio-test" node tools/test-main-continuous-browser.mjs

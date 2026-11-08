@@ -184,3 +184,22 @@ node tools/test-v2-real-readmore-browser.mjs
 ```
 
 Publikovat až po zeleném CI. Produkční repo `Berniocal/vedator` se nesmí měnit při práci na testovací V2, pokud to uživatel výslovně nepožádá.
+
+## Souvislé přehrávání v hlavní aplikaci
+
+Zdroj přehrávače je `continuous-audio.mjs`. Hlavní `app-v2.js` obsahuje jeho vygenerovanou kopii mezi `CONTINUOUS_AUDIO_ENGINE_BEGIN` a `CONTINUOUS_AUDIO_ENGINE_END`, aby spuštění aplikace nevyžadovalo další JavaScriptový request. Tento blok neupravuj ručně; po změně zdroje spusť `node tools/sync-continuous-player.mjs` a ověř `--check`.
+
+Hranice dílů musí zůstat v jednom MediaSource bez změny `audio.src` a bez `ended` mezi díly. Posun mimo načtenou část může založit nový MSE proud, který dál souvisle navazuje. Při posunu nepřepínej na přímé MP3. Uložený průběh, kapitoly a čas aplikace používají čas konkrétní epizody; systémové ovládání sleduje souvislý proud. Zachovej přímé přehrávání jako stávající větev pro samostatný poslední díl a prohlížeče bez podpory MP3 MSE.
+
+Otázky v playlistu mají vlastní počáteční časy a vlastní průběh. Offline soubory řeší stávající `playbackUrl()`; přehrávač nesmí nahradit offline Blob dříve uloženou CDN adresou. Přesná časová mapa `audio-seek-index.json` se ukládá s PWA a za běhu se připravuje až po zahájení poslechu.
+
+Před změnou/nasazením přehrávače navíc spusť:
+
+- `node tools/test-continuous-audio-browser.mjs`
+- `node tools/test-main-continuous-browser.mjs`
+- `VEDATOR_REAL_EP9_FILE=/path/to/podcast_ep9.mp3 node tools/test-main-continuous-browser.mjs`
+- `node tools/prepare-production-index.mjs`
+- `node tools/build-production-sw.mjs`
+- `node tools/test-production-pwa.mjs`
+
+Test hlavní aplikace ověřuje počet startup requestů, navazování ve skryté záložce, správné speciály, oddělený průběh, obnovení pozice, pauzu, posuvník, MP3 download, smíšené playlisty otázek a offline kopie. Test skutečné epizody 9 zachytí drahé lineární hledání času 26:22 a ověří zachování MSE při následném přechodu.
