@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="cs" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0e16">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<title>AI Vedátor – test</title>
+<style>
+:root{color-scheme:dark;--bg:#0e1118;--card:#171b25;--raised:#1c2130;--ink:#edf1f8;--muted:#9ca8ba;--line:#2d3544;--accent:#9285ff;--accent-hover:#a399ff;--accent2:#2b2649;--ok:#4ade80;--warn:#fbbf24;--danger:#fb7185;--header1:#0b0e16;--header2:#201842;--shadow:0 8px 24px rgba(0,0,0,.22)}
+html[data-theme=light]{color-scheme:light;--bg:#f4f6fb;--card:#fff;--raised:#fafbff;--ink:#162033;--muted:#64748b;--line:#dbe2ea;--accent:#5b4bdb;--accent-hover:#4b3cc7;--accent2:#ede9fe;--ok:#15803d;--warn:#b45309;--danger:#b91c1c;--header1:#151b2f;--header2:#32256c;--shadow:0 8px 24px rgba(15,23,42,.07)}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}button,input{font:inherit}button,a{touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+header{padding:18px 16px;background:linear-gradient(135deg,var(--header1),var(--header2));color:#fff;box-shadow:0 5px 22px rgba(0,0,0,.12)}.wrap{max-width:960px;margin:auto}.header-row{display:flex;justify-content:space-between;align-items:center;gap:12px}.head-name{margin:0;font-size:1.35rem}.subtitle{margin:3px 0 0;color:#ccd2e5;font-size:.86rem}.header-actions{display:flex;gap:7px;align-items:center}a.nav{display:inline-flex;color:#fff;text-decoration:none;border:1px solid #6e658e;border-radius:10px;padding:8px 11px;font-weight:700;font-size:.9rem}.theme{min-width:40px;min-height:40px;color:#fff;border:1px solid #6e658e;border-radius:10px;background:transparent;cursor:pointer}
+main{padding:15px 12px 50px}.panel,.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.panel{padding:16px;margin-bottom:14px}.card{padding:15px;margin-bottom:10px}.panel h2,.card h2{margin:0 0 10px;font-size:1.03rem}.eyebrow{font-size:.75rem;font-weight:750;text-transform:uppercase;letter-spacing:.065em;color:var(--accent);margin-bottom:6px}.muted{color:var(--muted)}.small{font-size:.86rem}.pill{display:inline-block;border:1px solid var(--line);background:var(--raised);padding:4px 9px;border-radius:999px;color:var(--muted);font-size:.78rem}.tool-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.tool-row>*{flex:0 1 auto}button.btn{min-height:42px;padding:9px 13px;border-radius:11px;border:0;background:var(--accent);color:white;font-weight:750;cursor:pointer}button.btn:hover{background:var(--accent-hover)}button.btn.secondary{color:var(--ink);background:var(--raised);border:1px solid var(--line)}button.btn.danger{background:var(--danger)}button.btn:disabled{opacity:.52;cursor:not-allowed}#question{width:100%;min-height:48px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:11px 14px;font-size:1rem}.query-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin:12px 0}.progress{width:100%;height:9px;accent-color:var(--accent);margin:8px 0 3px}.status{min-height:1.4rem;margin:9px 0;color:var(--muted);font-size:.9rem}.status.error{color:var(--danger)}.status.ok{color:var(--ok)}.answer{border-left:3px solid var(--accent);padding:5px 13px;background:var(--raised);border-radius:0 10px 10px 0;margin:10px 0 14px}.answer p{margin:9px 0}.source-title{font-weight:800;color:var(--ink)}.source-top{display:flex;justify-content:space-between;gap:9px;align-items:baseline}.source-body{margin:8px 0 11px;white-space:pre-wrap}.source-link{display:inline-flex;text-decoration:none;align-items:center;gap:5px;color:var(--accent);font-weight:750}.source-link:hover{text-decoration:underline}.hint{margin-top:9px;padding:11px;background:var(--raised);border-radius:11px;font-size:.85rem;color:var(--muted)}.hidden{display:none!important}#results{margin-top:15px}#results h2{margin:0 0 10px}.badge{border-radius:999px;border:1px solid var(--line);padding:4px 9px;font-size:.79rem;color:var(--muted)}.grid-line{display:flex;justify-content:space-between;gap:9px;flex-wrap:wrap;align-items:center}#model-status{font-weight:700}.note{margin:10px 0 0;color:var(--muted);font-size:.82rem}details{margin-top:8px}details summary{cursor:pointer;color:var(--accent);font-weight:650}
+@media(max-width:560px){header{padding:13px 12px}.head-name{font-size:1.2rem}.nav{padding:7px 9px!important;font-size:.8rem!important}.panel{padding:13px}.query-row{grid-template-columns:1fr}.query-row button{width:100%}.tool-row button{flex:1 1 auto}}
+</style>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("vedator-ui-theme-v1")==="light"?"light":"dark"}catch{}</script>
+<script type="module" src="./test-ai.js"></script>
+</head>
+<body>
+<header><div class="wrap header-row"><div><h1 class="head-name">✦ AI Vedátor <span class="pill">TEST</span></h1><p class="subtitle">Zeptej se na obsah podcastu</p></div><div class="header-actions"><a class="nav" href="./index.html">← Vedátor</a><button class="theme" id="theme" title="Světlý/tmavý režim" aria-label="Přepnout vzhled">☾</button></div></div></header>
+<main class="wrap">
+<section class="panel" aria-labelledby="model-heading">
+  <div class="eyebrow">Lokální AI · základní verze</div>
+  <h2 id="model-heading">Model pro významové vyhledávání</h2>
+  <div class="grid-line"><span id="model-status">Zjišťuji stav modelu…</span><span class="badge">vícejazyčný model · asi 140 MB s daty</span></div>
+  <p class="small muted">Model se nikdy nestahuje automaticky. Pracuje přímo ve tvém prohlížeči, bez placeného API. Stačí ho stáhnout jednou; při vymazání dat prohlížeče o něj můžeš přijít.</p>
+  <div class="tool-row"><button id="install" class="btn" type="button">↓ Stáhnout AI</button><button id="remove" class="btn danger" type="button" disabled>✕ Smazat staženou AI</button></div>
+  <progress id="download-progress" class="progress hidden" max="100" value="0"></progress>
+  <p id="download-status" class="status" role="status" aria-live="polite"></p>
+  <div class="hint">Používáme Xenova/multilingual-e5-small (8bit). Při prvním hledání se připraví místní index shrnutí; jeho postup se ukládá a po opětovném otevření lze pokračovat. Odstraněním AI se smaže i index.</div>
+</section>
+<section class="panel" aria-labelledby="ask-heading">
+  <h2 id="ask-heading">Zeptej se Vedátora</h2>
+  <form id="ask-form"><div class="query-row"><input id="question" name="question" placeholder="Např. Proč čas v blízkosti černé díry plyne jinak?" maxlength="400" autocomplete="off" aria-label="Tvoje otázka"><button class="btn" id="ask" type="submit" disabled>✦ Hledat pomocí AI</button></div></form>
+  <p id="catalog-status" class="status">Načítám katalog shrnutí…</p>
+  <progress id="index-progress" class="progress hidden" max="100" value="0"></progress>
+  <p id="search-status" class="status" role="status" aria-live="polite">Nejdříve stáhni AI.</p>
+  <p class="note">První verze používá AI k nalezení významově podobných pasáží a z nich ukáže stručnou odpověď. Zatím nepoužívá velký generativní model; odpověď skládá přímo z textů shrnutí. Zdrojům je možné se prokliknout.</p>
+</section>
+<div id="results" class="hidden" aria-live="polite"><section class="panel"><h2>Odpověď podle shrnutí</h2><div id="answer" class="answer"></div><div class="grid-line"><strong>Zdrojové pasáže</strong><span id="result-count" class="small muted"></span></div></section><div id="sources"></div></div>
+</main>
+</body></html>
