@@ -65,7 +65,7 @@ $('seek').addEventListener('change',()=>{
 });
 function parseJumpTime(value){
   const bits=String(value).trim().split(':');
-  if(!bits.length||bits.length>3||bits.some(v=>!/^\\d+$/.test(v)))return NaN;
+  if(!bits.length||bits.length>3||bits.some(v=>!/^[0-9]+$/.test(v)))return NaN;
   return bits.reduce((acc,part)=>acc*60+Number(part),0);
 }
 function jump(){
