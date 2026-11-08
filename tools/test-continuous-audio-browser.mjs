@@ -39,7 +39,9 @@ const server=http.createServer((request,response)=>{
   const ext=path.extname(file);response.writeHead(200,{'Content-Type':({'.html':'text/html','.mjs':'text/javascript','.png':'image/png','.svg':'image/svg+xml'})[ext]||'text/plain','Cache-Control':'no-store'});fs.createReadStream(file).pipe(response);
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));base='http://127.0.0.1:'+server.address().port;
-const args=chromium.args.filter(arg=>!arg.startsWith('--headless')&&!arg.includes('background-timer')&&!arg.includes('backgrounding')&&!arg.includes('renderer-background')&&!arg.includes('disable-web-security')&&!arg.includes('allow-running-insecure-content'));
+// Use normal Chrome process isolation. Serverless --single-process flags can
+// crash the full Chrome installed on GitHub-hosted runners before tests start.
+const args=['--no-sandbox','--disable-dev-shm-usage','--no-zygote','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'];
 if(live&&process.env.HTTPS_PROXY)args.push('--proxy-server='+process.env.HTTPS_PROXY,'--ignore-certificate-errors');
 const executablePath=process.env.CHROME_PATH||['/usr/bin/google-chrome','/usr/bin/chromium','/usr/bin/chromium-browser'].find(p=>fs.existsSync(p))||await chromium.executablePath();
 const browser=await puppeteer.launch({executablePath,headless:true,args,ignoreDefaultArgs:['--mute-audio','--disable-background-timer-throttling','--disable-backgrounding-occluded-windows','--disable-renderer-backgrounding']});
