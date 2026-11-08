@@ -1,6 +1,7 @@
-import {ContinuousAudio} from './continuous-audio.mjs?v=20261108-1';
+import {ContinuousAudio} from './continuous-audio.mjs?v=20261108-2';
 const $=id=>document.getElementById(id),audio=$('audio');
-const LOG_KEY='vedator-continuous-test-log-v1';
+const streamControls=new URLSearchParams(location.search).get('system')==='stream';
+const LOG_KEY=streamControls?'vedator-continuous-test-log-v2-stream':'vedator-continuous-test-log-v1';
 let lines=[];try{lines=JSON.parse(localStorage.getItem(LOG_KEY)||'[]');if(!Array.isArray(lines))lines=[]}catch{}
 let collections=[],selected=[],activeQueue=[];
 const fmt=seconds=>{const value=Math.max(0,Math.floor(seconds||0));return Math.floor(value/60)+':'+String(value%60).padStart(2,'0')};
@@ -9,7 +10,11 @@ function log(message){
   try{localStorage.setItem(LOG_KEY,JSON.stringify(lines))}catch{}
   $('log').textContent=lines.join('\n');
 }
-const player=new ContinuousAudio(audio,{log});
+const player=new ContinuousAudio(audio,{log,systemTimeline:streamControls?'stream':'episode'});
+if(streamControls){
+  document.querySelector('.badge').textContent='Test systémového ovládání · v2';
+  $('system-note').hidden=false;
+}
 // A small read-only diagnostic surface also lets real-browser tests inspect the stream.
 window.vedatorContinuousTest={player,get log(){return [...lines]},get queue(){return [...activeQueue]}};
 function problem(message){$('problem').textContent=message;$('problem').hidden=!message}
@@ -57,7 +62,7 @@ $('seek').addEventListener('change',()=>player.seek(Number($('seek').value)));
 $('speed').addEventListener('change',()=>{audio.playbackRate=Number($('speed').value)||1});
 $('retry').addEventListener('click',()=>{problem('');player.retry()});
 $('copy').addEventListener('click',async()=>{
-  const s=player.session,text='Vedátor — souvislý proud v1\n'+navigator.userAgent+'\n'+location.href+'\n'+lines.join('\n')+'\nStav: '+JSON.stringify({episode:s?.items[s.index]?.number,paused:audio.paused,time:audio.currentTime,error:audio.error&&{code:audio.error.code,message:audio.error.message},ranges:player.ranges(),sourceChanges:s?.sourceChanges,transitions:s?.transitionCount});
+  const s=player.session,text='Vedátor — souvislý proud v2; systemTimeline='+player.systemTimeline+'\n'+navigator.userAgent+'\n'+location.href+'\n'+lines.join('\n')+'\nStav: '+JSON.stringify({episode:s?.items[s.index]?.number,paused:audio.paused,time:audio.currentTime,nativeDuration:String(audio.duration),declaredState:navigator.mediaSession?.playbackState,systemPosition:s?.lastMediaPosition,error:audio.error&&{code:audio.error.code,message:audio.error.message},ranges:player.ranges(),sourceChanges:s?.sourceChanges,transitions:s?.transitionCount});
   try{await navigator.clipboard.writeText(text);$('copy').textContent='Zkopírováno'}catch{
     const box=document.createElement('textarea');box.value=text;document.body.appendChild(box);box.select();const copied=document.execCommand('copy');box.remove();$('copy').textContent=copied?'Zkopírováno':'Kopírování se nepodařilo';
   }
