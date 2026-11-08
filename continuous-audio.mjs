@@ -120,7 +120,8 @@ export class ContinuousAudio extends EventTarget {
         if(Math.abs(this.audio.currentTime-target)<.1){done();return}
         this.audio.addEventListener('seeked',done,{once:true});
         this.audio.currentTime=target;
-        if(!this.audio.seeking)done();
+        // Native seek is asynchronous, especially if the MP3 Range has not arrived.
+        // Wait for seeked before resuming audio or claiming the requested position.
       }catch(error){s.nativeSwitching=false;this.emit('problem',{message:'Nepodařilo se přeskočit v MP3: '+error.message})}
     };
     this.audio.addEventListener('loadedmetadata',ready,{once:true});
