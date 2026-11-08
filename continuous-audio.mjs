@@ -1,4 +1,33 @@
-// Isolated continuous-stream experiment. Never replaces a source at an episode boundary.
+// Every episode boundary stays within one MSE stream, including after a seek.
+// Sparse MP3 frame positions let a manual seek restart MSE at an exact audio
+// position without falling back to a native source that ends between episodes.
+class MP3Frames {
+  constructor(index,{offset=0,time=0}={}){Object.assign(this,{index,offset,time,pending:new Uint8Array(),skip:0})}
+  feed(bytes){
+    const data=new Uint8Array(this.pending.length+bytes.length);data.set(this.pending);data.set(bytes,this.pending.length);
+    let i=0;
+    if(this.offset===0&&data.length>=3&&data[0]===73&&data[1]===68&&data[2]===51){
+      if(data.length<10){this.pending=data;return}
+      this.skip=10;for(let j=6;j<10;j++)this.skip+=(data[j]&127)*2**(7*(9-j));
+      if(data[3]===4&&(data[5]&16))this.skip+=10;
+    }
+    if(this.skip){const take=Math.min(data.length,this.skip);i+=take;this.skip-=take}
+    while(i+4<=data.length&&!this.skip){
+      const a=data[i+1],b=data[i+2],version=(a>>3)&3,rateIndex=(b>>2)&3;
+      if(data[i]!==255||(a&224)!==224||((a>>1)&3)!==1||version===1||rateIndex===3){i++;continue}
+      const table=version===3?[0,32,40,48,56,64,80,96,112,128,160,192,224,256,320]:[0,8,16,24,32,40,48,56,64,80,96,112,128,144,160];
+      const bitrate=table[b>>4]||0;if(!bitrate){i++;continue}
+      const rate=[44100,48000,32000][rateIndex]/(version===3?1:version===2?2:4);
+      const length=Math.floor((version===3?144000:72000)*bitrate/rate)+((b>>1)&1);
+      if(i+length>data.length)break;
+      const offset=this.offset+i,last=this.index.anchors.at(-1);
+      if(!last||offset>last.offset&&this.time-last.time>=.5)this.index.anchors.push({offset,time:this.time});
+      this.time+=(version===3?1152:576)/rate;i+=length;
+    }
+    this.offset+=i;this.pending=data.slice(i);
+  }
+}
+
 export class ContinuousAudio extends EventTarget {
   constructor(audio,{lead=180,keepBehind=45,chunkSize=262144,fetcher=globalThis.fetch.bind(globalThis),log=()=>{},systemTimeline='episode'}={}){
     super();Object.assign(this,{audio,lead,keepBehind,chunkSize,fetcher,log,systemTimeline});this.session=null;
@@ -22,12 +51,12 @@ export class ContinuousAudio extends EventTarget {
   emit(type,detail={}){this.dispatchEvent(new CustomEvent(type,{detail}))}
   write(message){this.log(message);this.emit('update')}
   static supported(){return Boolean(globalThis.MediaSource?.isTypeSupported('audio/mpeg'))}
-  start(items,{quick=false,tailBytes=524288,initialIndex=0}={}){
+  start(items,{quick=false,tailBytes=524288,initialIndex=0,seekTo=null,autoplay=true,indexes=new Map()}={}){
     if(!ContinuousAudio.supported())throw Error('Tento prohlížeč nepodporuje souvislé přehrávání MP3 přes MSE. Zkus Chrome.');
     if(!items.length||items.some(item=>!item.url))throw Error('Vyber alespoň jeden dostupný díl.');
     this.stop();
     const media=new MediaSource(),url=URL.createObjectURL(media),controller=new AbortController();
-    const s={media,url,controller,items:items.map(item=>({...item})),parts:[],index:initialIndex,loadIndex:initialIndex,offset:0,quick:quick&&initialIndex===0,tailBytes,buffer:null,pumping:false,failed:false,complete:false,wantPlay:true,wake:new Set(),sourceChanges:1,transitionCount:0,native:false};
+    const s={media,url,controller,items:items.map(item=>({...item})),parts:[],index:initialIndex,loadIndex:initialIndex,offset:0,quick:quick&&initialIndex===0,tailBytes,buffer:null,pumping:false,failed:false,complete:false,wantPlay:autoplay,wake:new Set(),sourceChanges:1,transitionCount:0,indexes,seekTo,locating:seekTo!=null};
     this.session=s;
     const opened=new Promise((resolve,reject)=>{
       const cleanup=()=>{media.removeEventListener('sourceopen',open);controller.signal.removeEventListener('abort',abort)};
@@ -39,9 +68,14 @@ export class ContinuousAudio extends EventTarget {
     this.write('START: jeden MediaSource, '+items.length+' dílů; rychlý test='+quick+'; systemTimeline='+this.systemTimeline);
     this.emit('track',{item:s.items[initialIndex],index:initialIndex,quick:s.quick});
     // Keep play() in the user's click. Awaiting the network first loses activation.
-    this.play();
-    opened.then(()=>{
+    if(autoplay&&seekTo==null)this.play();
+    opened.then(async()=>{
       if(this.session!==s)return;
+      if(seekTo!=null){
+        const found=await this.locate(s,s.items[initialIndex],seekTo);
+        if(this.session!==s||s.controller.signal.aborted)return;
+        s.offset=found.offset;s.seekOrigin=found.time;s.seekTo=found.target;s.locating=false;
+      }
       s.buffer=media.addSourceBuffer('audio/mpeg');s.buffer.mode='sequence';
       media.duration=Infinity;
       return this.pump(s);
@@ -57,93 +91,102 @@ export class ContinuousAudio extends EventTarget {
   }
   play(){
     const s=this.session;if(!s)return;s.wantPlay=true;
-    if(s.nativeSwitching){s.nativeShouldPlay=true;return}
+    if(s.seekTo!=null)return;
+    const token=s.playToken=(s.playToken||0)+1;
     try{Promise.resolve(this.audio.play()).catch(error=>{
-      if(this.session!==s||!s.wantPlay)return;
+      if(this.session!==s||!s.wantPlay||s.playToken!==token)return;
       this.write('PLAY CHYBA '+error.name+': '+error.message);
       this.emit('problem',{message:'Přehrávání se nespustilo: '+error.name+' — '+error.message});
     })}catch(error){this.fail(s,error)}
   }
-  pause(){const s=this.session;if(s){s.wantPlay=false;s.nativeShouldPlay=false}this.audio.pause()}
-  ranges(){const b=this.session?.native?this.audio.buffered:this.session?.buffer?.buffered;const ranges=[];if(b)for(let i=0;i<b.length;i++)ranges.push([b.start(i),b.end(i)]);return ranges}
+  pause(){const s=this.session;if(s){s.wantPlay=false;s.playToken=(s.playToken||0)+1}this.audio.pause();this.emit('update')}
+  ranges(){const b=this.session?.buffer?.buffered;const ranges=[];if(b)for(let i=0;i<b.length;i++)ranges.push([b.start(i),b.end(i)]);return ranges}
   bufferEnd(){const ranges=this.ranges();return ranges.at(-1)?.[1]||0}
   ahead(){return Math.max(0,this.bufferEnd()-(this.audio.currentTime||0))}
-  part(){const s=this.session;if(s?.native)return {index:s.index,start:0,end:Number.isFinite(this.audio.duration)&&this.audio.duration>0?this.audio.duration:null,durationHint:s.nativeDuration||0};return s?.parts.find(part=>part.index===s.index)||null}
-  position(){const p=this.part();return p?Math.max(0,this.audio.currentTime-p.start):0}
+  part(){const s=this.session;return s?.parts.find(part=>part.index===s.index)||null}
+  position(){const s=this.session,p=this.part();return s?.seekTo!=null?s.seekTo:p?Math.max(0,this.audio.currentTime-p.start):0}
+  indexFor(s,item){let index=s.indexes.get(item.url);if(!index){index={anchors:[],duration:0,size:0};s.indexes.set(item.url,index)}return index}
+  async locate(s,item,target){
+    const index=this.indexFor(s,item);
+    if(index.duration)target=Math.min(target,Math.max(0,index.duration-.1));
+    let anchor=index.anchors.findLast(a=>a.time<=Math.max(0,target-.75));
+    // Already indexed audio needs just one range request from a nearby frame.
+    if(anchor&&index.anchors.at(-1).time>=target)return {...anchor,target};
+    anchor=anchor||{offset:0,time:0};let offset=anchor.offset;
+    const scan=new MP3Frames(index,anchor),blockSize=Math.max(this.chunkSize,1048576);let lastReport=0;
+    this.write('HLEDÁM POZICI dílu '+item.number+' na '+target.toFixed(1)+' s');
+    while(this.session===s&&!s.controller.signal.aborted){
+      const result=await this.request(s,item.url,{Range:'bytes='+offset+'-'+(offset+blockSize-1)},false,blockSize);
+      if(this.session!==s||s.controller.signal.aborted){await result.response?.body?.cancel();throw new DOMException('Stopped','AbortError')}
+      if(result.total)index.size=result.total;
+      let eof=result.status===416;
+      if(result.status===200){
+        // A server ignoring Range must be read from zero, without buffering the
+        // whole MP3. Frame positions still remain exact for variable bitrate.
+        const reader=result.response.body.getReader(),fresh=new MP3Frames(index);
+        const cancel=()=>{void reader.cancel().catch(()=>{})};s.controller.signal.addEventListener('abort',cancel,{once:true});
+        try{
+          while(!s.controller.signal.aborted){
+            let timedOut=false;const timer=setTimeout(()=>{timedOut=true;cancel()},20000);let chunk;try{chunk=await reader.read()}finally{clearTimeout(timer)}
+            if(timedOut)throw Error('Server přestal posílat zvuková data při hledání času');
+            if(chunk.done){eof=true;break}fresh.feed(chunk.value);
+            if(fresh.time>target+.1)break;
+          }
+          if(eof)index.duration=fresh.time;
+        }finally{s.controller.signal.removeEventListener('abort',cancel);await reader.cancel().catch(()=>{})}
+        if(s.controller.signal.aborted)throw new DOMException('Stopped','AbortError');
+        if(eof&&index.duration)target=Math.min(target,Math.max(0,index.duration-.1));
+        break;
+      }else if(result.bytes.length){
+        scan.feed(result.bytes);offset+=result.bytes.length;
+        eof=result.bytes.length<blockSize||index.size>0&&offset>=index.size;
+      }else eof=true;
+      if(eof){index.duration=scan.time;if(index.duration)target=Math.min(target,Math.max(0,index.duration-.1));break}
+      if(scan.time>target+.1)break;
+      if(Date.now()-lastReport>1000){lastReport=Date.now();this.write('HLEDÁNÍ POZICE: připraveno '+scan.time.toFixed(0)+' / '+target.toFixed(0)+' s')}
+    }
+    if(!index.anchors.length)throw Error('V MP3 se nepodařilo najít zvukovou pozici.');
+    anchor=index.anchors.findLast(a=>a.time<=Math.max(0,target-.75))||index.anchors[0];
+    return {...anchor,target};
+  }
   seek(seconds){
     const s=this.session,p=this.part();
-    if(!s||!p||!Number.isFinite(seconds)||seconds<0||seconds>86400)return false;
-    if(s.native){
-      if(Number.isFinite(this.audio.duration)&&this.audio.duration>0&&seconds>this.audio.duration)return false;
-      try{this.audio.currentTime=seconds;this.write('POSUN přímé MP3 na '+seconds.toFixed(1)+' s');this.updateMediaSession(true);return true}
-      catch(error){this.emit('problem',{message:'Přímý posun selhal: '+error.message});return false}
+    if(!s||!Number.isFinite(seconds)||seconds<0||seconds>86400)return false;
+    const known=p?.end!=null?p.end-p.start:p?.durationHint||this.indexFor(s,s.items[s.index]).duration;
+    if(known&&seconds>known)return false;
+    if(p&&s.seekTo==null){
+      const absolute=p.start+seconds;
+      if(this.ranges().some(([start,end])=>absolute>=start&&absolute<end-.03)){
+        this.audio.currentTime=absolute;this.write('POSUN ve stejném proudu na '+seconds.toFixed(1)+' s');this.onAudio('timeupdate');return true;
+      }
     }
-    return this.seekTimeline(p.start+seconds);
+    return this.seekStream(s.index,seconds);
   }
   seekTimeline(seconds){
     const s=this.session;if(!s||!Number.isFinite(seconds)||seconds<0)return false;
-    if(s.native)return this.seek(seconds);
-    const absolute=seconds;
-    if(this.ranges().some(([start,end])=>absolute>=start&&absolute<end-.03)){
-      const destination=s.parts.findLast(p=>absolute>=p.start&&(p.end==null||absolute<p.end));
-      this.audio.currentTime=absolute;
-      if(destination&&destination.index!==s.index){s.index=destination.index;this.emit('track',{item:s.items[s.index],index:s.index,quick:s.quick&&s.index===0})}
-      this.write('POSUN ve stejném proudu na '+absolute.toFixed(1)+' s');this.onAudio('timeupdate');return true;
-    }
-    // MP3 MSE does not seek into bytes that have not been appended. Let the
-    // browser seek the real MP3 via HTTP Range, then resume MSE on next track.
-    const destination=s.parts.findLast(p=>absolute>=p.start&&(p.end==null||absolute<p.end))||this.part();
-    const target=Math.max(0,absolute-destination.start);
-    return this.seekNative(destination.index,target);
+    const destination=s.parts.findLast(p=>seconds>=p.start&&(p.end==null||seconds<p.end));
+    if(destination&&destination.index!==s.index){s.index=destination.index;this.emit('track',{item:s.items[s.index],index:s.index,quick:false})}
+    return this.seek(Math.max(0,seconds-(destination?.start||this.part()?.start||0)));
   }
-  seekNative(index,seconds){
-    const s=this.session,item=s?.items[index];if(!s||!item||seconds>86400)return false;
-    const keepPlaying=s.wantPlay&&!this.audio.paused&&!this.audio.ended;
-    s.nativeSwitching=true;s.nativeShouldPlay=keepPlaying;s.native=true;
-    s.index=index;s.nativeDuration=0;s.nativeToken=(s.nativeToken||0)+1;
-    const token=s.nativeToken;
-    s.controller.abort();for(const wake of s.wake)wake();s.wake.clear();
-    this.audio.pause();this.audio.src=item.url;this.audio.preload='auto';
-    URL.revokeObjectURL(s.url);s.url=null;s.parts=[];s.buffer=null;
-    s.sourceChanges++;
-    const done=()=>{
-      if(this.session!==s||!s.nativeSwitching||s.nativeToken!==token)return;
-      s.nativeSwitching=false;
-      this.write('PŘÍMÝ POSUN hotov '+item.number+' na '+this.audio.currentTime.toFixed(1)+' s');
-      if(s.nativeShouldPlay)this.play();else this.updateMediaSession(true);
-    };
-    const ready=()=>{
-      if(this.session!==s||s.nativeToken!==token)return;
-      s.nativeDuration=Number.isFinite(this.audio.duration)?this.audio.duration:0;
-      const target=Math.min(seconds,Math.max(0,(s.nativeDuration||seconds)-.15));
-      try{
-        if(Math.abs(this.audio.currentTime-target)<.1){done();return}
-        this.audio.addEventListener('seeked',done,{once:true});
-        this.audio.currentTime=target;
-        // Native seek is asynchronous, especially if the MP3 Range has not arrived.
-        // Wait for seeked before resuming audio or claiming the requested position.
-      }catch(error){s.nativeSwitching=false;this.emit('problem',{message:'Nepodařilo se přeskočit v MP3: '+error.message})}
-    };
-    this.audio.addEventListener('loadedmetadata',ready,{once:true});
-    this.audio.load();
-    this.write('POSUN mimo MSE buffer: přepínám na MP3 dílu '+item.number+' v čase '+seconds.toFixed(1)+' s');
+  seekStream(index,seconds){
+    const s=this.session;if(!s)return false;
+    const speed=this.audio.playbackRate,changes=s.sourceChanges,transitions=s.transitionCount;
+    const next=this.start(s.items,{initialIndex:index,seekTo:seconds,autoplay:s.wantPlay,indexes:s.indexes});
+    next.sourceChanges=changes+1;next.transitionCount=transitions;
+    this.audio.playbackRate=speed;
+    this.write('POSUN v MSE: díl '+next.items[index].number+' na '+seconds.toFixed(1)+' s; souvislé navazování zachováno');
     return true;
   }
-  seekBy(seconds){return this.seek(this.position()+seconds)}
+  seekBy(seconds){return this.seek(Math.max(0,this.position()+seconds))}
   onAudio(event){
     const s=this.session;if(!s)return;
     for(const wake of [...s.wake])wake();
     if(event==='error'){
       const e=this.audio.error;this.fail(s,Error('Dekodér '+(e?.code||'?')+': '+(e?.message||'neznámá chyba')));return;
     }
-    if(s.native&&event==='ended'&&s.index<s.items.length-1){
-      const index=s.index+1,items=s.items,changes=s.sourceChanges,transitions=s.transitionCount+1;
-      this.write('PO PŘÍMÉM POSUNU navazuji v MSE dílem '+items[index].number);
-      const next=this.start(items,{initialIndex:index});next.sourceChanges=changes+1;next.transitionCount=transitions;return;
-    }
     const time=this.audio.currentTime||0;
     // The media element keeps playing: only the logical episode and metadata change.
-    while(!s.native&&s.index<s.items.length-1){
+    while(s.seekTo==null&&s.index<s.items.length-1){
       const prior=s.parts.find(part=>part.index===s.index),next=s.parts.find(part=>part.index===s.index+1);
       if(prior?.end==null||!next||time<prior.end)break;
       s.index++;s.transitionCount++;
@@ -151,7 +194,8 @@ export class ContinuousAudio extends EventTarget {
       this.emit('track',{item:s.items[s.index],index:s.index,quick:false});
     }
     if(event==='playing'||event==='waiting'||event==='stalled'||event==='pause'||event==='ended')this.write(event.toUpperCase()+' t='+time.toFixed(2)+' ahead='+this.ahead().toFixed(1)+' hidden='+document.hidden);
-    if(event==='pause'&&this.audio.paused&&!s.nativeSwitching)s.wantPlay=false;
+    // User pause is recorded by pause(); an internal source reset must not
+    // overwrite playback intent while locating/starting a manual seek.
     if(event==='ended')s.wantPlay=false;
     this.updateMediaSession();
     if(this.systemTimeline==='stream'&&(s.snapshotIndex!==s.index||Date.now()-(s.snapshotTime||0)>30000))this.mediaSnapshot('playback');
@@ -171,11 +215,7 @@ export class ContinuousAudio extends EventTarget {
       if((force||s.metadataIndex!==s.index)&&typeof MediaMetadata!=='undefined'){
         session.metadata=new MediaMetadata({title:item.title,artist:'Vedátorský podcast — souvislý test',artwork:[{src:new URL('./icon-512.png',location.href).href,sizes:'512x512',type:'image/png'}]});s.metadataIndex=s.index;
       }
-      if(s.native){
-        const duration=Number.isFinite(this.audio.duration)&&this.audio.duration>0?this.audio.duration:0;
-        if(duration>0)session.setPositionState?.({duration,position:Math.min(duration,Math.max(0,this.audio.currentTime||0)),playbackRate:this.audio.playbackRate||1});
-        else session.setPositionState?.();
-      }else if(this.systemTimeline==='stream'){
+      if(this.systemTimeline==='stream'){
         // The OS controls ONE MSE stream, not a finite episode followed by a reset.
         // Keep its position on the native timeline. Infinity is the standard
         // representation until endOfStream gives the whole queue a finite end.
@@ -206,9 +246,9 @@ export class ContinuousAudio extends EventTarget {
     });
   }
   waitForRoom(s){
-    if(this.ahead()<this.lead)return Promise.resolve();
+    if(s.seekTo!=null||this.ahead()<this.lead)return Promise.resolve();
     return new Promise(resolve=>{
-      const check=()=>{if(this.session!==s||s.controller.signal.aborted||this.ahead()<this.lead){s.wake.delete(check);resolve()}};
+      const check=()=>{if(this.session!==s||s.controller.signal.aborted||s.seekTo!=null||this.ahead()<this.lead){s.wake.delete(check);resolve()}};
       s.wake.add(check);check();
     });
   }
@@ -222,9 +262,14 @@ export class ContinuousAudio extends EventTarget {
       if(error.name!=='QuotaExceededError')throw error;
       await this.prune(s,true);await this.mutation(s,b=>b.appendBuffer(bytes));
     }
+    if(s.seekTo!=null&&this.bufferEnd()>s.seekTo-(s.seekOrigin||0)+.05){
+      const target=s.seekTo-(s.seekOrigin||0);this.audio.currentTime=Math.max(0,target);s.seekTo=null;
+      this.write('POSUN PŘIPRAVEN: souvislý MSE proud');
+      if(s.wantPlay)this.play();else this.updateMediaSession(true);
+    }
     this.emit('update');
   }
-  async request(s,url,headers={},headersOnly=false){
+  async request(s,url,headers={},headersOnly=false,maxBytes=this.chunkSize){
     let last;
     for(let attempt=0;attempt<3;attempt++){
       if(s.controller.signal.aborted)throw new DOMException('Stopped','AbortError');
@@ -240,7 +285,7 @@ export class ContinuousAudio extends EventTarget {
         // If it ignores Range (200), stream it incrementally rather than buffer the whole MP3.
         if(response.status===200)return {status:200,response,total:Number(response.headers.get('content-length'))||0};
         const bytes=new Uint8Array(await response.arrayBuffer());
-        if(bytes.length>this.chunkSize)throw Error('Server vrátil příliš velký MP3 blok');
+        if(bytes.length>maxBytes)throw Error('Server vrátil příliš velký MP3 blok');
         const range=response.headers.get('content-range')?.match(/^bytes (\d+)-(\d+)\/(\d+)$/);
         if(range&&headers.Range&&Number(range[1])!==Number(headers.Range.match(/bytes=(\d+)/)?.[1]))throw Error('Server vrátil jinou část MP3, než byla požadována');
         return {status:response.status,bytes,total:range?Number(range[3]):0};
@@ -304,6 +349,7 @@ export class ContinuousAudio extends EventTarget {
     const prior=part.headerBytes||new Uint8Array(),take=Math.min(bytes.length,262144-prior.length);
     const header=new Uint8Array(prior.length+take);header.set(prior);header.set(bytes.subarray(0,take),prior.length);part.headerBytes=header;
     part.durationHint=this.durationHint(header,part.sourceSize);
+    if(part.durationHint)this.indexFor(s,s.items[part.index]).duration=part.durationHint;
     if(part.durationHint){part.headerBytes=null;return}
     // Podbean's CORS policy can hide Content-Range. A background HEAD provides
     // the full size for headerless CBR exports without delaying audio or startup.
@@ -311,8 +357,8 @@ export class ContinuousAudio extends EventTarget {
     part.durationRequested=true;
     void this.request(s,part.url,{},true).then(({size})=>{
       if(this.session!==s||s.controller.signal.aborted||!size)return;
-      part.sourceSize=size;part.durationHint=this.durationHint(part.headerBytes||header,size);
-      if(part.durationHint)part.headerBytes=null;this.emit('update');
+      part.sourceSize=size;this.indexFor(s,s.items[part.index]).size=size;part.durationHint=this.durationHint(part.headerBytes||header,size);
+      if(part.durationHint){part.headerBytes=null;this.indexFor(s,s.items[part.index]).duration=part.durationHint}this.emit('update');
     }).catch(()=>{});
   }
   async pump(s){
@@ -322,7 +368,10 @@ export class ContinuousAudio extends EventTarget {
         const item=s.items[s.loadIndex];let part=s.parts.find(p=>p.index===s.loadIndex);
         if(!part){
           if(s.loadIndex===0&&s.quick)s.offset=await this.tailOffset(s,item);
-          part={index:s.loadIndex,start:this.bufferEnd(),end:null,bytes:0,sourceSize:s.loadIndex===0?s.firstSize||0:0,durationHint:0};s.parts.push(part);
+          const index=this.indexFor(s,item),origin=s.parts.length===0?s.seekOrigin||0:0;
+          part={index:s.loadIndex,url:item.url,start:this.bufferEnd()-origin,end:null,bytes:0,sourceOffset:s.offset,sourceSize:index.size||(s.loadIndex===0?s.firstSize||0:0),durationHint:index.duration};
+          if(!s.quick||s.loadIndex!==0)part.scanner=new MP3Frames(index,{offset:s.offset,time:origin});
+          s.parts.push(part);
           this.write('NAČÍTÁM díl '+item.number+'; timeline='+part.start.toFixed(3)+'; byte='+s.offset);
         }
         await this.waitForRoom(s);if(this.session!==s||s.controller.signal.aborted)return;
@@ -330,9 +379,9 @@ export class ContinuousAudio extends EventTarget {
         if(this.session!==s||s.controller.signal.aborted){await result.response?.body?.cancel();return}
         let eof=result.status===416;
         if(result.status===200){
-          if(from!==0){await result.response.body?.cancel();throw Error('Server nepodporuje pokračování po částech (ignoruje Range).')}
           const reader=result.response.body.getReader();
           const cancel=()=>{reader.cancel().catch(()=>{})};s.controller.signal.addEventListener('abort',cancel,{once:true});
+          let skipped=0;
           try{
             while(this.session===s&&!s.controller.signal.aborted){
               await this.waitForRoom(s);
@@ -341,20 +390,22 @@ export class ContinuousAudio extends EventTarget {
               const readTimer=setTimeout(()=>{timedOut=true;void reader.cancel()},20000);
               let chunk;try{chunk=await reader.read()}finally{clearTimeout(readTimer)}
               if(timedOut)throw Error('Server přestal posílat zvuková data');
-              const {done,value}=chunk;if(done){eof=true;break}
-              if(!part.durationHint&&part.bytes<262144&&s.offset===0)this.readDurationHint(s,part,value);
-              await this.append(s,value);s.offset+=value.length;part.bytes+=value.length;
+              let {done,value}=chunk;if(done){eof=true;break}
+              if(skipped<from){const take=Math.min(value.length,from-skipped);value=value.subarray(take);skipped+=take;if(!value.length)continue}
+              if(!part.durationHint&&part.sourceOffset===0&&part.bytes<262144)this.readDurationHint(s,part,value);
+              part.scanner?.feed(value);await this.append(s,value);s.offset+=value.length;part.bytes+=value.length;
             }
           }finally{s.controller.signal.removeEventListener('abort',cancel);await reader.cancel().catch(()=>{})}
         }else if(result.bytes.length){
           if(result.total)part.sourceSize=result.total;
-          if(!part.durationHint&&from===0)this.readDurationHint(s,part,result.bytes);
-          await this.append(s,result.bytes);s.offset+=result.bytes.length;part.bytes+=result.bytes.length;
+          if(!part.durationHint&&part.sourceOffset===0&&part.bytes<262144)this.readDurationHint(s,part,result.bytes);
+          part.scanner?.feed(result.bytes);await this.append(s,result.bytes);s.offset+=result.bytes.length;part.bytes+=result.bytes.length;
           eof=result.bytes.length<this.chunkSize||(part.sourceSize>0&&s.offset>=part.sourceSize);
         }else eof=true;
         if(this.session!==s||s.controller.signal.aborted)return;
         if(eof){
           if(!part.bytes)throw Error('MP3 neobsahuje žádná zvuková data');
+          if(part.scanner){const index=this.indexFor(s,item);index.duration=part.scanner.time;index.size=s.offset;part.scanner=null}
           part.end=this.bufferEnd();this.write('PŘIPRAVEN KONEC dílu '+item.number+' na '+part.end.toFixed(3)+' s');
           s.loadIndex++;s.offset=0;this.emit('update');
         }
@@ -370,5 +421,6 @@ export class ContinuousAudio extends EventTarget {
     this.write('CHYBA '+error.name+': '+error.message+'; src zachován; byte='+s.offset+'; hidden='+document.hidden);
     this.emit('problem',{message:error.message+' Načtená část může dohrát. Tlačítko „Zkusit načítání znovu“ zachová stejný proud.'});
   }
-  retry(){const s=this.session;if(s&&!this.audio.error&&s.media.readyState==='open'){this.write('OBNOVUJI NAČÍTÁNÍ bez změny zdroje');void this.pump(s);if(s.wantPlay)this.play()}}
+  retry(){const s=this.session;if(s?.seekTo!=null){this.seekStream(s.index,s.seekTo);return}if(s&&!this.audio.error&&s.media.readyState==='open'){this.write('OBNOVUJI NAČÍTÁNÍ bez změny zdroje');void this.pump(s);if(s.wantPlay)this.play()}}
 }
+

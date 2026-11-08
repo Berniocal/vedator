@@ -12,7 +12,12 @@ const live=process.env.VEDATOR_CONTINUOUS_LIVE==='1';
 const systemMode=process.env.VEDATOR_CONTINUOUS_SYSTEM==='stream'?'stream':'episode';
 const liveNumbers=(process.env.VEDATOR_CONTINUOUS_EPISODES||'77,92,357').split(',').map(Number);
 const fixture=Buffer.from(fs.readFileSync('tools/continuous-tone-base64.txt','utf8').trim(),'base64');
-let noRange=false,blockSecond=false,transientFailure=true,failures=0;
+const vbrFixture=Buffer.from(fs.readFileSync('tools/continuous-vbr-base64.txt','utf8').trim(),'base64');
+let vbrMode=false;
+let noRange=false,blockSecond=false,transientFailure=true,failures=0,headerless=false,hideRange=false,slowResponse=false;
+// Remove the 182-byte Info frame; the remaining frames really are CBR.
+const largeTag=Buffer.alloc(4106);fixture.copy(largeTag,0,0,10);largeTag[6]=0;largeTag[7]=0;largeTag[8]=32;largeTag[9]=0;
+const cbrFixture=Buffer.concat([largeTag,fixture.subarray(227)]);
 const requested=[];
 const real=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 let base;
@@ -23,16 +28,21 @@ const server=http.createServer((request,response)=>{
     response.writeHead(200,{'Content-Type':'application/json'});response.end(JSON.stringify({episodes,series:[{name:'Černé díry',episodes:episodes.map(e=>e.number)}]}));return;
   }
   if(url.pathname.startsWith('/tone-')){
+    const bytes=vbrMode?vbrFixture:headerless?cbrFixture:fixture;
     requested.push({path:url.pathname,range:request.headers.range||null});
     if(url.pathname==='/tone-92.mp3'&&(blockSecond||transientFailure)){
       transientFailure=false;failures++;response.writeHead(503);response.end('Simulated network failure');return;
     }
+    if(request.method==='HEAD'){response.writeHead(200,{'Content-Type':'audio/mpeg','Content-Length':bytes.length});response.end();return}
     const range=request.headers.range?.match(/^bytes=(\d+)-(\d*)$/);
-    if(range&&!noRange){
-      const start=Number(range[1]),end=range[2]?Math.min(fixture.length-1,Number(range[2])):fixture.length-1;
-      if(start>=fixture.length){response.writeHead(416);response.end();return}
-      response.writeHead(206,{'Content-Type':'audio/mpeg','Content-Length':end-start+1,'Content-Range':`bytes ${start}-${end}/${fixture.length}`,'Accept-Ranges':'bytes'});response.end(fixture.subarray(start,end+1));
-    }else{response.writeHead(200,{'Content-Type':'audio/mpeg','Content-Length':fixture.length,'Accept-Ranges':'bytes'});response.end(fixture)}
+    const send=()=>{
+      if(range&&!noRange){
+        const start=Number(range[1]),end=range[2]?Math.min(bytes.length-1,Number(range[2])):bytes.length-1;
+        if(start>=bytes.length){response.writeHead(416);response.end();return}
+        response.writeHead(206,{'Content-Type':'audio/mpeg','Content-Length':end-start+1,...(!hideRange?{'Content-Range':`bytes ${start}-${end}/${bytes.length}`} : {}),'Accept-Ranges':'bytes'});response.end(bytes.subarray(start,end+1));
+      }else{response.writeHead(200,{'Content-Type':'audio/mpeg','Content-Length':bytes.length,'Accept-Ranges':'bytes'});response.end(bytes)}
+    };
+    if(slowResponse)setTimeout(send,250);else send();
     return;
   }
   const file=path.resolve(root,'.'+decodeURIComponent(url.pathname));
@@ -75,7 +85,7 @@ async function setup(system=systemMode){
   },live);
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile page overflows');
 }
-async function state(){return page.evaluate(()=>{const t=window.vedatorContinuousTest,s=t.player.session,a=document.getElementById('audio');return {src:a.src,changes:window.srcChanges,events:window.audioEvents,index:s?.index,failed:s?.failed,complete:s?.complete,parts:s?.parts,transitions:s?.transitionCount,paused:a.paused,error:a.error&&{code:a.error.code,message:a.error.message},time:a.currentTime,metadata:navigator.mediaSession?.metadata?.title,systemTimeline:t.player.systemTimeline,positionCalls:window.positionCalls,log:t.log}})}
+async function state(){return page.evaluate(()=>{const t=window.vedatorContinuousTest,s=t.player.session,a=document.getElementById('audio');return {src:a.src,changes:window.srcChanges,events:window.audioEvents,index:s?.index,failed:s?.failed,complete:s?.complete,parts:s?.parts.map(({scanner,headerBytes,...part})=>part),transitions:s?.transitionCount,paused:a.paused,error:a.error&&{code:a.error.code,message:a.error.message},time:a.currentTime,metadata:navigator.mediaSession?.metadata?.title,systemTimeline:t.player.systemTimeline,positionCalls:window.positionCalls,log:t.log}})}
 function assertStreamTimeline(result){
   assert(result.positionCalls.length>3,'System position updates must be observed');
   assert(result.positionCalls.every(p=>p.duration!==null),'Continuous system timeline must never be cleared during playback');
@@ -84,7 +94,65 @@ function assertStreamTimeline(result){
   assert(result.positionCalls.some(p=>p.index===1&&p.position>result.parts[1].start),'Second episode must retain its global time, not reset to zero');
   assert(!result.log.some(line=>line.includes('MEDIA API CHYBA')),'Native Media Session API must accept every position update');
 }
+async function vbrSeekRegressions(){
+  transientFailure=false;vbrMode=true;
+  for(const ignoreRange of [false,true]){
+    noRange=ignoreRange;await setup('stream');
+    await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;p.chunkSize=2048;p.lead=.4});
+    await page.click('#start');await page.waitForFunction(()=>document.getElementById('audio').currentTime>.1);
+    await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;p.pause();p.seek(6.5)});
+    await page.waitForFunction(()=>{const p=window.vedatorContinuousTest.player;return p.session?.seekTo==null&&Math.abs(p.position()-6.5)<.1},{timeout:10000});
+    // Compare indexed time with the browser's actual decoded duration. This
+    // detects incorrect VBR/ID3/frame offsets even if the displayed clock agrees.
+    await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;p.lead=30;p.onAudio('timeupdate')});
+    await page.waitForFunction(()=>window.vedatorContinuousTest.player.part()?.end!=null);
+    const duration=await page.evaluate(()=>{const p=window.vedatorContinuousTest.player.part();return p.end-p.start});
+    assert(Math.abs(duration-8.045714)<.08,'VBR seek must preserve the real episode time, including split frames');
+    await page.evaluate(()=>window.vedatorContinuousTest.player.seek(1));
+    await page.waitForFunction(()=>{const p=window.vedatorContinuousTest.player;return p.session?.seekTo==null&&Math.abs(p.position()-1)<.1},{timeout:10000});
+    assert((await state()).paused,'Backward seek to removed audio must preserve pause');
+    await page.click('#stop');
+  }
+  vbrMode=false;noRange=false;transientFailure=true;
+  console.log('VBR exact decoded clock, backward seek and servers ignoring Range passed');
+}
+async function seekRegressions(){
+  transientFailure=false;
+  headerless=true;hideRange=true;
+  await setup();await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;p.chunkSize=2048;p.lead=.4});
+  await page.click('#start');
+  await page.waitForFunction(()=>window.vedatorContinuousTest.player.part()?.durationHint>5,{timeout:5000});
+  assert((await page.$eval('#seek',n=>Number(n.max)))>5,'Slider must show the full CBR duration even when CORS hides Content-Range');
+  await page.click('#stop');headerless=false;hideRange=false;
+
+  slowResponse=true;await setup();await page.evaluate(()=>{window.vedatorContinuousTest.player.lead=.4});
+  await page.click('#start');await page.waitForFunction(()=>document.getElementById('audio').currentTime>.1);
+  await page.click('#toggle');
+  await page.evaluate(async()=>{const p=window.vedatorContinuousTest.player;p.seek(5);await new Promise(r=>setTimeout(r,50));p.seek(2);await new Promise(r=>setTimeout(r,50));p.seek(3)});
+  await page.waitForFunction(()=>{const p=window.vedatorContinuousTest.player;return p.session?.seekTo==null&&p.position()>2.8&&p.position()<3.2},{timeout:5000});
+  assert(Math.abs((await page.evaluate(()=>window.vedatorContinuousTest.player.position()))-3)<.15,'The last of several quick seeks must win, including while MP3 metadata loads');
+  assert((await state()).paused,'Rapid seeks must preserve pause');
+  await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;p.play();p.seek(4)});
+  await page.waitForFunction(()=>!document.getElementById('audio').paused&&window.vedatorContinuousTest.player.position()>=4&&window.vedatorContinuousTest.player.session.seekTo==null,{timeout:5000});
+  slowResponse=false;
+
+  // Keyboard/touch focus stays on a range input after release. Its thumb must
+  // resume following playback once the user commits the new position.
+  await page.evaluate(()=>{
+    window.vedatorContinuousTest.player.pause();const node=document.getElementById('seek');
+    node.focus();node.value='1';node.dispatchEvent(new Event('change',{bubbles:true}));
+  });
+  await page.waitForFunction(()=>window.vedatorContinuousTest.player.session.seekTo==null&&Math.abs(window.vedatorContinuousTest.player.position()-1)<.15);
+  await page.evaluate(()=>window.vedatorContinuousTest.player.play());
+  await wait(700);
+  const thumb=await page.evaluate(()=>({position:window.vedatorContinuousTest.player.position(),value:Number(document.getElementById('seek').value),focused:document.activeElement.id}));
+  assert.equal(thumb.focused,'seek');assert(Math.abs(thumb.position-thumb.value)<.6,'Slider must follow playback after a seek even while focused');
+  await page.click('#stop');
+  console.log('CBR duration with split ID3/hidden headers, rapid seeks, pause/play intent and slider follow passed');
+  transientFailure=true;
+}
 try{
+  if(!live){await seekRegressions();await vbrSeekRegressions()}
   await setup();await page.click(live?'#quick':'#start');
   await page.waitForFunction(()=>!document.getElementById('audio').paused&&document.getElementById('audio').currentTime>.1,{timeout:60000});
   const initial=await state();assert.equal(initial.changes,1);assert.equal(initial.error,null);
@@ -151,8 +219,9 @@ try{
     await streamCover.close();await page.bringToFront();
     console.log('System timeline v2: no resets at episode boundaries, native duration/position, OS seekto and user pause passed');
     // Regression: a real phone must be able to jump to an unbuffered position
-    // even while the MSE player has only fetched a few hundred milliseconds.
-    await setup();await page.evaluate(()=>{window.vedatorContinuousTest.player.lead=.4});
+    // even while MSE has only fetched a few hundred milliseconds. Keep the
+    // Work stream timeline and test a hidden handoff immediately after seeking.
+    await setup('stream');await page.evaluate(()=>{window.vedatorContinuousTest.player.lead=.4});
     await page.click('#start');
     await page.waitForFunction(()=>document.getElementById('audio').currentTime>.1,{timeout:15000});
     await page.click('#toggle');
@@ -162,25 +231,31 @@ try{
     });
     await page.waitForFunction(()=>{
       const p=window.vedatorContinuousTest.player,a=document.getElementById('audio');
-      return p.session?.native&&!p.session.nativeSwitching&&Math.abs(a.currentTime-5)<.2;
+      return p.session?.seekTo==null&&Math.abs(p.position()-5)<.2;
     },{timeout:15000});
     const jumped=await state();
-    assert(jumped.src.endsWith('/tone-77.mp3'),'An unbuffered jump must use the native MP3 source');
+    assert(jumped.src.startsWith('blob:'),'An unbuffered jump must stay in MSE for continuous episode boundaries');
     assert(jumped.paused,'A user pause must survive a far seek');
-    assert(jumped.log.some(l=>l.includes('POSUN mimo MSE buffer')),'Fallback must be diagnosed');
-    await page.click('#toggle');
+    assert(jumped.log.some(l=>l.includes('POSUN v MSE')),'MSE seek must be diagnosed');
+    const seekCover=await browser.newPage();await seekCover.goto('about:blank');await seekCover.bringToFront();
+    if(!await page.evaluate(()=>document.hidden))await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'))});
+    await page.evaluate(()=>window.vedatorContinuousTest.player.play());
     await page.waitForFunction(()=>{
       const s=window.vedatorContinuousTest.player.session;
-      return s?.index===1&&!s.native;
+      return s?.index===1;
     },{polling:100,timeout:15000});
     const resumed=await state();
     assert(resumed.src.startsWith('blob:'),'Next episode must resume MSE continuous playback');
-    assert(resumed.changes>=3,'A manual far seek may change sources, ordinary handoffs may not');
+    assert.equal(resumed.changes,jumped.changes,'The first episode boundary after a seek must not change sources');
+    assert(!resumed.events.some(e=>e.name==='ended'),'No ended event may occur at the first boundary after a seek');
     assert.equal(resumed.error,null);
-    console.log('Far seek: native MP3 seek, user pause, and next-episode MSE resumption passed');
+    assert(resumed.log.some(l=>l.includes('PŘECHOD')&&l.includes('hidden=true')),'Seek must retain hidden continuous handoff');
+    await seekCover.close();
+    console.log('Far seek: accurate MSE position, user pause, and uninterrupted next episode passed');
   }
   await page.bringToFront();
   const screenshot=process.env.VEDATOR_TEST_SCREENSHOT;if(screenshot)await page.screenshot({path:screenshot,fullPage:true});
   assert.deepEqual(errors,[],'No page runtime errors allowed');
 }catch(error){console.error(JSON.stringify(await state(),null,2));throw error}
 finally{await browser.close();await new Promise(resolve=>server.close(resolve))}
+
