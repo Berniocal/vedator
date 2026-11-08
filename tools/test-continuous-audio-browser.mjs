@@ -80,12 +80,14 @@ try{
     console.log('Headless shell: simulating document.hidden; physical Android suspension remains a manual check');
   }
   if(live){
-    await page.waitForFunction(()=>window.vedatorContinuousTest.player.session.index>=1,{timeout:120000});
-    await page.waitForFunction(()=>window.vedatorContinuousTest.player.position()>30,{timeout:45000});
+    await page.waitForFunction(()=>window.vedatorContinuousTest.player.session.index>=1,{polling:100,timeout:120000});
+    await page.waitForFunction(()=>window.vedatorContinuousTest.player.position()>30,{polling:100,timeout:45000});
     const current=await state();assert.equal(current.changes,1);assert.equal(current.error,null);assert.equal(current.paused,false);assert(current.transitions>=1);
     console.log(JSON.stringify({ok:true,liveMp3:true,hiddenTransition:true,visibilitySimulated:!actuallyHidden,episodes:liveNumbers,secondsInNextEpisode:current.time-current.parts[1].start,sourceChanges:current.changes,metadata:current.metadata,log:current.log},null,2));
   }else{
-    await page.waitForFunction(()=>document.getElementById('audio').ended,{timeout:25000});
+    // requestAnimationFrame stops on a genuinely hidden tab. Observe media
+    // completion with interval polling instead of Puppeteer's default rAF.
+    await page.waitForFunction(()=>document.getElementById('audio').ended,{polling:100,timeout:25000});
     const final=await state();assert.equal(final.changes,1);assert.equal(final.error,null);assert.equal(final.transitions,2);assert.equal(final.index,2);
     assert.equal(final.events.filter(e=>e.name==='ended').length,1,'ended must only fire after the last episode');
     assert.equal(failures,1,'Transient network error should be exercised');
