@@ -27,12 +27,12 @@ const server=http.createServer((request,response)=>{
     if(url.pathname==='/tone-92.mp3'&&(blockSecond||transientFailure)){
       transientFailure=false;failures++;response.writeHead(503);response.end('Simulated network failure');return;
     }
-    const range=request.headers.range?.match(/^bytes=(\d+)-(\d+)$/);
+    const range=request.headers.range?.match(/^bytes=(\d+)-(\d*)$/);
     if(range&&!noRange){
-      const start=Number(range[1]),end=Math.min(fixture.length-1,Number(range[2]));
+      const start=Number(range[1]),end=range[2]?Math.min(fixture.length-1,Number(range[2])):fixture.length-1;
       if(start>=fixture.length){response.writeHead(416);response.end();return}
-      response.writeHead(206,{'Content-Type':'audio/mpeg','Content-Length':end-start+1,'Content-Range':`bytes ${start}-${end}/${fixture.length}`});response.end(fixture.subarray(start,end+1));
-    }else{response.writeHead(200,{'Content-Type':'audio/mpeg','Content-Length':fixture.length});response.end(fixture)}
+      response.writeHead(206,{'Content-Type':'audio/mpeg','Content-Length':end-start+1,'Content-Range':`bytes ${start}-${end}/${fixture.length}`,'Accept-Ranges':'bytes'});response.end(fixture.subarray(start,end+1));
+    }else{response.writeHead(200,{'Content-Type':'audio/mpeg','Content-Length':fixture.length,'Accept-Ranges':'bytes'});response.end(fixture)}
     return;
   }
   const file=path.resolve(root,'.'+decodeURIComponent(url.pathname));
