@@ -12,8 +12,6 @@ on:
       - 'index.html'
       - 'tools/test-v2-ask*.mjs'
       - 'tools/test-v2-playback-identity.mjs'
-      - 'tools/test-v2-background-media-session.mjs'
-      - 'tools/test-v2-mobile-deep-polish.mjs'
       - 'tools/test-v2-mathjax-*.mjs'
       - 'series.json'
       - 'tools/build-content-v2.mjs'
@@ -74,7 +72,6 @@ jobs:
           node tools/test-v2-playback-identity.mjs
           node tools/test-v2-episode-context-order.mjs
           node tools/test-v2-series-playback-order.mjs
-          node tools/test-v2-background-media-session.mjs
           node tools/test-v2-series-topics.mjs
           node tools/test-v2-collection-filter.mjs
           node tools/test-v2-mobile-browser.mjs

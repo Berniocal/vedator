@@ -437,58 +437,33 @@
   // Playback changes must stay on the same audio element (Android background media session).
   // Keep a request id so a slow offline MP3 lookup cannot replace a newer episode.
   let playbackSequence=0,playbackMetadataHandler=null,playbackAutoplayWanted=false,playbackNeedsReload=false,playbackSourcePending=false;
-  let playbackSwitchingSource=false,playbackMediaMetadataKey='';
-  function syncPlaybackMediaSession(resetPosition=false){
-    const session=navigator.mediaSession;if(!session)return;
-    const audio=playerNodes().audio,current=state.current;
-    if(!current){
-      try{session.playbackState='none';session.metadata=null;session.setPositionState?.()}catch{}
-      playbackMediaMetadataKey='';return;
-    }
-    // Declare continuous playback even while the next MP3 is loading. Otherwise
-    // Android can treat the ended element as a finished session and drop its UI.
-    const playing=!audio.error&&((!audio.paused&&!audio.ended)||(playbackAutoplayWanted&&!playbackNeedsReload));
-    try{session.playbackState=playing?'playing':'paused'}catch{}
-    const title=episodeCopy(current.episode).title,key=current.key+'|'+title;
-    try{
-      if(key!==playbackMediaMetadataKey&&typeof MediaMetadata!=='undefined'){
-        session.metadata=new MediaMetadata({title,artist:'Vedátorský podcast',album:'Vedátorský podcast',artwork:[{src:new URL('./icon-512.png',location.href).href,sizes:'512x512',type:'image/png'}]});
-        playbackMediaMetadataKey=key;
-      }
-    }catch{}
-    try{
-      if(resetPosition)session.setPositionState?.();
-      else if(Number.isFinite(audio.duration)&&audio.duration>0)session.setPositionState?.({duration:audio.duration,playbackRate:audio.playbackRate||1,position:Math.min(audio.duration,Math.max(0,audio.currentTime||0))});
-    }catch{}
-  }
+  let playbackSwitchingSource=false;
   function playbackFailure(error){
     console.warn('Vedátor: audio playback could not start',error);
     playerNodes().help.textContent=text('Přehrávání se nepodařilo spustit. Klepněte na Přehrát pro obnovení.','Prehrávanie sa nepodarilo spustiť. Klepnite na Prehrať pre obnovenie.');
   }
   function startCurrentAudio(sequence){
-    if(sequence!==playbackSequence||playbackSourcePending||!playbackAutoplayWanted||!state.current)return;
+    if(sequence!==playbackSequence||playbackSourcePending||!state.current)return;
     const audio=playerNodes().audio;
     try{
       Promise.resolve(audio.play()).then(()=>{
         if(sequence!==playbackSequence)return;
-        playbackNeedsReload=false;syncPlayer();syncPlaybackMediaSession();
+        playbackNeedsReload=false;syncPlayer();
       },error=>{
         if(sequence!==playbackSequence||!playbackAutoplayWanted)return;
-        playbackNeedsReload=true;playbackFailure(error);syncPlayer();syncPlaybackMediaSession();
+        playbackNeedsReload=true;playbackFailure(error);syncPlayer();
       });
     }catch(error){
       if(sequence!==playbackSequence||!playbackAutoplayWanted)return;
-      playbackNeedsReload=true;playbackFailure(error);syncPlayer();syncPlaybackMediaSession();
+      playbackNeedsReload=true;playbackFailure(error);syncPlayer();
     }
   }
-  function pauseCurrentAudio(){
-    playbackAutoplayWanted=false;
-    playerNodes().audio.pause();saveProgress(true,false);syncPlayer();syncPlaybackMediaSession();
-  }
-  function playCurrentAudio(){
+  function restartCurrentAudio(){
     const audio=playerNodes().audio;
     if(!state.current)return;
-    if(!audio.paused&&!playbackSourcePending)return;
+    if(!audio.paused){
+      playbackAutoplayWanted=false;audio.pause();syncPlayer();return;
+    }
     playbackAutoplayWanted=true;
     if(!playbackSourcePending&&audio.getAttribute('src')&&(playbackNeedsReload||audio.error||audio.readyState===0||!audio.currentSrc)){
       // Unlike play() alone, load() can recover a suspended/failed MP3 request.
@@ -499,10 +474,7 @@
       },{once:true});
       audio.load();
     }
-    startCurrentAudio(playbackSequence);syncPlayer();syncPlaybackMediaSession();
-  }
-  function restartCurrentAudio(){
-    if(!playerNodes().audio.paused)pauseCurrentAudio();else playCurrentAudio();
+    startCurrentAudio(playbackSequence);syncPlayer();
   }
   function resumePendingAudioWhenVisible(){
     if(document.hidden||!playbackAutoplayWanted||playbackSourcePending||!state.current)return;
@@ -530,7 +502,6 @@
     playbackAutoplayWanted=Boolean(autoplay);
     playbackNeedsReload=false;
     playbackSourcePending=false; // Clear a cancelled/older offline lookup before the synchronous path.
-    syncPlaybackMediaSession(true);
     // Online episodes already have their MP3 URL in the data bundle.
     // Avoid *any* await when a track ends: Android can suspend audio between tasks.
     // Offline MP3s likewise switch synchronously if their Blob URL is already cached.
@@ -541,7 +512,7 @@
     else if(offlineRecord){
       playbackSourcePending=true;
       try{source=await playbackUrl(episode)}catch(error){
-        if(sequence===playbackSequence){playbackSourcePending=false;playbackNeedsReload=true;playbackFailure(error);syncPlaybackMediaSession()}
+        if(sequence===playbackSequence){playbackSourcePending=false;playbackNeedsReload=true;playbackFailure(error)}
         return;
       }
       if(sequence!==playbackSequence)return;
@@ -570,7 +541,7 @@
     if(playbackMetadataHandler)n.audio.removeEventListener('loadedmetadata',playbackMetadataHandler);
     playbackMetadataHandler=null;
     n.audio.pause();n.audio.removeAttribute('src');n.audio.load();
-    state.current=null;state.context=null;n.shell.classList.add('hidden');syncPlaybackMediaSession();
+    state.current=null;state.context=null;n.shell.classList.add('hidden');
   }
   function navigateContext(delta){const context=state.context;if(!context)return;const index=context.index+delta;if(index<0||index>=context.items.length)return;const next={...context,index},item=next.items[index];openPlayback(item.episode,{start:item.start||0,context:next,itemRef:item.ref||epRef(item.episode.number)})}
   function changeSpeed(){const speeds=[1,1.25,1.5,1.75,2,.75],i=speeds.indexOf(state.speed);state.speed=speeds[(i+1)%speeds.length];playerNodes().audio.playbackRate=state.speed;syncPlayer()}
@@ -1250,17 +1221,16 @@
   function seekParity(delta){const audio=$('#audio-v2');if(!audio)return;const duration=Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:Infinity;audio.currentTime=Math.max(0,Math.min(duration,(Number(audio.currentTime)||0)+delta));saveProgress(true,false);syncPlayer()}
   function installParityMediaSession(){
     if(!('mediaSession'in navigator))return;const audio=$('#audio-v2');if(!audio)return;
-    try{navigator.mediaSession.setActionHandler('play',playCurrentAudio)}catch{}
-    try{navigator.mediaSession.setActionHandler('pause',pauseCurrentAudio)}catch{}
     try{navigator.mediaSession.setActionHandler('seekbackward',details=>seekParity(-(details.seekOffset||10)))}catch{}
     try{navigator.mediaSession.setActionHandler('seekforward',details=>seekParity(details.seekOffset||10))}catch{}
     try{navigator.mediaSession.setActionHandler('previoustrack',()=>seekParity(-10))}catch{}
     try{navigator.mediaSession.setActionHandler('nexttrack',()=>seekParity(10))}catch{}
     try{navigator.mediaSession.setActionHandler('seekto',details=>{if(typeof details.seekTime==='number'){audio.currentTime=Math.max(0,Math.min(audio.duration||Infinity,details.seekTime));saveProgress(true,false)}})}catch{}
-    const update=()=>syncPlaybackMediaSession();
-    for(const event of ['play','playing','pause','loadedmetadata','durationchange','ratechange','ended','error'])audio.addEventListener(event,update);
-    audio.addEventListener('timeupdate',()=>{const now=Date.now();if(now-parityUi.mediaTick>3000){parityUi.mediaTick=now;update()}});
-    window.addEventListener('vedatorlanguagechange',update);
+    const update=()=>{
+      if(!state.current)return;try{if(typeof MediaMetadata!=='undefined')navigator.mediaSession.metadata=new MediaMetadata({title:episodeCopy(state.current.episode).title,artist:'Vedátorský podcast',album:text('Vedátorský podcast','Vedátorský podcast')})}catch{}
+      try{if(audio.duration>0&&Number.isFinite(audio.duration))navigator.mediaSession.setPositionState({duration:audio.duration,playbackRate:audio.playbackRate||1,position:Math.min(audio.duration,Math.max(0,audio.currentTime||0))})}catch{}
+    };
+    audio.addEventListener('play',update);audio.addEventListener('loadedmetadata',update);audio.addEventListener('durationchange',update);audio.addEventListener('timeupdate',()=>{const now=Date.now();if(now-parityUi.mediaTick>3000){parityUi.mediaTick=now;update()}});
   }
 
   function installParitySwipe(){
@@ -1595,7 +1565,7 @@
     event.preventDefault();event.stopImmediatePropagation();const seconds=play.dataset.seconds===''?null:Number(play.dataset.seconds)||0;openPlayback(episode,{start:seconds,context:mobileEpisodePlaybackContext(episode),itemRef:play.dataset.ref||epRef(episode.number)});
   },true);
   $('#player-download-v2')?.addEventListener('click',event=>{event.preventDefault();downloadCurrentMp3()});
-  $('#audio-v2')?.addEventListener('ended',()=>{if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else{playbackAutoplayWanted=false;syncPlaybackMediaSession()}});
+  $('#audio-v2')?.addEventListener('ended',()=>{if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else playbackAutoplayWanted=false});
 
   /* V2_FINAL_UI_FAQ_GUIDE_V1 */
   const finalFormatMb=bytes=>((Number(bytes)||0)/1048576).toFixed(1).replace('.',',')+' MB';

@@ -17,7 +17,7 @@ assert(app.includes("const tabs=$$('.tab-v2').filter"),'Swipe collection fix mis
 assert(app.includes('async function downloadCurrentMp3()'),'Real MP3 downloader missing');
 assert(app.includes('link.download=mobileSafeMp3Filename'),'MP3 Blob download filename missing');
 assert(app.includes("type:'episodes'"),'Episode playback context missing');
-assert(app.includes("$('#audio-v2')?.addEventListener('ended',()=>{if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else{playbackAutoplayWanted=false;syncPlaybackMediaSession()}})"),'Continuous playback handler missing');
+assert(app.includes("$('#audio-v2')?.addEventListener('ended',()=>{if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else playbackAutoplayWanted=false})"),'Continuous playback handler missing');
 assert(!app.includes('vedator-playback-keepalive')&&!app.includes('startPlaybackKeepAlive'),'Failed video keepalive was not completely removed');
 assert(!html.includes('player-mse-v2')&&!app.includes('MSE_BETA_KEY'),'Failed experimental continuous-stream UI/code remains');
 assert(!app.includes('falsesaveProgress'),'Pause must not call a nonexistent function');
