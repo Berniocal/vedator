@@ -10,7 +10,7 @@ if(!index.anchors.length||!scanner.time)throw Error('No valid MP3 frames');
 const path='audio-seek-index.json';
 const data=fs.existsSync(path)?JSON.parse(fs.readFileSync(path,'utf8')):{version:1,entries:{}};
 let last=-Infinity;
-const anchors=index.anchors.filter(a=>{if(a.time-last<5)return false;last=a.time;return true}).map(a=>[a.offset,Number(a.time.toFixed(6))]);
+const anchors=index.anchors.filter(a=>{if(a.time-last<1)return false;last=a.time;return true}).map(a=>[a.offset,Number(a.time.toFixed(6))]);
 data.entries[url]={size:fs.statSync(file).size,duration:Number(scanner.time.toFixed(6)),anchors};
 fs.writeFileSync(path,JSON.stringify(data)+'\n');
 console.log(JSON.stringify({file:url,size:data.entries[url].size,duration:data.entries[url].duration,anchors:anchors.length,indexBytes:fs.statSync(path).size}));

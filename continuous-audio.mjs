@@ -29,8 +29,8 @@ export class MP3Frames {
 }
 
 export class ContinuousAudio extends EventTarget {
-  constructor(audio,{lead=180,keepBehind=45,chunkSize=262144,fetcher=globalThis.fetch.bind(globalThis),log=()=>{},systemTimeline='episode',seekTimeout=20000}={}){
-    super();Object.assign(this,{audio,lead,keepBehind,chunkSize,fetcher,log,systemTimeline,seekTimeout});this.session=null;
+  constructor(audio,{lead=180,keepBehind=45,chunkSize=262144,fetcher=globalThis.fetch.bind(globalThis),log=()=>{},systemTimeline='episode',seekTimeout=20000,cacheLimit=8*1048576}={}){
+    super();Object.assign(this,{audio,lead,keepBehind,chunkSize,fetcher,log,systemTimeline,seekTimeout,cacheLimit});this.session=null;this.indexes=new Map();this.rangeCache=new Map();this.cacheBytes=0;this.resolvedUrls=new Map();
     const events=['timeupdate','playing','pause','waiting','stalled','ended','error','ratechange'];
     if(systemTimeline==='stream')events.push('loadedmetadata','durationchange');
     for(const event of events)audio.addEventListener(event,()=>this.onAudio(event));
@@ -51,7 +51,7 @@ export class ContinuousAudio extends EventTarget {
   emit(type,detail={}){this.dispatchEvent(new CustomEvent(type,{detail}))}
   write(message){this.log(message);this.emit('update')}
   static supported(){return Boolean(globalThis.MediaSource?.isTypeSupported('audio/mpeg'))}
-  start(items,{quick=false,tailBytes=524288,initialIndex=0,seekTo=null,autoplay=true,indexes=new Map()}={}){
+  start(items,{quick=false,tailBytes=524288,initialIndex=0,seekTo=null,autoplay=true,indexes=this.indexes}={}){
     if(!ContinuousAudio.supported())throw Error('Tento prohlížeč nepodporuje souvislé přehrávání MP3 přes MSE. Zkus Chrome.');
     if(!items.length||items.some(item=>!item.url))throw Error('Vyber alespoň jeden dostupný díl.');
     this.stop();
@@ -164,12 +164,12 @@ export class ContinuousAudio extends EventTarget {
   }
   async fastSeek(s,item,index,target){
     const table=index.seekTable;if(!table)return null;
-    const origin=Math.max(0,target-2),pct=Math.min(99.999999,100*origin/table.duration);
+    const origin=Math.max(0,target-.75),pct=Math.min(99.999999,100*origin/table.duration);
     const slot=Math.floor(pct),fraction=pct-slot;
     const relative=table.kind==='xing'?((table.toc[slot]+((slot===99?256:table.toc[slot+1])-table.toc[slot])*fraction)/256):origin/table.duration;
     const from=Math.max(table.offset,Math.min(table.offset+table.size-4096,table.offset+Math.floor(relative*table.size)));
     this.write('PŘÍMÉ HLEDÁNÍ: '+table.kind+' díl '+item.number+'; byte='+from);
-    const result=await this.request(s,item.url,{Range:'bytes='+from+'-'+(from+this.chunkSize-1)});
+    const probeSize=Math.min(this.chunkSize,65536),result=await this.request(s,item.url,{Range:'bytes='+from+'-'+(from+probeSize-1)});
     if(this.session!==s||s.controller.signal.aborted){await result.response?.body?.cancel();throw new DOMException('Stopped','AbortError')}
     if(result.status!==206){await result.response?.body?.cancel();return null}
     const bytes=result.bytes,header=i=>{
@@ -287,6 +287,8 @@ export class ContinuousAudio extends EventTarget {
     // User pause is recorded by pause(); an internal source reset must not
     // overwrite playback intent while locating/starting a manual seek.
     if(event==='ended')s.wantPlay=false;
+    // Warm the small seek map only once audible playback already has room.
+    if(s.seekTo==null&&this.ahead()>3&&!this.seekIndexPromise)void this.loadSeekIndex(s,s.items[s.index],this.indexFor(s,s.items[s.index])).catch(()=>{});
     this.updateMediaSession();
     if(this.systemTimeline==='stream'&&(s.snapshotIndex!==s.index||Date.now()-(s.snapshotTime||0)>30000))this.mediaSnapshot('playback');
     this.emit('update');
@@ -359,39 +361,88 @@ export class ContinuousAudio extends EventTarget {
     }
     this.emit('update');
   }
-  async request(s,url,headers={},headersOnly=false,maxBytes=this.chunkSize){
+  cachedRange(url,headers){
+    const match=headers.Range?.match(/^bytes=(\d+)-(\d+)$/);if(!match)return null;
+    const from=Number(match[1]),end=Number(match[2]);
+    for(const [key,entry] of this.rangeCache){
+      if(entry.url!==url||entry.from>from||entry.from+entry.bytes.length<=from)continue;
+      if(Date.now()-entry.time>300000){this.rangeCache.delete(key);this.cacheBytes-=entry.bytes.length;continue}
+      const to=Math.min(end+1,entry.from+entry.bytes.length);
+      // Do not mistake a cached partial prefix for the end of the file.
+      if(to<end+1&&to!==entry.total)continue;
+      this.rangeCache.delete(key);this.rangeCache.set(key,entry);
+      const bytes=entry.bytes.subarray(from-entry.from,to-entry.from);
+      return {status:206,bytes,total:entry.total,eof:entry.total>0&&to>=entry.total};
+    }
+    return null;
+  }
+  rememberRange(url,headers,bytes,total){
+    const match=headers.Range?.match(/^bytes=(\d+)-(\d+)$/);if(!match||!bytes.length||bytes.length>this.cacheLimit)return;
+    const key=url+'|'+match[1],prior=this.rangeCache.get(key);
+    if(prior)this.cacheBytes-=prior.bytes.length;
+    const stored=bytes.slice();this.rangeCache.delete(key);this.rangeCache.set(key,{url,from:Number(match[1]),bytes:stored,total,time:Date.now()});this.cacheBytes+=stored.length;
+    while(this.cacheBytes>this.cacheLimit||this.rangeCache.size>128){const [oldKey,entry]=this.rangeCache.entries().next().value;this.cacheBytes-=entry.bytes.length;this.rangeCache.delete(oldKey)}
+  }
+  async request(s,url,headers={},headersOnly=false,maxBytes=this.chunkSize,onChunk=null){
+    if(s.controller.signal.aborted)throw new DOMException('Stopped','AbortError');
+    const cached=!headersOnly&&this.cachedRange(url,headers);
+    if(cached){
+      if(onChunk){await onChunk(cached.bytes,cached.total);return {...cached,bytes:new Uint8Array(),streamed:true,received:cached.bytes.length}}
+      return cached;
+    }
     let last;
     for(let attempt=0;attempt<3;attempt++){
       if(s.controller.signal.aborted)throw new DOMException('Stopped','AbortError');
       const controller=new AbortController(),abort=()=>controller.abort();
       s.controller.signal.addEventListener('abort',abort,{once:true});
-      const timeout=setTimeout(()=>controller.abort(),20000);
+      let timeout=setTimeout(()=>controller.abort(),20000),delivered=0;
       try{
-        const response=await this.fetcher(url,{method:headersOnly?'HEAD':'GET',mode:'cors',cache:'no-store',headers,signal:controller.signal});
+        const direct=this.resolvedUrls.get(url),target=direct&&direct.until>Date.now()?direct.url:url;
+        const options={method:headersOnly?'HEAD':'GET',mode:'cors',cache:'default',headers,signal:controller.signal};
+        let response=await this.fetcher(target,options);
+        // CDN URLs may be signed. An expired/rejected direct URL is resolved
+        // again through the original enclosure, never left stuck in the cache.
+        if(!response.ok&&response.status!==416&&target!==url){await response.body?.cancel();this.resolvedUrls.delete(url);response=await this.fetcher(url,options)}
         if(response.status===416){await response.body?.cancel();return {status:416,bytes:new Uint8Array()}}
         if(!response.ok)throw Error('HTTP '+response.status);
+        if(response.url&&response.url!==url&&/^https?:/.test(response.url))this.resolvedUrls.set(url,{url:response.url,until:Date.now()+120000});
         if(headersOnly){const size=Number(response.headers.get('content-length'))||0;await response.body?.cancel();return {size}}
-        // A Range server must not send a larger response than the requested block.
-        // If it ignores Range (200), stream it incrementally rather than buffer the whole MP3.
         if(response.status===200)return {status:200,response,total:Number(response.headers.get('content-length'))||0};
-        const bytes=new Uint8Array(await response.arrayBuffer());
-        if(bytes.length>maxBytes)throw Error('Server vrátil příliš velký MP3 blok');
         const range=response.headers.get('content-range')?.match(/^bytes (\d+)-(\d+)\/(\d+)$/);
         if(range&&headers.Range&&Number(range[1])!==Number(headers.Range.match(/bytes=(\d+)/)?.[1]))throw Error('Server vrátil jinou část MP3, než byla požadována');
-        return {status:response.status,bytes,total:range?Number(range[3]):0};
+        const total=range?Number(range[3]):this.indexes.get(url)?.size||0;
+        if(onChunk&&response.body){
+          const reader=response.body.getReader(),chunks=[];let received=0;
+          try{
+            while(true){
+              const {done,value}=await reader.read();if(done)break;
+              clearTimeout(timeout);timeout=setTimeout(()=>controller.abort(),20000);
+              received+=value.length;if(received>maxBytes)throw Error('Server vrátil příliš velký MP3 blok');
+              chunks.push(value);delivered+=value.length;
+              await onChunk(value,total);
+            }
+          }finally{await reader.cancel().catch(()=>{})}
+          const bytes=new Uint8Array(received);let offset=0;for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.length}
+          const fullSize=total||this.indexes.get(url)?.size||0;this.rememberRange(url,headers,bytes,fullSize);
+          return {status:206,bytes:new Uint8Array(),total:fullSize,streamed:true,received};
+        }
+        const bytes=new Uint8Array(await response.arrayBuffer());
+        if(bytes.length>maxBytes)throw Error('Server vrátil příliš velký MP3 blok');
+        this.rememberRange(url,headers,bytes,total);
+        return {status:response.status,bytes,total};
       }catch(error){
         if(s.controller.signal.aborted)throw error;
+        // Appended bytes must never be appended a second time by an automatic
+        // retry. pump has advanced its offset so the explicit retry can resume.
+        if(delivered)throw error;
         last=error;this.write('SÍŤ pokus '+(attempt+1)+'/3: '+error.name+' '+error.message);
-      }finally{
-        // The streamed 200 response is cancelled through its reader in pump().
-        clearTimeout(timeout);s.controller.signal.removeEventListener('abort',abort);
-      }
+      }finally{clearTimeout(timeout);s.controller.signal.removeEventListener('abort',abort)}
     }
     throw last;
   }
   async tailOffset(s,item){
     // Content-Length is CORS-safelisted. Content-Range usually is not exposed by Podbean.
-    const {size}=await this.request(s,item.url,{},true);
+    const index=this.indexFor(s,item),size=index.size||(await this.request(s,item.url,{},true)).size;
     if(!size)throw Error('Server nesdělil velikost MP3 pro rychlý test. Zvol přehrání celého dílu.');
     const offset=Math.max(0,size-s.tailBytes);s.firstSize=size;this.write('RYCHLÝ TEST: posledních '+(size-offset)+' B prvního dílu');return offset;
   }
@@ -467,7 +518,13 @@ export class ContinuousAudio extends EventTarget {
           this.write('NAČÍTÁM díl '+item.number+'; timeline='+part.start.toFixed(3)+'; byte='+s.offset);
         }
         await this.waitForRoom(s);if(this.session!==s||s.controller.signal.aborted)return;
-        const from=s.offset,result=s.prefetch||await this.request(s,item.url,{Range:'bytes='+from+'-'+(from+this.chunkSize-1)});s.prefetch=null;
+        const consume=async(bytes,total=0)=>{
+          if(this.session!==s||s.controller.signal.aborted)throw new DOMException('Stopped','AbortError');
+          if(total)part.sourceSize=total;
+          if(!part.durationHint&&part.sourceOffset===0&&part.bytes<262144)this.readDurationHint(s,part,bytes);
+          part.scanner?.feed(bytes);await this.append(s,bytes);s.offset+=bytes.length;part.bytes+=bytes.length;
+        };
+        const from=s.offset,result=s.prefetch||await this.request(s,item.url,{Range:'bytes='+from+'-'+(from+this.chunkSize-1)},false,this.chunkSize,consume);s.prefetch=null;
         if(this.session!==s||s.controller.signal.aborted){await result.response?.body?.cancel();return}
         let eof=result.status===416;
         if(result.status===200){
@@ -488,6 +545,8 @@ export class ContinuousAudio extends EventTarget {
               part.scanner?.feed(value);await this.append(s,value);s.offset+=value.length;part.bytes+=value.length;
             }
           }finally{s.controller.signal.removeEventListener('abort',cancel);await reader.cancel().catch(()=>{})}
+        }else if(result.streamed){
+          eof=result.eof??(result.received<this.chunkSize||(part.sourceSize>0&&s.offset>=part.sourceSize));
         }else if(result.bytes.length){
           if(result.total)part.sourceSize=result.total;
           if(!part.durationHint&&part.sourceOffset===0&&part.bytes<262144)this.readDurationHint(s,part,result.bytes);
