@@ -182,7 +182,7 @@ export class ContinuousAudio extends EventTarget {
       s.controller.signal.addEventListener('abort',abort,{once:true});
       const timeout=setTimeout(()=>controller.abort(),20000);
       try{
-        const response=await this.fetcher(url,{mode:'cors',cache:'no-store',headers,signal:controller.signal});
+        const response=await this.fetcher(url,{method:headersOnly?'HEAD':'GET',mode:'cors',cache:'no-store',headers,signal:controller.signal});
         if(response.status===416){await response.body?.cancel();return {status:416,bytes:new Uint8Array()}}
         if(!response.ok)throw Error('HTTP '+response.status);
         if(headersOnly){const size=Number(response.headers.get('content-length'))||0;await response.body?.cancel();return {size}}
@@ -249,6 +249,16 @@ export class ContinuousAudio extends EventTarget {
     const duration=(total-first)*8/(bitrate*1000);
     return count>=12&&duration>0&&duration<604800?duration:0;
   }
+  readDurationHint(s,part,bytes){
+    part.durationHint=this.durationHint(bytes,part.sourceSize);
+    // Podbean's CORS policy can hide Content-Range. A background HEAD provides
+    // the full size for headerless CBR exports without delaying audio or startup.
+    if(part.durationHint||part.sourceSize)return;
+    void this.request(s,part.url,{},true).then(({size})=>{
+      if(this.session!==s||s.controller.signal.aborted||!size)return;
+      part.sourceSize=size;part.durationHint=this.durationHint(bytes,size);this.emit('update');
+    }).catch(()=>{});
+  }
   async pump(s){
     if(s.pumping||this.session!==s||s.complete)return;s.pumping=true;s.failed=false;
     try{
@@ -282,14 +292,14 @@ export class ContinuousAudio extends EventTarget {
               let chunk;try{chunk=await reader.read()}finally{clearTimeout(readTimer)}
               if(timedOut)throw Error('Server přestal posílat zvuková data');
               const {done,value}=chunk;if(done){eof=true;break}
-              if(!part.bytes)part.durationHint=this.durationHint(value,part.sourceSize);
+              if(!part.bytes)this.readDurationHint(s,part,value);
               await this.append(s,value);s.offset+=value.length;part.bytes+=value.length;
             }
           }finally{s.controller.signal.removeEventListener('abort',cancel);await reader.cancel().catch(()=>{})}
         }else if(result.bytes.length){
-          if(!part.bytes&&from===0)part.durationHint=this.durationHint(result.bytes,result.total);
-          await this.append(s,result.bytes);s.offset+=result.bytes.length;part.bytes+=result.bytes.length;
           if(result.total)part.sourceSize=result.total;
+          if(!part.bytes&&from===0)this.readDurationHint(s,part,result.bytes);
+          await this.append(s,result.bytes);s.offset+=result.bytes.length;part.bytes+=result.bytes.length;
           eof=result.bytes.length<this.chunkSize||(part.sourceSize>0&&s.offset>=part.sourceSize);
         }else eof=true;
         if(this.session!==s||s.controller.signal.aborted)return;
