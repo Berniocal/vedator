@@ -367,391 +367,6 @@
     else $('#count-v2').textContent=text('Lokální data','Lokálne dáta');
   }
 
-  let continuousPlayer=null,continuousContextOffset=0;
-  const continuousActive=()=>Boolean(continuousPlayer?.session);
-  function playbackClock(){
-    const audio=playerNodes().audio;
-    if(continuousActive()){
-      const session=continuousPlayer.session,index=(state.context?.index??continuousContextOffset)-continuousContextOffset;
-      const part=session.parts.find(p=>p.index===index),skip=part?.skip??(Number(session.items[index]?.startAt)||0);
-      const saved=Number(state.progress[state.current?.key]?.duration)||0;
-      const duration=part?.end!=null?Math.max(0,part.end-part.start+skip):part?.durationHint||saved;
-      const time=part?Math.max(skip,(Number(audio.currentTime)||0)-part.start+skip):skip;
-      return {time:duration?Math.min(time,duration):time,duration,available:part?Math.max(time,continuousPlayer.bufferEnd()-part.start+skip):skip,ready:audio.readyState>0&&Boolean(part?.bytes)};
-    }
-    return {time:Number(audio.currentTime)||0,duration:Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:0,available:0,ready:audio.readyState>0};
-  }
-  function stopContinuousPlayback(){
-    if(!continuousActive())return;
-    playbackSwitchingSource=true;continuousPlayer.stop();playbackSwitchingSource=false;
-  }
-  function canStartContinuous(){
-    const c=state.context;
-    return ContinuousAudio.supported()&&c&&['series','playlist','episodes','questions','nonquestions'].includes(c.type)&&c.index>=0&&c.index<c.items.length-1&&c.items.slice(c.index).every(item=>item.episode?.enclosure);
-  }
-  function beginContinuousPlayback(target=0){
-    const n=playerNodes(),context=state.context;
-    if(!continuousPlayer){
-      continuousPlayer=new ContinuousAudio(n.audio,{systemTimeline:'stream',manageEvents:false,installMediaSession:false,diagnostics:false,log:message=>{if(message.startsWith('CHYBA')||message.startsWith('PLAY CHYBA'))console.warn('Vedátor: '+message)}});
-      continuousPlayer.addEventListener('beforeseek',()=>saveProgress(true,false));
-      continuousPlayer.addEventListener('track',event=>{
-        if(!state.context||!continuousActive())return;
-        const index=continuousContextOffset+event.detail.index;if(index===state.context.index)return;
-        if(event.detail.automatic)saveProgress(true,true);
-        const item=state.context.items[index];if(!item)return;
-        state.context={...state.context,index};state.current={episode:item.episode,key:episodeKey(item.episode.number),itemRef:item.ref||epRef(item.episode.number)};state.lastSavedSecond=-1;
-        syncPlayer();saveProgress(true,false);
-      });
-      continuousPlayer.addEventListener('problem',event=>{n.help.textContent=event.detail.message;playbackNeedsReload=Boolean(continuousPlayer.session?.failed||n.audio.error)});
-    }
-    continuousContextOffset=context.index;
-    const items=context.items.slice(context.index).map((item,index)=>({number:item.episode.number,title:episodeCopy(item.episode).title,url:item.episode.enclosure,startAt:index===0?Math.max(0,Number(target)||0):Math.max(0,Number(item.start)||0),resolveUrl:()=>playbackUrl(item.episode)}));
-    n.help.textContent=target>0?text('Načítám od ','Načítavam od ')+fmtTime(target)+'…':text('Pozice se průběžně ukládá do tohoto zařízení.','Pozícia sa priebežne ukladá do tohto zariadenia.');
-    continuousPlayer.start(items);n.audio.playbackRate=state.speed;n.shell.classList.remove('hidden');syncPlayer();
-  }
-  function seekPlayback(seconds,{restart=true}={}){
-    const target=Math.max(0,Number(seconds)||0),audio=playerNodes().audio;
-    if(continuousActive()){
-      if(continuousPlayer.seek(target)){saveProgress(true,false);syncPlayer();return}
-      if(restart&&state.current)openPlayback(state.current.episode,{start:target,context:state.context,itemRef:state.current.itemRef});
-      return;
-    }
-    try{audio.currentTime=Math.min(audio.duration||Infinity,target)}catch{}
-    saveProgress(true,false);syncPlayer();
-  }
-  /* CONTINUOUS_AUDIO_ENGINE_BEGIN */
-  // Shared continuous-stream engine. Never replaces a source at an episode boundary.
-  class ContinuousAudio extends EventTarget {
-    constructor(audio,{lead=180,keepBehind=45,chunkSize=262144,fetcher=globalThis.fetch.bind(globalThis),log=()=>{},systemTimeline='episode',manageEvents=true,installMediaSession=true,diagnostics=true}={}){
-      super();Object.assign(this,{audio,lead,keepBehind,chunkSize,fetcher,log,systemTimeline,diagnostics});this.session=null;
-      const events=['timeupdate','playing','pause','waiting','stalled','ended','error','ratechange'];
-      if(systemTimeline==='stream')events.push('loadedmetadata','durationchange');
-      if(manageEvents)for(const event of events)audio.addEventListener(event,()=>this.onAudio(event));
-      if(manageEvents&&systemTimeline==='stream'){
-        document.addEventListener('visibilitychange',()=>{
-          if(!this.session)return;
-          this.mediaSnapshot('visibility');
-          if(!document.hidden)this.updateMediaSession(true);
-        });
-        globalThis.addEventListener('pageshow',()=>{if(this.session)this.updateMediaSession(true)});
-      }
-      if(installMediaSession&&globalThis.navigator?.mediaSession){
-        const systemSeekBy=delta=>systemTimeline==='stream'?this.seekTimeline(this.audio.currentTime+delta):this.seekBy(delta);
-        const handlers={play:()=>this.play(),pause:()=>this.pause(),seekbackward:d=>systemSeekBy(-(d.seekOffset||10)),seekforward:d=>systemSeekBy(d.seekOffset||10),seekto:d=>systemTimeline==='stream'?this.seekTimeline(d.seekTime):this.seek(d.seekTime)};
-        for(const [action,handler] of Object.entries(handlers))try{navigator.mediaSession.setActionHandler(action,handler)}catch{}
-      }
-    }
-    emit(type,detail={}){this.dispatchEvent(new CustomEvent(type,{detail}))}
-    write(message){this.log(message);this.emit('update')}
-    static supported(){return Boolean(globalThis.MediaSource?.isTypeSupported('audio/mpeg'))}
-    start(items,{quick=false,tailBytes=524288}={}){
-      if(!ContinuousAudio.supported())throw Error('Tento prohlížeč nepodporuje souvislé přehrávání MP3 přes MSE. Zkus Chrome.');
-      if(!items.length||items.some(item=>!item.url))throw Error('Vyber alespoň jeden dostupný díl.');
-      this.stop();
-      const media=new MediaSource(),url=URL.createObjectURL(media),controller=new AbortController();
-      const s={media,url,controller,items:items.map(item=>({...item})),parts:[],index:0,loadIndex:0,offset:0,quick,tailBytes,buffer:null,pumping:false,failed:false,complete:false,wantPlay:true,wake:new Set(),sourceChanges:1,transitionCount:0};
-      this.session=s;
-      const opened=new Promise((resolve,reject)=>{
-        const cleanup=()=>{media.removeEventListener('sourceopen',open);controller.signal.removeEventListener('abort',abort)};
-        const open=()=>{cleanup();resolve()};
-        const abort=()=>{cleanup();reject(new DOMException('Stopped','AbortError'))};
-        media.addEventListener('sourceopen',open,{once:true});controller.signal.addEventListener('abort',abort,{once:true});
-      });
-      this.audio.src=url;this.audio.preload='auto';
-      this.write('START: jeden MediaSource, '+items.length+' dílů; rychlý test='+quick+'; systemTimeline='+this.systemTimeline);
-      this.emit('track',{item:s.items[0],index:0,quick});
-      // Keep play() in the user's click. Awaiting the network first loses activation.
-      this.play();
-      opened.then(()=>{
-        if(this.session!==s)return;
-        s.buffer=media.addSourceBuffer('audio/mpeg');s.buffer.mode='sequence';
-        media.duration=Infinity;
-        return this.pump(s);
-      }).catch(error=>{if(this.session===s&&!controller.signal.aborted)this.fail(s,error)});
-      return s;
-    }
-    stop(){
-      const s=this.session;if(!s)return;
-      this.session=null;s.wantPlay=false;s.controller.abort();for(const wake of s.wake)wake();
-      this.audio.pause();this.audio.removeAttribute('src');this.audio.load();URL.revokeObjectURL(s.url);
-      try{navigator.mediaSession.playbackState='none';navigator.mediaSession.metadata=null;navigator.mediaSession.setPositionState?.()}catch{}
-      this.write('STOP: proud ukončen uživatelem');
-    }
-    play(){
-      const s=this.session;if(!s)return;s.wantPlay=true;
-      try{Promise.resolve(this.audio.play()).catch(error=>{
-        if(this.session!==s||!s.wantPlay)return;
-        this.write('PLAY CHYBA '+error.name+': '+error.message);
-        this.emit('problem',{message:'Přehrávání se nespustilo: '+error.name+' — '+error.message});
-      })}catch(error){this.fail(s,error)}
-    }
-    pause(){const s=this.session;if(s)s.wantPlay=false;this.audio.pause()}
-    ranges(){const b=this.session?.buffer?.buffered;const ranges=[];if(b)for(let i=0;i<b.length;i++)ranges.push([b.start(i),b.end(i)]);return ranges}
-    bufferEnd(){const ranges=this.ranges();return ranges.at(-1)?.[1]||0}
-    ahead(){return Math.max(0,this.bufferEnd()-(this.audio.currentTime||0))}
-    part(){const s=this.session;return s?.parts.find(part=>part.index===s.index)||null}
-    position(){const p=this.part();return p?Math.max(p.skip||0,this.audio.currentTime-p.start+(p.skip||0)):0}
-    seek(seconds){
-      const s=this.session,p=this.part();if(!s||!p||!Number.isFinite(seconds))return false;
-      if(seconds<(p.skip||0))return false;
-      return this.seekTimeline(p.start+Math.max(0,seconds)-(p.skip||0));
-    }
-    seekTimeline(seconds){
-      const s=this.session;if(!s||!Number.isFinite(seconds))return false;
-      const absolute=Math.max(0,seconds);
-      if(this.ranges().some(([start,end])=>absolute>=start&&absolute<end-.03)){
-        this.emit('beforeseek',{position:absolute});
-        const destination=s.parts.findLast(p=>absolute>=p.start&&(p.end==null||absolute<p.end));
-        this.audio.currentTime=absolute;
-        if(destination&&destination.index!==s.index){s.index=destination.index;this.emit('track',{item:s.items[s.index],index:s.index,quick:s.quick&&s.index===0,automatic:false})}
-        this.write('POSUN ve stejném proudu na '+absolute.toFixed(1)+' s');this.onAudio('timeupdate');return true;
-      }
-      // Do not fall back to a new native MP3 source when a seek is unavailable.
-      this.emit('problem',{message:'Tato pozice ještě není načtená, nebo už byla uvolněna z paměti. Poslech pokračuje ve stejném proudu.'});
-      this.write('POSUN mimo buffer odmítnut; zvukový zdroj zachován');return false;
-    }
-    seekBy(seconds){return this.seek(this.position()+seconds)}
-    onAudio(event){
-      const s=this.session;if(!s)return;
-      for(const wake of [...s.wake])wake();
-      if(event==='error'){
-        const e=this.audio.error;this.fail(s,Error('Dekodér '+(e?.code||'?')+': '+(e?.message||'neznámá chyba')));return;
-      }
-      const time=this.audio.currentTime||0;
-      // The media element keeps playing: only the logical episode and metadata change.
-      while(s.index<s.items.length-1){
-        const prior=s.parts.find(part=>part.index===s.index),next=s.parts.find(part=>part.index===s.index+1);
-        if(prior?.end==null||!next||time<prior.end)break;
-        s.index++;s.transitionCount++;
-        this.write('PŘECHOD '+s.items[s.index-1].number+' → '+s.items[s.index].number+'; src beze změny; hidden='+document.hidden);
-        this.emit('track',{item:s.items[s.index],index:s.index,quick:false,automatic:true});
-      }
-      if(event==='playing'||event==='waiting'||event==='stalled'||event==='pause'||event==='ended')this.write(event.toUpperCase()+' t='+time.toFixed(2)+' ahead='+this.ahead().toFixed(1)+' hidden='+document.hidden);
-      if(event==='pause'&&this.audio.paused)s.wantPlay=false;
-      if(event==='ended')s.wantPlay=false;
-      this.updateMediaSession();
-      if(this.diagnostics&&this.systemTimeline==='stream'&&(s.snapshotIndex!==s.index||Date.now()-(s.snapshotTime||0)>30000))this.mediaSnapshot('playback');
-      this.emit('update');
-    }
-    mediaSnapshot(reason){
-      const s=this.session;if(!s||!this.diagnostics)return;s.snapshotIndex=s.index;s.snapshotTime=Date.now();
-      this.write('MEDIA '+reason+' '+JSON.stringify({episode:s.items[s.index]?.number,hidden:document.hidden,paused:this.audio.paused,ended:this.audio.ended,readyState:this.audio.readyState,time:this.audio.currentTime,duration:String(this.audio.duration),declaredState:globalThis.navigator?.mediaSession?.playbackState,timeline:this.systemTimeline,position:s.lastMediaPosition||null,ahead:this.ahead()}));
-    }
-    updateMediaSession(force=false){
-      const s=this.session,session=globalThis.navigator?.mediaSession;if(!s||!session)return;
-      const item=s.items[s.index],p=this.part();
-      try{
-        // Declare playing after playback actually starts, not before loading audio.
-        const playbackState=this.audio.paused||this.audio.ended?'paused':'playing';
-        if(this.systemTimeline!=='stream'||force||s.declaredState!==playbackState){session.playbackState=playbackState;s.declaredState=playbackState}
-        if((force||s.metadataIndex!==s.index)&&typeof MediaMetadata!=='undefined'){
-          session.metadata=new MediaMetadata({title:item.title,artist:'Vedátorský podcast',artwork:[{src:new URL('./icon-512.png',location.href).href,sizes:'512x512',type:'image/png'}]});s.metadataIndex=s.index;
-        }
-        if(this.systemTimeline==='stream'){
-          // The OS controls ONE MSE stream, not a finite episode followed by a reset.
-          // Keep its position on the native timeline. Infinity is the standard
-          // representation until endOfStream gives the whole queue a finite end.
-          const duration=this.audio.duration>0?this.audio.duration:Infinity;
-          const position=Math.min(duration,Math.max(0,this.audio.currentTime||0)),playbackRate=this.audio.playbackRate||1;
-          session.setPositionState?.({duration,position,playbackRate});
-          s.lastMediaPosition={duration:String(duration),position,playbackRate};
-        }else{
-          if(p?.end!=null){const duration=p.end-p.start;if(duration>0)session.setPositionState?.({duration,position:Math.min(duration,this.position()),playbackRate:this.audio.playbackRate})}
-          else session.setPositionState?.();
-        }
-      }catch(error){
-        if(this.systemTimeline==='stream'){
-          const key=error.name+': '+error.message;if(key!==s.mediaError){s.mediaError=key;this.write('MEDIA API CHYBA '+key)}
-        }
-      }
-    }
-    async mutation(s,operation){
-      if(this.session!==s||s.controller.signal.aborted)throw new DOMException('Stopped','AbortError');
-      return new Promise((resolve,reject)=>{
-        const b=s.buffer,signal=s.controller.signal;
-        const cleanup=()=>{b.removeEventListener('updateend',done);b.removeEventListener('error',error);signal.removeEventListener('abort',abort)};
-        const done=()=>{cleanup();resolve()};
-        const error=()=>{cleanup();reject(Error('SourceBuffer odmítl zvuková data'))};
-        const abort=()=>{cleanup();reject(new DOMException('Stopped','AbortError'))};
-        b.addEventListener('updateend',done,{once:true});b.addEventListener('error',error,{once:true});signal.addEventListener('abort',abort,{once:true});
-        try{operation(b)}catch(e){cleanup();reject(e)}
-      });
-    }
-    waitForRoom(s){
-      if(this.ahead()<this.lead)return Promise.resolve();
-      return new Promise(resolve=>{
-        const check=()=>{if(this.session!==s||s.controller.signal.aborted||this.ahead()<this.lead){s.wake.delete(check);resolve()}};
-        s.wake.add(check);check();
-      });
-    }
-    async prune(s,emergency=false){
-      const cut=this.audio.currentTime-(emergency?8:this.keepBehind),first=this.ranges()[0]?.[0];
-      if(first!==undefined&&cut>first+5)await this.mutation(s,b=>b.remove(first,cut));
-    }
-    async append(s,bytes){
-      await this.prune(s);
-      try{await this.mutation(s,b=>b.appendBuffer(bytes))}catch(error){
-        if(error.name!=='QuotaExceededError')throw error;
-        await this.prune(s,true);await this.mutation(s,b=>b.appendBuffer(bytes));
-      }
-      this.emit('update');
-    }
-    async request(s,url,headers={},headersOnly=false,streaming=false){
-      let last;
-      for(let attempt=0;attempt<3;attempt++){
-        if(s.controller.signal.aborted)throw new DOMException('Stopped','AbortError');
-        const controller=new AbortController(),abort=()=>controller.abort();
-        s.controller.signal.addEventListener('abort',abort,{once:true});
-        const timeout=setTimeout(()=>controller.abort(),20000);
-        try{
-          const response=await this.fetcher(url,{method:headersOnly?'HEAD':'GET',mode:'cors',cache:'no-store',headers,signal:controller.signal});
-          if(response.status===416){await response.body?.cancel();return {status:416,bytes:new Uint8Array()}}
-          if(!response.ok)throw Error('HTTP '+response.status);
-          if(headersOnly){const size=Number(response.headers.get('content-length'))||0;await response.body?.cancel();return {size}}
-          // A Range server must not send a larger response than the requested block.
-          // If it ignores Range (200), stream it incrementally rather than buffer the whole MP3.
-          if(response.status===200||streaming)return {status:response.status,response,total:Number(response.headers.get('content-length'))||0};
-          const bytes=new Uint8Array(await response.arrayBuffer());
-          if(bytes.length>this.chunkSize)throw Error('Server vrátil příliš velký MP3 blok');
-          const range=response.headers.get('content-range')?.match(/^bytes (\d+)-(\d+)\/(\d+)$/);
-          if(range&&headers.Range&&Number(range[1])!==Number(headers.Range.match(/bytes=(\d+)/)?.[1]))throw Error('Server vrátil jinou část MP3, než byla požadována');
-          return {status:response.status,bytes,total:range?Number(range[3]):0};
-        }catch(error){
-          if(s.controller.signal.aborted)throw error;
-          last=error;this.write('SÍŤ pokus '+(attempt+1)+'/3: '+error.name+' '+error.message);
-        }finally{
-          // The streamed 200 response is cancelled through its reader in pump().
-          clearTimeout(timeout);s.controller.signal.removeEventListener('abort',abort);
-        }
-      }
-      throw last;
-    }
-    async tailOffset(s,item){
-      // Content-Length is CORS-safelisted. Content-Range usually is not exposed by Podbean.
-      const {size}=await this.request(s,item.url,{},true);
-      if(!size)throw Error('Server nesdělil velikost MP3 pro rychlý test. Zvol přehrání celého dílu.');
-      const offset=Math.max(0,size-s.tailBytes);s.firstSize=size;this.write('RYCHLÝ TEST: posledních '+(size-offset)+' B prvního dílu');return offset;
-    }
-    durationHint(bytes,total=0){
-      // Xing/Info headers contain a frame count. Reading this first-buffer hint
-      // avoids another audio element or a metadata network request at startup.
-      const u32=i=>((bytes[i]*16777216)+(bytes[i+1]<<16)+(bytes[i+2]<<8)+bytes[i+3])>>>0;
-      for(let i=0;i<Math.min(bytes.length-48,262144);i++){
-        if(bytes[i]!==255||(bytes[i+1]&224)!==224||((bytes[i+1]>>1)&3)!==1)continue;
-        const version=(bytes[i+1]>>3)&3,rateIndex=(bytes[i+2]>>2)&3;if(version===1||rateIndex===3)continue;
-        const rate=[44100,48000,32000][rateIndex]/(version===3?1:version===2?2:4),mono=(bytes[i+3]>>6)===3;
-        const base=i+4+(version===3?(mono?17:32):(mono?9:17));
-        for(const j of [base,base+2]){
-          if(j+12>bytes.length)continue;
-          const tag=String.fromCharCode(...bytes.subarray(j,j+4));
-          if((tag==='Info'||tag==='Xing')&&(u32(j+4)&1)){
-            const duration=u32(j+8)*(version===3?1152:576)/rate;
-            if(duration>0&&duration<604800)return duration;
-          }
-        }
-      }
-      // Some newer CBR exports have no Xing header. Use the response's existing
-      // size only after checking consecutive MP3 frames with the same bitrate.
-      let offset=0;
-      if(bytes[0]===73&&bytes[1]===68&&bytes[2]===51){
-        offset=10;for(let i=6;i<10;i++)offset+=(bytes[i]&127)*2**(7*(9-i));
-        if(bytes[3]===4&&(bytes[5]&16))offset+=10;
-      }
-      const first=offset;let count=0,bitrate=0,signature='';
-      while(offset+4<=bytes.length&&count<64){
-        const a=bytes[offset+1],b=bytes[offset+2],version=(a>>3)&3,rateIndex=(b>>2)&3;
-        if(bytes[offset]!==255||(a&224)!==224||((a>>1)&3)!==1||version===1||rateIndex===3)break;
-        const table=version===3?[0,32,40,48,56,64,80,96,112,128,160,192,224,256,320]:[0,8,16,24,32,40,48,56,64,80,96,112,128,144,160];
-        const nextBitrate=table[b>>4]||0,nextSignature=version+':'+rateIndex;
-        if(!nextBitrate||(count&&(nextBitrate!==bitrate||nextSignature!==signature)))return 0;
-        bitrate=nextBitrate;signature=nextSignature;
-        const rate=[44100,48000,32000][rateIndex]/(version===3?1:version===2?2:4);
-        offset+=Math.floor((version===3?144000:72000)*bitrate/rate)+((b>>1)&1);count++;
-      }
-      const duration=(total-first)*8/(bitrate*1000);
-      return count>=12&&duration>0&&duration<604800?duration:0;
-    }
-    readDurationHint(s,part,bytes){
-      // Streaming reads can split a large ID3 tag before the first MP3 frame.
-      const prior=part.headerBytes||new Uint8Array(),take=Math.min(bytes.length,262144-prior.length);
-      const header=new Uint8Array(prior.length+take);header.set(prior);header.set(bytes.subarray(0,take),prior.length);part.headerBytes=header;
-      part.durationHint=this.durationHint(header,part.sourceSize);
-      if(part.durationHint){part.headerBytes=null;return}
-      // Podbean's CORS policy can hide Content-Range. A background HEAD provides
-      // the full size for headerless CBR exports without delaying audio or startup.
-      if(part.sourceSize||part.durationRequested)return;
-      part.durationRequested=true;
-      void this.request(s,part.url,{},true).then(({size})=>{
-        if(this.session!==s||s.controller.signal.aborted||!size)return;
-        part.sourceSize=size;part.durationHint=this.durationHint(part.headerBytes||header,size);
-        if(part.durationHint)part.headerBytes=null;this.emit('update');
-      }).catch(()=>{});
-    }
-    async pump(s){
-      if(s.pumping||this.session!==s||s.complete)return;s.pumping=true;s.failed=false;
-      try{
-        while(s.loadIndex<s.items.length&&this.session===s&&!s.controller.signal.aborted){
-          const item=s.items[s.loadIndex];let part=s.parts.find(p=>p.index===s.loadIndex);
-          if(!part){
-            if(s.loadIndex===0&&s.quick)s.offset=await this.tailOffset(s,item);
-            const url=item.resolveUrl?await item.resolveUrl():item.url;
-            if(this.session!==s||s.controller.signal.aborted)return;
-            const skip=Math.max(0,Number(item.startAt)||0),start=this.bufferEnd();
-            if(skip){s.buffer.abort();s.buffer.timestampOffset=start-skip;s.buffer.appendWindowStart=start}
-            part={index:s.loadIndex,start,end:null,bytes:0,sourceSize:s.loadIndex===0?s.firstSize||0:0,skip,url,durationHint:0};s.parts.push(part);
-            this.write('NAČÍTÁM díl '+item.number+'; timeline='+part.start.toFixed(3)+'; byte='+s.offset);
-          }
-          await this.waitForRoom(s);if(this.session!==s||s.controller.signal.aborted)return;
-          const from=s.offset,linear=part.skip>0&&from===0;
-          const result=await this.request(s,part.url,linear?{}:{Range:'bytes='+from+'-'+(from+this.chunkSize-1)},false,linear);
-          if(this.session!==s||s.controller.signal.aborted){await result.response?.body?.cancel();return}
-          let eof=result.status===416;
-          if(result.response){
-            if(from!==0){await result.response.body?.cancel();throw Error('Server nepodporuje pokračování po částech (ignoruje Range).')}
-            if(result.total)part.sourceSize=result.total;
-            const reader=result.response.body.getReader();
-            const cancel=()=>{reader.cancel().catch(()=>{})};s.controller.signal.addEventListener('abort',cancel,{once:true});
-            try{
-              while(this.session===s&&!s.controller.signal.aborted){
-                await this.waitForRoom(s);
-                if(this.session!==s||s.controller.signal.aborted)return;
-                let timedOut=false;
-                const readTimer=setTimeout(()=>{timedOut=true;void reader.cancel()},20000);
-                let chunk;try{chunk=await reader.read()}finally{clearTimeout(readTimer)}
-                if(timedOut)throw Error('Server přestal posílat zvuková data');
-                const {done,value}=chunk;if(done){eof=true;break}
-                if(!part.durationHint&&part.bytes<262144)this.readDurationHint(s,part,value);
-                await this.append(s,value);s.offset+=value.length;part.bytes+=value.length;
-              }
-            }finally{s.controller.signal.removeEventListener('abort',cancel);await reader.cancel().catch(()=>{})}
-          }else if(result.bytes.length){
-            if(result.total)part.sourceSize=result.total;
-            if(!part.durationHint&&from===0)this.readDurationHint(s,part,result.bytes);
-            await this.append(s,result.bytes);s.offset+=result.bytes.length;part.bytes+=result.bytes.length;
-            eof=result.bytes.length<this.chunkSize||(part.sourceSize>0&&s.offset>=part.sourceSize);
-          }else eof=true;
-          if(this.session!==s||s.controller.signal.aborted)return;
-          if(eof){
-            if(!part.bytes)throw Error('MP3 neobsahuje žádná zvuková data');
-            part.end=this.bufferEnd();this.write('PŘIPRAVEN KONEC dílu '+item.number+' na '+part.end.toFixed(3)+' s');
-            s.loadIndex++;s.offset=0;this.emit('update');
-          }
-        }
-        if(this.session===s&&!s.controller.signal.aborted&&s.loadIndex===s.items.length){
-          s.complete=true;s.media.endOfStream();this.write('CELÝ PLAYLIST PŘIPOJEN; endOfStream až po posledním dílu');
-        }
-      }catch(error){if(this.session===s&&!s.controller.signal.aborted)this.fail(s,error)}
-      finally{s.pumping=false}
-    }
-    fail(s,error){
-      if(this.session!==s)return;s.failed=true;
-      this.write('CHYBA '+error.name+': '+error.message+'; src zachován; byte='+s.offset+'; hidden='+document.hidden);
-      this.emit('problem',{message:error.message+' Načtená část může dohrát. Tlačítko „Zkusit načítání znovu“ zachová stejný proud.'});
-    }
-    retry(){const s=this.session;if(s&&!this.audio.error&&s.media.readyState==='open'){this.write('OBNOVUJI NAČÍTÁNÍ bez změny zdroje');void this.pump(s);if(s.wantPlay)this.play()}}
-  }
-  /* CONTINUOUS_AUDIO_ENGINE_END */
-
   function currentOfflineRecord(){const key=state.current?episodeKey(state.current.episode.number):'';return key?state.offlineIndex[key]||null:null}
   async function offlineBlobUrl(record){
     if(!record?.cacheUrl||!('caches'in window))return'';
@@ -797,8 +412,8 @@
     n.speed.textContent=`${String(state.speed).replace('.',',')}×`;n.prev.disabled=!state.context||state.context.index<=0;n.next.disabled=!state.context||state.context.index>=state.context.items.length-1;
     if(!n.download.dataset.busy)n.download.textContent=text('⇩ MP3','⇩ MP3');n.download.removeAttribute('href');n.download.setAttribute('role','button');
     if(!n.offline.dataset.busy)n.offline.textContent=currentOfflineRecord()?text('✓ Offline','✓ Offline'):text('📱 Offline','📱 Offline');
-    const clock=playbackClock(),duration=clock.duration,time=clock.time;
-    n.seek.max=String(Math.max(1,Math.floor(duration||clock.available||1)));if(document.activeElement!==n.seek)n.seek.value=String(Math.min(Number(n.seek.max),Math.max(0,Math.floor(time))));
+    const duration=Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:0,time=Number.isFinite(audio.currentTime)?audio.currentTime:0;
+    n.seek.max=String(Math.max(1,Math.floor(duration||1)));if(document.activeElement!==n.seek)n.seek.value=String(Math.min(Number(n.seek.max),Math.max(0,Math.floor(time))));
     n.current.textContent=fmtTime(n.seek.value);n.duration.textContent=duration?fmtTime(duration):'–:––';
     $('#player-playlist-v2').textContent=text('＋ Playlist','＋ Playlist');$('#player-close-v2').title=text('Zavřít','Zavrieť');
   }
@@ -812,8 +427,8 @@
     collection.lastItemId=id;collection.label=context.label;collection.type=context.type;collection.updatedAt=Date.now();state.collectionProgress[context.id]=collection;writeJson(COLLECTION_KEY,state.collectionProgress);
   }
   function saveProgress(force=false,ended=false){
-    const n=playerNodes(),audio=n.audio,current=state.current,clock=playbackClock();if(!current||!clock.ready)return;
-    const duration=clock.duration||Number(state.progress[current.key]?.duration)||0,time=ended&&duration>0?duration:clock.time,second=Math.floor(time);
+    const n=playerNodes(),audio=n.audio,current=state.current;if(!current||audio.readyState===0)return;
+    const duration=Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:Number(state.progress[current.key]?.duration)||0,time=ended&&duration>0?duration:Number(audio.currentTime)||0,second=Math.floor(time);
     if(!force&&state.lastSavedSecond>=0&&Math.abs(second-state.lastSavedSecond)<5)return;state.lastSavedSecond=second;
     const previous=state.progress[current.key]||{},completed=Boolean(previous.completed)||(ended||(duration>0&&(time/duration>=.9||duration-time<=120)));
     state.progress[current.key]={currentTime:time,duration,completed,replaying:Boolean(previous.completed)&&!ended,title:episodeCopy(current.episode).title,updatedAt:Date.now()};
@@ -846,17 +461,6 @@
   function restartCurrentAudio(){
     const audio=playerNodes().audio;
     if(!state.current)return;
-    if(continuousActive()&&audio.ended){
-      openPlayback(state.current.episode,{start:Number(state.context?.items[state.context.index]?.start)||0,context:state.context,itemRef:state.current.itemRef});return;
-    }
-    if(continuousActive()){
-      if(!audio.paused){playbackAutoplayWanted=false;continuousPlayer.pause()}
-      else{playbackAutoplayWanted=true;if(continuousPlayer.session.failed)continuousPlayer.retry();continuousPlayer.play()}
-      syncPlayer();return;
-    }
-    if(audio.paused&&canStartContinuous()){
-      openPlayback(state.current.episode,{start:playbackClock().time||Number(state.progress[state.current.key]?.currentTime)||0,context:state.context,itemRef:state.current.itemRef});return;
-    }
     if(!audio.paused){
       playbackAutoplayWanted=false;audio.pause();syncPlayer();return;
     }
@@ -873,7 +477,6 @@
     startCurrentAudio(playbackSequence);syncPlayer();
   }
   function resumePendingAudioWhenVisible(){
-    if(continuousActive()){if(!document.hidden)continuousPlayer.updateMediaSession(true);return}
     if(document.hidden||!playbackAutoplayWanted||playbackSourcePending||!state.current)return;
     const audio=playerNodes().audio;
     if(!audio.paused||(!playbackNeedsReload&&!audio.error&&audio.readyState!==0))return;
@@ -884,7 +487,6 @@
     if(!episode?.enclosure)return;
     const sequence=++playbackSequence;
     saveProgress(true,false);
-    stopContinuousPlayback();
     const n=playerNodes(),audio=n.audio,key=episodeKey(episode.number),record=state.progress[key]||{};
     let target=start;
     if(target===null&&Number(record.currentTime)>10&&(!record.completed||record.replaying))target=Number(record.currentTime);
@@ -900,7 +502,6 @@
     playbackAutoplayWanted=Boolean(autoplay);
     playbackNeedsReload=false;
     playbackSourcePending=false; // Clear a cancelled/older offline lookup before the synchronous path.
-    if(autoplay&&canStartContinuous()){beginContinuousPlayback(target||0);return}
     // Online episodes already have their MP3 URL in the data bundle.
     // Avoid *any* await when a track ends: Android can suspend audio between tasks.
     // Offline MP3s likewise switch synchronously if their Blob URL is already cached.
@@ -936,7 +537,6 @@
   function closePlayer(){
     ++playbackSequence;playbackAutoplayWanted=false;playbackNeedsReload=false;playbackSourcePending=false;
     saveProgress(true,false);
-    stopContinuousPlayback();
     const n=playerNodes();
     if(playbackMetadataHandler)n.audio.removeEventListener('loadedmetadata',playbackMetadataHandler);
     playbackMetadataHandler=null;
@@ -1057,9 +657,7 @@
     editorModal.addEventListener('change',event=>{const choice=event.target.closest('.editor-choice[data-ref]');if(!choice||!state.editor)return;const ref=choice.dataset.ref;if(event.target.checked){if(!state.editor.draft.includes(ref))state.editor.draft.push(ref)}else state.editor.draft=state.editor.draft.filter(item=>item!==ref);rerenderEditor()});
 
     const picker=$('#playlist-picker-v2');picker.addEventListener('click',event=>{if(event.target===picker||event.target.closest('.picker-close')||event.target.closest('.picker-cancel'))return closePlaylistPicker();if(event.target.closest('.picker-save'))return savePlaylistPicker();if(event.target.closest('.picker-new')){closePlaylistPicker();newPlaylist()}});
-    const n=playerNodes();
-    for(const event of ['play','playing','pause','timeupdate','durationchange','loadedmetadata','ended','error','ratechange','waiting','stalled'])n.audio.addEventListener(event,()=>{if(continuousActive())continuousPlayer.onAudio(event)});
-    n.play.addEventListener('click',restartCurrentAudio);n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{if(state.current)seekPlayback(Number(n.seek.value)||0)});n.audio.addEventListener('playing',()=>{playbackNeedsReload=false});n.audio.addEventListener('stalled',()=>{playbackNeedsReload=true});n.audio.addEventListener('error',()=>{playbackNeedsReload=true;if(playbackAutoplayWanted&&state.current)playbackFailure(n.audio.error)});document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePendingAudioWhenVisible()});window.addEventListener('pageshow',resumePendingAudioWhenVisible);n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=false;saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
+    const n=playerNodes();n.play.addEventListener('click',restartCurrentAudio);n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{if(state.current){try{n.audio.currentTime=Number(n.seek.value)||0}catch{}saveProgress(true,false)}});n.audio.addEventListener('playing',()=>{playbackNeedsReload=false});n.audio.addEventListener('stalled',()=>{playbackNeedsReload=true});n.audio.addEventListener('error',()=>{playbackNeedsReload=true;if(playbackAutoplayWanted&&state.current)playbackFailure(n.audio.error)});document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePendingAudioWhenVisible()});window.addEventListener('pageshow',resumePendingAudioWhenVisible);n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=false;saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
   }
 
 
@@ -1620,18 +1218,15 @@
   }
   document.addEventListener('toggle',event=>{const summary=event.target;if(summary.matches?.('.episode-summary-v2,.playlist-card')&&summary.open)parityTypeset(summary)},true);
 
-  function seekParity(delta,restart=true){if(!state.current)return;const clock=playbackClock();seekPlayback(Math.max(0,Math.min(clock.duration||Infinity,clock.time+delta)),{restart})}
+  function seekParity(delta){const audio=$('#audio-v2');if(!audio)return;const duration=Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:Infinity;audio.currentTime=Math.max(0,Math.min(duration,(Number(audio.currentTime)||0)+delta));saveProgress(true,false);syncPlayer()}
   function installParityMediaSession(){
     if(!('mediaSession'in navigator))return;const audio=$('#audio-v2');if(!audio)return;
-    try{navigator.mediaSession.setActionHandler('play',()=>{if(audio.paused||audio.ended)restartCurrentAudio()})}catch{}
-    try{navigator.mediaSession.setActionHandler('pause',()=>{playbackAutoplayWanted=false;if(continuousActive())continuousPlayer.pause();else audio.pause()})}catch{}
-    try{navigator.mediaSession.setActionHandler('seekbackward',details=>seekParity(-(details.seekOffset||10),false))}catch{}
-    try{navigator.mediaSession.setActionHandler('seekforward',details=>seekParity(details.seekOffset||10,false))}catch{}
-    try{navigator.mediaSession.setActionHandler('previoustrack',()=>seekParity(-10,false))}catch{}
-    try{navigator.mediaSession.setActionHandler('nexttrack',()=>seekParity(10,false))}catch{}
-    try{navigator.mediaSession.setActionHandler('seekto',details=>{if(typeof details.seekTime==='number'){if(continuousActive())continuousPlayer.seekTimeline(details.seekTime);else seekPlayback(details.seekTime)}})}catch{}
+    try{navigator.mediaSession.setActionHandler('seekbackward',details=>seekParity(-(details.seekOffset||10)))}catch{}
+    try{navigator.mediaSession.setActionHandler('seekforward',details=>seekParity(details.seekOffset||10))}catch{}
+    try{navigator.mediaSession.setActionHandler('previoustrack',()=>seekParity(-10))}catch{}
+    try{navigator.mediaSession.setActionHandler('nexttrack',()=>seekParity(10))}catch{}
+    try{navigator.mediaSession.setActionHandler('seekto',details=>{if(typeof details.seekTime==='number'){audio.currentTime=Math.max(0,Math.min(audio.duration||Infinity,details.seekTime));saveProgress(true,false)}})}catch{}
     const update=()=>{
-      if(continuousActive()){continuousPlayer.updateMediaSession();return}
       if(!state.current)return;try{if(typeof MediaMetadata!=='undefined')navigator.mediaSession.metadata=new MediaMetadata({title:episodeCopy(state.current.episode).title,artist:'Vedátorský podcast',album:text('Vedátorský podcast','Vedátorský podcast')})}catch{}
       try{if(audio.duration>0&&Number.isFinite(audio.duration))navigator.mediaSession.setPositionState({duration:audio.duration,playbackRate:audio.playbackRate||1,position:Math.min(audio.duration,Math.max(0,audio.currentTime||0))})}catch{}
     };
@@ -1952,7 +1547,7 @@
   function mobileSafeMp3Filename(title){return (title||'vedatorsky-podcast').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'').toLowerCase()+'.mp3'}
   const mobileFormatMb=bytes=>((Number(bytes)||0)/1048576).toFixed(1).replace('.',',')+' MB';
   async function downloadCurrentMp3(){
-    const current=state.current,n=playerNodes();if(!current||n.download.dataset.busy)return;const url=continuousActive()?await playbackUrl(current.episode):(n.audio.currentSrc||current.episode.enclosure);if(!url)return;
+    const current=state.current,n=playerNodes();if(!current||n.download.dataset.busy)return;const url=n.audio.currentSrc||current.episode.enclosure;if(!url)return;
     n.download.dataset.busy='1';n.download.setAttribute('aria-disabled','true');n.download.textContent=text('Připravuji…','Pripravujem…');n.help.textContent=text('Připravuji stažení MP3…','Pripravujem stiahnutie MP3…');
     try{
       const response=await fetch(url,{mode:'cors',cache:'no-store'});if(!response.ok)throw new Error('HTTP '+response.status);
@@ -1970,7 +1565,7 @@
     event.preventDefault();event.stopImmediatePropagation();const seconds=play.dataset.seconds===''?null:Number(play.dataset.seconds)||0;openPlayback(episode,{start:seconds,context:mobileEpisodePlaybackContext(episode),itemRef:play.dataset.ref||epRef(episode.number)});
   },true);
   $('#player-download-v2')?.addEventListener('click',event=>{event.preventDefault();downloadCurrentMp3()});
-  $('#audio-v2')?.addEventListener('ended',()=>{if(continuousActive()){playbackAutoplayWanted=false;return}if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else playbackAutoplayWanted=false});
+  $('#audio-v2')?.addEventListener('ended',()=>{if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else playbackAutoplayWanted=false});
 
   /* V2_FINAL_UI_FAQ_GUIDE_V1 */
   const finalFormatMb=bytes=>((Number(bytes)||0)/1048576).toFixed(1).replace('.',',')+' MB';
@@ -3551,7 +3146,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     return (state.data?.questions||[]).filter(item=>Number(item.episode)===number&&Number.isFinite(Number(item.seconds))).map(item=>({item,seconds:Math.max(0,Number(item.seconds)||0),order:Number(item.order)||0})).sort((a,b)=>a.seconds-b.seconds||a.order-b.order);
   }
   function playerQuestionCurrentIndex(stops){
-    const time=playbackClock().time;let index=-1;for(let i=0;i<stops.length;i++){if(stops[i].seconds<=time+0.75)index=i;else break}return index;
+    const time=Number(playerNodes().audio.currentTime)||0;let index=-1;for(let i=0;i<stops.length;i++){if(stops[i].seconds<=time+0.75)index=i;else break}return index;
   }
   function playerQuestionControlsHtml(){return '<button type="button" id="player-prev-question-v2" class="player-question-jump-v2" data-question-delta="-1"></button><button type="button" id="player-next-question-v2" class="player-question-jump-v2" data-question-delta="1"></button>'}
   function syncPlayerQuestionControls(){
@@ -3565,7 +3160,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   }
   function jumpPlayerQuestion(delta){
     const stops=playerQuestionStops();if(stops.length<2)return;const current=playerQuestionCurrentIndex(stops),targetIndex=delta<0?current-1:current+1;if(targetIndex<0||targetIndex>=stops.length)return;
-    seekPlayback(stops[targetIndex].seconds);
+    const audio=playerNodes().audio;try{audio.currentTime=stops[targetIndex].seconds}catch{}saveProgress(true,false);syncPlayer();
   }
 
   let playerFloatingFrame=0;
@@ -3694,7 +3289,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     const audio=playerNodes().audio,record=state.progress[current.key]||{};
     let time=preferredTime===null||preferredTime===undefined?NaN:Number(preferredTime);
     if(!Number.isFinite(time)){
-      const live=audio&&audio.readyState>0?playbackClock().time:NaN;
+      const live=audio&&audio.readyState>0?Number(audio.currentTime):NaN;
       time=Number.isFinite(live)?live:Number(record.currentTime)||0;
     }
     const contextItem=state.context?.items?.[state.context.index];

@@ -1,12 +1,9 @@
-name: Verify continuous audio
+name: Verify continuous audio experiment
 on:
   pull_request:
     branches: [main]
     paths:
       - 'continuous-audio.mjs'
-      - 'app-v2.js'
-      - 'tools/sync-continuous-player.mjs'
-      - 'tools/test-main-continuous-browser.mjs'
       - 'continuous-test-ui.mjs'
       - 'test-souvisle.html'
       - 'tools/test-continuous-audio-browser.mjs'
@@ -25,7 +22,6 @@ jobs:
       - name: Check isolated modules
         run: |
           node --check continuous-audio.mjs
-          node tools/sync-continuous-player.mjs --check
           node --check continuous-test-ui.mjs
           node --check tools/test-continuous-audio-browser.mjs
       - name: Install browser test dependencies

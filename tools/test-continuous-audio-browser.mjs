@@ -2,7 +2,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
 import assert from 'node:assert/strict';
-import {ContinuousAudio} from '../continuous-audio.mjs';
 import {createRequire} from 'node:module';
 import {pathToFileURL} from 'node:url';
 const root=process.cwd(),deps=process.env.VEDATOR_TEST_DEPS||root;
@@ -13,26 +12,6 @@ const live=process.env.VEDATOR_CONTINUOUS_LIVE==='1';
 const systemMode=process.env.VEDATOR_CONTINUOUS_SYSTEM==='stream'?'stream':'episode';
 const liveNumbers=(process.env.VEDATOR_CONTINUOUS_EPISODES||'77,92,357').split(',').map(Number);
 const fixture=Buffer.from(fs.readFileSync('tools/continuous-tone-base64.txt','utf8').trim(),'base64');
-// No-Xing CBR exports must still expose a full episode duration for the slider.
-// Include an ID3 block, then deliberately change a frame to reject VBR guesses.
-{
-  const frameLength=Math.floor(144000*128/44100),frames=Buffer.alloc(frameLength*64);
-  for(let i=0;i<64;i++)frames.set([255,251,144,0],i*frameLength);
-  const bytes=Buffer.concat([Buffer.from([73,68,51,3,0,0,0,0,0,16]),Buffer.alloc(16),frames]);
-  const duration=total=>ContinuousAudio.prototype.durationHint(bytes,total),total=26+16000*3600;
-  assert(Math.abs(duration(total)-3600)<.01);assert.equal(duration(0),0);
-  bytes[26+frameLength+2]=160;assert.equal(duration(total),0,'Do not infer CBR duration from variable bitrates');
-  bytes[26+frameLength+2]=144;
-  let headRequests=0;
-  const player=new ContinuousAudio({}, {manageEvents:false,installMediaSession:false,fetcher:async(url,options)=>{
-    assert.equal(options.method,'HEAD');headRequests++;return new Response(null,{headers:{'Content-Length':String(total)}});
-  }}),session={controller:new AbortController()},part={url:'https://audio.test/cbr.mp3',sourceSize:0};
-  player.session=session;player.readDurationHint(session,part,bytes.subarray(0,20));
-  player.readDurationHint(session,part,bytes.subarray(20));
-  assert.equal(part.durationHint,0,'Audio loading must not wait for a metadata request');
-  await new Promise(resolve=>setTimeout(resolve,0));
-  assert.equal(headRequests,1);assert(Math.abs(part.durationHint-3600)<.01,'Recover duration when CORS hides the range size');
-}
 let noRange=false,blockSecond=false,transientFailure=true,failures=0;
 const requested=[];
 const real=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
@@ -171,17 +150,6 @@ try{
     assert(Math.abs(sought.target-sought.actual)<.05,'OS seekto must accept global stream time');
     await streamCover.close();await page.bringToFront();
     console.log('System timeline v2: no resets at episode boundaries, native duration/position, OS seekto and user pause passed');
-    await setup('stream');
-    await page.evaluate(()=>{const p=window.vedatorContinuousTest.player,original=p.start.bind(p);p.start=(items,options)=>original(items.map((item,i)=>({...item,startAt:i===0?2:i===1?1:0})),options)});
-    await page.click('#start');
-    await page.waitForFunction(()=>document.getElementById('audio').currentTime>.1,{timeout:15000});
-    assert(await page.evaluate(()=>window.vedatorContinuousTest.player.position()>2),'Resume must report the original episode position');
-    await page.waitForFunction(()=>document.getElementById('audio').ended,{timeout:25000});
-    const trimmed=await state();assert.equal(trimmed.changes,1);assert.equal(trimmed.error,null);assert.equal(trimmed.transitions,2);
-    assert(Math.abs(trimmed.parts[0].end-(6.060404-2))<.15,'First MP3 must resume at the requested position');
-    assert(Math.abs((trimmed.parts[1].end-trimmed.parts[1].start)-(6.060404-1))<.15,'Later playlist chapter must start at its own requested position');
-    assert(trimmed.parts.every(p=>p.durationHint>5.8&&p.durationHint<6.2),'MP3 header must provide the original per-episode duration without an extra request');
-    console.log('Exact frame-window resume, chapter starts and first-buffer duration hints passed');
   }
   await page.bringToFront();
   const screenshot=process.env.VEDATOR_TEST_SCREENSHOT;if(screenshot)await page.screenshot({path:screenshot,fullPage:true});

@@ -9,9 +9,6 @@ on:
       - 'question-translations-*.js'
       - 'legacy-source-index.html'
       - 'app-v2.js'
-      - 'continuous-audio.mjs'
-      - 'tools/sync-continuous-player.mjs'
-      - 'tools/test-main-continuous-browser.mjs'
       - 'index.html'
       - 'tools/test-v2-ask*.mjs'
       - 'tools/test-v2-playback-identity.mjs'
@@ -45,7 +42,6 @@ jobs:
       - name: Verify V2 build and tests
         run: |
           node --check app-v2.js
-          node tools/sync-continuous-player.mjs --check
           node --check tools/verify-live-production.mjs
           node tools/test-live-production-verifier.mjs
           for f in episode-*-summary.js; do node --check "$f"; done
@@ -85,7 +81,6 @@ jobs:
         run: |
           npm install --prefix "$RUNNER_TEMP/vedator-mathjax-test" --no-audit --no-fund mathjax-full@3.2.2 @sparticuz/chromium@153.0.0 puppeteer-core@25.12.0
           VEDATOR_TEST_DEPS="$RUNNER_TEMP/vedator-mathjax-test" node tools/test-v2-mathjax-browser.mjs
-          VEDATOR_TEST_DEPS="$RUNNER_TEMP/vedator-mathjax-test" node tools/test-main-continuous-browser.mjs
       - name: Verify production PWA preparation
         run: |
           node tools/prepare-production-index.mjs
