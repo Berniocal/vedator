@@ -846,6 +846,9 @@
   function restartCurrentAudio(){
     const audio=playerNodes().audio;
     if(!state.current)return;
+    if(continuousActive()&&audio.ended){
+      openPlayback(state.current.episode,{start:Number(state.context?.items[state.context.index]?.start)||0,context:state.context,itemRef:state.current.itemRef});return;
+    }
     if(continuousActive()){
       if(!audio.paused){playbackAutoplayWanted=false;continuousPlayer.pause()}
       else{playbackAutoplayWanted=true;if(continuousPlayer.session.failed)continuousPlayer.retry();continuousPlayer.play()}
@@ -1620,7 +1623,7 @@
   function seekParity(delta,restart=true){if(!state.current)return;const clock=playbackClock();seekPlayback(Math.max(0,Math.min(clock.duration||Infinity,clock.time+delta)),{restart})}
   function installParityMediaSession(){
     if(!('mediaSession'in navigator))return;const audio=$('#audio-v2');if(!audio)return;
-    try{navigator.mediaSession.setActionHandler('play',()=>{if(continuousActive())continuousPlayer.play();else if(audio.paused)restartCurrentAudio()})}catch{}
+    try{navigator.mediaSession.setActionHandler('play',()=>{if(audio.paused||audio.ended)restartCurrentAudio()})}catch{}
     try{navigator.mediaSession.setActionHandler('pause',()=>{playbackAutoplayWanted=false;if(continuousActive())continuousPlayer.pause();else audio.pause()})}catch{}
     try{navigator.mediaSession.setActionHandler('seekbackward',details=>seekParity(-(details.seekOffset||10),false))}catch{}
     try{navigator.mediaSession.setActionHandler('seekforward',details=>seekParity(details.seekOffset||10,false))}catch{}

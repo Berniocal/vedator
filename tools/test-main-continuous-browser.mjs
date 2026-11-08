@@ -74,6 +74,10 @@ try{
   assert.equal(final.events.filter(e=>e.name==='ended').length,1);assert(final.nativePositions.some(p=>p&&p.position>12),'OS must keep the global stream clock');
   await cover.close();await page.bringToFront();await page.click('#player-download-v2');
   await page.waitForFunction(()=>window.downloads.length===1);assert(requests.some(r=>r.url==='/tone-1703.mp3'&&!r.range),'MP3 download must fetch the episode, not the MediaSource blob');
+  await page.click('#player-play-v2');
+  await page.waitForFunction(()=>document.getElementById('audio-v2').currentTime>.1);
+  const replay=await snapshot();assert(replay.src.endsWith('/tone-1703.mp3'),'Replay after queue end must start the last episode, not rewind the entire queue');
+  assert.equal(replay.last.episode,1703);assert.equal(replay.last.context.index,2);
   const restored={...final.last,episode:41,time:2,itemRef:ref(41),context:{...final.last.context,index:1}};
   await setup({vedatorLastPlaybackV1:restored,vedatorPlaybackProgressV1:{'episode-41':{currentTime:2,duration:6.06,completed:false,updatedAt:1}}});
   await page.waitForFunction(()=>document.getElementById('audio-v2').readyState>0&&document.getElementById('audio-v2').paused);
