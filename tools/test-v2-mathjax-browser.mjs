@@ -49,6 +49,8 @@ try{
   });
   await page.evaluateOnNewDocument(()=>{
     localStorage.setItem('vedator-ui-language-v1','cz');
+    // This layout/seek test uses fake native media; real MSE is tested separately.
+    Object.defineProperty(window,'MediaSource',{value:undefined,configurable:true});
     HTMLMediaElement.prototype.play=()=>Promise.resolve();
     HTMLMediaElement.prototype.pause=()=>{};
     HTMLMediaElement.prototype.load=function(){this.currentTime=0;queueMicrotask(()=>this.dispatchEvent(new Event('loadedmetadata')))};

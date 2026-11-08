@@ -1,11 +1,11 @@
-// Isolated continuous-stream experiment. Never replaces a source at an episode boundary.
+// Shared continuous-stream engine. Never replaces a source at an episode boundary.
 export class ContinuousAudio extends EventTarget {
-  constructor(audio,{lead=180,keepBehind=45,chunkSize=262144,fetcher=globalThis.fetch.bind(globalThis),log=()=>{},systemTimeline='episode'}={}){
-    super();Object.assign(this,{audio,lead,keepBehind,chunkSize,fetcher,log,systemTimeline});this.session=null;
+  constructor(audio,{lead=180,keepBehind=45,chunkSize=262144,fetcher=globalThis.fetch.bind(globalThis),log=()=>{},systemTimeline='episode',manageEvents=true,installMediaSession=true,diagnostics=true}={}){
+    super();Object.assign(this,{audio,lead,keepBehind,chunkSize,fetcher,log,systemTimeline,diagnostics});this.session=null;
     const events=['timeupdate','playing','pause','waiting','stalled','ended','error','ratechange'];
     if(systemTimeline==='stream')events.push('loadedmetadata','durationchange');
-    for(const event of events)audio.addEventListener(event,()=>this.onAudio(event));
-    if(systemTimeline==='stream'){
+    if(manageEvents)for(const event of events)audio.addEventListener(event,()=>this.onAudio(event));
+    if(manageEvents&&systemTimeline==='stream'){
       document.addEventListener('visibilitychange',()=>{
         if(!this.session)return;
         this.mediaSnapshot('visibility');
@@ -13,7 +13,7 @@ export class ContinuousAudio extends EventTarget {
       });
       globalThis.addEventListener('pageshow',()=>{if(this.session)this.updateMediaSession(true)});
     }
-    if(globalThis.navigator?.mediaSession){
+    if(installMediaSession&&globalThis.navigator?.mediaSession){
       const systemSeekBy=delta=>systemTimeline==='stream'?this.seekTimeline(this.audio.currentTime+delta):this.seekBy(delta);
       const handlers={play:()=>this.play(),pause:()=>this.pause(),seekbackward:d=>systemSeekBy(-(d.seekOffset||10)),seekforward:d=>systemSeekBy(d.seekOffset||10),seekto:d=>systemTimeline==='stream'?this.seekTimeline(d.seekTime):this.seek(d.seekTime)};
       for(const [action,handler] of Object.entries(handlers))try{navigator.mediaSession.setActionHandler(action,handler)}catch{}
@@ -68,18 +68,20 @@ export class ContinuousAudio extends EventTarget {
   bufferEnd(){const ranges=this.ranges();return ranges.at(-1)?.[1]||0}
   ahead(){return Math.max(0,this.bufferEnd()-(this.audio.currentTime||0))}
   part(){const s=this.session;return s?.parts.find(part=>part.index===s.index)||null}
-  position(){const p=this.part();return p?Math.max(0,this.audio.currentTime-p.start):0}
+  position(){const p=this.part();return p?Math.max(p.skip||0,this.audio.currentTime-p.start+(p.skip||0)):0}
   seek(seconds){
     const s=this.session,p=this.part();if(!s||!p||!Number.isFinite(seconds))return false;
-    return this.seekTimeline(p.start+Math.max(0,seconds));
+    if(seconds<(p.skip||0))return false;
+    return this.seekTimeline(p.start+Math.max(0,seconds)-(p.skip||0));
   }
   seekTimeline(seconds){
     const s=this.session;if(!s||!Number.isFinite(seconds))return false;
     const absolute=Math.max(0,seconds);
     if(this.ranges().some(([start,end])=>absolute>=start&&absolute<end-.03)){
+      this.emit('beforeseek',{position:absolute});
       const destination=s.parts.findLast(p=>absolute>=p.start&&(p.end==null||absolute<p.end));
       this.audio.currentTime=absolute;
-      if(destination&&destination.index!==s.index){s.index=destination.index;this.emit('track',{item:s.items[s.index],index:s.index,quick:s.quick&&s.index===0})}
+      if(destination&&destination.index!==s.index){s.index=destination.index;this.emit('track',{item:s.items[s.index],index:s.index,quick:s.quick&&s.index===0,automatic:false})}
       this.write('POSUN ve stejném proudu na '+absolute.toFixed(1)+' s');this.onAudio('timeupdate');return true;
     }
     // Do not fall back to a new native MP3 source when a seek is unavailable.
@@ -100,17 +102,17 @@ export class ContinuousAudio extends EventTarget {
       if(prior?.end==null||!next||time<prior.end)break;
       s.index++;s.transitionCount++;
       this.write('PŘECHOD '+s.items[s.index-1].number+' → '+s.items[s.index].number+'; src beze změny; hidden='+document.hidden);
-      this.emit('track',{item:s.items[s.index],index:s.index,quick:false});
+      this.emit('track',{item:s.items[s.index],index:s.index,quick:false,automatic:true});
     }
     if(event==='playing'||event==='waiting'||event==='stalled'||event==='pause'||event==='ended')this.write(event.toUpperCase()+' t='+time.toFixed(2)+' ahead='+this.ahead().toFixed(1)+' hidden='+document.hidden);
     if(event==='pause'&&this.audio.paused)s.wantPlay=false;
     if(event==='ended')s.wantPlay=false;
     this.updateMediaSession();
-    if(this.systemTimeline==='stream'&&(s.snapshotIndex!==s.index||Date.now()-(s.snapshotTime||0)>30000))this.mediaSnapshot('playback');
+    if(this.diagnostics&&this.systemTimeline==='stream'&&(s.snapshotIndex!==s.index||Date.now()-(s.snapshotTime||0)>30000))this.mediaSnapshot('playback');
     this.emit('update');
   }
   mediaSnapshot(reason){
-    const s=this.session;if(!s)return;s.snapshotIndex=s.index;s.snapshotTime=Date.now();
+    const s=this.session;if(!s||!this.diagnostics)return;s.snapshotIndex=s.index;s.snapshotTime=Date.now();
     this.write('MEDIA '+reason+' '+JSON.stringify({episode:s.items[s.index]?.number,hidden:document.hidden,paused:this.audio.paused,ended:this.audio.ended,readyState:this.audio.readyState,time:this.audio.currentTime,duration:String(this.audio.duration),declaredState:globalThis.navigator?.mediaSession?.playbackState,timeline:this.systemTimeline,position:s.lastMediaPosition||null,ahead:this.ahead()}));
   }
   updateMediaSession(force=false){
@@ -121,7 +123,7 @@ export class ContinuousAudio extends EventTarget {
       const playbackState=this.audio.paused||this.audio.ended?'paused':'playing';
       if(this.systemTimeline!=='stream'||force||s.declaredState!==playbackState){session.playbackState=playbackState;s.declaredState=playbackState}
       if((force||s.metadataIndex!==s.index)&&typeof MediaMetadata!=='undefined'){
-        session.metadata=new MediaMetadata({title:item.title,artist:'Vedátorský podcast — souvislý test',artwork:[{src:new URL('./icon-512.png',location.href).href,sizes:'512x512',type:'image/png'}]});s.metadataIndex=s.index;
+        session.metadata=new MediaMetadata({title:item.title,artist:'Vedátorský podcast',artwork:[{src:new URL('./icon-512.png',location.href).href,sizes:'512x512',type:'image/png'}]});s.metadataIndex=s.index;
       }
       if(this.systemTimeline==='stream'){
         // The OS controls ONE MSE stream, not a finite episode followed by a reset.
@@ -172,7 +174,7 @@ export class ContinuousAudio extends EventTarget {
     }
     this.emit('update');
   }
-  async request(s,url,headers={},headersOnly=false){
+  async request(s,url,headers={},headersOnly=false,streaming=false){
     let last;
     for(let attempt=0;attempt<3;attempt++){
       if(s.controller.signal.aborted)throw new DOMException('Stopped','AbortError');
@@ -180,13 +182,13 @@ export class ContinuousAudio extends EventTarget {
       s.controller.signal.addEventListener('abort',abort,{once:true});
       const timeout=setTimeout(()=>controller.abort(),20000);
       try{
-        const response=await this.fetcher(url,{mode:'cors',cache:'no-store',headers,signal:controller.signal});
+        const response=await this.fetcher(url,{method:headersOnly?'HEAD':'GET',mode:'cors',cache:'no-store',headers,signal:controller.signal});
         if(response.status===416){await response.body?.cancel();return {status:416,bytes:new Uint8Array()}}
         if(!response.ok)throw Error('HTTP '+response.status);
         if(headersOnly){const size=Number(response.headers.get('content-length'))||0;await response.body?.cancel();return {size}}
         // A Range server must not send a larger response than the requested block.
         // If it ignores Range (200), stream it incrementally rather than buffer the whole MP3.
-        if(response.status===200)return {status:200,response};
+        if(response.status===200||streaming)return {status:response.status,response,total:Number(response.headers.get('content-length'))||0};
         const bytes=new Uint8Array(await response.arrayBuffer());
         if(bytes.length>this.chunkSize)throw Error('Server vrátil příliš velký MP3 blok');
         const range=response.headers.get('content-range')?.match(/^bytes (\d+)-(\d+)\/(\d+)$/);
@@ -208,6 +210,61 @@ export class ContinuousAudio extends EventTarget {
     if(!size)throw Error('Server nesdělil velikost MP3 pro rychlý test. Zvol přehrání celého dílu.');
     const offset=Math.max(0,size-s.tailBytes);s.firstSize=size;this.write('RYCHLÝ TEST: posledních '+(size-offset)+' B prvního dílu');return offset;
   }
+  durationHint(bytes,total=0){
+    // Xing/Info headers contain a frame count. Reading this first-buffer hint
+    // avoids another audio element or a metadata network request at startup.
+    const u32=i=>((bytes[i]*16777216)+(bytes[i+1]<<16)+(bytes[i+2]<<8)+bytes[i+3])>>>0;
+    for(let i=0;i<Math.min(bytes.length-48,262144);i++){
+      if(bytes[i]!==255||(bytes[i+1]&224)!==224||((bytes[i+1]>>1)&3)!==1)continue;
+      const version=(bytes[i+1]>>3)&3,rateIndex=(bytes[i+2]>>2)&3;if(version===1||rateIndex===3)continue;
+      const rate=[44100,48000,32000][rateIndex]/(version===3?1:version===2?2:4),mono=(bytes[i+3]>>6)===3;
+      const base=i+4+(version===3?(mono?17:32):(mono?9:17));
+      for(const j of [base,base+2]){
+        if(j+12>bytes.length)continue;
+        const tag=String.fromCharCode(...bytes.subarray(j,j+4));
+        if((tag==='Info'||tag==='Xing')&&(u32(j+4)&1)){
+          const duration=u32(j+8)*(version===3?1152:576)/rate;
+          if(duration>0&&duration<604800)return duration;
+        }
+      }
+    }
+    // Some newer CBR exports have no Xing header. Use the response's existing
+    // size only after checking consecutive MP3 frames with the same bitrate.
+    let offset=0;
+    if(bytes[0]===73&&bytes[1]===68&&bytes[2]===51){
+      offset=10;for(let i=6;i<10;i++)offset+=(bytes[i]&127)*2**(7*(9-i));
+      if(bytes[3]===4&&(bytes[5]&16))offset+=10;
+    }
+    const first=offset;let count=0,bitrate=0,signature='';
+    while(offset+4<=bytes.length&&count<64){
+      const a=bytes[offset+1],b=bytes[offset+2],version=(a>>3)&3,rateIndex=(b>>2)&3;
+      if(bytes[offset]!==255||(a&224)!==224||((a>>1)&3)!==1||version===1||rateIndex===3)break;
+      const table=version===3?[0,32,40,48,56,64,80,96,112,128,160,192,224,256,320]:[0,8,16,24,32,40,48,56,64,80,96,112,128,144,160];
+      const nextBitrate=table[b>>4]||0,nextSignature=version+':'+rateIndex;
+      if(!nextBitrate||(count&&(nextBitrate!==bitrate||nextSignature!==signature)))return 0;
+      bitrate=nextBitrate;signature=nextSignature;
+      const rate=[44100,48000,32000][rateIndex]/(version===3?1:version===2?2:4);
+      offset+=Math.floor((version===3?144000:72000)*bitrate/rate)+((b>>1)&1);count++;
+    }
+    const duration=(total-first)*8/(bitrate*1000);
+    return count>=12&&duration>0&&duration<604800?duration:0;
+  }
+  readDurationHint(s,part,bytes){
+    // Streaming reads can split a large ID3 tag before the first MP3 frame.
+    const prior=part.headerBytes||new Uint8Array(),take=Math.min(bytes.length,262144-prior.length);
+    const header=new Uint8Array(prior.length+take);header.set(prior);header.set(bytes.subarray(0,take),prior.length);part.headerBytes=header;
+    part.durationHint=this.durationHint(header,part.sourceSize);
+    if(part.durationHint){part.headerBytes=null;return}
+    // Podbean's CORS policy can hide Content-Range. A background HEAD provides
+    // the full size for headerless CBR exports without delaying audio or startup.
+    if(part.sourceSize||part.durationRequested)return;
+    part.durationRequested=true;
+    void this.request(s,part.url,{},true).then(({size})=>{
+      if(this.session!==s||s.controller.signal.aborted||!size)return;
+      part.sourceSize=size;part.durationHint=this.durationHint(part.headerBytes||header,size);
+      if(part.durationHint)part.headerBytes=null;this.emit('update');
+    }).catch(()=>{});
+  }
   async pump(s){
     if(s.pumping||this.session!==s||s.complete)return;s.pumping=true;s.failed=false;
     try{
@@ -215,15 +272,21 @@ export class ContinuousAudio extends EventTarget {
         const item=s.items[s.loadIndex];let part=s.parts.find(p=>p.index===s.loadIndex);
         if(!part){
           if(s.loadIndex===0&&s.quick)s.offset=await this.tailOffset(s,item);
-          part={index:s.loadIndex,start:this.bufferEnd(),end:null,bytes:0,sourceSize:s.loadIndex===0?s.firstSize||0:0};s.parts.push(part);
+          const url=item.resolveUrl?await item.resolveUrl():item.url;
+          if(this.session!==s||s.controller.signal.aborted)return;
+          const skip=Math.max(0,Number(item.startAt)||0),start=this.bufferEnd();
+          if(skip){s.buffer.abort();s.buffer.timestampOffset=start-skip;s.buffer.appendWindowStart=start}
+          part={index:s.loadIndex,start,end:null,bytes:0,sourceSize:s.loadIndex===0?s.firstSize||0:0,skip,url,durationHint:0};s.parts.push(part);
           this.write('NAČÍTÁM díl '+item.number+'; timeline='+part.start.toFixed(3)+'; byte='+s.offset);
         }
         await this.waitForRoom(s);if(this.session!==s||s.controller.signal.aborted)return;
-        const from=s.offset,result=await this.request(s,item.url,{Range:'bytes='+from+'-'+(from+this.chunkSize-1)});
+        const from=s.offset,linear=part.skip>0&&from===0;
+        const result=await this.request(s,part.url,linear?{}:{Range:'bytes='+from+'-'+(from+this.chunkSize-1)},false,linear);
         if(this.session!==s||s.controller.signal.aborted){await result.response?.body?.cancel();return}
         let eof=result.status===416;
-        if(result.status===200){
+        if(result.response){
           if(from!==0){await result.response.body?.cancel();throw Error('Server nepodporuje pokračování po částech (ignoruje Range).')}
+          if(result.total)part.sourceSize=result.total;
           const reader=result.response.body.getReader();
           const cancel=()=>{reader.cancel().catch(()=>{})};s.controller.signal.addEventListener('abort',cancel,{once:true});
           try{
@@ -235,12 +298,14 @@ export class ContinuousAudio extends EventTarget {
               let chunk;try{chunk=await reader.read()}finally{clearTimeout(readTimer)}
               if(timedOut)throw Error('Server přestal posílat zvuková data');
               const {done,value}=chunk;if(done){eof=true;break}
+              if(!part.durationHint&&part.bytes<262144)this.readDurationHint(s,part,value);
               await this.append(s,value);s.offset+=value.length;part.bytes+=value.length;
             }
           }finally{s.controller.signal.removeEventListener('abort',cancel);await reader.cancel().catch(()=>{})}
         }else if(result.bytes.length){
-          await this.append(s,result.bytes);s.offset+=result.bytes.length;part.bytes+=result.bytes.length;
           if(result.total)part.sourceSize=result.total;
+          if(!part.durationHint&&from===0)this.readDurationHint(s,part,result.bytes);
+          await this.append(s,result.bytes);s.offset+=result.bytes.length;part.bytes+=result.bytes.length;
           eof=result.bytes.length<this.chunkSize||(part.sourceSize>0&&s.offset>=part.sourceSize);
         }else eof=true;
         if(this.session!==s||s.controller.signal.aborted)return;
