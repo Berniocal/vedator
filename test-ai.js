@@ -13,6 +13,10 @@ function isVedatorModelWeights(req){
   return isVedatorModelFile(req) && /\/onnx\/model_(?:quantized|int8|uint8|q8)\.onnx(?:[?#]|$)/.test(modelPath(req));
 }
 const DB_NAME = "vedator-ai-index-v1";
+// V telefonu se indexuje jen malý předvýběr, ne všech 5 000+ shrnutí.
+const CANDIDATE_LIMIT = 24;
+const BATCH_SIZE = 3;
+const EMBED_CHARS = 480;
 const MODEL_LIBRARY = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1";
 const $ = id => document.getElementById(id);
 const state = { installed:false, busy:false, entries:[], vectors:new Map(), extractor:null, dbPromise:null, library:null, dataReady:false, remoteDownload:false };
@@ -95,6 +99,8 @@ async function loadLibrary(){
   // This library version uses the shared default cache. Deletion is scoped to MODEL only.
   lib.env.allowLocalModels=false;
   lib.env.allowRemoteModels=true;
+  // Zabránit vysoké paralelizaci WASM na mobilech s omezenou RAM.
+  if(lib.env.backends?.onnx?.wasm)lib.env.backends.onnx.wasm.numThreads=1;
   // Při běžném vyhledávání nedovolíme model tiše znovu stáhnout.
   lib.env.fetch=async (url,options)=>{
     const address=String(url?.url||url);
@@ -140,7 +146,7 @@ async function install(){
     $("model-status").textContent="✓ Model je uložený v tomto prohlížeči";
     $("download-progress").value=100;
     status("download-status","AI byla stažena a uložena. Můžeš začít hledat.","ok");
-    status("search-status","Připraveno. První dotaz vytvoří místní index shrnutí.");
+    status("search-status","Připraveno. AI bude porovnávat jen vybrané pasáže, nikoli celý katalog.");
   }catch(e){status("download-status","Stažení selhalo: "+(e.message||e),"error");state.installed=await cacheInstalled();}
   finally{setBusy(false);}
 }
@@ -155,20 +161,33 @@ function openDb(){
   }).catch(e=>{console.warn("AI index nebude trvale uložen",e);return null;});
   return state.dbPromise;
 }
-async function loadSavedVectors(){
-  const db=await openDb();if(!db)return;
-  const records=await new Promise((resolve,reject)=>{
-    const req=db.transaction("vectors","readonly").objectStore("vectors").getAll();
-    req.onsuccess=()=>resolve(req.result||[]);req.onerror=()=>reject(req.error);
-  });
-  for(const item of records)state.vectors.set(item.key,item.vector);
-}
-async function saveVector(key,vector){
+async function loadSavedVectors(keys){
+  // Čteme jen vektory pro aktuálních 24 kandidátů; nikdy celé historické úložiště.
+  const missing=[...new Set(keys)].filter(key=>!state.vectors.has(key));
+  if(!missing.length)return;
   const db=await openDb();if(!db)return;
   await new Promise((resolve,reject)=>{
+    const tx=db.transaction("vectors","readonly");
+    const store=tx.objectStore("vectors");
+    for(const key of missing){
+      const req=store.get(key);
+      req.onsuccess=()=>{if(req.result?.vector)state.vectors.set(key,req.result.vector);};
+    }
+    tx.oncomplete=()=>resolve();
+    tx.onerror=()=>reject(tx.error);
+    tx.onabort=()=>reject(tx.error||Error("Index nebylo možné přečíst."));
+  });
+}
+async function saveVectors(entries,vectors){
+  const db=await openDb();if(!db)return;
+  // Jedna transakce za dávku místo samostatné transakce pro každý řádek.
+  await new Promise((resolve,reject)=>{
     const tx=db.transaction("vectors","readwrite");
-    tx.objectStore("vectors").put({key,vector});
-    tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);
+    const store=tx.objectStore("vectors");
+    entries.forEach((entry,i)=>store.put({key:entry.key,vector:vectors[i]}));
+    tx.oncomplete=()=>resolve();
+    tx.onerror=()=>reject(tx.error);
+    tx.onabort=()=>reject(tx.error||Error("Index nebylo možné uložit."));
   });
 }
 async function deleteDb(){
@@ -201,45 +220,101 @@ async function removeModel(){
   }catch(e){status("download-status","Smazání se nepodařilo úplně dokončit: "+(e.message||e),"error");state.installed=await cacheInstalled();}
   finally{setBusy(false);}
 }
-function lexicalScore(question,entry){
-  const q=tokens(question),doc=tokens(entry.title+" "+entry.passage);
-  let n=0;for(const t of q)if(doc.has(t))n++;
-  return q.size?n/q.size:0;
+function stemToken(value){
+  const x=norm(value);
+  if(x.length>=8)return x.slice(0,5);
+  if(x.length>=5)return x.slice(0,4);
+  return x;
 }
-function showPreliminary(question){
-  const list=state.entries.map(entry=>({entry,score:lexicalScore(question,entry)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,4);
-  if(list.length){renderResults(list,"Orientační shody slov; AI právě připravuje významové vyhledávání. Výsledky se ještě změní.",true);}
+const RELATED_TERMS=[
+  ["cerna","cerny","cerne","diry","dira","dirou","horizont","singularita","gravitace"],
+  ["svetlo","foton","zareni","elektromagneticke"],
+  ["cas","dilatace","relativita","casoprostor"],
+  ["vesmir","kosmos","kosmicky","galaxie"],
+  ["slunce","slunecni","hvezda"],
+  ["atom","elektron","proton","jadro"],
+  ["teplota","teplo","zahrivani","chlazeni"],
+  ["rychlost","zrychleni","pohyb"],
+  ["pamet","mozek","neuron","vedomi"],
+  ["dna","gen","genetika","genom"],
+  ["evoluce","prirodni","vyber","mutace"],
+  ["energie","prace","vykon"]
+].map(group=>new Set(group.map(stemToken)));
+const entryTermCache=new WeakMap();
+function entryTerms(entry){
+  let termSet=entryTermCache.get(entry);
+  if(!termSet){
+    termSet={title:new Set([...tokens(entry.title)].map(stemToken)),full:new Set([...tokens(entry.passage)].map(stemToken))};
+    entryTermCache.set(entry,termSet);
+  }
+  return termSet;
+}
+function queryTermWeights(question){
+  const terms=[...tokens(question)].map(stemToken);
+  const weights=new Map();
+  for(const term of terms)weights.set(term,1);
+  // Příbuzná slova dostanou nižší váhu než skutečné slovo z otázky.
+  for(const group of RELATED_TERMS){
+    if(!terms.some(term=>group.has(term)))continue;
+    for(const term of group)if(!weights.has(term))weights.set(term,.20);
+  }
+  return weights;
+}
+function lexicalScore(question,entry,weights){
+  weights=weights||queryTermWeights(question);
+  if(!weights.size)return 0;
+  const terms=entryTerms(entry);
+  let score=0,matched=0;
+  for(const [term,weight] of weights){
+    if(terms.title.has(term)){score+=weight*1.8;matched++;}
+    else if(terms.full.has(term)){score+=weight;matched++;}
+  }
+  const phrase=norm(question).trim();
+  if(phrase.length>=8 && norm(entry.passage).includes(phrase))score+=2;
+  // Oceňujeme pokrytí více různých slov a souvislost v titulku.
+  return matched?score + Math.min(matched,5)*.10:0;
+}
+function shortlist(question){
+  const weights=queryTermWeights(question);
+  const matches=state.entries.map(entry=>({entry,lexical:lexicalScore(question,entry,weights)}))
+    .filter(item=>item.lexical>0)
+    .sort((a,b)=>b.lexical-a.lexical || b.entry.episode-a.entry.episode);
+  return matches.slice(0,CANDIDATE_LIMIT);
+}
+function showPreliminary(candidates){
+  if(candidates.length)renderResults(candidates.slice(0,5).map(item=>({entry:item.entry,score:item.lexical})),
+    "Rychle nalezené související pasáže. AI teď zpřesňuje jejich pořadí.",true);
 }
 async function embed(texts){
   const out=await state.extractor(texts,{pooling:"mean",normalize:true});
-  const dims=out.dims||[];
   const batch=texts.length;
   const dimension=out.data.length/batch;
   if(!Number.isInteger(dimension)||dimension<8)throw Error("Neočekávaný rozměr vektoru modelu.");
   const result=[];
-  for(let i=0;i<batch;i++)result.push(Array.from(out.data.slice(i*dimension,(i+1)*dimension)));
+  for(let i=0;i<batch;i++)result.push(new Float32Array(out.data.slice(i*dimension,(i+1)*dimension)));
+  if(typeof out.dispose==="function")out.dispose();
   return result;
 }
-async function buildIndex(){
-  const all=state.entries,progress=$("index-progress");
-  progress.classList.remove("hidden");progress.value=0;
-  await loadSavedVectors();
-  let indexed=0;
-  for(const entry of all)if(state.vectors.has(entry.key))indexed++;
-  progress.value=Math.round(indexed*100/all.length);
-  status("search-status","Připravuji významový index: "+indexed+" / "+all.length+" pasáží…");
-  for(let i=0;i<all.length;i+=5){
-    const batch=all.slice(i,i+5).filter(e=>!state.vectors.has(e.key));
-    if(batch.length){
-      const vectors=await embed(batch.map(e=>"passage: "+e.passage));
-      for(let j=0;j<batch.length;j++){
-        state.vectors.set(batch[j].key,vectors[j]);
-        await saveVector(batch[j].key,vectors[j]);
-      }
-      indexed+=batch.length;
-    }
-    progress.value=Math.round(indexed*100/all.length);
-    if(i%20===0 || indexed===all.length){status("search-status","Indexuji shrnutí: "+indexed+" / "+all.length+" ("+Math.round(indexed*100/all.length)+" %). Postup se ukládá.");await sleepFrame();}
+async function prepareCandidateVectors(candidates){
+  const entries=candidates.map(item=>item.entry);
+  const progress=$("index-progress");
+  progress.classList.remove("hidden");
+  await loadSavedVectors(entries.map(item=>item.key));
+  const missing=entries.filter(entry=>!state.vectors.has(entry.key));
+  let indexed=entries.length-missing.length;
+  progress.value=Math.round(indexed*100/entries.length);
+  if(!missing.length){status("search-status","Nalezené pasáže už jsou v místní mezipaměti.");return;}
+  status("search-status","AI porovnává jen "+entries.length+" vybraných pasáží (nikoli všech "+state.entries.length+").");
+  for(let i=0;i<missing.length;i+=BATCH_SIZE){
+    const batch=missing.slice(i,i+BATCH_SIZE);
+    // Delší shrnutí jsou pro model omezena, původní úplný text zůstává pro odpověď.
+    const vectors=await embed(batch.map(e=>"passage: "+e.passage.slice(0,EMBED_CHARS)));
+    for(let j=0;j<batch.length;j++)state.vectors.set(batch[j].key,vectors[j]);
+    try{await saveVectors(batch,vectors);}catch(error){console.warn("AI vektory se neuložily, vyhledávání pokračuje",error);}
+    indexed+=batch.length;
+    progress.value=Math.round(indexed*100/entries.length);
+    status("search-status","Zpřesňuji výsledky pomocí AI: "+indexed+" / "+entries.length+".");
+    await sleepFrame();
   }
   progress.value=100;
 }
@@ -282,22 +357,32 @@ async function ask(question){
   if(state.busy||!state.installed||!state.dataReady)return;
   setBusy(true);
   $("results").classList.add("hidden");
+  $("index-progress").classList.add("hidden");
   try{
     if(!await cacheInstalled())throw Error("Model už není uložen. Stáhni ho znovu ručně.");
-    showPreliminary(question);
-    status("search-status","Načítám místní AI…");
+    const candidates=shortlist(question);
+    if(!candidates.length){
+      status("search-status","Ve shrnutích jsem nenašel související pojmy. Zkus otázku upřesnit nebo použít jiné výrazy.");
+      return;
+    }
+    showPreliminary(candidates);
+    status("search-status","Načítám místní AI pro upřesnění výsledků…");
+    await sleepFrame();
     await loadExtractor(false);
-    await buildIndex();
-    status("search-status","Porovnávám tvoji otázku s významem shrnutí…");
+    // Dotaz nejdřív; žádný velký index ani tisíce výpočtů.
     const query=(await embed(["query: "+question]))[0];
-    const scored=state.entries.map(entry=>{
-      const vector=state.vectors.get(entry.key);
-      return {entry,score:vector?dot(query,vector)+0.04*lexicalScore(question,entry):-1};
-    }).sort((a,b)=>b.score-a.score);
-    renderResults(scored.slice(0,5),"Významově nejbližší pasáže z českých shrnutí. Texty níže jsou převzaté ze zdrojových shrnutí.");
-    status("search-status","Hotovo. Index se při dalších dotazech znovu nepočítá.","ok");
-  }catch(e){status("search-status","AI vyhledávání selhalo: "+(e.message||e),"error");console.error(e);}
-  finally{setBusy(false);}
+    await prepareCandidateVectors(candidates);
+    const scored=candidates.map(item=>({
+      entry:item.entry,
+      score:dot(query,state.vectors.get(item.entry.key)) + Math.min(.06,item.lexical*.01)
+    })).sort((a,b)=>b.score-a.score);
+    renderResults(scored.slice(0,5),
+      "Významově seřazené pasáže z vybraných shrnutí. Texty níže jsou převzaté ze zdrojových shrnutí.");
+    status("search-status","Hotovo. Bez indexování celého katalogu, další dotazy mohou využít uložené výpočty.","ok");
+  }catch(e){
+    status("search-status","AI vyhledávání selhalo: "+(e.message||e),"error");
+    console.error(e);
+  }finally{setBusy(false);}
 }
 async function start(){
   $("theme").addEventListener("click",()=>{
