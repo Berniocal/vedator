@@ -99,9 +99,10 @@ public class PlaybackService extends MediaLibraryService {
     }
     private final class LibraryCallback implements MediaLibrarySession.Callback {
         @Override public MediaSession.ConnectionResult onConnect(@NonNull MediaSession s,@NonNull MediaSession.ControllerInfo c){
-            MediaSession.ConnectionResult result=MediaLibrarySession.Callback.super.onConnect(s,c);
-            if(c.getUid()!=android.os.Process.myUid())return result;
-            return new MediaSession.ConnectionResult.AcceptedResultBuilder(s).setAvailableSessionCommands(result.availableSessionCommands.buildUpon().add(new SessionCommand(COMMAND,Bundle.EMPTY)).build()).build();
+            MediaSession.ConnectionResult.AcceptedResultBuilder builder=new MediaSession.ConnectionResult.AcceptedResultBuilder(s,c);
+            if(c.getUid()==android.os.Process.myUid())builder.setAvailableSessionCommands(MediaSession.ConnectionResult.DEFAULT_SESSION_AND_LIBRARY_COMMANDS.buildUpon().add(new SessionCommand(COMMAND,Bundle.EMPTY)).build()).setAvailablePlayerCommands(MediaSession.ConnectionResult.DEFAULT_PLAYER_COMMANDS);
+            else if(c.getPackageName().equals("com.google.android.projection.gearhead"))builder.setAvailableSessionCommands(MediaSession.ConnectionResult.DEFAULT_SESSION_AND_LIBRARY_COMMANDS).setAvailablePlayerCommands(MediaSession.ConnectionResult.DEFAULT_PLAYER_COMMANDS);
+            return builder.build();
         }
         @Override public ListenableFuture<SessionResult> onCustomCommand(@NonNull MediaSession s,@NonNull MediaSession.ControllerInfo c,@NonNull SessionCommand command,@NonNull Bundle args){
             if(!command.customAction.equals(COMMAND)||c.getUid()!=android.os.Process.myUid())return Futures.immediateFuture(new SessionResult(SessionResult.RESULT_ERROR_PERMISSION_DENIED));

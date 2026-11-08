@@ -55,7 +55,7 @@ public class PlaybackDeviceTest {
         JSONObject progress=Store.object(store.get(Store.PROGRESS,"{}"));assertTrue(progress.getJSONObject("episode-9").getBoolean("completed"));assertTrue(progress.getJSONObject("episode-41").getBoolean("completed"));assertTrue(snapshot().optString("error").isEmpty());
     }
     @Test public void autoCatalogAndWebControlsShareTheService()throws Exception{
-        AtomicReference<ListenableFuture<LibraryResult<MediaItem>>> rootFuture=new AtomicReference<>();instrumentation.runOnMainSync(()->rootFuture.set(browser.getLibraryRoot(null)));LibraryResult<MediaItem> root=rootFuture.get().get(5,TimeUnit.SECONDS);assertNotNull(root.value);assertEquals("root",root.value.mediaId);
+        AtomicReference<ListenableFuture<LibraryResult<MediaItem>>> rootFuture=new AtomicReference<>();instrumentation.runOnMainSync(()->rootFuture.set(browser.getLibraryRoot(null)));LibraryResult<MediaItem> root=rootFuture.get().get(5,TimeUnit.SECONDS);assertEquals("Library root result",SessionResult.RESULT_SUCCESS,root.resultCode);assertNotNull(root.value);assertEquals("root",root.value.mediaId);
         AtomicReference<ListenableFuture<LibraryResult<com.google.common.collect.ImmutableList<MediaItem>>>> children=new AtomicReference<>();instrumentation.runOnMainSync(()->children.set(browser.getChildren("root",0,100,null)));assertEquals(5,children.get().get(5,TimeUnit.SECONDS).value.size());
         assertEquals("true",js("(document.querySelector('[data-view=series]').click(),true)"));
         js("document.querySelector('#series-v2 .series>summary').click();document.querySelector('.series-resume-v2').click();true");

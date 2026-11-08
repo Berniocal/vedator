@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
         super.onCreate(state);store=new Store(this);store.put("lastUiCreated",Long.toString(System.currentTimeMillis()));catalog=Catalog.get(this,store);
         getWindow().setStatusBarColor(Color.rgb(33,26,62));getWindow().setNavigationBarColor(Color.rgb(18,18,27));
         LinearLayout layout=new LinearLayout(this);layout.setOrientation(LinearLayout.VERTICAL);layout.setBackgroundColor(Color.rgb(18,18,27));
+        layout.setOnApplyWindowInsetsListener((view,insets)->{if(Build.VERSION.SDK_INT>=30){android.graphics.Insets bars=insets.getInsets(WindowInsets.Type.systemBars()|WindowInsets.Type.ime());view.setPadding(bars.left,bars.top,bars.right,bars.bottom);}else view.setPadding(insets.getSystemWindowInsetLeft(),insets.getSystemWindowInsetTop(),insets.getSystemWindowInsetRight(),insets.getSystemWindowInsetBottom());return insets;});
         LinearLayout bar=new LinearLayout(this);bar.setGravity(Gravity.CENTER_VERTICAL);bar.setPadding(dp(12),0,dp(4),0);bar.setBackgroundColor(Color.rgb(33,26,62));
         status=new TextView(this);status.setText("Vedátor · 0.1");status.setTextSize(14);status.setTextColor(Color.rgb(236,231,255));bar.addView(status,new LinearLayout.LayoutParams(0,dp(40),1));status.setGravity(Gravity.CENTER_VERTICAL);
         Button menu=new Button(this);menu.setText("⋮");menu.setContentDescription("Nabídka aplikace");bar.addView(menu,new LinearLayout.LayoutParams(dp(48),dp(40)));menu.setOnClickListener(v->showMenu(menu));
