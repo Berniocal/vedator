@@ -18,14 +18,15 @@ final class Updater {
     private final Activity activity;
     private final ExecutorService io;
     Updater(Activity activity,ExecutorService io){this.activity=activity;this.io=io;}
-    void check(){toast("Kontroluji novou verzi APK…");io.execute(()->{
+    void check(){check(true);}
+    void check(boolean manual){if(manual)toast("Kontroluji novou verzi APK…");io.execute(()->{
         try{
             JSONObject manifest=new JSONObject(Net.text("https://raw.githubusercontent.com/Berniocal/vedator/main/android/latest.json",100000));
-            int next=manifest.getInt("versionCode");if(next<=BuildConfig.VERSION_CODE){toast("Máš aktuální verzi APK "+BuildConfig.VERSION_NAME+".");return;}
+            int next=manifest.getInt("versionCode");if(next<=BuildConfig.VERSION_CODE){if(manual)toast("Máš aktuální verzi APK "+BuildConfig.VERSION_NAME+".");return;}
             String url=manifest.getString("url"),sha=manifest.getString("sha256");Uri uri=Uri.parse(url);
             if(!"https".equals(uri.getScheme())||!"github.com".equals(uri.getHost())||!uri.getPath().startsWith("/Berniocal/vedator/releases/download/")||!sha.matches("[a-fA-F0-9]{64}"))throw new IllegalArgumentException("Neplatná aktualizace");
             activity.runOnUiThread(()->new AlertDialog.Builder(activity).setTitle("Nová verze "+manifest.optString("versionName")).setMessage("Stáhnout a nainstalovat aktualizaci? Uložená data zůstanou zachována.").setPositiveButton("Aktualizovat",(d,w)->download(url,sha,next)).setNegativeButton("Později",null).show());
-        }catch(Exception e){toast("Aktualizace zatím není zveřejněná nebo není dostupné připojení. Webový obsah se aktualizuje samostatně.");}
+        }catch(Exception e){if(manual)toast("Aktualizace zatím není zveřejněná nebo není dostupné připojení. Webový obsah se aktualizuje samostatně.");}
     });}
     private void download(String url,String sha,int code){toast("Stahuji aktualizaci…");io.execute(()->{
         try{

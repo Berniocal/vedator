@@ -37,7 +37,7 @@ public class PlaybackService extends MediaLibraryService {
         super.onCreate();store=new Store(this);catalog=new Catalog(this,store);
         DefaultHttpDataSource.Factory http=new DefaultHttpDataSource.Factory().setUserAgent("VedatorAndroid/0.1").setAllowCrossProtocolRedirects(false).setConnectTimeoutMs(10000).setReadTimeoutMs(15000);
         androidx.media3.datasource.DefaultDataSource.Factory source=new androidx.media3.datasource.DefaultDataSource.Factory(this,http);
-        player=new ExoPlayer.Builder(this).setMediaSourceFactory(new DefaultMediaSourceFactory(source)).setLoadControl(new DefaultLoadControl.Builder().setBufferDurationsMs(15000,90000,800,1500).build())
+        player=new ExoPlayer.Builder(this).setMediaSourceFactory(new DefaultMediaSourceFactory(source,new IndexedExtractors(this))).setLoadControl(new DefaultLoadControl.Builder().setBufferDurationsMs(15000,90000,800,1500).build())
             .setAudioAttributes(new AudioAttributes.Builder().setUsage(C.USAGE_MEDIA).setContentType(C.AUDIO_CONTENT_TYPE_SPEECH).build(),true).setHandleAudioBecomingNoisy(true).setWakeMode(C.WAKE_MODE_NETWORK).setSeekBackIncrementMs(10000).setSeekForwardIncrementMs(10000).build();
         player.addListener(new Player.Listener(){
             @Override public void onPlayerError(@NonNull PlaybackException e){error="Přehrávání se nezdařilo. Zkus znovu Přehrát. ("+e.getErrorCodeName()+")";save(false);}
@@ -88,10 +88,10 @@ public class PlaybackService extends MediaLibraryService {
         JSONArray entries=queue.optJSONArray("items");JSONObject entry=entries==null?null:entries.optJSONObject(index),context=queue.optJSONObject("context");
         if(entry!=null&&context!=null){String type=context.optString("type");if(type.equals("series")||type.equals("playlist")){
             JSONObject collections=Store.object(store.get(Store.COLLECTION,"{}")),collection=collections.optJSONObject(context.optString("id"));if(collection==null)collection=new JSONObject();JSONObject records=collection.optJSONObject("items");if(records==null)records=new JSONObject();
-            JSONObject cr=new JSONObject(record.toString());Store.set(cr,"start",entry.optDouble("start"));Store.set(cr,"percent",completed?100:duration>entry.optDouble("start")?Math.max(0,(time-entry.optDouble("start"))/(duration-entry.optDouble("start"))*100):0);Store.set(records,entry.optString("id"),cr);Store.set(collection,"items",records);Store.set(collection,"type",type);Store.set(collection,"label",context.optString("label"));Store.set(collection,"lastItemId",entry.optString("id"));Store.set(collection,"updatedAt",lastSave);Store.set(collections,context.optString("id"),collection);store.put(Store.COLLECTION,collections.toString());
+            JSONObject cr=Store.object(record.toString());Store.set(cr,"start",entry.optDouble("start"));Store.set(cr,"percent",completed?100:duration>entry.optDouble("start")?Math.max(0,(time-entry.optDouble("start"))/(duration-entry.optDouble("start"))*100):0);Store.set(records,entry.optString("id"),cr);Store.set(collection,"items",records);Store.set(collection,"type",type);Store.set(collection,"label",context.optString("label"));Store.set(collection,"lastItemId",entry.optString("id"));Store.set(collection,"updatedAt",lastSave);Store.set(collections,context.optString("id"),collection);store.put(Store.COLLECTION,collections.toString());
         }}
         if(entry!=null){JSONObject last=new JSONObject();Store.set(last,"version",1);Store.set(last,"episode",number);Store.set(last,"time",time);Store.set(last,"itemRef",entry.optString("ref"));Store.set(last,"updatedAt",lastSave);
-            if(context!=null){JSONObject snapshot=new JSONObject(context.toString());JSONArray compact=new JSONArray();for(int i=0;i<entries.length();i++){JSONObject e=entries.optJSONObject(i),c=new JSONObject();Store.set(c,"n",e.optInt("number"));Store.set(c,"s",e.optDouble("start"));Store.set(c,"r",e.optString("ref"));Store.set(c,"i",e.optString("id"));compact.put(c);}Store.set(snapshot,"items",compact);Store.set(snapshot,"index",index);Store.set(last,"context",snapshot);}store.put(Store.LAST,last.toString());}
+            if(context!=null){JSONObject snapshot=Store.object(context.toString());JSONArray compact=new JSONArray();for(int i=0;i<entries.length();i++){JSONObject e=entries.optJSONObject(i),c=new JSONObject();Store.set(c,"n",e.optInt("number"));Store.set(c,"s",e.optDouble("start"));Store.set(c,"r",e.optString("ref"));Store.set(c,"i",e.optString("id"));compact.put(c);}Store.set(snapshot,"items",compact);Store.set(snapshot,"index",index);Store.set(last,"context",snapshot);}store.put(Store.LAST,last.toString());}
         if(index==player.getCurrentMediaItemIndex()){Store.set(queue,"index",index);Store.set(queue,"position",time);Store.set(queue,"speed",player.getPlaybackParameters().speed);store.put("nativeQueue",queue.toString());}
     }
     JSONObject snapshot(){
@@ -115,6 +115,9 @@ public class PlaybackService extends MediaLibraryService {
                     case "navigate":{int next=player.getCurrentMediaItemIndex()+request.optInt("delta");if(next>=0&&next<player.getMediaItemCount()){save(false);player.seekTo(next,0);player.play();}break;}
                     case "speed":player.setPlaybackSpeed((float)Math.max(.5,Math.min(3,request.optDouble("speed",1))));save(false);break;
                     case "stop":save(false);player.stop();player.clearMediaItems();queue=new JSONObject();store.put("nativeQueue","{}");break;
+                    case "replaceStorage":case "clear":
+                        player.stop();player.clearMediaItems();queue=new JSONObject();if(action.equals("clear"))Downloads.clear(PlaybackService.this,store);store.clearUser();
+                        if(action.equals("replaceStorage")&&request.optJSONObject("values")!=null)store.mergeWeb(request.getJSONObject("values"));break;
                     case "snapshot":break;
                     default:throw new IllegalArgumentException("Neznámý příkaz");
                 }

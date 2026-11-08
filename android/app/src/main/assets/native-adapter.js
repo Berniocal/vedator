@@ -104,8 +104,11 @@ if (window.VedatorNative && typeof window.VedatorNative.postMessage === 'functio
   toggleOffline=async function(){if(!state.current)return;const number=Number(state.current.episode.number),status=nativeDownloads[episodeKey(number)];if(status&&!status.failed&&!confirm(text('Odstranit offline kopii nebo zrušit stahování?','Odstrániť offline kópiu alebo zrušiť sťahovanie?')))return;nativeSend({action:'offline',number})};
   downloadCurrentMp3=async function(){if(state.current)nativeSend({action:'download',number:Number(state.current.episode.number)})};
   exportData=function(){nativeSyncStorage();nativeSend({action:'export',data:JSON.stringify({app:'vedator',formatVersion:1,exportedAt:new Date().toISOString(),data:{playbackProgress:state.progress,playlists:state.playlists}})})};
-  const nativeImportOriginal=importBackup;
-  importBackup=async function(file){await nativeImportOriginal(file);nativeSend({action:'replaceStorage',values:nativeValues()});nativeStorageSent=JSON.stringify(nativeValues())};
+  importBackup=async function(file){
+    try{const data=validateBackup(JSON.parse(await file.text()));if(!confirm(text('Nahradit průběh poslechu a playlisty touto zálohou?','Nahradiť priebeh počúvania a playlisty touto zálohou?')))return;
+      closePlayer();writeJson(PROGRESS_KEY,data.playbackProgress);writeJson(PLAYLISTS_KEY,data.playlists);localStorage.removeItem(LAST_PLAYBACK_KEY);loadUserData();rerenderLanguage();nativeSend({action:'replaceStorage',values:nativeValues()});nativeStorageSent=JSON.stringify(nativeValues());$('#status-v2').textContent=text('Záloha byla načtena.','Záloha bola načítaná.');
+    }catch(error){$('#status-v2').textContent=error.message}finally{$('#data-file-v2').value=''}
+  };
   clearAllData=async function(){
     if(!confirm(text('Opravdu smazat všechna data Vedátoru v této aplikaci včetně offline epizod?','Naozaj zmazať všetky dáta Vedátora v tejto aplikácii vrátane offline epizód?')))return;
     closePlayer();for(const key of Object.keys(nativeValues()))localStorage.removeItem(key);state.progress={};state.playlists=[];state.collectionProgress={};state.offlineIndex={};nativeDownloads={};nativeSend({action:'clear'});nativeStorageSent='{}';loadUserData();rerenderLanguage();
@@ -117,4 +120,5 @@ if (window.VedatorNative && typeof window.VedatorNative.postMessage === 'functio
   document.addEventListener('visibilitychange',()=>{if(document.hidden)nativeSyncStorage()});
   setInterval(nativeSyncStorage,2000);
   document.documentElement.dataset.vedatorNative='1';
+  finalIsStandalone=()=>true;
 }

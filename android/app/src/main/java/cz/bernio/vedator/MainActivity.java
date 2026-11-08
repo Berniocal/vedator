@@ -76,6 +76,8 @@ public class MainActivity extends Activity {
         },ContextCompat.getMainExecutor(this));
         handler.post(poll);web.loadUrl("https://bernio.cz/vedator/");
         io.execute(()->{try{catalog.refresh();}catch(Exception ignored){}});
+        long checked;try{checked=Long.parseLong(store.get("apkLastChecked","0"));}catch(NumberFormatException e){checked=0;}
+        if(System.currentTimeMillis()-checked>86400000){store.put("apkLastChecked",Long.toString(System.currentTimeMillis()));new Updater(this,io).check(false);}
     }
     private int dp(int value){return Math.round(value*getResources().getDisplayMetrics().density);}
     static JSONObject message(String action){JSONObject out=new JSONObject();Store.set(out,"action",action);return out;}
@@ -83,8 +85,7 @@ public class MainActivity extends Activity {
         switch(request.optString("action")){
             case "ready":store.mergeWeb(request.optJSONObject("values")==null?new JSONObject():request.optJSONObject("values"));pageReady=true;status.setText("Vedátor · 0.1");if(controller!=null)sendData("bootstrap",null);break;
             case "storage":if(request.optJSONObject("values")!=null)store.mergeWeb(request.getJSONObject("values"));break;
-            case "replaceStorage":store.clearUser();if(request.optJSONObject("values")!=null)store.mergeWeb(request.getJSONObject("values"));break;
-            case "clear":control(message("stop"),false);Downloads.clear(this,store);store.clearUser();break;
+            case "replaceStorage":case "clear":control(request,true);break;
             case "offline":notice(Downloads.toggle(this,store,catalog,request.optInt("number")));sendData("data",null);break;
             case "download":downloadMp3(request.optInt("number"));break;
             case "export":export(request.optString("data"));break;
