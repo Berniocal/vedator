@@ -1,7 +1,7 @@
 // Every episode boundary stays within one MSE stream, including after a seek.
 // Sparse MP3 frame positions let a manual seek restart MSE at an exact audio
 // position without falling back to a native source that ends between episodes.
-class MP3Frames {
+export class MP3Frames {
   constructor(index,{offset=0,time=0}={}){Object.assign(this,{index,offset,time,pending:new Uint8Array(),skip:0})}
   feed(bytes){
     const data=new Uint8Array(this.pending.length+bytes.length);data.set(this.pending);data.set(bytes,this.pending.length);
@@ -29,8 +29,8 @@ class MP3Frames {
 }
 
 export class ContinuousAudio extends EventTarget {
-  constructor(audio,{lead=180,keepBehind=45,chunkSize=262144,fetcher=globalThis.fetch.bind(globalThis),log=()=>{},systemTimeline='episode'}={}){
-    super();Object.assign(this,{audio,lead,keepBehind,chunkSize,fetcher,log,systemTimeline});this.session=null;
+  constructor(audio,{lead=180,keepBehind=45,chunkSize=262144,fetcher=globalThis.fetch.bind(globalThis),log=()=>{},systemTimeline='episode',seekTimeout=20000}={}){
+    super();Object.assign(this,{audio,lead,keepBehind,chunkSize,fetcher,log,systemTimeline,seekTimeout});this.session=null;
     const events=['timeupdate','playing','pause','waiting','stalled','ended','error','ratechange'];
     if(systemTimeline==='stream')events.push('loadedmetadata','durationchange');
     for(const event of events)audio.addEventListener(event,()=>this.onAudio(event));
@@ -58,13 +58,18 @@ export class ContinuousAudio extends EventTarget {
     const media=new MediaSource(),url=URL.createObjectURL(media),controller=new AbortController();
     const s={media,url,controller,items:items.map(item=>({...item})),parts:[],index:initialIndex,loadIndex:initialIndex,offset:0,quick:quick&&initialIndex===0,tailBytes,buffer:null,pumping:false,failed:false,complete:false,wantPlay:autoplay,wake:new Set(),sourceChanges:1,transitionCount:0,indexes,seekTo,locating:seekTo!=null};
     this.session=s;
+    if(seekTo!=null)s.seekTimer=setTimeout(()=>{
+      if(this.session!==s||s.seekTo==null)return;
+      s.controller.abort();for(const wake of s.wake)wake();
+      this.fail(s,Error('Načtení zvoleného času trvá příliš dlouho. Zkus posun znovu.'));
+    },this.seekTimeout);
     const opened=new Promise((resolve,reject)=>{
       const cleanup=()=>{media.removeEventListener('sourceopen',open);controller.signal.removeEventListener('abort',abort)};
       const open=()=>{cleanup();resolve()};
       const abort=()=>{cleanup();reject(new DOMException('Stopped','AbortError'))};
       media.addEventListener('sourceopen',open,{once:true});controller.signal.addEventListener('abort',abort,{once:true});
     });
-    this.audio.src=url;this.audio.preload='auto';
+    this.audio.src=url;this.audio.preload='auto';this.audio.load();
     this.write('START: jeden MediaSource, '+items.length+' dílů; rychlý test='+quick+'; systemTimeline='+this.systemTimeline);
     this.emit('track',{item:s.items[initialIndex],index:initialIndex,quick:s.quick});
     // Keep play() in the user's click. Awaiting the network first loses activation.
@@ -74,7 +79,7 @@ export class ContinuousAudio extends EventTarget {
       if(seekTo!=null){
         const found=await this.locate(s,s.items[initialIndex],seekTo);
         if(this.session!==s||s.controller.signal.aborted)return;
-        s.offset=found.offset;s.seekOrigin=found.time;s.seekTo=found.target;s.locating=false;
+        s.offset=found.offset;s.seekOrigin=found.time;s.seekTo=found.target;s.locating=false;s.seekApproximate=Boolean(found.approximate);s.prefetch=found.prefetch;
       }
       s.buffer=media.addSourceBuffer('audio/mpeg');s.buffer.mode='sequence';
       media.duration=Infinity;
@@ -84,7 +89,7 @@ export class ContinuousAudio extends EventTarget {
   }
   stop(){
     const s=this.session;if(!s)return;
-    this.session=null;s.wantPlay=false;s.controller.abort();for(const wake of s.wake)wake();
+    this.session=null;s.wantPlay=false;clearTimeout(s.seekTimer);s.controller.abort();for(const wake of s.wake)wake();
     this.audio.pause();this.audio.removeAttribute('src');this.audio.load();URL.revokeObjectURL(s.url);
     try{navigator.mediaSession.playbackState='none';navigator.mediaSession.metadata=null;navigator.mediaSession.setPositionState?.()}catch{}
     this.write('STOP: proud ukončen uživatelem');
@@ -106,12 +111,97 @@ export class ContinuousAudio extends EventTarget {
   part(){const s=this.session;return s?.parts.find(part=>part.index===s.index)||null}
   position(){const s=this.session,p=this.part();return s?.seekTo!=null?s.seekTo:p?Math.max(0,this.audio.currentTime-p.start):0}
   indexFor(s,item){let index=s.indexes.get(item.url);if(!index){index={anchors:[],duration:0,size:0};s.indexes.set(item.url,index)}return index}
+  async loadSeekIndex(s,item,index){
+    // Optional exact indexes are small static data, fetched only when seeking.
+    // They never delay initial playback or application startup.
+    if(!this.seekIndexPromise)this.seekIndexPromise=(async()=>{
+      const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),3500);
+      try{
+        const response=await this.fetcher(new URL('./audio-seek-index.json',import.meta.url).href,{cache:'no-cache',signal:controller.signal});
+        if(!response.ok)return null;const data=await response.json();return data.version===1?data:null;
+      }catch{return null}finally{clearTimeout(timer)}
+    })();
+    const data=await this.seekIndexPromise,entry=data?.entries?.[item.url];
+    if(this.session!==s||s.controller.signal.aborted)throw new DOMException('Stopped','AbortError');
+    if(!entry||!Array.isArray(entry.anchors)||!entry.anchors.length||!(entry.duration>0)||!(entry.size>0))return;
+    if(index.size&&index.size!==entry.size||index.duration&&Math.abs(index.duration-entry.duration)>.2)return;
+    const anchors=entry.anchors.map(([offset,time])=>({offset,time}));
+    if(anchors.some((a,i)=>!Number.isFinite(a.time)||!Number.isSafeInteger(a.offset)||a.offset<0||a.offset>=entry.size||a.time<0||a.time>entry.duration||i&&(a.offset<=anchors[i-1].offset||a.time<=anchors[i-1].time)))return;
+    index.anchors=anchors;index.duration=entry.duration;index.size=entry.size;index.complete=entry.duration-anchors.at(-1).time<10;
+  }
+  seekTable(bytes,total=0){
+    const u32=i=>((bytes[i]*16777216)+(bytes[i+1]<<16)+(bytes[i+2]<<8)+bytes[i+3])>>>0;
+    for(let i=0;i<Math.min(bytes.length-120,262144);i++){
+      const a=bytes[i+1],b=bytes[i+2],version=(a>>3)&3,ri=(b>>2)&3;
+      if(bytes[i]!==255||(a&224)!==224||((a>>1)&3)!==1||version===1||ri===3)continue;
+      const rate=[44100,48000,32000][ri]/(version===3?1:version===2?2:4),mono=(bytes[i+3]>>6)===3;
+      const base=i+4+(version===3?(mono?17:32):(mono?9:17));
+      for(const j of [base,base+2]){
+        if(j+116>bytes.length)continue;
+        const tag=String.fromCharCode(...bytes.subarray(j,j+4)),flags=u32(j+4);
+        if((tag!=='Xing'&&tag!=='Info')||(flags&7)!==7)continue;
+        const frames=u32(j+8),size=u32(j+12),duration=frames*(version===3?1152:576)/rate,toc=Array.from(bytes.subarray(j+16,j+116));
+        if(duration>0&&size>0&&toc.every((v,k)=>!k||v>=toc[k-1]))return {kind:'xing',offset:i,size,duration,toc};
+      }
+    }
+    // Check complete consecutive frames before treating a headerless file as
+    // constant bitrate; a Xing duration alone does not establish CBR.
+    if(total>0){
+      let offset=0;if(bytes[0]===73&&bytes[1]===68&&bytes[2]===51){offset=10;for(let j=6;j<10;j++)offset+=(bytes[j]&127)*2**(7*(9-j));if(bytes[3]===4&&(bytes[5]&16))offset+=10}
+      const first=offset;let bitrate=0,signature='',count=0;
+      while(offset+4<=bytes.length&&count<64){
+        const a=bytes[offset+1],b=bytes[offset+2],version=(a>>3)&3,ri=(b>>2)&3;
+        if(bytes[offset]!==255||(a&224)!==224||((a>>1)&3)!==1||version===1||ri===3)break;
+        const next=(version===3?[0,32,40,48,56,64,80,96,112,128,160,192,224,256,320]:[0,8,16,24,32,40,48,56,64,80,96,112,128,144,160])[b>>4]||0,sig=version+':'+ri;
+        if(!next||count&&(next!==bitrate||sig!==signature))return null;
+        bitrate=next;signature=sig;
+        const rate=[44100,48000,32000][ri]/(version===3?1:version===2?2:4),length=Math.floor((version===3?144000:72000)*bitrate/rate)+((b>>1)&1);
+        if(offset+length>bytes.length)break;offset+=length;count++;
+      }
+      if(count>=12)return {kind:'cbr',offset:first,size:total-first,duration:(total-first)*8/(bitrate*1000)};
+    }
+    return null;
+  }
+  async fastSeek(s,item,index,target){
+    const table=index.seekTable;if(!table)return null;
+    const origin=Math.max(0,target-2),pct=Math.min(99.999999,100*origin/table.duration);
+    const slot=Math.floor(pct),fraction=pct-slot;
+    const relative=table.kind==='xing'?((table.toc[slot]+((slot===99?256:table.toc[slot+1])-table.toc[slot])*fraction)/256):origin/table.duration;
+    const from=Math.max(table.offset,Math.min(table.offset+table.size-4096,table.offset+Math.floor(relative*table.size)));
+    this.write('PŘÍMÉ HLEDÁNÍ: '+table.kind+' díl '+item.number+'; byte='+from);
+    const result=await this.request(s,item.url,{Range:'bytes='+from+'-'+(from+this.chunkSize-1)});
+    if(this.session!==s||s.controller.signal.aborted){await result.response?.body?.cancel();throw new DOMException('Stopped','AbortError')}
+    if(result.status!==206){await result.response?.body?.cancel();return null}
+    const bytes=result.bytes,header=i=>{
+      if(i+4>bytes.length)return null;
+      const a=bytes[i+1],b=bytes[i+2],version=(a>>3)&3,ri=(b>>2)&3;
+      if(bytes[i]!==255||(a&224)!==224||((a>>1)&3)!==1||version===1||ri===3)return null;
+      const bitrate=(version===3?[0,32,40,48,56,64,80,96,112,128,160,192,224,256,320]:[0,8,16,24,32,40,48,56,64,80,96,112,128,144,160])[b>>4];if(!bitrate)return null;
+      const rate=[44100,48000,32000][ri]/(version===3?1:version===2?2:4);
+      return Math.floor((version===3?144000:72000)*bitrate/rate)+((b>>1)&1);
+    };
+    for(let i=0;i<Math.min(bytes.length-4,8192);i++){
+      const first=header(i),second=first&&header(i+first),third=second&&header(i+first+second);
+      if(first&&second&&third){
+        const offset=from+i,time=origin+i/(table.size/table.duration);
+        return {offset,time,target,approximate:table.kind==='xing',prefetch:{...result,bytes:bytes.subarray(i),eof:from+bytes.length>=table.offset+table.size}};
+      }
+    }
+    return null;
+  }
   async locate(s,item,target){
     const index=this.indexFor(s,item);
+    await this.loadSeekIndex(s,item,index);
     if(index.duration)target=Math.min(target,Math.max(0,index.duration-.1));
     let anchor=index.anchors.findLast(a=>a.time<=Math.max(0,target-.75));
     // Already indexed audio needs just one range request from a nearby frame.
-    if(anchor&&index.anchors.at(-1).time>=target)return {...anchor,target};
+    if(anchor&&(index.complete||index.anchors.at(-1).time>=target))return {...anchor,target};
+    if(!index.seekTable){
+      const head=await this.request(s,item.url,{Range:'bytes=0-'+(this.chunkSize-1)});
+      if(head.status===206)index.seekTable=this.seekTable(head.bytes,head.total||index.size);
+      else await head.response?.body?.cancel();
+    }
+    if(index.seekTable){const fast=await this.fastSeek(s,item,index,target);if(fast)return fast}
     anchor=anchor||{offset:0,time:0};let offset=anchor.offset;
     const scan=new MP3Frames(index,anchor),blockSize=Math.max(this.chunkSize,1048576);let lastReport=0;
     this.write('HLEDÁM POZICI dílu '+item.number+' na '+target.toFixed(1)+' s');
@@ -263,7 +353,7 @@ export class ContinuousAudio extends EventTarget {
       await this.prune(s,true);await this.mutation(s,b=>b.appendBuffer(bytes));
     }
     if(s.seekTo!=null&&this.bufferEnd()>s.seekTo-(s.seekOrigin||0)+.05){
-      const target=s.seekTo-(s.seekOrigin||0);this.audio.currentTime=Math.max(0,target);s.seekTo=null;
+      const target=s.seekTo-(s.seekOrigin||0);this.audio.currentTime=Math.max(0,target);s.seekTo=null;clearTimeout(s.seekTimer);
       this.write('POSUN PŘIPRAVEN: souvislý MSE proud');
       if(s.wantPlay)this.play();else this.updateMediaSession(true);
     }
@@ -349,6 +439,8 @@ export class ContinuousAudio extends EventTarget {
     const prior=part.headerBytes||new Uint8Array(),take=Math.min(bytes.length,262144-prior.length);
     const header=new Uint8Array(prior.length+take);header.set(prior);header.set(bytes.subarray(0,take),prior.length);part.headerBytes=header;
     part.durationHint=this.durationHint(header,part.sourceSize);
+    const index=this.indexFor(s,s.items[part.index]);index.seekTable=this.seekTable(header,part.sourceSize)||index.seekTable;
+    if(index.seekTable)index.size=index.seekTable.offset+index.seekTable.size;
     if(part.durationHint)this.indexFor(s,s.items[part.index]).duration=part.durationHint;
     if(part.durationHint){part.headerBytes=null;return}
     // Podbean's CORS policy can hide Content-Range. A background HEAD provides
@@ -357,7 +449,7 @@ export class ContinuousAudio extends EventTarget {
     part.durationRequested=true;
     void this.request(s,part.url,{},true).then(({size})=>{
       if(this.session!==s||s.controller.signal.aborted||!size)return;
-      part.sourceSize=size;this.indexFor(s,s.items[part.index]).size=size;part.durationHint=this.durationHint(part.headerBytes||header,size);
+      part.sourceSize=size;const index=this.indexFor(s,s.items[part.index]);index.size=size;index.seekTable=this.seekTable(part.headerBytes||header,size)||index.seekTable;part.durationHint=this.durationHint(part.headerBytes||header,size);
       if(part.durationHint){part.headerBytes=null;this.indexFor(s,s.items[part.index]).duration=part.durationHint}this.emit('update');
     }).catch(()=>{});
   }
@@ -369,13 +461,13 @@ export class ContinuousAudio extends EventTarget {
         if(!part){
           if(s.loadIndex===0&&s.quick)s.offset=await this.tailOffset(s,item);
           const index=this.indexFor(s,item),origin=s.parts.length===0?s.seekOrigin||0:0;
-          part={index:s.loadIndex,url:item.url,start:this.bufferEnd()-origin,end:null,bytes:0,sourceOffset:s.offset,sourceSize:index.size||(s.loadIndex===0?s.firstSize||0:0),durationHint:index.duration};
-          if(!s.quick||s.loadIndex!==0)part.scanner=new MP3Frames(index,{offset:s.offset,time:origin});
+          part={index:s.loadIndex,approximate:s.parts.length===0&&s.seekApproximate,url:item.url,start:this.bufferEnd()-origin,end:null,bytes:0,sourceOffset:s.offset,sourceSize:index.size||(s.loadIndex===0?s.firstSize||0:0),durationHint:index.duration};
+          if(!s.quick||s.loadIndex!==0)part.scanner=new MP3Frames(part.approximate?{anchors:[]}:index,{offset:s.offset,time:origin});
           s.parts.push(part);
           this.write('NAČÍTÁM díl '+item.number+'; timeline='+part.start.toFixed(3)+'; byte='+s.offset);
         }
         await this.waitForRoom(s);if(this.session!==s||s.controller.signal.aborted)return;
-        const from=s.offset,result=await this.request(s,item.url,{Range:'bytes='+from+'-'+(from+this.chunkSize-1)});
+        const from=s.offset,result=s.prefetch||await this.request(s,item.url,{Range:'bytes='+from+'-'+(from+this.chunkSize-1)});s.prefetch=null;
         if(this.session!==s||s.controller.signal.aborted){await result.response?.body?.cancel();return}
         let eof=result.status===416;
         if(result.status===200){
@@ -400,12 +492,12 @@ export class ContinuousAudio extends EventTarget {
           if(result.total)part.sourceSize=result.total;
           if(!part.durationHint&&part.sourceOffset===0&&part.bytes<262144)this.readDurationHint(s,part,result.bytes);
           part.scanner?.feed(result.bytes);await this.append(s,result.bytes);s.offset+=result.bytes.length;part.bytes+=result.bytes.length;
-          eof=result.bytes.length<this.chunkSize||(part.sourceSize>0&&s.offset>=part.sourceSize);
+          eof=result.eof??(result.bytes.length<this.chunkSize||(part.sourceSize>0&&s.offset>=part.sourceSize));
         }else eof=true;
         if(this.session!==s||s.controller.signal.aborted)return;
         if(eof){
           if(!part.bytes)throw Error('MP3 neobsahuje žádná zvuková data');
-          if(part.scanner){const index=this.indexFor(s,item);index.duration=part.scanner.time;index.size=s.offset;part.scanner=null}
+          if(part.scanner){if(!part.approximate){const index=this.indexFor(s,item);index.duration=part.scanner.time;index.size=s.offset;index.complete=true}part.scanner=null}
           part.end=this.bufferEnd();this.write('PŘIPRAVEN KONEC dílu '+item.number+' na '+part.end.toFixed(3)+' s');
           s.loadIndex++;s.offset=0;this.emit('update');
         }
@@ -417,7 +509,7 @@ export class ContinuousAudio extends EventTarget {
     finally{s.pumping=false}
   }
   fail(s,error){
-    if(this.session!==s)return;s.failed=true;
+    if(this.session!==s)return;clearTimeout(s.seekTimer);s.failed=true;
     this.write('CHYBA '+error.name+': '+error.message+'; src zachován; byte='+s.offset+'; hidden='+document.hidden);
     this.emit('problem',{message:error.message+' Načtená část může dohrát. Tlačítko „Zkusit načítání znovu“ zachová stejný proud.'});
   }
