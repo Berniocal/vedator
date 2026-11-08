@@ -150,6 +150,34 @@ try{
     assert(Math.abs(sought.target-sought.actual)<.05,'OS seekto must accept global stream time');
     await streamCover.close();await page.bringToFront();
     console.log('System timeline v2: no resets at episode boundaries, native duration/position, OS seekto and user pause passed');
+    // Regression: a real phone must be able to jump to an unbuffered position
+    // even while the MSE player has only fetched a few hundred milliseconds.
+    await setup();await page.evaluate(()=>{window.vedatorContinuousTest.player.lead=.4});
+    await page.click('#start');
+    await page.waitForFunction(()=>document.getElementById('audio').currentTime>.1,{timeout:15000});
+    await page.click('#toggle');
+    await page.evaluate(()=>{
+      const node=document.getElementById('jump-time');node.value='00:05';
+      document.getElementById('jump-go').click();
+    });
+    await page.waitForFunction(()=>{
+      const p=window.vedatorContinuousTest.player,a=document.getElementById('audio');
+      return p.session?.native&&!p.session.nativeSwitching&&Math.abs(a.currentTime-5)<.2;
+    },{timeout:15000});
+    const jumped=await state();
+    assert(jumped.src.endsWith('/tone-77.mp3'),'An unbuffered jump must use the native MP3 source');
+    assert(jumped.paused,'A user pause must survive a far seek');
+    assert(jumped.log.some(l=>l.includes('POSUN mimo MSE buffer')),'Fallback must be diagnosed');
+    await page.click('#toggle');
+    await page.waitForFunction(()=>{
+      const s=window.vedatorContinuousTest.player.session;
+      return s?.index===1&&!s.native;
+    },{polling:100,timeout:15000});
+    const resumed=await state();
+    assert(resumed.src.startsWith('blob:'),'Next episode must resume MSE continuous playback');
+    assert(resumed.changes>=3,'A manual far seek may change sources, ordinary handoffs may not');
+    assert.equal(resumed.error,null);
+    console.log('Far seek: native MP3 seek, user pause, and next-episode MSE resumption passed');
   }
   await page.bringToFront();
   const screenshot=process.env.VEDATOR_TEST_SCREENSHOT;if(screenshot)await page.screenshot({path:screenshot,fullPage:true});
