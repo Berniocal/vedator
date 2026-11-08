@@ -34,7 +34,7 @@ public class PlaybackService extends MediaLibraryService {
     private final Runnable tick=new Runnable(){public void run(){if(player!=null){if(System.currentTimeMillis()-lastSave>=5000)save(false);handler.postDelayed(this,1000);}}};
 
     @Override public void onCreate(){
-        super.onCreate();store=new Store(this);catalog=new Catalog(this,store);
+        super.onCreate();store=new Store(this);catalog=Catalog.get(this,store);
         DefaultHttpDataSource.Factory http=new DefaultHttpDataSource.Factory().setUserAgent("VedatorAndroid/0.1").setAllowCrossProtocolRedirects(false).setConnectTimeoutMs(10000).setReadTimeoutMs(15000);
         androidx.media3.datasource.DefaultDataSource.Factory source=new androidx.media3.datasource.DefaultDataSource.Factory(this,http);
         player=new ExoPlayer.Builder(this).setMediaSourceFactory(new DefaultMediaSourceFactory(source,new IndexedExtractors(this))).setLoadControl(new DefaultLoadControl.Builder().setBufferDurationsMs(15000,90000,800,1500).build())
@@ -57,7 +57,7 @@ public class PlaybackService extends MediaLibraryService {
         session=new MediaLibrarySession.Builder(this,player,new LibraryCallback()).setSessionActivity(activity).build();
         JSONObject saved=Store.object(store.get("nativeQueue","{}"));if(saved.optJSONArray("items")!=null)try{setQueue(saved,false);}catch(Exception ignored){}
         handler.post(tick);
-        io.execute(()->{try{catalog.refresh();}catch(Exception ignored){}});
+        io.execute(()->{try{long ui=Long.parseLong(store.get("lastUiCreated","0"));if(System.currentTimeMillis()-ui>10000)catalog.refresh();}catch(Exception ignored){}});
     }
     @Override public MediaLibrarySession onGetSession(@NonNull MediaSession.ControllerInfo controller){return session;}
     @Override public void onTaskRemoved(Intent rootIntent){if(!player.getPlayWhenReady())stopSelf();}
@@ -119,6 +119,10 @@ public class PlaybackService extends MediaLibraryService {
                         player.stop();player.clearMediaItems();queue=new JSONObject();if(action.equals("clear"))Downloads.clear(PlaybackService.this,store);store.clearUser();
                         if(action.equals("replaceStorage")&&request.optJSONObject("values")!=null)store.mergeWeb(request.getJSONObject("values"));break;
                     case "snapshot":break;
+                    case "search":{
+                        List<MediaItem> matches=catalog.search(request.optString("query"));if(matches.isEmpty())throw new IllegalArgumentException("Nebyla nalezena žádná epizoda");
+                        JSONArray entries=new JSONArray();for(MediaItem item:matches)entries.put(Store.object(item.mediaMetadata.extras.getString("entry","{}")));JSONObject next=new JSONObject();Store.set(next,"items",entries);Store.set(next,"index",0);Store.set(next,"position",0);Store.set(next,"token","voice-"+System.currentTimeMillis());setQueue(next,true);break;
+                    }
                     default:throw new IllegalArgumentException("Neznámý příkaz");
                 }
                 Bundle result=new Bundle();result.putString("json",snapshot().toString());return Futures.immediateFuture(new SessionResult(SessionResult.RESULT_SUCCESS,result));
@@ -129,11 +133,15 @@ public class PlaybackService extends MediaLibraryService {
             try{return Futures.immediateFuture(LibraryResult.ofItemList(catalog.children(parent),params));}catch(Exception e){return Futures.immediateFuture(LibraryResult.ofError(SessionResult.RESULT_ERROR_BAD_VALUE));}
         }
         @Override public ListenableFuture<LibraryResult<MediaItem>> onGetItem(@NonNull MediaLibrarySession s,@NonNull MediaSession.ControllerInfo c,@NonNull String id){try{return Futures.immediateFuture(LibraryResult.ofItem(resolve(id),null));}catch(Exception e){return Futures.immediateFuture(LibraryResult.ofError(SessionResult.RESULT_ERROR_BAD_VALUE));}}
+        @Override public ListenableFuture<LibraryResult<Void>> onSearch(@NonNull MediaLibrarySession s,@NonNull MediaSession.ControllerInfo c,@NonNull String query,LibraryParams params){s.notifySearchResultChanged(c,query,catalog.search(query).size(),params);return Futures.immediateFuture(LibraryResult.ofVoid());}
+        @Override public ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> onGetSearchResult(@NonNull MediaLibrarySession s,@NonNull MediaSession.ControllerInfo c,@NonNull String query,int page,int pageSize,LibraryParams params){return Futures.immediateFuture(LibraryResult.ofItemList(catalog.search(query),params));}
         private MediaItem resolve(String id){if(id.startsWith("episode:")){String[] bits=id.split(":");return catalog.playable(catalog.entry(Integer.parseInt(bits[1]),bits.length>2?Double.parseDouble(bits[2]):0,"",id));}return catalog.folder(id,id);}
         @Override public ListenableFuture<MediaSession.MediaItemsWithStartPosition> onSetMediaItems(@NonNull MediaSession s,@NonNull MediaSession.ControllerInfo c,@NonNull List<MediaItem> requested,int startIndex,long startPosition){
             try{
                 if(requested.isEmpty())return Futures.immediateFuture(new MediaSession.MediaItemsWithStartPosition(Collections.emptyList(),0,0));
-                MediaItem first=requested.get(Math.max(0,Math.min(requested.size()-1,startIndex)));MediaItem resolved=resolve(first.mediaId);List<MediaItem> items=new ArrayList<>();int index=0;
+                MediaItem first=requested.get(Math.max(0,Math.min(requested.size()-1,startIndex)));
+                if(first.requestMetadata.searchQuery!=null){List<MediaItem> matches=catalog.search(first.requestMetadata.searchQuery);if(matches.isEmpty())throw new IllegalArgumentException("Nic nenalezeno");first=matches.get(0);requested=matches;startIndex=0;}
+                MediaItem resolved=resolve(first.mediaId);List<MediaItem> items=new ArrayList<>();int index=0;
                 Bundle extras=first.mediaMetadata.extras;JSONObject entry=extras==null?null:Store.object(extras.getString("entry","{}"));String parent=entry==null?"":entry.optString("parent");
                 if(!parent.isEmpty()){items.addAll(catalog.children(parent));for(int i=0;i<items.size();i++)if(items.get(i).mediaId.equals(resolved.mediaId)){index=i;break;}}
                 else if(requested.size()==1){items.addAll(catalog.children("recent"));index=-1;for(int i=0;i<items.size();i++)if(items.get(i).mediaId.equals(resolved.mediaId)){index=i;break;}if(index<0){items.clear();items.add(resolved);index=0;}}

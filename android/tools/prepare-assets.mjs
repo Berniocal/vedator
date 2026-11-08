@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {MP3Frames} from '../../continuous-audio.mjs';
 const root = path.resolve(import.meta.dirname, '../..');
 const out = path.join(root, 'android/app/src/main/assets/web');
 fs.mkdirSync(out, {recursive:true});
@@ -11,3 +12,5 @@ fs.writeFileSync(path.join(root,'android/app/src/main/assets/build-info.json'),J
 console.log('Bundled web fallback prepared');
 const testOut=path.join(root,'android/app/src/androidTest/assets');fs.mkdirSync(testOut,{recursive:true});
 fs.writeFileSync(path.join(testOut,'tone.mp3'),Buffer.from(fs.readFileSync(path.join(root,'tools/continuous-tone-base64.txt'),'utf8').trim(),'base64'));
+const tone=fs.readFileSync(path.join(testOut,'tone.mp3')),index={anchors:[]},scanner=new MP3Frames(index);scanner.feed(tone);
+fs.writeFileSync(path.join(testOut,'tone-index.json'),JSON.stringify({size:tone.length,duration:scanner.time,anchors:index.anchors.map(a=>[a.offset,a.time])}));

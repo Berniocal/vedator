@@ -10,20 +10,27 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 final class Catalog {
+    private static Catalog shared;
+    static synchronized Catalog get(Context context,Store store){if(shared==null)shared=new Catalog(context.getApplicationContext(),store);return shared;}
     final Context context;
     final Store store;
     private volatile JSONObject data;
+    private long refreshedAt=0;
     Catalog(Context context,Store store){
         this.context=context;this.store=store;
         try {File f=new File(context.getFilesDir(),"catalog.json");data=new JSONObject(new String(f.isFile()?java.nio.file.Files.readAllBytes(f.toPath()):Net.asset(context,"web/content-v2.json"),StandardCharsets.UTF_8));}
         catch(Exception e){data=new JSONObject();}
     }
-    void refresh()throws Exception{
+    synchronized void refresh()throws Exception{
+        if(System.currentTimeMillis()-refreshedAt<900000)return;
         byte[] bytes=Net.get("https://bernio.cz/vedator/content-v2.json",25_000_000);
+        accept(bytes);
+    }
+    synchronized void accept(byte[] bytes)throws Exception{
         JSONObject next=new JSONObject(new String(bytes,StandardCharsets.UTF_8));
         JSONArray episodes=next.getJSONArray("episodes");if(episodes.length()<1)throw new IOException("Prázdný katalog");
         HashSet<Integer> ids=new HashSet<>();for(int i=0;i<episodes.length();i++){JSONObject e=episodes.getJSONObject(i);if(e.optInt("number")<=0||!ids.add(e.getInt("number"))||!validAudio(e.optString("enclosure")))throw new IOException("Neplatná epizoda");}
-        Net.write(new File(context.getFilesDir(),"catalog.json"),bytes);data=next;
+        Net.write(new File(context.getFilesDir(),"catalog.json"),bytes);data=next;refreshedAt=System.currentTimeMillis();
     }
     static boolean validAudio(String value){try{Uri uri=Uri.parse(value);String host=uri.getHost();return "https".equals(uri.getScheme())&&host!=null&&(host.equals("podbean.com")||host.endsWith(".podbean.com"));}catch(Exception e){return false;}}
     JSONObject episode(int number){JSONArray list=data.optJSONArray("episodes");if(list!=null)for(int i=0;i<list.length();i++){JSONObject e=list.optJSONObject(i);if(e!=null&&e.optInt("number")==number)return e;}return null;}
@@ -78,4 +85,18 @@ final class Catalog {
         int index=code-2048;if(index>=ordered.size())return null;JSONObject q=ordered.get(index);return episode(q.optInt("episode"))==null?null:entry(q.optInt("episode"),q.optDouble("seconds"),ref,"ref:"+ref);
     }
     static int decodeRef(String ref){String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";if(ref==null||ref.length()!=2)return-1;int a=alphabet.indexOf(ref.charAt(0)),b=alphabet.indexOf(ref.charAt(1));return a<0||b<0?-1:(a<<6)|b;}
+    static String normalize(String text){return java.text.Normalizer.normalize(text,java.text.Normalizer.Form.NFD).replaceAll("\\p{M}+","").toLowerCase(Locale.ROOT).trim();}
+    List<MediaItem> search(String query){
+        String needle=normalize(query);if(needle.isEmpty())return children("recent");
+        List<MediaItem> out=new ArrayList<>();Set<Integer> seen=new HashSet<>();
+        java.util.regex.Matcher number=java.util.regex.Pattern.compile("(?:dil|diel|epizoda|epizodu|podcast)?\\s*(\\d+)").matcher(needle);
+        if(number.matches()){int n=Integer.parseInt(number.group(1));if(episode(n)!=null){out.add(playable(entry(n,0,"","episode:"+n)));seen.add(n);}}
+        JSONArray series=data.optJSONArray("series");if(series!=null)for(int i=0;i<series.length();i++){
+            JSONObject group=series.optJSONObject(i);if(group!=null&&normalize(group.optString("name")).contains(needle))for(MediaItem item:children("series:"+i)){int n=item.mediaMetadata.extras.getInt("number");if(seen.add(n))out.add(item);}
+        }
+        JSONArray episodes=data.optJSONArray("episodes");if(episodes!=null)for(int i=0;i<episodes.length();i++){
+            JSONObject e=episodes.optJSONObject(i);if(e==null)continue;String haystack=normalize(title(e));boolean matches=true;for(String word:needle.split("\\s+"))if(word.length()>1&&!haystack.contains(word))matches=false;
+            int n=e.optInt("number");if(matches&&seen.add(n))out.add(playable(entry(n,0,"","episode:"+n)));if(out.size()>=100)break;
+        }return out;
+    }
 }

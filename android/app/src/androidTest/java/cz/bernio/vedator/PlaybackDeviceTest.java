@@ -30,6 +30,7 @@ public class PlaybackDeviceTest {
         context=instrumentation.getTargetContext();context.stopService(new Intent(context,PlaybackService.class));Thread.sleep(250);
         store=new Store(context);store.clearUser();store.put("testOffline","1");
         File tone=new File(context.getCacheDir(),"test-tone.mp3");try(InputStream input=instrumentation.getContext().getAssets().open("tone.mp3");FileOutputStream out=new FileOutputStream(tone)){byte[] b=new byte[16384];int n;while((n=input.read(b))!=-1)out.write(b,0,n);}store.put("testAudio",tone.getPath());
+        try(InputStream input=instrumentation.getContext().getAssets().open("tone-index.json");ByteArrayOutputStream out=new ByteArrayOutputStream()){byte[] b=new byte[16384];int n;while((n=input.read(b))!=-1)out.write(b,0,n);Net.write(new File(context.getCacheDir(),"test-tone-index.json"),out.toByteArray());}
         activity=ActivityScenario.launch(MainActivity.class);
         AtomicReference<ListenableFuture<MediaBrowser>> future=new AtomicReference<>();instrumentation.runOnMainSync(()->future.set(new MediaBrowser.Builder(context,new SessionToken(context,new ComponentName(context,PlaybackService.class))).buildAsync()));browser=future.get().get(20,TimeUnit.SECONDS);
         waitFor(()->js("document.documentElement.dataset.vedatorV2Ready").equals("\"1\""),20000);

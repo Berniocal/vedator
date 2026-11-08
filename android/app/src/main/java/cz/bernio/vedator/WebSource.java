@@ -33,7 +33,7 @@ final class WebSource {
             android.net.Network network=connectivity.getActiveNetwork();if(network==null)throw new IOException("Offline");
             bytes=Net.get("https://bernio.cz/vedator/"+file,25_000_000);
             if(file.equals("app-v2.js"))inject(new String(bytes,StandardCharsets.UTF_8),adapter);
-            if(file.equals("content-v2.json")&&new org.json.JSONObject(new String(bytes,StandardCharsets.UTF_8)).getJSONArray("episodes").length()==0)throw new IOException("Prázdný katalog");
+            if(file.equals("content-v2.json"))Catalog.get(context,new Store(context)).accept(bytes);
             Net.write(cache,bytes);
         }catch(Exception e){try{bytes=cache.isFile()?java.nio.file.Files.readAllBytes(cache.toPath()):Net.asset(context,"web/"+file);}catch(Exception ignored){}}
         if(bytes==null)return new WebResourceResponse(mime,"UTF-8",503,"Offline",java.util.Collections.emptyMap(),new ByteArrayInputStream(new byte[0]));

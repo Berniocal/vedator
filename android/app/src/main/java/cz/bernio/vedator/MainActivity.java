@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override public void onCreate(Bundle state){
-        super.onCreate(state);store=new Store(this);catalog=new Catalog(this,store);
+        super.onCreate(state);store=new Store(this);store.put("lastUiCreated",Long.toString(System.currentTimeMillis()));catalog=Catalog.get(this,store);
         getWindow().setStatusBarColor(Color.rgb(33,26,62));getWindow().setNavigationBarColor(Color.rgb(18,18,27));
         LinearLayout layout=new LinearLayout(this);layout.setOrientation(LinearLayout.VERTICAL);layout.setBackgroundColor(Color.rgb(18,18,27));
         LinearLayout bar=new LinearLayout(this);bar.setGravity(Gravity.CENTER_VERTICAL);bar.setPadding(dp(12),0,dp(4),0);bar.setBackgroundColor(Color.rgb(33,26,62));
@@ -75,11 +75,13 @@ public class MainActivity extends Activity {
             catch(Exception e){notice("Přehrávač není dostupný: "+e.getMessage());}
         },ContextCompat.getMainExecutor(this));
         handler.post(poll);web.loadUrl("https://bernio.cz/vedator/");
-        io.execute(()->{try{catalog.refresh();}catch(Exception ignored){}});
+        handleVoice(getIntent());
         long checked;try{checked=Long.parseLong(store.get("apkLastChecked","0"));}catch(NumberFormatException e){checked=0;}
         if(System.currentTimeMillis()-checked>86400000){store.put("apkLastChecked",Long.toString(System.currentTimeMillis()));new Updater(this,io).check(false);}
     }
     private int dp(int value){return Math.round(value*getResources().getDisplayMetrics().density);}
+    private void handleVoice(Intent intent){if(intent!=null&&"android.media.action.MEDIA_PLAY_FROM_SEARCH".equals(intent.getAction())){JSONObject request=message("search");Store.set(request,"query",intent.getStringExtra(android.app.SearchManager.QUERY)==null?"":intent.getStringExtra(android.app.SearchManager.QUERY));control(request,true);}}
+    @Override protected void onNewIntent(Intent intent){super.onNewIntent(intent);setIntent(intent);handleVoice(intent);}
     static JSONObject message(String action){JSONObject out=new JSONObject();Store.set(out,"action",action);return out;}
     private void receive(JSONObject request)throws Exception{
         switch(request.optString("action")){

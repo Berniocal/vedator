@@ -24,6 +24,7 @@ final class IndexedExtractors implements ExtractorsFactory {
     }
     private AnchorSeekMap find(Uri uri){
         try{
+            if(BuildConfig.DEBUG&&"file".equals(uri.getScheme())&&"test-tone.mp3".equals(uri.getLastPathSegment())){File testIndex=new File(context.getCacheDir(),"test-tone-index.json");if(testIndex.isFile())return new AnchorSeekMap(new JSONObject(new String(java.nio.file.Files.readAllBytes(testIndex.toPath()),StandardCharsets.UTF_8)));}
             File cached=new File(context.getFilesDir(),"web/audio-seek-index.json");byte[] bytes=cached.isFile()?java.nio.file.Files.readAllBytes(cached.toPath()):Net.asset(context,"web/audio-seek-index.json");
             JSONObject entries=new JSONObject(new String(bytes,StandardCharsets.UTF_8)).getJSONObject("entries"),entry=entries.optJSONObject(uri.toString());
             if(entry==null&&"file".equals(uri.getScheme())&&"episode-9.mp3".equals(uri.getLastPathSegment()))entry=entries.optJSONObject("https://mcdn.podbean.com/mf/web/4mbanm/podcast_ep9.mp3");
