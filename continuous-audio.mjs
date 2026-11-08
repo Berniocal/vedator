@@ -210,7 +210,7 @@ export class ContinuousAudio extends EventTarget {
     if(!size)throw Error('Server nesdělil velikost MP3 pro rychlý test. Zvol přehrání celého dílu.');
     const offset=Math.max(0,size-s.tailBytes);s.firstSize=size;this.write('RYCHLÝ TEST: posledních '+(size-offset)+' B prvního dílu');return offset;
   }
-  durationHint(bytes){
+  durationHint(bytes,total=0){
     // Xing/Info headers contain a frame count. Reading this first-buffer hint
     // avoids another audio element or a metadata network request at startup.
     const u32=i=>((bytes[i]*16777216)+(bytes[i+1]<<16)+(bytes[i+2]<<8)+bytes[i+3])>>>0;
@@ -228,7 +228,26 @@ export class ContinuousAudio extends EventTarget {
         }
       }
     }
-    return 0;
+    // Some newer CBR exports have no Xing header. Use the response's existing
+    // size only after checking consecutive MP3 frames with the same bitrate.
+    let offset=0;
+    if(bytes[0]===73&&bytes[1]===68&&bytes[2]===51){
+      offset=10;for(let i=6;i<10;i++)offset+=(bytes[i]&127)*2**(7*(9-i));
+      if(bytes[3]===4&&(bytes[5]&16))offset+=10;
+    }
+    const first=offset;let count=0,bitrate=0,signature='';
+    while(offset+4<=bytes.length&&count<64){
+      const a=bytes[offset+1],b=bytes[offset+2],version=(a>>3)&3,rateIndex=(b>>2)&3;
+      if(bytes[offset]!==255||(a&224)!==224||((a>>1)&3)!==1||version===1||rateIndex===3)break;
+      const table=version===3?[0,32,40,48,56,64,80,96,112,128,160,192,224,256,320]:[0,8,16,24,32,40,48,56,64,80,96,112,128,144,160];
+      const nextBitrate=table[b>>4]||0,nextSignature=version+':'+rateIndex;
+      if(!nextBitrate||(count&&(nextBitrate!==bitrate||nextSignature!==signature)))return 0;
+      bitrate=nextBitrate;signature=nextSignature;
+      const rate=[44100,48000,32000][rateIndex]/(version===3?1:version===2?2:4);
+      offset+=Math.floor((version===3?144000:72000)*bitrate/rate)+((b>>1)&1);count++;
+    }
+    const duration=(total-first)*8/(bitrate*1000);
+    return count>=12&&duration>0&&duration<604800?duration:0;
   }
   async pump(s){
     if(s.pumping||this.session!==s||s.complete)return;s.pumping=true;s.failed=false;
@@ -263,12 +282,12 @@ export class ContinuousAudio extends EventTarget {
               let chunk;try{chunk=await reader.read()}finally{clearTimeout(readTimer)}
               if(timedOut)throw Error('Server přestal posílat zvuková data');
               const {done,value}=chunk;if(done){eof=true;break}
-              if(!part.bytes)part.durationHint=this.durationHint(value);
+              if(!part.bytes)part.durationHint=this.durationHint(value,part.sourceSize);
               await this.append(s,value);s.offset+=value.length;part.bytes+=value.length;
             }
           }finally{s.controller.signal.removeEventListener('abort',cancel);await reader.cancel().catch(()=>{})}
         }else if(result.bytes.length){
-          if(!part.bytes&&from===0)part.durationHint=this.durationHint(result.bytes);
+          if(!part.bytes&&from===0)part.durationHint=this.durationHint(result.bytes,result.total);
           await this.append(s,result.bytes);s.offset+=result.bytes.length;part.bytes+=result.bytes.length;
           if(result.total)part.sourceSize=result.total;
           eof=result.bytes.length<this.chunkSize||(part.sourceSize>0&&s.offset>=part.sourceSize);

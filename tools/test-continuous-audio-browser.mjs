@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
 import assert from 'node:assert/strict';
+import {ContinuousAudio} from '../continuous-audio.mjs';
 import {createRequire} from 'node:module';
 import {pathToFileURL} from 'node:url';
 const root=process.cwd(),deps=process.env.VEDATOR_TEST_DEPS||root;
@@ -12,6 +13,16 @@ const live=process.env.VEDATOR_CONTINUOUS_LIVE==='1';
 const systemMode=process.env.VEDATOR_CONTINUOUS_SYSTEM==='stream'?'stream':'episode';
 const liveNumbers=(process.env.VEDATOR_CONTINUOUS_EPISODES||'77,92,357').split(',').map(Number);
 const fixture=Buffer.from(fs.readFileSync('tools/continuous-tone-base64.txt','utf8').trim(),'base64');
+// No-Xing CBR exports must still expose a full episode duration for the slider.
+// Include an ID3 block, then deliberately change a frame to reject VBR guesses.
+{
+  const frameLength=Math.floor(144000*128/44100),frames=Buffer.alloc(frameLength*64);
+  for(let i=0;i<64;i++)frames.set([255,251,144,0],i*frameLength);
+  const bytes=Buffer.concat([Buffer.from([73,68,51,3,0,0,0,0,0,16]),Buffer.alloc(16),frames]);
+  const duration=total=>ContinuousAudio.prototype.durationHint(bytes,total),total=26+16000*3600;
+  assert(Math.abs(duration(total)-3600)<.01);assert.equal(duration(0),0);
+  bytes[26+frameLength+2]=160;assert.equal(duration(total),0,'Do not infer CBR duration from variable bitrates');
+}
 let noRange=false,blockSecond=false,transientFailure=true,failures=0;
 const requested=[];
 const real=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
