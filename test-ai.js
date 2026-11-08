@@ -282,8 +282,9 @@ function shortlist(question){
   return matches.slice(0,CANDIDATE_LIMIT);
 }
 function showPreliminary(candidates){
-  if(candidates.length)renderResults(candidates.slice(0,5).map(item=>({entry:item.entry,score:item.lexical})),
-    "Rychle nalezené související pasáže. AI teď zpřesňuje jejich pořadí.",true);
+  // Během výpočtu nezobrazovat slepenou předběžnou „odpověď“.
+  // Právě ta předtím působila jako náhodná směs nesouvisejících tvrzení.
+  status("search-status","Našel jsem "+candidates.length+" možných pasáží. AI vybírá nejbližší odpověď…");
 }
 async function embed(texts){
   const out=await state.extractor(texts,{pooling:"mean",normalize:true});
@@ -319,38 +320,130 @@ async function prepareCandidateVectors(candidates){
   progress.value=100;
 }
 function dot(a,b){let n=0;for(let i=0;i<Math.min(a.length,b.length);i++)n+=a[i]*b[i];return n;}
-function summarize(entry){
-  const points=entry.points.filter(Boolean);
-  const unique=[];
-  for(const p of points){const t=p.replace(/^\s*[-•]\s*/,"").trim();if(t && !unique.some(a=>norm(a)===norm(t)))unique.push(t);}
-  return unique.slice(0,3);
-}
+
 function sourceLink(entry){
   return "./index.html#"+entry.kind+"="+encodeURIComponent(entry.episode)+":"+encodeURIComponent(entry.order);
 }
-function renderResults(ranked,heading,preliminary=false){
-  $("results").classList.remove("hidden");$("sources").replaceChildren();$("answer").replaceChildren();
-  const title=document.createElement("p");title.className="small muted";title.textContent=heading;$("answer").append(title);
-  const items=ranked.slice(0,5);
-  const seen=new Set();
-  for(const item of items.slice(0,3)){
-    const e=item.entry,points=summarize(e);
-    if(!points.length)continue;
-    const excerpt=points.join(" ").slice(0,560);
-    if(seen.has(excerpt))continue;seen.add(excerpt);
-    const p=document.createElement("p");p.textContent=excerpt;$("answer").append(p);
+const QUERY_FILLER=new Set(["proc","jak","jaky","jaka","jake","kdy","kde","kdo","co","ktera","ktere","ktery","je","jsou","bylo","byla","byt","tady","tahle","toho","nebo","mohou","muze","muzu","chci","vice","kolem","podle","tedy","vlastne","znamena","stane","funguje"]);
+function answerQueryTerms(question){
+  return [...new Set([...tokens(question)].map(stemToken).filter(term=>term.length>2&&!QUERY_FILLER.has(term)))];
+}
+function coverage(text,terms){
+  if(!terms.length)return 0;
+  const hay=new Set([...tokens(text)].map(stemToken));
+  let found=0;
+  for(const term of terms)if(hay.has(term))found++;
+  return found/terms.length;
+}
+function splitSentences(value){
+  const source=clean(value).replace(/^[-•]\s*/,"").trim();
+  if(!source)return[];
+  // Dělit pouze na hranici vět; žádné uříznutí na pevném počtu znaků.
+  const parts=source.split(/(?<=[.!?])\s+(?=[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ„(])/u).map(x=>x.trim()).filter(Boolean);
+  const result=[];
+  for(const part of parts){
+    if(part.length<26 && result.length){result[result.length-1]+=" "+part;continue;}
+    result.push(part);
   }
-  if(!seen.size){const p=document.createElement("p");p.textContent="K tématu jsem našel tyto pasáže. Otevři jednotlivá shrnutí pro podrobnosti.";$("answer").append(p);}
-  $("result-count").textContent=preliminary?"Předběžné výsledky":items.length+" nalezených pasáží";
+  return result.filter(x=>x.length>=25);
+}
+function selectedAnswer(ranked,question){
+  const terms=answerQueryTerms(question);
+  const candidates=ranked.map(item=>{
+    const entry=item.entry;
+    const titleMatch=coverage(entry.title,terms);
+    const detailsMatch=coverage(entry.passage,terms);
+    const segments=[];
+    entry.points.forEach((point,pointIndex)=>{
+      splitSentences(point).forEach((sentence,sentenceIndex)=>{
+        if(sentence.length<34 || sentence.length>490)return;
+        const overlap=coverage(sentence,terms);
+        const isContextual=/^(ano|ne|určitě|zřejmě|to|tato|tento|proto|také|navíc|právě|tedy|tak)\b/i.test(sentence);
+        const score=overlap+(sentenceIndex===0?.035:0)+(titleMatch>.42?.06:0);
+        // Bez stejné otázky nevkládat větu „Ano, ...“ vytrženou z kontextu.
+        if(isContextual&&titleMatch<.5)return;
+        segments.push({sentence,score,pointIndex,sentenceIndex,overlap});
+      });
+    });
+    segments.sort((a,b)=>b.score-a.score||a.pointIndex-b.pointIndex||a.sentenceIndex-b.sentenceIndex);
+    return {
+      item,entry,titleMatch,detailsMatch,
+      rank:Math.max(-1,Number(item.score)||0)+.14*titleMatch+.075*detailsMatch,
+      segments
+    };
+  }).sort((a,b)=>b.rank-a.rank);
+  // Pro jednoznačnou odpověď vyžadujeme alespoň obsahovou shodu,
+  // samotný embedding může najít jen vzdáleně související téma.
+  const direct=candidates.find(c=>c.segments.some(x=>x.overlap>0) &&
+    (c.titleMatch>=.33||c.detailsMatch>=.33));
+  if(!direct)return {direct:false,source:candidates[0]||null,lines:[]};
+  const chosen=direct;
+  const best=chosen.segments.find(s=>s.overlap>0);
+  const lines=[];
+  if(best){
+    lines.push(best.sentence);
+    // Druhá věta pouze ze stejné pasáže, jestliže ji skutečně doplňuje.
+    const neighbor=chosen.segments.find(s=>s.pointIndex===best.pointIndex &&
+      s.sentenceIndex===best.sentenceIndex+1 &&
+      s.sentence.length>=35 && s.sentence.length<=360 &&
+      (s.overlap>0 || best.sentence.length<130));
+    if(neighbor && !lines.includes(neighbor.sentence))lines.push(neighbor.sentence);
+  }
+  return {direct:true,source:chosen,lines};
+}
+function renderResults(ranked,question){
+  $("results").classList.remove("hidden");
+  $("sources").replaceChildren();
+  $("answer").replaceChildren();
+  const items=ranked.slice(0,5);
+  const answer=selectedAnswer(items,question);
+  const addText=(value,className)=>{
+    const p=document.createElement("p");
+    if(className)p.className=className;
+    p.textContent=value;
+    $("answer").append(p);
+  };
+  if(answer.direct && answer.lines.length){
+    const e=answer.source.entry;
+    addText("Ve shrnutí dílu "+e.episode+" („"+e.title+"“) se k tématu uvádí:","small muted");
+    for(const line of answer.lines)addText(line);
+    const link=document.createElement("a");
+    link.className="source-link";
+    link.href=sourceLink(e);
+    link.textContent="↗ Zdroj: díl "+e.episode+", "+(e.time||fmtTime(e.seconds));
+    $("answer").append(link);
+    addText("Jde o vybrané věty ze shrnutí, nikoli o nově vygenerované vysvětlení.","small muted");
+  }else{
+    addText("V dostupných shrnutích jsem nenašel dostatečně přímou odpověď na tuto otázku.");
+    addText("Níže jsou nejbližší související pasáže. Nemusí ale přímo odpovídat na to, na co se ptáš.","small muted");
+  }
+  $("result-count").textContent=items.length+" souvisejících pasáží";
   items.forEach((item,i)=>{
     const e=item.entry;
-    const card=document.createElement("article");card.className="card";
-    const top=document.createElement("div");top.className="grid-line";
-    const meta=document.createElement("span");meta.className="small muted";meta.textContent=(i+1)+". Díl "+e.episode+" · "+(e.kind==="question"?"Otázka":"Shrnutí")+" · "+(e.time||fmtTime(e.seconds));top.append(meta);
-    const title=document.createElement("h2");title.className="source-title";title.textContent=e.title;
-    const description=document.createElement("p");description.className="source-body";description.textContent=e.points.slice(0,4).join(" ").slice(0,650);
-    const link=document.createElement("a");link.className="source-link";link.href=sourceLink(e);link.target="_blank";link.rel="noopener";link.textContent="↗ Otevřít tuto pasáž v aplikaci";
-    card.append(top,title,description,link);$("sources").append(card);
+    const card=document.createElement("article");
+    card.className="card";
+    const top=document.createElement("div");
+    top.className="grid-line";
+    const meta=document.createElement("span");
+    meta.className="small muted";
+    meta.textContent=(i+1)+". Díl "+e.episode+" · "+(e.kind==="question"?"Otázka":"Shrnutí")+" · "+(e.time||fmtTime(e.seconds));
+    top.append(meta);
+    const title=document.createElement("h2");
+    title.className="source-title";
+    title.textContent=e.title;
+    const description=document.createElement("p");
+    description.className="source-body";
+    const segments=splitSentences(e.points.join(" "));
+    // Karty necháváme věrné podkladům, ale bez useknutí uprostřed slova/věty.
+    description.textContent=segments.slice(0,2).join(" ")||e.points.slice(0,2).join(" ");
+    const link=document.createElement("a");
+    link.className="source-link";
+    link.href=sourceLink(e);
+    link.target="_blank";
+    link.rel="noopener";
+    link.textContent="↗ Otevřít tuto pasáž v aplikaci";
+    card.append(top,title,description,link);
+    $("sources").append(card);
   });
 }
 async function ask(question){
@@ -376,8 +469,7 @@ async function ask(question){
       entry:item.entry,
       score:dot(query,state.vectors.get(item.entry.key)) + Math.min(.06,item.lexical*.01)
     })).sort((a,b)=>b.score-a.score);
-    renderResults(scored.slice(0,5),
-      "Významově seřazené pasáže z vybraných shrnutí. Texty níže jsou převzaté ze zdrojových shrnutí.");
+    renderResults(scored.slice(0,5),question);
     status("search-status","Hotovo. Bez indexování celého katalogu, další dotazy mohou využít uložené výpočty.","ok");
   }catch(e){
     status("search-status","AI vyhledávání selhalo: "+(e.message||e),"error");
