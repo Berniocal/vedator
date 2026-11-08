@@ -1,7 +1,17 @@
 // AI Vedátor – samostatný experiment. Není načítán hlavní aplikací.
 "use strict";
 const MODEL = "Xenova/multilingual-e5-small";
-const CACHE_KEY = "vedator-ai-model-v1";
+// Transformers.js 3.8.1 uses the default browser Cache Storage named "transformers-cache".
+const CACHE_KEY = "transformers-cache";
+const OLD_CACHE_KEY = "vedator-ai-model-v1";
+const MODEL_CACHES = [CACHE_KEY, OLD_CACHE_KEY];
+function modelPath(req){
+  try{return decodeURIComponent(String(req.url||req)).toLowerCase();}catch{return String(req.url||req).toLowerCase();}
+}
+function isVedatorModelFile(req){return modelPath(req).includes("/xenova/multilingual-e5-small/");}
+function isVedatorModelWeights(req){
+  return isVedatorModelFile(req) && /\/onnx\/model_(?:quantized|int8|uint8|q8)\.onnx(?:[?#]|$)/.test(modelPath(req));
+}
 const DB_NAME = "vedator-ai-index-v1";
 const MODEL_LIBRARY = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1";
 const $ = id => document.getElementById(id);
@@ -52,10 +62,25 @@ async function getCache(){
 }
 async function cacheInstalled(){
   if(!("caches" in window))return false;
-  if(!(await caches.keys()).includes(CACHE_KEY))return false;
-  const cache=await caches.open(CACHE_KEY);
-  const keys=await cache.keys();
-  return keys.some(req=>req.url.includes("multilingual-e5-small") && /\/onnx\/model_(int8|quantized)\.onnx/i.test(req.url));
+  const available=await caches.keys();
+  for(const name of MODEL_CACHES){
+    if(!available.includes(name))continue;
+    const cache=await caches.open(name);
+    const requests=await cache.keys();
+    if(requests.some(isVedatorModelWeights))return true;
+  }
+  return false;
+}
+async function removeCachedModelFiles(){
+  const available=await caches.keys();
+  for(const name of MODEL_CACHES){
+    if(!available.includes(name))continue;
+    const cache=await caches.open(name);
+    const files=(await cache.keys()).filter(isVedatorModelFile);
+    for(const request of files)await cache.delete(request);
+    // Never delete the entire shared cache. Other models may be stored in it.
+    if(name===OLD_CACHE_KEY && !(await cache.keys()).length)await caches.delete(name);
+  }
 }
 async function refreshModelStatus(){
   state.installed=await cacheInstalled();
@@ -67,7 +92,7 @@ async function loadLibrary(){
   if(state.library)return state.library;
   const lib=await import(MODEL_LIBRARY);
   lib.env.useBrowserCache=true;
-  lib.env.cacheKey=CACHE_KEY;
+  // This library version uses the shared default cache. Deletion is scoped to MODEL only.
   lib.env.allowLocalModels=false;
   lib.env.allowRemoteModels=true;
   // Při běžném vyhledávání nedovolíme model tiše znovu stáhnout.
@@ -163,10 +188,11 @@ async function removeModel(){
   try{
     if(state.extractor?.dispose)await state.extractor.dispose();
     state.extractor=null;
-    await caches.delete(CACHE_KEY);
+    await removeCachedModelFiles();
     await deleteDb();
     state.vectors.clear();
-    state.installed=false;
+    state.installed=await cacheInstalled();
+    if(state.installed)throw Error("Některé soubory modelu zůstaly uložené.");
     $("results").classList.add("hidden");
     $("model-status").textContent="Model není stažený";
     $("download-progress").classList.add("hidden");
