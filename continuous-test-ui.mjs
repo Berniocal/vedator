@@ -1,4 +1,4 @@
-import {ContinuousAudio} from './continuous-audio.mjs?v=20261108-2';
+import {ContinuousAudio} from './continuous-audio.mjs?v=20261108-3';
 const $=id=>document.getElementById(id),audio=$('audio');
 const streamControls=new URLSearchParams(location.search).get('system')==='stream';
 const LOG_KEY=streamControls?'vedator-continuous-test-log-v2-stream':'vedator-continuous-test-log-v1';
@@ -23,15 +23,17 @@ function renderQueue(items,index=-1){
 }
 function update(){
   const s=player.session,p=player.part(),time=player.position();
-  for(const id of ['toggle','stop','back','forward','seek'])$(id).disabled=!s;
+  for(const id of ['toggle','stop','back','forward','seek','jump-time','jump-go'])$(id).disabled=!s;
   $('toggle').textContent=audio.paused?'Přehrát':'Pauza';
   $('retry').hidden=!s?.failed;$('retry').disabled=Boolean(audio.error);
   if(!s){$('status').textContent='Připraveno. Zvol rychlý test nebo celé díly.';return}
-  const end=p?.end==null?Math.max(time,player.bufferEnd()-(p?.start||0)):p.end-p.start;
-  $('seek').max=String(Math.max(.1,end));if(document.activeElement!==$('seek'))$('seek').value=String(time);
-  $('time').textContent=fmt(time);$('duration').textContent=p?.end==null?'Načteno '+fmt(end):fmt(end);
+  const tail=s.quick&&s.index===0;
+  const known=tail?0:(p?.end!=null?p.end-p.start:p?.durationHint||0);
+  const end=known||Math.max(time,player.bufferEnd()-(p?.start||0));
+  $('seek').max=String(Math.max(.1,end));if(document.activeElement!==$('seek'))$('seek').value=String(Math.min(end,time));
+  $('time').textContent=fmt(time);$('duration').textContent=known?fmt(known):'Načteno '+fmt(end);
   const current=s.items[s.index];$('title').textContent=current.title;
-  $('mode').textContent=(s.quick&&s.index===0?'Závěrečná část prvního dílu':'Celý díl')+' · '+(s.index+1)+' / '+s.items.length;
+  $('mode').textContent=(s.native?'Přímé MP3 po posunu':s.quick&&s.index===0?'Závěrečná část prvního dílu':'Souvislý proud')+' · '+(s.index+1)+' / '+s.items.length;
   const state=audio.ended?'Dokončeno':s.failed?'Chyba načítání':audio.paused?'Pozastaveno':audio.readyState<3?'Načítám zvuk…':'Přehrávám';
   $('status').textContent=state+' · dopředu připraveno '+fmt(player.ahead())+' · přechodů '+s.transitionCount;
 }
@@ -58,11 +60,26 @@ $('quick').addEventListener('click',()=>start(true));$('start').addEventListener
 $('toggle').addEventListener('click',()=>{if(audio.paused)player.play();else player.pause()});
 $('stop').addEventListener('click',()=>{player.stop();problem('');update()});
 $('back').addEventListener('click',()=>player.seekBy(-10));$('forward').addEventListener('click',()=>player.seekBy(10));
-$('seek').addEventListener('change',()=>player.seek(Number($('seek').value)));
+$('seek').addEventListener('change',()=>{
+  const target=Number($('seek').value);if(!player.seek(target))problem('Přeskočení na '+fmt(target)+' nebylo možné.');
+});
+function parseJumpTime(value){
+  const bits=String(value).trim().split(':');
+  if(!bits.length||bits.length>3||bits.some(v=>!/^\\d+$/.test(v)))return NaN;
+  return bits.reduce((acc,part)=>acc*60+Number(part),0);
+}
+function jump(){
+  const value=parseJumpTime($('jump-time').value);
+  if(!Number.isFinite(value)||value>86400){problem('Zadej čas například 30:00 nebo 1:02:30.');return}
+  problem('');
+  if(!player.seek(value))problem('Na zadaný čas se nepodařilo přeskočit.');
+}
+$('jump-go').addEventListener('click',jump);
+$('jump-time').addEventListener('keydown',event=>{if(event.key==='Enter')jump()});
 $('speed').addEventListener('change',()=>{audio.playbackRate=Number($('speed').value)||1});
 $('retry').addEventListener('click',()=>{problem('');player.retry()});
 $('copy').addEventListener('click',async()=>{
-  const s=player.session,text='Vedátor — souvislý proud v2; systemTimeline='+player.systemTimeline+'\n'+navigator.userAgent+'\n'+location.href+'\n'+lines.join('\n')+'\nStav: '+JSON.stringify({episode:s?.items[s.index]?.number,paused:audio.paused,time:audio.currentTime,nativeDuration:String(audio.duration),declaredState:navigator.mediaSession?.playbackState,systemPosition:s?.lastMediaPosition,error:audio.error&&{code:audio.error.code,message:audio.error.message},ranges:player.ranges(),sourceChanges:s?.sourceChanges,transitions:s?.transitionCount});
+  const s=player.session,text='Vedátor — souvislý proud v3; systemTimeline='+player.systemTimeline+'\n'+navigator.userAgent+'\n'+location.href+'\n'+lines.join('\n')+'\nStav: '+JSON.stringify({episode:s?.items[s.index]?.number,paused:audio.paused,time:audio.currentTime,nativeDuration:String(audio.duration),declaredState:navigator.mediaSession?.playbackState,systemPosition:s?.lastMediaPosition,error:audio.error&&{code:audio.error.code,message:audio.error.message},ranges:player.ranges(),sourceChanges:s?.sourceChanges,transitions:s?.transitionCount});
   try{await navigator.clipboard.writeText(text);$('copy').textContent='Zkopírováno'}catch{
     const box=document.createElement('textarea');box.value=text;document.body.appendChild(box);box.select();const copied=document.execCommand('copy');box.remove();$('copy').textContent=copied?'Zkopírováno':'Kopírování se nepodařilo';
   }
