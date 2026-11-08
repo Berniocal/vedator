@@ -374,8 +374,15 @@ function selectedAnswer(ranked,question){
   }).sort((a,b)=>b.rank-a.rank);
   // Pro jednoznačnou odpověď vyžadujeme alespoň obsahovou shodu,
   // samotný embedding může najít jen vzdáleně související téma.
-  const direct=candidates.find(c=>c.segments.some(x=>x.overlap>0) &&
-    (c.titleMatch>=.33||c.detailsMatch>=.33));
+  const direct=candidates.find(c=>{
+    // Slova společná celému tématu (např. „černá díra“) sama nestačí:
+    // nesmíme odpovídat o pohybu černé díry na dotaz o jejím záření.
+    const bestOverlap=c.segments.reduce((value,s)=>Math.max(value,s.overlap),0);
+    const relatedQuestion=c.titleMatch>=.90;
+    const clearContext=c.titleMatch>=.68 && bestOverlap>=.45;
+    const completeSpecificMatch=bestOverlap>=.75;
+    return c.segments.length>0 && (relatedQuestion||clearContext||completeSpecificMatch);
+  });
   if(!direct)return {direct:false,source:candidates[0]||null,lines:[]};
   const chosen=direct;
   const best=chosen.segments.find(s=>s.overlap>0);
