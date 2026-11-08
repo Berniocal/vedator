@@ -9,3 +9,5 @@ for (const file of files) if(fs.existsSync(path.join(root,file))) fs.copyFileSyn
 fs.writeFileSync(path.join(out,'sw.js'),'self.addEventListener("install",()=>self.skipWaiting());');
 fs.writeFileSync(path.join(root,'android/app/src/main/assets/build-info.json'),JSON.stringify({source:process.env.GITHUB_SHA||'local',builtAt:new Date().toISOString()}));
 console.log('Bundled web fallback prepared');
+const testOut=path.join(root,'android/app/src/androidTest/assets');fs.mkdirSync(testOut,{recursive:true});
+fs.writeFileSync(path.join(testOut,'tone.mp3'),Buffer.from(fs.readFileSync(path.join(root,'tools/continuous-tone-base64.txt'),'utf8').trim(),'base64'));

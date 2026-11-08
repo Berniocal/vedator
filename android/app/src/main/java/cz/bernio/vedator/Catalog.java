@@ -34,6 +34,8 @@ final class Catalog {
         JSONObject e=episode(entry.optInt("number"));if(e==null)throw new IllegalArgumentException("Epizoda nebyla nalezena");
         String uri=e.optString("enclosure");if(!validAudio(uri))throw new IllegalArgumentException("Neplatná adresa audia");
         String offline=Downloads.completedPath(context,store,e.optInt("number"));if(offline!=null)uri=Uri.fromFile(new File(offline)).toString();
+        // Instrumented tests exercise the real service with local MP3 bytes, never a production URL override.
+        if(BuildConfig.DEBUG){String test=store.get("testAudio","");if(test.startsWith(context.getCacheDir().getAbsolutePath()+"/")&&new File(test).isFile())uri=Uri.fromFile(new File(test)).toString();}
         Bundle extras=new Bundle();extras.putInt("number",e.optInt("number"));extras.putDouble("start",entry.optDouble("start"));extras.putString("entry",entry.toString());
         return new MediaItem.Builder().setMediaId("episode:"+e.optInt("number")+":"+entry.optDouble("start"))
             .setUri(uri).setMimeType(MimeTypes.AUDIO_MPEG)

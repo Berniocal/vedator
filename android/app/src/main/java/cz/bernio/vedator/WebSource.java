@@ -28,6 +28,7 @@ final class WebSource {
         String mime=file.endsWith(".js")?"text/javascript":file.endsWith(".json")?"application/json":file.endsWith(".svg")?"image/svg+xml":file.endsWith(".webmanifest")?"application/manifest+json":"text/html";
         byte[] bytes=null;
         try{
+            if(BuildConfig.DEBUG&&new Store(context).get("testOffline","").equals("1"))throw new IOException("Offline test");
             bytes=Net.get("https://bernio.cz/vedator/"+file,25_000_000);
             if(file.equals("app-v2.js"))inject(new String(bytes,StandardCharsets.UTF_8),adapter);
             if(file.equals("content-v2.json")&&new org.json.JSONObject(new String(bytes,StandardCharsets.UTF_8)).getJSONArray("episodes").length()==0)throw new IOException("Prázdný katalog");
