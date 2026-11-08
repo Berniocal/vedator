@@ -26,6 +26,7 @@ public class PlaybackDeviceTest {
     private Store store;
     private MediaBrowser browser;
     private ActivityScenario<MainActivity> activity;
+    private android.media.browse.MediaBrowser legacy;
     @Before public void setup()throws Exception{
         context=instrumentation.getTargetContext();context.stopService(new Intent(context,PlaybackService.class));Thread.sleep(250);
         store=new Store(context);store.clearUser();store.put("testOffline","1");
@@ -36,7 +37,7 @@ public class PlaybackDeviceTest {
         waitFor(()->js("document.documentElement.dataset.vedatorV2Ready").equals("\"1\""),20000);
         assertEquals("\"1\"",js("document.documentElement.dataset.vedatorNative"));
     }
-    @After public void cleanup()throws Exception{if(browser!=null){send(MainActivity.message("stop"));instrumentation.runOnMainSync(()->browser.release());}if(activity!=null)activity.close();context.stopService(new Intent(context,PlaybackService.class));store.put("testAudio","");store.put("testOffline","");}
+    @After public void cleanup()throws Exception{if(legacy!=null)instrumentation.runOnMainSync(()->legacy.disconnect());if(browser!=null){send(MainActivity.message("stop"));instrumentation.runOnMainSync(()->browser.release());}if(activity!=null)activity.close();context.stopService(new Intent(context,PlaybackService.class));store.put("testAudio","");store.put("testOffline","");}
     private String js(String code)throws Exception{CompletableFuture<String> value=new CompletableFuture<>();activity.onActivity(a->a.web.evaluateJavascript(code,value::complete));return value.get(5,TimeUnit.SECONDS);}
     private JSONObject send(JSONObject request)throws Exception{
         AtomicReference<ListenableFuture<SessionResult>> future=new AtomicReference<>();instrumentation.runOnMainSync(()->{Bundle args=new Bundle();args.putString("json",request.toString());future.set(browser.sendCustomCommand(new SessionCommand(PlaybackService.COMMAND,Bundle.EMPTY),args));});SessionResult result=future.get().get(10,TimeUnit.SECONDS);assertEquals(result.extras.getString("error"),SessionResult.RESULT_SUCCESS,result.resultCode);return new JSONObject(result.extras.getString("json","{}"));
@@ -57,6 +58,14 @@ public class PlaybackDeviceTest {
     @Test public void autoCatalogAndWebControlsShareTheService()throws Exception{
         AtomicReference<ListenableFuture<LibraryResult<MediaItem>>> rootFuture=new AtomicReference<>();instrumentation.runOnMainSync(()->rootFuture.set(browser.getLibraryRoot(null)));LibraryResult<MediaItem> root=rootFuture.get().get(5,TimeUnit.SECONDS);assertEquals("Library root result",SessionResult.RESULT_SUCCESS,root.resultCode);assertNotNull(root.value);assertEquals("root",root.value.mediaId);
         AtomicReference<ListenableFuture<LibraryResult<com.google.common.collect.ImmutableList<MediaItem>>>> children=new AtomicReference<>();instrumentation.runOnMainSync(()->children.set(browser.getChildren("root",0,100,null)));assertEquals(5,children.get().get(5,TimeUnit.SECONDS).value.size());
+        // Legacy Android Auto sends only a media ID, without the original metadata.
+        Catalog catalog=Catalog.get(context,store);int seriesIndex=-1;for(int i=0;i<catalog.children("series").size();i++){java.util.List<MediaItem> list=catalog.children("series:"+i);if(list.size()>2&&list.get(0).mediaMetadata.extras.getInt("number")==9&&list.get(2).mediaMetadata.extras.getInt("number")==1703){seriesIndex=i;break;}}
+        assertTrue("Black hole series exists",seriesIndex>=0);MediaItem seriesItem=catalog.children("series:"+seriesIndex).get(1);
+        CompletableFuture<Boolean> legacyConnected=new CompletableFuture<>();instrumentation.runOnMainSync(()->{legacy=new android.media.browse.MediaBrowser(context,new ComponentName(context,PlaybackService.class),new android.media.browse.MediaBrowser.ConnectionCallback(){@Override public void onConnected(){legacyConnected.complete(true);}@Override public void onConnectionFailed(){legacyConnected.complete(false);}},null);legacy.connect();});
+        assertTrue("Android Auto compatible platform browser connects",legacyConnected.get(10,TimeUnit.SECONDS));
+        instrumentation.runOnMainSync(()->new android.media.session.MediaController(context,legacy.getSessionToken()).getTransportControls().playFromMediaId(seriesItem.mediaId,null));
+        waitFor(()->snapshot().optBoolean("ready")&&snapshot().getJSONObject("queue").optJSONArray("items")!=null&&snapshot().getJSONObject("queue").getJSONArray("items").length()>2,10000);
+        JSONObject car=snapshot();assertEquals("series",car.getJSONObject("queue").getJSONObject("context").getString("type"));assertEquals(41,car.getJSONObject("queue").getJSONArray("items").getJSONObject(car.getInt("index")).getInt("number"));
         assertEquals("true",js("(document.querySelector('[data-view=series]').click(),true)"));
         js("document.querySelector('#series-v2 .series>summary').click();document.querySelector('.series-resume-v2').click();true");
         waitFor(()->snapshot().optBoolean("playing")&&snapshot().optBoolean("ready"),15000);

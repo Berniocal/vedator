@@ -105,7 +105,7 @@ public class PlaybackService extends MediaLibraryService {
             return builder.build();
         }
         @Override public ListenableFuture<SessionResult> onCustomCommand(@NonNull MediaSession s,@NonNull MediaSession.ControllerInfo c,@NonNull SessionCommand command,@NonNull Bundle args){
-            if(!command.customAction.equals(COMMAND)||c.getUid()!=android.os.Process.myUid())return Futures.immediateFuture(new SessionResult(SessionResult.RESULT_ERROR_PERMISSION_DENIED));
+            if(!command.customAction.equals(COMMAND)||c.getUid()!=android.os.Process.myUid())return Futures.immediateFuture(new SessionResult(SessionError.ERROR_PERMISSION_DENIED));
             try{
                 JSONObject request=new JSONObject(args.getString("json","{}"));String action=request.optString("action");
                 switch(action){
@@ -127,27 +127,27 @@ public class PlaybackService extends MediaLibraryService {
                     default:throw new IllegalArgumentException("Neznámý příkaz");
                 }
                 Bundle result=new Bundle();result.putString("json",snapshot().toString());return Futures.immediateFuture(new SessionResult(SessionResult.RESULT_SUCCESS,result));
-            }catch(Exception e){Bundle result=new Bundle();result.putString("error",e.getMessage());return Futures.immediateFuture(new SessionResult(SessionResult.RESULT_ERROR_BAD_VALUE,result));}
+            }catch(Exception e){Bundle result=new Bundle();result.putString("error",e.getMessage());return Futures.immediateFuture(new SessionResult(SessionError.ERROR_BAD_VALUE,result));}
         }
         @Override public ListenableFuture<LibraryResult<MediaItem>> onGetLibraryRoot(@NonNull MediaLibrarySession s,@NonNull MediaSession.ControllerInfo c,LibraryParams params){return Futures.immediateFuture(LibraryResult.ofItem(catalog.folder("root","Vedátor"),params));}
         @Override public ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> onGetChildren(@NonNull MediaLibrarySession s,@NonNull MediaSession.ControllerInfo c,@NonNull String parent,int page,int pageSize,LibraryParams params){
-            try{return Futures.immediateFuture(LibraryResult.ofItemList(catalog.children(parent),params));}catch(Exception e){return Futures.immediateFuture(LibraryResult.ofError(SessionResult.RESULT_ERROR_BAD_VALUE));}
+            try{return Futures.immediateFuture(LibraryResult.ofItemList(catalog.children(parent),params));}catch(Exception e){return Futures.immediateFuture(LibraryResult.ofError(SessionError.ERROR_BAD_VALUE));}
         }
-        @Override public ListenableFuture<LibraryResult<MediaItem>> onGetItem(@NonNull MediaLibrarySession s,@NonNull MediaSession.ControllerInfo c,@NonNull String id){try{return Futures.immediateFuture(LibraryResult.ofItem(resolve(id),null));}catch(Exception e){return Futures.immediateFuture(LibraryResult.ofError(SessionResult.RESULT_ERROR_BAD_VALUE));}}
+        @Override public ListenableFuture<LibraryResult<MediaItem>> onGetItem(@NonNull MediaLibrarySession s,@NonNull MediaSession.ControllerInfo c,@NonNull String id){try{return Futures.immediateFuture(LibraryResult.ofItem(resolve(id),null));}catch(Exception e){return Futures.immediateFuture(LibraryResult.ofError(SessionError.ERROR_BAD_VALUE));}}
         @Override public ListenableFuture<LibraryResult<Void>> onSearch(@NonNull MediaLibrarySession s,@NonNull MediaSession.ControllerInfo c,@NonNull String query,LibraryParams params){s.notifySearchResultChanged(c,query,catalog.search(query).size(),params);return Futures.immediateFuture(LibraryResult.ofVoid());}
         @Override public ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> onGetSearchResult(@NonNull MediaLibrarySession s,@NonNull MediaSession.ControllerInfo c,@NonNull String query,int page,int pageSize,LibraryParams params){return Futures.immediateFuture(LibraryResult.ofItemList(catalog.search(query),params));}
-        private MediaItem resolve(String id){if(id.startsWith("episode:")){String[] bits=id.split(":");return catalog.playable(catalog.entry(Integer.parseInt(bits[1]),bits.length>2?Double.parseDouble(bits[2]):0,"",id));}return catalog.folder(id,id);}
+        private MediaItem resolve(String id){if(id.startsWith("episode:")){String[] split=id.split("@",2),bits=split[0].split(":");JSONObject entry=catalog.entry(Integer.parseInt(bits[1]),bits.length>2?Double.parseDouble(bits[2]):0,"",id);if(split.length>1)Store.set(entry,"parent",android.net.Uri.decode(split[1]));return catalog.playable(entry);}return catalog.folder(id,id);}
         @Override public ListenableFuture<MediaSession.MediaItemsWithStartPosition> onSetMediaItems(@NonNull MediaSession s,@NonNull MediaSession.ControllerInfo c,@NonNull List<MediaItem> requested,int startIndex,long startPosition){
             try{
                 if(requested.isEmpty())return Futures.immediateFuture(new MediaSession.MediaItemsWithStartPosition(Collections.emptyList(),0,0));
                 MediaItem first=requested.get(Math.max(0,Math.min(requested.size()-1,startIndex)));
                 if(first.requestMetadata.searchQuery!=null){List<MediaItem> matches=catalog.search(first.requestMetadata.searchQuery);if(matches.isEmpty())throw new IllegalArgumentException("Nic nenalezeno");first=matches.get(0);requested=matches;startIndex=0;}
                 MediaItem resolved=resolve(first.mediaId);List<MediaItem> items=new ArrayList<>();int index=0;
-                Bundle extras=first.mediaMetadata.extras;JSONObject entry=extras==null?null:Store.object(extras.getString("entry","{}"));String parent=entry==null?"":entry.optString("parent");
+                Bundle extras=resolved.mediaMetadata.extras;JSONObject entry=extras==null?null:Store.object(extras.getString("entry","{}"));String parent=entry==null?"":entry.optString("parent");
                 if(!parent.isEmpty()){items.addAll(catalog.children(parent));for(int i=0;i<items.size();i++)if(items.get(i).mediaId.equals(resolved.mediaId)){index=i;break;}}
                 else if(requested.size()==1){items.addAll(catalog.children("recent"));index=-1;for(int i=0;i<items.size();i++)if(items.get(i).mediaId.equals(resolved.mediaId)){index=i;break;}if(index<0){items.clear();items.add(resolved);index=0;}}
                 else for(MediaItem item:requested)items.add(resolve(item.mediaId));
-                JSONArray entries=new JSONArray();for(MediaItem item:items)entries.put(Store.object(item.mediaMetadata.extras.getString("entry","{}")));queue=new JSONObject();Store.set(queue,"items",entries);Store.set(queue,"token","car-"+System.currentTimeMillis());JSONObject context=new JSONObject();Store.set(context,"type","episodes");Store.set(context,"id",parent.isEmpty()?"car:recent":parent);Store.set(context,"label","Android Auto");Store.set(queue,"context",context);
+                JSONArray entries=new JSONArray();for(MediaItem item:items)entries.put(Store.object(item.mediaMetadata.extras.getString("entry","{}")));queue=new JSONObject();Store.set(queue,"items",entries);Store.set(queue,"token","car-"+System.currentTimeMillis());Store.set(queue,"context",catalog.carContext(parent));
                 JSONObject saved=Store.object(store.get(Store.PROGRESS,"{}")).optJSONObject("episode-"+resolved.mediaMetadata.extras.getInt("number"));long position=startPosition==C.TIME_UNSET?0:startPosition;
                 if(position==0&&saved!=null&&!saved.optBoolean("completed"))position=(long)(saved.optDouble("currentTime")*1000);
                 return Futures.immediateFuture(new MediaSession.MediaItemsWithStartPosition(items,index,position));

@@ -44,7 +44,8 @@ final class Catalog {
         // Instrumented tests exercise the real service with local MP3 bytes, never a production URL override.
         if(BuildConfig.DEBUG){String test=store.get("testAudio","");if(test.startsWith(context.getCacheDir().getAbsolutePath()+"/")&&new File(test).isFile())uri=Uri.fromFile(new File(test)).toString();}
         Bundle extras=new Bundle();extras.putInt("number",e.optInt("number"));extras.putDouble("start",entry.optDouble("start"));extras.putString("entry",entry.toString());
-        return new MediaItem.Builder().setMediaId("episode:"+e.optInt("number")+":"+entry.optDouble("start"))
+        String mediaId="episode:"+e.optInt("number")+":"+entry.optDouble("start");if(!entry.optString("parent").isEmpty())mediaId+="@"+Uri.encode(entry.optString("parent"));
+        return new MediaItem.Builder().setMediaId(mediaId)
             .setUri(uri).setMimeType(MimeTypes.AUDIO_MPEG)
             .setMediaMetadata(new MediaMetadata.Builder().setTitle(title(e)).setArtist("Vedátorský podcast").setAlbumTitle("Vedátor")
             .setIsPlayable(true).setIsBrowsable(false).setMediaType(MediaMetadata.MEDIA_TYPE_PODCAST_EPISODE).setExtras(extras).build()).build();
@@ -85,6 +86,12 @@ final class Catalog {
         int index=code-2048;if(index>=ordered.size())return null;JSONObject q=ordered.get(index);return episode(q.optInt("episode"))==null?null:entry(q.optInt("episode"),q.optDouble("seconds"),ref,"ref:"+ref);
     }
     static int decodeRef(String ref){String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";if(ref==null||ref.length()!=2)return-1;int a=alphabet.indexOf(ref.charAt(0)),b=alphabet.indexOf(ref.charAt(1));return a<0||b<0?-1:(a<<6)|b;}
+    JSONObject carContext(String parent){
+        JSONObject out=new JSONObject();Store.set(out,"type","episodes");Store.set(out,"id","car:recent");Store.set(out,"label","Android Auto");
+        if(parent.startsWith("series:")){try{JSONObject group=data.getJSONArray("series").getJSONObject(Integer.parseInt(parent.substring(7)));Store.set(out,"type","series");Store.set(out,"id","series:"+normalize(group.optString("name")));Store.set(out,"label",group.optString("name"));}catch(Exception ignored){}}
+        else if(parent.startsWith("playlist:")){JSONArray list=Store.array(store.get(Store.PLAYLISTS,"[]"));for(int i=0;i<list.length();i++){JSONObject group=list.optJSONObject(i);if(group!=null&&parent.substring(9).equals(group.optString("id"))){Store.set(out,"type","playlist");Store.set(out,"id",parent);Store.set(out,"label",group.optString("name"));break;}}}
+        return out;
+    }
     static String normalize(String text){return java.text.Normalizer.normalize(text,java.text.Normalizer.Form.NFD).replaceAll("\\p{M}+","").toLowerCase(Locale.ROOT).trim();}
     List<MediaItem> search(String query){
         String needle=normalize(query);if(needle.isEmpty())return children("recent");
