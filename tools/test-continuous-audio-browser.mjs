@@ -9,6 +9,7 @@ const require=createRequire(path.join(deps,'package.json'));
 const puppeteer=require('puppeteer-core');
 const {default:chromium}=await import(pathToFileURL(require.resolve('@sparticuz/chromium')));
 const live=process.env.VEDATOR_CONTINUOUS_LIVE==='1';
+const systemMode=process.env.VEDATOR_CONTINUOUS_SYSTEM==='stream'?'stream':'episode';
 const liveNumbers=(process.env.VEDATOR_CONTINUOUS_EPISODES||'77,92,357').split(',').map(Number);
 const fixture=Buffer.from(fs.readFileSync('tools/continuous-tone-base64.txt','utf8').trim(),'base64');
 let noRange=false,blockSecond=false,transientFailure=true,failures=0;
@@ -46,11 +47,22 @@ if(live&&process.env.HTTPS_PROXY)args.push('--proxy-server='+process.env.HTTPS_P
 const executablePath=process.env.CHROME_PATH||['/usr/bin/google-chrome','/usr/bin/chromium','/usr/bin/chromium-browser'].find(p=>fs.existsSync(p))||await chromium.executablePath();
 const browser=await puppeteer.launch({executablePath,headless:true,args,ignoreDefaultArgs:['--mute-audio','--disable-background-timer-throttling','--disable-backgrounding-occluded-windows','--disable-renderer-backgrounding']});
 const page=await browser.newPage();await page.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
+await page.evaluateOnNewDocument(()=>{
+  window.positionCalls=[];window.systemHandlers={};
+  if(!navigator.mediaSession)return;
+  const session=navigator.mediaSession,position=session.setPositionState.bind(session),handler=session.setActionHandler.bind(session);
+  session.setPositionState=value=>{
+    const audio=document.getElementById('audio'),s=window.vedatorContinuousTest?.player.session;
+    window.positionCalls.push({duration:value?String(value.duration):null,position:value?.position,nativeTime:audio?.currentTime,nativeDuration:String(audio?.duration),index:s?.index});
+    return position(value);
+  };
+  session.setActionHandler=(name,callback)=>{window.systemHandlers[name]=callback;return handler(name,callback)};
+});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 page.on('console',message=>{if(message.type()==='error')console.log('Browser error:',message.text())});
 const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-async function setup(){
-  await page.goto(base+'/test-souvisle.html',{waitUntil:'domcontentloaded'});
+async function setup(system=systemMode){
+  await page.goto(base+'/test-souvisle.html'+(system==='stream'?'?system=stream':''),{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>document.documentElement.dataset.continuousReady==='1');
   await page.evaluate(live=>{
     const {player}=window.vedatorContinuousTest;
@@ -63,7 +75,15 @@ async function setup(){
   },live);
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile page overflows');
 }
-async function state(){return page.evaluate(()=>{const t=window.vedatorContinuousTest,s=t.player.session,a=document.getElementById('audio');return {src:a.src,changes:window.srcChanges,events:window.audioEvents,index:s?.index,failed:s?.failed,complete:s?.complete,parts:s?.parts,transitions:s?.transitionCount,paused:a.paused,error:a.error&&{code:a.error.code,message:a.error.message},time:a.currentTime,metadata:navigator.mediaSession?.metadata?.title,log:t.log}})}
+async function state(){return page.evaluate(()=>{const t=window.vedatorContinuousTest,s=t.player.session,a=document.getElementById('audio');return {src:a.src,changes:window.srcChanges,events:window.audioEvents,index:s?.index,failed:s?.failed,complete:s?.complete,parts:s?.parts,transitions:s?.transitionCount,paused:a.paused,error:a.error&&{code:a.error.code,message:a.error.message},time:a.currentTime,metadata:navigator.mediaSession?.metadata?.title,systemTimeline:t.player.systemTimeline,positionCalls:window.positionCalls,log:t.log}})}
+function assertStreamTimeline(result){
+  assert(result.positionCalls.length>3,'System position updates must be observed');
+  assert(result.positionCalls.every(p=>p.duration!==null),'Continuous system timeline must never be cleared during playback');
+  assert(result.positionCalls.every(p=>Math.abs(p.position-p.nativeTime)<.06),'System seek position must use the native whole-stream timeline');
+  assert(result.positionCalls.every(p=>p.duration===p.nativeDuration||p.duration==='Infinity'&&p.nativeDuration==='NaN'),'System duration must follow the whole media stream');
+  assert(result.positionCalls.some(p=>p.index===1&&p.position>result.parts[1].start),'Second episode must retain its global time, not reset to zero');
+  assert(!result.log.some(line=>line.includes('MEDIA API CHYBA')),'Native Media Session API must accept every position update');
+}
 try{
   await setup();await page.click(live?'#quick':'#start');
   await page.waitForFunction(()=>!document.getElementById('audio').paused&&document.getElementById('audio').currentTime>.1,{timeout:60000});
@@ -83,6 +103,7 @@ try{
     await page.waitForFunction(()=>window.vedatorContinuousTest.player.session.index>=1,{polling:100,timeout:120000});
     await page.waitForFunction(()=>window.vedatorContinuousTest.player.position()>30,{polling:100,timeout:45000});
     const current=await state();assert.equal(current.changes,1);assert.equal(current.error,null);assert.equal(current.paused,false);assert(current.transitions>=1);
+    if(systemMode==='stream')assertStreamTimeline(current);
     console.log(JSON.stringify({ok:true,liveMp3:true,hiddenTransition:true,visibilitySimulated:!actuallyHidden,episodes:liveNumbers,secondsInNextEpisode:current.time-current.parts[1].start,sourceChanges:current.changes,metadata:current.metadata,log:current.log},null,2));
   }else{
     // requestAnimationFrame stops on a genuinely hidden tab. Observe media
@@ -110,6 +131,25 @@ try{
     const recovered=await state();assert.equal(recovered.src,failed.src);assert.equal(recovered.changes,1);assert.equal(recovered.error,null);
     assert.equal(recovered.parts.length,3,'Retry must not duplicate logical tracks');
     console.log('Quick tail, no-Range streaming, preserved-source retry, pause and unavailable seek passed');
+    // Opt-in v2: preserve the successful audio pipeline, but expose the same
+    // whole-stream clock to the OS. Exercise real API calls, not a fake session.
+    await setup('stream');await page.click('#start');
+    await page.waitForFunction(()=>document.getElementById('audio').currentTime>.1,{timeout:15000});
+    await page.click('#toggle');
+    await page.evaluate(()=>{document.dispatchEvent(new Event('visibilitychange'));window.dispatchEvent(new Event('pageshow'))});
+    assert.equal((await state()).paused,true,'Foreground metadata refresh must not undo a user pause');
+    await page.click('#toggle');
+    const streamCover=await browser.newPage();await streamCover.goto('about:blank');await streamCover.bringToFront();
+    if(!await page.evaluate(()=>document.hidden))await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'))});
+    await page.waitForFunction(()=>document.getElementById('audio').ended,{polling:100,timeout:25000});
+    const stream=await state();assertStreamTimeline(stream);assert.equal(stream.changes,1);assert.equal(stream.transitions,2);assert.equal(stream.error,null);
+    const sought=await page.evaluate(()=>{
+      const audio=document.getElementById('audio'),target=audio.currentTime-1;
+      window.systemHandlers.seekto({seekTime:target});return {target,actual:audio.currentTime};
+    });
+    assert(Math.abs(sought.target-sought.actual)<.05,'OS seekto must accept global stream time');
+    await streamCover.close();await page.bringToFront();
+    console.log('System timeline v2: no resets at episode boundaries, native duration/position, OS seekto and user pause passed');
   }
   await page.bringToFront();
   const screenshot=process.env.VEDATOR_TEST_SCREENSHOT;if(screenshot)await page.screenshot({path:screenshot,fullPage:true});

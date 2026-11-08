@@ -1,10 +1,21 @@
 // Isolated continuous-stream experiment. Never replaces a source at an episode boundary.
 export class ContinuousAudio extends EventTarget {
-  constructor(audio,{lead=180,keepBehind=45,chunkSize=262144,fetcher=globalThis.fetch.bind(globalThis),log=()=>{}}={}){
-    super();Object.assign(this,{audio,lead,keepBehind,chunkSize,fetcher,log});this.session=null;
-    for(const event of ['timeupdate','playing','pause','waiting','stalled','ended','error','ratechange'])audio.addEventListener(event,()=>this.onAudio(event));
+  constructor(audio,{lead=180,keepBehind=45,chunkSize=262144,fetcher=globalThis.fetch.bind(globalThis),log=()=>{},systemTimeline='episode'}={}){
+    super();Object.assign(this,{audio,lead,keepBehind,chunkSize,fetcher,log,systemTimeline});this.session=null;
+    const events=['timeupdate','playing','pause','waiting','stalled','ended','error','ratechange'];
+    if(systemTimeline==='stream')events.push('loadedmetadata','durationchange');
+    for(const event of events)audio.addEventListener(event,()=>this.onAudio(event));
+    if(systemTimeline==='stream'){
+      document.addEventListener('visibilitychange',()=>{
+        if(!this.session)return;
+        this.mediaSnapshot('visibility');
+        if(!document.hidden)this.updateMediaSession(true);
+      });
+      globalThis.addEventListener('pageshow',()=>{if(this.session)this.updateMediaSession(true)});
+    }
     if(globalThis.navigator?.mediaSession){
-      const handlers={play:()=>this.play(),pause:()=>this.pause(),seekbackward:d=>this.seekBy(-(d.seekOffset||10)),seekforward:d=>this.seekBy(d.seekOffset||10),seekto:d=>this.seek(d.seekTime)};
+      const systemSeekBy=delta=>systemTimeline==='stream'?this.seekTimeline(this.audio.currentTime+delta):this.seekBy(delta);
+      const handlers={play:()=>this.play(),pause:()=>this.pause(),seekbackward:d=>systemSeekBy(-(d.seekOffset||10)),seekforward:d=>systemSeekBy(d.seekOffset||10),seekto:d=>systemTimeline==='stream'?this.seekTimeline(d.seekTime):this.seek(d.seekTime)};
       for(const [action,handler] of Object.entries(handlers))try{navigator.mediaSession.setActionHandler(action,handler)}catch{}
     }
   }
@@ -25,7 +36,7 @@ export class ContinuousAudio extends EventTarget {
       media.addEventListener('sourceopen',open,{once:true});controller.signal.addEventListener('abort',abort,{once:true});
     });
     this.audio.src=url;this.audio.preload='auto';
-    this.write('START: jeden MediaSource, '+items.length+' dílů; rychlý test='+quick);
+    this.write('START: jeden MediaSource, '+items.length+' dílů; rychlý test='+quick+'; systemTimeline='+this.systemTimeline);
     this.emit('track',{item:s.items[0],index:0,quick});
     // Keep play() in the user's click. Awaiting the network first loses activation.
     this.play();
@@ -60,9 +71,16 @@ export class ContinuousAudio extends EventTarget {
   position(){const p=this.part();return p?Math.max(0,this.audio.currentTime-p.start):0}
   seek(seconds){
     const s=this.session,p=this.part();if(!s||!p||!Number.isFinite(seconds))return false;
-    const absolute=p.start+Math.max(0,seconds);
+    return this.seekTimeline(p.start+Math.max(0,seconds));
+  }
+  seekTimeline(seconds){
+    const s=this.session;if(!s||!Number.isFinite(seconds))return false;
+    const absolute=Math.max(0,seconds);
     if(this.ranges().some(([start,end])=>absolute>=start&&absolute<end-.03)){
-      this.audio.currentTime=absolute;this.write('POSUN ve stejném proudu na '+seconds.toFixed(1)+' s');this.onAudio('timeupdate');return true;
+      const destination=s.parts.findLast(p=>absolute>=p.start&&(p.end==null||absolute<p.end));
+      this.audio.currentTime=absolute;
+      if(destination&&destination.index!==s.index){s.index=destination.index;this.emit('track',{item:s.items[s.index],index:s.index,quick:s.quick&&s.index===0})}
+      this.write('POSUN ve stejném proudu na '+absolute.toFixed(1)+' s');this.onAudio('timeupdate');return true;
     }
     // Do not fall back to a new native MP3 source when a seek is unavailable.
     this.emit('problem',{message:'Tato pozice ještě není načtená, nebo už byla uvolněna z paměti. Poslech pokračuje ve stejném proudu.'});
@@ -87,20 +105,41 @@ export class ContinuousAudio extends EventTarget {
     if(event==='playing'||event==='waiting'||event==='stalled'||event==='pause'||event==='ended')this.write(event.toUpperCase()+' t='+time.toFixed(2)+' ahead='+this.ahead().toFixed(1)+' hidden='+document.hidden);
     if(event==='pause'&&this.audio.paused)s.wantPlay=false;
     if(event==='ended')s.wantPlay=false;
-    this.updateMediaSession();this.emit('update');
+    this.updateMediaSession();
+    if(this.systemTimeline==='stream'&&(s.snapshotIndex!==s.index||Date.now()-(s.snapshotTime||0)>30000))this.mediaSnapshot('playback');
+    this.emit('update');
   }
-  updateMediaSession(){
+  mediaSnapshot(reason){
+    const s=this.session;if(!s)return;s.snapshotIndex=s.index;s.snapshotTime=Date.now();
+    this.write('MEDIA '+reason+' '+JSON.stringify({episode:s.items[s.index]?.number,hidden:document.hidden,paused:this.audio.paused,ended:this.audio.ended,readyState:this.audio.readyState,time:this.audio.currentTime,duration:String(this.audio.duration),declaredState:globalThis.navigator?.mediaSession?.playbackState,timeline:this.systemTimeline,position:s.lastMediaPosition||null,ahead:this.ahead()}));
+  }
+  updateMediaSession(force=false){
     const s=this.session,session=globalThis.navigator?.mediaSession;if(!s||!session)return;
     const item=s.items[s.index],p=this.part();
     try{
       // Declare playing after playback actually starts, not before loading audio.
-      session.playbackState=this.audio.paused||this.audio.ended?'paused':'playing';
-      if(s.metadataIndex!==s.index&&typeof MediaMetadata!=='undefined'){
+      const playbackState=this.audio.paused||this.audio.ended?'paused':'playing';
+      if(this.systemTimeline!=='stream'||force||s.declaredState!==playbackState){session.playbackState=playbackState;s.declaredState=playbackState}
+      if((force||s.metadataIndex!==s.index)&&typeof MediaMetadata!=='undefined'){
         session.metadata=new MediaMetadata({title:item.title,artist:'Vedátorský podcast — souvislý test',artwork:[{src:new URL('./icon-512.png',location.href).href,sizes:'512x512',type:'image/png'}]});s.metadataIndex=s.index;
       }
-      if(p?.end!=null){const duration=p.end-p.start;if(duration>0)session.setPositionState?.({duration,position:Math.min(duration,this.position()),playbackRate:this.audio.playbackRate})}
-      else session.setPositionState?.();
-    }catch{}
+      if(this.systemTimeline==='stream'){
+        // The OS controls ONE MSE stream, not a finite episode followed by a reset.
+        // Keep its position on the native timeline. Infinity is the standard
+        // representation until endOfStream gives the whole queue a finite end.
+        const duration=this.audio.duration>0?this.audio.duration:Infinity;
+        const position=Math.min(duration,Math.max(0,this.audio.currentTime||0)),playbackRate=this.audio.playbackRate||1;
+        session.setPositionState?.({duration,position,playbackRate});
+        s.lastMediaPosition={duration:String(duration),position,playbackRate};
+      }else{
+        if(p?.end!=null){const duration=p.end-p.start;if(duration>0)session.setPositionState?.({duration,position:Math.min(duration,this.position()),playbackRate:this.audio.playbackRate})}
+        else session.setPositionState?.();
+      }
+    }catch(error){
+      if(this.systemTimeline==='stream'){
+        const key=error.name+': '+error.message;if(key!==s.mediaError){s.mediaError=key;this.write('MEDIA API CHYBA '+key)}
+      }
+    }
   }
   async mutation(s,operation){
     if(this.session!==s||s.controller.signal.aborted)throw new DOMException('Stopped','AbortError');
