@@ -15,7 +15,7 @@ main{padding:15px 12px 50px}.panel,.card{background:var(--card);border:1px solid
 @media(max-width:560px){header{padding:13px 12px}.head-name{font-size:1.2rem}.nav{padding:7px 9px!important;font-size:.8rem!important}.panel{padding:13px}.query-row{grid-template-columns:1fr}.query-row button{width:100%}.tool-row button{flex:1 1 auto}}
 </style>
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("vedator-ui-theme-v1")==="light"?"light":"dark"}catch{}</script>
-<script type="module" src="./test-ai.js?v=20261108-fastsearch1"></script>
+<script type="module" src="./test-ai.js?v=20261108-answers2"></script>
 </head>
 <body>
 <header><div class="wrap header-row"><div><h1 class="head-name">✦ AI Vedátor <span class="pill">TEST</span></h1><p class="subtitle">Zeptej se na obsah podcastu</p></div><div class="header-actions"><a class="nav" href="./index.html">← Vedátor</a><button class="theme" id="theme" title="Světlý/tmavý režim" aria-label="Přepnout vzhled">☾</button></div></div></header>
@@ -36,7 +36,7 @@ main{padding:15px 12px 50px}.panel,.card{background:var(--card);border:1px solid
   <p id="catalog-status" class="status">Načítám katalog shrnutí…</p>
   <progress id="index-progress" class="progress hidden" max="100" value="0"></progress>
   <p id="search-status" class="status" role="status" aria-live="polite">Nejdříve stáhni AI.</p>
-  <p class="note">První verze nejprve vybere pasáže podle slov a souvisejících pojmů a potom je AI seřadí podle významu. Zatím nepoužívá velký generativní model: ukazuje přímo texty nalezených shrnutí. Zdrojům je možné se prokliknout.</p>
+  <p class="note">První verze nejprve vybere pasáže podle slov a souvisejících pojmů a potom je AI seřadí podle významu. Zatím nepoužívá generativní jazykový model. V odpovědi vybere souvislé věty z jednoho nejvhodnějšího shrnutí, uvede zdroj a při nedostatečné shodě přizná, že přímou odpověď nenašla. Zdrojům je možné se prokliknout.</p>
 </section>
 <div id="results" class="hidden" aria-live="polite"><section class="panel"><h2>Odpověď podle shrnutí</h2><div id="answer" class="answer"></div><div class="grid-line"><strong>Zdrojové pasáže</strong><span id="result-count" class="small muted"></span></div></section><div id="sources"></div></div>
 </main>
