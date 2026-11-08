@@ -672,13 +672,19 @@
       return count>=12&&duration>0&&duration<604800?duration:0;
     }
     readDurationHint(s,part,bytes){
-      part.durationHint=this.durationHint(bytes,part.sourceSize);
+      // Streaming reads can split a large ID3 tag before the first MP3 frame.
+      const prior=part.headerBytes||new Uint8Array(),take=Math.min(bytes.length,262144-prior.length);
+      const header=new Uint8Array(prior.length+take);header.set(prior);header.set(bytes.subarray(0,take),prior.length);part.headerBytes=header;
+      part.durationHint=this.durationHint(header,part.sourceSize);
+      if(part.durationHint){part.headerBytes=null;return}
       // Podbean's CORS policy can hide Content-Range. A background HEAD provides
       // the full size for headerless CBR exports without delaying audio or startup.
-      if(part.durationHint||part.sourceSize)return;
+      if(part.sourceSize||part.durationRequested)return;
+      part.durationRequested=true;
       void this.request(s,part.url,{},true).then(({size})=>{
         if(this.session!==s||s.controller.signal.aborted||!size)return;
-        part.sourceSize=size;part.durationHint=this.durationHint(bytes,size);this.emit('update');
+        part.sourceSize=size;part.durationHint=this.durationHint(part.headerBytes||header,size);
+        if(part.durationHint)part.headerBytes=null;this.emit('update');
       }).catch(()=>{});
     }
     async pump(s){
@@ -714,13 +720,13 @@
                 let chunk;try{chunk=await reader.read()}finally{clearTimeout(readTimer)}
                 if(timedOut)throw Error('Server přestal posílat zvuková data');
                 const {done,value}=chunk;if(done){eof=true;break}
-                if(!part.bytes)this.readDurationHint(s,part,value);
+                if(!part.durationHint&&part.bytes<262144)this.readDurationHint(s,part,value);
                 await this.append(s,value);s.offset+=value.length;part.bytes+=value.length;
               }
             }finally{s.controller.signal.removeEventListener('abort',cancel);await reader.cancel().catch(()=>{})}
           }else if(result.bytes.length){
             if(result.total)part.sourceSize=result.total;
-            if(!part.bytes&&from===0)this.readDurationHint(s,part,result.bytes);
+            if(!part.durationHint&&from===0)this.readDurationHint(s,part,result.bytes);
             await this.append(s,result.bytes);s.offset+=result.bytes.length;part.bytes+=result.bytes.length;
             eof=result.bytes.length<this.chunkSize||(part.sourceSize>0&&s.offset>=part.sourceSize);
           }else eof=true;

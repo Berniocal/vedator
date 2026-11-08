@@ -27,7 +27,8 @@ const fixture=Buffer.from(fs.readFileSync('tools/continuous-tone-base64.txt','ut
   const player=new ContinuousAudio({}, {manageEvents:false,installMediaSession:false,fetcher:async(url,options)=>{
     assert.equal(options.method,'HEAD');headRequests++;return new Response(null,{headers:{'Content-Length':String(total)}});
   }}),session={controller:new AbortController()},part={url:'https://audio.test/cbr.mp3',sourceSize:0};
-  player.session=session;player.readDurationHint(session,part,bytes);
+  player.session=session;player.readDurationHint(session,part,bytes.subarray(0,20));
+  player.readDurationHint(session,part,bytes.subarray(20));
   assert.equal(part.durationHint,0,'Audio loading must not wait for a metadata request');
   await new Promise(resolve=>setTimeout(resolve,0));
   assert.equal(headRequests,1);assert(Math.abs(part.durationHint-3600)<.01,'Recover duration when CORS hides the range size');
