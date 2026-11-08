@@ -184,3 +184,11 @@ node tools/test-v2-real-readmore-browser.mjs
 ```
 
 Publikovat až po zeleném CI. Produkční repo `Berniocal/vedator` se nesmí měnit při práci na testovací V2, pokud to uživatel výslovně nepožádá.
+
+## Souvislé přehrávání sérií a playlistů
+
+Podporované prohlížeče používají jeden MP3 MediaSource pro celou frontu. Při automatickém přechodu se nemění `audio.src`, nevolá se `load()` ani nové `play()`. Systémový přehrávač používá celý proud; UI, uložená pozice i průběh jednotlivých položek používají čas dané epizody. Ruční posun mimo buffer může začít nový proud; automatický přechod nikdy nepřepíná do původního přehrávače.
+
+Kanonický motor je `continuous-audio.mjs`. Po jeho změně spusť `node tools/sync-continuous-player.mjs`; CI kontroluje shodu vložené kopie v `app-v2.js`. Nevkládej další runtime import nebo preload audia: instance vzniká až při přehrávání. Bez MSE podpory zůstává původní přehrávač.
+
+`tools/test-continuous-audio-browser.mjs` ověřuje reálné dekódování MP3, přechody, načítání a přesné začátky kapitol. `tools/test-main-continuous-browser.mjs` ověřuje integraci do hlavní aplikace, nezměněné síťové požadavky při otevření, postup epizod, obnovu, pauzu, ruční posun, smíšené playlisty, stažení MP3 a offline cache.

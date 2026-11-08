@@ -150,6 +150,17 @@ try{
     assert(Math.abs(sought.target-sought.actual)<.05,'OS seekto must accept global stream time');
     await streamCover.close();await page.bringToFront();
     console.log('System timeline v2: no resets at episode boundaries, native duration/position, OS seekto and user pause passed');
+    await setup('stream');
+    await page.evaluate(()=>{const p=window.vedatorContinuousTest.player,original=p.start.bind(p);p.start=(items,options)=>original(items.map((item,i)=>({...item,startAt:i===0?2:i===1?1:0})),options)});
+    await page.click('#start');
+    await page.waitForFunction(()=>document.getElementById('audio').currentTime>.1,{timeout:15000});
+    assert(await page.evaluate(()=>window.vedatorContinuousTest.player.position()>2),'Resume must report the original episode position');
+    await page.waitForFunction(()=>document.getElementById('audio').ended,{timeout:25000});
+    const trimmed=await state();assert.equal(trimmed.changes,1);assert.equal(trimmed.error,null);assert.equal(trimmed.transitions,2);
+    assert(Math.abs(trimmed.parts[0].end-(6.060404-2))<.15,'First MP3 must resume at the requested position');
+    assert(Math.abs((trimmed.parts[1].end-trimmed.parts[1].start)-(6.060404-1))<.15,'Later playlist chapter must start at its own requested position');
+    assert(trimmed.parts.every(p=>p.durationHint>5.8&&p.durationHint<6.2),'MP3 header must provide the original per-episode duration without an extra request');
+    console.log('Exact frame-window resume, chapter starts and first-buffer duration hints passed');
   }
   await page.bringToFront();
   const screenshot=process.env.VEDATOR_TEST_SCREENSHOT;if(screenshot)await page.screenshot({path:screenshot,fullPage:true});
