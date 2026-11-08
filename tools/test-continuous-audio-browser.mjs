@@ -15,7 +15,7 @@ const systemMode=process.env.VEDATOR_CONTINUOUS_SYSTEM==='stream'?'stream':'epis
 const liveNumbers=(process.env.VEDATOR_CONTINUOUS_EPISODES||'77,92,357').split(',').map(Number);
 const fixture=Buffer.from(fs.readFileSync('tools/continuous-tone-base64.txt','utf8').trim(),'base64');
 const vbrFixture=Buffer.from(fs.readFileSync('tools/continuous-vbr-base64.txt','utf8').trim(),'base64');
-let vbrMode=false;
+let vbrMode=false,delayedTail=false,tailPending=0,redirectAudio=false,cdnToken=0,expiredToken=-1,cutMidstream=false,cutDone=false;
 let noRange=false,blockSecond=false,transientFailure=true,failures=0,headerless=false,hideRange=false,slowResponse=false;
 // Remove the 182-byte Info frame; the remaining frames really are CBR.
 const largeTag=Buffer.alloc(4106);fixture.copy(largeTag,0,0,10);largeTag[6]=0;largeTag[7]=0;largeTag[8]=32;largeTag[9]=0;
@@ -34,10 +34,17 @@ const server=http.createServer((request,response)=>{
     const episodes=live?liveNumbers.map(n=>real.episodes.find(e=>e.number===n)):(realFile?[9,41,1703]:[77,92,357]).map(n=>({number:n,title:'Zkušební díl '+n,enclosure:base+'/tone-'+n+'.mp3'}));
     response.writeHead(200,{'Content-Type':'application/json'});response.end(JSON.stringify({episodes,series:[{name:'Černé díry',episodes:episodes.map(e=>e.number)}]}));return;
   }
-  if(url.pathname.startsWith('/tone-')){
-    const bytes=realFile&&url.pathname==='/tone-9.mp3'?realAudio:vbrMode?vbrFixture:headerless?cbrFixture:fixture;
+  if(redirectAudio&&url.pathname.startsWith('/tone-')){
     requested.push({path:url.pathname,range:request.headers.range||null});
-    if(url.pathname==='/tone-92.mp3'&&(blockSecond||transientFailure)){
+    response.writeHead(302,{Location:url.pathname.replace('/tone-','/cdn-tone-')+'?token='+(++cdnToken),'Cache-Control':'no-store'});response.end();return;
+  }
+  if(url.pathname.startsWith('/tone-')||url.pathname.startsWith('/cdn-tone-')){
+    const audioPath=url.pathname.replace('/cdn-tone-','/tone-');
+    if(url.pathname.startsWith('/cdn-tone-')&&Number(url.searchParams.get('token'))===expiredToken){requested.push({path:url.pathname,range:request.headers.range||null});response.writeHead(403);response.end();return}
+
+    const bytes=realFile&&audioPath==='/tone-9.mp3'?realAudio:vbrMode?vbrFixture:headerless?cbrFixture:fixture;
+    requested.push({path:url.pathname,range:request.headers.range||null});
+    if(audioPath==='/tone-92.mp3'&&(blockSecond||transientFailure)){
       transientFailure=false;failures++;response.writeHead(503);response.end('Simulated network failure');return;
     }
     if(request.method==='HEAD'){response.writeHead(200,{'Content-Type':'audio/mpeg','Content-Length':bytes.length});response.end();return}
@@ -46,7 +53,12 @@ const server=http.createServer((request,response)=>{
       if(range&&!noRange){
         const start=Number(range[1]),end=range[2]?Math.min(bytes.length-1,Number(range[2])):bytes.length-1;
         if(start>=bytes.length){response.writeHead(416);response.end();return}
-        response.writeHead(206,{'Content-Type':'audio/mpeg','Content-Length':end-start+1,...(!hideRange?{'Content-Range':`bytes ${start}-${end}/${bytes.length}`} : {}),'Accept-Ranges':'bytes'});response.end(bytes.subarray(start,end+1));
+        response.writeHead(206,{'Content-Type':'audio/mpeg','Content-Length':end-start+1,...(!hideRange?{'Content-Range':`bytes ${start}-${end}/${bytes.length}`} : {}),'Accept-Ranges':'bytes','Cache-Control':'no-store'});
+        if(cutMidstream&&!cutDone&&start===0){cutDone=true;response.write(bytes.subarray(start,Math.min(start+2048,end+1)));setTimeout(()=>response.destroy(),150);return}
+        if(delayedTail&&end-start>1024){
+          tailPending++;response.write(bytes.subarray(start,start+1024));
+          setTimeout(()=>{response.end(bytes.subarray(start+1024,end+1));tailPending--},900);
+        }else response.end(bytes.subarray(start,end+1));
       }else{response.writeHead(200,{'Content-Type':'audio/mpeg','Content-Length':bytes.length,'Accept-Ranges':'bytes'});response.end(bytes)}
     };
     if(slowResponse)setTimeout(send,250);else send();
@@ -100,6 +112,47 @@ function assertStreamTimeline(result){
   assert(result.positionCalls.every(p=>p.duration===p.nativeDuration||p.duration==='Infinity'&&p.nativeDuration==='NaN'),'System duration must follow the whole media stream');
   assert(result.positionCalls.some(p=>p.index===1&&p.position>result.parts[1].start),'Second episode must retain its global time, not reset to zero');
   assert(!result.log.some(line=>line.includes('MEDIA API CHYBA')),'Native Media Session API must accept every position update');
+}
+async function performanceRegressions(){
+  transientFailure=false;delayedTail=true;await setup();
+  await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;p.chunkSize=262144;p.lead=4});
+  const began=Date.now();await page.click('#start');
+  await page.waitForFunction(()=>document.getElementById('audio').currentTime>.1,{timeout:5000});
+  assert(tailPending>0,'Playback must begin before a slow 206 response finishes downloading');
+  const startMs=Date.now()-began;await page.click('#stop');delayedTail=false;
+  await wait(1000);
+
+  // A reused signed CDN URL avoids repeating the redirect on every block,
+  // recovers when expired, and bounded local ranges make a repeat seek free.
+  redirectAudio=true;await setup();
+  await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;p.cacheLimit=1024;p.lead=.4});
+  const before=requested.length;await page.click('#start');
+  await page.waitForFunction(()=>document.getElementById('audio').currentTime>.1);await page.click('#toggle');
+  await wait(100);
+  const initial=requested.slice(before).filter(r=>r.path.startsWith('/tone-')).length;
+  assert.equal(initial,1,'Consecutive blocks must reuse the resolved audio URL');
+  expiredToken=cdnToken;
+  const length=await page.evaluate(async()=>{const p=window.vedatorContinuousTest.player;return (await p.request(p.session,p.session.items[0].url,{Range:'bytes=6000-6100'})).bytes.length});
+  assert.equal(length,101);assert.equal(requested.slice(before).filter(r=>r.path.startsWith('/tone-')).length,2,'An expired direct URL must be resolved again');
+  const count=requested.length;
+  await page.evaluate(async()=>{const p=window.vedatorContinuousTest.player;await p.request(p.session,p.session.items[0].url,{Range:'bytes=6000-6100'})});
+  assert.equal(requested.length,count,'Repeated ranges must come from bounded memory without another request');
+  assert(await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;return p.cacheBytes<=p.cacheLimit}));
+  const retained=await page.evaluate(()=>{const p=window.vedatorContinuousTest.player,s=p.session,url=s.items[0].url,prior=s.indexes.get(url);p.start(s.items,{autoplay:false});return p.session.indexes.get(url)===prior});
+  assert(retained,'Episode metadata must survive an explicit new start');
+  await page.click('#stop');redirectAudio=false;expiredToken=-1;
+
+  cutMidstream=true;cutDone=false;await setup();
+  await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;p.chunkSize=4096;p.lead=30});
+  await page.click('#start');await page.waitForFunction(()=>window.vedatorContinuousTest.player.session?.failed);
+  const progress=await page.evaluate(()=>window.vedatorContinuousTest.player.session.offset);
+  assert(progress>0&&progress<4096,'Partial streamed data must advance the resumable offset');
+  cutMidstream=false;await page.click('#retry');
+  await page.waitForFunction(()=>window.vedatorContinuousTest.player.session?.complete);
+  const result=await state();assert.equal(result.error,null);assert.equal(result.parts.length,3);
+  assert(Math.abs(result.parts[0].end-6.086529)<.08,'Retry must not duplicate frames already appended before the network failure');
+  await page.click('#stop');transientFailure=true;
+  console.log(JSON.stringify({ok:true,slow206StartMs:startMs,playedBeforeDownloadCompleted:true,redirectReuse:true,expiredUrlRecovery:true,boundedRangeCache:true,streamedRetryNoDuplicates:true}));
 }
 async function realEpisodeSeekRegression(){
   transientFailure=false;await setup('stream');
@@ -195,7 +248,7 @@ async function seekRegressions(){
 }
 try{
   if(realFile){await realEpisodeSeekRegression()}else{
-  if(!live){await seekRegressions();await vbrSeekRegressions()}
+  if(!live){await performanceRegressions();await seekRegressions();await vbrSeekRegressions()}
   await setup();await page.click(live?'#quick':'#start');
   await page.waitForFunction(()=>!document.getElementById('audio').paused&&document.getElementById('audio').currentTime>.1,{timeout:60000});
   const initial=await state();assert.equal(initial.changes,1);assert.equal(initial.error,null);
