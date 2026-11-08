@@ -17,7 +17,7 @@
 <main>
 <section>
   <span class="badge">Samostatná testovací verze</span>
-  <p id="system-note" class="hint" hidden>Test v4: ovládání telefonu sleduje celý souvislý proud. Čas v přehrávači níže se dál počítá pro jednotlivé díly.</p>
+  <p id="system-note" class="hint" hidden>Test v5: ovládání telefonu sleduje celý souvislý proud. Čas v přehrávači níže se dál počítá pro jednotlivé díly.</p>
   <p class="hint" style="margin:0 0 16px">Vyber sérii nebo vlastní playlist, spusť poslech a zamkni telefon. Rychlý test přehraje závěrečnou část prvního dílu a naváže celým dalším.</p>
   <label>Série nebo playlist<select id="collection" disabled><option>Načítám katalog…</option></select></label>
   <div class="grid"><label>Začít dílem<select id="first" disabled></select></label><label>Počet navazujících dílů<select id="count"><option value="2">2 díly</option><option value="3" selected>3 díly</option><option value="5">5 dílů</option><option value="0">Všechny zbývající</option></select></label></div>
@@ -35,12 +35,12 @@
   <div class="row"><label style="flex:2;min-width:135px;margin:0">Přeskočit na čas (mm:ss)<input id="jump-time" type="text" inputmode="numeric" placeholder="30:00" aria-label="Čas v epizodě, například 30:00" disabled style="display:block;width:100%;height:46px;border:1px solid var(--line);border-radius:10px;padding:8px;color:var(--ink);background:var(--card)"></label><button id="jump-go" disabled style="align-self:end">Přejít na čas</button></div>
   <div class="row"><button id="back" disabled>−10 s</button><button id="toggle" disabled>Pauza</button><button id="forward" disabled>+10 s</button><button id="stop" disabled>Ukončit</button></div>
   <div class="grid" style="margin-top:12px"><label>Rychlost<select id="speed"><option value="1">1×</option><option value="1.25">1,25×</option><option value="1.5">1,5×</option><option value="2">2×</option></select></label><button id="retry" hidden>Zkusit načítání znovu</button></div>
-  <p class="hint">Po posunu dál souvisle navazují další díly. Při prvním skoku do dosud nenačtené části může chvíli trvat nalezení času; přehrávač ukazuje průběh hledání. Čas můžeš zvolit posuvníkem nebo zadat přímo.</p>
+  <p class="hint">Po posunu dál souvisle navazují další díly. Přehrávač vyhledává čas přímo podle časové mapy MP3. Čas můžeš zvolit posuvníkem nebo zadat přímo.</p>
 </section>
 <section><h2>Vybrané díly</h2><ol id="queue"></ol></section>
 <details><summary>Záznam průběhu testu</summary><p class="hint">Pokud se poslech zastaví, zkopíruj záznam a pošli mi ho do chatu.</p><div class="row" style="margin-top:12px"><button id="copy">Kopírovat záznam</button><button id="clear">Vymazat záznam</button></div><pre id="log"></pre></details>
 </main>
-<script type="module" src="./continuous-test-ui.mjs?v=20261108-4"></script>
+<script type="module" src="./continuous-test-ui.mjs?v=20261108-5"></script>
 </body>
 </html>
 

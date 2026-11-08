@@ -9,6 +9,8 @@ const require=createRequire(path.join(deps,'package.json'));
 const puppeteer=require('puppeteer-core');
 const {default:chromium}=await import(pathToFileURL(require.resolve('@sparticuz/chromium')));
 const live=process.env.VEDATOR_CONTINUOUS_LIVE==='1';
+const realFile=process.env.VEDATOR_REAL_EP9_FILE;
+const realAudio=realFile?fs.readFileSync(realFile):null;
 const systemMode=process.env.VEDATOR_CONTINUOUS_SYSTEM==='stream'?'stream':'episode';
 const liveNumbers=(process.env.VEDATOR_CONTINUOUS_EPISODES||'77,92,357').split(',').map(Number);
 const fixture=Buffer.from(fs.readFileSync('tools/continuous-tone-base64.txt','utf8').trim(),'base64');
@@ -23,12 +25,17 @@ const real=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 let base;
 const server=http.createServer((request,response)=>{
   const url=new URL(request.url,'http://localhost');
+  if(realFile&&url.pathname==='/audio-seek-index.json'){
+    const data=JSON.parse(fs.readFileSync('audio-seek-index.json','utf8'));
+    const entry=data.entries['https://mcdn.podbean.com/mf/web/4mbanm/podcast_ep9.mp3'];
+    response.writeHead(200,{'Content-Type':'application/json'});response.end(JSON.stringify({version:1,entries:{[base+'/tone-9.mp3']:entry}}));return;
+  }
   if(url.pathname==='/content-v2.json'){
-    const episodes=live?liveNumbers.map(n=>real.episodes.find(e=>e.number===n)):[77,92,357].map(n=>({number:n,title:'Zkušební díl '+n,enclosure:base+'/tone-'+n+'.mp3'}));
+    const episodes=live?liveNumbers.map(n=>real.episodes.find(e=>e.number===n)):(realFile?[9,41,1703]:[77,92,357]).map(n=>({number:n,title:'Zkušební díl '+n,enclosure:base+'/tone-'+n+'.mp3'}));
     response.writeHead(200,{'Content-Type':'application/json'});response.end(JSON.stringify({episodes,series:[{name:'Černé díry',episodes:episodes.map(e=>e.number)}]}));return;
   }
   if(url.pathname.startsWith('/tone-')){
-    const bytes=vbrMode?vbrFixture:headerless?cbrFixture:fixture;
+    const bytes=realFile&&url.pathname==='/tone-9.mp3'?realAudio:vbrMode?vbrFixture:headerless?cbrFixture:fixture;
     requested.push({path:url.pathname,range:request.headers.range||null});
     if(url.pathname==='/tone-92.mp3'&&(blockSecond||transientFailure)){
       transientFailure=false;failures++;response.writeHead(503);response.end('Simulated network failure');return;
@@ -94,6 +101,31 @@ function assertStreamTimeline(result){
   assert(result.positionCalls.some(p=>p.index===1&&p.position>result.parts[1].start),'Second episode must retain its global time, not reset to zero');
   assert(!result.log.some(line=>line.includes('MEDIA API CHYBA')),'Native Media Session API must accept every position update');
 }
+async function realEpisodeSeekRegression(){
+  transientFailure=false;await setup('stream');
+  await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;p.chunkSize=262144;p.lead=8;p.keepBehind=45});
+  await page.click('#start');await page.waitForFunction(()=>document.getElementById('audio').currentTime>.1);
+  const before=requested.length,start=Date.now();
+  await page.evaluate(()=>window.vedatorContinuousTest.player.seek(26*60+22));
+  await page.waitForFunction(()=>{const p=window.vedatorContinuousTest.player;return p.session?.seekTo==null&&!p.audio.paused&&p.position()>1582.1},{timeout:7000});
+  const jumps=requested.slice(before),bytes=jumps.reduce((sum,r)=>{const m=r.range?.match(/^bytes=(\d+)-(\d+)$/);return sum+(m?Number(m[2])-Number(m[1])+1:realAudio.length)},0);
+  assert(bytes<2*1048576,'26:22 seek must not download the entire 50 MB prefix');
+  assert(jumps.some(r=>Number(r.range?.match(/^bytes=(\d+)/)?.[1])>40000000),'Far seek must request bytes near the target');
+  const readyMs=Date.now()-start;
+  await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;p.pause();p.seek(p.session.indexes.get(p.session.items[0].url).duration-2)});
+  await page.waitForFunction(()=>window.vedatorContinuousTest.player.session?.seekTo==null,{timeout:7000});
+  await page.waitForFunction(()=>window.vedatorContinuousTest.player.part()?.end!=null);
+  const sought=await state(),duration=sought.parts[0].end-sought.parts[0].start;
+  assert(Math.abs(duration-2256.483265)<.08,'Index must match the real decoded episode clock, not a stale Xing TOC');
+  const cover=await browser.newPage();await cover.goto('about:blank');await cover.bringToFront();
+  if(!await page.evaluate(()=>document.hidden))await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'))});
+  await page.evaluate(()=>window.vedatorContinuousTest.player.play());
+  await page.waitForFunction(()=>window.vedatorContinuousTest.player.session.index===1,{polling:100,timeout:6000});
+  const next=await state();assert.equal(next.changes,sought.changes);assert.equal(next.error,null);
+  assert(!next.events.some(e=>e.name==='ended'),'Seek must keep the Work handoff in the same stream');
+  await cover.close();await page.bringToFront();await page.click('#stop');
+  console.log(JSON.stringify({ok:true,episode:9,seek:'26:22',readyMs,requestedBytes:bytes,exactDecodedClock:true,hiddenHandoff:true}));
+}
 async function vbrSeekRegressions(){
   transientFailure=false;vbrMode=true;
   for(const ignoreRange of [false,true]){
@@ -149,9 +181,20 @@ async function seekRegressions(){
   assert.equal(thumb.focused,'seek');assert(Math.abs(thumb.position-thumb.value)<.6,'Slider must follow playback after a seek even while focused');
   await page.click('#stop');
   console.log('CBR duration with split ID3/hidden headers, rapid seeks, pause/play intent and slider follow passed');
+  // A slow/stuck seek must report an error and permit retry instead of leaving
+  // the clock and loading label frozen forever.
+  slowResponse=true;await setup();await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;p.lead=.4});
+  await page.click('#start');await page.waitForFunction(()=>document.getElementById('audio').currentTime>.1);
+  await page.evaluate(()=>{const p=window.vedatorContinuousTest.player;p.seekTimeout=80;p.seek(5)});
+  await page.waitForFunction(()=>window.vedatorContinuousTest.player.session?.failed,{timeout:3000});
+  assert((await page.$eval('#status',n=>n.textContent)).includes('Chyba'),'Timeout must not remain labelled as loading');
+  slowResponse=false;await page.evaluate(()=>{window.vedatorContinuousTest.player.seekTimeout=20000});
+  await page.click('#retry');await page.waitForFunction(()=>window.vedatorContinuousTest.player.session?.seekTo==null,{timeout:5000});
+  await page.click('#stop');console.log('Seek deadline, visible error and retry passed');
   transientFailure=true;
 }
 try{
+  if(realFile){await realEpisodeSeekRegression()}else{
   if(!live){await seekRegressions();await vbrSeekRegressions()}
   await setup();await page.click(live?'#quick':'#start');
   await page.waitForFunction(()=>!document.getElementById('audio').paused&&document.getElementById('audio').currentTime>.1,{timeout:60000});
@@ -252,6 +295,7 @@ try{
     assert(resumed.log.some(l=>l.includes('PŘECHOD')&&l.includes('hidden=true')),'Seek must retain hidden continuous handoff');
     await seekCover.close();
     console.log('Far seek: accurate MSE position, user pause, and uninterrupted next episode passed');
+  }
   }
   await page.bringToFront();
   const screenshot=process.env.VEDATOR_TEST_SCREENSHOT;if(screenshot)await page.screenshot({path:screenshot,fullPage:true});

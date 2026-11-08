@@ -1,4 +1,4 @@
-import {ContinuousAudio} from './continuous-audio.mjs?v=20261108-4';
+import {ContinuousAudio} from './continuous-audio.mjs?v=20261108-5';
 const $=id=>document.getElementById(id),audio=$('audio');
 const streamControls=new URLSearchParams(location.search).get('system')==='stream';
 const LOG_KEY=streamControls?'vedator-continuous-test-log-v2-stream':'vedator-continuous-test-log-v1';
@@ -12,7 +12,7 @@ function log(message){
 }
 const player=new ContinuousAudio(audio,{log,systemTimeline:streamControls?'stream':'episode'});
 if(streamControls){
-  document.querySelector('.badge').textContent='Souvislé přehrávání · v4';
+  document.querySelector('.badge').textContent='Souvislé přehrávání · v5';
   $('system-note').hidden=false;
 }
 // A small read-only diagnostic surface also lets real-browser tests inspect the stream.
@@ -34,7 +34,7 @@ function update(){
   $('time').textContent=fmt(time);$('duration').textContent=known?fmt(known):'Načteno '+fmt(end);
   const current=s.items[s.index];$('title').textContent=current.title;
   $('mode').textContent=(s.quick&&s.index===0?'Závěrečná část prvního dílu':'Souvislý proud')+' · '+(s.index+1)+' / '+s.items.length;
-  const state=s.seekTo!=null?'Načítám zvolený čas…':audio.ended?'Dokončeno':s.failed?'Chyba načítání':audio.paused?'Pozastaveno':audio.readyState<3?'Načítám zvuk…':'Přehrávám';
+  const state=s.failed?'Chyba načítání':s.seekTo!=null?'Načítám zvolený čas…':audio.ended?'Dokončeno':audio.paused?'Pozastaveno':audio.readyState<3?'Načítám zvuk…':'Přehrávám';
   $('status').textContent=state+' · dopředu připraveno '+fmt(player.ahead())+' · přechodů '+s.transitionCount;
 }
 player.addEventListener('update',update);
@@ -82,7 +82,7 @@ $('jump-time').addEventListener('keydown',event=>{if(event.key==='Enter')jump()}
 $('speed').addEventListener('change',()=>{audio.playbackRate=Number($('speed').value)||1});
 $('retry').addEventListener('click',()=>{problem('');player.retry()});
 $('copy').addEventListener('click',async()=>{
-  const s=player.session,text='Vedátor — souvislý proud v4; systemTimeline='+player.systemTimeline+'\n'+navigator.userAgent+'\n'+location.href+'\n'+lines.join('\n')+'\nStav: '+JSON.stringify({episode:s?.items[s.index]?.number,paused:audio.paused,time:audio.currentTime,nativeDuration:String(audio.duration),declaredState:navigator.mediaSession?.playbackState,systemPosition:s?.lastMediaPosition,error:audio.error&&{code:audio.error.code,message:audio.error.message},ranges:player.ranges(),sourceChanges:s?.sourceChanges,transitions:s?.transitionCount});
+  const s=player.session,text='Vedátor — souvislý proud v5; systemTimeline='+player.systemTimeline+'\n'+navigator.userAgent+'\n'+location.href+'\n'+lines.join('\n')+'\nStav: '+JSON.stringify({episode:s?.items[s.index]?.number,paused:audio.paused,time:audio.currentTime,nativeDuration:String(audio.duration),declaredState:navigator.mediaSession?.playbackState,systemPosition:s?.lastMediaPosition,error:audio.error&&{code:audio.error.code,message:audio.error.message},ranges:player.ranges(),sourceChanges:s?.sourceChanges,transitions:s?.transitionCount});
   try{await navigator.clipboard.writeText(text);$('copy').textContent='Zkopírováno'}catch{
     const box=document.createElement('textarea');box.value=text;document.body.appendChild(box);box.select();const copied=document.execCommand('copy');box.remove();$('copy').textContent=copied?'Zkopírováno':'Kopírování se nepodařilo';
   }
