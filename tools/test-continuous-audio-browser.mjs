@@ -1,0 +1,114 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import http from 'node:http';
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+import {pathToFileURL} from 'node:url';
+const root=process.cwd(),deps=process.env.VEDATOR_TEST_DEPS||root;
+const require=createRequire(path.join(deps,'package.json'));
+const puppeteer=require('puppeteer-core');
+const {default:chromium}=await import(pathToFileURL(require.resolve('@sparticuz/chromium')));
+const live=process.env.VEDATOR_CONTINUOUS_LIVE==='1';
+const liveNumbers=(process.env.VEDATOR_CONTINUOUS_EPISODES||'77,92,357').split(',').map(Number);
+const fixture=Buffer.from(fs.readFileSync('tools/continuous-tone-base64.txt','utf8').trim(),'base64');
+let noRange=false,blockSecond=false,transientFailure=true,failures=0;
+const requested=[];
+const real=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
+let base;
+const server=http.createServer((request,response)=>{
+  const url=new URL(request.url,'http://localhost');
+  if(url.pathname==='/content-v2.json'){
+    const episodes=live?liveNumbers.map(n=>real.episodes.find(e=>e.number===n)):[77,92,357].map(n=>({number:n,title:'Zkušební díl '+n,enclosure:base+'/tone-'+n+'.mp3'}));
+    response.writeHead(200,{'Content-Type':'application/json'});response.end(JSON.stringify({episodes,series:[{name:'Černé díry',episodes:episodes.map(e=>e.number)}]}));return;
+  }
+  if(url.pathname.startsWith('/tone-')){
+    requested.push({path:url.pathname,range:request.headers.range||null});
+    if(url.pathname==='/tone-92.mp3'&&(blockSecond||transientFailure)){
+      transientFailure=false;failures++;response.writeHead(503);response.end('Simulated network failure');return;
+    }
+    const range=request.headers.range?.match(/^bytes=(\d+)-(\d+)$/);
+    if(range&&!noRange){
+      const start=Number(range[1]),end=Math.min(fixture.length-1,Number(range[2]));
+      if(start>=fixture.length){response.writeHead(416);response.end();return}
+      response.writeHead(206,{'Content-Type':'audio/mpeg','Content-Length':end-start+1,'Content-Range':`bytes ${start}-${end}/${fixture.length}`});response.end(fixture.subarray(start,end+1));
+    }else{response.writeHead(200,{'Content-Type':'audio/mpeg','Content-Length':fixture.length});response.end(fixture)}
+    return;
+  }
+  const file=path.resolve(root,'.'+decodeURIComponent(url.pathname));
+  if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||fs.statSync(file).isDirectory()){response.writeHead(404);response.end();return}
+  const ext=path.extname(file);response.writeHead(200,{'Content-Type':({'.html':'text/html','.mjs':'text/javascript','.png':'image/png','.svg':'image/svg+xml'})[ext]||'text/plain','Cache-Control':'no-store'});fs.createReadStream(file).pipe(response);
+});
+await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));base='http://127.0.0.1:'+server.address().port;
+const args=chromium.args.filter(arg=>!arg.startsWith('--headless')&&!arg.includes('background-timer')&&!arg.includes('backgrounding')&&!arg.includes('renderer-background')&&!arg.includes('disable-web-security')&&!arg.includes('allow-running-insecure-content'));
+if(live&&process.env.HTTPS_PROXY)args.push('--proxy-server='+process.env.HTTPS_PROXY,'--ignore-certificate-errors');
+const executablePath=process.env.CHROME_PATH||['/usr/bin/google-chrome','/usr/bin/chromium','/usr/bin/chromium-browser'].find(p=>fs.existsSync(p))||await chromium.executablePath();
+const browser=await puppeteer.launch({executablePath,headless:true,args,ignoreDefaultArgs:['--mute-audio','--disable-background-timer-throttling','--disable-backgrounding-occluded-windows','--disable-renderer-backgrounding']});
+const page=await browser.newPage();await page.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));
+page.on('console',message=>{if(message.type()==='error')console.log('Browser error:',message.text())});
+const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+async function setup(){
+  await page.goto(base+'/test-souvisle.html',{waitUntil:'domcontentloaded'});
+  await page.waitForFunction(()=>document.documentElement.dataset.continuousReady==='1');
+  await page.evaluate(live=>{
+    const {player}=window.vedatorContinuousTest;
+    if(!live){player.chunkSize=1024;player.lead=4;player.keepBehind=2}
+    window.srcChanges=0;window.audioEvents=[];
+    const audio=document.getElementById('audio');
+    new MutationObserver(records=>{window.srcChanges+=records.filter(r=>r.attributeName==='src').length}).observe(audio,{attributes:true});
+    for(const name of ['play','playing','pause','ended','error'])audio.addEventListener(name,()=>window.audioEvents.push({name,hidden:document.hidden,time:audio.currentTime}));
+    document.getElementById('speed').value='2';
+  },live);
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile page overflows');
+}
+async function state(){return page.evaluate(()=>{const t=window.vedatorContinuousTest,s=t.player.session,a=document.getElementById('audio');return {src:a.src,changes:window.srcChanges,events:window.audioEvents,index:s?.index,failed:s?.failed,complete:s?.complete,parts:s?.parts,transitions:s?.transitionCount,paused:a.paused,error:a.error&&{code:a.error.code,message:a.error.message},time:a.currentTime,metadata:navigator.mediaSession?.metadata?.title,log:t.log}})}
+try{
+  await setup();await page.click(live?'#quick':'#start');
+  await page.waitForFunction(()=>!document.getElementById('audio').paused&&document.getElementById('audio').currentTime>.1,{timeout:60000});
+  const initial=await state();assert.equal(initial.changes,1);assert.equal(initial.error,null);
+  await page.click('#toggle');const pausedAt=(await state()).time;await wait(200);assert(Math.abs((await state()).time-pausedAt)<.1,'Pause must remain paused');
+  await page.click('#toggle');
+  assert.equal(await page.evaluate(()=>window.vedatorContinuousTest.player.seek(99999)),false);
+  const cover=await browser.newPage();await cover.goto('about:blank');await cover.bringToFront();
+  const actuallyHidden=await page.evaluate(()=>document.hidden);
+  if(!actuallyHidden){
+    // The serverless headless shell has no real tab occlusion. Keep real audio
+    // decoding and explicitly label this limited visibility simulation in CI.
+    await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'))});
+    console.log('Headless shell: simulating document.hidden; physical Android suspension remains a manual check');
+  }
+  if(live){
+    await page.waitForFunction(()=>window.vedatorContinuousTest.player.session.index>=1,{timeout:120000});
+    await page.waitForFunction(()=>window.vedatorContinuousTest.player.position()>30,{timeout:45000});
+    const current=await state();assert.equal(current.changes,1);assert.equal(current.error,null);assert.equal(current.paused,false);assert(current.transitions>=1);
+    console.log(JSON.stringify({ok:true,liveMp3:true,hiddenTransition:true,visibilitySimulated:!actuallyHidden,episodes:liveNumbers,secondsInNextEpisode:current.time-current.parts[1].start,sourceChanges:current.changes,metadata:current.metadata,log:current.log},null,2));
+  }else{
+    await page.waitForFunction(()=>document.getElementById('audio').ended,{timeout:25000});
+    const final=await state();assert.equal(final.changes,1);assert.equal(final.error,null);assert.equal(final.transitions,2);assert.equal(final.index,2);
+    assert.equal(final.events.filter(e=>e.name==='ended').length,1,'ended must only fire after the last episode');
+    assert.equal(failures,1,'Transient network error should be exercised');
+    assert(final.log.some(l=>l.includes('PŘECHOD')&&l.includes('hidden=true')),'Real hidden-page handoff missing');
+    assert(final.metadata.includes('357'),'System metadata must follow the actual track');
+    console.log('Real MSE: three tracks, two hidden handoffs, one source, transient network retry passed');
+    await cover.close();await page.bringToFront();await setup();
+    await page.evaluate(()=>{const p=window.vedatorContinuousTest.player,original=p.start.bind(p);p.start=(items,options)=>original(items,{...options,tailBytes:1024})});
+    await page.click('#quick');await page.waitForFunction(()=>window.vedatorContinuousTest.player.session?.complete,{timeout:15000});
+    const quick=await state();assert(quick.parts[0].bytes<fixture.length,'Quick test must really skip the first MP3 prefix');assert.equal(quick.changes,1);assert.equal(quick.error,null);
+    assert(requested.some(r=>r.path==='/tone-77.mp3'&&r.range===`bytes=${fixture.length-1024}-${fixture.length-1}`),'Tail must use a numeric CORS-safe Range');
+    await page.click('#stop');
+    noRange=true;await setup();await page.click('#start');
+    await page.waitForFunction(()=>window.vedatorContinuousTest.player.session?.complete,{timeout:15000});
+    const fullResponse=await state();assert.equal(fullResponse.error,null);assert.equal(fullResponse.changes,1);await page.click('#stop');noRange=false;
+    blockSecond=true;await setup();await page.click('#start');
+    await page.waitForFunction(()=>window.vedatorContinuousTest.player.session?.failed,{timeout:15000});
+    const failed=await state();blockSecond=false;await page.click('#retry');
+    await page.waitForFunction(()=>window.vedatorContinuousTest.player.session?.complete,{timeout:15000});
+    const recovered=await state();assert.equal(recovered.src,failed.src);assert.equal(recovered.changes,1);assert.equal(recovered.error,null);
+    assert.equal(recovered.parts.length,3,'Retry must not duplicate logical tracks');
+    console.log('Quick tail, no-Range streaming, preserved-source retry, pause and unavailable seek passed');
+  }
+  await page.bringToFront();
+  const screenshot=process.env.VEDATOR_TEST_SCREENSHOT;if(screenshot)await page.screenshot({path:screenshot,fullPage:true});
+  assert.deepEqual(errors,[],'No page runtime errors allowed');
+}catch(error){console.error(JSON.stringify(await state(),null,2));throw error}
+finally{await browser.close();await new Promise(resolve=>server.close(resolve))}

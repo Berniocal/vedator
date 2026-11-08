@@ -1,0 +1,30 @@
+name: Verify continuous audio experiment
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'continuous-audio.mjs'
+      - 'continuous-test-ui.mjs'
+      - 'test-souvisle.html'
+      - 'tools/test-continuous-audio-browser.mjs'
+      - 'tools/continuous-tone-base64.txt'
+      - '.github/workflows/verify-continuous-audio.yml'
+permissions:
+  contents: read
+jobs:
+  continuous-audio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check isolated modules
+        run: |
+          node --check continuous-audio.mjs
+          node --check continuous-test-ui.mjs
+          node --check tools/test-continuous-audio-browser.mjs
+      - name: Install browser test dependencies
+        run: npm install --prefix "$RUNNER_TEMP/continuous-audio-test" --no-audit --no-fund puppeteer-core@25.12.0 @sparticuz/chromium@153.0.0
+      - name: Test real MP3 decoding and continuous hidden playback
+        run: VEDATOR_TEST_DEPS="$RUNNER_TEMP/continuous-audio-test" node tools/test-continuous-audio-browser.mjs
