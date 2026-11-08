@@ -8,6 +8,7 @@ on:
       - 'test-souvisle.html'
       - 'tools/test-continuous-audio-browser.mjs'
       - 'tools/continuous-tone-base64.txt'
+      - 'tools/continuous-vbr-base64.txt'
       - '.github/workflows/verify-continuous-audio.yml'
 permissions:
   contents: read
@@ -28,3 +29,4 @@ jobs:
         run: npm install --prefix "$RUNNER_TEMP/continuous-audio-test" --no-audit --no-fund puppeteer-core@25.12.0 @sparticuz/chromium@153.0.0
       - name: Test real MP3 decoding and continuous hidden playback
         run: VEDATOR_TEST_DEPS="$RUNNER_TEMP/continuous-audio-test" node tools/test-continuous-audio-browser.mjs
+

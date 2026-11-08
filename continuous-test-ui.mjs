@@ -1,9 +1,9 @@
-import {ContinuousAudio} from './continuous-audio.mjs?v=20261108-3';
+import {ContinuousAudio} from './continuous-audio.mjs?v=20261108-4';
 const $=id=>document.getElementById(id),audio=$('audio');
 const streamControls=new URLSearchParams(location.search).get('system')==='stream';
 const LOG_KEY=streamControls?'vedator-continuous-test-log-v2-stream':'vedator-continuous-test-log-v1';
 let lines=[];try{lines=JSON.parse(localStorage.getItem(LOG_KEY)||'[]');if(!Array.isArray(lines))lines=[]}catch{}
-let collections=[],selected=[],activeQueue=[];
+let collections=[],selected=[],activeQueue=[],seekEditing=false;
 const fmt=seconds=>{const value=Math.max(0,Math.floor(seconds||0));return Math.floor(value/60)+':'+String(value%60).padStart(2,'0')};
 function log(message){
   lines.push(new Date().toISOString()+' | '+message);lines=lines.slice(-500);
@@ -12,7 +12,7 @@ function log(message){
 }
 const player=new ContinuousAudio(audio,{log,systemTimeline:streamControls?'stream':'episode'});
 if(streamControls){
-  document.querySelector('.badge').textContent='Test systémového ovládání · v2';
+  document.querySelector('.badge').textContent='Souvislé přehrávání · v4';
   $('system-note').hidden=false;
 }
 // A small read-only diagnostic surface also lets real-browser tests inspect the stream.
@@ -24,17 +24,17 @@ function renderQueue(items,index=-1){
 function update(){
   const s=player.session,p=player.part(),time=player.position();
   for(const id of ['toggle','stop','back','forward','seek','jump-time','jump-go'])$(id).disabled=!s;
-  $('toggle').textContent=audio.paused?'Přehrát':'Pauza';
+  $('toggle').textContent=s?.wantPlay?'Pauza':'Přehrát';
   $('retry').hidden=!s?.failed;$('retry').disabled=Boolean(audio.error);
   if(!s){$('status').textContent='Připraveno. Zvol rychlý test nebo celé díly.';return}
   const tail=s.quick&&s.index===0;
-  const known=tail?0:(p?.end!=null?p.end-p.start:p?.durationHint||0);
+  const known=tail?0:(p?.end!=null?p.end-p.start:p?.durationHint||s.indexes.get(s.items[s.index].url)?.duration||0);
   const end=known||Math.max(time,player.bufferEnd()-(p?.start||0));
-  $('seek').max=String(Math.max(.1,end));if(document.activeElement!==$('seek'))$('seek').value=String(Math.min(end,time));
+  if(!seekEditing){$('seek').max=String(Math.max(.1,end));$('seek').value=String(Math.min(end,time))}
   $('time').textContent=fmt(time);$('duration').textContent=known?fmt(known):'Načteno '+fmt(end);
   const current=s.items[s.index];$('title').textContent=current.title;
-  $('mode').textContent=(s.native?'Přímé MP3 po posunu':s.quick&&s.index===0?'Závěrečná část prvního dílu':'Souvislý proud')+' · '+(s.index+1)+' / '+s.items.length;
-  const state=audio.ended?'Dokončeno':s.failed?'Chyba načítání':audio.paused?'Pozastaveno':audio.readyState<3?'Načítám zvuk…':'Přehrávám';
+  $('mode').textContent=(s.quick&&s.index===0?'Závěrečná část prvního dílu':'Souvislý proud')+' · '+(s.index+1)+' / '+s.items.length;
+  const state=s.seekTo!=null?'Načítám zvolený čas…':audio.ended?'Dokončeno':s.failed?'Chyba načítání':audio.paused?'Pozastaveno':audio.readyState<3?'Načítám zvuk…':'Přehrávám';
   $('status').textContent=state+' · dopředu připraveno '+fmt(player.ahead())+' · přechodů '+s.transitionCount;
 }
 player.addEventListener('update',update);
@@ -57,11 +57,14 @@ function start(quick){
 }
 $('collection').addEventListener('change',chooseCollection);$('first').addEventListener('change',chooseFirst);$('count').addEventListener('change',chooseFirst);
 $('quick').addEventListener('click',()=>start(true));$('start').addEventListener('click',()=>start(false));
-$('toggle').addEventListener('click',()=>{if(audio.paused)player.play();else player.pause()});
+$('toggle').addEventListener('click',()=>{if(player.session?.wantPlay)player.pause();else player.play();update()});
 $('stop').addEventListener('click',()=>{player.stop();problem('');update()});
 $('back').addEventListener('click',()=>player.seekBy(-10));$('forward').addEventListener('click',()=>player.seekBy(10));
+for(const event of ['pointerdown','keydown'])$('seek').addEventListener(event,()=>{seekEditing=true});
+for(const event of ['pointerup','keyup'])$('seek').addEventListener(event,()=>{seekEditing=false});
+for(const event of ['pointercancel','blur'])$('seek').addEventListener(event,()=>{seekEditing=false;update()});
 $('seek').addEventListener('change',()=>{
-  const target=Number($('seek').value);if(!player.seek(target))problem('Přeskočení na '+fmt(target)+' nebylo možné.');
+  seekEditing=false;problem('');const target=Number($('seek').value);if(!player.seek(target))problem('Přeskočení na '+fmt(target)+' nebylo možné.');update();
 });
 function parseJumpTime(value){
   const bits=String(value).trim().split(':');
@@ -79,7 +82,7 @@ $('jump-time').addEventListener('keydown',event=>{if(event.key==='Enter')jump()}
 $('speed').addEventListener('change',()=>{audio.playbackRate=Number($('speed').value)||1});
 $('retry').addEventListener('click',()=>{problem('');player.retry()});
 $('copy').addEventListener('click',async()=>{
-  const s=player.session,text='Vedátor — souvislý proud v3; systemTimeline='+player.systemTimeline+'\n'+navigator.userAgent+'\n'+location.href+'\n'+lines.join('\n')+'\nStav: '+JSON.stringify({episode:s?.items[s.index]?.number,paused:audio.paused,time:audio.currentTime,nativeDuration:String(audio.duration),declaredState:navigator.mediaSession?.playbackState,systemPosition:s?.lastMediaPosition,error:audio.error&&{code:audio.error.code,message:audio.error.message},ranges:player.ranges(),sourceChanges:s?.sourceChanges,transitions:s?.transitionCount});
+  const s=player.session,text='Vedátor — souvislý proud v4; systemTimeline='+player.systemTimeline+'\n'+navigator.userAgent+'\n'+location.href+'\n'+lines.join('\n')+'\nStav: '+JSON.stringify({episode:s?.items[s.index]?.number,paused:audio.paused,time:audio.currentTime,nativeDuration:String(audio.duration),declaredState:navigator.mediaSession?.playbackState,systemPosition:s?.lastMediaPosition,error:audio.error&&{code:audio.error.code,message:audio.error.message},ranges:player.ranges(),sourceChanges:s?.sourceChanges,transitions:s?.transitionCount});
   try{await navigator.clipboard.writeText(text);$('copy').textContent='Zkopírováno'}catch{
     const box=document.createElement('textarea');box.value=text;document.body.appendChild(box);box.select();const copied=document.execCommand('copy');box.remove();$('copy').textContent=copied?'Zkopírováno':'Kopírování se nepodařilo';
   }
@@ -110,3 +113,4 @@ async function load(){
   document.documentElement.dataset.continuousReady='1';
 }
 load().catch(error=>{problem(error.message);log('KATALOG CHYBA '+error.message);$('status').textContent='Katalog se nepodařilo načíst. Zkus stránku obnovit.'});
+
