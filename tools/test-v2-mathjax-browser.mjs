@@ -49,6 +49,10 @@ try{
   });
   await page.evaluateOnNewDocument(()=>{
     localStorage.setItem('vedator-ui-language-v1','cz');
+    // This typography fixture mocks HTMLMediaElement and deliberately blocks
+    // all MP3 requests. Exercise the native fallback here; real MSE seeking,
+    // timing and transitions are covered by test-main-continuous-browser.mjs.
+    Object.defineProperty(window,'MediaSource',{value:undefined,configurable:true});
     HTMLMediaElement.prototype.play=()=>Promise.resolve();
     HTMLMediaElement.prototype.pause=()=>{};
     HTMLMediaElement.prototype.load=function(){this.currentTime=0;queueMicrotask(()=>this.dispatchEvent(new Event('loadedmetadata')))};
