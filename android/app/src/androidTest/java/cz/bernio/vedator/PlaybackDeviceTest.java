@@ -34,7 +34,7 @@ public class PlaybackDeviceTest {
         try(InputStream input=instrumentation.getContext().getAssets().open("tone-index.json");ByteArrayOutputStream out=new ByteArrayOutputStream()){byte[] b=new byte[16384];int n;while((n=input.read(b))!=-1)out.write(b,0,n);Net.write(new File(context.getCacheDir(),"test-tone-index.json"),out.toByteArray());}
         activity=ActivityScenario.launch(MainActivity.class);
         AtomicReference<ListenableFuture<MediaBrowser>> future=new AtomicReference<>();instrumentation.runOnMainSync(()->future.set(new MediaBrowser.Builder(context,new SessionToken(context,new ComponentName(context,PlaybackService.class))).buildAsync()));browser=future.get().get(20,TimeUnit.SECONDS);
-        waitFor(()->js("document.documentElement.dataset.vedatorV2Ready").equals("\"1\""),20000);
+        waitFor(()->js("document.documentElement.dataset.vedatorV2Ready").equals("\"1\"")&&js("document.documentElement.dataset.vedatorNativeReady").equals("\"1\""),20000);
         assertEquals("\"1\"",js("document.documentElement.dataset.vedatorNative"));
     }
     @After public void cleanup()throws Exception{if(legacy!=null)instrumentation.runOnMainSync(()->legacy.disconnect());if(browser!=null){send(MainActivity.message("stop"));instrumentation.runOnMainSync(()->browser.release());}if(activity!=null)activity.close();context.stopService(new Intent(context,PlaybackService.class));store.put("testAudio","");store.put("testOffline","");}

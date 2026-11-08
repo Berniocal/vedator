@@ -37,6 +37,7 @@ final class WebSource {
             Net.write(cache,bytes);
         }catch(Exception e){try{bytes=cache.isFile()?java.nio.file.Files.readAllBytes(cache.toPath()):Net.asset(context,"web/"+file);}catch(Exception ignored){}}
         if(bytes==null)return new WebResourceResponse(mime,"UTF-8",503,"Offline",java.util.Collections.emptyMap(),new ByteArrayInputStream(new byte[0]));
+        if(file.equals("index.html"))bytes=new String(bytes,StandardCharsets.UTF_8).replace("navigator.serviceWorker.register","Promise.reject").getBytes(StandardCharsets.UTF_8);
         if(file.equals("app-v2.js")){
             try{bytes=inject(new String(bytes,StandardCharsets.UTF_8),adapter).getBytes(StandardCharsets.UTF_8);}
             catch(Exception e){try{bytes=inject(new String(Net.asset(context,"web/app-v2.js"),StandardCharsets.UTF_8),adapter).getBytes(StandardCharsets.UTF_8);}catch(Exception impossible){return response(mime,"throw new Error('Aktualizujte APK Vedátor');".getBytes(StandardCharsets.UTF_8));}}

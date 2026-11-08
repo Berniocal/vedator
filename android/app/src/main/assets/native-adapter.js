@@ -53,7 +53,7 @@ if (window.VedatorNative && typeof window.VedatorNative.postMessage === 'functio
       nativeMergeData(message.values);nativeBootstrapped=true;nativeDownloads=message.downloads||{};
       if(message.snapshot?.queue?.items?.length)nativeApplySnapshot(message.snapshot);
       else if(nativeRestoreRequested)nativeRestoreOriginal().catch(console.warn);
-      nativeSyncStorage();return;
+      document.documentElement.dataset.vedatorNativeReady='1';nativeSyncStorage();return;
     }
     if(message.kind==='snapshot')nativeApplySnapshot(message.snapshot);
     if(message.kind==='data'){nativeMergeData(message.values);nativeDownloads=message.downloads||nativeDownloads;syncPlayer()}
