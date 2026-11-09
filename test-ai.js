@@ -2,7 +2,7 @@
 "use strict";
 const MODEL = "Xenova/multilingual-e5-small";
 const GENERATOR_MODEL = "onnx-community/Qwen2.5-0.5B-Instruct";
-const GENERATOR_SCRIPT = "./test-ai-generator-worker.js?v=20261109-generative1";
+const GENERATOR_SCRIPT = "./test-ai-generator-worker.js?v=20261109-wasm2";
 const RESULTS_PAGE = 10;
 const MAX_MATCHES = 160;
 // Transformers.js 3.8.1 uses the default browser Cache Storage named "transformers-cache".
@@ -35,7 +35,7 @@ function setBusy(value){
   $("remove").disabled=value || !state.installed;
   $("ask").disabled=value || !state.installed || !state.dataReady;
   $("question").disabled=value;
-  $("generator-install").disabled=value || state.generatorInstalled || !state.gpuSupported;
+  $("generator-install").disabled=value || state.generatorInstalled;
   $("generator-remove").disabled=value || !state.generatorInstalled;
 }
 function fmtTime(seconds){let n=Math.max(0,Math.round(Number(seconds)||0));return Math.floor(n/3600)?Math.floor(n/3600)+":"+String(Math.floor(n%3600/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0"):Math.floor(n/60)+":"+String(n%60).padStart(2,"0");}
@@ -109,10 +109,13 @@ async function deleteGeneratorCachedFiles(){
 }
 async function refreshGeneratorStatus(){
   state.generatorInstalled=await cacheGeneratorInstalled();
-  const unsupported=!state.gpuSupported;
+  const mode=state.gpuSupported?"GPU/WebGPU":"procesor/WASM";
   $("generator-status").textContent=state.generatorInstalled
-    ?(unsupported?"✓ Model uložen, ale WebGPU není dostupné":"✓ Model pro odpovědi je uložený")
-    :(unsupported?"WebGPU není dostupné – generování na tomto zařízení nelze spustit":"Model pro odpovědi není stažený");
+    ?"✓ Model uložený · "+mode
+    :"Model není stažený · dostupný režim: "+mode;
+  $("generator-install").textContent=state.gpuSupported
+    ?"↓ Stáhnout AI pro odpovědi (~800 MB)"
+    :"↓ Stáhnout AI pro procesor (~800 MB)";
   setBusy(state.busy);
 }
 function terminateGeneratorWorker(){
@@ -134,6 +137,11 @@ function generatorWorker(){
     }
     if(msg.type==="stage"){
       status("generator-download-status",(msg.stage==="done"?"Načteno: ":"Připravuji: ")+String(msg.file||"model"));
+      return;
+    }
+    if(msg.type==="backend"){
+      const label=msg.device==="wasm"?"procesor/WASM":"GPU/WebGPU";
+      status("generator-download-status","Připravuji režim "+label+(msg.reason?" ("+msg.reason+")":"")+"…");
       return;
     }
     state.pending.delete(msg.id);
@@ -160,18 +168,21 @@ function workerRequest(action,params={}){
   });
 }
 async function installGenerator(){
-  if(state.busy||state.generatorInstalled||!state.gpuSupported)return;
-  if(!confirm("Generativní AI má přibližně 800 MB a potřebuje dostatek paměti telefonu. Stáhnout ji jen pro tento prohlížeč?"))return;
+  if(state.busy||state.generatorInstalled)return;
+  const usingCpu=!state.gpuSupported;
+  if(!confirm(usingCpu
+    ?"WebGPU není dostupné. Zkusit generování na procesoru (WASM)? Model má přibližně 800 MB, vyžaduje hodně paměti a odpovědi mohou vznikat velmi pomalu. Stažení se spustí jen po potvrzení."
+    :"Stáhnout generativní AI (~800 MB) do prohlížeče? Použije GPU, a pokud selže, zkusí pomalejší procesorový režim."))return;
   setBusy(true);
   $("generator-progress").classList.remove("hidden");
   $("generator-progress").value=0;
   status("generator-download-status","Připravuji stažení generativního modelu…");
   try{
-    await workerRequest("load",{canDownload:true});
+    const loaded=await workerRequest("load",{canDownload:true,device:usingCpu?"wasm":"auto"});
     state.generatorInstalled=await cacheGeneratorInstalled();
     if(!state.generatorInstalled)throw Error("Model se načetl, ale prohlížeč nepotvrdil jeho uložení.");
     $("generator-progress").value=100;
-    status("generator-download-status","Model je uložený. Další odpovědi budu psát vlastními slovy z nalezených shrnutí.","ok");
+    status("generator-download-status","Model je uložený; režim "+(loaded.backend==="wasm"?"procesor/WASM (pomalejší)":"GPU/WebGPU")+". Nyní můžeš zkusit otázku.","ok");
   }catch(error){
     status("generator-download-status","Generativní AI nelze připravit: "+(error.message||error),"error");
     terminateGeneratorWorker();
@@ -609,7 +620,7 @@ function generationMaterials(ranked,question){
   return materials;
 }
 async function generateNarrative(question,ranked){
-  if(!state.generatorInstalled||!state.gpuSupported)return null;
+  if(!state.generatorInstalled)return null;
   const materials=generationMaterials(ranked,question);
   if(!materials.length)return null;
   const excerpts=materials.map((m,i)=>
@@ -626,7 +637,7 @@ async function generateNarrative(question,ranked){
       "Neopakuj otázku, nezaváděj jiné téma a nevymýšlej podrobnosti. Odkazy na díly aplikace přidá sama."}
   ];
   status("search-status","AI tvoří vlastní odpověď z nalezených shrnutí. Na telefonu to může být pomalejší…");
-  await workerRequest("load",{canDownload:false});
+  await workerRequest("load",{canDownload:false,device:state.gpuSupported?"auto":"wasm"});
   const response=await workerRequest("generate",{messages});
   const output=String(response.answer||"").replace(/<\|[^>]*\|>/g,"").trim();
   if(output.length<30||output.length>2200)return null;
@@ -664,7 +675,7 @@ async function ask(question){
     const ranked=[...scored,...additional];
     renderResults(ranked,question);
     status("search-status","Nalezeno "+ranked.length+" souvisejících kapitol. Zobrazuji prvních "+Math.min(RESULTS_PAGE,ranked.length)+".","ok");
-    if(state.generatorInstalled && state.gpuSupported){
+    if(state.generatorInstalled){
       // Šetříme RAM telefonu: embedding model není při generování potřeba.
       if(state.extractor?.dispose)await state.extractor.dispose();
       state.extractor=null;
@@ -698,7 +709,8 @@ async function start(){
   $("generator-remove").addEventListener("click",removeGenerator);
   $("more-results").addEventListener("click",()=>{state.visible+=RESULTS_PAGE;renderSourceCards();});
   $("ask-form").addEventListener("submit",e=>{e.preventDefault();const value=$("question").value.trim();if(value)ask(value);});
-  state.gpuSupported=Boolean(navigator.gpu);
+  // Existence navigator.gpu nestačí: některé telefony vracejí null adaptér.
+  state.gpuSupported=Boolean(await navigator.gpu?.requestAdapter?.({powerPreference:"low-power"}).catch(()=>null));
   await refreshModelStatus();
   await refreshGeneratorStatus();
   try{
