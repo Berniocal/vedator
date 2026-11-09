@@ -215,9 +215,9 @@
             if(p.status==='progress'&&Number.isFinite(p.progress)){
               const percent=Math.max(0,Math.min(100,p.progress));
               $('progress').classList.remove('hidden');$('progress').value=percent;
-              downloading('Stahuji '+String(p.file||'model')+' · '+Math.round(percent)+' %');
+              downloading('Stahuji model · '+Math.round(percent)+' %');
             }else if(p.status==='initiate'||p.status==='done'){
-              downloading((p.status==='done'?'Uloženo: ':'Připravuji: ')+String(p.file||'model'));
+              downloading(p.status==='done'?'Soubor uložen':'Připravuji model…');
             }
           }
         });
@@ -230,7 +230,7 @@
       if(!('caches' in window)||!('WebAssembly' in window)){
         downloading('Prohlížeč v tomto panelu nepodporuje potřebné ukládání nebo WebAssembly. Vyhledávání bez AI funguje dál.','error');return;
       }
-      if(!confirm('Stáhnout lokální model AI (~140 MB) do tohoto prohlížeče? Nepoužívá placené API.'))return;
+      if(!confirm('Stáhnout model AI (~140 MB)?'))return;
       disableBusy(true);$('progress').value=0;$('progress').classList.remove('hidden');
       downloading('Připravuji stažení…');
       try{
@@ -238,7 +238,7 @@
         state.installed=await isInstalled();
         if(!state.installed)throw Error('Model se načetl, ale Google panel nepotvrdil trvalé uložení.');
         $('progress').value=100;
-        downloading('✓ Model je připravený. Můžeš zpřesňovat výsledky.','ok');
+        downloading('Model stažen.','ok');
       }catch(error){
         downloading('Instalace AI selhala: '+(error.message||error)+'. Původní vyhledávání zůstává funkční.','error');
         state.extractor=null;
@@ -246,7 +246,7 @@
     }
     async function erase(){
       if(state.busy||!state.installed)return;
-      if(!confirm('Smazat pouze model Xenova/multilingual-e5-small z tohoto prohlížeče?'))return;
+      if(!confirm('Smazat uložený model AI?'))return;
       disableBusy(true);
       try{
         if(state.loading)await state.loading.catch(()=>{});
@@ -260,7 +260,7 @@
         state.installed=await isInstalled();
         if(state.installed)throw Error('Některé soubory zůstaly uložené.');
         state.refined=false;state.ranked=state.original.slice();render();
-        downloading('Model smazán. Původní vyhledávání zůstalo zachované.','ok');
+        downloading('Model smazán.','ok');
       }catch(error){downloading('Smazání selhalo: '+(error.message||error),'error');}
       finally{await updateModelUI();disableBusy(false);}
     }
