@@ -3432,13 +3432,36 @@ function highlightKeys(query,result){
     for(const form of formsByKey.get(key)||[key])for(const token of String(form).match(/[\p{L}\p{N}]+/gu)||[])addToken(token);
   }
   for(const q of qTerms)addToken(q.label);
+  // A quoted phrase may match a neighboring synonym or inflected word.
+  // Highlight exactly those matching words, without changing normal queries.
+  tokens.quotedPhrases=askQuotedPhrases(query);
   return tokens;
 }
 function highlightText(value,keys){
   const raw=String(value??'');let out='',position=0;
-  for(const match of raw.matchAll(/[\p{L}\p{N}]+/gu)){
-    const token=match[0];if(token.length<2||!(keys.has(canon(token))||keys.has(norm(token))))continue;
-    const at=match.index;out+=esc(raw.slice(position,at))+'<mark class="vedator-match ask-search-hit">'+esc(token)+'</mark>';position=at+token.length;
+  const quotes=keys.quotedPhrases||[];
+  const words=[...raw.matchAll(/[\p{L}\p{N}]+/gu)];
+  const quotedIndices=new Set();
+  if(quotes.length&&words.length){
+    const normalized=words.map(match=>norm(match[0])),memo=new Map();
+    for(const phrase of quotes){
+      for(let offset=0;offset+phrase.length<=normalized.length;offset++){
+        let matched=true;
+        for(let i=0;i<phrase.length;i++){
+          if(!askQuoteWordEquivalent(phrase[i],normalized[offset+i],memo)){
+            matched=false;break;
+          }
+        }
+        if(matched)for(let i=0;i<phrase.length;i++)quotedIndices.add(offset+i);
+      }
+    }
+  }
+  for(let i=0;i<words.length;i++){
+    const match=words[i],token=match[0];
+    if(token.length<2||!(quotedIndices.has(i)||keys.has(canon(token))||keys.has(norm(token))))continue;
+    const at=match.index;
+    out+=esc(raw.slice(position,at))+'<mark class="vedator-match ask-search-hit">'+esc(token)+'</mark>';
+    position=at+token.length;
   }
   return out+esc(raw.slice(position));
 }
