@@ -75,6 +75,10 @@ function vedatorAiAktualniRezim() {
 function vedatorAiNastavRezim(mode) {
   const value = vedatorNormalizujRezim_(mode);
   PropertiesService.getDocumentProperties().setProperty(CFG.PROP_SEARCH_MODE, value);
+  // Keep the visible Nastavení tab in sync without clearing any user data.
+  const sheet = SpreadsheetApp.getActive().getSheetByName(CFG.SETTINGS_SHEET);
+  if (sheet) sheet.getRange('B10').setValue(
+    value === 'all' ? 'Otázky + neotázky' : value === 'nonquestion' ? 'Neotázky' : 'Otázky');
   return value;
 }
 function vedatorAiStavRezim_(mode) {
