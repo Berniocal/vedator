@@ -52,10 +52,25 @@
 
   <section class="block">
     <h2>Zpřesnění výsledků</h2>
-    <p class="small muted">Nejdřív se zobrazí původní pořadí. Po zpracování AI jej může změnit pouze v první třicítce. Pět nejlepších pak můžeš zapsat zpět do tabulky.</p>
-    <div class="row"><button id="rerank" class="primary" disabled>✦ Zpřesnit pomocí AI</button><button id="save" disabled>Zapsat 5 nejlepších</button></div>
+    <p class="small muted">AI přerovná pouze prvních 30 nalezených výsledků a <strong>pět nejlepších automaticky zapíše přímo do tabulky</strong> (sloupce B–S). Původní otázka v A zůstane zachovaná.</p>
+    <div class="row"><button id="rerank" class="primary" disabled>✦ Zpřesnit a zapsat do tabulky</button></div>
     <div id="status" class="small muted" role="status" aria-live="polite"></div>
     <progress id="search-progress" class="progress hidden" max="100" value="0"></progress>
+  </section>
+
+  <section class="block">
+    <h2>Postupné zpracování celého listu</h2>
+    <p class="small muted">Projdu všechny vyplněné otázky v listu Dotazy. Po každých až pěti otázkách se výsledky uloží přímo do tabulky. Zpracování probíhá v tomto prohlížeči – panel musí zůstat otevřený.</p>
+    <label class="row small" for="include-done">
+      <input type="checkbox" id="include-done">
+      Znovu zpracovat i řádky označené „AI hotovo“
+    </label>
+    <div class="row" style="margin-top:10px">
+      <button id="batch-run" class="primary" disabled>✦ Zpracovat celý list</button>
+      <button id="batch-stop" class="danger" disabled>Zastavit</button>
+    </div>
+    <progress id="batch-progress" class="progress hidden" max="100" value="0"></progress>
+    <p id="batch-status" class="small muted" role="status" aria-live="polite">Při dalším spuštění lze navázat vynecháním hotových řádků.</p>
   </section>
 
   <section class="block">
@@ -70,15 +85,17 @@
     const CDN='https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1';
     const CACHE_NAMES=['transformers-cache','vedator-ai-model-v1'];
     const $=id=>document.getElementById(id);
-    const state={data:null,original:[],ranked:[],refined:false,busy:false,installed:false,extractor:null,library:null,sourceFetch:null,loading:null,generation:0,vectors:new Map()};
+    const state={data:null,original:[],ranked:[],refined:false,busy:false,installed:false,extractor:null,library:null,sourceFetch:null,loading:null,generation:0,vectors:new Map(),batch:{running:false,stopping:false,total:0,done:0,saved:0,failed:0,lastRow:0}};
     function say(value,type=''){const el=$('status');el.className='small '+(type||'muted');el.textContent=value||'';}
     function downloading(value,type=''){const el=$('download-status');el.className='small '+(type||'muted');el.textContent=value||'';}
     function disableBusy(busy){
       state.busy=busy;
       $('load').disabled=busy;$('reset').disabled=busy||!state.data;
       $('install').disabled=busy||state.installed;$('erase').disabled=busy||!state.installed;
-      $('rerank').disabled=busy||!state.installed||state.original.length<2;
-      $('save').disabled=busy||!state.refined||!state.ranked.length;
+      $('rerank').disabled=busy||!state.installed||!state.data||!state.original.length;
+      $('batch-run').disabled=busy||!state.installed;
+      $('batch-stop').disabled=!state.batch.running||state.batch.stopping;
+      $('include-done').disabled=busy;
     }
     function call(method,...args){
       return new Promise((resolve,reject)=>{
@@ -86,6 +103,10 @@
         if(method==='selected')run.vedatorAiVybranyRadek();
         else if(method==='candidates')run.vedatorAiKandidati(args[0]);
         else if(method==='save')run.vedatorAiUlozPoradi(args[0],args[1],args[2]);
+        else if(method==='batch-list')run.vedatorAiSeznamRadku(args[0]);
+        else if(method==='batch-candidates')run.vedatorAiKandidatiDavka(args[0]);
+        else if(method==='batch-save')run.vedatorAiUlozDavku(args[0]);
+        else if(method==='restore')run.vedatorAiVratPuvodni(args[0],args[1]);
         else reject(Error('Neznámá operace Apps Scriptu.'));
       });
     }
@@ -236,67 +257,205 @@
       return values;
     }
     function dot(a,b){let total=0;for(let i=0;i<a.length;i++)total+=a[i]*b[i];return total;}
+
+    // Shared model computation for one row, used by the manual action and
+    // the sequential whole-sheet run. Never introduces new candidates.
+    async function computeAiOrder(data,onProgress,shouldStop=()=>false){
+      const original=Array.isArray(data.candidates)?data.candidates:[];
+      if(original.length<2)return original.map(item=>item.id);
+      await getExtractor(false);
+      if(shouldStop())throw Error('Zpracování bylo zastaveno.');
+      const queryVector=(await vectorsFor(['query: '+data.question]))[0];
+      const scores=[];
+      for(let i=0;i<original.length;i+=3){
+        if(shouldStop())throw Error('Zpracování bylo zastaveno.');
+        const group=original.slice(i,i+3);
+        const missing=group.filter(item=>!state.vectors.has(item.id+'|'+item.passage));
+        if(missing.length){
+          const embeddings=await vectorsFor(missing.map(item=>'passage: '+item.passage));
+          missing.forEach((item,j)=>state.vectors.set(item.id+'|'+item.passage,embeddings[j]));
+          // Keep the browser memory bounded during thousands of questions.
+          if(state.vectors.size>1000)state.vectors.clear();
+        }
+        for(let j=0;j<group.length;j++){
+          const item=group[j];
+          const vector=state.vectors.get(item.id+'|'+item.passage);
+          if(!vector)throw Error('Vektor AI nelze načíst.');
+          const similarity=dot(queryVector,vector);
+          scores.push({item,position:i+j,score:.63*item.score+.37*similarity});
+        }
+        if(onProgress)onProgress(scores.length,original.length);
+        await new Promise(resolve=>setTimeout(resolve,0));
+      }
+      if(shouldStop())throw Error('Zpracování bylo zastaveno.');
+      scores.sort((a,b)=>b.score-a.score||a.position-b.position);
+      const ranked=scores.map(x=>x.item);
+      const expected=new Set(original.map(x=>x.id));
+      if(ranked.length!==original.length||new Set(ranked.map(x=>x.id)).size!==original.length||
+         ranked.some(x=>!expected.has(x.id)))throw Error('AI vrátila neplatné pořadí kandidátů.');
+      return ranked.map(x=>x.id);
+    }
+
+    function orderedFromIds(original,ids){
+      const byId=new Map(original.map(x=>[x.id,x]));
+      if(ids.length!==original.length||new Set(ids).size!==ids.length||
+          ids.some(id=>!byId.has(id)))throw Error('Neplatná sada výsledků AI.');
+      return ids.map(id=>byId.get(id));
+    }
+
+    // For a single question, save results immediately to Dotazy B:S.
     async function rerank(){
-      if(state.busy||!state.installed||!state.data||state.original.length<2)return;
+      if(state.busy||!state.installed||!state.data||!state.original.length)return;
       const token=++state.generation;
       disableBusy(true);state.refined=false;
       state.ranked=state.original.slice();render();
       $('search-progress').value=0;$('search-progress').classList.remove('hidden');
-      say('Zatím vidíš původní pořadí. AI připravuje porovnání 30 výsledků…');
+      say('Zatím vidíš původní pořadí. AI počítá a následně zapíše výsledky přímo do tabulky…');
       try{
-        await getExtractor(false);
-        const queryVector=(await vectorsFor(['query: '+state.data.question]))[0];
-        const scored=[];
-        for(let i=0;i<state.original.length;i+=3){
-          const group=state.original.slice(i,i+3);
-          const missing=group.filter(item=>!state.vectors.has(item.id+'|'+item.passage));
-          if(missing.length){
-            const embeddings=await vectorsFor(missing.map(item=>'passage: '+item.passage));
-            missing.forEach((item,j)=>state.vectors.set(item.id+'|'+item.passage,embeddings[j]));
-          }
-          for(const item of group){
-            const semantic=dot(queryVector,state.vectors.get(item.id+'|'+item.passage));
-            scored.push({item,originalPosition:i+group.indexOf(item),score:.63*item.score+.37*semantic});
-          }
-          const percent=Math.round(scored.length/state.original.length*100);
-          $('search-progress').value=percent;
-          say('AI porovnává výsledky: '+scored.length+'/'+state.original.length+'. Zatím vidíš původní pořadí.');
-          await new Promise(resolve=>setTimeout(resolve,0));
-          if(token!==state.generation)throw Error('Zpracování bylo přerušeno.');
-        }
-        scored.sort((a,b)=>b.score-a.score||a.originalPosition-b.originalPosition);
-        const ranked=scored.map(x=>x.item);
-        const originalIds=new Set(state.original.map(x=>x.id));
-        if(ranked.length!==state.original.length||new Set(ranked.map(x=>x.id)).size!==originalIds.size||
-          ranked.some(x=>!originalIds.has(x.id)))throw Error('AI vrátila neplatnou třicítku.');
-        state.ranked=ranked;state.refined=true;
-        render();say('✓ Hotovo – nyní vidíš pořadí zpřesněné lokální AI.','ok');
+        const ids=await computeAiOrder(state.data,(done,total)=>{
+          $('search-progress').value=Math.round(done/total*100);
+          say('AI porovnává '+done+'/'+total+' kandidátů. Po dokončení se výsledky automaticky uloží.');
+        },()=>token!==state.generation);
+        if(token!==state.generation)throw Error('Zpracování bylo přerušeno.');
+        say('Zapisují se výsledky do listu Dotazy…');
+        const result=await call('save',state.data.row,state.data.question,ids);
+        state.ranked=orderedFromIds(state.original,ids);state.refined=true;
+        render();
+        say('✓ Hotovo. '+result.count+' nejlepších shod zapsáno přímo do řádku '+result.row+' v tabulce.','ok');
       }catch(error){
         state.ranked=state.original.slice();state.refined=false;render();
-        say('AI se nepodařilo spustit: '+(error.message||error)+'. Zobrazuji původní výsledky.','error');
+        say('AI nebo zápis selhal: '+(error.message||error)+'. Původní pořadí je zachováno.','error');
       }finally{$('search-progress').classList.add('hidden');disableBusy(false);}
     }
-    async function save(){
-      if(state.busy||!state.refined||!state.data)return;
-      disableBusy(true);say('Zapisuji pět nejlepších výsledků do tabulky…');
+
+    // Truly restore original Ask ranking in the spreadsheet, not only the panel.
+    async function reset(){
+      if(state.busy||!state.data)return;
+      ++state.generation;
+      disableBusy(true);
+      say('Obnovuji původní pořadí přímo v tabulce…');
       try{
-        const result=await call('save',state.data.row,state.data.question,state.ranked.map(x=>x.id));
-        say('✓ Uloženo: '+result.count+' shod do řádku '+result.row+'.','ok');
-      }catch(error){say('Uložení selhalo: '+(error.message||error),'error');}
+        await call('restore',state.data.row,state.data.question);
+        state.ranked=state.original.slice();state.refined=false;
+        render();say('✓ Obnoveno původní pořadí v panelu i v tabulce.','ok');
+      }catch(error){say('Obnovení selhalo: '+(error.message||error),'error');}
       finally{disableBusy(false);}
     }
-    function reset(){
-      if(state.busy||!state.data)return;
-      ++state.generation;state.ranked=state.original.slice();state.refined=false;
-      render();disableBusy(false);
-      say('Původní pořadí je obnoveno v panelu. Zápis v tabulce se nezměnil.');
+
+    function batchStatus(message,type=''){
+      const el=$('batch-status');
+      el.className='small '+(type||'muted');
+      el.textContent=message;
+    }
+    function batchProgress(){
+      const stateBatch=state.batch;
+      $('batch-progress').classList.remove('hidden');
+      $('batch-progress').value=stateBatch.total?
+        Math.round(stateBatch.done/stateBatch.total*100):100;
+    }
+    function stopBatch(){
+      if(!state.batch.running)return;
+      state.batch.stopping=true;
+      disableBusy(true);
+      batchStatus('Zastavuji po aktuálním výpočtu. Dokončené výsledky se ještě uloží…');
+    }
+    // Writes a completed subset immediately, even when Stop was requested.
+    async function saveCompletedBatch(rows){
+      if(!rows.length)return;
+      const outcome=await call('batch-save',rows);
+      const saved=Array.isArray(outcome.saved)?outcome.saved:[];
+      const rejected=Array.isArray(outcome.failed)?outcome.failed:[];
+      state.batch.saved+=saved.length;
+      state.batch.failed+=rejected.length;
+      state.batch.done+=rows.length;
+      batchProgress();
+      const last=rows.at(-1);
+      state.batch.lastRow=last.row;
+      batchStatus('Hotovo '+state.batch.done+'/'+state.batch.total+' otázek · uloženo '+
+        state.batch.saved+' · chyby '+state.batch.failed+' · poslední řádek '+last.row+'.');
+      if(rejected.length)console.warn('Nepodařilo se uložit některé AI výsledky',rejected);
+    }
+
+    // One UI run holds its own client-side model; no background process or API.
+    // Default mode skips "AI hotovo", allowing reliable manual resume.
+    async function runBatch(){
+      if(state.busy||!state.installed)return;
+      const batch=state.batch={running:true,stopping:false,total:0,done:0,saved:0,failed:0,lastRow:0};
+      disableBusy(true);
+      batchStatus('Zjišťuji vyplněné otázky v listu Dotazy…');
+      let pending=[];
+      try{
+        await getExtractor(false);
+        const list=await call('batch-list',$('include-done').checked);
+        const rows=Array.isArray(list.rows)?list.rows:[];
+        batch.total=rows.length;
+        batchProgress();
+        if(!rows.length){
+          batchStatus('Všechny vyplněné otázky už mají stav „AI hotovo“. Pro nové zpracování zaškrtni příslušnou volbu.','ok');
+          return;
+        }
+        batchStatus('Připraveno '+batch.total+' otázek. Dosud hotových přeskočeno: '+(list.skipped||0)+'.');
+        let modelErrors=0;
+        for(let pos=0;pos<rows.length&&!batch.stopping;pos+=5){
+          const group=rows.slice(pos,pos+5);
+          // One source index is used for a group of 5; not rebuilt per question.
+          const data=await call('batch-candidates',group);
+          pending=[];
+          for(let i=0;i<data.length;i++){
+            if(batch.stopping)break;
+            const item=data[i];
+            if(item.empty || !Array.isArray(item.candidates)){
+              batch.failed++;batch.done++;batchProgress();continue;
+            }
+            $('question').textContent=item.question;
+            $('row').textContent='Postupné zpracování: řádek '+item.row;
+            state.data=item;state.original=item.candidates;state.ranked=item.candidates.slice();state.refined=false;
+            render();
+            try{
+              const ids=await computeAiOrder(item,(done,total)=>{
+                const processed=batch.done+pending.length;
+                batchStatus('Řádek '+item.row+': AI '+done+'/'+total+
+                  ' kandidátů. Celkově '+processed+'/'+batch.total+' dokončeno.');
+              },()=>batch.stopping);
+              pending.push({row:item.row,question:item.question,ids});
+              modelErrors=0;
+            }catch(error){
+              if(batch.stopping)break;
+              batch.failed++;batch.done++;batchProgress();modelErrors++;
+              console.warn('AI nezpracovala řádek '+item.row,error);
+              batchStatus('Řádek '+item.row+' selhal: '+String(error?.message||error),'error');
+              // If the model is unavailable, do not hammer hundreds of rows.
+              if(modelErrors>=3){batch.stopping=true;break;}
+            }
+          }
+          // Always flush already-computed rows, including on user Stop.
+          if(pending.length){
+            const toSave=pending;
+            pending=[];
+            await saveCompletedBatch(toSave);
+          }
+          await new Promise(resolve=>setTimeout(resolve,0));
+        }
+        const summary='Zpracováno '+batch.done+'/'+batch.total+
+          ' · úspěšně zapsáno '+batch.saved+' · chyby '+batch.failed+'.';
+        batchStatus((batch.stopping?'Zastaveno. ':'✓ Dokončeno. ')+summary+
+          ' Při dalším spuštění lze navázat přeskočením řádků „AI hotovo“.',
+          batch.failed?'error':'ok');
+      }catch(error){
+        batchStatus('Zpracování přerušeno chybou: '+(error.message||error)+
+          '. Dosud uložené řádky zůstávají v tabulce.','error');
+      }finally{
+        batch.running=false;batch.stopping=false;
+        disableBusy(false);
+      }
     }
     $('load').addEventListener('click',loadSelected);
     $('install').addEventListener('click',install);
     $('erase').addEventListener('click',erase);
     $('rerank').addEventListener('click',rerank);
-    $('save').addEventListener('click',save);
     $('reset').addEventListener('click',reset);
+    $('batch-run').addEventListener('click',runBatch);
+    $('batch-stop').addEventListener('click',stopBatch);
     updateModelUI().catch(e=>downloading(String(e),'error'));
     // On open, load selected row without downloading the AI model.
     loadSelected().catch(e=>say(String(e),'error'));
