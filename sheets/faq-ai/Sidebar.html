@@ -7,90 +7,69 @@
   <style>
     :root{color-scheme:light dark;--bg:#111522;--panel:#1b2030;--text:#f1f1ff;--muted:#b8bdd5;--accent:#8e80fa;--line:#42475f;--ok:#69daa0;--error:#ff9caa}
     *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--text);font:14px/1.48 system-ui,-apple-system,Segoe UI,Arial,sans-serif;padding:15px}
-    h1{font-size:20px;margin:0 0 5px}h2{font-size:15px;margin:0 0 9px}
-    p{margin:6px 0 11px}.muted{color:var(--muted)}.small{font-size:12px}
-    .block{padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-top:12px}
-    .row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
-    button{border:1px solid #665ac0;background:#292c45;color:var(--text);padding:9px 11px;border-radius:10px;cursor:pointer;font:600 13px/1.2 inherit;min-height:39px}
-    button.primary{background:#6556da;border-color:#8e80fa;color:white}
+    body{margin:0;padding:12px;background:var(--bg);color:var(--text);font:14px/1.4 system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+    .group{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:12px;margin-bottom:10px}
+    .field-title{font-size:13px;font-weight:700;line-height:1.3}
+    .muted{color:var(--muted)}.small{font-size:12px}
+    .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .row.between{justify-content:space-between}
+    button{border:1px solid #665ac0;background:#292c45;color:var(--text);padding:10px 9px;border-radius:9px;cursor:pointer;font:600 13px/1.3 system-ui,-apple-system,Segoe UI,Arial,sans-serif;min-height:40px}
+    button.primary{background:#6556da;border-color:#8e80fa;color:#fff}
     button.danger{background:transparent;border-color:#b36b80;color:#ffb8c6}
     button:disabled{opacity:.45;cursor:wait}
-    .grow{flex:1}.hidden{display:none!important}
-    .item{padding:9px 0;border-top:1px solid var(--line)}.item:first-child{border-top:0}
-    .top{display:flex;gap:9px;align-items:flex-start}
-    .num{width:24px;height:24px;background:#302b54;border-radius:8px;text-align:center;line-height:24px;flex-shrink:0;font-weight:700}
-    .item a{color:#b5adff;text-decoration:none}
-    .item a:hover{text-decoration:underline}
-    .ok{color:var(--ok)}.error{color:var(--error)}
-    .progress{width:100%;height:9px;border-radius:999px;accent-color:var(--accent);margin-top:8px}
-    #status{margin-top:10px;min-height:19px;overflow-wrap:anywhere}
-    #question{font-weight:700;overflow-wrap:anywhere}
-    .chip{border:1px solid var(--line);border-radius:999px;padding:2px 7px;color:var(--muted);font-size:11px;white-space:nowrap}
-    .source-switch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:9px 0}
-    .source-switch button{width:100%;padding:10px 4px;min-width:0;font-size:12px}
+    .hidden{display:none!important}.ok{color:var(--ok)}.error{color:var(--error)}
+    .source-switch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:10px}
+    .source-switch button{min-width:0;padding:9px 2px;font-size:12px}
     .source-switch button.active{background:var(--accent);border-color:var(--accent);color:#fff}
-    .source-switch button:disabled{opacity:.55}
-    .type-label{font-weight:650;color:#c5bdff;font-size:11px;margin-top:2px}
-    #results{max-height:none}
+    #model-status{margin:0;font-size:11px}
+    .model-actions{margin-top:10px}
+    .model-actions button{width:100%}
+    .actions{display:grid;grid-template-columns:1fr;gap:8px}
+    #batch-stop{width:100%}
+    .progress{display:block;width:100%;height:9px;margin-top:10px;border-radius:999px;accent-color:var(--accent)}
+    .feedback{font-size:12px;line-height:1.45;margin:10px 0 0;overflow-wrap:anywhere}
+    .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+    .section-head .field-title{margin:0}
+    #result-count{font-size:11px;color:var(--muted)}
+    .item{padding:9px 0;border-bottom:1px solid var(--line)}
+    .item:last-child{border-bottom:0}
+    .item a{font-weight:650;color:#c4baff;text-decoration:none;overflow-wrap:anywhere}
+    .item a:hover{text-decoration:underline}
+    .item .small{margin-top:3px}
   </style>
 </head>
 <body>
-  <h1>✦ AI Vedátora</h1>
-  <p class="muted small">Stejné hledání jako „Zeptej se“. AI pouze přerovná prvních 30 nalezených otázek. Žádné placené API.</p>
-
-  <section class="block">
-    <h2>Prohledávat</h2>
+  <section class="group">
+    <div class="field-title">Hledat v</div>
     <div class="source-switch" role="group" aria-label="V jakých kapitolách hledat">
       <button type="button" data-source-mode="question" class="active" aria-pressed="true">Otázky</button>
       <button type="button" data-source-mode="nonquestion" aria-pressed="false">Neotázky</button>
       <button type="button" data-source-mode="all" aria-pressed="false">Oboje</button>
     </div>
-    <p class="muted small" id="mode-help">Vybraný zdroj platí pro automat při úpravě řádku, ruční AI i celý list.</p>
   </section>
-
-  <section class="block">
-    <h2>Vybraná otázka</h2>
-    <div id="question" class="muted">Zatím není načtená.</div>
-    <p id="row" class="small muted"></p>
-    <div class="row"><button id="load" class="primary">Načíst vybraný řádek</button><button id="reset" disabled>Vrátit pořadí</button></div>
-  </section>
-
-  <section class="block">
-    <h2>Lokální model</h2>
-    <p id="model-status" class="small muted">Kontroluji uložený model…</p>
-    <p class="small muted">Xenova/multilingual-e5-small · přibližně 140 MB. Stažení proběhne pouze po kliknutí. Model se může ukládat v prohlížeči; podpora v panelu Google Tabulek závisí na jeho bezpečnostních omezeních.</p>
-    <div class="row"><button id="install" class="primary">↓ Stáhnout AI</button><button id="erase" class="danger" disabled>Smazat model</button></div>
-    <progress id="progress" class="progress hidden" max="100" value="0"></progress>
-    <p id="download-status" class="small muted"></p>
-  </section>
-
-  <section class="block">
-    <h2>Zpřesnění výsledků</h2>
-    <p class="small muted">AI přerovná pouze prvních 30 nalezených výsledků a <strong>pět nejlepších automaticky zapíše přímo do tabulky</strong> (sloupce B–S). Původní otázka v A zůstane zachovaná.</p>
-    <div class="row"><button id="rerank" class="primary" disabled>✦ Zpřesnit a zapsat do tabulky</button></div>
-    <div id="status" class="small muted" role="status" aria-live="polite"></div>
-    <progress id="search-progress" class="progress hidden" max="100" value="0"></progress>
-  </section>
-
-  <section class="block">
-    <h2>Postupné zpracování celého listu</h2>
-    <p class="small muted">Projdu všechny vyplněné otázky v listu Dotazy. Po každých až pěti otázkách se výsledky uloží přímo do tabulky. Zpracování probíhá v tomto prohlížeči – panel musí zůstat otevřený.</p>
-    <label class="row small" for="include-done">
-      <input type="checkbox" id="include-done">
-      Znovu zpracovat i řádky označené „AI hotovo“
-    </label>
-    <div class="row" style="margin-top:10px">
-      <button id="batch-run" class="primary" disabled>✦ Zpracovat celý list</button>
-      <button id="batch-stop" class="danger" disabled>Zastavit</button>
+  <section class="group">
+    <div class="row between"><div class="field-title">Model AI</div><span id="model-status" class="muted">Kontroluji…</span></div>
+    <div class="model-actions">
+      <button id="install" class="primary">Stáhnout model</button>
+      <button id="erase" class="danger hidden" disabled>Smazat model</button>
     </div>
-    <progress id="batch-progress" class="progress hidden" max="100" value="0"></progress>
-    <p id="batch-status" class="small muted" role="status" aria-live="polite">Při dalším spuštění lze navázat vynecháním hotových řádků.</p>
+    <progress id="progress" class="progress hidden" max="100" value="0"></progress>
+    <p id="download-status" class="feedback hidden" role="status" aria-live="polite"></p>
   </section>
-
-  <section class="block">
-    <div class="row"><h2 class="grow">Nalezené kapitoly</h2><span class="chip" id="result-count">0</span></div>
-    <div id="results"><p class="muted">Vyber otázku na listu Dotazy a načti ji.</p></div>
+  <section class="group">
+    <div class="actions">
+      <button id="rerank" class="primary" disabled>Zpracovat jeden řádek</button>
+      <button id="batch-run" disabled>Zpracovat celý list</button>
+      <button id="batch-stop" class="danger hidden" disabled>Zastavit</button>
+    </div>
+    <progress id="search-progress" class="progress hidden" max="100" value="0"></progress>
+    <progress id="batch-progress" class="progress hidden" max="100" value="0"></progress>
+    <p id="status" class="feedback hidden" role="status" aria-live="polite"></p>
+    <p id="batch-status" class="feedback hidden" role="status" aria-live="polite"></p>
+  </section>
+  <section id="results-section" class="group hidden">
+    <div class="section-head"><h2 class="field-title">Výsledky</h2><span id="result-count">0</span></div>
+    <div id="results"></div>
   </section>
 
   <script>
@@ -105,16 +84,22 @@
     const AI_VECTOR_CACHE_LIMIT=1250;
     const $=id=>document.getElementById(id);
     const state={data:null,original:[],ranked:[],refined:false,busy:false,installed:false,extractor:null,library:null,sourceFetch:null,loading:null,generation:0,vectors:new Map(),mode:'question',batch:{running:false,stopping:false,total:0,done:0,saved:0,failed:0,lastRow:0}};
-    function say(value,type=''){const el=$('status');el.className='small '+(type||'muted');el.textContent=value||'';}
-    function downloading(value,type=''){const el=$('download-status');el.className='small '+(type||'muted');el.textContent=value||'';}
+    function setFeedback(id,value,type=''){
+      const el=$(id);
+      el.className='feedback '+(type||'muted');
+      el.textContent=value||'';
+      el.classList.toggle('hidden',!value);
+    }
+    function say(value,type=''){setFeedback('status',value,type);}
+    function downloading(value,type=''){setFeedback('download-status',value,type);}
     function disableBusy(busy){
       state.busy=busy;
-      $('load').disabled=busy;$('reset').disabled=busy||!state.data;
-      $('install').disabled=busy||state.installed;$('erase').disabled=busy||!state.installed;
-      $('rerank').disabled=busy||!state.installed||!state.data||!state.original.length;
+      $('install').disabled=busy||state.installed;
+      $('erase').disabled=busy||!state.installed;
+      $('rerank').disabled=busy||!state.installed;
       $('batch-run').disabled=busy||!state.installed;
+      $('batch-stop').classList.toggle('hidden',!state.batch.running);
       $('batch-stop').disabled=!state.batch.running||state.batch.stopping;
-      $('include-done').disabled=busy;
       document.querySelectorAll('[data-source-mode]').forEach(button=>button.disabled=busy);
     }
     function call(method,...args){
@@ -141,7 +126,7 @@
         button.classList.toggle('active',active);
         button.setAttribute('aria-pressed',String(active));
       });
-      $('mode-help').textContent='Aktivní zdroj: '+sourceLabel(state.mode)+'. Volba platí i pro automatické nové dotazy.';
+
     }
     async function selectSourceMode(nextMode){
       if(state.busy||!['question','nonquestion','all'].includes(nextMode))return;
@@ -150,15 +135,15 @@
         const saved=await call('mode-set',nextMode);
         state.mode=saved;
         state.data=null;state.original=[];state.ranked=[];state.refined=false;
-        state.vectors.clear();
         updateSourceButtons();
         render();
-        say('Nastaveno hledání: '+sourceLabel(saved)+'. Načítám výsledky v novém režimu…');
+        say('');batchStatus('');
+        $('search-progress').classList.add('hidden');
+        $('batch-progress').classList.add('hidden');
       }catch(error){
         say('Nepodařilo se změnit zdroj: '+(error.message||error),'error');
         return;
       }finally{disableBusy(false);}
-      await loadSelected();
     }
     function modelPath(req){
       let url=String(req?.url||req||'').toLowerCase();
@@ -179,58 +164,26 @@
     }
     async function updateModelUI(){
       state.installed=await isInstalled().catch(()=>false);
-      $('model-status').textContent=state.installed
-        ?'✓ Model je uložený v tomto prohlížeči.'
-        :('caches' in window?'Model není stažený.':'Google v tomto panelu nepovoluje úložiště modelu.');
+      $('model-status').textContent=state.installed?'Připraven':'Nestažený';
+      $('install').classList.toggle('hidden',state.installed);
+      $('erase').classList.toggle('hidden',!state.installed);
       disableBusy(state.busy);
     }
     function render(){
-      $('result-count').textContent=state.ranked.length?'Prvních '+state.ranked.length:'0';
+      const visible=state.refined?state.ranked.slice(0,5):[];
+      $('results-section').classList.toggle('hidden',!visible.length);
+      $('result-count').textContent=String(visible.length);
       const box=$('results');box.replaceChildren();
-      if(!state.ranked.length){
-        const p=document.createElement('p');p.className='muted';p.textContent='Žádné kandidátní otázky.';box.append(p);return;
-      }
-      state.ranked.forEach((item,i)=>{
-        const card=document.createElement('article');card.className='item';
-        const top=document.createElement('div');top.className='top';
-        const num=document.createElement('span');num.className='num';num.textContent=String(i+1);
-        const inner=document.createElement('div');
-        const label=document.createElement('div');label.textContent=item.title;label.style.fontWeight='650';
-        const type=document.createElement('div');type.className='type-label';
-        type.textContent=item.type==='nonquestion'?'Neotázka':'Otázka';
-        inner.append(type);
+      visible.forEach((item,i)=>{
+        const card=document.createElement('div');card.className='item';
+        const a=document.createElement('a');
+        a.textContent=(i+1)+'. '+item.title;
+        a.href=item.url||'#';a.target='_blank';a.rel='noopener';
         const meta=document.createElement('div');meta.className='small muted';
-        meta.textContent='Díl '+item.episode+(item.time?' · '+item.time:'')+' · původní shoda '+Math.round(item.score*100)+' %';
-        inner.append(label,meta);
-        if(item.url){const link=document.createElement('a');link.href=item.url;link.target='_blank';link.rel='noopener';link.textContent='Otevřít v Vedátorovi';inner.append(link)}
-        top.append(num,inner);card.append(top);box.append(card);
+        meta.textContent='Díl '+item.episode+(item.time?' · '+item.time:'')+
+          (state.mode==='all'?' · '+(item.type==='nonquestion'?'Neotázka':'Otázka'):'');
+        card.append(a,meta);box.append(card);
       });
-    }
-    async function loadSelected(){
-      if(state.busy)return;
-      ++state.generation;
-      disableBusy(true);say('Načítám otázku a 30 nejlepších výsledků…');
-      try{
-        const selection=await call('selected');
-        const data=await call('candidates',selection.row,state.mode);
-        if(data.searchMode!==state.mode)throw Error('Režim hledání se změnil. Načtěte výsledky znovu.');
-        state.data=data;state.original=data.candidates||[];
-        state.ranked=state.original.slice();state.refined=false;
-        // Preserve cached vectors across questions and repeated searches.
-        $('question').textContent=data.question;
-        $('row').textContent='List Dotazy, řádek '+data.row;
-        render();say('Původní výsledky připravené. Zatím nejsou přerovnané AI.','ok');
-      }catch(error){
-        const message=String(error.message||error);
-        if(/prázdnou otázku|Vyberte nejprve buňku/.test(message)){
-          state.data=null;state.original=[];state.ranked=[];state.refined=false;
-          $('question').textContent='Pro jednu otázku vyber vyplněný řádek na listu Dotazy.';
-          $('row').textContent='Celý list lze zpracovat tlačítkem níže i bez výběru řádku.';
-          render();
-          say('Zatím není vybraná konkrétní otázka. Hromadné zpracování je dostupné.');
-        }else say('Načtení selhalo: '+message,'error');
-      }
-      finally{disableBusy(false);}
     }
     async function getLibrary(){
       if(state.library)return state.library;
@@ -387,47 +340,44 @@
 
     // For a single question, save results immediately to Dotazy B:S.
     async function rerank(){
-      if(state.busy||!state.installed||!state.data||!state.original.length)return;
+      if(state.busy||!state.installed)return;
       const token=++state.generation;
-      disableBusy(true);state.refined=false;
-      state.ranked=state.original.slice();render();
-      $('search-progress').value=0;$('search-progress').classList.remove('hidden');
-      say('Zatím vidíš původní pořadí. AI počítá a následně zapíše výsledky přímo do tabulky…');
-      try{
-        const ids=await computeAiOrder(state.data,(done,total)=>{
-          $('search-progress').value=Math.round(done/total*100);
-          say('AI porovnává '+done+'/'+total+' kandidátů. Po dokončení se výsledky automaticky uloží.');
-        },()=>token!==state.generation);
-        if(token!==state.generation)throw Error('Zpracování bylo přerušeno.');
-        say('Zapisují se výsledky do listu Dotazy…');
-        const result=await call('save',state.data.row,state.data.question,ids,state.mode);
-        state.ranked=orderedFromIds(state.original,ids);state.refined=true;
-        render();
-        say('✓ Hotovo. '+result.count+' nejlepších shod zapsáno přímo do řádku '+result.row+' v tabulce.','ok');
-      }catch(error){
-        state.ranked=state.original.slice();state.refined=false;render();
-        say('AI nebo zápis selhal: '+(error.message||error)+'. Původní pořadí je zachováno.','error');
-      }finally{$('search-progress').classList.add('hidden');disableBusy(false);}
-    }
-
-    // Truly restore original Ask ranking in the spreadsheet, not only the panel.
-    async function reset(){
-      if(state.busy||!state.data)return;
-      ++state.generation;
       disableBusy(true);
-      say('Obnovuji původní pořadí přímo v tabulce…');
+      state.data=null;state.original=[];state.ranked=[];state.refined=false;render();
+      batchStatus('');
+      $('batch-progress').classList.add('hidden');
+      $('search-progress').value=0;
+      $('search-progress').classList.remove('hidden');
+      say('Načítání…');
       try{
-        await call('restore',state.data.row,state.data.question,state.mode);
-        state.ranked=state.original.slice();state.refined=false;
-        render();say('✓ Obnoveno původní pořadí v panelu i v tabulce.','ok');
-      }catch(error){say('Obnovení selhalo: '+(error.message||error),'error');}
-      finally{disableBusy(false);}
+        const selection=await call('selected');
+        const data=await call('candidates',selection.row,state.mode);
+        if(data.searchMode!==state.mode)throw Error('Změnil se zdroj hledání.');
+        state.data=data;state.original=data.candidates||[];
+        say('Zpracovávám 0 %');
+        const ids=await computeAiOrder(data,(done,total)=>{
+          const percent=Math.round(done/Math.max(total,1)*100);
+          $('search-progress').value=percent;
+          say('Zpracovávám '+percent+' %');
+        },()=>token!==state.generation);
+        if(token!==state.generation)throw Error('Zpracování přerušeno.');
+        const result=await call('save',data.row,data.question,ids,state.mode);
+        state.ranked=orderedFromIds(state.original,ids);state.refined=true;render();
+        say('Zpracováno · řádek '+result.row,'ok');
+      }catch(error){
+        state.refined=false;state.ranked=[];render();
+        const message=String(error.message||error);
+        say(/prázdnou otázku|Vyberte nejprve buňku/.test(message)
+          ?'Vyber vyplněný řádek v listu Dotazy.'
+          :'Chyba: '+message,'error');
+      }finally{
+        $('search-progress').classList.add('hidden');
+        disableBusy(false);
+      }
     }
 
     function batchStatus(message,type=''){
-      const el=$('batch-status');
-      el.className='small '+(type||'muted');
-      el.textContent=message;
+      setFeedback('batch-status',message,type);
     }
     function batchProgress(){
       const stateBatch=state.batch;
@@ -439,7 +389,7 @@
       if(!state.batch.running)return;
       state.batch.stopping=true;
       disableBusy(true);
-      batchStatus('Zastavuji po aktuálním výpočtu. Dokončené výsledky se ještě uloží…');
+      batchStatus('Zastavuji…');
     }
     // Writes a completed subset immediately, even when Stop was requested.
     async function saveCompletedBatch(rows){
@@ -453,8 +403,8 @@
       batchProgress();
       const last=rows.at(-1);
       state.batch.lastRow=last.row;
-      batchStatus('Hotovo '+state.batch.done+'/'+state.batch.total+' otázek · uloženo '+
-        state.batch.saved+' · chyby '+state.batch.failed+' · poslední řádek '+last.row+'.');
+      batchStatus('Zpracováno '+state.batch.done+'/'+state.batch.total+
+        (state.batch.failed?' · chyby '+state.batch.failed:''),'ok');
       if(rejected.length)console.warn('Nepodařilo se uložit některé AI výsledky',rejected);
       if(state.data && saved.includes(state.data.row)){
         const stored=rows.find(x=>x.row===state.data.row);
@@ -471,20 +421,21 @@
       if(state.busy||!state.installed)return;
       const batch=state.batch={running:true,stopping:false,total:0,done:0,saved:0,failed:0,lastRow:0};
       disableBusy(true);
-      say('Hromadné zpracování právě běží. Jednotlivé otázky se ukládají průběžně.');
-      batchStatus('Inicializuji lokální model AI a načítám vyplněné otázky…');
+      say('');
+      $('search-progress').classList.add('hidden');
+      batchStatus('Načítání…');
       let pending=[];
       try{
         await getExtractor(false);
-        const list=await call('batch-list',$('include-done').checked,state.mode);
+        const list=await call('batch-list',false,state.mode);
         const rows=Array.isArray(list.rows)?list.rows:[];
         batch.total=rows.length;
         batchProgress();
         if(!rows.length){
-          batchStatus('Všechny vyplněné otázky už mají stav „AI hotovo“. Pro nové zpracování zaškrtni příslušnou volbu.','ok');
+          batchStatus('Zpracováno – všechny řádky jsou hotové.','ok');
           return;
         }
-        batchStatus('Připraveno '+batch.total+' otázek. Dosud hotových přeskočeno: '+(list.skipped||0)+'.');
+        batchStatus('0 / '+batch.total+' · 0 %');
         let modelErrors=0;
         for(let pos=0;pos<rows.length&&!batch.stopping;pos+=5){
           const group=rows.slice(pos,pos+5);
@@ -497,15 +448,13 @@
             if(item.empty || !Array.isArray(item.candidates) || item.searchMode!==state.mode){
               batch.failed++;batch.done++;batchProgress();continue;
             }
-            $('question').textContent=item.question;
-            $('row').textContent='Postupné zpracování: řádek '+item.row;
             state.data=item;state.original=item.candidates;state.ranked=item.candidates.slice();state.refined=false;
-            render();
             try{
               const ids=await computeAiOrder(item,(done,total)=>{
-                const processed=batch.done+pending.length;
-                batchStatus('Řádek '+item.row+': AI '+done+'/'+total+
-                  ' kandidátů. Celkově '+processed+'/'+batch.total+' dokončeno.');
+                const processed=batch.done+pending.length+(total?done/total:0);
+                const percent=Math.round(processed/batch.total*100);
+                $('batch-progress').value=percent;
+                batchStatus(Math.floor(processed)+' / '+batch.total+' · '+percent+' %');
               },()=>batch.stopping);
               pending.push({row:item.row,question:item.question,ids});
               modelErrors=0;
@@ -513,7 +462,7 @@
               if(batch.stopping)break;
               batch.failed++;batch.done++;batchProgress();modelErrors++;
               console.warn('AI nezpracovala řádek '+item.row,error);
-              batchStatus('Řádek '+item.row+' selhal: '+String(error?.message||error),'error');
+              batchStatus('Chyba na řádku '+item.row+': '+String(error?.message||error),'error');
               // If the model is unavailable, do not hammer hundreds of rows.
               if(modelErrors>=3){batch.stopping=true;break;}
             }
@@ -526,14 +475,12 @@
           }
           await new Promise(resolve=>setTimeout(resolve,0));
         }
-        const summary='Zpracováno '+batch.done+'/'+batch.total+
-          ' · úspěšně zapsáno '+batch.saved+' · chyby '+batch.failed+'.';
-        batchStatus((batch.stopping?'Zastaveno. ':'✓ Dokončeno. ')+summary+
-          ' Při dalším spuštění lze navázat přeskočením řádků „AI hotovo“.',
+        const summary=batch.saved+'/'+batch.total+
+          (batch.failed?' · chyby '+batch.failed:'');
+        batchStatus((batch.stopping?'Zastaveno ':'Zpracováno ')+summary,
           batch.failed?'error':'ok');
       }catch(error){
-        batchStatus('Zpracování přerušeno chybou: '+(error.message||error)+
-          '. Dosud uložené řádky zůstávají v tabulce.','error');
+        batchStatus('Chyba: '+(error.message||error),'error');
       }finally{
         batch.running=false;batch.stopping=false;
         disableBusy(false);
@@ -542,11 +489,9 @@
     document.querySelectorAll('[data-source-mode]').forEach(button=>{
       button.addEventListener('click',()=>selectSourceMode(button.dataset.sourceMode));
     });
-    $('load').addEventListener('click',loadSelected);
     $('install').addEventListener('click',install);
     $('erase').addEventListener('click',erase);
     $('rerank').addEventListener('click',rerank);
-    $('reset').addEventListener('click',reset);
     $('batch-run').addEventListener('click',runBatch);
     $('batch-stop').addEventListener('click',stopBatch);
     updateModelUI().catch(e=>downloading(String(e),'error'));
@@ -558,7 +503,7 @@
         updateSourceButtons();
       }catch(error){say('Nepodařilo se načíst uložený režim: '+(error.message||error),'error');}
       finally{disableBusy(false);}
-      await loadSelected();
+      say('');batchStatus('');
     })();
   })();
   </script>
