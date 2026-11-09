@@ -3,6 +3,7 @@
 const MODEL = "Xenova/multilingual-e5-small";
 const GENERATOR_MODEL = "onnx-community/Qwen2.5-0.5B-Instruct";
 const GENERATOR_SCRIPT = "./test-ai-generator-worker.js?v=20261109-wasm2";
+const ASK_ENGINE_SCRIPT = "./test-ai-ask-engine.js?v=20261109-share1";
 const RESULTS_PAGE = 10;
 const MAX_MATCHES = 160;
 // Transformers.js 3.8.1 uses the default browser Cache Storage named "transformers-cache".
@@ -23,7 +24,7 @@ const BATCH_SIZE = 3;
 const EMBED_CHARS = 480;
 const MODEL_LIBRARY = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1";
 const $ = id => document.getElementById(id);
-const state = { installed:false, generatorInstalled:false, gpuSupported:false, busy:false, entries:[], vectors:new Map(), extractor:null, dbPromise:null, library:null, dataReady:false, remoteDownload:false, ranked:[], visible:RESULTS_PAGE, worker:null, pending:new Map(), nextRequest:1 };
+const state = { installed:false, generatorInstalled:false, gpuSupported:false, busy:false, entries:[], vectors:new Map(), extractor:null, dbPromise:null, library:null, dataReady:false, remoteDownload:false, data:null, smartEngine:null, smartPromise:null, entryMap:new Map(), ranked:[], visible:RESULTS_PAGE, worker:null, pending:new Map(), nextRequest:1 };
 const clean = value => String(value == null ? "" : value).replace(/\\[()[\]]/g," ").replace(/[{}$]/g," ").replace(/\s+/g," ").trim();
 const norm = value => clean(value).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 const tokens = value => new Set((norm(value).match(/[\p{L}\p{N}]{3,}/gu) || []).filter(x=>!["jak","proc","proč","kdy","kde","ktery","který","jaky","jaký","jsou","jsem","toto","podle","vedator","vedátor"].includes(x)));
@@ -409,6 +410,61 @@ function lexicalMatches(question){
     .sort((a,b)=>b.lexical-a.lexical || b.entry.episode-a.entry.episode);
 }
 function shortlist(question){return lexicalMatches(question).slice(0,CANDIDATE_LIMIT);}
+// Re-use the *same* rich Czech/Slovak Ask engine bundled in app-v2.js.
+// Unlike the old AI test prefilter, it searches the entire text of every
+// question and every summary bullet, including synonyms and word forms.
+// Lazy loading prevents slowing initial page render.
+async function ensureSmartEngine(){
+  if(state.smartEngine)return state.smartEngine;
+  if(state.smartPromise)return state.smartPromise;
+  state.smartPromise=(async()=>{
+    status("search-status","Připravuji chytré vyhledávání ze záložky Zeptej se…");
+    const module=await import(ASK_ENGINE_SCRIPT);
+    const engine=module.createVedatorAskSearchEngine();
+    const progress=$("index-progress");
+    progress.classList.remove("hidden");
+    progress.value=0;
+    await engine.loadAsync(state.data,(percent)=>{
+      progress.value=percent;
+      if(percent===100||percent%10===0)
+        status("search-status","Připravuji slovní a významový index Zeptej se: "+percent+" %.");
+    });
+    progress.classList.add("hidden");
+    state.smartEngine=engine;
+    status("search-status","Chytré vyhledávání Zeptej se je připravené.","ok");
+    return engine;
+  })().catch(error=>{
+    state.smartPromise=null;
+    $("index-progress").classList.add("hidden");
+    throw error;
+  });
+  return state.smartPromise;
+}
+async function smartMatches(question){
+  try{
+    const engine=await ensureSmartEngine();
+    const matches=engine.search(question,"all");
+    const mapped=matches.map((result,index)=>{
+      const entry=state.entryMap.get(result.entry.item.id);
+      if(!entry)return null;
+      // Respect Ask's tiered ranking: exact terms and synonyms outrank
+      // distant associations. Our embedding model then refines the shortlist.
+      const smartRank=Math.max(0,(9-result.tier)/9)*.75 + (Number(result.score)||0)*.25;
+      return {entry,smartRank,reason:result.reason,tier:result.tier,order:index};
+    }).filter(Boolean);
+    if(mapped.length)return mapped;
+    // Only if the canonical Ask engine really cannot match anything.
+    return lexicalMatches(question).map((item,index)=>({
+      ...item,smartRank:Math.min(1,item.lexical/5),reason:"fallback",tier:9,order:index
+    }));
+  }catch(error){
+    console.warn("Chytré vyhledávání Zeptej se selhalo; používám záložní hledání",error);
+    status("search-status","Chytré hledání nelze připravit. Používám jednoduchý záložní výběr.");
+    return lexicalMatches(question).map((item,index)=>({
+      ...item,smartRank:Math.min(1,item.lexical/5),reason:"fallback",tier:9,order:index
+    }));
+  }
+}
 function showPreliminary(candidates){
   // Během výpočtu nezobrazovat slepenou předběžnou „odpověď“.
   // Právě ta předtím působila jako náhodná směs nesouvisejících tvrzení.
@@ -652,7 +708,7 @@ async function ask(question){
   state.visible=RESULTS_PAGE;
   try{
     if(!await cacheInstalled())throw Error("Vyhledávací model už není uložen. Stáhni ho znovu ručně.");
-    const matched=lexicalMatches(question);
+    const matched=await smartMatches(question);
     const candidates=matched.slice(0,CANDIDATE_LIMIT);
     if(!candidates.length){
       status("search-status","Ve shrnutích jsem nenašel související pojmy. Zkus otázku upřesnit nebo použít jiné výrazy.");
@@ -665,12 +721,13 @@ async function ask(question){
     await prepareCandidateVectors(candidates);
     const scored=candidates.map(item=>({
       entry:item.entry,
-      score:dot(query,state.vectors.get(item.entry.key)) + Math.min(.06,item.lexical*.01)
-    })).sort((a,b)=>b.score-a.score);
-    // Prvních 24 výsledků zpřesní model; další kapitoly lze dál procházet
-    // podle rychlého textového předvýběru, bez zbytečné AI inference.
+      score:.45*dot(query,state.vectors.get(item.entry.key)) + .55*item.smartRank,
+      reason:item.reason,tier:item.tier
+    })).sort((a,b)=>b.score-a.score || a.tier-b.tier);
+    // Prvních 24 výsledků zpřesní malý AI model; ostatní zůstávají
+    // v pořadí bohatého vyhledávače „Zeptej se“ bez další inference.
     const additional=matched.slice(CANDIDATE_LIMIT,MAX_MATCHES).map(item=>({
-      entry:item.entry,score:item.lexical
+      entry:item.entry,score:item.smartRank,reason:item.reason,tier:item.tier
     }));
     const ranked=[...scored,...additional];
     renderResults(ranked,question);
@@ -717,7 +774,9 @@ async function start(){
     const r=await fetch("./content-v2.json",{cache:"no-store"});
     if(!r.ok)throw Error("HTTP "+r.status);
     const data=await r.json();
+    state.data=data;
     state.entries=buildEntries(data);
+    state.entryMap=new Map(state.entries.map(entry=>[entry.id,entry]));
     if(!state.entries.length)throw Error("Nenalezena žádná použitelná shrnutí.");
     state.dataReady=true;
     status("catalog-status","Katalog připraven: "+state.entries.length+" pasáží (otázky a shrnutí).","ok");
