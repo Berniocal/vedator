@@ -3393,6 +3393,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   /* ASK_LOCAL_AI_V1 – optional small on-device semantic re-ranking only.
      Existing Ask engine remains authoritative; no generative AI or API. */
   const ASK_AI_MODEL='Xenova/multilingual-e5-small';
+  const ASK_AI_RERANK_LIMIT=30;
   const ASK_AI_ENABLED_KEY='vedator-ask-ai-enabled-v1';
   const ASK_AI_CACHE_NAMES=['transformers-cache','vedator-ai-model-v1'];
   const askAi={enabled:false,installed:false,busy:false,extractor:null,library:null,networkFetch:null,loading:null,sequence:0,dialog:null,progress:0,checked:false};
@@ -3464,8 +3465,8 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     overlay.classList.remove('hidden');
     const title=$('#ask-ai-dialog-title-v2'),desc=$('#ask-ai-dialog-desc-v2'),actions=$('#ask-ai-dialog-actions-v2');
     title.textContent=text('AI – chytré vyhledávání','AI – inteligentné vyhľadávanie');
-    desc.textContent=text('Malá AI (přibližně 140 MB) pomůže zpřesnit pořadí nalezených kapitol podle významu otázky. Vychází z chytrého vyhledávače „Zeptej se“ a porovnává pouze 24 nejlepších výsledků. Negeneruje vlastní odpovědi a nepoužívá placené API. Model se stahuje pouze na vyžádání.',
-      'Malá AI (približne 140 MB) spresní poradie nájdených kapitol podľa významu otázky. Využíva vyhľadávač „Spýtaj sa“ a porovnáva len 24 najlepších výsledkov. Nevytvára vlastné odpovede ani nepoužíva platené API. Model sa sťahuje iba na vyžiadanie.');
+    desc.textContent=text('Malá AI (přibližně 140 MB) pomůže zpřesnit pořadí nalezených kapitol podle významu otázky. Vychází z chytrého vyhledávače „Zeptej se“ a porovnává pouze 30 nejlepších výsledků. Negeneruje vlastní odpovědi a nepoužívá placené API. Model se stahuje pouze na vyžádání.',
+      'Malá AI (približne 140 MB) spresní poradie nájdených kapitol podľa významu otázky. Využíva vyhľadávač „Spýtaj sa“ a porovnáva len 30 najlepších výsledkov. Nevytvára vlastné odpovede ani nepoužíva platené API. Model sa sťahuje iba na vyžiadanie.');
     actions.replaceChildren();
     askAiDialogMessage(text('Kontroluji uložený model…','Kontrolujem uložený model…'));
     try{
@@ -3596,10 +3597,22 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     if(typeof result.dispose==='function')result.dispose();
     return vectors;
   }
+  function askAiApplyFirst30Only(original,ranks){
+    // The original search determines the complete result set. AI can reorder
+    // only entries #1–#30; every later result must retain its original place.
+    const count=Math.min(ASK_AI_RERANK_LIMIT,original.length);
+    const expected=new Set(original.slice(0,count).map(row=>row.entry.item.id));
+    const ordered=ranks.slice().sort((a,b)=>b.value-a.value || a.position-b.position)
+      .map(row=>row.result);
+    const actual=new Set(ordered.map(row=>row.entry.item.id));
+    if(ordered.length!==count||actual.size!==count||[...actual].some(id=>!expected.has(id)))
+      throw Error('AI pořadí neodpovídá původním 30 výsledkům.');
+    return [...ordered,...original.slice(count)];
+  }
   async function askAiRerank(){
     if(!askAi.enabled||!askAi.installed||!askUi.ready||!askUi.query||state.view!=='ask')return;
     const token=++askAi.sequence,query=askUi.query,filter=askUi.filter;
-    const original=askEngine().search(query,filter),sample=original.slice(0,24);
+    const original=askEngine().search(query,filter),sample=original.slice(0,ASK_AI_RERANK_LIMIT);
     if(sample.length<2)return;
     askAiStatus(text('AI zpřesňuje pořadí výsledků…','AI spresňuje poradie výsledkov…'));
     try{
@@ -3616,14 +3629,13 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
           for(let k=0;k<v.length;k++)cosine+=question[k]*v[k];
           // Zachovej důležitost přesné shody a synonym z původního vyhledávače.
           const tier=1-Math.min(8,batch[j].tier)/8,originalScore=Number(batch[j].score)||0;
-          ranks.push({result:batch[j],value:.63*(.7*tier+.3*originalScore)+.37*cosine});
+          ranks.push({result:batch[j],position:i+j,value:.63*(.7*tier+.3*originalScore)+.37*cosine});
         }
         askAiStatus(text('AI porovnává ','AI porovnáva ')+Math.min(i+3,sample.length)+'/'+sample.length);
         await new Promise(resolve=>setTimeout(resolve,0));
       }
       if(token!==askAi.sequence||!askAi.enabled||askUi.query!==query||askUi.filter!==filter||state.view!=='ask')return;
-      ranks.sort((a,b)=>b.value-a.value);
-      askUi.ranked=[...ranks.map(x=>({...x.result,aiRanked:true})),...original.slice(sample.length)];
+      askUi.ranked=askAiApplyFirst30Only(original,ranks);
       renderAskResults();
       askAiStatus(text('Pořadí zpřesněno lokální AI.','Poradie spresnené lokálnou AI.'));
     }catch(error){
