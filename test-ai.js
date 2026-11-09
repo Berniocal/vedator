@@ -721,7 +721,7 @@ async function ask(question){
     await prepareCandidateVectors(candidates);
     const scored=candidates.map(item=>({
       entry:item.entry,
-      score:.45*dot(query,state.vectors.get(item.entry.key)) + .55*item.smartRank,
+      score:.25*dot(query,state.vectors.get(item.entry.key)) + .75*item.smartRank,
       reason:item.reason,tier:item.tier
     })).sort((a,b)=>b.score-a.score || a.tier-b.tier);
     // Prvních 24 výsledků zpřesní malý AI model; ostatní zůstávají
