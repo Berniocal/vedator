@@ -1,16 +1,18 @@
-# Vedátor FAQ – Google Tabulky + lokální AI
+# Vedátor FAQ – Google Tabulky + lokální AI (Otázky / Neotázky / Oboje)
 
 Tato složka obsahuje **úplnou, rozšířenou verzi** původního uživatelského Apps Scriptu ze souboru „Vložený text.txt“. Původní Google Tabulku ani samotnou webovou aplikaci Vedátor nemění.
 
 ## Co dělá
 
 - Při vložení/úpravě otázky do listu **Dotazy**, sloupce A, zpracuje Apps Script automaticky 5 nejlepších shod.
+- **Přepínač nad panelem** umožňuje vybrat **Otázky / Neotázky / Oboje**. V režimu Oboje se oba typy kapitol řadí dohromady, podle stejného algoritmu „Zeptej se“. Výběr se ukládá pro celou tabulku a platí pro automatický trigger, ruční zpracování i celý list.
+- **Neotázky** se čtou z `content-v2.json → nonquestions.episodes`, včetně všech odrážek, českých a slovenských textů a přímých odkazů `#nonquestion=epizoda:pořadí`. Výsledky neotázek dostanou v tabulce označení **[Neotázka]**.
 - Místo starého přibližného porovnávání používá **stejný chytrý vyhledávač jako „Zeptej se“ ve Vedátorovi**: synonyma, skloňování, podobné tvary, české a slovenské texty, **fráze v uvozovkách**.
 - Zdrojová databáze se dál aktualizuje z `Berniocal/vedator/content-v2.json` (standardně kontrola jednou za 6 hodin).
 - Do skrytého listu **Databáze** ukládá také odrážky shrnutí, proto hledá i v nich.
 - Volitelná **lokální AI** v bočním panelu může ručně přerovnat **prvních 30 výsledků**, aniž by přidala jiné. **Pět nejlepších se uloží automaticky rovnou** do listu **Dotazy (B:S)** a **Všechny shody**; nepřepisuje otázku ve sloupci A.
 - Tlačítko **Zpracovat celý list** projde všechny vyplněné otázky jednu po druhé, průběžně zapisuje hotové výsledky po dávkách až 5 a zobrazuje průběh. Tlačítko **Zastavit** dokončí aktuální krok a zapíše již vypočítané výsledky.
-- Po dokončení dostane každý řádek stav **AI hotovo**. Následující spuštění standardně přeskočí tyto řádky a naváže; samostatné zaškrtávátko umožňuje **zpracovat znovu i již hotové**.
+- Po dokončení dostane každý řádek stav **AI hotovo: otázky**, **AI hotovo: neotázky**, nebo **AI hotovo: oboje**. Při dalším spuštění se přeskočí jen řádky hotové pro **aktuálně vybraný režim**, nikoli pro jiný režim. Staré `AI hotovo` se považuje za hotové pouze pro Otázky. Přepínač „Znovu zpracovat…“ umožňuje projet i hotové řádky.
 
 ## Instalace do existující tabulky
 
@@ -22,11 +24,11 @@ Určeno pro [Vedator FAQ](https://docs.google.com/spreadsheets/d/1ByMC28LBMoDD1s
 4. Tlačítkem **+ → Skript** přidejte soubor s názvem `AskEngine` a vložte celý [AskEngine.gs](./AskEngine.gs).
 5. Tlačítkem **+ → HTML** přidejte soubor s názvem `Sidebar` a vložte celý [Sidebar.html](./Sidebar.html).
 6. Uložte všechny soubory a **obnovte Google Tabulku**.
-7. V menu **Vedátor → Nainstalovat automatické zpracování** povolte potřebná oprávnění. Tím se obnoví databáze i odrážky. **Stávající otázky ve sloupci A zůstanou**.
+7. V menu **Vedátor → Nainstalovat automatické zpracování** povolte potřebná oprávnění. Tím se obnoví databáze **otázek i neotázek**, včetně odrážek a typu kapitoly. **Stávající otázky ve sloupci A zůstanou**.
 8. Nyní vložení nové otázky do `Dotazy!A2:A` automaticky vytvoří pět shod.
-9. Chcete-li AI, označte řádek otázky na listu Dotazy a spusťte **Vedátor → AI – zpřesnit vybranou otázku**.
+9. V panelu **Vedátor → AI – zpřesnit vybranou otázku** nejprve vyberte, zda se má hledat v **Otázkách**, **Neotázkách**, nebo **Obojím**. Po změně se výběr uloží i pro následné běžné hledání. Pro jednu otázku označte odpovídající řádek v Dotazy.
 10. V bočním panelu klikněte na **Stáhnout AI** (přibližně 140 MB). Pro jednu otázku zvolte **Zpřesnit a zapsat do tabulky**; výsledek se **uloží automaticky**, žádné další tlačítko pro zápis není potřeba.
-11. Pro hromadné zpracování zvolte **Zpracovat celý list**. Lišta ukazuje postup a řádky se zapisují po nejvýše pěti. Kdykoli můžete kliknout na **Zastavit**; při příštím spuštění se standardně přeskočí řádky označené **AI hotovo**.
+11. Pro hromadné zpracování zvolte **Zpracovat celý list**. Lišta ukazuje postup a řádky se zapisují po nejvýše pěti. Kdykoli můžete kliknout na **Zastavit**; při příštím spuštění se přeskočí jen řádky `AI hotovo` **pro zvolený zdroj**.
 12. Chcete-li přepsat i již zpracované otázky, zaškrtněte **Znovu zpracovat i řádky označené „AI hotovo“**.
 13. Tlačítko **Vrátit pořadí** u jednotlivé otázky nyní vrací původní řazení **přímo do tabulky**, nikoliv pouze vizuálně v panelu.
 
@@ -34,11 +36,13 @@ Určeno pro [Vedator FAQ](https://docs.google.com/spreadsheets/d/1ByMC28LBMoDD1s
 
 **Bez stažené AI:** běží automatické vyhledávání zcela bez AI modelu. Žádné další stahování, žádný placený API klíč.
 
-**Se staženou AI:** po ručním spuštění se malý model `Xenova/multilingual-e5-small` pokusí v prohlížeči porovnat dotaz a text nejlepších 30 otázek (titulky plus až tři relevantní odrážky). Po úspěchu je výsledek **automaticky zapsán do tabulky**. Celý list se zpracovává postupně; při selhání AI se původní výsledky a data nepoškozují, neúspěšné řádky lze vyzkoušet znovu.
+**Se staženou AI:** po ručním spuštění se malý model `Xenova/multilingual-e5-small` pokusí v prohlížeči porovnat dotaz a text nejlepších 30 nalezených kapitol (z Otázek, Neotázek nebo obou zdrojů, podle přepínače; titulky plus až tři relevantní odrážky). Po úspěchu je výsledek **automaticky zapsán do tabulky**. Celý list se zpracovává postupně; při selhání AI se původní výsledky a data nepoškozují, neúspěšné řádky lze vyzkoušet znovu.
 
 **Uvozovky:** `"jádro Země"` vyžaduje slova vedle sebe, ale uznává také příslušné tvary a významové ekvivalenty (např. střed Země).
 
-**Zachování dat:** původní listy, rozložení pěti shod, odkazy, ruční volby menu a upravovací trigger zůstávají. Ve skryté databázi přibudou dvě pole pro odrážky CZ/SK. Procenta jsou výsledkem vyhledávacího algoritmu, **nikoli kalibrovaná pravděpodobnost správnosti**.
+**Zachování dat:** původní listy, rozložení pěti shod, odkazy, ruční volby menu a upravovací trigger zůstávají. Ve skryté databázi přibudou dvě pole pro odrážky CZ/SK a sloupec s typem kapitoly; existující rozložení listu Dotazy se nemění. Procenta jsou výsledkem vyhledávacího algoritmu, **nikoli kalibrovaná pravděpodobnost správnosti**.
+
+**Aktualizace již existující instalace:** nahraďte novými verzemi soubory `Code.gs` a `Sidebar.html`. `AskEngine.gs` můžete ponechat, pokud již používáte stejnou verzi z této složky. Pak spusťte **Vedátor → Obnovit databázi z GitHubu**, aby se stáhly i neotázky. U staršího skrytého listu proběhne migrace automaticky při dalším zpracování, je-li dostupný GitHub.
 
 ## Technická omezení
 
