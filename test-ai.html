@@ -15,7 +15,7 @@ main{padding:15px 12px 50px}.panel,.card{background:var(--card);border:1px solid
 @media(max-width:560px){header{padding:13px 12px}.head-name{font-size:1.2rem}.nav{padding:7px 9px!important;font-size:.8rem!important}.panel{padding:13px}.query-row{grid-template-columns:1fr}.query-row button{width:100%}.tool-row button{flex:1 1 auto}}
 </style>
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("vedator-ui-theme-v1")==="light"?"light":"dark"}catch{}</script>
-<script type="module" src="./test-ai.js?v=20261108-answers2"></script>
+<script type="module" src="./test-ai.js?v=20261109-generative1"></script>
 </head>
 <body>
 <header><div class="wrap header-row"><div><h1 class="head-name">✦ AI Vedátor <span class="pill">TEST</span></h1><p class="subtitle">Zeptej se na obsah podcastu</p></div><div class="header-actions"><a class="nav" href="./index.html">← Vedátor</a><button class="theme" id="theme" title="Světlý/tmavý režim" aria-label="Přepnout vzhled">☾</button></div></div></header>
@@ -30,14 +30,27 @@ main{padding:15px 12px 50px}.panel,.card{background:var(--card);border:1px solid
   <p id="download-status" class="status" role="status" aria-live="polite"></p>
   <div class="hint">Používáme Xenova/multilingual-e5-small (8bit). Při hledání aplikace nejprve rychle projde názvy a texty shrnutí, pak AI porovná maximálně 24 nejrelevantnějších pasáží. Dílčí výpočty si pamatuje. Není nutné zpracovávat všechny tisíce pasáží.</div>
 </section>
+<section class="panel" aria-labelledby="generator-heading">
+  <div class="eyebrow">Volitelné · vlastní odpovědi</div>
+  <h2 id="generator-heading">AI pro psaní odpovědí</h2>
+  <div class="grid-line"><strong id="generator-status">Kontroluji generativní model…</strong><span class="badge">Qwen 2.5 0.5B · asi 800 MB</span></div>
+  <p class="small muted">Pokud chceš souvislou odpověď vlastními slovy, můžeš si stáhnout druhý model. Je oddělený od rychlého vyhledávání, stahuje se pouze na vyžádání a lze ho kdykoli smazat. Potřebuje WebGPU a dostatek paměti telefonu. Na některých telefonech nemusí fungovat nebo může odpovídat pomalu.</p>
+  <div class="tool-row">
+    <button class="btn" id="generator-install" type="button">↓ Stáhnout AI pro odpovědi (~800 MB)</button>
+    <button class="btn danger" id="generator-remove" type="button" disabled>✕ Smazat AI pro odpovědi</button>
+  </div>
+  <progress id="generator-progress" class="progress hidden" max="100" value="0"></progress>
+  <p class="status" id="generator-download-status" role="status" aria-live="polite"></p>
+  <div class="hint">Pokud tento model není stažený nebo se nespustí, vyhledávání nadále funguje a zobrazí nejvhodnější pasáž ze shrnutí. Generované odpovědi je potřeba ověřovat podle připojených zdrojů.</div>
+</section>
 <section class="panel" aria-labelledby="ask-heading">
   <h2 id="ask-heading">Zeptej se Vedátora</h2>
-  <form id="ask-form"><div class="query-row"><input id="question" name="question" placeholder="Např. Proč čas v blízkosti černé díry plyne jinak?" maxlength="400" autocomplete="off" aria-label="Tvoje otázka"><button class="btn" id="ask" type="submit" disabled>✦ Hledat pomocí AI</button></div></form>
+  <form id="ask-form"><div class="query-row"><input id="question" name="question" placeholder="Např. Proč čas v blízkosti černé díry plyne jinak?" maxlength="400" autocomplete="off" aria-label="Tvoje otázka"><button class="btn" id="ask" type="submit" disabled>✦ Zeptat se AI</button></div></form>
   <p id="catalog-status" class="status">Načítám katalog shrnutí…</p>
   <progress id="index-progress" class="progress hidden" max="100" value="0"></progress>
   <p id="search-status" class="status" role="status" aria-live="polite">Nejdříve stáhni AI.</p>
-  <p class="note">První verze nejprve vybere pasáže podle slov a souvisejících pojmů a potom je AI seřadí podle významu. Zatím nepoužívá generativní jazykový model. V odpovědi vybere souvislé věty z jednoho nejvhodnějšího shrnutí, uvede zdroj a při nedostatečné shodě přizná, že přímou odpověď nenašla. Zdrojům je možné se prokliknout.</p>
+  <p class="note">Vyhledávací AI vybírá relevantní shrnutí. S volitelným generativním modelem z nich sestaví českou odpověď vlastními slovy. Bez něj ukáže souvislou zdrojovou pasáž. Každý výsledek odkazuje na konkrétní díl.</p>
 </section>
-<div id="results" class="hidden" aria-live="polite"><section class="panel"><h2>Odpověď podle shrnutí</h2><div id="answer" class="answer"></div><div class="grid-line"><strong>Zdrojové pasáže</strong><span id="result-count" class="small muted"></span></div></section><div id="sources"></div></div>
+<div id="results" class="hidden" aria-live="polite"><section class="panel"><h2>Odpověď podle shrnutí</h2><div id="answer" class="answer"></div><div class="grid-line"><strong>Nalezené kapitoly</strong><span id="result-count" class="small muted"></span></div></section><div id="sources"></div><div class="tool-row" id="more-container"><button id="more-results" type="button" class="btn secondary hidden">Zobrazit další kapitoly</button></div></div>
 </main>
 </body></html>
