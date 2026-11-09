@@ -391,13 +391,13 @@ function lexicalScore(question,entry,weights){
   // Oceňujeme pokrytí více různých slov a souvislost v titulku.
   return matched?score + Math.min(matched,5)*.10:0;
 }
-function shortlist(question){
+function lexicalMatches(question){
   const weights=queryTermWeights(question);
-  const matches=state.entries.map(entry=>({entry,lexical:lexicalScore(question,entry,weights)}))
+  return state.entries.map(entry=>({entry,lexical:lexicalScore(question,entry,weights)}))
     .filter(item=>item.lexical>0)
     .sort((a,b)=>b.lexical-a.lexical || b.entry.episode-a.entry.episode);
-  return matches.slice(0,CANDIDATE_LIMIT);
 }
+function shortlist(question){return lexicalMatches(question).slice(0,CANDIDATE_LIMIT);}
 function showPreliminary(candidates){
   // Během výpočtu nezobrazovat slepenou předběžnou „odpověď“.
   // Právě ta předtím působila jako náhodná směs nesouvisejících tvrzení.
@@ -515,33 +515,25 @@ function selectedAnswer(ranked,question){
   }
   return {direct:true,source:chosen,lines};
 }
-function renderResults(ranked,question){
-  $("results").classList.remove("hidden");
+function appendAnswerText(value,className=""){
+  const p=document.createElement("p");
+  if(className)p.className=className;
+  p.textContent=value;
+  $("answer").append(p);
+}
+function appendSourceLink(entry,label){
+  const link=document.createElement("a");
+  link.className="source-link";
+  link.href=sourceLink(entry);
+  link.target="_blank";
+  link.rel="noopener";
+  link.textContent=label||"↗ Zdroj: díl "+entry.episode+", "+(entry.time||fmtTime(entry.seconds));
+  $("answer").append(link);
+}
+function renderSourceCards(){
   $("sources").replaceChildren();
-  $("answer").replaceChildren();
-  const items=ranked.slice(0,5);
-  const answer=selectedAnswer(items,question);
-  const addText=(value,className)=>{
-    const p=document.createElement("p");
-    if(className)p.className=className;
-    p.textContent=value;
-    $("answer").append(p);
-  };
-  if(answer.direct && answer.lines.length){
-    const e=answer.source.entry;
-    addText("Ve shrnutí dílu "+e.episode+" („"+e.title+"“) se k tématu uvádí:","small muted");
-    for(const line of answer.lines)addText(line);
-    const link=document.createElement("a");
-    link.className="source-link";
-    link.href=sourceLink(e);
-    link.textContent="↗ Zdroj: díl "+e.episode+", "+(e.time||fmtTime(e.seconds));
-    $("answer").append(link);
-    addText("Jde o vybrané věty ze shrnutí, nikoli o nově vygenerované vysvětlení.","small muted");
-  }else{
-    addText("V dostupných shrnutích jsem nenašel dostatečně přímou odpověď na tuto otázku.");
-    addText("Níže jsou nejbližší související pasáže. Nemusí ale přímo odpovídat na to, na co se ptáš.","small muted");
-  }
-  $("result-count").textContent=items.length+" souvisejících pasáží";
+  const items=state.ranked.slice(0,state.visible);
+  const fragment=document.createDocumentFragment();
   items.forEach((item,i)=>{
     const e=item.entry;
     const card=document.createElement("article");
@@ -558,7 +550,6 @@ function renderResults(ranked,question){
     const description=document.createElement("p");
     description.className="source-body";
     const segments=splitSentences(e.points.join(" "));
-    // Karty necháváme věrné podkladům, ale bez useknutí uprostřed slova/věty.
     description.textContent=segments.slice(0,2).join(" ")||e.points.slice(0,2).join(" ");
     const link=document.createElement("a");
     link.className="source-link";
@@ -567,37 +558,132 @@ function renderResults(ranked,question){
     link.rel="noopener";
     link.textContent="↗ Otevřít tuto pasáž v aplikaci";
     card.append(top,title,description,link);
-    $("sources").append(card);
+    fragment.append(card);
   });
+  $("sources").append(fragment);
+  $("result-count").textContent=items.length+" z "+state.ranked.length+" nalezených kapitol";
+  const more=$("more-results");
+  more.classList.toggle("hidden",state.visible>=state.ranked.length);
+  if(state.visible<state.ranked.length)more.textContent="Zobrazit další kapitoly ("+(state.ranked.length-state.visible)+" zbývá)";
+}
+function renderResults(ranked,question,generated=null){
+  $("results").classList.remove("hidden");
+  $("answer").replaceChildren();
+  state.ranked=ranked;
+  const answer=selectedAnswer(ranked.slice(0,5),question);
+  if(generated){
+    appendAnswerText("Odpověď sestavená místní AI z nalezených shrnutí:","small muted");
+    for(const paragraph of generated.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean))
+      appendAnswerText(paragraph);
+    appendAnswerText("Automaticky sestavený text může obsahovat nepřesnosti; ověřuj ho podle zdrojů níže.","small muted");
+    for(const item of ranked.slice(0,3)){
+      appendSourceLink(item.entry,"↗ Podklad: díl "+item.entry.episode+", "+(item.entry.time||fmtTime(item.entry.seconds)));
+    }
+  }else if(answer.direct&&answer.lines.length){
+    const e=answer.source.entry;
+    appendAnswerText("Ve shrnutí dílu "+e.episode+" („"+e.title+"“) se k tématu uvádí:","small muted");
+    for(const line of answer.lines)appendAnswerText(line);
+    appendSourceLink(e);
+    appendAnswerText("Toto je přímo vybraný text shrnutí. Pro odpověď vlastními slovy si nahoře stáhni druhý, generativní model.","small muted");
+  }else{
+    appendAnswerText("V dostupných shrnutích jsem nenašel dostatečně přímou odpověď na tuto otázku.");
+    appendAnswerText("Níže jsou nejbližší související pasáže. Nemusí přímo odpovídat na tvůj dotaz.","small muted");
+  }
+  renderSourceCards();
+}
+function generationMaterials(ranked,question){
+  const terms=answerQueryTerms(question);
+  const materials=[];
+  const usedEpisodes=new Set();
+  for(const item of ranked.slice(0,12)){
+    const e=item.entry;
+    const topic=coverage(e.title,terms),body=coverage(e.passage,terms);
+    if((topic<.34 && body<.45) || !e.points.length)continue;
+    // Přidáme max. 4 kapitoly, nekombinujeme nesouvisející otázky.
+    if(usedEpisodes.has(e.id))continue;
+    const text=e.points.join(" ").slice(0,750);
+    materials.push({entry:e,body:text});
+    usedEpisodes.add(e.id);
+    if(materials.length===4)break;
+  }
+  return materials;
+}
+async function generateNarrative(question,ranked){
+  if(!state.generatorInstalled||!state.gpuSupported)return null;
+  const materials=generationMaterials(ranked,question);
+  if(!materials.length)return null;
+  const excerpts=materials.map((m,i)=>
+    "["+(i+1)+"] Díl "+m.entry.episode+", "+(m.entry.time||fmtTime(m.entry.seconds))+
+    ", téma: "+m.entry.title+"\nObsah: "+m.body).join("\n\n");
+  const messages=[
+    {role:"system",content:
+      "Jsi český popularizátor vědy pro podcast Vedátor. Odpovídej plynulou srozumitelnou češtinou vlastními slovy. " +
+      "Používej POUZE informace z poskytnutých shrnutí, nedoplňuj obecné znalosti, neověřená čísla ani příklady. " +
+      "Pokud podklady neobsahují konkrétní odpověď, jasně to přiznej. Nepoužívej poznámky o vlastní metodě."},
+    {role:"user",content:
+      "OTÁZKA: "+question+"\n\nSHRNUTÍ PODCASTU:\n"+excerpts+
+      "\n\nNapiš stručnou, souvislou a věcně přesnou odpověď česky (2 až 5 vět). " +
+      "Neopakuj otázku, nezaváděj jiné téma a nevymýšlej podrobnosti. Odkazy na díly aplikace přidá sama."}
+  ];
+  status("search-status","AI tvoří vlastní odpověď z nalezených shrnutí. Na telefonu to může být pomalejší…");
+  await workerRequest("load",{canDownload:false});
+  const response=await workerRequest("generate",{messages});
+  const output=String(response.answer||"").replace(/<\|[^>]*\|>/g,"").trim();
+  if(output.length<30||output.length>2200)return null;
+  return output;
 }
 async function ask(question){
   if(state.busy||!state.installed||!state.dataReady)return;
   setBusy(true);
   $("results").classList.add("hidden");
   $("index-progress").classList.add("hidden");
+  state.ranked=[];
+  state.visible=RESULTS_PAGE;
   try{
-    if(!await cacheInstalled())throw Error("Model už není uložen. Stáhni ho znovu ručně.");
-    const candidates=shortlist(question);
+    if(!await cacheInstalled())throw Error("Vyhledávací model už není uložen. Stáhni ho znovu ručně.");
+    const matched=lexicalMatches(question);
+    const candidates=matched.slice(0,CANDIDATE_LIMIT);
     if(!candidates.length){
       status("search-status","Ve shrnutích jsem nenašel související pojmy. Zkus otázku upřesnit nebo použít jiné výrazy.");
       return;
     }
     showPreliminary(candidates);
-    status("search-status","Načítám místní AI pro upřesnění výsledků…");
     await sleepFrame();
     await loadExtractor(false);
-    // Dotaz nejdřív; žádný velký index ani tisíce výpočtů.
     const query=(await embed(["query: "+question]))[0];
     await prepareCandidateVectors(candidates);
     const scored=candidates.map(item=>({
       entry:item.entry,
       score:dot(query,state.vectors.get(item.entry.key)) + Math.min(.06,item.lexical*.01)
     })).sort((a,b)=>b.score-a.score);
-    renderResults(scored.slice(0,5),question);
-    status("search-status","Hotovo. Bez indexování celého katalogu, další dotazy mohou využít uložené výpočty.","ok");
-  }catch(e){
-    status("search-status","AI vyhledávání selhalo: "+(e.message||e),"error");
-    console.error(e);
+    // Prvních 24 výsledků zpřesní model; další kapitoly lze dál procházet
+    // podle rychlého textového předvýběru, bez zbytečné AI inference.
+    const additional=matched.slice(CANDIDATE_LIMIT,MAX_MATCHES).map(item=>({
+      entry:item.entry,score:item.lexical
+    }));
+    const ranked=[...scored,...additional];
+    renderResults(ranked,question);
+    status("search-status","Nalezeno "+ranked.length+" souvisejících kapitol. Zobrazuji prvních "+Math.min(RESULTS_PAGE,ranked.length)+".","ok");
+    if(state.generatorInstalled && state.gpuSupported){
+      // Šetříme RAM telefonu: embedding model není při generování potřeba.
+      if(state.extractor?.dispose)await state.extractor.dispose();
+      state.extractor=null;
+      try{
+        const text=await generateNarrative(question,scored);
+        if(text){
+          renderResults(ranked,question,text);
+          status("search-status","Hotovo: vlastní odpověď sestavena z nalezených shrnutí.","ok");
+        }else{
+          status("search-status","V podkladech není dost informací pro vlastní odpověď. Zobrazuji relevantní shrnutí.");
+        }
+      }catch(error){
+        console.warn("Generování odpovědi selhalo; výsledky vyhledávání zůstávají",error);
+        status("search-status","Vyhledávání je hotové, ale generativní AI se nespustila: "+(error.message||error),"error");
+      }
+    }
+  }catch(error){
+    status("search-status","Vyhledávání selhalo: "+(error.message||error),"error");
+    console.error(error);
   }finally{setBusy(false);}
 }
 async function start(){
@@ -608,8 +694,13 @@ async function start(){
   });
   $("install").addEventListener("click",install);
   $("remove").addEventListener("click",removeModel);
+  $("generator-install").addEventListener("click",installGenerator);
+  $("generator-remove").addEventListener("click",removeGenerator);
+  $("more-results").addEventListener("click",()=>{state.visible+=RESULTS_PAGE;renderSourceCards();});
   $("ask-form").addEventListener("submit",e=>{e.preventDefault();const value=$("question").value.trim();if(value)ask(value);});
+  state.gpuSupported=Boolean(navigator.gpu);
   await refreshModelStatus();
+  await refreshGeneratorStatus();
   try{
     const r=await fetch("./content-v2.json",{cache:"no-store"});
     if(!r.ok)throw Error("HTTP "+r.status);
