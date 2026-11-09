@@ -1,4 +1,4 @@
-# Vedátor pro Android – 0.1.0
+# Vedátor pro Android – 0.1.1
 
 První samostatná APK pro Android 8 a novější. Identifikátor: `cz.bernio.vedator`.
 
@@ -65,8 +65,12 @@ Výstup Actions je nepodepsaná release APK, která se podepisuje uchovaným kl�
 ```
 java -jar apksigner.jar sign --ks /soukroma/cesta/vedator-signing.p12 \
   --ks-key-alias vedator --ks-pass file:/soukroma/cesta/signing-password.txt \
-  --out Vedator-0.1.0.apk Vedator-0.1.0-unsigned.apk
-java -jar apksigner.jar verify --verbose --print-certs Vedator-0.1.0.apk
+  --out Vedator-0.1.1.apk Vedator-0.1.1-unsigned.apk
+java -jar apksigner.jar verify --verbose --print-certs Vedator-0.1.1.apk
 ```
 
 Klíč ani heslo nevkládat do veřejného repozitáře. Změna APK musí zvýšit versionCode.
+
+## Oprava AI v 0.1.1
+
+Při startu se mažou pouze staré mezipaměti webové aplikace. Cache modelů Transformers.js, ostatních modelů i offline audia zůstávají zachované. Android test ověřuje zachování souboru modelu při znovuvytvoření Activity a odstranění starých webových verzí. AI na webu i v testovací stránce vybírá nejvýše stejných prvních 30 výsledků Zeptej se; další výsledky si zachovávají pořadí.

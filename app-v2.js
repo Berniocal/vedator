@@ -3476,7 +3476,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   const ASK_AI_RERANK_LIMIT=30;
   const ASK_AI_ENABLED_KEY='vedator-ask-ai-enabled-v1';
   const ASK_AI_CACHE_NAMES=['transformers-cache','vedator-ai-model-v1'];
-  const askAi={enabled:false,installed:false,busy:false,extractor:null,library:null,networkFetch:null,loading:null,sequence:0,dialog:null,progress:0,checked:false};
+  const askAi={enabled:false,installed:false,busy:false,extractor:null,library:null,loading:null,sequence:0,dialog:null,progress:0,checked:false};
   function askAiModelFile(request){
     let url=String(request?.url||request||'').toLowerCase();
     try{url=decodeURIComponent(url)}catch{}
@@ -3485,13 +3485,15 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   function askAiWeightFile(request){return askAiModelFile(request)&&/\/onnx\/model_(?:quantized|int8|uint8|q8)\.onnx(?:[?#]|$)/.test(String(request.url).toLowerCase())}
   async function askAiCached(){
     if(!('caches' in window))return false;
-    const names=await caches.keys();
+    const names=await caches.keys(),files=[];
     for(const name of ASK_AI_CACHE_NAMES){
       if(!names.includes(name))continue;
-      const cache=await caches.open(name);
-      if((await cache.keys()).some(askAiWeightFile))return true;
+      const cache=await caches.open(name);files.push(...(await cache.keys()).filter(askAiModelFile));
     }
-    return false;
+    // A cached weight file alone is not a complete installation. Tokenizer and
+    // configuration must survive reopening too; never silently re-download them.
+    return files.some(askAiWeightFile)&&['config.json','tokenizer.json','tokenizer_config.json'].every(file=>
+      files.some(request=>{try{return new URL(request.url).pathname.endsWith('/'+file)}catch{return false}}));
   }
   function askAiSaveEnabled(value){
     askAi.enabled=Boolean(value&&askAi.installed);
@@ -3586,7 +3588,6 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     const lib=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1');
     lib.env.useBrowserCache=true;lib.env.allowLocalModels=false;lib.env.allowRemoteModels=true;
     if(lib.env.backends?.onnx?.wasm)lib.env.backends.onnx.wasm.numThreads=1;
-    askAi.networkFetch=lib.env.fetch||fetch.bind(window);
     askAi.library=lib;return lib;
   }
   async function askAiExtractor(download=false){
@@ -3594,14 +3595,8 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     if(askAi.loading)return askAi.loading;
     askAi.loading=(async()=>{
       const lib=await askAiLibrary();
-      const sourceFetch=askAi.networkFetch||fetch.bind(window);
-      lib.env.fetch=(url,opts)=>{
-        const address=String(url?.url||url||'').toLowerCase();
-        if(!download&&address.includes('multilingual-e5-small'))throw Error(text('Model není úplně uložen. Stáhni ho ručně.','Model nie je úplne uložený. Stiahni ho ručne.'));
-        return sourceFetch(url,opts);
-      };
-      const extractor=await lib.pipeline('feature-extraction',ASK_AI_MODEL,{
-        dtype:'q8',device:'wasm',
+      const create=()=>lib.pipeline('feature-extraction',ASK_AI_MODEL,{
+        dtype:'q8',device:'wasm',local_files_only:!download,
         progress_callback:p=>{
           if(!download||!askAi.dialog||askAi.dialog.classList.contains('hidden'))return;
           if(p.status==='progress'&&Number.isFinite(p.progress)){
@@ -3613,6 +3608,14 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
           }
         }
       });
+      let extractor;
+      try{extractor=await create()}catch(error){
+        // Retry one transient connection failure. Transformers reuses files
+        // already cached by the first attempt, including the large weights.
+        if(!download||!/fetch|network|connection|timeout|HTTP (?:408|429|5\d\d)/i.test(String(error?.message||error)))throw error;
+        askAiDialogMessage(text('Spojení se přerušilo. Zkouším pokračovat ze stažených souborů…','Spojenie sa prerušilo. Skúšam pokračovať zo stiahnutých súborov…'));
+        await new Promise(resolve=>setTimeout(resolve,250));extractor=await create();
+      }
       askAi.extractor=extractor;return extractor;
     })().finally(()=>{askAi.loading=null});
     return askAi.loading;
@@ -3623,6 +3626,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     $('#ask-ai-dialog-actions-v2')?.querySelectorAll('button').forEach(b=>b.disabled=true);
     askAiDialogMessage(text('Připravuji stahování…','Pripravujem sťahovanie…'));
     try{
+      try{await navigator.storage?.persist?.()}catch{}
       await askAiExtractor(true);
       askAi.installed=await askAiCached();
       if(!askAi.installed)throw Error(text('Model se načetl, ale nepodařilo se ověřit jeho uložení.','Model sa načítal, ale nepodarilo sa overiť jeho uloženie.'));
@@ -3704,7 +3708,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     if(!askAi.enabled||!askAi.installed||!askUi.ready||!askUi.query||state.view!=='ask')return;
     const token=++askAi.sequence,query=askUi.query,filter=askUi.filter;
     const original=askEngine().search(query,filter),sample=original.slice(0,ASK_AI_RERANK_LIMIT);
-    if(sample.length<2)return;
+    if(sample.length<2){askAiStatus(text('AI nemá co přerovnat: ','AI nemá čo preusporiadať: ')+sample.length+'/'+sample.length+'.');return;}
     askAiStatus(text('Zatím vidíš původní pořadí. AI připravuje výsledky…','Zatiaľ vidíš pôvodné poradie. AI pripravuje výsledky…'),0,sample.length);
     try{
       await askAiExtractor(false);
@@ -3728,7 +3732,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
       if(token!==askAi.sequence||!askAi.enabled||askUi.query!==query||askUi.filter!==filter||state.view!=='ask')return;
       askUi.ranked=askAiApplyFirst30Only(original,ranks);
       renderAskResults();
-      askAiStatus(text('Hotovo – výsledky už jsou seřazené pomocí AI.','Hotovo – výsledky sú už zoradené pomocou AI.'));
+      askAiStatus(text('Hotovo – AI seřadila ','Hotovo – AI zoradila ')+sample.length+'/'+sample.length+text(' výsledků z původního vyhledávání (nejvýše 30).',' výsledkov z pôvodného vyhľadávania (najviac 30).'),sample.length,sample.length);
     }catch(error){
       console.warn('Ask AI search failed; original results preserved',error);
       if(token===askAi.sequence){
@@ -4440,3 +4444,4 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   window.addEventListener('vedator-v2-ready',()=>{setTimeout(()=>{restoreLastPlayback().catch(error=>console.warn('Last playback restore failed',error))},0)},{once:true});
 
 })();
+

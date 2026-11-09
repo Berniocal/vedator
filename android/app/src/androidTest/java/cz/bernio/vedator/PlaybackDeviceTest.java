@@ -46,6 +46,15 @@ public class PlaybackDeviceTest {
     private void queue(int... numbers)throws Exception{JSONObject request=MainActivity.message("queue");JSONArray items=new JSONArray();for(int n:numbers){JSONObject entry=new JSONObject();entry.put("number",n);entry.put("start",0);entry.put("id","episode:"+n);entry.put("ref","");items.put(entry);}request.put("items",items);request.put("index",0);request.put("position",0);request.put("autoplay",true);request.put("token","device-test");JSONObject group=new JSONObject();group.put("type","playlist");group.put("id","playlist:device-test");group.put("label","Device test");request.put("context",group);send(request);}
     private interface Checked {boolean get()throws Exception;}
     private static void waitFor(Checked condition,long timeout)throws Exception{long end=SystemClock.elapsedRealtime()+timeout;while(SystemClock.elapsedRealtime()<end){if(condition.get())return;Thread.sleep(100);}fail("Timed out after "+timeout+" ms");}
+    @Test public void modelCacheSurvivesActivityRecreation()throws Exception{
+        js("window.cacheSeedDone=false;(async()=>{for(const name of ['transformers-cache','vedator-ai-model-v1','other-model-cache','vedator-offline-audio-v1','vedator-v2-app-old','vedator-v3-app-old']){const c=await caches.open(name);await c.put('https://huggingface.co/Xenova/multilingual-e5-small/resolve/main/config.json',new Response('model-sentinel'))}localStorage.setItem('vedator-ai-cache-regression','keep');window.cacheSeedDone=true})()");
+        waitFor(()->js("window.cacheSeedDone").equals("true"),5000);
+        activity.recreate();
+        waitFor(()->js("document.documentElement.dataset.vedatorNativeReady").equals("\"1\""),20000);
+        js("window.cacheVerified=false;(async()=>{const names=await caches.keys();const cache=await caches.open('transformers-cache');const response=await cache.match('https://huggingface.co/Xenova/multilingual-e5-small/resolve/main/config.json');window.cacheVerified=!!response&&(await response.text())==='model-sentinel'&&['transformers-cache','vedator-ai-model-v1','other-model-cache','vedator-offline-audio-v1'].every(n=>names.includes(n))&&!names.some(n=>/^vedator-v[0-9]+-app-/.test(n))})()");
+        waitFor(()->js("window.cacheVerified").equals("true"),5000);
+        assertEquals("\"keep\"",js("localStorage.getItem('vedator-ai-cache-regression')"));
+    }
     @Test public void seekingAndBackgroundQueueUseNativeAudio()throws Exception{
         queue(9,41,1703);waitFor(()->snapshot().optBoolean("ready")&&snapshot().optDouble("time")>.1,15000);
         JSONObject seek=MainActivity.message("seek");seek.put("time",3);send(seek);waitFor(()->snapshot().optDouble("time")>=3,4000);

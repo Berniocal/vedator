@@ -1,7 +1,6 @@
-// Exact bundled semantic Ask search engine extracted from app-v2.js.
-// Source SHA: 1c0409eb7416d91515bc1c5bf9e8957f6d9882db
-// This isolated copy is for test-ai.html; production app-v2.js remains untouched.
-const esc = value => String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+// Generated from the canonical Ask engine in app-v2.js; do not edit directly.
+// Engine SHA256: 995499b46573516e
+const esc = value => String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   export function createVedatorAskSearchEngine(){
     // Bundled from Berniocal/faq: synonyms.js, synonyms-extra.js, app-core.js.
     // An isolated map object keeps the FAQ engine out of the global namespace.
@@ -1010,18 +1009,73 @@ function semanticScore(qTerms,entry){
   return {score:total?weighted/total:0,matches};
 }
 
+// Quoted phrases act as hard constraints on adjacent words, not as synonyms.
+// No quotes => the original search and ranking remain untouched.
+// Quotes: adjacent words in the original order, with morphology and synonyms.
+const ASK_QUOTE_EQUIVALENTS=[
+  ['jadro','stred','centr','nitr'],
+  ['zeme','zemi','zemekoul'],
+  ['dira','diry','dire','dirou','diram','der','deru','deram']
+];
+function askQuotedPhrases(query){
+  return [...String(query??'').matchAll(/"([^"]+)"|„([^“”]+)[“”]|“([^”]+)”/g)]
+    .map(match=>norm(match[1]||match[2]||match[3]).split(' ').filter(Boolean))
+    .filter(words=>words.length);
+}
+function askQuoteWordEquivalent(queryWord,textWord,memo){
+  if(queryWord===textWord)return true;
+  const id=queryWord+'\u0000'+textWord;
+  if(memo.has(id))return memo.get(id);
+  const a=canon(queryWord),b=canon(textWord);
+  let matches=a===b;
+  if(!matches&&!STOP.has(queryWord)&&!STOP.has(textWord)){
+    matches=ASK_QUOTE_EQUIVALENTS.some(group=>group.includes(a)&&group.includes(b));
+    if(!matches)matches=a.length>=3&&b.length>=3&&
+      (semanticGraph.get(a)?.get(b)>=.84||semanticGraph.get(b)?.get(a)>=.84);
+    if(!matches)matches=similarForms(a).some(([word,similarity])=>word===b&&similarity>=.80);
+    // Permit conservative grammatical suffix variations, not loose substring matches.
+    if(!matches&&a.length>=4&&b.length>=4){
+      let prefix=0;
+      while(prefix<Math.min(a.length,b.length)&&a[prefix]===b[prefix])prefix++;
+      matches=prefix>=3&&a.length-prefix<=2&&b.length-prefix<=2;
+    }
+  }
+  memo.set(id,matches);
+  return matches;
+}
+function askMatchesAllQuotedPhrases(item,phrases,memo){
+  if(!phrases.length)return true;
+  const fields=[item.cs?.title,...(item.cs?.points||[]),item.sk?.title,...(item.sk?.points||[])];
+  const tokens=fields.filter(Boolean).map(field=>norm(field).split(' ').filter(Boolean));
+  return phrases.every(phrase=>tokens.some(words=>{
+    if(words.length<phrase.length)return false;
+    for(let offset=0;offset<=words.length-phrase.length;offset++){
+      let matched=true;
+      for(let i=0;i<phrase.length;i++){
+        if(!askQuoteWordEquivalent(phrase[i],words[offset+i],memo)){matched=false;break;}
+      }
+      if(matched)return true;
+    }
+    return false;
+  }));
+}
 function rank(query){
+  const quotedPhrases=askQuotedPhrases(query);
   const qNorm=norm(query);
   if(!qNorm)return[];
   const qTerms=extractTerms(query,{query:true});
   if(!qTerms.length)return[];
-  const candidates=queryCandidates(qTerms,qNorm);
+  // Only quoted searches scan all entries; plain searches remain unchanged.
+  const candidates=quotedPhrases.length?new Set(state.index.map((_,i)=>i)):queryCandidates(qTerms,qNorm);
+  const quoteMemo=quotedPhrases.length?new Map():null;
   const qWeightTotal=qTerms.reduce((s,t)=>s+queryWeight(t),0)||1;
   const results=[];
 
   for(const idx of candidates){
     const entry=state.index[idx],item=entry.item;
     if(state.filter!=='all'&&item.type!==state.filter)continue;
+    // Phrase must occur in one title or one bullet, not across bullet boundaries.
+    if(quotedPhrases.length&&!askMatchesAllQuotedPhrases(item,quotedPhrases,quoteMemo))continue;
 
     const exactTitle=entry.normTitle.includes(qNorm);
     const exactAny=entry.normFull.includes(qNorm);
@@ -1051,6 +1105,8 @@ function rank(query){
     else if(coverage>=.18 && directCount>=1){tier=6;reason='weak-direct';}
     else if(form.score>=.18){tier=7;reason='similar-form';}
     else if(semantic.score>=.20){tier=8;reason='distant-semantic';}
+    // A synonym phrase can match without any literal keyword match.
+    if(tier===99&&quotedPhrases.length){tier=5;reason='semantic';}
     if(tier===99)continue;
 
     let score=.68*effectiveCoverage+.20*effectiveTitleCoverage+.12*semantic.score;
@@ -1088,13 +1144,36 @@ function highlightKeys(query,result){
     for(const form of formsByKey.get(key)||[key])for(const token of String(form).match(/[\p{L}\p{N}]+/gu)||[])addToken(token);
   }
   for(const q of qTerms)addToken(q.label);
+  // A quoted phrase may match a neighboring synonym or inflected word.
+  // Highlight exactly those matching words, without changing normal queries.
+  tokens.quotedPhrases=askQuotedPhrases(query);
   return tokens;
 }
 function highlightText(value,keys){
   const raw=String(value??'');let out='',position=0;
-  for(const match of raw.matchAll(/[\p{L}\p{N}]+/gu)){
-    const token=match[0];if(token.length<2||!(keys.has(canon(token))||keys.has(norm(token))))continue;
-    const at=match.index;out+=esc(raw.slice(position,at))+'<mark class="vedator-match ask-search-hit">'+esc(token)+'</mark>';position=at+token.length;
+  const quotes=keys.quotedPhrases||[];
+  const words=[...raw.matchAll(/[\p{L}\p{N}]+/gu)];
+  const quotedIndices=new Set();
+  if(quotes.length&&words.length){
+    const normalized=words.map(match=>norm(match[0])),memo=new Map();
+    for(const phrase of quotes){
+      for(let offset=0;offset+phrase.length<=normalized.length;offset++){
+        let matched=true;
+        for(let i=0;i<phrase.length;i++){
+          if(!askQuoteWordEquivalent(phrase[i],normalized[offset+i],memo)){
+            matched=false;break;
+          }
+        }
+        if(matched)for(let i=0;i<phrase.length;i++)quotedIndices.add(offset+i);
+      }
+    }
+  }
+  for(let i=0;i<words.length;i++){
+    const match=words[i],token=match[0];
+    if(token.length<2||!(quotedIndices.has(i)||keys.has(canon(token))||keys.has(norm(token))))continue;
+    const at=match.index;
+    out+=esc(raw.slice(position,at))+'<mark class="vedator-match ask-search-hit">'+esc(token)+'</mark>';
+    position=at+token.length;
   }
   return out+esc(raw.slice(position));
 }

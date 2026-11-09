@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
         LinearLayout layout=new LinearLayout(this);layout.setOrientation(LinearLayout.VERTICAL);layout.setBackgroundColor(Color.rgb(18,18,27));
         layout.setOnApplyWindowInsetsListener((view,insets)->{if(Build.VERSION.SDK_INT>=30){android.graphics.Insets bars=insets.getInsets(WindowInsets.Type.systemBars()|WindowInsets.Type.ime());view.setPadding(bars.left,bars.top,bars.right,bars.bottom);}else view.setPadding(insets.getSystemWindowInsetLeft(),insets.getSystemWindowInsetTop(),insets.getSystemWindowInsetRight(),insets.getSystemWindowInsetBottom());return insets;});
         LinearLayout bar=new LinearLayout(this);bar.setGravity(Gravity.CENTER_VERTICAL);bar.setPadding(dp(12),0,dp(4),0);bar.setBackgroundColor(Color.rgb(33,26,62));
-        status=new TextView(this);status.setText("Vedátor · 0.1");status.setTextSize(14);status.setTextColor(Color.rgb(236,231,255));bar.addView(status,new LinearLayout.LayoutParams(0,dp(40),1));status.setGravity(Gravity.CENTER_VERTICAL);
+        status=new TextView(this);status.setText("Vedátor · 0.1.1");status.setTextSize(14);status.setTextColor(Color.rgb(236,231,255));bar.addView(status,new LinearLayout.LayoutParams(0,dp(40),1));status.setGravity(Gravity.CENTER_VERTICAL);
         Button menu=new Button(this);menu.setText("⋮");menu.setContentDescription("Nabídka aplikace");bar.addView(menu,new LinearLayout.LayoutParams(dp(48),dp(40)));menu.setOnClickListener(v->showMenu(menu));
         layout.addView(bar);web=new WebView(this);web.setBackgroundColor(Color.rgb(18,18,27));layout.addView(web,new LinearLayout.LayoutParams(-1,0,1));setContentView(layout);
         web.getSettings().setJavaScriptEnabled(true);web.getSettings().setDomStorageEnabled(true);web.getSettings().setAllowFileAccess(false);web.getSettings().setAllowContentAccess(false);web.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);web.getSettings().setMediaPlaybackRequiresUserGesture(true);
@@ -81,7 +81,7 @@ public class MainActivity extends Activity {
         // A browser SW can serve an unadapted app-v2.js from its own cache on the next
         // Activity creation. Unregister it before opening the actual document; keep
         // localStorage and offline MP3s. Native files provide offline app startup.
-        String bootstrap="<!doctype html><meta name='viewport' content='width=device-width'><body style='background:#12121b;color:#eee;font:16px sans-serif;padding:24px'>Načítám Vedátora…<script>Promise.resolve().then(async()=>{if(navigator.serviceWorker)for(const r of await navigator.serviceWorker.getRegistrations())await r.unregister();if(window.caches)for(const k of await caches.keys())if(k!=='vedator-offline-audio-v1')await caches.delete(k)}).catch(()=>{}).finally(()=>location.replace('https://bernio.cz/vedator/'));</script>";
+        String bootstrap="<!doctype html><meta name='viewport' content='width=device-width'><body style='background:#12121b;color:#eee;font:16px sans-serif;padding:24px'>Načítám Vedátora…<script>Promise.resolve().then(async()=>{if(navigator.serviceWorker)for(const r of await navigator.serviceWorker.getRegistrations())await r.unregister();if(window.caches)for(const k of await caches.keys())if(/^vedator-v[0-9]+-app-/.test(k))await caches.delete(k)}).catch(()=>{}).finally(()=>location.replace('https://bernio.cz/vedator/'));</script>";
         web.loadDataWithBaseURL("https://bernio.cz/vedator/__android_bootstrap__",bootstrap,"text/html","UTF-8",null);
         handleVoice(getIntent());
         long checked;try{checked=Long.parseLong(store.get("apkLastChecked","0"));}catch(NumberFormatException e){checked=0;}
@@ -93,7 +93,7 @@ public class MainActivity extends Activity {
     static JSONObject message(String action){JSONObject out=new JSONObject();Store.set(out,"action",action);return out;}
     private void receive(JSONObject request)throws Exception{
         switch(request.optString("action")){
-            case "ready":store.mergeWeb(request.optJSONObject("values")==null?new JSONObject():request.optJSONObject("values"));pageReady=true;status.setText("Vedátor · 0.1");if(controller!=null)sendData("bootstrap",null);break;
+            case "ready":store.mergeWeb(request.optJSONObject("values")==null?new JSONObject():request.optJSONObject("values"));pageReady=true;status.setText("Vedátor · 0.1.1");if(controller!=null)sendData("bootstrap",null);break;
             case "storage":if(request.optJSONObject("values")!=null)store.mergeWeb(request.getJSONObject("values"));break;
             case "replaceStorage":case "clear":control(request,true);break;
             case "offline":notice(Downloads.toggle(this,store,catalog,request.optInt("number")));sendData("data",null);break;
@@ -126,7 +126,7 @@ public class MainActivity extends Activity {
         case "Obnovit rozhraní":web.reload();break;
         case "Zkontrolovat aktualizaci APK":new Updater(this,io).check();break;
         case "Android Auto – jak spustit":new AlertDialog.Builder(this).setTitle("Android Auto").setMessage("Otevři Vedátora alespoň jednou v telefonu.\n\nU této APK mimo Google Play může být potřeba v Android Auto zapnout režim pro vývojáře a v něm Neznámé zdroje. Potom telefon znovu připoj k autu.\n\nV autě najdeš nové díly, rozposlouchané epizody, série, playlisty a stažené díly. Ověření přímo v autě je ještě potřeba.").setPositiveButton("OK",null).show();break;
-        default:new AlertDialog.Builder(this).setTitle("Vedátor 0.1.0").setMessage("První testovací APK.\n\nObsah a webové rozhraní se načítají z bernio.cz. Zvuk přehrává Android Media3, i na pozadí.\n\nData této aplikace jsou oddělená od prohlížeče. Přeneseš je přes Moje data → záloha.\n\nNová verze APK zachová zde uložená data.").setPositiveButton("OK",null).show();
+        default:new AlertDialog.Builder(this).setTitle("Vedátor 0.1.1").setMessage("První testovací APK.\n\nObsah a webové rozhraní se načítají z bernio.cz. Zvuk přehrává Android Media3, i na pozadí.\n\nData této aplikace jsou oddělená od prohlížeče. Přeneseš je přes Moje data → záloha.\n\nNová verze APK zachová zde uložená data.").setPositiveButton("OK",null).show();
         }return true;});menu.show();}
     @Override protected void onResume(){super.onResume();resumed=true;if(web!=null)web.onResume();if(pageReady&&controller!=null)sendData("data",null);}
     @Override protected void onPause(){resumed=false;if(web!=null)web.onPause();super.onPause();}

@@ -45,6 +45,7 @@ jobs:
 
       - name: Připravit produkční PWA
         run: |
+          node tools/sync-ai-ask-engine.mjs
           node tools/prepare-production-index.mjs
           node tools/build-production-sw.mjs
           node --check sw.js
@@ -67,3 +68,4 @@ jobs:
         run: |
           node tools/test-live-production-verifier.mjs
           DEPLOY_CHECKOUT_SHA="$(git rev-parse HEAD)" node tools/verify-live-production.mjs
+

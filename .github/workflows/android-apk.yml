@@ -25,6 +25,13 @@ jobs:
           log-accepted-android-sdk-licenses: false
       - uses: gradle/actions/setup-gradle@v4
         with: {gradle-version: '8.13'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Validate AI search and APK cache preservation
+        run: |
+          npm install --prefix "$RUNNER_TEMP/vedator-ai-test" --no-save --no-package-lock --no-audit --no-fund puppeteer-core@25.12.0
+          node tools/sync-ai-ask-engine.mjs --check
+          VEDATOR_TEST_DEPS="$RUNNER_TEMP/vedator-ai-test" node tools/test-local-ai-browser.mjs
       - run: node android/tools/prepare-assets.mjs
       - name: Build and validate
         working-directory: android
@@ -32,7 +39,7 @@ jobs:
       - name: Collect unsigned APK and local signing tool
         run: |
           mkdir -p android-output
-          cp android/app/build/outputs/apk/release/app-release-unsigned.apk android-output/Vedator-0.1.0-unsigned.apk
+          cp android/app/build/outputs/apk/release/app-release-unsigned.apk android-output/Vedator-unsigned.apk
           cp "$(find "$ANDROID_HOME/build-tools" -name apksigner.jar | sort -V | tail -1)" android-output/apksigner.jar
       - uses: actions/upload-artifact@v4
         with:
@@ -76,3 +83,4 @@ jobs:
           path: |
             android/app/build/reports/androidTests/
             android/app/build/outputs/androidTest-results/
+
