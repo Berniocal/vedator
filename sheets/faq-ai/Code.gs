@@ -1468,6 +1468,79 @@ function vedatorSeradAsk_(query, index, limit, mode) {
   });
 }
 
+// Save the original first-30 ranking for up to 15 minutes. When the
+// browser returns the rearranged IDs, we can validate without rebuilding
+// the entire several-thousand-item Ask index again. The original question,
+// mode, spreadsheet and database revision are all part of the cache key.
+let vedatorAiIndexMemo_ = null;
+function vedatorAiRychlyIndex_() {
+  const props = PropertiesService.getDocumentProperties();
+  const signature = String(props.getProperty(CFG.PROP_SIGNATURE) || '');
+  const checkedAt = Number(props.getProperty(CFG.PROP_CHECKED_AT) || 0);
+  if (vedatorAiIndexMemo_ &&
+      vedatorAiIndexMemo_.signature === signature &&
+      Date.now() - checkedAt < CFG.DATABASE_CHECK_HOURS * 3600000) {
+    return vedatorAiIndexMemo_.index;
+  }
+  const database = nactiDatabazi_(false); // refresh if needed
+  const index = vedatorPripravAskIndex_(database);
+  vedatorAiIndexMemo_ = {
+    signature: String(props.getProperty(CFG.PROP_SIGNATURE) || ''),
+    index: index
+  };
+  return index;
+}
+function vedatorAiKlicMezipameti_(row, question, mode) {
+  const props = PropertiesService.getDocumentProperties();
+  const keyParts = [
+    String(SpreadsheetApp.getActive().getId()),
+    String(row),
+    String(question),
+    String(mode),
+    String(props.getProperty(CFG.PROP_SIGNATURE) || '')
+  ];
+  const digest = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, keyParts.join('\u001f'));
+  return 'vedator-ai-results-v3-' + Utilities.base64EncodeWebSafe(digest).replace(/=+$/,'');
+}
+function vedatorAiUlozPuvodniTricitku_(row, question, mode, results) {
+  try {
+    const cache = CacheService.getUserCache();
+    if (!cache) return;
+    const compact = results.map(result => ({
+      id: result.id, type: result.type, score: result.score, tier: result.tier,
+      title: result.title, url: result.url, episode: result.episode,
+      order: result.order, time: result.time, matchedLabels: result.matchedLabels,
+      queryCount: result.queryCount, candidateCount: result.candidateCount
+    }));
+    cache.put(vedatorAiKlicMezipameti_(row,question,mode),
+      JSON.stringify({question: question, mode: mode, results: compact}), 900);
+  } catch (error) {
+    // Cache is optional. A miss falls back to the original full search.
+    console.warn('Cache výsledků není dostupná:', error);
+  }
+}
+function vedatorAiNactiPuvodniTricitku_(row, question, mode) {
+  try {
+    const cache = CacheService.getUserCache();
+    if (!cache) return null;
+    const encoded = cache.get(vedatorAiKlicMezipameti_(row,question,mode));
+    if (!encoded) return null;
+    const data = JSON.parse(encoded);
+    if (data.question !== question || data.mode !== mode ||
+        !Array.isArray(data.results) || data.results.length > CFG.AI_RERANK_N ||
+        new Set(data.results.map(item => item.id)).size !== data.results.length)
+      return null;
+    return data.results;
+  } catch (error) {
+    return null;
+  }
+}
+function vedatorAiPuvodniTricitka_(row, question, mode) {
+  const cached = vedatorAiNactiPuvodniTricitku_(row,question,mode);
+  if (cached) return cached;
+  return vedatorSeradAsk_(question,vedatorAiRychlyIndex_(),CFG.AI_RERANK_N,mode);
+}
+
 // Boční panel s volitelným malým modelem Xenova/multilingual-e5-small.
 function otevritAiPanel() {
   const html = HtmlService.createHtmlOutputFromFile('Sidebar')
@@ -1496,9 +1569,9 @@ function vedatorAiKandidati(rowNumber, mode) {
     throw new Error('Neplatný řádek listu Dotazy.');
   const query = String(input.getRange(row, 1).getDisplayValue() || '').trim();
   if (!query) throw new Error('V tomto řádku není otázka.');
-  const database = nactiDatabazi_(false);
   const searchMode = vedatorNormalizujRezim_(mode || vedatorAiAktualniRezim());
-  const ranked = vedatorSeradAsk_(query, vedatorPripravAskIndex_(database), CFG.AI_RERANK_N, searchMode);
+  const ranked = vedatorSeradAsk_(query, vedatorAiRychlyIndex_(), CFG.AI_RERANK_N, searchMode);
+  vedatorAiUlozPuvodniTricitku_(row,query,searchMode,ranked);
   return {
     row: row,
     question: query,
@@ -1552,8 +1625,7 @@ function vedatorAiUlozPoradi(rowNumber, originalQuestion, ids, mode) {
     const searchMode = vedatorNormalizujRezim_(mode || vedatorAiAktualniRezim());
     if (searchMode !== vedatorAiAktualniRezim())
       throw new Error('Režim hledání se mezitím změnil. Načtěte kandidáty znovu.');
-    const original = vedatorSeradAsk_(currentQuestion,
-      vedatorPripravAskIndex_(nactiDatabazi_(false)), CFG.AI_RERANK_N, searchMode);
+    const original = vedatorAiPuvodniTricitka_(row,currentQuestion,searchMode);
     const originalIds = original.map(item => item.id);
     const submittedIds = ids.map(String);
     if (submittedIds.length !== originalIds.length ||
@@ -1614,11 +1686,12 @@ function vedatorAiKandidatiDavka(cislaRadku, mode) {
   if (new Set(rows).size !== rows.length ||
       rows.some(row => !Number.isSafeInteger(row) || row < 2 || row > sheet.getMaxRows()))
     throw new Error('Neplatné nebo opakované číslo řádku.');
-  const index = vedatorPripravAskIndex_(nactiDatabazi_(false));
+  const index = vedatorAiRychlyIndex_();
   return rows.map(row => {
     const question = String(sheet.getRange(row, 1).getDisplayValue() || '').trim();
     if (!question) return {row: row, empty: true};
     const ranked = vedatorSeradAsk_(question, index, CFG.AI_RERANK_N, searchMode);
+    vedatorAiUlozPuvodniTricitku_(row,question,searchMode,ranked);
     const terms = (question.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       .toLowerCase().match(/[\p{L}\p{N}]{4,}/gu) || []);
     return {
@@ -1659,7 +1732,6 @@ function vedatorAiUlozDavku(ulozeni, mode) {
       throw new Error('Dávka obsahuje opakované číslo řádku.');
     if (searchMode !== vedatorAiAktualniRezim())
       throw new Error('Režim hledání se mezitím změnil. Načtěte kandidáty znovu.');
-    const index = vedatorPripravAskIndex_(nactiDatabazi_(false));
     const accepted = [], rejected = [];
     ulozeni.forEach((item, i) => {
       const row = rowNumbers[i];
@@ -1669,7 +1741,7 @@ function vedatorAiUlozDavku(ulozeni, mode) {
         const question = String(sheet.getRange(row, 1).getDisplayValue() || '').trim();
         if (!question || question !== String(item.question || '').trim())
           throw new Error('Otázka se mezitím změnila.');
-        const original = vedatorSeradAsk_(question, index, CFG.AI_RERANK_N, searchMode);
+        const original = vedatorAiPuvodniTricitka_(row,question,searchMode);
         const expected = original.map(result => result.id);
         const ids = Array.isArray(item.ids) ? item.ids.map(String) : [];
         if (ids.length !== expected.length || new Set(ids).size !== ids.length ||
@@ -1713,8 +1785,7 @@ function vedatorAiVratPuvodni(rowNumber, originalQuestion, mode) {
     const searchMode = vedatorNormalizujRezim_(mode || vedatorAiAktualniRezim());
     if (searchMode !== vedatorAiAktualniRezim())
       throw new Error('Režim hledání se mezitím změnil. Načtěte kandidáty znovu.');
-    const original = vedatorSeradAsk_(question,
-      vedatorPripravAskIndex_(nactiDatabazi_(false)), CFG.TOP_N, searchMode);
+    const original = vedatorAiPuvodniTricitka_(row,question,searchMode).slice(0,CFG.TOP_N);
     const processed = [{rowNumber: row, query: question, matches: original}];
     zapisVysledky_(sheet, processed);
     aktualizujVsechnyShody_(processed);
