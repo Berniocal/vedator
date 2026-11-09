@@ -1836,6 +1836,12 @@
     topics.classList.toggle('hidden',!showTopics);topics.replaceChildren();
     if(view==='ask'){
       for(const [value,label] of [['all',text('Vše','Všetko')],['question','Otázky'],['nonquestion','Neotázky']]){const button=document.createElement('button');button.type='button';button.className='topic-v2 ask-filter-v2'+(askUi.filter===value?' active':'');button.dataset.askFilter=value;button.setAttribute('aria-pressed',String(askUi.filter===value));button.textContent=label;topics.appendChild(button)}
+      const aiButton=document.createElement('button');
+      aiButton.type='button';aiButton.className='topic-v2 ask-ai-toggle-v2'+(askAi.enabled&&askAi.installed?' active':'');
+      aiButton.dataset.askAiToggle='1';
+      aiButton.setAttribute('aria-pressed',String(askAi.enabled&&askAi.installed));
+      aiButton.textContent='✦ AI';aiButton.title=text('Lokální AI pro přesnější vyhledávání','Lokálna AI pre presnejšie vyhľadávanie');
+      topics.appendChild(aiButton);
     }else if(showTopics)for(const [key,topic] of episodeFilterEntries(set)){const button=document.createElement('button');button.type='button';button.className='topic-v2'+(activeParityTopic(view)===key?' active':'');button.dataset.topic=key;button.textContent=episodeFilterButtonLabel(key,topic);button.title=parityControlLabel(topic);topics.appendChild(button)}
     const options=paritySortOptions(view);sort.classList.toggle('hidden',!options.length);sort.innerHTML=options.map(([value,label])=>'<option value="'+value+'">'+esc(label)+'</option>').join('');if(options.length){const current=currentParitySort(view),valid=options.some(([value])=>value===current),selected=valid?current:options[0][0];if(!valid)setParitySort(view,selected);sort.value=selected}
   }
@@ -1926,7 +1932,15 @@
     const controls=$('.controls');if(controls&&!$('#parity-refresh-v2')){const button=document.createElement('button');button.id='parity-refresh-v2';button.type='button';button.className='parity-refresh-v2';button.textContent=text('Znovu načíst','Znovu načítať');controls.appendChild(button)}
     const playerControls=$('.player-controls');if(playerControls&&!$('#player-back10-v2')){const back=document.createElement('button');back.id='player-back10-v2';back.type='button';back.className='skip-ten-v2';back.textContent='−10';const forward=document.createElement('button');forward.id='player-forward10-v2';forward.type='button';forward.className='skip-ten-v2';forward.textContent='+10';const play=$('#player-play-v2');play?.insertAdjacentElement('beforebegin',back);play?.insertAdjacentElement('afterend',forward)}
     $('#parity-topics-v2')?.addEventListener('click',event=>{
-      const askFilter=event.target.closest('.topic-v2[data-ask-filter]');if(askFilter){askUi.filter=askFilter.dataset.askFilter;if(askUi.query&&askUi.ready)askUi.ranked=askEngine().search(askUi.query,askUi.filter);askUi.visible=30;syncParityControls();renderAskResults();return}
+      if(event.target.closest('.topic-v2[data-ask-ai-toggle]')){void askAiOpenDialog();return}
+      const askFilter=event.target.closest('.topic-v2[data-ask-filter]');if(askFilter){
+        askAiStopRanking();
+        askUi.filter=askFilter.dataset.askFilter;
+        if(askUi.query&&askUi.ready)askUi.ranked=askEngine().search(askUi.query,askUi.filter);
+        askUi.visible=30;syncParityControls();renderAskResults();
+        if(askAi.enabled&&askAi.installed&&askUi.query)void askAiRerank();
+        return
+      }
       const button=event.target.closest('.topic-v2[data-topic]');if(!button)return;
       const key=button.dataset.topic,focused=document.activeElement===button;
       if(state.view==='episodes'&&!event.detail?.restoreTopic)rememberEpisodeFilter(key);
@@ -3662,7 +3676,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
       askUi.loading=false;askUi.ready=true;askUi.progress=100;askUi.error='';
       delete document.documentElement.dataset.vedatorAskLoading;document.documentElement.dataset.vedatorAskReady='1';
       if(askUi.query)askUi.ranked=engine.search(askUi.query,askUi.filter);
-      if(state.view==='ask')renderAskResults();
+      if(state.view==='ask'){renderAskResults();if(askAi.enabled&&askAi.installed&&askUi.query)void askAiRerank()}
       return engine;
     }).catch(error=>{
       if(token===askUi.loadToken){
@@ -3703,7 +3717,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   function renderAsk(){
     const root=$('#ask-v2');if(!root)return;
     if(!root.querySelector('#ask-results-v2')){
-      root.innerHTML='<p id="ask-status-v2" class="hidden" role="status" aria-live="polite"></p><div id="ask-results-v2" class="grid"></div><button id="ask-more-v2" class="secondary hidden" type="button"></button>';
+      root.innerHTML='<p id="ask-status-v2" class="hidden" role="status" aria-live="polite"></p><p id="ask-ai-running-v2" class="hidden" role="status" aria-live="polite"></p><div id="ask-results-v2" class="grid"></div><button id="ask-more-v2" class="secondary hidden" type="button"></button>';
       root.addEventListener('click',event=>{
         const catalog=event.target.closest('a[href]');
         if(catalog&&catalog.getAttribute('href')===location.hash){event.preventDefault();processDeepLink().catch(error=>console.warn('Ask catalog navigation failed',error));return}
@@ -3742,17 +3756,30 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   }
   function submitAsk(){
     if(state.view!=='ask')return;
+    askAiStopRanking();
     askUi.draft=$('#search-v2').value;askUi.query=askUi.draft.trim();askUi.visible=30;askUi.open.clear();
     if(!askUi.ready){askUi.ranked=[];renderAskResults();ensureAskEngine().catch(()=>{});return}
     askUi.ranked=askEngine().search(askUi.query,askUi.filter);renderAskResults();
+    if(askAi.enabled&&askAi.installed&&askUi.query)void askAiRerank();
   }
 
+
+  async function askAiInitialize(){
+    askAiStyle();
+    let enabled=false;
+    try{enabled=localStorage.getItem(ASK_AI_ENABLED_KEY)==='1'}catch{}
+    try{askAi.installed=await askAiCached()}catch(error){console.warn('Ask AI cache check',error);askAi.installed=false}
+    askAi.enabled=Boolean(enabled&&askAi.installed);
+    askAi.checked=true;
+    if(enabled&&!askAi.installed)askAiSaveEnabled(false);
+    if(state.view==='ask')syncParityControls();
+  }
 
   async function start(){
     const status=$('#status-v2');
     try{
       const response=await fetch('./content-v2.json',{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);state.data=await response.json();
-      buildLegacyQuestionIndex();loadUserData();installEpisodeExperienceStyles();installUiExperience();installFullParityUi();installPlaylistParity();installFinalUiV2();applyStaticUi();renderEpisodes();renderSeries();renderQuestions();renderNonQuestions();renderPlaylists();renderData();bind();setView('episodes');
+      buildLegacyQuestionIndex();loadUserData();installEpisodeExperienceStyles();installUiExperience();installFullParityUi();installPlaylistParity();installFinalUiV2();applyStaticUi();renderEpisodes();renderSeries();renderQuestions();renderNonQuestions();renderPlaylists();renderData();bind();setView('episodes');void askAiInitialize();
       status.textContent='';
       document.documentElement.dataset.vedatorV2Ready='1';window.dispatchEvent(new CustomEvent('vedator-v2-ready',{detail:{episodes:state.data.episodes.length,questions:state.data.questions.length,playlists:state.playlists.length,language:state.language}}));setTimeout(importSharedPlaylist,0);
     }catch(error){status.textContent=`${text('V2 se nepodařilo načíst','V2 sa nepodarilo načítať')}: ${error.message}`;status.classList.add('error');console.error(error)}
