@@ -282,7 +282,8 @@
           const vector=state.vectors.get(item.id+'|'+item.passage);
           if(!vector)throw Error('Vektor AI nelze načíst.');
           const similarity=dot(queryVector,vector);
-          scores.push({item,position:i+j,score:.63*item.score+.37*similarity});
+          const tier=1-Math.min(8,Number(item.tier)||0)/8;
+          scores.push({item,position:i+j,score:.63*(.7*tier+.3*item.score)+.37*similarity});
         }
         if(onProgress)onProgress(scores.length,original.length);
         await new Promise(resolve=>setTimeout(resolve,0));
