@@ -3395,7 +3395,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   const ASK_AI_MODEL='Xenova/multilingual-e5-small';
   const ASK_AI_ENABLED_KEY='vedator-ask-ai-enabled-v1';
   const ASK_AI_CACHE_NAMES=['transformers-cache','vedator-ai-model-v1'];
-  const askAi={enabled:false,installed:false,busy:false,extractor:null,library:null,loading:null,sequence:0,dialog:null,progress:0,checked:false};
+  const askAi={enabled:false,installed:false,busy:false,extractor:null,library:null,networkFetch:null,loading:null,sequence:0,dialog:null,progress:0,checked:false};
   function askAiModelFile(request){
     let url=String(request?.url||request||'').toLowerCase();
     try{url=decodeURIComponent(url)}catch{}
@@ -3494,6 +3494,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     const lib=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1');
     lib.env.useBrowserCache=true;lib.env.allowLocalModels=false;lib.env.allowRemoteModels=true;
     if(lib.env.backends?.onnx?.wasm)lib.env.backends.onnx.wasm.numThreads=1;
+    askAi.networkFetch=lib.env.fetch||fetch.bind(window);
     askAi.library=lib;return lib;
   }
   async function askAiExtractor(download=false){
@@ -3501,7 +3502,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     if(askAi.loading)return askAi.loading;
     askAi.loading=(async()=>{
       const lib=await askAiLibrary();
-      const sourceFetch=lib.env.fetch||fetch.bind(window);
+      const sourceFetch=askAi.networkFetch||fetch.bind(window);
       lib.env.fetch=(url,opts)=>{
         const address=String(url?.url||url||'').toLowerCase();
         if(!download&&address.includes('multilingual-e5-small'))throw Error(text('Model není úplně uložen. Stáhni ho ručně.','Model nie je úplne uložený. Stiahni ho ručne.'));
