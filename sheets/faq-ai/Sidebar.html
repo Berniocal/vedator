@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <base target="_blank">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    :root{color-scheme:light dark;--bg:#111522;--panel:#1b2030;--text:#f1f1ff;--muted:#b8bdd5;--accent:#8e80fa;--line:#42475f;--ok:#69daa0;--error:#ff9caa}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:14px/1.48 system-ui,-apple-system,Segoe UI,Arial,sans-serif;padding:15px}
+    h1{font-size:20px;margin:0 0 5px}h2{font-size:15px;margin:0 0 9px}
+    p{margin:6px 0 11px}.muted{color:var(--muted)}.small{font-size:12px}
+    .block{padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-top:12px}
+    .row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+    button{border:1px solid #665ac0;background:#292c45;color:var(--text);padding:9px 11px;border-radius:10px;cursor:pointer;font:600 13px/1.2 inherit;min-height:39px}
+    button.primary{background:#6556da;border-color:#8e80fa;color:white}
+    button.danger{background:transparent;border-color:#b36b80;color:#ffb8c6}
+    button:disabled{opacity:.45;cursor:wait}
+    .grow{flex:1}.hidden{display:none!important}
+    .item{padding:9px 0;border-top:1px solid var(--line)}.item:first-child{border-top:0}
+    .top{display:flex;gap:9px;align-items:flex-start}
+    .num{width:24px;height:24px;background:#302b54;border-radius:8px;text-align:center;line-height:24px;flex-shrink:0;font-weight:700}
+    .item a{color:#b5adff;text-decoration:none}
+    .item a:hover{text-decoration:underline}
+    .ok{color:var(--ok)}.error{color:var(--error)}
+    .progress{width:100%;height:9px;border-radius:999px;accent-color:var(--accent);margin-top:8px}
+    #status{margin-top:10px;min-height:19px;overflow-wrap:anywhere}
+    #question{font-weight:700;overflow-wrap:anywhere}
+    .chip{border:1px solid var(--line);border-radius:999px;padding:2px 7px;color:var(--muted);font-size:11px;white-space:nowrap}
+    #results{max-height:none}
+  </style>
+</head>
+<body>
+  <h1>✦ AI Vedátora</h1>
+  <p class="muted small">Stejné hledání jako „Zeptej se“. AI pouze přerovná prvních 30 nalezených otázek. Žádné placené API.</p>
+
+  <section class="block">
+    <h2>Vybraná otázka</h2>
+    <div id="question" class="muted">Zatím není načtená.</div>
+    <p id="row" class="small muted"></p>
+    <div class="row"><button id="load" class="primary">Načíst vybraný řádek</button><button id="reset" disabled>Vrátit pořadí</button></div>
+  </section>
+
+  <section class="block">
+    <h2>Lokální model</h2>
+    <p id="model-status" class="small muted">Kontroluji uložený model…</p>
+    <p class="small muted">Xenova/multilingual-e5-small · přibližně 140 MB. Stažení proběhne pouze po kliknutí. Model se může ukládat v prohlížeči; podpora v panelu Google Tabulek závisí na jeho bezpečnostních omezeních.</p>
+    <div class="row"><button id="install" class="primary">↓ Stáhnout AI</button><button id="erase" class="danger" disabled>Smazat model</button></div>
+    <progress id="progress" class="progress hidden" max="100" value="0"></progress>
+    <p id="download-status" class="small muted"></p>
+  </section>
+
+  <section class="block">
+    <h2>Zpřesnění výsledků</h2>
+    <p class="small muted">Nejdřív se zobrazí původní pořadí. Po zpracování AI jej může změnit pouze v první třicítce. Pět nejlepších pak můžeš zapsat zpět do tabulky.</p>
+    <div class="row"><button id="rerank" class="primary" disabled>✦ Zpřesnit pomocí AI</button><button id="save" disabled>Zapsat 5 nejlepších</button></div>
+    <div id="status" class="small muted" role="status" aria-live="polite"></div>
+    <progress id="search-progress" class="progress hidden" max="100" value="0"></progress>
+  </section>
+
+  <section class="block">
+    <div class="row"><h2 class="grow">Nalezené otázky</h2><span class="chip" id="result-count">0</span></div>
+    <div id="results"><p class="muted">Vyber otázku na listu Dotazy a načti ji.</p></div>
+  </section>
+
+  <script>
+  (() => {
+    'use strict';
+    const MODEL='Xenova/multilingual-e5-small';
+    const CDN='https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1';
+    const CACHE_NAMES=['transformers-cache','vedator-ai-model-v1'];
+    const $=id=>document.getElementById(id);
+    const state={data:null,original:[],ranked:[],refined:false,busy:false,installed:false,extractor:null,library:null,sourceFetch:null,loading:null,generation:0,vectors:new Map()};
+    function say(value,type=''){const el=$('status');el.className='small '+(type||'muted');el.textContent=value||'';}
+    function downloading(value,type=''){const el=$('download-status');el.className='small '+(type||'muted');el.textContent=value||'';}
+    function disableBusy(busy){
+      state.busy=busy;
+      $('load').disabled=busy;$('reset').disabled=busy||!state.data;
+      $('install').disabled=busy||state.installed;$('erase').disabled=busy||!state.installed;
+      $('rerank').disabled=busy||!state.installed||state.original.length<2;
+      $('save').disabled=busy||!state.refined||!state.ranked.length;
+    }
+    function call(method,...args){
+      return new Promise((resolve,reject)=>{
+        const run=google.script.run.withSuccessHandler(resolve).withFailureHandler(reject);
+        if(method==='selected')run.vedatorAiVybranyRadek();
+        else if(method==='candidates')run.vedatorAiKandidati(args[0]);
+        else if(method==='save')run.vedatorAiUlozPoradi(args[0],args[1],args[2]);
+        else reject(Error('Neznámá operace Apps Scriptu.'));
+      });
+    }
+    function modelPath(req){
+      let url=String(req?.url||req||'').toLowerCase();
+      try{url=decodeURIComponent(url)}catch{}
+      return url;
+    }
+    function isModel(req){return modelPath(req).includes('/xenova/multilingual-e5-small/');}
+    function isWeight(req){return isModel(req)&&/\/onnx\/model_(?:quantized|int8|uint8|q8)\.onnx(?:[?#]|$)/i.test(modelPath(req));}
+    async function isInstalled(){
+      if(!('caches' in window))return false;
+      const names=await caches.keys();
+      for(const name of CACHE_NAMES){
+        if(!names.includes(name))continue;
+        const cache=await caches.open(name);
+        if((await cache.keys()).some(isWeight))return true;
+      }
+      return false;
+    }
+    async function updateModelUI(){
+      state.installed=await isInstalled().catch(()=>false);
+      $('model-status').textContent=state.installed
+        ?'✓ Model je uložený v tomto prohlížeči.'
+        :('caches' in window?'Model není stažený.':'Google v tomto panelu nepovoluje úložiště modelu.');
+      disableBusy(state.busy);
+    }
+    function render(){
+      $('result-count').textContent=state.ranked.length?'Prvních '+state.ranked.length:'0';
+      const box=$('results');box.replaceChildren();
+      if(!state.ranked.length){
+        const p=document.createElement('p');p.className='muted';p.textContent='Žádné kandidátní otázky.';box.append(p);return;
+      }
+      state.ranked.forEach((item,i)=>{
+        const card=document.createElement('article');card.className='item';
+        const top=document.createElement('div');top.className='top';
+        const num=document.createElement('span');num.className='num';num.textContent=String(i+1);
+        const inner=document.createElement('div');
+        const label=document.createElement('div');label.textContent=item.title;label.style.fontWeight='650';
+        const meta=document.createElement('div');meta.className='small muted';
+        meta.textContent='Díl '+item.episode+(item.time?' · '+item.time:'')+' · původní shoda '+Math.round(item.score*100)+' %';
+        inner.append(label,meta);
+        if(item.url){const link=document.createElement('a');link.href=item.url;link.target='_blank';link.rel='noopener';link.textContent='Otevřít v Vedátorovi';inner.append(link)}
+        top.append(num,inner);card.append(top);box.append(card);
+      });
+    }
+    async function loadSelected(){
+      if(state.busy)return;
+      ++state.generation;
+      disableBusy(true);say('Načítám otázku a 30 nejlepších výsledků…');
+      try{
+        const selection=await call('selected');
+        const data=await call('candidates',selection.row);
+        state.data=data;state.original=data.candidates||[];
+        state.ranked=state.original.slice();state.refined=false;
+        state.vectors.clear();
+        $('question').textContent=data.question;
+        $('row').textContent='List Dotazy, řádek '+data.row;
+        render();say('Původní výsledky připravené. Zatím nejsou přerovnané AI.','ok');
+      }catch(error){say('Načtení selhalo: '+(error.message||error),'error');}
+      finally{disableBusy(false);}
+    }
+    async function getLibrary(){
+      if(state.library)return state.library;
+      const lib=await import(CDN);
+      lib.env.useBrowserCache=true;
+      lib.env.allowLocalModels=false;
+      lib.env.allowRemoteModels=true;
+      if(lib.env.backends?.onnx?.wasm)lib.env.backends.onnx.wasm.numThreads=1;
+      state.sourceFetch=lib.env.fetch||fetch.bind(window);
+      state.library=lib;
+      return lib;
+    }
+    async function getExtractor(download){
+      if(state.extractor)return state.extractor;
+      if(state.loading)return state.loading;
+      state.loading=(async()=>{
+        const lib=await getLibrary();
+        const base=state.sourceFetch||fetch.bind(window);
+        lib.env.fetch=(url,options)=>{
+          const path=modelPath(url);
+          if(!download&&path.includes('/multilingual-e5-small/')&&/\/onnx\/model_/i.test(path))
+            throw Error('Model není v tomto prohlížeči plně uložený. Použij Stáhnout AI.');
+          return base(url,options);
+        };
+        const extractor=await lib.pipeline('feature-extraction',MODEL,{
+          dtype:'q8',device:'wasm',
+          progress_callback:p=>{
+            if(!download)return;
+            if(p.status==='progress'&&Number.isFinite(p.progress)){
+              const percent=Math.max(0,Math.min(100,p.progress));
+              $('progress').classList.remove('hidden');$('progress').value=percent;
+              downloading('Stahuji '+String(p.file||'model')+' · '+Math.round(percent)+' %');
+            }else if(p.status==='initiate'||p.status==='done'){
+              downloading((p.status==='done'?'Uloženo: ':'Připravuji: ')+String(p.file||'model'));
+            }
+          }
+        });
+        state.extractor=extractor;return extractor;
+      })().finally(()=>state.loading=null);
+      return state.loading;
+    }
+    async function install(){
+      if(state.busy||state.installed)return;
+      if(!('caches' in window)||!('WebAssembly' in window)){
+        downloading('Prohlížeč v tomto panelu nepodporuje potřebné ukládání nebo WebAssembly. Vyhledávání bez AI funguje dál.','error');return;
+      }
+      if(!confirm('Stáhnout lokální model AI (~140 MB) do tohoto prohlížeče? Nepoužívá placené API.'))return;
+      disableBusy(true);$('progress').value=0;$('progress').classList.remove('hidden');
+      downloading('Připravuji stažení…');
+      try{
+        await getExtractor(true);
+        state.installed=await isInstalled();
+        if(!state.installed)throw Error('Model se načetl, ale Google panel nepotvrdil trvalé uložení.');
+        $('progress').value=100;
+        downloading('✓ Model je připravený. Můžeš zpřesňovat výsledky.','ok');
+      }catch(error){
+        downloading('Instalace AI selhala: '+(error.message||error)+'. Původní vyhledávání zůstává funkční.','error');
+        state.extractor=null;
+      }finally{await updateModelUI();disableBusy(false);}
+    }
+    async function erase(){
+      if(state.busy||!state.installed)return;
+      if(!confirm('Smazat pouze model Xenova/multilingual-e5-small z tohoto prohlížeče?'))return;
+      disableBusy(true);
+      try{
+        if(state.loading)await state.loading.catch(()=>{});
+        if(state.extractor?.dispose)await state.extractor.dispose();
+        state.extractor=null;state.vectors.clear();
+        for(const name of await caches.keys()){
+          if(!CACHE_NAMES.includes(name))continue;
+          const cache=await caches.open(name);
+          for(const req of (await cache.keys()).filter(isModel))await cache.delete(req);
+        }
+        state.installed=await isInstalled();
+        if(state.installed)throw Error('Některé soubory zůstaly uložené.');
+        state.refined=false;state.ranked=state.original.slice();render();
+        downloading('Model smazán. Původní vyhledávání zůstalo zachované.','ok');
+      }catch(error){downloading('Smazání selhalo: '+(error.message||error),'error');}
+      finally{await updateModelUI();disableBusy(false);}
+    }
+    async function vectorsFor(texts){
+      const out=await state.extractor(texts,{pooling:'mean',normalize:true});
+      const cols=out.data.length/texts.length;
+      if(!Number.isInteger(cols)||cols<8)throw Error('Neplatný výstup AI modelu.');
+      const values=texts.map((_,i)=>new Float32Array(out.data.slice(i*cols,(i+1)*cols)));
+      if(typeof out.dispose==='function')out.dispose();
+      return values;
+    }
+    function dot(a,b){let total=0;for(let i=0;i<a.length;i++)total+=a[i]*b[i];return total;}
+    async function rerank(){
+      if(state.busy||!state.installed||!state.data||state.original.length<2)return;
+      const token=++state.generation;
+      disableBusy(true);state.refined=false;
+      state.ranked=state.original.slice();render();
+      $('search-progress').value=0;$('search-progress').classList.remove('hidden');
+      say('Zatím vidíš původní pořadí. AI připravuje porovnání 30 výsledků…');
+      try{
+        await getExtractor(false);
+        const queryVector=(await vectorsFor(['query: '+state.data.question]))[0];
+        const scored=[];
+        for(let i=0;i<state.original.length;i+=3){
+          const group=state.original.slice(i,i+3);
+          const missing=group.filter(item=>!state.vectors.has(item.id+'|'+item.passage));
+          if(missing.length){
+            const embeddings=await vectorsFor(missing.map(item=>'passage: '+item.passage));
+            missing.forEach((item,j)=>state.vectors.set(item.id+'|'+item.passage,embeddings[j]));
+          }
+          for(const item of group){
+            const semantic=dot(queryVector,state.vectors.get(item.id+'|'+item.passage));
+            scored.push({item,originalPosition:i+group.indexOf(item),score:.63*item.score+.37*semantic});
+          }
+          const percent=Math.round(scored.length/state.original.length*100);
+          $('search-progress').value=percent;
+          say('AI porovnává výsledky: '+scored.length+'/'+state.original.length+'. Zatím vidíš původní pořadí.');
+          await new Promise(resolve=>setTimeout(resolve,0));
+          if(token!==state.generation)throw Error('Zpracování bylo přerušeno.');
+        }
+        scored.sort((a,b)=>b.score-a.score||a.originalPosition-b.originalPosition);
+        const ranked=scored.map(x=>x.item);
+        const originalIds=new Set(state.original.map(x=>x.id));
+        if(ranked.length!==state.original.length||new Set(ranked.map(x=>x.id)).size!==originalIds.size||
+          ranked.some(x=>!originalIds.has(x.id)))throw Error('AI vrátila neplatnou třicítku.');
+        state.ranked=ranked;state.refined=true;
+        render();say('✓ Hotovo – nyní vidíš pořadí zpřesněné lokální AI.','ok');
+      }catch(error){
+        state.ranked=state.original.slice();state.refined=false;render();
+        say('AI se nepodařilo spustit: '+(error.message||error)+'. Zobrazuji původní výsledky.','error');
+      }finally{$('search-progress').classList.add('hidden');disableBusy(false);}
+    }
+    async function save(){
+      if(state.busy||!state.refined||!state.data)return;
+      disableBusy(true);say('Zapisuji pět nejlepších výsledků do tabulky…');
+      try{
+        const result=await call('save',state.data.row,state.data.question,state.ranked.map(x=>x.id));
+        say('✓ Uloženo: '+result.count+' shod do řádku '+result.row+'.','ok');
+      }catch(error){say('Uložení selhalo: '+(error.message||error),'error');}
+      finally{disableBusy(false);}
+    }
+    function reset(){
+      if(state.busy||!state.data)return;
+      ++state.generation;state.ranked=state.original.slice();state.refined=false;
+      render();disableBusy(false);
+      say('Původní pořadí je obnoveno v panelu. Zápis v tabulce se nezměnil.');
+    }
+    $('load').addEventListener('click',loadSelected);
+    $('install').addEventListener('click',install);
+    $('erase').addEventListener('click',erase);
+    $('rerank').addEventListener('click',rerank);
+    $('save').addEventListener('click',save);
+    $('reset').addEventListener('click',reset);
+    updateModelUI().catch(e=>downloading(String(e),'error'));
+    // On open, load selected row without downloading the AI model.
+    loadSelected().catch(e=>say(String(e),'error'));
+  })();
+  </script>
+</body>
+</html>
