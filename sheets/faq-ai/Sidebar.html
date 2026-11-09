@@ -99,6 +99,10 @@
     const MODEL='Xenova/multilingual-e5-small';
     const CDN='https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1';
     const CACHE_NAMES=['transformers-cache','vedator-ai-model-v1'];
+    // Larger inference batches reduce repeated ONNX/WASM invocation overhead.
+    // The model, scoring weights and canonical 30 candidates stay unchanged.
+    const AI_EMBED_BATCH_SIZE=8;
+    const AI_VECTOR_CACHE_LIMIT=1250;
     const $=id=>document.getElementById(id);
     const state={data:null,original:[],ranked:[],refined:false,busy:false,installed:false,extractor:null,library:null,sourceFetch:null,loading:null,generation:0,vectors:new Map(),mode:'question',batch:{running:false,stopping:false,total:0,done:0,saved:0,failed:0,lastRow:0}};
     function say(value,type=''){const el=$('status');el.className='small '+(type||'muted');el.textContent=value||'';}
@@ -212,7 +216,7 @@
         if(data.searchMode!==state.mode)throw Error('Režim hledání se změnil. Načtěte výsledky znovu.');
         state.data=data;state.original=data.candidates||[];
         state.ranked=state.original.slice();state.refined=false;
-        state.vectors.clear();
+        // Preserve cached vectors across questions and repeated searches.
         $('question').textContent=data.question;
         $('row').textContent='List Dotazy, řádek '+data.row;
         render();say('Původní výsledky připravené. Zatím nejsou přerovnané AI.','ok');
@@ -299,12 +303,20 @@
       finally{await updateModelUI();disableBusy(false);}
     }
     async function vectorsFor(texts){
+      if(!texts.length)return [];
       const out=await state.extractor(texts,{pooling:'mean',normalize:true});
       const cols=out.data.length/texts.length;
       if(!Number.isInteger(cols)||cols<8)throw Error('Neplatný výstup AI modelu.');
       const values=texts.map((_,i)=>new Float32Array(out.data.slice(i*cols,(i+1)*cols)));
       if(typeof out.dispose==='function')out.dispose();
       return values;
+    }
+    function rememberVector(key,vector){
+      if(state.vectors.has(key))state.vectors.delete(key);
+      state.vectors.set(key,vector);
+      while(state.vectors.size>AI_VECTOR_CACHE_LIMIT){
+        state.vectors.delete(state.vectors.keys().next().value);
+      }
     }
     function dot(a,b){let total=0;for(let i=0;i<a.length;i++)total+=a[i]*b[i];return total;}
 
@@ -315,21 +327,31 @@
       if(original.length<2)return original.map(item=>item.id);
       await getExtractor(false);
       if(shouldStop())throw Error('Zpracování bylo zastaveno.');
-      const queryVector=(await vectorsFor(['query: '+data.question]))[0];
+      const queryKey='query: '+data.question;
+      let queryVector=state.vectors.get(queryKey);
+      if(!queryVector){
+        queryVector=(await vectorsFor([queryKey]))[0];
+        rememberVector(queryKey,queryVector);
+      }
       const scores=[];
-      for(let i=0;i<original.length;i+=3){
+      for(let i=0;i<original.length;i+=AI_EMBED_BATCH_SIZE){
         if(shouldStop())throw Error('Zpracování bylo zastaveno.');
-        const group=original.slice(i,i+3);
-        // Keep memory bounded without deleting vectors halfway through a batch.
-        if(state.vectors.size>1000)state.vectors.clear();
-        const missing=group.filter(item=>!state.vectors.has(item.id+'|'+item.passage));
+        const group=original.slice(i,i+AI_EMBED_BATCH_SIZE);
+        const missing=[];
+        const seen=new Set();
+        for(const item of group){
+          const key='passage: '+item.passage;
+          if(!state.vectors.has(key)&&!seen.has(key)){
+            seen.add(key);missing.push(key);
+          }
+        }
         if(missing.length){
-          const embeddings=await vectorsFor(missing.map(item=>'passage: '+item.passage));
-          missing.forEach((item,j)=>state.vectors.set(item.id+'|'+item.passage,embeddings[j]));
+          const embeddings=await vectorsFor(missing);
+          missing.forEach((key,j)=>rememberVector(key,embeddings[j]));
         }
         for(let j=0;j<group.length;j++){
           const item=group[j];
-          const vector=state.vectors.get(item.id+'|'+item.passage);
+          const vector=state.vectors.get('passage: '+item.passage);
           if(!vector)throw Error('Vektor AI nelze načíst.');
           const similarity=dot(queryVector,vector);
           const tier=1-Math.min(8,Number(item.tier)||0)/8;
