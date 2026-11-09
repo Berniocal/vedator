@@ -1403,34 +1403,49 @@ function vedatorPripravAskIndex_(database) {
     throw new Error('Chybí soubor AskEngine.gs. Přidejte ho do projektu Apps Script.');
   const engine = vedatorCreateAskEngine_();
   const byId = new Map();
-  const questions = database.map(item => {
-    const key = 'q:' + Number(item.episode) + ':' + Number(item.order);
+  const questions = [], nonquestionEpisodes = {};
+
+  database.forEach(item => {
+    const episode = Number(item.episode), order = Number(item.order);
+    const type = item.type === 'nonquestion' ? 'nonquestion' : 'question';
+    const key = (type === 'nonquestion' ? 'n:' : 'q:') + episode + ':' + order;
     byId.set(key, item);
-    return {
-      episode: Number(item.episode),
-      order: Number(item.order),
-      seconds: Number(item.linkSeconds) || 0,
-      i18n: {
-        cs: {title: item.cs, points: item.csPoints || []},
-        sk: {title: item.sk, points: item.skPoints || []}
-      }
-    };
+    if (type === 'question') {
+      questions.push({
+        episode: episode, order: order, seconds: Number(item.linkSeconds) || 0,
+        i18n: {
+          cs: {title: item.cs, points: item.csPoints || []},
+          sk: {title: item.sk, points: item.skPoints || []}
+        }
+      });
+    } else {
+      if (!nonquestionEpisodes[episode]) nonquestionEpisodes[episode] = {cs: [], sk: []};
+      const cs = {title: item.cs, points: item.csPoints || [], seconds: item.linkSeconds, time: item.time};
+      const sk = {title: item.sk, points: item.skPoints || [], seconds: item.linkSeconds, time: item.time};
+      nonquestionEpisodes[episode].cs[order] = cs;
+      nonquestionEpisodes[episode].sk[order] = sk;
+    }
   });
-  // Stejný vyhledávač jako záložka „Zeptej se“, včetně odrážek.
-  engine.load({questions: questions, nonquestions: {episodes: {}}});
-  return {engine: engine, byId: byId};
+
+  // Search engine builds the same index as the live Vedátor app: BOTH sources.
+  engine.load({questions: questions, nonquestions: {episodes: nonquestionEpisodes}});
+  return {engine: engine, byId: byId, hasNonquestions: Object.keys(nonquestionEpisodes).length > 0};
 }
 
-function vedatorSeradAsk_(query, index, limit) {
-  const ranked = index.engine.search(query, 'question').slice(0, limit);
+function vedatorSeradAsk_(query, index, limit, mode) {
+  const searchMode = vedatorNormalizujRezim_(mode || vedatorAiAktualniRezim());
+  if (searchMode !== 'question' && !index.hasNonquestions)
+    throw new Error('V databázi zatím nejsou neotázky. Zvolte Vedátor → Obnovit databázi z GitHubu.');
+  const ranked = index.engine.search(query, searchMode).slice(0, limit);
   return ranked.map(result => {
     const key = result.entry.item.id;
     const item = index.byId.get(key);
-    if (!item) throw new Error('Chybí otázka v databázi: ' + key);
+    if (!item) throw new Error('Chybí kapitola v databázi: ' + key);
     const labels = Array.from(new Set((result.matchedDirect || [])
       .concat((result.form && result.form.matches || []).map(String))));
     return {
       id: key,
+      type: item.type === 'nonquestion' ? 'nonquestion' : 'question',
       score: Math.max(0, Math.min(1, Number(result.score) || 0)),
       tier: Number(result.tier) || 0,
       title: item.cs || item.sk,
@@ -1469,7 +1484,7 @@ function vedatorAiVybranyRadek() {
   return {row: rowNumber, question: question};
 }
 
-function vedatorAiKandidati(rowNumber) {
+function vedatorAiKandidati(rowNumber, mode) {
   const ss = SpreadsheetApp.getActive();
   const input = ss.getSheetByName(CFG.INPUT_SHEET);
   const row = Math.floor(Number(rowNumber));
@@ -1478,10 +1493,12 @@ function vedatorAiKandidati(rowNumber) {
   const query = String(input.getRange(row, 1).getDisplayValue() || '').trim();
   if (!query) throw new Error('V tomto řádku není otázka.');
   const database = nactiDatabazi_(false);
-  const ranked = vedatorSeradAsk_(query, vedatorPripravAskIndex_(database), CFG.AI_RERANK_N);
+  const searchMode = vedatorNormalizujRezim_(mode || vedatorAiAktualniRezim());
+  const ranked = vedatorSeradAsk_(query, vedatorPripravAskIndex_(database), CFG.AI_RERANK_N, searchMode);
   return {
     row: row,
     question: query,
+    searchMode: searchMode,
     total: ranked.length,
     candidates: ranked.map(item => {
       const points = item.csPoints && item.csPoints.length ? item.csPoints : item.skPoints;
@@ -1499,6 +1516,7 @@ function vedatorAiKandidati(rowNumber) {
         .slice(0, 3).sort((a,b) => a.i - b.i).map(v => v.value);
       return {
         id: item.id,
+        type: item.type,
         title: item.title,
         episode: item.episode,
         time: item.time,
@@ -1513,7 +1531,7 @@ function vedatorAiKandidati(rowNumber) {
 
 // Zapisuje pouze přerovnanou původní třicítku; nové výsledky nepřidává.
 // Opakovanou validací chrání proti změně otázky nebo databáze během AI výpočtu.
-function vedatorAiUlozPoradi(rowNumber, originalQuestion, ids) {
+function vedatorAiUlozPoradi(rowNumber, originalQuestion, ids, mode) {
   const lock = LockService.getDocumentLock();
   if (!lock || !lock.tryLock(30000))
     throw new Error('Tabulka se právě upravuje. Zkuste uložit pořadí znovu.');
@@ -1527,8 +1545,11 @@ function vedatorAiUlozPoradi(rowNumber, originalQuestion, ids) {
     if (currentQuestion !== originalQuestion)
       throw new Error('Otázka se mezitím změnila. Znovu načtěte kandidáty.');
     if (!Array.isArray(ids)) throw new Error('Chybí pořadí výsledků.');
+    const searchMode = vedatorNormalizujRezim_(mode || vedatorAiAktualniRezim());
+    if (searchMode !== vedatorAiAktualniRezim())
+      throw new Error('Režim hledání se mezitím změnil. Načtěte kandidáty znovu.');
     const original = vedatorSeradAsk_(currentQuestion,
-      vedatorPripravAskIndex_(nactiDatabazi_(false)), CFG.AI_RERANK_N);
+      vedatorPripravAskIndex_(nactiDatabazi_(false)), CFG.AI_RERANK_N, searchMode);
     const originalIds = original.map(item => item.id);
     const submittedIds = ids.map(String);
     if (submittedIds.length !== originalIds.length ||
@@ -1541,7 +1562,7 @@ function vedatorAiUlozPoradi(rowNumber, originalQuestion, ids) {
     const processed = [{rowNumber: row, query: currentQuestion, matches: top}];
     zapisVysledky_(input, processed);
     aktualizujVsechnyShody_(processed);
-    input.getRange(row, 2).setValue('AI hotovo');
+    input.getRange(row, 2).setValue(vedatorAiStavRezim_(searchMode));
     return {saved: true, count: top.length, row: row};
   } finally {
     lock.releaseLock();
@@ -1557,7 +1578,8 @@ function vedatorAiUlozPoradi(rowNumber, originalQuestion, ids) {
 
 // Returns row indices, not private question contents. "AI hotovo" is a durable
 // checkpoint so a stopped processing run can resume without starting over.
-function vedatorAiSeznamRadku(vcetneHotovych) {
+function vedatorAiSeznamRadku(vcetneHotovych, mode) {
+  const searchMode = vedatorNormalizujRezim_(mode || vedatorAiAktualniRezim());
   const sheet = SpreadsheetApp.getActive().getSheetByName(CFG.INPUT_SHEET);
   if (!sheet) throw new Error('Chybí list Dotazy.');
   const last = sheet.getLastRow();
@@ -1568,17 +1590,18 @@ function vedatorAiSeznamRadku(vcetneHotovych) {
   data.forEach((cells, index) => {
     const question = String(cells[0] || '').trim();
     if (!question) return;
-    if (!vcetneHotovych && String(cells[1] || '').trim() === 'AI hotovo') {
+    if (!vcetneHotovych && vedatorAiJeHotovoVRezimu_(cells[1], searchMode)) {
       skipped++;
       return;
     }
     rows.push(index + 2);
   });
-  return {rows: rows, total: rows.length, skipped: skipped};
+  return {rows: rows, total: rows.length, skipped: skipped, searchMode: searchMode};
 }
 
 // Build the rich Ask index ONCE per small chunk, not once per question.
-function vedatorAiKandidatiDavka(cislaRadku) {
+function vedatorAiKandidatiDavka(cislaRadku, mode) {
+  const searchMode = vedatorNormalizujRezim_(mode || vedatorAiAktualniRezim());
   if (!Array.isArray(cislaRadku) || !cislaRadku.length || cislaRadku.length > 5)
     throw new Error('Jedna dávka musí obsahovat 1 až 5 řádků.');
   const sheet = SpreadsheetApp.getActive().getSheetByName(CFG.INPUT_SHEET);
@@ -1591,11 +1614,11 @@ function vedatorAiKandidatiDavka(cislaRadku) {
   return rows.map(row => {
     const question = String(sheet.getRange(row, 1).getDisplayValue() || '').trim();
     if (!question) return {row: row, empty: true};
-    const ranked = vedatorSeradAsk_(question, index, CFG.AI_RERANK_N);
+    const ranked = vedatorSeradAsk_(question, index, CFG.AI_RERANK_N, searchMode);
     const terms = (question.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       .toLowerCase().match(/[\p{L}\p{N}]{4,}/gu) || []);
     return {
-      row: row, question: question, total: ranked.length,
+      row: row, question: question, searchMode: searchMode, total: ranked.length,
       candidates: ranked.map(item => {
         const points = item.csPoints && item.csPoints.length ? item.csPoints : item.skPoints;
         const chosen = (points || []).map((value, i) => ({
@@ -1605,7 +1628,7 @@ function vedatorAiKandidatiDavka(cislaRadku) {
         })).sort((a,b) => b.hits - a.hits || a.i - b.i)
           .slice(0, 3).sort((a,b) => a.i - b.i).map(x => x.value);
         return {
-          id: item.id, title: item.title, episode: item.episode,
+          id: item.id, type: item.type, title: item.title, episode: item.episode,
           time: item.time, url: item.url, score: item.score, tier: item.tier,
           passage: (item.title + '. ' + chosen.join(' ')).slice(0, 480)
         };
@@ -1617,7 +1640,8 @@ function vedatorAiKandidatiDavka(cislaRadku) {
 // Writes directly into original Dotazy B:S and refreshes Všechny shody.
 // Every saved row is validated against its CURRENT question and original
 // top-30 candidate IDs. Invalid rows fail individually, others can save.
-function vedatorAiUlozDavku(ulozeni) {
+function vedatorAiUlozDavku(ulozeni, mode) {
+  const searchMode = vedatorNormalizujRezim_(mode || vedatorAiAktualniRezim());
   if (!Array.isArray(ulozeni) || !ulozeni.length || ulozeni.length > 5)
     throw new Error('Jedna ukládací dávka musí obsahovat 1 až 5 řádků.');
   const lock = LockService.getDocumentLock();
@@ -1629,6 +1653,8 @@ function vedatorAiUlozDavku(ulozeni) {
     const rowNumbers = ulozeni.map(item => Math.floor(Number(item && item.row)));
     if (new Set(rowNumbers).size !== rowNumbers.length)
       throw new Error('Dávka obsahuje opakované číslo řádku.');
+    if (searchMode !== vedatorAiAktualniRezim())
+      throw new Error('Režim hledání se mezitím změnil. Načtěte kandidáty znovu.');
     const index = vedatorPripravAskIndex_(nactiDatabazi_(false));
     const accepted = [], rejected = [];
     ulozeni.forEach((item, i) => {
@@ -1639,7 +1665,7 @@ function vedatorAiUlozDavku(ulozeni) {
         const question = String(sheet.getRange(row, 1).getDisplayValue() || '').trim();
         if (!question || question !== String(item.question || '').trim())
           throw new Error('Otázka se mezitím změnila.');
-        const original = vedatorSeradAsk_(question, index, CFG.AI_RERANK_N);
+        const original = vedatorSeradAsk_(question, index, CFG.AI_RERANK_N, searchMode);
         const expected = original.map(result => result.id);
         const ids = Array.isArray(item.ids) ? item.ids.map(String) : [];
         if (ids.length !== expected.length || new Set(ids).size !== ids.length ||
@@ -1658,7 +1684,7 @@ function vedatorAiUlozDavku(ulozeni) {
       // Writes start in B; no original question in column A is modified.
       zapisVysledky_(sheet, accepted);
       aktualizujVsechnyShody_(accepted);
-      accepted.forEach(item => sheet.getRange(item.rowNumber, 2).setValue('AI hotovo'));
+      accepted.forEach(item => sheet.getRange(item.rowNumber, 2).setValue(vedatorAiStavRezim_(searchMode)));
     }
     return {saved: accepted.map(item => item.rowNumber), failed: rejected};
   } finally {
@@ -1668,7 +1694,7 @@ function vedatorAiUlozDavku(ulozeni) {
 
 // Undo an AI overwrite in the actual spreadsheet by restoring the original
 // Ask top-five ranking. Does not alter listener questions in column A.
-function vedatorAiVratPuvodni(rowNumber, originalQuestion) {
+function vedatorAiVratPuvodni(rowNumber, originalQuestion, mode) {
   const lock = LockService.getDocumentLock();
   if (!lock || !lock.tryLock(30000))
     throw new Error('Tabulka se právě upravuje. Zkuste to znovu.');
@@ -1680,8 +1706,11 @@ function vedatorAiVratPuvodni(rowNumber, originalQuestion) {
     const question = String(sheet.getRange(row, 1).getDisplayValue() || '').trim();
     if (!question || question !== String(originalQuestion || '').trim())
       throw new Error('Otázka se mezitím změnila.');
+    const searchMode = vedatorNormalizujRezim_(mode || vedatorAiAktualniRezim());
+    if (searchMode !== vedatorAiAktualniRezim())
+      throw new Error('Režim hledání se mezitím změnil. Načtěte kandidáty znovu.');
     const original = vedatorSeradAsk_(question,
-      vedatorPripravAskIndex_(nactiDatabazi_(false)), CFG.TOP_N);
+      vedatorPripravAskIndex_(nactiDatabazi_(false)), CFG.TOP_N, searchMode);
     const processed = [{rowNumber: row, query: question, matches: original}];
     zapisVysledky_(sheet, processed);
     aktualizujVsechnyShody_(processed);
