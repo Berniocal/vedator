@@ -270,12 +270,12 @@
       for(let i=0;i<original.length;i+=3){
         if(shouldStop())throw Error('Zpracování bylo zastaveno.');
         const group=original.slice(i,i+3);
+        // Keep memory bounded without deleting vectors halfway through a batch.
+        if(state.vectors.size>1000)state.vectors.clear();
         const missing=group.filter(item=>!state.vectors.has(item.id+'|'+item.passage));
         if(missing.length){
           const embeddings=await vectorsFor(missing.map(item=>'passage: '+item.passage));
           missing.forEach((item,j)=>state.vectors.set(item.id+'|'+item.passage,embeddings[j]));
-          // Keep the browser memory bounded during thousands of questions.
-          if(state.vectors.size>1000)state.vectors.clear();
         }
         for(let j=0;j<group.length;j++){
           const item=group[j];
@@ -374,6 +374,13 @@
       batchStatus('Hotovo '+state.batch.done+'/'+state.batch.total+' otázek · uloženo '+
         state.batch.saved+' · chyby '+state.batch.failed+' · poslední řádek '+last.row+'.');
       if(rejected.length)console.warn('Nepodařilo se uložit některé AI výsledky',rejected);
+      if(state.data && saved.includes(state.data.row)){
+        const stored=rows.find(x=>x.row===state.data.row);
+        if(stored){
+          state.ranked=orderedFromIds(state.original,stored.ids);
+          state.refined=true;render();
+        }
+      }
     }
 
     // One UI run holds its own client-side model; no background process or API.
