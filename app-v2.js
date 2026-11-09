@@ -3297,7 +3297,24 @@ function semanticScore(qTerms,entry){
   return {score:total?weighted/total:0,matches};
 }
 
+// Quoted phrases act as hard constraints on adjacent words, not as synonyms.
+// No quotes => the original search and ranking remain untouched.
+function askQuotedPhrases(query){
+  return [...String(query??'').matchAll(/"([^"]+)"|„([^“”]+)[“”]|“([^”]+)”/g)]
+    .map(match=>norm(match[1]||match[2]||match[3])).filter(Boolean);
+}
+function askMatchesAllQuotedPhrases(item,phrases){
+  if(!phrases.length)return true;
+  const fields=[
+    item.cs?.title,...(item.cs?.points||[]),
+    item.sk?.title,...(item.sk?.points||[])
+  ];
+  return phrases.every(phrase=>fields.some(field=>
+    (' '+norm(field)+' ').includes(' '+phrase+' ')
+  ));
+}
 function rank(query){
+  const quotedPhrases=askQuotedPhrases(query);
   const qNorm=norm(query);
   if(!qNorm)return[];
   const qTerms=extractTerms(query,{query:true});
@@ -3309,6 +3326,9 @@ function rank(query){
   for(const idx of candidates){
     const entry=state.index[idx],item=entry.item;
     if(state.filter!=='all'&&item.type!==state.filter)continue;
+    // Require each quoted phrase to occur within one title or one bullet.
+    // Never join different bullets into a false phrase.
+    if(quotedPhrases.length&&!askMatchesAllQuotedPhrases(item,quotedPhrases))continue;
 
     const exactTitle=entry.normTitle.includes(qNorm);
     const exactAny=entry.normFull.includes(qNorm);
@@ -3726,7 +3746,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   }
   function syncAskIntro(){
     const intro=$('#ask-intro-v2');if(!intro)return;
-    intro.textContent=text('Zkuste se na něco zeptat a zjistěte, jestli už na to Vedátoři neodpověděli.','Skúste sa na niečo opýtať a zistite, či na to už Vedátori neodpovedali.');
+    intro.textContent=text('Zkuste se na něco zeptat a zjistěte, jestli už na to Vedátoři neodpověděli. Pro slova hned vedle sebe použij uvozovky, např. "jádro Země".','Skúste sa na niečo opýtať a zistite, či na to už Vedátori neodpovedali. Pre slová hneď vedľa seba použite úvodzovky, napr. "jadro Zeme".');
     intro.classList.toggle('hidden',state.view!=='ask'||Boolean(askUi.query));
   }
   function syncAskSearchControls(){
