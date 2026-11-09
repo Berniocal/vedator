@@ -51,8 +51,9 @@ public class PlaybackDeviceTest {
         waitFor(()->js("window.cacheSeedDone").equals("true"),5000);
         activity.recreate();
         waitFor(()->js("document.documentElement.dataset.vedatorNativeReady").equals("\"1\""),20000);
-        js("window.cacheVerified=false;(async()=>{const names=await caches.keys();const cache=await caches.open('transformers-cache');const response=await cache.match('https://huggingface.co/Xenova/multilingual-e5-small/resolve/main/config.json');window.cacheVerified=!!response&&(await response.text())==='model-sentinel'&&['transformers-cache','vedator-ai-model-v1','other-model-cache','vedator-offline-audio-v1'].every(n=>names.includes(n))&&!names.some(n=>/^vedator-v[0-9]+-app-/.test(n))})()");
-        waitFor(()->js("window.cacheVerified").equals("true"),5000);
+        js("window.cacheVerifiedDone=false;window.cacheVerified=false;(async()=>{const names=await caches.keys();const cache=await caches.open('transformers-cache');const response=await cache.match('https://huggingface.co/Xenova/multilingual-e5-small/resolve/main/config.json');const body=response?await response.text():null;window.cacheVerified=body==='model-sentinel'&&['transformers-cache','vedator-ai-model-v1','other-model-cache','vedator-offline-audio-v1'].every(n=>names.includes(n))&&!names.some(n=>/^vedator-v[0-9]+-app-/.test(n));window.cacheReport={names,body,pass:window.cacheVerified};window.cacheVerifiedDone=true})()");
+        waitFor(()->js("window.cacheVerifiedDone").equals("true"),5000);
+        assertEquals(js("JSON.stringify(window.cacheReport)"),"true",js("window.cacheVerified"));
         assertEquals("\"keep\"",js("localStorage.getItem('vedator-ai-cache-regression')"));
     }
     @Test public void seekingAndBackgroundQueueUseNativeAudio()throws Exception{

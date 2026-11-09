@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
         if(WebViewFeature.isFeatureSupported(WebViewFeature.SERVICE_WORKER_BASIC_USAGE))ServiceWorkerControllerCompat.getInstance().setServiceWorkerClient(new ServiceWorkerClientCompat(){@Override public WebResourceResponse shouldInterceptRequest(@NonNull WebResourceRequest request){return source.intercept(request.getUrl());}});
         web.setWebViewClient(new WebViewClient(){
             @Override public WebResourceResponse shouldInterceptRequest(WebView view,WebResourceRequest request){return request.getMethod().equals("GET")?source.intercept(request.getUrl()):null;}
-            @Override public boolean shouldOverrideUrlLoading(WebView view,WebResourceRequest request){Uri uri=request.getUrl();if(request.isForMainFrame()&&(!WebSource.trusted(uri)||!uri.getPath().startsWith("/vedator/"))){openExternal(uri);return true;}return false;}
+            @Override public boolean shouldOverrideUrlLoading(WebView view,WebResourceRequest request){Uri uri=request.getUrl();if(request.isForMainFrame()&&(!WebSource.trusted(uri)||(!uri.getPath().startsWith("/vedator/")&&!uri.toString().equals(WebSource.BOOTSTRAP_URL)))){openExternal(uri);return true;}return false;}
             @Override public void onPageStarted(WebView view,String url,android.graphics.Bitmap icon){pageReady=false;bootSent=false;status.setText("Vedátor · načítám…");}
             @Override public void onReceivedError(WebView view,WebResourceRequest request,WebResourceError error){if(request.isForMainFrame())status.setText("Načtení se nezdařilo · nabídka → Obnovit");}
         });
@@ -81,8 +81,7 @@ public class MainActivity extends Activity {
         // A browser SW can serve an unadapted app-v2.js from its own cache on the next
         // Activity creation. Unregister it before opening the actual document; keep
         // localStorage and offline MP3s. Native files provide offline app startup.
-        String bootstrap="<!doctype html><meta name='viewport' content='width=device-width'><body style='background:#12121b;color:#eee;font:16px sans-serif;padding:24px'>Načítám Vedátora…<script>Promise.resolve().then(async()=>{if(navigator.serviceWorker)for(const r of await navigator.serviceWorker.getRegistrations())await r.unregister();if(window.caches)for(const k of await caches.keys())if(/^vedator-v[0-9]+-app-/.test(k))await caches.delete(k)}).catch(()=>{}).finally(()=>location.replace('https://bernio.cz/vedator/'));</script>";
-        web.loadDataWithBaseURL("https://bernio.cz/vedator/__android_bootstrap__",bootstrap,"text/html","UTF-8",null);
+        web.loadUrl(WebSource.BOOTSTRAP_URL);
         handleVoice(getIntent());
         long checked;try{checked=Long.parseLong(store.get("apkLastChecked","0"));}catch(NumberFormatException e){checked=0;}
         if(System.currentTimeMillis()-checked>86400000){store.put("apkLastChecked",Long.toString(System.currentTimeMillis()));new Updater(this,io).check(false);}
