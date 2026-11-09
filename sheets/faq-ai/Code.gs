@@ -52,6 +52,7 @@ function onOpen() {
     .addItem('Zpracovat všechny otázky', 'zpracovatVsechnyDotazy')
     .addItem('Zpracovat vybrané řádky', 'zpracovatVybraneRadky')
     .addItem('AI – zpřesnit vybranou otázku', 'otevritAiPanel')
+    .addItem('AI – postupně celý list', 'otevritAiPanel')
     .addSeparator()
     .addItem('Obnovit databázi z GitHubu', 'obnovitDatabazi')
     .addItem('Připravit / opravit listy', 'pripravitTabulku')
