@@ -138,6 +138,8 @@ function pripravitTabulku() {
   settings.getRange('A1:B20').setWrap(true).setVerticalAlignment('top');
   settings.setFrozenRows(1);
 
+  // Stará tabulka mohla mít jen 8 sloupců databáze; nové 2 jsou odrážky.
+  ensureSize_(database, 1, DB_HEADERS.length);
   if (database.getLastRow() === 0) database.getRange(1, 1, 1, DB_HEADERS.length).setValues([DB_HEADERS]);
   styleHeader_(database.getRange(1, 1, 1, DB_HEADERS.length));
   database.hideSheet();
@@ -369,6 +371,7 @@ function nactiDatabazi_(forceRefresh) {
 }
 
 function readDatabaseSheet_(sheet) {
+  ensureSize_(sheet, 1, DB_HEADERS.length);
   const lastRow = sheet.getLastRow();
   if (lastRow < 2) return [];
   return sheet.getRange(2, 1, lastRow - 1, DB_HEADERS.length).getValues()
