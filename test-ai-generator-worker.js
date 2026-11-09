@@ -1,61 +1,79 @@
-// Samostatný Web Worker pro volitelný lokální generativní model.
-// Nevstupuje do hlavní aplikace ani do vyhledávacího modelu.
+// Oddělený pracovní proces pro volitelný jazykový model AI Vedátor.
+// WebGPU jen se skutečně dostupným adaptérem; jinak procesor (WASM).
 const MODEL = "onnx-community/Qwen2.5-0.5B-Instruct";
 const LIBRARY = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1";
-let generator = null;
-let lib = null;
-let loading = null;
-let allowDownload = false;
-
-function reply(id, type, data={}) { self.postMessage({id,type,...data}); }
-
-async function loadGenerator(id, permitted) {
-  if (generator) return;
-  if (loading) return loading;
-  if (!self.navigator?.gpu) throw Error("Tento prohlížeč nepodporuje WebGPU potřebné pro generativní AI.");
-  allowDownload = !!permitted;
-  loading = (async () => {
-    if (!lib) lib = await import(LIBRARY);
-    lib.env.useBrowserCache = true;
-    lib.env.allowRemoteModels = true;
-    lib.env.allowLocalModels = false;
-    generator = await lib.pipeline("text-generation", MODEL, {
-      dtype: "q4", device: "webgpu",
-      progress_callback: p => {
-        if (!permitted) return;
-        if (p.status === "progress" && Number.isFinite(p.progress)) {
+let generator = null, lib = null, loading = null, backend = "";
+function reply(id,type,data={}) { self.postMessage({id,type,...data}); }
+async function gpuAvailable() {
+  if(!self.navigator?.gpu?.requestAdapter)return false;
+  try {
+    const adapter=await self.navigator.gpu.requestAdapter({powerPreference:"low-power"});
+    return !!adapter;
+  } catch {return false;}
+}
+async function loadGenerator(id,permitted,preferredDevice) {
+  if(generator)return backend;
+  if(loading)return loading;
+  loading=(async()=>{
+    if(!lib)lib=await import(LIBRARY);
+    lib.env.useBrowserCache=true;
+    lib.env.allowLocalModels=false;
+    lib.env.allowRemoteModels=true;
+    if(lib.env.backends?.onnx?.wasm)lib.env.backends.onnx.wasm.numThreads=1;
+    // Při následném dotazu nesmí chybějící váhy iniciovat nové stažení.
+    lib.env.fetch=(url,options)=>{
+      const address=String(url?.url||url||"");
+      if(!permitted && /qwen2\.5-0\.5b-instruct/i.test(address) &&
+          /\/onnx\/model_q4\.onnx/i.test(address)) {
+        throw Error("Model není plně uložen. Použij ruční stažení.");
+      }
+      return fetch(url,options);
+    };
+    const preferred=preferredDevice==="wasm"?"wasm":await gpuAvailable()?"webgpu":"wasm";
+    const options=device=>({
+      dtype:"q4",device,
+      progress_callback:p=>{
+        if(!permitted)return;
+        if(p.status==="progress" && Number.isFinite(p.progress)){
           reply(id,"progress",{file:String(p.file||"model"),progress:p.progress});
-        } else if (p.status === "initiate" || p.status === "download" || p.status === "done") {
+        }else if(["initiate","download","done"].includes(p.status)){
           reply(id,"stage",{stage:p.status,file:String(p.file||"model")});
         }
       }
     });
-  })();
-  try { await loading; } finally { loading = null; allowDownload = false; }
-}
-
-self.onmessage = async event => {
-  const {id,action,messages,canDownload} = event.data || {};
-  try {
-    if (action === "load") {
-      await loadGenerator(id,!!canDownload);
-      reply(id,"ok",{ready:true});
-    } else if (action === "generate") {
-      if (!generator) throw Error("Generativní model nebyl načten.");
-      const result = await generator(messages, {
-        max_new_tokens: 200,
-        do_sample: false,
-        return_full_text: false,
-      });
-      const generated = result?.[0]?.generated_text;
-      const value = Array.isArray(generated)
-        ? generated.at(-1)?.content || ""
-        : String(generated||"");
-      reply(id,"ok",{answer:String(value).trim()});
-    } else {
-      throw Error("Neznámá operace generátoru.");
+    reply(id,"backend",{device:preferred});
+    try {
+      generator=await lib.pipeline("text-generation",MODEL,options(preferred));
+      backend=preferred;
+    }catch(firstError) {
+      // WebGPU může selhat i při existenci adaptéru. Zkusit stejný q4 model na CPU.
+      if(preferred!=="webgpu")throw firstError;
+      reply(id,"backend",{device:"wasm",reason:"GPU se nepodařilo inicializovat."});
+      try {
+        generator=await lib.pipeline("text-generation",MODEL,options("wasm"));
+        backend="wasm";
+      }catch(secondError){
+        throw Error("WebGPU: "+String(firstError?.message||firstError)+"; CPU/WASM: "+String(secondError?.message||secondError));
+      }
     }
-  } catch (error) {
-    reply(id,"error",{message:String(error?.message||error)});
-  }
+    return backend;
+  })();
+  try{return await loading;}finally{loading=null;}
+}
+self.onmessage=async event=>{
+  const {id,action,messages,canDownload,device}=event.data||{};
+  try {
+    if(action==="load"){
+      const chosen=await loadGenerator(id,!!canDownload,device);
+      reply(id,"ok",{ready:true,backend:chosen});
+    }else if(action==="generate"){
+      if(!generator)throw Error("Jazykový model ještě není připraven.");
+      const result=await generator(messages,{
+        max_new_tokens:150,do_sample:false,return_full_text:false
+      });
+      const generated=result?.[0]?.generated_text;
+      const value=Array.isArray(generated)?generated.at(-1)?.content||"":String(generated||"");
+      reply(id,"ok",{answer:String(value).trim(),backend});
+    }else throw Error("Neznámý požadavek generátoru.");
+  }catch(error){reply(id,"error",{message:String(error?.message||error)});}
 };
