@@ -573,10 +573,10 @@ function renderResults(ranked,question,generated=null){
   const answer=selectedAnswer(ranked.slice(0,5),question);
   if(generated){
     appendAnswerText("Odpověď sestavená místní AI z nalezených shrnutí:","small muted");
-    for(const paragraph of generated.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean))
+    for(const paragraph of generated.text.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean))
       appendAnswerText(paragraph);
     appendAnswerText("Automaticky sestavený text může obsahovat nepřesnosti; ověřuj ho podle zdrojů níže.","small muted");
-    for(const item of ranked.slice(0,3)){
+    for(const item of generated.sources){
       appendSourceLink(item.entry,"↗ Podklad: díl "+item.entry.episode+", "+(item.entry.time||fmtTime(item.entry.seconds)));
     }
   }else if(answer.direct&&answer.lines.length){
@@ -630,7 +630,7 @@ async function generateNarrative(question,ranked){
   const response=await workerRequest("generate",{messages});
   const output=String(response.answer||"").replace(/<\|[^>]*\|>/g,"").trim();
   if(output.length<30||output.length>2200)return null;
-  return output;
+  return {text:output,sources:materials};
 }
 async function ask(question){
   if(state.busy||!state.installed||!state.dataReady)return;
@@ -669,9 +669,9 @@ async function ask(question){
       if(state.extractor?.dispose)await state.extractor.dispose();
       state.extractor=null;
       try{
-        const text=await generateNarrative(question,scored);
-        if(text){
-          renderResults(ranked,question,text);
+        const generated=await generateNarrative(question,scored);
+        if(generated){
+          renderResults(ranked,question,generated);
           status("search-status","Hotovo: vlastní odpověď sestavena z nalezených shrnutí.","ok");
         }else{
           status("search-status","V podkladech není dost informací pro vlastní odpověď. Zobrazuji relevantní shrnutí.");
