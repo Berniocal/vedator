@@ -3299,19 +3299,53 @@ function semanticScore(qTerms,entry){
 
 // Quoted phrases act as hard constraints on adjacent words, not as synonyms.
 // No quotes => the original search and ranking remain untouched.
+// Quotes: adjacent words in the original order, with morphology and synonyms.
+const ASK_QUOTE_EQUIVALENTS=[
+  ['jadro','stred','centr','nitr'],
+  ['zeme','zemi','zemekoul'],
+  ['dira','diry','dire','dirou','diram','der','deru','deram']
+];
 function askQuotedPhrases(query){
   return [...String(query??'').matchAll(/"([^"]+)"|„([^“”]+)[“”]|“([^”]+)”/g)]
-    .map(match=>norm(match[1]||match[2]||match[3])).filter(Boolean);
+    .map(match=>norm(match[1]||match[2]||match[3]).split(' ').filter(Boolean))
+    .filter(words=>words.length);
 }
-function askMatchesAllQuotedPhrases(item,phrases){
+function askQuoteWordEquivalent(queryWord,textWord,memo){
+  if(queryWord===textWord)return true;
+  const id=queryWord+'\u0000'+textWord;
+  if(memo.has(id))return memo.get(id);
+  const a=canon(queryWord),b=canon(textWord);
+  let matches=a===b;
+  if(!matches&&!STOP.has(queryWord)&&!STOP.has(textWord)){
+    matches=ASK_QUOTE_EQUIVALENTS.some(group=>group.includes(a)&&group.includes(b));
+    if(!matches)matches=a.length>=3&&b.length>=3&&
+      (semanticGraph.get(a)?.get(b)>=.84||semanticGraph.get(b)?.get(a)>=.84);
+    if(!matches)matches=similarForms(a).some(([word,similarity])=>word===b&&similarity>=.80);
+    // Permit conservative grammatical suffix variations, not loose substring matches.
+    if(!matches&&a.length>=4&&b.length>=4){
+      let prefix=0;
+      while(prefix<Math.min(a.length,b.length)&&a[prefix]===b[prefix])prefix++;
+      matches=prefix>=3&&a.length-prefix<=2&&b.length-prefix<=2;
+    }
+  }
+  memo.set(id,matches);
+  return matches;
+}
+function askMatchesAllQuotedPhrases(item,phrases,memo){
   if(!phrases.length)return true;
-  const fields=[
-    item.cs?.title,...(item.cs?.points||[]),
-    item.sk?.title,...(item.sk?.points||[])
-  ];
-  return phrases.every(phrase=>fields.some(field=>
-    (' '+norm(field)+' ').includes(' '+phrase+' ')
-  ));
+  const fields=[item.cs?.title,...(item.cs?.points||[]),item.sk?.title,...(item.sk?.points||[])];
+  const tokens=fields.filter(Boolean).map(field=>norm(field).split(' ').filter(Boolean));
+  return phrases.every(phrase=>tokens.some(words=>{
+    if(words.length<phrase.length)return false;
+    for(let offset=0;offset<=words.length-phrase.length;offset++){
+      let matched=true;
+      for(let i=0;i<phrase.length;i++){
+        if(!askQuoteWordEquivalent(phrase[i],words[offset+i],memo)){matched=false;break;}
+      }
+      if(matched)return true;
+    }
+    return false;
+  }));
 }
 function rank(query){
   const quotedPhrases=askQuotedPhrases(query);
@@ -3319,16 +3353,17 @@ function rank(query){
   if(!qNorm)return[];
   const qTerms=extractTerms(query,{query:true});
   if(!qTerms.length)return[];
-  const candidates=queryCandidates(qTerms,qNorm);
+  // Only quoted searches scan all entries; plain searches remain unchanged.
+  const candidates=quotedPhrases.length?new Set(state.index.map((_,i)=>i)):queryCandidates(qTerms,qNorm);
+  const quoteMemo=quotedPhrases.length?new Map():null;
   const qWeightTotal=qTerms.reduce((s,t)=>s+queryWeight(t),0)||1;
   const results=[];
 
   for(const idx of candidates){
     const entry=state.index[idx],item=entry.item;
     if(state.filter!=='all'&&item.type!==state.filter)continue;
-    // Require each quoted phrase to occur within one title or one bullet.
-    // Never join different bullets into a false phrase.
-    if(quotedPhrases.length&&!askMatchesAllQuotedPhrases(item,quotedPhrases))continue;
+    // Phrase must occur in one title or one bullet, not across bullet boundaries.
+    if(quotedPhrases.length&&!askMatchesAllQuotedPhrases(item,quotedPhrases,quoteMemo))continue;
 
     const exactTitle=entry.normTitle.includes(qNorm);
     const exactAny=entry.normFull.includes(qNorm);
@@ -3358,6 +3393,8 @@ function rank(query){
     else if(coverage>=.18 && directCount>=1){tier=6;reason='weak-direct';}
     else if(form.score>=.18){tier=7;reason='similar-form';}
     else if(semantic.score>=.20){tier=8;reason='distant-semantic';}
+    // A synonym phrase can match without any literal keyword match.
+    if(tier===99&&quotedPhrases.length){tier=5;reason='semantic';}
     if(tier===99)continue;
 
     let score=.68*effectiveCoverage+.20*effectiveTitleCoverage+.12*semantic.score;
@@ -3746,7 +3783,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   }
   function syncAskIntro(){
     const intro=$('#ask-intro-v2');if(!intro)return;
-    intro.textContent=text('Zkuste se na něco zeptat a zjistěte, jestli už na to Vedátoři neodpověděli. Pro slova hned vedle sebe použij uvozovky, např. "jádro Země".','Skúste sa na niečo opýtať a zistite, či na to už Vedátori neodpovedali. Pre slová hneď vedľa seba použite úvodzovky, napr. "jadro Zeme".');
+    intro.textContent=text('Zkuste se na něco zeptat a zjistěte, jestli už na to Vedátoři neodpověděli. Uvozovky vyžadují slova vedle sebe, ale uznávají i skloňování a synonyma, např. "jádro Země" najde i střed Země.','Skúste sa na niečo opýtať a zistite, či na to už Vedátori neodpovedali. Úvodzovky vyžadujú slová vedľa seba, ale uznávajú aj skloňovanie a synonymá, napr. "jadro Zeme" nájde aj stred Zeme.');
     intro.classList.toggle('hidden',state.view!=='ask'||Boolean(askUi.query));
   }
   function syncAskSearchControls(){
