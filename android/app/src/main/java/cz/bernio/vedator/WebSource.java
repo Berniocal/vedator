@@ -8,6 +8,10 @@ import java.nio.charset.StandardCharsets;
 
 /** Cached live source with bundled offline fallback. Native adapter never affects the website. */
 final class WebSource {
+    static final String BOOTSTRAP_URL="https://bernio.cz/__vedator_android_bootstrap__";
+    // Use an intercepted HTTPS document outside the old SW scope. loadDataWithBaseURL
+    // does not reliably use the same Cache Storage partition as the real website.
+    static final String BOOTSTRAP_HTML="<!doctype html><meta name='viewport' content='width=device-width'><body style='background:#12121b;color:#eee;font:16px sans-serif;padding:24px'>Načítám Vedátora…<script>Promise.resolve().then(async()=>{if(navigator.serviceWorker)for(const r of await navigator.serviceWorker.getRegistrations())await r.unregister();if(window.caches)for(const k of await caches.keys())if(/^vedator-v[0-9]+-app-/.test(k))await caches.delete(k)}).catch(()=>{}).finally(()=>location.replace('https://bernio.cz/vedator/'));</script>";
     private final Context context;
     private final String adapter;
     WebSource(Context context)throws IOException{this.context=context;adapter=new String(Net.asset(context,"native-adapter.js"),StandardCharsets.UTF_8);}
@@ -19,6 +23,7 @@ final class WebSource {
     }
     WebResourceResponse intercept(Uri uri){
         if(!trusted(uri))return null;
+        if(uri.toString().equals(BOOTSTRAP_URL))return response("text/html",BOOTSTRAP_HTML.getBytes(StandardCharsets.UTF_8));
         String path=uri.getPath();if(path==null||!path.startsWith("/vedator/"))return null;
         String file=path.substring("/vedator/".length());if(file.isEmpty())file="index.html";
         if(file.equals("sw.js"))return response("text/javascript","self.addEventListener('install',()=>self.skipWaiting());".getBytes(StandardCharsets.UTF_8));

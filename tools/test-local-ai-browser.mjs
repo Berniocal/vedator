@@ -1,0 +1,44 @@
+import fs from 'node:fs';import path from 'node:path';import http from 'node:http';import assert from 'node:assert/strict';import {createRequire} from 'node:module';
+const root=process.cwd(),require=createRequire(path.join(process.env.VEDATOR_TEST_DEPS||root,'package.json')),puppeteer=require('puppeteer-core');
+const source=fs.readFileSync('app-v2.js','utf8'),adapter=fs.readFileSync('android/app/src/main/assets/native-adapter.js','utf8');
+const hooks="window.__aiTest={ai:askAi,ui:askUi,rerank:askAiRerank,cached:askAiCached,search:(q,f='all')=>askEngine().search(q,f)};";
+const fakeLibrary=`export const env={backends:{onnx:{wasm:{}}}};export async function pipeline(task,model,options){window.aiLoadOptions??=[];window.aiLoadOptions.push(options.local_files_only);const cache=await caches.open('transformers-cache');const files=['config.json','tokenizer.json','tokenizer_config.json','onnx/model_quantized.onnx'];for(const file of files){const url='https://huggingface.co/Xenova/multilingual-e5-small/resolve/main/'+file;if(!await cache.match(url)){if(options.local_files_only)throw Error('local_files_only=true: missing '+file);await cache.put(url,new Response('test model '+file));window.aiFileWrites=(window.aiFileWrites||0)+1;}if(!options.local_files_only&&file==='tokenizer.json'&&!window.aiTransientThrown){window.aiTransientThrown=true;throw TypeError('Failed to fetch: temporary connection error');}}const extract=async texts=>{window.aiInputs??=[];window.aiInputs.push(...texts);const data=new Float32Array(texts.length*8);texts.forEach((s,i)=>{data[i*8]=.5;data[i*8+1]=(s.length%17)/17;});return {data,dispose(){}}};extract.dispose=async()=>{};return extract;}`;
+let base;const server=http.createServer((req,res)=>{const url=new URL(req.url,'http://localhost');let file=url.pathname==='/'?'index.html':url.pathname.slice(1);
+ if(file==='sw.js'){res.setHeader('Content-Type','text/javascript');res.end('');return}
+ if(file==='bootstrap.html'){const main=fs.readFileSync('android/app/src/main/java/cz/bernio/vedator/WebSource.java','utf8');let html=JSON.parse('"'+main.match(/String BOOTSTRAP_HTML="(.*?)";/s)[1]+'"');html=html.replace('https://bernio.cz/vedator/',base+'/');res.setHeader('Content-Type','text/html');res.end(html);return}
+ if(file==='test-ai.js'){res.setHeader('Content-Type','text/javascript');res.end(fs.readFileSync('test-ai.js','utf8')+'\nwindow.__standaloneTest={state,ask,smartMatches};');return}
+ if(file==='app-v2.js'){let code=source;const at=code.lastIndexOf('\n})();');code=code.slice(0,at)+'\n'+hooks+'\n'+code.slice(at);res.setHeader('Content-Type','text/javascript');res.end(code);return}
+ const p=path.resolve(root,file);if(!p.startsWith(root+path.sep)||!fs.existsSync(p)||!fs.statSync(p).isFile()){res.statusCode=404;res.end();return}res.setHeader('Content-Type',file.endsWith('.js')?'text/javascript':file.endsWith('.json')?'application/json':file.endsWith('.svg')?'image/svg+xml':'text/html');res.end(fs.readFileSync(p));});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));base='http://127.0.0.1:'+server.address().port;
+const browser=await puppeteer.launch({executablePath:process.env.CHROME_PATH||['/usr/bin/google-chrome','/usr/bin/chromium','/workspace/scratch/308968545b35/browser-tmp/chromium'].find(p=>fs.existsSync(p)),headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
+const errors=[];const page=await browser.newPage();page.on('pageerror',e=>errors.push(e.message));await page.setViewport({width:412,height:915,isMobile:true,hasTouch:true});
+await page.setRequestInterception(true);page.on('request',r=>r.url().startsWith('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1')?r.respond({status:200,contentType:'text/javascript',headers:{'Access-Control-Allow-Origin':'*'},body:fakeLibrary}):r.url().startsWith(base)||r.url().startsWith('data:')?r.continue():r.abort());
+await page.evaluateOnNewDocument(()=>localStorage.setItem('vedator-ui-language-v1','cz'));
+async function ready(){await page.waitForFunction(()=>document.documentElement.dataset.vedatorAskReady==='1',{timeout:20000})}
+try{
+ await page.goto(base+'/index.html#ask');await ready();
+ await page.click('[data-ask-ai-toggle]');await page.waitForFunction(()=>[...document.querySelectorAll('#ask-ai-dialog-actions-v2 button')].some(b=>b.textContent==='Stáhnout AI'));
+ await page.evaluate(()=>[...document.querySelectorAll('#ask-ai-dialog-actions-v2 button')].find(b=>b.textContent==='Stáhnout AI').click());
+ await page.waitForFunction(()=>window.__aiTest.ai.installed&&window.__aiTest.ai.enabled,{timeout:10000});
+ assert.equal(await page.evaluate(()=>window.aiLoadOptions.length),2,'One transient failure must be retried automatically');assert.equal(await page.evaluate(()=>window.aiFileWrites),4,'Partial files must be reused');
+ await page.evaluate(()=>[...document.querySelectorAll('#ask-ai-dialog-actions-v2 button')].find(b=>b.textContent==='Zavřít').click());
+ const counts=await page.evaluate(()=>Object.fromEntries(['foton','čas','černá díra','energie'].map(q=>[q,window.__aiTest.search(q).length])));console.log('Original search counts:',counts);
+ await page.evaluate(async()=>{const t=window.__aiTest;t.ui.query='čas';t.ui.ranked=t.search('čas');window.beforeIds=t.ui.ranked.map(r=>r.entry.item.id);window.aiInputs=[];await t.rerank();});
+ let result=await page.evaluate(()=>({ids:window.__aiTest.ui.ranked.map(r=>r.entry.item.id),before:window.beforeIds,inputs:window.aiInputs.length,status:document.getElementById('ask-ai-progress-label-v2').textContent}));
+ assert(result.before.length>=30);assert.deepEqual(result.ids.slice(0,30).sort(),result.before.slice(0,30).sort());assert.deepEqual(result.ids.slice(30),result.before.slice(30));assert.equal(result.inputs,31);assert(result.status.includes('30/30'));const mainFirst30=result.before.slice(0,30);
+ await page.evaluate(async()=>{const t=window.__aiTest,engine=t.ui.engine,search=engine.search.bind(engine),sample=search('čas','all').slice(0,24);engine.search=()=>sample;t.ui.query='fixture fewer matches';window.aiInputs=[];await t.rerank();engine.search=search;});
+ result=await page.evaluate(()=>({length:window.__aiTest.ui.ranked.length,inputs:window.aiInputs.length,status:document.getElementById('ask-ai-progress-label-v2').textContent}));assert.equal(result.length,24);assert.equal(result.inputs,25);assert(result.status.includes('24/24'));
+ // Exercise the exact APK bootstrap script, not a copy of its cache policy.
+ await page.evaluate(async()=>{for(const n of ['vedator-v2-app-old','vedator-v3-app-old','other-model-cache','vedator-offline-audio-v1'])await caches.open(n)});
+ await page.goto(base+'/bootstrap.html');await page.waitForFunction(()=>location.pathname==='/index.html'||location.pathname==='/');await page.click('[data-view="ask"]');await ready();
+ assert(await page.evaluate(()=>window.__aiTest.cached()),'APK reopening must preserve complete model files');
+ const keys=await page.evaluate(()=>caches.keys());assert(!keys.some(k=>/^vedator-v[0-9]+-app-/.test(k)));assert(keys.includes('other-model-cache'));assert(keys.includes('vedator-offline-audio-v1'));
+ await page.evaluate(async()=>{const t=window.__aiTest;t.ai.installed=true;t.ai.enabled=true;t.ui.query='čas';await t.rerank()});assert.deepEqual(await page.evaluate(()=>window.aiLoadOptions),[true],'Reopening must load from cache without permission to download');assert((await page.$eval('#ask-ai-progress-label-v2',n=>n.textContent)).includes('30/30'));
+ // A partial installation must never be advertised as available offline.
+ await page.evaluate(async()=>{const c=await caches.open('transformers-cache');for(const r of await c.keys())if(r.url.endsWith('/tokenizer_config.json'))await c.delete(r)});assert.equal(await page.evaluate(()=>window.__aiTest.cached()),false);
+ await page.goto(base+'/test-ai.html');await page.waitForFunction(()=>window.__standaloneTest?.state.dataReady);await page.click('#install');await page.waitForFunction(()=>window.__standaloneTest.state.installed&&!window.__standaloneTest.state.busy);
+ await page.evaluate(async()=>{window.aiInputs=[];await window.__standaloneTest.ask('čas')});
+ const standalone=await page.evaluate(async()=>({ids:window.__standaloneTest.state.ranked.map(r=>r.entry.id),base:(await window.__standaloneTest.smartMatches('čas')).map(r=>r.entry.id),inputs:window.aiInputs.length,status:document.getElementById('search-status').textContent}));
+ assert.deepEqual(standalone.base.slice(0,30),mainFirst30,'Standalone preselection must be the same first 30 as Ask');assert.deepEqual(standalone.ids.slice(0,30).sort(),mainFirst30.slice().sort());assert.equal(standalone.inputs,31);assert(standalone.status.includes('30/30'));
+ assert.deepEqual(errors,[]);console.log('PASS: first-download retry, complete model cache, exact first 30, unchanged tail, 24 available results, APK cache persistence and cache-only reload');
+}finally{await browser.close();server.close();}

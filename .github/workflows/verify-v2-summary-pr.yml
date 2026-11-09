@@ -61,6 +61,8 @@ jobs:
           ln -s index.html v2.html
           node tools/test-app-v2.mjs
           node tools/test-v2-ask.mjs
+          node tools/sync-ai-ask-engine.mjs --check
+          node tools/test-local-ai-browser.mjs
           node tools/test-v2-question-experience.mjs
           node tools/test-v2-episode-experience.mjs
           node tools/test-v2-full-parity.mjs
@@ -89,3 +91,4 @@ jobs:
           node tools/test-production-pwa.mjs
       - name: Verify ask in prepared production PWA
         run: node tools/test-v2-ask-browser.mjs
+

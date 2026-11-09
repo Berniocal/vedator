@@ -3,7 +3,7 @@
 const MODEL = "Xenova/multilingual-e5-small";
 const GENERATOR_MODEL = "onnx-community/Qwen2.5-0.5B-Instruct";
 const GENERATOR_SCRIPT = "./test-ai-generator-worker.js?v=20261109-wasm2";
-const ASK_ENGINE_SCRIPT = "./test-ai-ask-engine.js?v=20261109-share1";
+const ASK_ENGINE_SCRIPT = "./test-ai-ask-engine.js?v=20261109-apk-ai30";
 const RESULTS_PAGE = 10;
 const MAX_MATCHES = 160;
 // Transformers.js 3.8.1 uses the default browser Cache Storage named "transformers-cache".
@@ -19,7 +19,7 @@ function isVedatorModelWeights(req){
 }
 const DB_NAME = "vedator-ai-index-v1";
 // V telefonu se indexuje jen malý předvýběr, ne všech 5 000+ shrnutí.
-const CANDIDATE_LIMIT = 24;
+const CANDIDATE_LIMIT = 30;
 const BATCH_SIZE = 3;
 const EMBED_CHARS = 480;
 const MODEL_LIBRARY = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1";
@@ -73,14 +73,9 @@ async function getCache(){
 }
 async function cacheInstalled(){
   if(!("caches" in window))return false;
-  const available=await caches.keys();
-  for(const name of MODEL_CACHES){
-    if(!available.includes(name))continue;
-    const cache=await caches.open(name);
-    const requests=await cache.keys();
-    if(requests.some(isVedatorModelWeights))return true;
-  }
-  return false;
+  const names=await caches.keys(),files=[];
+  for(const name of MODEL_CACHES){if(names.includes(name))files.push(...(await (await caches.open(name)).keys()).filter(isVedatorModelFile));}
+  return files.some(isVedatorModelWeights)&&["config.json","tokenizer.json","tokenizer_config.json"].every(file=>files.some(request=>new URL(request.url).pathname.endsWith("/"+file)));
 }
 function isGeneratorModelFile(request){
   return modelPath(request).includes("/onnx-community/qwen2.5-0.5b-instruct/");
@@ -230,12 +225,6 @@ async function loadLibrary(){
   lib.env.allowRemoteModels=true;
   // Zabránit vysoké paralelizaci WASM na mobilech s omezenou RAM.
   if(lib.env.backends?.onnx?.wasm)lib.env.backends.onnx.wasm.numThreads=1;
-  // Při běžném vyhledávání nedovolíme model tiše znovu stáhnout.
-  lib.env.fetch=async (url,options)=>{
-    const address=String(url?.url||url);
-    if(!state.remoteDownload && address.includes("multilingual-e5-small"))throw Error("Soubor modelu chybí. Stáhni AI znovu ručně.");
-    return fetch(url,options);
-  };
   state.library=lib;
   return lib;
 }
@@ -244,8 +233,8 @@ async function loadExtractor(allowDownload){
   const lib=await loadLibrary();
   state.remoteDownload=Boolean(allowDownload);
   try{
-    const extractor=await lib.pipeline("feature-extraction",MODEL,{
-      dtype:"q8",device:"wasm",
+    const create=()=>lib.pipeline("feature-extraction",MODEL,{
+      dtype:"q8",device:"wasm",local_files_only:!allowDownload,
       progress_callback: p=>{
         if(!allowDownload)return;
         const progress=$("download-progress");
@@ -257,6 +246,12 @@ async function loadExtractor(allowDownload){
         }
       }
     });
+    let extractor;
+    try{extractor=await create()}catch(error){
+      if(!allowDownload||!/fetch|network|connection|timeout|HTTP (?:408|429|5\d\d)/i.test(String(error?.message||error)))throw error;
+      status("download-status","Spojení se přerušilo. Pokračuji ze stažených souborů…");
+      await new Promise(resolve=>setTimeout(resolve,250));extractor=await create();
+    }
     state.extractor=extractor;
     return extractor;
   }finally{state.remoteDownload=false;}
@@ -269,6 +264,7 @@ async function install(){
   status("download-status","Připojuji se ke zdroji AI modelu…");
   try{
     await getCache();
+    try{await navigator.storage?.persist?.()}catch{}
     await loadExtractor(true);
     state.installed=await cacheInstalled();
     if(!state.installed)throw Error("Model byl načten, ale prohlížeč nepotvrdil jeho trvalé uložení. Ověř volné místo nebo povolení ukládání dat.");
@@ -291,7 +287,7 @@ function openDb(){
   return state.dbPromise;
 }
 async function loadSavedVectors(keys){
-  // Čteme jen vektory pro aktuálních 24 kandidátů; nikdy celé historické úložiště.
+  // Čteme jen vektory pro aktuálních 30 kandidátů; nikdy celé historické úložiště.
   const missing=[...new Set(keys)].filter(key=>!state.vectors.has(key));
   if(!missing.length)return;
   const db=await openDb();if(!db)return;
@@ -724,14 +720,14 @@ async function ask(question){
       score:.25*dot(query,state.vectors.get(item.entry.key)) + .75*item.smartRank,
       reason:item.reason,tier:item.tier
     })).sort((a,b)=>b.score-a.score || a.tier-b.tier);
-    // Prvních 24 výsledků zpřesní malý AI model; ostatní zůstávají
+    // Prvních 30 výsledků zpřesní malý AI model; ostatní zůstávají
     // v pořadí bohatého vyhledávače „Zeptej se“ bez další inference.
     const additional=matched.slice(CANDIDATE_LIMIT,MAX_MATCHES).map(item=>({
       entry:item.entry,score:item.smartRank,reason:item.reason,tier:item.tier
     }));
     const ranked=[...scored,...additional];
     renderResults(ranked,question);
-    status("search-status","Nalezeno "+ranked.length+" souvisejících kapitol. Zobrazuji prvních "+Math.min(RESULTS_PAGE,ranked.length)+".","ok");
+    status("search-status","Hotovo – AI seřadila "+candidates.length+"/"+candidates.length+" prvních výsledků Zeptej se (nejvýše 30). Nalezeno celkem "+ranked.length+" kapitol.","ok");
     if(state.generatorInstalled){
       // Šetříme RAM telefonu: embedding model není při generování potřeba.
       if(state.extractor?.dispose)await state.extractor.dispose();
@@ -784,3 +780,4 @@ async function start(){
   setBusy(false);
 }
 start().catch(e=>{console.error(e);status("catalog-status","Chyba aplikace: "+(e.message||e),"error");});
+
