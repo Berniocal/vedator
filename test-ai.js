@@ -1,6 +1,10 @@
 // AI Vedátor – samostatný experiment. Není načítán hlavní aplikací.
 "use strict";
 const MODEL = "Xenova/multilingual-e5-small";
+const GENERATOR_MODEL = "onnx-community/Qwen2.5-0.5B-Instruct";
+const GENERATOR_SCRIPT = "./test-ai-generator-worker.js?v=20261109-generative1";
+const RESULTS_PAGE = 10;
+const MAX_MATCHES = 160;
 // Transformers.js 3.8.1 uses the default browser Cache Storage named "transformers-cache".
 const CACHE_KEY = "transformers-cache";
 const OLD_CACHE_KEY = "vedator-ai-model-v1";
@@ -19,7 +23,7 @@ const BATCH_SIZE = 3;
 const EMBED_CHARS = 480;
 const MODEL_LIBRARY = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1";
 const $ = id => document.getElementById(id);
-const state = { installed:false, busy:false, entries:[], vectors:new Map(), extractor:null, dbPromise:null, library:null, dataReady:false, remoteDownload:false };
+const state = { installed:false, generatorInstalled:false, gpuSupported:false, busy:false, entries:[], vectors:new Map(), extractor:null, dbPromise:null, library:null, dataReady:false, remoteDownload:false, ranked:[], visible:RESULTS_PAGE, worker:null, pending:new Map(), nextRequest:1 };
 const clean = value => String(value == null ? "" : value).replace(/\\[()[\]]/g," ").replace(/[{}$]/g," ").replace(/\s+/g," ").trim();
 const norm = value => clean(value).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 const tokens = value => new Set((norm(value).match(/[\p{L}\p{N}]{3,}/gu) || []).filter(x=>!["jak","proc","proč","kdy","kde","ktery","který","jaky","jaký","jsou","jsem","toto","podle","vedator","vedátor"].includes(x)));
@@ -31,6 +35,8 @@ function setBusy(value){
   $("remove").disabled=value || !state.installed;
   $("ask").disabled=value || !state.installed || !state.dataReady;
   $("question").disabled=value;
+  $("generator-install").disabled=value || state.generatorInstalled || !state.gpuSupported;
+  $("generator-remove").disabled=value || !state.generatorInstalled;
 }
 function fmtTime(seconds){let n=Math.max(0,Math.round(Number(seconds)||0));return Math.floor(n/3600)?Math.floor(n/3600)+":"+String(Math.floor(n%3600/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0"):Math.floor(n/60)+":"+String(n%60).padStart(2,"0");}
 function parseTime(s){const a=String(s||"").match(/\d+/g)?.map(Number)||[];return a.length===3?a[0]*3600+a[1]*60+a[2]:a.length===2?a[0]*60+a[1]:0;}
@@ -75,6 +81,117 @@ async function cacheInstalled(){
   }
   return false;
 }
+function isGeneratorModelFile(request){
+  return modelPath(request).includes("/onnx-community/qwen2.5-0.5b-instruct/");
+}
+function isGeneratorModelWeights(request){
+  const path=modelPath(request);
+  return isGeneratorModelFile(request)&&/\/onnx\/model_q4\.onnx(?:[?#]|$)/.test(path);
+}
+async function cacheGeneratorInstalled(){
+  if(!("caches" in window))return false;
+  const available=await caches.keys();
+  for(const name of MODEL_CACHES){
+    if(!available.includes(name))continue;
+    const cache=await caches.open(name);
+    if((await cache.keys()).some(isGeneratorModelWeights))return true;
+  }
+  return false;
+}
+async function deleteGeneratorCachedFiles(){
+  const names=await caches.keys();
+  for(const name of MODEL_CACHES){
+    if(!names.includes(name))continue;
+    const cache=await caches.open(name);
+    const requests=(await cache.keys()).filter(isGeneratorModelFile);
+    for(const request of requests)await cache.delete(request);
+  }
+}
+async function refreshGeneratorStatus(){
+  state.generatorInstalled=await cacheGeneratorInstalled();
+  const unsupported=!state.gpuSupported;
+  $("generator-status").textContent=state.generatorInstalled
+    ?(unsupported?"✓ Model uložen, ale WebGPU není dostupné":"✓ Model pro odpovědi je uložený")
+    :(unsupported?"WebGPU není dostupné – generování na tomto zařízení nelze spustit":"Model pro odpovědi není stažený");
+  setBusy(state.busy);
+}
+function terminateGeneratorWorker(){
+  if(state.worker){state.worker.terminate();state.worker=null;}
+  for(const request of state.pending.values())request.reject(Error("Generativní model byl zastaven."));
+  state.pending.clear();
+}
+function generatorWorker(){
+  if(state.worker)return state.worker;
+  const worker=new Worker(GENERATOR_SCRIPT,{type:"module"});
+  worker.onmessage=event=>{
+    const msg=event.data||{},request=state.pending.get(msg.id);
+    if(!request)return;
+    if(msg.type==="progress"){
+      $("generator-progress").classList.remove("hidden");
+      $("generator-progress").value=Math.max(0,Math.min(100,Number(msg.progress)||0));
+      status("generator-download-status","Stahuji "+String(msg.file||"model")+" · "+Math.round(Number(msg.progress)||0)+" %");
+      return;
+    }
+    if(msg.type==="stage"){
+      status("generator-download-status",(msg.stage==="done"?"Načteno: ":"Připravuji: ")+String(msg.file||"model"));
+      return;
+    }
+    state.pending.delete(msg.id);
+    if(msg.type==="ok")request.resolve(msg);
+    else request.reject(Error(msg.message||"Chyba generativního modelu."));
+  };
+  worker.onerror=e=>{
+    const msg="Generativní model se nepodařilo spustit. Telefon může mít nedostatek paměti nebo nepodporované WebGPU.";
+    for(const request of state.pending.values())request.reject(Error(msg));
+    state.pending.clear();
+    worker.terminate();
+    if(state.worker===worker)state.worker=null;
+    console.warn("AI generátor",e.message||e);
+  };
+  state.worker=worker;
+  return worker;
+}
+function workerRequest(action,params={}){
+  return new Promise((resolve,reject)=>{
+    const id=state.nextRequest++;
+    state.pending.set(id,{resolve,reject});
+    try{generatorWorker().postMessage({id,action,...params});}
+    catch(error){state.pending.delete(id);reject(error);}
+  });
+}
+async function installGenerator(){
+  if(state.busy||state.generatorInstalled||!state.gpuSupported)return;
+  if(!confirm("Generativní AI má přibližně 800 MB a potřebuje dostatek paměti telefonu. Stáhnout ji jen pro tento prohlížeč?"))return;
+  setBusy(true);
+  $("generator-progress").classList.remove("hidden");
+  $("generator-progress").value=0;
+  status("generator-download-status","Připravuji stažení generativního modelu…");
+  try{
+    await workerRequest("load",{canDownload:true});
+    state.generatorInstalled=await cacheGeneratorInstalled();
+    if(!state.generatorInstalled)throw Error("Model se načetl, ale prohlížeč nepotvrdil jeho uložení.");
+    $("generator-progress").value=100;
+    status("generator-download-status","Model je uložený. Další odpovědi budu psát vlastními slovy z nalezených shrnutí.","ok");
+  }catch(error){
+    status("generator-download-status","Generativní AI nelze připravit: "+(error.message||error),"error");
+    terminateGeneratorWorker();
+  }finally{await refreshGeneratorStatus();setBusy(false);}
+}
+async function removeGenerator(){
+  if(state.busy||!state.generatorInstalled)return;
+  if(!confirm("Smazat jen generativní model Qwen? Vyhledávací AI a shrnutí zůstanou zachovaná."))return;
+  setBusy(true);
+  try{
+    terminateGeneratorWorker();
+    await deleteGeneratorCachedFiles();
+    state.generatorInstalled=await cacheGeneratorInstalled();
+    if(state.generatorInstalled)throw Error("Některé soubory generátoru zůstaly uložené.");
+    $("generator-progress").classList.add("hidden");
+    status("generator-download-status","Generativní model byl smazán. Vyhledávání funguje dál.","ok");
+  }catch(error){status("generator-download-status","Smazání se nepodařilo: "+(error.message||error),"error");}
+  finally{await refreshGeneratorStatus();setBusy(false);}
+}
+
 async function removeCachedModelFiles(){
   const available=await caches.keys();
   for(const name of MODEL_CACHES){
@@ -89,7 +206,7 @@ async function removeCachedModelFiles(){
 async function refreshModelStatus(){
   state.installed=await cacheInstalled();
   $("model-status").textContent=state.installed?"✓ Model je uložený v tomto prohlížeči":"Model není stažený";
-  status("search-status",state.installed?"Můžeš se zeptat. Při prvním dotazu se připraví index shrnutí.":"Pro AI hledání nejdříve stiskni Stáhnout AI.");
+  status("search-status",state.installed?"Můžeš se zeptat. Významová AI bude porovnávat jen relevantní pasáže.":"Pro AI hledání nejdříve stiskni Stáhnout AI.");
   setBusy(state.busy);
 }
 async function loadLibrary(){
