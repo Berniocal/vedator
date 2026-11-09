@@ -3418,9 +3418,20 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     try{localStorage.setItem(ASK_AI_ENABLED_KEY,askAi.enabled?'1':'0')}catch{}
     if(state.view==='ask')syncParityControls();
   }
-  function askAiStatus(value){
+  function askAiStatus(value,processed=null,total=ASK_AI_RERANK_LIMIT){
     const node=$('#ask-ai-running-v2');if(!node)return;
-    node.textContent=value||'';node.classList.toggle('hidden',!value);
+    const label=$('#ask-ai-progress-label-v2'),track=$('#ask-ai-progress-track-v2'),fill=$('#ask-ai-progress-fill-v2');
+    if(label)label.textContent=value||'';
+    node.classList.toggle('hidden',!value);
+    const active=Boolean(value)&&Number.isFinite(processed)&&total>0;
+    if(track){
+      track.classList.toggle('hidden',!active);
+      if(active){
+        const percent=Math.max(0,Math.min(100,Math.round(processed/total*100)));
+        track.setAttribute('aria-valuenow',String(percent));
+        if(fill)fill.style.width=percent+'%';
+      }
+    }
   }
   function askAiStopRanking(){
     askAi.sequence++;askAiStatus('');
@@ -3434,7 +3445,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   function askAiStyle(){
     if(document.querySelector('style[data-ask-local-ai]'))return;
     const style=document.createElement('style');style.dataset.askLocalAi='1';
-    style.textContent='.ask-ai-toggle-v2{font-weight:850}.ask-ai-toggle-v2.active{background:var(--accent)!important;color:#fff!important;border-color:var(--accent)!important}.ask-ai-backdrop-v2{position:fixed;inset:0;z-index:16000;display:flex;justify-content:center;align-items:center;padding:16px;background:rgba(3,7,18,.72)}.ask-ai-panel-v2{width:min(440px,100%);border:1px solid var(--line);border-radius:18px;padding:20px;background:var(--card);color:var(--ink);box-shadow:var(--shadow-strong);max-height:90dvh;overflow:auto}.ask-ai-panel-v2 h2{font-size:1.22rem;margin:0 0 10px}.ask-ai-panel-v2 p{margin:8px 0 14px;line-height:1.5}.ask-ai-actions-v2{display:flex;flex-wrap:wrap;gap:8px}.ask-ai-actions-v2 button{border:1px solid var(--line);border-radius:11px;padding:10px 12px;min-height:42px;background:var(--raised);color:var(--ink);font:inherit;font-weight:750;cursor:pointer;flex:1 1 120px}.ask-ai-actions-v2 button.primary{background:var(--accent);color:white;border-color:var(--accent)}.ask-ai-actions-v2 button.danger{color:var(--danger)}.ask-ai-actions-v2 button:disabled{opacity:.5}.ask-ai-panel-v2 progress{width:100%;height:10px;accent-color:var(--accent)}#ask-ai-dialog-status-v2{font-size:.86rem;color:var(--muted);overflow-wrap:anywhere}#ask-ai-running-v2{margin:5px 1px 12px;color:var(--muted);font-size:.86rem}';
+    style.textContent='.ask-ai-toggle-v2{font-weight:850}.ask-ai-toggle-v2.active{background:var(--accent)!important;color:#fff!important;border-color:var(--accent)!important}.ask-ai-backdrop-v2{position:fixed;inset:0;z-index:16000;display:flex;justify-content:center;align-items:center;padding:16px;background:rgba(3,7,18,.72)}.ask-ai-panel-v2{width:min(440px,100%);border:1px solid var(--line);border-radius:18px;padding:20px;background:var(--card);color:var(--ink);box-shadow:var(--shadow-strong);max-height:90dvh;overflow:auto}.ask-ai-panel-v2 h2{font-size:1.22rem;margin:0 0 10px}.ask-ai-panel-v2 p{margin:8px 0 14px;line-height:1.5}.ask-ai-actions-v2{display:flex;flex-wrap:wrap;gap:8px}.ask-ai-actions-v2 button{border:1px solid var(--line);border-radius:11px;padding:10px 12px;min-height:42px;background:var(--raised);color:var(--ink);font:inherit;font-weight:750;cursor:pointer;flex:1 1 120px}.ask-ai-actions-v2 button.primary{background:var(--accent);color:white;border-color:var(--accent)}.ask-ai-actions-v2 button.danger{color:var(--danger)}.ask-ai-actions-v2 button:disabled{opacity:.5}.ask-ai-panel-v2 progress{width:100%;height:10px;accent-color:var(--accent)}#ask-ai-dialog-status-v2{font-size:.86rem;color:var(--muted);overflow-wrap:anywhere}#ask-ai-running-v2{padding:12px 14px;margin:8px 1px 14px;color:var(--ink);font-size:.88rem;border:1px solid var(--accent);background:var(--accent2);border-radius:12px}#ask-ai-progress-label-v2{display:block;line-height:1.5;font-weight:700}#ask-ai-progress-track-v2{display:block;height:9px;margin-top:10px;background:var(--line);border-radius:999px;overflow:hidden}#ask-ai-progress-track-v2.hidden{display:none!important}#ask-ai-progress-fill-v2{display:block;width:0;height:100%;background:var(--accent);border-radius:999px;transition:width .15s ease}';
     document.head.append(style);
   }
   function askAiDialog(){
@@ -3614,7 +3625,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     const token=++askAi.sequence,query=askUi.query,filter=askUi.filter;
     const original=askEngine().search(query,filter),sample=original.slice(0,ASK_AI_RERANK_LIMIT);
     if(sample.length<2)return;
-    askAiStatus(text('AI zpřesňuje pořadí výsledků…','AI spresňuje poradie výsledkov…'));
+    askAiStatus(text('Zatím vidíš původní pořadí. AI připravuje výsledky…','Zatiaľ vidíš pôvodné poradie. AI pripravuje výsledky…'),0,sample.length);
     try{
       await askAiExtractor(false);
       if(token!==askAi.sequence||!askAi.enabled||askUi.query!==query||askUi.filter!==filter||state.view!=='ask')return;
@@ -3631,13 +3642,13 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
           const tier=1-Math.min(8,batch[j].tier)/8,originalScore=Number(batch[j].score)||0;
           ranks.push({result:batch[j],position:i+j,value:.63*(.7*tier+.3*originalScore)+.37*cosine});
         }
-        askAiStatus(text('AI porovnává ','AI porovnáva ')+Math.min(i+3,sample.length)+'/'+sample.length);
+        askAiStatus(text('Zatím vidíš původní pořadí. AI porovnává ','Zatiaľ vidíš pôvodné poradie. AI porovnáva ')+Math.min(i+3,sample.length)+'/'+sample.length+'.',Math.min(i+3,sample.length),sample.length);
         await new Promise(resolve=>setTimeout(resolve,0));
       }
       if(token!==askAi.sequence||!askAi.enabled||askUi.query!==query||askUi.filter!==filter||state.view!=='ask')return;
       askUi.ranked=askAiApplyFirst30Only(original,ranks);
       renderAskResults();
-      askAiStatus(text('Pořadí zpřesněno lokální AI.','Poradie spresnené lokálnou AI.'));
+      askAiStatus(text('Hotovo – výsledky už jsou seřazené pomocí AI.','Hotovo – výsledky sú už zoradené pomocou AI.'));
     }catch(error){
       console.warn('Ask AI search failed; original results preserved',error);
       if(token===askAi.sequence){
@@ -3730,7 +3741,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   function renderAsk(){
     const root=$('#ask-v2');if(!root)return;
     if(!root.querySelector('#ask-results-v2')){
-      root.innerHTML='<p id="ask-status-v2" class="hidden" role="status" aria-live="polite"></p><p id="ask-ai-running-v2" class="hidden" role="status" aria-live="polite"></p><div id="ask-results-v2" class="grid"></div><button id="ask-more-v2" class="secondary hidden" type="button"></button>';
+      root.innerHTML='<p id="ask-status-v2" class="hidden" role="status" aria-live="polite"></p><div id="ask-ai-running-v2" class="hidden" role="status" aria-live="polite"><span id="ask-ai-progress-label-v2"></span><div id="ask-ai-progress-track-v2" class="hidden" role="progressbar" aria-label="Postup AI řazení" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="ask-ai-progress-fill-v2"></span></div></div><div id="ask-results-v2" class="grid"></div><button id="ask-more-v2" class="secondary hidden" type="button"></button>';
       root.addEventListener('click',event=>{
         const catalog=event.target.closest('a[href]');
         if(catalog&&catalog.getAttribute('href')===location.hash){event.preventDefault();processDeepLink().catch(error=>console.warn('Ask catalog navigation failed',error));return}
