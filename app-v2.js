@@ -3375,6 +3375,251 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   }
 
 
+
+  /* ASK_LOCAL_AI_V1 – optional small on-device semantic re-ranking only.
+     Existing Ask engine remains authoritative; no generative AI or API. */
+  const ASK_AI_MODEL='Xenova/multilingual-e5-small';
+  const ASK_AI_ENABLED_KEY='vedator-ask-ai-enabled-v1';
+  const ASK_AI_CACHE_NAMES=['transformers-cache','vedator-ai-model-v1'];
+  const askAi={enabled:false,installed:false,busy:false,extractor:null,library:null,loading:null,sequence:0,dialog:null,progress:0,checked:false};
+  function askAiModelFile(request){
+    let url=String(request?.url||request||'').toLowerCase();
+    try{url=decodeURIComponent(url)}catch{}
+    return url.includes('/xenova/multilingual-e5-small/');
+  }
+  function askAiWeightFile(request){return askAiModelFile(request)&&/\/onnx\/model_(?:quantized|int8|uint8|q8)\.onnx(?:[?#]|$)/.test(String(request.url).toLowerCase())}
+  async function askAiCached(){
+    if(!('caches' in window))return false;
+    const names=await caches.keys();
+    for(const name of ASK_AI_CACHE_NAMES){
+      if(!names.includes(name))continue;
+      const cache=await caches.open(name);
+      if((await cache.keys()).some(askAiWeightFile))return true;
+    }
+    return false;
+  }
+  function askAiSaveEnabled(value){
+    askAi.enabled=Boolean(value&&askAi.installed);
+    try{localStorage.setItem(ASK_AI_ENABLED_KEY,askAi.enabled?'1':'0')}catch{}
+    if(state.view==='ask')syncParityControls();
+  }
+  function askAiStatus(value){
+    const node=$('#ask-ai-running-v2');if(!node)return;
+    node.textContent=value||'';node.classList.toggle('hidden',!value);
+  }
+  function askAiStopRanking(){
+    askAi.sequence++;askAiStatus('');
+  }
+  function askAiBaseResults(){
+    if(!askUi.ready)return;
+    askAiStopRanking();
+    askUi.ranked=askUi.query?askEngine().search(askUi.query,askUi.filter):[];
+    if(state.view==='ask')renderAskResults();
+  }
+  function askAiStyle(){
+    if(document.querySelector('style[data-ask-local-ai]'))return;
+    const style=document.createElement('style');style.dataset.askLocalAi='1';
+    style.textContent='.ask-ai-toggle-v2{font-weight:850}.ask-ai-toggle-v2.active{background:var(--accent)!important;color:#fff!important;border-color:var(--accent)!important}.ask-ai-backdrop-v2{position:fixed;inset:0;z-index:16000;display:flex;justify-content:center;align-items:center;padding:16px;background:rgba(3,7,18,.72)}.ask-ai-panel-v2{width:min(440px,100%);border:1px solid var(--line);border-radius:18px;padding:20px;background:var(--card);color:var(--ink);box-shadow:var(--shadow-strong);max-height:90dvh;overflow:auto}.ask-ai-panel-v2 h2{font-size:1.22rem;margin:0 0 10px}.ask-ai-panel-v2 p{margin:8px 0 14px;line-height:1.5}.ask-ai-actions-v2{display:flex;flex-wrap:wrap;gap:8px}.ask-ai-actions-v2 button{border:1px solid var(--line);border-radius:11px;padding:10px 12px;min-height:42px;background:var(--raised);color:var(--ink);font:inherit;font-weight:750;cursor:pointer;flex:1 1 120px}.ask-ai-actions-v2 button.primary{background:var(--accent);color:white;border-color:var(--accent)}.ask-ai-actions-v2 button.danger{color:var(--danger)}.ask-ai-actions-v2 button:disabled{opacity:.5}.ask-ai-panel-v2 progress{width:100%;height:10px;accent-color:var(--accent)}#ask-ai-dialog-status-v2{font-size:.86rem;color:var(--muted);overflow-wrap:anywhere}#ask-ai-running-v2{margin:5px 1px 12px;color:var(--muted);font-size:.86rem}';
+    document.head.append(style);
+  }
+  function askAiDialog(){
+    if(askAi.dialog)return askAi.dialog;
+    askAiStyle();
+    const overlay=document.createElement('div');overlay.className='ask-ai-backdrop-v2 hidden';
+    overlay.setAttribute('role','presentation');
+    overlay.innerHTML='<section class="ask-ai-panel-v2" role="dialog" aria-modal="true" aria-labelledby="ask-ai-dialog-title-v2"><h2 id="ask-ai-dialog-title-v2"></h2><p id="ask-ai-dialog-desc-v2"></p><progress id="ask-ai-dialog-progress-v2" max="100" value="0" class="hidden"></progress><p id="ask-ai-dialog-status-v2" role="status" aria-live="polite"></p><div class="ask-ai-actions-v2" id="ask-ai-dialog-actions-v2"></div></section>';
+    document.body.append(overlay);
+    overlay.addEventListener('click',event=>{if(event.target===overlay&&!askAi.busy)askAiCloseDialog()});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!overlay.classList.contains('hidden')&&!askAi.busy)askAiCloseDialog()});
+    askAi.dialog=overlay;return overlay;
+  }
+  function askAiCloseDialog(){
+    if(!askAi.dialog||askAi.busy)return;
+    askAi.dialog.classList.add('hidden');
+  }
+  function askAiDialogMessage(value){
+    const target=$('#ask-ai-dialog-status-v2');if(target)target.textContent=value||'';
+  }
+  function askAiDialogAction(label,fn,variant=''){
+    const button=document.createElement('button');button.type='button';button.textContent=label;
+    if(variant)button.classList.add(variant);
+    button.addEventListener('click',fn);return button;
+  }
+  async function askAiOpenDialog(){
+    const overlay=askAiDialog();
+    overlay.classList.remove('hidden');
+    const title=$('#ask-ai-dialog-title-v2'),desc=$('#ask-ai-dialog-desc-v2'),actions=$('#ask-ai-dialog-actions-v2');
+    title.textContent=text('AI – chytré vyhledávání','AI – inteligentné vyhľadávanie');
+    desc.textContent=text('Malá AI (přibližně 140 MB) pomůže zpřesnit pořadí nalezených kapitol podle významu otázky. Vychází z chytrého vyhledávače „Zeptej se“ a porovnává pouze 24 nejlepších výsledků. Negeneruje vlastní odpovědi a nepoužívá placené API. Model se stahuje pouze na vyžádání.',
+      'Malá AI (približne 140 MB) spresní poradie nájdených kapitol podľa významu otázky. Využíva vyhľadávač „Spýtaj sa“ a porovnáva len 24 najlepších výsledkov. Nevytvára vlastné odpovede ani nepoužíva platené API. Model sa sťahuje iba na vyžiadanie.');
+    actions.replaceChildren();
+    askAiDialogMessage(text('Kontroluji uložený model…','Kontrolujem uložený model…'));
+    try{
+      askAi.installed=await askAiCached();askAi.checked=true;
+      if(!askAi.installed&&askAi.enabled)askAiSaveEnabled(false);
+      askAiDialogMessage(askAi.installed?text('Model je uložený v tomto prohlížeči.','Model je uložený v tomto prehliadači.'):text('Model zatím není stažený.','Model ešte nie je stiahnutý.'));
+    }catch(e){askAiDialogMessage(String(e?.message||e))}
+    if(overlay.classList.contains('hidden'))return;
+    const cancel=askAiDialogAction(text('Zrušit','Zrušiť'),askAiCloseDialog);
+    actions.append(cancel);
+    if(!askAi.installed){
+      actions.append(askAiDialogAction(text('Stáhnout AI','Stiahnuť AI'),()=>{void askAiDownload()},'primary'));
+    }else{
+      actions.append(askAiDialogAction(askAi.enabled?text('Vypnout AI','Vypnúť AI'):text('Zapnout AI','Zapnúť AI'),()=>{
+        if(askAi.enabled){askAiSaveEnabled(false);askAiBaseResults()}else{
+          askAiSaveEnabled(true);
+          if(askUi.query&&askUi.ready&&state.view==='ask'){askAiBaseResults();void askAiRerank()}
+        }
+        askAiCloseDialog();
+      },'primary'));
+      actions.append(askAiDialogAction(text('Smazat model','Zmazať model'),()=>{void askAiDelete()},'danger'));
+    }
+  }
+  async function askAiLibrary(){
+    if(askAi.library)return askAi.library;
+    const lib=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1');
+    lib.env.useBrowserCache=true;lib.env.allowLocalModels=false;lib.env.allowRemoteModels=true;
+    if(lib.env.backends?.onnx?.wasm)lib.env.backends.onnx.wasm.numThreads=1;
+    askAi.library=lib;return lib;
+  }
+  async function askAiExtractor(download=false){
+    if(askAi.extractor)return askAi.extractor;
+    if(askAi.loading)return askAi.loading;
+    askAi.loading=(async()=>{
+      const lib=await askAiLibrary();
+      const sourceFetch=lib.env.fetch||fetch.bind(window);
+      lib.env.fetch=(url,opts)=>{
+        const address=String(url?.url||url||'').toLowerCase();
+        if(!download&&address.includes('multilingual-e5-small'))throw Error(text('Model není úplně uložen. Stáhni ho ručně.','Model nie je úplne uložený. Stiahni ho ručne.'));
+        return sourceFetch(url,opts);
+      };
+      const extractor=await lib.pipeline('feature-extraction',ASK_AI_MODEL,{
+        dtype:'q8',device:'wasm',
+        progress_callback:p=>{
+          if(!download||!askAi.dialog||askAi.dialog.classList.contains('hidden'))return;
+          if(p.status==='progress'&&Number.isFinite(p.progress)){
+            askAi.progress=Math.max(0,Math.min(100,p.progress));
+            const bar=$('#ask-ai-dialog-progress-v2');bar.classList.remove('hidden');bar.value=askAi.progress;
+            askAiDialogMessage(text('Stahuji: ','Sťahujem: ')+String(p.file||'model')+' · '+Math.round(p.progress)+' %');
+          }else if(p.status==='initiate'||p.status==='done'){
+            askAiDialogMessage((p.status==='done'?text('Staženo: ','Stiahnuté: '):text('Připravuji: ','Pripravujem: '))+String(p.file||'model'));
+          }
+        }
+      });
+      askAi.extractor=extractor;return extractor;
+    })().finally(()=>{askAi.loading=null});
+    return askAi.loading;
+  }
+  async function askAiDownload(){
+    if(askAi.busy)return;
+    askAi.busy=true;
+    $('#ask-ai-dialog-actions-v2')?.querySelectorAll('button').forEach(b=>b.disabled=true);
+    askAiDialogMessage(text('Připravuji stahování…','Pripravujem sťahovanie…'));
+    try{
+      await askAiExtractor(true);
+      askAi.installed=await askAiCached();
+      if(!askAi.installed)throw Error(text('Model se načetl, ale nepodařilo se ověřit jeho uložení.','Model sa načítal, ale nepodarilo sa overiť jeho uloženie.'));
+      askAiSaveEnabled(true);
+      askAiDialogMessage(text('AI je stažená a zapnutá.','AI je stiahnutá a zapnutá.'));
+      if(askUi.query&&askUi.ready&&state.view==='ask'){askAiBaseResults();void askAiRerank()}
+    }catch(error){
+      console.warn('Ask AI download',error);
+      askAiDialogMessage(text('Stažení se nepodařilo: ','Stiahnutie sa nepodarilo: ')+String(error?.message||error));
+    }finally{
+      askAi.busy=false;
+      $('#ask-ai-dialog-progress-v2')?.classList.add('hidden');
+      // Rebuild actions for success/failure while keeping the explanation visible.
+      const actions=$('#ask-ai-dialog-actions-v2');actions.replaceChildren();
+      actions.append(askAiDialogAction(text('Zavřít','Zavrieť'),askAiCloseDialog));
+      if(!askAi.installed)actions.append(askAiDialogAction(text('Zkusit znovu','Skúsiť znova'),()=>{void askAiDownload()},'primary'));
+    }
+  }
+  async function askAiDelete(){
+    if(askAi.busy)return;
+    askAi.busy=true;askAiStopRanking();
+    askAiSaveEnabled(false);
+    const actions=$('#ask-ai-dialog-actions-v2');actions.querySelectorAll('button').forEach(b=>b.disabled=true);
+    askAiDialogMessage(text('Mažu uložený model…','Mažem uložený model…'));
+    try{
+      if(askAi.loading)await askAi.loading.catch(()=>{});
+      if(askAi.extractor?.dispose)await askAi.extractor.dispose();
+      askAi.extractor=null;
+      const names=await caches.keys();
+      for(const name of ASK_AI_CACHE_NAMES){
+        if(!names.includes(name))continue;
+        const cache=await caches.open(name);
+        for(const request of (await cache.keys()).filter(askAiModelFile))await cache.delete(request);
+      }
+      askAi.installed=await askAiCached();
+      if(askAi.installed)throw Error(text('Některé soubory modelu zůstaly uložené.','Niektoré súbory modelu zostali uložené.'));
+      askAiBaseResults();
+      askAiDialogMessage(text('Model byl smazán. Zeptej se funguje dál.','Model bol zmazaný. Spýtaj sa funguje ďalej.'));
+    }catch(error){askAiDialogMessage(text('Smazání se nepodařilo: ','Mazanie sa nepodarilo: ')+String(error?.message||error))}
+    finally{
+      askAi.busy=false;
+      actions.replaceChildren(askAiDialogAction(text('Zavřít','Zavrieť'),askAiCloseDialog));
+      if(state.view==='ask')syncParityControls();
+    }
+  }
+  function askAiPassage(result,query){
+    const item=result.entry.item,copy=sk()?item.sk:item.cs;
+    const title=String(copy.title||'');
+    const terms=String(query).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().match(/[\p{L}\p{N}]{4,}/gu)||[];
+    const score=point=>{
+      const raw=String(point||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+      return terms.reduce((n,t)=>n+(raw.includes(t)?1:0),0);
+    };
+    const ranked=(copy.points||[]).map((point,i)=>({point,weight:score(point),i})).sort((a,b)=>b.weight-a.weight||a.i-b.i);
+    const selected=ranked.slice(0,3).sort((a,b)=>a.i-b.i).map(item=>item.point);
+    return (title+'. '+selected.join(' ')).slice(0,480);
+  }
+  async function askAiVectors(texts){
+    const result=await askAi.extractor(texts,{pooling:'mean',normalize:true});
+    const size=result.data.length/texts.length;
+    if(!Number.isInteger(size)||size<8)throw Error('Neplatný výstup AI modelu');
+    const vectors=texts.map((_,i)=>new Float32Array(result.data.slice(i*size,(i+1)*size)));
+    if(typeof result.dispose==='function')result.dispose();
+    return vectors;
+  }
+  async function askAiRerank(){
+    if(!askAi.enabled||!askAi.installed||!askUi.ready||!askUi.query||state.view!=='ask')return;
+    const token=++askAi.sequence,query=askUi.query,filter=askUi.filter;
+    const original=askEngine().search(query,filter),sample=original.slice(0,24);
+    if(sample.length<2)return;
+    askAiStatus(text('AI zpřesňuje pořadí výsledků…','AI spresňuje poradie výsledkov…'));
+    try{
+      await askAiExtractor(false);
+      if(token!==askAi.sequence||!askAi.enabled||askUi.query!==query||askUi.filter!==filter||state.view!=='ask')return;
+      const question=(await askAiVectors(['query: '+query]))[0];
+      const ranks=[];
+      for(let i=0;i<sample.length;i+=3){
+        if(token!==askAi.sequence||!askAi.enabled||askUi.query!==query||askUi.filter!==filter||state.view!=='ask')return;
+        const batch=sample.slice(i,i+3);
+        const embeddings=await askAiVectors(batch.map(item=>'passage: '+askAiPassage(item,query)));
+        for(let j=0;j<batch.length;j++){
+          let cosine=0;const v=embeddings[j];
+          for(let k=0;k<v.length;k++)cosine+=question[k]*v[k];
+          // Zachovej důležitost přesné shody a synonym z původního vyhledávače.
+          const tier=1-Math.min(8,batch[j].tier)/8,originalScore=Number(batch[j].score)||0;
+          ranks.push({result:batch[j],value:.63*(.7*tier+.3*originalScore)+.37*cosine});
+        }
+        askAiStatus(text('AI porovnává ','AI porovnáva ')+Math.min(i+3,sample.length)+'/'+sample.length);
+        await new Promise(resolve=>setTimeout(resolve,0));
+      }
+      if(token!==askAi.sequence||!askAi.enabled||askUi.query!==query||askUi.filter!==filter||state.view!=='ask')return;
+      ranks.sort((a,b)=>b.value-a.value);
+      askUi.ranked=[...ranks.map(x=>({...x.result,aiRanked:true})),...original.slice(sample.length)];
+      renderAskResults();
+      askAiStatus(text('Pořadí zpřesněno lokální AI.','Poradie spresnené lokálnou AI.'));
+    }catch(error){
+      console.warn('Ask AI search failed; original results preserved',error);
+      if(token===askAi.sequence){
+        askUi.ranked=original;renderAskResults();
+        askAiStatus(text('AI nyní není dostupná. Zobrazuji původní výsledky.','AI teraz nie je dostupná. Zobrazujem pôvodné výsledky.'));
+      }
+    }
+  }
+
   const askUi={engine:null,data:null,draft:'',query:'',filter:'all',ranked:[],visible:30,open:new Set(),ready:false,loading:false,progress:0,error:'',loadPromise:null,loadToken:0};
   function askEngine(){
     if(!askUi.engine)askUi.engine=createAskSearchEngine();
