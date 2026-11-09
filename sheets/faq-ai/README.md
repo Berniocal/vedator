@@ -44,6 +44,14 @@ Určeno pro [Vedator FAQ](https://docs.google.com/spreadsheets/d/1ByMC28LBMoDD1s
 
 **Aktualizace již existující instalace:** nahraďte novými verzemi soubory `Code.gs` a `Sidebar.html`. `AskEngine.gs` můžete ponechat, pokud již používáte stejnou verzi z této složky. Pak spusťte **Vedátor → Obnovit databázi z GitHubu**, aby se stáhly i neotázky. U staršího skrytého listu proběhne migrace automaticky při dalším zpracování, je-li dostupný GitHub.
 
+## Zrychlení vyhledávání a AI
+
+- Model stále vyhodnocuje nejvýše **30 původních kandidátů** a používá stejné váhy hodnocení, ale počítá embeddingy v dávkách **po osmi** místo po třech. To snižuje režii opakovaného volání ONNX/WASM.
+- Jednou vypočtené vektory dotazů i vybraných kapitol se **znovu používají** při dalších řádcích. Paměť je omezená a průběžně se uvolňuje.
+- Při ukládání výsledků se nejlepších 30 kandidátů krátkodobě uchovává (do 15 minut) v uživatelské mezipaměti Apps Scriptu. Uložení pak nemusí opět sestavovat celý vyhledávací index. Při chybě či nedostupné mezipaměti se použije původní spolehlivé vyhledání.
+- Pokud v tabulce není právě vybraný vyplněný řádek, panel neukazuje červenou chybu; lze rovnou spustit **Zpracovat celý list**.
+- Skutečná rychlost záleží na zařízení a dostupnosti WebAssembly; první inicializace modelu může být pomalejší. Při opakovaných tématech bývá větší přínos díky znovupoužití vektorů.
+
 ## Technická omezení
 
 Boční panel Apps Scriptu běží ve **zabezpečeném iframe Google**. Není zaručeno, že konkrétní prohlížeč povolí WebAssembly, velký model a dlouhodobé uložení v Cache Storage. **Hromadné zpracování probíhá jen při otevřeném bočním panelu a zapnutém prohlížeči**; nejedná se o serverový automat běžící na pozadí. U velkého seznamu otázek může trvat dlouho. Po každé dávce se změny ukládají a později lze navázat. Tato část byla ověřena **syntakticky**, ale **nebyla spuštěna ve skutečném Google Sheets iframe**. V takovém případě zůstává chytré vyhledávání a automatický výstup funkční; volitelná AI vypíše chybu. Model z mobilního Vedátora se do prostředí Google Tabulek automaticky nepřenáší.
