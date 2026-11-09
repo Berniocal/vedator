@@ -1368,6 +1368,7 @@ function vedatorSeradAsk_(query, index, limit) {
     return {
       id: key,
       score: Math.max(0, Math.min(1, Number(result.score) || 0)),
+      tier: Number(result.tier) || 0,
       title: item.cs || item.sk,
       url: item.url,
       episode: item.episode,
@@ -1439,6 +1440,7 @@ function vedatorAiKandidati(rowNumber) {
         time: item.time,
         url: item.url,
         score: item.score,
+        tier: item.tier,
         passage: (item.title + '. ' + chosen.join(' ')).slice(0, 480)
       };
     })
@@ -1540,7 +1542,7 @@ function vedatorAiKandidatiDavka(cislaRadku) {
           .slice(0, 3).sort((a,b) => a.i - b.i).map(x => x.value);
         return {
           id: item.id, title: item.title, episode: item.episode,
-          time: item.time, url: item.url, score: item.score,
+          time: item.time, url: item.url, score: item.score, tier: item.tier,
           passage: (item.title + '. ' + chosen.join(' ')).slice(0, 480)
         };
       })
