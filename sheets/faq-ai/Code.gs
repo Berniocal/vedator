@@ -16,6 +16,9 @@ const CFG = Object.freeze({
   DATABASE_SHEET: 'Databáze',
   TOP_N: 5,
   AI_RERANK_N: 30,
+  DEFAULT_SEARCH_MODE: 'question',
+  PROP_SEARCH_MODE: 'VEDATOR_FAQ_SEARCH_MODE_V1',
+  PROP_DB_SCHEMA: 'VEDATOR_FAQ_DB_SCHEMA_V2',
   REPO: 'Berniocal/vedator',
   BRANCH: 'main',
   PUBLIC_BASE: 'https://bernio.cz/vedator/',
@@ -43,7 +46,7 @@ const ALL_MATCH_HEADERS = [
   'Pojmy položené otázky', 'Pojmy nalezené otázky'
 ];
 
-const DB_HEADERS = ['Díl', 'Pořadí', 'Čas', 'Sekundy odkazu', 'Otázka česky', 'Otázka slovensky', 'Odkaz', 'Zdroj', 'Odrážky CZ (JSON)', 'Odrážky SK (JSON)'];
+const DB_HEADERS = ['Díl', 'Pořadí', 'Čas', 'Sekundy odkazu', 'Otázka česky', 'Otázka slovensky', 'Odkaz', 'Zdroj', 'Odrážky CZ (JSON)', 'Odrážky SK (JSON)', 'Typ záznamu'];
 
 function onOpen() {
   SpreadsheetApp.getUi()
@@ -57,6 +60,32 @@ function onOpen() {
     .addItem('Obnovit databázi z GitHubu', 'obnovitDatabazi')
     .addItem('Připravit / opravit listy', 'pripravitTabulku')
     .addToUi();
+}
+
+// Sdílený režim pro automatický Apps Script i volitelnou lokální AI.
+function vedatorNormalizujRezim_(mode) {
+  if (mode === 'question' || mode === 'nonquestion' || mode === 'all') return mode;
+  if (mode === null || mode === undefined || mode === '') return CFG.DEFAULT_SEARCH_MODE;
+  throw new Error('Neznámý režim: Otázky, Neotázky nebo Oboje.');
+}
+function vedatorAiAktualniRezim() {
+  const props = PropertiesService.getDocumentProperties();
+  return vedatorNormalizujRezim_(props.getProperty(CFG.PROP_SEARCH_MODE) || CFG.DEFAULT_SEARCH_MODE);
+}
+function vedatorAiNastavRezim(mode) {
+  const value = vedatorNormalizujRezim_(mode);
+  PropertiesService.getDocumentProperties().setProperty(CFG.PROP_SEARCH_MODE, value);
+  return value;
+}
+function vedatorAiStavRezim_(mode) {
+  const key = vedatorNormalizujRezim_(mode);
+  return 'AI hotovo: ' + (key === 'all' ? 'oboje' : key === 'nonquestion' ? 'neotázky' : 'otázky');
+}
+function vedatorAiJeHotovoVRezimu_(status, mode) {
+  const key = vedatorNormalizujRezim_(mode);
+  const value = String(status || '').trim();
+  return value === vedatorAiStavRezim_(key) ||
+    (value === 'AI hotovo' && key === 'question'); // starší verze
 }
 
 function nainstalovat() {
@@ -134,6 +163,8 @@ function pripravitTabulku() {
     ['Význam procenta', 'odborné a věcné pojmy mají přednost; dále se hodnotí délka, pořadí a rozestupy'],
     ['Poznámka', 'Obecná přídavná jména zůstávají, ale mají menší váhu než věcné pojmy. Skloňování, množné číslo a odvozená přídavná jména se sjednocují.']
   ]);
+  const currentSourceMode = vedatorAiAktualniRezim();
+  settings.getRange('A10:B10').setValues([['Prohledávané zdroje', currentSourceMode === 'all' ? 'Otázky + neotázky' : currentSourceMode === 'nonquestion' ? 'Neotázky' : 'Otázky']]);
   settings.setColumnWidth(1, 220);
   settings.setColumnWidth(2, 560);
   settings.getRange('A1:B20').setWrap(true).setVerticalAlignment('top');
@@ -234,6 +265,7 @@ function zpracujRadky_(rows) {
 
     const database = nactiDatabazi_(false);
     const index = vedatorPripravAskIndex_(database);
+    const searchMode = vedatorAiAktualniRezim();
     const processed = [];
 
     uniqueRows.forEach(rowNumber => {
@@ -242,7 +274,7 @@ function zpracujRadky_(rows) {
         clearOutputRows_(sheet, [rowNumber]);
         return;
       }
-      const matches = vedatorSeradAsk_(query, index, CFG.TOP_N);
+      const matches = vedatorSeradAsk_(query, index, CFG.TOP_N, searchMode);
       processed.push({rowNumber, query, matches});
     });
 
@@ -268,7 +300,7 @@ function zapisVysledky_(sheet, processed) {
       if (!result) continue;
       const offset = 1 + i * 3;
       row[offset] = result.score;
-      row[offset + 1] = result.title;
+      row[offset + 1] = result.type === 'nonquestion' ? '[Neotázka] ' + result.title : result.title;
       row[offset + 2] = result.url;
     }
     row[16] = item.matches[0] ? item.matches[0].matchedLabels.join(', ') : '';
@@ -296,7 +328,7 @@ function aktualizujVsechnyShody_(processed) {
         item.query,
         index + 1,
         result.score,
-        result.title,
+        result.type === 'nonquestion' ? '[Neotázka] ' + result.title : result.title,
         result.matchedLabels.join(', '),
         result.episode,
         result.time,
@@ -339,7 +371,8 @@ function nactiDatabazi_(forceRefresh) {
   const now = Date.now();
   const lastChecked = Number(props.getProperty(CFG.PROP_CHECKED_AT) || 0);
   let sourceInfo = null;
-  let mustRefresh = Boolean(forceRefresh) || localRows.length === 0;
+  let mustRefresh = Boolean(forceRefresh) || localRows.length === 0 ||
+    props.getProperty(CFG.PROP_DB_SCHEMA) !== '2';
 
   if (!mustRefresh && now - lastChecked >= CFG.DATABASE_CHECK_HOURS * 3600000) {
     try {
@@ -362,6 +395,7 @@ function nactiDatabazi_(forceRefresh) {
       writeDatabaseSheet_(sheet, freshRows);
       props.setProperty(CFG.PROP_SIGNATURE, sourceInfo.signature);
       props.setProperty(CFG.PROP_CHECKED_AT, String(now));
+      props.setProperty(CFG.PROP_DB_SCHEMA, '2');
       localRows = freshRows;
     } catch (error) {
       if (!localRows.length) throw error;
@@ -387,7 +421,8 @@ function readDatabaseSheet_(sheet) {
       url: String(row[6] || ''),
       source: String(row[7] || ''),
       csPoints: vedatorParsePoints_(row[8]),
-      skPoints: vedatorParsePoints_(row[9])
+      skPoints: vedatorParsePoints_(row[9]),
+      type: row[10] === 'nonquestion' ? 'nonquestion' : 'question'
     }));
 }
 
@@ -397,7 +432,7 @@ function writeDatabaseSheet_(sheet, rows) {
   sheet.getRange(1, 1, 1, DB_HEADERS.length).setValues([DB_HEADERS]);
   styleHeader_(sheet.getRange(1, 1, 1, DB_HEADERS.length));
   ensureSize_(sheet, rows.length + 1, DB_HEADERS.length);
-  const values = rows.map(item => [item.episode, item.order, item.time, item.linkSeconds, item.cs, item.sk, item.url, item.source, JSON.stringify(item.csPoints || []), JSON.stringify(item.skPoints || [])]);
+  const values = rows.map(item => [item.episode, item.order, item.time, item.linkSeconds, item.cs, item.sk, item.url, item.source, JSON.stringify(item.csPoints || []), JSON.stringify(item.skPoints || []), item.type === 'nonquestion' ? 'nonquestion' : 'question']);
   sheet.getRange(2, 1, values.length, DB_HEADERS.length).setValues(values);
   sheet.hideSheet();
 }
@@ -454,6 +489,7 @@ function downloadV2Database_(info) {
       linkSeconds,
       cs,
       sk,
+      type: 'question',
       csPoints: Array.isArray(csPoints) ? csPoints.map(String) : [],
       skPoints: Array.isArray(skPoints) ? skPoints.map(String) : [],
       url: directQuestionUrl_(episode, linkSeconds),
@@ -461,7 +497,34 @@ function downloadV2Database_(info) {
     };
   }).filter(item => item.episode && (item.cs || item.sk));
 
-  rows.sort((a, b) => b.episode - a.episode || a.order - b.order || a.linkSeconds - b.linkSeconds);
+  // Same episode/language ordering as the live Vedátor "Zeptej se".
+  for (const [episodeKey, languages] of Object.entries((data.nonquestions && data.nonquestions.episodes) || {})) {
+    const episode = Number(episodeKey);
+    if (!episode) continue;
+    const cs = Array.isArray(languages && languages.cs) ? languages.cs : [];
+    const sk = Array.isArray(languages && languages.sk) ? languages.sk : [];
+    for (let i = 0, count = Math.max(cs.length, sk.length); i < count; i++) {
+      const cz = cs[i] || sk[i] || {}, slovak = sk[i] || cs[i] || {};
+      const titleCs = String(cz.title || slovak.title || '');
+      const titleSk = String(slovak.title || cz.title || '');
+      if (!titleCs && !titleSk) continue;
+      const time = String(cz.sourceTime || cz.time || slovak.sourceTime || slovak.time || '');
+      const secondsRaw = cz.seconds !== undefined && cz.seconds !== null ? cz.seconds : slovak.seconds;
+      const linkSeconds = secondsRaw === undefined || secondsRaw === null
+        ? toSeconds_(time) : Math.max(0, Math.floor(Number(secondsRaw) || 0));
+      rows.push({
+        type: 'nonquestion', episode: episode, order: i, time: time,
+        linkSeconds: linkSeconds, cs: titleCs, sk: titleSk,
+        csPoints: Array.isArray(cz.points) ? cz.points.map(String) : [],
+        skPoints: Array.isArray(slovak.points) ? slovak.points.map(String) : [],
+        url: CFG.PUBLIC_BASE + '#nonquestion=' + episode + ':' + i,
+        source: CFG.V2_DATABASE_FILE
+      });
+    }
+  }
+  rows.sort((a, b) => b.episode - a.episode ||
+    (a.type === b.type ? 0 : a.type === 'question' ? -1 : 1) ||
+    a.order - b.order || a.linkSeconds - b.linkSeconds);
   return rows;
 }
 
