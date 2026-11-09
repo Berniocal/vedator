@@ -1481,3 +1481,146 @@ function vedatorAiUlozPoradi(rowNumber, originalQuestion, ids) {
     lock.releaseLock();
   }
 }
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Postupné AI zpracování CELÉHO listu Dotazy (pouze první 30 shod).
+// Browser sidebar executes the local model; these server helpers only read
+// candidate batches and atomically validate/write completed result batches.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Returns row indices, not private question contents. "AI hotovo" is a durable
+// checkpoint so a stopped processing run can resume without starting over.
+function vedatorAiSeznamRadku(vcetneHotovych) {
+  const sheet = SpreadsheetApp.getActive().getSheetByName(CFG.INPUT_SHEET);
+  if (!sheet) throw new Error('Chybí list Dotazy.');
+  const last = sheet.getLastRow();
+  if (last < 2) return {rows: [], total: 0, skipped: 0};
+  const data = sheet.getRange(2, 1, last - 1, 2).getDisplayValues();
+  const rows = [];
+  let skipped = 0;
+  data.forEach((cells, index) => {
+    const question = String(cells[0] || '').trim();
+    if (!question) return;
+    if (!vcetneHotovych && String(cells[1] || '').trim() === 'AI hotovo') {
+      skipped++;
+      return;
+    }
+    rows.push(index + 2);
+  });
+  return {rows: rows, total: rows.length, skipped: skipped};
+}
+
+// Build the rich Ask index ONCE per small chunk, not once per question.
+function vedatorAiKandidatiDavka(cislaRadku) {
+  if (!Array.isArray(cislaRadku) || !cislaRadku.length || cislaRadku.length > 5)
+    throw new Error('Jedna dávka musí obsahovat 1 až 5 řádků.');
+  const sheet = SpreadsheetApp.getActive().getSheetByName(CFG.INPUT_SHEET);
+  if (!sheet) throw new Error('Chybí list Dotazy.');
+  const rows = cislaRadku.map(value => Math.floor(Number(value)));
+  if (new Set(rows).size !== rows.length ||
+      rows.some(row => !Number.isSafeInteger(row) || row < 2 || row > sheet.getMaxRows()))
+    throw new Error('Neplatné nebo opakované číslo řádku.');
+  const index = vedatorPripravAskIndex_(nactiDatabazi_(false));
+  return rows.map(row => {
+    const question = String(sheet.getRange(row, 1).getDisplayValue() || '').trim();
+    if (!question) return {row: row, empty: true};
+    const ranked = vedatorSeradAsk_(question, index, CFG.AI_RERANK_N);
+    const terms = (question.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase().match(/[\p{L}\p{N}]{4,}/gu) || []);
+    return {
+      row: row, question: question, total: ranked.length,
+      candidates: ranked.map(item => {
+        const points = item.csPoints && item.csPoints.length ? item.csPoints : item.skPoints;
+        const chosen = (points || []).map((value, i) => ({
+          value: String(value), i: i,
+          hits: terms.reduce((n, term) => n + (String(value).normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(term) ? 1 : 0), 0)
+        })).sort((a,b) => b.hits - a.hits || a.i - b.i)
+          .slice(0, 3).sort((a,b) => a.i - b.i).map(x => x.value);
+        return {
+          id: item.id, title: item.title, episode: item.episode,
+          time: item.time, url: item.url, score: item.score,
+          passage: (item.title + '. ' + chosen.join(' ')).slice(0, 480)
+        };
+      })
+    };
+  });
+}
+
+// Writes directly into original Dotazy B:S and refreshes Všechny shody.
+// Every saved row is validated against its CURRENT question and original
+// top-30 candidate IDs. Invalid rows fail individually, others can save.
+function vedatorAiUlozDavku(ulozeni) {
+  if (!Array.isArray(ulozeni) || !ulozeni.length || ulozeni.length > 5)
+    throw new Error('Jedna ukládací dávka musí obsahovat 1 až 5 řádků.');
+  const lock = LockService.getDocumentLock();
+  if (!lock || !lock.tryLock(30000))
+    throw new Error('Tabulka se právě upravuje. Zkuste uložení znovu.');
+  try {
+    const sheet = SpreadsheetApp.getActive().getSheetByName(CFG.INPUT_SHEET);
+    if (!sheet) throw new Error('Chybí list Dotazy.');
+    const rowNumbers = ulozeni.map(item => Math.floor(Number(item && item.row)));
+    if (new Set(rowNumbers).size !== rowNumbers.length)
+      throw new Error('Dávka obsahuje opakované číslo řádku.');
+    const index = vedatorPripravAskIndex_(nactiDatabazi_(false));
+    const accepted = [], rejected = [];
+    ulozeni.forEach((item, i) => {
+      const row = rowNumbers[i];
+      try {
+        if (!Number.isSafeInteger(row) || row < 2 || row > sheet.getMaxRows())
+          throw new Error('Neplatný řádek.');
+        const question = String(sheet.getRange(row, 1).getDisplayValue() || '').trim();
+        if (!question || question !== String(item.question || '').trim())
+          throw new Error('Otázka se mezitím změnila.');
+        const original = vedatorSeradAsk_(question, index, CFG.AI_RERANK_N);
+        const expected = original.map(result => result.id);
+        const ids = Array.isArray(item.ids) ? item.ids.map(String) : [];
+        if (ids.length !== expected.length || new Set(ids).size !== ids.length ||
+            ids.some(id => !expected.includes(id)))
+          throw new Error('AI musí pouze přerovnat původních 30 kandidátů.');
+        const byId = new Map(original.map(result => [result.id, result]));
+        accepted.push({
+          rowNumber: row, query: question,
+          matches: ids.slice(0, CFG.TOP_N).map(id => byId.get(id))
+        });
+      } catch (error) {
+        rejected.push({row: row, error: String(error && error.message || error)});
+      }
+    });
+    if (accepted.length) {
+      // Writes start in B; no original question in column A is modified.
+      zapisVysledky_(sheet, accepted);
+      aktualizujVsechnyShody_(accepted);
+      accepted.forEach(item => sheet.getRange(item.rowNumber, 2).setValue('AI hotovo'));
+    }
+    return {saved: accepted.map(item => item.rowNumber), failed: rejected};
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+// Undo an AI overwrite in the actual spreadsheet by restoring the original
+// Ask top-five ranking. Does not alter listener questions in column A.
+function vedatorAiVratPuvodni(rowNumber, originalQuestion) {
+  const lock = LockService.getDocumentLock();
+  if (!lock || !lock.tryLock(30000))
+    throw new Error('Tabulka se právě upravuje. Zkuste to znovu.');
+  try {
+    const sheet = SpreadsheetApp.getActive().getSheetByName(CFG.INPUT_SHEET);
+    const row = Math.floor(Number(rowNumber));
+    if (!sheet || !Number.isSafeInteger(row) || row < 2 || row > sheet.getMaxRows())
+      throw new Error('Neplatný řádek.');
+    const question = String(sheet.getRange(row, 1).getDisplayValue() || '').trim();
+    if (!question || question !== String(originalQuestion || '').trim())
+      throw new Error('Otázka se mezitím změnila.');
+    const original = vedatorSeradAsk_(question,
+      vedatorPripravAskIndex_(nactiDatabazi_(false)), CFG.TOP_N);
+    const processed = [{rowNumber: row, query: question, matches: original}];
+    zapisVysledky_(sheet, processed);
+    aktualizujVsechnyShody_(processed);
+    return {restored: true, row: row};
+  } finally {
+    lock.releaseLock();
+  }
+}
