@@ -220,7 +220,16 @@
         $('question').textContent=data.question;
         $('row').textContent='List Dotazy, řádek '+data.row;
         render();say('Původní výsledky připravené. Zatím nejsou přerovnané AI.','ok');
-      }catch(error){say('Načtení selhalo: '+(error.message||error),'error');}
+      }catch(error){
+        const message=String(error.message||error);
+        if(/prázdnou otázku|Vyberte nejprve buňku/.test(message)){
+          state.data=null;state.original=[];state.ranked=[];state.refined=false;
+          $('question').textContent='Pro jednu otázku vyber vyplněný řádek na listu Dotazy.';
+          $('row').textContent='Celý list lze zpracovat tlačítkem níže i bez výběru řádku.';
+          render();
+          say('Zatím není vybraná konkrétní otázka. Hromadné zpracování je dostupné.');
+        }else say('Načtení selhalo: '+message,'error');
+      }
       finally{disableBusy(false);}
     }
     async function getLibrary(){
@@ -462,7 +471,8 @@
       if(state.busy||!state.installed)return;
       const batch=state.batch={running:true,stopping:false,total:0,done:0,saved:0,failed:0,lastRow:0};
       disableBusy(true);
-      batchStatus('Zjišťuji vyplněné otázky v listu Dotazy…');
+      say('Hromadné zpracování právě běží. Jednotlivé otázky se ukládají průběžně.');
+      batchStatus('Inicializuji lokální model AI a načítám vyplněné otázky…');
       let pending=[];
       try{
         await getExtractor(false);
