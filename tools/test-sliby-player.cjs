@@ -21,6 +21,13 @@ const setCategory=value=>{for(const label of elements.categories.children)toggle
 const inSection=id=>data.findings.filter(r=>r.section===id);
 const rendered=()=>elements.cards.children.filter(n=>n.tag==='article').map(card=>[Number(card.dataset.candidate),card.children[1].children[0].children.find(n=>n.className==='topic-toggle').textContent]);
 const expected=rows=>rows.map(r=>[r.candidate,elements['compact-view'].checked?(r.compactTitle||r.displayTema||r.tema):(r.displayTema||r.tema)]);
+const searchPriority=(r,q)=>{
+ const fold=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const has=fields=>fields.some(text=>fold(text).includes(q));
+ if(has([r.displayTema||r.tema,r.compactTitle,r.tema,...(r.mergedFrom||[]).map(m=>m.tema)]))return 0;
+ if(has([r.quote,r.vysvetleni,...(r.mergedFrom||[]).flatMap(m=>[m.quote,m.vysvetleni])]))return 1;
+ return 2;
+};
 // Split topics can share a candidate id; their archival records must remain distinct.
 assert.deepEqual(data.archive.findings.map(r=>[r.candidate,r.tema]),data.findings.map(r=>[r.candidate,r.tema]));
 assert.equal(data.sections.default,'episodes');
@@ -83,8 +90,8 @@ for(const section of ['episodes','other']){
    assert.deepEqual(rendered(),expected(rows.filter(r=>!status||r.stav===status)));
   }
   elements.status.value='';elements.q.value='Sagan';elements.q.listeners.input();
-  const fold=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-  assert.deepEqual(rendered(),expected(rows.filter(r=>fold([r.displayTema||r.tema,r.tema,r.episodeLabel,r.sourceTitle,r.vysvetleni,r.outcomeNote,...(r.mergedFrom||[]).flatMap(m=>[m.tema,m.episodeLabel,m.sourceTitle,m.vysvetleni]),...r.targets.map(t=>t.title)].join(' ')).includes('sagan'))));
+  const ordered=rows.filter(r=>searchPriority(r,'sagan')<2).sort((a,b)=>searchPriority(a,'sagan')-searchPriority(b,'sagan'));
+  assert.deepEqual(rendered(),expected(ordered),'Search prioritizes promise titles before descriptions, without source episode titles');
   elements.q.value='';elements.q.listeners.input();
  }
 }
@@ -187,11 +194,11 @@ for(const query of ['fermi','SAGAN','cerne','  fermi  ']){
   for(const mark of marks)assert.equal(context.fold(mark.textContent),query.trim().toLowerCase());
  }
 }
-const ada=search('fermi').find(card=>Number(card.dataset.candidate)===632);assert(ada);
-assert(visibleNodes(ada).some(n=>n.className==='search-context'&&n.textContent.includes('Název epizody:')));
-assert(ada.children[1].children.find(n=>n.className==='finding-details').hidden);
-ada.children[1].children[0].children[0].listeners.click();
-assert(visibleNodes(ada.children[0]).some(n=>n.tag==='mark'&&n.textContent==='Fermi'));
+const fermiCards=search('fermi');
+assert(!fermiCards.some(card=>Number(card.dataset.candidate)===632),'Ada Lovelace must not match merely because the source episode mentions Fermi');
+const fermiExpected=data.findings.filter(r=>searchPriority(r,'fermi')<2).sort((a,b)=>searchPriority(a,'fermi')-searchPriority(b,'fermi'));
+assert.deepEqual(rendered(),expected(fermiExpected),'Fermi promise titles must appear before matches in descriptions');
+assert(fermiCards.some(card=>visibleNodes(card).some(n=>n.className==='search-context'&&n.textContent.includes('Vysvětlení:'))),'Description matches explain the hit in compact view');
 assert.equal(search('fermy').length,0,'No fuzzy spelling or joining pieces across words');
 search('');assert(!allNodes(elements.cards).some(n=>n.tag==='mark'||n.className==='search-context'));
 assert.equal(count(),totalBefore);
@@ -214,4 +221,4 @@ assert(!context.searchFields(separate).some(field=>context.fold(field.text).incl
 const merged={tema:'Obecné téma',compactTitle:'Zkratka',targets:[],mergedFrom:[{tema:'Původní zmínka',vysvetleni:'Speciální vysvětlení'}]};
 const hiddenMatch=context.searchFields(merged).find(field=>context.fold(field.text).includes('specialni'));
 assert(hiddenMatch);assert(context.searchContext(hiddenMatch,'specialni').includes('Speciální'));
-console.log('PASS: visible search reasons, source/target/merged fields, accents and Unicode offsets, repeated matches, literal HTML, no joining words or fields, and cleared highlights.');
+console.log('PASS: title-first content-only search, visible reasons including merged mentions, accents and Unicode offsets, literal HTML, no joining unrelated fields, and cleared highlights.');
