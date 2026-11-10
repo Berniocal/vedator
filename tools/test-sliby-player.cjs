@@ -21,13 +21,7 @@ const setCategory=value=>{for(const label of elements.categories.children)toggle
 const inSection=id=>data.findings.filter(r=>r.section===id);
 const rendered=()=>elements.cards.children.filter(n=>n.tag==='article').map(card=>[Number(card.dataset.candidate),card.children[1].children[0].children.find(n=>n.className==='topic-toggle').textContent]);
 const expected=rows=>rows.map(r=>[r.candidate,elements['compact-view'].checked?(r.compactTitle||r.displayTema||r.tema):(r.displayTema||r.tema)]);
-const searchPriority=(r,q)=>{
- const fold=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
- const has=fields=>fields.some(text=>fold(text).includes(q));
- if(has([r.displayTema||r.tema,r.compactTitle,r.tema,...(r.mergedFrom||[]).map(m=>m.tema)]))return 0;
- if(has([r.quote,r.vysvetleni,...(r.mergedFrom||[]).flatMap(m=>[m.quote,m.vysvetleni])]))return 1;
- return 2;
-};
+const searchPriority=(r,q)=>context.searchMatch(r,q)?.priority??2;
 // Split topics can share a candidate id; their archival records must remain distinct.
 assert.deepEqual(data.archive.findings.map(r=>[r.candidate,r.tema]),data.findings.map(r=>[r.candidate,r.tema]));
 assert.equal(data.sections.default,'episodes');
@@ -196,9 +190,18 @@ for(const query of ['fermi','SAGAN','cerne','  fermi  ']){
 }
 const fermiCards=search('fermi');
 assert(!fermiCards.some(card=>Number(card.dataset.candidate)===632),'Ada Lovelace must not match merely because the source episode mentions Fermi');
+assert(fermiCards.some(card=>Number(card.dataset.candidate)===1066),'Actual Fermi promise must match');
+for(const id of [1067,1068])assert(!fermiCards.some(card=>Number(card.dataset.candidate)===id),'Shared Fermi quote must not match an unrelated promise: '+id);
 const fermiExpected=data.findings.filter(r=>searchPriority(r,'fermi')<2).sort((a,b)=>searchPriority(a,'fermi')-searchPriority(b,'fermi'));
-assert.deepEqual(rendered(),expected(fermiExpected),'Fermi promise titles must appear before matches in descriptions');
-assert(fermiCards.some(card=>visibleNodes(card).some(n=>n.className==='search-context')),'Description matches explain the hit in compact view');
+assert.deepEqual(rendered(),expected(fermiExpected),'Only directly relevant Fermi promises may match');
+const darkCards=search('tmava');
+assert(darkCards.some(card=>Number(card.dataset.candidate)===1067),'Dark energy promise must match its own title');
+for(const id of [1066,1068])assert(!darkCards.some(card=>Number(card.dataset.candidate)===id),'Other promises must not match the shared dark energy quote');
+const einsteinCards=search('einstein');
+assert(einsteinCards.some(card=>Number(card.dataset.candidate)===1068),'Einstein promise must match its own title');
+for(const id of [1066,1067])assert(!einsteinCards.some(card=>Number(card.dataset.candidate)===id),'Other promises must not match the shared Einstein quote');
+const saganCards=search('sagan');
+assert(saganCards.some(card=>visibleNodes(card).some(n=>n.className==='search-context')),'Genuine description matches must still show their context');
 assert.equal(search('fermy').length,0,'No fuzzy spelling or joining pieces across words');
 search('');assert(!allNodes(elements.cards).some(n=>n.tag==='mark'||n.className==='search-context'));
 assert.equal(count(),totalBefore);
