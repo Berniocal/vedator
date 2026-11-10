@@ -175,3 +175,43 @@ const playRow=data.findings.find(r=>r.candidate===Number(playCard.dataset.candid
 assert(play&&!play.hidden);assert(playDetails.hidden);a.readyState=0;play.listeners.click();assert(playDetails.hidden,'Playing must not expand details');
 assert.equal(a.src,playRow.sourceRecording.audioURL);a.readyState=1;a.duration=20000;a.listeners.loadedmetadata();assert.equal(a.currentTime,playRow.seconds);assert(a.played);
 console.log('PASS: compact default and a separate large play button seek to the promise without expanding details.');
+
+// Every result explains its match even when the details are collapsed.
+const visibleNodes=n=>n.hidden?[]:[n,...n.children.filter(c=>c instanceof Element).flatMap(visibleNodes)];
+const search=q=>{elements.q.value=q;elements.q.listeners.input();return elements.cards.children.filter(n=>n.tag==='article')};
+for(const query of ['fermi','SAGAN','cerne','  fermi  ']){
+ const results=search(query);assert(results.length>0);
+ for(const card of results){
+  const marks=visibleNodes(card).filter(n=>n.tag==='mark');
+  assert(marks.length,'Each compact result needs a visible highlighted reason: '+card.dataset.candidate);
+  for(const mark of marks)assert.equal(context.fold(mark.textContent),query.trim().toLowerCase());
+ }
+}
+const ada=search('fermi').find(card=>Number(card.dataset.candidate)===632);assert(ada);
+assert(visibleNodes(ada).some(n=>n.className==='search-context'&&n.textContent.includes('Název epizody:')));
+assert(ada.children[1].children.find(n=>n.className==='finding-details').hidden);
+ada.children[1].children[0].children[0].listeners.click();
+assert(visibleNodes(ada.children[0]).some(n=>n.tag==='mark'&&n.textContent==='Fermi'));
+assert.equal(search('fermy').length,0,'No fuzzy spelling or joining pieces across words');
+search('');assert(!allNodes(elements.cards).some(n=>n.tag==='mark'||n.className==='search-context'));
+assert.equal(count(),totalBefore);
+for(const [text,query,expected] of [
+ ['Černé díry a černé díry','cerne',['Černé','černé']],
+ ['🙂 Černe\u0301 díry','cerne',['Černe\u0301']],
+ ['Fermiho paradox','fermi',['Fermi']],
+ ['fer mi','fermi',[]],
+ ['fer mi','fer mi',['fer mi']],
+ ['<img src=x onerror=alert(1)>','<img',['<img']]
+]){
+ const highlighted=context.searchNode('p',text,query);
+ assert.equal(highlighted.textContent,text,'Highlighting must preserve original text');
+ assert.deepEqual(allNodes(highlighted).filter(n=>n.tag==='mark').map(n=>n.textContent),expected);
+ assert(!allNodes(highlighted).some(n=>n.tag==='img'),'Search and data are text, never HTML');
+}
+const separate={tema:'fer',episodeLabel:'mi',targets:[]};
+assert(!context.searchFields(separate).some(field=>context.fold(field.text).includes('fermi')));
+assert(!context.searchFields(separate).some(field=>context.fold(field.text).includes('fer mi')),'Phrases must not cross fields');
+const merged={tema:'Obecné téma',compactTitle:'Zkratka',targets:[],mergedFrom:[{tema:'Původní zmínka',vysvetleni:'Speciální vysvětlení'}]};
+const hiddenMatch=context.searchFields(merged).find(field=>context.fold(field.text).includes('specialni'));
+assert(hiddenMatch);assert(context.searchContext(hiddenMatch,'specialni').includes('Speciální'));
+console.log('PASS: visible search reasons, source/target/merged fields, accents and Unicode offsets, repeated matches, literal HTML, no joining words or fields, and cleared highlights.');

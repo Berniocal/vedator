@@ -18,6 +18,7 @@
 .promise-play{display:inline-flex;align-items:center;justify-content:center;width:48px;min-width:48px;height:48px;min-height:48px;padding:0;border:1px solid #d4b342;border-radius:8px;background:#fff1b4;color:#273d46;font-size:22px;line-height:1;flex:none}.promise-play:hover{background:#f4d45c}.promise-play[hidden]{display:none}.finding.compact h3{display:block}.finding.compact .topic-toggle{min-width:0}.finding.compact .finding-main{gap:3px 10px}.finding.compact .promise-play{width:36px;min-width:36px;height:36px;min-height:36px;font-size:18px}
 
 .delete-dialog{max-width:440px;width:calc(100% - 32px);padding:22px;border:1px solid var(--line);border-radius:12px;color:inherit;box-shadow:0 10px 45px #20394240}.delete-dialog::backdrop{background:#16333c77}.delete-dialog h2{margin:0 0 10px;font-size:21px}.delete-dialog p{margin:0 0 16px;overflow-wrap:anywhere}.delete-dialog-actions{display:flex;gap:8px;flex-wrap:wrap}.delete-dialog button{min-height:44px;padding:8px 12px;border:1px solid #bccdce;border-radius:6px;background:#fff;color:var(--ink)}.delete-dialog .confirm-delete{background:var(--ink);color:white;border-color:var(--ink)}
+.finding mark.search-match{background:#ffe66b;color:#171717;border-radius:.2em;padding:0 .08em;box-decoration-break:clone;-webkit-box-decoration-break:clone}html[data-theme="dark"] .finding mark.search-match{background:#8a6d00;color:#fff4b3}.search-context{grid-column:1/-1;margin:4px 0;font-size:13px;color:#607681;overflow-wrap:anywhere}html[data-theme="dark"] .search-context{color:#9ca8ba}
 </style></head>
 <body><main>
 <header><div class="eyebrow">Vedátor · průběžný přehled · 5. listopadu 2026</div><h1>Sliby a nápady na další epizody</h1></header>
@@ -46,6 +47,34 @@
 const D=JSON.parse(document.getElementById('audit-data').textContent),el=id=>document.getElementById(id);
 function node(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e}
 function fold(s){return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
+// Keep original offsets so accent-insensitive matches highlight the exact text.
+function matchRanges(text,q){
+ if(!q)return [];
+ let normalized='',offset=0;const positions=[];
+ for(const char of text){const folded=fold(char),end=offset+char.length;
+  if(!folded&&positions.length)positions[positions.length-1].end=end;
+  for(let i=0;i<folded.length;i++)positions.push({start:offset,end});
+  normalized+=folded;offset=end;
+ }
+ const ranges=[];let from=0,index;
+ while((index=normalized.indexOf(q,from))!==-1){ranges.push([positions[index].start,positions[index+q.length-1].end]);from=index+q.length}
+ return ranges;
+}
+function searchNode(tag,text,q,cls){
+ text=String(text??'');const e=node(tag,undefined,cls);let from=0;
+ for(const [start,end] of matchRanges(text,q)){e.append(text.slice(from,start),node('mark',text.slice(start,end),'search-match'));from=end}
+ e.append(text.slice(from));return e;
+}
+function searchFields(r){
+ const fields=[['Téma',findingTitle(r)],['Stručný název',r.compactTitle],['Původní téma',r.tema],['Číslo dílu',r.episodeLabel],['Název epizody',r.sourceTitle],['Vysvětlení',r.vysvetleni],['Výsledek',r.outcomeNote]];
+ for(const m of r.mergedFrom||[])fields.push(['Další zmínka – téma',m.tema],['Další zmínka – číslo dílu',m.episodeLabel],['Další zmínka – název epizody',m.sourceTitle],['Další zmínka – vysvětlení',m.vysvetleni]);
+ for(const t of r.targets)fields.push(['Související epizoda',t.title]);
+ return fields.filter(([,text])=>text!==undefined&&text!==null&&String(text).length).map(([label,text])=>({label,text:String(text)}));
+}
+function searchContext(field,q){
+ const [start,end]=matchRanges(field.text,q)[0],left=Math.max(0,start-70),right=Math.min(field.text.length,Math.max(end,start+q.length)+110);
+ return field.label+': '+(left?'…':'')+field.text.slice(left,right)+(right<field.text.length?'…':'');
+}
 function fmtDate(s){return new Date(s).toLocaleDateString('cs-CZ')}
 const STORAGE_KEY='vedator-sliby-user-state-v1';
 const recordKey=r=>JSON.stringify([r.candidate,r.tema]);
@@ -178,29 +207,38 @@ for(const section of D.sections.options)addFilter('sections',section.id,section.
 function findingTitle(r){return r.displayTema||r.tema}
 function sectionRows(){return D.findings.filter(r=>selectedSections.has(r.section)&&(personal(r).deleted===true)===showDeleted).map(effective)}
 for(const v of D.classification.statuses){const o=node('option',v);o.value=v;el('status').append(o)}
-function render(){const q=fold(el('q').value),st=el('status').value;
+function render(){const q=fold(el('q').value.trim()),st=el('status').value;
+ const hitNode=(tag,text,cls)=>searchNode(tag,text,q,cls);
  const inSection=sectionRows().filter(r=>selectedCategories.has(r.kategorie));
  el('nfind').textContent=inSection.length;el('nlater').textContent=inSection.filter(r=>r.stav==='Splněno později').length;el('nprior').textContent=inSection.filter(r=>r.stav==='Splněno už dříve').length;el('nopen').textContent=inSection.filter(r=>r.stav==='Nesplněno').length;
  for(const [id,key,selected] of [['categories','category',selectedCategories],['sections','section',selectedSections]])for(const option of el(id).children){const checked=selected.has(option.dataset[key]);option.children[0].checked=checked;option.className='filter-option'+(checked?' is-selected':'')}
  el('show-deleted').textContent=showDeleted?'Zpět na aktivní záznamy':'Smazané ('+D.findings.filter(r=>personal(r).deleted===true).length+')';
  el('show-deleted').setAttribute('aria-pressed',String(showDeleted));
  el('save-status').textContent=storageProblem;
- const rows=inSection.filter(r=>(!st||r.stav===st)&&(!q||fold([findingTitle(r),r.tema,r.episodeLabel,r.sourceTitle,r.vysvetleni,r.outcomeNote,...(r.mergedFrom||[]).flatMap(m=>[m.tema,m.episodeLabel,m.sourceTitle,m.vysvetleni]),...r.targets.map(t=>t.title)].join(' ')).includes(q)));
+ // Search each field separately: phrases cannot cross unrelated fields.
+ const matches=new Map();
+ const rows=inSection.filter(r=>{
+  if(st&&r.stav!==st)return false;
+  if(!q)return true;
+  const match=searchFields(r).find(field=>fold(field.text).includes(q));
+  if(match)matches.set(recordKey(r),match);return !!match;
+ });
  el('shown').textContent='Zobrazeno '+rows.length+' z '+inSection.length+' záznamů'+(showDeleted?' · Smazané':'');
  document.querySelectorAll('.summary button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.status===st)));
  const frag=document.createDocumentFragment();
- for(const r of rows){const card=node('article',undefined,'finding');card.dataset.candidate=r.candidate;const source=node('div',undefined,'source');source.append(node('strong',r.episode===null?'Rozhovory 15':'Díl '+r.episodeLabel),node('div',r.sourceTitle,'title'),timeLink(r.time,r.timeURL,r.sourceRecording,r.seconds));
+ for(const r of rows){const card=node('article',undefined,'finding');card.dataset.candidate=r.candidate;const source=node('div',undefined,'source');source.append(hitNode('strong',r.episode===null?'Rozhovory 15':'Díl '+r.episodeLabel),hitNode('div',r.sourceTitle,'title'),timeLink(r.time,r.timeURL,r.sourceRecording,r.seconds));
   for(const mention of r.mergedFrom||[]){
    if(recordKey(mention)===recordKey(r))continue;
-   const item=node('div',undefined,'evidence');item.append(node('span','Díl '+mention.episodeLabel+' · '),timeLink(mention.time,mention.timeURL,mention.sourceRecording,mention.seconds));source.append(item);
+   const item=node('div',undefined,'evidence');item.append(hitNode('span','Díl '+mention.episodeLabel+' · '),timeLink(mention.time,mention.timeURL,mention.sourceRecording,mention.seconds));source.append(item);
   }
-  const body=node('div',undefined,'finding-main'),heading=node('h3'),titleButton=node('button',compactMode?(r.compactTitle||findingTitle(r)):findingTitle(r),'topic-toggle');
+  const body=node('div',undefined,'finding-main'),heading=node('h3'),titleButton=hitNode('button',compactMode?(r.compactTitle||findingTitle(r)):findingTitle(r),'topic-toggle');
   const open=!compactMode||expandedKeys.has(recordKey(r));
   titleButton.type='button';titleButton.disabled=!compactMode;titleButton.setAttribute('aria-expanded',String(open));titleButton.setAttribute('aria-controls','details-'+r.index+' source-'+r.index);titleButton.id='topic-'+r.index;
   const playButton=node('button','▶','promise-play');playButton.type='button';playButton.hidden=!compactMode;
   playButton.setAttribute('aria-label','Přehrát příslib: '+findingTitle(r));playButton.title='Přehrát místo s příslibem od '+r.time;
   playButton.addEventListener('click',()=>playSegment(r.sourceRecording,r.seconds,r.time));
   heading.append(titleButton);body.append(heading);source.id='source-'+r.index;source.hidden=!open;
+  if(q&&!fold(titleButton.textContent).includes(q))body.append(hitNode('p',searchContext(matches.get(recordKey(r)),q),'search-context'));
   const details=node('div',undefined,'finding-details');details.id='details-'+r.index;details.hidden=!open;
   if(compactMode)card.className='finding compact';
   titleButton.addEventListener('click',()=>{
@@ -215,8 +253,8 @@ function render(){const q=fold(el('q').value),st=el('status').value;
   const remove=node('button',showDeleted?'Obnovit':'Smazat',showDeleted?'restore-button':'delete-button');remove.type='button';remove.setAttribute('aria-label',(showDeleted?'Obnovit: ':'Smazat: ')+findingTitle(r));
   remove.onclick=()=>requestDelete(r);actions.append(playButton,label,remove);body.append(actions);
   if(typeof personal(r).fulfilled==='boolean')details.append(node('p','Vaše hodnocení: '+(fulfilled(r)?'splněno':'nesplněno')+'. Původní výsledek auditu: '+r.auditStatus+'.','personal-note'));
-  if(r.outcomeNote)details.append(node('p',r.outcomeNote,'outcome'));details.append(node('p',r.vysvetleni,'explanation'));if(r.categoryNote)details.append(node('p',r.categoryNote,'smallnote'));
-  if(r.targets.length){details.append(node('div',typeof personal(r).fulfilled==='boolean'?'Související epizody:':r.stav==='Nesplněno'?'Související nebo možné naplnění:':'Dohledané naplnění:','muted'));const ul=node('ul',undefined,'targets');for(const t of r.targets){const li=node('li'),head=node('div');head.append(node('span',t.title,'target-title'),node('span',fmtDate(t.date),'target-date'));li.append(head);
+  if(r.outcomeNote)details.append(hitNode('p',r.outcomeNote,'outcome'));details.append(hitNode('p',r.vysvetleni,'explanation'));if(r.categoryNote)details.append(node('p',r.categoryNote,'smallnote'));
+  if(r.targets.length){details.append(node('div',typeof personal(r).fulfilled==='boolean'?'Související epizody:':r.stav==='Nesplněno'?'Související nebo možné naplnění:':'Dohledané naplnění:','muted'));const ul=node('ul',undefined,'targets');for(const t of r.targets){const li=node('li'),head=node('div');head.append(hitNode('span',t.title,'target-title'),node('span',fmtDate(t.date),'target-date'));li.append(head);
     for(const ev of t.evidence||[]){const e=node('div',undefined,'evidence');e.append(timeLink(ev.time,ev.timeURL,t,ev.sec),' · '+ev.label);li.append(e)}
     if(!(t.evidence||[]).length){const e=node('div',undefined,'evidence');e.append(timeLink('00:00:00',t.timeURL,t,0),node('span',' · celá epizoda','muted'));li.append(e)}ul.append(li)}details.append(ul)}
   details.append(node('div',r.fullRead?'Zdroj souvisle přečten; čas podle přepisu.':'Zdroj po prvním hledání; souvislé čtení ještě zbývá.','smallnote'));body.append(details);card.append(source,body);frag.append(card)
