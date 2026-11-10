@@ -84,7 +84,9 @@ for(const section of ['episodes','other']){
   }
   elements.status.value='';elements.q.value='Sagan';elements.q.listeners.input();
   const fold=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-  assert.deepEqual(rendered(),expected(rows.filter(r=>fold([r.displayTema||r.tema,r.tema,r.episodeLabel,r.sourceTitle,r.vysvetleni,r.outcomeNote,...(r.mergedFrom||[]).flatMap(m=>[m.tema,m.episodeLabel,m.sourceTitle,m.vysvetleni]),...r.targets.map(t=>t.title)].join(' ')).includes('sagan'))));
+  const titleMatches=r=>[r.displayTema,r.compactTitle,r.tema,...(r.mergedFrom||[]).map(m=>m.tema)].some(text=>text&&fold(text).includes('sagan'));
+  const descriptionMatches=r=>[r.vysvetleni,...(r.mergedFrom||[]).map(m=>m.vysvetleni)].some(text=>text&&fold(text).includes('sagan'));
+  assert.deepEqual(rendered(),expected([...rows.filter(titleMatches),...rows.filter(r=>!titleMatches(r)&&descriptionMatches(r))]));
   elements.q.value='';elements.q.listeners.input();
  }
 }
@@ -187,13 +189,21 @@ for(const query of ['fermi','SAGAN','cerne','  fermi  ']){
   for(const mark of marks)assert.equal(context.fold(mark.textContent),query.trim().toLowerCase());
  }
 }
-const ada=search('fermi').find(card=>Number(card.dataset.candidate)===632);assert(ada);
-assert(visibleNodes(ada).some(n=>n.className==='search-context'&&n.textContent.includes('Název epizody:')));
-assert(ada.children[1].children.find(n=>n.className==='finding-details').hidden);
-ada.children[1].children[0].children[0].listeners.click();
-assert(visibleNodes(ada.children[0]).some(n=>n.tag==='mark'&&n.textContent==='Fermi'));
+openSection('episodes');
+const fermi=search('fermi');
+assert.deepEqual(fermi.map(card=>Number(card.dataset.candidate)),[31,1066,79,338,1067],
+ 'Fermi titles come before the dark-energy description; Ada, Shannon and simulation source-title matches are excluded');
+const description=fermi.find(card=>Number(card.dataset.candidate)===1067);
+assert(visibleNodes(description).some(n=>n.className==='search-context'&&n.textContent.includes('Vysvětlení:')));
+assert(description.children[1].children.find(n=>n.className==='finding-details').hidden);
+description.children[1].children[0].children[0].listeners.click();
+assert(visibleNodes(description).some(n=>n.className==='explanation'&&allNodes(n).some(n=>n.tag==='mark')));
+elements.status.value='Nesplněno';elements.status.listeners.change();
+assert(!elements.cards.children.some(card=>card.tag==='article'&&Number(card.dataset.candidate)===1067));
+elements.status.value='';elements.status.listeners.change();
 assert.equal(search('fermy').length,0,'No fuzzy spelling or joining pieces across words');
-search('');assert(!allNodes(elements.cards).some(n=>n.tag==='mark'||n.className==='search-context'));
+search('');for(const label of sections)toggle(label,true);
+assert(!allNodes(elements.cards).some(n=>n.tag==='mark'||n.className==='search-context'));
 assert.equal(count(),totalBefore);
 for(const [text,query,expected] of [
  ['Černé díry a černé díry','cerne',['Černé','černé']],
@@ -214,4 +224,7 @@ assert(!context.searchFields(separate).some(field=>context.fold(field.text).incl
 const merged={tema:'Obecné téma',compactTitle:'Zkratka',targets:[],mergedFrom:[{tema:'Původní zmínka',vysvetleni:'Speciální vysvětlení'}]};
 const hiddenMatch=context.searchFields(merged).find(field=>context.fold(field.text).includes('specialni'));
 assert(hiddenMatch);assert(context.searchContext(hiddenMatch,'specialni').includes('Speciální'));
-console.log('PASS: visible search reasons, source/target/merged fields, accents and Unicode offsets, repeated matches, literal HTML, no joining words or fields, and cleared highlights.');
+const metadataOnly={tema:'Jaderné reaktory',vysvetleni:'Samostatný díl o štěpení.',episodeLabel:'Fermi',sourceTitle:'Fermiho paradox',outcomeNote:'Fermi',targets:[{title:'Fermi'}],mergedFrom:[{tema:'Reaktory',sourceTitle:'Fermi',episodeLabel:'Fermi'}]};
+assert(!context.searchFields(metadataOnly).some(field=>context.fold(field.text).includes('fermi')),
+ 'Source and related episode titles, episode numbers and audit outcome notes must not admit a result');
+console.log('PASS: title-first content search, excluded episode metadata, visible description reasons, merged content, accents and Unicode offsets, repeated matches, literal HTML, no joining words or fields, and cleared highlights.');
