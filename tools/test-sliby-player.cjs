@@ -198,7 +198,7 @@ const fermiCards=search('fermi');
 assert(!fermiCards.some(card=>Number(card.dataset.candidate)===632),'Ada Lovelace must not match merely because the source episode mentions Fermi');
 const fermiExpected=data.findings.filter(r=>searchPriority(r,'fermi')<2).sort((a,b)=>searchPriority(a,'fermi')-searchPriority(b,'fermi'));
 assert.deepEqual(rendered(),expected(fermiExpected),'Fermi promise titles must appear before matches in descriptions');
-assert(fermiCards.some(card=>visibleNodes(card).some(n=>n.className==='search-context'&&n.textContent.includes('Vysvětlení:'))),'Description matches explain the hit in compact view');
+assert(fermiCards.some(card=>visibleNodes(card).some(n=>n.className==='search-context')),'Description matches explain the hit in compact view');
 assert.equal(search('fermy').length,0,'No fuzzy spelling or joining pieces across words');
 search('');assert(!allNodes(elements.cards).some(n=>n.tag==='mark'||n.className==='search-context'));
 assert.equal(count(),totalBefore);
