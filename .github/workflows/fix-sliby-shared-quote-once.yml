@@ -26,7 +26,7 @@ jobs:
           import re
           p=Path('sliby/index.html')
           source=p.read_text(encoding='utf-8')
-          original_data=re.search(r'<script type="application/json" id="audit-data">([\\s\\S]*?)</script>',source).group(1)
+          original_data=re.search(r'<script type="application/json" id="audit-data">([\s\S]*?)</script>',source).group(1)
           anchor='function searchContext(field,q){'
           old='const match=searchFields(r).find(field=>fold(field.text).includes(q));'
           new='''// Separate promised topics can share the very same transcript sentence.
@@ -53,7 +53,7 @@ jobs:
           if source.count(anchor)!=1 or source.count(old)!=1:
            raise SystemExit('Unexpected Sliby search version; refusing to modify')
           updated=source.replace(anchor,new,1).replace(old,'const match=searchMatch(r,q);',1)
-          if re.search(r'<script type="application/json" id="audit-data">([\\s\\S]*?)</script>',updated).group(1)!=original_data:
+          if re.search(r'<script type="application/json" id="audit-data">([\s\S]*?)</script>',updated).group(1)!=original_data:
            raise SystemExit('Stored promises changed; aborting')
           p.write_text(updated,encoding='utf-8')
           print('Search logic patched; all promise data unchanged')
