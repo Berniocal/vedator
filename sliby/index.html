@@ -73,6 +73,26 @@ function searchFields(r){
  for(const m of r.mergedFrom||[])fields.push(['Další zmínka – výrok',m.quote,1],['Další zmínka – vysvětlení',m.vysvetleni,1]);
  return fields.filter(([,text])=>text!==undefined&&text!==null&&String(text).length).map(([label,text,priority])=>({label,text:String(text),priority}));
 }
+// Separate promised topics can share the very same transcript sentence.
+// A mention belonging to another card must not make this card a search hit.
+const sharedQuoteGroups=new Map();
+for(const row of D.findings){
+ if(!row.quote)continue;
+ const key=JSON.stringify([row.file,row.time,row.quote]);
+ if(!sharedQuoteGroups.has(key))sharedQuoteGroups.set(key,[]);
+ sharedQuoteGroups.get(key).push(row);
+}
+function searchMatch(r,q){
+ const fields=searchFields(r);
+ const titleHit=fields.find(field=>field.priority===0&&fold(field.text).includes(q));
+ if(titleHit)return titleHit;
+ if(r.quote){
+  const group=sharedQuoteGroups.get(JSON.stringify([r.file,r.time,r.quote]))||[];
+  const belongsToSibling=group.some(other=>other!==r&&searchFields(other).some(field=>field.priority===0&&fold(field.text).includes(q)));
+  if(belongsToSibling)return null;
+ }
+ return fields.find(field=>field.priority===1&&fold(field.text).includes(q))||null;
+}
 function searchContext(field,q){
  const [start,end]=matchRanges(field.text,q)[0],left=Math.max(0,start-70),right=Math.min(field.text.length,Math.max(end,start+q.length)+110);
  return field.label+': '+(left?'…':'')+field.text.slice(left,right)+(right<field.text.length?'…':'');
@@ -222,7 +242,7 @@ function render(){const q=fold(el('q').value.trim()),st=el('status').value;
  const rows=inSection.filter(r=>{
   if(st&&r.stav!==st)return false;
   if(!q)return true;
-  const match=searchFields(r).find(field=>fold(field.text).includes(q));
+  const match=searchMatch(r,q);
   if(match)matches.set(recordKey(r),match);return !!match;
  });
  // Řazení pouze při hledání; bez dotazu zůstává původní pořadí.
