@@ -1,0 +1,86 @@
+name: Jednorázově dokončit hledání slibů
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/fix-sliby-search-once.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  patch-search:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Bezpečně upravit pouze vyhledávání, nikoli data slibů
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('sliby/index.html')
+          s=p.read_text(encoding='utf-8')
+          old="""function searchFields(r){
+           const fields=[['Téma',findingTitle(r)],['Stručný název',r.compactTitle],['Původní téma',r.tema],['Číslo dílu',r.episodeLabel],['Název epizody',r.sourceTitle],['Vysvětlení',r.vysvetleni],['Výsledek',r.outcomeNote]];
+           for(const m of r.mergedFrom||[])fields.push(['Další zmínka – téma',m.tema],['Další zmínka – číslo dílu',m.episodeLabel],['Další zmínka – název epizody',m.sourceTitle],['Další zmínka – vysvětlení',m.vysvetleni]);
+           for(const t of r.targets)fields.push(['Související epizoda',t.title]);
+           return fields.filter(([,text])=>text!==undefined&&text!==null&&String(text).length).map(([label,text])=>({label,text:String(text)}));
+          }"""
+          new="""function searchFields(r){
+           // Vyhledáváme pouze obsah slibu, nikoli názvy a čísla epizod.
+           const fields=[['Téma',findingTitle(r),0],['Stručný název',r.compactTitle,0],['Původní téma',r.tema,0]];
+           for(const m of r.mergedFrom||[])fields.push(['Další zmínka – téma',m.tema,0]);
+           fields.push(['Původní výrok',r.quote,1],['Vysvětlení',r.vysvetleni,1]);
+           for(const m of r.mergedFrom||[])fields.push(['Další zmínka – výrok',m.quote,1],['Další zmínka – vysvětlení',m.vysvetleni,1]);
+           return fields.filter(([,text])=>text!==undefined&&text!==null&&String(text).length).map(([label,text,priority])=>({label,text:String(text),priority}));
+          }"""
+          old_sort=""" });
+           el('shown').textContent='Zobrazeno '"""
+          new_sort=""" });
+           // Řazení pouze při hledání; bez dotazu zůstává původní pořadí.
+           if(q)rows.sort((a,b)=>matches.get(recordKey(a)).priority-matches.get(recordKey(b)).priority);
+           el('shown').textContent='Zobrazeno '"""
+          for a,b in [(old,new),(old_sort,new_sort),('Hledat téma, jméno nebo číslo dílu…','Hledat v názvu nebo popisu slibu…')]:
+              if s.count(a)!=1:
+                  raise SystemExit(f'Kontrola selhala, očekáván jediný výskyt: {a[:60]!r}, nalezeno {s.count(a)}')
+              s=s.replace(a,b,1)
+          p.write_text(s,encoding='utf-8')
+          print('Úspěšně upraveno hledání bez změny JSON dat.')
+          PY
+      - name: Otestovat HTML, přehrávač a osobní nastavení
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import vm from 'node:vm';
+          const html=fs.readFileSync('sliby/index.html','utf8');
+          const data=JSON.parse(html.match(/<script type="application\/json" id="audit-data">([\s\S]*?)<\/script>/)[1]);
+          if(data.findings.length<900)throw Error('Neočekávaný počet slibů');
+          new vm.Script(html.match(/<script>([\s\S]*?)<\/script>/)[1]);
+          const fold=x=>String(x??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+          const title=r=>[r.displayTema,r.compactTitle,r.tema,...(r.mergedFrom||[]).map(m=>m.tema)].some(x=>fold(x).includes('fermi'));
+          const description=r=>[r.quote,r.vysvetleni,...(r.mergedFrom||[]).flatMap(m=>[m.quote,m.vysvetleni])].some(x=>fold(x).includes('fermi'));
+          const hits=data.findings.filter(r=>title(r)||description(r));
+          if(hits.length!==7||hits.filter(title).length!==5)throw Error('Regrese vyhledávání Fermi');
+          if(!html.includes('if(q)rows.sort('))throw Error('Chybí řazení');
+          console.log('Kontroly OK: '+data.findings.length+' slibů, Fermi: 5 názvů a 2 popisy');
+          JS
+          node tools/test-sliby-player.cjs
+          node tools/test-sliby-personal-state.cjs
+      - name: Uložit opravu do hlavní větve
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- sliby/index.html
+          git diff --cached --quiet || (git commit -m 'Rank Sliby title matches first and exclude episode metadata' && git push origin HEAD:main)
+  deploy:
+    needs: patch-search
+    uses: ./.github/workflows/deploy-pages-direct.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
