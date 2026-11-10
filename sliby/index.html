@@ -33,7 +33,7 @@
 <div class="report-actions"><button id="export-json" type="button">Export do JSON</button><button id="show-deleted" type="button" aria-pressed="false">Smazané (0)</button><button id="reset-defaults" type="button" title="Vrátit původní hodnocení všech záznamů a obnovit smazané položky">Obnovit výchozí</button></div>
 
 <p id="save-status" class="save-status" role="status" aria-live="polite"></p>
-<div class="toolbar"><input id="q" type="search" placeholder="Hledat téma, jméno nebo číslo dílu…" aria-label="Hledat"><select id="status" aria-label="Výsledek"><option value="">Všechny výsledky</option></select></div>
+<div class="toolbar"><input id="q" type="search" placeholder="Hledat v názvu nebo popisu slibu…" aria-label="Hledat"><select id="status" aria-label="Výsledek"><option value="">Všechny výsledky</option></select></div>
 <div id="shown" class="count" aria-live="polite"></div><section id="cards" aria-label="Záznamy"></section>
 </main>
 <aside id="audio-panel" class="audio-panel" aria-label="Přehrávač výroku" hidden><div class="audio-inner"><div><div id="audio-name" class="audio-name"></div><div id="audio-hint" class="audio-hint"></div><div id="audio-error" class="audio-error" role="status"></div></div><div class="audio-controls"><button id="audio-back" type="button" aria-label="Posunout o 10 sekund zpět">−10 s</button><audio id="audio" controls preload="none"></audio><button id="audio-forward" type="button" aria-label="Posunout o 10 sekund vpřed">+10 s</button></div><button id="audio-close" type="button" aria-label="Zavřít přehrávač">✕</button></div></aside>
@@ -66,10 +66,12 @@ function searchNode(tag,text,q,cls){
  e.append(text.slice(from));return e;
 }
 function searchFields(r){
- const fields=[['Téma',findingTitle(r)],['Stručný název',r.compactTitle],['Původní téma',r.tema],['Číslo dílu',r.episodeLabel],['Název epizody',r.sourceTitle],['Vysvětlení',r.vysvetleni],['Výsledek',r.outcomeNote]];
- for(const m of r.mergedFrom||[])fields.push(['Další zmínka – téma',m.tema],['Další zmínka – číslo dílu',m.episodeLabel],['Další zmínka – název epizody',m.sourceTitle],['Další zmínka – vysvětlení',m.vysvetleni]);
- for(const t of r.targets)fields.push(['Související epizoda',t.title]);
- return fields.filter(([,text])=>text!==undefined&&text!==null&&String(text).length).map(([label,text])=>({label,text:String(text)}));
+ // Vyhledáváme pouze obsah slibu, nikoli názvy a čísla epizod.
+ const fields=[['Téma',findingTitle(r),0],['Stručný název',r.compactTitle,0],['Původní téma',r.tema,0]];
+ for(const m of r.mergedFrom||[])fields.push(['Další zmínka – téma',m.tema,0]);
+ fields.push(['Původní výrok',r.quote,1],['Vysvětlení',r.vysvetleni,1]);
+ for(const m of r.mergedFrom||[])fields.push(['Další zmínka – výrok',m.quote,1],['Další zmínka – vysvětlení',m.vysvetleni,1]);
+ return fields.filter(([,text])=>text!==undefined&&text!==null&&String(text).length).map(([label,text,priority])=>({label,text:String(text),priority}));
 }
 function searchContext(field,q){
  const [start,end]=matchRanges(field.text,q)[0],left=Math.max(0,start-70),right=Math.min(field.text.length,Math.max(end,start+q.length)+110);
@@ -223,6 +225,8 @@ function render(){const q=fold(el('q').value.trim()),st=el('status').value;
   const match=searchFields(r).find(field=>fold(field.text).includes(q));
   if(match)matches.set(recordKey(r),match);return !!match;
  });
+ // Řazení pouze při hledání; bez dotazu zůstává původní pořadí.
+ if(q)rows.sort((a,b)=>matches.get(recordKey(a)).priority-matches.get(recordKey(b)).priority);
  el('shown').textContent='Zobrazeno '+rows.length+' z '+inSection.length+' záznamů'+(showDeleted?' · Smazané':'');
  document.querySelectorAll('.summary button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.status===st)));
  const frag=document.createDocumentFragment();
