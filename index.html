@@ -610,6 +610,11 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     }catch(error){console.warn('Sliby theme synchronization unavailable',error)}
   };
   iframe.addEventListener('load',sync);
+  // Sliby is a separate page: bypass browser HTTP cache each time the PWA starts,
+  // without changing persistent filters, ordering, or completion state.
+  const slibyUrl=new URL(iframe.getAttribute('src'),location.href);
+  slibyUrl.searchParams.set('pwa_load',String(Date.now()));
+  iframe.src=slibyUrl.href;
   window.addEventListener('vedatorthemechange',sync);
 })();
 </script>
