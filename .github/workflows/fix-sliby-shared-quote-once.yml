@@ -1,0 +1,79 @@
+name: Jednorazove opravit hledani ve sdilenych vyrocich slibu
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/fix-sliby-shared-quote-once.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  patch-search:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Upravit jen index vyhledavani, ne zaznamy slibu
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('sliby/index.html')
+          source=p.read_text(encoding='utf-8')
+          original_data=re.search(r'<script type="application/json" id="audit-data">([\\s\\S]*?)</script>',source).group(1)
+          anchor='function searchContext(field,q){'
+          old='const match=searchFields(r).find(field=>fold(field.text).includes(q));'
+          new='''// Separate promised topics can share the very same transcript sentence.
+          // A mention belonging to another card must not make this card a search hit.
+          const sharedQuoteGroups=new Map();
+          for(const row of D.findings){
+           if(!row.quote)continue;
+           const key=JSON.stringify([row.file,row.time,row.quote]);
+           if(!sharedQuoteGroups.has(key))sharedQuoteGroups.set(key,[]);
+           sharedQuoteGroups.get(key).push(row);
+          }
+          function searchMatch(r,q){
+           const fields=searchFields(r);
+           const titleHit=fields.find(field=>field.priority===0&&fold(field.text).includes(q));
+           if(titleHit)return titleHit;
+           if(r.quote){
+            const group=sharedQuoteGroups.get(JSON.stringify([r.file,r.time,r.quote]))||[];
+            const belongsToSibling=group.some(other=>other!==r&&searchFields(other).some(field=>field.priority===0&&fold(field.text).includes(q)));
+            if(belongsToSibling)return null;
+           }
+           return fields.find(field=>field.priority===1&&fold(field.text).includes(q))||null;
+          }
+          function searchContext(field,q){'''
+          if source.count(anchor)!=1 or source.count(old)!=1:
+           raise SystemExit('Unexpected Sliby search version; refusing to modify')
+          updated=source.replace(anchor,new,1).replace(old,'const match=searchMatch(r,q);',1)
+          if re.search(r'<script type="application/json" id="audit-data">([\\s\\S]*?)</script>',updated).group(1)!=original_data:
+           raise SystemExit('Stored promises changed; aborting')
+          p.write_text(updated,encoding='utf-8')
+          print('Search logic patched; all promise data unchanged')
+          PY
+      - name: Regression checks for Fermi, dark energy, Einstein and saved state
+        run: |
+          node tools/test-sliby-player.cjs
+          node tools/test-sliby-personal-state.cjs
+      - name: Commit verified patch and remove one-time workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- sliby/index.html
+          git rm -- .github/workflows/fix-sliby-shared-quote-once.yml
+          git commit -m 'Avoid unrelated shared-quote Sliby search matches'
+          git push origin HEAD:main
+  deploy:
+    needs: patch-search
+    uses: ./.github/workflows/deploy-pages-direct.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
