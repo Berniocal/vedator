@@ -499,24 +499,32 @@ html[data-theme="dark"] button:focus-visible,html[data-theme="dark"] a:focus-vis
 html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus-visible{outline-color:#aa9fff}
 `;
   // Only the embedded Sliby UI changes; the source report and its data stay intact.
+  const slibyOrderOptions=[['newest','Nejnovější první'],['oldest','Nejstarší první'],['most','Nejvícekrát slíbené'],['least','Nejméněkrát slíbené']];
   const installOrderSelector=doc=>{
     const status=doc.getElementById('status');
     const toolbar=status?.closest('.toolbar');
     const page=iframe.contentWindow;
     if(!toolbar||!page||doc.getElementById('vedator-sliby-order'))return;
-    if(typeof page.sectionRows!=='function'||typeof page.render!=='function')return;
+    if(typeof page.sectionRows!=='function'||typeof page.promiseMentions!=='function'||typeof page.render!=='function')return;
     const select=doc.createElement('select');
     select.id='vedator-sliby-order';
     select.setAttribute('aria-label','Řazení slibů');
-    for(const [value,label] of [['newest','Nejnovější první'],['oldest','Nejstarší první']]){
+    for(const [value,label] of slibyOrderOptions){
       const option=doc.createElement('option');
       option.value=value;option.textContent=label;select.appendChild(option);
     }
     const originalSectionRows=page.sectionRows;
     page.sectionRows=function(){
       const rows=originalSectionRows();
-      const direction=select.value==='oldest'?1:-1;
+      const order=select.value;
       rows.sort((a,b)=>{
+        if(order==='most'||order==='least'){
+          // Use the same distinct, playable mentions as the counter in each card.
+          const byMentions=page.promiseMentions(a).length-page.promiseMentions(b).length;
+          if(byMentions)return order==='most'?-byMentions:byMentions;
+        }
+        // Keep the existing date ordering as a predictable tie-breaker.
+        const direction=order==='oldest'?1:-1;
         const dates=Date.parse(a.sourceRecording?.date||'')-Date.parse(b.sourceRecording?.date||'');
         const withinEpisode=(Number(a.seconds)||0)-(Number(b.seconds)||0);
         return direction*(dates||withinEpisode||((Number(a.index)||0)-(Number(b.index)||0)));
@@ -548,7 +556,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
         version:1,
         categories:groupValues('categories','category'),
         sections:groupValues('sections','section'),
-        order:order.value==='oldest'?'oldest':'newest',
+        order:slibyOrderOptions.some(([value])=>value===order.value)?order.value:'newest',
         status:status.value,
         search:search.value,
         showDeleted:doc.getElementById('show-deleted')?.getAttribute('aria-pressed')==='true'
@@ -561,7 +569,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       if(raw?.version===1&&typeof raw==='object')saved=raw;
     }catch(error){}
     if(saved){
-      order.value=saved.order==='oldest'?'oldest':'newest';
+      order.value=slibyOrderOptions.some(([value])=>value===saved.order)?saved.order:'newest';
       if(typeof saved.search==='string')search.value=saved.search;
       if(typeof saved.status==='string'&&[...status.options].some(o=>o.value===saved.status))status.value=saved.status;
       const restoreGroup=(id,key,values)=>{
