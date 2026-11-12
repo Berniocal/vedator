@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Vedátor – administrace slibů</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:dark;font-size:15px;background:#0e1118;color:#edf1f8}
+*{box-sizing:border-box}body{margin:0}main{max-width:1100px;margin:0 auto;padding:24px 16px 90px}
+header{border-bottom:1px solid #353b4b;padding-bottom:16px;margin-bottom:20px}
+h1{font-size:clamp(25px,4vw,36px);margin:6px 0}h2{font-size:19px;margin:0 0 10px}
+p{line-height:1.55}a{color:#bbadff}small,.muted{color:#aab3c6}
+.panel,.item{background:#171b26;border:1px solid #32394d;border-radius:14px;padding:17px;margin:13px 0}
+button,select,input,textarea{font:inherit}button{border:1px solid #7065b9;border-radius:8px;background:#5144a0;color:white;padding:9px 13px;cursor:pointer}
+button:hover{filter:brightness(1.1)}button:disabled{opacity:.5;cursor:not-allowed}
+button.alt{background:#222a3c;border-color:#59637d}button.mini{padding:5px 9px;font-size:13px}
+input[type=password],input[type=search],select,textarea{width:100%;background:#101522;border:1px solid #586176;border-radius:8px;padding:10px;color:#f6f7ff}
+textarea{resize:vertical;min-height:58px}label{display:block;margin:10px 0 5px}input:focus-visible,select:focus-visible,button:focus-visible,textarea:focus-visible{outline:2px solid #ab9dff;outline-offset:2px}
+.controls{display:grid;grid-template-columns:2fr 1fr;gap:12px;align-items:end}.toolbar{display:grid;grid-template-columns:2fr 1fr auto;gap:10px;align-items:end;margin:12px 0}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.actions{position:sticky;bottom:0;background:#0e1118ec;padding:12px 0;border-top:1px solid #41485a;z-index:2;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tag{display:inline-block;border:1px solid #596177;color:#bfc6df;padding:3px 8px;border-radius:999px;font-size:12px}
+.item h3{margin:0 0 9px;font-size:17px}.item-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.checkbox{display:flex;align-items:center;gap:8px;min-height:42px}.checkbox input{width:20px;height:20px;accent-color:#8d80f0}
+.item.pending{border-color:#d5b774}.message{min-height:20px;margin:12px 0}.message.error{color:#ffb9b9}.message.good{color:#a3eecb}
+.hidden{display:none!important}details summary{cursor:pointer;color:#c7bfff;margin:9px 0}.quote{font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere;color:#b6c2d4}
+#count{margin-top:8px;color:#afb5c9}.help{color:#b5bdd0;font-size:13px}
+@media(max-width:650px){.toolbar,.controls,.item-fields{grid-template-columns:1fr}.actions{position:static}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="row"><span class="tag">VEDÁTOR • SPRÁVA SLIBŮ</span><a href="../">Veřejné sliby</a><a href="../../">Aplikace Vedátor</a></div>
+<h1>Administrace slibů</h1>
+<p class="muted">Změny se ukládají přímo do <a href="https://github.com/Berniocal/vedator/blob/main/sliby/admin-overrides.json" target="_blank" rel="noopener">GitHubu</a>. Ruční hodnocení má přednost před automatickým auditem i po dalším přidávání epizod.</p>
+</header>
+<section class="panel" id="login-panel">
+<h2>Připojení ke GitHubu</h2>
+<p>Vytvoř si <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">Fine-grained personal access token</a>: vlastník <strong>Berniocal</strong>, přístup pouze k repozitáři <strong>vedator</strong>, oprávnění <strong>Contents: Read and write</strong>. Ostatní oprávnění nejsou potřeba.</p>
+<form id="login-form" autocomplete="off">
+<label for="token">GitHub token</label>
+<div class="controls"><input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required><button id="login-button" type="submit">Připojit</button></div>
+</form>
+<p class="help">Token se neukládá do LocalStorage, souborů ani do adresy stránky. Zůstane pouze v paměti otevřené karty a po odpojení se zahodí. Neposílej ho nikomu do chatu.</p>
+</section>
+<section id="editor" class="hidden">
+<div class="panel">
+<div class="row"><strong id="connected">Připojeno</strong><button id="reload" class="alt mini" type="button">Obnovit z GitHubu</button><button id="logout" class="alt mini" type="button">Odpojit</button></div>
+<div class="toolbar">
+<div><label for="query">Vyhledat slib</label><input id="query" type="search" placeholder="Fermi, kvantové počítače…"></div>
+<div><label for="filter">Zobrazit</label><select id="filter"><option value="all">Všechny</option><option value="open">Nesplněné</option><option value="done">Splněné</option><option value="manual">Ručně upravené</option><option value="pending">Neuložené změny</option></select></div>
+<button id="clear" class="alt" type="button">Vymazat hledání</button>
+</div>
+<div id="count" aria-live="polite"></div>
+</div>
+<div id="list"></div>
+<button id="more" class="alt hidden" type="button">Zobrazit další</button>
+<div class="actions"><button id="save" type="button" disabled>Uložit změny na GitHub</button><span id="pending-count" class="muted">Bez neuložených změn</span></div>
+</section>
+<div id="message" class="message" role="status" aria-live="polite"></div>
+</main>
+<script src="../admin-status.js"></script>
+<script>
+'use strict';
+const lib=window.VedatorSlibyAdminStatus;
+const API='https://api.github.com/repos/Berniocal/vedator/contents/sliby/admin-overrides.json';
+const el=id=>document.getElementById(id);
+const valid=['Nesplněno','Splněno později','Splněno už dříve'];
+let token=null, rows=[], remote=null, pending=new Map(), visible=80, busy=false;
+const statusIsDone=state=>state!=='Nesplněno';
+const sortDate=r=>Date.parse(r.sourceRecording?.date)||0;
+const fold=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function message(text,error=false){el('message').textContent=text;el('message').className='message'+(error?' error':text?' good':'')}
+function node(tag,text,className){const n=document.createElement(tag);if(text!==undefined)n.textContent=String(text);if(className)n.className=className;return n}
+function decodeContent(text){const binary=atob(text.replace(/\s/g,''));return new TextDecoder().decode(Uint8Array.from(binary,c=>c.charCodeAt(0)))}
+function encodeContent(text){const bytes=new TextEncoder().encode(text);let binary='';for(let i=0;i<bytes.length;i+=16384)binary+=String.fromCharCode(...bytes.subarray(i,i+16384));return btoa(binary)}
+async function apiRequest(method,url,body){
+  if(!token)throw Error('Nejprve zadej token.');
+  const response=await fetch(url,{method,cache:'no-store',headers:{
+    'Accept':'application/vnd.github+json',
+    'Authorization': 'Bearer ' + token,
+    'X-GitHub-Api-Version':'2022-11-28',
+    ...(body?{'Content-Type':'application/json'}:{})
+  },...(body?{body:JSON.stringify(body)}:{})});
+  if(!response.ok){
+    if(response.status===401)throw Error('GitHub token není platný nebo vypršel.');
+    if(response.status===403)throw Error('GitHub odmítl přístup. Ověř Contents: Read and write pro repozitář vedator.');
+    if(response.status===409||response.status===422)throw Error('Mezitím se změnil soubor na GitHubu. Obnov stránku a zkus to znovu.');
+    throw Error('GitHub vrátil HTTP '+response.status+'.');
+  }
+  return response.json();
+}
+async function readRemote(){
+  const file=await apiRequest('GET',API+'?ref=main');
+  if(!file.sha||!file.content)throw Error('Na GitHubu chybí soubor s ručními opravami.');
+  const doc=lib.check(JSON.parse(decodeContent(file.content)));
+  return {sha:file.sha,doc};
+}
+async function readReport(){
+  const res=await fetch('../index.html?admin_load='+Date.now(),{cache:'no-store'});
+  if(!res.ok)throw Error('Nepodařilo se načíst katalog slibů.');
+  const html=await res.text(),before='<script type="application/json" id="audit-data">';
+  const start=html.indexOf(before),end=html.indexOf('</script>',start+before.length);
+  if(start<0||end<0)throw Error('V katalogu chybí audit-data.');
+  const data=JSON.parse(html.slice(start+before.length,end));
+  if(!Array.isArray(data.findings))throw Error('Chybný katalog slibů.');
+  return data.findings;
+}
+function saved(row){return lib.resolve(row,remote?.doc)}
+function state(row){
+  const change=pending.get(lib.key(row));
+  if(change)return change.stav==='auto'?row.stav:change.stav;
+  return saved(row)?.stav||row.stav;
+}
+function note(row){const change=pending.get(lib.key(row));return change?change.note:saved(row)?.note||''}
+function mode(row){const change=pending.get(lib.key(row));return change?change.stav:saved(row)?.stav||'auto'}
+function stage(row,stav,why){
+  if(stav!=='auto'&&!valid.includes(stav))return;
+  const k=lib.key(row), current=saved(row), newNote=stav==='auto'?'':String(why||'').slice(0,500);
+  if((stav==='auto'&&!current)||(current&&stav===current.stav&&newNote===(current.note||''))){
+    pending.delete(k);
+  }else pending.set(k,{stav,note:newNote});
+  show();
+}
+function summary(){
+  el('pending-count').textContent=pending.size?pending.size+' neuložených změn':'Bez neuložených změn';
+  el('save').disabled=!pending.size||busy;
+}
+function show(){
+  if(!rows.length){el('list').replaceChildren(node('p','Katalog je prázdný.'));summary();return}
+  const q=fold(el('query').value.trim()),filter=el('filter').value;
+  const matching=rows.filter(row=>{
+    if(q&&!fold([row.displayTema||row.tema,row.vysvetleni,...(row.mergedFrom||[]).map(m=>m.tema)].join(' ')).includes(q))return false;
+    const current=state(row),edited=!!saved(row);
+    return filter==='all'||filter==='open'&&!statusIsDone(current)||filter==='done'&&statusIsDone(current)||
+      filter==='manual'&&edited||filter==='pending'&&pending.has(lib.key(row));
+  });
+  el('count').textContent='Zobrazeno '+Math.min(visible,matching.length)+' z '+matching.length+' odpovídajících slibů · '+rows.length+' položek celkem';
+  const frag=document.createDocumentFragment();
+  for(const row of matching.slice(0,visible)){
+    const k=lib.key(row),selected=mode(row),card=node('article',undefined,'item'+(pending.has(k)?' pending':''));
+    card.append(node('h3',row.displayTema||row.tema));
+    const meta=node('div',undefined,'row');
+    meta.append(node('span',row.section==='episodes'?'Epizody':'Ostatní','tag'),node('span',row.kategorie,'tag'));
+    const count=new Set([row,...(row.mergedFrom||[])].map(m=>JSON.stringify([m.sourceRecording?.audioURL||m.file,m.seconds]))).size;
+    if(count>1)meta.append(node('span',count+'× slíbeno','tag'));
+    if(saved(row))meta.append(node('span','Ručně upraveno','tag'));
+    card.append(meta);
+    const fields=node('div',undefined,'item-fields');
+    const left=node('div'),lbl=node('label','Stav slibu');
+    const select=node('select');
+    for(const [value,name] of [['auto','Automatický výsledek ('+row.stav+')'],...valid.map(s=>[s,s])]){
+      const option=node('option',name);option.value=value;select.append(option);
+    }
+    select.value=selected;
+    select.addEventListener('change',()=>stage(row,select.value,note(row)));
+    left.append(lbl,select);
+    const right=node('div'),checkLabel=node('label',undefined,'checkbox'),checkbox=node('input');
+    checkbox.type='checkbox';checkbox.checked=statusIsDone(state(row));
+    checkbox.addEventListener('change',()=>stage(row,checkbox.checked?'Splněno později':'Nesplněno',note(row)));
+    checkLabel.append(checkbox,node('span','Splněno'));right.append(checkLabel);
+    fields.append(left,right);card.append(fields);
+    const notes=node('label','Poznámka / doklad splnění (nepovinné)');
+    const area=node('textarea');area.placeholder='Např. splněno v dílu 365, od 12:30';area.value=note(row);area.maxLength=500;area.rows=2;
+    area.addEventListener('change',()=>stage(row,mode(row)==='auto'?(area.value.trim()?'Splněno později':'auto'):mode(row),area.value));
+    card.append(notes,area);
+    const detail=node('details'),summaryText=node('summary','Zobrazit původní výrok a zmínky');
+    detail.append(summaryText,node('p',row.vysvetleni||'', 'quote'));
+    for(const m of [row,...(row.mergedFrom||[])].filter((m,i,array)=>array.findIndex(x=>JSON.stringify([x.file,x.seconds])===JSON.stringify([m.file,m.seconds]))===i)){
+      const line=node('p', (m.episodeLabel?'Díl '+m.episodeLabel:'Rozhovory')+' · '+m.time+' · '+m.tema, 'quote');
+      const link=node('a','Přehrát výrok');link.href=m.timeURL;link.target='_blank';link.rel='noopener noreferrer';
+      line.append(' ',link);detail.append(line);
+    }
+    card.append(detail);frag.append(card);
+  }
+  el('list').replaceChildren(frag);
+  el('more').classList.toggle('hidden',matching.length<=visible);
+  summary();
+}
+async function connect(){
+  busy=true;el('login-button').disabled=true;message('Připojuji k GitHubu…');
+  token=el('token').value.trim();
+  el('token').value='';
+  try{
+    const [fresh,catalog]=await Promise.all([readRemote(),readReport()]);
+    remote=fresh;rows=catalog.sort((a,b)=>sortDate(b)-sortDate(a)||a.index-b.index);
+    pending.clear();visible=80;el('login-panel').classList.add('hidden');el('editor').classList.remove('hidden');
+    el('connected').textContent='Připojeno • Berniocal/vedator • main';
+    message('Načteno '+rows.length+' slibů. Změny budou publikovány po uložení na GitHub.');
+    show();
+  }catch(error){token=null;message(error.message,true)}
+  finally{busy=false;el('login-button').disabled=false;summary()}
+}
+el('login-form').addEventListener('submit',event=>{event.preventDefault();if(!busy)connect()});
+el('query').addEventListener('input',()=>{visible=80;show()});
+el('filter').addEventListener('change',()=>{visible=80;show()});
+el('clear').onclick=()=>{el('query').value='';visible=80;show()};
+el('more').onclick=()=>{visible+=80;show()};
+el('logout').onclick=()=>{
+  if(pending.size&&!confirm('Neuložené změny budou zahozeny. Pokračovat?'))return;
+  token=null;pending.clear();rows=[];remote=null;el('login-panel').classList.remove('hidden');
+  el('editor').classList.add('hidden');el('list').replaceChildren();message('Odpojeno. Token byl odstraněn z paměti stránky.');
+};
+el('reload').onclick=async()=>{
+  if(pending.size&&!confirm('Zahodit neuložené změny a načíst GitHub?'))return;
+  busy=true;summary();message('Načítám aktuální data…');
+  try{const [fresh,catalog]=await Promise.all([readRemote(),readReport()]);remote=fresh;rows=catalog.sort((a,b)=>sortDate(b)-sortDate(a)||a.index-b.index);pending.clear();show();message('Data obnovena.')}
+  catch(e){message(e.message,true)}finally{busy=false;summary()}
+};
+el('save').onclick=async()=>{
+  if(!pending.size||busy)return;
+  busy=true;summary();message('Ověřuji poslední verzi a ukládám změny…');
+  try{
+    const latest=await readRemote(),next={schema:1,items:{...latest.doc.items}};
+    for(const [k,change] of pending){
+      const row=rows.find(r=>lib.key(r)===k);
+      if(!row)throw Error('Slib již neexistuje v aktuálním katalogu. Obnov data.');
+      const keys=lib.keys(row);
+      for(const memberKey of keys){
+        if(JSON.stringify(latest.doc.items[memberKey]||null)!==JSON.stringify(remote.doc.items[memberKey]||null))
+          throw Error('Někdo mezitím upravil stejný slib. Obnov data, abys změny nepřepsal.');
+      }
+      const value={stav:change.stav,note:change.note||'',updatedAt:new Date().toISOString()};
+      for(const memberKey of keys){
+        if(change.stav==='auto')delete next.items[memberKey];
+        else next.items[memberKey]=value;
+      }
+    }
+    lib.check(next);
+    const content=encodeContent(JSON.stringify(next,null,2)+'\n');
+    const result=await apiRequest('PUT',API,{
+      message:'Admin: ručně upraveno '+pending.size+' slibů',
+      content,sha:latest.sha,branch:'main'
+    });
+    remote={sha:result.content.sha,doc:next};
+    pending.clear();show();
+    message('Uloženo na GitHub! Změny se zobrazí na veřejné stránce po automatickém nasazení.');
+    const link=node('a','Zobrazit commit na GitHubu');link.href=result.commit.html_url;link.target='_blank';link.rel='noopener noreferrer';
+    el('message').append(' ',link);
+  }catch(error){message(error.message,true)}
+  finally{busy=false;summary()}
+};
+</script>
+</body></html>
