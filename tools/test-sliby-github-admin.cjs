@@ -50,7 +50,7 @@ assert(patched.includes('id="nfuture"')&&patched.includes("r.stav==='Budoucí sl
 assert(admin.includes('<option value="future">Budoucí sliby</option>'));
 assert(admin.includes("state==='Splněno později'||state==='Splněno už dříve'"));
 lib.apply(actual,overrides);
-const futureIds=[437,449,740,951,1107,1136,1173,1235,1251,1273,1326,1369,1388,1444,1458,1461,1472,1478,1504,1557,1783,1819];
+const futureIds=[437,449,740,951,959,1107,1136,1173,1235,1251,1273,1326,1369,1375,1388,1434,1444,1472,1478];
 assert.equal(actual.findings.filter(r=>r.stav==='Budoucí slib').length,futureIds.length);
 assert(actual.classification.statuses.includes('Budoucí slib'));
 for(const id of futureIds){
@@ -60,26 +60,11 @@ for(const id of futureIds){
   assert(row.adminNote,'Future promise missing rationale: '+id);
 }
 assert.equal(actual.classification.statusCounts['Budoucí slib'],futureIds.length);
+const nearTermIds=[1458,1461,1504,1557,1783,1819];
+for(const id of nearTermIds){
+ const row=actual.findings.find(r=>r.candidate===id);
+ assert(row,'Previously future record not found: '+id);
+ assert.equal(row.stav,'Nesplněno','Near-term promise is not long-term future: '+id);
+}
 
 console.log('PASS: admin override validation, merged identity matching, durable status on live and archived rows, PAT safety checks, and future status reporting.');
-
-
-const candidateRx=/(?:20[3-9]\d|21\d\d|za (?:deset|dvacet|třicet|čtyřicet|padesát|[1-9]\d) let|(?:až|jakmile|když|pokud|po) [^.!?]{0,100}(?:objev|potvrd|vyřeš|dokáž|prokáž|ověř|zjist|změř|získ|nalezn|důkaz|experiment|vynález|přistán|vypust)|(?:objev|potvrzení|prokázání|vyřešení|nové výsledky|v důchodu|na důchodku|za několik desetiletí))/i;
-console.log('FUTURE_AUDIT_BEGIN');
-console.log('FUTURE_FIELDS',JSON.stringify(Object.keys(actual.findings[0])));
-for(const row of actual.findings){
- if(row.stav==='Splněno později'||row.stav==='Splněno už dříve') continue;
- const fields=Object.entries(row).filter(([k,v])=>typeof v==='string' && !/URL|html|base64/i.test(k));
- const hit=fields.filter(([k,v])=>candidateRx.test(v));
- if(!hit.length)continue;
- console.log('FUTURE_CANDIDATE',JSON.stringify({id:row.candidate,stav:row.stav,tema:row.tema,section:row.section,hits:hit.map(([k,v])=>[k,v.slice(0,330)])}));
-}
-console.log('FUTURE_AUDIT_END');
-
-
-console.log('ALL_UNFULFILLED_BEGIN');
-for(const row of actual.findings){
- if(row.stav!=='Nesplněno')continue;
- console.log('UNFULFILLED_ROW',JSON.stringify({id:row.candidate,tema:row.tema,section:row.section,vysvetleni:String(row.vysvetleni||'').slice(0,640),quote:String(row.quote||'').slice(0,220),timing:String(row.timingStatus||'').slice(0,120)}));
-}
-console.log('ALL_UNFULFILLED_END');
