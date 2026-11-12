@@ -1,19 +1,276 @@
 {
-  "date": "2026-11-11",
-  "scope": "První dodatečná várka: 12 ručně porovnaných skupin témat. Nejde o úplnou kontrolu katalogu.",
+  "date": "2026-11-12",
+  "scope": "Druhá konzervativně ověřená várka: dalších 9 skupin, s explicitně ponechanými podobnými, ale obsahově odlišnými sliby.",
   "rule": "Sloučit jen tentýž zamýšlený obsah; uchovat všechny původní výroky, časy, hodnocení a doklady. Pozdější pokračování, jiné knihy série a příbuzná témata jsou samostatné.",
   "groups": [
-    {"members": [31, 1066, 79, 338], "title": "Enrico Fermi jako osobnost", "note": "Čtyři návrhy samostatného portrétu, nikoli slib epizody o Fermiho paradoxu. Vlastní biografie není doložená."},
-    {"members": [35, 1047, 104, 147, 1142], "title": "Kvantové počítače", "note": "Stejný první samostatný díl, realizovaný epizodou 154. Rozmezí deseti následujících dílů slíbené ve 26 dodrženo nebylo. Nové přísliby pokračování ze 154 zůstávají samostatné."},
-    {"members": [1044, 1050], "title": "Wow! signál", "note": "Opakovaný námět, realizovaný jako výrazná část dílu 40, nikoli samostatná epizoda jen o tomto signálu."},
-    {"members": [1063, 1067], "title": "Tmavá energie", "note": "Tentýž námět realizovaný dílem 48. Neslučovat s tmavou hmotou nebo pozdějšími novinkami."},
-    {"members": [19, 1068], "title": "Einsteinův zázračný rok", "note": "Opakované avízo dílu o roce 1905, realizované epizodou 92. Širší série Einsteinovy fyziky zůstává samostatná."},
-    {"members": [37, 80], "title": "Žijeme v počítačové simulaci?", "note": "Obě zmínky navrhují vlastní rozbor Bostromova simulačního argumentu. Holografický princip je jiné téma."},
-    {"members": [1052, 88], "title": "Hubbleův teleskop", "note": "Opakovaný námět na vlastní epizodu o teleskopu. Webbův teleskop ani Hubbleova konstanta tento slib nenaplňují."},
-    {"members": [1062, 1084], "title": "Penroseův proces", "note": "Dvakrát slíbený vlastní rozbor získávání energie z rotujících černých děr. Širší přehled tří způsobů, Penroseův životopis a cyklická kosmologie jsou odlišné náměty."},
-    {"members": [73, 1180], "title": "Roger Penrose jako osobnost", "note": "Opakovaný vlastní životopisný portrét; cyklická kosmologie v dílu 339 není úplným naplněním tohoto záměru."},
-    {"members": [[195, "Problém tří těles"], 1150], "title": "Problém tří těles – první čtenářský klub", "note": "Obě avíza prvního rozboru knihy realizovaného ve 126. Další diskuse a další díly trilogie se neslučují."},
-    {"members": [[195, "Příběhy tvého života"], 1151, 1163], "title": "Příběhy tvého života – čtenářský klub", "note": "Tři avíza stejného knižního rozboru realizovaného ve 136; nejde o slib probrat všechny povídky."},
-    {"members": [[195, "Kniha Billa Gatese o klimatické katastrofě"], 197], "title": "Kniha Billa Gatese o klimatické katastrofě", "note": "Dvě přímá avíza stejného rozboru ve 114, včetně odmítnutí jediného univerzálního řešení. Odlišná Velká kniha o klimatu zůstává samostatná."}
+    {
+      "members": [
+        31,
+        1066,
+        79,
+        338
+      ],
+      "title": "Enrico Fermi jako osobnost",
+      "note": "Čtyři návrhy samostatného portrétu, nikoli slib epizody o Fermiho paradoxu. Vlastní biografie není doložená."
+    },
+    {
+      "members": [
+        35,
+        1047,
+        104,
+        147,
+        1142
+      ],
+      "title": "Kvantové počítače",
+      "note": "Stejný první samostatný díl, realizovaný epizodou 154. Rozmezí deseti následujících dílů slíbené ve 26 dodrženo nebylo. Nové přísliby pokračování ze 154 zůstávají samostatné."
+    },
+    {
+      "members": [
+        1044,
+        1050
+      ],
+      "title": "Wow! signál",
+      "note": "Opakovaný námět, realizovaný jako výrazná část dílu 40, nikoli samostatná epizoda jen o tomto signálu."
+    },
+    {
+      "members": [
+        1063,
+        1067
+      ],
+      "title": "Tmavá energie",
+      "note": "Tentýž námět realizovaný dílem 48. Neslučovat s tmavou hmotou nebo pozdějšími novinkami."
+    },
+    {
+      "members": [
+        19,
+        1068
+      ],
+      "title": "Einsteinův zázračný rok",
+      "note": "Opakované avízo dílu o roce 1905, realizované epizodou 92. Širší série Einsteinovy fyziky zůstává samostatná."
+    },
+    {
+      "members": [
+        37,
+        80
+      ],
+      "title": "Žijeme v počítačové simulaci?",
+      "note": "Obě zmínky navrhují vlastní rozbor Bostromova simulačního argumentu. Holografický princip je jiné téma."
+    },
+    {
+      "members": [
+        1052,
+        88
+      ],
+      "title": "Hubbleův teleskop",
+      "note": "Opakovaný námět na vlastní epizodu o teleskopu. Webbův teleskop ani Hubbleova konstanta tento slib nenaplňují."
+    },
+    {
+      "members": [
+        1062,
+        1084
+      ],
+      "title": "Penroseův proces",
+      "note": "Dvakrát slíbený vlastní rozbor získávání energie z rotujících černých děr. Širší přehled tří způsobů, Penroseův životopis a cyklická kosmologie jsou odlišné náměty."
+    },
+    {
+      "members": [
+        73,
+        1180
+      ],
+      "title": "Roger Penrose jako osobnost",
+      "note": "Opakovaný vlastní životopisný portrét; cyklická kosmologie v dílu 339 není úplným naplněním tohoto záměru."
+    },
+    {
+      "members": [
+        [
+          195,
+          "Problém tří těles"
+        ],
+        1150
+      ],
+      "title": "Problém tří těles – první čtenářský klub",
+      "note": "Obě avíza prvního rozboru knihy realizovaného ve 126. Další diskuse a další díly trilogie se neslučují."
+    },
+    {
+      "members": [
+        [
+          195,
+          "Příběhy tvého života"
+        ],
+        1151,
+        1163
+      ],
+      "title": "Příběhy tvého života – čtenářský klub",
+      "note": "Tři avíza stejného knižního rozboru realizovaného ve 136; nejde o slib probrat všechny povídky."
+    },
+    {
+      "members": [
+        [
+          195,
+          "Kniha Billa Gatese o klimatické katastrofě"
+        ],
+        197
+      ],
+      "title": "Kniha Billa Gatese o klimatické katastrofě",
+      "note": "Dvě přímá avíza stejného rozboru ve 114, včetně odmítnutí jediného univerzálního řešení. Odlišná Velká kniha o klimatu zůstává samostatná."
+    },
+    {
+      "batch": "2026-11-12",
+      "members": [
+        271,
+        330,
+        446
+      ],
+      "title": "Leonhard Euler jako osobnost",
+      "note": "Původní návrh Eulerova portrétu v dílu 153, připomenutí v 184 a důraznější příslib v 216. Další zmínka v 356 už patří k původní sloučené položce 446 a zůstává zachována. Výklad Eulerova součinu v dílu 282 není samostatný životopis."
+    },
+    {
+      "batch": "2026-11-12",
+      "members": [
+        396,
+        605
+      ],
+      "title": "Carl Friedrich Gauss jako osobnost",
+      "note": "V dílech 205 a 255 zaznívá týž opakovaně slíbený samostatný portrét Carla Friedricha Gausse. Matematické zmínky v jiných epizodách, například o sedmnáctiúhelníku, životopis nenahrazují."
+    },
+    {
+      "batch": "2026-11-12",
+      "members": [
+        1061,
+        1099
+      ],
+      "title": "Hawkingovo záření a teplota černých děr",
+      "note": "Díl 41 slibuje vlastní podcast o Hawkingově teplotě černých děr, díl 68 znovu totéž téma vypařování označuje za slíbený celý podcast. Oba výroky jsou naplněné samostatnou epizodou 122 o Hawkingově záření a teplotě."
+    },
+    {
+      "batch": "2026-11-12",
+      "members": [
+        1035,
+        746
+      ],
+      "title": "Thoriové a solné reaktory",
+      "note": "První podmíněný návrh na téma solných a thoriových reaktorů už v dílu 1 přechází v dílu 284 ve výslovný slib samostatného podcastu o thoriových reaktorech. Jaderná fúze ani jiné reaktory nejsou naplněním tohoto slibu."
+    },
+    {
+      "batch": "2026-11-12",
+      "members": [
+        1037,
+        1233
+      ],
+      "title": "Nepovedené kosmické mise a vědecké projekty",
+      "note": "Původní návrh samostatného přehledu neúspěšných kosmických misí v dílu 16 se v FAQ 158 mění ve výslovné potvrzení, že takový díl chystají. Znovupřipomenutí ve 317 bylo již sloučeno se starším návrhem. Jednotlivá vyprávění o haváriích v jiných dílech nejsou náhradou samostatného přehledu."
+    },
+    {
+      "batch": "2026-11-12",
+      "members": [
+        210,
+        1603
+      ],
+      "title": "Fyzika stínů a jejich vznik",
+      "note": "Ve 119 odkládají elektromagnetické vysvětlení vzniku stínu do samostatného podcastu, v 284 tento slib opakují. Díl 287 jej skutečně naplňuje včetně Maxwellova popisu a dalších fyzikálních vlastností stínů."
+    },
+    {
+      "batch": "2026-11-12",
+      "members": [
+        1295,
+        1298,
+        1306,
+        1316
+      ],
+      "title": "Živé natáčení v Popradu (srpen 2023)",
+      "note": "Čtyři avíza stejného živého nahrávání v Popradu v létě 2023 s termínem 25. srpna, realizaci přímo potvrzuje záznam epizody 194. Nový výhled na další samostatnou akci vyslovený až v dílu 194 (1329) sem nepatří."
+    },
+    {
+      "batch": "2026-11-12",
+      "members": [
+        1405,
+        1416,
+        1485,
+        1508
+      ],
+      "title": "Společný běh a setkání s posluchači",
+      "note": "Domluvený vlastní výběh s posluchači z dílu 218, potvrzení ve 221, podzimní odklad ve 244 a další připomenutí v 251 jsou stejný nenaplněný organizační závazek. Charitativní Wings for Life je jiná akce; starší neurčitý nápad v dílu 165 není do tohoto závazku připojen."
+    },
+    {
+      "batch": "2026-11-12",
+      "members": [
+        1507,
+        1528
+      ],
+      "title": "Živé natáčení do konce roku 2024",
+      "note": "V dílech 251 a 259 opakují tentýž záměr uspořádat další živé natáčení do konce roku 2024. V dílu 261 výslovně říkají, že termín nestihnou, takže live akce ohlášené až na rok 2025 jsou samostatné."
+    }
+  ],
+  "exclusions": [
+    {
+      "members": [
+        1125,
+        1498
+      ],
+      "reason": "Původní námět na Perelmanův životopis versus pozdější slib jen krátké zmínky v dílu 249, rozdílný rozsah a splnění."
+    },
+    {
+      "members": [
+        1283,
+        1790
+      ],
+      "reason": "Další jednorázový přehled Webba versus nově navržená každoroční frekvence."
+    },
+    {
+      "members": [
+        42,
+        1846
+      ],
+      "reason": "Série hledání mimozemského života versus živá přednáška se shodným tématem."
+    },
+    {
+      "members": [
+        1329,
+        1295
+      ],
+      "reason": "Další budoucí živé natáčení v Popradu versus konkrétní uskutečněná akce v srpnu 2023."
+    },
+    {
+      "members": [
+        1427,
+        1874
+      ],
+      "reason": "První kniha Rozhovory o vesmíre versus pozdější příslib druhé knihy."
+    },
+    {
+      "members": [
+        34,
+        1563
+      ],
+      "reason": "Původní jeden úvodní podcast o počítači versus pozdější širší série hardware a softwaru."
+    },
+    {
+      "members": [
+        38,
+        429
+      ],
+      "reason": "Stejné matematické dilema, ale druhý příslib zazněl až po už uskutečněném dílu 115; odlišný časový stav plnění."
+    },
+    {
+      "members": [
+        1439,
+        1486
+      ],
+      "reason": "Konkrétní slib běžet v lese a obecnější příslib znovu se zúčastnit Wings for Life nemají stejný rozsah."
+    },
+    {
+      "members": [
+        1264,
+        1405
+      ],
+      "reason": "Neurčitý původní nápad společného běhu ve 165 a pozdější nový závazek setkání s posluchači neprokazují tentýž plán."
+    },
+    {
+      "members": [
+        1573,
+        1577
+      ],
+      "reason": "Účast na závodě a vlastní vytvoření organizační události představují rozdílné závazky, byť pro týž běh."
+    }
   ]
 }
