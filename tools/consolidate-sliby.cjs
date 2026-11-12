@@ -51,6 +51,6 @@ for(const section of data.sections.options)section.count=data.findings.filter(r=
 data.sections.review.reviewedFindings=data.findings.length;
 data.consolidation={...data.consolidation,date:review.date,uniqueFindings:data.findings.length,
  groups:data.findings.filter(r=>r.mergedFrom).map(r=>({candidate:r.candidate,members:r.mergedFrom.map(m=>m.candidate),memberKeys:r.mergedFrom.map(key),title:r.displayTema||r.tema})),
- latestBatch:{date:review.date,groups:review.groups.length,scope:review.scope,reviewFile:'sliby/duplicate-review.json'}};
+ latestBatch:{date:review.date,groups:review.groups.filter(group=>group.batch===review.date).length,scope:review.scope,reviewFile:'sliby/duplicate-review.json'}};
 fs.writeFileSync(file,html.replace(pattern,(_,before,content,after)=>before+JSON.stringify(data)+after));
 console.log(`${data.findings.length} records; ${data.sections.options.find(s=>s.id==='episodes').count} episode topics; ${review.groups.length} reviewed groups.`);
