@@ -6,12 +6,13 @@ assert(m,'Missing embedded Sliby data');
 const d=JSON.parse(m[1]),r=JSON.parse(fs.readFileSync('sliby/duplicate-review.json','utf8'));
 const batch=r.groups.filter(g=>g.batch===r.batchId);
 assert.equal(r.batchId,'2026-11-12-3');
-assert.equal(batch.length,4,'Only the four reviewed third-batch pairs may merge');
-assert.deepEqual(batch.map(g=>g.members),[[1187,1190],[1262,1270],[1408,1499],[303,1292]]);
+assert.equal(batch.length,1,'Only the single confirmed episode-topic duplicate may merge');
+assert.deepEqual(batch.map(g=>g.members),[[1187,1190]]);
 assert.equal(d.consolidation.originalFindings,1052);
-assert.equal(d.findings.length,914);
+assert.equal(d.findings.length,917);
 assert.equal(d.sections.options.find(s=>s.id==='episodes').count,328);
-assert.equal(d.consolidation.latestBatch.groups,4);
+assert.equal(d.consolidation.latestBatch.groups,1);
+assert.equal(d.sections.options.find(s=>s.id==='other').count,589,'Non-episode promises must remain untouched');
 const key=x=>JSON.stringify([x.candidate,x.tema]);
 const originals=x=>x.mergedFrom||[x];
 assert.deepEqual(d.findings.map(key),d.archive.findings.map(key));
@@ -37,4 +38,4 @@ for(const e of r.exclusions){
   const bad=d.findings.find(x=>originals(x).some(y=>y.candidate===a)&&originals(x).some(y=>y.candidate===b));
   assert(!bad,'Accidental merge of distinct promises '+a+' and '+b);
 }
-console.log('PASS: four new precise duplicate pairs; all 1,052 original statements, evidence, statuses and exclusions preserved.');
+console.log('PASS: one verified episode-promise duplicate, unchanged other section; all 1,052 original statements, evidence, statuses and exclusions preserved.');
