@@ -62,3 +62,16 @@ for(const id of futureIds){
 assert.equal(actual.classification.statusCounts['Budoucí slib'],futureIds.length);
 
 console.log('PASS: admin override validation, merged identity matching, durable status on live and archived rows, PAT safety checks, and future status reporting.');
+
+
+const candidateRx=/(?:20[3-9]\d|21\d\d|za (?:deset|dvacet|třicet|čtyřicet|padesát|[1-9]\d) let|(?:až|jakmile|když|pokud|po) [^.!?]{0,100}(?:objev|potvrd|vyřeš|dokáž|prokáž|ověř|zjist|změř|získ|nalezn|důkaz|experiment|vynález|přistán|vypust)|(?:objev|potvrzení|prokázání|vyřešení|nové výsledky|v důchodu|na důchodku|za několik desetiletí))/i;
+console.log('FUTURE_AUDIT_BEGIN');
+console.log('FUTURE_FIELDS',JSON.stringify(Object.keys(actual.findings[0])));
+for(const row of actual.findings){
+ if(row.stav==='Splněno později'||row.stav==='Splněno už dříve') continue;
+ const fields=Object.entries(row).filter(([k,v])=>typeof v==='string' && !/URL|html|base64/i.test(k));
+ const hit=fields.filter(([k,v])=>candidateRx.test(v));
+ if(!hit.length)continue;
+ console.log('FUTURE_CANDIDATE',JSON.stringify({id:row.candidate,stav:row.stav,tema:row.tema,section:row.section,hits:hit.map(([k,v])=>[k,v.slice(0,330)])}));
+}
+console.log('FUTURE_AUDIT_END');
