@@ -47,7 +47,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Audit future promise candidates
+      - name: Check token admin and durable manual status overlays
         run: node tools/test-sliby-github-admin.cjs
       - name: Check report data and time links
         run: |
@@ -96,7 +96,5 @@ jobs:
         run: |
           node tools/consolidate-sliby.cjs
           git diff --exit-code -- sliby/index.html
-      - name: Check token admin and durable manual status overlays
-        run: node tools/test-sliby-github-admin.cjs
       - name: Check personal status, persistence, deletion and JSON export
         run: node tools/test-sliby-personal-state.cjs
