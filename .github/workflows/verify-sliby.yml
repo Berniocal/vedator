@@ -47,6 +47,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Audit future promise candidates
+        run: node tools/test-sliby-github-admin.cjs
       - name: Check report data and time links
         run: |
           node --input-type=module <<'JS'
