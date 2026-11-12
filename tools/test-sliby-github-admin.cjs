@@ -38,4 +38,27 @@ assert.equal(data.findings[1].stav,'Nesplněno');
 assert.equal(data.classification.statusCounts['Splněno později'],1);
 assert.throws(()=>lib.check({schema:1,items:{'x':{stav:'neplatné'}}}));
 assert.equal(lib.resolve(data.findings[0],{schema:1,items:{}}),null);
-console.log('PASS: admin override validation, merged identity matching, durable status on live and archived rows, and PAT safety checks.');
+
+const catalogStart='<script type="application/json" id="audit-data">';
+const dataStart=source.indexOf(catalogStart)+catalogStart.length;
+const dataEnd=source.indexOf('</'+'script>',dataStart);
+assert(dataStart>=catalogStart.length&&dataEnd>dataStart);
+const actual=JSON.parse(source.slice(dataStart,dataEnd));
+const overrides=JSON.parse(fs.readFileSync('sliby/admin-overrides.json','utf8'));
+assert(lib.validStatuses.has('Budoucí slib'));
+assert(patched.includes('id="nfuture"')&&patched.includes("r.stav==='Budoucí slib'?'future'"));
+assert(admin.includes('<option value="future">Budoucí sliby</option>'));
+assert(admin.includes("state==='Splněno později'||state==='Splněno už dříve'"));
+lib.apply(actual,overrides);
+const futureIds=[449,740,1235,1251,1326,1369,1478];
+assert.equal(actual.findings.filter(r=>r.stav==='Budoucí slib').length,futureIds.length);
+assert(actual.classification.statuses.includes('Budoucí slib'));
+for(const id of futureIds){
+  const row=actual.findings.find(r=>r.candidate===id);
+  assert(row,'Future promise not found: '+id);
+  assert.equal(row.stav,'Budoucí slib');
+  assert(row.adminNote,'Future promise missing rationale: '+id);
+}
+assert.equal(actual.classification.statusCounts['Budoucí slib'],futureIds.length);
+
+console.log('PASS: admin override validation, merged identity matching, durable status on live and archived rows, PAT safety checks, and future status reporting.');
