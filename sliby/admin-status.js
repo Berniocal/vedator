@@ -1,6 +1,6 @@
 (function (root) {
   'use strict';
-  const validStatuses = new Set(['Nesplněno', 'Splněno později', 'Splněno už dříve']);
+  const validStatuses = new Set(['Nesplněno', 'Splněno později', 'Splněno už dříve', 'Budoucí slib']);
   const key = row => JSON.stringify([row.candidate, row.tema]);
   const members = row => [row, ...(row.mergedFrom || [])];
   const keys = row => [...new Set(members(row).map(key))];
@@ -38,6 +38,7 @@
       }
     }
     if (data.classification && Array.isArray(data.classification.statuses)) {
+      if (!data.classification.statuses.includes('Budoucí slib')) data.classification.statuses.push('Budoucí slib');
       data.classification.statusCounts = Object.fromEntries(
         data.classification.statuses.map(status => [status, data.findings.filter(r => r.stav === status).length])
       );
