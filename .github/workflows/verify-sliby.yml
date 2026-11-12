@@ -10,6 +10,11 @@ on:
       - 'tools/test-sliby-player.cjs'
       - 'tools/test-sliby-personal-state.cjs'
       - 'tools/consolidate-sliby.cjs'
+      - 'tools/patch-sliby-admin-runtime.cjs'
+      - 'tools/test-sliby-github-admin.cjs'
+      - 'sliby/admin-status.js'
+      - 'sliby/admin-overrides.json'
+      - 'sliby/admin/**'
       - '.github/workflows/verify-sliby.yml'
   push:
     branches: [main]
@@ -20,6 +25,11 @@ on:
       - 'tools/test-sliby-player.cjs'
       - 'tools/test-sliby-personal-state.cjs'
       - 'tools/consolidate-sliby.cjs'
+      - 'tools/patch-sliby-admin-runtime.cjs'
+      - 'tools/test-sliby-github-admin.cjs'
+      - 'sliby/admin-status.js'
+      - 'sliby/admin-overrides.json'
+      - 'sliby/admin/**'
       - '.github/workflows/verify-sliby.yml'
 
 permissions:
@@ -76,5 +86,7 @@ jobs:
         run: |
           node tools/consolidate-sliby.cjs
           git diff --exit-code -- sliby/index.html
+      - name: Check token admin and durable manual status overlays
+        run: node tools/test-sliby-github-admin.cjs
       - name: Check personal status, persistence, deletion and JSON export
         run: node tools/test-sliby-personal-state.cjs
