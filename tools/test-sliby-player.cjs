@@ -19,7 +19,7 @@ const toggle=(label,checked)=>{const input=label.children[0];if(input.checked!==
 const openSection=id=>{assert(sections.some(b=>b.dataset.section===id));for(const label of sections)toggle(label,label.dataset.section===id)};
 const setCategory=value=>{for(const label of elements.categories.children)toggle(label,!value||label.dataset.category===value)};
 const inSection=id=>data.findings.filter(r=>r.section===id);
-const rendered=()=>elements.cards.children.filter(n=>n.tag==='article').map(card=>[Number(card.dataset.candidate),card.children[1].children[0].children.find(n=>n.className==='topic-toggle').textContent]);
+const rendered=()=>elements.cards.children.filter(n=>n.tag==='article').map(card=>[Number(card.dataset.candidate),card.children[1].children[0].children.find(n=>n.className==='topic-toggle').textContent.replace(/ \(\d+×\)$/,'')]);
 const expected=rows=>rows.map(r=>[r.candidate,elements['compact-view'].checked?(r.compactTitle||r.displayTema||r.tema):(r.displayTema||r.tema)]);
 const searchPriority=(r,q)=>context.searchMatch(r,q)?.priority??2;
 // Split topics can share a candidate id; their archival records must remain distinct.
@@ -190,16 +190,17 @@ for(const query of ['fermi','SAGAN','cerne','  fermi  ']){
 }
 const fermiCards=search('fermi');
 assert(!fermiCards.some(card=>Number(card.dataset.candidate)===632),'Ada Lovelace must not match merely because the source episode mentions Fermi');
-assert(fermiCards.some(card=>Number(card.dataset.candidate)===1066),'Actual Fermi promise must match');
+assert.equal(fermiCards.filter(card=>[31,1066,79,338].includes(Number(card.dataset.candidate))).length,1,'Four biographical promises must produce one Fermi result');
+assert(fermiCards.some(card=>Number(card.dataset.candidate)===31),'Actual unified Fermi promise must match');
 for(const id of [1067,1068])assert(!fermiCards.some(card=>Number(card.dataset.candidate)===id),'Shared Fermi quote must not match an unrelated promise: '+id);
 const fermiExpected=data.findings.filter(r=>searchPriority(r,'fermi')<2).sort((a,b)=>searchPriority(a,'fermi')-searchPriority(b,'fermi'));
 assert.deepEqual(rendered(),expected(fermiExpected),'Only directly relevant Fermi promises may match');
 const darkCards=search('tmava');
-assert(darkCards.some(card=>Number(card.dataset.candidate)===1067),'Dark energy promise must match its own title');
-for(const id of [1066,1068])assert(!darkCards.some(card=>Number(card.dataset.candidate)===id),'Other promises must not match the shared dark energy quote');
+assert(darkCards.some(card=>Number(card.dataset.candidate)===1063),'Dark energy promise must match its own title');
+for(const id of [31,19])assert(!darkCards.some(card=>Number(card.dataset.candidate)===id),'Other promises must not match the shared dark energy quote');
 const einsteinCards=search('einstein');
-assert(einsteinCards.some(card=>Number(card.dataset.candidate)===1068),'Einstein promise must match its own title');
-for(const id of [1066,1067])assert(!einsteinCards.some(card=>Number(card.dataset.candidate)===id),'Other promises must not match the shared Einstein quote');
+assert(einsteinCards.some(card=>Number(card.dataset.candidate)===19),'Einstein promise must match its own title');
+for(const id of [31,1063])assert(!einsteinCards.some(card=>Number(card.dataset.candidate)===id),'Other promises must not match the shared Einstein quote');
 const saganCards=search('sagan');
 assert(saganCards.some(card=>visibleNodes(card).some(n=>n.className==='search-context')),'Genuine description matches must still show their context');
 assert.equal(search('fermy').length,0,'No fuzzy spelling or joining pieces across words');
@@ -225,3 +226,31 @@ const merged={tema:'Obecné téma',compactTitle:'Zkratka',targets:[],mergedFrom:
 const hiddenMatch=context.searchFields(merged).find(field=>context.fold(field.text).includes('specialni'));
 assert(hiddenMatch);assert(context.searchContext(hiddenMatch,'specialni').includes('Speciální'));
 console.log('PASS: title-first content-only search, visible reasons including merged mentions, accents and Unicode offsets, literal HTML, no joining unrelated fields, and cleared highlights.');
+
+// Reviewed duplicates retain every original and offer a separate playable place.
+assert.equal(originals.length,data.consolidation.originalFindings,'No original statement is lost');
+const fermi=data.findings.find(r=>r.candidate===31);
+assert.deepEqual(fermi.mergedFrom.map(m=>m.episode),[25,46,49,188]);
+openSection('episodes');
+assert.equal(search('fermi').length,1,'One Fermi result in episode topics; unrelated tasks in Ostatní stay separate');
+const onlyFermi=search('fermi')[0],title=allNodes(onlyFermi).find(n=>n.className==='topic-toggle');
+assert.equal(title.textContent,'Enrico Fermi jako osobnost (4×)');
+assert.equal(title.attrs['aria-expanded'],'false');
+title.listeners.click();assert.equal(onlyFermi.children[0].hidden,false);
+const fermiLinks=allNodes(onlyFermi.children[0]).filter(n=>n.tag==='a');
+assert.deepEqual(fermiLinks.map(n=>n.href),fermi.mergedFrom.map(m=>m.timeURL));
+assert.equal(fermiLinks.length,4);
+for(const link of fermiLinks){
+ click(link);a.readyState=1;a.duration=20000;a.listeners.loadedmetadata();
+ assert.equal(a.src,link.href.split('#')[0]);assert.equal(a.currentTime,Number(link.href.split('#t=')[1]));
+}
+assert(elements.shown.textContent.includes('Zobrazeno 1 z '+inSection('episodes').length));
+assert(elements.shown.textContent.includes('Počet zmínek: 4'));
+assert(allNodes(onlyFermi).some(n=>n.textContent.includes('Díl 188')));
+const quantum=search('kvantove pocitace').find(card=>Number(card.dataset.candidate)===35);
+assert(quantum);assert(allNodes(quantum).some(n=>n.className==='topic-toggle'&&n.textContent==='Kvantové počítače (5×)'));
+assert(quantum.textContent.includes('Rozmezí deseti následujících dílů'));
+for(const id of [213,225,1774,1100])assert(data.findings.some(r=>r.candidate===id),'Related but different future content stays separate');
+const repeatedPlace={...fermi,mergedFrom:[...fermi.mergedFrom,{...fermi.mergedFrom[1],candidate:99999}]};
+assert.equal(context.promiseMentions(repeatedPlace).length,4,'An identical playback place is counted once');
+console.log('PASS: one Fermi result, compact repetition count, all four playable anchors, preserved deadlines, distinct related promises, and no lost statements.');

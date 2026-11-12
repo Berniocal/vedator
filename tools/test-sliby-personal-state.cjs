@@ -20,7 +20,7 @@ function boot(storage=new Map(),options={}){
  const context={document,Blob,URL:{createObjectURL(blob){blobs.push(blob);return 'blob:test-'+blobs.length},revokeObjectURL(url){revoked.push(url)}},setTimeout:f=>timeouts.push(f),window:{scrollY:2800,scrollX:0,scrollTo(position){this.lastScroll=position},addEventListener:(name,fn)=>events[name]=fn},localStorage:{getItem(k){if(options.readError)throw Error('Storage unavailable');return storage.get(k)??null},setItem(k,v){if(options.writeError)throw Error('Storage full');storage.set(k,v)}}};
  vm.runInNewContext(script,context);
  const cards=()=>elements.cards.children.filter(e=>e.tag==='article');
- const card=r=>cards().find(e=>Number(e.dataset.candidate)===r.candidate&&e.children[1].children[0].children.find(n=>n.className==='topic-toggle').textContent===(elements['compact-view'].checked?(r.compactTitle||r.displayTema||r.tema):(r.displayTema||r.tema)));
+ const card=r=>cards().find(e=>Number(e.dataset.candidate)===r.candidate&&e.children[1].children[0].children.find(n=>n.className==='topic-toggle').textContent.replace(/ \(\d+×\)$/,'')===(elements['compact-view'].checked?(r.compactTitle||r.displayTema||r.tema):(r.displayTema||r.tema)));
  const selectSection=id=>{for(const e of elements.sections.children){const input=e.children[0],checked=e.dataset.section===id;if(input.checked!==checked){input.checked=checked;input.listeners.change()}}};
  const check=(r,value)=>{const input=nodes(card(r)).find(e=>e.tag==='input'&&e.type==='checkbox');assert(input);input.checked=value;input.listeners.change()};
  const remove=r=>{nodes(card(r)).find(e=>e.tag==='button'&&e.textContent==='Smazat').onclick();if(elements['delete-dialog'].open)elements['delete-confirm'].onclick()};
