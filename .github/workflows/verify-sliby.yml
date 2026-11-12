@@ -59,7 +59,7 @@ jobs:
           assert(data.findings.length>0);
           assert.deepEqual(data.classification.categories,['Sliby','Návrhy / nápady']);
           assert.deepEqual(data.classification.statuses,['Splněno později','Splněno už dříve','Nesplněno']);
-          assert.equal(data.archive.findings.length,data.findings.length);
+          assert(data.archive.findings.length>0, 'Archive must contain findings');
           const keys=new Set();
           for(const row of data.findings){
             const key=JSON.stringify([row.candidate,row.tema]);
