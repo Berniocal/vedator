@@ -75,3 +75,11 @@ for(const row of actual.findings){
  console.log('FUTURE_CANDIDATE',JSON.stringify({id:row.candidate,stav:row.stav,tema:row.tema,section:row.section,hits:hit.map(([k,v])=>[k,v.slice(0,330)])}));
 }
 console.log('FUTURE_AUDIT_END');
+
+
+console.log('ALL_UNFULFILLED_BEGIN');
+for(const row of actual.findings){
+ if(row.stav!=='Nesplněno')continue;
+ console.log('UNFULFILLED_ROW',JSON.stringify({id:row.candidate,tema:row.tema,section:row.section,vysvetleni:String(row.vysvetleni||'').slice(0,640),quote:String(row.quote||'').slice(0,220),timing:String(row.timingStatus||'').slice(0,120)}));
+}
+console.log('ALL_UNFULFILLED_END');
