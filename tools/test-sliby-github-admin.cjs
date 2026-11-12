@@ -50,7 +50,7 @@ assert(patched.includes('id="nfuture"')&&patched.includes("r.stav==='Budoucí sl
 assert(admin.includes('<option value="future">Budoucí sliby</option>'));
 assert(admin.includes("state==='Splněno později'||state==='Splněno už dříve'"));
 lib.apply(actual,overrides);
-const futureIds=[449,740,1235,1251,1326,1369,1478];
+const futureIds=[437,449,740,951,1107,1136,1173,1235,1251,1273,1326,1369,1388,1444,1458,1461,1472,1478,1504,1557,1783,1819];
 assert.equal(actual.findings.filter(r=>r.stav==='Budoucí slib').length,futureIds.length);
 assert(actual.classification.statuses.includes('Budoucí slib'));
 for(const id of futureIds){
