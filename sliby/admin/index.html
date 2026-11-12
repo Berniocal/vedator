@@ -49,7 +49,7 @@ textarea{resize:vertical;min-height:58px}label{display:block;margin:10px 0 5px}i
 <div class="row"><strong id="connected">Připojeno</strong><button id="reload" class="alt mini" type="button">Obnovit z GitHubu</button><button id="logout" class="alt mini" type="button">Odpojit</button></div>
 <div class="toolbar">
 <div><label for="query">Vyhledat slib</label><input id="query" type="search" placeholder="Fermi, kvantové počítače…"></div>
-<div><label for="filter">Zobrazit</label><select id="filter"><option value="all">Všechny</option><option value="open">Nesplněné</option><option value="done">Splněné</option><option value="manual">Ručně upravené</option><option value="pending">Neuložené změny</option></select></div>
+<div><label for="filter">Zobrazit</label><select id="filter"><option value="all">Všechny</option><option value="open">Nesplněné</option><option value="future">Budoucí sliby</option><option value="done">Splněné</option><option value="manual">Ručně upravené</option><option value="pending">Neuložené změny</option></select></div>
 <button id="clear" class="alt" type="button">Vymazat hledání</button>
 </div>
 <div id="count" aria-live="polite"></div>
@@ -66,9 +66,9 @@ textarea{resize:vertical;min-height:58px}label{display:block;margin:10px 0 5px}i
 const lib=window.VedatorSlibyAdminStatus;
 const API='https://api.github.com/repos/Berniocal/vedator/contents/sliby/admin-overrides.json';
 const el=id=>document.getElementById(id);
-const valid=['Nesplněno','Splněno později','Splněno už dříve'];
+const valid=['Nesplněno','Splněno později','Splněno už dříve','Budoucí slib'];
 let token=null, rows=[], remote=null, pending=new Map(), visible=80, busy=false;
-const statusIsDone=state=>state!=='Nesplněno';
+const statusIsDone=state=>state==='Splněno později'||state==='Splněno už dříve';
 const sortDate=r=>Date.parse(r.sourceRecording?.date)||0;
 const fold=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 function message(text,error=false){el('message').textContent=text;el('message').className='message'+(error?' error':text?' good':'')}
@@ -134,7 +134,7 @@ function show(){
   const matching=rows.filter(row=>{
     if(q&&!fold([row.displayTema||row.tema,row.vysvetleni,...(row.mergedFrom||[]).map(m=>m.tema)].join(' ')).includes(q))return false;
     const current=state(row),edited=!!saved(row);
-    return filter==='all'||filter==='open'&&!statusIsDone(current)||filter==='done'&&statusIsDone(current)||
+    return filter==='all'||filter==='open'&&current==='Nesplněno'||filter==='future'&&current==='Budoucí slib'||filter==='done'&&statusIsDone(current)||
       filter==='manual'&&edited||filter==='pending'&&pending.has(lib.key(row));
   });
   el('count').textContent='Zobrazeno '+Math.min(visible,matching.length)+' z '+matching.length+' odpovídajících slibů · '+rows.length+' položek celkem';
@@ -162,8 +162,8 @@ function show(){
     checkbox.addEventListener('change',()=>stage(row,checkbox.checked?'Splněno později':'Nesplněno',note(row)));
     checkLabel.append(checkbox,node('span','Splněno'));right.append(checkLabel);
     fields.append(left,right);card.append(fields);
-    const notes=node('label','Poznámka / doklad splnění (nepovinné)');
-    const area=node('textarea');area.placeholder='Např. splněno v dílu 365, od 12:30';area.value=note(row);area.maxLength=500;area.rows=2;
+    const notes=node('label','Poznámka / podmínka či doklad (nepovinné)');
+    const area=node('textarea');area.placeholder='Např. až při objevu, v roce 2043, nebo splněno v dílu 365';area.value=note(row);area.maxLength=500;area.rows=2;
     area.disabled=busy;
     area.addEventListener('change',()=>stage(row,mode(row)==='auto'?(area.value.trim()?row.stav:'auto'):mode(row),area.value));
     card.append(notes,area);
