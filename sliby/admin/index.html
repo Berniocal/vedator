@@ -116,6 +116,7 @@ function state(row){
 function note(row){const change=pending.get(lib.key(row));return change?change.note:saved(row)?.note||''}
 function mode(row){const change=pending.get(lib.key(row));return change?change.stav:saved(row)?.stav||'auto'}
 function stage(row,stav,why){
+  if(busy)return;
   if(stav!=='auto'&&!valid.includes(stav))return;
   const k=lib.key(row), current=saved(row), newNote=stav==='auto'?'':String(why||'').slice(0,500);
   if((stav==='auto'&&!current)||(current&&stav===current.stav&&newNote===(current.note||''))){
@@ -153,16 +154,17 @@ function show(){
     for(const [value,name] of [['auto','Automatický výsledek ('+row.stav+')'],...valid.map(s=>[s,s])]){
       const option=node('option',name);option.value=value;select.append(option);
     }
-    select.value=selected;
+    select.value=selected;select.disabled=busy;
     select.addEventListener('change',()=>stage(row,select.value,note(row)));
     left.append(lbl,select);
     const right=node('div'),checkLabel=node('label',undefined,'checkbox'),checkbox=node('input');
-    checkbox.type='checkbox';checkbox.checked=statusIsDone(state(row));
+    checkbox.type='checkbox';checkbox.checked=statusIsDone(state(row));checkbox.disabled=busy;
     checkbox.addEventListener('change',()=>stage(row,checkbox.checked?'Splněno později':'Nesplněno',note(row)));
     checkLabel.append(checkbox,node('span','Splněno'));right.append(checkLabel);
     fields.append(left,right);card.append(fields);
     const notes=node('label','Poznámka / doklad splnění (nepovinné)');
     const area=node('textarea');area.placeholder='Např. splněno v dílu 365, od 12:30';area.value=note(row);area.maxLength=500;area.rows=2;
+    area.disabled=busy;
     area.addEventListener('change',()=>stage(row,mode(row)==='auto'?(area.value.trim()?row.stav:'auto'):mode(row),area.value));
     card.append(notes,area);
     const detail=node('details'),summaryText=node('summary','Zobrazit původní výrok a zmínky');
@@ -198,11 +200,13 @@ el('filter').addEventListener('change',()=>{visible=80;show()});
 el('clear').onclick=()=>{el('query').value='';visible=80;show()};
 el('more').onclick=()=>{visible+=80;show()};
 el('logout').onclick=()=>{
+  if(busy)return;
   if(pending.size&&!confirm('Neuložené změny budou zahozeny. Pokračovat?'))return;
   token=null;pending.clear();rows=[];remote=null;el('login-panel').classList.remove('hidden');
   el('editor').classList.add('hidden');el('list').replaceChildren();message('Odpojeno. Token byl odstraněn z paměti stránky.');
 };
 el('reload').onclick=async()=>{
+  if(busy)return;
   if(pending.size&&!confirm('Zahodit neuložené změny a načíst GitHub?'))return;
   busy=true;summary();message('Načítám aktuální data…');
   try{const [fresh,catalog]=await Promise.all([readRemote(),readReport()]);remote=fresh;rows=catalog.sort((a,b)=>sortDate(b)-sortDate(a)||a.index-b.index);pending.clear();show();message('Data obnovena.')}
@@ -210,7 +214,7 @@ el('reload').onclick=async()=>{
 };
 el('save').onclick=async()=>{
   if(!pending.size||busy)return;
-  busy=true;summary();message('Ověřuji poslední verzi a ukládám změny…');
+  busy=true;show();message('Ověřuji poslední verzi a ukládám změny…');
   try{
     const latest=await readRemote(),next={schema:1,items:{...latest.doc.items}};
     for(const [k,change] of pending){
@@ -239,7 +243,7 @@ el('save').onclick=async()=>{
     const link=node('a','Zobrazit commit na GitHubu');link.href=result.commit.html_url;link.target='_blank';link.rel='noopener noreferrer';
     el('message').append(' ',link);
   }catch(error){message(error.message,true)}
-  finally{busy=false;summary()}
+  finally{busy=false;show();summary()}
 };
 </script>
 </body></html>
