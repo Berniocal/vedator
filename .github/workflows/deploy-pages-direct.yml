@@ -51,6 +51,11 @@ jobs:
           node --check sw.js
           node tools/test-production-pwa.mjs
 
+      - name: Připojit administrační opravy slibů
+        run: |
+          node tools/test-sliby-github-admin.cjs
+          node tools/patch-sliby-admin-runtime.cjs
+
       - name: Nahrát statické soubory
         uses: actions/upload-pages-artifact@v4
         with:
