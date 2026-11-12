@@ -101,7 +101,7 @@ async function readReport(){
   const res=await fetch('../index.html?admin_load='+Date.now(),{cache:'no-store'});
   if(!res.ok)throw Error('Nepodařilo se načíst katalog slibů.');
   const html=await res.text(),before='<script type="application/json" id="audit-data">';
-  const start=html.indexOf(before),end=html.indexOf('</script>',start+before.length);
+  const start=html.indexOf(before),end=html.indexOf('<\/script>',start+before.length);
   if(start<0||end<0)throw Error('V katalogu chybí audit-data.');
   const data=JSON.parse(html.slice(start+before.length,end));
   if(!Array.isArray(data.findings))throw Error('Chybný katalog slibů.');
@@ -163,7 +163,7 @@ function show(){
     fields.append(left,right);card.append(fields);
     const notes=node('label','Poznámka / doklad splnění (nepovinné)');
     const area=node('textarea');area.placeholder='Např. splněno v dílu 365, od 12:30';area.value=note(row);area.maxLength=500;area.rows=2;
-    area.addEventListener('change',()=>stage(row,mode(row)==='auto'?(area.value.trim()?'Splněno později':'auto'):mode(row),area.value));
+    area.addEventListener('change',()=>stage(row,mode(row)==='auto'?(area.value.trim()?row.stav:'auto'):mode(row),area.value));
     card.append(notes,area);
     const detail=node('details'),summaryText=node('summary','Zobrazit původní výrok a zmínky');
     detail.append(summaryText,node('p',row.vysvetleni||'', 'quote'));
