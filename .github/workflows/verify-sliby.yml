@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'sliby/**'
+      - 'index.html'
+      - 'tools/test-sliby-embedded-sort.cjs'
       - 'tools/test-sliby-player.cjs'
       - 'tools/test-sliby-personal-state.cjs'
       - 'tools/consolidate-sliby.cjs'
@@ -13,6 +15,8 @@ on:
     branches: [main]
     paths:
       - 'sliby/**'
+      - 'index.html'
+      - 'tools/test-sliby-embedded-sort.cjs'
       - 'tools/test-sliby-player.cjs'
       - 'tools/test-sliby-personal-state.cjs'
       - 'tools/consolidate-sliby.cjs'
@@ -66,6 +70,8 @@ jobs:
           JS
       - name: Check player seeking and report rendering
         run: node tools/test-sliby-player.cjs
+      - name: Check embedded Sliby date and mention sorting
+        run: node tools/test-sliby-embedded-sort.cjs
       - name: Check reviewed duplicate groups remain consolidated
         run: |
           node tools/consolidate-sliby.cjs
