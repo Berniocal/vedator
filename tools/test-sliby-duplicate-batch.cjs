@@ -13,9 +13,9 @@ const groupSizes=new Map([
   [271,4],[396,2],[1061,2],[1035,2],[1037,3],[210,2],
   [1295,4],[1405,4],[1507,2]
 ]);
-assert.equal(data.consolidation.originalFindings,1040);
-assert.equal(active.length,907);
-assert.equal(data.sections.options.find(s=>s.id==='episodes').count,326);
+assert.equal(data.consolidation.originalFindings,1052);
+assert.equal(active.length,918);
+assert.equal(data.sections.options.find(s=>s.id==='episodes').count,329);
 assert.equal(data.consolidation.latestBatch.groups,9);
 assert.deepEqual(active.map(r=>[r.candidate,r.tema]),archive.map(r=>[r.candidate,r.tema]));
 for(const [candidate,count] of groupSizes){
@@ -42,5 +42,5 @@ for(const ex of exclusions){
   });
   assert(!contains,'Accidental merge of different promises '+a+' and '+b);
 }
-assert.equal(new Set(active.flatMap(originalKeys)).size,1040,'All pre-consolidation keys must survive');
-console.log('PASS: nine conservative groups, all 1,040 source statements, playback places, source statuses, and deliberate non-merges.');
+assert.equal(new Set(active.flatMap(originalKeys)).size,1052,'All pre-consolidation keys must survive');
+console.log('PASS: nine conservative groups, all 1,052 source statements, playback places, source statuses, and deliberate non-merges.');
