@@ -16,7 +16,7 @@ const admin = fs.readFileSync('sliby/admin/index.html','utf8');
 assert(admin.includes('api.github.com/repos/Berniocal/vedator/contents/sliby/admin-overrides.json'));
 assert(admin.includes("'Authorization': 'Bearer ' + token"));
 assert(!admin.includes('localStorage.setItem') && !admin.includes('sessionStorage.setItem'));
-assert(admin.includes('sha: latest.sha'));
+assert(admin.includes('sha:latest.sha'));
 assert(admin.includes('encodeContent('));
 const original = [{candidate:31,tema:'Fermi',stav:'Nesplněno',mergedFrom:[
   {candidate:1066,tema:'Fermi člověk'}, {candidate:338,tema:'Fermi vědec'}]},
