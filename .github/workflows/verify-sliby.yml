@@ -10,6 +10,7 @@ on:
       - 'tools/test-sliby-player.cjs'
       - 'tools/test-sliby-personal-state.cjs'
       - 'tools/consolidate-sliby.cjs'
+      - 'tools/test-sliby-duplicate-batch.cjs'
       - 'tools/patch-sliby-admin-runtime.cjs'
       - 'tools/test-sliby-github-admin.cjs'
       - 'sliby/admin-status.js'
@@ -25,6 +26,7 @@ on:
       - 'tools/test-sliby-player.cjs'
       - 'tools/test-sliby-personal-state.cjs'
       - 'tools/consolidate-sliby.cjs'
+      - 'tools/test-sliby-duplicate-batch.cjs'
       - 'tools/patch-sliby-admin-runtime.cjs'
       - 'tools/test-sliby-github-admin.cjs'
       - 'sliby/admin-status.js'
@@ -82,6 +84,8 @@ jobs:
         run: node tools/test-sliby-player.cjs
       - name: Check embedded Sliby date and mention sorting
         run: node tools/test-sliby-embedded-sort.cjs
+      - name: Check second reviewed duplicate batch and non-merge cases
+        run: node tools/test-sliby-duplicate-batch.cjs
       - name: Check reviewed duplicate groups remain consolidated
         run: |
           node tools/consolidate-sliby.cjs
