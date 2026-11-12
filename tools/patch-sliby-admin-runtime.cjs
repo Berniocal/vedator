@@ -14,6 +14,26 @@ function patchReport(html) {
   one("  if(r.mergeNote)details.append(hitNode('p',r.mergeNote,'personal-note'));",
       "  if(r.mergeNote)details.append(hitNode('p',r.mergeNote,'personal-note'));\n"+
       "  if(r.adminNote)details.append(hitNode('p','Ruční ověření: '+r.adminNote,'personal-note'));");
+
+  // Fourth status: externally conditioned promises or deliberately distant review dates.
+  one('<button data-status="Nesplněno" aria-pressed="false"><strong id="nopen"></strong><span>Nesplněno</span></button>',
+      '<button data-status="Nesplněno" aria-pressed="false"><strong id="nopen"></strong><span>Nesplněno</span></button>\n'+
+      '<button data-status="Budoucí slib" aria-pressed="false"><strong id="nfuture"></strong><span>Budoucí sliby</span></button>');
+  one('</section>\n<div class="report-actions">',
+      '</section>\n<p class="personal-help">Budoucí sliby čekají na vzdálený termín nebo na událost, která ještě nenastala. Nejde o běžné nesplněné závazky.</p>\n<div class="report-actions">');
+  one('</style></head>',
+      '@media(min-width:701px){.summary{grid-template-columns:repeat(5,minmax(0,1fr))}}\n'+
+      '.chip.future{background:#e5ebfb;color:#374e91}\n'+
+      'html[data-theme="dark"] .chip.future{background:#29355b;color:#c7d6ff}\n</style></head>');
+  one("function fulfilled(r){const value=personal(r).fulfilled;return typeof value==='boolean'?value:r.stav!=='Nesplněno'}",
+      "function fulfilled(r){const value=personal(r).fulfilled;return typeof value==='boolean'?value:r.stav==='Splněno později'||r.stav==='Splněno už dříve'}");
+  one("function effective(r){return {...r,auditStatus:r.stav,stav:fulfilled(r)?(r.stav==='Splněno už dříve'?'Splněno už dříve':'Splněno později'):'Nesplněno'}}",
+      "function effective(r){return {...r,auditStatus:r.stav,stav:fulfilled(r)?(r.stav==='Splněno už dříve'?'Splněno už dříve':'Splněno později'):(typeof personal(r).fulfilled==='boolean'?'Nesplněno':r.stav==='Budoucí slib'?'Budoucí slib':'Nesplněno')}}");
+  one("for(const v of D.classification.statuses){const o=node('option',v)",
+      "if(!D.classification.statuses.includes('Budoucí slib'))D.classification.statuses.push('Budoucí slib');\nfor(const v of D.classification.statuses){const o=node('option',v)");
+  one("el('nopen').textContent=inSection.filter(r=>r.stav==='Nesplněno').length;",
+      "el('nopen').textContent=inSection.filter(r=>r.stav==='Nesplněno').length;el('nfuture').textContent=inSection.filter(r=>r.stav==='Budoucí slib').length;");
+  one("r.stav==='Splněno už dříve'?'prior':'no'","r.stav==='Splněno už dříve'?'prior':r.stav==='Budoucí slib'?'future':'no'");
   one("render();\n</script></body></html>",
       "render();\n"+
       "// Separate, durable manual ratings override the automatically rebuilt audit.\n"+
