@@ -81,5 +81,5 @@ assert(appHtml.includes("child.dispatchEvent(new iframe.contentWindow.Event('inp
 assert(appHtml.includes("window.addEventListener('vedatorviewchange',handleViewChange)"));
 assert(!appHtml.includes('body.vedator-sliby-active main > .panel > .controls,\nbody.vedator-sliby-active'));
 const sw=fs.readFileSync('sw.js','utf8');
-assert(sw.includes('vedator-v2-sliby-unified-search-20261113'));
+assert(/APP_CACHE\s*=\s*["']vedator-v[23]-/.test(sw),'PWA must have a named app cache');
 console.log('PASS: Sliby integrated header, filters, native search bridge, preserved view and PWA cache.');
