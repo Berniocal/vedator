@@ -46,6 +46,13 @@ function patchReport(html) {
       "  render();\n"+
       " }).catch(error=>console.warn('Ruční opravy Slibů se nepodařilo načíst:',error.message));\n"+
       "}\n</script></body></html>");
+  // Keep the 6.4 MB audit report unmodified in Git; its published view is
+  // a separate, small client-side layer. Existing status, search, audio and
+  // manual admin overrides continue to work without duplicating the data.
+  one('</style></head>',
+      '</style><link rel="stylesheet" href="card-ui-v3.css"></head>');
+  one('</script></body></html>',
+      '</script><script src="card-ui-v3.js"></script></body></html>');
   return html;
 }
 if(require.main===module){
