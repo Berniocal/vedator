@@ -69,13 +69,17 @@ for(const id of nearTermIds){
 
 console.log('PASS: admin override validation, merged identity matching, durable status on live and archived rows, PAT safety checks, and future status reporting.');
 
-
-const scanStart=source.indexOf('<body');
-const dataTag=source.indexOf('<script type="application/json" id="audit-data">');
-console.log('SLIBY_DOM_BEFORE_DATA_BEGIN');
-console.log(source.slice(scanStart,Math.min(dataTag,scanStart+28000)));
-console.log('SLIBY_DOM_BEFORE_DATA_END');
-const postDataEnd=source.indexOf('</'+'script>',dataTag)+9;
-console.log('SLIBY_DOM_AFTER_DATA_BEGIN');
-console.log(source.slice(postDataEnd,postDataEnd+9000));
-console.log('SLIBY_DOM_AFTER_DATA_END');
+const appHtml=fs.readFileSync('index.html','utf8');
+const syncScript=appHtml.match(/<script id="vedator-sliby-theme-sync">([\s\S]*?)<\/script>/);
+assert(syncScript,'Sliby integration bridge must be present');
+new vm.Script(syncScript[1]);
+assert(appHtml.includes('const embeddedLayoutCSS='));
+assert(appHtml.includes('html body main>header{display:none!important}'));
+assert(appHtml.includes('html body .toolbar #q{display:none!important}'));
+assert(appHtml.includes("const mainSearch=document.getElementById('search-v2')"));
+assert(appHtml.includes("child.dispatchEvent(new iframe.contentWindow.Event('input',{bubbles:true}))"));
+assert(appHtml.includes("window.addEventListener('vedatorviewchange',handleViewChange)"));
+assert(!appHtml.includes('body.vedator-sliby-active main > .panel > .controls,\nbody.vedator-sliby-active'));
+const sw=fs.readFileSync('sw.js','utf8');
+assert(sw.includes('vedator-v2-sliby-unified-search-20261113'));
+console.log('PASS: Sliby integrated header, filters, native search bridge, preserved view and PWA cache.');
