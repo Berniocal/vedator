@@ -68,3 +68,14 @@ for(const id of nearTermIds){
 }
 
 console.log('PASS: admin override validation, merged identity matching, durable status on live and archived rows, PAT safety checks, and future status reporting.');
+
+
+const scanStart=source.indexOf('<body');
+const dataTag=source.indexOf('<script type="application/json" id="audit-data">');
+console.log('SLIBY_DOM_BEFORE_DATA_BEGIN');
+console.log(source.slice(scanStart,Math.min(dataTag,scanStart+28000)));
+console.log('SLIBY_DOM_BEFORE_DATA_END');
+const postDataEnd=source.indexOf('</'+'script>',dataTag)+9;
+console.log('SLIBY_DOM_AFTER_DATA_BEGIN');
+console.log(source.slice(postDataEnd,postDataEnd+9000));
+console.log('SLIBY_DOM_AFTER_DATA_END');
