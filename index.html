@@ -676,6 +676,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
   // Restore the previous query before the app switches tabs, including to 'Zeptej se'.
   document.querySelectorAll('.tab-v2[data-view]').forEach(tab=>tab.addEventListener('click',()=>{
     if(slibyActive&&tab.dataset.view!=='sliby'&&mainSearch){
+      slibyActive=false; // Don't send the previous tab's search into the Sliby report.
       mainSearch.value=previousSearch;
       mainSearch.dispatchEvent(new Event('input',{bubbles:true}));
     }
