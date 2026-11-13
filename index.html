@@ -713,7 +713,12 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
   },{capture:true}));
   mainSearch?.addEventListener('input',propagateSearch);
   window.addEventListener('vedatorviewchange',handleViewChange);
-  window.addEventListener('vedator-v2-ready',handleViewChange);
+  // Prepare Sliby in parallel with the ordinary Ask index, even if Episodes
+  // remains the active tab. The iframe loads only once and stays mounted.
+  window.addEventListener('vedator-v2-ready',()=>{
+    handleViewChange();
+    setTimeout(startSlibyOnce,150); // Let the initial visible tab paint first.
+  });
   window.addEventListener('vedatorlanguagechange',updatePlaceholder);
   iframe.addEventListener('load',()=>{sync();propagateSearch()});
   // If the app reopens on Sliby, initialize its only request after the view is active.
