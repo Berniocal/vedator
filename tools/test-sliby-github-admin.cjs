@@ -74,6 +74,17 @@ const syncScript=appHtml.match(/<script id="vedator-sliby-theme-sync">([\s\S]*?)
 assert(syncScript,'Sliby integration bridge must be present');
 new vm.Script(syncScript[1]);
 assert(appHtml.includes('const embeddedLayoutCSS='));
+const embedTag=appHtml.match(/<iframe id="sliby-frame-v2"[^>]*>/)?.[0];
+assert(embedTag,'Sliby iframe exists');
+assert(embedTag.includes('data-src="./sliby/"'),'Sliby source is deferred until tab selection');
+assert(embedTag.includes('data-sliby-ready="false"'),'Sliby starts visually unready');
+assert(!/\\ssrc=/.test(embedTag),'No old initial iframe page may load before styled content');
+assert(appHtml.includes('#sliby-frame-v2:not([data-sliby-ready="true"]){opacity:0;pointer-events:none}'));
+assert(appHtml.includes("if(next)startSlibyOnce()"));
+assert(appHtml.includes("iframe.dataset.slibyReady='true'"));
+assert.equal((syncScript[1].match(/iframe\\.src\\s*=/g)||[]).length,1,'Iframe must navigate exactly once');
+assert(!syncScript[1].includes("iframe.getAttribute('src')"),'Do not reload the initially requested iframe');
+assert(appHtml.includes('sliby-loading-v2'),'Pending report shows a loading indicator');
 assert(appHtml.includes('html body main>header{display:none!important}'));
 assert(appHtml.includes('html body .toolbar #q{display:none!important}'));
 assert(appHtml.includes("const mainSearch=document.getElementById('search-v2')"));
