@@ -465,13 +465,16 @@ html body .filter-groups{display:flex!important;align-items:center!important;fle
 html body .filter-groups::-webkit-scrollbar{display:none}
 html body :is(#categories,#sections){display:flex!important;flex:0 0 auto!important;flex-wrap:nowrap!important;align-items:center!important;gap:8px!important;width:max-content!important;min-width:max-content!important;max-width:none!important;margin:0!important;padding:0!important;overflow:visible!important}
 html body :is(#categories,#sections)::-webkit-scrollbar{display:none}
-html body :is(#categories,#sections) .filter-option{box-sizing:border-box!important;position:relative!important;display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;gap:0!important;width:auto!important;min-width:0!important;min-height:36px!important;margin:0!important;padding:8px 12px!important;border:1px solid var(--line,#d4d8e2)!important;border-radius:999px!important;background:var(--card,#fff)!important;color:var(--ink,#212538)!important;box-shadow:none!important;font-family:Arial,sans-serif!important;font-size:13.333px!important;font-weight:400!important;line-height:normal!important;white-space:nowrap!important;cursor:pointer!important;transition:border-color .15s,background-color .15s!important}
-html body :is(#categories,#sections) .filter-option input{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
-html body :is(#categories,#sections) .filter-option:hover{border-color:#7c6eef!important}
-html body :is(#categories,#sections) .filter-option:focus-within{outline:2px solid #7c6eef!important;outline-offset:2px!important}
-html body :is(#categories,#sections) .filter-option.is-selected,html body :is(#categories,#sections) .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important;font-weight:800!important}
-html[data-theme="dark"] body :is(#categories,#sections) .filter-option{background:#171b25!important;color:#edf1f8!important;border-color:#414a5e!important}
-html[data-theme="dark"] body :is(#categories,#sections) .filter-option.is-selected,html[data-theme="dark"] body :is(#categories,#sections) .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important}
+html body #vedator-sliby-status-filters{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:8px!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:8px 0 2px!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch}
+html body #vedator-sliby-status-filters::-webkit-scrollbar{display:none}
+html body .summary,html body .summary+.personal-help{display:none!important}
+html body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option{box-sizing:border-box!important;position:relative!important;display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;gap:0!important;width:auto!important;min-width:0!important;min-height:36px!important;margin:0!important;padding:8px 12px!important;border:1px solid var(--line,#d4d8e2)!important;border-radius:999px!important;background:var(--card,#fff)!important;color:var(--ink,#212538)!important;box-shadow:none!important;font-family:Arial,sans-serif!important;font-size:13.333px!important;font-weight:400!important;line-height:normal!important;white-space:nowrap!important;cursor:pointer!important;transition:border-color .15s,background-color .15s!important}
+html body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option input{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+html body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option:hover{border-color:#7c6eef!important}
+html body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option:focus-within{outline:2px solid #7c6eef!important;outline-offset:2px!important}
+html body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option.is-selected,html body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important;font-weight:800!important}
+html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option{background:#171b25!important;color:#edf1f8!important;border-color:#414a5e!important}
+html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option.is-selected,html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important}
 html body #cards{margin-bottom:16px}
 `;
   const embeddedDarkCSS=`
@@ -568,6 +571,57 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
   };
   // Per-item completion/deletion and compact display already persist on Sliby itself.
   const slibyViewKey='vedator-sliby-embedded-view-v1';
+  const slibyStatusGroups=[
+    ['fulfilled','Splněné'],['unfulfilled','Nesplněné'],['future','Budoucí sliby']
+  ];
+  const statusGroupOf=record=>record.stav==='Splněno později'||record.stav==='Splněno už dříve'?'fulfilled':
+    record.stav==='Budoucí slib'?'future':'unfulfilled';
+  const installSlibyStatusFilters=doc=>{
+    const page=iframe.contentWindow;
+    const host=doc.querySelector('.filter-groups'),status=doc.getElementById('status');
+    if(!page||!host||!status||typeof page.sectionRows!=='function'||typeof page.render!=='function')return;
+    if(doc.getElementById('vedator-sliby-status-filters'))return;
+    const valid=new Set(slibyStatusGroups.map(([key])=>key));
+    let saved=null;
+    try{
+      const raw=JSON.parse(localStorage.getItem(slibyViewKey)||'null');
+      if(raw?.version===1)saved=raw;
+    }catch(error){}
+    // Migrate the former single-status selection once; later selections use statusGroups.
+    const legacy=saved?.status==='Splněno později'||saved?.status==='Splněno už dříve'?['fulfilled']:
+      saved?.status==='Nesplněno'?['unfulfilled']:saved?.status==='Budoucí slib'?['future']:null;
+    const groups=Array.isArray(saved?.statusGroups)?saved.statusGroups:legacy;
+    const selected=new Set(groups?groups.filter(key=>valid.has(key)):slibyStatusGroups.map(([key])=>key));
+    const row=doc.createElement('div');
+    row.id='vedator-sliby-status-filters';
+    row.setAttribute('role','group');
+    row.setAttribute('aria-label','Filtrovat sliby podle splnění');
+    for(const [key,label] of slibyStatusGroups){
+      const button=doc.createElement('button');
+      button.type='button';button.className='filter-option';button.dataset.statusGroup=key;
+      button.textContent=label;
+      const update=()=>{
+        const checked=selected.has(key);
+        button.classList.toggle('is-selected',checked);
+        button.setAttribute('aria-pressed',String(checked));
+      };
+      button.addEventListener('click',()=>{
+        if(selected.has(key))selected.delete(key);else selected.add(key);
+        update();
+        page.render();
+      });
+      update();
+      row.appendChild(button);
+    }
+    host.insertAdjacentElement('afterend',row);
+    const originalSectionRows=page.sectionRows;
+    page.sectionRows=function(){
+      return originalSectionRows().filter(record=>selected.has(statusGroupOf(record)));
+    };
+    // The old one-at-a-time status selector must never narrow the new combinations.
+    status.value='';
+    page.render();
+  };
   const initializedSlibyDocuments=new WeakSet();
   const installSlibyViewMemory=doc=>{
     const page=iframe.contentWindow;
@@ -585,7 +639,8 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
         categories:groupValues('categories','category'),
         sections:groupValues('sections','section'),
         order:slibyOrderOptions.some(([value])=>value===order.value)?order.value:'newest',
-        status:status.value,
+        status:'',
+        statusGroups:[...doc.querySelectorAll('#vedator-sliby-status-filters button[aria-pressed="true"]')].map(button=>button.dataset.statusGroup),
         search:search.value,
         showDeleted:doc.getElementById('show-deleted')?.getAttribute('aria-pressed')==='true'
       };
@@ -599,7 +654,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     if(saved){
       order.value=slibyOrderOptions.some(([value])=>value===saved.order)?saved.order:'newest';
       if(typeof saved.search==='string')search.value=saved.search;
-      if(typeof saved.status==='string'&&[...status.options].some(o=>o.value===saved.status))status.value=saved.status;
+      status.value=''; // Status multi-selection is restored by installSlibyStatusFilters().
       const restoreGroup=(id,key,values)=>{
         if(!Array.isArray(values))return;
         const selected=new Set(values.filter(value=>typeof value==='string'));
@@ -627,7 +682,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       if(event.target===search)remember();
     });
     doc.addEventListener('click',event=>{
-      if(event.target.closest?.('.summary button,#show-deleted,#reset-defaults'))remember();
+      if(event.target.closest?.('#vedator-sliby-status-filters button,#show-deleted,#reset-defaults'))remember();
     });
   };
   const sync=()=>{
@@ -646,6 +701,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       const compact=doc.getElementById('compact-view');
       if(compact&&!compact.checked)compact.click();
       installOrderSelector(doc);
+      installSlibyStatusFilters(doc);
       installSlibyViewMemory(doc);
       // Reveal only after the final embedded layout, sorting and stored filters are ready.
       iframe.dataset.slibyReady='true';
