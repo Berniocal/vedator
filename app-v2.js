@@ -336,6 +336,7 @@
     });
   }
   function rerenderLanguage(){
+    readyTabLists.clear(); // Backup import, data refresh and language changes require fresh card labels.
     renderEpisodes();renderSeries();renderQuestions();renderNonQuestions();renderPlaylists();renderData();
     applyStaticUi();filterActive();syncPlayer();
   }
@@ -1536,6 +1537,16 @@
 
 
   /* V2_FULL_PARITY_V1 */
+  // Index and initial lists are built once; switching tabs must not rebuild them.
+  // The key includes the data generation and every filter that changes a list.
+  const readyTabLists=new Map();
+  function alreadyRenderedTab(view,key,container){
+    const prior=readyTabLists.get(view);
+    if(prior?.data===state.data&&prior.key===key&&container?.dataset.listReady==='1')return true;
+    readyTabLists.set(view,{data:state.data,key});
+    if(container)container.dataset.listReady='1';
+    return false;
+  }
   const PARITY_BATCH=20;
   const PARITY_SORT_KEY='vedatorSortPreferencesV1';
   const EPISODE_FILTER_HISTORY_KEY='vedator-episode-filter-history-v1';
@@ -1649,22 +1660,36 @@
   }
 
   function renderEpisodes(){
-    const items=sortedParityEpisodes(),container=$('#episodes-v2');if(!container)return;
+    const container=$('#episodes-v2');if(!container)return;
+    const key=JSON.stringify([state.language,state.query.trim(),parityUi.episodeTopic,parityUi.episodeSort]);
+    if(alreadyRenderedTab('episodes',key,container)){
+      const count=Number(container.dataset.visible)||0;
+      $('#count-v2').textContent=(state.query.trim()||parityUi.episodeTopic!=='all')?text('Nalezeno ','Nájdených ')+count+' / '+state.data.episodes.length:state.data.episodes.length+' '+text('epizod','epizód');
+      return;
+    }
+    const items=sortedParityEpisodes();
+    container.dataset.visible=String(items.length);
     mountParityBatch('episodes',container,items,item=>cardEpisode(item),root=>parityTypeset(root));
     $('#count-v2').textContent=(state.query.trim()||parityUi.episodeTopic!=='all')?text('Nalezeno ','Nájdených ')+items.length+' / '+state.data.episodes.length:state.data.episodes.length+' '+text('epizod','epizód');
   }
   function refreshEpisodeCard(number){
-    if(state.view==='episodes'&&['started','completed','unheard'].includes(parityUi.episodeSort)){renderEpisodes();return}
+    if(state.view==='episodes'&&['started','completed','unheard'].includes(parityUi.episodeSort)){readyTabLists.delete('episodes');renderEpisodes();return}
     const episode=episodeByNumber(number),old=$('#episodes-v2 article[data-episode="'+Number(number)+'"]');if(!episode||!old)return;const open=old.querySelector('.episode-summary-v2')?.open,host=document.createElement('div');host.innerHTML=cardEpisode(episode);const card=host.firstElementChild;window.MathJax?.typesetClear?.([old]);old.replaceWith(card);const summary=card.querySelector('.episode-summary-v2');if(summary&&open)summary.open=true;parityTypeset(card);
   }
 
   function questionToolbar(){return''}
   function renderQuestions(){
-    const items=visibleItems('questions'),container=$('#questions-v2');container.dataset.visible=String(items.length);
+    const container=$('#questions-v2');
+    const key=JSON.stringify([state.language,state.query.trim(),questionUi.qTopic,questionUi.qSort]);
+    if(alreadyRenderedTab('questions',key,container))return;
+    const items=visibleItems('questions');container.dataset.visible=String(items.length);
     mountParityBatch('questions',container,items,item=>enhancedQuestionCard(item,'questions'),root=>{queueQuestionMoreCheck('questions');parityTypeset(root)});
   }
   function renderNonQuestions(){
-    const all=flattenNonQuestions(state.data),items=visibleItems('nonquestions'),container=$('#nonquestions-v2');container.dataset.count=String(all.length);container.dataset.visible=String(items.length);
+    const container=$('#nonquestions-v2');
+    const key=JSON.stringify([state.language,state.query.trim(),questionUi.nTopic,questionUi.nSort]);
+    if(alreadyRenderedTab('nonquestions',key,container))return;
+    const all=flattenNonQuestions(state.data),items=visibleItems('nonquestions');container.dataset.count=String(all.length);container.dataset.visible=String(items.length);
     mountParityBatch('nonquestions',container,items,item=>enhancedQuestionCard(item,'nonquestions'),root=>{queueQuestionMoreCheck('nonquestions');parityTypeset(root)});
   }
 
@@ -1698,7 +1723,13 @@
     document.head.appendChild(style);
   }
   function renderSeries(){
-    const groups=sortedParitySeries(),box=$('#series-v2');box.replaceChildren();ensureSeriesTopicStyles();
+    const box=$('#series-v2');
+    const key=JSON.stringify([state.language,state.query.trim(),parityUi.seriesSort]);
+    if(alreadyRenderedTab('series',key,box)){
+      $('#count-v2').textContent=box.dataset.seriesCount||'';
+      return;
+    }
+    const groups=sortedParitySeries();box.replaceChildren();ensureSeriesTopicStyles();
     const sections=[['series',text('Série','Série')],['topic',text('Témata','Témy')]];
     for(const [kind,label] of sections){
       const items=groups.filter(({series})=>seriesKind(series)===kind);if(!items.length)continue;
@@ -1714,7 +1745,8 @@
       box.appendChild(section);
     }
     const seriesCount=groups.filter(({series})=>seriesKind(series)==='series').length,topicCount=groups.length-seriesCount;
-    $('#count-v2').textContent=seriesCount+' '+text('sérií','sérií')+' · '+topicCount+' '+text('témat','tém');
+    box.dataset.seriesCount=seriesCount+' '+text('sérií','sérií')+' · '+topicCount+' '+text('témat','tém');
+    $('#count-v2').textContent=box.dataset.seriesCount;
   }
 
   function parityQuestionTopics(view){return QUESTION_TOPICS}
@@ -3882,6 +3914,22 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     if(enabled&&!askAi.installed)askAiSaveEnabled(false);
     if(state.view==='ask')syncParityControls();
   }
+
+  // Prepare the normal (non-AI) Ask search index while other tabs are open.
+  // requestIdleCallback yields to the first visible tab; ensureAskEngine deduplicates
+  // the job if the user opens Ask before background preparation starts.
+  let backgroundAskScheduled=false;
+  function prewarmAskIndex(){
+    if(backgroundAskScheduled||!state.data)return;
+    backgroundAskScheduled=true;
+    const run=()=>{
+      if(!state.data)return;
+      ensureAskEngine().catch(error=>console.warn('Background Ask index preparation failed',error));
+    };
+    if('requestIdleCallback' in window)requestIdleCallback(run,{timeout:1500});
+    else setTimeout(run,250);
+  }
+  window.addEventListener('vedator-v2-ready',prewarmAskIndex,{once:true});
 
   async function start(){
     const status=$('#status-v2');
