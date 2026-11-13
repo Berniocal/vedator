@@ -461,16 +461,16 @@ html body .view-actions{display:none!important}
 html body .toolbar #q{display:none!important}
 html body .toolbar{position:relative!important;top:auto!important;padding-top:0!important;margin-top:4px!important;justify-content:flex-start!important;background:transparent!important}
 html body .filter-groups{margin-top:0!important}
-/* Kategorie Sliby/Nápady/... mají stejné malé pilulky jako filtry Epizody a Zeptej se. */
-html body #categories{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:8px!important;overflow-x:auto!important;overflow-y:hidden!important;padding:10px 0 2px!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch}
-html body #categories::-webkit-scrollbar{display:none}
-html body #categories .filter-option{box-sizing:border-box!important;position:relative!important;display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;gap:0!important;width:auto!important;min-width:0!important;min-height:38px!important;margin:0!important;padding:8px 12px!important;border:1px solid #d4d8e2!important;border-radius:999px!important;background:#fff!important;color:#212538!important;box-shadow:none!important;font:inherit!important;font-size:.9rem!important;font-weight:500!important;line-height:1.25!important;white-space:nowrap!important;cursor:pointer!important;transition:border-color .15s,background-color .15s!important}
-html body #categories .filter-option input{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
-html body #categories .filter-option:hover{border-color:#7c6eef!important}
-html body #categories .filter-option:focus-within{outline:2px solid #7c6eef!important;outline-offset:2px!important}
-html body #categories .filter-option.is-selected,html body #categories .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important;font-weight:800!important}
-html[data-theme="dark"] body #categories .filter-option{background:#171b25!important;color:#edf1f8!important;border-color:#414a5e!important}
-html[data-theme="dark"] body #categories .filter-option.is-selected,html[data-theme="dark"] body #categories .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important}
+/* Obě řady (typ i obsah: Sliby/Nápady, Epizody/Ostatní) mají stejné pilulky jako filtry jinde v aplikaci. */
+html body :is(#categories,#sections){display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:8px!important;overflow-x:auto!important;overflow-y:hidden!important;padding:10px 0 2px!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch}
+html body :is(#categories,#sections)::-webkit-scrollbar{display:none}
+html body :is(#categories,#sections) .filter-option{box-sizing:border-box!important;position:relative!important;display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;gap:0!important;width:auto!important;min-width:0!important;min-height:38px!important;margin:0!important;padding:8px 12px!important;border:1px solid #d4d8e2!important;border-radius:999px!important;background:#fff!important;color:#212538!important;box-shadow:none!important;font:inherit!important;font-size:.9rem!important;font-weight:500!important;line-height:1.25!important;white-space:nowrap!important;cursor:pointer!important;transition:border-color .15s,background-color .15s!important}
+html body :is(#categories,#sections) .filter-option input{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+html body :is(#categories,#sections) .filter-option:hover{border-color:#7c6eef!important}
+html body :is(#categories,#sections) .filter-option:focus-within{outline:2px solid #7c6eef!important;outline-offset:2px!important}
+html body :is(#categories,#sections) .filter-option.is-selected,html body :is(#categories,#sections) .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important;font-weight:800!important}
+html[data-theme="dark"] body :is(#categories,#sections) .filter-option{background:#171b25!important;color:#edf1f8!important;border-color:#414a5e!important}
+html[data-theme="dark"] body :is(#categories,#sections) .filter-option.is-selected,html[data-theme="dark"] body :is(#categories,#sections) .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important}
 html body #cards{margin-bottom:16px}
 `;
   const embeddedDarkCSS=`
