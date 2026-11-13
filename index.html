@@ -626,6 +626,9 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
         doc.head.appendChild(style);
       }
       doc.documentElement.dataset.theme=document.documentElement.dataset.theme==='light'?'light':'dark';
+      // Stručný režim je výchozí a nepřidáváme další přepínač.
+      const compact=doc.getElementById('compact-view');
+      if(compact&&!compact.checked)compact.click();
       installOrderSelector(doc);
       installSlibyViewMemory(doc);
     }catch(error){console.warn('Sliby theme synchronization unavailable',error)}
@@ -670,6 +673,13 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     }
     updatePlaceholder();
   };
+  // Restore the previous query before the app switches tabs, including to 'Zeptej se'.
+  document.querySelectorAll('.tab-v2[data-view]').forEach(tab=>tab.addEventListener('click',()=>{
+    if(slibyActive&&tab.dataset.view!=='sliby'&&mainSearch){
+      mainSearch.value=previousSearch;
+      mainSearch.dispatchEvent(new Event('input',{bubbles:true}));
+    }
+  },{capture:true}));
   mainSearch?.addEventListener('input',propagateSearch);
   window.addEventListener('vedatorviewchange',handleViewChange);
   window.addEventListener('vedator-v2-ready',handleViewChange);
