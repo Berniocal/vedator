@@ -299,7 +299,10 @@ body.vedator-feedback-active main > .status-row {display:none!important}
 #sliby-frame-v2,#feedback-frame-v2{display:block;width:100%;height:calc(100dvh - 180px);min-height:450px;border:1px solid var(--line,#d5d7e0);border-radius:12px;background:var(--card,#fff)}
 #sliby-frame-v2{border:0;border-radius:0;background:transparent;height:calc(100dvh - 220px);min-height:360px}
 body.vedator-sliby-active main > .panel > .controls{display:flex!important}
-#sliby-v2{margin-top:0!important}
+#sliby-v2{margin-top:0!important;position:relative}
+#sliby-frame-v2:not([data-sliby-ready="true"]){opacity:0;pointer-events:none}
+#sliby-loading-v2{position:absolute;top:14px;left:8px;margin:0;color:var(--muted);font-size:.92rem}
+#sliby-loading-v2[hidden]{display:none!important}
 #feedback-v2 .feedback-link{display:inline-block;margin-top:10px;color:var(--accent);font-size:.85rem}
 @media(max-width:700px){#sliby-frame-v2,#feedback-frame-v2{height:calc(100dvh - 155px);min-height:420px}#sliby-frame-v2{height:calc(100dvh - 210px);min-height:350px}}
 </style>
@@ -328,7 +331,8 @@ body.vedator-sliby-active main > .panel > .controls{display:flex!important}
   <section id="nonquestions-v2" class="view-v2 grid hidden" data-view="nonquestions"></section>
   <section id="playlists-v2" class="view-v2 hidden" data-view="playlists"></section>
   <section id="sliby-v2" class="view-v2 hidden" data-view="sliby" aria-label="Sliby a náměty">
-    <iframe id="sliby-frame-v2" title="Sliby a náměty Vedátora" src="./sliby/" loading="lazy">
+    <p id="sliby-loading-v2" role="status" aria-live="polite" hidden>Načítám sliby…</p>
+    <iframe id="sliby-frame-v2" title="Sliby a náměty Vedátora" data-src="./sliby/" data-sliby-ready="false" loading="eager">
       <a href="./sliby/">Sliby a náměty</a>
     </iframe>
   </section>
@@ -618,7 +622,8 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
   const sync=()=>{
     try{
       const doc=iframe.contentDocument;
-      if(!doc?.documentElement)return;
+      // The initial about:blank iframe is not the promises report.
+      if(!doc?.documentElement||!doc.getElementById('audit-data')||!doc.getElementById('q')||!doc.getElementById('cards'))return;
       if(doc.head&&!doc.getElementById('vedator-sliby-embedded-theme')){
         const style=doc.createElement('style');
         style.id='vedator-sliby-embedded-theme';
@@ -631,6 +636,9 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       if(compact&&!compact.checked)compact.click();
       installOrderSelector(doc);
       installSlibyViewMemory(doc);
+      // Reveal only after the final embedded layout, sorting and stored filters are ready.
+      iframe.dataset.slibyReady='true';
+      document.getElementById('sliby-loading-v2')?.setAttribute('hidden','');
     }catch(error){console.warn('Sliby theme synchronization unavailable',error)}
   };
   // Search in Sliby uses the SAME app-wide search bar as episodes and questions.
@@ -657,9 +665,20 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     child.dispatchEvent(new iframe.contentWindow.Event('input',{bubbles:true}));
     // Child report owns the search algorithm (including duplicate and context rules).
   };
+  const startSlibyOnce=()=>{
+    if(iframe.hasAttribute('src'))return;
+    const loader=document.getElementById('sliby-loading-v2');
+    if(loader){loader.hidden=false;loader.textContent=document.documentElement.lang.toLowerCase().startsWith('sk')?'Načítavam sľuby…':'Načítám sliby…'}
+    iframe.dataset.slibyReady='false';
+    // One fresh request only; do not navigate from a first, unstyled copy of the report.
+    const url=new URL(iframe.dataset.src,location.href);
+    url.searchParams.set('pwa_load',String(Date.now()));
+    iframe.src=url.href;
+  };
   const handleViewChange=()=>{
     if(!mainSearch)return;
     const next=slibyTab();
+    if(next)startSlibyOnce();
     if(next&&!slibyActive){
       previousSearch=mainSearch.value;
       slibyActive=true;
@@ -686,11 +705,8 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
   window.addEventListener('vedator-v2-ready',handleViewChange);
   window.addEventListener('vedatorlanguagechange',updatePlaceholder);
   iframe.addEventListener('load',()=>{sync();propagateSearch()});
-  // Sliby is a separate page: bypass browser HTTP cache each time the PWA starts,
-  // without changing persistent filters, ordering, or completion state.
-  const slibyUrl=new URL(iframe.getAttribute('src'),location.href);
-  slibyUrl.searchParams.set('pwa_load',String(Date.now()));
-  iframe.src=slibyUrl.href;
+  // If the app reopens on Sliby, initialize its only request after the view is active.
+  if(slibyTab())handleViewChange();
   window.addEventListener('vedatorthemechange',sync);
 })();
 </script>
