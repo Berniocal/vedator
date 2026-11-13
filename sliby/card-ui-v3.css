@@ -1,0 +1,20 @@
+/* The source report remains intact. Only this view is deliberately minimal. */
+.view-actions{display:none!important}
+.finding.compact{display:block;padding:12px 16px;margin-bottom:8px}
+.finding.compact .finding-main{display:block}
+.finding.compact .source[hidden]{display:none!important}
+.finding.compact h3{margin:0;font-size:16px}
+.finding.compact .topic-toggle{display:block;width:100%;cursor:pointer;font-weight:700;padding:2px 0;text-align:left}
+.finding.compact .topic-toggle::after{content:none!important}
+.finding.compact .topic-toggle:hover{text-decoration:underline;text-underline-offset:3px}
+.finding.compact .finding-details{margin-top:10px}
+.finding.compact .finding-actions{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin:0 0 12px}
+.finding.compact .completion-label{min-height:38px;white-space:normal;font-size:14px;gap:8px}
+.finding.compact .finding-actions button{min-height:38px;padding:6px 12px;font-size:13px}
+.finding.compact .explanation{margin:8px 0 14px;line-height:1.55}
+.episode-mentions{list-style:none;padding:10px 0 0;margin:12px 0 0;border-top:1px solid var(--line)}
+.episode-mention{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
+.episode-mention+.episode-mention{border-top:1px solid var(--line)}
+.episode-title{font-weight:600;font-size:14px;min-width:0;overflow-wrap:anywhere}
+.episode-mention .time{flex:none;font-size:12px;padding:7px 10px;min-height:36px}
+@media(max-width:480px){.finding.compact{padding:11px 12px}.episode-mention{gap:8px}.episode-title{font-size:13px}}
