@@ -74,11 +74,11 @@ const syncScript=appHtml.match(/<script id="vedator-sliby-theme-sync">([\s\S]*?)
 assert(syncScript,'Sliby integration bridge must be present');
 new vm.Script(syncScript[1]);
 assert(appHtml.includes('const embeddedLayoutCSS='));
-assert(appHtml.includes('html body #categories .filter-option{'),'Category pills must match tabs in the main application');
-assert(appHtml.includes('html body #categories .filter-option.is-selected'),'Active category must have a pill state');
-assert(appHtml.includes('html body #categories .filter-option input{position:absolute'),'Keep accessible native filter selection while hiding checkbox decoration');
-assert(appHtml.includes('html body #categories{display:flex!important;flex-wrap:nowrap!important'),'Category pills must scroll horizontally on narrow screens');
-assert(appHtml.includes('html[data-theme="dark"] body #categories .filter-option.is-selected'),'Selected pill must work in dark theme');
+assert(appHtml.includes('html body :is(#categories,#sections) .filter-option{'),'Both category and section pills must match tabs in the main application');
+assert(appHtml.includes('html body :is(#categories,#sections) .filter-option.is-selected'),'Active category and section must have pill states');
+assert(appHtml.includes('html body :is(#categories,#sections) .filter-option input{position:absolute'),'Keep accessible native filter selection while hiding checkbox decoration');
+assert(appHtml.includes('html body :is(#categories,#sections){display:flex!important;flex-wrap:nowrap!important'),'Both pill rows must scroll horizontally on narrow screens');
+assert(appHtml.includes('html[data-theme="dark"] body :is(#categories,#sections) .filter-option.is-selected'),'Both selected pills must work in dark theme');
 const embedTag=appHtml.match(/<iframe id="sliby-frame-v2"[^>]*>/)?.[0];
 assert(embedTag,'Sliby iframe exists');
 assert(embedTag.includes('data-src="./sliby/"'),'Sliby source is deferred until tab selection');
