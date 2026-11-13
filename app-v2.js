@@ -1663,6 +1663,7 @@
     const container=$('#episodes-v2');if(!container)return;
     const key=JSON.stringify([state.language,state.query.trim(),parityUi.episodeTopic,parityUi.episodeSort]);
     if(alreadyRenderedTab('episodes',key,container)){
+      if(state.view==='episodes')parityTypeset(container);
       const count=Number(container.dataset.visible)||0;
       $('#count-v2').textContent=(state.query.trim()||parityUi.episodeTopic!=='all')?text('Nalezeno ','Nájdených ')+count+' / '+state.data.episodes.length:state.data.episodes.length+' '+text('epizod','epizód');
       return;
@@ -1681,14 +1682,20 @@
   function renderQuestions(){
     const container=$('#questions-v2');
     const key=JSON.stringify([state.language,state.query.trim(),questionUi.qTopic,questionUi.qSort]);
-    if(alreadyRenderedTab('questions',key,container))return;
+    if(alreadyRenderedTab('questions',key,container)){
+      if(state.view==='questions'){queueQuestionMoreCheck('questions');parityTypeset(container)}
+      return;
+    }
     const items=visibleItems('questions');container.dataset.visible=String(items.length);
     mountParityBatch('questions',container,items,item=>enhancedQuestionCard(item,'questions'),root=>{queueQuestionMoreCheck('questions');parityTypeset(root)});
   }
   function renderNonQuestions(){
     const container=$('#nonquestions-v2');
     const key=JSON.stringify([state.language,state.query.trim(),questionUi.nTopic,questionUi.nSort]);
-    if(alreadyRenderedTab('nonquestions',key,container))return;
+    if(alreadyRenderedTab('nonquestions',key,container)){
+      if(state.view==='nonquestions'){queueQuestionMoreCheck('nonquestions');parityTypeset(container)}
+      return;
+    }
     const all=flattenNonQuestions(state.data),items=visibleItems('nonquestions');container.dataset.count=String(all.length);container.dataset.visible=String(items.length);
     mountParityBatch('nonquestions',container,items,item=>enhancedQuestionCard(item,'nonquestions'),root=>{queueQuestionMoreCheck('nonquestions');parityTypeset(root)});
   }
