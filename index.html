@@ -292,14 +292,16 @@ html body .tab-v2.active,html body .topic-v2.active,html body .question-topic.ac
 @media(max-width:600px){.ask-type-filters-v2{margin-right:0}.ask-submit-v2{padding:9px 12px}}
 </style>
 <style id="v2-sliby-embed-css">
-body.vedator-sliby-active main > .panel > .controls,
 body.vedator-sliby-active main > .status-row,
 body.vedator-feedback-active main > .panel > .controls,
 body.vedator-feedback-active main > .status-row {display:none!important}
 #sliby-v2,#feedback-v2{width:100%;min-width:0;max-width:100%}
 #sliby-frame-v2,#feedback-frame-v2{display:block;width:100%;height:calc(100dvh - 180px);min-height:450px;border:1px solid var(--line,#d5d7e0);border-radius:12px;background:var(--card,#fff)}
+#sliby-frame-v2{border:0;border-radius:0;background:transparent;height:calc(100dvh - 220px);min-height:360px}
+body.vedator-sliby-active main > .panel > .controls{display:flex!important}
+#sliby-v2{margin-top:0!important}
 #feedback-v2 .feedback-link{display:inline-block;margin-top:10px;color:var(--accent);font-size:.85rem}
-@media(max-width:700px){#sliby-frame-v2,#feedback-frame-v2{height:calc(100dvh - 155px);min-height:420px}}
+@media(max-width:700px){#sliby-frame-v2,#feedback-frame-v2{height:calc(100dvh - 155px);min-height:420px}#sliby-frame-v2{height:calc(100dvh - 210px);min-height:350px}}
 </style>
 </head>
 <body>
@@ -446,6 +448,17 @@ body.vedator-feedback-active main > .status-row {display:none!important}
 (()=>{
   const iframe=document.getElementById('sliby-frame-v2');
   if(!iframe)return;
+  const embeddedLayoutCSS=`
+/* Jen uvnitř hlavní aplikace: žádný druhý titulek, datum ani vyhledávač. */
+html body{margin:0!important}
+html body main{padding-top:0!important;margin-top:0!important;max-width:none!important}
+html body main>header{display:none!important}
+html body .view-actions{display:none!important}
+html body .toolbar #q{display:none!important}
+html body .toolbar{position:relative!important;top:auto!important;padding-top:0!important;margin-top:4px!important;justify-content:flex-start!important;background:transparent!important}
+html body .filter-groups{margin-top:0!important}
+html body #cards{margin-bottom:16px}
+`;
   const embeddedDarkCSS=`
 /* Embedded Sliby: Vedator dark palette; styling only */
 html[data-theme="dark"]{color-scheme:dark;color:#edf1f8;background:#0e1118;--ink:#c4b5fd;--line:#2d3544;--yellow:#9285ff}
@@ -609,7 +622,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       if(doc.head&&!doc.getElementById('vedator-sliby-embedded-theme')){
         const style=doc.createElement('style');
         style.id='vedator-sliby-embedded-theme';
-        style.textContent=embeddedDarkCSS;
+        style.textContent=embeddedLayoutCSS+embeddedDarkCSS;
         doc.head.appendChild(style);
       }
       doc.documentElement.dataset.theme=document.documentElement.dataset.theme==='light'?'light':'dark';
@@ -617,7 +630,51 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       installSlibyViewMemory(doc);
     }catch(error){console.warn('Sliby theme synchronization unavailable',error)}
   };
-  iframe.addEventListener('load',sync);
+  // Search in Sliby uses the SAME app-wide search bar as episodes and questions.
+  // The iframe keeps all original data, filtering, sorting and saved user choices.
+  const mainSearch=document.getElementById('search-v2');
+  const slibyTab=()=>document.querySelector('.tab-v2.active[data-view]')?.dataset.view==='sliby';
+  let slibyActive=false, previousSearch='';
+  const childSearch=()=>{try{return iframe.contentDocument?.getElementById('q')||null}catch{return null}};
+  const savedSlibySearch=()=>{
+    try{const value=JSON.parse(localStorage.getItem(slibyViewKey)||'null');return value?.version===1&&typeof value.search==='string'?value.search:''}
+    catch{return ''}
+  };
+  const updatePlaceholder=()=>{
+    if(!mainSearch)return;
+    const sk=document.documentElement.lang.toLowerCase().startsWith('sk');
+    mainSearch.placeholder=slibyActive?(sk?'Hľadať v sľuboch a nápadoch…':'Hledat ve slibech a nápadech…'):
+      (sk?'Hľadať v práve otvorenej záložke…':'Hledat v právě otevřené záložce…');
+  };
+  const propagateSearch=()=>{
+    if(!mainSearch||!slibyActive)return;
+    const child=childSearch();
+    if(!child||child.value===mainSearch.value)return;
+    child.value=mainSearch.value;
+    child.dispatchEvent(new iframe.contentWindow.Event('input',{bubbles:true}));
+    // Child report owns the search algorithm (including duplicate and context rules).
+  };
+  const handleViewChange=()=>{
+    if(!mainSearch)return;
+    const next=slibyTab();
+    if(next&&!slibyActive){
+      previousSearch=mainSearch.value;
+      slibyActive=true;
+      mainSearch.value=childSearch()?.value??savedSlibySearch();
+      mainSearch.dispatchEvent(new Event('input',{bubbles:true}));
+      propagateSearch();
+    }else if(!next&&slibyActive){
+      slibyActive=false;
+      mainSearch.value=previousSearch;
+      mainSearch.dispatchEvent(new Event('input',{bubbles:true}));
+    }
+    updatePlaceholder();
+  };
+  mainSearch?.addEventListener('input',propagateSearch);
+  window.addEventListener('vedatorviewchange',handleViewChange);
+  window.addEventListener('vedator-v2-ready',handleViewChange);
+  window.addEventListener('vedatorlanguagechange',updatePlaceholder);
+  iframe.addEventListener('load',()=>{sync();propagateSearch()});
   // Sliby is a separate page: bypass browser HTTP cache each time the PWA starts,
   // without changing persistent filters, ordering, or completion state.
   const slibyUrl=new URL(iframe.getAttribute('src'),location.href);
