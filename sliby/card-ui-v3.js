@@ -21,9 +21,7 @@
     const summary=document.createElement('summary');
     const emoji=document.createElement('span');
     emoji.textContent='⚙️';emoji.setAttribute('aria-hidden','true');
-    const title=document.createElement('span');
-    title.textContent='Nastavení';
-    summary.append(emoji,title);
+    summary.append(emoji);
     summary.setAttribute('aria-label','Nastavení slibů');
     const menu=document.createElement('div');
     menu.className='promise-settings-menu';
