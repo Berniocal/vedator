@@ -313,7 +313,33 @@
     [1934,"Samostatně probrat Černobyl",["physics","earth"]],
     [1935,"Portrét Johna Wheelera",["people"]]
   ];
-  const ideasByKey=new Map([...ideaBatch,...ideaBatch2].map(([candidate,title,ids])=>[JSON.stringify([candidate,title]),ids]));
+  // Third individually inspected idea review: topics of the ORIGINAL items.
+  // These may be brief follow-ups or uncertain teasers; assigning a subject
+  // does not promote them to a definite promise or to a full episode.
+  // Unclear jokes and non-episode media remain unclassified.
+  const ideaBatch3=[
+    [1081,"V příští mimozemské epizodě krátce také o vzniku jazyka",["life","space"]],
+    [1095,"Laboratorní experimenty pro zkoumání kvantové povahy gravitace",["physics"]],
+    [121,"Další prostorové rozměry a průnik sil do nich",["physics"]],
+    [1104,"Albert Michelson jako neurčitý teaser",["people"]],
+    [1114,"Teaser na fyziku plování a loď v malém množství vody",["physics"]],
+    [1116,"Maxwell: nejisté připomenutí připravovaného dílu",["people"]],
+    [1131,"Rychlost dopravních letadel a volba letové výšky",["tech","physics"]],
+    [1132,"Po přečtení probrat Harry Potter and the Methods of Rationality",["culture"]],
+    [1162,"Po přečtení sdělit dojmy z Duny",["culture"]],
+    [1293,"Možný návrat k vakuové disperzi světla",["physics"]],
+    [1319,"Po vydání knihy se vrátit k času po tepelné smrti vesmíru",["space"]],
+    [1379,"Vztah entropie a života jako vlastní téma",["physics","life"]],
+    [455,"Stárnutí a jeho mnoho příčin",["life"]],
+    [1466,"Jediné pozorování, které odhalí novou fyziku",["physics"]],
+    [655,"Co je přirozený experiment",["math"]],
+    [672,"Výběr zajímavých paradoxů",["math"]],
+    [1608,"Doplnit kapitolu Nebezpečné počasí, původně odloženou",["earth"]],
+    [1687,"Mezigalaktické komety jako otázka do FAQ",["space"]],
+    [1716,"Během odkladu ještě něco povědět o Artemis",["space"]],
+    [1756,"Vrátit se v rozhovoru k Talebově antikřehkosti",["culture"]]
+  ];
+  const ideasByKey=new Map([...ideaBatch,...ideaBatch2,...ideaBatch3].map(([candidate,title,ids])=>[JSON.stringify([candidate,title]),ids]));
 
   function topicsFor(record){
     // Classify only records in Epizody. Their original type is preserved:
@@ -331,6 +357,7 @@
     nextBatch:Object.freeze(nextBatch.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
     ideaBatch:Object.freeze(ideaBatch.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
     ideaBatch2:Object.freeze(ideaBatch2.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
+    ideaBatch3:Object.freeze(ideaBatch3.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
     groupIds,groupFor:id=>parent[id]||null,
     topicsFor
   });
