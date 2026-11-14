@@ -3948,12 +3948,24 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   async function start(){
     const status=$('#status-v2');
     try{
+      // Give the small first-paint JSON and one browser frame priority over
+      // the 10 MB full-catalog request. Maximum delay on a cold cache: 160 ms.
+      if(window.VedatorFirstPaintReady){
+        await Promise.race([
+          window.VedatorFirstPaintReady,
+          new Promise(resolve=>setTimeout(resolve,160))
+        ]);
+        if(document.visibilityState==='visible'&&typeof requestAnimationFrame==='function'){
+          await new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
+        }
+      }
       const response=await fetch('./content-v2.json',{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);state.data=await response.json();
       buildLegacyQuestionIndex();loadUserData();installEpisodeExperienceStyles();installUiExperience();installFullParityUi();installPlaylistParity();installFinalUiV2();applyStaticUi();
       // The currently visible tab alone needs DOM before first paint.
       // setView() uses filterActive() to create its first 20 interactive cards.
       // Other tabs build their cards on first entry instead of blocking startup.
-      bind();setView('episodes');void askAiInitialize();
+      // Preserve an early tap on Sliby or Zeptej se made during the preview.
+      bind();setView(window.VedatorEarlyView||'episodes');void askAiInitialize();
       // Questions/Nonquestions used to feel instant because their first batch
       // was pre-rendered during startup. Restore that benefit without making
       // the user wait for hidden DOM before the episode cards appear.
