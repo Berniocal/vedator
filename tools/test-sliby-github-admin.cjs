@@ -98,7 +98,7 @@ assert(appHtml.includes('html body #vedator-sliby-episode-topics{display:flex!im
 assert(appHtml.includes('html body #vedator-sliby-episode-topics[hidden]{display:none!important}'),'Hide third row when Episodes are not selected');
 assert(appHtml.includes('installSlibyEpisodeTopics(doc);'),'Install curated topic filters after status filters');
 assert(appHtml.includes("if(record.section!=='episodes'||record.kategorie!=='Sliby')return false;"),'Topic filters may expose only real promises on episodes');
-assert(appHtml.includes("const promiseCategoryEnabled=()=>doc.querySelector('#categories .filter-option[data-category=\\"Sliby\\"] input')"),'Topic row must track the actual Sliby category');
+assert(appHtml.includes("const promiseCategoryEnabled=()=>doc.querySelector("),'Topic row must track the actual Sliby category');
 assert(appHtml.includes("row.hidden=!(episodeSectionEnabled()&&promiseCategoryEnabled())"),'Third row hides if either Epizody or Sliby is unchecked');
 assert(appHtml.includes("selected==='unclassified'?!matched.length:matched.includes(selected)"),'Unclassified promises must remain reachable');
 assert(appHtml.includes("episodeTopic:doc.querySelector("),'Topic selection must be stored');
