@@ -70,9 +70,6 @@ for(const id of nearTermIds){
  assert.equal(row.stav,'Nesplněno','Near-term promise is not long-term future: '+id);
 }
 
-// Temporary, bounded review sample for extending the first manual topic batch.
-const sample=actual.findings.filter(row=>row.section==='episodes'&&row.kategorie==='Sliby').slice(0,70);
-console.log('EPISODE_PROMISE_REVIEW '+JSON.stringify(sample.map(row=>({id:row.candidate,tema:row.displayTema||row.tema,detail:String(row.vysvetleni||'').slice(0,160),category:row.kategorie}))));
 console.log('PASS: admin override validation, merged identity matching, durable status on live and archived rows, PAT safety checks, and future status reporting.');
 
 const compactJs=fs.readFileSync('sliby/card-ui-v3.js','utf8');
@@ -112,11 +109,14 @@ const existingReview=JSON.parse(fs.readFileSync('sliby/duplicate-review.json','u
 const getRootCandidate=member=>Array.isArray(member)?Number(member[0]):Number(member);
 assert(topicApi.reviewed.length>=15,'Initial carefully reviewed topic batch should be substantial');
 assert(topicApi.topics.some(t=>t.label==='Černé díry')&&topicApi.topics.some(t=>t.label==='Osobnosti vědy'),'Match the current series/topics taxonomy');
-for(const item of topicApi.reviewed){
-  assert(existingReview.groups.some(group=>group.title===item.title&&getRootCandidate(group.members[0])===item.candidate),'Only previously reviewed episode promises may receive topics: '+item.title);
+assert(topicApi.audited.length>=30,'Second manual audit must include substantial verified episode promises');
+const assignments=[...topicApi.reviewed,...topicApi.audited];
+for(const item of assignments){
+  if(topicApi.reviewed.includes(item))assert(existingReview.groups.some(group=>group.title===item.title&&getRootCandidate(group.members[0])===item.candidate),'Duplicate-review assignment must be documented: '+item.title);
   const matches=actual.findings.filter(row=>Number(row.candidate)===item.candidate&&(row.displayTema||row.compactTitle||row.tema)===item.title);
   assert.equal(matches.length,1,'Curated assignment must exist exactly once in the live report: '+item.title);
   assert.equal(matches[0].section,'episodes','Only real promises on episodes may be tagged: '+item.title);
+  assert.equal(matches[0].kategorie,'Sliby','First topic batch must be restricted to Sliby, not Nápady: '+item.title);
   const record={candidate:item.candidate,displayTema:item.title,section:'episodes'};
   assert.deepEqual(Array.from(topicApi.topicsFor(record)),Array.from(item.ids),'Topic assignment must match reviewed decision');
   assert.equal(topicApi.topicsFor({...record,section:'other'}).length,0,'Never categorize non-episode promises');
