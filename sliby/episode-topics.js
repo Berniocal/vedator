@@ -149,17 +149,102 @@
     [1932,"Rozšířit portréty žen ve vědě přibližně na dvacet dílů",["people"]]
   ];
   const byKey=new Map([...reviewed,...audited,...nextBatch].map(([candidate,title,ids])=>[JSON.stringify([candidate,title]),ids]));
+  // Next careful batch, 14 November 2026: distinct episode IDEAS
+  // audited from their own Czech explanatory descriptions. These are not
+  // represented as promises, nor inferred from a source episode title.
+  // Teasers with unknown subject, jokes, short FAQ answers and non-episode
+  // actions remain unclassified pending individual review.
+  const ideaBatch=[
+    [1036,"Jaderná fúze / fúzní reaktory – první podnět",["physics"]],
+    [16,"Hypnóza a její různé podoby",["life"]],
+    [1038,"Nové poznatky o dlouhodobé imunitě a paměti po očkování",["life"]],
+    [1039,"Jak dlouho trvá přejít poušť a proč lidé bloudí",["earth"]],
+    [1043,"Dalších deset zvuků vesmíru / druhý díl",["space"]],
+    [25,"Pokračování Teorie strun",["physics"]],
+    [26,"Landscape problém a různé možné fyziky v teorii strun",["physics"]],
+    [34,"Co se děje uvnitř počítače",["tech"]],
+    [1045,"Chemické reakce ve svalech a v těle",["life"]],
+    [37,"Žijeme v počítačové simulaci?",["culture"]],
+    [1046,"Bylo dřív vejce, nebo slepice? Hranice živočišných druhů",["life"]],
+    [38,"Je matematika objevená, nebo vynalezená?",["math"]],
+    [1048,"Rychlost, chybovost a opravy při kopírování DNA",["life"]],
+    [1049,"Zlatovlásčina / obyvatelná zóna v dalším dílu série",["space"]],
+    [1052,"Hubbleův teleskop",["space"]],
+    [1053,"Technologie z kosmického výzkumu v každodenním životě",["space","tech"]],
+    [48,"Skafandry jako samostatná kosmická zařízení",["space"]],
+    [1055,"Čerenkovovo záření",["physics"]],
+    [60,"Proč rozžhavené železo svítí / zbarvení horkých těles",["physics"]],
+    [1059,"Richard Feynman jako osobnost a popularizátor",["people"]],
+    [1064,"Nobelovy ceny za rok 2020 podle zájmu posluchačů",["people"]],
+    [72,"Jak se fotografují černé díry",["space"]],
+    [73,"Roger Penrose jako osobnost",["people"]],
+    [1074,"Minisérie z Newtonových a Einsteinových objevů",["people","physics"]],
+    [1076,"Webbův vesmírný teleskop jako navazující téma",["space"]],
+    [97,"Jak mohou vypadat pokročilé civilizace",["space"]],
+    [1085,"Je číslo pí náhodné a obsahuje všechny informace?",["math"]],
+    [1086,"Vzniká samotný prostor z kvantové mechaniky?",["physics","space"]],
+    [1087,"Cestování časem červími dírami jako teaser do budoucna",["physics","space"]],
+    [1090,"Vlastní díl o zachycení gravitačních vln a detektoru LIGO",["space","physics"]],
+    [1094,"Příliv a odliv odložený na jiný rozhovor",["earth"]],
+    [1097,"Monty Hallův problém a soutěž se třemi dveřmi",["math"]],
+    [1100,"Tři způsoby získávání energie z černých děr v jednom dílu",["space"]],
+    [122,"Limity poznání: zda lze o vesmíru zjistit všechno",["space"]],
+    [126,"Historky ze studia",["culture"]],
+    [127,"Co je hmotnost a jak souvisí s energií",["physics"]],
+    [1106,"M-teorie jako vlastní podcast",["physics"]],
+    [143,"Fyzika klimatické změny",["earth","physics"]],
+    [1108,"Srinivasa Ramanujan jako další vědecký portrét",["people","math"]],
+    [150,"Riemannova hypotéza",["math"]],
+    [1120,"Enigma jako samostatný podcast",["tech"]],
+    [1124,"Sabotáž výroby těžké vody pro nacistický jaderný program",["physics"]],
+    [1125,"Grigorij Perelman a vyřešený miléniový problém",["people","math"]],
+    [1135,"Pokračování o mikroskopických černých dírách po nových poznatcích",["space"]],
+    [179,"Nejméně pět dalších dílů teorie her",["math"]],
+    [180,"Teorie her v ekonomii a Morgensternův vliv",["math"]],
+    [1137,"Podrobněji probrat vztah Johna Nashe a von Neumanna podle zájmu",["people"]],
+    [1139,"Celá série o von Neumannovi a jeho práci",["people"]],
+    [1148,"Podrobněji probrat skutečné předobrazy postav v Don’t Look Up",["culture"]],
+    [1153,"Schopnost zvířat počítat a pamatovat si počty",["life","math"]],
+    [1159,"Samostatně probrat carbon offsetting a kompenzace emisí",["earth"]],
+    [1161,"Bludné planety jako samostatná epizoda",["space"]],
+    [225,"Druhý a třetí díl trilogie Problém tří těles",["culture"]],
+    [229,"Vznik barev a jejich vnímání mozkem",["life","physics"]],
+    [246,"Jak varovat vzdálené budoucí civilizace před jaderným odpadem",["tech","earth"]],
+    [247,"Extravagantní vědecké hypotézy, které se ukázaly pravdivé",["culture"]],
+    [1187,"Další novinky z Webbova teleskopu (původní avízo)",["space"]],
+    [263,"Další historky z vědeckého prostředí",["culture"]],
+    [263,"Feynmanovy diagramy",["physics"]],
+    [268,"Helgoland a kvantové provázání",["physics","culture"]],
+    [269,"Kritika Nobelových cen a jejich udělování",["people"]],
+    [272,"Další epizody o kvantových počítačích",["physics","tech"]],
+    [283,"Únik informace z černé díry pomocí kvantového teleportu",["space","physics"]],
+    [1244,"Kosmický odpad jako vlastní epizoda",["space"]],
+    [287,"Kvantová teleportace jako samostatný díl",["physics"]],
+    [1250,"Pozvat studenty po dokončení prací o gama záblesku",["space"]],
+    [1251,"Za dvacet let vyhodnotit odhad masa pěstovaného mimo zvířata",["life"]],
+    [294,"Murray Gell-Mann jako osobnost",["people"]],
+    [1260,"Rosalind Franklinová a příběh objevu struktury DNA",["people","life"]],
+    [1287,"Samostatný díl o kvantovém tunelování",["physics"]],
+    [1289,"Samostatně probrat vnímání magnetického pole u živočichů",["life"]],
+    [1294,"Aktualizovat šum gravitačních vln po dvou či třech letech",["space"]]
+  ];
+  const ideasByKey=new Map(ideaBatch.map(([candidate,title,ids])=>[JSON.stringify([candidate,title]),ids]));
+
   function topicsFor(record){
-    // This first pass categorizes only genuine promises; proposals/ideas wait.
-    if(!record||record.section!=='episodes'||record.kategorie!=='Sliby')return [];
+    // Classify only records in Epizody. Their original type is preserved:
+    // actual promises and proposals have separate reviewed ID/title maps.
+    if(!record||record.section!=='episodes')return [];
+    const source=record.kategorie==='Sliby'?byKey:record.kategorie==='Návrhy / nápady'?ideasByKey:null;
+    if(!source)return [];
     const label=record.displayTema||record.compactTitle||record.tema||'';
-    return groupIds(byKey.get(JSON.stringify([Number(record.candidate),label]))||[]);
+    return groupIds(source.get(JSON.stringify([Number(record.candidate),label]))||[]);
   }
   root.VedatorSlibyEpisodeTopics=Object.freeze({
     topics:Object.freeze(topics.map(([id,label])=>Object.freeze({id,label}))),
     reviewed:Object.freeze(reviewed.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
     audited:Object.freeze(audited.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
     nextBatch:Object.freeze(nextBatch.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
+    ideaBatch:Object.freeze(ideaBatch.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
     groupIds,groupFor:id=>parent[id]||null,
     topicsFor
   });
