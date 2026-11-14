@@ -313,24 +313,17 @@
     [1934,"Samostatně probrat Černobyl",["physics","earth"]],
     [1935,"Portrét Johna Wheelera",["people"]]
   ];
-  // Third individually inspected idea review: topics of the ORIGINAL items.
-  // These may be brief follow-ups or uncertain teasers; assigning a subject
-  // does not promote them to a definite promise or to a full episode.
-  // Unclear jokes and non-episode media remain unclassified.
+  // Third review: categorize only sufficiently concrete topics.
+  // Weak teasers, garbled transcripts, joking asides, and already resolved
+  // references are left unclassified, without deleting the source records.
   const ideaBatch3=[
     [1081,"V příští mimozemské epizodě krátce také o vzniku jazyka",["life","space"]],
     [1095,"Laboratorní experimenty pro zkoumání kvantové povahy gravitace",["physics"]],
     [121,"Další prostorové rozměry a průnik sil do nich",["physics"]],
-    [1104,"Albert Michelson jako neurčitý teaser",["people"]],
-    [1114,"Teaser na fyziku plování a loď v malém množství vody",["physics"]],
-    [1116,"Maxwell: nejisté připomenutí připravovaného dílu",["people"]],
     [1131,"Rychlost dopravních letadel a volba letové výšky",["tech","physics"]],
     [1132,"Po přečtení probrat Harry Potter and the Methods of Rationality",["culture"]],
     [1162,"Po přečtení sdělit dojmy z Duny",["culture"]],
-    [1293,"Možný návrat k vakuové disperzi světla",["physics"]],
     [1319,"Po vydání knihy se vrátit k času po tepelné smrti vesmíru",["space"]],
-    [1379,"Vztah entropie a života jako vlastní téma",["physics","life"]],
-    [455,"Stárnutí a jeho mnoho příčin",["life"]],
     [1466,"Jediné pozorování, které odhalí novou fyziku",["physics"]],
     [655,"Co je přirozený experiment",["math"]],
     [672,"Výběr zajímavých paradoxů",["math"]],
@@ -339,20 +332,13 @@
     [1716,"Během odkladu ještě něco povědět o Artemis",["space"]],
     [1756,"Vrátit se v rozhovoru k Talebově antikřehkosti",["culture"]]
   ];
-  // Fourth review: only a recognizable subject is tagged. Some original
-  // utterances were garbled, conditional or only audience suggestions; these
-  // remain IDEAS. Topic assignment is not evidence of an actual promise.
+  // Fourth review: keep substantive suggestions; avoid classifying hypothetical
+  // banter or an unclear possible future episode. All source ideas are retained.
   const ideaBatch4=[
-    [10,"Viry jako téma celého podcastu – nejasný závěrečný dovětek",["life"]],
     [13,"Financování velkých mezinárodních vědeckých projektů",["people"]],
-    [1040,"Hranice sluneční soustavy – nejistá zmínka o dalším podcastu",["space"]],
-    [1241,"Znovu probrat vznik kauzality po upřesnění otázky",["physics"]],
     [1243,"Dálkový průzkum Země jako posluchačský námět",["earth","tech"]],
-    [1388,"Zahrnout Murakamiho, pokud dostane Nobelovu cenu",["people","culture"]],
     [1435,"Proč je přístup k vědeckým článkům placený",["people"]],
     [1445,"Zhrnutí STARMUSU s Davidem Eicherem",["people","culture"]],
-    [951,"Nová fyzika určující konečnou velikost černých děr",["space"]],
-    [1891,"Pozvat Neila deGrasse Tysona a probrat s ním Carla Sagana",["people"]]
   ];
   const ideasByKey=new Map([...ideaBatch,...ideaBatch2,...ideaBatch3,...ideaBatch4].map(([candidate,title,ids])=>[JSON.stringify([candidate,title]),ids]));
 
