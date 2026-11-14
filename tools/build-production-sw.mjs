@@ -4,13 +4,13 @@ import crypto from 'node:crypto';
 const OFFLINE_AUDIO_CACHE='vedator-offline-audio-v1';
 const APP_CACHE_PREFIX='vedator-v3-app-';
 const DATA_CACHE='vedator-v3-data-v1';
-const shell=['audio-seek-index.json','index.html','app-v2.js','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'];
+const shell=['audio-seek-index.json','index.html','app-v2.js','first-paint.js','first-paint.json','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'];
 for(const file of [...shell,'content-v2.json']){if(!fs.existsSync(file))throw new Error(`Missing production file: ${file}`)}
 
 const h=crypto.createHash('sha256');
 for(const file of shell){h.update(file);h.update('\0');h.update(fs.readFileSync(file));h.update('\0')}
 const APP_CACHE=`${APP_CACHE_PREFIX}${h.digest('hex').slice(0,16)}`;
-const APP_URLS=['./audio-seek-index.json','./','./index.html','./app-v2.js','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
+const APP_URLS=['./audio-seek-index.json','./','./index.html','./app-v2.js','./first-paint.js','./first-paint.json','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
 
 const source=`const APP_CACHE=${JSON.stringify(APP_CACHE)};
 const APP_CACHE_PREFIX=${JSON.stringify(APP_CACHE_PREFIX)};
@@ -97,6 +97,10 @@ self.addEventListener('fetch',event=>{
   }
   if(name==='app-v2.js'){
     event.respondWith(networkFirst(request,APP_CACHE,'./app-v2.js',1600));
+    return;
+  }
+  if(name==='first-paint.js'||name==='first-paint.json'){
+    event.respondWith(networkFirst(request,APP_CACHE,\`./\${name}\`,900));
     return;
   }
   if(STATIC_NAMES.has(name)){
