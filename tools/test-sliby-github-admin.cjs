@@ -110,9 +110,18 @@ const topicApi=topicSandbox.VedatorSlibyEpisodeTopics;
 const existingReview=JSON.parse(fs.readFileSync('sliby/duplicate-review.json','utf8'));
 const getRootCandidate=member=>Array.isArray(member)?Number(member[0]):Number(member);
 assert(topicApi.reviewed.length>=12,'Initial carefully reviewed topic batch should be substantial');
-assert(topicApi.topics.some(t=>t.label==='Černé díry')&&topicApi.topics.some(t=>t.label==='Osobnosti vědy'),'Match the current series/topics taxonomy');
+assert.equal(topicApi.topics.length,8,'Broad promise taxonomy should contain eight groups, fewer than podcast topics');
+assert(topicApi.topics.some(t=>t.label==='Vesmír')&&topicApi.topics.some(t=>t.label==='Vědci a ocenění'),'Closely related fine topics should be merged');
+assert.deepEqual(Array.from(topicApi.groupIds(['blackholes','darkenergy','missions'])),['space'],'Black holes, dark energy and missions belong to Vesmír');
+assert.deepEqual(Array.from(topicApi.groupIds(['quantum','particles'])),['physics'],'Quantum and particle physics share a broad category');
+assert(appHtml.includes('const migratedTopic=catalog.groupFor(oldTopic);'),'Old saved selections must migrate to the broad taxonomy');
 assert(topicApi.audited.length>=30,'Second manual audit must include substantial verified episode promises');
-const assignments=[...topicApi.reviewed,...topicApi.audited];
+assert.equal(topicApi.nextBatch.length,53,'Third review must contain exactly 53 individually checked episode promises');
+const assignments=[...topicApi.reviewed,...topicApi.audited,...topicApi.nextBatch];
+assert.equal(assignments.length,104,'All prior categorization must remain plus the third reviewed batch');
+const keys=new Set(assignments.map(item=>JSON.stringify([item.candidate,item.title])));
+assert.equal(keys.size,assignments.length,'One classification per unique promise identity');
+const validGroups=new Set(topicApi.topics.map(topic=>topic.id));
 const nonPromisesInTopicBatch=[];
 for(const item of assignments){
   if(topicApi.reviewed.includes(item))assert(existingReview.groups.some(group=>group.title===item.title&&getRootCandidate(group.members[0])===item.candidate),'Duplicate-review assignment must be documented: '+item.title);
@@ -121,17 +130,16 @@ for(const item of assignments){
   assert.equal(matches[0].section,'episodes','Only real promises on episodes may be tagged: '+item.title);
   if(matches[0].kategorie!=='Sliby')nonPromisesInTopicBatch.push({candidate:item.candidate,title:item.title,actual:matches[0].kategorie});
   const record={candidate:item.candidate,displayTema:item.title,section:'episodes',kategorie:'Sliby'};
-  assert.deepEqual(Array.from(topicApi.topicsFor(record)),Array.from(item.ids),'Topic assignment must match reviewed decision');
+  const broad=Array.from(topicApi.groupIds(item.ids));
+  assert(broad.length>0&&broad.every(id=>validGroups.has(id)),'Every assignment must map to a known broad topic: '+item.title);
+  assert.deepEqual(Array.from(topicApi.topicsFor(record)),broad,'Broad topic must preserve fine-grained review evidence');
   assert.equal(topicApi.topicsFor({...record,section:'other'}).length,0,'Never categorize non-episode promises');
   assert.equal(topicApi.topicsFor({...record,kategorie:'Návrhy / nápady'}).length,0,'Do not classify ideas as promised episodes');
   assert.equal(topicApi.topicsFor({...record,candidate:item.candidate+200000}).length,0,'An identical title with a different identity must not match');
 }
 assert.equal(topicApi.topicsFor({section:'episodes',kategorie:'Sliby',candidate:999999,tema:'Žádný známý slib'}).length,0,'Unreviewed episode promises are not classified by guesswork');
-const currentKeys=new Set(assignments.map(item=>JSON.stringify([item.candidate,item.title])));
-const nextReview=actual.findings.filter(row=>row.section==='episodes'&&row.kategorie==='Sliby'&&!currentKeys.has(JSON.stringify([row.candidate,row.displayTema||row.compactTitle||row.tema]))).slice(0,115);
-console.log('EPISODE_PROMISES_NEXT_BATCH '+JSON.stringify(nextReview.map(row=>({id:row.candidate,title:row.displayTema||row.compactTitle||row.tema,why:String(row.vysvetleni||'').slice(0,240),state:row.stav}))));
-
 assert.deepEqual(nonPromisesInTopicBatch,[],'Topic batch must omit these reviewed ideas until the next phase: '+JSON.stringify(nonPromisesInTopicBatch));
+console.log('PASS: '+assignments.length+' documented episode-promise assignments across '+topicApi.topics.length+' broad groups, no ideas or other-section promises.');
 assert(appHtml.includes('html body .summary,html body .summary+.personal-help{display:none!important}'),'Old big status summary must be hidden');
 assert(appHtml.includes("['fulfilled','Splněné'],['unfulfilled','Nesplněné'],['future','Budoucí sliby']"),'Only three combined status group choices are offered');
 assert(appHtml.includes("record.stav==='Splněno později'||record.stav==='Splněno už dříve'?'fulfilled'"),'Fulfilled earlier and later are one choice');
