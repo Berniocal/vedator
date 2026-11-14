@@ -111,6 +111,9 @@ assert(topicApi.reviewed.length>=15,'Initial carefully reviewed topic batch shou
 assert(topicApi.topics.some(t=>t.label==='Černé díry')&&topicApi.topics.some(t=>t.label==='Osobnosti vědy'),'Match the current series/topics taxonomy');
 for(const item of topicApi.reviewed){
   assert(existingReview.groups.some(group=>group.title===item.title&&getRootCandidate(group.members[0])===item.candidate),'Only previously reviewed episode promises may receive topics: '+item.title);
+  const matches=actual.findings.filter(row=>Number(row.candidate)===item.candidate&&(row.displayTema||row.compactTitle||row.tema)===item.title);
+  assert.equal(matches.length,1,'Curated assignment must exist exactly once in the live report: '+item.title);
+  assert.equal(matches[0].section,'episodes','Only real promises on episodes may be tagged: '+item.title);
   const record={candidate:item.candidate,displayTema:item.title,section:'episodes'};
   assert.deepEqual(Array.from(topicApi.topicsFor(record)),Array.from(item.ids),'Topic assignment must match reviewed decision');
   assert.equal(topicApi.topicsFor({...record,section:'other'}).length,0,'Never categorize non-episode promises');
