@@ -648,6 +648,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     row.setAttribute('role','group');
     row.setAttribute('aria-label','Témata slíbených epizod');
     const episodeSectionEnabled=()=>doc.querySelector('#sections .filter-option[data-section="episodes"] input')?.checked??true;
+    const promiseCategoryEnabled=()=>doc.querySelector('#categories .filter-option[data-category="Sliby"] input')?.checked??true;
     const buttons=new Map();
     const update=()=>{
       for(const [key,button] of buttons){
@@ -655,7 +656,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
         button.classList.toggle('is-selected',active);
         button.setAttribute('aria-pressed',String(active));
       }
-      row.hidden=!episodeSectionEnabled();
+      row.hidden=!(episodeSectionEnabled()&&promiseCategoryEnabled());
     };
     for(const {id,label} of topicOptions){
       const button=doc.createElement('button');
@@ -675,15 +676,15 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     const originalSectionRows=page.sectionRows;
     page.sectionRows=function(){
       const records=originalSectionRows();
-      if(selected==='all'||!episodeSectionEnabled())return records;
+      if(selected==='all'||!episodeSectionEnabled()||!promiseCategoryEnabled())return records;
       return records.filter(record=>{
-        if(record.section!=='episodes')return false;
+        if(record.section!=='episodes'||record.kategorie!=='Sliby')return false;
         const matched=catalog.topicsFor(record);
         return selected==='unclassified'?!matched.length:matched.includes(selected);
       });
     };
     doc.addEventListener('change',event=>{
-      if(event.target.matches?.('#sections input'))update();
+      if(event.target.matches?.('#sections input,#categories input'))update();
     });
     update();
     page.render();
