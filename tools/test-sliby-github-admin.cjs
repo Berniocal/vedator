@@ -142,8 +142,9 @@ for(const item of assignments){
 assert.equal(topicApi.topicsFor({section:'episodes',kategorie:'Sliby',candidate:999999,tema:'Žádný známý slib'}).length,0,'Unreviewed episode promises are not classified by guesswork');
 assert.equal(topicApi.ideaBatch.length,72,'Earlier manual review must retain 72 episode ideas');
 assert.equal(topicApi.ideaBatch2.length,81,'New manual review must add 81 episode ideas');
-const allIdeaAssignments=[...topicApi.ideaBatch,...topicApi.ideaBatch2];
-assert.equal(allIdeaAssignments.length,153,'No idea classification from earlier work is lost');
+assert.equal(topicApi.ideaBatch3.length,20,'Third review adds 20 individually inspected episode ideas');
+const allIdeaAssignments=[...topicApi.ideaBatch,...topicApi.ideaBatch2,...topicApi.ideaBatch3];
+assert.equal(allIdeaAssignments.length,173,'No earlier classification is lost when extending the ideas catalog');
 const ideaKeys=new Set();
 for(const item of allIdeaAssignments){
   const key=JSON.stringify([item.candidate,item.title]);
@@ -166,7 +167,7 @@ assert.deepEqual(nonPromisesInTopicBatch,[],'Topic batch must omit these reviewe
 console.log('PASS: '+assignments.length+' documented episode-promise assignments across '+topicApi.topics.length+' broad groups, no ideas or other-section promises.');
 const episodeIdeas=actual.findings.filter(row=>row.section==='episodes'&&row.kategorie==='Návrhy / nápady');
 assert.equal(episodeIdeas.length,204,'A new audit may change the source catalog; update classification deliberately if the count changes');
-assert.equal(episodeIdeas.length-allIdeaAssignments.length,51,'Unreviewed ideas must remain accessible as Nezařazené');
+assert.equal(episodeIdeas.length-allIdeaAssignments.length,31,'31 ambiguous or non-episode items remain accessible as Nezařazené');
 
 assert(appHtml.includes('html body .summary,html body .summary+.personal-help{display:none!important}'),'Old big status summary must be hidden');
 assert(appHtml.includes("['fulfilled','Splněné'],['unfulfilled','Nesplněné'],['future','Budoucí sliby']"),'Only three combined status group choices are offered');
