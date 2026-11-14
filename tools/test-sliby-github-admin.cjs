@@ -69,6 +69,22 @@ for(const id of nearTermIds){
 
 console.log('PASS: admin override validation, merged identity matching, durable status on live and archived rows, PAT safety checks, and future status reporting.');
 
+const compactJs=fs.readFileSync('sliby/card-ui-v3.js','utf8');
+const compactCss=fs.readFileSync('sliby/card-ui-v3.css','utf8');
+new vm.Script(compactJs);
+assert(compactJs.includes("document.createElement('details')"),'Utility actions belong to a collapsible menu');
+assert(compactJs.includes("details.id='promise-settings'"),'Settings menu has stable ID');
+assert(compactJs.includes("['export-json','show-deleted','reset-defaults']"),'All existing actions remain available');
+assert(compactJs.includes("emoji.textContent='⚙️'"),'Only a small gear must be visible');
+assert(!compactJs.includes("title.textContent='Nastavení'"),'Settings text must not appear next to the gear');
+assert(compactJs.includes("summary.setAttribute('aria-label','Nastavení slibů')"),'Icon-only control remains accessible');
+assert(compactJs.includes("r.stav==='Budoucí slib'?'Budoucí slib':'Nesplněno'"),'Collapsed cards distinguish future promises');
+assert(compactJs.includes("statusBadge.hidden=open"),'Expanded cards must not repeat the collapsed status');
+assert(compactJs.includes("statusBadge.hidden=expanded"),'Toggling an item must show/hide the status badge');
+assert(compactCss.includes('.promise-compact-status[hidden]{display:none!important}'));
+assert(compactCss.includes('.promise-settings-menu'),'Settings menu receives layout');
+console.log('PASS: icon-only settings menu and collapsed/expanded promise status.');
+
 const appHtml=fs.readFileSync('index.html','utf8');
 const syncScript=appHtml.match(/<script id="vedator-sliby-theme-sync">([\s\S]*?)<\/script>/);
 assert(syncScript,'Sliby integration bridge must be present');
