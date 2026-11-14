@@ -332,6 +332,7 @@ body.vedator-sliby-active main > .panel > .controls{display:flex!important}
   <section id="playlists-v2" class="view-v2 hidden" data-view="playlists"></section>
   <section id="sliby-v2" class="view-v2 hidden" data-view="sliby" aria-label="Sliby a náměty">
     <p id="sliby-loading-v2" role="status" aria-live="polite" hidden>Načítám sliby…</p>
+    <div id="sliby-first-paint-v2" role="status" aria-live="polite" hidden></div>
     <iframe id="sliby-frame-v2" title="Sliby a náměty Vedátora" data-src="./sliby/" data-sliby-ready="false" loading="eager">
       <a href="./sliby/">Sliby a náměty</a>
     </iframe>
@@ -372,6 +373,7 @@ body.vedator-sliby-active main > .panel > .controls{display:flex!important}
 <div id="playlist-picker-v2" class="modal-v2 hidden" aria-hidden="true"></div>
 <input id="data-file-v2" type="file" accept="application/json,.json" hidden>
 
+<script src="./first-paint.js" defer></script>
 <script src="./app-v2.js" defer></script>
 <script id="v2-search-clear-script">
 (()=>{
@@ -779,6 +781,8 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       installSlibyViewMemory(doc);
       // Reveal only after the final embedded layout, sorting and stored filters are ready.
       iframe.dataset.slibyReady='true';
+      document.getElementById('sliby-first-paint-v2')?.setAttribute('hidden','');
+      window.dispatchEvent(new Event('vedator-sliby-ready'));
       document.getElementById('sliby-loading-v2')?.setAttribute('hidden','');
     }catch(error){console.warn('Sliby theme synchronization unavailable',error)}
   };
@@ -847,7 +851,10 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
   // remains the active tab. The iframe loads only once and stays mounted.
   window.addEventListener('vedator-v2-ready',()=>{
     handleViewChange();
-    setTimeout(startSlibyOnce,150); // Let the initial visible tab paint first.
+    // A 6.7 MB iframe should not compete with the visible first screen.
+    // It still starts immediately if the user selects the Sliby tab.
+    if('requestIdleCallback' in window)requestIdleCallback(startSlibyOnce,{timeout:4500});
+    else setTimeout(startSlibyOnce,1800);
   });
   window.addEventListener('vedatorlanguagechange',updatePlaceholder);
   iframe.addEventListener('load',()=>{sync();propagateSearch()});
