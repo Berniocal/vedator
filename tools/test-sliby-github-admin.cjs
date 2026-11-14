@@ -142,10 +142,10 @@ for(const item of assignments){
 assert.equal(topicApi.topicsFor({section:'episodes',kategorie:'Sliby',candidate:999999,tema:'Žádný známý slib'}).length,0,'Unreviewed episode promises are not classified by guesswork');
 assert.equal(topicApi.ideaBatch.length,72,'Earlier manual review must retain 72 episode ideas');
 assert.equal(topicApi.ideaBatch2.length,81,'New manual review must add 81 episode ideas');
-assert.equal(topicApi.ideaBatch3.length,20,'Third review adds 20 individually inspected episode ideas');
-assert.equal(topicApi.ideaBatch4.length,10,'Fourth conservative review adds 10 more topical ideas');
+assert.equal(topicApi.ideaBatch3.length,14,'Third review leaves 6 unclear or joking suggestions unclassified');
+assert.equal(topicApi.ideaBatch4.length,4,'Fourth review leaves 6 hypothetical or unclear suggestions unclassified');
 const allIdeaAssignments=[...topicApi.ideaBatch,...topicApi.ideaBatch2,...topicApi.ideaBatch3,...topicApi.ideaBatch4];
-assert.equal(allIdeaAssignments.length,183,'No earlier classification is lost when extending the ideas catalog');
+assert.equal(allIdeaAssignments.length,171,'Only the 12 deliberately reverted assignments are excluded');
 const ideaKeys=new Set();
 for(const item of allIdeaAssignments){
   const key=JSON.stringify([item.candidate,item.title]);
@@ -163,12 +163,34 @@ for(const item of allIdeaAssignments){
   assert.equal(topicApi.topicsFor({...found[0],section:'other'}).length,0,'Idea must never leak to non-episode section');
 }
 assert.equal(topicApi.topicsFor({section:'episodes',kategorie:'Návrhy / nápady',candidate:999999,tema:'Nezařazený námět'}).length,0,'No automatic topic guessing for proposals');
+const returnedToUnclassified=[
+  [1104,'Albert Michelson jako neurčitý teaser'],
+  [1114,'Teaser na fyziku plování a loď v malém množství vody'],
+  [1116,'Maxwell: nejisté připomenutí připravovaného dílu'],
+  [1293,'Možný návrat k vakuové disperzi světla'],
+  [1379,'Vztah entropie a života jako vlastní téma'],
+  [455,'Stárnutí a jeho mnoho příčin'],
+  [10,'Viry jako téma celého podcastu – nejasný závěrečný dovětek'],
+  [1040,'Hranice sluneční soustavy – nejistá zmínka o dalším podcastu'],
+  [1241,'Znovu probrat vznik kauzality po upřesnění otázky'],
+  [1388,'Zahrnout Murakamiho, pokud dostane Nobelovu cenu'],
+  [951,'Nová fyzika určující konečnou velikost černých děr'],
+  [1891,'Pozvat Neila deGrasse Tysona a probrat s ním Carla Sagana']
+];
+for(const [candidate,title] of returnedToUnclassified){
+  const original=actual.findings.find(row=>row.candidate===candidate&&(row.displayTema||row.compactTitle||row.tema)===title);
+  assert(original,'Original record must remain in catalog: '+title);
+  assert.equal(original.section,'episodes','The original section must remain unchanged');
+  assert.equal(original.kategorie,'Návrhy / nápady','Return to unclassified must not delete or relabel original idea');
+  assert.equal(topicApi.topicsFor(original).length,0,'Do not topic-filter a joke, garbled hint or hypothetical idea: '+title);
+}
+
 console.log('PASS: '+allIdeaAssignments.length+' real episode ideas categorized independently of the '+assignments.length+' episode promises.');
 assert.deepEqual(nonPromisesInTopicBatch,[],'Topic batch must omit these reviewed ideas until the next phase: '+JSON.stringify(nonPromisesInTopicBatch));
 console.log('PASS: '+assignments.length+' documented episode-promise assignments across '+topicApi.topics.length+' broad groups, no ideas or other-section promises.');
 const episodeIdeas=actual.findings.filter(row=>row.section==='episodes'&&row.kategorie==='Návrhy / nápady');
 assert.equal(episodeIdeas.length,204,'A new audit may change the source catalog; update classification deliberately if the count changes');
-assert.equal(episodeIdeas.length-allIdeaAssignments.length,21,'21 ambiguous, joking or non-episode items remain accessible as Nezařazené');
+assert.equal(episodeIdeas.length-allIdeaAssignments.length,33,'33 ambiguous, joking or non-episode items remain accessible as Nezařazené');
 
 assert(appHtml.includes('html body .summary,html body .summary+.personal-help{display:none!important}'),'Old big status summary must be hidden');
 assert(appHtml.includes("['fulfilled','Splněné'],['unfulfilled','Nesplněné'],['future','Budoucí sliby']"),'Only three combined status group choices are offered');
