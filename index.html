@@ -649,9 +649,11 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     const row=doc.createElement('div');
     row.id='vedator-sliby-episode-topics';
     row.setAttribute('role','group');
-    row.setAttribute('aria-label','Témata slíbených epizod');
+    row.setAttribute('aria-label','Témata slibů a nápadů na epizody');
     const episodeSectionEnabled=()=>doc.querySelector('#sections .filter-option[data-section="episodes"] input')?.checked??true;
     const promiseCategoryEnabled=()=>doc.querySelector('#categories .filter-option[data-category="Sliby"] input')?.checked??true;
+    const ideaCategoryEnabled=()=>doc.querySelector('#categories .filter-option[data-category="Návrhy / nápady"] input')?.checked??true;
+    const episodeTopicsEnabled=()=>episodeSectionEnabled()&&(promiseCategoryEnabled()||ideaCategoryEnabled());
     const buttons=new Map();
     const update=()=>{
       for(const [key,button] of buttons){
@@ -659,7 +661,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
         button.classList.toggle('is-selected',active);
         button.setAttribute('aria-pressed',String(active));
       }
-      row.hidden=!(episodeSectionEnabled()&&promiseCategoryEnabled());
+      row.hidden=!episodeTopicsEnabled();
     };
     for(const {id,label} of topicOptions){
       const button=doc.createElement('button');
@@ -679,9 +681,9 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     const originalSectionRows=page.sectionRows;
     page.sectionRows=function(){
       const records=originalSectionRows();
-      if(selected==='all'||!episodeSectionEnabled()||!promiseCategoryEnabled())return records;
+      if(selected==='all'||!episodeTopicsEnabled())return records;
       return records.filter(record=>{
-        if(record.section!=='episodes'||record.kategorie!=='Sliby')return false;
+        if(record.section!=='episodes'||(record.kategorie!=='Sliby'&&record.kategorie!=='Návrhy / nápady'))return false;
         const matched=catalog.topicsFor(record);
         return selected==='unclassified'?!matched.length:matched.includes(selected);
       });
