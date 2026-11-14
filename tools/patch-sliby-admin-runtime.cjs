@@ -2,6 +2,11 @@
 // Keep the multi-megabyte audit-data HTML untouched in Git history.
 const fs = require('node:fs');
 const assert = require('node:assert/strict');
+const crypto = require('node:crypto');
+const path = require('node:path');
+const assetHash = name => crypto.createHash('sha256')
+  .update(fs.readFileSync(path.join(__dirname,'..','sliby',name)))
+  .digest('hex').slice(0,12);
 function patchReport(html) {
   assert(html.length > 1000000, 'Unexpectedly short report');
   if (html.includes('<!-- sliby-admin-runtime -->')) return html;
@@ -50,9 +55,9 @@ function patchReport(html) {
   // a separate, small client-side layer. Existing status, search, audio and
   // manual admin overrides continue to work without duplicating the data.
   one('</style></head>',
-      '</style><link rel="stylesheet" href="card-ui-v3.css"></head>');
+      '</style><link rel="stylesheet" href="card-ui-v3.css?v='+assetHash('card-ui-v3.css')+'"></head>');
   one('</script></body></html>',
-      '</script><script src="card-ui-v3.js"></script></body></html>');
+      '</script><script src="card-ui-v3.js?v='+assetHash('card-ui-v3.js')+'"></script></body></html>');
   return html;
 }
 if(require.main===module){
