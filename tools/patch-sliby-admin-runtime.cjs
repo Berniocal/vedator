@@ -56,8 +56,10 @@ function patchReport(html) {
   // manual admin overrides continue to work without duplicating the data.
   one('</style></head>',
       '</style><link rel="stylesheet" href="card-ui-v3.css?v='+assetHash('card-ui-v3.css')+'"></head>');
+  // A small, independently reviewed mapping consumed by the embedded third row.
+  // Do not bundle the multi-megabyte report data into its classification.
   one('</script></body></html>',
-      '</script><script src="card-ui-v3.js?v='+assetHash('card-ui-v3.js')+'"></script></body></html>');
+      '</script><script src="episode-topics.js?v='+assetHash('episode-topics.js')+'"></script><script src="card-ui-v3.js?v='+assetHash('card-ui-v3.js')+'"></script></body></html>');
   return html;
 }
 if(require.main===module){
