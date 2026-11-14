@@ -3880,7 +3880,11 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     syncAskIntro();
     const results=$('#ask-results-v2'),moreButton=$('#ask-more-v2'),status=$('#ask-status-v2');if(!results||!moreButton||!status)return;
     if(askUi.loading||!askUi.ready){
-      results.innerHTML='';moreButton.classList.add('hidden');updateAskLoadingStatus();return;
+      // Until the complete search index is ready, show the first 20
+      // existing questions as examples, NEVER as answers to a typed query.
+      const examples=!askUi.query?(window.VedatorFirstPaint?.questions||[]):[];
+      results.innerHTML=examples.map(item=>'<article class="card ask-card-v2"><div class="meta">'+text('Ukázková otázka z dílu ','Ukážková otázka z dielu ')+Number(item.episode)+'</div><h2>'+esc(item.title)+'</h2></article>').join('');
+      moreButton.classList.add('hidden');updateAskLoadingStatus();return;
     }
     if(askUi.error){
       results.innerHTML='';moreButton.classList.add('hidden');updateAskLoadingStatus();return;
@@ -3937,6 +3941,9 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     else setTimeout(run,250);
   }
   window.addEventListener('vedator-v2-ready',prewarmAskIndex,{once:true});
+  window.addEventListener('vedator-first-paint-ready',()=>{
+    if(state.view==='ask'&&!askUi.ready)renderAskResults();
+  });
 
   async function start(){
     const status=$('#status-v2');
