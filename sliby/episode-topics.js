@@ -30,10 +30,7 @@
     [1044,'Wow! signál',['space','alienlife']],
     [1063,'Tmavá energie',['darkenergy']],
     [19,'Einsteinův zázračný rok',['people']],
-    [37,'Žijeme v počítačové simulaci?',['scifi']],
-    [1052,'Hubbleův teleskop',['space','missions']],
     [1062,'Penroseův proces',['blackholes']],
-    [73,'Roger Penrose jako osobnost',['people']],
     // The fiction-focused book-club promises concern different works;
     // both remain separate records, not combined by the topic filter.
     [195,'Problém tří těles – první čtenářský klub',['scifi']],
@@ -44,7 +41,6 @@
     [1061,'Hawkingovo záření a teplota černých děr',['blackholes']],
     [1035,'Thoriové a solné reaktory',['energy']],
     [1037,'Nepovedené kosmické mise a vědecké projekty',['missions']],
-    [1187,'Další novinky z Webbova teleskopu (původní avízo)',['space']]
   ];
   // Second small hand-reviewed batch: the original audit's episode promises
   // and their explanatory text were inspected individually. Ambiguous offers,
@@ -90,7 +86,8 @@
   ];
   const byKey=new Map([...reviewed,...audited].map(([candidate,title,ids])=>[JSON.stringify([candidate,title]),ids]));
   function topicsFor(record){
-    if(!record||record.section!=='episodes')return [];
+    // This first pass categorizes only genuine promises; proposals/ideas wait.
+    if(!record||record.section!=='episodes'||record.kategorie!=='Sliby')return [];
     const label=record.displayTema||record.compactTitle||record.tema||'';
     return byKey.get(JSON.stringify([Number(record.candidate),label]))||[];
   }
