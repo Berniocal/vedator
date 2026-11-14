@@ -13,7 +13,7 @@
     ['life','Biologie a člověk'],
     ['tech','Technologie a AI'],
     ['earth','Klima a Země'],
-    ['people','Vědci a ocenění'],
+    ['people','Věda a vědci'],
     ['culture','Kultura a sci-fi']
   ];
   const parent={
@@ -339,7 +339,22 @@
     [1716,"Během odkladu ještě něco povědět o Artemis",["space"]],
     [1756,"Vrátit se v rozhovoru k Talebově antikřehkosti",["culture"]]
   ];
-  const ideasByKey=new Map([...ideaBatch,...ideaBatch2,...ideaBatch3].map(([candidate,title,ids])=>[JSON.stringify([candidate,title]),ids]));
+  // Fourth review: only a recognizable subject is tagged. Some original
+  // utterances were garbled, conditional or only audience suggestions; these
+  // remain IDEAS. Topic assignment is not evidence of an actual promise.
+  const ideaBatch4=[
+    [10,"Viry jako téma celého podcastu – nejasný závěrečný dovětek",["life"]],
+    [13,"Financování velkých mezinárodních vědeckých projektů",["people"]],
+    [1040,"Hranice sluneční soustavy – nejistá zmínka o dalším podcastu",["space"]],
+    [1241,"Znovu probrat vznik kauzality po upřesnění otázky",["physics"]],
+    [1243,"Dálkový průzkum Země jako posluchačský námět",["earth","tech"]],
+    [1388,"Zahrnout Murakamiho, pokud dostane Nobelovu cenu",["people","culture"]],
+    [1435,"Proč je přístup k vědeckým článkům placený",["people"]],
+    [1445,"Zhrnutí STARMUSU s Davidem Eicherem",["people","culture"]],
+    [951,"Nová fyzika určující konečnou velikost černých děr",["space"]],
+    [1891,"Pozvat Neila deGrasse Tysona a probrat s ním Carla Sagana",["people"]]
+  ];
+  const ideasByKey=new Map([...ideaBatch,...ideaBatch2,...ideaBatch3,...ideaBatch4].map(([candidate,title,ids])=>[JSON.stringify([candidate,title]),ids]));
 
   function topicsFor(record){
     // Classify only records in Epizody. Their original type is preserved:
@@ -358,6 +373,7 @@
     ideaBatch:Object.freeze(ideaBatch.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
     ideaBatch2:Object.freeze(ideaBatch2.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
     ideaBatch3:Object.freeze(ideaBatch3.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
+    ideaBatch4:Object.freeze(ideaBatch4.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
     groupIds,groupFor:id=>parent[id]||null,
     topicsFor
   });
