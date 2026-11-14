@@ -642,7 +642,10 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     const valid=new Set(topicOptions.map(item=>item.id));
     let saved=null;
     try{saved=JSON.parse(localStorage.getItem(slibyViewKey)||'null')}catch(error){}
-    let selected=valid.has(saved?.episodeTopic)?saved.episodeTopic:'all';
+    // Old detailed topic choices migrate to the new eight broad groups.
+    const oldTopic=saved?.episodeTopic;
+    const migratedTopic=catalog.groupFor(oldTopic);
+    let selected=valid.has(oldTopic)?oldTopic:valid.has(migratedTopic)?migratedTopic:'all';
     const row=doc.createElement('div');
     row.id='vedator-sliby-episode-topics';
     row.setAttribute('role','group');
