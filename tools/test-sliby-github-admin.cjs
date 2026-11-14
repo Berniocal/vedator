@@ -10,6 +10,8 @@ const patched=patchReport(source);
 assert.equal(patchReport(patched),patched,'Pages wiring is idempotent');
 new vm.Script(patched.match(/<script>([\s\S]*?)<\/script>/)[1]);
 assert(patched.includes('<script src="admin-status.js"></script>'));
+assert(/card-ui-v3\.css\?v=[a-f0-9]{12}/.test(patched),'Promise card CSS should use its content hash to avoid old PWA styles');
+assert(/card-ui-v3\.js\?v=[a-f0-9]{12}/.test(patched),'Promise card JS should use its content hash to avoid old PWA scripts');
 assert(patched.includes("fetch('admin-overrides.json'"));
 assert(patched.includes('VedatorSlibyAdminStatus.apply(D,overrides)'));
 const admin = fs.readFileSync('sliby/admin/index.html','utf8');
