@@ -161,9 +161,14 @@ assert.equal(topicApi.topicsFor({section:'episodes',kategorie:'Návrhy / nápady
 console.log('PASS: '+topicApi.ideaBatch.length+' real episode ideas categorized independently of the '+assignments.length+' episode promises.');
 assert.deepEqual(nonPromisesInTopicBatch,[],'Topic batch must omit these reviewed ideas until the next phase: '+JSON.stringify(nonPromisesInTopicBatch));
 console.log('PASS: '+assignments.length+' documented episode-promise assignments across '+topicApi.topics.length+' broad groups, no ideas or other-section promises.');
-const episodeIdeas=actual.findings.filter(row=>row.section==='episodes'&&row.kategorie!=='Sliby');
-console.log('IDEAS_REVIEW_TOTAL '+JSON.stringify({total:episodeIdeas.length,categories:Object.fromEntries([...new Set(episodeIdeas.map(r=>r.kategorie))].map(key=>[key,episodeIdeas.filter(r=>r.kategorie===key).length]))}));
-console.log('IDEAS_REVIEW_BATCH '+JSON.stringify(episodeIdeas.slice(0,95).map(r=>({id:r.candidate,title:r.displayTema||r.compactTitle||r.tema,why:String(r.vysvetleni||'').slice(0,250),category:r.kategorie}))));
+const episodeIdeas=actual.findings.filter(row=>row.section==='episodes'&&row.kategorie==='Návrhy / nápady');
+const reviewedIdeas=new Set(topicApi.ideaBatch.map(x=>JSON.stringify([x.candidate,x.title])));
+const remainingIdeas=episodeIdeas.filter(r=>!reviewedIdeas.has(JSON.stringify([r.candidate,r.displayTema||r.compactTitle||r.tema])));
+console.log('IDEAS_REMAINING_TOTAL '+remainingIdeas.length);
+for(let i=0;i<remainingIdeas.length;i+=44){
+  const batch=remainingIdeas.slice(i,i+44).map(r=>({id:r.candidate,title:r.displayTema||r.compactTitle||r.tema,why:String(r.vysvetleni||'').slice(0,430)}));
+  console.log('IDEAS_REMAINING_'+i+' '+JSON.stringify(batch));
+}
 
 assert(appHtml.includes('html body .summary,html body .summary+.personal-help{display:none!important}'),'Old big status summary must be hidden');
 assert(appHtml.includes("['fulfilled','Splněné'],['unfulfilled','Nesplněné'],['future','Budoucí sliby']"),'Only three combined status group choices are offered');
