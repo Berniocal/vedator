@@ -303,13 +303,16 @@ body.vedator-sliby-active main > .panel > .controls{display:flex!important}
 #sliby-frame-v2:not([data-sliby-ready="true"]){opacity:0;pointer-events:none}
 #sliby-loading-v2{position:absolute;top:14px;left:8px;margin:0;color:var(--muted);font-size:.92rem}
 #sliby-loading-v2[hidden]{display:none!important}
-/* Jediný ukazatel načítání, bez přechodných karet a náhradní stránky. */
+/* Průběh skutečného stahování dat, nikoli časovaná animace procent. */
 #status-v2:not(:empty):not(.error),#sliby-loading-v2:not([hidden]){color:var(--muted);width:min(360px,100%);max-width:100%;line-height:1.5;font-weight:600}
-#status-v2:not(:empty):not(.error)::before,#sliby-loading-v2:not([hidden])::before{content:"";display:inline-block;box-sizing:border-box;width:17px;height:17px;margin-right:9px;vertical-align:-3px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:vedator-loading-spin .8s linear infinite}
-#status-v2:not(:empty):not(.error)::after,#sliby-loading-v2:not([hidden])::after{content:"";display:block;height:7px;margin-top:9px;border-radius:999px;background:linear-gradient(90deg,var(--accent2) 0%,var(--accent2) 25%,var(--accent) 50%,var(--accent2) 75%,var(--accent2) 100%);background-size:220% 100%;animation:vedator-loading-progress 1.45s linear infinite}
+.vedator-loading-head-v2{display:flex;align-items:center;gap:9px;width:100%;min-width:0}
+.vedator-loading-spinner-v2{display:inline-block;flex:none;box-sizing:border-box;width:17px;height:17px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:vedator-loading-spin .8s linear infinite}
+.vedator-loading-label-v2{flex:1;min-width:0}
+.vedator-loading-percent-v2{font-variant-numeric:tabular-nums;white-space:nowrap}
+.vedator-loading-track-v2{display:block;height:8px;margin-top:9px;border-radius:999px;background:var(--accent2);overflow:hidden}
+.vedator-loading-fill-v2{display:block;height:100%;width:0;border-radius:inherit;background:var(--accent);transition:width .12s linear}
 @keyframes vedator-loading-spin{to{transform:rotate(360deg)}}
-@keyframes vedator-loading-progress{from{background-position:110% 50%}to{background-position:-110% 50%}}
-@media(prefers-reduced-motion:reduce){#status-v2:not(:empty):not(.error)::before,#sliby-loading-v2:not([hidden])::before{animation:none;border-top-color:var(--accent)}#status-v2:not(:empty):not(.error)::after,#sliby-loading-v2:not([hidden])::after{animation:none;background:var(--accent2)}}
+@media(prefers-reduced-motion:reduce){.vedator-loading-spinner-v2{animation:none}.vedator-loading-fill-v2{transition:none}}
 
 #feedback-v2 .feedback-link{display:inline-block;margin-top:10px;color:var(--accent);font-size:.85rem}
 @media(max-width:700px){#sliby-frame-v2,#feedback-frame-v2{height:calc(100dvh - 155px);min-height:420px}#sliby-frame-v2{height:calc(100dvh - 210px);min-height:350px}}
@@ -380,6 +383,35 @@ body.vedator-sliby-active main > .panel > .controls{display:flex!important}
 <div id="playlist-picker-v2" class="modal-v2 hidden" aria-hidden="true"></div>
 <input id="data-file-v2" type="file" accept="application/json,.json" hidden>
 
+<script id="v2-loading-percent-script">
+/* Jediná vizuální komponenta pro Epizody i Sliby. Procenta přicházejí výhradně z ProgressEvent. */
+window.VedatorSetLoadingProgress=function(id,label,percent){
+  const root=document.getElementById(id);if(!root)return;
+  let title=root.querySelector('.vedator-loading-label-v2');
+  if(!title){
+    root.replaceChildren();
+    const head=document.createElement('span');head.className='vedator-loading-head-v2';
+    const spinner=document.createElement('span');spinner.className='vedator-loading-spinner-v2';spinner.setAttribute('aria-hidden','true');
+    title=document.createElement('span');title.className='vedator-loading-label-v2';
+    const number=document.createElement('strong');number.className='vedator-loading-percent-v2';
+    head.append(spinner,title,number);
+    const track=document.createElement('span');track.className='vedator-loading-track-v2';track.setAttribute('role','progressbar');
+    track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax','100');
+    const fill=document.createElement('span');fill.className='vedator-loading-fill-v2';track.append(fill);
+    root.append(head,track);
+  }
+  title.textContent=label;
+  const value=root.querySelector('.vedator-loading-percent-v2');
+  const track=root.querySelector('.vedator-loading-track-v2');
+  const fill=root.querySelector('.vedator-loading-fill-v2');
+  if(Number.isFinite(percent)){
+    const p=Math.max(0,Math.min(100,Math.round(percent)));
+    value.textContent=p+' %';track.setAttribute('aria-valuenow',String(p));fill.style.width=p+'%';
+  }else{
+    value.textContent='…';track.removeAttribute('aria-valuenow');fill.style.width='0%';
+  }
+};
+</script>
 <script src="./app-v2.js" defer></script>
 <script id="v2-search-clear-script">
 (()=>{
@@ -787,6 +819,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       installSlibyViewMemory(doc);
       // Reveal only after the final embedded layout, sorting and stored filters are ready.
       iframe.dataset.slibyReady='true';
+      window.VedatorSetLoadingProgress?.('sliby-loading-v2',document.documentElement.lang.toLowerCase().startsWith('sk')?'Načítavam sľuby':'Načítám sliby',100);
       document.getElementById('sliby-loading-v2')?.setAttribute('hidden','');
     }catch(error){console.warn('Sliby theme synchronization unavailable',error)}
   };
@@ -815,14 +848,42 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     // Child report owns the search algorithm (including duplicate and context rules).
   };
   const startSlibyOnce=()=>{
-    if(iframe.hasAttribute('src'))return;
+    if(iframe.hasAttribute('src')||iframe.dataset.slibyDownload==='true')return;
     const loader=document.getElementById('sliby-loading-v2');
-    if(loader){loader.hidden=false;loader.textContent=document.documentElement.lang.toLowerCase().startsWith('sk')?'Načítavam sľuby…':'Načítám sliby…'}
+    const label=()=>document.documentElement.lang.toLowerCase().startsWith('sk')?'Načítavam sľuby':'Načítám sliby';
+    if(loader)loader.hidden=false;
+    window.VedatorSetLoadingProgress?.('sliby-loading-v2',label(),0);
     iframe.dataset.slibyReady='false';
-    // One fresh request only; do not navigate from a first, unstyled copy of the report.
+    iframe.dataset.slibyDownload='true';
+    // Stáhnout skutečný HTML report s nativním pokrokem v bytech.
+    // Pak použít stejnou URL pro iframe; HTTP cache brání opakovanému stahování.
+    // Report se nikdy nenahrazuje přechodným náhledem ani srcdoc.
     const url=new URL(iframe.dataset.src,location.href);
     url.searchParams.set('pwa_load',String(Date.now()));
-    iframe.src=url.href;
+    let launched=false;
+    const launch=()=>{
+      if(launched)return;launched=true;
+      iframe.src=url.href;
+    };
+    try{
+      const xhr=new XMLHttpRequest();
+      xhr.open('GET',url.href,true);
+      xhr.responseType='blob';
+      xhr.onprogress=event=>{
+        window.VedatorSetLoadingProgress?.('sliby-loading-v2',label(),
+          event.lengthComputable&&event.total>0?Math.min(99,Math.floor(100*event.loaded/event.total)):null);
+      };
+      xhr.onload=()=>{
+        if(xhr.status>=200&&xhr.status<300)
+          window.VedatorSetLoadingProgress?.('sliby-loading-v2',label(),99);
+        else
+          window.VedatorSetLoadingProgress?.('sliby-loading-v2',label(),null);
+        launch();
+      };
+      xhr.onerror=()=>{window.VedatorSetLoadingProgress?.('sliby-loading-v2',label(),null);launch()};
+      xhr.onabort=launch;
+      xhr.send();
+    }catch(error){console.warn('Sliby progress unavailable',error);launch()}
   };
   const handleViewChange=()=>{
     if(!mainSearch)return;

@@ -3938,13 +3938,33 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   }
   window.addEventListener('vedator-v2-ready',prewarmAskIndex,{once:true});
 
+  function downloadV2CatalogWithProgress(){
+    return new Promise((resolve,reject)=>{
+      const xhr=new XMLHttpRequest();
+      xhr.open('GET','./content-v2.json',true);
+      xhr.responseType='text';
+      xhr.onprogress=event=>{
+        window.VedatorSetLoadingProgress?.('status-v2',text('Načítám epizody a katalog','Načítavam epizódy a katalóg'),
+          event.lengthComputable&&event.total>0?Math.min(99,Math.floor(100*event.loaded/event.total)):null);
+      };
+      xhr.onerror=()=>reject(new Error('Stažení katalogu se nezdařilo'));
+      xhr.onload=()=>{
+        if(xhr.status<200||xhr.status>=300){reject(new Error('HTTP '+xhr.status));return}
+        window.VedatorSetLoadingProgress?.('status-v2',text('Připravuji epizody','Pripravujem epizódy'),99);
+        try{resolve(JSON.parse(xhr.responseText))}catch(error){reject(error)}
+      };
+      xhr.send();
+    });
+  }
+
   async function start(){
     const status=$('#status-v2');
     try{
-      const response=await fetch('./content-v2.json',{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);state.data=await response.json();
+      window.VedatorSetLoadingProgress?.('status-v2',text('Načítám epizody a katalog','Načítavam epizódy a katalóg'),0);
+      state.data=await downloadV2CatalogWithProgress();
       buildLegacyQuestionIndex();loadUserData();installEpisodeExperienceStyles();installUiExperience();installFullParityUi();installPlaylistParity();installFinalUiV2();applyStaticUi();renderEpisodes();renderSeries();renderQuestions();renderNonQuestions();renderPlaylists();renderData();bind();setView('episodes');void askAiInitialize();
-      status.textContent='';
-      document.documentElement.dataset.vedatorV2Ready='1';window.dispatchEvent(new CustomEvent('vedator-v2-ready',{detail:{episodes:state.data.episodes.length,questions:state.data.questions.length,playlists:state.playlists.length,language:state.language}}));setTimeout(importSharedPlaylist,0);
+      window.VedatorSetLoadingProgress?.('status-v2',text('Epizody jsou připravené','Epizódy sú pripravené'),100);
+      document.documentElement.dataset.vedatorV2Ready='1';window.dispatchEvent(new CustomEvent('vedator-v2-ready',{detail:{episodes:state.data.episodes.length,questions:state.data.questions.length,playlists:state.playlists.length,language:state.language}}));requestAnimationFrame(()=>{status.textContent=''});setTimeout(importSharedPlaylist,0);
     }catch(error){status.textContent=`${text('V2 se nepodařilo načíst','V2 sa nepodarilo načítať')}: ${error.message}`;status.classList.add('error');console.error(error)}
   }
 
