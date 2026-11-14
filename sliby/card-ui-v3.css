@@ -18,3 +18,28 @@
 .episode-title{font-weight:600;font-size:14px;min-width:0;overflow-wrap:anywhere}
 .episode-mention .time{flex:none;font-size:12px;padding:7px 10px;min-height:36px}
 @media(max-width:480px){.finding.compact{padding:11px 12px}.episode-mention{gap:8px}.episode-title{font-size:13px}}
+
+/* Compact utility menu: the visible trigger is only a small gear. */
+.report-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.promise-settings{position:relative;z-index:10;flex:0 0 auto}
+.promise-settings>summary{display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:36px;padding:6px;border:1px solid var(--line,#d5d7e0);border-radius:999px;background:var(--card,#fff);color:var(--ink,#242738);font:inherit;font-size:16px;line-height:1;cursor:pointer;list-style:none}
+.promise-settings>summary::-webkit-details-marker{display:none}
+.promise-settings>summary::marker{content:''}
+.promise-settings>summary:hover{border-color:#7c6eef}
+.promise-settings>summary:focus-visible{outline:2px solid #7c6eef;outline-offset:2px}
+.promise-settings-menu{position:absolute;z-index:50;top:calc(100% + 7px);left:0;display:flex;flex-direction:column;gap:7px;width:max-content;max-width:min(320px,88vw);min-width:200px;padding:10px;border:1px solid var(--line,#d5d7e0);border-radius:12px;background:var(--card,#fff);box-shadow:0 8px 24px rgba(0,0,0,.17)}
+.promise-settings:not([open]) .promise-settings-menu{display:none!important}
+.promise-settings-menu button{display:block;width:100%;min-height:38px;margin:0;text-align:left;white-space:normal}
+html[data-theme="dark"] .promise-settings>summary,html[data-theme="dark"] .promise-settings-menu{background:#171b25;color:#edf1f8;border-color:#414a5e}
+/* Read-only status appears only on a collapsed card, without altering the checkbox. */
+.finding.compact h3{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.finding.compact h3 .topic-toggle{flex:1 1 auto;min-width:0;width:auto}
+.promise-compact-status{display:inline-flex;align-items:center;flex:0 0 auto;padding:4px 8px;border:1px solid var(--line,#d5d7e0);border-radius:999px;font-size:12px;font-weight:650;line-height:1.25;white-space:nowrap;color:var(--muted,#536071)}
+.promise-compact-status.is-fulfilled{background:#e8f7ed;border-color:#b6e4c4;color:#166534}
+.promise-compact-status.is-unfulfilled{background:#fff4df;border-color:#f1dcac;color:#8b5215}
+.promise-compact-status.is-future{background:#e9effd;border-color:#c9d6f3;color:#344e96}
+.promise-compact-status[hidden]{display:none!important}
+html[data-theme="dark"] .promise-compact-status.is-fulfilled{background:#173b2b;border-color:#276749;color:#a7f3d0}
+html[data-theme="dark"] .promise-compact-status.is-unfulfilled{background:#48351e;border-color:#73562a;color:#fcd34d}
+html[data-theme="dark"] .promise-compact-status.is-future{background:#29355b;border-color:#405584;color:#c7d6ff}
+@media(max-width:480px){.promise-settings-menu{max-width:84vw}.finding.compact h3{gap:8px}.promise-compact-status{font-size:11px;padding:4px 6px}}
