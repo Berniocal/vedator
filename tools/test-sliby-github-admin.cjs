@@ -97,9 +97,11 @@ assert(appHtml.includes('html body #vedator-sliby-status-filters{display:flex!im
 assert(appHtml.includes('html body #vedator-sliby-episode-topics{display:flex!important;flex-wrap:nowrap!important'),'Episode topic controls must occupy a third horizontal row');
 assert(appHtml.includes('html body #vedator-sliby-episode-topics[hidden]{display:none!important}'),'Hide third row when Episodes are not selected');
 assert(appHtml.includes('installSlibyEpisodeTopics(doc);'),'Install curated topic filters after status filters');
-assert(appHtml.includes("if(record.section!=='episodes'||record.kategorie!=='Sliby')return false;"),'Topic filters may expose only real promises on episodes');
+assert(appHtml.includes("if(record.section!=='episodes'||(record.kategorie!=='Sliby'&&record.kategorie!=='Návrhy / nápady'))return false;"),'Topic filters may only expose promises and ideas on episodes');
 assert(appHtml.includes("const promiseCategoryEnabled=()=>doc.querySelector("),'Topic row must track the actual Sliby category');
-assert(appHtml.includes("row.hidden=!(episodeSectionEnabled()&&promiseCategoryEnabled())"),'Third row hides if either Epizody or Sliby is unchecked');
+assert(appHtml.includes("row.hidden=!episodeTopicsEnabled()"),'Third row remains available for both promises and ideas when Epizody are selected');
+assert(appHtml.includes("const ideaCategoryEnabled=()=>doc.querySelector("),'The ideas category is recognized for third-row filtering');
+assert(appHtml.includes("episodeSectionEnabled()&&(promiseCategoryEnabled()||ideaCategoryEnabled())"),'Topic row appears for either episode content type');
 assert(appHtml.includes("selected==='unclassified'?!matched.length:matched.includes(selected)"),'Unclassified promises must remain reachable');
 assert(appHtml.includes("episodeTopic:doc.querySelector("),'Topic selection must be stored');
 assert(appHtml.includes("#vedator-sliby-episode-topics button,#show-deleted"),'Topic button clicks must update stored preferences');
@@ -138,6 +140,25 @@ for(const item of assignments){
   assert.equal(topicApi.topicsFor({...record,candidate:item.candidate+200000}).length,0,'An identical title with a different identity must not match');
 }
 assert.equal(topicApi.topicsFor({section:'episodes',kategorie:'Sliby',candidate:999999,tema:'Žádný známý slib'}).length,0,'Unreviewed episode promises are not classified by guesswork');
+assert.equal(topicApi.ideaBatch.length,72,'The next manual review should add 72 individual ideas on episodes');
+const ideaKeys=new Set();
+for(const item of topicApi.ideaBatch){
+  const key=JSON.stringify([item.candidate,item.title]);
+  assert(!ideaKeys.has(key),'Duplicate idea assignment: '+item.title);
+  ideaKeys.add(key);
+  const found=actual.findings.filter(row=>Number(row.candidate)===item.candidate&&(row.displayTema||row.compactTitle||row.tema)===item.title);
+  assert.equal(found.length,1,'Reviewed idea must exist exactly once in the published catalog: '+item.title);
+  assert.equal(found[0].section,'episodes','Never assign non-episode ideas: '+item.title);
+  assert.equal(found[0].kategorie,'Návrhy / nápady','Never silently convert an idea to a promise: '+item.title);
+  const actualGroups=Array.from(topicApi.topicsFor(found[0]));
+  const expectedGroups=Array.from(topicApi.groupIds(item.ids));
+  assert.deepEqual(actualGroups,expectedGroups,'Reviewed idea must match its selected topics: '+item.title);
+  assert(expectedGroups.length>=1&&expectedGroups.every(id=>validGroups.has(id)),'Unknown broad topic: '+item.title);
+  assert.equal(topicApi.topicsFor({...found[0],kategorie:'Sliby'}).length,0,'Idea must never leak into the promises category');
+  assert.equal(topicApi.topicsFor({...found[0],section:'other'}).length,0,'Idea must never leak to non-episode section');
+}
+assert.equal(topicApi.topicsFor({section:'episodes',kategorie:'Návrhy / nápady',candidate:999999,tema:'Nezařazený námět'}).length,0,'No automatic topic guessing for proposals');
+console.log('PASS: '+topicApi.ideaBatch.length+' real episode ideas categorized independently of the '+assignments.length+' episode promises.');
 assert.deepEqual(nonPromisesInTopicBatch,[],'Topic batch must omit these reviewed ideas until the next phase: '+JSON.stringify(nonPromisesInTopicBatch));
 console.log('PASS: '+assignments.length+' documented episode-promise assignments across '+topicApi.topics.length+' broad groups, no ideas or other-section promises.');
 const episodeIdeas=actual.findings.filter(row=>row.section==='episodes'&&row.kategorie!=='Sliby');
