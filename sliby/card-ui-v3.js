@@ -7,6 +7,38 @@
   // Old saved view choices must never re-enable the verbose presentation.
   compactMode=true;
 
+  // Keep the three utility actions in their original report-actions container,
+  // but place them behind one small native-looking settings disclosure.
+  const installSettingsMenu=()=>{
+    const actions=document.querySelector('.report-actions');
+    if(!actions||document.getElementById('promise-settings'))return;
+    const buttons=['export-json','show-deleted','reset-defaults']
+      .map(id=>document.getElementById(id)).filter(Boolean);
+    if(!buttons.length)return;
+    const details=document.createElement('details');
+    details.id='promise-settings';
+    details.className='promise-settings';
+    const summary=document.createElement('summary');
+    const emoji=document.createElement('span');
+    emoji.textContent='⚙️';emoji.setAttribute('aria-hidden','true');
+    const title=document.createElement('span');
+    title.textContent='Nastavení';
+    summary.append(emoji,title);
+    summary.setAttribute('aria-label','Nastavení slibů');
+    const menu=document.createElement('div');
+    menu.className='promise-settings-menu';
+    buttons.forEach(button=>menu.append(button));
+    details.append(summary,menu);
+    details.addEventListener('click',event=>{
+      if(event.target.closest('button'))details.open=false;
+    });
+    document.addEventListener('click',event=>{
+      if(details.open&&!details.contains(event.target))details.open=false;
+    });
+    actions.prepend(details);
+  };
+  installSettingsMenu();
+
   render=function renderSimplifiedPromiseCards(){
     const q=fold(el('q').value.trim()),st=el('status').value;
     const hitNode=(tag,text,cls)=>searchNode(tag,text,q,cls);
@@ -55,7 +87,13 @@
       titleButton.type='button';
       titleButton.setAttribute('aria-expanded',String(open));
       titleButton.setAttribute('aria-controls','details-'+r.index);
-      heading.append(titleButton);
+      // The status is visible in the compact row only. Expanded rows keep
+      // the existing editable checkbox/status control instead.
+      const statusText=fulfilled(r)?'Splněno':r.stav==='Budoucí slib'?'Budoucí slib':'Nesplněno';
+      const statusKind=fulfilled(r)?'fulfilled':r.stav==='Budoucí slib'?'future':'unfulfilled';
+      const statusBadge=node('span',statusText,'promise-compact-status is-'+statusKind);
+      statusBadge.hidden=open;
+      heading.append(titleButton,statusBadge);
       body.append(heading);
       const details=node('div',undefined,'finding-details');
       details.id='details-'+r.index;
@@ -66,6 +104,7 @@
         else expandedKeys.add(key);
         const expanded=expandedKeys.has(key);
         details.hidden=!expanded;
+        statusBadge.hidden=expanded;
         titleButton.setAttribute('aria-expanded',String(expanded));
       });
 
