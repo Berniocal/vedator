@@ -140,9 +140,12 @@ for(const item of assignments){
   assert.equal(topicApi.topicsFor({...record,candidate:item.candidate+200000}).length,0,'An identical title with a different identity must not match');
 }
 assert.equal(topicApi.topicsFor({section:'episodes',kategorie:'Sliby',candidate:999999,tema:'Žádný známý slib'}).length,0,'Unreviewed episode promises are not classified by guesswork');
-assert.equal(topicApi.ideaBatch.length,72,'The next manual review should add 72 individual ideas on episodes');
+assert.equal(topicApi.ideaBatch.length,72,'Earlier manual review must retain 72 episode ideas');
+assert.equal(topicApi.ideaBatch2.length,81,'New manual review must add 81 episode ideas');
+const allIdeaAssignments=[...topicApi.ideaBatch,...topicApi.ideaBatch2];
+assert.equal(allIdeaAssignments.length,153,'No idea classification from earlier work is lost');
 const ideaKeys=new Set();
-for(const item of topicApi.ideaBatch){
+for(const item of allIdeaAssignments){
   const key=JSON.stringify([item.candidate,item.title]);
   assert(!ideaKeys.has(key),'Duplicate idea assignment: '+item.title);
   ideaKeys.add(key);
@@ -158,17 +161,12 @@ for(const item of topicApi.ideaBatch){
   assert.equal(topicApi.topicsFor({...found[0],section:'other'}).length,0,'Idea must never leak to non-episode section');
 }
 assert.equal(topicApi.topicsFor({section:'episodes',kategorie:'Návrhy / nápady',candidate:999999,tema:'Nezařazený námět'}).length,0,'No automatic topic guessing for proposals');
-console.log('PASS: '+topicApi.ideaBatch.length+' real episode ideas categorized independently of the '+assignments.length+' episode promises.');
+console.log('PASS: '+allIdeaAssignments.length+' real episode ideas categorized independently of the '+assignments.length+' episode promises.');
 assert.deepEqual(nonPromisesInTopicBatch,[],'Topic batch must omit these reviewed ideas until the next phase: '+JSON.stringify(nonPromisesInTopicBatch));
 console.log('PASS: '+assignments.length+' documented episode-promise assignments across '+topicApi.topics.length+' broad groups, no ideas or other-section promises.');
 const episodeIdeas=actual.findings.filter(row=>row.section==='episodes'&&row.kategorie==='Návrhy / nápady');
-const reviewedIdeas=new Set(topicApi.ideaBatch.map(x=>JSON.stringify([x.candidate,x.title])));
-const remainingIdeas=episodeIdeas.filter(r=>!reviewedIdeas.has(JSON.stringify([r.candidate,r.displayTema||r.compactTitle||r.tema])));
-console.log('IDEAS_REMAINING_TOTAL '+remainingIdeas.length);
-for(let i=0;i<remainingIdeas.length;i+=44){
-  const batch=remainingIdeas.slice(i,i+44).map(r=>({id:r.candidate,title:r.displayTema||r.compactTitle||r.tema,why:String(r.vysvetleni||'').slice(0,430)}));
-  console.log('IDEAS_REMAINING_'+i+' '+JSON.stringify(batch));
-}
+assert.equal(episodeIdeas.length,204,'A new audit may change the source catalog; update classification deliberately if the count changes');
+assert.equal(episodeIdeas.length-allIdeaAssignments.length,51,'Unreviewed ideas must remain accessible as Nezařazené');
 
 assert(appHtml.includes('html body .summary,html body .summary+.personal-help{display:none!important}'),'Old big status summary must be hidden');
 assert(appHtml.includes("['fulfilled','Splněné'],['unfulfilled','Nesplněné'],['future','Budoucí sliby']"),'Only three combined status group choices are offered');
