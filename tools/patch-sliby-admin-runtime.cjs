@@ -40,7 +40,8 @@ function patchReport(html) {
       "el('nopen').textContent=inSection.filter(r=>r.stav==='Nesplněno').length;el('nfuture').textContent=inSection.filter(r=>r.stav==='Budoucí slib').length;");
   one("r.stav==='Splněno už dříve'?'prior':'no'","r.stav==='Splněno už dříve'?'prior':r.stav==='Budoucí slib'?'future':'no'");
   one("render();\n</script></body></html>",
-      "render();\n"+
+      "// Skip the legacy all-cards render; card-ui-v3.js installs its 20-card\n"+
+      "// incremental renderer immediately after this script.\n"+
       "// Separate, durable manual ratings override the automatically rebuilt audit.\n"+
       "if(typeof fetch==='function'&&typeof window!=='undefined'&&window.VedatorSlibyAdminStatus){\n"+
       " fetch('admin-overrides.json',{cache:'no-store'}).then(response=>{\n"+
