@@ -140,6 +140,10 @@ for(const item of assignments){
 assert.equal(topicApi.topicsFor({section:'episodes',kategorie:'Sliby',candidate:999999,tema:'Žádný známý slib'}).length,0,'Unreviewed episode promises are not classified by guesswork');
 assert.deepEqual(nonPromisesInTopicBatch,[],'Topic batch must omit these reviewed ideas until the next phase: '+JSON.stringify(nonPromisesInTopicBatch));
 console.log('PASS: '+assignments.length+' documented episode-promise assignments across '+topicApi.topics.length+' broad groups, no ideas or other-section promises.');
+const episodeIdeas=actual.findings.filter(row=>row.section==='episodes'&&row.kategorie!=='Sliby');
+console.log('IDEAS_REVIEW_TOTAL '+JSON.stringify({total:episodeIdeas.length,categories:Object.fromEntries([...new Set(episodeIdeas.map(r=>r.kategorie))].map(key=>[key,episodeIdeas.filter(r=>r.kategorie===key).length]))}));
+console.log('IDEAS_REVIEW_BATCH '+JSON.stringify(episodeIdeas.slice(0,95).map(r=>({id:r.candidate,title:r.displayTema||r.compactTitle||r.tema,why:String(r.vysvetleni||'').slice(0,250),category:r.kategorie}))));
+
 assert(appHtml.includes('html body .summary,html body .summary+.personal-help{display:none!important}'),'Old big status summary must be hidden');
 assert(appHtml.includes("['fulfilled','Splněné'],['unfulfilled','Nesplněné'],['future','Budoucí sliby']"),'Only three combined status group choices are offered');
 assert(appHtml.includes("record.stav==='Splněno později'||record.stav==='Splněno už dříve'?'fulfilled'"),'Fulfilled earlier and later are one choice');
