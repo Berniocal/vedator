@@ -70,6 +70,9 @@ for(const id of nearTermIds){
  assert.equal(row.stav,'Nesplněno','Near-term promise is not long-term future: '+id);
 }
 
+// Temporary, bounded review sample for extending the first manual topic batch.
+const sample=actual.findings.filter(row=>row.section==='episodes'&&row.kategorie==='Sliby').slice(0,70);
+console.log('EPISODE_PROMISE_REVIEW '+JSON.stringify(sample.map(row=>({id:row.candidate,tema:row.displayTema||row.tema,detail:String(row.vysvetleni||'').slice(0,160),category:row.kategorie}))));
 console.log('PASS: admin override validation, merged identity matching, durable status on live and archived rows, PAT safety checks, and future status reporting.');
 
 const compactJs=fs.readFileSync('sliby/card-ui-v3.js','utf8');
