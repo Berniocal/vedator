@@ -37,10 +37,6 @@
   };
   installSettingsMenu();
 
-  // A changed filter invalidates pending background DOM batches. Only the
-  // first 20 real, interactive cards are built synchronously.
-  let renderGeneration=0;
-  const CARD_BATCH_SIZE=20;
   render=function renderSimplifiedPromiseCards(){
     const q=fold(el('q').value.trim()),st=el('status').value;
     const hitNode=(tag,text,cls)=>searchNode(tag,text,q,cls);
@@ -73,13 +69,8 @@
     el('shown').textContent='Zobrazeno '+rows.length+' z '+inSection.length+' různých slibů a nápadů · Počet zmínek: '+rows.reduce((sum,r)=>sum+promiseMentions(r).length,0)+(showDeleted?' · Smazané':'');
     document.querySelectorAll('.summary button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.status===st)));
 
-    const generation=++renderGeneration;
-    const cards=el('cards');
-    let nextIndex=0;
-    const appendBatch=()=>{
-      if(generation!==renderGeneration)return;
-      const frag=document.createDocumentFragment();
-      for(const r of rows.slice(nextIndex,nextIndex+CARD_BATCH_SIZE)){
+    const frag=document.createDocumentFragment();
+    for(const r of rows){
       const card=node('article',undefined,'finding compact');
       card.dataset.candidate=r.candidate;
       // The existing delete/restore focus handler expects source then main.
@@ -153,17 +144,8 @@
       card.append(source,body);
       frag.append(card);
     }
-      if(!rows.length)frag.append(node('p','Těmto filtrům neodpovídá žádný záznam.','empty'));
-      if(nextIndex===0)cards.replaceChildren(frag);
-      else cards.appendChild(frag);
-      nextIndex=Math.min(rows.length,nextIndex+CARD_BATCH_SIZE);
-      if(nextIndex<rows.length){
-        // Yield to paint/input between batches; do not freeze the phone.
-        if(typeof requestIdleCallback==='function')requestIdleCallback(appendBatch,{timeout:900});
-        else setTimeout(appendBatch,32);
-      }
-    };
-    appendBatch();
+    if(!rows.length)frag.append(node('p','Těmto filtrům neodpovídá žádný záznam.','empty'));
+    el('cards').replaceChildren(frag);
   };
   render();
 })();

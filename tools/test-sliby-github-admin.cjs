@@ -224,9 +224,7 @@ assert(appHtml.includes("const mainSearch=document.getElementById('search-v2')")
 assert(appHtml.includes("child.dispatchEvent(new iframe.contentWindow.Event('input',{bubbles:true}))"));
 assert(appHtml.includes("window.addEventListener('vedatorviewchange',handleViewChange)"));
 assert(appHtml.includes("window.addEventListener('vedator-v2-ready',()=>{"),'Background tabs are scheduled after initial app load');
-assert(appHtml.includes("requestIdleCallback(startSlibyOnce,{timeout:4500})"),'The heavy Sliby iframe should start during browser idle time');
-assert(appHtml.includes("setTimeout(startSlibyOnce,1800)"),'Browsers without requestIdleCallback still preload later');
-assert(appHtml.includes("document.getElementById('sliby-first-paint-v2')?.setAttribute('hidden','')"),'The initial Sliby preview must disappear when the full iframe is ready');
+assert(appHtml.includes('setTimeout(startSlibyOnce,150)'),'Sliby should preload in the background after first paint');
 assert(appHtml.includes("if(next)startSlibyOnce()"),'Clicking before preloading starts still opens Sliby immediately');
 const appJs=fs.readFileSync('app-v2.js','utf8');
 assert(appJs.includes("window.addEventListener('vedator-v2-ready',prewarmAskIndex,{once:true})"),'Ask search index must start building in the background');

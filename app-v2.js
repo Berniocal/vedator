@@ -3880,11 +3880,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     syncAskIntro();
     const results=$('#ask-results-v2'),moreButton=$('#ask-more-v2'),status=$('#ask-status-v2');if(!results||!moreButton||!status)return;
     if(askUi.loading||!askUi.ready){
-      // Until the complete search index is ready, show the first 20
-      // existing questions as examples, NEVER as answers to a typed query.
-      const examples=!askUi.query?(window.VedatorFirstPaint?.questions||[]):[];
-      results.innerHTML=examples.map(item=>'<article class="card ask-card-v2"><div class="meta">'+text('Ukázková otázka z dílu ','Ukážková otázka z dielu ')+Number(item.episode)+'</div><h2>'+esc(item.title)+'</h2></article>').join('');
-      moreButton.classList.add('hidden');updateAskLoadingStatus();return;
+      results.innerHTML='';moreButton.classList.add('hidden');updateAskLoadingStatus();return;
     }
     if(askUi.error){
       results.innerHTML='';moreButton.classList.add('hidden');updateAskLoadingStatus();return;
@@ -3941,37 +3937,12 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     else setTimeout(run,250);
   }
   window.addEventListener('vedator-v2-ready',prewarmAskIndex,{once:true});
-  window.addEventListener('vedator-first-paint-ready',()=>{
-    if(state.view==='ask'&&!askUi.ready)renderAskResults();
-  });
 
   async function start(){
     const status=$('#status-v2');
     try{
-      // Give the small first-paint JSON and one browser frame priority over
-      // the 10 MB full-catalog request. Maximum delay on a cold cache: 160 ms.
-      if(window.VedatorFirstPaintReady){
-        await Promise.race([
-          window.VedatorFirstPaintReady,
-          new Promise(resolve=>setTimeout(resolve,160))
-        ]);
-        if(document.visibilityState==='visible'&&typeof requestAnimationFrame==='function'){
-          await new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
-        }
-      }
       const response=await fetch('./content-v2.json',{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);state.data=await response.json();
-      buildLegacyQuestionIndex();loadUserData();installEpisodeExperienceStyles();installUiExperience();installFullParityUi();installPlaylistParity();installFinalUiV2();applyStaticUi();
-      // The currently visible tab alone needs DOM before first paint.
-      // setView() uses filterActive() to create its first 20 interactive cards.
-      // Other tabs build their cards on first entry instead of blocking startup.
-      // Preserve an early tap on Sliby or Zeptej se made during the preview.
-      bind();setView(window.VedatorEarlyView||'episodes');void askAiInitialize();
-      // Questions/Nonquestions used to feel instant because their first batch
-      // was pre-rendered during startup. Restore that benefit without making
-      // the user wait for hidden DOM before the episode cards appear.
-      const warmQuestionTabs=()=>{renderQuestions();renderNonQuestions()};
-      if('requestIdleCallback' in window)requestIdleCallback(warmQuestionTabs,{timeout:1400});
-      else setTimeout(warmQuestionTabs,120);
+      buildLegacyQuestionIndex();loadUserData();installEpisodeExperienceStyles();installUiExperience();installFullParityUi();installPlaylistParity();installFinalUiV2();applyStaticUi();renderEpisodes();renderSeries();renderQuestions();renderNonQuestions();renderPlaylists();renderData();bind();setView('episodes');void askAiInitialize();
       status.textContent='';
       document.documentElement.dataset.vedatorV2Ready='1';window.dispatchEvent(new CustomEvent('vedator-v2-ready',{detail:{episodes:state.data.episodes.length,questions:state.data.questions.length,playlists:state.playlists.length,language:state.language}}));setTimeout(importSharedPlaylist,0);
     }catch(error){status.textContent=`${text('V2 se nepodařilo načíst','V2 sa nepodarilo načítať')}: ${error.message}`;status.classList.add('error');console.error(error)}

@@ -35,7 +35,6 @@ jobs:
           node tools/augment-v2-episode-descriptions.mjs
           node tools/augment-v2-full-descriptions.mjs
           node tools/augment-v2-parity-content.mjs
-          node tools/build-first-paint.mjs
 
       - name: Zkontrolovat aplikaci a data
         run: |
@@ -43,7 +42,6 @@ jobs:
           node tools/test-content-v2.mjs
           node tools/test-v2-faq-integrity.mjs
           node tools/test-v2-series-topics.mjs
-          node tools/test-first-paint.mjs
 
       - name: Připravit produkční PWA
         run: |

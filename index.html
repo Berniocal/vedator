@@ -303,6 +303,14 @@ body.vedator-sliby-active main > .panel > .controls{display:flex!important}
 #sliby-frame-v2:not([data-sliby-ready="true"]){opacity:0;pointer-events:none}
 #sliby-loading-v2{position:absolute;top:14px;left:8px;margin:0;color:var(--muted);font-size:.92rem}
 #sliby-loading-v2[hidden]{display:none!important}
+/* Jediný ukazatel načítání, bez přechodných karet a náhradní stránky. */
+#status-v2:not(:empty):not(.error),#sliby-loading-v2:not([hidden]){color:var(--muted);width:min(360px,100%);max-width:100%;line-height:1.5;font-weight:600}
+#status-v2:not(:empty):not(.error)::before,#sliby-loading-v2:not([hidden])::before{content:"";display:inline-block;box-sizing:border-box;width:17px;height:17px;margin-right:9px;vertical-align:-3px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:vedator-loading-spin .8s linear infinite}
+#status-v2:not(:empty):not(.error)::after,#sliby-loading-v2:not([hidden])::after{content:"";display:block;height:7px;margin-top:9px;border-radius:999px;background:linear-gradient(90deg,var(--accent2) 0%,var(--accent2) 25%,var(--accent) 50%,var(--accent2) 75%,var(--accent2) 100%);background-size:220% 100%;animation:vedator-loading-progress 1.45s linear infinite}
+@keyframes vedator-loading-spin{to{transform:rotate(360deg)}}
+@keyframes vedator-loading-progress{from{background-position:110% 50%}to{background-position:-110% 50%}}
+@media(prefers-reduced-motion:reduce){#status-v2:not(:empty):not(.error)::before,#sliby-loading-v2:not([hidden])::before{animation:none;border-top-color:var(--accent)}#status-v2:not(:empty):not(.error)::after,#sliby-loading-v2:not([hidden])::after{animation:none;background:var(--accent2)}}
+
 #feedback-v2 .feedback-link{display:inline-block;margin-top:10px;color:var(--accent);font-size:.85rem}
 @media(max-width:700px){#sliby-frame-v2,#feedback-frame-v2{height:calc(100dvh - 155px);min-height:420px}#sliby-frame-v2{height:calc(100dvh - 210px);min-height:350px}}
 </style>
@@ -324,7 +332,7 @@ body.vedator-sliby-active main > .panel > .controls{display:flex!important}
       <button class="tab-v2" data-view="data" type="button">Moje data</button>
     </div>
   </section>
-  <div class="status-row"><div id="status-v2">Načítám jediný datový balík…</div><div id="count-v2"></div></div>
+  <div class="status-row"><div id="status-v2" role="status" aria-live="polite">Načítám epizody a katalog…</div><div id="count-v2"></div></div>
   <section id="episodes-v2" class="view-v2 grid" data-view="episodes"></section>
   <section id="series-v2" class="view-v2 hidden" data-view="series"></section>
   <section id="questions-v2" class="view-v2 grid hidden" data-view="questions"></section>
@@ -332,7 +340,6 @@ body.vedator-sliby-active main > .panel > .controls{display:flex!important}
   <section id="playlists-v2" class="view-v2 hidden" data-view="playlists"></section>
   <section id="sliby-v2" class="view-v2 hidden" data-view="sliby" aria-label="Sliby a náměty">
     <p id="sliby-loading-v2" role="status" aria-live="polite" hidden>Načítám sliby…</p>
-    <div id="sliby-first-paint-v2" role="status" aria-live="polite" hidden></div>
     <iframe id="sliby-frame-v2" title="Sliby a náměty Vedátora" data-src="./sliby/" data-sliby-ready="false" loading="eager">
       <a href="./sliby/">Sliby a náměty</a>
     </iframe>
@@ -373,7 +380,6 @@ body.vedator-sliby-active main > .panel > .controls{display:flex!important}
 <div id="playlist-picker-v2" class="modal-v2 hidden" aria-hidden="true"></div>
 <input id="data-file-v2" type="file" accept="application/json,.json" hidden>
 
-<script src="./first-paint.js" defer></script>
 <script src="./app-v2.js" defer></script>
 <script id="v2-search-clear-script">
 (()=>{
@@ -781,8 +787,6 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       installSlibyViewMemory(doc);
       // Reveal only after the final embedded layout, sorting and stored filters are ready.
       iframe.dataset.slibyReady='true';
-      document.getElementById('sliby-first-paint-v2')?.setAttribute('hidden','');
-      window.dispatchEvent(new Event('vedator-sliby-ready'));
       document.getElementById('sliby-loading-v2')?.setAttribute('hidden','');
     }catch(error){console.warn('Sliby theme synchronization unavailable',error)}
   };
@@ -851,10 +855,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
   // remains the active tab. The iframe loads only once and stays mounted.
   window.addEventListener('vedator-v2-ready',()=>{
     handleViewChange();
-    // A 6.7 MB iframe should not compete with the visible first screen.
-    // It still starts immediately if the user selects the Sliby tab.
-    if('requestIdleCallback' in window)requestIdleCallback(startSlibyOnce,{timeout:4500});
-    else setTimeout(startSlibyOnce,1800);
+    setTimeout(startSlibyOnce,150); // Let the initial visible tab paint first.
   });
   window.addEventListener('vedatorlanguagechange',updatePlaceholder);
   iframe.addEventListener('load',()=>{sync();propagateSearch()});
