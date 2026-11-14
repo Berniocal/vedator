@@ -100,7 +100,9 @@ self.addEventListener('fetch',event=>{
     return;
   }
   if(name==='first-paint.js'||name==='first-paint.json'){
-    event.respondWith(networkFirst(request,APP_CACHE,\`./\${name}\`,900));
+    // Both resources belong to the versioned shell cache, so on repeat
+    // visits show the tiny preview immediately without a network timeout.
+    event.respondWith(cacheFirst(request,APP_CACHE,\`./\${name}\`));
     return;
   }
   if(STATIC_NAMES.has(name)){
