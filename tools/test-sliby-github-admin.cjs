@@ -127,6 +127,10 @@ for(const item of assignments){
   assert.equal(topicApi.topicsFor({...record,candidate:item.candidate+200000}).length,0,'An identical title with a different identity must not match');
 }
 assert.equal(topicApi.topicsFor({section:'episodes',kategorie:'Sliby',candidate:999999,tema:'Žádný známý slib'}).length,0,'Unreviewed episode promises are not classified by guesswork');
+const currentKeys=new Set(assignments.map(item=>JSON.stringify([item.candidate,item.title])));
+const nextReview=actual.findings.filter(row=>row.section==='episodes'&&row.kategorie==='Sliby'&&!currentKeys.has(JSON.stringify([row.candidate,row.displayTema||row.compactTitle||row.tema]))).slice(0,115);
+console.log('EPISODE_PROMISES_NEXT_BATCH '+JSON.stringify(nextReview.map(row=>({id:row.candidate,title:row.displayTema||row.compactTitle||row.tema,why:String(row.vysvetleni||'').slice(0,240),state:row.stav}))));
+
 assert.deepEqual(nonPromisesInTopicBatch,[],'Topic batch must omit these reviewed ideas until the next phase: '+JSON.stringify(nonPromisesInTopicBatch));
 assert(appHtml.includes('html body .summary,html body .summary+.personal-help{display:none!important}'),'Old big status summary must be hidden');
 assert(appHtml.includes("['fulfilled','Splněné'],['unfulfilled','Nesplněné'],['future','Budoucí sliby']"),'Only three combined status group choices are offered');
