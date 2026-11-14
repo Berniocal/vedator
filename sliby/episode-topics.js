@@ -4,24 +4,29 @@
 // sliby/duplicate-review.json, NOT automatic keyword guesses.
 // Leave all other episode promises "Nezařazené" until individually reviewed.
 (function exposeReviewedEpisodePromiseTopics(root){
+  // Eight broad sections, deliberately fewer than the podcast's series/topics.
+  // Source assignments can retain precise terms, while the UI stays manageable.
   const topics=[
-    ['space','Vesmír a kosmologie'],
-    ['blackholes','Černé díry'],
-    ['alienlife','Hledání mimozemského života'],
-    ['darkenergy','Temná hmota a energie'],
-    ['missions','Kosmonautika a vesmírné mise'],
-    ['quantum','Kvantový svět'],
-    ['particles','Částice a částicová fyzika'],
-    ['biology','Biologie'],
-    ['brain','Mozek a mysl'],
-    ['informatics','Informatika a AI'],
+    ['space','Vesmír'],
+    ['physics','Fyzika a energie'],
     ['math','Matematika'],
-    ['energy','Energie a energetika'],
-    ['climate','Klima a životní prostředí'],
-    ['scifi','Věda ve sci-fi'],
-    ['people','Osobnosti vědy'],
-    ['nobel','Nobelovy ceny']
+    ['life','Biologie a člověk'],
+    ['tech','Technologie a AI'],
+    ['earth','Klima a Země'],
+    ['people','Vědci a ocenění'],
+    ['culture','Kultura a sci-fi']
   ];
+  const parent={
+    space:'space',blackholes:'space',alienlife:'space',darkenergy:'space',missions:'space',
+    quantum:'physics',particles:'physics',energy:'physics',physics:'physics',
+    math:'math',
+    biology:'life',brain:'life',life:'life',
+    informatics:'tech',tech:'tech',
+    climate:'earth',earth:'earth',
+    people:'people',nobel:'people',
+    scifi:'culture',culture:'culture'
+  };
+  const groupIds=ids=>[...new Set(ids.map(id=>parent[id]).filter(Boolean))];
   // Match BOTH the original candidate ID and the human-reviewed display
   // heading. A new/colliding ID or similarly worded promise is not classified.
   const reviewed=[
@@ -84,17 +89,78 @@
     [391,'Nikola Tesla – připravovaný portrét',['people']],
     [1353,'Velká kniha o klimatu – průběžná podcastová série',['climate']]
   ];
-  const byKey=new Map([...reviewed,...audited].map(([candidate,title,ids])=>[JSON.stringify([candidate,title]),ids]));
+  // Third review, 14 Nov 2026: verified from the original audit's actual
+  // promise title and explanation, not from the episode where it was spoken.
+  // Do NOT infer assignments for short follow-up answers, private Labák
+  // bonuses, announcements of lectures/articles or conditional links.
+  const nextBatch=[
+    [1051,"Radiometrické datování pomocí uhlíku 14",["physics"]],
+    [1054,"Odkud plyne zákon zachování energie",["physics"]],
+    [1078,"Výjimky z dolní hranice teploty: záporná absolutní teplota",["physics"]],
+    [1082,"Příští zvukový kvíz: deset evropských ptáků",["life"]],
+    [1103,"Námořní hodiny: závod o určování polohy na moři",["tech"]],
+    [1105,"Pravidlo četnosti v jazyce – pravděpodobně Zipfův zákon",["math"]],
+    [137,"Vakuum a co je ve skutečnosti prázdný prostor",["physics"]],
+    [1107,"Revidovat díl o červích dírách, pokud se potvrdí ER = EPR",["space","physics"]],
+    [1123,"Celá série o Einsteinovi a jeho fyzice",["physics"]],
+    [162,"Einsteinova obecná relativita / teorie gravitace",["physics"]],
+    [1149,"Odložená epizoda o laserech po posluchačském návrhu",["physics"]],
+    [210,"Fyzika stínů a jejich vznik",["physics"]],
+    [1174,"Živý podcast Jak cestovat časem v Byte&Byte – konkrétní téma a lístky",["physics"]],
+    [241,"Hawkingovy vědecké sázky",["people"]],
+    [1271,"Historky z vědeckého podsvětí 2 v Bite & Byte",["people"]],
+    [349,"Absolutní nula a jak se k ní přiblížit",["physics"]],
+    [418,"Pět knižních doporučení jako další samostatná epizoda",["culture"]],
+    [1369,"Tmavá hmota 3 po jejím skutečném objevu",["space"]],
+    [1374,"Život na neobvyklých místech ve vesmíru",["space"]],
+    [429,"Je matematika vymyšlená? – připomenutý dluh",["math"]],
+    [437,"Aharonovův–Bohmův jev, až za něj bude Nobelova cena",["physics"]],
+    [1391,"Vrátit se příští říjen k Nobelovým tipům",["people"]],
+    [1399,"Samostatná úvodní epizoda o prvočíslech",["math"]],
+    [449,"Goldbachova hypotéza znovu, až bude vyřešena",["math"]],
+    [1446,"Steven Chu o laserovém chlazení a budoucnosti energetiky",["physics","people"]],
+    [1447,"Profilový rozhovor s Frankem o astronomii, SETI a teleskopu",["space","people"]],
+    [1448,"Kip Thorne o časové symetrii slučování černých děr",["space","people"]],
+    [1449,"Carole Mundell o gama záblescích a evropských vesmírných misích",["space","people"]],
+    [1453,"Rozhovory s Joelem Parkerem z mise Lucy",["space"]],
+    [607,"Věda o kovářství",["tech"]],
+    [612,"Knižní tipy na Vánoce",["culture"]],
+    [1599,"Série o miléniových problémech",["math"]],
+    [740,"LISA a její výsledky kolem roku 2037",["space"]],
+    [771,"Magnetary – připomenutý nevyřízený díl",["space"]],
+    [1872,"Samostatná epizoda o zachytávání CO₂ – carbon capture",["earth"]],
+    [836,"Juraj Tekel znovu přijde povídat o heliu",["physics"]],
+    [1034,"Vánoční D&D speciál – Smrtonosná pasca: Exlaris",["culture"]],
+    [1717,"Jak se váží molekuly a izotopy",["physics"]],
+    [904,"Jaderná fúze uvnitř hvězd",["space","physics"]],
+    [919,"Lev Landau",["people"]],
+    [1727,"Po předpremiéře natočit rozbor Poslední šance se spoilery",["culture"]],
+    [928,"Fraktální dimenze na živém natáčení",["math"]],
+    [1740,"Zveřejnit už natočenou epizodu o dopaminu",["life"]],
+    [1748,"Kofein: původ v rostlinách a domluva kavárenské epizody",["life"]],
+    [1774,"Samostatná epizoda o Penroseově cyklickém vesmíru",["space"]],
+    [1775,"Velký třesk jako spleť červích děr",["space"]],
+    [1795,"Druhý díl reprodukční dvojice: Vajíčka",["life"]],
+    [1797,"Živé natáčení 29. září v Bohema baru – později Carl Sagan",["people"]],
+    [1818,"Vydat rozhovor o fotografování zatmění s českým specialistou",["space"]],
+    [1820,"Živý portrét Roberta Hooka v keramickém studiu",["people"]],
+    [1880,"Připravit přehled Nobelových cen 2026",["people"]],
+    [1010,"Rozhovory o vesmíru o kometě a dalších nebeských poutnících",["space"]],
+    [1932,"Rozšířit portréty žen ve vědě přibližně na dvacet dílů",["people"]]
+  ];
+  const byKey=new Map([...reviewed,...audited,...nextBatch].map(([candidate,title,ids])=>[JSON.stringify([candidate,title]),ids]));
   function topicsFor(record){
     // This first pass categorizes only genuine promises; proposals/ideas wait.
     if(!record||record.section!=='episodes'||record.kategorie!=='Sliby')return [];
     const label=record.displayTema||record.compactTitle||record.tema||'';
-    return byKey.get(JSON.stringify([Number(record.candidate),label]))||[];
+    return groupIds(byKey.get(JSON.stringify([Number(record.candidate),label]))||[]);
   }
   root.VedatorSlibyEpisodeTopics=Object.freeze({
     topics:Object.freeze(topics.map(([id,label])=>Object.freeze({id,label}))),
     reviewed:Object.freeze(reviewed.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
     audited:Object.freeze(audited.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
+    nextBatch:Object.freeze(nextBatch.map(([candidate,title,ids])=>Object.freeze({candidate,title,ids:Object.freeze([...ids])}))),
+    groupIds,groupFor:id=>parent[id]||null,
     topicsFor
   });
 })(typeof window==='undefined'?globalThis:window);
