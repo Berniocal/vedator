@@ -111,18 +111,20 @@ assert(topicApi.reviewed.length>=15,'Initial carefully reviewed topic batch shou
 assert(topicApi.topics.some(t=>t.label==='Černé díry')&&topicApi.topics.some(t=>t.label==='Osobnosti vědy'),'Match the current series/topics taxonomy');
 assert(topicApi.audited.length>=30,'Second manual audit must include substantial verified episode promises');
 const assignments=[...topicApi.reviewed,...topicApi.audited];
+const nonPromisesInTopicBatch=[];
 for(const item of assignments){
   if(topicApi.reviewed.includes(item))assert(existingReview.groups.some(group=>group.title===item.title&&getRootCandidate(group.members[0])===item.candidate),'Duplicate-review assignment must be documented: '+item.title);
   const matches=actual.findings.filter(row=>Number(row.candidate)===item.candidate&&(row.displayTema||row.compactTitle||row.tema)===item.title);
   assert.equal(matches.length,1,'Curated assignment must exist exactly once in the live report: '+item.title);
   assert.equal(matches[0].section,'episodes','Only real promises on episodes may be tagged: '+item.title);
-  assert.equal(matches[0].kategorie,'Sliby','First topic batch must be restricted to Sliby, not Nápady: '+item.title);
+  if(matches[0].kategorie!=='Sliby')nonPromisesInTopicBatch.push({candidate:item.candidate,title:item.title,actual:matches[0].kategorie});
   const record={candidate:item.candidate,displayTema:item.title,section:'episodes'};
   assert.deepEqual(Array.from(topicApi.topicsFor(record)),Array.from(item.ids),'Topic assignment must match reviewed decision');
   assert.equal(topicApi.topicsFor({...record,section:'other'}).length,0,'Never categorize non-episode promises');
   assert.equal(topicApi.topicsFor({...record,candidate:item.candidate+200000}).length,0,'An identical title with a different identity must not match');
 }
 assert.equal(topicApi.topicsFor({section:'episodes',candidate:999999,tema:'Žádný známý slib'}).length,0,'Unreviewed episode promises are not classified by guesswork');
+assert.deepEqual(nonPromisesInTopicBatch,[],'Topic batch must omit these reviewed ideas until the next phase: '+JSON.stringify(nonPromisesInTopicBatch));
 assert(appHtml.includes('html body .summary,html body .summary+.personal-help{display:none!important}'),'Old big status summary must be hidden');
 assert(appHtml.includes("['fulfilled','Splněné'],['unfulfilled','Nesplněné'],['future','Budoucí sliby']"),'Only three combined status group choices are offered');
 assert(appHtml.includes("record.stav==='Splněno později'||record.stav==='Splněno už dříve'?'fulfilled'"),'Fulfilled earlier and later are one choice');
