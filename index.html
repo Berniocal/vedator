@@ -467,14 +467,17 @@ html body :is(#categories,#sections){display:flex!important;flex:0 0 auto!import
 html body :is(#categories,#sections)::-webkit-scrollbar{display:none}
 html body #vedator-sliby-status-filters{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:8px!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:8px 0 2px!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch}
 html body #vedator-sliby-status-filters::-webkit-scrollbar{display:none}
+html body #vedator-sliby-episode-topics{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:8px!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:8px 0 2px!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch}
+html body #vedator-sliby-episode-topics::-webkit-scrollbar{display:none}
+html body #vedator-sliby-episode-topics[hidden]{display:none!important}
 html body .summary,html body .summary+.personal-help{display:none!important}
-html body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option{box-sizing:border-box!important;position:relative!important;display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;gap:0!important;width:auto!important;min-width:0!important;min-height:36px!important;margin:0!important;padding:8px 12px!important;border:1px solid var(--line,#d4d8e2)!important;border-radius:999px!important;background:var(--card,#fff)!important;color:var(--ink,#212538)!important;box-shadow:none!important;font-family:Arial,sans-serif!important;font-size:13.333px!important;font-weight:400!important;line-height:normal!important;white-space:nowrap!important;cursor:pointer!important;transition:border-color .15s,background-color .15s!important}
-html body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option input{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
-html body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option:hover{border-color:#7c6eef!important}
-html body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option:focus-within{outline:2px solid #7c6eef!important;outline-offset:2px!important}
-html body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option.is-selected,html body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important;font-weight:800!important}
-html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option{background:#171b25!important;color:#edf1f8!important;border-color:#414a5e!important}
-html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option.is-selected,html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters) .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important}
+html body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option{box-sizing:border-box!important;position:relative!important;display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;gap:0!important;width:auto!important;min-width:0!important;min-height:36px!important;margin:0!important;padding:8px 12px!important;border:1px solid var(--line,#d4d8e2)!important;border-radius:999px!important;background:var(--card,#fff)!important;color:var(--ink,#212538)!important;box-shadow:none!important;font-family:Arial,sans-serif!important;font-size:13.333px!important;font-weight:400!important;line-height:normal!important;white-space:nowrap!important;cursor:pointer!important;transition:border-color .15s,background-color .15s!important}
+html body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option input{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+html body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option:hover{border-color:#7c6eef!important}
+html body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option:focus-within{outline:2px solid #7c6eef!important;outline-offset:2px!important}
+html body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option.is-selected,html body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important;font-weight:800!important}
+html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option{background:#171b25!important;color:#edf1f8!important;border-color:#414a5e!important}
+html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option.is-selected,html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important}
 html body #cards{margin-bottom:16px}
 `;
   const embeddedDarkCSS=`
@@ -622,6 +625,69 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     status.value='';
     page.render();
   };
+  // Third horizontal row: selected, intentionally reviewed topics of promised episodes.
+  // Unreviewed entries are explicitly kept in "Nezařazené", not guessed by keywords
+  // from a source episode or from a coincidental title match.
+  const installSlibyEpisodeTopics=doc=>{
+    const page=iframe.contentWindow;
+    const catalog=page?.VedatorSlibyEpisodeTopics;
+    const anchor=doc.getElementById('vedator-sliby-status-filters');
+    if(!catalog||!anchor||typeof page.sectionRows!=='function'||typeof page.render!=='function')return;
+    if(doc.getElementById('vedator-sliby-episode-topics'))return;
+    const topicOptions=[
+      {id:'all',label:'Všechna témata'},
+      ...catalog.topics,
+      {id:'unclassified',label:'Nezařazené'}
+    ];
+    const valid=new Set(topicOptions.map(item=>item.id));
+    let saved=null;
+    try{saved=JSON.parse(localStorage.getItem(slibyViewKey)||'null')}catch(error){}
+    let selected=valid.has(saved?.episodeTopic)?saved.episodeTopic:'all';
+    const row=doc.createElement('div');
+    row.id='vedator-sliby-episode-topics';
+    row.setAttribute('role','group');
+    row.setAttribute('aria-label','Témata slíbených epizod');
+    const episodeSectionEnabled=()=>doc.querySelector('#sections .filter-option[data-section="episodes"] input')?.checked??true;
+    const buttons=new Map();
+    const update=()=>{
+      for(const [key,button] of buttons){
+        const active=key===selected;
+        button.classList.toggle('is-selected',active);
+        button.setAttribute('aria-pressed',String(active));
+      }
+      row.hidden=!episodeSectionEnabled();
+    };
+    for(const {id,label} of topicOptions){
+      const button=doc.createElement('button');
+      button.type='button';
+      button.className='filter-option';
+      button.dataset.episodeTopic=id;
+      button.textContent=label;
+      button.addEventListener('click',()=>{
+        selected=id;
+        update();
+        page.render();
+      });
+      buttons.set(id,button);
+      row.appendChild(button);
+    }
+    anchor.insertAdjacentElement('afterend',row);
+    const originalSectionRows=page.sectionRows;
+    page.sectionRows=function(){
+      const records=originalSectionRows();
+      if(selected==='all'||!episodeSectionEnabled())return records;
+      return records.filter(record=>{
+        if(record.section!=='episodes')return false;
+        const matched=catalog.topicsFor(record);
+        return selected==='unclassified'?!matched.length:matched.includes(selected);
+      });
+    };
+    doc.addEventListener('change',event=>{
+      if(event.target.matches?.('#sections input'))update();
+    });
+    update();
+    page.render();
+  };
   const initializedSlibyDocuments=new WeakSet();
   const installSlibyViewMemory=doc=>{
     const page=iframe.contentWindow;
@@ -641,6 +707,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
         order:slibyOrderOptions.some(([value])=>value===order.value)?order.value:'newest',
         status:'',
         statusGroups:[...doc.querySelectorAll('#vedator-sliby-status-filters button[aria-pressed="true"]')].map(button=>button.dataset.statusGroup),
+        episodeTopic:doc.querySelector('#vedator-sliby-episode-topics button[aria-pressed="true"]')?.dataset.episodeTopic||'all',
         search:search.value,
         showDeleted:doc.getElementById('show-deleted')?.getAttribute('aria-pressed')==='true'
       };
@@ -682,7 +749,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       if(event.target===search)remember();
     });
     doc.addEventListener('click',event=>{
-      if(event.target.closest?.('#vedator-sliby-status-filters button,#show-deleted,#reset-defaults'))remember();
+      if(event.target.closest?.('#vedator-sliby-status-filters button,#vedator-sliby-episode-topics button,#show-deleted,#reset-defaults'))remember();
     });
   };
   const sync=()=>{
@@ -702,6 +769,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       if(compact&&!compact.checked)compact.click();
       installOrderSelector(doc);
       installSlibyStatusFilters(doc);
+      installSlibyEpisodeTopics(doc);
       installSlibyViewMemory(doc);
       // Reveal only after the final embedded layout, sorting and stored filters are ready.
       iframe.dataset.slibyReady='true';
