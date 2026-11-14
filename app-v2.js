@@ -3954,6 +3954,12 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
       // setView() uses filterActive() to create its first 20 interactive cards.
       // Other tabs build their cards on first entry instead of blocking startup.
       bind();setView('episodes');void askAiInitialize();
+      // Questions/Nonquestions used to feel instant because their first batch
+      // was pre-rendered during startup. Restore that benefit without making
+      // the user wait for hidden DOM before the episode cards appear.
+      const warmQuestionTabs=()=>{renderQuestions();renderNonQuestions()};
+      if('requestIdleCallback' in window)requestIdleCallback(warmQuestionTabs,{timeout:1400});
+      else setTimeout(warmQuestionTabs,120);
       status.textContent='';
       document.documentElement.dataset.vedatorV2Ready='1';window.dispatchEvent(new CustomEvent('vedator-v2-ready',{detail:{episodes:state.data.episodes.length,questions:state.data.questions.length,playlists:state.playlists.length,language:state.language}}));setTimeout(importSharedPlaylist,0);
     }catch(error){status.textContent=`${text('V2 se nepodařilo načíst','V2 sa nepodarilo načítať')}: ${error.message}`;status.classList.add('error');console.error(error)}
