@@ -134,6 +134,7 @@ async function main() {
   if (!/^[0-9a-f]{40}$/i.test(checkoutSha)) fail('Missing actual checkout SHA');
   const expectedEpisodes = JSON.parse(fs.readFileSync('episodes.json', 'utf8'));
   const expectedContent = JSON.parse(fs.readFileSync('content-v2.json', 'utf8'));
+  const expectedFirstPaint = JSON.parse(fs.readFileSync('first-paint.json', 'utf8'));
   console.log('Ověřit živá produkční data: checkout SHA ' + checkoutSha);
   console.log('Expected RSS episodes: ' + sourceEpisodes(expectedEpisodes).length);
   let lastError;
@@ -141,6 +142,9 @@ async function main() {
     try {
       const liveEpisodes = await downloadJson('episodes.json', checkoutSha, attempt);
       const liveContent = await downloadJson('content-v2.json', checkoutSha, attempt);
+      const liveFirstPaint = await downloadJson('first-paint.json', checkoutSha, attempt);
+      if (!isDeepStrictEqual(liveFirstPaint, expectedFirstPaint))
+        fail('Live first-paint.json differs from the deployed initial preview');
       const result = verifyPayloads(expectedEpisodes, expectedContent, liveEpisodes, liveContent);
       console.log('OVĚŘENO: episodes=' + result.episodes +
         ', specials=' + result.specials + ', translatedSpecials=' + result.translatedSpecials +
