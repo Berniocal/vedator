@@ -1679,6 +1679,9 @@
     $('#count-v2').textContent=(state.query.trim()||parityUi.episodeTopic!=='all')?text('Nalezeno ','Nájdených ')+items.length+' / '+state.data.episodes.length:state.data.episodes.length+' '+text('epizod','epizód');
   }
   function refreshEpisodeCard(number){
+    // Keep the followed summary mounted: progress updates otherwise replace its
+    // entire DOM (or the entire list for status sorts) every five seconds.
+    if(state.view==='episodes'&&playerChapterFollow.number===Number(number))return;
     if(state.view==='episodes'&&['started','completed','unheard'].includes(parityUi.episodeSort)){readyTabLists.delete('episodes');renderEpisodes();return}
     const episode=episodeByNumber(number),old=$('#episodes-v2 article[data-episode="'+Number(number)+'"]');if(!episode||!old)return;const open=old.querySelector('.episode-summary-v2')?.open,host=document.createElement('div');host.innerHTML=cardEpisode(episode);const card=host.firstElementChild;window.MathJax?.typesetClear?.([old]);old.replaceWith(card);const summary=card.querySelector('.episode-summary-v2');if(summary&&open)summary.open=true;parityTypeset(card);
   }
@@ -4544,12 +4547,24 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     if(Number.isFinite(saved)&&saved>=0)return saved;
     return Math.max(0,Number(readJson(LAST_PLAYBACK_KEY,null)?.time)||0);
   }
-  // Follow the chapter while the listener stays on this episode's open summary.
-  // A manual page scroll ends following; tapping the player title enables it again.
+  // Follow chapter changes in live player time, without rebuilding the open card.
+  // A deliberate manual page scroll ends following; the title re-enables it.
   const playerChapterFollow={number:0,index:-1};
+  let playerChapterFollowTimer=0;
   function stopPlayerChapterFollow(){
     playerChapterFollow.number=0;
     playerChapterFollow.index=-1;
+    if(playerChapterFollowTimer){clearInterval(playerChapterFollowTimer);playerChapterFollowTimer=0}
+  }
+  function startPlayerChapterFollow(number,index){
+    stopPlayerChapterFollow();
+    playerChapterFollow.number=number;
+    playerChapterFollow.index=index;
+    // Some Android audio/MSE paths throttle HTMLAudioElement timeupdate. Poll
+    // the same clock shown in the player, only while following is enabled.
+    playerChapterFollowTimer=setInterval(()=>{
+      if(!document.hidden)followPlayerChapterTick();
+    },450);
   }
   function playerChapterIndex(summary,chapter){
     return [...summary.querySelectorAll('.episode-chapter-v2')].indexOf(chapter);
@@ -4576,7 +4591,9 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
       return;
     }
     const clock=playbackClock();
-    if(!clock.ready||!Number.isFinite(clock.time))return;
+    // The MSE player may report ready=false while its episode-relative time
+    // still advances normally. That flag is not a condition for following.
+    if(!Number.isFinite(clock.time))return;
     const chapter=playerTitleChapter(summary,clock.time);
     if(!chapter.classList.contains('episode-chapter-v2'))return;
     const index=playerChapterIndex(summary,chapter);
@@ -4598,16 +4615,38 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     audio.addEventListener('timeupdate',followPlayerChapterTick);
     audio.addEventListener('seeked',followPlayerChapterTick);
     audio.addEventListener('loadedmetadata',followPlayerChapterTick);
+    audio.addEventListener('playing',followPlayerChapterTick);
+    if(continuousPlayer)continuousPlayer.addEventListener('update',followPlayerChapterTick);
     document.addEventListener('visibilitychange',()=>{
       if(!document.hidden)followPlayerChapterTick();
     });
-    const manualScroll=event=>{
+    let touchOrigin=null;
+    document.addEventListener('touchstart',event=>{
+      const target=event.target;
+      if(!playerChapterFollow.number||state.view!=='episodes'||event.touches.length!==1||
+         (target instanceof Element&&target.closest('#player-v2,#player-expand-v2'))){
+        touchOrigin=null;return;
+      }
+      const touch=event.touches[0];
+      touchOrigin={id:touch.identifier,x:touch.clientX,y:touch.clientY};
+    },{passive:true});
+    document.addEventListener('touchmove',event=>{
+      if(!touchOrigin||!playerChapterFollow.number)return;
+      const touch=[...event.changedTouches].find(t=>t.identifier===touchOrigin.id);
+      if(!touch)return;
+      const dx=touch.clientX-touchOrigin.x,dy=touch.clientY-touchOrigin.y;
+      if(Math.abs(dy)>22&&Math.abs(dy)>Math.abs(dx)*0.8){
+        touchOrigin=null;
+        stopPlayerChapterFollow();
+      }
+    },{passive:true});
+    document.addEventListener('touchend',()=>{touchOrigin=null},{passive:true});
+    document.addEventListener('touchcancel',()=>{touchOrigin=null},{passive:true});
+    document.addEventListener('wheel',event=>{
       if(!playerChapterFollow.number||state.view!=='episodes')return;
       if(event.target instanceof Element&&event.target.closest('#player-v2,#player-expand-v2'))return;
       stopPlayerChapterFollow();
-    };
-    document.addEventListener('touchmove',manualScroll,{passive:true});
-    document.addEventListener('wheel',manualScroll,{passive:true});
+    },{passive:true});
     document.addEventListener('keydown',event=>{
       if(!playerChapterFollow.number||event.target?.closest?.('input,textarea,select'))return;
       if(['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key))stopPlayerChapterFollow();
@@ -4654,8 +4693,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
           target.classList.add('deep-target');
           // Following starts only after the chapter summary is opened explicitly.
           if(currentSummary?.open&&target.classList.contains('episode-chapter-v2')){
-            playerChapterFollow.number=number;
-            playerChapterFollow.index=playerChapterIndex(currentSummary,target);
+            startPlayerChapterFollow(number,playerChapterIndex(currentSummary,target));
           }
           // Immediate scrolling avoids a lengthy smooth animation on older episodes.
           target.scrollIntoView({behavior:'auto',block:'center'});
