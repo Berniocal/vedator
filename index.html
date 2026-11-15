@@ -509,7 +509,9 @@ html body main{padding-top:0!important;margin-top:0!important;max-width:none!imp
 html body main>header{display:none!important}
 html body .view-actions{display:none!important}
 html body .toolbar #q{display:none!important}
-html body .toolbar{position:relative!important;top:auto!important;padding-top:0!important;margin-top:4px!important;justify-content:flex-start!important;background:transparent!important}
+html body .toolbar{display:none!important}
+html body .report-actions{display:flex!important;align-items:center!important;justify-content:flex-start!important;flex-wrap:nowrap!important;gap:8px!important;width:100%!important;min-width:0!important;margin:8px 0 5px!important}
+html body .report-actions #vedator-sliby-order{display:block!important;flex:1 1 220px!important;width:auto!important;min-width:0!important;max-width:260px!important;margin:0!important}
 /* Všechny filtry Slibů v JEDINÉ druhé řadě jako .parity-topics-v2 jinde ve Vedátoru. */
 html body .filter-groups{display:flex!important;align-items:center!important;flex-wrap:nowrap!important;gap:8px!important;width:100%!important;min-width:0!important;max-width:100%!important;margin:0!important;padding:10px 0 1px!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch}
 html body .filter-groups::-webkit-scrollbar{display:none}
@@ -589,8 +591,9 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
   const installOrderSelector=doc=>{
     const status=doc.getElementById('status');
     const toolbar=status?.closest('.toolbar');
+    const actions=doc.querySelector('.report-actions');
     const page=iframe.contentWindow;
-    if(!toolbar||!page||doc.getElementById('vedator-sliby-order'))return;
+    if(!toolbar||!actions||!page||doc.getElementById('vedator-sliby-order'))return;
     if(typeof page.sectionRows!=='function'||typeof page.promiseMentions!=='function'||typeof page.render!=='function')return;
     const select=doc.createElement('select');
     select.id='vedator-sliby-order';
@@ -620,7 +623,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     status.hidden=true;
     status.setAttribute('aria-hidden','true');
     status.tabIndex=-1;
-    toolbar.appendChild(select);
+    actions.appendChild(select);
     select.addEventListener('change',()=>page.render());
     page.render();
   };
