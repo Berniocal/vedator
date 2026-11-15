@@ -341,9 +341,7 @@ body.vedator-sliby-active main > .panel{position:sticky;top:0;z-index:350;box-sh
       <button class="tab-v2" data-view="feedback" type="button">Zpětná vazba</button>
       <button class="tab-v2" data-view="data" type="button">Moje data</button>
     </div>
-    <div id="sliby-filters-v2" class="sliby-filters-v2 hidden" aria-label="Filtry slibů">
-      <div id="sliby-main-general-v2" class="sliby-filter-row-v2" role="group" aria-label="Druh a obsah slibů"></div>
-      <div id="sliby-main-status-v2" class="sliby-filter-row-v2" role="group" aria-label="Stav splnění slibů"></div>
+    <div id="sliby-filters-v2" class="sliby-filters-v2 hidden" aria-label="Témata slibů">
       <div id="sliby-main-topics-v2" class="sliby-filter-row-v2" role="group" aria-label="Témata slibů"></div>
     </div>
   </section>
@@ -531,8 +529,8 @@ html body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby
 html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option{background:#171b25!important;color:#edf1f8!important;border-color:#414a5e!important}
 html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option.is-selected,html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important}
 html body #cards{margin-bottom:16px}
-/* Ovládací bubliny jsou v horním panelu; původní skryté prvky nadále řídí filtry reportu. */
-html body .filter-groups,html body #vedator-sliby-status-filters,html body #vedator-sliby-episode-topics{display:none!important}
+/* Pouze tematické bubliny jsou v hlavním panelu; ostatní filtry zůstávají ve Slibech. */
+html body #vedator-sliby-episode-topics{display:none!important}
 `;
   const embeddedDarkCSS=`
 /* Embedded Sliby: Vedator dark palette; styling only */
@@ -769,11 +767,9 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     if(!mainSlibyFilters)return;
     if(mirroredSlibyDocument===doc){updateMainSlibyFilters();return;}
     mirroredSlibyButtons=[];
-    const general=document.getElementById('sliby-main-general-v2');
-    const status=document.getElementById('sliby-main-status-v2');
     const topics=document.getElementById('sliby-main-topics-v2');
-    if(!general||!status||!topics)return;
-    general.replaceChildren();status.replaceChildren();topics.replaceChildren();
+    if(!topics)return;
+    topics.replaceChildren();
     const mirror=(target,selector)=>{
       for(const source of doc.querySelectorAll(selector)){
         const button=document.createElement('button');
@@ -789,9 +785,6 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
         mirroredSlibyButtons.push({source,button});
       }
     };
-    mirror(general,'#categories .filter-option');
-    mirror(general,'#sections .filter-option');
-    mirror(status,'#vedator-sliby-status-filters button');
     mirror(topics,'#vedator-sliby-episode-topics button');
     mirroredSlibyDocument=doc;
     doc.addEventListener('change',updateMainSlibyFilters);
