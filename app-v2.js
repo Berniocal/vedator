@@ -4544,10 +4544,80 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     if(Number.isFinite(saved)&&saved>=0)return saved;
     return Math.max(0,Number(readJson(LAST_PLAYBACK_KEY,null)?.time)||0);
   }
+  // Follow the chapter while the listener stays on this episode's open summary.
+  // A manual page scroll ends following; tapping the player title enables it again.
+  const playerChapterFollow={number:0,index:-1};
+  function stopPlayerChapterFollow(){
+    playerChapterFollow.number=0;
+    playerChapterFollow.index=-1;
+  }
+  function playerChapterIndex(summary,chapter){
+    return [...summary.querySelectorAll('.episode-chapter-v2')].indexOf(chapter);
+  }
+  function highlightPlayerChapter(target){
+    $$('.deep-target,.player-title-current-chapter-v2').forEach(node=>{
+      node.classList.remove('deep-target','player-title-current-chapter-v2');
+    });
+    if(!target)return;
+    target.classList.add('player-title-current-chapter-v2');
+  }
+  function followPlayerChapterTick(){
+    const number=playerChapterFollow.number;
+    if(!number)return;
+    if(state.view!=='episodes'||Number(state.current?.episode?.number)!==number){
+      stopPlayerChapterFollow();
+      return;
+    }
+    const card=$('#episodes-v2 article[data-episode="'+number+'"]');
+    if(!card)return; // A batched rerender can temporarily replace the card.
+    const summary=card.querySelector('.episode-summary-v2');
+    if(!summary?.open){
+      stopPlayerChapterFollow();
+      return;
+    }
+    const clock=playbackClock();
+    if(!clock.ready||!Number.isFinite(clock.time))return;
+    const chapter=playerTitleChapter(summary,clock.time);
+    if(!chapter.classList.contains('episode-chapter-v2'))return;
+    const index=playerChapterIndex(summary,chapter);
+    if(index<0)return;
+    const changed=index!==playerChapterFollow.index;
+    const highlighted=chapter.classList.contains('player-title-current-chapter-v2');
+    if(!changed&&highlighted)return;
+    highlightPlayerChapter(chapter);
+    playerChapterFollow.index=index;
+    // A routine card refresh only needs the highlight restored, not a new scroll.
+    if(changed&&document.visibilityState==='visible'){
+      chapter.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+  }
+  function installPlayerChapterFollowing(){
+    const audio=$('#audio-v2');
+    if(!audio||audio.dataset.chapterFollowReady==='1')return;
+    audio.dataset.chapterFollowReady='1';
+    audio.addEventListener('timeupdate',followPlayerChapterTick);
+    audio.addEventListener('seeked',followPlayerChapterTick);
+    audio.addEventListener('loadedmetadata',followPlayerChapterTick);
+    document.addEventListener('visibilitychange',()=>{
+      if(!document.hidden)followPlayerChapterTick();
+    });
+    const manualScroll=event=>{
+      if(!playerChapterFollow.number||state.view!=='episodes')return;
+      if(event.target instanceof Element&&event.target.closest('#player-v2,#player-expand-v2'))return;
+      stopPlayerChapterFollow();
+    };
+    document.addEventListener('touchmove',manualScroll,{passive:true});
+    document.addEventListener('wheel',manualScroll,{passive:true});
+    document.addEventListener('keydown',event=>{
+      if(!playerChapterFollow.number||event.target?.closest?.('input,textarea,select'))return;
+      if(['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key))stopPlayerChapterFollow();
+    });
+  }
   function showCurrentEpisodeFromPlayerTitle(){
     const number=Number(state.current?.episode?.number);
     if(!state.data||!number||!episodeByNumber(number))return;
     const playbackSeconds=playerTitlePlaybackPosition();
+    stopPlayerChapterFollow();
     // Release the prior search/series filter so the requested episode can appear.
     state.query='';
     parityUi.episodeTopic='all';
@@ -4580,11 +4650,13 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
           const currentSummary=currentCard.querySelector('.episode-summary-v2');
           if(currentSummary){currentSummary.open=true;parityTypeset(currentSummary)}
           const target=currentSummary?playerTitleChapter(currentSummary,playbackSeconds):currentCard;
-          $$('.deep-target,.player-title-current-chapter-v2').forEach(node=>{
-            node.classList.remove('deep-target','player-title-current-chapter-v2');
-          });
+          highlightPlayerChapter(target);
           target.classList.add('deep-target');
-          if(target.classList.contains('episode-chapter-v2'))target.classList.add('player-title-current-chapter-v2');
+          // Following starts only after the chapter summary is opened explicitly.
+          if(currentSummary?.open&&target.classList.contains('episode-chapter-v2')){
+            playerChapterFollow.number=number;
+            playerChapterFollow.index=playerChapterIndex(currentSummary,target);
+          }
           // Immediate scrolling avoids a lengthy smooth animation on older episodes.
           target.scrollIntoView({behavior:'auto',block:'center'});
           setTimeout(()=>target.classList.remove('deep-target'),3600);
@@ -4652,7 +4724,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     if(title?.dataset.episodeLinkReady==='2')
       title.setAttribute('aria-label',text('Přejít na aktuální kapitolu: ','Prejsť na aktuálnu kapitolu: ')+String(value||''));
   };
-  window.addEventListener('vedator-v2-ready',installPlayerTitleEpisodeLink);
+  window.addEventListener('vedator-v2-ready',()=>{installPlayerTitleEpisodeLink();installPlayerChapterFollowing()});
 
   window.addEventListener('vedator-v2-ready',()=>{setTimeout(()=>{restoreLastPlayback().catch(error=>console.warn('Last playback restore failed',error))},0)},{once:true});
 
