@@ -4,11 +4,12 @@
 // sliby/duplicate-review.json, NOT automatic keyword guesses.
 // Leave all other episode promises "Nezařazené" until individually reviewed.
 (function exposeReviewedEpisodePromiseTopics(root){
-  // Eight broad sections, deliberately fewer than the podcast's series/topics.
+  // Nine broad sections, with physics and practical energy technology separated.
   // Source assignments can retain precise terms, while the UI stays manageable.
   const topics=[
     ['space','Vesmír'],
-    ['physics','Fyzika a energie'],
+    ['physics','Fyzika'],
+    ['energy','Energetika'],
     ['math','Matematika'],
     ['life','Biologie a člověk'],
     ['tech','Technologie a AI'],
@@ -18,7 +19,7 @@
   ];
   const parent={
     space:'space',blackholes:'space',alienlife:'space',darkenergy:'space',missions:'space',
-    quantum:'physics',particles:'physics',energy:'physics',physics:'physics',
+    quantum:'physics',particles:'physics',physics:'physics',energy:'energy',
     math:'math',
     biology:'life',brain:'life',life:'life',
     informatics:'tech',tech:'tech',
@@ -118,7 +119,7 @@
     [1391,"Vrátit se příští říjen k Nobelovým tipům",["people"]],
     [1399,"Samostatná úvodní epizoda o prvočíslech",["math"]],
     [449,"Goldbachova hypotéza znovu, až bude vyřešena",["math"]],
-    [1446,"Steven Chu o laserovém chlazení a budoucnosti energetiky",["physics","people"]],
+    [1446,"Steven Chu o laserovém chlazení a budoucnosti energetiky",["physics","energy","people"]],
     [1447,"Profilový rozhovor s Frankem o astronomii, SETI a teleskopu",["space","people"]],
     [1448,"Kip Thorne o časové symetrii slučování černých děr",["space","people"]],
     [1449,"Carole Mundell o gama záblescích a evropských vesmírných misích",["space","people"]],
@@ -155,7 +156,7 @@
   // Teasers with unknown subject, jokes, short FAQ answers and non-episode
   // actions remain unclassified pending individual review.
   const ideaBatch=[
-    [1036,"Jaderná fúze / fúzní reaktory – první podnět",["physics"]],
+    [1036,"Jaderná fúze / fúzní reaktory – první podnět",["energy"]],
     [16,"Hypnóza a její různé podoby",["life"]],
     [1038,"Nové poznatky o dlouhodobé imunitě a paměti po očkování",["life"]],
     [1039,"Jak dlouho trvá přejít poušť a proč lidé bloudí",["earth"]],
@@ -209,7 +210,7 @@
     [1161,"Bludné planety jako samostatná epizoda",["space"]],
     [225,"Druhý a třetí díl trilogie Problém tří těles",["culture"]],
     [229,"Vznik barev a jejich vnímání mozkem",["life","physics"]],
-    [246,"Jak varovat vzdálené budoucí civilizace před jaderným odpadem",["tech","earth"]],
+    [246,"Jak varovat vzdálené budoucí civilizace před jaderným odpadem",["tech","earth","energy"]],
     [247,"Extravagantní vědecké hypotézy, které se ukázaly pravdivé",["culture"]],
     [1187,"Další novinky z Webbova teleskopu (původní avízo)",["space"]],
     [263,"Další historky z vědeckého prostředí",["culture"]],
@@ -285,7 +286,7 @@
     [885,"Druhy oběžných drah a jejich výhody a nevýhody",["space"]],
     [895,"Laviny s horským průvodcem jako hostem",["earth"]],
     [901,"Van Allenovy radiační pásy",["space"]],
-    [905,"Podrobnosti laserové inerciální fúze",["physics"]],
+    [905,"Podrobnosti laserové inerciální fúze",["energy"]],
     [1718,"Aktivní potlačování hluku jako téma podcastu",["tech","physics"]],
     [912,"Textil a jeho vliv na vznik civilizace",["culture"]],
     [930,"Různé struktury a fáze ledu",["physics"]],
@@ -310,7 +311,7 @@
     [1889,"Samostatná epizoda o sondách Voyager a jejich zlatých deskách",["space"]],
     [1918,"Vznik velkého mozku a používání ohně s antropologem",["life"]],
     [1925,"Embryogeneze a vznik tělesných os s odborným hostem",["life"]],
-    [1934,"Samostatně probrat Černobyl",["physics","earth"]],
+    [1934,"Samostatně probrat Černobyl",["energy","earth"]],
     [1935,"Portrét Johna Wheelera",["people"]]
   ];
   // Third review: categorize only sufficiently concrete topics.
