@@ -779,7 +779,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
         const button=document.createElement('button');
         button.type='button';
         button.className='topic-v2';
-        button.textContent=source.textContent.trim();
+        button.textContent=source.dataset.episodeTopic==='all'?'Vše':source.textContent.trim();
         button.addEventListener('click',()=>{
           const input=source.querySelector('input');
           if(input)input.click();else source.click();
