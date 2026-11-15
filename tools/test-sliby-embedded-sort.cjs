@@ -16,9 +16,11 @@ const iframe={contentWindow:{
   render(){this.lastRendered=this.sectionRows().map(r=>r.index)}
 }};
 let selector;
-const toolbar={appendChild(element){selector=element}};
+const toolbar={};
+const actions={appendChild(element){selector=element}};
 const status={closest:()=>toolbar,setAttribute(name,value){this[name]=value}};
 const doc={
+  querySelector:sel=>sel==='.report-actions'?actions:null,
   getElementById:id=>id==='status'?status:id==='vedator-sliby-order'?selector:null,
   createElement:tag=>({
     tag,value:'',textContent:'',children:[],listeners:{},
@@ -33,6 +35,7 @@ assert.deepEqual(Array.from(slibyOrderOptions,pair=>pair[0]),['newest','oldest',
 assert.deepEqual(selector.children.map(o=>o.textContent),[
   'Nejnovější první','Nejstarší první','Nejvícekrát slíbené','Nejméněkrát slíbené']);
 assert.equal(status.hidden,true);
+assert(html.includes('actions.appendChild(select);'),'Sorting control must be placed next to settings');
 assert.deepEqual(iframe.contentWindow.sectionRows().map(r=>r.index),[4,3,2,1]);
 for(const [choice,expected] of [
   ['oldest',[1,2,3,4]],
