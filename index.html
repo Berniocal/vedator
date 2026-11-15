@@ -300,6 +300,13 @@ body.vedator-feedback-active main > .status-row {display:none!important}
 #sliby-frame-v2{border:0;border-radius:0;background:transparent;height:calc(100dvh - 220px);min-height:360px}
 body.vedator-sliby-active main > .panel > .controls{display:flex!important}
 #sliby-v2{margin-top:0!important;position:relative}
+body.vedator-sliby-active main > .panel{position:sticky;top:0;z-index:350;box-shadow:var(--shadow-strong)}
+#sliby-filters-v2{display:grid;gap:0;min-width:0;width:100%}
+#sliby-filters-v2.hidden,body:not(.vedator-sliby-active) #sliby-filters-v2{display:none!important}
+.sliby-filter-row-v2{display:flex;align-items:center;gap:8px;min-width:0;width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:8px 0 2px}
+.sliby-filter-row-v2::-webkit-scrollbar{display:none}
+.sliby-filter-row-v2[hidden]{display:none!important}
+.sliby-filter-row-v2 .topic-v2{flex:0 0 auto}
 #sliby-frame-v2:not([data-sliby-ready="true"]){opacity:0;pointer-events:none}
 #sliby-loading-v2{position:absolute;top:14px;left:8px;margin:0;color:var(--muted);font-size:.92rem}
 #sliby-loading-v2[hidden]{display:none!important}
@@ -333,6 +340,11 @@ body.vedator-sliby-active main > .panel > .controls{display:flex!important}
       <button class="tab-v2" data-view="playlists" type="button">Playlisty</button>
       <button class="tab-v2" data-view="feedback" type="button">Zpětná vazba</button>
       <button class="tab-v2" data-view="data" type="button">Moje data</button>
+    </div>
+    <div id="sliby-filters-v2" class="sliby-filters-v2 hidden" aria-label="Filtry slibů">
+      <div id="sliby-main-general-v2" class="sliby-filter-row-v2" role="group" aria-label="Druh a obsah slibů"></div>
+      <div id="sliby-main-status-v2" class="sliby-filter-row-v2" role="group" aria-label="Stav splnění slibů"></div>
+      <div id="sliby-main-topics-v2" class="sliby-filter-row-v2" role="group" aria-label="Témata slibů"></div>
     </div>
   </section>
   <div class="status-row"><div id="status-v2" role="status" aria-live="polite">Načítám epizody a katalog…</div><div id="count-v2"></div></div>
@@ -519,6 +531,8 @@ html body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby
 html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option{background:#171b25!important;color:#edf1f8!important;border-color:#414a5e!important}
 html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option.is-selected,html[data-theme="dark"] body :is(#categories,#sections,#vedator-sliby-status-filters,#vedator-sliby-episode-topics) .filter-option:has(input:checked){background:#5b4bdb!important;border-color:#5b4bdb!important;color:#fff!important}
 html body #cards{margin-bottom:16px}
+/* Ovládací bubliny jsou v horním panelu; původní skryté prvky nadále řídí filtry reportu. */
+html body .filter-groups,html body #vedator-sliby-status-filters,html body #vedator-sliby-episode-topics{display:none!important}
 `;
   const embeddedDarkCSS=`
 /* Embedded Sliby: Vedator dark palette; styling only */
@@ -734,6 +748,59 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
     update();
     page.render();
   };
+  // A visual copy of the existing Sliby filters in the main, sticky search panel.
+  // Clicks go to the original iframe controls: its data, render, memory and search stay untouched.
+  const mainSlibyFilters=document.getElementById('sliby-filters-v2');
+  let mirroredSlibyDocument=null;
+  let mirroredSlibyButtons=[];
+  const updateMainSlibyFilters=()=>{
+    if(!mainSlibyFilters||!mirroredSlibyDocument)return;
+    for(const {source,button} of mirroredSlibyButtons){
+      const input=source.querySelector('input');
+      const active=input?input.checked:source.getAttribute('aria-pressed')==='true'||source.classList.contains('is-selected');
+      button.classList.toggle('active',active);
+      button.setAttribute('aria-pressed',String(active));
+    }
+    const sourceTopics=mirroredSlibyDocument.getElementById('vedator-sliby-episode-topics');
+    const mainTopics=document.getElementById('sliby-main-topics-v2');
+    if(mainTopics)mainTopics.hidden=!sourceTopics||sourceTopics.hidden;
+  };
+  const installMainSlibyFilters=doc=>{
+    if(!mainSlibyFilters)return;
+    if(mirroredSlibyDocument===doc){updateMainSlibyFilters();return;}
+    mirroredSlibyButtons=[];
+    const general=document.getElementById('sliby-main-general-v2');
+    const status=document.getElementById('sliby-main-status-v2');
+    const topics=document.getElementById('sliby-main-topics-v2');
+    if(!general||!status||!topics)return;
+    general.replaceChildren();status.replaceChildren();topics.replaceChildren();
+    const mirror=(target,selector)=>{
+      for(const source of doc.querySelectorAll(selector)){
+        const button=document.createElement('button');
+        button.type='button';
+        button.className='topic-v2';
+        button.textContent=source.textContent.trim();
+        button.addEventListener('click',()=>{
+          const input=source.querySelector('input');
+          if(input)input.click();else source.click();
+          updateMainSlibyFilters();
+        });
+        target.appendChild(button);
+        mirroredSlibyButtons.push({source,button});
+      }
+    };
+    mirror(general,'#categories .filter-option');
+    mirror(general,'#sections .filter-option');
+    mirror(status,'#vedator-sliby-status-filters button');
+    mirror(topics,'#vedator-sliby-episode-topics button');
+    mirroredSlibyDocument=doc;
+    doc.addEventListener('change',updateMainSlibyFilters);
+    doc.addEventListener('click',event=>{
+      if(event.target.closest?.('#vedator-sliby-status-filters,#vedator-sliby-episode-topics,#reset-defaults'))updateMainSlibyFilters();
+    });
+    mainSlibyFilters.classList.remove('hidden');
+    updateMainSlibyFilters();
+  };
   const initializedSlibyDocuments=new WeakSet();
   const installSlibyViewMemory=doc=>{
     const page=iframe.contentWindow;
@@ -817,6 +884,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       installSlibyStatusFilters(doc);
       installSlibyEpisodeTopics(doc);
       installSlibyViewMemory(doc);
+      installMainSlibyFilters(doc);
       // Reveal only after the final embedded layout, sorting and stored filters are ready.
       iframe.dataset.slibyReady='true';
       window.VedatorSetLoadingProgress?.('sliby-loading-v2',document.documentElement.lang.toLowerCase().startsWith('sk')?'Načítavam sľuby':'Načítám sliby',100);
