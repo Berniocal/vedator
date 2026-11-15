@@ -1636,7 +1636,12 @@
       (episode.link?'<a class="secondary" href="'+esc(episode.link)+'">'+text('Detail','Detail')+'</a>':'')+shareButton('episode',String(episode.number))+'</div></article>';
   }
 
+  let playerTitleJumpTarget=0;
   function parityDeepIndex(view,items){
+    if(view==='episodes'&&playerTitleJumpTarget){
+      const index=items.findIndex(item=>Number(item.number)===playerTitleJumpTarget);
+      if(index>=0)return index;
+    }
     const raw=location.hash.replace(/^#/,'');if(!raw)return-1;const params=new URLSearchParams(raw);
     if(view==='episodes'&&params.has('episode')){const number=Number(String(params.get('episode')).split('-')[0]);return items.findIndex(item=>Number(item.number)===number)}
     if(view==='questions'&&params.has('question')){const match=String(params.get('question')).match(/^(\d+):(\d+)$/);return match?items.findIndex(item=>Number(item.episode)===Number(match[1])&&Number(item.order)===Number(match[2])):-1}
@@ -4515,6 +4520,89 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     legacyVisualSetPlayerCollapsed(true);syncCollapsedPlayerIcon();queuePlayerFloatingPositions();
     return true;
   }
+
+  /* V2_PLAYER_TITLE_EPISODE_LINK_V1 */
+  // Jump to the real episode card without touching the audio element or playback context.
+  function showCurrentEpisodeFromPlayerTitle(){
+    const episode=state.current?.episode,number=Number(episode?.number);
+    if(!state.data||!episode||!Number.isFinite(number)||!episodeByNumber(number))return;
+    // Searches and topic filters may exclude the current episode.
+    // Leave the Ask search draft intact when navigating away from that tab.
+    state.query='';
+    parityUi.episodeTopic='all';
+    playerTitleJumpTarget=number;
+    try{
+      setView('episodes');
+      const container=$('#episodes-v2');
+      let card=container?.querySelector('article[data-episode="'+number+'"]');
+      // Episodes are lazily rendered in batches. Force a one-time deep render
+      // only when the chosen episode was not already present in the DOM.
+      if(!card){
+        readyTabLists.delete('episodes');
+        renderEpisodes();
+        card=container?.querySelector('article[data-episode="'+number+'"]');
+      }
+      if(!card)return;
+      // Show the full description; preserve the chapter summary's open state.
+      cardPolishEpisodeOpen.add(number);
+      if(!card.classList.contains('episode-open-v2')){
+        const summaryOpen=Boolean(card.querySelector('.episode-summary-v2')?.open);
+        const holder=document.createElement('div');
+        holder.innerHTML=cardEpisode(episode);
+        const replacement=holder.firstElementChild;
+        if(replacement){
+          card.replaceWith(replacement);
+          card=replacement;
+          if(summaryOpen){
+            const summary=card.querySelector('.episode-summary-v2');
+            if(summary)summary.open=true;
+          }
+          parityTypeset(card);
+        }
+      }
+      const target=card;
+      requestAnimationFrame(()=>{
+        if(!target.isConnected||state.view!=='episodes')return;
+        $('.deep-target').forEach(node=>node.classList.remove('deep-target'));
+        target.classList.add('deep-target');
+        target.scrollIntoView({behavior:'smooth',block:'start'});
+        setTimeout(()=>target.classList.remove('deep-target'),3600);
+      });
+    }finally{
+      playerTitleJumpTarget=0;
+    }
+  }
+  function installPlayerTitleEpisodeLink(){
+    const title=$('#player-title-v2');
+    if(!title||title.dataset.episodeLinkReady==='1')return;
+    title.dataset.episodeLinkReady='1';
+    title.setAttribute('role','button');
+    title.tabIndex=0;
+    const syncLabel=()=>{
+      const name=title.dataset.marqueeText||title.textContent||'';
+      title.setAttribute('aria-label',text('Zobrazit epizodu: ','Zobraziť epizódu: ')+name);
+    };
+    title.addEventListener('click',showCurrentEpisodeFromPlayerTitle);
+    title.addEventListener('keydown',event=>{
+      if(event.key==='Enter'||event.key===' '){
+        event.preventDefault();
+        showCurrentEpisodeFromPlayerTitle();
+      }
+    });
+    window.addEventListener('vedatorlanguagechange',syncLabel);
+    const style=document.createElement('style');
+    style.dataset.v2PlayerTitleEpisodeLink='1';
+    style.textContent='#player-title-v2[role="button"]{cursor:pointer;touch-action:manipulation}#player-title-v2[role="button"]:hover{text-decoration:underline}#player-title-v2[role="button"]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.episode-card-v2.deep-target{scroll-margin-top:14px}';
+    document.head.appendChild(style);
+    syncLabel();
+  }
+  const playerTitleOriginalSync=syncPlayerTitle;
+  syncPlayerTitle=function(value){
+    playerTitleOriginalSync(value);
+    const title=$('#player-title-v2');
+    if(title?.dataset.episodeLinkReady==='1')title.setAttribute('aria-label',text('Zobrazit epizodu: ','Zobraziť epizódu: ')+String(value||''));
+  };
+  window.addEventListener('vedator-v2-ready',installPlayerTitleEpisodeLink);
 
   window.addEventListener('vedator-v2-ready',()=>{setTimeout(()=>{restoreLastPlayback().catch(error=>console.warn('Last playback restore failed',error))},0)},{once:true});
 
