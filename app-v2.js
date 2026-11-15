@@ -4563,7 +4563,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
       const target=card;
       requestAnimationFrame(()=>{
         if(!target.isConnected||state.view!=='episodes')return;
-        $('.deep-target').forEach(node=>node.classList.remove('deep-target'));
+        $$('.deep-target').forEach(node=>node.classList.remove('deep-target'));
         target.classList.add('deep-target');
         target.scrollIntoView({behavior:'smooth',block:'start'});
         setTimeout(()=>target.classList.remove('deep-target'),3600);
