@@ -4521,13 +4521,34 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     return true;
   }
 
-  /* V2_PLAYER_TITLE_EPISODE_LINK_V1 */
-  // Jump to the real episode card without touching the audio element or playback context.
+  /* V2_PLAYER_TITLE_EPISODE_LINK_V2 */
+  // Open the summary chapter corresponding to the current playback position.
+  // Never change the source, paused state, or playhead when following the title.
+  function playerTitleChapter(summary,seconds){
+    const chapters=[...summary.querySelectorAll('.episode-chapter-v2')];
+    if(!chapters.length)return summary;
+    const time=Math.max(0,Number(seconds)||0);
+    let selected=chapters[0],best=-Infinity;
+    for(const chapter of chapters){
+      const value=chapter.querySelector('.episode-chapter-play-v2[data-seconds]')?.dataset.seconds;
+      const start=Number(value);
+      if(value===undefined||!Number.isFinite(start)||start>time+0.25||start<best)continue;
+      best=start;selected=chapter;
+    }
+    return selected;
+  }
+  function playerTitlePlaybackPosition(){
+    const clock=playbackClock(),currentKey=state.current?.key;
+    if(clock.ready&&Number.isFinite(clock.time))return Math.max(0,clock.time);
+    const saved=Number(state.progress[currentKey]?.currentTime);
+    if(Number.isFinite(saved)&&saved>=0)return saved;
+    return Math.max(0,Number(readJson(LAST_PLAYBACK_KEY,null)?.time)||0);
+  }
   function showCurrentEpisodeFromPlayerTitle(){
-    const episode=state.current?.episode,number=Number(episode?.number);
-    if(!state.data||!episode||!Number.isFinite(number)||!episodeByNumber(number))return;
-    // Searches and topic filters may exclude the current episode.
-    // Leave the Ask search draft intact when navigating away from that tab.
+    const number=Number(state.current?.episode?.number);
+    if(!state.data||!number||!episodeByNumber(number))return;
+    const playbackSeconds=playerTitlePlaybackPosition();
+    // Release the prior search/series filter so the requested episode can appear.
     state.query='';
     parityUi.episodeTopic='all';
     playerTitleJumpTarget=number;
@@ -4535,54 +4556,75 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
       setView('episodes');
       const container=$('#episodes-v2');
       let card=container?.querySelector('article[data-episode="'+number+'"]');
-      // Episodes are lazily rendered in batches. Force a one-time deep render
-      // only when the chosen episode was not already present in the DOM.
       if(!card){
         readyTabLists.delete('episodes');
         renderEpisodes();
         card=container?.querySelector('article[data-episode="'+number+'"]');
       }
       if(!card)return;
-      // Show the full description; preserve the chapter summary's open state.
-      cardPolishEpisodeOpen.add(number);
-      if(!card.classList.contains('episode-open-v2')){
-        const summaryOpen=Boolean(card.querySelector('.episode-summary-v2')?.open);
-        const holder=document.createElement('div');
-        holder.innerHTML=cardEpisode(episode);
-        const replacement=holder.firstElementChild;
-        if(replacement){
-          card.replaceWith(replacement);
-          card=replacement;
-          if(summaryOpen){
-            const summary=card.querySelector('.episode-summary-v2');
-            if(summary)summary.open=true;
-          }
-          parityTypeset(card);
-        }
-      }
-      const target=card;
+      // The description stays collapsed. Open just the chapter summary.
+      const summary=card.querySelector('.episode-summary-v2');
+      if(summary){summary.open=true;parityTypeset(summary)}
+      // Resolve the card again after the layout update in case tab rendering
+      // replaced the original node during the first tap.
       requestAnimationFrame(()=>{
-        if(!target.isConnected||state.view!=='episodes')return;
-        $$('.deep-target').forEach(node=>node.classList.remove('deep-target'));
-        target.classList.add('deep-target');
-        target.scrollIntoView({behavior:'smooth',block:'start'});
-        setTimeout(()=>target.classList.remove('deep-target'),3600);
+        try{
+          if(state.view!=='episodes')return;
+          let currentCard=$('#episodes-v2 article[data-episode="'+number+'"]');
+          if(!currentCard){
+            readyTabLists.delete('episodes');
+            renderEpisodes();
+            currentCard=$('#episodes-v2 article[data-episode="'+number+'"]');
+          }
+          if(!currentCard)return;
+          const currentSummary=currentCard.querySelector('.episode-summary-v2');
+          if(currentSummary){currentSummary.open=true;parityTypeset(currentSummary)}
+          const target=currentSummary?playerTitleChapter(currentSummary,playbackSeconds):currentCard;
+          $$('.deep-target,.player-title-current-chapter-v2').forEach(node=>{
+            node.classList.remove('deep-target','player-title-current-chapter-v2');
+          });
+          target.classList.add('deep-target');
+          if(target.classList.contains('episode-chapter-v2'))target.classList.add('player-title-current-chapter-v2');
+          // Immediate scrolling avoids a lengthy smooth animation on older episodes.
+          target.scrollIntoView({behavior:'auto',block:'center'});
+          setTimeout(()=>target.classList.remove('deep-target'),3600);
+        }finally{
+          playerTitleJumpTarget=0;
+        }
       });
-    }finally{
+    }catch(error){
       playerTitleJumpTarget=0;
+      console.warn('Could not show the current episode summary',error);
     }
   }
   function installPlayerTitleEpisodeLink(){
     const title=$('#player-title-v2');
-    if(!title||title.dataset.episodeLinkReady==='1')return;
-    title.dataset.episodeLinkReady='1';
+    if(!title||title.dataset.episodeLinkReady==='2')return;
+    title.dataset.episodeLinkReady='2';
     title.setAttribute('role','button');
     title.tabIndex=0;
     const syncLabel=()=>{
       const name=title.dataset.marqueeText||title.textContent||'';
-      title.setAttribute('aria-label',text('Zobrazit epizodu: ','Zobraziť epizódu: ')+name);
+      title.setAttribute('aria-label',text('Přejít na aktuální kapitolu: ','Prejsť na aktuálnu kapitolu: ')+name);
     };
-    title.addEventListener('click',showCurrentEpisodeFromPlayerTitle);
+    let touchStart=null,lastHandledTouch=-Infinity;
+    // On touchscreens the first tap can be consumed by a CSS hover/marquee
+    // change. Handle the released pointer directly, but ignore swipes.
+    title.addEventListener('pointerdown',event=>{
+      if(event.isPrimary&&(event.pointerType==='touch'||event.pointerType==='pen'))
+        touchStart={id:event.pointerId,x:event.clientX,y:event.clientY};
+    },{passive:true});
+    title.addEventListener('pointercancel',()=>{touchStart=null},{passive:true});
+    title.addEventListener('pointerup',event=>{
+      const start=touchStart;touchStart=null;
+      if(!start||event.pointerId!==start.id||Math.abs(event.clientX-start.x)>12||Math.abs(event.clientY-start.y)>12)return;
+      lastHandledTouch=performance.now();
+      showCurrentEpisodeFromPlayerTitle();
+    },{passive:true});
+    title.addEventListener('click',()=>{
+      if(performance.now()-lastHandledTouch<800)return;
+      showCurrentEpisodeFromPlayerTitle();
+    });
     title.addEventListener('keydown',event=>{
       if(event.key==='Enter'||event.key===' '){
         event.preventDefault();
@@ -4591,8 +4633,15 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     });
     window.addEventListener('vedatorlanguagechange',syncLabel);
     const style=document.createElement('style');
-    style.dataset.v2PlayerTitleEpisodeLink='1';
-    style.textContent='#player-title-v2[role="button"]{cursor:pointer;touch-action:manipulation}#player-title-v2[role="button"]:hover{text-decoration:underline}#player-title-v2[role="button"]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.episode-card-v2.deep-target{scroll-margin-top:14px}';
+    style.dataset.v2PlayerTitleEpisodeLink='2';
+    style.textContent=[
+      '#player-title-v2[role="button"]{cursor:pointer;touch-action:manipulation}',
+      '@media(hover:hover) and (pointer:fine){#player-title-v2[role="button"]:hover{text-decoration:underline}}',
+      '#player-title-v2[role="button"]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}',
+      '.episode-chapter-v2.player-title-current-chapter-v2{border-radius:9px;background:color-mix(in srgb,var(--accent) 12%,transparent);outline:2px solid var(--accent);outline-offset:2px}',
+      '.episode-chapter-v2{scroll-margin-top:100px;scroll-margin-bottom:210px}',
+      '.episode-summary-v2.deep-target{scroll-margin-top:100px;scroll-margin-bottom:210px}'
+    ].join('');
     document.head.appendChild(style);
     syncLabel();
   }
@@ -4600,7 +4649,8 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   syncPlayerTitle=function(value){
     playerTitleOriginalSync(value);
     const title=$('#player-title-v2');
-    if(title?.dataset.episodeLinkReady==='1')title.setAttribute('aria-label',text('Zobrazit epizodu: ','Zobraziť epizódu: ')+String(value||''));
+    if(title?.dataset.episodeLinkReady==='2')
+      title.setAttribute('aria-label',text('Přejít na aktuální kapitolu: ','Prejsť na aktuálnu kapitolu: ')+String(value||''));
   };
   window.addEventListener('vedator-v2-ready',installPlayerTitleEpisodeLink);
 
