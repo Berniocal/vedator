@@ -9,7 +9,9 @@
   const LANGUAGE_KEY='vedator-ui-language-v1';
   const OFFLINE_CACHE='vedator-offline-audio-v1';
   const VIDEO_ENABLED_KEY='vedator-youtube-enabled-v1';
+  const CAPTION_LANGUAGE_KEY='vedator-youtube-caption-language-v1';
   let youtubeSession=null,youtubeApiPromise=null;
+  const youtubeCaptionFiles=new Map();
   const REF_ALPHABET='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
   const LEGACY_FAQ_ORDER=[340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,133,128,119,112,100,89,82,17,26,35,51,60,69,75,138,346];
 
@@ -20,6 +22,8 @@
   const readJson=(key,fallback)=>{try{const raw=localStorage.getItem(key);return raw===null?fallback:JSON.parse(raw)}catch{return fallback}};
   const writeJson=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));return true}catch{return false}};
   let youtubeEnabled=readJson(VIDEO_ENABLED_KEY,false)===true;
+  let captionPreference=readJson(CAPTION_LANGUAGE_KEY,'auto');
+  if(!['auto','cs','sk','off'].includes(captionPreference))captionPreference='auto';
   const uid=()=>crypto.randomUUID?crypto.randomUUID():Date.now()+Math.random().toString(36).slice(2);
   const initialLanguage=()=>{try{return localStorage.getItem(LANGUAGE_KEY)==='cz'?'cz':'sk'}catch{return'sk'}};
 
@@ -1036,6 +1040,60 @@
   }
 
   function episodeYoutubeId(episode){const id=String(episode?.youtubeId||'');return /^[A-Za-z0-9_-]{11}$/.test(id)?id:''}
+  function episodeCaptionFile(episode){const file=String(episode?.captionFile||'');return /^captions\/episode-[1-9]\d*\.json$/.test(file)?file:''}
+  function validateYoutubeCaptions(data,session){
+    if(data?.version!==1||data.guid!==session.captionGuid||data.youtubeId!==session.videoId||!Array.isArray(data.cues)||!data.cues.length||data.cues.length>5000)throw new Error('Invalid caption identity');
+    let end=0;
+    for(const cue of data.cues){
+      if(!Number.isFinite(cue.start)||!Number.isFinite(cue.end)||cue.start<end||cue.end<=cue.start||!['cs','sk'].every(lang=>typeof cue.text?.[lang]==='string'&&cue.text[lang].trim()&&cue.text[lang].length<=240))throw new Error('Invalid caption cue');
+      end=cue.end;
+    }
+    return data;
+  }
+  function ensureYoutubeCaptions(session){
+    if(!session?.captionFile||captionPreference==='off'||session.captionLoadStarted)return;
+    session.captionLoadStarted=true;
+    let pending=youtubeCaptionFiles.get(session.captionFile);
+    if(!pending){
+      pending=fetch('./'+session.captionFile).then(response=>{if(!response.ok)throw new Error('Captions HTTP '+response.status);return response.json()});
+      youtubeCaptionFiles.set(session.captionFile,pending);
+      pending.catch(()=>{if(youtubeCaptionFiles.get(session.captionFile)===pending)youtubeCaptionFiles.delete(session.captionFile)});
+    }
+    pending.then(data=>{
+      if(youtubeSession!==session)return;
+      session.captions=validateYoutubeCaptions(data,session);syncYoutubeCaptions();
+    }).catch(()=>{
+      if(youtubeSession!==session)return;
+      youtubeCaptionFiles.delete(session.captionFile);session.captionError=true;syncYoutubeCaptions();
+    });
+  }
+  function syncYoutubeCaptions(){
+    const box=$('#player-captions-v2'),display=$('#player-caption-text-v2'),select=$('#player-caption-language-v2'),note=$('#player-caption-note-v2'),session=youtubeSession;
+    if(!box||!display||!select)return;
+    const available=Boolean(session?.captionFile);box.classList.toggle('hidden',!available);
+    if(!available){display.textContent='';return}
+    const setText=(node,value)=>{if(node.textContent!==value)node.textContent=value};
+    setText($('#player-caption-label-v2'),text('Titulky','Titulky'));
+    setText(select.options[0],text('Podle jazyka aplikace','Podľa jazyka aplikácie'));
+    setText(select.options[1],text('Čeština','Čeština'));setText(select.options[2],text('Slovenština','Slovenčina'));setText(select.options[3],text('Vypnuto','Vypnuté'));
+    select.value=captionPreference;
+    const enabled=captionPreference!=='off';display.classList.toggle('hidden',!enabled);note.classList.toggle('hidden',!enabled);
+    if(!enabled){display.textContent='';return}
+    setText(note,text('Zkušební úprava přepisu • nejasná místa označena','Skúšobná úprava prepisu • nejasné miesta označené'));
+    ensureYoutubeCaptions(session);
+    if(session.captionError){setText(display,text('Titulky se nepodařilo načíst.','Titulky sa nepodarilo načítať.'));return}
+    if(!session.captions){setText(display,text('Načítám titulky…','Načítavam titulky…'));return}
+    const time=youtubePlaybackClock().time,cues=session.captions.cues,lang=captionPreference==='auto'?(sk()?'sk':'cs'):captionPreference;
+    let lo=0,hi=cues.length;
+    while(lo<hi){const mid=(lo+hi)>>>1;if(cues[mid].start<=time)lo=mid+1;else hi=mid}
+    const cue=cues[lo-1];setText(display,cue&&time<cue.end?cue.text[lang]:'');display.lang=lang;
+  }
+  function changeYoutubeCaptionLanguage(){
+    const value=$('#player-caption-language-v2').value;if(!['auto','cs','sk','off'].includes(value))return;
+    captionPreference=value;writeJson(CAPTION_LANGUAGE_KEY,value);
+    if(youtubeSession?.captionError){youtubeSession.captionError=false;youtubeSession.captionLoadStarted=false}
+    syncYoutubeCaptions();
+  }
   function youtubePlaybackClock(){
     const session=youtubeSession;
     if(session.ready){
@@ -1078,10 +1136,11 @@
   function stopYoutubePlayback(){
     const session=youtubeSession;if(!session)return;
     // Invalidate callbacks before destroy() can emit a final pause/ended event.
-    youtubeSession=null;clearInterval(session.timer);clearTimeout(session.readyTimer);
+    youtubeSession=null;clearInterval(session.timer);clearInterval(session.captionTimer);clearTimeout(session.readyTimer);
     try{session.player?.destroy()}catch{}
     $('#player-video-host-v2')?.replaceChildren();$('#player-video-panel-v2')?.classList.add('hidden');
     youtubeStatus();
+    syncYoutubeCaptions();
   }
   function pausePlayback(){
     playbackAutoplayWanted=false;
@@ -1098,6 +1157,7 @@
     const videoId=episodeYoutubeId(episode),audio=playerNodes().audio;
     playbackSwitchingSource=true;audio.pause();audio.removeAttribute('src');audio.load();playbackSwitchingSource=false;
     const session={videoId,sequence,time:Math.max(0,Number(target)||0),duration:Number(state.progress[state.current.key]?.duration)||0,ready:false,wantPlay:Boolean(autoplay),player:null,pendingSeek:Math.max(0,Number(target)||0),seekDeadline:Infinity,ended:false};
+    session.captionFile=episodeCaptionFile(episode);session.captionGuid=episode.id;
     youtubeSession=session;playbackAutoplayWanted=false;
     const alive=()=>youtubeSession===session&&playbackSequence===sequence;
     const panel=$('#player-video-panel-v2'),host=$('#player-video-host-v2'),frame=document.createElement('iframe');
@@ -1107,6 +1167,7 @@
     url.search=new URLSearchParams({enablejsapi:'1',origin:location.origin,playsinline:'1',autoplay:autoplay?'1':'0',start:String(Math.floor(session.time)),rel:'0'}).toString();
     frame.src=url.href;host.replaceChildren(frame);panel.classList.remove('hidden');
     youtubeStatus(text('Načítám YouTube…','Načítavam YouTube…'));syncPlayer();
+    if(session.captionFile)session.captionTimer=setInterval(()=>{if(alive())syncYoutubeCaptions()},250);
     const blocked=()=>{if(!alive())return;session.wantPlay=false;youtubeStatus(text('Video spustíte klepnutím na ▶ ve videu.','Video spustíte klepnutím na ▶ vo videu.'));syncPlayer()};
     const failed=()=>{if(!alive())return;session.wantPlay=false;try{session.player?.pauseVideo()}catch{}youtubeStatus(text('Video se nepodařilo načíst. Zkuste YouTube nebo přepněte zpět na MP3.','Video sa nepodarilo načítať. Skúste YouTube alebo prepnite späť na MP3.'),true);syncPlayer()};
     session.readyTimer=setTimeout(failed,20000);
@@ -1178,7 +1239,7 @@
       if(item&&s.index===(state.context?.index??continuousContextOffset)-continuousContextOffset&&item.title!==title){item.title=title;s.metadataIndex=-1;continuousPlayer.updateMediaSession(true)}
     }
     n.sub.textContent=state.context?`${state.context.type==='series'?text('Série','Séria'):'Playlist'}: ${state.context.label}`:episodeDisplayLabel(current.episode);
-    const playing=playbackIsPlaying();syncYoutubeButton();
+    const playing=playbackIsPlaying();syncYoutubeButton();syncYoutubeCaptions();
     n.play.textContent=playing?'❚❚':'▶';n.play.title=playing?text('Pauza','Pauza'):text('Přehrát','Prehrať');n.play.setAttribute('aria-label',n.play.title);
     n.prev.title=text('Předchozí','Predchádzajúca');n.next.title=text('Další','Ďalšia');
     n.speed.textContent=`${String(state.speed).replace('.',',')}×`;n.prev.disabled=!state.context||state.context.index<=0;n.next.disabled=!state.context||state.context.index>=state.context.items.length-1;
@@ -2436,6 +2497,7 @@
   },true);
   $('#player-download-v2')?.addEventListener('click',event=>{event.preventDefault();downloadCurrentMp3()});
   $('#player-video-v2')?.addEventListener('click',toggleYoutubePlayback);
+  $('#player-caption-language-v2')?.addEventListener('change',changeYoutubeCaptionLanguage);
   $('#audio-v2')?.addEventListener('ended',()=>{if(youtubeActive())return;if(continuousActive()){playbackAutoplayWanted=false;return}if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else playbackAutoplayWanted=false});
 
   /* V2_FINAL_UI_FAQ_GUIDE_V1 */
