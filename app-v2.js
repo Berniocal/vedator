@@ -1055,7 +1055,7 @@
     session.captionLoadStarted=true;
     let pending=youtubeCaptionFiles.get(session.captionFile);
     if(!pending){
-      pending=fetch('./'+session.captionFile).then(response=>{if(!response.ok)throw new Error('Captions HTTP '+response.status);return response.json()});
+      pending=fetch('./'+session.captionFile,{cache:'no-cache'}).then(response=>{if(!response.ok)throw new Error('Captions HTTP '+response.status);return response.json()});
       youtubeCaptionFiles.set(session.captionFile,pending);
       pending.catch(()=>{if(youtubeCaptionFiles.get(session.captionFile)===pending)youtubeCaptionFiles.delete(session.captionFile)});
     }
@@ -1079,7 +1079,7 @@
     select.value=captionPreference;
     const enabled=captionPreference!=='off';display.classList.toggle('hidden',!enabled);note.classList.toggle('hidden',!enabled);
     if(!enabled){display.textContent='';return}
-    setText(note,text('Zkušební úprava přepisu • nejasná místa označena','Skúšobná úprava prepisu • nejasné miesta označené'));
+    setText(note,session.captions?.quality==='audio-repaired'?text('Upravené titulky • nový přepis nahrávky','Upravené titulky • nový prepis nahrávky'):text('Zkušební úprava přepisu • nejasná místa označena','Skúšobná úprava prepisu • nejasné miesta označené'));
     ensureYoutubeCaptions(session);
     if(session.captionError){setText(display,text('Titulky se nepodařilo načíst.','Titulky sa nepodarilo načítať.'));return}
     if(!session.captions){setText(display,text('Načítám titulky…','Načítavam titulky…'));return}

@@ -7,3244 +7,4402 @@
     "cs",
     "sk"
   ],
-  "quality": "edited-draft",
-  "source": {
+  "quality": "audio-repaired",
+  "previousSource": {
     "url": "https://github.com/Berniocal/vedator-test/blob/main/titulky/vedatorsky-podcast-1-jaderna-energie-v-dobe-klimatickych-zmen.srt",
     "blobSha": "2f2caf710404808f3f689d3656dab2f6e740f9a5",
     "sha256": "b5cbe78e52dedc0c58d8eb0f53933c73b50e4b1b217c6fea3a4314ab8c516724",
     "cueCount": 240
   },
+  "source": {
+    "type": "audio-transcription",
+    "url": "https://mcdn.podbean.com/mf/web/mcuadh/podcast_ep1.mp3",
+    "audioSha256": "58ef69be93dc0431c4d6e8cd6a8962c0ceeb605c744fbabf390081dc9bd4eeb5",
+    "duration": 1222.55675,
+    "transcriptFile": "captions/source/episode-1-asr.sk.json",
+    "transcriptSha256": "73b75d4ca4f5c243439ca54df4ea87c1a48f19d7a694d0eee7f80d46c783d1cc",
+    "model": "large-v3-turbo",
+    "packages": {
+      "faster-whisper": "1.2.1",
+      "ctranslate2": "4.9.0"
+    },
+    "language": "sk",
+    "segmentCount": 369,
+    "wordCount": 2837
+  },
   "review": {
-    "method": "Manual text cleanup of the complete supplied machine transcript, then Czech translation; no audio review. Historical speaker claims are preserved, not fact-checked or updated.",
-    "timing": "Original SRT times, not independently aligned to YouTube.",
-    "gaps": "Missing intervals over two seconds are marked. Unclear fragments stay marked. Repeated source sentence in cues 136–138 replaced with an uncertainty notice.",
-    "reviewedSourceCues": 240
+    "method": "Complete fresh Slovak ASR from the original RSS MP3 with large-v3-turbo, followed by complete manual text cleanup and Czech translation. Not an independent human listening review.",
+    "timing": "ASR word timestamps in the original MP3 timeline; short display holds and merged phrases for readability. No blanket offset; YouTube alignment not independently verified by listening.",
+    "historicalClaims": "Speaker claims, figures and simplifications from the 2019 recording are preserved rather than updated or fact-corrected.",
+    "previousMissingCues": 39,
+    "previousUnclearCues": 13,
+    "reviewedAsrWords": 2837,
+    "editedBaseCueCount": 282,
+    "captionCount": 272,
+    "missingPlaceholders": 0,
+    "date": "2026-11-16"
   },
   "cues": [
     {
-      "start": 0.0,
-      "end": 13.318,
-      "kind": "unclear",
+      "start": 12.94,
+      "end": 17.6,
+      "kind": "speech",
       "text": {
-        "cs": "[Nesrozumitelný úvod.]",
-        "sk": "[Nezrozumiteľný úvod.]"
+        "sk": "Tri, štyri. Od neutrína cez nervovú sústavu až po neutrónové hviezdy.",
+        "cs": "Tři, čtyři. Od neutrina přes nervovou soustavu až po neutronové hvězdy."
       },
-      "sourceCues": [
-        1,
-        2,
+      "asrWordRange": [
+        0,
+        11
+      ],
+      "editedBaseCues": [
+        1
+      ]
+    },
+    {
+      "start": 17.86,
+      "end": 19.5,
+      "kind": "speech",
+      "text": {
+        "sk": "Veda nás obklopuje na každom kroku.",
+        "cs": "Věda nás obklopuje na každém kroku."
+      },
+      "asrWordRange": [
+        11,
+        17
+      ],
+      "editedBaseCues": [
+        2
+      ]
+    },
+    {
+      "start": 19.7,
+      "end": 23.34,
+      "kind": "speech",
+      "text": {
+        "sk": "Vitajte pri Vedátor podcaste, v ktorom budeme diskutovať o vede a",
+        "cs": "Vítejte u podcastu Vedátor, ve kterém budeme diskutovat o vědě a"
+      },
+      "asrWordRange": [
+        17,
+        28
+      ],
+      "editedBaseCues": [
         3
       ]
     },
     {
-      "start": 13.358,
-      "end": 17.915,
+      "start": 23.34,
+      "end": 27.78,
       "kind": "speech",
       "text": {
-        "cs": "Věda nás obklopuje na každém kroku.",
-        "sk": "Veda nás obklopuje na každom kroku."
+        "sk": "prírode okolo nás. Dnešnou témou je jadrová energia a jej úloha v čase",
+        "cs": "přírodě kolem nás. Dnešním tématem je jaderná energie a její úloha v době"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        28,
+        41
+      ],
+      "editedBaseCues": [
         4
       ]
     },
     {
-      "start": 17.955,
-      "end": 22.936,
+      "start": 27.78,
+      "end": 30.88,
       "kind": "speech",
       "text": {
-        "cs": "Vítejte u podcastu Vedátor, ve kterém budeme diskutovat o vědě",
-        "sk": "Vitajte pri Vedátor podcaste, v ktorom budeme diskutovať o vede"
+        "sk": "klimatických zmien. My sme Jozef a Samuel.",
+        "cs": "klimatických změn. My jsme Jozef a Samuel."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        41,
+        48
+      ],
+      "editedBaseCues": [
         5
       ]
     },
     {
-      "start": 22.976,
-      "end": 24.96,
+      "start": 31.56,
+      "end": 33.1,
       "kind": "speech",
       "text": {
-        "cs": "a přírodě kolem nás.",
-        "sk": "a prírode okolo nás."
+        "sk": "Vitaj, Samuel.",
+        "cs": "Vítej, Samueli."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        48,
+        50
+      ],
+      "editedBaseCues": [
         6
       ]
     },
     {
-      "start": 25.0,
-      "end": 28.13,
+      "start": 34.36,
+      "end": 39.8,
       "kind": "speech",
       "text": {
-        "cs": "Dnešním tématem je jaderná energie",
-        "sk": "Dnešnou témou je jadrová energia"
+        "sk": "Dnes je historicky prvý náš podcast Vedátor,",
+        "cs": "Dnes je historicky první náš podcast Vedátor,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        50,
+        57
+      ],
+      "editedBaseCues": [
         7
       ]
     },
     {
-      "start": 28.17,
-      "end": 29.46,
+      "start": 41.02,
+      "end": 46.66,
       "kind": "speech",
       "text": {
-        "cs": "v době klimatických změn.",
-        "sk": "v časoch klimatických zmien."
+        "sk": "ktorý ľudia budú počúvať. Témou je jadrová energia a jej úloha v čase",
+        "cs": "který budou lidé poslouchat. Tématem je jaderná energie a její úloha v době"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        57,
+        71
+      ],
+      "editedBaseCues": [
         8
       ]
     },
     {
-      "start": 29.5,
-      "end": 31.5,
+      "start": 46.66,
+      "end": 47.86,
       "kind": "speech",
       "text": {
-        "cs": "My jsme Jozef a Samuel.",
-        "sk": "My sme Jozef a Samuel."
+        "sk": "klimatických zmien.",
+        "cs": "klimatických změn."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        71,
+        73
+      ],
+      "editedBaseCues": [
         9
       ]
     },
     {
-      "start": 32.5,
-      "end": 34.46,
+      "start": 48.38,
+      "end": 52.9,
       "kind": "speech",
       "text": {
-        "cs": "Vítej, Samueli.",
-        "sk": "Vitaj, Samuel."
+        "sk": "Začneme od piky: čo je jadrová energia a čo o nej ľudia podľa teba vedia?",
+        "cs": "Začneme od píky: co je jaderná energie a co o ní podle tebe lidé vědí?"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        73,
+        88
+      ],
+      "editedBaseCues": [
         10
       ]
     },
     {
-      "start": 34.5,
-      "end": 39.916,
+      "start": 52.9,
+      "end": 57.72,
       "kind": "speech",
       "text": {
-        "cs": "Ahoj. Dnes je historicky první náš podcast Vedátor,",
-        "sk": "Ahoj. Dnes je historicky prvý náš podcast Vedátor,"
+        "sk": "Aký je rozdiel, keď sa rozprávame s vedcom ako ty a keď",
+        "cs": "Jaký je rozdíl, když mluvíme s vědcem jako ty a když"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        88,
+        103
+      ],
+      "editedBaseCues": [
         11
       ]
     },
     {
-      "start": 39.956,
-      "end": 43.577,
+      "start": 57.72,
+      "end": 59.56,
       "kind": "speech",
       "text": {
-        "cs": "který budou lidé poslouchat. Tématem je jaderná energie.",
-        "sk": "ktorý ľudia budú počúvať. Témou je jadrová energia."
+        "sk": "hovorí laik o jadrovej energii?",
+        "cs": "mluví laik o jaderné energii?"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        103,
+        108
+      ],
+      "editedBaseCues": [
         12
       ]
     },
     {
-      "start": 43.577,
-      "end": 48.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 48.5,
-      "end": 53.949,
+      "start": 60.42,
+      "end": 65.34,
       "kind": "speech",
       "text": {
-        "cs": "Začněme od píky: co je vlastně jaderná energie?",
-        "sk": "Začnime od piky: čo je vlastne jadrová energia?"
+        "sk": "Tak úplne na úvod: jadrová energia je energia, ktorú získavame z jadra",
+        "cs": "Tak úplně na úvod: jaderná energie je energie, kterou získáváme z jádra"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        108,
+        120
+      ],
+      "editedBaseCues": [
         13
       ]
     },
     {
-      "start": 53.989,
-      "end": 59.437,
+      "start": 65.34,
+      "end": 70.38,
       "kind": "speech",
       "text": {
-        "cs": "Jaký je rozdíl, když o ní mluví vědci a když laici?",
-        "sk": "Aký je rozdiel, keď o nej hovoria vedci a keď laici?"
+        "sk": "atómov. Takmer vždy takým spôsobom, že jadro zmeníme na nejaké",
+        "cs": "atomů. Téměř vždy takovým způsobem, že jádro změníme na nějaké"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        120,
+        131
+      ],
+      "editedBaseCues": [
         14
       ]
     },
     {
-      "start": 59.477,
-      "end": 64.932,
+      "start": 70.38,
+      "end": 74.3,
       "kind": "speech",
       "text": {
-        "cs": "Na úvod: jaderná energie je energie, kterou získáváme",
-        "sk": "Na úvod: jadrová energia je energia, ktorú získavame"
+        "sk": "energeticky nižšie jadro a ten rozdiel v energii vieme vyťažiť.",
+        "cs": "energeticky nižší jádro a ten rozdíl v energii dokážeme využít."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        131,
+        144
+      ],
+      "editedBaseCues": [
         15
       ]
     },
     {
-      "start": 64.972,
-      "end": 66.125,
+      "start": 75.42,
+      "end": 81.7,
       "kind": "speech",
       "text": {
-        "cs": "z jader atomů.",
-        "sk": "z jadier atómov."
+        "sk": "Je to oveľa kvalitnejší zdroj energie, čo do koncentrácie energie na jeden",
+        "cs": "Je to mnohem kvalitnější zdroj energie, pokud jde o koncentraci energie na jeden"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        144,
+        156
+      ],
+      "editedBaseCues": [
         16
       ]
     },
     {
-      "start": 66.165,
-      "end": 68.154,
-      "kind": "unclear",
+      "start": 81.7,
+      "end": 85.12,
+      "kind": "speech",
       "text": {
-        "cs": "Takovým způsobem, že… [nejasný přepis]",
-        "sk": "Takým spôsobom, že… [nejasný prepis]"
+        "sk": "kilogram, než čokoľvek iné, čo poznáme a čo je nám momentálne dostupné.",
+        "cs": "kilogram, než cokoli jiného, co známe a co je nám momentálně dostupné."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        156,
+        168
+      ],
+      "editedBaseCues": [
         17
       ]
     },
     {
-      "start": 68.154,
-      "end": 72.0,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 72.0,
-      "end": 74.54,
+      "start": 86.57,
+      "end": 91.29,
       "kind": "speech",
       "text": {
-        "cs": "…energeticky nižší jádro. Ten rozdíl dokážeme využít.",
-        "sk": "…energeticky nižšie jadro. Ten rozdiel vieme vyťažiť."
+        "sk": "Hlavný problém je, že je to dvojsečná zbraň. Veľa energie sa z toho",
+        "cs": "Hlavní problém je, že je to dvojsečná zbraň. Hodně energie se z toho"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        168,
+        182
+      ],
+      "editedBaseCues": [
         18
       ]
     },
     {
-      "start": 75.28,
-      "end": 80.677,
+      "start": 91.29,
+      "end": 94.15,
       "kind": "speech",
       "text": {
-        "cs": "Je to mnohem vydatnější zdroj energie, pokud jde o koncentraci",
-        "sk": "Je to oveľa výdatnejší zdroj energie, čo do koncentrácie"
+        "sk": "dá vyťažiť, ale zároveň sa tá energia dá zneužiť.",
+        "cs": "dá získat, ale zároveň se ta energie dá zneužít."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        182,
+        191
+      ],
+      "editedBaseCues": [
         19
       ]
     },
     {
-      "start": 80.717,
-      "end": 85.38,
+      "start": 94.65,
+      "end": 100.31,
       "kind": "speech",
       "text": {
-        "cs": "energie na kilogram, než cokoli jiného, co máme dostupné.",
-        "sk": "energie na jeden kilogram, než čokoľvek iné, čo máme dostupné."
+        "cs": "Mnoho lidí si pod atomovou energií rovnou představí bomby a výbuchy.",
+        "sk": "Veľa ľudí si pod atómovou energiou rovno predstaví bomby a výbuchy."
       },
-      "sourceCues": [
-        20
-      ]
-    },
-    {
-      "start": 86.74,
-      "end": 90.12,
-      "kind": "speech",
-      "text": {
-        "cs": "Hlavní problém je, že je to dvojsečná zbraň.",
-        "sk": "Hlavný problém je, že je to dvojsečná zbraň."
-      },
-      "sourceCues": [
+      "asrWordRange": [
+        191,
+        205
+      ],
+      "editedBaseCues": [
+        20,
         21
       ]
     },
     {
-      "start": 90.16,
-      "end": 95.537,
-      "kind": "unclear",
+      "start": 100.95,
+      "end": 105.05,
+      "kind": "speech",
       "text": {
-        "cs": "Hodně energie se z toho dá… [nejasný přepis]",
-        "sk": "Veľa energie sa z toho dá… [nejasný prepis]"
+        "sk": "Mám pocit, že ich pohľad je tak trošku skreslený negatívnym smerom.",
+        "cs": "Mám pocit, že jejich pohled je trochu zkreslený negativním směrem."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        205,
+        218
+      ],
+      "editedBaseCues": [
         22
       ]
     },
     {
-      "start": 95.577,
-      "end": 100.46,
+      "start": 106.63,
+      "end": 111.07,
       "kind": "speech",
       "text": {
-        "cs": "Mnoho lidí si pod atomovou energií představí bomby a výbuchy.",
-        "sk": "Veľa ľudí si pod atómovou energiou predstaví bomby a výbuchy."
+        "sk": "Podpísali sa na tom niektoré havárie, ktoré sa stali v minulosti, a určite",
+        "cs": "Podepsaly se na tom některé havárie, které se staly v minulosti, a určitě"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        218,
+        231
+      ],
+      "editedBaseCues": [
         23
       ]
     },
     {
-      "start": 100.5,
-      "end": 105.5,
+      "start": 111.07,
+      "end": 116.77,
       "kind": "speech",
       "text": {
-        "cs": "Mám pocit, že je ten pohled zkreslený negativním směrem.",
-        "sk": "Mám pocit, že ten pohľad je skreslený negatívnym smerom."
+        "sk": "aj zhodenie atómových bômb v Japonsku, v Nagasaki a",
+        "cs": "i svržení atomových bomb v Japonsku, v Nagasaki a"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        231,
+        243
+      ],
+      "editedBaseCues": [
         24
       ]
     },
     {
-      "start": 106.5,
-      "end": 111.951,
+      "start": 116.77,
+      "end": 120.79,
       "kind": "speech",
       "text": {
-        "cs": "Podepsaly se na tom některé havárie v minulosti",
-        "sk": "Podpísali sa na tom niektoré havárie v minulosti"
+        "sk": "v Hirošime, že? Áno, pod atómovými bombami si ľudia nanešťastie",
+        "cs": "v Hirošimě, že? Ano, pod atomovými bombami si lidé naneštěstí"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        243,
+        255
+      ],
+      "editedBaseCues": [
         25
       ]
     },
     {
-      "start": 111.991,
-      "end": 116.346,
+      "start": 120.79,
+      "end": 125.11,
       "kind": "speech",
       "text": {
-        "cs": "a určitě i svržení atomových bomb…",
-        "sk": "a určite aj zhodenie atómových bômb…"
+        "sk": "prevažne predstavia Nagasaki, Hirošimu a pod jadrovou energiou ešte",
+        "cs": "většinou představí Nagasaki, Hirošimu a pod jadernou energií ještě"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        255,
+        264
+      ],
+      "editedBaseCues": [
         26
       ]
     },
     {
-      "start": 116.346,
-      "end": 119.0,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 119.0,
-      "end": 123.581,
+      "start": 125.11,
+      "end": 132.08,
       "kind": "speech",
       "text": {
-        "cs": "Pod atomovými bombami si lidé představí Nagasaki",
-        "sk": "Pod atómovými bombami si ľudia predstavia Nagasaki"
+        "cs": "Černobyl. Tato tři hlavní jména dělají velmi špatné PR jaderné energii.",
+        "sk": "Černobyľ. Tieto tri hlavné mená robia veľmi zlé PR jadrovej energii."
       },
-      "sourceCues": [
-        27
-      ]
-    },
-    {
-      "start": 123.621,
-      "end": 126.46,
-      "kind": "speech",
-      "text": {
-        "cs": "a Hirošimu, pod jadernou energií ještě Černobyl.",
-        "sk": "a Hirošimu, pod jadrovou energiou ešte Černobyľ."
-      },
-      "sourceCues": [
+      "asrWordRange": [
+        264,
+        278
+      ],
+      "editedBaseCues": [
+        27,
         28
       ]
     },
     {
-      "start": 126.5,
-      "end": 131.725,
+      "start": 132.61,
+      "end": 138.25,
       "kind": "speech",
       "text": {
-        "cs": "Tři smutná jména, která dělají špatné jméno jaderné",
-        "sk": "Tri smutné mená, ktoré robia zlé meno jadrovej"
+        "sk": "Na druhej strane, boli to obrovské nešťastia v histórii ľudstva,",
+        "cs": "Na druhé straně, byla to obrovská neštěstí v dějinách lidstva,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        278,
+        290
+      ],
+      "editedBaseCues": [
         29
       ]
     },
     {
-      "start": 131.765,
-      "end": 136.685,
+      "start": 138.41,
+      "end": 143.99,
       "kind": "speech",
       "text": {
-        "cs": "energii. Na druhé straně to byla obrovská neštěstí",
-        "sk": "energii. Na druhej strane to boli obrovské nešťastia"
+        "sk": "ktoré zapríčinili smrť až státisícov ľudí aj niekoľko rokov po",
+        "cs": "která způsobila smrt až statisíců lidí i několik let po"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        290,
+        302
+      ],
+      "editedBaseCues": [
         30
       ]
     },
     {
-      "start": 136.725,
-      "end": 138.654,
-      "kind": "unclear",
+      "start": 143.99,
+      "end": 147.67,
+      "kind": "speech",
       "text": {
-        "cs": "v dějinách lidstva, která… [nejasný přepis]",
-        "sk": "v histórii ľudstva, ktoré… [nejasný prepis]"
+        "sk": "týchto haváriách. Nie je táto obava podľa teba opodstatnená?",
+        "cs": "těchto haváriích. Není podle tebe tato obava opodstatněná?"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        302,
+        311
+      ],
+      "editedBaseCues": [
         31
       ]
     },
     {
-      "start": 138.654,
-      "end": 142.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 142.5,
-      "end": 146.805,
+      "start": 148.14,
+      "end": 151.0,
       "kind": "speech",
       "text": {
-        "cs": "…tisíců lidí i několik let po těchto haváriích.",
-        "sk": "…tisícov ľudí aj niekoľko rokov po týchto haváriách."
+        "sk": "Keďže sa teraz bavíme o jadrovej energetike,",
+        "cs": "Když teď mluvíme o jaderné energetice,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        311,
+        319
+      ],
+      "editedBaseCues": [
         32
       ]
     },
     {
-      "start": 146.845,
-      "end": 151.807,
+      "start": 153.66,
+      "end": 157.68,
       "kind": "speech",
       "text": {
-        "cs": "Obava je opodstatněná. Když teď mluvíme o jaderné energii,",
-        "sk": "Obava je opodstatnená. Keď sa teraz bavíme o jadrovej energii,"
+        "sk": "zabudnime na chvíľku na atómové bomby a studenú vojnu a",
+        "cs": "zapomeňme na chvíli na atomové bomby a studenou válku a"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        319,
+        333
+      ],
+      "editedBaseCues": [
         33
       ]
     },
     {
-      "start": 151.847,
-      "end": 157.238,
+      "start": 157.68,
+      "end": 162.24,
       "kind": "speech",
       "text": {
-        "cs": "zapomeňme na chvíli na atomové bomby a studenou válku",
-        "sk": "zabudnime na chvíľku na atómové bomby a studenú vojnu"
+        "sk": "bavme sa len o elektrárňach, konkrétne o haváriách, ktoré sa tam stali.",
+        "cs": "mluvme jen o elektrárnách, konkrétně o haváriích, které se tam staly."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        333,
+        348
+      ],
+      "editedBaseCues": [
         34
       ]
     },
     {
-      "start": 157.278,
-      "end": 159.36,
+      "start": 163.16,
+      "end": 166.9,
       "kind": "speech",
       "text": {
-        "cs": "a mluvme jen o elektrárnách.",
-        "sk": "a bavme sa len o elektrárňach."
+        "sk": "Najhoršia z nich je Černobyľ, ktorý nám HBO pripomenulo skvelým",
+        "cs": "Nejhorší z nich je Černobyl, který nám HBO připomnělo skvělým"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        348,
+        359
+      ],
+      "editedBaseCues": [
         35
       ]
     },
     {
-      "start": 159.4,
-      "end": 160.2,
+      "start": 166.9,
+      "end": 171.82,
       "kind": "speech",
       "text": {
-        "cs": "A tak konkrétně…",
-        "sk": "A tak konkrétne…"
+        "sk": "seriálom. Počet obetí sa tam podľa toho, kto robí odhad,",
+        "cs": "seriálem. Počet obětí se tam podle toho, kdo odhad dělá,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        359,
+        372
+      ],
+      "editedBaseCues": [
         36
       ]
     },
     {
-      "start": 160.2,
-      "end": 166.0,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 166.0,
-      "end": 167.58,
+      "start": 171.88,
+      "end": 174.68,
       "kind": "speech",
       "text": {
-        "cs": "…kterou nám teď HBO připomnělo skvělým seriálem.",
-        "sk": "…ktorú nám teraz HBO pripomenulo skvelým seriálom."
+        "sk": "odhaduje medzi 3 000 a 90 000.",
+        "cs": "odhaduje mezi 3 000 a 90 000."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        372,
+        384
+      ],
+      "editedBaseCues": [
         37
       ]
     },
     {
-      "start": 168.34,
-      "end": 173.789,
+      "start": 175.81,
+      "end": 180.11,
       "kind": "speech",
       "text": {
-        "cs": "Počet obětí se podle toho, kdo odhad dělá, pohybuje mezi 3 000",
-        "sk": "Počet obetí sa podľa toho, kto robí odhad, pohybuje medzi 3 000"
+        "sk": "To je obrovský rozdiel. Je, samozrejme. Keď to",
+        "cs": "To je obrovský rozdíl. Je, samozřejmě. Když to"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        384,
+        396
+      ],
+      "editedBaseCues": [
         38
       ]
     },
     {
-      "start": 173.829,
-      "end": 177.18,
+      "start": 180.11,
+      "end": 183.41,
       "kind": "speech",
       "text": {
-        "cs": "a 90 000 oběťmi. To je obrovský rozdíl.",
-        "sk": "a 90 000 obeťami. To je obrovský rozdiel."
+        "sk": "niekto vykreslí v lepšom svetle, povie 3 000, keď v horšom,",
+        "cs": "někdo vykreslí v lepším světle, řekne 3 000, když v horším,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        396,
+        408
+      ],
+      "editedBaseCues": [
         39
       ]
     },
     {
-      "start": 177.62,
-      "end": 182.354,
+      "start": 183.51,
+      "end": 184.95,
       "kind": "speech",
       "text": {
-        "cs": "Když to chce někdo vykreslit v lepším světle,",
-        "sk": "Keď to chce niekto vykresliť v lepšom svetle,"
+        "sk": "povie ten opačný extrém.",
+        "cs": "řekne ten opačný extrém."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        408,
+        413
+      ],
+      "editedBaseCues": [
         40
       ]
     },
     {
-      "start": 182.394,
-      "end": 184.06,
+      "start": 185.57,
+      "end": 187.33,
       "kind": "speech",
       "text": {
-        "cs": "řekne 3 000, když v horším, tak…",
-        "sk": "povie 3 000, keď v horšom, tak…"
+        "sk": "Okej, ale toto je ten najhorší prípad.",
+        "cs": "Dobře, ale to je ten nejhorší případ."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        413,
+        420
+      ],
+      "editedBaseCues": [
         41
       ]
     },
     {
-      "start": 184.06,
-      "end": 189.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 189.5,
-      "end": 193.96,
+      "start": 187.67,
+      "end": 193.73,
       "kind": "speech",
       "text": {
-        "cs": "Zkus si tipnout, kolik lidí zahynulo při druhé nejhorší havárii.",
-        "sk": "Skús si tipnúť, koľko ľudí zahynulo pri druhej najhoršej havárii."
+        "cs": "Teď ti dám otázku. Zkus tipnout, kolik lidí při druhé nejhorší jaderné havárii zahynulo.",
+        "sk": "Teraz ti dám otázku. Skús tipnúť, koľko ľudí pri druhej najhoršej jadrovej havárii zahynulo."
       },
-      "sourceCues": [
-        42
-      ]
-    },
-    {
-      "start": 194.0,
-      "end": 196.96,
-      "kind": "speech",
-      "text": {
-        "cs": "Taky bych řekl, že v tisících.",
-        "sk": "Tiež by som povedal, že v tisíckach."
-      },
-      "sourceCues": [
+      "asrWordRange": [
+        420,
+        437
+      ],
+      "editedBaseCues": [
+        42,
         43
       ]
     },
     {
-      "start": 197.0,
-      "end": 202.0,
+      "start": 194.74,
+      "end": 196.4,
       "kind": "speech",
       "text": {
-        "cs": "Druhá nejhorší havárie si vyžádala čtyři lidské oběti.",
-        "sk": "Druhá najhoršia havária si vyžiadala štyri ľudské obete."
+        "sk": "Tiež by som povedal, že v tisíckach.",
+        "cs": "Taky bych řekl, že v tisících."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        437,
+        445
+      ],
+      "editedBaseCues": [
         44
       ]
     },
     {
-      "start": 203.0,
-      "end": 207.615,
+      "start": 197.06,
+      "end": 201.5,
       "kind": "speech",
       "text": {
-        "cs": "A všechny ostatní jaderné havárie kromě Černobylu si dohromady…",
-        "sk": "A všetky ostatné jadrové havárie okrem Černobyľa si dokopy…"
+        "sk": "Druhá najhoršia havária si vyžiadala štyri ľudské obete.",
+        "cs": "Druhá nejhorší havárie si vyžádala čtyři lidské oběti."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        445,
+        454
+      ],
+      "editedBaseCues": [
         45
       ]
     },
     {
-      "start": 207.615,
-      "end": 213.7,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 213.7,
-      "end": 216.86,
+      "start": 202.33,
+      "end": 209.41,
       "kind": "speech",
       "text": {
-        "cs": "…je naprosto nereprezentativní.",
-        "sk": "…je absolútne nereprezentatívny."
+        "sk": "Všetky ostatné jadrové havárie okrem Černobyľa si dokopy vyžiadali asi dvadsať obetí.",
+        "cs": "Všechny ostatní jaderné havárie kromě Černobylu si dohromady vyžádaly asi dvacet obětí."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        454,
+        467
+      ],
+      "editedBaseCues": [
         46
       ]
     },
     {
-      "start": 216.9,
-      "end": 220.4,
+      "start": 210.48,
+      "end": 214.84,
       "kind": "speech",
       "text": {
-        "cs": "Vůbec neodráží, jak běžně vypadá jaderná havárie.",
-        "sk": "Vôbec neodzrkadľuje, ako bežne vyzerá jadrová havária."
+        "sk": "Obraz, ktorý majú ľudia z Černobyľa, je absolútne",
+        "cs": "Obraz, který lidé mají z Černobylu, je naprosto"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        467,
+        477
+      ],
+      "editedBaseCues": [
         47
       ]
     },
     {
-      "start": 221.2,
-      "end": 223.06,
+      "start": 214.84,
+      "end": 219.78,
       "kind": "speech",
       "text": {
-        "cs": "Jak nebezpečné jsou ve skutečnosti?",
-        "sk": "Aké nebezpečné sú v realite?"
+        "sk": "nereprezentatívny. Vôbec neodzrkadľuje, ako bežne vyzerá jadrová",
+        "cs": "nereprezentativní. Vůbec neodráží, jak běžně vypadá jaderná"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        477,
+        485
+      ],
+      "editedBaseCues": [
         48
       ]
     },
     {
-      "start": 223.1,
-      "end": 225.66,
+      "start": 219.78,
+      "end": 223.06,
       "kind": "speech",
       "text": {
-        "cs": "Je to asi hodně podobné jako s létáním.",
-        "sk": "Je to asi veľmi podobné ako s lietaním."
+        "sk": "havária. Aká nebezpečná je v realite?",
+        "cs": "havárie. Jak nebezpečná je ve skutečnosti?"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        485,
+        493
+      ],
+      "editedBaseCues": [
         49
       ]
     },
     {
-      "start": 225.7,
-      "end": 230.862,
+      "start": 223.14,
+      "end": 227.24,
       "kind": "speech",
       "text": {
-        "cs": "Když se něco stane při letecké nehodě, je to horší…",
-        "sk": "Keď sa niečo stane pri leteckej nehode, je to horšie…"
+        "sk": "Je to podobné ako s lietaním. Keď sa niečo stane pri",
+        "cs": "Je to podobné jako s létáním. Když se něco stane při"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        493,
+        507
+      ],
+      "editedBaseCues": [
         50
       ]
     },
     {
-      "start": 230.862,
-      "end": 236.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 236.5,
-      "end": 239.16,
+      "start": 227.24,
+      "end": 232.84,
       "kind": "speech",
       "text": {
-        "cs": "…letadlo. Následky jakékoli havárie bývají špatné.",
-        "sk": "…lietadlo. Následky akejkoľvek havárie bývajú zlé."
+        "sk": "leteckej dopravnej nehode, je to horšie, ako keď sa niečo stane pri nabúraní",
+        "cs": "letecké dopravní nehodě, je to horší, než když se něco stane při nabourání"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        507,
+        519
+      ],
+      "editedBaseCues": [
         51
       ]
     },
     {
-      "start": 239.2,
-      "end": 244.139,
+      "start": 232.84,
+      "end": 237.56,
       "kind": "speech",
       "text": {
-        "cs": "K tomu se brzy dostaneme. Rozdíl mezi",
-        "sk": "K tomu sa dostaneme čoskoro. Rozdiel medzi"
+        "sk": "auta alebo prevrátení člna. Pri lietadle bývajú až fatálne",
+        "cs": "auta nebo převrácení člunu. U letadla bývají až fatální"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        519,
+        530
+      ],
+      "editedBaseCues": [
         52
       ]
     },
     {
-      "start": 244.179,
-      "end": 249.621,
+      "start": 237.56,
+      "end": 238.96,
       "kind": "speech",
       "text": {
-        "cs": "atomovou bombou a jadernou elektrárnou je takový,",
-        "sk": "atómovou bombou a jadrovou elektrárňou je taký,"
+        "sk": "následky akejkoľvek havárie.",
+        "cs": "následky jakékoli havárie."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        530,
+        534
+      ],
+      "editedBaseCues": [
         53
       ]
     },
     {
-      "start": 249.661,
-      "end": 254.616,
+      "start": 238.96,
+      "end": 245.1,
       "kind": "speech",
       "text": {
-        "cs": "že v obou probíhá řetězová reakce. Rozpadne se jeden atom",
-        "sk": "že v oboch prebieha reťazová reakcia. Rozpadne sa jeden atóm"
+        "sk": "K tomu sa dostaneme čoskoro. Rozdiel medzi atómovou",
+        "cs": "K tomu se brzy dostaneme. Rozdíl mezi atomovou"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        534,
+        546
+      ],
+      "editedBaseCues": [
         54
       ]
     },
     {
-      "start": 254.656,
-      "end": 260.042,
+      "start": 245.1,
+      "end": 248.9,
       "kind": "speech",
       "text": {
-        "cs": "a jeho produkty vyvolají další reakci…",
-        "sk": "a jeho produkty vyvolajú ďalšiu reakciu…"
+        "sk": "bombou a atómovou elektrárňou, alebo jadrovou bombou a jadrovou",
+        "cs": "bombou a atomovou elektrárnou, nebo jadernou bombou a jadernou"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        546,
+        555
+      ],
+      "editedBaseCues": [
         55
       ]
     },
     {
-      "start": 260.082,
-      "end": 264.5,
+      "start": 248.9,
+      "end": 253.38,
       "kind": "speech",
       "text": {
-        "cs": "V atomové bombě je neřízená, v elektrárně kontrolovaná.",
-        "sk": "V atómovej bombe je neriadená, v elektrárni kontrolovaná."
+        "sk": "elektrárňou je, že v oboch prebieha reťazová reakcia. Rozpadne",
+        "cs": "elektrárnou je, že v obou probíhá řetězová reakce. Rozpadne"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        555,
+        566
+      ],
+      "editedBaseCues": [
         56
       ]
     },
     {
-      "start": 265.5,
-      "end": 270.5,
+      "start": 253.38,
+      "end": 256.66,
       "kind": "speech",
       "text": {
-        "cs": "Černobyl byl postavený takovým hloupým způsobem, protože to bylo levné,",
-        "sk": "Černobyľ bol postavený takým hlúpym spôsobom, lebo to bolo lacné,"
+        "sk": "sa jeden atóm a jeho produkty vyvolajú ďalšiu reťazovú reakciu,",
+        "cs": "se jeden atom a jeho produkty vyvolají další řetězovou reakci,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        566,
+        578
+      ],
+      "editedBaseCues": [
         57
       ]
     },
     {
-      "start": 271.5,
-      "end": 273.5,
+      "start": 256.66,
+      "end": 258.74,
       "kind": "speech",
       "text": {
-        "cs": "že fungoval tak trochu jako atomová bomba.",
-        "sk": "že fungoval tak trochu ako atómová bomba."
+        "sk": "tie vyvolajú ďalšiu a ďalšiu a ďalšiu.",
+        "cs": "ty vyvolají další a další a další."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        578,
+        584
+      ],
+      "editedBaseCues": [
         58
       ]
     },
     {
-      "start": 274.5,
-      "end": 279.235,
+      "start": 259.59,
+      "end": 264.77,
       "kind": "speech",
       "text": {
-        "cs": "V tom smyslu, že když se v něm něco začalo kazit,",
-        "sk": "V tom zmysle, že keď sa v ňom niečo začalo kaziť,"
+        "sk": "V atómovej bombe je to neriadená reakcia, v elektrárni kontrolovaná.",
+        "cs": "V atomové bombě je to neřízená reakce, v elektrárně kontrolovaná."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        584,
+        595
+      ],
+      "editedBaseCues": [
         59
       ]
     },
     {
-      "start": 279.275,
-      "end": 284.731,
+      "start": 266.26,
+      "end": 270.74,
       "kind": "speech",
       "text": {
-        "cs": "mělo to tendenci se zhoršovat. Bezpečnostní prvky,",
-        "sk": "malo to tendenciu zhoršovať sa. Bezpečnostné prvky,"
+        "sk": "Černobyľ bol postavený takým hlúpym spôsobom, pretože to bolo lacné,",
+        "cs": "Černobyl byl postavený takovým hloupým způsobem, protože to bylo levné,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        595,
+        607
+      ],
+      "editedBaseCues": [
         60
       ]
     },
     {
-      "start": 284.771,
-      "end": 288.26,
+      "start": 271.8,
+      "end": 273.88,
       "kind": "speech",
       "text": {
-        "cs": "které tomu měly zabránit, to vlastně umožňovaly.",
-        "sk": "ktoré tomu mali zabrániť, to vlastne umožňovali."
+        "sk": "že fungoval tak trochu ako atómová bomba.",
+        "cs": "že fungoval tak trochu jako atomová bomba."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        607,
+        614
+      ],
+      "editedBaseCues": [
         61
       ]
     },
     {
-      "start": 288.3,
-      "end": 290.16,
+      "start": 274.4,
+      "end": 277.88,
       "kind": "speech",
       "text": {
-        "cs": "Přesně, eskalaci těch problémů.",
-        "sk": "Presne, eskaláciu tých problémov."
+        "sk": "V tom zmysle, že keď sa v ňom niečo začalo kaziť, malo to",
+        "cs": "V tom smyslu, že když se v něm něco začalo kazit, mělo to"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        614,
+        630
+      ],
+      "editedBaseCues": [
         62
       ]
     },
     {
-      "start": 290.2,
-      "end": 293.76,
+      "start": 277.88,
+      "end": 280.52,
       "kind": "speech",
       "text": {
-        "cs": "Měl takové vlastnosti, že když se vychýlil ze své rovnováhy,",
-        "sk": "Mal také vlastnosti, že keď sa vykoľajil zo svojej rovnováhy,"
+        "sk": "tendenciu ešte sa zhoršovať a nabaľovať.",
+        "cs": "tendenci se ještě zhoršovat a nabalovat."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        630,
+        639
+      ],
+      "editedBaseCues": [
         63
       ]
     },
     {
-      "start": 293.8,
-      "end": 299.085,
+      "start": 281.3,
+      "end": 285.86,
       "kind": "speech",
       "text": {
-        "cs": "situace se začala ještě zhoršovat…",
-        "sk": "situácia sa začala ešte zhoršovať…"
+        "sk": "Nemal bezpečnostné prvky, ktoré by zabránili zhoršovaniu, ale",
+        "cs": "Neměl bezpečnostní prvky, které by zabránily zhoršování, ale"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        639,
+        650
+      ],
+      "editedBaseCues": [
         64
       ]
     },
     {
-      "start": 299.125,
-      "end": 299.775,
-      "kind": "unclear",
+      "start": 285.86,
+      "end": 290.16,
+      "kind": "speech",
       "text": {
-        "cs": "[Nejasný úsek přepisu.]",
-        "sk": "[Nejasný úsek prepisu.]"
+        "sk": "umožňovalo to eskaláciu tých problémov.",
+        "cs": "umožňovalo to eskalaci těch problémů."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        650,
+        658
+      ],
+      "editedBaseCues": [
         65
       ]
     },
     {
-      "start": 299.775,
-      "end": 307.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 307.5,
-      "end": 312.642,
+      "start": 290.22,
+      "end": 294.16,
       "kind": "speech",
       "text": {
-        "cs": "Moderní jaderné elektrárny se stavějí opačně: když se vychýlí",
-        "sk": "Moderné jadrové elektrárne sa stavajú naopak: keď sa vykoľaja"
+        "sk": "Mal také vlastnosti, že keď sa vykoľajil zo svojej rovnováhy,",
+        "cs": "Měl takové vlastnosti, že když se vychýlil ze své rovnováhy,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        658,
+        671
+      ],
+      "editedBaseCues": [
         66
       ]
     },
     {
-      "start": 312.682,
-      "end": 316.46,
+      "start": 294.16,
+      "end": 297.52,
       "kind": "speech",
       "text": {
-        "cs": "ze své rovnováhy, reakce se v nich zastaví.",
-        "sk": "zo svojej rovnováhy, reakcia sa v nich zastaví."
+        "sk": "situácia sa začala zhoršovať a nabaľovali sa na to ďalšie a ďalšie",
+        "cs": "situace se začala zhoršovat a nabalovaly se na to další a další"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        671,
+        684
+      ],
+      "editedBaseCues": [
         67
       ]
     },
     {
-      "start": 316.5,
-      "end": 319.46,
+      "start": 297.52,
+      "end": 303.37,
       "kind": "speech",
       "text": {
-        "cs": "Tu rovnováhu potřebují k tomu, aby fungovaly dál.",
-        "sk": "Tú rovnováhu potrebujú na to, aby fungovali ďalej."
+        "sk": "problémy. Na stupnici od atómovej bomby k jadrovej elektrárni bol",
+        "cs": "problémy. Na stupnici od atomové bomby k jaderné elektrárně byl"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        684,
+        694
+      ],
+      "editedBaseCues": [
         68
       ]
     },
     {
-      "start": 319.5,
-      "end": 324.5,
+      "start": 303.37,
+      "end": 306.69,
       "kind": "speech",
       "text": {
-        "cs": "Moderní elektrárny nevybuchnou jako Černobyl, ale neznamená to…",
-        "sk": "Moderné elektrárne nevybuchnú ako Černobyľ, ale neznamená to…"
+        "sk": "Černobyľ pomerne blízko k atómovej bombe. Bolo to naozaj zle",
+        "cs": "Černobyl poměrně blízko k atomové bombě. Bylo to opravdu špatně"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        694,
+        706
+      ],
+      "editedBaseCues": [
         69
       ]
     },
     {
-      "start": 324.5,
-      "end": 330.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 330.5,
-      "end": 334.96,
+      "start": 306.69,
+      "end": 311.31,
       "kind": "speech",
       "text": {
-        "cs": "…každý reaktor, aby to byl reaktor a ne atomová bomba.",
-        "sk": "…každý reaktor, aby to bol reaktor a nie atómová bomba."
+        "sk": "urobené. Moderné jadrové elektrárne sa stavajú naopak. Keď",
+        "cs": "udělané. Moderní jaderné elektrárny se stavějí opačně. Když"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        706,
+        717
+      ],
+      "editedBaseCues": [
         70
       ]
     },
     {
-      "start": 335.0,
-      "end": 338.96,
+      "start": 311.31,
+      "end": 316.01,
       "kind": "speech",
       "text": {
-        "cs": "Co je to vlastně rovnováha? Můžeš nám to objasnit?",
-        "sk": "Čo je to vlastne rovnováha? Môžeš nám to objasniť?"
+        "sk": "sa vykoľaja zo svojej rovnováhy, reakcia sa v nich zastaví.",
+        "cs": "se vychýlí ze své rovnováhy, reakce se v nich zastaví."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        717,
+        729
+      ],
+      "editedBaseCues": [
         71
       ]
     },
     {
-      "start": 339.0,
-      "end": 340.96,
+      "start": 316.79,
+      "end": 319.37,
       "kind": "speech",
       "text": {
-        "cs": "V jaderném reaktoru.",
-        "sk": "V jadrovom reaktore."
+        "sk": "Tú rovnováhu potrebujú na to, aby fungovali ďalej.",
+        "cs": "Tu rovnováhu potřebují k tomu, aby fungovaly dál."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        729,
+        739
+      ],
+      "editedBaseCues": [
         72
       ]
     },
     {
-      "start": 341.0,
-      "end": 346.36,
+      "start": 319.76,
+      "end": 324.58,
       "kind": "speech",
       "text": {
-        "cs": "Je to poměrně složitý proces, ale zmíním základní",
-        "sk": "Je to pomerne zložitý proces, ale spomeniem základnú"
+        "sk": "Moderné elektrárne nevybuchnú ako Černobyľ, ale neznamená to, že",
+        "cs": "Moderní elektrárny nevybuchnou jako Černobyl, ale neznamená to, že"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        739,
+        750
+      ],
+      "editedBaseCues": [
         73
       ]
     },
     {
-      "start": 346.4,
-      "end": 348.923,
+      "start": 324.58,
+      "end": 325.8,
       "kind": "speech",
       "text": {
-        "cs": "složku: když se rozpadne…",
-        "sk": "zložku: keď sa rozpadne…"
+        "sk": "tam nemôžu nastať problémy.",
+        "cs": "tam nemohou nastat problémy."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        750,
+        754
+      ],
+      "editedBaseCues": [
         74
       ]
     },
     {
-      "start": 348.923,
-      "end": 354.0,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 354.0,
-      "end": 357.46,
+      "start": 327.2,
+      "end": 332.72,
       "kind": "speech",
       "text": {
-        "cs": "…a ty vyvolávají, stimulují další rozpady.",
-        "sk": "…a tie vyvolávajú, stimulujú ďalšie rozpady."
+        "sk": "Hovoril si o rovnováhe, ktorú musí spĺňať každý reaktor, aby to",
+        "cs": "Mluvil jsi o rovnováze, kterou musí splňovat každý reaktor, aby to"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        754,
+        766
+      ],
+      "editedBaseCues": [
         75
       ]
     },
     {
-      "start": 357.5,
-      "end": 362.2,
+      "start": 332.72,
+      "end": 334.52,
       "kind": "speech",
       "text": {
-        "cs": "Dokážeme kontrolovat, jak často dochází k reakci, tím,",
-        "sk": "Vieme kontrolovať, ako často dochádza k reakcii, tým,"
+        "sk": "bol reaktor a nie atómová bomba.",
+        "cs": "byl reaktor a ne atomová bomba."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        766,
+        773
+      ],
+      "editedBaseCues": [
         76
       ]
     },
     {
-      "start": 362.24,
-      "end": 367.598,
+      "start": 334.9,
+      "end": 340.33,
       "kind": "speech",
       "text": {
-        "cs": "že zachycujeme neutrony a bráníme jim šířit se dál.",
-        "sk": "že zachytávame neutróny a bránime im šíriť sa ďalej."
+        "sk": "Čo je to vlastne rovnováha? Môžeš nám ju objasniť v jadrovom",
+        "cs": "Co je to vlastně rovnováha? Můžeš nám ji objasnit v jaderném"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        773,
+        785
+      ],
+      "editedBaseCues": [
         77
       ]
     },
     {
-      "start": 367.638,
-      "end": 372.214,
+      "start": 340.33,
+      "end": 345.38,
       "kind": "speech",
       "text": {
-        "cs": "Máme v uvozovkách pasti nebo jedy na neutrony, které je zachytí",
-        "sk": "Máme v úvodzovkách pasce alebo jedy na neutróny, ktoré ich zachytia"
+        "sk": "reaktore? Je to bežne pomerne zložitý proces, ale spomeniem len úplne",
+        "cs": "reaktoru? Je to běžně poměrně složitý proces, ale zmíním jen úplně"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        785,
+        796
+      ],
+      "editedBaseCues": [
         78
       ]
     },
     {
-      "start": 372.254,
-      "end": 373.269,
-      "kind": "unclear",
+      "start": 345.38,
+      "end": 349.66,
+      "kind": "speech",
       "text": {
-        "cs": "a reakci tím… [nejasný přepis]",
-        "sk": "a reakciu tým… [nejasný prepis]"
+        "sk": "základnú zložku. Keď sa rozpadne jadro, vyletia z neho",
+        "cs": "základní složku. Když se rozpadne jádro, vyletí z něj"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        796,
+        810
+      ],
+      "editedBaseCues": [
         79
       ]
     },
     {
-      "start": 373.269,
-      "end": 377.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 377.5,
-      "end": 381.987,
+      "start": 349.66,
+      "end": 357.44,
       "kind": "speech",
       "text": {
-        "cs": "Takže to bylo řízené štěpení. Moderní",
-        "sk": "Takže to bolo kontrolované štiepenie. Moderné"
+        "cs": "neutrony. To jsou částice atomového jádra, které stimulují další rozpady.",
+        "sk": "neutróny. To sú častice atómového jadra, ktoré stimulujú ďalšie rozpady."
       },
-      "sourceCues": [
-        80
-      ]
-    },
-    {
-      "start": 382.027,
-      "end": 387.0,
-      "kind": "speech",
-      "text": {
-        "cs": "elektrárny: když se vychýlí z rovnováhy, neutrony přestanou…",
-        "sk": "elektrárne: keď sa vykoľaja z rovnováhy, neutróny prestanú…"
-      },
-      "sourceCues": [
+      "asrWordRange": [
+        810,
+        823
+      ],
+      "editedBaseCues": [
+        80,
         81
       ]
     },
     {
-      "start": 388.0,
-      "end": 393.216,
+      "start": 358.74,
+      "end": 361.98,
       "kind": "speech",
       "text": {
-        "cs": "Takže zabrání tomu, aby byl horší účinek.",
-        "sk": "Takže zabránia tomu, aby bol horší efekt."
+        "sk": "To, ako často dochádza k reakcii, môžeme kontrolovať tak,",
+        "cs": "To, jak často dochází k reakci, můžeme kontrolovat tím,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        823,
+        834
+      ],
+      "editedBaseCues": [
         82
       ]
     },
     {
-      "start": 393.256,
-      "end": 398.349,
+      "start": 362.0,
+      "end": 365.2,
       "kind": "speech",
       "text": {
-        "cs": "Nezhorší se to, nebo by se to nemělo tak moc",
-        "sk": "Nezhorší sa to, alebo by sa to nemalo tak veľmi"
+        "sk": "že zachytávame tieto neutróny a bránime im, aby sa",
+        "cs": "že zachycujeme tyto neutrony a bráníme jim, aby se"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        834,
+        847
+      ],
+      "editedBaseCues": [
         83
       ]
     },
     {
-      "start": 398.389,
-      "end": 403.397,
+      "start": 365.2,
+      "end": 369.12,
       "kind": "speech",
       "text": {
-        "cs": "zhoršit jako v Černobylu, kde se začala hromadit energie,",
-        "sk": "zhoršiť ako v Černobyle, kde sa začala hromadiť energia,"
+        "sk": "šírili prostredím ďalej. Máme v úvodzovkách pasce alebo jedy na",
+        "cs": "šířily prostředím dál. Máme v uvozovkách pasti nebo jedy na"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        847,
+        859
+      ],
+      "editedBaseCues": [
         84
       ]
     },
     {
-      "start": 403.437,
-      "end": 406.14,
+      "start": 369.12,
+      "end": 372.66,
       "kind": "speech",
       "text": {
-        "cs": "všechno se natlakovalo a vybuchlo.",
-        "sk": "všetko sa natlakovalo a explodovalo."
+        "sk": "neutróny, ktoré ich zachytia a tým kontrolujú reakciu.",
+        "cs": "neutrony, které je zachytí a tím kontrolují reakci."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        859,
+        869
+      ],
+      "editedBaseCues": [
         85
       ]
     },
     {
-      "start": 406.64,
-      "end": 411.074,
+      "start": 374.8,
+      "end": 378.5,
       "kind": "speech",
       "text": {
-        "cs": "V moderní elektrárně se může reakce vypnout, ale stále máme",
-        "sk": "V modernej elektrárni sa môže reakcia vypnúť, ale stále máme"
+        "sk": "Černobyľ mal vlastnosť, že keď sa to vykoľajilo, bolo to",
+        "cs": "Černobyl měl vlastnost, že když se to vychýlilo, bylo to"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        869,
+        883
+      ],
+      "editedBaseCues": [
         86
       ]
     },
     {
-      "start": 411.114,
-      "end": 413.88,
+      "start": 378.5,
+      "end": 382.72,
       "kind": "speech",
       "text": {
-        "cs": "extrémně horké jádro, které je třeba chladit.",
-        "sk": "extrémne horúce jadro, ktoré treba chladiť."
+        "sk": "kontrolované ešte menej. Moderné elektrárne: keď sa vykoľaja z rovnováhy,",
+        "cs": "kontrolované ještě méně. Moderní elektrárny: když se vychýlí z rovnováhy,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        883,
+        896
+      ],
+      "editedBaseCues": [
         87
       ]
     },
     {
-      "start": 414.52,
-      "end": 417.135,
+      "start": 383.56,
+      "end": 387.32,
       "kind": "speech",
       "text": {
-        "cs": "K tomu jsou samozřejmě i záložní obvody…",
-        "sk": "Na to sú, samozrejme, aj náhradné obvody…"
+        "cs": "neutrony přestanou být reaktivní.",
+        "sk": "neutróny prestanú byť reaktívne."
       },
-      "sourceCues": [
-        88
-      ]
-    },
-    {
-      "start": 417.135,
-      "end": 424.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 424.5,
-      "end": 427.2,
-      "kind": "speech",
-      "text": {
-        "cs": "…způsobilo jadernou havárii a zároveň odstavilo chladicí obvody.",
-        "sk": "…spôsobilo jadrovú haváriu a zároveň odstavilo chladiace obvody."
-      },
-      "sourceCues": [
+      "asrWordRange": [
+        896,
+        900
+      ],
+      "editedBaseCues": [
+        88,
         89
       ]
     },
     {
-      "start": 428.52,
-      "end": 431.96,
+      "start": 388.42,
+      "end": 393.14,
       "kind": "speech",
       "text": {
-        "cs": "Došlo k něčemu, čemu se říká meltdown.",
-        "sk": "Došlo k niečomu, čo sa volá meltdown."
+        "sk": "Zabránia tomu, aby bol horší následok toho, čo sa",
+        "cs": "Zabrání tomu, aby byl horší následek toho, co se"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        900,
+        912
+      ],
+      "editedBaseCues": [
         90
       ]
     },
     {
-      "start": 432.0,
-      "end": 435.0,
+      "start": 393.14,
+      "end": 396.32,
       "kind": "speech",
       "text": {
-        "cs": "Roztavilo se jádro.",
-        "sk": "Roztavilo sa jadro."
+        "sk": "stalo. Môže tam niečo nastať, ale nezhorší sa to už.",
+        "cs": "stalo. Může tam něco nastat, ale nezhorší se to už."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        912,
+        923
+      ],
+      "editedBaseCues": [
         91
       ]
     },
     {
-      "start": 436.0,
-      "end": 441.452,
+      "start": 396.8,
+      "end": 398.74,
       "kind": "speech",
       "text": {
-        "cs": "Teď je obrovský problém, že tu kontaminovanou vodu budou",
-        "sk": "Teraz je obrovský problém, že tú kontaminovanú vodu budú"
+        "sk": "Alebo by sa to nemalo až tak veľmi zhoršiť.",
+        "cs": "Nebo by se to nemělo až tak moc zhoršit."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        923,
+        932
+      ],
+      "editedBaseCues": [
         92
       ]
     },
     {
-      "start": 441.492,
-      "end": 443.462,
-      "kind": "unclear",
+      "start": 399.32,
+      "end": 401.96,
+      "kind": "speech",
       "text": {
-        "cs": "se snažit nějak… [nejasný přepis]",
-        "sk": "sa snažiť nejako… [nejasný prepis]"
+        "sk": "V Černobyle sa začala hromadiť energia,",
+        "cs": "V Černobylu se začala hromadit energie,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        932,
+        947
+      ],
+      "editedBaseCues": [
         93
       ]
     },
     {
-      "start": 443.462,
-      "end": 448.0,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 448.0,
-      "end": 450.9,
+      "start": 401.96,
+      "end": 405.88,
       "kind": "speech",
       "text": {
-        "cs": "Budeme jim držet palce, aby se to nezhoršovalo.",
-        "sk": "Budeme im držať palce, aby sa to nezhoršovalo."
+        "sk": "všetko sa natlakovalo a celé to explodovalo.",
+        "cs": "všechno se natlakovalo a celé to vybuchlo."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        947,
+        959
+      ],
+      "editedBaseCues": [
         94
       ]
     },
     {
-      "start": 450.94,
-      "end": 456.172,
+      "start": 406.4,
+      "end": 409.46,
       "kind": "speech",
       "text": {
-        "cs": "Máme tu statistiky: ve světě je 450 elektráren,",
-        "sk": "Máme tu štatistiky: vo svete je 450 elektrární,"
+        "sk": "V modernej elektrárni sa môže stať, že sa reakcia vypne,",
+        "cs": "V moderní elektrárně se může stát, že se reakce vypne,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        959,
+        973
+      ],
+      "editedBaseCues": [
         95
       ]
     },
     {
-      "start": 456.212,
-      "end": 459.46,
+      "start": 409.68,
+      "end": 413.82,
       "kind": "speech",
       "text": {
-        "cs": "které produkují 10 % celkové energie.",
-        "sk": "ktoré produkujú 10 % celkovej energie."
+        "sk": "ale stále máme extrémne horúce jadro, ktoré treba chladiť.",
+        "cs": "ale stále máme extrémně horké jádro, které je třeba chladit."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        973,
+        982
+      ],
+      "editedBaseCues": [
         96
       ]
     },
     {
-      "start": 459.5,
-      "end": 464.748,
+      "start": 414.38,
+      "end": 418.76,
       "kind": "speech",
       "text": {
-        "cs": "Jaký je trend? Snažíme se žít ekologicky, zelená",
-        "sk": "Aký je trend? Snažíme sa ekologicky žiť, zelená"
+        "sk": "Na to sú náhradné obvody. Vo Fukušime sa však",
+        "cs": "K tomu jsou záložní obvody. Ve Fukušimě se ale"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        982,
+        994
+      ],
+      "editedBaseCues": [
         97
       ]
     },
     {
-      "start": 464.788,
-      "end": 465.654,
+      "start": 418.76,
+      "end": 424.48,
       "kind": "speech",
       "text": {
-        "cs": "energie se…",
-        "sk": "energia sa…"
+        "sk": "stalo, že prišlo cunami, ktoré spôsobilo jadrovú haváriu",
+        "cs": "stalo, že přišlo cunami, které způsobilo jadernou havárii"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        994,
+        1005
+      ],
+      "editedBaseCues": [
         98
       ]
     },
     {
-      "start": 465.654,
-      "end": 471.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 471.5,
-      "end": 476.536,
+      "start": 424.48,
+      "end": 427.16,
       "kind": "speech",
       "text": {
-        "cs": "…solární a větrná energie. Má jaderná energie",
-        "sk": "…solárna a veterná energia. Má jadrová energia"
+        "sk": "a zároveň odstavilo obvody, ktoré mali chladiť",
+        "cs": "a zároveň odstavilo obvody, které měly chladit"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1005,
+        1013
+      ],
+      "editedBaseCues": [
         99
       ]
     },
     {
-      "start": 476.576,
-      "end": 481.612,
+      "start": 429.24,
+      "end": 431.42,
       "kind": "speech",
       "text": {
-        "cs": "ještě v budoucnu místo, nebo se od ní odkláníme",
-        "sk": "ešte v budúcnosti miesto, alebo sa od nej odkláňame"
+        "sk": "reaktor. Došlo k niečomu, čo sa volá meltdown.",
+        "cs": "reaktor. Došlo k něčemu, čemu se říká meltdown."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1013,
+        1022
+      ],
+      "editedBaseCues": [
         100
       ]
     },
     {
-      "start": 481.652,
-      "end": 487.0,
+      "start": 433.02,
+      "end": 434.96,
       "kind": "speech",
       "text": {
-        "cs": "k něčemu čistšímu? Jaký má vztah k fosilním palivům?",
-        "sk": "k niečomu čistejšiemu? Aký má vzťah k fosílnym palivám?"
+        "sk": "Roztavilo sa jadro. Áno.",
+        "cs": "Roztavilo se jádro. Ano."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1022,
+        1028
+      ],
+      "editedBaseCues": [
         101
       ]
     },
     {
-      "start": 488.0,
-      "end": 493.385,
+      "start": 436.01,
+      "end": 440.91,
       "kind": "speech",
       "text": {
-        "cs": "Teď je to takové na vážkách. Některé země jí daly stopku,",
-        "sk": "Teraz je to také na vážkach. Sú krajiny, ktoré dali stopku,"
+        "sk": "Viem, že je tam obrovský problém s kontaminovanou vodou.",
+        "cs": "Vím, že je tam obrovský problém s kontaminovanou vodou."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1028,
+        1040
+      ],
+      "editedBaseCues": [
         102
       ]
     },
     {
-      "start": 495.0,
-      "end": 498.46,
+      "start": 441.69,
+      "end": 445.21,
       "kind": "speech",
       "text": {
-        "cs": "a jiné na ní úspěšně fungují dál.",
-        "sk": "a sú také, ktoré na nej úspešne fungujú ďalej."
+        "sk": "Budú sa jej snažiť nejako zbaviť, ale je jej strašne veľa.",
+        "cs": "Budou se jí snažit nějak zbavit, ale je jí strašně moc."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1040,
+        1052
+      ],
+      "editedBaseCues": [
         103
       ]
     },
     {
-      "start": 498.5,
-      "end": 503.582,
+      "start": 445.87,
+      "end": 449.37,
       "kind": "speech",
       "text": {
-        "cs": "Jak jsi řekl, zhruba 10 % světové",
-        "sk": "Ako si povedal, zhruba 10 % svetovej"
+        "sk": "Budem držať palce. Myslím, že všetci budú držať palce, aby sa",
+        "cs": "Budu držet palce. Myslím, že všichni budou držet palce, aby se"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1052,
+        1065
+      ],
+      "editedBaseCues": [
         104
       ]
     },
     {
-      "start": 503.622,
-      "end": 508.46,
+      "start": 449.37,
+      "end": 453.89,
       "kind": "speech",
       "text": {
-        "cs": "výroby zajišťují jaderné elektrárny.",
-        "sk": "výroby produkujú jadrové elektrárne."
+        "sk": "to nezhoršovalo. Máme tu také štatistiky.",
+        "cs": "to nezhoršovalo. Máme tady statistiky."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1065,
+        1074
+      ],
+      "editedBaseCues": [
         105
       ]
     },
     {
-      "start": 508.5,
-      "end": 513.46,
+      "start": 453.97,
+      "end": 458.85,
       "kind": "speech",
       "text": {
-        "cs": "A jakou mají budoucnost?",
-        "sk": "A akú majú budúcnosť?"
+        "sk": "Vo svete je 450 elektrární, ktoré produkujú 10 % celkovej energie.",
+        "cs": "Ve světě je 450 elektráren, které produkují 10 % celkové energie."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1074,
+        1085
+      ],
+      "editedBaseCues": [
         106
       ]
     },
     {
-      "start": 513.5,
-      "end": 517.5,
+      "start": 460.11,
+      "end": 466.44,
       "kind": "speech",
       "text": {
-        "cs": "V podstatě nevíme. Je to poměrně důležitá otázka.",
-        "sk": "V podstate nevieme. Je to pomerne dôležitá otázka."
+        "sk": "Aký je teraz trend? Vieme, že všetci sa snažíme ekologicky",
+        "cs": "Jaký je teď trend? Víme, že se všichni snažíme ekologicky"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1085,
+        1095
+      ],
+      "editedBaseCues": [
         107
       ]
     },
     {
-      "start": 518.5,
-      "end": 523.584,
+      "start": 466.44,
+      "end": 472.58,
       "kind": "speech",
       "text": {
-        "cs": "Lidé si s jadernou energií spojují negativa, že může",
-        "sk": "Ľudia si s jadrovou energiou spájajú negatíva, že môže"
+        "sk": "žiť a presadzovať zelenú energiu, napríklad solárnu a veternú.",
+        "cs": "žít a prosazovat zelenou energii, například solární a větrnou."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1095,
+        1107
+      ],
+      "editedBaseCues": [
         108
       ]
     },
     {
-      "start": 523.624,
-      "end": 524.96,
+      "start": 474.56,
+      "end": 480.42,
       "kind": "speech",
       "text": {
-        "cs": "dojít k havárii a podobně.",
-        "sk": "dôjsť k havárii a podobne."
+        "sk": "Má jadrová energia ešte priestor v budúcnosti, alebo sa skôr od",
+        "cs": "Má jaderná energie ještě prostor v budoucnu, nebo se spíš od"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1107,
+        1119
+      ],
+      "editedBaseCues": [
         109
       ]
     },
     {
-      "start": 525.0,
-      "end": 530.36,
+      "start": 480.42,
+      "end": 484.02,
       "kind": "speech",
       "text": {
-        "cs": "Skutečná pravděpodobnost havárie je ale poměrně malá.",
-        "sk": "Reálna pravdepodobnosť havárie je však pomerne malá."
+        "sk": "nej odkláňame a bude nahradená niečím čistejším, lepším?",
+        "cs": "ní odkláníme a bude nahrazena něčím čistším, lepším?"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1119,
+        1127
+      ],
+      "editedBaseCues": [
         110
       ]
     },
     {
-      "start": 530.4,
-      "end": 535.16,
+      "start": 484.18,
+      "end": 486.94,
       "kind": "speech",
       "text": {
-        "cs": "A když k havárii dojde, taky není tak strašná, jak si lidé",
-        "sk": "A keď k havárii dôjde, tiež nie je taká strašná, ako si ľudia"
+        "sk": "V akom je vzťahu k fosílnym palivám?",
+        "cs": "V jakém je vztahu k fosilním palivům?"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1127,
+        1136
+      ],
+      "editedBaseCues": [
         111
       ]
     },
     {
-      "start": 535.2,
-      "end": 536.923,
+      "start": 487.78,
+      "end": 488.98,
       "kind": "speech",
       "text": {
-        "cs": "představují. Další Černobyl…",
-        "sk": "predstavujú. Ďalší Černobyľ…"
+        "sk": "Čiže…",
+        "cs": "Takže…"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1136,
+        1137
+      ],
+      "editedBaseCues": [
         112
       ]
     },
     {
-      "start": 536.923,
-      "end": 543.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 543.5,
-      "end": 547.96,
+      "start": 490.65,
+      "end": 494.65,
       "kind": "speech",
       "text": {
-        "cs": "…ne tak moc jako jiné zdroje, ale stále je poměrně drahé",
-        "sk": "…nie až tak veľmi ako iné zdroje, ale stále je pomerne drahé"
+        "sk": "Teraz je to na vážkach. Niektoré krajiny dali stopku",
+        "cs": "Teď je to na vážkách. Některé země daly stopku"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1137,
+        1149
+      ],
+      "editedBaseCues": [
         113
       ]
     },
     {
-      "start": 548.0,
-      "end": 550.46,
+      "start": 494.65,
+      "end": 499.63,
       "kind": "speech",
       "text": {
-        "cs": "elektrárnu postavit a rozběhnout.",
-        "sk": "elektráreň postaviť a rozbehnúť."
+        "sk": "jadrovej energii a iné na nej pomerne úspešne fungujú ďalej.",
+        "cs": "jaderné energii a jiné na ní poměrně úspěšně fungují dál."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1149,
+        1162
+      ],
+      "editedBaseCues": [
         114
       ]
     },
     {
-      "start": 550.5,
-      "end": 555.516,
+      "start": 500.29,
+      "end": 504.85,
       "kind": "speech",
       "text": {
-        "cs": "Druhý problém: produkují palivo, které je",
-        "sk": "Druhý problém: produkujú palivo, ktoré je"
+        "sk": "Ako si povedal, zhruba 10 % svetovej energie",
+        "cs": "Jak jsi řekl, zhruba 10 % světové energie"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1162,
+        1175
+      ],
+      "editedBaseCues": [
         115
       ]
     },
     {
-      "start": 555.556,
-      "end": 560.038,
+      "start": 504.85,
+      "end": 510.84,
       "kind": "speech",
       "text": {
-        "cs": "částečně vyhořelé a musíme ho velmi dlouho skladovat.",
-        "sk": "čiastočne vyhorené a musíme ho veľmi dlho skladovať."
+        "sk": "produkujú jadrové elektrárne. A teraz…",
+        "cs": "produkují jaderné elektrárny. A teď…"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1175,
+        1180
+      ],
+      "editedBaseCues": [
         116
       ]
     },
     {
-      "start": 560.038,
-      "end": 565.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 565.5,
-      "end": 569.123,
+      "start": 511.72,
+      "end": 516.98,
       "kind": "speech",
       "text": {
-        "cs": "Už spočítali, že elektrárny další generace budou schopné odpad",
-        "sk": "Už vypočítali, že elektrárne ďalšej generácie budú schopné odpad"
+        "sk": "Akú majú budúcnosť? V podstate nevieme. Je to pomerne dôležitá",
+        "cs": "Jakou mají budoucnost? V podstatě nevíme. Je to poměrně důležitá"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1180,
+        1193
+      ],
+      "editedBaseCues": [
         117
       ]
     },
     {
-      "start": 569.163,
-      "end": 573.493,
+      "start": 516.98,
+      "end": 522.04,
       "kind": "speech",
       "text": {
-        "cs": "znovu vzít a použít jako další palivo. Proto se nevyhazuje",
-        "sk": "znova zobrať a použiť ako ďalšie palivo. Preto sa nevyhadzuje"
+        "sk": "otázka. Ľudia si s jadrovou elektrárňou spájajú",
+        "cs": "otázka. Lidé si s jadernou elektrárnou spojují"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1193,
+        1205
+      ],
+      "editedBaseCues": [
         118
       ]
     },
     {
-      "start": 573.533,
-      "end": 575.96,
+      "start": 522.04,
+      "end": 528.24,
       "kind": "speech",
       "text": {
-        "cs": "nebo neodpaluje někam do vesmíru.",
-        "sk": "alebo neodpaľuje niekam do vesmíru."
+        "sk": "negatíva, že môže dôjsť k havárii. Skutočné",
+        "cs": "negativa, že může dojít k havárii. Skutečné"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1205,
+        1218
+      ],
+      "editedBaseCues": [
         119
       ]
     },
     {
-      "start": 576.0,
-      "end": 580.8,
-      "kind": "unclear",
+      "start": 528.24,
+      "end": 532.8,
+      "kind": "speech",
       "text": {
-        "cs": "Lidé se snaží vymyslet… [nejasný přepis]",
-        "sk": "Ľudia sa snažia vymyslieť… [nejasný prepis]"
+        "sk": "negatíva, ak k havárii nedôjde, sú pomerne malé. A keď k havárii",
+        "cs": "negativní dopady, pokud k havárii nedojde, jsou poměrně malé. A když k havárii"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1218,
+        1232
+      ],
+      "editedBaseCues": [
         120
       ]
     },
     {
-      "start": 580.8,
-      "end": 589.0,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 589.0,
-      "end": 592.22,
+      "start": 532.8,
+      "end": 535.96,
       "kind": "speech",
       "text": {
-        "cs": "…v Rusku, aby se nějak vyhnuli těm negativům.",
-        "sk": "…v Rusku, aby sa nejako vyhli tým negatívam."
+        "sk": "dôjde, tiež to nie je také strašné, ako si ľudia predstavujú.",
+        "cs": "dojde, taky to není tak strašné, jak si lidé představují."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1232,
+        1245
+      ],
+      "editedBaseCues": [
         121
       ]
     },
     {
-      "start": 592.26,
-      "end": 594.1,
+      "start": 535.96,
+      "end": 538.22,
       "kind": "speech",
       "text": {
-        "cs": "Je to velmi zajímavé.",
-        "sk": "Je to veľmi zaujímavé."
+        "sk": "Ďalší Černobyľ je už veľmi nepravdepodobný.",
+        "cs": "Další Černobyl je už velmi nepravděpodobný."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1245,
+        1251
+      ],
+      "editedBaseCues": [
         122
       ]
     },
     {
-      "start": 594.14,
-      "end": 595.9,
+      "start": 539.51,
+      "end": 544.01,
       "kind": "speech",
       "text": {
-        "cs": "Mimochodem…",
-        "sk": "Mimochodom…"
+        "sk": "Bežné negatíva sú, že sú pomerne drahé na prevádzku. Nie",
+        "cs": "Běžná negativa jsou, že jsou poměrně drahé na provoz. Ne"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1251,
+        1264
+      ],
+      "editedBaseCues": [
         123
       ]
     },
     {
-      "start": 595.94,
-      "end": 600.974,
+      "start": 544.01,
+      "end": 548.27,
       "kind": "speech",
       "text": {
-        "cs": "Zajímavá poznámka: proč se palivo ukládá do solných",
-        "sk": "Zaujímavá poznámka: prečo sa palivo ukladá do soľných"
+        "sk": "až tak veľmi ako iné zdroje energie, ale stále je drahé",
+        "cs": "tak moc jako jiné zdroje energie, ale stále je drahé"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1264,
+        1278
+      ],
+      "editedBaseCues": [
         124
       ]
     },
     {
-      "start": 601.014,
-      "end": 606.198,
-      "kind": "unclear",
+      "start": 548.27,
+      "end": 550.29,
+      "kind": "speech",
       "text": {
-        "cs": "dolů? Ví se, že daným místem… [nejasný přepis]",
-        "sk": "baní? Vie sa, že cez dané miesto… [nejasný prepis]"
+        "sk": "elektráreň postaviť a rozbehnúť.",
+        "cs": "elektrárnu postavit a rozběhnout."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1278,
+        1285
+      ],
+      "editedBaseCues": [
         125
       ]
     },
     {
-      "start": 606.198,
-      "end": 614.88,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 614.88,
-      "end": 616.34,
+      "start": 550.93,
+      "end": 554.94,
       "kind": "speech",
       "text": {
-        "cs": "To je velmi dávno.",
-        "sk": "To je veľmi dávno."
+        "sk": "Druhý problém je, že produkuje palivo — teda nie palivo, ale",
+        "cs": "Druhý problém je, že produkuje palivo — tedy ne palivo, ale"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1285,
+        1298
+      ],
+      "editedBaseCues": [
         126
       ]
     },
     {
-      "start": 616.38,
-      "end": 621.236,
+      "start": 554.94,
+      "end": 557.2,
       "kind": "speech",
       "text": {
-        "cs": "Slyšel jsem, že když se do ní vyvrtá",
-        "sk": "Počul som, že keď sa do nej vyvŕta"
+        "sk": "čiastočne vyhorené palivo,",
+        "cs": "částečně vyhořelé palivo,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1298,
+        1305
+      ],
+      "editedBaseCues": [
         127
       ]
     },
     {
-      "start": 621.276,
-      "end": 625.854,
+      "start": 558.02,
+      "end": 559.82,
       "kind": "speech",
       "text": {
-        "cs": "místo, kam se má palivo vložit, sůl je krystal a sama se",
-        "sk": "miesto, kam sa má palivo vložiť, soľ je kryštál a sama sa"
+        "sk": "ktoré musíme veľmi dlho skladovať.",
+        "cs": "které musíme velmi dlouho skladovat."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1305,
+        1310
+      ],
+      "editedBaseCues": [
         128
       ]
     },
     {
-      "start": 625.894,
-      "end": 629.962,
+      "start": 560.72,
+      "end": 564.04,
       "kind": "speech",
       "text": {
-        "cs": "zahojí. I to může být dobré řešení.",
-        "sk": "zahojí. Aj to môže byť dobré riešenie."
+        "sk": "Skladuje sa aj preto, že sa verí — teda, sú už",
+        "cs": "Skladuje se i proto, že se věří — tedy, jsou už"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1310,
+        1324
+      ],
+      "editedBaseCues": [
         129
       ]
     },
     {
-      "start": 629.962,
-      "end": 636.0,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 636.0,
-      "end": 641.438,
+      "start": 564.04,
+      "end": 568.9,
       "kind": "speech",
       "text": {
-        "cs": "Pokud se znovu využije spotřebované, staré palivo, bude",
-        "sk": "Ak sa znova využije spotrebované, staré palivo, bude"
+        "sk": "výpočty, že elektrárne ďalšej generácie budú schopné tento odpad",
+        "cs": "výpočty, že elektrárny další generace budou schopné tento odpad"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1324,
+        1334
+      ],
+      "editedBaseCues": [
         130
       ]
     },
     {
-      "start": 641.478,
-      "end": 644.46,
+      "start": 568.9,
+      "end": 571.84,
       "kind": "speech",
       "text": {
-        "cs": "jaderná energie ještě čistší?",
-        "sk": "jadrová energia ešte čistejšia?"
+        "sk": "znova zobrať a použiť ako ďalšie palivo. Preto sa to",
+        "cs": "znovu vzít a použít jako další palivo. Proto se to"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1334,
+        1347
+      ],
+      "editedBaseCues": [
         131
       ]
     },
     {
-      "start": 644.5,
-      "end": 649.715,
+      "start": 571.84,
+      "end": 575.28,
       "kind": "speech",
       "text": {
-        "cs": "Myslím, že proces je vymyšlený, ale ještě neuskutečněný.",
-        "sk": "Myslím, že proces je vymyslený, ale ešte nezrealizovaný."
+        "sk": "nevyhadzuje ani neodpaľuje niekam do vesmíru.",
+        "cs": "nevyhazuje ani neodpaluje někam do vesmíru."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1347,
+        1356
+      ],
+      "editedBaseCues": [
         132
       ]
     },
     {
-      "start": 649.755,
-      "end": 655.06,
+      "start": 575.46,
+      "end": 580.58,
       "kind": "speech",
       "text": {
-        "cs": "Když nedojde k havárii, to, co z elektrárny vychází — palivo,",
-        "sk": "Keď nedôjde k havárii, to, čo z elektrárne vychádza — palivo,"
+        "sk": "Aha. Ľudia sa teda snažia vymyslieť proces, ktorým by sa",
+        "cs": "Aha. Lidé se tedy snaží vymyslet proces, kterým by se"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1356,
+        1369
+      ],
+      "editedBaseCues": [
         133
       ]
     },
     {
-      "start": 655.1,
-      "end": 660.335,
-      "kind": "unclear",
+      "start": 580.58,
+      "end": 584.92,
+      "kind": "speech",
       "text": {
-        "cs": "které je třeba skladovat — … [nejasný přepis]",
-        "sk": "ktoré treba skladovať — … [nejasný prepis]"
+        "sk": "využívalo aj vyhorené alebo zhorené palivo, ak by sme ho mohli",
+        "cs": "využívalo i vyhořelé nebo shořelé palivo, pokud bychom ho tak mohli"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1369,
+        1381
+      ],
+      "editedBaseCues": [
         134
       ]
     },
     {
-      "start": 660.375,
-      "end": 662.96,
+      "start": 584.92,
+      "end": 589.58,
       "kind": "speech",
       "text": {
-        "cs": "To je třeba dát do souvislostí a porovnat s ostatními zdroji.",
-        "sk": "Toto treba dať do kontextu a porovnať s ostatnými zdrojmi."
+        "sk": "tak nazvať, ktoré sa ukladá do soľných baní v Rusku, aby sa",
+        "cs": "nazvat, které se ukládá do solných dolů v Rusku, aby se"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1381,
+        1396
+      ],
+      "editedBaseCues": [
         135
       ]
     },
     {
-      "start": 663.0,
-      "end": 678.0,
-      "kind": "unclear",
+      "start": 589.58,
+      "end": 592.1,
+      "kind": "speech",
       "text": {
-        "cs": "[Nejasný úsek: zdrojový přepis opakuje tutéž větu.]",
-        "sk": "[Nejasný úsek: zdrojový prepis opakuje tú istú vetu.]"
+        "sk": "nejako bránilo tým negatívam.",
+        "cs": "nějak bránilo těm negativům."
       },
-      "sourceCues": [
-        136,
-        137,
+      "asrWordRange": [
+        1396,
+        1400
+      ],
+      "editedBaseCues": [
+        136
+      ]
+    },
+    {
+      "start": 592.74,
+      "end": 593.94,
+      "kind": "speech",
+      "text": {
+        "sk": "To je veľmi zaujímavé.",
+        "cs": "To je velmi zajímavé."
+      },
+      "asrWordRange": [
+        1400,
+        1406
+      ],
+      "editedBaseCues": [
+        137
+      ]
+    },
+    {
+      "start": 594.04,
+      "end": 599.02,
+      "kind": "speech",
+      "text": {
+        "sk": "Mimochodom, poznámka: prečo sa vlastne ukladá",
+        "cs": "Mimochodem, poznámka: proč se vlastně ukládá"
+      },
+      "asrWordRange": [
+        1406,
+        1418
+      ],
+      "editedBaseCues": [
         138
       ]
     },
     {
-      "start": 678.0,
-      "end": 684.3,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 684.3,
-      "end": 689.7,
+      "start": 599.68,
+      "end": 603.84,
       "kind": "speech",
       "text": {
-        "cs": "Samozřejmě, čistší jsou obnovitelné",
-        "sk": "Samozrejme, čistejšie sú obnoviteľné"
+        "sk": "palivo do soľných baní? Nikdy nie je jasné, či",
+        "cs": "palivo do solných dolů? Nikdy není jasné, jestli"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1418,
+        1434
+      ],
+      "editedBaseCues": [
         139
       ]
     },
     {
-      "start": 689.74,
-      "end": 693.58,
+      "start": 603.84,
+      "end": 606.52,
       "kind": "speech",
       "text": {
-        "cs": "zdroje jako solární panely nebo větrné elektrárny.",
-        "sk": "zdroje ako solárne panely alebo veterné elektrárne."
+        "sk": "miestom, kam sa to zakope, netečie voda.",
+        "cs": "místem, kam se to zakope, neteče voda."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1434,
+        1443
+      ],
+      "editedBaseCues": [
         140
       ]
     },
     {
-      "start": 693.62,
-      "end": 699.042,
+      "start": 607.16,
+      "end": 610.74,
       "kind": "speech",
       "text": {
-        "cs": "Stále se diskutuje, do jaké míry znečišťují prostředí…",
-        "sk": "Stále sa diskutuje, do akej miery znečisťujú prostredie…"
+        "sk": "Keď je tam veľa soli, znamená to, že tadiaľ asi netečie voda,",
+        "cs": "Když je tam hodně soli, znamená to, že tudy asi neteče voda,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1443,
+        1457
+      ],
+      "editedBaseCues": [
         141
       ]
     },
     {
-      "start": 699.042,
-      "end": 706.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 706.5,
-      "end": 711.56,
+      "start": 610.82,
+      "end": 613.38,
       "kind": "speech",
       "text": {
-        "cs": "…jsou na bázi silikonu a ten hodně znečišťuje…",
-        "sk": "…sú na báze silikónu a ten veľmi znečisťuje…"
+        "sk": "takže je to bezpečné miesto na uloženie odpadu.",
+        "cs": "takže je to bezpečné místo k uložení odpadu."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1457,
+        1465
+      ],
+      "editedBaseCues": [
         142
       ]
     },
     {
-      "start": 711.6,
-      "end": 715.96,
+      "start": 614.9,
+      "end": 619.42,
       "kind": "speech",
       "text": {
-        "cs": "Křemíku. Slovensky se tomu říká kremík.",
-        "sk": "Kremíka. Kremík je to po slovensky."
+        "sk": "To je zaujímavé. Počul som ešte, že keď sa do soli",
+        "cs": "To je zajímavé. Ještě jsem slyšel, že když se do soli"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1465,
+        1481
+      ],
+      "editedBaseCues": [
         143
       ]
     },
     {
-      "start": 716.0,
-      "end": 718.96,
+      "start": 619.42,
+      "end": 625.1,
       "kind": "speech",
       "text": {
-        "cs": "Ano, ano, křemík.",
-        "sk": "Áno, áno, kremík."
+        "sk": "vyvŕtajú miesta, kam sa má palivo uložiť, soľ je kryštál a sama sa",
+        "cs": "vyvrtají místa, kam se má palivo uložit, sůl je krystal a sama se"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1481,
+        1496
+      ],
+      "editedBaseCues": [
         144
       ]
     },
     {
-      "start": 719.0,
-      "end": 722.754,
+      "start": 625.1,
+      "end": 630.96,
       "kind": "speech",
       "text": {
-        "cs": "Výborně, děkuji. Ale určitě jsou i horší",
-        "sk": "Výborne, ďakujem. Ale určite sú aj horší"
+        "sk": "zahojí a zatvorí. Z tohto pohľadu je to dobré riešenie.",
+        "cs": "zahojí a uzavře. Z tohoto pohledu je to dobré řešení."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1496,
+        1508
+      ],
+      "editedBaseCues": [
         145
       ]
     },
     {
-      "start": 722.794,
-      "end": 724.96,
+      "start": 630.96,
+      "end": 635.9,
       "kind": "speech",
       "text": {
-        "cs": "znečišťovatelé.",
-        "sk": "znečisťovatelia."
+        "sk": "Keď niekto vymyslí proces, ako znova využiť",
+        "cs": "Když někdo vymyslí proces, jak znovu využít"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1508,
+        1518
+      ],
+      "editedBaseCues": [
         146
       ]
     },
     {
-      "start": 725.0,
-      "end": 730.233,
+      "start": 635.9,
+      "end": 642.4,
       "kind": "speech",
       "text": {
-        "cs": "Čtu tady z poznámek, které jsme dali dohromady,",
-        "sk": "Čítam tu z poznámok, ktoré sme dali dokopy,"
+        "sk": "staré, spotrebované palivo, bude jadrová energia",
+        "cs": "staré, spotřebované palivo, bude jaderná energie"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1518,
+        1529
+      ],
+      "editedBaseCues": [
         147
       ]
     },
     {
-      "start": 730.273,
-      "end": 734.5,
+      "start": 642.4,
+      "end": 644.74,
       "kind": "speech",
       "text": {
-        "cs": "že až 8 milionů lidí ročně zemře kvůli znečištění vzduchu.",
-        "sk": "že až 8 miliónov ľudí ročne zomrie na znečistenie vzduchu."
+        "sk": "ešte čistejšia?",
+        "cs": "ještě čistší?"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1529,
+        1532
+      ],
+      "editedBaseCues": [
         148
       ]
     },
     {
-      "start": 736.5,
-      "end": 740.46,
+      "start": 644.74,
+      "end": 647.9,
       "kind": "speech",
       "text": {
-        "cs": "Tak konečně jsme přestali obcházet slona v místnosti.",
-        "sk": "Tak konečne sme prestali obchádzať slona v miestnosti."
+        "sk": "Áno. Myslím, že proces je už vymyslený, ale ešte nie je",
+        "cs": "Ano. Myslím, že proces už je vymyšlený, ale ještě není"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1532,
+        1546
+      ],
+      "editedBaseCues": [
         149
       ]
     },
     {
-      "start": 740.5,
-      "end": 745.86,
+      "start": 647.9,
+      "end": 653.76,
       "kind": "speech",
       "text": {
-        "cs": "Když se jaderná energie porovná se spalováním fosilních paliv,",
-        "sk": "Keď sa jadrová energia porovná so spaľovaním fosílnych palív,"
+        "sk": "zrealizovaný. Ak nedôjde k havárii, z",
+        "cs": "uskutečněný. Pokud nedojde k havárii, z"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1546,
+        1559
+      ],
+      "editedBaseCues": [
         150
       ]
     },
     {
-      "start": 745.9,
-      "end": 749.5,
+      "start": 653.76,
+      "end": 656.82,
       "kind": "speech",
       "text": {
-        "cs": "je to o několik řádů čistší forma energie.",
-        "sk": "je to o niekoľko rádov čistejšia forma energie."
+        "sk": "jadrovej elektrárne vychádza palivo, ktoré treba skladovať. Stojí to",
+        "cs": "jaderné elektrárny vychází palivo, které je třeba skladovat. Stojí to"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1559,
+        1569
+      ],
+      "editedBaseCues": [
         151
       ]
     },
     {
-      "start": 749.5,
-      "end": 753.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 753.5,
-      "end": 756.36,
+      "start": 656.82,
+      "end": 660.84,
       "kind": "speech",
       "text": {
-        "cs": "…lidí ročně zemře na potíže s dýcháním.",
-        "sk": "…ľudí ročne zomrie na problémy s dýchaním."
+        "sk": "peniaze, ale okrem toho z nej vychádza čistá para. Jadrová",
+        "cs": "peníze, ale kromě toho z ní vychází čistá pára. Jaderná"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1569,
+        1581
+      ],
+      "editedBaseCues": [
         152
       ]
     },
     {
-      "start": 756.4,
-      "end": 761.421,
+      "start": 660.84,
+      "end": 665.36,
       "kind": "speech",
       "text": {
-        "cs": "Spalovací elektrárny nejsou jediným znečišťovatelem.",
-        "sk": "Spaľovacie elektrárne nie sú jediným znečisťovateľom."
+        "sk": "energia slúži na zohrievanie vody, ktorá poháňa turbíny. Para potom",
+        "cs": "energie slouží k ohřevu vody, která pohání turbíny. Pára potom"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1581,
+        1595
+      ],
+      "editedBaseCues": [
         153
       ]
     },
     {
-      "start": 761.461,
-      "end": 766.523,
+      "start": 665.36,
+      "end": 669.7,
       "kind": "speech",
       "text": {
-        "cs": "Je tu automobilový, letecký a jiný průmysl,",
-        "sk": "Je tu automobilový, letecký a iný priemysel,"
+        "sk": "vychádza von. Z tohto pohľadu je to extrémne čistý zdroj energie,",
+        "cs": "vychází ven. Z tohoto pohledu je to extrémně čistý zdroj energie,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1595,
+        1608
+      ],
+      "editedBaseCues": [
         154
       ]
     },
     {
-      "start": 766.563,
-      "end": 771.261,
+      "start": 670.1,
+      "end": 673.52,
       "kind": "speech",
       "text": {
-        "cs": "ale obrovské procento znečištění vzduchu mají na svědomí",
-        "sk": "ale obrovské percento znečistenia vzduchu majú na svedomí"
+        "sk": "ak nedôjde k havárii. Keď dôjde, ako som povedal, havárie sú veľmi",
+        "cs": "pokud nedojde k havárii. Když dojde, jak jsem řekl, havárie jsou velmi"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1608,
+        1622
+      ],
+      "editedBaseCues": [
         155
       ]
     },
     {
-      "start": 771.301,
-      "end": 774.24,
+      "start": 673.52,
+      "end": 677.06,
       "kind": "speech",
       "text": {
-        "cs": "právě spalovací elektrárny.",
-        "sk": "práve spaľovacie elektrárne."
+        "sk": "zriedkavé a vôbec nie také zlé, ako si ľudia predstavujú.",
+        "cs": "vzácné a vůbec ne tak zlé, jak si lidé představují."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1622,
+        1631
+      ],
+      "editedBaseCues": [
         156
       ]
     },
     {
-      "start": 774.24,
-      "end": 777.0,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 777.0,
-      "end": 782.38,
+      "start": 679.39,
+      "end": 683.41,
       "kind": "speech",
       "text": {
-        "cs": "Dokonce produkují více radioaktivity, protože ta je přirozeně",
-        "sk": "Dokonca produkujú viac rádioaktivity, pretože tá je prirodzene"
+        "sk": "Treba to dať do kontextu a porovnať s ostatnými zdrojmi energie,",
+        "cs": "Je třeba to dát do souvislostí a porovnat s ostatními zdroji energie,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1631,
+        1644
+      ],
+      "editedBaseCues": [
         157
       ]
     },
     {
-      "start": 782.42,
-      "end": 787.1,
+      "start": 683.55,
+      "end": 689.26,
       "kind": "speech",
       "text": {
-        "cs": "přítomná v prostředí i ve fosilních palivech. Když se spalují,",
-        "sk": "prítomná v prostredí aj vo fosílnych palivách. Keď sa spaľujú,"
+        "cs": "které máme. Samozřejmě… Ne úplně samozřejmě, ale čistší z toho vycházejí",
+        "sk": "ktoré máme. Samozrejme… Nie úplne samozrejme, ale čistejšie z toho vychádzajú"
       },
-      "sourceCues": [
-        158
-      ]
-    },
-    {
-      "start": 787.14,
-      "end": 792.38,
-      "kind": "speech",
-      "text": {
-        "cs": "uhelné elektrárny vypouštějí do okolí více radiace",
-        "sk": "uhoľné elektrárne vypúšťajú do okolia viac radiácie"
-      },
-      "sourceCues": [
+      "asrWordRange": [
+        1644,
+        1658
+      ],
+      "editedBaseCues": [
+        158,
         159
       ]
     },
     {
-      "start": 792.42,
-      "end": 793.98,
+      "start": 689.26,
+      "end": 693.22,
       "kind": "speech",
       "text": {
-        "cs": "než jaderné elektrárny.",
-        "sk": "ako jadrové elektrárne."
+        "sk": "obnoviteľné zdroje ako solárne panely alebo veterné elektrárne.",
+        "cs": "obnovitelné zdroje jako solární panely nebo větrné elektrárny."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1658,
+        1666
+      ],
+      "editedBaseCues": [
         160
       ]
     },
     {
-      "start": 794.02,
-      "end": 797.251,
+      "start": 694.18,
+      "end": 698.84,
       "kind": "speech",
       "text": {
-        "cs": "To asi nejsou věci, o kterých by se…",
-        "sk": "Toto asi nie sú veci, o ktorých by sa…"
+        "sk": "Stále sa však diskutuje, do akej miery znečistíme",
+        "cs": "Stále se ale diskutuje, do jaké míry znečistíme"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1666,
+        1679
+      ],
+      "editedBaseCues": [
         161
       ]
     },
     {
-      "start": 797.251,
-      "end": 800.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 800.5,
-      "end": 805.753,
+      "start": 698.84,
+      "end": 700.6,
       "kind": "speech",
       "text": {
-        "cs": "Je to málo známé. Je třeba si uvědomit, že i",
-        "sk": "Je to veľmi málo známe. Treba si uvedomiť, že aj"
+        "sk": "prostredie tým, že ich vôbec vyrábame.",
+        "cs": "prostředí tím, že je vůbec vyrábíme."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1679,
+        1685
+      ],
+      "editedBaseCues": [
         162
       ]
     },
     {
-      "start": 805.793,
-      "end": 810.257,
+      "start": 701.45,
+      "end": 704.52,
       "kind": "speech",
       "text": {
-        "cs": "znečištění radioaktivitou připisujeme nejen jaderným",
-        "sk": "znečistenie rádioaktivitou pripisujeme nielen jadrovým"
+        "sk": "Solárne panely s tým majú obrovský problém.",
+        "cs": "Solární panely s tím mají obrovský problém."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1685,
+        1696
+      ],
+      "editedBaseCues": [
         163
       ]
     },
     {
-      "start": 810.297,
-      "end": 813.0,
+      "start": 704.66,
+      "end": 710.7,
       "kind": "speech",
       "text": {
-        "cs": "elektrárnám, ale i spalování.",
-        "sk": "elektrárňam, ale aj spaľovaniu."
+        "sk": "Myslím, že sú na báze silikónu a ten je veľkým",
+        "cs": "Myslím, že jsou na bázi silikonu a ten je velkým"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1696,
+        1709
+      ],
+      "editedBaseCues": [
         164
       ]
     },
     {
-      "start": 815.0,
-      "end": 820.254,
+      "start": 710.7,
+      "end": 712.4,
       "kind": "speech",
       "text": {
-        "cs": "Ještě bych měl krátkou poznámku. Je to takový",
-        "sk": "Ešte by som mal krátku poznámku. Je to taký"
+        "sk": "znečisťovateľom prostredia.",
+        "cs": "znečišťovatelem prostředí."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1709,
+        1712
+      ],
+      "editedBaseCues": [
         165
       ]
     },
     {
-      "start": 820.294,
-      "end": 825.46,
+      "start": 714.09,
+      "end": 715.79,
       "kind": "speech",
       "text": {
-        "cs": "typický problém: když se něco pokazí v jaderné",
-        "sk": "typický problém: keď sa niečo pokazí v jadrovej"
+        "sk": "Kremík je to po slovensky. Áno,",
+        "cs": "Křemík se řekne slovensky kremík. Ano,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1712,
+        1718
+      ],
+      "editedBaseCues": [
         166
       ]
     },
     {
-      "start": 825.5,
-      "end": 828.58,
+      "start": 717.53,
+      "end": 719.37,
       "kind": "speech",
       "text": {
-        "cs": "elektrárně a nastane havárie, je to velmi vizuální.",
-        "sk": "elektrárni a nastane havária, je to veľmi vizuálne."
+        "sk": "je to kremík. Výborne, ďakujem.",
+        "cs": "je to křemík. Výborně, děkuji."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1718,
+        1723
+      ],
+      "editedBaseCues": [
         167
       ]
     },
     {
-      "start": 828.62,
-      "end": 833.589,
+      "start": 721.47,
+      "end": 724.99,
       "kind": "speech",
       "text": {
-        "cs": "Všichni jsme viděli Černobyl, lidi s puchýři na kůži,",
-        "sk": "Všetci sme videli Černobyľ, ľudí s pľuzgiermi na koži,"
+        "sk": "Určite sú však aj horší znečisťovatelia.",
+        "cs": "Určitě jsou ale i horší znečišťovatelé."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1723,
+        1729
+      ],
+      "editedBaseCues": [
         168
       ]
     },
     {
-      "start": 833.629,
-      "end": 838.752,
+      "start": 725.55,
+      "end": 731.13,
       "kind": "speech",
       "text": {
-        "cs": "kteří byli ozáření. Představujeme si, že se to stane nám…",
-        "sk": "ktorí boli ožiarení. Predstavujeme si, že sa to stane nám…"
+        "sk": "Z poznámok, ktoré sme si pripravili, čítam, že až osem miliónov",
+        "cs": "Z poznámek, které jsme si připravili, čtu, že až osm milionů"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1729,
+        1743
+      ],
+      "editedBaseCues": [
         169
       ]
     },
     {
-      "start": 838.792,
-      "end": 840.638,
+      "start": 731.13,
+      "end": 734.27,
       "kind": "speech",
       "text": {
-        "cs": "A jsme velmi citliví…",
-        "sk": "A sme veľmi citliví…"
+        "sk": "ľudí každý rok zomrie kvôli znečisteniu vzduchu.",
+        "cs": "lidí každý rok zemře kvůli znečištění vzduchu."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1743,
+        1750
+      ],
+      "editedBaseCues": [
         170
       ]
     },
     {
-      "start": 840.638,
-      "end": 848.0,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 848.0,
-      "end": 852.809,
+      "start": 736.37,
+      "end": 741.67,
       "kind": "speech",
       "text": {
-        "cs": "Oproti tomu si při dýchacích chorobách člověk zakašle",
-        "sk": "Oproti tomu pri respiračných chorobách si človek zakašle"
+        "sk": "Konečne sme prestali obchádzať slona v miestnosti. Keď sa",
+        "cs": "Konečně jsme přestali obcházet slona v místnosti. Když se"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1750,
+        1762
+      ],
+      "editedBaseCues": [
         171
       ]
     },
     {
-      "start": 852.849,
-      "end": 857.213,
+      "start": 741.67,
+      "end": 747.67,
       "kind": "speech",
       "text": {
-        "cs": "a potom dostane rakovinu. Jsou to věci, které se dějí",
-        "sk": "a potom dostane rakovinu. Sú to veci, ktoré sa dejú"
+        "sk": "jadrová energia porovná so spaľovaním fosílnych palív, je to o",
+        "cs": "jaderná energie porovná se spalováním fosilních paliv, je to o"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1762,
+        1774
+      ],
+      "editedBaseCues": [
         172
       ]
     },
     {
-      "start": 857.253,
-      "end": 858.66,
+      "start": 747.67,
+      "end": 749.89,
       "kind": "speech",
       "text": {
-        "cs": "běžně.",
-        "sk": "bežne."
+        "sk": "niekoľko rádov čistejšia forma energie.",
+        "cs": "několik řádů čistší forma energie."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1774,
+        1779
+      ],
+      "editedBaseCues": [
         173
       ]
     },
     {
-      "start": 858.7,
-      "end": 863.3,
+      "start": 750.25,
+      "end": 756.19,
       "kind": "speech",
       "text": {
-        "cs": "Tak na ně nezareagujeme, protože jsou rozložené do dvaceti let…",
-        "sk": "Tak na ne nezareagujeme, lebo sú roztiahnuté do dvadsiatich rokov…"
+        "sk": "Ako hovoríš, osem miliónov ľudí ročne zomrie na problémy s dýchaním.",
+        "cs": "Jak říkáš, osm milionů lidí ročně zemře na potíže s dýcháním."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1779,
+        1792
+      ],
+      "editedBaseCues": [
         174
       ]
     },
     {
-      "start": 863.3,
-      "end": 871.0,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 871.0,
-      "end": 873.26,
+      "start": 756.32,
+      "end": 761.66,
       "kind": "speech",
       "text": {
-        "cs": "…pomalu zvyšuješ teplotu, aby ti nevyskočila z hrnce.",
-        "sk": "…pomaly zvyšuješ teplotu, aby ti nevyskočila z hrnca."
+        "sk": "Spaľovacie elektrárne nie sú jediným znečisťovateľom.",
+        "cs": "Spalovací elektrárny nejsou jediným znečišťovatelem."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1792,
+        1801
+      ],
+      "editedBaseCues": [
         175
       ]
     },
     {
-      "start": 873.86,
-      "end": 877.94,
+      "start": 761.66,
+      "end": 765.14,
       "kind": "speech",
       "text": {
-        "cs": "Když se dusíme znečištěným vzduchem, děje se to pomalu a postupně.",
-        "sk": "Keď sa dusíme znečisteným vzduchom, deje sa to pomaly a postupne."
+        "sk": "Je tu automobilový, letecký a iný priemysel, ale obrovské",
+        "cs": "Je tu automobilový, letecký a jiný průmysl, ale obrovské"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1801,
+        1812
+      ],
+      "editedBaseCues": [
         176
       ]
     },
     {
-      "start": 879.5,
-      "end": 882.46,
+      "start": 765.14,
+      "end": 771.46,
       "kind": "speech",
       "text": {
-        "cs": "Až na to vůbec nezareagujeme.",
-        "sk": "Až na to vôbec nezareagujeme."
+        "sk": "percento znečistenia vzduchu majú na svedomí práve",
+        "cs": "procento znečištění vzduchu mají na svědomí právě"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1812,
+        1819
+      ],
+      "editedBaseCues": [
         177
       ]
     },
     {
-      "start": 882.5,
-      "end": 887.915,
+      "start": 771.46,
+      "end": 777.06,
       "kind": "speech",
       "text": {
-        "cs": "Když se ale něco stane s jadernou elektrárnou, je to soustředěné",
-        "sk": "Keď sa však niečo stane s jadrovou elektrárňou, je to sústredené"
+        "sk": "spaľovacie elektrárne. Dokonca produkujú viac",
+        "cs": "spalovací elektrárny. Dokonce produkují více"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1819,
+        1825
+      ],
+      "editedBaseCues": [
         178
       ]
     },
     {
-      "start": 887.955,
-      "end": 889.5,
+      "start": 777.06,
+      "end": 782.66,
       "kind": "speech",
       "text": {
-        "cs": "do jednoho problému…",
-        "sk": "do jedného problému…"
+        "sk": "rádioaktivity, pretože tá je prirodzene prítomná",
+        "cs": "radioaktivity, protože ta je přirozeně přítomná"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1825,
+        1834
+      ],
+      "editedBaseCues": [
         179
       ]
     },
     {
-      "start": 889.5,
-      "end": 894.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 894.5,
-      "end": 899.826,
+      "start": 782.66,
+      "end": 787.0,
       "kind": "speech",
       "text": {
-        "cs": "I smrt z ozáření je jedna z nejhorších,",
-        "sk": "Aj smrť z radiačného ožiarenia je jedna z najhorších,"
+        "sk": "v prostredí aj vo fosílnych palivách. Keď sa spaľujú,",
+        "cs": "v prostředí i ve fosilních palivech. Když se spalují,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1834,
+        1847
+      ],
+      "editedBaseCues": [
         180
       ]
     },
     {
-      "start": 899.866,
-      "end": 904.895,
+      "start": 787.0,
+      "end": 791.7,
       "kind": "speech",
       "text": {
-        "cs": "velmi bolestivá. Každý si pod tím dokáže něco představit.",
-        "sk": "veľmi bolestivá. Každý si pod tým vie niečo predstaviť."
+        "sk": "uhoľné elektrárne produkujú viac radiácie, respektíve jej viac",
+        "cs": "uhelné elektrárny produkují více radiace, respektive jí více"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1847,
+        1855
+      ],
+      "editedBaseCues": [
         181
       ]
     },
     {
-      "start": 904.935,
-      "end": 909.764,
+      "start": 791.7,
+      "end": 793.98,
       "kind": "speech",
       "text": {
-        "cs": "Pojďme si ještě na závěr promluvit o tom, co čeká jadernou",
-        "sk": "Poďme sa ešte na záver porozprávať, čo čaká jadrovú"
+        "sk": "vypúšťajú do okolia, ako jadrové elektrárne.",
+        "cs": "vypouštějí do okolí než jaderné elektrárny."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1855,
+        1861
+      ],
+      "editedBaseCues": [
         182
       ]
     },
     {
-      "start": 909.804,
-      "end": 914.974,
+      "start": 793.98,
+      "end": 799.34,
       "kind": "speech",
       "text": {
-        "cs": "energii. Myslíš, že má budoucnost? Jaký",
-        "sk": "energiu. Myslíš, že má budúcnosť? Aký"
+        "sk": "Toto nie sú veci, o ktorých sa rozpráva často. Je",
+        "cs": "To nejsou věci, o kterých se často mluví. Je"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1861,
+        1878
+      ],
+      "editedBaseCues": [
         183
       ]
     },
     {
-      "start": 915.014,
-      "end": 917.0,
+      "start": 799.34,
+      "end": 805.5,
       "kind": "speech",
       "text": {
-        "cs": "je tvůj názor?",
-        "sk": "je tvoj názor?"
+        "sk": "zaujímavé si uvedomiť, že aj znečistenie rádioaktivitou",
+        "cs": "zajímavé si uvědomit, že i znečištění radioaktivitou"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1878,
+        1888
+      ],
+      "editedBaseCues": [
         184
       ]
     },
     {
-      "start": 918.0,
-      "end": 923.121,
+      "start": 805.5,
+      "end": 812.6,
       "kind": "speech",
       "text": {
-        "cs": "Na závěr konečně: už v názvu podcastu bylo „Jaderná energie",
-        "sk": "Na záver konečne: už v názve podcastu bolo „Jadrová energia"
+        "sk": "pripisujeme nielen jadrovým, ale aj spaľovacím elektrárňam.",
+        "cs": "připisujeme nejen jaderným, ale i spalovacím elektrárnám."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1888,
+        1896
+      ],
+      "editedBaseCues": [
         185
       ]
     },
     {
-      "start": 923.161,
-      "end": 924.26,
+      "start": 814.74,
+      "end": 819.62,
       "kind": "speech",
       "text": {
-        "cs": "a klimatické změny“.",
-        "sk": "a klimatické zmeny“."
+        "sk": "Ešte krátka poznámka. Je to taký úplne",
+        "cs": "Ještě krátká poznámka. Je to takový úplně"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1896,
+        1911
+      ],
+      "editedBaseCues": [
         186
       ]
     },
     {
-      "start": 924.3,
-      "end": 928.769,
+      "start": 819.62,
+      "end": 826.05,
       "kind": "speech",
       "text": {
-        "cs": "Důležitý bod je, že jaderná energie",
-        "sk": "Dôležitý bod je, že jadrová energia"
+        "sk": "typický problém: keď sa niečo pokazí s jadrovou elektrárňou",
+        "cs": "typický problém: když se něco pokazí s jadernou elektrárnou"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1911,
+        1921
+      ],
+      "editedBaseCues": [
         187
       ]
     },
     {
-      "start": 928.809,
-      "end": 932.06,
+      "start": 826.11,
+      "end": 828.59,
       "kind": "speech",
       "text": {
-        "cs": "neprodukuje skleníkové plyny.",
-        "sk": "neprodukuje skleníkové plyny."
+        "sk": "a nastane havária, je to veľmi vizuálne.",
+        "cs": "a nastane havárie, je to velmi vizuální."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1921,
+        1930
+      ],
+      "editedBaseCues": [
         188
       ]
     },
     {
-      "start": 932.1,
-      "end": 937.075,
+      "start": 828.59,
+      "end": 833.36,
       "kind": "speech",
       "text": {
-        "cs": "Na rozdíl od fosilních paliv, která teď dodávají 65 % energie",
-        "sk": "Na rozdiel od fosílnych palív, ktoré momentálne dodávajú 65 % energie"
+        "sk": "Všetci sme videli Černobyľ, ľudí s pľuzgiermi",
+        "cs": "Všichni jsme viděli Černobyl, lidi s puchýři"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1930,
+        1943
+      ],
+      "editedBaseCues": [
         189
       ]
     },
     {
-      "start": 937.115,
-      "end": 940.023,
+      "start": 833.36,
+      "end": 835.06,
       "kind": "speech",
       "text": {
-        "cs": "celosvětově. Tak jaderná energie je…",
-        "sk": "celosvetovo. Tak jadrová energia je…"
+        "sk": "na koži, ktorí boli ožiarení.",
+        "cs": "na kůži, kteří byli ozáření."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1943,
+        1948
+      ],
+      "editedBaseCues": [
         190
       ]
     },
     {
-      "start": 940.023,
-      "end": 942.72,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 942.72,
-      "end": 945.32,
+      "start": 835.2,
+      "end": 837.92,
       "kind": "speech",
       "text": {
-        "cs": "A teď máme na výběr.",
-        "sk": "A teraz máme na výber."
+        "sk": "Predstavujeme si: ajaj, toto sa stane nám",
+        "cs": "Představujeme si: ajaj, to se stane nám"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1948,
+        1963
+      ],
+      "editedBaseCues": [
         191
       ]
     },
     {
-      "start": 945.5,
-      "end": 949.885,
+      "start": 837.92,
+      "end": 839.12,
       "kind": "speech",
       "text": {
-        "cs": "Buď se jí úplně lekneme a řekneme, že ji nechceme",
-        "sk": "Buď sa jej úplne zľakneme a povieme, že ju nechceme"
+        "sk": "a všetkých nás to vyparí.",
+        "cs": "a všechny nás to vypaří."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1963,
+        1967
+      ],
+      "editedBaseCues": [
         192
       ]
     },
     {
-      "start": 949.925,
-      "end": 952.5,
+      "start": 839.96,
+      "end": 842.1,
       "kind": "speech",
       "text": {
-        "cs": "ani s riziky, která přináší, a chceme od ní klid.",
-        "sk": "ani s rizikami, ktoré prináša, a chceme od nej pokoj."
+        "sk": "Sme strašne citliví na to,",
+        "cs": "Jsme velmi citliví na to,"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1967,
+        1973
+      ],
+      "editedBaseCues": [
         193
       ]
     },
     {
-      "start": 952.8,
-      "end": 954.5,
+      "start": 842.92,
+      "end": 847.08,
       "kind": "speech",
       "text": {
-        "cs": "Potom je otázka, čím ji nahradíme.",
-        "sk": "Potom je otázka, čím ju nahradíme."
+        "sk": "ako vizuálne nepríjemné tieto veci sú.",
+        "cs": "jak vizuálně nepříjemné tyto věci jsou."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1973,
+        1980
+      ],
+      "editedBaseCues": [
         194
       ]
     },
     {
-      "start": 955.2,
-      "end": 958.72,
+      "start": 848.3,
+      "end": 851.92,
       "kind": "speech",
       "text": {
-        "cs": "Obnovitelné zdroje to v tuto chvíli ještě nedokážou…",
-        "sk": "Obnoviteľné zdroje to momentálne ešte nedokážu…"
+        "sk": "Oproti tomu pri respiračných chorobách si človek občas",
+        "cs": "Oproti tomu si při dýchacích chorobách člověk občas"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1980,
+        1993
+      ],
+      "editedBaseCues": [
         195
       ]
     },
     {
-      "start": 958.72,
-      "end": 965.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 965.5,
-      "end": 970.195,
+      "start": 851.92,
+      "end": 855.0,
       "kind": "speech",
       "text": {
-        "cs": "Znamená to, že zhoršíme kvalitu ovzduší a začneme vypouštět",
-        "sk": "Znamená to, že zhoršíme kvalitu ovzdušia a začneme vypúšťať"
+        "sk": "zakašle, potom dostane rakovinu alebo niečo podobné.",
+        "cs": "zakašle, potom dostane rakovinu nebo něco podobného."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        1993,
+        2004
+      ],
+      "editedBaseCues": [
         196
       ]
     },
     {
-      "start": 970.235,
-      "end": 973.5,
+      "start": 855.0,
+      "end": 859.6,
       "kind": "speech",
       "text": {
-        "cs": "obrovské množství skleníkových plynů.",
-        "sk": "obrovské množstvo skleníkových plynov."
+        "sk": "Sú to veci, ktoré sa dejú priebežne, a tak na ne ani",
+        "cs": "Jsou to věci, které se dějí průběžně, a tak na ně ani"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2004,
+        2019
+      ],
+      "editedBaseCues": [
         197
       ]
     },
     {
-      "start": 974.5,
-      "end": 979.041,
+      "start": 859.6,
+      "end": 865.1,
       "kind": "speech",
       "text": {
-        "cs": "Druhá možnost je udržet to zhruba na současném stavu.",
-        "sk": "Druhá možnosť je udržať to zhruba na terajšom stave."
+        "sk": "nezareagujeme. Sú roztiahnuté do dvadsiatich rokov postupného strádania",
+        "cs": "nezareagujeme. Jsou rozložené do dvaceti let postupného strádání"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2019,
+        2029
+      ],
+      "editedBaseCues": [
         198
       ]
     },
     {
-      "start": 979.081,
-      "end": 981.5,
+      "start": 865.1,
+      "end": 870.5,
       "kind": "speech",
       "text": {
-        "cs": "Mnoho jaderných elektráren už stárne…",
-        "sk": "Veľa jadrových elektrární už starne…"
+        "sk": "a priebežných chorôb. Je to ako keď chceš uvariť žabu a",
+        "cs": "a průběžných nemocí. Je to jako když chceš uvařit žábu a"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2029,
+        2042
+      ],
+      "editedBaseCues": [
         199
       ]
     },
     {
-      "start": 981.5,
-      "end": 988.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 988.5,
-      "end": 993.562,
+      "start": 870.5,
+      "end": 873.0,
       "kind": "speech",
       "text": {
-        "cs": "Třetí možnost: šlápnout v tomto směru na plyn. Jsou dvě",
-        "sk": "Tretia možnosť: dupnúť v tomto smere na plyn. Sú dve"
+        "sk": "pomaly zvyšuješ teplotu, aby ti nevyskočila z hrnca.",
+        "cs": "pomalu zvyšuješ teplotu, aby ti nevyskočila z hrnce."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2042,
+        2050
+      ],
+      "editedBaseCues": [
         200
       ]
     },
     {
-      "start": 993.602,
-      "end": 998.96,
+      "start": 873.85,
+      "end": 876.79,
       "kind": "speech",
       "text": {
-        "cs": "technologické možnosti, které jsou relativně blízko.",
-        "sk": "technologické možnosti, ktoré sú relatívne blízko."
+        "sk": "Keď sa dusíme znečisteným vzduchom, deje sa to veľmi",
+        "cs": "Když se dusíme znečištěným vzduchem, děje se to velmi"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2050,
+        2064
+      ],
+      "editedBaseCues": [
         201
       ]
     },
     {
-      "start": 999.0,
-      "end": 1000.122,
+      "start": 876.79,
+      "end": 880.44,
       "kind": "speech",
       "text": {
-        "cs": "Ne že za padesát…",
-        "sk": "Nie že za päťdesiat…"
+        "cs": "pomalu a postupně, až na to",
+        "sk": "pomaly a postupne, až na to"
       },
-      "sourceCues": [
-        202
-      ]
-    },
-    {
-      "start": 1000.162,
-      "end": 1005.439,
-      "kind": "speech",
-      "text": {
-        "cs": "Teoreticky by to už za pár let mohlo fungovat a nabídnout",
-        "sk": "Teoreticky by to už za pár rokov mohlo fungovať a ponúknuť"
-      },
-      "sourceCues": [
+      "asrWordRange": [
+        2064,
+        2071
+      ],
+      "editedBaseCues": [
+        202,
         203
       ]
     },
     {
-      "start": 1005.479,
-      "end": 1010.226,
+      "start": 881.5,
+      "end": 882.42,
       "kind": "speech",
       "text": {
-        "cs": "bezpečnější a čistší energii než dnešní jaderné elektrárny.",
-        "sk": "bezpečnejšiu a čistejšiu energiu než dnešné jadrové elektrárne."
+        "sk": "vôbec nezareagujeme.",
+        "cs": "vůbec nezareagujeme."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2071,
+        2073
+      ],
+      "editedBaseCues": [
         204
       ]
     },
     {
-      "start": 1012.0,
-      "end": 1014.5,
+      "start": 882.46,
+      "end": 886.08,
       "kind": "speech",
       "text": {
-        "cs": "Jaké jsou to dvě možnosti? Můžeš je přiblížit?",
-        "sk": "Aké sú to dve možnosti? Môžeš ich priblížiť?"
+        "sk": "Keď sa však niečo stane s jadrovou elektrárňou, je to sústredené",
+        "cs": "Když se ale něco stane s jadernou elektrárnou, je to soustředěné"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2073,
+        2085
+      ],
+      "editedBaseCues": [
         205
       ]
     },
     {
-      "start": 1016.5,
-      "end": 1021.225,
+      "start": 886.08,
+      "end": 888.68,
       "kind": "speech",
       "text": {
-        "cs": "U obou nepůjdu moc do podrobností, protože každá si zaslouží",
-        "sk": "Pri oboch nepôjdem veľmi do detailov, lebo každá si zaslúži"
+        "sk": "do jedného problému, do jedného bodu, keď to vybuchlo.",
+        "cs": "do jednoho problému, do jednoho bodu, kdy to vybuchlo."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2085,
+        2095
+      ],
+      "editedBaseCues": [
         206
       ]
     },
     {
-      "start": 1021.265,
-      "end": 1022.5,
+      "start": 888.68,
+      "end": 891.9,
       "kind": "speech",
       "text": {
-        "cs": "vlastní podcast.",
-        "sk": "vlastný podcast."
+        "sk": "Vieme povedať: toto sa tu stalo a toto nás ohrozilo.",
+        "cs": "Dokážeme říct: tohle se tu stalo a tohle nás ohrozilo."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2095,
+        2108
+      ],
+      "editedBaseCues": [
         207
       ]
     },
     {
-      "start": 1024.5,
-      "end": 1026.46,
+      "start": 892.08,
+      "end": 898.52,
       "kind": "speech",
       "text": {
-        "cs": "Což možná i udělám, pokud bude zájem.",
-        "sk": "Čo možno aj spravím, ak bude záujem."
+        "sk": "Áno. Aj o smrti z radiačného ožiarenia som",
+        "cs": "Ano. I o smrti z ozáření jsem"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2108,
+        2117
+      ],
+      "editedBaseCues": [
         208
       ]
     },
     {
-      "start": 1026.5,
-      "end": 1030.654,
+      "start": 898.52,
+      "end": 901.7,
       "kind": "speech",
       "text": {
-        "cs": "První možnost jsou takzvané solné nebo thoriové reaktory…",
-        "sk": "Prvá možnosť sú takzvané soľné alebo tóriové reaktory…"
+        "sk": "čítal, že je jedna z najhorších, veľmi bolestivá.",
+        "cs": "četl, že je jedna z nejhorších, velmi bolestivá."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2117,
+        2126
+      ],
+      "editedBaseCues": [
         209
       ]
     },
     {
-      "start": 1030.654,
-      "end": 1035.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 1035.5,
-      "end": 1040.05,
+      "start": 902.24,
+      "end": 904.84,
       "kind": "speech",
       "text": {
-        "cs": "Při prvním porovnání vycházejí stejně zajímavě jako běžné jaderné",
-        "sk": "Na prvé porovnanie vychádzajú rovnako zaujímavo ako bežné jadrové"
+        "sk": "Každý si pod tým vie niečo predstaviť.",
+        "cs": "Každý si pod tím dokáže něco představit."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2126,
+        2134
+      ],
+      "editedBaseCues": [
         210
       ]
     },
     {
-      "start": 1040.09,
-      "end": 1044.853,
+      "start": 904.94,
+      "end": 910.42,
       "kind": "speech",
       "text": {
-        "cs": "reaktory. Kdysi byl vývoj na rozcestí, vybral se doleva,",
-        "sk": "reaktory. Kedysi bol vývoj na rozdvojke, vybral sa doľava,"
+        "sk": "Poďme sa na záver porozprávať, čo vlastne čaká jadrovú energiu.",
+        "cs": "Pojďme si na závěr promluvit o tom, co vlastně čeká jadernou energii."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2134,
+        2146
+      ],
+      "editedBaseCues": [
         211
       ]
     },
     {
-      "start": 1044.893,
-      "end": 1048.0,
+      "start": 910.56,
+      "end": 914.12,
       "kind": "speech",
       "text": {
-        "cs": "ale možnost doprava by se nám teď líbila mnohem víc.",
-        "sk": "ale možnosť doprava by sa nám teraz páčila oveľa viac."
+        "cs": "Myslíš si, že má budoucnost, nebo",
+        "sk": "Myslíš si, že má budúcnosť, alebo"
       },
-      "sourceCues": [
-        212
-      ]
-    },
-    {
-      "start": 1048.0,
-      "end": 1059.0,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 1059.0,
-      "end": 1063.056,
-      "kind": "speech",
-      "text": {
-        "cs": "…jinak postavené jaderné reaktory, které by byly bezpečnější.",
-        "sk": "…inak postavené jadrové reaktory, ktoré by boli bezpečnejšie."
-      },
-      "sourceCues": [
+      "asrWordRange": [
+        2146,
+        2152
+      ],
+      "editedBaseCues": [
+        212,
         213
       ]
     },
     {
-      "start": 1063.096,
-      "end": 1067.94,
+      "start": 915.22,
+      "end": 916.44,
       "kind": "speech",
       "text": {
-        "cs": "Jedna možnost jsou thoriové reaktory, druhá fúzní energie.",
-        "sk": "Jedna možnosť sú tóriové reaktory, druhá fúzna energia."
+        "sk": "aký je tvoj názor?",
+        "cs": "jaký je tvůj názor?"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2152,
+        2156
+      ],
+      "editedBaseCues": [
         214
       ]
     },
     {
-      "start": 1067.98,
-      "end": 1073.409,
+      "start": 918.29,
+      "end": 922.35,
       "kind": "speech",
       "text": {
-        "cs": "Z fúzní energie se už stává vtip: asi třicet let",
-        "sk": "Z fúznej energie sa už stáva vtip: asi tridsať rokov"
+        "sk": "Konečne sa na záver dostávame k tomu, čo už bolo aj v názve podcastu:",
+        "cs": "Konečně se na závěr dostáváme k tomu, co už bylo i v názvu podcastu:"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2156,
+        2169
+      ],
+      "editedBaseCues": [
         215
       ]
     },
     {
-      "start": 1073.449,
-      "end": 1075.06,
+      "start": 922.35,
+      "end": 924.11,
       "kind": "speech",
       "text": {
-        "cs": "se říká, že bude za deset let.",
-        "sk": "sa hovorí, že bude za desať rokov."
+        "sk": "jadrová energia a klimatické zmeny.",
+        "cs": "jaderná energie a klimatické změny."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2169,
+        2174
+      ],
+      "editedBaseCues": [
         216
       ]
     },
     {
-      "start": 1075.1,
-      "end": 1077.792,
+      "start": 924.49,
+      "end": 929.86,
       "kind": "speech",
       "text": {
-        "cs": "Je to energie, která se získává…",
-        "sk": "Je to energia, ktorá sa získava…"
+        "sk": "Dôležitý bod je, že jadrová energia neprodukuje",
+        "cs": "Důležitý bod je, že jaderná energie neprodukuje"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2174,
+        2183
+      ],
+      "editedBaseCues": [
         217
       ]
     },
     {
-      "start": 1077.792,
-      "end": 1082.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 1082.5,
-      "end": 1087.795,
+      "start": 930.76,
+      "end": 935.58,
       "kind": "speech",
       "text": {
-        "cs": "Místo získávání energie rozpadem těžkých",
-        "sk": "Namiesto získavania energie rozpadávaním ťažkých"
+        "sk": "skleníkové plyny. Na rozdiel od fosílnych palív, ktoré nám momentálne",
+        "cs": "skleníkové plyny. Na rozdíl od fosilních paliv, která nám teď"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2183,
+        2193
+      ],
+      "editedBaseCues": [
         218
       ]
     },
     {
-      "start": 1087.835,
-      "end": 1089.96,
+      "start": 935.58,
+      "end": 940.72,
       "kind": "speech",
       "text": {
-        "cs": "atomů jako uran nebo plutonium",
-        "sk": "atómov ako urán alebo plutónium"
+        "sk": "dodávajú 65 % energie celosvetovo, je jadrová energia z tohto pohľadu čistá.",
+        "cs": "dodávají 65 % energie celosvětově, je jaderná energie z tohoto pohledu čistá."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2193,
+        2206
+      ],
+      "editedBaseCues": [
         219
       ]
     },
     {
-      "start": 1090.0,
-      "end": 1095.051,
+      "start": 942.38,
+      "end": 947.9,
       "kind": "speech",
       "text": {
-        "cs": "spojujeme dohromady lehké atomy, například vodíku, a energii",
-        "sk": "spájame dokopy ľahké atómy, napríklad vodíka, a energiu"
+        "sk": "Teraz máme na výber. Buď sa jej úplne zľakneme a povieme, že",
+        "cs": "Teď máme na výběr. Buď se jí úplně lekneme a řekneme, že"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2206,
+        2221
+      ],
+      "editedBaseCues": [
         220
       ]
     },
     {
-      "start": 1095.091,
-      "end": 1096.96,
+      "start": 947.9,
+      "end": 951.97,
       "kind": "speech",
       "text": {
-        "cs": "z toho dokážeme získat.",
-        "sk": "z toho dokážeme získať."
+        "sk": "ju nechceme ani s rizikami, ktoré prináša, a chceme od nej mať",
+        "cs": "ji nechceme ani s riziky, která přináší, a chceme od ní mít"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2221,
+        2234
+      ],
+      "editedBaseCues": [
         221
       ]
     },
     {
-      "start": 1097.0,
-      "end": 1102.231,
+      "start": 951.97,
+      "end": 954.29,
       "kind": "speech",
       "text": {
-        "cs": "Je mnohem čistší. Jako palivo víceméně stačí mořská voda, ze které…",
-        "sk": "Je oveľa čistejšia. Ako palivo viac-menej stačí morská voda, z ktorej…"
+        "sk": "pokoj. Potom je otázka, čím ju nahradíme.",
+        "cs": "klid. Potom je otázka, čím ji nahradíme."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2234,
+        2241
+      ],
+      "editedBaseCues": [
         222
       ]
     },
     {
-      "start": 1102.231,
-      "end": 1106.0,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 1106.0,
-      "end": 1110.667,
+      "start": 955.29,
+      "end": 958.91,
       "kind": "speech",
       "text": {
-        "cs": "…které je dost. Prakticky žádný odpad. Problém je, že",
-        "sk": "…ktorej je dosť. Prakticky žiadny odpad. Problém je, že"
+        "sk": "Obnoviteľné zdroje to zatiaľ nedokážu, nie sú na takej úrovni.",
+        "cs": "Obnovitelné zdroje to zatím nedokážou, nejsou na takové úrovni."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2241,
+        2252
+      ],
+      "editedBaseCues": [
         223
       ]
     },
     {
-      "start": 1110.707,
-      "end": 1115.46,
+      "start": 959.47,
+      "end": 962.47,
       "kind": "speech",
       "text": {
-        "cs": "potřebujeme udržet takové teploty a tlaky, jaké jsou na povrchu…",
-        "sk": "potrebujeme udržať také teploty a tlaky, aké sú na povrchu…"
+        "sk": "Keby sme zajtra zavreli všetky jadrové",
+        "cs": "Kdybychom zítra zavřeli všechny jaderné"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2252,
+        2262
+      ],
+      "editedBaseCues": [
         224
       ]
     },
     {
-      "start": 1115.5,
-      "end": 1117.46,
-      "kind": "unclear",
+      "start": 962.47,
+      "end": 965.15,
+      "kind": "speech",
       "text": {
-        "cs": "A to je velmi… Což není úplně… [nejasný přepis]",
-        "sk": "A to je veľmi… Čo nie je úplne… [nejasný prepis]"
+        "sk": "elektrárne, najjednoduchšie je nahradiť ich fosílnymi palivami.",
+        "cs": "elektrárny, nejjednodušší je nahradit je fosilními palivy."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2262,
+        2268
+      ],
+      "editedBaseCues": [
         225
       ]
     },
     {
-      "start": 1117.5,
-      "end": 1122.793,
+      "start": 965.52,
+      "end": 970.56,
       "kind": "speech",
       "text": {
-        "cs": "Je to složité, ale ne nepřekonatelné. Už se na zlomky",
-        "sk": "Je to zložité, ale nie neprekonateľné. Už sa na zlomky"
+        "sk": "Zhoršíme tým kvalitu ovzdušia a začneme vypúšťať obrovské",
+        "cs": "Zhoršíme tím kvalitu ovzduší a začneme vypouštět obrovské"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2268,
+        2278
+      ],
+      "editedBaseCues": [
         226
       ]
     },
     {
-      "start": 1122.833,
-      "end": 1124.808,
-      "kind": "unclear",
+      "start": 970.56,
+      "end": 972.74,
+      "kind": "speech",
       "text": {
-        "cs": "sekundy podařilo… [nejasný přepis]",
-        "sk": "sekundy podarilo… [nejasný prepis]"
+        "sk": "množstvo skleníkových plynov.",
+        "cs": "množství skleníkových plynů."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2278,
+        2281
+      ],
+      "editedBaseCues": [
         227
       ]
     },
     {
-      "start": 1124.808,
-      "end": 1129.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 1129.5,
-      "end": 1131.96,
+      "start": 974.54,
+      "end": 978.56,
       "kind": "speech",
       "text": {
-        "cs": "Výzva je, aby více energie vycházelo, než se do toho vkládá.",
-        "sk": "Výzva je, aby viac energie vychádzalo, než sa do toho vkladá."
+        "sk": "Druhá možnosť je zhruba udržať stav, v ktorom sme teraz.",
+        "cs": "Druhá možnost je zhruba udržet stav, ve kterém jsme teď."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2281,
+        2296
+      ],
+      "editedBaseCues": [
         228
       ]
     },
     {
-      "start": 1132.0,
-      "end": 1137.379,
+      "start": 980.16,
+      "end": 983.28,
       "kind": "speech",
       "text": {
-        "cs": "Teď to umíme tak, že do toho vložíme deset joulů a dostaneme",
-        "sk": "Teraz to vieme tak, že do toho vložíme desať joulov a dostaneme"
+        "sk": "Veľa jadrových elektrární starne, budú sa zatvárať a zhruba v",
+        "cs": "Mnoho jaderných elektráren stárne, budou se zavírat a zhruba ve"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2296,
+        2308
+      ],
+      "editedBaseCues": [
         229
       ]
     },
     {
-      "start": 1137.419,
-      "end": 1141.96,
+      "start": 983.28,
+      "end": 984.76,
       "kind": "speech",
       "text": {
-        "cs": "z toho dva. To není dobrý nápad na elektrárnu: chceme to opačně.",
-        "sk": "z toho dva. To nie je dobrý nápad na elektráreň: chceme to naopak."
+        "sk": "rovnakom počte sa pridávajú nové.",
+        "cs": "stejném počtu se přidávají nové."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2308,
+        2313
+      ],
+      "editedBaseCues": [
         230
       ]
     },
     {
-      "start": 1142.0,
-      "end": 1147.0,
+      "start": 986.29,
+      "end": 988.87,
       "kind": "speech",
       "text": {
-        "cs": "Dodávám palivo a trochu energie, mnohem více energie se mi vrací.",
-        "sk": "Dodávam palivo a trochu energie, oveľa viac energie sa mi vracia."
+        "sk": "Bude sa to teda vyvíjať podľa aktuálnych trendov.",
+        "cs": "Bude se to tedy vyvíjet podle současných trendů."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2313,
+        2321
+      ],
+      "editedBaseCues": [
         231
       ]
     },
     {
-      "start": 1147.0,
-      "end": 1153.0,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 1153.0,
-      "end": 1155.822,
+      "start": 989.07,
+      "end": 994.28,
       "kind": "speech",
       "text": {
-        "cs": "…reaktor. Ještě nebude komerční, měl by ale jako první dokázat",
-        "sk": "…reaktor. Ešte nebude komerčný, mal by však ako prvý dokázať"
+        "sk": "Tretia možnosť je dupnúť v tomto smere na plyn. Sú dve",
+        "cs": "Třetí možnost je šlápnout v tomto směru na plyn. Jsou dvě"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2321,
+        2337
+      ],
+      "editedBaseCues": [
         232
       ]
     },
     {
-      "start": 1155.862,
-      "end": 1160.4,
+      "start": 996.18,
+      "end": 999.92,
       "kind": "speech",
       "text": {
-        "cs": "vytvářet energii díky fúzi.",
-        "sk": "vytvárať energiu vďaka fúzii."
+        "sk": "technologické možnosti, ktoré sú relatívne blízko. Nie že za",
+        "cs": "technologické možnosti, které jsou relativně blízko. Ne že za"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2337,
+        2349
+      ],
+      "editedBaseCues": [
         233
       ]
     },
     {
-      "start": 1161.1,
-      "end": 1166.43,
+      "start": 999.92,
+      "end": 1004.81,
       "kind": "speech",
       "text": {
-        "cs": "To jsou velmi zajímavé teoretické přístupy. Budeme",
-        "sk": "To sú veľmi zaujímavé teoretické prístupy. Budeme"
+        "sk": "päťdesiat rokov, ale teoreticky už za pár by mohli fungovať a ponúknuť",
+        "cs": "padesát let, ale teoreticky už za pár by mohly fungovat a nabídnout"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2349,
+        2363
+      ],
+      "editedBaseCues": [
         234
       ]
     },
     {
-      "start": 1166.47,
-      "end": 1170.6,
+      "start": 1004.81,
+      "end": 1008.99,
       "kind": "speech",
       "text": {
-        "cs": "držet palce, kam to věda časem posune dál…",
-        "sk": "držať palce, kam to veda časom posunie ďalej…"
+        "sk": "ešte bezpečnejšiu a čistejšiu energiu než dnešné jadrové elektrárne.",
+        "cs": "ještě bezpečnější a čistší energii než dnešní jaderné elektrárny."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2363,
+        2372
+      ],
+      "editedBaseCues": [
         235
       ]
     },
     {
-      "start": 1170.6,
-      "end": 1176.94,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 1176.94,
-      "end": 1182.391,
+      "start": 1009.73,
+      "end": 1013.75,
       "kind": "speech",
       "text": {
-        "cs": "Samueli, děkuji, že sis s námi sedl a pověděl nám něco",
-        "sk": "Samuel, ďakujem pekne, že si si s nami sadol a porozprával niečo"
+        "sk": "Ktoré sú to dve možnosti? Môžeš nám ich priblížiť?",
+        "cs": "Které jsou to dvě možnosti? Můžeš nám je přiblížit?"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2372,
+        2383
+      ],
+      "editedBaseCues": [
         236
       ]
     },
     {
-      "start": 1182.431,
-      "end": 1187.591,
+      "start": 1015.98,
+      "end": 1020.2,
       "kind": "speech",
       "text": {
-        "cs": "ze světa vědy. Vám, naši diváci, děkujeme za pozornost",
-        "sk": "zo sveta vedy. Vám, naši diváci, ďakujeme za pozornosť"
+        "sk": "Pri oboch možnostiach nepôjdem veľmi do detailov, lebo každá z",
+        "cs": "U obou možností nepůjdu moc do podrobností, protože každá z"
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2383,
+        2396
+      ],
+      "editedBaseCues": [
         237
       ]
     },
     {
-      "start": 1187.631,
-      "end": 1190.26,
+      "start": 1020.2,
+      "end": 1021.18,
       "kind": "speech",
       "text": {
-        "cs": "a uvidíme se u dalšího vydání podcastu Vedátor.",
-        "sk": "a uvidíme sa pri ďalšom vydaní Vedátor podcastu."
+        "sk": "nich si zaslúži vlastný podcast.",
+        "cs": "nich si zaslouží vlastní podcast."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2396,
+        2402
+      ],
+      "editedBaseCues": [
         238
       ]
     },
     {
-      "start": 1190.72,
-      "end": 1195.866,
+      "start": 1021.2,
+      "end": 1022.4,
       "kind": "speech",
       "text": {
-        "cs": "Najdete nás na Facebooku, Instagramu, Spotify a Apple Podcasts…",
-        "sk": "Nájdete nás na Facebooku, Instagrame, Spotify a Apple Podcasts…"
+        "sk": "Čo možno spravíme v budúcnosti.",
+        "cs": "Což možná uděláme v budoucnu."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2402,
+        2408
+      ],
+      "editedBaseCues": [
         239
       ]
     },
     {
-      "start": 1195.866,
-      "end": 1200.5,
-      "kind": "missing",
-      "text": {
-        "cs": "[Úsek ve zdrojových titulcích chybí.]",
-        "sk": "[Úsek v zdrojových titulkoch chýba.]"
-      },
-      "sourceCues": []
-    },
-    {
-      "start": 1200.5,
-      "end": 1202.5,
+      "start": 1024.01,
+      "end": 1025.95,
       "kind": "speech",
       "text": {
-        "cs": "Mějte se, ahoj.",
-        "sk": "Majte sa, ahojte."
+        "sk": "Čo možno aj spravíme, ak bude záujem.",
+        "cs": "Což možná i uděláme, pokud bude zájem."
       },
-      "sourceCues": [
+      "asrWordRange": [
+        2408,
+        2415
+      ],
+      "editedBaseCues": [
         240
+      ]
+    },
+    {
+      "start": 1026.71,
+      "end": 1032.01,
+      "kind": "speech",
+      "text": {
+        "sk": "Prvá možnosť sú takzvané soľné alebo tóriové reaktory,",
+        "cs": "První možnost jsou takzvané solné nebo thoriové reaktory,"
+      },
+      "asrWordRange": [
+        2415,
+        2423
+      ],
+      "editedBaseCues": [
+        241
+      ]
+    },
+    {
+      "start": 1032.81,
+      "end": 1039.15,
+      "kind": "speech",
+      "text": {
+        "sk": "ktoré na prvé porovnanie vychádzajú zhruba rovnako zaujímavo",
+        "cs": "které při prvním porovnání vycházejí zhruba stejně zajímavě"
+      },
+      "asrWordRange": [
+        2423,
+        2432
+      ],
+      "editedBaseCues": [
+        242
+      ]
+    },
+    {
+      "start": 1039.15,
+      "end": 1043.61,
+      "kind": "speech",
+      "text": {
+        "sk": "ako bežné jadrové reaktory. Kedysi bol vývoj na rozdvojke",
+        "cs": "jako běžné jaderné reaktory. Kdysi byl vývoj na rozcestí"
+      },
+      "asrWordRange": [
+        2432,
+        2445
+      ],
+      "editedBaseCues": [
+        243
+      ]
+    },
+    {
+      "start": 1043.61,
+      "end": 1046.59,
+      "kind": "speech",
+      "text": {
+        "sk": "a vybral sa doľava, hoci možnosť doprava by sa nám teraz",
+        "cs": "a vybral se doleva, přestože možnost doprava by se nám teď"
+      },
+      "asrWordRange": [
+        2445,
+        2459
+      ],
+      "editedBaseCues": [
+        244
+      ]
+    },
+    {
+      "start": 1046.59,
+      "end": 1050.99,
+      "kind": "speech",
+      "text": {
+        "sk": "páčila viac. Vtedy sa tak rozhodlo a teraz je ťažké",
+        "cs": "líbila víc. Tehdy se tak rozhodlo a teď je těžké"
+      },
+      "asrWordRange": [
+        2459,
+        2473
+      ],
+      "editedBaseCues": [
+        245
+      ]
+    },
+    {
+      "start": 1050.99,
+      "end": 1056.57,
+      "kind": "speech",
+      "text": {
+        "cs": "vrátit se o třicet či čtyřicet let ve vývoji zpátky a vydat se druhým směrem.",
+        "sk": "vrátiť sa o tridsať či štyridsať rokov vo vývoji dozadu a vydať sa druhým smerom."
+      },
+      "asrWordRange": [
+        2473,
+        2491
+      ],
+      "editedBaseCues": [
+        246,
+        247
+      ]
+    },
+    {
+      "start": 1058.07,
+      "end": 1061.83,
+      "kind": "speech",
+      "text": {
+        "sk": "Inak postavené jadrové reaktory, ktoré by boli bezpečnejšie, sú",
+        "cs": "Jinak postavené jaderné reaktory, které by byly bezpečnější, jsou"
+      },
+      "asrWordRange": [
+        2491,
+        2502
+      ],
+      "editedBaseCues": [
+        248
+      ]
+    },
+    {
+      "start": 1061.83,
+      "end": 1067.78,
+      "kind": "speech",
+      "text": {
+        "sk": "jedna možnosť: tóriové reaktory. Druhá možnosť je fúzna energia.",
+        "cs": "jedna možnost: thoriové reaktory. Druhá možnost je fúzní energie."
+      },
+      "asrWordRange": [
+        2502,
+        2513
+      ],
+      "editedBaseCues": [
+        249
+      ]
+    },
+    {
+      "start": 1069.0,
+      "end": 1073.08,
+      "kind": "speech",
+      "text": {
+        "sk": "Z fúznej energie sa už stáva vtip. Asi tridsať",
+        "cs": "Z fúzní energie se už stává vtip. Asi třicet"
+      },
+      "asrWordRange": [
+        2513,
+        2527
+      ],
+      "editedBaseCues": [
+        250
+      ]
+    },
+    {
+      "start": 1073.08,
+      "end": 1077.74,
+      "kind": "speech",
+      "text": {
+        "sk": "rokov sa hovorí, že bude za desať rokov. Je to energia, ktorá",
+        "cs": "let se říká, že bude za deset let. Je to energie, která"
+      },
+      "asrWordRange": [
+        2527,
+        2542
+      ],
+      "editedBaseCues": [
+        251
+      ]
+    },
+    {
+      "start": 1077.74,
+      "end": 1082.86,
+      "kind": "speech",
+      "text": {
+        "sk": "sa získava procesmi, ktoré prebiehajú aj v Slnku. Namiesto",
+        "cs": "se získává procesy, které probíhají i ve Slunci. Místo"
+      },
+      "asrWordRange": [
+        2542,
+        2553
+      ],
+      "editedBaseCues": [
+        252
+      ]
+    },
+    {
+      "start": 1082.86,
+      "end": 1088.5,
+      "kind": "speech",
+      "text": {
+        "sk": "získavania energie rozpadávaním ťažkých atómov, ako urán",
+        "cs": "získávání energie rozpadem těžkých atomů, jako uran"
+      },
+      "asrWordRange": [
+        2553,
+        2564
+      ],
+      "editedBaseCues": [
+        253
+      ]
+    },
+    {
+      "start": 1088.5,
+      "end": 1094.44,
+      "kind": "speech",
+      "text": {
+        "sk": "alebo plutónium, spájame ľahké atómy, napríklad vodíka, a",
+        "cs": "nebo plutonium, spojujeme lehké atomy, například vodíku, a"
+      },
+      "asrWordRange": [
+        2564,
+        2577
+      ],
+      "editedBaseCues": [
+        254
+      ]
+    },
+    {
+      "start": 1094.44,
+      "end": 1096.12,
+      "kind": "speech",
+      "text": {
+        "sk": "získavame z toho energiu.",
+        "cs": "získáváme z toho energii."
+      },
+      "asrWordRange": [
+        2577,
+        2580
+      ],
+      "editedBaseCues": [
+        255
+      ]
+    },
+    {
+      "start": 1096.62,
+      "end": 1100.92,
+      "kind": "speech",
+      "text": {
+        "sk": "Je oveľa čistejšia. Ako palivo viac-menej stačí morská voda, z ktorej sa",
+        "cs": "Je mnohem čistší. Jako palivo víceméně stačí mořská voda, ze které se"
+      },
+      "asrWordRange": [
+        2580,
+        2592
+      ],
+      "editedBaseCues": [
+        256
+      ]
+    },
+    {
+      "start": 1100.92,
+      "end": 1103.06,
+      "kind": "speech",
+      "text": {
+        "sk": "vyextrahujú podstatné veci. Ktorej je dosť?",
+        "cs": "získají podstatné věci. Které je dost?"
+      },
+      "asrWordRange": [
+        2592,
+        2598
+      ],
+      "editedBaseCues": [
+        257
+      ]
+    },
+    {
+      "start": 1104.66,
+      "end": 1106.42,
+      "kind": "speech",
+      "text": {
+        "sk": "Ktorej je, samozrejme, dosť, hej.",
+        "cs": "Které je samozřejmě dost, ano."
+      },
+      "asrWordRange": [
+        2598,
+        2603
+      ],
+      "editedBaseCues": [
+        258
+      ]
+    },
+    {
+      "start": 1107.75,
+      "end": 1112.97,
+      "kind": "speech",
+      "text": {
+        "sk": "Prakticky žiadny odpad. Problém je, že potrebujeme udržať približne",
+        "cs": "Prakticky žádný odpad. Problém je, že potřebujeme udržet přibližně"
+      },
+      "asrWordRange": [
+        2603,
+        2614
+      ],
+      "editedBaseCues": [
+        259
+      ]
+    },
+    {
+      "start": 1112.97,
+      "end": 1115.11,
+      "kind": "speech",
+      "text": {
+        "sk": "teploty a tlaky, aké sú na povrchu Slnka.",
+        "cs": "teploty a tlaky, jaké jsou na povrchu Slunce."
+      },
+      "asrWordRange": [
+        2614,
+        2622
+      ],
+      "editedBaseCues": [
+        260
+      ]
+    },
+    {
+      "start": 1115.11,
+      "end": 1117.69,
+      "kind": "speech",
+      "text": {
+        "sk": "To je veľmi problematické.",
+        "cs": "To je velmi problematické."
+      },
+      "asrWordRange": [
+        2622,
+        2627
+      ],
+      "editedBaseCues": [
+        261
+      ]
+    },
+    {
+      "start": 1119.49,
+      "end": 1124.27,
+      "kind": "speech",
+      "text": {
+        "sk": "Je to zložité, ale nie neprekonateľné. Na zlomky",
+        "cs": "Je to složité, ale ne nepřekonatelné. Na zlomky"
+      },
+      "asrWordRange": [
+        2627,
+        2642
+      ],
+      "editedBaseCues": [
+        262
+      ]
+    },
+    {
+      "start": 1124.27,
+      "end": 1125.71,
+      "kind": "speech",
+      "text": {
+        "sk": "sekundy sa to už podarilo udržať.",
+        "cs": "sekundy se to už podařilo udržet."
+      },
+      "asrWordRange": [
+        2642,
+        2647
+      ],
+      "editedBaseCues": [
+        263
+      ]
+    },
+    {
+      "start": 1126.59,
+      "end": 1130.63,
+      "kind": "speech",
+      "text": {
+        "sk": "Teraz je výzva urobiť to tak, aby viac energie",
+        "cs": "Teď je výzva udělat to tak, aby více energie"
+      },
+      "asrWordRange": [
+        2647,
+        2661
+      ],
+      "editedBaseCues": [
+        264
+      ]
+    },
+    {
+      "start": 1130.63,
+      "end": 1133.79,
+      "kind": "speech",
+      "text": {
+        "sk": "vychádzalo, než do toho vkladáme. Teraz to už vieme robiť tak, že",
+        "cs": "vycházelo, než do toho vkládáme. Teď to už umíme dělat tak, že"
+      },
+      "asrWordRange": [
+        2661,
+        2676
+      ],
+      "editedBaseCues": [
+        265
+      ]
+    },
+    {
+      "start": 1134.74,
+      "end": 1139.1,
+      "kind": "speech",
+      "text": {
+        "sk": "vložíme desať joulov a dostaneme dva. To nie je dobrý",
+        "cs": "vložíme deset joulů a dostaneme dva. To není dobrý"
+      },
+      "asrWordRange": [
+        2676,
+        2691
+      ],
+      "editedBaseCues": [
+        266
+      ]
+    },
+    {
+      "start": 1139.1,
+      "end": 1142.72,
+      "kind": "speech",
+      "text": {
+        "sk": "nápad na elektráreň. Potrebujeme to naopak: dodávam palivo a",
+        "cs": "nápad na elektrárnu. Potřebujeme to opačně: dodávám palivo a"
+      },
+      "asrWordRange": [
+        2691,
+        2704
+      ],
+      "editedBaseCues": [
+        267
+      ]
+    },
+    {
+      "start": 1142.72,
+      "end": 1144.96,
+      "kind": "speech",
+      "text": {
+        "sk": "trochu energie a oveľa viac energie sa mi vracia.",
+        "cs": "trochu energie a mnohem více energie se mi vrací."
+      },
+      "asrWordRange": [
+        2704,
+        2713
+      ],
+      "editedBaseCues": [
+        268
+      ]
+    },
+    {
+      "start": 1145.97,
+      "end": 1149.51,
+      "kind": "speech",
+      "text": {
+        "sk": "Vo Francúzsku sa momentálne stavia prvý takýto fúzny",
+        "cs": "Ve Francii se momentálně staví první takový fúzní"
+      },
+      "asrWordRange": [
+        2713,
+        2722
+      ],
+      "editedBaseCues": [
+        269
+      ]
+    },
+    {
+      "start": 1150.74,
+      "end": 1154.54,
+      "kind": "speech",
+      "text": {
+        "sk": "reaktor. Ešte nebude komerčný, ale mal by to byť",
+        "cs": "reaktor. Ještě nebude komerční, ale měl by to být"
+      },
+      "asrWordRange": [
+        2722,
+        2735
+      ],
+      "editedBaseCues": [
+        270
+      ]
+    },
+    {
+      "start": 1154.54,
+      "end": 1160.29,
+      "kind": "speech",
+      "text": {
+        "sk": "prvý reaktor, ktorý dokáže vytvárať energiu vďaka fúzii.",
+        "cs": "první reaktor, který dokáže vytvářet energii díky fúzi."
+      },
+      "asrWordRange": [
+        2735,
+        2745
+      ],
+      "editedBaseCues": [
+        271
+      ]
+    },
+    {
+      "start": 1160.29,
+      "end": 1166.21,
+      "kind": "speech",
+      "text": {
+        "sk": "Oba teoretické prístupy sú veľmi zaujímavé.",
+        "cs": "Oba teoretické přístupy jsou velmi zajímavé."
+      },
+      "asrWordRange": [
+        2745,
+        2755
+      ],
+      "editedBaseCues": [
+        272
+      ]
+    },
+    {
+      "start": 1166.21,
+      "end": 1171.23,
+      "kind": "speech",
+      "text": {
+        "sk": "Budeme držať palce, nech sa v tomto veda posunie ďalej a",
+        "cs": "Budeme držet palce, ať se v tom věda posune dál a"
+      },
+      "asrWordRange": [
+        2755,
+        2767
+      ],
+      "editedBaseCues": [
+        273
+      ]
+    },
+    {
+      "start": 1172.13,
+      "end": 1179.19,
+      "kind": "speech",
+      "text": {
+        "cs": "díky nim budeme mít výborný zdroj energie. Samueli, děkuji, že sis s námi",
+        "sk": "vďaka nim budeme mať výborný zdroj energie. Samuel, ďakujem, že si si s nami"
+      },
+      "asrWordRange": [
+        2767,
+        2784
+      ],
+      "editedBaseCues": [
+        274,
+        275
+      ]
+    },
+    {
+      "start": 1179.19,
+      "end": 1183.11,
+      "kind": "speech",
+      "text": {
+        "sk": "sadol a porozprával nám niečo zo sveta vedy.",
+        "cs": "sedl a pověděl nám něco ze světa vědy."
+      },
+      "asrWordRange": [
+        2784,
+        2793
+      ],
+      "editedBaseCues": [
+        276
+      ]
+    },
+    {
+      "start": 1184.41,
+      "end": 1188.55,
+      "kind": "speech",
+      "text": {
+        "sk": "Naši diváci, ďakujem za pozornosť. Uvidíme sa pri ďalšom",
+        "cs": "Naši diváci, děkuji za pozornost. Uvidíme se u dalšího"
+      },
+      "asrWordRange": [
+        2793,
+        2805
+      ],
+      "editedBaseCues": [
+        277
+      ]
+    },
+    {
+      "start": 1188.55,
+      "end": 1190.13,
+      "kind": "speech",
+      "text": {
+        "sk": "vydaní Vedátor podcastu.",
+        "cs": "vydání podcastu Vedátor."
+      },
+      "asrWordRange": [
+        2805,
+        2808
+      ],
+      "editedBaseCues": [
+        278
+      ]
+    },
+    {
+      "start": 1190.45,
+      "end": 1195.43,
+      "kind": "speech",
+      "text": {
+        "sk": "Nájdete nás na Facebooku, Instagrame, Spotify, Apple",
+        "cs": "Najdete nás na Facebooku, Instagramu, Spotify, Apple"
+      },
+      "asrWordRange": [
+        2808,
+        2819
+      ],
+      "editedBaseCues": [
+        279
+      ]
+    },
+    {
+      "start": 1195.43,
+      "end": 1198.17,
+      "kind": "speech",
+      "text": {
+        "sk": "Podcasts alebo všade, kde si viete zohnať podcasty.",
+        "cs": "Podcasts nebo všude, kde si můžete sehnat podcasty."
+      },
+      "asrWordRange": [
+        2819,
+        2827
+      ],
+      "editedBaseCues": [
+        280
+      ]
+    },
+    {
+      "start": 1198.39,
+      "end": 1200.07,
+      "kind": "speech",
+      "text": {
+        "sk": "Tešíme sa na vás znova. Pekný deň.",
+        "cs": "Těšíme se na vás znovu. Pěkný den."
+      },
+      "asrWordRange": [
+        2827,
+        2834
+      ],
+      "editedBaseCues": [
+        281
+      ]
+    },
+    {
+      "start": 1200.97,
+      "end": 1202.17,
+      "kind": "speech",
+      "text": {
+        "sk": "Majte sa. Ahojte.",
+        "cs": "Mějte se. Ahoj."
+      },
+      "asrWordRange": [
+        2834,
+        2837
+      ],
+      "editedBaseCues": [
+        282
       ]
     }
   ]
