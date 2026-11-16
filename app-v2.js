@@ -11,7 +11,7 @@
   const VIDEO_ENABLED_KEY='vedator-youtube-enabled-v1';
   const CAPTION_LANGUAGE_KEY='vedator-youtube-caption-language-v1';
   // MP3 and YouTube can have different lead-ins; never shift video captions.
-  const MP3_CAPTION_ADVANCE_SECONDS={2:3};
+  const MP3_CAPTION_ADVANCE_SECONDS={1:2,2:0}; // MP3 only. YouTube captions use source timestamps unchanged.
   let youtubeSession=null,youtubeApiPromise=null;
   // Temporary fallback when a video-playing page is hidden/phone is locked.
   // Keep the user's persisted YouTube preference intact.
@@ -1095,7 +1095,9 @@
   // A tiny muted MP4 loop is the *only* keep-screen-awake mechanism.
   // Start it whenever captions are enabled, independent of MP3/YouTube/reader.
   // It lives inside the fullscreen reader when that overlay is active.
-  let captionWakeVideo=null,captionWakeLastRetry=0;
+  // Always run a tiny, muted MP4 when episode captions are enabled.
+  // No Screen Wake Lock: user prefers video for keeping the display awake.
+  let captionWakeVideo=null,captionWakeLastRetry=0,captionWakeTimer=null,captionWakeFrameAt=0;
   function captionsNeedAwakeScreen(){
     const shell=$('#player-v2');
     return !document.hidden&&Boolean(state.current)&&captionPreference!=='off'&&
@@ -1103,24 +1105,28 @@
   }
   function playCaptionWakeVideo(force=false){
     const video=captionWakeVideo;
-    if(!video||!captionsNeedAwakeScreen()||!video.paused)return;
+    if(!video||!captionsNeedAwakeScreen())return;
     const now=Date.now();
-    if(!force&&now-captionWakeLastRetry<3000)return;
+    if(!force&&now-captionWakeLastRetry<1700)return;
+    if(!video.paused&&!video.ended&&!video.error)return;
     captionWakeLastRetry=now;
-    try{Promise.resolve(video.play()).catch(error=>{
-      // Some browsers restrict helper video despite it being muted.
-      // The next user interaction or foreground transition will retry.
-      console.debug('Vedátor: helper video did not start',error?.message||error);
-    })}catch(error){console.debug('Vedátor: helper video rejected',error)}
+    if(video.error){
+      video.src='./wake-loop.mp4';video.load();
+    }
+    try{
+      const attempted=video.play();
+      if(attempted&&typeof attempted.catch==='function')attempted.catch(err=>{
+        // A foreground user gesture may be needed on restrictive browsers.
+        console.debug('Vedátor: pomocné video čeká na povolení přehrávání',err?.name||err);
+      });
+    }catch(err){console.debug('Vedátor: pomocné video nepovoleno',err)}
   }
   function moveCaptionWakeVideo(){
     if(!captionWakeVideo)return;
     const overlay=captionReaderActive?$('#player-caption-reader-overlay-v2'):null;
     const parent=overlay||document.body;
-    if(captionWakeVideo.parentElement!==parent){
-      parent.appendChild(captionWakeVideo);
-      playCaptionWakeVideo(true);
-    }
+    if(captionWakeVideo.parentElement!==parent)parent.appendChild(captionWakeVideo);
+    playCaptionWakeVideo(true);
   }
   function startCaptionWakeVideo(){
     if(!captionsNeedAwakeScreen())return;
@@ -1132,26 +1138,43 @@
     video.setAttribute('playsinline','');
     video.setAttribute('webkit-playsinline','');
     video.setAttribute('muted','');
-    video.setAttribute('loop','');
     video.setAttribute('autoplay','');
-    video.muted=true;
-    video.defaultMuted=true;
-    video.loop=true;
-    video.autoplay=true;
-    video.playsInline=true;
-    video.preload='auto';
+    video.setAttribute('loop','');
+    video.muted=true;video.defaultMuted=true;
+    video.loop=true;video.autoplay=true;video.playsInline=true;
+    video.preload='auto';video.controls=false;
     video.disablePictureInPicture=true;
-    video.controls=false;
-    // Small and almost transparent, but still rendered: opacity:0/display:none
-    // can make browsers stop decoding the video.
-    video.style.cssText='position:fixed;left:0;bottom:0;width:4px;height:4px;opacity:0.01;pointer-events:none;z-index:2147483000;';
+    // Tiny but actually rendered. Browsers often freeze opacity:0 or display:none videos.
+    video.style.cssText='position:fixed;left:0;bottom:0;width:16px;height:16px;opacity:0.025;pointer-events:none;z-index:2147483000;';
     video.src='./wake-loop.mp4';
-    video.addEventListener('error',()=>console.warn('Vedátor: pomocné video nelze načíst.'));
     captionWakeVideo=video;
+    captionWakeFrameAt=Date.now();
+    video.addEventListener('timeupdate',()=>{captionWakeFrameAt=Date.now()});
+    video.addEventListener('playing',()=>{captionWakeFrameAt=Date.now()});
+    video.addEventListener('pause',()=>{
+      if(captionWakeVideo===video&&captionsNeedAwakeScreen())setTimeout(()=>playCaptionWakeVideo(true),200);
+    });
+    video.addEventListener('ended',()=>{
+      if(captionWakeVideo===video&&captionsNeedAwakeScreen())playCaptionWakeVideo(true);
+    });
+    video.addEventListener('error',()=>{
+      if(captionWakeVideo===video)console.warn('Vedátor: pomocné video se nepodařilo načíst');
+    });
     moveCaptionWakeVideo();
     playCaptionWakeVideo(true);
+    captionWakeTimer=setInterval(()=>{
+      if(captionWakeVideo!==video||!captionsNeedAwakeScreen())return;
+      if(video.error){
+        video.src='./wake-loop.mp4';video.load();
+      }else if(!video.paused&&video.readyState>=2&&Date.now()-captionWakeFrameAt>6500){
+        // A suspended decoder may report "playing" without advancing frames.
+        video.pause();video.load();captionWakeFrameAt=Date.now();
+      }
+      playCaptionWakeVideo();
+    },1900);
   }
   function stopCaptionWakeVideo(){
+    if(captionWakeTimer!==null){clearInterval(captionWakeTimer);captionWakeTimer=null}
     if(!captionWakeVideo)return;
     const video=captionWakeVideo;
     captionWakeVideo=null;
@@ -1160,16 +1183,16 @@
     video.remove();
     video.load();
   }
-  function releaseCaptionWake(){
-    stopCaptionWakeVideo();
-  }
+  function releaseCaptionWake(){stopCaptionWakeVideo()}
   function refreshCaptionWake(){
-    if(!captionsNeedAwakeScreen()){
-      stopCaptionWakeVideo();
-      return;
-    }
-    startCaptionWakeVideo();
+    if(captionsNeedAwakeScreen())startCaptionWakeVideo();
+    else stopCaptionWakeVideo();
   }
+  // Try to resume in a real user gesture if autoplay was denied.
+  // Capturing lets the retry happen before a button's default handling.
+  document.addEventListener('pointerdown',()=>{if(captionWakeVideo)playCaptionWakeVideo(true)},{capture:true,passive:true});
+  document.addEventListener('keydown',()=>{if(captionWakeVideo)playCaptionWakeVideo(true)},{capture:true});
+  document.addEventListener('fullscreenchange',()=>{moveCaptionWakeVideo();refreshCaptionWake()});
   function updateCaptionReader(value){
     const textNode=$('#player-caption-reader-text-v2');
     if(captionReaderActive&&textNode&&textNode.textContent!==value)textNode.textContent=value;
