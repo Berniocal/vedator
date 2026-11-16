@@ -14,6 +14,7 @@ on:
       - 'tools/test-v2-playback-identity.mjs'
       - 'tools/test-v2-youtube-player.mjs'
       - 'episode-videos.json'
+      - 'captions/**'
       - 'tools/test-v2-mathjax-*.mjs'
       - 'series.json'
       - 'tools/build-content-v2.mjs'
@@ -34,6 +35,18 @@ permissions:
   contents: read
 
 jobs:
+  youtube-player:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify YouTube player and edited bilingual captions
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund jsdom@26
+          node tools/build-content-v2.mjs
+          node tools/test-v2-youtube-player.mjs
   verify:
     runs-on: ubuntu-latest
     steps:

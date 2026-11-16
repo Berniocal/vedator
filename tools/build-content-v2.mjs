@@ -340,11 +340,24 @@ function specialEpisodeIdentity(title){
 // Match curated YouTube links by RSS GUID, so numbered specials cannot collide.
 const episodeVideos=JSON.parse(read('episode-videos.json'));
 const videosByGuid=new Map();
+const captionsByGuid=new Map();
 for(const video of episodeVideos){
   if(!video.guid||!Number.isInteger(video.episode)||!/^[A-Za-z0-9_-]{11}$/.test(video.youtubeId)||videosByGuid.has(video.guid))throw new Error('Invalid/duplicate episode video: '+JSON.stringify(video));
   const source=sourceEpisodes.find(episode=>String(episode.id)===video.guid);
   if(!source||Number(source.number)!==video.episode)throw new Error('Video does not match RSS episode: '+video.episode);
   videosByGuid.set(video.guid,video.youtubeId);
+  if(video.captionFile){
+    if(!/^captions\/episode-[1-9]\d*\.json$/.test(video.captionFile))throw new Error('Invalid caption path');
+    const captions=JSON.parse(read(video.captionFile));
+    if(captions.version!==1||captions.episode!==video.episode||captions.guid!==video.guid||captions.youtubeId!==video.youtubeId)throw new Error('Captions do not match RSS/YouTube: '+video.episode);
+    let end=0;
+    if(!Array.isArray(captions.cues)||!captions.cues.length)throw new Error('Missing caption cues');
+    for(const cue of captions.cues){
+      if(!Number.isFinite(cue.start)||!Number.isFinite(cue.end)||cue.start<end||cue.end<=cue.start||!['cs','sk'].every(lang=>typeof cue.text?.[lang]==='string'&&cue.text[lang].trim()&&cue.text[lang].length<=240))throw new Error('Invalid caption timing/text: '+video.episode);
+      end=cue.end;
+    }
+    captionsByGuid.set(video.guid,video.captionFile);
+  }
 }
 const episodes=sourceEpisodes.map(e=>{
   const special=Number(e.number)>0?null:specialEpisodeIdentity(e.title);
@@ -364,7 +377,8 @@ const episodes=sourceEpisodes.map(e=>{
     link:String(e.link||''),
     enclosure:String(e.enclosure||''),
     id:String(e.id||''),
-    ...(videosByGuid.has(String(e.id))?{youtubeId:videosByGuid.get(String(e.id))}:{})
+    ...(videosByGuid.has(String(e.id))?{youtubeId:videosByGuid.get(String(e.id))}:{}),
+    ...(captionsByGuid.has(String(e.id))?{captionFile:captionsByGuid.get(String(e.id))}:{})
   };
   const translated=episodeTranslationData.byNumber.get(number)||episodeTranslationData.byTitle.get(titleKey(base.title));
   if(!translated)return base;
