@@ -65,6 +65,15 @@ def align():
     vocab=processor.tokenizer.get_vocab();blank=processor.tokenizer.pad_token_id
     upper=sum(ch.isupper() for ch in vocab)>sum(ch.islower() for ch in vocab)
     print("Alignment vocabulary:",sorted(vocab),flush=True)
+    # Keep independent CTC decodes of disputed identifiers and the negation.
+    acoustic_checks=[]
+    for a,b in [(593.2,598.9),(819.0,823.8),(933.2,938.1),(646.0,649.5),(768.5,775.3)]:
+        inputs=processor(wave[int(a*16000):int(b*16000)],sampling_rate=16000,return_tensors="pt",padding=True)
+        with torch.inference_mode(): logits=model(**inputs).logits
+        text=processor.batch_decode(logits.argmax(-1))[0]
+        acoustic_checks.append({"start":a,"end":b,"text":text})
+        print("Independent CTC decode:",a,b,text,flush=True)
+    write(SOURCE/"episode-5-ctc-checks.sk.json",{"model":ALIGN_MODEL,"passages":acoustic_checks})
     cues=[];alignment=[];previous=0;word_cursor=0
     for i,cue in enumerate(edited["cues"]):
         lo,hi=cue["asrWordRange"]
@@ -100,7 +109,7 @@ def align():
         "quality":"editorial-corrected-forced-aligned",
         "source":{**draft["source"],"type":"original-MP3-ASR-and-CTC-forced-alignment","alignmentModel":ALIGN_MODEL,
             "transcriptFile":"captions/source/episode-5-draft.sk.json","alignmentFile":"captions/source/episode-5-alignment.json",
-            "review":"Complete Slovak editorial review and Czech translation; acoustic character alignment. Not a full independent human listening verification."},
+            "review":"Complete Slovak editorial review and Czech translation; uncertain passages re-recognized with full large-v3; acoustic character alignment. Not a full independent human listening verification."},
         "cues":cues}
     for i,c in enumerate(cues):
         assert c["end"]>c["start"] and (not i or c["start"]>=cues[i-1]["end"])
