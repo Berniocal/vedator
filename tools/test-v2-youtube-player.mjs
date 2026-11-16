@@ -1,15 +1,25 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
 import {JSDOM,VirtualConsole} from 'jsdom';
 
 const html=fs.readFileSync('index.html','utf8'),app=fs.readFileSync('app-v2.js','utf8'),data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const mappings=JSON.parse(fs.readFileSync('episode-videos.json','utf8'));
 const captions=JSON.parse(fs.readFileSync('captions/episode-1.json','utf8'));
-assert.equal(captions.source.cueCount,240);
-assert.equal(captions.review.reviewedSourceCues,240);
-assert.deepEqual(captions.cues.flatMap(cue=>cue.sourceCues),Array.from({length:240},(_,i)=>i+1),'Every original source cue must be accounted for');
-assert(captions.cues.some(cue=>cue.kind==='missing'),'Lost source intervals must be explicit');
-assert(captions.cues.some(cue=>cue.kind==='unclear'),'Unclear speech must not be invented');
+const asrBytes=fs.readFileSync(captions.source.transcriptFile),asr=JSON.parse(asrBytes);
+assert(asr.complete,'The entire audio must be transcribed before publishing');
+assert.equal(crypto.createHash('sha256').update(asrBytes).digest('hex'),captions.source.transcriptSha256);
+assert.equal(asr.audioSha256,captions.source.audioSha256);
+assert.equal(captions.previousSource.cueCount,240,'Keep the original SRT provenance');
+assert.equal(captions.quality,'audio-repaired');
+assert(captions.source.duration>1200&&captions.source.duration<1250);
+const asrWords=asr.segments.flatMap(segment=>segment.words);
+assert.equal(captions.source.wordCount,asrWords.length);assert.equal(captions.review.reviewedAsrWords,asrWords.length);
+let previousWord=0;
+for(const cue of captions.cues){assert.equal(cue.asrWordRange[0],previousWord,'No omitted words between captions');assert(cue.asrWordRange[1]>previousWord);previousWord=cue.asrWordRange[1]}
+assert.equal(previousWord,asrWords.length,'Caption ranges cover the complete ASR');
+assert(captions.cues.every(cue=>cue.kind==='speech'&&!/\[(?:Úsek|Nejasný|Nesrozumitelný|Nezrozumiteľný)/.test(cue.text.cs+cue.text.sk)),'Replace missing/unclear placeholders with audio-derived text');
+assert(captions.cues.some(cue=>cue.start<670&&cue.end>655&&/turbín/.test(cue.text.cs+cue.text.sk)),'Restore the lost explanation in the formerly repeated passage');
 assert(captions.cues.every((cue,i)=>cue.start>=0&&cue.end>cue.start&&(!i||cue.start>=captions.cues[i-1].end)&&cue.text.cs&&cue.text.sk));
 assert.equal(data.episodes.find(e=>e.number===1).captionFile,'captions/episode-1.json');
 assert(data.episodes.filter(e=>e.number!==1).every(e=>!e.captionFile),'Only the pilot episode has edited captions');
@@ -89,9 +99,10 @@ try{
   await t.captionLanguage('sk');assert.equal(t.$('#player-caption-text-v2').textContent,captionAt(201,'sk'));
   await t.captionLanguage('off');assert(t.$('#player-caption-text-v2').classList.contains('hidden'));assert.equal(t.w.localStorage.getItem('vedator-youtube-caption-language-v1'),'"off"');
   await t.captionLanguage('auto');await t.click('[data-lang="sk"]');assert.equal(t.$('#player-caption-text-v2').lang,'sk');await t.click('[data-lang="cz"]');
-  seek.value='13';seek.dispatchEvent(new t.w.Event('change'));player.time=13.358;player.emit(2);await wait();
+  const intro=captions.cues.find(c=>c.text.cs==='Věda nás obklopuje na každém kroku.');assert(intro);
+  seek.value=String(Math.floor(intro.start));seek.dispatchEvent(new t.w.Event('change'));player.time=intro.start;player.emit(2);await wait();
   assert.equal(t.$('#player-caption-text-v2').textContent,'Věda nás obklopuje na každém kroku.');
-  player.time=17.915;player.emit(2);await wait();assert.equal(t.$('#player-caption-text-v2').textContent,'','Cue end must be exclusive');
+  player.time=intro.end;player.emit(2);await wait();assert.equal(t.$('#player-caption-text-v2').textContent,captionAt(intro.end,'cs'),'Cue end must be exclusive');
   seek.value='201';seek.dispatchEvent(new t.w.Event('change'));
   player.time=305.75;player.emit(2);await wait();
   assert.equal(t.$('#player-play-v2').textContent,'▶');
