@@ -337,6 +337,15 @@ function specialEpisodeIdentity(title){
   }
   return null;
 }
+// Match curated YouTube links by RSS GUID, so numbered specials cannot collide.
+const episodeVideos=JSON.parse(read('episode-videos.json'));
+const videosByGuid=new Map();
+for(const video of episodeVideos){
+  if(!video.guid||!Number.isInteger(video.episode)||!/^[A-Za-z0-9_-]{11}$/.test(video.youtubeId)||videosByGuid.has(video.guid))throw new Error('Invalid/duplicate episode video: '+JSON.stringify(video));
+  const source=sourceEpisodes.find(episode=>String(episode.id)===video.guid);
+  if(!source||Number(source.number)!==video.episode)throw new Error('Video does not match RSS episode: '+video.episode);
+  videosByGuid.set(video.guid,video.youtubeId);
+}
 const episodes=sourceEpisodes.map(e=>{
   const special=Number(e.number)>0?null:specialEpisodeIdentity(e.title);
   const unnumbered=Number(e.number)>0||special?null:unlistedSpecialIdentity(e);
@@ -354,7 +363,8 @@ const episodes=sourceEpisodes.map(e=>{
     description:cleanDescription(e.description),
     link:String(e.link||''),
     enclosure:String(e.enclosure||''),
-    id:String(e.id||'')
+    id:String(e.id||''),
+    ...(videosByGuid.has(String(e.id))?{youtubeId:videosByGuid.get(String(e.id))}:{})
   };
   const translated=episodeTranslationData.byNumber.get(number)||episodeTranslationData.byTitle.get(titleKey(base.title));
   if(!translated)return base;
