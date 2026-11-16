@@ -74,11 +74,20 @@ def align():
         acoustic_checks.append({"start":a,"end":b,"text":text})
         print("Independent CTC decode:",a,b,text,flush=True)
     write(SOURCE/"episode-5-ctc-checks.sk.json",{"model":ALIGN_MODEL,"passages":acoustic_checks})
+    old_result=read(OUT/"episode-5.json") if (OUT/"episode-5.json").exists() else None
+    old_alignment=read(SOURCE/"episode-5-alignment.json") if (SOURCE/"episode-5-alignment.json").exists() else None
+    if not old_result or old_result["source"]["audioSha256"]!=meta["audioSha256"] or len(old_result["cues"])!=len(edited["cues"]):
+        old_result=old_alignment=None
     cues=[];alignment=[];previous=0;word_cursor=0
     for i,cue in enumerate(edited["cues"]):
         lo,hi=cue["asrWordRange"]
         assert lo==word_cursor and hi>lo;word_cursor=hi
         assert all(cue["text"][lang].strip() for lang in ("cs","sk"))
+        wrapped={lang:"\n".join(textwrap.wrap(cue["text"][lang],width=48,break_long_words=False,break_on_hyphens=False)) for lang in ("sk","cs")}
+        if old_result and old_alignment:
+            old=old_result["cues"][i];audit=old_alignment["cues"][i]
+            if old["text"]==wrapped and old["asrWordRange"]==[lo,hi] and audit["asrStart"]==cue["start"] and audit["asrEnd"]==cue["end"] and old["start"]>=previous:
+                cues.append(old);alignment.append(audit);previous=old["end"];continue
         start=max(0,float(cue["start"])-.5);end=min(len(wave)/16000,float(cue["end"])+.5)
         text=cue.get("alignmentText",cue["text"]["sk"]).replace("\n"," ")
         text=text.upper() if upper else text.lower()

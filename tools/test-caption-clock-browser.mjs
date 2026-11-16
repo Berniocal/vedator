@@ -2,13 +2,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
 import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
 import {createRequire} from 'node:module';
 import {pathToFileURL} from 'node:url';
 const root=process.cwd(),require=createRequire(path.join(process.env.VEDATOR_TEST_DEPS||root,'package.json'));
 const puppeteer=require('puppeteer-core'),{default:chromium}=await import(pathToFileURL(require.resolve('@sparticuz/chromium')));
 const source=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
-const captions=Object.fromEntries([1,2,3,4].map(n=>[n,JSON.parse(fs.readFileSync('captions/episode-'+n+'.json','utf8'))]));
-const audio=Object.fromEntries([1,2,3,4].map(n=>[n,fs.readFileSync(path.join(process.env.VEDATOR_CAPTION_AUDIO,'episode-'+n+'.mp3'))]));
+const numbers=JSON.parse(fs.readFileSync('episode-videos.json','utf8')).filter(e=>e.captionFile).map(e=>e.episode);
+const captions=Object.fromEntries(numbers.map(n=>[n,JSON.parse(fs.readFileSync('captions/episode-'+n+'.json','utf8'))]));
+const audio=Object.fromEntries(numbers.map(n=>[n,fs.readFileSync(path.join(process.env.VEDATOR_CAPTION_AUDIO,'episode-'+n+'.mp3'))]));
 const diagnostics=process.env.VEDATOR_CAPTION_DIAGNOSTIC==='1';
 let base;
 const errors=[],failures=[];
@@ -17,16 +19,16 @@ const server=http.createServer((req,res)=>{
   const url=new URL(req.url,'http://localhost'),name=url.pathname;
   if(name==='/sw.js'){res.setHeader('Content-Type','text/javascript');res.end('');return}
   if(name==='/content-v2.json'){
-    const data={...source,episodes:source.episodes.filter(e=>e.number<=5).map(e=>({...e,enclosure:base+'/episode-'+(e.number<=4?e.number:4)+'.mp3'})),series:[],questions:[]};
+    const data={...source,episodes:source.episodes.filter(e=>numbers.includes(e.number)).map(e=>({...e,enclosure:base+'/episode-'+e.number+'.mp3'})),series:[],questions:[]};
     res.setHeader('Content-Type','application/json');res.end(JSON.stringify(data));return;
   }
   if(name==='/audio-seek-index.json'){
     const data=JSON.parse(fs.readFileSync('audio-seek-index.json','utf8'));
-    const entries=Object.fromEntries([1,2,3,4].map(n=>[base+'/episode-'+n+'.mp3',data.entries[source.episodes.find(e=>e.number===n).enclosure]]).filter(([,entry])=>entry));
+    const entries=Object.fromEntries(numbers.map(n=>[base+'/episode-'+n+'.mp3',data.entries[source.episodes.find(e=>e.number===n).enclosure]]).filter(([,entry])=>entry));
     res.setHeader('Content-Type','application/json');res.end(JSON.stringify({version:1,entries}));return;
   }
-  const match=name.match(/^\/episode-([1-4])\.mp3$/);
-  if(match){
+  const match=name.match(/^\/episode-(\d+)\.mp3$/);
+  if(match&&numbers.includes(Number(match[1]))){
     const bytes=audio[match[1]],range=req.headers.range?.match(/^bytes=(\d+)-(\d*)$/);
     let start=range?Number(range[1]):0,end=range&&range[2]?Math.min(bytes.length-1,Number(range[2])):bytes.length-1;
     if(start>=bytes.length){res.writeHead(416);res.end();return}
@@ -43,7 +45,7 @@ const server=http.createServer((req,res)=>{
     code=code.replace(marker,String.raw`  window.__captionTest={
       open:(number,start=0,continuous=false)=>{
         const episode=state.data.episodes.find(e=>e.number===number);
-        const items=[number,number===4?1:number+1].map(n=>({episode:state.data.episodes.find(e=>e.number===n),ref:epRef(n)}));
+        const items=[number,number===Math.max(...state.data.episodes.map(e=>e.number))?1:number+1].map(n=>({episode:state.data.episodes.find(e=>e.number===n),ref:epRef(n)}));
         youtubeEnabled=false;
         return openPlayback(episode,{start,autoplay:true,context:continuous?{type:'episodes',label:'Test',index:0,items}:null});
       },
@@ -79,9 +81,10 @@ try{
   await page.goto(base+'/index.html',{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>document.documentElement.dataset.vedatorV2Ready==='1');
   await page.evaluate(()=>{localStorage.setItem('vedator-ui-language-v1','cz');const select=document.getElementById('player-caption-language-v2');select.value='cs';select.dispatchEvent(new Event('change'))});
   const results=[];
-  for(const n of [1,2,3,4]){
+  for(const n of numbers){
     const episode=source.episodes.find(e=>e.number===n),c=captions[n];
     const origin=c.source.url||c.source.audio;
+    if(c.source.audioSha256)check(crypto.createHash('sha256').update(audio[n]).digest('hex')===c.source.audioSha256,'Transcribed audio hash must match played MP3',{n});
     check(episode.enclosure===origin,'Caption source must equal played MP3',{n,enclosure:episode.enclosure,origin});
     await page.evaluate(n=>window.__captionTest.open(n),n);
     await page.waitForFunction(()=>document.getElementById('audio-v2').readyState>=2&&!document.getElementById('player-caption-text-v2').textContent.includes('Načít'));
@@ -118,12 +121,17 @@ try{
     check(Math.abs(await page.evaluate(()=>window.__captionTest.clock().time)-running.clock)<.08,'Paused caption clock must not drift',{n,running});
     results.push({n,times,target,mse,running});
   }
-  // Video timing remains the original cue timing.
-  await page.evaluate(()=>window.__captionTest.open(1));await page.evaluate(()=>window.__captionTest.video());
-  await page.waitForFunction(()=>window.__yt?.time>=0&&document.getElementById('player-video-caption-v2'));
-  const vt=captions[1].cues[5].start+.1;
-  await page.evaluate(t=>{window.__yt.time=t;window.__captionTest.sync()},vt);
-  check(await page.$eval('#player-video-caption-v2',e=>e.textContent)===captions[1].cues[5].text.cs,'Keep YouTube caption timing');
+  // Each mapped video uses its own cue identity and source clock in both languages.
+  for(const n of numbers){
+    await page.evaluate(n=>window.__captionTest.open(n),n);await page.evaluate(()=>window.__captionTest.video());
+    await page.waitForFunction(()=>window.__yt?.time>=0&&document.getElementById('player-video-caption-v2'));
+    const vt=captions[n].cues[5].start+.1;
+    await page.evaluate(t=>{window.__yt.time=t;window.__captionTest.sync()},vt);
+    check(await page.$eval('#player-video-caption-v2',e=>e.textContent)===captions[n].cues[5].text.cs,'YouTube Czech cue timing',{n});
+    await page.select('#player-caption-language-v2','sk');
+    check(await page.$eval('#player-video-caption-v2',e=>e.textContent)===captions[n].cues[5].text.sk,'YouTube Slovak cue timing',{n});
+    await page.select('#player-caption-language-v2','cs');
+  }
   // Keep-alive playback must be decodable and advance, both inline and fullscreen.
   const wake=await page.evaluate(()=>{const v=document.querySelector('.vedator-caption-wake-video');return {exists:!!v,time:v?.currentTime,error:v?.error?.code,paused:v?.paused,requests:window.__wakeRequests,locks:window.__wakeLocks.filter(x=>!x.released).length}});
   await wait(3200);

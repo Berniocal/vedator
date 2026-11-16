@@ -1,9 +1,11 @@
 name: Verify caption MP3 clock and screen wake
 on:
   push:
-    branches: [main, fix/captions-mp3-clock-20261116]
+    branches: [main, fix/captions-mp3-clock-20261116, captions/episode-5-precise-20261116]
     paths:
       - app-v2.js
+      - episode-videos.json
+      - 'captions/episode-*.json'
       - audio-seek-index.json
       - tools/test-caption-clock-browser.mjs
       - .github/workflows/verify-caption-clock.yml
@@ -30,7 +32,7 @@ jobs:
           import fs from 'node:fs';
           import {execFileSync} from 'node:child_process';
           const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
-          for(const n of [1,2,3,4]){
+          for(const n of data.episodes.filter(e=>e.captionFile).map(e=>e.number)){
             const e=data.episodes.find(e=>e.number===n);
             console.log(JSON.stringify({episode:n,enclosure:e.enclosure,captionFile:e.captionFile}));
             execFileSync('curl',['--fail','--location','--retry','3','--max-time','120',e.enclosure,'-o',process.env.RUNNER_TEMP+'/caption-audio/episode-'+n+'.mp3'],{stdio:'inherit'});
@@ -44,7 +46,7 @@ jobs:
           import fs from 'node:fs';
           import {execFileSync} from 'node:child_process';
           const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
-          for(const n of [1,2,3,4]){
+          for(const n of data.episodes.filter(e=>e.captionFile).map(e=>e.number)){
             const e=data.episodes.find(e=>e.number===n);
             execFileSync('node',['tools/build-mp3-seek-index.mjs',process.env.RUNNER_TEMP+'/caption-audio/episode-'+n+'.mp3',e.enclosure],{stdio:'inherit'});
           }
