@@ -16,4 +16,14 @@ Web načítá titulky až při otevření příslušného videa a ověřuje HTTP
 
 ## Přehrávač (16. 11. 2026)
 
-V ostré aplikaci se vlastní titulky při YouTube videu překrývají uvnitř videoplochy; při MP3 zůstávají pod ovládáním. Tlačítko Čtečka zobrazí průběžné titulky na černé obrazovce, návrat je klepnutím nebo klávesou Escape. Prohlížeč se pokusí o skutečný fullscreen, jinak použije překryv. Nativní fullscreen samotného iframe YouTube vlastní titulkovou vrstvu nezahrnuje. U druhého dílu se pouze při MP3 prozatím aplikuje posun časové osy titulků +3 s; video si ponechává původní časování.
+V ostré aplikaci se vlastní titulky při YouTube videu překrývají uvnitř videoplochy; při MP3 zůstávají pod ovládáním. Tlačítko Čtečka zobrazí průběžné titulky na černé obrazovce, návrat je klepnutím nebo klávesou Escape. Prohlížeč se pokusí o skutečný fullscreen, jinak použije překryv. Nativní fullscreen samotného iframe YouTube vlastní titulkovou vrstvu nezahrnuje. Díly 1–4 používají při MP3 původní časové značky bez ručních posunů. Přesné indexy MP3 snímků v `audio-seek-index.json` udržují shodu při vzdáleném přeskoku i obnovení pozice; přibližná Xing tabulka se u těchto nahrávek nepoužije. YouTube si ponechává dosavadní časování.
+
+## Stabilita přehrávání a rozsvícená obrazovka
+
+Inline titulky i čtečka čtou aktuální pozici média; čas nepřičítají podle běhu JavaScriptového časovače. Pauza a změna rychlosti tedy nezavádějí samostatnou titulkovou časovou osu. Chybné MP3 přičítání +2 s u dílu 1 bylo odstraněno.
+
+Při zobrazených titulcích zůstává spuštěná malá tichá MP4 smyčka, která se přesouvá do fullscreen čtečky. Samotné video o velikosti 16 px nevyhovuje velikostní podmínce Chromium VideoWakeLock (20 % plochy okna); proto se vedle něj žádá standardní Screen Wake Lock. Žádost se deduplikuje a zámek se uvolní při skrytí stránky, sbalení/zavření přehrávače či vypnutí titulků. Návrat a uživatelské gesto umožňují obnovení po uvolnění systémem. Pokud API není dostupné nebo systém žádost odmítne, tiché video zůstává jako záloha; skutečné zabránění zhasnutí záleží na prohlížeči a systému.
+
+Produkční service worker zahrnuje titulky a pomocné video do verzované offline cache. Změna titulků i indexu MP3 ovlivní verzi cache.
+
+`tools/test-caption-clock-browser.mjs` a příslušná GitHub Actions kontrola používají původní MP3 dílů 1–4, ověřují titulky na začátku/uprostřed/na konci, vzdálené přeskoky, změnu rychlosti, pauzu, čtečku, zachované YouTube časování a životní cyklus pomocného videa i screen zámku. Test používá skutečný dekodér Chrome a simulovaný Screen Wake Lock; nenahrazuje fyzický test zhasnutí displeje na telefonu ani nezávislý poslech všech titulků.

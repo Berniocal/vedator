@@ -10,8 +10,8 @@
   const OFFLINE_CACHE='vedator-offline-audio-v1';
   const VIDEO_ENABLED_KEY='vedator-youtube-enabled-v1';
   const CAPTION_LANGUAGE_KEY='vedator-youtube-caption-language-v1';
-  // MP3 and YouTube can have different lead-ins; never shift video captions.
-  const MP3_CAPTION_ADVANCE_SECONDS={1:2,2:0}; // MP3 only. YouTube captions use source timestamps unchanged.
+  // Edited captions are timestamped in the original MP3 timeline.
+  // Read the actual media clock; do not add per-episode guesses or wall-clock drift.
   let youtubeSession=null,youtubeApiPromise=null;
   // Temporary fallback when a video-playing page is hidden/phone is locked.
   // Keep the user's persisted YouTube preference intact.
@@ -1108,16 +1108,36 @@
       syncYoutubeCaptions();
     },160);
   }
-  // A tiny muted MP4 loop is the *only* keep-screen-awake mechanism.
-  // Start it whenever captions are enabled, independent of MP3/YouTube/reader.
-  // It lives inside the fullscreen reader when that overlay is active.
-  // Always run a tiny, muted MP4 when episode captions are enabled.
-  // No Screen Wake Lock: user prefers video for keeping the display awake.
+  // Keep the tiny silent loop as a fallback. Chromium does not grant a video
+  // screen lock to a 16px muted element, so request the screen lock explicitly.
+  // Both are scoped to visible captions, including the fullscreen reader.
+  let captionScreenLock=null,captionScreenRequest=null,captionScreenGeneration=0,captionScreenAttempt=0;
+  function releaseCaptionScreenLock(){
+    captionScreenGeneration++;
+    const lock=captionScreenLock;captionScreenLock=null;
+    if(lock)void lock.release().catch(()=>{});
+  }
+  function requestCaptionScreenLock(force=false){
+    if(!captionsNeedAwakeScreen()||!navigator.wakeLock?.request||captionScreenLock||captionScreenRequest)return;
+    const now=Date.now();
+    if(!force&&now-captionScreenAttempt<15000)return;
+    captionScreenAttempt=now;
+    const generation=captionScreenGeneration;
+    const pending=Promise.resolve().then(()=>navigator.wakeLock.request('screen')).then(lock=>{
+      if(generation!==captionScreenGeneration||!captionsNeedAwakeScreen()){
+        void lock.release().catch(()=>{});return;
+      }
+      captionScreenLock=lock;
+      lock.addEventListener('release',()=>{if(captionScreenLock===lock)captionScreenLock=null},{once:true});
+    }).catch(()=>{}).finally(()=>{if(captionScreenRequest===pending)captionScreenRequest=null});
+    captionScreenRequest=pending;
+  }
   let captionWakeVideo=null,captionWakeLastRetry=0,captionWakeTimer=null,captionWakeFrameAt=0;
   function captionsNeedAwakeScreen(){
     const shell=$('#player-v2');
     return !document.hidden&&Boolean(state.current)&&captionPreference!=='off'&&
-      Boolean(episodeCaptionFile(state.current.episode))&&Boolean(shell)&&!shell.classList.contains('hidden');
+      Boolean(episodeCaptionFile(state.current.episode))&&Boolean(shell)&&!shell.classList.contains('hidden')&&
+      (captionReaderActive||!shell.classList.contains('player-collapsed-v2'));
   }
   function playCaptionWakeVideo(force=false){
     const video=captionWakeVideo;
@@ -1199,15 +1219,20 @@
     video.remove();
     video.load();
   }
-  function releaseCaptionWake(){stopCaptionWakeVideo()}
+  function releaseCaptionWake(){releaseCaptionScreenLock();stopCaptionWakeVideo()}
   function refreshCaptionWake(){
-    if(captionsNeedAwakeScreen())startCaptionWakeVideo();
-    else stopCaptionWakeVideo();
+    if(captionsNeedAwakeScreen()){startCaptionWakeVideo();requestCaptionScreenLock()}
+    else releaseCaptionWake();
   }
   // Try to resume in a real user gesture if autoplay was denied.
   // Capturing lets the retry happen before a button's default handling.
-  document.addEventListener('pointerdown',()=>{if(captionWakeVideo)playCaptionWakeVideo(true)},{capture:true,passive:true});
-  document.addEventListener('keydown',()=>{if(captionWakeVideo)playCaptionWakeVideo(true)},{capture:true});
+  const retryCaptionWake=()=>{
+    if(!captionsNeedAwakeScreen())return;
+    if(captionWakeVideo)playCaptionWakeVideo(true);
+    requestCaptionScreenLock(true);
+  };
+  document.addEventListener('pointerdown',retryCaptionWake,{capture:true,passive:true});
+  document.addEventListener('keydown',retryCaptionWake,{capture:true});
   document.addEventListener('fullscreenchange',()=>{moveCaptionWakeVideo();refreshCaptionWake()});
   function updateCaptionReader(value){
     const textNode=$('#player-caption-reader-text-v2');
@@ -1293,8 +1318,7 @@
     if(session.captionError){setCaptionText(text('Titulky se nepodařilo načíst.','Titulky sa nepodarilo načítať.'));return}
     if(!session.captions){setCaptionText(text('Načítám titulky…','Načítavam titulky…'));return}
     const seconds=youtubeActive()?youtubePlaybackClock().time:playbackClock().time;
-    const episodeNumber=Number(state.current?.episode?.number)||0;
-    const time=Math.max(0,Number(seconds)||0)+(youtubeActive()?0:MP3_CAPTION_ADVANCE_SECONDS[episodeNumber]||0);
+    const time=Math.max(0,Number(seconds)||0);
     const cues=session.captions.cues,lang=captionPreference==='auto'?(sk()?'sk':'cs'):captionPreference;
     let lo=0,hi=cues.length;
     while(lo<hi){const mid=(lo+hi)>>>1;if(cues[mid].start<=time)lo=mid+1;else hi=mid}
@@ -1790,12 +1814,12 @@
       }else{
         restoreYoutubeWhenVisible();
         resumePendingAudioWhenVisible();
-        refreshCaptionWake();
+        refreshCaptionWake();requestCaptionScreenLock(true);
       }
     });window.addEventListener('pageshow',()=>{
       restoreYoutubeWhenVisible();
       resumePendingAudioWhenVisible();
-      refreshCaptionWake();
+      refreshCaptionWake();requestCaptionScreenLock(true);
     });n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!continuousActive()&&!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=false;saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{if(youtubeActive())return;saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
   }
 
@@ -4547,6 +4571,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     shell.classList.toggle('player-collapsed-v2',next);
     document.body.classList.toggle('player-collapsed-v2',next);
     if(expand)expand.hidden=!next;
+    refreshCaptionWake();if(!next)requestCaptionScreenLock(true);
   }
 
   function installLegacyVisualParity(){
