@@ -10,6 +10,8 @@
   const OFFLINE_CACHE='vedator-offline-audio-v1';
   const VIDEO_ENABLED_KEY='vedator-youtube-enabled-v1';
   const CAPTION_LANGUAGE_KEY='vedator-youtube-caption-language-v1';
+  // MP3 and YouTube can have different lead-ins; never shift video captions.
+  const MP3_CAPTION_ADVANCE_SECONDS={2:3};
   let youtubeSession=null,youtubeApiPromise=null;
   const youtubeCaptionFiles=new Map();
   let audioCaptionSession=null;
@@ -1086,38 +1088,96 @@
       youtubeCaptionFiles.delete(session.captionFile);session.captionError=true;syncYoutubeCaptions();
     });
   }
+  let captionReaderActive=false,captionReaderTimer=null,captionReaderWasFullscreen=false;
+  function updateCaptionReader(value){
+    const textNode=$('#player-caption-reader-text-v2');
+    if(captionReaderActive&&textNode&&textNode.textContent!==value)textNode.textContent=value;
+  }
+  function exitCaptionReader(){
+    if(!captionReaderActive)return;
+    captionReaderActive=false;captionReaderWasFullscreen=false;
+    if(captionReaderTimer!==null){clearInterval(captionReaderTimer);captionReaderTimer=null}
+    const overlay=$('#player-caption-reader-overlay-v2');
+    if(overlay){
+      overlay.hidden=true;overlay.setAttribute('aria-hidden','true');
+      if(document.fullscreenElement===overlay)document.exitFullscreen?.().catch(()=>{});
+    }
+    document.body.classList.remove('vedator-caption-reading');
+  }
+  function enterCaptionReader(){
+    if(captionReaderActive||captionPreference==='off'||!activeCaptionSession()?.captionFile)return;
+    const overlay=$('#player-caption-reader-overlay-v2');if(!overlay)return;
+    captionReaderActive=true;captionReaderWasFullscreen=false;
+    overlay.hidden=false;overlay.setAttribute('aria-hidden','false');
+    document.body.classList.add('vedator-caption-reading');
+    syncYoutubeCaptions();
+    captionReaderTimer=setInterval(syncYoutubeCaptions,250);
+    overlay.focus({preventScroll:true});
+    // The fixed black overlay is a fallback on browsers without element fullscreen.
+    try{overlay.requestFullscreen?.().catch(()=>{})}catch(_){}
+  }
   function syncYoutubeCaptions(){
-    const box=$('#player-captions-v2'),display=$('#player-caption-text-v2'),select=$('#player-caption-language-v2'),note=$('#player-caption-note-v2'),session=activeCaptionSession();
-    if(!box||!display||!select)return;
-    const available=Boolean(session?.captionFile);box.classList.toggle('hidden',!available);
-    const toggle=$('#player-caption-toggle-v2');
+    const box=$('#player-captions-v2'),display=$('#player-caption-text-v2'),videoDisplay=$('#player-video-caption-v2');
+    const select=$('#player-caption-language-v2'),note=$('#player-caption-note-v2'),session=activeCaptionSession();
+    if(!box||!display||!select||!note)return;
+    const available=Boolean(session?.captionFile),showVideo=youtubeActive()&&Boolean(videoDisplay);
+    const target=showVideo?videoDisplay:display;
+    box.classList.toggle('hidden',!available);
+    const toggle=$('#player-caption-toggle-v2'),readerButton=$('#player-caption-reader-button-v2');
     if(toggle){
       toggle.hidden=!available;
       toggle.setAttribute('aria-pressed',String(captionPreference!=='off'));
       setCaptionToggleLabel(toggle);
     }
-    if(!available){display.textContent='';return}
-    const setText=(node,value)=>{if(node.textContent!==value)node.textContent=value};
+    if(readerButton){
+      readerButton.hidden=!available;
+      readerButton.disabled=!available||captionPreference==='off';
+      readerButton.textContent=text('▣ Čtečka','▣ Čítačka');
+      readerButton.title=text('Černá obrazovka s titulky; klepnutím se vrátíte','Čierna obrazovka s titulkami; ťuknutím sa vrátite');
+    }
+    if(!available){
+      display.textContent='';if(videoDisplay)videoDisplay.textContent='';
+      if(captionReaderActive)exitCaptionReader();
+      return;
+    }
+    const setText=(node,value)=>{if(node&&node.textContent!==value)node.textContent=value};
+    const setCaptionText=value=>{
+      setText(target,value);
+      if(target!==display)setText(display,'');
+      if(videoDisplay&&target!==videoDisplay)setText(videoDisplay,'');
+      updateCaptionReader(value);
+    };
     setText($('#player-caption-label-v2'),text('Titulky','Titulky'));
     setText(select.options[0],text('Podle jazyka aplikace','Podľa jazyka aplikácie'));
-    setText(select.options[1],text('Čeština','Čeština'));setText(select.options[2],text('Slovenština','Slovenčina'));setText(select.options[3],text('Vypnuto','Vypnuté'));
+    setText(select.options[1],text('Čeština','Čeština'));
+    setText(select.options[2],text('Slovenština','Slovenčina'));
+    setText(select.options[3],text('Vypnuto','Vypnuté'));
     select.value=captionPreference;
-    const enabled=captionPreference!=='off';display.classList.toggle('hidden',!enabled);note.classList.toggle('hidden',!enabled);
-    if(!enabled){display.textContent='';return}
+    const enabled=captionPreference!=='off';
+    display.classList.toggle('hidden',!enabled||showVideo);
+    videoDisplay?.classList.toggle('hidden',!enabled||!showVideo);
+    note.classList.toggle('hidden',!enabled||showVideo);
+    if(!enabled){
+      setCaptionText('');
+      if(captionReaderActive)exitCaptionReader();
+      return;
+    }
     setText(note,session.captions?.quality==='audio-repaired'?
       text('Upravené titulky • nový přepis nahrávky','Upravené titulky • nový prepis nahrávky'):
       text('Upravený strojový přepis • může obsahovat nepřesnosti','Upravený strojový prepis • môže obsahovať nepresnosti'));
     ensureYoutubeCaptions(session);
-    if(session.captionError){setText(display,text('Titulky se nepodařilo načíst.','Titulky sa nepodarilo načítať.'));return}
-    if(!session.captions){setText(display,text('Načítám titulky…','Načítavam titulky…'));return}
-    // The MP3 subtitles were perceived late in episode 2; advance only MP3
-    // by 1.5 seconds, without changing the well-synchronized YouTube video.
-    const time=youtubeActive()?youtubePlaybackClock().time:
-      playbackClock().time+(Number(state.current?.episode?.number)===2?1.5:0);
+    if(session.captionError){setCaptionText(text('Titulky se nepodařilo načíst.','Titulky sa nepodarilo načítať.'));return}
+    if(!session.captions){setCaptionText(text('Načítám titulky…','Načítavam titulky…'));return}
+    const seconds=youtubeActive()?youtubePlaybackClock().time:playbackClock().time;
+    const episodeNumber=Number(state.current?.episode?.number)||0;
+    const time=Math.max(0,Number(seconds)||0)+(youtubeActive()?0:MP3_CAPTION_ADVANCE_SECONDS[episodeNumber]||0);
     const cues=session.captions.cues,lang=captionPreference==='auto'?(sk()?'sk':'cs'):captionPreference;
     let lo=0,hi=cues.length;
     while(lo<hi){const mid=(lo+hi)>>>1;if(cues[mid].start<=time)lo=mid+1;else hi=mid}
-    const cue=cues[lo-1];setText(display,cue&&time<cue.end?cue.text[lang]:'');display.lang=lang;
+    const cue=cues[lo-1];
+    setCaptionText(cue&&time<cue.end?cue.text[lang]:'');
+    target.lang=lang;
+    const readerText=$('#player-caption-reader-text-v2');if(readerText)readerText.lang=lang;
   }
   function setCaptionToggleLabel(button){
     if(!button)return;
@@ -1212,7 +1272,12 @@
     frame.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';frame.allowFullscreen=true;frame.referrerPolicy='strict-origin-when-cross-origin';
     const url=new URL('https://www.youtube.com/embed/'+videoId);
     url.search=new URLSearchParams({enablejsapi:'1',origin:location.origin,playsinline:'1',autoplay:autoplay?'1':'0',start:String(Math.floor(session.time)),rel:'0'}).toString();
-    frame.src=url.href;host.replaceChildren(frame);panel.classList.remove('hidden');
+    frame.src=url.href;
+    const captionLayer=document.createElement('div');
+    captionLayer.id='player-video-caption-v2';
+    captionLayer.className='player-video-caption-v2';
+    captionLayer.setAttribute('aria-live','off');
+    host.replaceChildren(frame,captionLayer);panel.classList.remove('hidden');
     youtubeStatus(text('Načítám YouTube…','Načítavam YouTube…'));syncPlayer();
     if(session.captionFile)session.captionTimer=setInterval(()=>{if(alive())syncYoutubeCaptions()},250);
     const blocked=()=>{if(!alive())return;session.wantPlay=false;youtubeStatus(text('Video spustíte klepnutím na ▶ ve videu.','Video spustíte klepnutím na ▶ vo videu.'));syncPlayer()};
@@ -1446,6 +1511,7 @@
     if(autoplay)startCurrentAudio(sequence);
   }
   function closePlayer(){
+    exitCaptionReader();
     ++playbackSequence;playbackAutoplayWanted=false;playbackNeedsReload=false;playbackSourcePending=false;
     saveProgress(true,false);
     stopYoutubePlayback();
@@ -2549,6 +2615,16 @@
   $('#player-video-v2')?.addEventListener('click',toggleYoutubePlayback);
   $('#player-caption-language-v2')?.addEventListener('change',changeYoutubeCaptionLanguage);
   $('#player-caption-toggle-v2')?.addEventListener('click',toggleCaptions);
+  $('#player-caption-reader-button-v2')?.addEventListener('click',enterCaptionReader);
+  const captionReaderOverlay=$('#player-caption-reader-overlay-v2');
+  captionReaderOverlay?.addEventListener('click',exitCaptionReader);
+  captionReaderOverlay?.addEventListener('keydown',event=>{
+    if(['Escape','Enter',' '].includes(event.key)){event.preventDefault();exitCaptionReader()}
+  });
+  document.addEventListener('fullscreenchange',()=>{
+    if(document.fullscreenElement===captionReaderOverlay)captionReaderWasFullscreen=true;
+    else if(captionReaderWasFullscreen&&captionReaderActive)exitCaptionReader();
+  });
   $('#audio-v2')?.addEventListener('ended',()=>{if(youtubeActive())return;if(continuousActive()){playbackAutoplayWanted=false;return}if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else playbackAutoplayWanted=false});
 
   /* V2_FINAL_UI_FAQ_GUIDE_V1 */

@@ -13,3 +13,7 @@ V původně prázdných místech je nyní text zachycený z nahrávky. Značky c
 Jde o jazykově zkontrolovaný nový strojový přepis, nikoli o nezávislý lidský poslech celé nahrávky. Drobné chyby rozpoznání nebo časování proto mohou přetrvávat. Historická tvrzení, čísla a zjednodušení mluvčích z roku 2019 nejsou nahrazena současnými údaji ani věcně přepracována. Shoda s YouTube nebyla nezávisle ověřena poslechem.
 
 Web načítá titulky až při otevření příslušného videa a ověřuje HTTP cache, aby se po opravě nenačetl starý soubor. Volba automatického jazyka / češtiny / slovenštiny / vypnutí se pamatuje. Text zůstává mimo iframe pod videem; nativní fullscreen samotného YouTube jej nezahrnuje.
+
+## Přehrávač (16. 11. 2026)
+
+V ostré aplikaci se vlastní titulky při YouTube videu překrývají uvnitř videoplochy; při MP3 zůstávají pod ovládáním. Tlačítko Čtečka zobrazí průběžné titulky na černé obrazovce, návrat je klepnutím nebo klávesou Escape. Prohlížeč se pokusí o skutečný fullscreen, jinak použije překryv. Nativní fullscreen samotného iframe YouTube vlastní titulkovou vrstvu nezahrnuje. U druhého dílu se pouze při MP3 prozatím aplikuje posun časové osy titulků +3 s; video si ponechává původní časování.
