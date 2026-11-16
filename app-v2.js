@@ -13,6 +13,9 @@
   // MP3 and YouTube can have different lead-ins; never shift video captions.
   const MP3_CAPTION_ADVANCE_SECONDS={2:3};
   let youtubeSession=null,youtubeApiPromise=null;
+  // Temporary fallback when a video-playing page is hidden/phone is locked.
+  // Keep the user's persisted YouTube preference intact.
+  let videoBackgroundSuspended=false;
   const youtubeCaptionFiles=new Map();
   let audioCaptionSession=null;
   const REF_ALPHABET='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
@@ -1089,6 +1092,80 @@
     });
   }
   let captionReaderActive=false,captionReaderTimer=null,captionReaderWasFullscreen=false;
+  let captionWakeSentinel=null,captionWakeRequest=null,captionWakeEpoch=0,captionWakeVideo=null;
+  function captionsNeedAwakeScreen(){
+    const shell=$('#player-v2');
+    return !document.hidden&&Boolean(state.current)&&captionPreference!=='off'&&
+      Boolean(episodeCaptionFile(state.current.episode))&&Boolean(shell)&&!shell.classList.contains('hidden');
+  }
+  function moveCaptionWakeVideo(){
+    if(!captionWakeVideo)return;
+    const overlay=captionReaderActive?$('#player-caption-reader-overlay-v2'):null;
+    const parent=overlay||document.body;
+    if(captionWakeVideo.parentElement!==parent)parent.appendChild(captionWakeVideo);
+  }
+  function startCaptionWakeVideo(){
+    if(!captionsNeedAwakeScreen()||captionWakeVideo)return;
+    // Legacy fallback: a tiny, almost fully transparent, muted loop.
+    // Browsers may still allow the display to sleep; Screen Wake Lock is preferred.
+    const video=document.createElement('video');
+    video.setAttribute('aria-hidden','true');
+    video.setAttribute('tabindex','-1');
+    video.setAttribute('playsinline','');
+    video.setAttribute('webkit-playsinline','');
+    video.className='vedator-caption-wake-video';
+    video.src='./wake-loop.mp4';
+    video.muted=true;video.loop=true;video.autoplay=true;video.playsInline=true;
+    video.preload='auto';video.disablePictureInPicture=true;
+    video.style.cssText='position:fixed;bottom:0;left:0;width:2px;height:2px;opacity:0.004;pointer-events:none;z-index:2147483000;';
+    captionWakeVideo=video;
+    moveCaptionWakeVideo();
+    try{video.play().catch(()=>{})}catch(_){}
+  }
+  function stopCaptionWakeVideo(){
+    if(!captionWakeVideo)return;
+    captionWakeVideo.pause();
+    captionWakeVideo.removeAttribute('src');
+    captionWakeVideo.load();
+    captionWakeVideo.remove();
+    captionWakeVideo=null;
+  }
+  function releaseCaptionWake(){
+    captionWakeEpoch++;
+    const sentinel=captionWakeSentinel;
+    captionWakeSentinel=null;captionWakeRequest=null;
+    if(sentinel)void sentinel.release().catch(()=>{});
+    stopCaptionWakeVideo();
+  }
+  function refreshCaptionWake(){
+    if(!captionsNeedAwakeScreen()){
+      if(captionWakeSentinel||captionWakeRequest||captionWakeVideo)releaseCaptionWake();
+      return;
+    }
+    if(captionWakeSentinel||captionWakeRequest||captionWakeVideo)return;
+    if(typeof navigator.wakeLock?.request!=='function'){
+      startCaptionWakeVideo();return;
+    }
+    const epoch=++captionWakeEpoch;
+    const request=Promise.resolve().then(()=>navigator.wakeLock.request('screen'));
+    captionWakeRequest=request;
+    request.then(sentinel=>{
+      if(captionWakeRequest===request)captionWakeRequest=null;
+      if(epoch!==captionWakeEpoch||!captionsNeedAwakeScreen()){
+        void sentinel.release().catch(()=>{});
+        return;
+      }
+      captionWakeSentinel=sentinel;
+      sentinel.addEventListener('release',()=>{
+        if(captionWakeSentinel!==sentinel)return;
+        captionWakeSentinel=null;
+        if(captionsNeedAwakeScreen())startCaptionWakeVideo();
+      });
+    }).catch(()=>{
+      if(captionWakeRequest===request)captionWakeRequest=null;
+      if(epoch===captionWakeEpoch&&captionsNeedAwakeScreen())startCaptionWakeVideo();
+    });
+  }
   function updateCaptionReader(value){
     const textNode=$('#player-caption-reader-text-v2');
     if(captionReaderActive&&textNode&&textNode.textContent!==value)textNode.textContent=value;
@@ -1103,6 +1180,7 @@
       if(document.fullscreenElement===overlay)document.exitFullscreen?.().catch(()=>{});
     }
     document.body.classList.remove('vedator-caption-reading');
+    moveCaptionWakeVideo();
   }
   function enterCaptionReader(){
     if(captionReaderActive||captionPreference==='off'||!activeCaptionSession()?.captionFile)return;
@@ -1110,6 +1188,7 @@
     captionReaderActive=true;captionReaderWasFullscreen=false;
     overlay.hidden=false;overlay.setAttribute('aria-hidden','false');
     document.body.classList.add('vedator-caption-reading');
+    moveCaptionWakeVideo();
     syncYoutubeCaptions();
     captionReaderTimer=setInterval(syncYoutubeCaptions,250);
     overlay.focus({preventScroll:true});
@@ -1121,6 +1200,7 @@
     const select=$('#player-caption-language-v2'),note=$('#player-caption-note-v2'),session=activeCaptionSession();
     if(!box||!display||!select||!note)return;
     const available=Boolean(session?.captionFile),showVideo=youtubeActive()&&Boolean(videoDisplay);
+    refreshCaptionWake();
     const target=showVideo?videoDisplay:display;
     box.classList.toggle('hidden',!available);
     const toggle=$('#player-caption-toggle-v2'),readerButton=$('#player-caption-reader-button-v2');
@@ -1316,8 +1396,25 @@
   function toggleYoutubePlayback(){
     if(!state.current||!episodeYoutubeId(state.current.episode))return;
     const active=youtubeActive(),clock=playbackClock(),current=state.current,context=state.context,autoplay=active?playbackIsPlaying():true;
+    videoBackgroundSuspended=false; // A deliberate switch cancels a pending automatic restore.
     youtubeEnabled=!active;writeJson(VIDEO_ENABLED_KEY,youtubeEnabled);
     openPlayback(current.episode,{start:clock.time,context,itemRef:current.itemRef,autoplay});
+  }
+  function suspendYoutubeForBackground(){
+    if(!document.hidden||videoBackgroundSuspended||!youtubeActive()||!state.current)return;
+    const current=state.current,time=youtubePlaybackClock().time,autoplay=playbackIsPlaying();
+    videoBackgroundSuspended=true;
+    // Start the MP3 source immediately inside visibilitychange. The browser
+    // may still refuse background autoplay; the foreground fallback recovers.
+    void openPlayback(current.episode,{start:time,context:state.context,itemRef:current.itemRef,autoplay});
+  }
+  function restoreYoutubeWhenVisible(){
+    if(document.hidden||!videoBackgroundSuspended)return;
+    videoBackgroundSuspended=false;
+    if(!youtubeEnabled||!state.current||!episodeYoutubeId(state.current.episode))return;
+    const current=state.current,time=playbackClock().time;
+    const autoplay=playbackIsPlaying()||Boolean(playbackAutoplayWanted);
+    void openPlayback(current.episode,{start:time,context:state.context,itemRef:current.itemRef,autoplay});
   }
 
   function playerNodes(){return{shell:$('#player-v2'),audio:$('#audio-v2'),title:$('#player-title-v2'),sub:$('#player-sub-v2'),play:$('#player-play-v2'),prev:$('#player-prev-v2'),next:$('#player-next-v2'),speed:$('#player-speed-v2'),seek:$('#player-seek-v2'),current:$('#player-current-v2'),duration:$('#player-duration-v2'),help:$('#player-help-v2'),download:$('#player-download-v2'),offline:$('#player-offline-v2')}}
@@ -1476,7 +1573,7 @@
     playbackAutoplayWanted=Boolean(autoplay);
     playbackNeedsReload=false;
     playbackSourcePending=false; // Clear a cancelled/older offline lookup before the synchronous path.
-    if(youtubeEnabled&&episodeYoutubeId(episode)){beginYoutubePlayback(episode,target||0,autoplay,sequence);return}
+    if(youtubeEnabled&&!videoBackgroundSuspended&&episodeYoutubeId(episode)){beginYoutubePlayback(episode,target||0,autoplay,sequence);return}
     if(autoplay&&canStartContinuous()){beginContinuousPlayback(target||0);return}
     // Online episodes already have their MP3 URL in the data bundle.
     // Avoid *any* await when a track ends: Android can suspend audio between tasks.
@@ -1520,7 +1617,8 @@
     if(playbackMetadataHandler)n.audio.removeEventListener('loadedmetadata',playbackMetadataHandler);
     playbackMetadataHandler=null;
     n.audio.pause();n.audio.removeAttribute('src');n.audio.load();
-    state.current=null;state.context=null;n.shell.classList.add('hidden');
+    state.current=null;state.context=null;videoBackgroundSuspended=false;n.shell.classList.add('hidden');
+    refreshCaptionWake();
   }
   function navigateContext(delta){const context=state.context;if(!context)return;const index=context.index+delta;if(index<0||index>=context.items.length)return;const next={...context,index},item=next.items[index];openPlayback(item.episode,{start:item.start||0,context:next,itemRef:item.ref||epRef(item.episode.number)})}
   function changeSpeed(){const speeds=[1,1.25,1.5,1.75,2,.75],i=speeds.indexOf(state.speed);state.speed=speeds[(i+1)%speeds.length];if(youtubeActive()){if(youtubeSession.ready)youtubeSession.player.setPlaybackRate(state.speed)}else playerNodes().audio.playbackRate=state.speed;syncPlayer()}
@@ -1641,7 +1739,20 @@
     for(const event of ['pointerup','keyup'])n.seek.addEventListener(event,()=>{playerSeekEditing=false});
     for(const event of ['pointercancel','blur'])n.seek.addEventListener(event,()=>{playerSeekEditing=false;syncPlayer()});
     for(const event of ['play','playing','pause','timeupdate','durationchange','loadedmetadata','ended','error','ratechange','waiting','stalled'])n.audio.addEventListener(event,()=>{if(continuousActive())continuousPlayer.onAudio(event)});
-    n.play.addEventListener('click',restartCurrentAudio);n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{playerSeekEditing=false;if(state.current)seekPlayback(Number(n.seek.value)||0)});n.audio.addEventListener('playing',()=>{playbackNeedsReload=false});n.audio.addEventListener('stalled',()=>{playbackNeedsReload=true});n.audio.addEventListener('error',()=>{playbackNeedsReload=true;if(playbackAutoplayWanted&&state.current)playbackFailure(n.audio.error)});document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePendingAudioWhenVisible()});window.addEventListener('pageshow',resumePendingAudioWhenVisible);n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!continuousActive()&&!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=false;saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{if(youtubeActive())return;saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
+    n.play.addEventListener('click',restartCurrentAudio);n.prev.addEventListener('click',()=>navigateContext(-1));n.next.addEventListener('click',()=>navigateContext(1));n.speed.addEventListener('click',changeSpeed);$('#player-playlist-v2').addEventListener('click',openPlaylistPicker);n.offline.addEventListener('click',toggleOffline);$('#player-close-v2').addEventListener('click',closePlayer);n.seek.addEventListener('input',()=>{n.current.textContent=fmtTime(n.seek.value)});n.seek.addEventListener('change',()=>{playerSeekEditing=false;if(state.current)seekPlayback(Number(n.seek.value)||0)});n.audio.addEventListener('playing',()=>{playbackNeedsReload=false});n.audio.addEventListener('stalled',()=>{playbackNeedsReload=true});n.audio.addEventListener('error',()=>{playbackNeedsReload=true;if(playbackAutoplayWanted&&state.current)playbackFailure(n.audio.error)});document.addEventListener('visibilitychange',()=>{
+      if(document.hidden){
+        releaseCaptionWake();
+        suspendYoutubeForBackground();
+      }else{
+        restoreYoutubeWhenVisible();
+        resumePendingAudioWhenVisible();
+        refreshCaptionWake();
+      }
+    });window.addEventListener('pageshow',()=>{
+      restoreYoutubeWhenVisible();
+      resumePendingAudioWhenVisible();
+      refreshCaptionWake();
+    });n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!continuousActive()&&!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=false;saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{if(youtubeActive())return;saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
   }
 
 
