@@ -1092,79 +1092,83 @@
     });
   }
   let captionReaderActive=false,captionReaderTimer=null,captionReaderWasFullscreen=false;
-  let captionWakeSentinel=null,captionWakeRequest=null,captionWakeEpoch=0,captionWakeVideo=null;
+  // A tiny muted MP4 loop is the *only* keep-screen-awake mechanism.
+  // Start it whenever captions are enabled, independent of MP3/YouTube/reader.
+  // It lives inside the fullscreen reader when that overlay is active.
+  let captionWakeVideo=null,captionWakeLastRetry=0;
   function captionsNeedAwakeScreen(){
     const shell=$('#player-v2');
     return !document.hidden&&Boolean(state.current)&&captionPreference!=='off'&&
       Boolean(episodeCaptionFile(state.current.episode))&&Boolean(shell)&&!shell.classList.contains('hidden');
   }
+  function playCaptionWakeVideo(force=false){
+    const video=captionWakeVideo;
+    if(!video||!captionsNeedAwakeScreen()||!video.paused)return;
+    const now=Date.now();
+    if(!force&&now-captionWakeLastRetry<3000)return;
+    captionWakeLastRetry=now;
+    try{Promise.resolve(video.play()).catch(error=>{
+      // Some browsers restrict helper video despite it being muted.
+      // The next user interaction or foreground transition will retry.
+      console.debug('Vedátor: helper video did not start',error?.message||error);
+    })}catch(error){console.debug('Vedátor: helper video rejected',error)}
+  }
   function moveCaptionWakeVideo(){
     if(!captionWakeVideo)return;
     const overlay=captionReaderActive?$('#player-caption-reader-overlay-v2'):null;
     const parent=overlay||document.body;
-    if(captionWakeVideo.parentElement!==parent)parent.appendChild(captionWakeVideo);
+    if(captionWakeVideo.parentElement!==parent){
+      parent.appendChild(captionWakeVideo);
+      playCaptionWakeVideo(true);
+    }
   }
   function startCaptionWakeVideo(){
-    if(!captionsNeedAwakeScreen()||captionWakeVideo)return;
-    // Legacy fallback: a tiny, almost fully transparent, muted loop.
-    // Browsers may still allow the display to sleep; Screen Wake Lock is preferred.
+    if(!captionsNeedAwakeScreen())return;
+    if(captionWakeVideo){playCaptionWakeVideo();return}
     const video=document.createElement('video');
+    video.className='vedator-caption-wake-video';
     video.setAttribute('aria-hidden','true');
     video.setAttribute('tabindex','-1');
     video.setAttribute('playsinline','');
     video.setAttribute('webkit-playsinline','');
-    video.className='vedator-caption-wake-video';
+    video.setAttribute('muted','');
+    video.setAttribute('loop','');
+    video.setAttribute('autoplay','');
+    video.muted=true;
+    video.defaultMuted=true;
+    video.loop=true;
+    video.autoplay=true;
+    video.playsInline=true;
+    video.preload='auto';
+    video.disablePictureInPicture=true;
+    video.controls=false;
+    // Small and almost transparent, but still rendered: opacity:0/display:none
+    // can make browsers stop decoding the video.
+    video.style.cssText='position:fixed;left:0;bottom:0;width:4px;height:4px;opacity:0.01;pointer-events:none;z-index:2147483000;';
     video.src='./wake-loop.mp4';
-    video.muted=true;video.loop=true;video.autoplay=true;video.playsInline=true;
-    video.preload='auto';video.disablePictureInPicture=true;
-    video.style.cssText='position:fixed;bottom:0;left:0;width:2px;height:2px;opacity:0.004;pointer-events:none;z-index:2147483000;';
+    video.addEventListener('error',()=>console.warn('Vedátor: pomocné video nelze načíst.'));
     captionWakeVideo=video;
     moveCaptionWakeVideo();
-    try{video.play().catch(()=>{})}catch(_){}
+    playCaptionWakeVideo(true);
   }
   function stopCaptionWakeVideo(){
     if(!captionWakeVideo)return;
-    captionWakeVideo.pause();
-    captionWakeVideo.removeAttribute('src');
-    captionWakeVideo.load();
-    captionWakeVideo.remove();
+    const video=captionWakeVideo;
     captionWakeVideo=null;
+    video.pause();
+    video.removeAttribute('src');
+    video.remove();
+    video.load();
   }
   function releaseCaptionWake(){
-    captionWakeEpoch++;
-    const sentinel=captionWakeSentinel;
-    captionWakeSentinel=null;captionWakeRequest=null;
-    if(sentinel)void sentinel.release().catch(()=>{});
     stopCaptionWakeVideo();
   }
   function refreshCaptionWake(){
     if(!captionsNeedAwakeScreen()){
-      if(captionWakeSentinel||captionWakeRequest||captionWakeVideo)releaseCaptionWake();
+      stopCaptionWakeVideo();
       return;
     }
-    if(captionWakeSentinel||captionWakeRequest||captionWakeVideo)return;
-    if(typeof navigator.wakeLock?.request!=='function'){
-      startCaptionWakeVideo();return;
-    }
-    const epoch=++captionWakeEpoch;
-    const request=Promise.resolve().then(()=>navigator.wakeLock.request('screen'));
-    captionWakeRequest=request;
-    request.then(sentinel=>{
-      if(captionWakeRequest===request)captionWakeRequest=null;
-      if(epoch!==captionWakeEpoch||!captionsNeedAwakeScreen()){
-        void sentinel.release().catch(()=>{});
-        return;
-      }
-      captionWakeSentinel=sentinel;
-      sentinel.addEventListener('release',()=>{
-        if(captionWakeSentinel!==sentinel)return;
-        captionWakeSentinel=null;
-        if(captionsNeedAwakeScreen())startCaptionWakeVideo();
-      });
-    }).catch(()=>{
-      if(captionWakeRequest===request)captionWakeRequest=null;
-      if(epoch===captionWakeEpoch&&captionsNeedAwakeScreen())startCaptionWakeVideo();
-    });
+    startCaptionWakeVideo();
   }
   function updateCaptionReader(value){
     const textNode=$('#player-caption-reader-text-v2');
