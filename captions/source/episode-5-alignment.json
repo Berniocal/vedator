@@ -45816,7 +45816,7 @@
       "cue": 118,
       "start": 593.411,
       "end": 599.069,
-      "meanCharacterScore": 0.7541,
+      "meanCharacterScore": 0.7443,
       "asrStart": 593.43,
       "asrEnd": 598.99,
       "characters": [
@@ -46025,12 +46025,6 @@
           "score": 0.8938
         },
         {
-          "token": 15,
-          "start": 595.698,
-          "end": 595.719,
-          "score": 0.0
-        },
-        {
           "token": 19,
           "start": 595.719,
           "end": 595.739,
@@ -46043,9 +46037,21 @@
           "score": 0.6958
         },
         {
-          "token": 13,
+          "token": 4,
           "start": 595.839,
           "end": 595.859,
+          "score": 0.0
+        },
+        {
+          "token": 5,
+          "start": 595.859,
+          "end": 595.879,
+          "score": 0.0
+        },
+        {
+          "token": 13,
+          "start": 595.879,
+          "end": 595.899,
           "score": 0.0
         },
         {
@@ -64741,12 +64747,6 @@
           "score": 0.0649
         },
         {
-          "token": 0,
-          "start": 822.335,
-          "end": 822.355,
-          "score": 0.0102
-        },
-        {
           "token": 13,
           "start": 822.375,
           "end": 822.395,
@@ -75077,8 +75077,8 @@
     {
       "cue": 193,
       "start": 954.031,
-      "end": 959.78,
-      "meanCharacterScore": 0.3123,
+      "end": 959.359,
+      "meanCharacterScore": 0.7932,
       "asrStart": 953.93,
       "asrEnd": 959.34,
       "characters": [
@@ -75144,39 +75144,45 @@
         },
         {
           "token": 0,
+          "start": 954.852,
+          "end": 954.892,
+          "score": 0.9005
+        },
+        {
+          "token": 26,
+          "start": 954.892,
+          "end": 954.912,
+          "score": 0.0
+        },
+        {
+          "token": 0,
           "start": 954.952,
           "end": 955.033,
           "score": 0.4998
         },
         {
-          "token": 14,
+          "token": 20,
           "start": 955.113,
           "end": 955.133,
-          "score": 0.0
+          "score": 0.9999
         },
         {
-          "token": 9,
+          "token": 34,
           "start": 955.153,
           "end": 955.173,
-          "score": 0.0
+          "score": 1.0
         },
         {
-          "token": 5,
-          "start": 955.253,
+          "token": 3,
+          "start": 955.233,
           "end": 955.273,
-          "score": 0.0
+          "score": 0.9989
         },
         {
-          "token": 35,
+          "token": 8,
           "start": 955.273,
-          "end": 955.293,
-          "score": 0.0
-        },
-        {
-          "token": 15,
-          "start": 955.293,
-          "end": 955.313,
-          "score": 0.0
+          "end": 955.333,
+          "score": 0.87
         },
         {
           "token": 0,
@@ -75185,22 +75191,34 @@
           "score": 0.9774
         },
         {
-          "token": 19,
+          "token": 20,
           "start": 955.633,
           "end": 955.653,
-          "score": 0.0
+          "score": 0.9874
         },
         {
-          "token": 13,
+          "token": 18,
+          "start": 955.673,
+          "end": 955.714,
+          "score": 0.9966
+        },
+        {
+          "token": 15,
           "start": 955.714,
           "end": 955.734,
-          "score": 0.0
+          "score": 0.9999
         },
         {
-          "token": 5,
-          "start": 955.794,
+          "token": 3,
+          "start": 955.754,
+          "end": 955.774,
+          "score": 0.0009
+        },
+        {
+          "token": 8,
+          "start": 955.774,
           "end": 955.814,
-          "score": 0.0
+          "score": 0.9752
         },
         {
           "token": 0,
@@ -75209,37 +75227,49 @@
           "score": 0.9997
         },
         {
-          "token": 22,
+          "token": 19,
+          "start": 955.834,
+          "end": 955.854,
+          "score": 1.0
+        },
+        {
+          "token": 16,
           "start": 955.914,
           "end": 955.934,
-          "score": 0.0
+          "score": 1.0
         },
         {
-          "token": 9,
+          "token": 32,
           "start": 955.954,
           "end": 955.974,
-          "score": 0.0
+          "score": 0.0001
         },
         {
-          "token": 4,
+          "token": 19,
           "start": 956.014,
           "end": 956.034,
-          "score": 0.0
+          "score": 1.0
         },
         {
-          "token": 5,
+          "token": 15,
           "start": 956.094,
           "end": 956.114,
+          "score": 1.0
+        },
+        {
+          "token": 2,
+          "start": 956.114,
+          "end": 956.134,
           "score": 0.0
         },
         {
-          "token": 12,
+          "token": 15,
           "start": 956.134,
           "end": 956.154,
-          "score": 0.0003
+          "score": 0.0001
         },
         {
-          "token": 9,
+          "token": 22,
           "start": 956.154,
           "end": 956.174,
           "score": 0.0
@@ -75251,16 +75281,34 @@
           "score": 0.9158
         },
         {
-          "token": 4,
+          "token": 16,
           "start": 956.234,
           "end": 956.254,
-          "score": 0.0
+          "score": 1.0
         },
         {
-          "token": 22,
-          "start": 956.455,
+          "token": 15,
+          "start": 956.274,
+          "end": 956.294,
+          "score": 1.0
+        },
+        {
+          "token": 26,
+          "start": 956.335,
+          "end": 956.355,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 956.395,
+          "end": 956.415,
+          "score": 1.0
+        },
+        {
+          "token": 18,
+          "start": 956.435,
           "end": 956.475,
-          "score": 0.0
+          "score": 0.9989
         },
         {
           "token": 15,
@@ -75269,10 +75317,22 @@
           "score": 0.9998
         },
         {
-          "token": 13,
+          "token": 22,
+          "start": 956.535,
+          "end": 956.555,
+          "score": 1.0
+        },
+        {
+          "token": 1,
+          "start": 956.575,
+          "end": 956.615,
+          "score": 0.9997
+        },
+        {
+          "token": 14,
           "start": 956.675,
           "end": 956.695,
-          "score": 0.0
+          "score": 1.0
         },
         {
           "token": 9,
@@ -75281,64 +75341,64 @@
           "score": 0.9998
         },
         {
+          "token": 1,
+          "start": 956.775,
+          "end": 956.795,
+          "score": 1.0
+        },
+        {
           "token": 0,
           "start": 956.815,
           "end": 956.855,
           "score": 0.9998
         },
         {
-          "token": 26,
+          "token": 19,
           "start": 957.837,
           "end": 957.857,
           "score": 0.0
         },
         {
-          "token": 0,
-          "start": 957.877,
-          "end": 957.937,
-          "score": 0.8063
-        },
-        {
-          "token": 20,
-          "start": 957.937,
-          "end": 957.957,
+          "token": 13,
+          "start": 957.897,
+          "end": 957.917,
           "score": 0.0
         },
         {
-          "token": 34,
+          "token": 5,
           "start": 957.977,
           "end": 957.997,
-          "score": 0.0003
-        },
-        {
-          "token": 3,
-          "start": 957.997,
-          "end": 958.017,
-          "score": 0.8672
-        },
-        {
-          "token": 8,
-          "start": 958.017,
-          "end": 958.037,
-          "score": 0.1278
+          "score": 0.3781
         },
         {
           "token": 0,
-          "start": 958.037,
+          "start": 957.997,
           "end": 958.097,
-          "score": 0.9628
+          "score": 0.7638
         },
         {
-          "token": 20,
+          "token": 14,
           "start": 958.137,
-          "end": 958.157,
-          "score": 0.0
+          "end": 958.177,
+          "score": 0.999
         },
         {
-          "token": 18,
+          "token": 9,
+          "start": 958.177,
+          "end": 958.197,
+          "score": 0.0057
+        },
+        {
+          "token": 5,
+          "start": 958.197,
+          "end": 958.217,
+          "score": 1.0
+        },
+        {
+          "token": 35,
           "start": 958.278,
           "end": 958.298,
-          "score": 0.0
+          "score": 0.9999
         },
         {
           "token": 15,
@@ -75347,82 +75407,82 @@
           "score": 0.1263
         },
         {
-          "token": 3,
-          "start": 958.378,
-          "end": 958.398,
-          "score": 0.0023
-        },
-        {
-          "token": 8,
-          "start": 958.438,
-          "end": 958.458,
-          "score": 0.0
-        },
-        {
           "token": 0,
           "start": 958.478,
           "end": 958.518,
           "score": 0.9988
         },
         {
-          "token": 19,
+          "token": 22,
           "start": 958.518,
           "end": 958.538,
-          "score": 0.0
+          "score": 0.9999
         },
         {
-          "token": 16,
+          "token": 9,
           "start": 958.558,
           "end": 958.578,
-          "score": 0.0
+          "score": 0.9897
         },
         {
-          "token": 32,
+          "token": 4,
           "start": 958.618,
           "end": 958.638,
-          "score": 0.0
+          "score": 0.9996
         },
         {
-          "token": 19,
+          "token": 5,
           "start": 958.658,
           "end": 958.678,
-          "score": 0.0
+          "score": 1.0
         },
         {
-          "token": 15,
+          "token": 12,
           "start": 958.698,
           "end": 958.718,
-          "score": 0.0
+          "score": 1.0
         },
         {
-          "token": 2,
-          "start": 958.818,
-          "end": 958.838,
-          "score": 0.0
-        },
-        {
-          "token": 15,
-          "start": 958.858,
-          "end": 958.879,
-          "score": 0.0
-        },
-        {
-          "token": 22,
-          "start": 958.919,
-          "end": 958.939,
-          "score": 0.9756
+          "token": 9,
+          "start": 958.718,
+          "end": 958.738,
+          "score": 0.9998
         },
         {
           "token": 0,
-          "start": 958.999,
-          "end": 959.019,
-          "score": 0.8349
+          "start": 958.738,
+          "end": 958.778,
+          "score": 0.9947
         },
         {
-          "token": 16,
+          "token": 20,
+          "start": 958.818,
+          "end": 958.838,
+          "score": 1.0
+        },
+        {
+          "token": 34,
+          "start": 958.858,
+          "end": 958.879,
+          "score": 0.027
+        },
+        {
+          "token": 13,
+          "start": 958.919,
+          "end": 958.939,
+          "score": 0.021
+        },
+        {
+          "token": 9,
+          "start": 958.959,
+          "end": 958.979,
+          "score": 0.9992
+        },
+        {
+          "token": 20,
           "start": 959.039,
           "end": 959.059,
-          "score": 0.0
+          "score": 1.0
         },
         {
           "token": 15,
@@ -75431,10 +75491,22 @@
           "score": 0.9993
         },
         {
-          "token": 26,
+          "token": 0,
+          "start": 959.099,
+          "end": 959.119,
+          "score": 0.9936
+        },
+        {
+          "token": 4,
           "start": 959.139,
           "end": 959.159,
-          "score": 0.0
+          "score": 0.9901
+        },
+        {
+          "token": 22,
+          "start": 959.179,
+          "end": 959.199,
+          "score": 0.9824
         },
         {
           "token": 15,
@@ -75443,46 +75515,16 @@
           "score": 0.9975
         },
         {
-          "token": 18,
-          "start": 959.419,
-          "end": 959.439,
-          "score": 0.0
-        },
-        {
-          "token": 15,
-          "start": 959.439,
-          "end": 959.459,
-          "score": 0.0
-        },
-        {
-          "token": 22,
-          "start": 959.479,
-          "end": 959.499,
-          "score": 0.0
-        },
-        {
-          "token": 1,
-          "start": 959.519,
-          "end": 959.54,
-          "score": 1.0
-        },
-        {
-          "token": 14,
-          "start": 959.58,
-          "end": 959.6,
-          "score": 0.0
+          "token": 13,
+          "start": 959.299,
+          "end": 959.319,
+          "score": 0.9996
         },
         {
           "token": 9,
-          "start": 959.62,
-          "end": 959.66,
-          "score": 0.9976
-        },
-        {
-          "token": 1,
-          "start": 959.76,
-          "end": 959.78,
-          "score": 1.0
+          "start": 959.319,
+          "end": 959.359,
+          "score": 0.9254
         }
       ]
     },
