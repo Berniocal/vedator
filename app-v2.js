@@ -12,6 +12,7 @@
   const CAPTION_LANGUAGE_KEY='vedator-youtube-caption-language-v1';
   let youtubeSession=null,youtubeApiPromise=null;
   const youtubeCaptionFiles=new Map();
+  let audioCaptionSession=null;
   const REF_ALPHABET='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
   const LEGACY_FAQ_ORDER=[340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,133,128,119,112,100,89,82,17,26,35,51,60,69,75,138,346];
 
@@ -1040,7 +1041,25 @@
   }
 
   function episodeYoutubeId(episode){const id=String(episode?.youtubeId||'');return /^[A-Za-z0-9_-]{11}$/.test(id)?id:''}
-  function episodeCaptionFile(episode){const file=String(episode?.captionFile||'');return /^captions\/episode-[1-9]\d*\.json$/.test(file)?file:''}
+  function episodeCaptionFile(episode){
+    // Episode 2 is registered in episode-videos.json. Until the next content
+    // bundle regeneration, allow its caption file directly as a fallback.
+    const fallback=Number(episode?.number)===2?'captions/episode-2.json':'';
+    const file=String(episode?.captionFile||fallback);
+    return /^captions\/episode-[1-9]\d*\.json$/.test(file)?file:'';
+  }
+  function activeCaptionSession(){
+    if(youtubeSession)return youtubeSession;
+    const episode=state.current?.episode,captionFile=episodeCaptionFile(episode);
+    if(!episode||!captionFile){audioCaptionSession=null;return null}
+    if(!audioCaptionSession||audioCaptionSession.captionFile!==captionFile||audioCaptionSession.captionGuid!==episode.id){
+      audioCaptionSession={
+        captionFile,captionGuid:episode.id,videoId:episodeYoutubeId(episode),
+        captions:null,captionLoadStarted:false,captionError:false
+      };
+    }
+    return audioCaptionSession;
+  }
   function validateYoutubeCaptions(data,session){
     if(data?.version!==1||data.guid!==session.captionGuid||data.youtubeId!==session.videoId||!Array.isArray(data.cues)||!data.cues.length||data.cues.length>5000)throw new Error('Invalid caption identity');
     let end=0;
@@ -1060,17 +1079,23 @@
       pending.catch(()=>{if(youtubeCaptionFiles.get(session.captionFile)===pending)youtubeCaptionFiles.delete(session.captionFile)});
     }
     pending.then(data=>{
-      if(youtubeSession!==session)return;
+      if(activeCaptionSession()!==session)return;
       session.captions=validateYoutubeCaptions(data,session);syncYoutubeCaptions();
     }).catch(()=>{
-      if(youtubeSession!==session)return;
+      if(activeCaptionSession()!==session)return;
       youtubeCaptionFiles.delete(session.captionFile);session.captionError=true;syncYoutubeCaptions();
     });
   }
   function syncYoutubeCaptions(){
-    const box=$('#player-captions-v2'),display=$('#player-caption-text-v2'),select=$('#player-caption-language-v2'),note=$('#player-caption-note-v2'),session=youtubeSession;
+    const box=$('#player-captions-v2'),display=$('#player-caption-text-v2'),select=$('#player-caption-language-v2'),note=$('#player-caption-note-v2'),session=activeCaptionSession();
     if(!box||!display||!select)return;
     const available=Boolean(session?.captionFile);box.classList.toggle('hidden',!available);
+    const toggle=$('#player-caption-toggle-v2');
+    if(toggle){
+      toggle.hidden=!available;
+      toggle.setAttribute('aria-pressed',String(captionPreference!=='off'));
+      setCaptionToggleLabel(toggle);
+    }
     if(!available){display.textContent='';return}
     const setText=(node,value)=>{if(node.textContent!==value)node.textContent=value};
     setText($('#player-caption-label-v2'),text('Titulky','Titulky'));
@@ -1079,19 +1104,41 @@
     select.value=captionPreference;
     const enabled=captionPreference!=='off';display.classList.toggle('hidden',!enabled);note.classList.toggle('hidden',!enabled);
     if(!enabled){display.textContent='';return}
-    setText(note,session.captions?.quality==='audio-repaired'?text('Upravené titulky • nový přepis nahrávky','Upravené titulky • nový prepis nahrávky'):text('Zkušební úprava přepisu • nejasná místa označena','Skúšobná úprava prepisu • nejasné miesta označené'));
+    setText(note,session.captions?.quality==='audio-repaired'?
+      text('Upravené titulky • nový přepis nahrávky','Upravené titulky • nový prepis nahrávky'):
+      text('Upravený strojový přepis • může obsahovat nepřesnosti','Upravený strojový prepis • môže obsahovať nepresnosti'));
     ensureYoutubeCaptions(session);
     if(session.captionError){setText(display,text('Titulky se nepodařilo načíst.','Titulky sa nepodarilo načítať.'));return}
     if(!session.captions){setText(display,text('Načítám titulky…','Načítavam titulky…'));return}
-    const time=youtubePlaybackClock().time,cues=session.captions.cues,lang=captionPreference==='auto'?(sk()?'sk':'cs'):captionPreference;
+    // The MP3 subtitles were perceived late in episode 2; advance only MP3
+    // by 1.5 seconds, without changing the well-synchronized YouTube video.
+    const time=youtubeActive()?youtubePlaybackClock().time:
+      playbackClock().time+(Number(state.current?.episode?.number)===2?1.5:0);
+    const cues=session.captions.cues,lang=captionPreference==='auto'?(sk()?'sk':'cs'):captionPreference;
     let lo=0,hi=cues.length;
     while(lo<hi){const mid=(lo+hi)>>>1;if(cues[mid].start<=time)lo=mid+1;else hi=mid}
     const cue=cues[lo-1];setText(display,cue&&time<cue.end?cue.text[lang]:'');display.lang=lang;
   }
+  function setCaptionToggleLabel(button){
+    if(!button)return;
+    const on=captionPreference!=='off';
+    button.textContent=on?text('✓ Titulky','✓ Titulky'):text('Titulky','Titulky');
+    button.title=on?text('Vypnout titulky','Vypnúť titulky'):text('Zapnout titulky','Zapnúť titulky');
+    button.setAttribute('aria-label',button.title);
+  }
+  let lastCaptionLanguage=captionPreference==='off'?'auto':captionPreference;
   function changeYoutubeCaptionLanguage(){
     const value=$('#player-caption-language-v2').value;if(!['auto','cs','sk','off'].includes(value))return;
-    captionPreference=value;writeJson(CAPTION_LANGUAGE_KEY,value);
-    if(youtubeSession?.captionError){youtubeSession.captionError=false;youtubeSession.captionLoadStarted=false}
+    captionPreference=value;if(value!=='off')lastCaptionLanguage=value;
+    writeJson(CAPTION_LANGUAGE_KEY,value);
+    const session=activeCaptionSession();
+    if(session?.captionError){session.captionError=false;session.captionLoadStarted=false}
+    syncYoutubeCaptions();
+  }
+  function toggleCaptions(){
+    if(!state.current||!episodeCaptionFile(state.current.episode))return;
+    captionPreference=captionPreference==='off'?lastCaptionLanguage:'off';
+    writeJson(CAPTION_LANGUAGE_KEY,captionPreference);
     syncYoutubeCaptions();
   }
   function youtubePlaybackClock(){
@@ -1240,7 +1287,10 @@
     }
     n.sub.textContent=state.context?`${state.context.type==='series'?text('Série','Séria'):'Playlist'}: ${state.context.label}`:episodeDisplayLabel(current.episode);
     const playing=playbackIsPlaying();syncYoutubeButton();syncYoutubeCaptions();
-    n.play.textContent=playing?'❚❚':'▶';n.play.title=playing?text('Pauza','Pauza'):text('Přehrát','Prehrať');n.play.setAttribute('aria-label',n.play.title);
+    const playSymbol=playing?'❚❚':'▶';
+    if(n.play.textContent!==playSymbol)n.play.textContent=playSymbol;
+    const playTitle=playing?text('Pauza','Pauza'):text('Přehrát','Prehrať');
+    if(n.play.title!==playTitle){n.play.title=playTitle;n.play.setAttribute('aria-label',playTitle)}
     n.prev.title=text('Předchozí','Predchádzajúca');n.next.title=text('Další','Ďalšia');
     n.speed.textContent=`${String(state.speed).replace('.',',')}×`;n.prev.disabled=!state.context||state.context.index<=0;n.next.disabled=!state.context||state.context.index>=state.context.items.length-1;
     if(!n.download.dataset.busy)n.download.textContent=text('⇩ MP3','⇩ MP3');n.download.removeAttribute('href');n.download.setAttribute('role','button');
@@ -2498,6 +2548,7 @@
   $('#player-download-v2')?.addEventListener('click',event=>{event.preventDefault();downloadCurrentMp3()});
   $('#player-video-v2')?.addEventListener('click',toggleYoutubePlayback);
   $('#player-caption-language-v2')?.addEventListener('change',changeYoutubeCaptionLanguage);
+  $('#player-caption-toggle-v2')?.addEventListener('click',toggleCaptions);
   $('#audio-v2')?.addEventListener('ended',()=>{if(youtubeActive())return;if(continuousActive()){playbackAutoplayWanted=false;return}if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else playbackAutoplayWanted=false});
 
   /* V2_FINAL_UI_FAQ_GUIDE_V1 */
@@ -4224,12 +4275,6 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     if(cardPolishEpisodeOpen.has(number))cardPolishEpisodeOpen.delete(number);else cardPolishEpisodeOpen.add(number);
     const host=document.createElement('div');host.innerHTML=cardEpisode(episode);const nextCard=host.firstElementChild;if(nextCard)oldCard.replaceWith(nextCard);
   },true);
-  const cardPolishOriginalSyncPlayer=syncPlayer;
-  syncPlayer=function(...args){
-    const result=cardPolishOriginalSyncPlayer(...args),audio=$('#audio-v2'),button=$('#player-play-v2');
-    if(audio&&button)button.textContent=playbackIsPlaying()?'Ⅱ':'▶';
-    return result;
-  };
   function installCardPlayerPolishStyles(){
     if(document.querySelector('style[data-v2-card-player-polish]'))return;
     const style=document.createElement('style');style.dataset.v2CardPlayerPolish='1';
