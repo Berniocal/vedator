@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 75
     env:
-      VEDATOR_EP5_AUDIO: '${{ runner.temp }}/vedator-ep5-audio'
+      VEDATOR_EP5_AUDIO: '/tmp/vedator-ep5-audio'
       HF_HUB_DISABLE_TELEMETRY: '1'
       TOKENIZERS_PARALLELISM: 'false'
     steps:
@@ -27,7 +27,7 @@ jobs:
           python-version: '3.11'
       - uses: actions/cache@v4
         with:
-          path: '${{ runner.temp }}/vedator-ep5-audio'
+          path: '/tmp/vedator-ep5-audio'
           key: vedator-original-episode-5-audio-v1
       - uses: actions/cache@v4
         with:
