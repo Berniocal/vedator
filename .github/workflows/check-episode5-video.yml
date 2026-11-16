@@ -1,0 +1,24 @@
+name: Check episode 5 YouTube source timeline
+on:
+  push:
+    branches: [captions/episode-5-precise-20261116]
+    paths: [.github/workflows/check-episode5-video.yml]
+permissions:
+  contents: read
+jobs:
+  timeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe public YouTube duration
+        continue-on-error: true
+        run: |
+          python -m pip install --disable-pip-version-check yt-dlp
+          timeout 100 yt-dlp --no-playlist --skip-download --dump-single-json 'https://www.youtube.com/watch?v=Q1yEKR4zR6o' > "$RUNNER_TEMP/ep5-youtube.json"
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          info=json.loads((Path(os.environ["RUNNER_TEMP"])/"ep5-youtube.json").read_text())
+          print(json.dumps({k:info.get(k) for k in ("id","title","duration","channel","availability")},ensure_ascii=False))
+          PY
