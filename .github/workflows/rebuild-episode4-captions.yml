@@ -1,0 +1,73 @@
+name: Obnova titulků 4. dílu z MP3 (CS/SK)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/rebuild-episode4-captions.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vedator-episode4-caption-rebuild
+  cancel-in-progress: false
+
+jobs:
+  recover-captions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 95
+    steps:
+      - name: Načíst hlavní aplikaci
+        uses: actions/checkout@v4
+      - name: Připravit Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Připravit rozpoznání slovenské řeči a CPU překladač
+        run: |
+          python -m pip install --disable-pip-version-check --index-url https://download.pytorch.org/whl/cpu torch==2.5.1
+          python -m pip install --disable-pip-version-check faster-whisper==1.2.1 "transformers==4.45.2" sentencepiece
+      - name: Nový přepis z původní MP3 a překlad do češtiny
+        env:
+          WHISPER_MODEL: medium
+          HF_HUB_DISABLE_TELEMETRY: '1'
+          TOKENIZERS_PARALLELISM: 'false'
+        run: python tools/rebuild-episode4-captions.py
+      - name: Ověřit obě jazykové verze a přegenerovat datový katalog
+        run: |
+          node tools/build-content-v2.mjs
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path("sw.js")
+          s=p.read_text(encoding="utf-8")
+          s=s.replace('"./captions/episode-3.json"', '"./captions/episode-3.json","./captions/episode-4.json"')
+          s=re.sub(r'const APP_CACHE="[^"]+";', 'const APP_CACHE="vedator-v2-app-20261116-ep4-bilingual-v1";',s,count=1)
+          p.write_text(s,encoding="utf-8")
+          PY
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("captions/episode-4.json").read_text())
+          cues=data["cues"]
+          assert len(cues)>=60
+          assert data["episode"]==4
+          assert all(c["end"]>c["start"] for c in cues)
+          assert all("sk" in c["text"] and "cs" in c["text"] for c in cues)
+          assert "captions/episode-4.json" in Path("content-v2.json").read_text()
+          print("Verified",len(cues),"bilingual cues for episode 4")
+          PY
+      - name: Publikovat titulky a aktualizovaná data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- captions/episode-4.json captions/episode-4.cs.srt captions/episode-4.sk.srt captions/episode-4.review.json captions/source/episode-4-asr-words.sk.json episode-videos.json content-v2.json sw.js
+          if git diff --cached --quiet; then
+            echo "Titulky se nezměnily."
+          else
+            git commit -m "Add episode 4 Slovak and Czech audio-aligned captions"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
