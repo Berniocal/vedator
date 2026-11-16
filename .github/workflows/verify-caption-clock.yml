@@ -6,6 +6,7 @@ on:
       - app-v2.js
       - episode-videos.json
       - 'captions/episode-*.json'
+      - 'captions/source/episode-*-alignment.json'
       - audio-seek-index.json
       - tools/test-caption-clock-browser.mjs
       - .github/workflows/verify-caption-clock.yml

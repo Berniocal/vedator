@@ -27,3 +27,13 @@ Při zobrazených titulcích zůstává spuštěná malá tichá MP4 smyčka, kt
 Produkční service worker zahrnuje titulky a pomocné video do verzované offline cache. Změna titulků i indexu MP3 ovlivní verzi cache.
 
 `tools/test-caption-clock-browser.mjs` a příslušná GitHub Actions kontrola používají původní MP3 dílů 1–4, ověřují titulky na začátku/uprostřed/na konci, vzdálené přeskoky, změnu rychlosti, pauzu, čtečku, zachované YouTube časování a životní cyklus pomocného videa i screen zámku. Test používá skutečný dekodér Chrome a simulovaný Screen Wake Lock; nenahrazuje fyzický test zhasnutí displeje na telefonu ani nezávislý poslech všech titulků.
+
+## Díl 5 – Jak zkoumáme vesmír (16. 11. 2026)
+
+Nový úplný slovenský přepis vznikl z původní MP3 (1 131,23 s; SHA-256 `2008fcfd831b8663cdff193610a31cc240f68a98a7bcd666a9686d960dd14667`) pomocí large-v3-turbo. Všech 2 562 rozpoznaných slov bylo jazykově zkontrolováno a celý obsah přeložen do češtiny. Krátké fragmenty jsou spojené do 226 dvojjazyčných titulků. Starý poškozený SRT se jako text nepřebíral.
+
+Nejisté pasáže znovu rozpoznal samostatný plný model large-v3. Tím byla obnovena i vynechaná oprava jednotek „ne kilometry, ale světelné roky“ a navazující poznámka. Mluvčího historické údaje a přeřeknutí se nepřepisují na jiné věcné tvrzení; při označení supernovy je zachováno vyslovené SN 1977A, rozpoznané oběma ASR a nezávislým akustickým modelem, přestože dříve mluví o datu v roce 1987.
+
+Po redakci byl slovenský text zarovnán znak po znaku slovenským CTC modelem `comodoro/wav2vec2-xls-r-300m-sk-cv8`. Česká verze používá stejné začátky a konce odpovídajících vět. Index MP3 obsahuje přesné pozice snímků i pro díl 5, bez ručního posunu titulků. Po úpravě označených míst nezůstal žádný blok s průměrným skóre zarovnání pod 0,35.
+
+Původní přepis, kontrolní rozpoznání, upravený text i akustický audit jsou uchované v `captions/source/episode-5-*` a `captions/episode-5.edited.json`. Aplikace načítá `captions/episode-5.json`; obě SRT obsahují stejné titulky. Nejde o nezávislý lidský poslech každé věty a lokální chyby rozpoznání nebo zarovnání mohou přetrvávat. Přímé porovnání YouTube zvuku s MP3 nebylo možné kvůli ochraně proti automatickému stahování; testuje se identita videa a vykreslení na jeho časové ose.
