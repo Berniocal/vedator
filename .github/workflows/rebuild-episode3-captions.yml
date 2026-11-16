@@ -1,0 +1,64 @@
+name: Obnova titulků 3. dílu z MP3 (CS/SK)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/rebuild-episode3-captions.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vedator-episode3-caption-rebuild
+  cancel-in-progress: false
+
+jobs:
+  recover-captions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 95
+    steps:
+      - name: Načíst hlavní aplikaci
+        uses: actions/checkout@v4
+      - name: Připravit Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Připravit rozpoznání slovenské řeči a CPU překladač
+        run: |
+          python -m pip install --disable-pip-version-check --index-url https://download.pytorch.org/whl/cpu torch==2.5.1
+          python -m pip install --disable-pip-version-check faster-whisper==1.2.1 "transformers==4.45.2" sentencepiece
+      - name: Nový přepis z původní MP3 a překlad do češtiny
+        env:
+          WHISPER_MODEL: medium
+          HF_HUB_DISABLE_TELEMETRY: '1'
+          TOKENIZERS_PARALLELISM: 'false'
+        run: python tools/rebuild-episode3-captions.py
+      - name: Ověřit obě jazykové verze a přegenerovat datový katalog
+        run: |
+          node tools/build-content-v2.mjs
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("captions/episode-3.json").read_text())
+          cues=data["cues"]
+          assert len(cues)>=140
+          assert data["episode"]==3
+          assert all(c["end"]>c["start"] for c in cues)
+          assert all("sk" in c["text"] and "cs" in c["text"] for c in cues)
+          assert "captions/episode-3.json" in Path("content-v2.json").read_text()
+          print("Verified",len(cues),"bilingual cues for episode 3")
+          PY
+      - name: Publikovat titulky a aktualizovaná data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- captions/episode-3.json captions/episode-3.cs.srt captions/episode-3.sk.srt captions/episode-3.review.json captions/source/episode-3-asr-words.sk.json episode-videos.json content-v2.json
+          if git diff --cached --quiet; then
+            echo "Titulky se nezměnily."
+          else
+            git commit -m "Add episode 3 Slovak and Czech audio-aligned captions"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
