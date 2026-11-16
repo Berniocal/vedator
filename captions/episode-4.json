@@ -7,7 +7,7 @@
     "cs",
     "sk"
   ],
-  "quality": "machine-draft-needs-review",
+  "quality": "editorial-corrected-machine-draft-needs-audio-review",
   "source": {
     "type": "podcast-MP3-word-aligned-ASR",
     "audio": "https://mcdn.podbean.com/mf/web/sm4z3f/podcast_ep4_vianoce.mp3",
@@ -15,8 +15,10 @@
     "audioBytes": 21118580,
     "transcriber": "faster-whisper/medium",
     "translator": "facebook/nllb-200-distilled-600M",
-    "review": "machine-generated; manual listening not completed",
-    "legacy": "Original episode 4 SRT is corrupted and was not copied"
+    "review": "Language and context edits across 150 machine cues; four closing cues recovered from older SRT timing. Names cross-checked with companion article. Full audio listening verification not completed.",
+    "legacy": "Original episode 4 SRT is corrupted and was not copied",
+    "editorialChanges": "150/150 machine cues revised, 4 outro cues restored; historic and scientific names corrected.",
+    "editorialReference": "https://vedator.space/kde-sa-vzali-vianoce/"
   },
   "cues": [
     {
@@ -24,8 +26,8 @@
       "end": 18.87,
       "kind": "speech",
       "text": {
-        "sk": "Od vírusov, cez vertexy až po Vianoce, veda nás\nobklupuje na každom kroku.",
-        "cs": "Od virů až po vertexy až po Vánoce, věda nás\nobklopuje každým krokem."
+        "sk": "Od vírusov cez vertexy až po Vianoce – veda nás\nobklopuje na každom kroku.",
+        "cs": "Od virů přes vertexy až po Vánoce – věda nás\nobklopuje na každém kroku."
       }
     },
     {
@@ -33,8 +35,8 @@
       "end": 23.93,
       "kind": "speech",
       "text": {
-        "sk": "Vitajte pri Vedátorskom podcaste, ktorom budeme\ndiskutovať o vede a prírode okolo",
-        "cs": "Vítejte na podcastu Vedator, který bude diskutovat\no vědě a přírodě kolem nás."
+        "sk": "Vitajte pri Vedátorskom podcaste, kde hovoríme o\nvede a prírode okolo",
+        "cs": "Vítejte u Vedátorského podcastu, kde mluvíme o vědě\na přírodě kolem"
       }
     },
     {
@@ -42,8 +44,8 @@
       "end": 28.85,
       "kind": "speech",
       "text": {
-        "sk": "nás. Moje meno je Samuel a dnes som tu sam, keďže\nide o špeciálny diel –",
-        "cs": "Jmenuji se Samuel a dnes jsem tady sám, protože je\nto speciální díl."
+        "sk": "nás. Volám sa Samuel a dnes som tu sám, pretože ide\no špeciálny diel –",
+        "cs": "nás. Jmenuji se Samuel a dnes jsem tu sám, protože\njde o speciální díl –"
       }
     },
     {
@@ -51,8 +53,8 @@
       "end": 30.73,
       "kind": "speech",
       "text": {
-        "sk": "Vedátorsky mikropodkast.",
-        "cs": "Vedátorský podcast."
+        "sk": "Vedátorský mikropodcast.",
+        "cs": "Vedátorský mikropodcast."
       }
     },
     {
@@ -60,8 +62,8 @@
       "end": 33.59,
       "kind": "speech",
       "text": {
-        "sk": "Dnešnou témou je – Kde sa vzali Vianoce?",
-        "cs": "Dnešní téma je: Kde se Vánoce odvedly?"
+        "sk": "Dnešnou témou je: Kde sa vzali Vianoce?",
+        "cs": "Dnešním tématem je: Kde se vzaly Vánoce?"
       }
     },
     {
@@ -69,8 +71,8 @@
       "end": 37.1,
       "kind": "speech",
       "text": {
-        "sk": "Vianoce sú jedným z neobľubenejších sviatkov.",
-        "cs": "Vánoce jsou jedním z nejoblíbenějších svátků."
+        "sk": "Vianoce patria k najobľúbenejším sviatkom.",
+        "cs": "Vánoce patří k nejoblíbenějším svátkům."
       }
     },
     {
@@ -78,8 +80,8 @@
       "end": 42.18,
       "kind": "speech",
       "text": {
-        "sk": "Pre niekoho ide duchovnú záležitosť, pre niekoho\nviac o rodiny sviatok pokoja.",
-        "cs": "Pro někoho je to duchovní záležitost, pro někoho\nvíc o rodinných svátcích míru."
+        "sk": "Pre niekoho sú duchovnou záležitosťou, pre iného\nskôr rodinným sviatkom pokoja.",
+        "cs": "Pro někoho mají duchovní význam, pro jiného jsou\nhlavně rodinným svátkem klidu."
       }
     },
     {
@@ -87,8 +89,8 @@
       "end": 48.41,
       "kind": "speech",
       "text": {
-        "sk": "Dokonálnym príklom toho, že vianoce nemusia byť o\nnáboženstve, je Japonsko, kde",
-        "cs": "Úplným příčinou toho, že Vánoce nemusí být o\nnáboženství, je Japonsko, kde"
+        "sk": "Skvelým príkladom, že Vianoce nemusia byť len o\nnáboženstve, je Japonsko,",
+        "cs": "Skvělým příkladem, že Vánoce nemusí být jen o\nnáboženství, je Japonsko,"
       }
     },
     {
@@ -96,8 +98,8 @@
       "end": 53.11,
       "kind": "speech",
       "text": {
-        "sk": "ľudia zdomia stromčeky a to je napriek tomu, že\nlen 2 % populácie tvoria",
-        "cs": "Lidé domácejí stromy, a to i přes to, že pouze 2%\npopulace tvoří"
+        "sk": "kde ľudia zdobia stromčeky, hoci kresťania tvoria\nlen dve percentá",
+        "cs": "kde lidé zdobí vánoční stromky, přestože křesťané\ntvoří jen dvě procenta"
       }
     },
     {
@@ -105,8 +107,8 @@
       "end": 53.95,
       "kind": "speech",
       "text": {
-        "sk": "kresťania.",
-        "cs": "křesťané."
+        "sk": "obyvateľstva.",
+        "cs": "obyvatel."
       }
     },
     {
@@ -114,8 +116,8 @@
       "end": 60.27,
       "kind": "speech",
       "text": {
-        "sk": "Čas ľudí sa zťažuje, že náboženský charakter\nvianoca postupne vytráca a majú",
-        "cs": "Čas lidí se stěžuje, že náboženský charakter\nVánoce postupně ztratí a mají"
+        "sk": "Časť ľudí sa sťažuje, že náboženský charakter\nVianoc sa postupne vytráca. A majú",
+        "cs": "Část lidí si stěžuje, že náboženský charakter Vánoc\npostupně mizí. A mají"
       }
     },
     {
@@ -123,8 +125,8 @@
       "end": 65.57,
       "kind": "speech",
       "text": {
-        "sk": "pravdu. Treba si však pripomenuť, že ten tam nebol\nvždy, respektíve bol, le",
-        "cs": "To je pravda, ale je třeba si uvědomit, že tam\nnebyl vždy."
+        "sk": "pravdu. Treba však pripomenúť, že tam nebol vždy.\nRespektíve bol, ale",
+        "cs": "pravdu. Je ale třeba připomenout, že tam nebyl\nvždy. Respektive byl, ale"
       }
     },
     {
@@ -133,7 +135,7 @@
       "kind": "speech",
       "text": {
         "sk": "nešlo o kresťanstvo.",
-        "cs": "Nešlo o křesťanství."
+        "cs": "nešlo o křesťanství."
       }
     },
     {
@@ -141,8 +143,8 @@
       "end": 73.38,
       "kind": "speech",
       "text": {
-        "sk": "Na Vedatóroví sme mali články o rôznych sviatkoch\n– Veľké noci, Dušičkách či",
-        "cs": "Na Vedatoru jsme měli články o různých svátcích."
+        "sk": "Na Vedátorovi sme mali články o rôznych sviatkoch:\nVeľkej noci, Dušičkách či",
+        "cs": "Na Vedátoru jsme měli články o různých svátcích:\nVelikonocích, Dušičkách či"
       }
     },
     {
@@ -150,8 +152,8 @@
       "end": 78.42,
       "kind": "speech",
       "text": {
-        "sk": "Svetej Lúcii. Prvé ponaučenie z nich bolo také, že\nje ich mix rôznych",
-        "cs": "První poučení z nich bylo, že je jejich směs\nrůzných"
+        "sk": "svätej Lucii. Prvým ponaučením bolo, že ide o zmes",
+        "cs": "svaté Lucii. Prvním poučením bylo, že jde o směs"
       }
     },
     {
@@ -159,8 +161,8 @@
       "end": 81.22,
       "kind": "speech",
       "text": {
-        "sk": "náboženských, pohannských a sekulárnych tradícií.",
-        "cs": "náboženské, pohanské a světské tradice."
+        "sk": "náboženských, pohanských a svetských tradícií.",
+        "cs": "náboženských, pohanských a světských tradic."
       }
     },
     {
@@ -168,8 +170,8 @@
       "end": 86.38,
       "kind": "speech",
       "text": {
-        "sk": "Druhé ponaučenie bolo také, že významné sviatky sú\núsko previazané s začiatkom a",
-        "cs": "Druhé poučení bylo, že významné svátky jsou velmi\nspojeny s počátkem a"
+        "sk": "Druhým bolo, že významné sviatky úzko súvisia so\nzačiatkom a",
+        "cs": "Druhým bylo, že významné svátky úzce souvisejí se\nzačátkem a"
       }
     },
     {
@@ -177,8 +179,8 @@
       "end": 91.16,
       "kind": "speech",
       "text": {
-        "sk": "koncom úrodnej časti roka. Takéže sa vianoce\nslávia pár dní po zimnom slnovrate,",
-        "cs": "Vánoce se slaví několik dní po zimním slunečním\nslunci."
+        "sk": "koncom úrodnej časti roka. Vianoce sa slávia pár\ndní po zimnom slnovrate,",
+        "cs": "koncem úrodné části roku. Vánoce se slaví pár dní\npo zimním slunovratu,"
       }
     },
     {
@@ -186,8 +188,8 @@
       "end": 96.82,
       "kind": "speech",
       "text": {
-        "sk": "asi nikogo neprekvapí, že aj tento sviatok\nnadviazal na staré tradície, ktoré sa",
-        "cs": "Není divu, že i tento svátek se zakládá na starých\ntradicích, které"
+        "sk": "takže neprekvapí, že nadväzujú na staré tradície,\nktoré sa",
+        "cs": "takže nepřekvapí, že navazují na staré tradice,\nkteré se"
       }
     },
     {
@@ -196,7 +198,7 @@
       "kind": "speech",
       "text": {
         "sk": "točili okolo astronomicky významných dátumov.",
-        "cs": "obíhají se kolem astronomicky významných dat."
+        "cs": "točily kolem astronomicky významných dat."
       }
     },
     {
@@ -204,8 +206,8 @@
       "end": 103.99,
       "kind": "speech",
       "text": {
-        "sk": "Teória, proč sa v janoce o väčšine sveta oslavojú\nbud 24.",
-        "cs": "Teorie o tom, proč se v noci ve většině zemí slaví\n24. budova."
+        "sk": "Teórie, prečo sa Vianoce vo väčšine sveta oslavujú\n24.",
+        "cs": "Teorie, proč se Vánoce ve většině světa slaví 24."
       }
     },
     {
@@ -213,8 +215,8 @@
       "end": 107.03,
       "kind": "speech",
       "text": {
-        "sk": "alebo 25. decembera sú tri.",
-        "cs": "nebo 25. prosince jsou tři."
+        "sk": "alebo 25. decembra, sú tri.",
+        "cs": "nebo 25. prosince, jsou tři."
       }
     },
     {
@@ -222,8 +224,8 @@
       "end": 111.84,
       "kind": "speech",
       "text": {
-        "sk": "Podľa kresťanskej návky majú ist o dátum národenia\nJežiša, ten je však neznámy.",
-        "cs": "Podle křesťanské tradice mají jistotu o datě\nnarození Ježíše, ale ten je neznámý."
+        "sk": "Podľa kresťanskej náuky ide o dátum Ježišovho\nnarodenia, ten však nepoznáme.",
+        "cs": "Podle křesťanské nauky jde o datum Ježíšova\nnarození. To však neznáme."
       }
     },
     {
@@ -231,8 +233,8 @@
       "end": 115.72,
       "kind": "speech",
       "text": {
-        "sk": "Začiatkom prvého tisíc ročia boli kresťania v rýme\nmenšina.",
-        "cs": "V počátku prvního tisíciletí byli křesťané v Římě\nmenšinou."
+        "sk": "Na začiatku prvého tisícročia boli kresťania v Ríme\nmenšinou.",
+        "cs": "Na začátku prvního tisíciletí byli křesťané v Římě\nmenšinou."
       }
     },
     {
@@ -240,8 +242,8 @@
       "end": 119.86,
       "kind": "speech",
       "text": {
-        "sk": "Prevažne sa uznavali pohannské či politeistické\nvýrobí znenia.",
-        "cs": "Paganské nebo polytéistické texty byly převážně\nuznány."
+        "sk": "Prevahu mali pohanské a polyteistické\nvierovyznania.",
+        "cs": "Převažovala pohanská a polyteistická náboženství."
       }
     },
     {
@@ -249,8 +251,8 @@
       "end": 123.39,
       "kind": "speech",
       "text": {
-        "sk": "Podľa prvej teórie vybrali skorý kresťania dátum\n25.",
-        "cs": "První teorie říká, že první křesťané zvolili 25.\nden."
+        "sk": "Podľa prvej teórie si raní kresťania vybrali dátum\n25.",
+        "cs": "Podle první teorie si raní křesťané vybrali datum\n25."
       }
     },
     {
@@ -258,8 +260,8 @@
       "end": 128.61,
       "kind": "speech",
       "text": {
-        "sk": "decembera koly slnovratu, od ktorého začína\npribudať slnko, čo pre nich",
-        "cs": "Decembrem kolem západu slunce, odkud začíná\nvycházet slunce, co pro ně"
+        "sk": "decembra kvôli slnovratu. Odvtedy pribúda denného\nsvetla, čo im",
+        "cs": "prosince kvůli slunovratu. Od té doby přibývá\ndenního světla, což pro ně"
       }
     },
     {
@@ -267,8 +269,8 @@
       "end": 130.19,
       "kind": "speech",
       "text": {
-        "sk": "predstavovalo príchod spasiteľa.",
-        "cs": "představoval příchod Spasitele."
+        "sk": "pripomínalo príchod Spasiteľa.",
+        "cs": "symbolizovalo příchod Spasitele."
       }
     },
     {
@@ -276,8 +278,8 @@
       "end": 136.58,
       "kind": "speech",
       "text": {
-        "sk": "Podľa druhej teórie bol dátum vybratý ako 9\nmesiacov po Veľkej noci.",
-        "cs": "Druhá teorie říká, že datum byl vybrán jako 9\nměsíců po Velké noci."
+        "sk": "Podľa druhej teórie dátum zvolili deväť mesiacov po\nVeľkej noci.",
+        "cs": "Podle druhé teorie datum zvolili devět měsíců po\nVelikonocích."
       }
     },
     {
@@ -285,17 +287,17 @@
       "end": 141.96,
       "kind": "speech",
       "text": {
-        "sk": "Slnovrat otiž nasilil 9 mesiacov po rovnodenosti,\nv blízko ktorej sa slávi Veľká",
-        "cs": "Slunce se stěžuje devět měsíců po přirozenosti, ve\nkteré se slaví Velká svatba."
+        "sk": "Slnovrat nasleduje asi deväť mesiacov po\nrovnodennosti, blízko ktorej sa slávi Veľká",
+        "cs": "Slunovrat přichází asi devět měsíců po\nrovnodennosti, poblíž které se slaví"
       }
     },
     {
-      "start": 142.0,
+      "start": 142,
       "end": 142.8,
       "kind": "speech",
       "text": {
         "sk": "noc.",
-        "cs": "V noci."
+        "cs": "Velikonoce."
       }
     },
     {
@@ -303,8 +305,8 @@
       "end": 147.78,
       "kind": "speech",
       "text": {
-        "sk": "Podľa tretiej teórie sa snažili kresťania niečím\nprekryť význam vtedy oblúbených",
-        "cs": "Podle třetí teorie se křesťané snažili nějak\nzakryt význam té doby oblíbené kultury."
+        "sk": "Podľa tretej teórie sa kresťania pokúšali prekryť\nvýznam vtedy obľúbených",
+        "cs": "Podle třetí teorie se křesťané snažili překrýt\nvýznam tehdy oblíbených"
       }
     },
     {
@@ -312,8 +314,8 @@
       "end": 152.9,
       "kind": "speech",
       "text": {
-        "sk": "sviatkov, napríklad oslav kultu staroperskeho boha\nslnka Mitra,",
-        "cs": "svátky, např. oslavy uctívání staroperského boha\nslunce Mitra,"
+        "sk": "sviatkov, napríklad osláv kultu staroperzského boha\nslnka Mithru,",
+        "cs": "svátků, například oslav kultu staroperského boha\nslunce Mithry,"
       }
     },
     {
@@ -321,8 +323,8 @@
       "end": 155.87,
       "kind": "speech",
       "text": {
-        "sk": "ktorý prípadal na tento dátum z očividných\ndôvodov.",
-        "cs": "který byl k tomuto datu zřejmým důvodem."
+        "sk": "ktoré pripadali na toto obdobie z celkom zrejmých\ndôvodov.",
+        "cs": "které na toto období připadaly z poměrně zřejmých\ndůvodů."
       }
     },
     {
@@ -330,8 +332,8 @@
       "end": 161.2,
       "kind": "speech",
       "text": {
-        "sk": "Druhým možným sviatkom boli rýmske Saturnálie,\nktoré sa slávili práve v tomto",
-        "cs": "Druhým možným svátkem byly římské Saturnalie,\nkteré se slavily právě v této době."
+        "sk": "Ďalším možným sviatkom boli rímske Saturnálie,\nktoré sa oslavovali v tomto",
+        "cs": "Dalším možným svátkem byly římské Saturnálie, které\nse slavily v tomto"
       }
     },
     {
@@ -339,8 +341,8 @@
       "end": 166.56,
       "kind": "speech",
       "text": {
-        "sk": "období. Samozrejme, okoli slnovratu slávili aj\npohaňa, tomu sa za chvíľku vrátime.",
-        "cs": "Samozřejmě, že kolem západu slunce se slavili i\npohony, k čemuž se vrátíme."
+        "sk": "období. Okolo slnovratu oslavovali aj pohania, k\ntomu sa ešte vrátime.",
+        "cs": "období. Kolem slunovratu slavili i pohané, k tomu\nse ještě vrátíme."
       }
     },
     {
@@ -348,8 +350,8 @@
       "end": 171.85,
       "kind": "speech",
       "text": {
-        "sk": "Nepro sa však pozrime na pôvod oblúbených\ntradícií, ide o pestru sme z rôznych",
-        "cs": "Nejdřív se však podívejme na původ oblíbených\ntradic."
+        "sk": "Najprv sa však pozrime na pôvod obľúbených\ntradícií. Je to pestrá zmes",
+        "cs": "Nejdřív se ale podívejme na původ oblíbených\ntradic. Je to pestrá směs"
       }
     },
     {
@@ -357,8 +359,8 @@
       "end": 172.69,
       "kind": "speech",
       "text": {
-        "sk": "kultúr.",
-        "cs": "kultury."
+        "sk": "rôznych kultúr.",
+        "cs": "různých kultur."
       }
     },
     {
@@ -366,8 +368,8 @@
       "end": 179.31,
       "kind": "speech",
       "text": {
-        "sk": "Robenie Bethlehemov, anglické nativity,\nspopularizoval v 10. storočí Frančišek z",
-        "cs": "Stvoření Betlémů, anglických nativity, se\npopularizovalo v 10. století Františkem z"
+        "sk": "Stavanie betlehemov, po anglicky nativity,\nspopularizoval v desiatom storočí František z",
+        "cs": "Stavění betlémů, anglicky nativity, zpopularizoval\nv desátém století František z"
       }
     },
     {
@@ -375,8 +377,8 @@
       "end": 184.45,
       "kind": "speech",
       "text": {
-        "sk": "Assisi. Zvyk sa rýchlo rozširil do celej Európy.\nDekorovanie listami,",
-        "cs": "Assisi. Tento zvyk se rychle rozšířil po celé\nEvropě."
+        "sk": "Assisi. Zvyk sa rýchlo rozšíril po Európe. Zdobenie\nlistami,",
+        "cs": "Assisi. Zvyk se rychle rozšířil po Evropě. Zdobení\nlisty,"
       }
     },
     {
@@ -384,8 +386,8 @@
       "end": 189.77,
       "kind": "speech",
       "text": {
-        "sk": "brečtanom, imelom a farby ako červená, zelená a\nzlatá prestovali",
-        "cs": "Černá, zelená a zlatá"
+        "sk": "brečtanom či imelom a farby ako červená, zelená a\nzlatá predstavovali",
+        "cs": "břečťanem či jmelím a barvy jako červená, zelená a\nzlatá představovaly"
       }
     },
     {
@@ -393,8 +395,8 @@
       "end": 194.75,
       "kind": "speech",
       "text": {
-        "sk": "kresienske symboly krvy Ježiša, väčšneho života a\ndarov, ktoré mu podľa biblie",
-        "cs": "křesťanské symboly Ježíšovy krve, většího života a\ndarů, které mu podle Bible"
+        "sk": "kresťanské symboly Ježišovej krvi, večného života a\ndarov, ktoré mu podľa Biblie",
+        "cs": "křesťanské symboly Ježíšovy krve, věčného života a\ndarů, které mu podle Bible"
       }
     },
     {
@@ -402,8 +404,8 @@
       "end": 199.56,
       "kind": "speech",
       "text": {
-        "sk": "prinesli trajá kráľu. Zdobene stromčekov pochádza\nz pohanského uctievania",
-        "cs": "Vyrovnané stromky pocházejí z pohanského uctívání."
+        "sk": "priniesli traja králi. Zdobenie stromčekov zasa\nvychádza z pohanského uctievania",
+        "cs": "přinesli tři králové. Zdobení stromků zase vychází\nz pohanského uctívání"
       }
     },
     {
@@ -411,8 +413,8 @@
       "end": 202.4,
       "kind": "speech",
       "text": {
-        "sk": "stromov. Podľa bibliografie zo 7.",
-        "cs": "Podle bibliografie ze 7."
+        "sk": "stromov. Podľa záznamov zo siedmeho",
+        "cs": "stromů. Podle záznamů ze sedmého"
       }
     },
     {
@@ -420,8 +422,8 @@
       "end": 207.44,
       "kind": "speech",
       "text": {
-        "sk": "storočia, svetý Bonifáts povedal, že na miesto\nDubov by sa mala uctivať jedlička,",
-        "cs": "Ve staletí, svatý Bonifát řekl, že místo Dubu by\nměla být uvolněna jídla,"
+        "sk": "storočia svätý Bonifác hovoril, že namiesto dubov\nby sa mala uctievať jedlička,",
+        "cs": "století svatý Bonifác říkal, že místo dubů by se\nměla uctívat jedlička,"
       }
     },
     {
@@ -429,8 +431,8 @@
       "end": 211.46,
       "kind": "speech",
       "text": {
-        "sk": "keďže mierí špicom do neba a jej tvár pripomína\nsvetú trojcu.",
-        "cs": "Protože měří špičkou do nebe a její obličej\npřipomíná světovou trojku."
+        "sk": "pretože špicom mieri do neba a jej tvar pripomína\nSvätú Trojicu.",
+        "cs": "protože špičkou míří k nebi a její tvar připomíná\nNejsvětější Trojici."
       }
     },
     {
@@ -438,8 +440,8 @@
       "end": 215.07,
       "kind": "speech",
       "text": {
-        "sk": "Pojem vianočný stromček sa však objevil až v 19.",
-        "cs": "Pojem vánoční stromek se však objevil až v 19.\nstoletí."
+        "sk": "Pojem „vianočný stromček“ sa však objavil až v\ndevätnástom",
+        "cs": "Pojem „vánoční stromek“ se ale objevil až v\ndevatenáctém"
       }
     },
     {
@@ -447,7 +449,7 @@
       "end": 216.09,
       "kind": "speech",
       "text": {
-        "sk": "storoči.",
+        "sk": "storočí.",
         "cs": "století."
       }
     },
@@ -456,8 +458,8 @@
       "end": 221.95,
       "kind": "speech",
       "text": {
-        "sk": "Ako dekorácie sa prekvapivo často používajú kúšné\nrasliny, ako napríklad Mexická",
-        "cs": "Překvapivě se často používají krásné rostliny,\njako je mexická"
+        "sk": "Na výzdobu sa používajú aj rôzne rastliny,\nnapríklad mexická",
+        "cs": "K výzdobě se používají i různé rostliny, třeba\nmexická"
       }
     },
     {
@@ -465,8 +467,8 @@
       "end": 226.04,
       "kind": "speech",
       "text": {
-        "sk": "poinsetia či vianočný kaktus schlumbergera.",
-        "cs": "poinsetia nebo vánoční kaktus schlumberger."
+        "sk": "poinsettia či vianočný kaktus, odborne\nSchlumbergera.",
+        "cs": "poinsettie neboli vánoční hvězda, nebo vánoční\nkaktus, odborně Schlumbergera."
       }
     },
     {
@@ -474,8 +476,8 @@
       "end": 231.36,
       "kind": "speech",
       "text": {
-        "sk": "Dekorovanie imelom pochádza zo staroeuropskych\nmítov a folklóru, napríklad",
-        "cs": "Dekorace e-maily pochází ze starověkých evropských\nmýtů a folkloru, například"
+        "sk": "Zdobenie imelom má korene v staroeurópskych mýtoch\na folklóre, napríklad",
+        "cs": "Zdobení jmelím má kořeny ve staroevropských mýtech\na folkloru, například"
       }
     },
     {
@@ -483,8 +485,8 @@
       "end": 236.52,
       "kind": "speech",
       "text": {
-        "sk": "legendie o Baldúrovi. Na rasline sa nachádzajú\nbielé bobúky a vždy, keď sa",
-        "cs": "Legenda o Baldurovi říká, že na rostlině jsou bílé\nbobulky."
+        "sk": "v legende o Baldurovi. Na rastline bývajú biele\nbobuľky a zakaždým, keď sa",
+        "cs": "v legendě o Baldurovi. Rostlina má bílé bobulky a\npokaždé, když se"
       }
     },
     {
@@ -492,8 +494,8 @@
       "end": 239.82,
       "kind": "speech",
       "text": {
-        "sk": "poňu niekto boboská, na znak podnosti sa jedna z\nnich odtrene.",
-        "cs": "Když ho někdo píchne, jeden z nich se odrazí."
+        "sk": "pod ňou niekto pobozká, jedna sa na znak plodnosti\nodtrhne.",
+        "cs": "pod ní někdo políbí, jedna se na znamení plodnosti\nutrhne."
       }
     },
     {
@@ -501,8 +503,8 @@
       "end": 245.63,
       "kind": "speech",
       "text": {
-        "sk": "Rôzne sveteľka a sviečky sú dnes símbolom Ježiša,\npodľa kresneňou svetla",
-        "cs": "Různé svíčky a svíčky jsou dnes symbolem Ježíše,\npodle žárovky světla"
+        "sk": "Rôzne svetielka a sviečky sú symbolom Ježiša, ktorý\nje podľa kresťanov svetlom",
+        "cs": "Různá světýlka a svíčky symbolizují Ježíše, který\nje podle křesťanů světlem"
       }
     },
     {
@@ -511,7 +513,7 @@
       "kind": "speech",
       "text": {
         "sk": "sveta.",
-        "cs": "Svět."
+        "cs": "světa."
       }
     },
     {
@@ -519,8 +521,8 @@
       "end": 249.56,
       "kind": "speech",
       "text": {
-        "sk": "Historicky však o hen vždy patrele egoslávám\nrovnodenosti.",
-        "cs": "Ale historicky jsem vždy oslavoval rovnocennost\nohledně dětí."
+        "sk": "Oheň však historicky patril aj k oslavám\nrovnodennosti.",
+        "cs": "Oheň ale historicky patřil také k oslavám\nrovnodennosti."
       }
     },
     {
@@ -528,8 +530,8 @@
       "end": 254.5,
       "kind": "speech",
       "text": {
-        "sk": "Vianočné pjesni akoléby sú kombináciou kostolných\nspevou a ľudových pjesní.",
-        "cs": "Vánoční zpěvy akoléby jsou kombinací církevních\nzpěvů a lidových zpěvů."
+        "sk": "Vianočné piesne a koledy sú zmesou kostolných\nspevov a ľudových piesní.",
+        "cs": "Vánoční písně a koledy jsou směsí kostelních zpěvů\na lidových písní."
       }
     },
     {
@@ -537,8 +539,8 @@
       "end": 257.12,
       "kind": "speech",
       "text": {
-        "sk": "Na popularite začali nabrať až 19.",
-        "cs": "Populárnost se začala zvyšovat až 19."
+        "sk": "Na popularite začali získavať až v devätnástom",
+        "cs": "Na popularitě začaly získávat až v devatenáctém"
       }
     },
     {
@@ -546,8 +548,8 @@
       "end": 261.2,
       "kind": "speech",
       "text": {
-        "sk": "storoči, kedy súde začali uvedomovať ich\nspoločensky význam.",
-        "cs": "V století, kdy se soudy začaly věnovat jejich\nspolečenskému významu."
+        "sk": "storočí, keď si ľudia začali uvedomovať ich\nspoločenský význam.",
+        "cs": "století, když si lidé začali uvědomovat jejich\nspolečenský význam."
       }
     },
     {
@@ -555,8 +557,8 @@
       "end": 268.32,
       "kind": "speech",
       "text": {
-        "sk": "Asi dve najznamejšie vianočné pjesni sú Ticha noc,\nktorú v roku 1818 napísali",
-        "cs": "Asi dvě z nejznámějších vánočních písní jsou Ticha\nnoc, kterou napsali v roce 1818"
+        "sk": "Medzi najznámejšie piesne patrí Tichá noc, ktorú v\nroku 1818 napísali",
+        "cs": "Mezi nejznámější písně patří Tichá noc, kterou v\nroce 1818 napsali"
       }
     },
     {
@@ -564,8 +566,8 @@
       "end": 270.68,
       "kind": "speech",
       "text": {
-        "sk": "Moore a Gruber pre rakusky kostol sv.",
-        "cs": "Moore a Gruber pro rakouský kostel sv."
+        "sk": "Mohr a Gruber pre rakúsky kostol svätého",
+        "cs": "Mohr a Gruber pro rakouský kostel svatého"
       }
     },
     {
@@ -573,8 +575,8 @@
       "end": 276.24,
       "kind": "speech",
       "text": {
-        "sk": "Mikulaša v Obendorfe a Jingle Bells, ktorú zložil\nJames Lord Pierpont",
-        "cs": "Mikuláš v Obendorfu a Jingle Bells, složena\nJamesem Lordem Pierpontem"
+        "sk": "Mikuláša v Oberndorfe, a tiež Jingle Bells od\nJamesa Lorda Pierponta,",
+        "cs": "Mikuláše v Oberndorfu, a také Jingle Bells od\nJamese Lorda Pierponta,"
       }
     },
     {
@@ -591,8 +593,8 @@
       "end": 283.13,
       "kind": "speech",
       "text": {
-        "sk": "Kurios je to, že pieseň bola pôvode napísaná v\nďaky zdaniu.",
-        "cs": "Zvláštní je, že píseň byla původně napsaná v\npoděkování."
+        "sk": "Kuriozitou je, že táto pieseň vznikla pôvodne na\nDeň vďakyvzdania.",
+        "cs": "Zajímavostí je, že tato píseň původně vznikla na\nDen díkůvzdání."
       }
     },
     {
@@ -600,8 +602,8 @@
       "end": 286.65,
       "kind": "speech",
       "text": {
-        "sk": "Za spomenutie stoje aj báseň návštiva sv.",
-        "cs": "Zmíněna je i báseň návštěvy sv."
+        "sk": "Za zmienku stojí aj báseň Návšteva svätého",
+        "cs": "Za zmínku stojí také báseň Návštěva svatého"
       }
     },
     {
@@ -609,8 +611,8 @@
       "end": 292.21,
       "kind": "speech",
       "text": {
-        "sk": "Mikulaša, známa ako Bla noc pred vianocami, podľa\nsvojho prvého riadku.",
-        "cs": "Mikuláš, známý jako Blá noc před Vánocemi, podle\nsvého prvního řádu."
+        "sk": "Mikuláša, známa tiež ako Bola noc pred Vianocami,\npodľa prvého verša.",
+        "cs": "Mikuláše, známá také jako Byla noc před Vánocemi,\npodle prvního verše."
       }
     },
     {
@@ -618,8 +620,8 @@
       "end": 297.42,
       "kind": "speech",
       "text": {
-        "sk": "Napísali ju Klemen Clark Moore a vytvrôvne obraz\nSanta Clausa, ktorý poznáme do",
-        "cs": "Napsala ji Klemens Clark Moore a vytvořila obraz\nSanta Clause, který známe jako"
+        "sk": "Napísal ju Clement Clarke Moore a vytvoril v nej\nobraz Santa Clausa, akého poznáme",
+        "cs": "Napsal ji Clement Clarke Moore a vytvořil v ní\npodobu Santa Clause, jakého známe"
       }
     },
     {
@@ -627,8 +629,8 @@
       "end": 301.78,
       "kind": "speech",
       "text": {
-        "sk": "dnes. Starý, vysmiatý a bradať detko s pupkom ako\nsvet.",
-        "cs": "Dneska, starý, smiešný a bralý dítě s pultem jako\nsvět."
+        "sk": "dodnes: starý, veselý bradatý dedko s veľkým\nbruchom.",
+        "cs": "dodnes: starý, veselý vousatý dědeček s velkým\nbřichem."
       }
     },
     {
@@ -636,8 +638,8 @@
       "end": 307.46,
       "kind": "speech",
       "text": {
-        "sk": "Mimochodom, je veľa ľudí nad Santom ohreňanos,\nlebo šak k nám chodí Ježiško. Asi",
-        "cs": "Mimochodem, je tu spousta lidí nad\nSantomohreñanos, protože k nám chodí Ježíš."
+        "sk": "Mimochodom, veľa ľudí nad Santom ohŕňa nos, pretože\nvraj k nám chodí Ježiško.",
+        "cs": "Mimochodem, mnoho lidí nad Santou ohrnuje nos,\nprotože k nám přece chodí Ježíšek."
       }
     },
     {
@@ -645,8 +647,8 @@
       "end": 311.44,
       "kind": "speech",
       "text": {
-        "sk": "zabudli, že ani nepred tromi tížňami jí naštívil\nNikolaš, teda Santa",
-        "cs": "Zapomněli, že ani tři váhy jí nedodržel Nikolaáš,\ntedy Santa."
+        "sk": "Zabúdajú, že pred necelými troma týždňami ich\nnavštívil Mikuláš, teda Santa",
+        "cs": "Zapomínají, že je před necelými třemi týdny\nnavštívil Mikuláš, tedy Santa"
       }
     },
     {
@@ -654,8 +656,8 @@
       "end": 316.72,
       "kind": "speech",
       "text": {
-        "sk": "Claus. Akurát pred tým, ako kôli jednej básni,\nzmenil svoj výzor.",
-        "cs": "Krátce před tím, než se objevil jeden básní,\nzměnil svůj vzhled."
+        "sk": "Claus, len ešte predtým, než mu táto báseň zmenila\npodobu.",
+        "cs": "Claus, ještě než mu tato báseň změnila podobu."
       }
     },
     {
@@ -663,8 +665,8 @@
       "end": 321.1,
       "kind": "speech",
       "text": {
-        "sk": "Výsledkom literárnej fichtie je aj sob Rudolf.",
-        "cs": "Výsledkem literárního psaní je i sob Rudolf."
+        "sk": "Literárnou fikciou je aj sob Rudolf.",
+        "cs": "Literární fikcí je také sob Rudolf."
       }
     },
     {
@@ -672,8 +674,8 @@
       "end": 326.12,
       "kind": "speech",
       "text": {
-        "sk": "Pôvodná ideá je asi s Odinou Holovu, no v súčasnú\nporobu dala báseň od Roberta",
-        "cs": "Původní myšlenka je asi odina holova, ale v\nsoučasné době se objevila básnička od roberta"
+        "sk": "Pôvodná predstava možno súvisí s Odinovým lovom, no\ndnešnú podobu mu dala báseň Roberta",
+        "cs": "Původní představa možná souvisí s Ódinovým lovem,\nale dnešní podobu mu dala báseň Roberta"
       }
     },
     {
@@ -681,8 +683,8 @@
       "end": 331.52,
       "kind": "speech",
       "text": {
-        "sk": "Elmea. Jeho cílom bolo nalakať ľudí do istého\nobchodu. Neviem, či sa vy niektorí",
-        "cs": "Jeho cílem bylo nalákat lidi do jednoho obchodu."
+        "sk": "L. Maya. Chcel ňou prilákať ľudí do jedného\nobchodu. Neviem, či sa",
+        "cs": "L. Maye. Chtěl jí přilákat lidi do jednoho obchodu.\nNevím, zda se"
       }
     },
     {
@@ -690,8 +692,8 @@
       "end": 333.26,
       "kind": "speech",
       "text": {
-        "sk": "marketér pochávali obdobným výsledkom.",
-        "cs": "a prodejci měli podobný výsledek."
+        "sk": "nejaký marketér môže pochváliť podobným výsledkom.",
+        "cs": "nějaký marketér může pochlubit podobným výsledkem."
       }
     },
     {
@@ -700,7 +702,7 @@
       "kind": "speech",
       "text": {
         "sk": "Poďme sa pozrieť na vianočný stôl.",
-        "cs": "Pojďme se podívat na vánoční stůl."
+        "cs": "Podívejme se na vánoční stůl."
       }
     },
     {
@@ -709,7 +711,7 @@
       "kind": "speech",
       "text": {
         "sk": "Jeho obsah sa mení od regiónu k regiónu.",
-        "cs": "Jeho obsah se mění v jednotlivých regionech."
+        "cs": "Jeho obsah se mění region od regionu."
       }
     },
     {
@@ -717,8 +719,8 @@
       "end": 343.21,
       "kind": "speech",
       "text": {
-        "sk": "Na britského strohu nájete vesové koláče či\nvianočný pudín.",
-        "cs": "Na britském stroji si najímáte vesnické koláče\nnebo vánoční pudin."
+        "sk": "Na Britských ostrovoch nájdete mäsové koláče aj\nvianočný puding.",
+        "cs": "Na Britských ostrovech najdete masové koláčky i\nvánoční pudink."
       }
     },
     {
@@ -726,8 +728,8 @@
       "end": 346.39,
       "kind": "speech",
       "text": {
-        "sk": "No neprestavujte si po tým pudín, na aký ste\nzvyknutí.",
-        "cs": "Ale nevytvořte si pudiny, na které jste zvyklí."
+        "sk": "Ten si však nepredstavujte ako puding, na ktorý ste\nzvyknutí.",
+        "cs": "Ten si ale nepředstavujte jako pudink, na jaký jste\nzvyklí."
       }
     },
     {
@@ -735,8 +737,8 @@
       "end": 351.15,
       "kind": "speech",
       "text": {
-        "sk": "Ide skoro zmez hrozienok, škorice, klinčekov a\nniečoho, čo to drží pokope.",
-        "cs": "Je to téměř zmírnění hroznů, koren, klenotů a\nněčeho, co je drží v klidu."
+        "sk": "Je to skôr zmes hrozienok, škorice, klinčekov a\nniečoho, čo ju drží pokope.",
+        "cs": "Je to spíš směs rozinek, skořice, hřebíčku a\nněčeho, co ji drží pohromadě."
       }
     },
     {
@@ -744,8 +746,8 @@
       "end": 354.58,
       "kind": "speech",
       "text": {
-        "sk": "Na Sicíli sa môže tešiť na 12.",
-        "cs": "Na Sicílii se může těšit na 12."
+        "sk": "Na Sicílii sa môžete tešiť na dvanásť druhov",
+        "cs": "Na Sicílii se můžete těšit na dvanáct druhů"
       }
     },
     {
@@ -753,8 +755,8 @@
       "end": 358.44,
       "kind": "speech",
       "text": {
-        "sk": "rýb, na malte za zna čokladovou orieškový nápoj.",
-        "cs": "ryby, na maltu za čokoládový orechový nápoj."
+        "sk": "rýb, na Malte zasa na čokoládovo-orieškový nápoj.",
+        "cs": "ryb, na Maltě zase na čokoládovo-oříškový nápoj."
       }
     },
     {
@@ -762,8 +764,8 @@
       "end": 362.04,
       "kind": "speech",
       "text": {
-        "sk": "V mnohých krajinách peču niečo medzi sladkým\nchlebom a koláčom.",
-        "cs": "V mnoha zemích se peče něco mezi sladkým chlebem a\nkoláčem."
+        "sk": "V mnohých krajinách pečú niečo medzi sladkým\nchlebom a koláčom.",
+        "cs": "V mnoha zemích pečou něco mezi sladkým chlebem a\nkoláčem."
       }
     },
     {
@@ -771,8 +773,8 @@
       "end": 365.02,
       "kind": "speech",
       "text": {
-        "sk": "Vo francúzsku bech de Noël, k taliansku panetone.",
-        "cs": "Ve francouzském bech de Noël, v italském panetone."
+        "sk": "Vo Francúzsku bûche de Noël, v Taliansku panettone.",
+        "cs": "Ve Francii bûche de Noël, v Itálii panettone."
       }
     },
     {
@@ -780,8 +782,8 @@
       "end": 369.72,
       "kind": "speech",
       "text": {
-        "sk": "Všetko sa to obsiahnuť nedá, neľa že každá\nkrajina, ale snaď každá rodina má",
-        "cs": "Nemůžeme to všechno zahrnovat, nejen že každá\nzemě, ale snažte se, aby každá rodina měla"
+        "sk": "Všetko sa spomenúť nedá. Nielen každá krajina, ale\nsnáď každá rodina má",
+        "cs": "Všechno zmínit nejde. Nejen každá země, ale snad\nkaždá rodina má"
       }
     },
     {
@@ -789,8 +791,8 @@
       "end": 374.24,
       "kind": "speech",
       "text": {
-        "sk": "trochu iný vianočný jedalniček. Napríklad u nás\nbude kapusnica s haluškami a",
-        "cs": "Něco jiného jako vánoční jídlo."
+        "sk": "trochu iný vianočný jedálniček. Napríklad u nás\nbude kapustnica s haluškami a",
+        "cs": "trochu jiný vánoční jídelníček. Například u nás\nbude kapustnica s haluškami a"
       }
     },
     {
@@ -799,7 +801,7 @@
       "kind": "speech",
       "text": {
         "sk": "slivková polievka.",
-        "cs": "čokoládová polévka."
+        "cs": "švestková polévka."
       }
     },
     {
@@ -807,8 +809,8 @@
       "end": 379.4,
       "kind": "speech",
       "text": {
-        "sk": "Jeden pokrom šak stoji za zmienku. Vianočné\npolienko.",
-        "cs": "Jediný pokročilý šach stojí za zmínkou."
+        "sk": "Jeden pokrm však určite stojí za zmienku: vianočné\npolienko.",
+        "cs": "Jedno jídlo ale určitě stojí za zmínku: vánoční\npoleno."
       }
     },
     {
@@ -816,8 +818,8 @@
       "end": 385.52,
       "kind": "speech",
       "text": {
-        "sk": "Ide o sladkú rolku, ktorá vyzerá no, ako polienko.\nVo francúzsku je",
-        "cs": "Je to sladká rolka, která vypadá jako polenka."
+        "sk": "Je to sladká roláda, ktorá vyzerá ako polienko. Vo\nFrancúzsku sa",
+        "cs": "Je to sladká roláda, která vypadá jako polínko. Ve\nFrancii se"
       }
     },
     {
@@ -825,8 +827,8 @@
       "end": 390.12,
       "kind": "speech",
       "text": {
-        "sk": "to spomínaná byč de Noël v germánskych krajinách a\nna severé Európy skôl Jules",
-        "cs": "to zmíněný býk de Noël v německých zemích a na\nseverní Evropě školy Jules"
+        "sk": "nazýva bûche de Noël, v germánskych krajinách a na\nsevere Európy skôr Yule",
+        "cs": "jmenuje bûche de Noël, v germánských zemích a na\nseveru Evropy spíš Yule"
       }
     },
     {
@@ -834,8 +836,8 @@
       "end": 391.82,
       "kind": "speech",
       "text": {
-        "sk": "Loc, alebo Jules polienko.",
-        "cs": "Loc, nebo Jules Polenka."
+        "sk": "log, teda vianočné polienko.",
+        "cs": "log, tedy vánoční poleno."
       }
     },
     {
@@ -843,8 +845,8 @@
       "end": 397.18,
       "kind": "speech",
       "text": {
-        "sk": "Jules bol sviatok, ktorý v týchto časťach sveta\npredchádzal vianociam. mnohých",
-        "cs": "Jules byl svátek, který v těchto částech světa\npředcházela Vánoci."
+        "sk": "Yule bol sviatok, ktorý v týchto častiach sveta\npredchádzal Vianociam. V mnohých",
+        "cs": "Yule byl svátek, který v těchto částech světa\npředcházel Vánocům. V mnoha"
       }
     },
     {
@@ -852,8 +854,8 @@
       "end": 399.18,
       "kind": "speech",
       "text": {
-        "sk": "oblasťach dokonca tento názvou pretrval.",
-        "cs": "V některých oblastech se to dokonce stalo."
+        "sk": "oblastiach jeho názov dokonca pretrval.",
+        "cs": "oblastech jeho název dokonce přetrval."
       }
     },
     {
@@ -861,8 +863,8 @@
       "end": 402.28,
       "kind": "speech",
       "text": {
-        "sk": "Historici ho spáju až s Bohom Odinom.",
-        "cs": "Historici ho spojují až s Bohem Odinem."
+        "sk": "Historici ho spájajú dokonca s bohom Odinom.",
+        "cs": "Historici ho spojují dokonce s bohem Ódinem."
       }
     },
     {
@@ -870,8 +872,8 @@
       "end": 407.48,
       "kind": "speech",
       "text": {
-        "sk": "Začinala sa zima a bolo sa treba zamysliť, ktorú\nčasť do bytka budú krmiť cez",
-        "cs": "Začala zima a bylo třeba se zamyslet, která část\nbytu budou krmit přes"
+        "sk": "Začínala sa zima a bolo treba rozhodnúť, ktorú časť\ndobytka budú ľudia kŕmiť cez",
+        "cs": "Začínala zima a bylo třeba rozhodnout, kterou část\ndobytka budou lidé krmit přes"
       }
     },
     {
@@ -879,8 +881,8 @@
       "end": 412.76,
       "kind": "speech",
       "text": {
-        "sk": "zimu, ako ho môžu rovno zakálať. tomto období tak\nbolo mnoha hostín,",
-        "cs": "V zimě, jak je mohou zapojit rovnou. V tomto\nobdobí bylo tolik hostin,"
+        "sk": "zimu a ktorý rovno porazia. Vtedy sa preto konalo\nveľa hostín,",
+        "cs": "zimu a který rovnou porazí. V té době se proto\nkonalo mnoho hostin,"
       }
     },
     {
@@ -888,8 +890,8 @@
       "end": 414.36,
       "kind": "speech",
       "text": {
-        "sk": "kedy sa jedli zabité zvierata.",
-        "cs": "Když jedli zabité zvířata."
+        "sk": "pri ktorých sa jedli zabité zvieratá.",
+        "cs": "při nichž se jedla poražená zvířata."
       }
     },
     {
@@ -897,8 +899,8 @@
       "end": 419.98,
       "kind": "speech",
       "text": {
-        "sk": "Zvyk bolo najprv donesť čo najväť spolien a z nich\nzaložiť oheň, ktorý tým trval,",
-        "cs": "Zvyk byl nejdříve přinést největší kořist a\nzaložit z něho oheň, který trval."
+        "sk": "Zvyk bol priniesť čo najviac polien a založiť z\nnich oheň. Kým horel,",
+        "cs": "Zvykem bylo přinést co nejvíc polen a rozdělat z\nnich oheň. Dokud hořel,"
       }
     },
     {
@@ -906,8 +908,8 @@
       "end": 425.28,
       "kind": "speech",
       "text": {
-        "sk": "tak sa hodovalo. Dym z ohoňa zároveň vyháňal zlých\nduchov a jeho pupol",
-        "cs": "Kouř z ohně zároveň vyhnal zlé duchy a jeho popel."
+        "sk": "hodovalo sa. Dym z ohňa mal vyháňať zlých duchov a\npopol",
+        "cs": "hodovalo se. Kouř z ohně měl vyhánět zlé duchy a\npopel"
       }
     },
     {
@@ -916,16 +918,16 @@
       "kind": "speech",
       "text": {
         "sk": "slúžil na ochranu a liečbu.",
-        "cs": "sloužil k ochraně a léčbě."
+        "cs": "sloužil k ochraně a léčení."
       }
     },
     {
-      "start": 428.0,
+      "start": 428,
       "end": 431.74,
       "kind": "speech",
       "text": {
-        "sk": "Keď sa však ľudia začali presovať do domčekov s\npieckami, na spolovanie obrovských",
-        "cs": "Ale když se lidé začali stěhovat do pecí domů, aby\nse spojili s obrovskými"
+        "sk": "Keď sa ľudia presťahovali do domčekov s pieckami,\nna pálenie obrovských",
+        "cs": "Když se lidé přestěhovali do domků s kamny, na\npálení obrovských"
       }
     },
     {
@@ -933,8 +935,8 @@
       "end": 433.86,
       "kind": "speech",
       "text": {
-        "sk": "kusov dreva nebolo miesto.",
-        "cs": "Dřevo nebylo místo."
+        "sk": "kusov dreva už nebolo miesto.",
+        "cs": "kusů dřeva už nebylo místo."
       }
     },
     {
@@ -942,8 +944,8 @@
       "end": 436.66,
       "kind": "speech",
       "text": {
-        "sk": "Na miesto toho si teda polinka upiekli z cesta.",
-        "cs": "Místo toho si vytáhli polinky z cesty."
+        "sk": "Tak si namiesto skutočných polienok upiekli také z\ncesta.",
+        "cs": "A tak si místo skutečných polen upekli polínka z\ntěsta."
       }
     },
     {
@@ -951,8 +953,8 @@
       "end": 441.62,
       "kind": "speech",
       "text": {
-        "sk": "Ak teda pečete vianočné polinka aj vy, vedste, že\nnadvezujete na najstaršie",
-        "cs": "Takže, pokud budete mít vánoční návyky, víte, že\nse budete řídit staršími lidmi."
+        "sk": "Ak pečiete vianočné polienko aj vy, nadväzujete na\njedny z najstarších",
+        "cs": "Pokud pečete vánoční poleno i vy, navazujete na\njedny z nejstarších"
       }
     },
     {
@@ -960,8 +962,8 @@
       "end": 442.76,
       "kind": "speech",
       "text": {
-        "sk": "európske tradície.",
-        "cs": "Evropské tradice."
+        "sk": "európskych tradícií.",
+        "cs": "evropských tradic."
       }
     },
     {
@@ -969,8 +971,8 @@
       "end": 445.3,
       "kind": "speech",
       "text": {
-        "sk": "Dovolte mi ešte krátkú poznánku.",
-        "cs": "Dovolte mi ještě krátkou představu."
+        "sk": "Dovoľte mi ešte krátku poznámku.",
+        "cs": "Dovolte mi ještě krátkou poznámku."
       }
     },
     {
@@ -978,8 +980,8 @@
       "end": 450.2,
       "kind": "speech",
       "text": {
-        "sk": "V symbolike tejto tradície niečo veľmi pekné, o\nčom nási predkovia asi ani",
-        "cs": "V symbolice této tradice je něco velmi krásného, o\nčem naši předkové asi ani netuší."
+        "sk": "V symbolike tejto tradície je niečo pekné, o čom\nnaši predkovia zrejme",
+        "cs": "V symbolice této tradice je něco krásného, o čem\nnaši předkové nejspíš"
       }
     },
     {
@@ -987,8 +989,8 @@
       "end": 455.06,
       "kind": "speech",
       "text": {
-        "sk": "netušili. Slnovrad teda vítanie slnka slavili\nvatrami, teda ohňom z",
-        "cs": "Nevěřili, že sluneční svátek oslavují ohněmi, tedy\nohněmi ze slunce."
+        "sk": "netušili. Slnovrat, vítanie Slnka, oslavovali\nvatrami a ohňom z",
+        "cs": "neměli tušení. Slunovrat, vítání Slunce, oslavovali\nvatrami a ohněm ze"
       }
     },
     {
@@ -996,8 +998,8 @@
       "end": 459.08,
       "kind": "speech",
       "text": {
-        "sk": "dreva. Dnes už vieme, že drôv vzniká vďaka\nfotosintéze.",
-        "cs": "Dnes víme, že dřevo vzniká díky fotosyntéze."
+        "sk": "dreva. Dnes vieme, že drevo vzniká vďaka\nfotosyntéze.",
+        "cs": "dřeva. Dnes víme, že dřevo vzniká díky fotosyntéze."
       }
     },
     {
@@ -1005,8 +1007,8 @@
       "end": 464.82,
       "kind": "speech",
       "text": {
-        "sk": "Energia, ktorá sa uvoľnuje pri opálení, je vlastne\nzakonzerovaná senečná",
-        "cs": "Energie, která se uvolňuje při sežlení, je ve\nskutečnosti konzervovaná jako senová."
+        "sk": "Energia, ktorá sa uvoľňuje pri jeho horení, je\nvlastne zakonzervovaná slnečná",
+        "cs": "Energie, která se při jeho hoření uvolňuje, je\nvlastně uchovaná sluneční"
       }
     },
     {
@@ -1023,8 +1025,8 @@
       "end": 467.92,
       "kind": "speech",
       "text": {
-        "sk": "No a ako je to zdar však my?",
-        "cs": "A jak to vypadá s námi?"
+        "sk": "A ako je to vlastne s darčekmi?",
+        "cs": "A jak je to vlastně s dárky?"
       }
     },
     {
@@ -1032,8 +1034,8 @@
       "end": 472.58,
       "kind": "speech",
       "text": {
-        "sk": "Vždy som si myslel, že zvyk pochádza z biblického\npríbehu, ktorou mali treia krály",
-        "cs": "Vždycky jsem si myslel, že zvyk pochází z\nbiblického příběhu o třech králech."
+        "sk": "Vždy som si myslel, že zvyk pochádza z biblického\npríbehu, v ktorom traja králi",
+        "cs": "Vždycky jsem si myslel, že zvyk pochází z\nbiblického příběhu, v němž tři králové"
       }
     },
     {
@@ -1041,8 +1043,8 @@
       "end": 474.2,
       "kind": "speech",
       "text": {
-        "sk": "prinesť dary do Bethlema.",
-        "cs": "Přinést dary do Betléma."
+        "sk": "priniesli dary do Betlehema.",
+        "cs": "přinesli dary do Betléma."
       }
     },
     {
@@ -1050,8 +1052,8 @@
       "end": 479.01,
       "kind": "speech",
       "text": {
-        "sk": "Podľa všetko, však ide o tradície nadvezujúce na\nstarovýmsky svietok Saturnálie,",
-        "cs": "Ale podle všeho se jedná o tradici, která se\nvztahuje k starověkému svitu Saturnalie."
+        "sk": "Podľa všetkého však ide o tradíciu nadväzujúcu na\nstarorímske Saturnálie",
+        "cs": "Podle všeho však jde o tradici navazující na\nstarořímské Saturnálie"
       }
     },
     {
@@ -1059,8 +1061,8 @@
       "end": 480.71,
       "kind": "speech",
       "text": {
-        "sk": "na počes Boha Saturná.",
-        "cs": "Na slávu boha Saturna."
+        "sk": "na počesť boha Saturna.",
+        "cs": "na počest boha Saturna."
       }
     },
     {
@@ -1068,8 +1070,8 @@
       "end": 486.28,
       "kind": "speech",
       "text": {
-        "sk": "Ten sa začiatku slavil len jeden deň a neskôr sa\nslavila až dva týždne. Začal",
-        "cs": "Zpočátku se slavil jen jeden den, později se\nslavil až dva týdny."
+        "sk": "Spočiatku ich slávili iba jeden deň, neskôr dva\ntýždne. Začínali",
+        "cs": "Zpočátku se slavily jen jeden den, později dva\ntýdny. Začínaly"
       }
     },
     {
@@ -1077,8 +1079,8 @@
       "end": 488.6,
       "kind": "speech",
       "text": {
-        "sk": "týždien pred slnovratom a skončil týždien po.",
-        "cs": "týden před západem slunce a týden poté."
+        "sk": "týždeň pred slnovratom a končili týždeň po ňom.",
+        "cs": "týden před slunovratem a končily týden po něm."
       }
     },
     {
@@ -1086,8 +1088,8 @@
       "end": 494.99,
       "kind": "speech",
       "text": {
-        "sk": "Jeden z dní, Sigillaria, bol vyhradený práve na\nrozdávanie darů.",
-        "cs": "Jeden den, Sigillaria, byl určen právě k rozdávání\ndarů."
+        "sk": "Jeden z dní, Sigillaria, bol určený na rozdávanie\ndarčekov.",
+        "cs": "Jeden ze dnů, Sigillaria, byl vyhrazený na\nrozdávání dárků."
       }
     },
     {
@@ -1095,8 +1097,8 @@
       "end": 498.58,
       "kind": "speech",
       "text": {
-        "sk": "Čo sa daroval, celkom pripominalo dnešok.",
-        "cs": "To, co se darovalo, mi připomínalo dnešek."
+        "sk": "Darčeky sa celkom podobali tým dnešným.",
+        "cs": "Dárky se docela podobaly těm dnešním."
       }
     },
     {
@@ -1104,8 +1106,8 @@
       "end": 503.78,
       "kind": "speech",
       "text": {
-        "sk": "Hračky pre detí, príbory, tablety, také napísanie,\nčapice,",
-        "cs": "Dětské hračky, přístroje, tablety, takové písmo,\nklobouky,"
+        "sk": "Hračky pre deti, príbory, tabuľky na písanie,\nčapice,",
+        "cs": "Hračky pro děti, příbory, tabulky na psaní, čepice,"
       }
     },
     {
@@ -1113,8 +1115,8 @@
       "end": 508.82,
       "kind": "speech",
       "text": {
-        "sk": "oblečenie, sošky. Bohači mohli darovať aj otrokov,\nexotické zvieratá ako",
-        "cs": "Bohové mohli darovat i otroky, exotické zvířata\njako"
+        "sk": "oblečenie, sošky. Bohatší mohli darovať aj otrokov\nči exotické zvieratá, napríklad",
+        "cs": "oblečení, sošky. Bohatší mohli darovat i otroky\nnebo exotická zvířata, třeba"
       }
     },
     {
@@ -1122,8 +1124,8 @@
       "end": 514.01,
       "kind": "speech",
       "text": {
-        "sk": "papagáje alebo parféry. Chudobnejšie aspoň\nšparadla, napríklad skosti rib.",
-        "cs": "Půdy nebo parfémy. Chudší jsou spáry, například\nkost ryby."
+        "sk": "papagáje, alebo parfumy. Chudobnejší aspoň\nšpáradlá, napríklad z rybích kostí.",
+        "cs": "papoušky, nebo parfémy. Chudší alespoň párátka,\nnapříklad z rybích kostí."
       }
     },
     {
@@ -1131,8 +1133,8 @@
       "end": 516.67,
       "kind": "speech",
       "text": {
-        "sk": "Ak ešte nemáte darček, toto je dobrý typ.",
-        "cs": "Pokud ještě nemáte dárek, je to dobrý typ."
+        "sk": "Ak ešte nemáte darček, možno je to dobrý tip.",
+        "cs": "Pokud ještě nemáte dárek, možná je to dobrý tip."
       }
     },
     {
@@ -1140,8 +1142,8 @@
       "end": 520.28,
       "kind": "speech",
       "text": {
-        "sk": "No ale kto tieto darčeky nosí? Ako kde?",
-        "cs": "Ale kdo nosí ty dárky?"
+        "sk": "A kto tie darčeky nosí? Ako kde.",
+        "cs": "A kdo ty dárky nosí? Jak kde."
       }
     },
     {
@@ -1149,8 +1151,8 @@
       "end": 524.24,
       "kind": "speech",
       "text": {
-        "sk": "Nekde Ježiško, niekde dedom Rás či otec Vianoc.",
-        "cs": "Někde ježíši, někde dědeček Rás nebo otec Vánoce."
+        "sk": "Niekde Ježiško, inde Dedo Mráz alebo Otec Vianoc.",
+        "cs": "Někde Ježíšek, jinde Děda Mráz nebo Otec Vánoc."
       }
     },
     {
@@ -1158,8 +1160,8 @@
       "end": 528.5,
       "kind": "speech",
       "text": {
-        "sk": "Iné za Santa Claus, Sinterklas či Vianočné\nškriatkovia.",
-        "cs": "Jiné pro Santa Clause, Sinterklase nebo Vánoční\nkričky."
+        "sk": "Inde Santa Claus, Sinterklaas či vianoční\nškriatkovia.",
+        "cs": "Jinde Santa Claus, Sinterklaas nebo vánoční\nskřítkové."
       }
     },
     {
@@ -1167,8 +1169,8 @@
       "end": 530.06,
       "kind": "speech",
       "text": {
-        "sk": "Najzabaviočia si Švecko.",
-        "cs": "Švajčici budou mít největší zábavu."
+        "sk": "Najzábavnejšie je to asi vo Švédsku.",
+        "cs": "Nejzábavnější je to asi ve Švédsku."
       }
     },
     {
@@ -1176,8 +1178,8 @@
       "end": 533.38,
       "kind": "speech",
       "text": {
-        "sk": "Tam je to Vianočná koza, ktorá vozy otca Vianoc.",
-        "cs": "Je to vánoční koza, který jezdí s Otcem Vánoce."
+        "sk": "Tam je vianočná koza, ktorá vozí Otca Vianoc.",
+        "cs": "Tam mají vánoční kozu, která vozí Otce Vánoc."
       }
     },
     {
@@ -1185,35 +1187,35 @@
       "end": 537.68,
       "kind": "speech",
       "text": {
-        "sk": "Vianočné sviatky neboli vždy rodinou s alžitosťou.",
-        "cs": "Vánoce nebyly vždy rodinou s manželstvím."
+        "sk": "Vianočné sviatky však neboli vždy rodinnou\nzáležitosťou.",
+        "cs": "Vánoční svátky ale nebyly vždy rodinnou\nzáležitostí."
       }
     },
     {
       "start": 538.12,
-      "end": 542.0,
+      "end": 542,
       "kind": "speech",
       "text": {
-        "sk": "V početku šlo skôr do sviatok, kedy bohaty\ndoprijavali chudobným a deťom.",
-        "cs": "Zpočátku šlo o svátky, kdy bohatí darovali chudým\na dětem."
+        "sk": "Spočiatku išlo skôr o sviatok, keď bohatí dopriali\nchudobným a deťom.",
+        "cs": "Zpočátku šlo spíš o svátek, kdy bohatí dopřávali\nchudým a dětem."
       }
     },
     {
       "start": 542.44,
-      "end": 546.0,
+      "end": 546,
       "kind": "speech",
       "text": {
-        "sk": "Šlo o hedonistický sviatok, jedlo, víno a spev.",
-        "cs": "Byl to hedonistický svátek, jídlo, víno a zpěv."
+        "sk": "Bol to hedonistický sviatok: jedlo, víno a spev.",
+        "cs": "Byl to hédonistický svátek: jídlo, víno a zpěv."
       }
     },
     {
-      "start": 547.0,
+      "start": 547,
       "end": 552.32,
       "kind": "speech",
       "text": {
-        "sk": "Sviatok sa neskôr pokresťančil, noho tvar sa\nvyrazne zmenil až neskôr. Napríklad v",
-        "cs": "Slavnost se později zkrásnila a její tvar se\nproměnil až později."
+        "sk": "Neskôr sa pokresťančil, ale jeho podoba sa zásadne\nzmenila až neskôr.",
+        "cs": "Později se pokřesťanštil, ale jeho podoba se\nvýrazně změnila až mnohem později."
       }
     },
     {
@@ -1221,8 +1223,8 @@
       "end": 557.74,
       "kind": "speech",
       "text": {
-        "sk": "Amerike sa od sviatku ústúpilo, porýtani ho totiž\nbrali ako výmysel Vatikánu.",
-        "cs": "Američané se od této slavnosti odvrátili, protože\nbyli zmateni, že je to výmysl Vatikánu."
+        "sk": "V Amerike od neho ustupovali, pretože puritáni ho\npovažovali za výmysel Vatikánu.",
+        "cs": "V Americe od něj ustupovali, protože puritáni jej\npovažovali za výmysl Vatikánu."
       }
     },
     {
@@ -1230,8 +1232,8 @@
       "end": 562.55,
       "kind": "speech",
       "text": {
-        "sk": "Paradoxneho v rannom starovejku na chvíľu zakázala\ncirkev lebo ho zbrala ako",
-        "cs": "Paradoxní v ranní staré staré holce na chvíli\nzakázala církev, protože ho střelila jako"
+        "sk": "Paradoxne ho v ranom stredoveku na čas zakázala\ncirkev, lebo ho pokladala za",
+        "cs": "Paradoxně jej v raném středověku načas zakázala\ncírkev, protože jej považovala za"
       }
     },
     {
@@ -1239,8 +1241,8 @@
       "end": 563.57,
       "kind": "speech",
       "text": {
-        "sk": "výmysel pohanou.",
-        "cs": "Vymyšlený pohanem."
+        "sk": "pohanský výmysel.",
+        "cs": "pohanský výmysl."
       }
     },
     {
@@ -1248,8 +1250,8 @@
       "end": 569.57,
       "kind": "speech",
       "text": {
-        "sk": "V Bostone boli dokonca 22 rokov Vianoce zakázane.\nOdrozbou pokuty, viatých",
-        "cs": "V Bostonu byly Vánoce zakázány 22 let."
+        "sk": "V Bostone boli Vianoce dokonca dvadsaťdva rokov\nzakázané pod hrozbou pokuty piatich",
+        "cs": "V Bostonu byly Vánoce dokonce dvaadvacet let\nzakázané pod hrozbou pokuty pěti"
       }
     },
     {
@@ -1258,7 +1260,7 @@
       "kind": "speech",
       "text": {
         "sk": "šilingov.",
-        "cs": "Šilingy."
+        "cs": "šilinků."
       }
     },
     {
@@ -1266,8 +1268,8 @@
       "end": 573.26,
       "kind": "speech",
       "text": {
-        "sk": "Všetko sa však zmenilo začiatkom 19.",
-        "cs": "Ale začátkem 19. století se všechno změnilo."
+        "sk": "Všetko sa zmenilo až začiatkom devätnásteho",
+        "cs": "Všechno se změnilo až na začátku devatenáctého"
       }
     },
     {
@@ -1275,8 +1277,8 @@
       "end": 576.46,
       "kind": "speech",
       "text": {
-        "sk": "storočia, kedy sa sviatok začal vracať medzi ľudí.",
-        "cs": "století, kdy se svátek začal vracet mezi lidmi."
+        "sk": "storočia, keď sa sviatok začal vracať medzi ľudí.",
+        "cs": "století, kdy se svátek začal mezi lidi vracet."
       }
     },
     {
@@ -1284,8 +1286,8 @@
       "end": 582.22,
       "kind": "speech",
       "text": {
-        "sk": "Šlo obdobie plne nepokojov a tak prišiel nápad z\nVianoc spraviť sviatok pokoja.",
-        "cs": "Byla to doba nepokojů, a tak přišel nápad o\nVánoce, aby se stala prázdninou míru."
+        "sk": "Bolo to obdobie nepokojov a vznikla myšlienka\nurobiť z Vianoc sviatok pokoja.",
+        "cs": "Byla to doba nepokojů a vznikla myšlenka udělat z\nVánoc svátek klidu."
       }
     },
     {
@@ -1293,8 +1295,8 @@
       "end": 587.04,
       "kind": "speech",
       "text": {
-        "sk": "Washington Irving dokonca spravil knihu, ktorou sa\nľudia mali inšpirovať.",
-        "cs": "Washington Irving dokonce vytvořil knihu, kterou\nlidé měli inspirovat."
+        "sk": "Washington Irving dokonca napísal knihu, ktorou sa\nmali ľudia inšpirovať.",
+        "cs": "Washington Irving dokonce napsal knihu, kterou se\nlidé měli inspirovat."
       }
     },
     {
@@ -1302,8 +1304,8 @@
       "end": 592.43,
       "kind": "speech",
       "text": {
-        "sk": "Opisovala vraj stare dobre zvyky na anglickom\npánstve, akurát, že boli vymyslené.",
-        "cs": "Říká se, že popisovala staré dobré zvyky v\nanglickém panství, jenže byly vymyslené."
+        "sk": "Opisovala vraj staré dobré zvyky na anglickom\npanstve. Lenže boli vymyslené.",
+        "cs": "Popisovala prý staré dobré zvyky na anglickém\npanství. Jenže byly smyšlené."
       }
     },
     {
@@ -1311,8 +1313,8 @@
       "end": 596.06,
       "kind": "speech",
       "text": {
-        "sk": "Neexistuje jedna správna a pravdiva interpretácia\nVianoce.",
-        "cs": "Neexistuje jediný správný a pravdivý výklad\nVánoce."
+        "sk": "Neexistuje jediná správna a pravdivá interpretácia\nVianoc.",
+        "cs": "Neexistuje jediný správný a pravdivý výklad Vánoc."
       }
     },
     {
@@ -1320,8 +1322,8 @@
       "end": 602.28,
       "kind": "speech",
       "text": {
-        "sk": "Tento sviatok, snaž viac ako všetky ostatné, je\nmixom najrôznejších tradícií a",
-        "cs": "Tento svátek, snažte se víc než všechny ostatní,\nje směs různých tradic a"
+        "sk": "Tento sviatok je možno viac než ktorýkoľvek iný\nzmesou najrôznejších tradícií",
+        "cs": "Tento svátek je možná víc než kterýkoli jiný směsí\nnejrůznějších tradic"
       }
     },
     {
@@ -1329,8 +1331,8 @@
       "end": 606.8,
       "kind": "speech",
       "text": {
-        "sk": "konkrétne detály sa nelišia len od krajínku\nkrajine, ale dokonca od domu k domu.",
-        "cs": "konkrétní detaily se liší nejen od země k zemi,\nale dokonce i od domu k domu."
+        "sk": "a detaily sa menia nielen od krajiny ku krajine,\nale aj od domu k domu.",
+        "cs": "a detaily se mění nejen stát od státu, ale i dům od\ndomu."
       }
     },
     {
@@ -1338,8 +1340,8 @@
       "end": 612.7,
       "kind": "speech",
       "text": {
-        "sk": "Vianoce sú jedným z najglobalnejších sviatkov a\ntreba si uvedomiť, že neexistuje",
-        "cs": "Vánoce jsou jednou z největších svátků na světě a\nje třeba si uvědomit, že neexistuje."
+        "sk": "Vianoce patria k najglobálnejším sviatkom a treba\nsi uvedomiť, že neexistuje",
+        "cs": "Vánoce patří k nejrozšířenějším svátkům a je třeba\nsi uvědomit, že neexistuje"
       }
     },
     {
@@ -1347,8 +1349,8 @@
       "end": 615.88,
       "kind": "speech",
       "text": {
-        "sk": "kánon. Vianoce sa mene v čase aj v priestore.",
-        "cs": "Vánoce se mění v čase i v prostoru."
+        "sk": "jediný kánon. Vianoce sa menia v čase aj v\npriestore.",
+        "cs": "jediný kánon. Vánoce se mění v čase i v prostoru."
       }
     },
     {
@@ -1356,8 +1358,8 @@
       "end": 621.43,
       "kind": "speech",
       "text": {
-        "sk": "Vyberte si to, čo sa vám na Vianociach páči,\nnapríklad pohoda v rodinnom kruhu.",
-        "cs": "Vyberte si to, co se vám na Vánocích líbí,\nnapříklad pohodlí v rodinném kruhu."
+        "sk": "Vyberte si to, čo sa vám na Vianociach páči,\nnapríklad pohodu v rodinnom kruhu,",
+        "cs": "Vyberte si to, co se vám na Vánocích líbí, třeba\npohodu v rodinném kruhu,"
       }
     },
     {
@@ -1365,8 +1367,44 @@
       "end": 624.29,
       "kind": "speech",
       "text": {
-        "sk": "Na toho sa držte. Pekné sviatky.",
-        "cs": "Držte se toho."
+        "sk": "a toho sa držte. Pekné sviatky!",
+        "cs": "a toho se držte. Krásné svátky!"
+      }
+    },
+    {
+      "start": 624.4,
+      "end": 628.88,
+      "kind": "speech",
+      "text": {
+        "sk": "Vedátorské podcasty nájdete na iTunes, Spotify a\nApple Podcasts,",
+        "cs": "Vedátorské podcasty najdete na iTunes, Spotify a\nApple Podcasts,"
+      }
+    },
+    {
+      "start": 628.98,
+      "end": 633.98,
+      "kind": "speech",
+      "text": {
+        "sk": "na YouTube a čoskoro aj na Google Podcasts. Ďalšie\npríspevky",
+        "cs": "na YouTube a brzy také na Google Podcasts. Další\npříspěvky"
+      }
+    },
+    {
+      "start": 634.03,
+      "end": 636,
+      "kind": "speech",
+      "text": {
+        "sk": "Vedátora nájdete na našom webe,",
+        "cs": "Vedátora najdete na našem webu,"
+      }
+    },
+    {
+      "start": 637.4,
+      "end": 639.9,
+      "kind": "speech",
+      "text": {
+        "sk": "facebookovej stránke Vedátor a na Instagrame.",
+        "cs": "facebookové stránce Vedátor a na Instagramu."
       }
     }
   ]
