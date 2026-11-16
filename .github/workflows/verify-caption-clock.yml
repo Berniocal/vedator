@@ -38,9 +38,6 @@ jobs:
           JS
       - name: Install browser test dependencies
         run: npm install --prefix "$RUNNER_TEMP/caption-deps" --no-audit --no-fund puppeteer-core@25.12.0 @sparticuz/chromium@153.0.0
-      - name: Diagnose original timeline
-        if: github.ref == 'refs/heads/fix/captions-mp3-clock-20261116'
-        run: VEDATOR_CAPTION_DIAGNOSTIC=1 VEDATOR_CAPTION_AUDIO="$RUNNER_TEMP/caption-audio" VEDATOR_TEST_DEPS="$RUNNER_TEMP/caption-deps" node tools/test-caption-clock-browser.mjs
       - name: Build exact MP3 frame indexes
         run: |
           node --input-type=module <<'JS'
@@ -63,5 +60,4 @@ jobs:
             git push origin HEAD:fix/captions-mp3-clock-20261116
           fi
       - name: Verify actual MP3 captions, reader, video and wake lifecycle
-        if: github.ref == 'refs/heads/main'
         run: VEDATOR_CAPTION_AUDIO="$RUNNER_TEMP/caption-audio" VEDATOR_TEST_DEPS="$RUNNER_TEMP/caption-deps" node tools/test-caption-clock-browser.mjs

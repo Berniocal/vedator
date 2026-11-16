@@ -105,7 +105,18 @@ try{
     await page.waitForFunction(()=>window.__captionTest.clock().ready&&window.__captionTest.clock().time>10,{timeout:30000});
     const mse=await page.evaluate(()=>({clock:window.__captionTest.clock(),approximate:window.__captionTest.part()?.approximate,partStart:window.__captionTest.part()?.start}));
     check(!mse.approximate,'Captioned MP3 seeking must use exact frame positions',{n,target,mse});
-    results.push({n,times,target,mse});
+    // Verify running captions after a distant seek, a rate change and a pause.
+    await page.evaluate(()=>{document.getElementById('audio-v2').playbackRate=1.5});
+    await wait(1800);
+    const running=await page.evaluate(()=>{
+      const a=document.getElementById('audio-v2');a.pause();window.__captionTest.sync();
+      return {clock:window.__captionTest.clock().time,text:document.getElementById('player-caption-text-v2').textContent};
+    });
+    const expectedRunning=c.cues.find(q=>q.start<=running.clock&&running.clock<q.end)?.text.cs||'';
+    check(running.text===expectedRunning,'Running MSE captions follow media position at changed speed',{n,running,expectedRunning});
+    await wait(350);
+    check(Math.abs(await page.evaluate(()=>window.__captionTest.clock().time)-running.clock)<.08,'Paused caption clock must not drift',{n,running});
+    results.push({n,times,target,mse,running});
   }
   // Video timing remains the original cue timing.
   await page.evaluate(()=>window.__captionTest.open(1));await page.evaluate(()=>window.__captionTest.video());
@@ -127,6 +138,10 @@ try{
   await page.click('#player-speed-v2');await wait(150);
   check(await page.evaluate(()=>window.__wakeLocks.filter(x=>!x.released).length===1),'Gesture restores system-released screen lock');
   await page.evaluate(()=>document.getElementById('player-close-v2').click());await wait(100);
+  check(await page.evaluate(()=>!document.querySelector('.vedator-caption-wake-video')&&window.__wakeLocks.every(x=>x.released)),'Collapsing player releases keep-awake');
+  await page.click('#player-expand-v2');await wait(100);
+  check(await page.evaluate(()=>!!document.querySelector('.vedator-caption-wake-video')&&window.__wakeLocks.filter(x=>!x.released).length===1),'Expanding player restores keep-awake');
+  await page.evaluate(()=>document.getElementById('player-dismiss-v2').click());await wait(100);
   check(await page.evaluate(()=>!document.querySelector('.vedator-caption-wake-video')&&window.__wakeLocks.every(x=>x.released)),'Closing player releases keep-awake');
   check(errors.length===0,'No application exceptions',errors);
   console.log(JSON.stringify({ok:!failures.length,results,wake,advanced,failures,errors},null,2));
