@@ -62,5 +62,6 @@ jobs:
           git restore content-v2.json
           if ! git diff --cached --quiet; then
             git commit -m "Prepare episode 5 source transcript or acoustically aligned bilingual captions"
+            git pull --rebase origin captions/episode-5-precise-20261116
             git push origin HEAD:captions/episode-5-precise-20261116
           fi
