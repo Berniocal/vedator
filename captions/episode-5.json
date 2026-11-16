@@ -1,0 +1,2963 @@
+{
+  "version": 1,
+  "episode": 5,
+  "guid": "vedatorskypodcast.podbean.com/b3d9d560-aa7b-58f7-987b-dfbd08494ac1",
+  "youtubeId": "Q1yEKR4zR6o",
+  "languages": [
+    "cs",
+    "sk"
+  ],
+  "quality": "editorial-corrected-forced-aligned",
+  "source": {
+    "audio": "https://mcdn.podbean.com/mf/web/zzp3ai/podcast_ep5.mp3",
+    "audioSha256": "2008fcfd831b8663cdff193610a31cc240f68a98a7bcd666a9686d960dd14667",
+    "audioBytes": 37065020,
+    "model": "large-v3-turbo",
+    "duration": 1131.2326875,
+    "type": "original-MP3-ASR-and-CTC-forced-alignment",
+    "alignmentModel": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+    "transcriptFile": "captions/source/episode-5-draft.sk.json",
+    "alignmentFile": "captions/source/episode-5-alignment.json",
+    "review": "Complete Slovak editorial review and Czech translation; uncertain passages re-recognized with full large-v3; acoustic character alignment. Not a full independent human listening verification."
+  },
+  "cues": [
+    {
+      "start": 14.262,
+      "end": 19.138,
+      "kind": "speech",
+      "text": {
+        "sk": "Od stalaktitu cez stalagmit až po stalagnáty.\nVeda nás obklopuje na každom kroku.",
+        "cs": "Od stalaktitu přes stalagmit až po stalagnáty.\nVěda nás obklopuje na každém kroku."
+      },
+      "asrWordRange": [
+        0,
+        13
+      ]
+    },
+    {
+      "start": 19.382,
+      "end": 24.758,
+      "kind": "speech",
+      "text": {
+        "sk": "Vitajte pri Vedátorskom podcaste, v ktorom\nbudeme diskutovať o vede a prírode okolo",
+        "cs": "Vítejte u Vedátorského podcastu, ve kterém\nbudeme diskutovat o vědě a přírodě kolem"
+      },
+      "asrWordRange": [
+        13,
+        26
+      ]
+    },
+    {
+      "start": 24.802,
+      "end": 30.539,
+      "kind": "speech",
+      "text": {
+        "sk": "nás. Dnešnou témou je: Ako skúmame vesmír? Ja\nsom Jozef. A ja Samuel.",
+        "cs": "nás. Dnešním tématem je: Jak zkoumáme vesmír? Já\njsem Jozef. A já Samuel."
+      },
+      "asrWordRange": [
+        26,
+        39
+      ]
+    },
+    {
+      "start": 32.063,
+      "end": 35.275,
+      "kind": "speech",
+      "text": {
+        "sk": "Ahoj, Samuel. Povedz nám teda, ako skúmame ten\nvesmír? No…",
+        "cs": "Ahoj, Samueli. Pověz nám tedy, jak zkoumáme ten\nvesmír? No…"
+      },
+      "asrWordRange": [
+        39,
+        49
+      ]
+    },
+    {
+      "start": 36.842,
+      "end": 42.038,
+      "kind": "speech",
+      "text": {
+        "sk": "Máme v podstate na to tri také hlavné metódy.\nAlebo teda tri zdroje informácií, ktoré",
+        "cs": "Máme na to v podstatě tři hlavní metody. Nebo\ntedy tři zdroje informací, které"
+      },
+      "asrWordRange": [
+        49,
+        64
+      ]
+    },
+    {
+      "start": 42.038,
+      "end": 45.538,
+      "kind": "speech",
+      "text": {
+        "sk": "k nám prichádzajú z vesmíru. Tak čo by si tipol,\nže je taký prvý?",
+        "cs": "k nám přicházejí z vesmíru. Co bys tipoval, že\nje ten první?"
+      },
+      "asrWordRange": [
+        64,
+        78
+      ]
+    },
+    {
+      "start": 46.743,
+      "end": 51.859,
+      "kind": "speech",
+      "text": {
+        "sk": "Asi svetlo, by som povedal, že je prvé. Tak,\nčiže viditeľným svetlom",
+        "cs": "Řekl bych, že první je asi světlo. Takže ve\nviditelném světle"
+      },
+      "asrWordRange": [
+        78,
+        92
+      ]
+    },
+    {
+      "start": 51.859,
+      "end": 53.636,
+      "kind": "speech",
+      "text": {
+        "sk": "sa ľudia na oblohu pozerajú,",
+        "cs": "se lidé na oblohu dívají,"
+      },
+      "asrWordRange": [
+        92,
+        97
+      ]
+    },
+    {
+      "start": 54.862,
+      "end": 59.558,
+      "kind": "speech",
+      "text": {
+        "sk": "odkedy sú ľuďmi, pravdepodobne. Vždy ich to\nfascinovalo. Najstaršie archeologické",
+        "cs": "pravděpodobně od doby, kdy jsou lidmi. Vždy je\nto fascinovalo. Nejstarší archeologické"
+      },
+      "asrWordRange": [
+        97,
+        107
+      ]
+    },
+    {
+      "start": 59.602,
+      "end": 65.08,
+      "kind": "speech",
+      "text": {
+        "sk": "pamiatky väčšinou súvisia s hviezdami, so Slnkom\na podobne. Ale v",
+        "cs": "památky většinou souvisejí s hvězdami, se\nSluncem a podobně. Ale ve"
+      },
+      "asrWordRange": [
+        107,
+        118
+      ]
+    },
+    {
+      "start": 65.08,
+      "end": 70.038,
+      "kind": "speech",
+      "text": {
+        "sk": "skutočnosti je svetlo, ktoré vidíme okom, len\ntaký veľmi malý výsek celého",
+        "cs": "skutečnosti je světlo, které vidíme okem, jen\nvelmi malým výsekem celého"
+      },
+      "asrWordRange": [
+        118,
+        131
+      ]
+    },
+    {
+      "start": 70.038,
+      "end": 74.838,
+      "kind": "speech",
+      "text": {
+        "sk": "elektromagnetického spektra. Viditeľné svetlo,\nto sú vlnové dĺžky od",
+        "cs": "elektromagnetického spektra. Viditelné světlo má\nvlnové délky od"
+      },
+      "asrWordRange": [
+        131,
+        142
+      ]
+    },
+    {
+      "start": 75.564,
+      "end": 80.419,
+      "kind": "speech",
+      "text": {
+        "sk": "zhruba 380 nanometrov až po 740 nanometrov. Čiže\nje to taká",
+        "cs": "zhruba 380 nanometrů až po 740 nanometrů. Je to\ntedy taková"
+      },
+      "asrWordRange": [
+        142,
+        152
+      ]
+    },
+    {
+      "start": 80.419,
+      "end": 85.478,
+      "kind": "speech",
+      "text": {
+        "sk": "malá štrbinka, čo sú 300 nanometrov. Ale v\nprincípe vlnové dĺžky sú",
+        "cs": "malá štěrbinka, nějakých 300 nanometrů. Ale v\nprincipu jsou vlnové délky"
+      },
+      "asrWordRange": [
+        152,
+        164
+      ]
+    },
+    {
+      "start": 85.478,
+      "end": 90.918,
+      "kind": "speech",
+      "text": {
+        "sk": "od takmer nuly, také pikometre, až",
+        "cs": "od téměř nuly, nějaké pikometry, až"
+      },
+      "asrWordRange": [
+        164,
+        170
+      ]
+    },
+    {
+      "start": 91.102,
+      "end": 96.499,
+      "kind": "speech",
+      "text": {
+        "sk": "po kilometre alebo dokonca tisíce kilometrov.\nČiže toto všetko",
+        "cs": "po kilometry, nebo dokonce tisíce kilometrů. To\nvšechno"
+      },
+      "asrWordRange": [
+        170,
+        180
+      ]
+    },
+    {
+      "start": 96.499,
+      "end": 101.178,
+      "kind": "speech",
+      "text": {
+        "sk": "dokážeme zachytiť pomocou zariadení a vo veľkom\nnám to rozširuje obzory oproti",
+        "cs": "dokážeme zachytit pomocí přístrojů a značně nám\nto rozšiřuje obzory oproti"
+      },
+      "asrWordRange": [
+        180,
+        193
+      ]
+    },
+    {
+      "start": 101.178,
+      "end": 106.418,
+      "kind": "speech",
+      "text": {
+        "sk": "tomu, čo vidíme len pomocou bežných teleskopov a\nďalekohľadov.",
+        "cs": "tomu, co vidíme jen pomocí běžných teleskopů a\ndalekohledů."
+      },
+      "asrWordRange": [
+        193,
+        202
+      ]
+    },
+    {
+      "start": 108.694,
+      "end": 113.408,
+      "kind": "speech",
+      "text": {
+        "sk": "Vlastne to spektrum, ktoré my vnímame okom, je\ntaké úzke a",
+        "cs": "Spektrum, které vnímáme okem, je vlastně tak\núzké a"
+      },
+      "asrWordRange": [
+        202,
+        214
+      ]
+    },
+    {
+      "start": 113.408,
+      "end": 119.589,
+      "kind": "speech",
+      "text": {
+        "sk": "my si ho zlepšujeme cez rôzne technické\nprostriedky, ktorými sú napríklad\nrádioteleskopy.",
+        "cs": "my si ho rozšiřujeme různými technickými\nprostředky, například radioteleskopy."
+      },
+      "asrWordRange": [
+        214,
+        228
+      ]
+    },
+    {
+      "start": 120.803,
+      "end": 126.04,
+      "kind": "speech",
+      "text": {
+        "sk": "V podstate existujú dva zaujímavé smery. Jeden\nje taký, že skúma to",
+        "cs": "V podstatě existují dva zajímavé směry. Jeden\nzkoumá"
+      },
+      "asrWordRange": [
+        228,
+        240
+      ]
+    },
+    {
+      "start": 126.04,
+      "end": 127.256,
+      "kind": "speech",
+      "text": {
+        "sk": "infračervené žiarenie, čiže",
+        "cs": "infračervené záření, tedy"
+      },
+      "asrWordRange": [
+        240,
+        243
+      ]
+    },
+    {
+      "start": 129.105,
+      "end": 133.018,
+      "kind": "speech",
+      "text": {
+        "sk": "svetlo s väčšími vlnovými dĺžkami, ako má\nviditeľné svetlo, ale nie až tak veľmi.",
+        "cs": "světlo s většími vlnovými délkami, než má\nviditelné světlo, ale ne o tolik."
+      },
+      "asrWordRange": [
+        243,
+        256
+      ]
+    },
+    {
+      "start": 133.018,
+      "end": 139.259,
+      "kind": "speech",
+      "text": {
+        "sk": "V podstate to zodpovedá vlnovým dĺžkam veľmi\nteplých objektov. Že…",
+        "cs": "V podstatě to odpovídá vlnovým délkám velmi\nteplých objektů. Tedy…"
+      },
+      "asrWordRange": [
+        256,
+        266
+      ]
+    },
+    {
+      "start": 140.865,
+      "end": 144.115,
+      "kind": "speech",
+      "text": {
+        "sk": "keď sú infračervené kamery, tak dokážu vidieť\nľudí, takže zhruba… Nie",
+        "cs": "infračervené kamery dokážou vidět lidi, takže\nzhruba… Není"
+      },
+      "asrWordRange": [
+        266,
+        277
+      ]
+    },
+    {
+      "start": 145.841,
+      "end": 151.899,
+      "kind": "speech",
+      "text": {
+        "sk": "je to šialene ďaleko od viditeľného svetla.\nKomáre to vidia tiež a pomocou strojov to\ndokážeme aj my.",
+        "cs": "to šíleně daleko od viditelného světla. Komáři\nto vidí také a pomocí přístrojů to dokážeme i\nmy."
+      },
+      "asrWordRange": [
+        277,
+        296
+      ]
+    },
+    {
+      "start": 153.502,
+      "end": 158.418,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže jeden veľký smer výskumu je infračervená\nčasť spektra,",
+        "cs": "Jedním velkým směrem výzkumu je tedy\ninfračervená část spektra,"
+      },
+      "asrWordRange": [
+        296,
+        306
+      ]
+    },
+    {
+      "start": 159.142,
+      "end": 164.34,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorá nám napríklad odhaľuje štruktúru rôznych\nhmlovín a podobne. A potom je taký…",
+        "cs": "která nám například odhaluje strukturu různých\nmlhovin a podobně. A potom je takový…"
+      },
+      "asrWordRange": [
+        306,
+        319
+      ]
+    },
+    {
+      "start": 164.34,
+      "end": 168.018,
+      "kind": "speech",
+      "text": {
+        "sk": "opačný smer. Infračervené svetlo má nižšiu\nenergiu ako viditeľné svetlo.",
+        "cs": "opačný směr. Infračervené světlo má nižší\nenergii než viditelné světlo."
+      },
+      "asrWordRange": [
+        319,
+        330
+      ]
+    },
+    {
+      "start": 169.143,
+      "end": 174.3,
+      "kind": "speech",
+      "text": {
+        "sk": "A potom je taký opačný smer: vysokoenergetické\nžiarenie, napríklad gama záblesky a",
+        "cs": "A pak je tu opačný směr: vysokoenergetické\nzáření, například gama záblesky a"
+      },
+      "asrWordRange": [
+        330,
+        343
+      ]
+    },
+    {
+      "start": 174.3,
+      "end": 178.918,
+      "kind": "speech",
+      "text": {
+        "sk": "podobne, ktoré zase nesú informáciu o takých\nveľmi drastických udalostiach. Alebo k",
+        "cs": "podobně, které zase nesou informace o velmi\ndrastických událostech. Nebo k"
+      },
+      "asrWordRange": [
+        343,
+        355
+      ]
+    },
+    {
+      "start": 178.922,
+      "end": 183.579,
+      "kind": "speech",
+      "text": {
+        "sk": "nám prichádzajú z rôznych čiernych dier, ktoré\nchrúmu hmotu, ktorá do nich spadá, a",
+        "cs": "nám přicházejí z různých černých děr, které\nchroupají hmotu, jež do nich padá, a"
+      },
+      "asrWordRange": [
+        355,
+        369
+      ]
+    },
+    {
+      "start": 183.579,
+      "end": 186.918,
+      "kind": "speech",
+      "text": {
+        "sk": "vyžarujú obrovskú energiu. Tá prichádza práve vo\nforme",
+        "cs": "vyzařují obrovskou energii. Ta přichází právě v\npodobě"
+      },
+      "asrWordRange": [
+        369,
+        378
+      ]
+    },
+    {
+      "start": 188.928,
+      "end": 191.118,
+      "kind": "speech",
+      "text": {
+        "sk": "týchto röntgenových alebo gama zábleskov.",
+        "cs": "těchto rentgenových nebo gama záblesků."
+      },
+      "asrWordRange": [
+        378,
+        383
+      ]
+    },
+    {
+      "start": 192.402,
+      "end": 196.399,
+      "kind": "speech",
+      "text": {
+        "sk": "No a teda, povedal som dve, ale v skutočnosti sú\ntri. A potom ešte rádiová",
+        "cs": "Řekl jsem tedy dva, ale ve skutečnosti jsou tři.\nA potom je ještě radiová"
+      },
+      "asrWordRange": [
+        383,
+        399
+      ]
+    },
+    {
+      "start": 196.399,
+      "end": 201.638,
+      "kind": "speech",
+      "text": {
+        "sk": "fyzika. To sú veľmi dlhé vlnové dĺžky, ktoré\nmajú pokojne aj vlnovú dĺžku",
+        "cs": "fyzika. To jsou velmi dlouhé vlnové délky, které\nmohou mít klidně i vlnovou délku"
+      },
+      "asrWordRange": [
+        399,
+        412
+      ]
+    },
+    {
+      "start": 201.742,
+      "end": 207.219,
+      "kind": "speech",
+      "text": {
+        "sk": "kilometrovú. Ich zdrojom sú objekty, ktoré\nnejako pulzujú, napríklad pulzary. Oni",
+        "cs": "kilometrovou. Jejich zdrojem jsou objekty, které\nnějak pulzují, například pulzary. Ty"
+      },
+      "asrWordRange": [
+        412,
+        423
+      ]
+    },
+    {
+      "start": 207.219,
+      "end": 212.578,
+      "kind": "speech",
+      "text": {
+        "sk": "rotujú a popritom vyžarujú na bežné podmienky\nrelatívne pomaly to svetlo,",
+        "cs": "rotují a přitom na běžné poměry vyzařují světlo\nrelativně pomalu,"
+      },
+      "asrWordRange": [
+        423,
+        434
+      ]
+    },
+    {
+      "start": 212.578,
+      "end": 217.238,
+      "kind": "speech",
+      "text": {
+        "sk": "takže blikajú veľmi pomaly a také slabúčké\nsvetlo vlastne kvôli tomu z nich vychádza.",
+        "cs": "takže blikají velmi pomalu a kvůli tomu z nich\nvlastně takové slaboučké světlo vychází."
+      },
+      "asrWordRange": [
+        434,
+        449
+      ]
+    },
+    {
+      "start": 222.102,
+      "end": 227.539,
+      "kind": "speech",
+      "text": {
+        "sk": "A čo sú teda tie ďalšie spôsoby, ktorými môžeme\npozorovať vesmír?",
+        "cs": "A jaké jsou tedy ty další způsoby, kterými\nmůžeme pozorovat vesmír?"
+      },
+      "asrWordRange": [
+        449,
+        460
+      ]
+    },
+    {
+      "start": 229.591,
+      "end": 232.359,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak tie ďalšie spôsoby sú dva.",
+        "cs": "Ty další způsoby jsou dva."
+      },
+      "asrWordRange": [
+        460,
+        466
+      ]
+    },
+    {
+      "start": 234.012,
+      "end": 239.188,
+      "kind": "speech",
+      "text": {
+        "sk": "Prvý taký veľmi zaujímavý sú neutrína. A\nneutrína si cestu do fyziky",
+        "cs": "První velmi zajímavý způsob jsou neutrina. Ta si\ncestu do fyziky"
+      },
+      "asrWordRange": [
+        466,
+        479
+      ]
+    },
+    {
+      "start": 239.214,
+      "end": 240.786,
+      "kind": "speech",
+      "text": {
+        "sk": "našli takým zaujímavým spôsobom, že",
+        "cs": "našla takovým zajímavým způsobem, že"
+      },
+      "asrWordRange": [
+        479,
+        484
+      ]
+    },
+    {
+      "start": 242.615,
+      "end": 247.23,
+      "kind": "speech",
+      "text": {
+        "sk": "zhruba pred 100 rokmi ľudia",
+        "cs": "zhruba před 100 lety lidé"
+      },
+      "asrWordRange": [
+        484,
+        489
+      ]
+    },
+    {
+      "start": 247.23,
+      "end": 251.288,
+      "kind": "speech",
+      "text": {
+        "sk": "skúmali rôzne jadrové reakcie a všimli si, že",
+        "cs": "zkoumali různé jaderné reakce a všimli si, že"
+      },
+      "asrWordRange": [
+        489,
+        497
+      ]
+    },
+    {
+      "start": 253.307,
+      "end": 257.059,
+      "kind": "speech",
+      "text": {
+        "sk": "sem-tam im chýba časť energie. Namerali, aká\nenergia ide do",
+        "cs": "jim občas chybí část energie. Naměřili, jaká\nenergie vstupuje do"
+      },
+      "asrWordRange": [
+        497,
+        509
+      ]
+    },
+    {
+      "start": 257.082,
+      "end": 261.478,
+      "kind": "speech",
+      "text": {
+        "sk": "zrážky, namerali, aká energia vychádza zo\nzrážky, a niečo tam chýbalo.",
+        "cs": "srážky, naměřili, jaká energie ze srážky\nvychází, a něco tam chybělo."
+      },
+      "asrWordRange": [
+        509,
+        520
+      ]
+    },
+    {
+      "start": 262.643,
+      "end": 267.218,
+      "kind": "speech",
+      "text": {
+        "sk": "A teraz zákon zachovania energie je pre fyzikov\ntaká posvätná krava,",
+        "cs": "Zákon zachování energie je pro fyziky taková\nposvátná kráva,"
+      },
+      "asrWordRange": [
+        520,
+        531
+      ]
+    },
+    {
+      "start": 267.24,
+      "end": 273.36,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorú nechcú zarezať za žiadnych podmienok, tak\nhľadajú iné vysvetlenia. A Wolfgang",
+        "cs": "kterou nechtějí za žádných okolností zaříznout,\na tak hledají jiná vysvětlení. Wolfgang"
+      },
+      "asrWordRange": [
+        531,
+        543
+      ]
+    },
+    {
+      "start": 273.36,
+      "end": 278.579,
+      "kind": "speech",
+      "text": {
+        "sk": "Pauli povedal: Nie je to vlastne tak, že je tam\nčastica, ktorá odnáša časť energie,",
+        "cs": "Pauli řekl: Není to vlastně tak, že je tam\nčástice, která odnáší část energie,"
+      },
+      "asrWordRange": [
+        543,
+        559
+      ]
+    },
+    {
+      "start": 278.579,
+      "end": 280.336,
+      "kind": "speech",
+      "text": {
+        "sk": "ale je prakticky nepozorovateľná?",
+        "cs": "ale je prakticky nepozorovatelná?"
+      },
+      "asrWordRange": [
+        559,
+        563
+      ]
+    },
+    {
+      "start": 281.573,
+      "end": 286.209,
+      "kind": "speech",
+      "text": {
+        "sk": "Čo vyzerá ako taká výhovorka. A trafil klinec po\nhlavičke, lebo tú časticu sa neskôr",
+        "cs": "To vypadá jako výmluva. Ale trefil hřebíček na\nhlavičku, protože tu částici se později"
+      },
+      "asrWordRange": [
+        563,
+        578
+      ]
+    },
+    {
+      "start": 286.209,
+      "end": 288.227,
+      "kind": "speech",
+      "text": {
+        "sk": "naozaj podarilo nájsť a dostala meno neutríno.",
+        "cs": "opravdu podařilo najít a dostala jméno neutrino."
+      },
+      "asrWordRange": [
+        578,
+        585
+      ]
+    },
+    {
+      "start": 289.202,
+      "end": 295.219,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže úlohou neutrína je brať energiu fyzikom,\naby potom mohli ho nájsť.",
+        "cs": "Takže úkolem neutrina je brát fyzikům energii,\naby ho pak mohli najít."
+      },
+      "asrWordRange": [
+        585,
+        597
+      ]
+    },
+    {
+      "start": 296.531,
+      "end": 302.159,
+      "kind": "speech",
+      "text": {
+        "sk": "Ono subjektívne nemá žiadnu úlohu, ale je to\ntaká ľahká častica,",
+        "cs": "Ono subjektivně žádný úkol nemá, ale je to tak\nlehká částice,"
+      },
+      "asrWordRange": [
+        597,
+        608
+      ]
+    },
+    {
+      "start": 302.282,
+      "end": 307.378,
+      "kind": "speech",
+      "text": {
+        "sk": "že nedokážeme zmerať, koľko váži. Ale vieme, že\nmusí mať nenulovú hmotnosť",
+        "cs": "že nedokážeme změřit, kolik váží. Víme ale, že\nmusí mít nenulovou hmotnost"
+      },
+      "asrWordRange": [
+        608,
+        620
+      ]
+    },
+    {
+      "start": 307.378,
+      "end": 312.459,
+      "kind": "speech",
+      "text": {
+        "sk": "z istého dôvodu. Vieme, že existujú tri a majú\nrôznu hmotnosť, takže maximálne",
+        "cs": "z jistého důvodu. Víme, že existují tři a mají\nrůznou hmotnost, takže nejvýše"
+      },
+      "asrWordRange": [
+        620,
+        634
+      ]
+    },
+    {
+      "start": 312.459,
+      "end": 317.56,
+      "kind": "speech",
+      "text": {
+        "sk": "jedno z nich je nehmotné. Pravdepodobne všetky\ntri majú takmer zanedbateľnú",
+        "cs": "jedno z nich je nehmotné. Pravděpodobně všechna\ntři mají téměř zanedbatelnou"
+      },
+      "asrWordRange": [
+        634,
+        645
+      ]
+    },
+    {
+      "start": 317.56,
+      "end": 319.116,
+      "kind": "speech",
+      "text": {
+        "sk": "hmotnosť, ale nenulovú.",
+        "cs": "hmotnost, ale nenulovou."
+      },
+      "asrWordRange": [
+        645,
+        648
+      ]
+    },
+    {
+      "start": 320.182,
+      "end": 325.458,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže prakticky nehmotné. Tým pádom sa vždy hýbu\nprakticky rýchlosťou",
+        "cs": "Jsou tedy prakticky nehmotná. Proto se vždy\npohybují téměř rychlostí"
+      },
+      "asrWordRange": [
+        648,
+        658
+      ]
+    },
+    {
+      "start": 325.484,
+      "end": 327.056,
+      "kind": "speech",
+      "text": {
+        "sk": "svetla, ale nie úplne.",
+        "cs": "světla, ale ne úplně."
+      },
+      "asrWordRange": [
+        658,
+        661
+      ]
+    },
+    {
+      "start": 328.121,
+      "end": 333.838,
+      "kind": "speech",
+      "text": {
+        "sk": "Reagujú s hmotou len pomocou slabej jadrovej\nsily. A ako názov napovedá, ona je veľmi slabá.",
+        "cs": "S hmotou reagují jen pomocí slabé jaderné síly.\nA jak název napovídá, ta je velmi slabá."
+      },
+      "asrWordRange": [
+        661,
+        678
+      ]
+    },
+    {
+      "start": 335.022,
+      "end": 338.898,
+      "kind": "speech",
+      "text": {
+        "sk": "Tých neutrín je všade okolo strašne veľa. Kým\ndopoviem túto vetu, tak ich cezo mňa",
+        "cs": "Těch neutrin je všude kolem strašně moc. Než\ndořeknu tuhle větu, proletí jich skrze mě"
+      },
+      "asrWordRange": [
+        678,
+        695
+      ]
+    },
+    {
+      "start": 338.962,
+      "end": 345.339,
+      "kind": "speech",
+      "text": {
+        "sk": "preletí biliarda. A do konca života sa v\npriemere zachytí jedno. To bola biliarda s b,\nnie s m.",
+        "cs": "biliarda. A do konce života se v průměru zachytí\njedno. To byla biliarda s b, ne s m."
+      },
+      "asrWordRange": [
+        695,
+        712
+      ]
+    },
+    {
+      "start": 346.652,
+      "end": 352.069,
+      "kind": "speech",
+      "text": {
+        "sk": "Aby diváci dobre pochopili, ako veľa tých\nneutrín je okolo nás.",
+        "cs": "Aby diváci dobře pochopili, kolik těch neutrin\nje kolem nás."
+      },
+      "asrWordRange": [
+        712,
+        724
+      ]
+    },
+    {
+      "start": 352.452,
+      "end": 358.35,
+      "kind": "speech",
+      "text": {
+        "sk": "A teda, ako ich vedci pozorovali? Alebo ako sa",
+        "cs": "A jak je tedy vědci pozorovali? Nebo jak se"
+      },
+      "asrWordRange": [
+        724,
+        733
+      ]
+    },
+    {
+      "start": 358.35,
+      "end": 363.629,
+      "kind": "speech",
+      "text": {
+        "sk": "k tomu dostalo? Lebo to, čo hovoríš, znie, akoby\nbol obrovský problém len ich zachytiť alebo\npozorovať.",
+        "cs": "k tomu došlo? To, co říkáš, totiž zní, jako by\nbyl obrovský problém je vůbec zachytit nebo\npozorovat."
+      },
+      "asrWordRange": [
+        733,
+        752
+      ]
+    },
+    {
+      "start": 365.726,
+      "end": 366.916,
+      "kind": "speech",
+      "text": {
+        "sk": "Je to obrovský problém.",
+        "cs": "Je to obrovský problém."
+      },
+      "asrWordRange": [
+        752,
+        757
+      ]
+    },
+    {
+      "start": 367.663,
+      "end": 370.337,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiastočne ho kompenzuje to, že ich je tu tak\nstrašne veľa.",
+        "cs": "Částečně ho kompenzuje to, že jich je tu tak\nstrašně moc."
+      },
+      "asrWordRange": [
+        757,
+        768
+      ]
+    },
+    {
+      "start": 371.333,
+      "end": 374.989,
+      "kind": "speech",
+      "text": {
+        "sk": "Veľa ich je kvôli tomu, že vznikajú pri\njadrových reakciách, ktoré okrem iného aj",
+        "cs": "Je jich hodně proto, že vznikají při jaderných\nreakcích, které mimo jiné také"
+      },
+      "asrWordRange": [
+        768,
+        782
+      ]
+    },
+    {
+      "start": 374.989,
+      "end": 380.13,
+      "kind": "speech",
+      "text": {
+        "sk": "poháňajú Slnko. Slnko je jedným z najlepších\nzdrojov neutrín. Okrem toho sú to",
+        "cs": "pohánějí Slunce. Slunce je jedním z nejlepších\nzdrojů neutrin. Kromě toho jsou to"
+      },
+      "asrWordRange": [
+        782,
+        796
+      ]
+    },
+    {
+      "start": 380.13,
+      "end": 382.127,
+      "kind": "speech",
+      "text": {
+        "sk": "ale aj také procesy v atmosfére alebo v zemskom\njadre.",
+        "cs": "i procesy v atmosféře nebo v zemském jádře."
+      },
+      "asrWordRange": [
+        796,
+        806
+      ]
+    },
+    {
+      "start": 382.952,
+      "end": 386.028,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale teda Slnko a iné hviezdy sú výrazným zdrojom\nneutrín.",
+        "cs": "Slunce a jiné hvězdy jsou tedy významným zdrojem\nneutrin."
+      },
+      "asrWordRange": [
+        806,
+        816
+      ]
+    },
+    {
+      "start": 386.934,
+      "end": 388.867,
+      "kind": "speech",
+      "text": {
+        "sk": "A teraz dobrá otázka: Ako sa zachytávajú?",
+        "cs": "A teď dobrá otázka: Jak se zachycují?"
+      },
+      "asrWordRange": [
+        816,
+        824
+      ]
+    },
+    {
+      "start": 391.53,
+      "end": 397.729,
+      "kind": "speech",
+      "text": {
+        "sk": "Najčastejším spôsobom je, že im dáme do cesty\nveľa materiálu, aby bola čo najväčšia šanca, že\nich zachytíme.",
+        "cs": "Nejčastěji jim dáme do cesty hodně materiálu,\naby byla co největší šance, že je zachytíme."
+      },
+      "asrWordRange": [
+        824,
+        842
+      ]
+    },
+    {
+      "start": 398.952,
+      "end": 402.548,
+      "kind": "speech",
+      "text": {
+        "sk": "To, čo urobia, je, že tam spôsobia premenu medzi\nprotónom a neutrínom.",
+        "cs": "Způsobí tam přeměnu mezi protonem a neutrinem."
+      },
+      "asrWordRange": [
+        842,
+        856
+      ]
+    },
+    {
+      "start": 405.302,
+      "end": 410.899,
+      "kind": "speech",
+      "text": {
+        "sk": "Vznikne tam taká nabitá častica, ktorá vytvorí\nkrátky záblesk svetla. Čiže",
+        "cs": "Vznikne tam nabitá částice, která vytvoří krátký\nzáblesk světla. Takže"
+      },
+      "asrWordRange": [
+        856,
+        867
+      ]
+    },
+    {
+      "start": 410.899,
+      "end": 415.82,
+      "kind": "speech",
+      "text": {
+        "sk": "nápad je taký: Dať čo najviac materiálu, ktorý\nje ale zároveň priesvitný alebo",
+        "cs": "nápad je takový: Dát tam co nejvíce materiálu,\nkterý je ale zároveň průsvitný, nebo"
+      },
+      "asrWordRange": [
+        867,
+        881
+      ]
+    },
+    {
+      "start": 415.82,
+      "end": 416.535,
+      "kind": "speech",
+      "text": {
+        "sk": "teda presnejšie priehľadný,",
+        "cs": "tedy přesněji průhledný,"
+      },
+      "asrWordRange": [
+        881,
+        884
+      ]
+    },
+    {
+      "start": 417.854,
+      "end": 419.286,
+      "kind": "speech",
+      "text": {
+        "sk": "aby sme videli ten záblesk v ňom.",
+        "cs": "abychom v něm viděli ten záblesk."
+      },
+      "asrWordRange": [
+        884,
+        891
+      ]
+    },
+    {
+      "start": 420.212,
+      "end": 424.668,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže sú dve možnosti, ako to urobiť. Jedna je,\nže sa zoberie stará baňa, aby to",
+        "cs": "Jsou dvě možnosti, jak to udělat. Jednou je vzít\nstarý důl, aby"
+      },
+      "asrWordRange": [
+        891,
+        908
+      ]
+    },
+    {
+      "start": 424.668,
+      "end": 426.467,
+      "kind": "speech",
+      "text": {
+        "sk": "odtienilo všetko ostatné okrem neutrín.",
+        "cs": "odstínil všechno ostatní kromě neutrin."
+      },
+      "asrWordRange": [
+        908,
+        913
+      ]
+    },
+    {
+      "start": 427.512,
+      "end": 432.788,
+      "kind": "speech",
+      "text": {
+        "sk": "Naplní sa obrovským množstvom dokonale čistej\nvody a steny sa obstavajú",
+        "cs": "Naplní se obrovským množstvím dokonale čisté\nvody a stěny se osadí"
+      },
+      "asrWordRange": [
+        913,
+        926
+      ]
+    },
+    {
+      "start": 433.76,
+      "end": 434.546,
+      "kind": "speech",
+      "text": {
+        "sk": "fotodetektormi.",
+        "cs": "fotodetektory."
+      },
+      "asrWordRange": [
+        926,
+        927
+      ]
+    },
+    {
+      "start": 435.663,
+      "end": 440.338,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže dlho, dlho neletí… Teda letí veľa vecí, ale\nnič sa nezachytí. A keď sa zachytí neutríno,",
+        "cs": "Dlouho tedy nic neletí… Tedy létá tam spousta\nvěcí, ale nic se nezachytí. A když se zachytí\nneutrino,"
+      },
+      "asrWordRange": [
+        927,
+        944
+      ]
+    },
+    {
+      "start": 441.432,
+      "end": 446.028,
+      "kind": "speech",
+      "text": {
+        "sk": "vyvolá takú reakciu, ktorá spôsobí záblesk, a\nten záblesk potom vidíme. Aha, takže len",
+        "cs": "vyvolá reakci, která způsobí záblesk, a ten pak\nvidíme. Aha, takže jen"
+      },
+      "asrWordRange": [
+        944,
+        958
+      ]
+    },
+    {
+      "start": 446.314,
+      "end": 448.807,
+      "kind": "speech",
+      "text": {
+        "sk": "pozorujeme ten záblesk, nie samotné neutríno.",
+        "cs": "pozorujeme ten záblesk, ne samotné neutrino."
+      },
+      "asrWordRange": [
+        958,
+        965
+      ]
+    },
+    {
+      "start": 450.012,
+      "end": 454.028,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak presnejšie, bežne to býva Čerenkovovo\nžiarenie, ale to je teraz jedno.",
+        "cs": "Přesněji, běžně to bývá Čerenkovovo záření, ale\nto je teď jedno."
+      },
+      "asrWordRange": [
+        965,
+        980
+      ]
+    },
+    {
+      "start": 454.271,
+      "end": 460.5,
+      "kind": "speech",
+      "text": {
+        "sk": "Nesie to aj takú informáciu o smere, odkiaľ to\npriletelo. Druhá možnosť je,",
+        "cs": "Nese to i informaci o směru, odkud to přiletělo.\nDruhou možností je,"
+      },
+      "asrWordRange": [
+        980,
+        994
+      ]
+    },
+    {
+      "start": 461.784,
+      "end": 465.558,
+      "kind": "speech",
+      "text": {
+        "sk": "že nejdeme kopať baňu alebo využívať starú baňu,\nale zoberieme",
+        "cs": "že nebudeme kopat důl ani využívat starý důl,\nale vezmeme"
+      },
+      "asrWordRange": [
+        994,
+        1009
+      ]
+    },
+    {
+      "start": 465.558,
+      "end": 467.156,
+      "kind": "speech",
+      "text": {
+        "sk": "kopu ľadu, ktorý sa nachádza na",
+        "cs": "hromadu ledu, který se nachází v"
+      },
+      "asrWordRange": [
+        1009,
+        1015
+      ]
+    },
+    {
+      "start": 468.48,
+      "end": 472.5,
+      "kind": "speech",
+      "text": {
+        "sk": "Arktíde alebo Antarktíde. Teraz si nie som istý,\nmyslím si, že v Antarktíde. Teraz…",
+        "cs": "Arktidě, nebo Antarktidě. Teď si nejsem jistý,\nmyslím, že v Antarktidě. Teď…"
+      },
+      "asrWordRange": [
+        1015,
+        1028
+      ]
+    },
+    {
+      "start": 472.5,
+      "end": 475.918,
+      "kind": "speech",
+      "text": {
+        "sk": "Ktoré chceš? Lebo jedno je zamrznutý oceán. Tak\nto je Antarktída.",
+        "cs": "Kterou chceš? Jedno je totiž zamrzlý oceán. Tak\nto je Antarktida."
+      },
+      "asrWordRange": [
+        1028,
+        1039
+      ]
+    },
+    {
+      "start": 477.576,
+      "end": 478.827,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže anti, dobre.",
+        "cs": "Takže anti, dobře."
+      },
+      "asrWordRange": [
+        1039,
+        1042
+      ]
+    },
+    {
+      "start": 480.283,
+      "end": 484.999,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže vykopú sa, navŕtajú sa diery do ľadu a\nfotodetektory sa spustia doňho. Vlastne",
+        "cs": "Vykopou se, vyvrtají se díry do ledu a\nfotodetektory se spustí dovnitř. Vlastně"
+      },
+      "asrWordRange": [
+        1042,
+        1057
+      ]
+    },
+    {
+      "start": 484.999,
+      "end": 489.239,
+      "kind": "speech",
+      "text": {
+        "sk": "ten ľad slúži na to, že zachytí časť neutrín a\nvyvolá tie záblesky a potom to tie",
+        "cs": "led slouží k tomu, že zachytí část neutrin a\nvyvolá ty záblesky. A pak to ty"
+      },
+      "asrWordRange": [
+        1057,
+        1074
+      ]
+    },
+    {
+      "start": 489.239,
+      "end": 494.078,
+      "kind": "speech",
+      "text": {
+        "sk": "detektory… Funguje to vlastne rovnako ako tá\nbaňa na odfiltrovanie tých ostatných",
+        "cs": "detektory… Funguje to vlastně stejně jako ten\ndůl k odfiltrování ostatních"
+      },
+      "asrWordRange": [
+        1074,
+        1086
+      ]
+    },
+    {
+      "start": 494.078,
+      "end": 496.337,
+      "kind": "speech",
+      "text": {
+        "sk": "častíc. Obe majú svoje pre a proti.",
+        "cs": "částic. Obojí má svá pro a proti."
+      },
+      "asrWordRange": [
+        1086,
+        1093
+      ]
+    },
+    {
+      "start": 497.102,
+      "end": 500.518,
+      "kind": "speech",
+      "text": {
+        "sk": "Napríklad treba extrémne čistú vodu do tých\nnádrží.",
+        "cs": "Například je do těch nádrží potřeba extrémně\nčistá voda."
+      },
+      "asrWordRange": [
+        1093,
+        1102
+      ]
+    },
+    {
+      "start": 501.241,
+      "end": 506.579,
+      "kind": "speech",
+      "text": {
+        "sk": "A ten ľadový experiment má ešte také veľmi pekné\nmeno. Volá sa Ľadová kocka. IceCube.",
+        "cs": "A ten ledový experiment má navíc moc pěkné\njméno. Jmenuje se Ledová kostka. IceCube."
+      },
+      "asrWordRange": [
+        1102,
+        1119
+      ]
+    },
+    {
+      "start": 508.762,
+      "end": 514.339,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak a teda… Ešte k tejto téme? Alebo povieš nám",
+        "cs": "Tak tedy… Ještě něco k tomuto tématu? Nebo nám\nřekneš"
+      },
+      "asrWordRange": [
+        1119,
+        1130
+      ]
+    },
+    {
+      "start": 514.339,
+      "end": 519.498,
+      "kind": "speech",
+      "text": {
+        "sk": "o tej tretej? V podstate ešte k tejto téme, že\nza bežných podmienok tie hviezdy",
+        "cs": "o té třetí metodě? Vlastně ještě k tomuto\ntématu: Za běžných podmínek hvězdy"
+      },
+      "asrWordRange": [
+        1130,
+        1146
+      ]
+    },
+    {
+      "start": 520.821,
+      "end": 525.658,
+      "kind": "speech",
+      "text": {
+        "sk": "vypúšťajú síce veľa neutrín, ale tým, že ich\nvieme tak málo zachytiť, je to",
+        "cs": "sice vypouštějí hodně neutrin, ale protože jich\ndokážeme zachytit tak málo, je to"
+      },
+      "asrWordRange": [
+        1146,
+        1161
+      ]
+    },
+    {
+      "start": 525.682,
+      "end": 530.819,
+      "kind": "speech",
+      "text": {
+        "sk": "zanedbateľné. Ale sem-tam sa stane, že hviezda\nvybuchne ako supernova a vtedy vyžiari",
+        "cs": "zanedbatelné. Občas se ale stane, že hvězda\nvybuchne jako supernova, a tehdy vyzáří"
+      },
+      "asrWordRange": [
+        1161,
+        1175
+      ]
+    },
+    {
+      "start": 530.945,
+      "end": 532.236,
+      "kind": "speech",
+      "text": {
+        "sk": "obrovské množstvo neutrín.",
+        "cs": "obrovské množství neutrin."
+      },
+      "asrWordRange": [
+        1175,
+        1178
+      ]
+    },
+    {
+      "start": 533.822,
+      "end": 538.658,
+      "kind": "speech",
+      "text": {
+        "sk": "Napríklad v Magellanovom mraku vybuchla\nsupernova pred",
+        "cs": "Například v Magellanově mračnu vybuchla\nsupernova před"
+      },
+      "asrWordRange": [
+        1178,
+        1185
+      ]
+    },
+    {
+      "start": 538.658,
+      "end": 540.036,
+      "kind": "speech",
+      "text": {
+        "sk": "168-tisíc rokmi.",
+        "cs": "168 tisíci lety."
+      },
+      "asrWordRange": [
+        1185,
+        1188
+      ]
+    },
+    {
+      "start": 540.901,
+      "end": 548.04,
+      "kind": "speech",
+      "text": {
+        "sk": "Dorazilo svetlo, dorazili neutrína k nám zhruba\no 168-tisíc rokov, 23. februára 1987.",
+        "cs": "Dorazilo světlo, dorazila k nám neutrina zhruba\no 168 tisíc let později, 23. února 1987."
+      },
+      "asrWordRange": [
+        1188,
+        1202
+      ]
+    },
+    {
+      "start": 549.672,
+      "end": 554.408,
+      "kind": "speech",
+      "text": {
+        "sk": "A zrazu detektory na neutrína zachytili taký\nobrovský nával neutrín,",
+        "cs": "A najednou detektory neutrin zachytily takový\nobrovský příval neutrin,"
+      },
+      "asrWordRange": [
+        1202,
+        1212
+      ]
+    },
+    {
+      "start": 555.581,
+      "end": 560.009,
+      "kind": "speech",
+      "text": {
+        "sk": "čo pre nich znamená, že ich v priebehu\nniekoľkých sekúnd zachytili 25. Čo",
+        "cs": "což pro ně znamená, že jich během několika\nsekund zachytily 25. To by"
+      },
+      "asrWordRange": [
+        1212,
+        1226
+      ]
+    },
+    {
+      "start": 560.009,
+      "end": 564.829,
+      "kind": "speech",
+      "text": {
+        "sk": "by človeku bežne prišlo málo, ale tým, že sú to\nneutrína, tak 25 je šialene",
+        "cs": "člověku běžně připadalo málo, ale protože jsou\nto neutrina, tak je 25 šíleně"
+      },
+      "asrWordRange": [
+        1226,
+        1243
+      ]
+    },
+    {
+      "start": 564.829,
+      "end": 567.107,
+      "kind": "speech",
+      "text": {
+        "sk": "veľa za pár sekúnd. Takže bol to taký burst.",
+        "cs": "moc za pár sekund. Byl to tedy takový burst."
+      },
+      "asrWordRange": [
+        1243,
+        1252
+      ]
+    },
+    {
+      "start": 569.333,
+      "end": 572.087,
+      "kind": "speech",
+      "text": {
+        "sk": "A čo bolo zaujímavé: Tri hodiny potom dorazilo\naj svetlo.",
+        "cs": "A zajímavé bylo, že tři hodiny potom dorazilo i\nsvětlo."
+      },
+      "asrWordRange": [
+        1252,
+        1263
+      ]
+    },
+    {
+      "start": 573.342,
+      "end": 578.899,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže neutrína predbehli svetlo. Áno, ale to\nkvôli tomu, že svetlu dlhšie trvalo,",
+        "cs": "Takže neutrina předběhla světlo. Ano, ale proto,\nže světlu déle trvalo,"
+      },
+      "asrWordRange": [
+        1263,
+        1277
+      ]
+    },
+    {
+      "start": 578.899,
+      "end": 583.159,
+      "kind": "speech",
+      "text": {
+        "sk": "kým opustilo okolie tej supernovy. Potom už išli\nprakticky rovnako rýchlo. Len neutrína",
+        "cs": "než opustilo okolí supernovy. Potom už letěla\nprakticky stejně rychle. Jen neutrina"
+      },
+      "asrWordRange": [
+        1277,
+        1290
+      ]
+    },
+    {
+      "start": 583.159,
+      "end": 588.238,
+      "kind": "speech",
+      "text": {
+        "sk": "mali náskok. Neutrína všetko ignorujú, rovno\nvyleteli a svetlo tam trošku",
+        "cs": "měla náskok. Neutrina všechno ignorují, rovnou\nvyletěla, zatímco světlo tam ještě"
+      },
+      "asrWordRange": [
+        1290,
+        1304
+      ]
+    },
+    {
+      "start": 588.238,
+      "end": 592.458,
+      "kind": "speech",
+      "text": {
+        "sk": "ešte s tou hmotou interagovalo, a bolo teda\nspomalené oproti neutrínam.",
+        "cs": "trochu interagovalo s hmotou, a bylo tak oproti\nneutrinům zpomalené."
+      },
+      "asrWordRange": [
+        1304,
+        1317
+      ]
+    },
+    {
+      "start": 593.411,
+      "end": 599.069,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže supernova SN 1977A je prvá udalosť, ktorú\nsme zachytili",
+        "cs": "Takže supernova SN 1977A je první událostí,\nkterou jsme zachytili"
+      },
+      "asrWordRange": [
+        1317,
+        1327
+      ]
+    },
+    {
+      "start": 599.069,
+      "end": 603.869,
+      "kind": "speech",
+      "text": {
+        "sk": "dvomi spôsobmi: aj svetlom, aj neutrínami. Takže\nkeby ju nezachytíme svetlom, tak",
+        "cs": "dvěma způsoby: světlem i neutriny. Takže\nkdybychom ji nezachytili světlem,"
+      },
+      "asrWordRange": [
+        1327,
+        1340
+      ]
+    },
+    {
+      "start": 604.132,
+      "end": 610.489,
+      "kind": "speech",
+      "text": {
+        "sk": "niekto nám vie povedať vďaka zachyteniu tých 25\nneutrín, že niekde vybuchla supernova?",
+        "cs": "mohl by nám někdo díky zachycení těch 25 neutrin\nříct, že někde vybuchla supernova?"
+      },
+      "asrWordRange": [
+        1340,
+        1355
+      ]
+    },
+    {
+      "start": 611.292,
+      "end": 617.889,
+      "kind": "speech",
+      "text": {
+        "sk": "V podstate áno. Vďaka tomu sme to dokázali\npozorovať. Dobre, a čo je ten tretí spôsob?",
+        "cs": "V podstatě ano. Díky tomu jsme to dokázali\npozorovat. Dobře, a jaký je ten třetí způsob?"
+      },
+      "asrWordRange": [
+        1355,
+        1376
+      ]
+    },
+    {
+      "start": 619.212,
+      "end": 624.009,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak tretí spôsob je jedna z mnohých vecí, ktoré\nmá na starosti Albert",
+        "cs": "Třetí způsob je jedna z mnoha věcí, které má na\nsvědomí Albert"
+      },
+      "asrWordRange": [
+        1376,
+        1392
+      ]
+    },
+    {
+      "start": 624.009,
+      "end": 625.326,
+      "kind": "speech",
+      "text": {
+        "sk": "Einstein, a sú to gravitačné vlny.",
+        "cs": "Einstein, a jsou to gravitační vlny."
+      },
+      "asrWordRange": [
+        1392,
+        1398
+      ]
+    },
+    {
+      "start": 626.504,
+      "end": 630.578,
+      "kind": "speech",
+      "text": {
+        "sk": "Keď odvodil svoje rovnice, tie sú fakt ťažké na\nriešenie, tak hľadal",
+        "cs": "Když odvodil své rovnice, ty jsou opravdu\nobtížně řešitelné, a tak hledal"
+      },
+      "asrWordRange": [
+        1398,
+        1414
+      ]
+    },
+    {
+      "start": 630.578,
+      "end": 632.557,
+      "kind": "speech",
+      "text": {
+        "sk": "také približné, zjednodušené riešenia.",
+        "cs": "nějaká přibližná, zjednodušená řešení."
+      },
+      "asrWordRange": [
+        1414,
+        1418
+      ]
+    },
+    {
+      "start": 633.664,
+      "end": 635.236,
+      "kind": "speech",
+      "text": {
+        "sk": "A jedno z riešení, ktoré zistil, je, že",
+        "cs": "A jedno z řešení, která zjistil, říká, že"
+      },
+      "asrWordRange": [
+        1418,
+        1426
+      ]
+    },
+    {
+      "start": 637.574,
+      "end": 642.53,
+      "kind": "speech",
+      "text": {
+        "sk": "za istých podmienok sa gravitácia alebo teda\ndeformácia priestoru vie",
+        "cs": "za jistých podmínek se gravitace, tedy deformace\nprostoru, může"
+      },
+      "asrWordRange": [
+        1426,
+        1436
+      ]
+    },
+    {
+      "start": 642.53,
+      "end": 644.067,
+      "kind": "speech",
+      "text": {
+        "sk": "utrhnúť a šíriť ako vlna priestorom.",
+        "cs": "utrhnout a šířit prostorem jako vlna."
+      },
+      "asrWordRange": [
+        1436,
+        1442
+      ]
+    },
+    {
+      "start": 646.412,
+      "end": 648.878,
+      "kind": "speech",
+      "text": {
+        "sk": "Na toto treba po prvé strašne drsné",
+        "cs": "K tomu jsou potřeba zaprvé velmi drsné"
+      },
+      "asrWordRange": [
+        1442,
+        1446
+      ]
+    },
+    {
+      "start": 648.951,
+      "end": 654.079,
+      "kind": "speech",
+      "text": {
+        "sk": "podmienky, čo znamená napríklad zrážku dvoch\nčiernych dier, a po druhé extrémne",
+        "cs": "podmínky, například srážka dvou černých děr, a\nzadruhé extrémně"
+      },
+      "asrWordRange": [
+        1446,
+        1458
+      ]
+    },
+    {
+      "start": 654.904,
+      "end": 659.699,
+      "kind": "speech",
+      "text": {
+        "sk": "citlivé detektory, lebo aj pri takto drastickej\nudalosti je to stále",
+        "cs": "citlivé detektory, protože i při takto drastické\nudálosti je to stále"
+      },
+      "asrWordRange": [
+        1458,
+        1469
+      ]
+    },
+    {
+      "start": 659.699,
+      "end": 662.558,
+      "kind": "speech",
+      "text": {
+        "sk": "efekt na nejakom dvadsiatom desatinnom mieste.",
+        "cs": "efekt někde na dvacátém desetinném místě."
+      },
+      "asrWordRange": [
+        1469,
+        1475
+      ]
+    },
+    {
+      "start": 663.522,
+      "end": 668.838,
+      "kind": "speech",
+      "text": {
+        "sk": "Einstein povedal, že podľa neho sa nikdy nebudú\ndať pozorovať. A zhruba sto rokov po tom, čo to\npovedal,",
+        "cs": "Einstein řekl, že podle něj je nikdy nebude\nmožné pozorovat. A zhruba sto let po tom, co to\nřekl,"
+      },
+      "asrWordRange": [
+        1475,
+        1493
+      ]
+    },
+    {
+      "start": 669.26,
+      "end": 676.569,
+      "kind": "speech",
+      "text": {
+        "sk": "sa ukázalo, že sa mýlil. Čo by na to povedal,\nkeby bol pri tom? Das ist wunderbar.",
+        "cs": "se ukázalo, že se mýlil. Co by na to řekl, kdyby\nu toho byl? Das ist wunderbar."
+      },
+      "asrWordRange": [
+        1493,
+        1511
+      ]
+    },
+    {
+      "start": 678.133,
+      "end": 682.608,
+      "kind": "speech",
+      "text": {
+        "sk": "Ja, ja. A vlastne za to je zodpovedný experiment\nLIGO, ktorý",
+        "cs": "Ja, ja. Může za to vlastně experiment LIGO,\nkterý"
+      },
+      "asrWordRange": [
+        1511,
+        1523
+      ]
+    },
+    {
+      "start": 682.608,
+      "end": 688.429,
+      "kind": "speech",
+      "text": {
+        "sk": "z veľkej časti bol pod taktovkou Kipa Thorna,\nktorý má okrem iného na starosti film\nInterstellar.",
+        "cs": "byl z velké části pod taktovkou Kipa Thorna,\nkterý má mimo jiné na svědomí film Interstellar."
+      },
+      "asrWordRange": [
+        1523,
+        1538
+      ]
+    },
+    {
+      "start": 689.281,
+      "end": 695.659,
+      "kind": "speech",
+      "text": {
+        "sk": "Ten experiment dlho bežal a bol hluchý. Bol\nnastavený, ale nepočul absolútne nič. Tak si\npovedali: OK,",
+        "cs": "Ten experiment dlouho běžel a byl hluchý. Byl\nnastavený, ale neslyšel vůbec nic. Řekli si\ntedy: OK,"
+      },
+      "asrWordRange": [
+        1538,
+        1558
+      ]
+    },
+    {
+      "start": 696.542,
+      "end": 700.437,
+      "kind": "speech",
+      "text": {
+        "sk": "potrebujeme posunúť tú presnosť. Tam sa čakalo\nna nejakú takúto udalosť,",
+        "cs": "potřebujeme posunout přesnost. Čekalo se tam na\nnějakou takovou událost,"
+      },
+      "asrWordRange": [
+        1558,
+        1571
+      ]
+    },
+    {
+      "start": 701.506,
+      "end": 704.198,
+      "kind": "speech",
+      "text": {
+        "sk": "zrazenie tých čiernych dier? Alebo kvôli čomu\nbol hluchý?",
+        "cs": "srážku těch černých děr? Nebo proč byl hluchý?"
+      },
+      "asrWordRange": [
+        1571,
+        1580
+      ]
+    },
+    {
+      "start": 705.483,
+      "end": 710.358,
+      "kind": "speech",
+      "text": {
+        "sk": "Nemal dostatočnú citlivosť. Mali také odhady,\nmali vedomosť, aké veľké",
+        "cs": "Neměl dostatečnou citlivost. Měli odhady a\nvěděli, jak velké"
+      },
+      "asrWordRange": [
+        1580,
+        1593
+      ]
+    },
+    {
+      "start": 710.403,
+      "end": 712.557,
+      "kind": "speech",
+      "text": {
+        "sk": "bývajú čierne diery bežne vo vesmíre,",
+        "cs": "černé díry běžně ve vesmíru bývají,"
+      },
+      "asrWordRange": [
+        1593,
+        1600
+      ]
+    },
+    {
+      "start": 713.573,
+      "end": 715.546,
+      "kind": "speech",
+      "text": {
+        "sk": "ako ďaleko sa od nás nachádzajú. Vedeli\nspočítať,",
+        "cs": "jak daleko se od nás nacházejí. Dokázali\nspočítat,"
+      },
+      "asrWordRange": [
+        1600,
+        1608
+      ]
+    },
+    {
+      "start": 717.363,
+      "end": 720.818,
+      "kind": "speech",
+      "text": {
+        "sk": "aký veľký efekt to urobí. Ten efekt je taký, že\ndeformujú priestor: trošku",
+        "cs": "jak velký efekt to způsobí. Efekt je takový, že\ndeformují prostor: trochu"
+      },
+      "asrWordRange": [
+        1608,
+        1624
+      ]
+    },
+    {
+      "start": 721.544,
+      "end": 725.318,
+      "kind": "speech",
+      "text": {
+        "sk": "natiahnu a skrátia ramená takého veľkého\nzariadenia.",
+        "cs": "natáhnou a zkrátí ramena velkého zařízení."
+      },
+      "asrWordRange": [
+        1624,
+        1631
+      ]
+    },
+    {
+      "start": 727.523,
+      "end": 732.339,
+      "kind": "speech",
+      "text": {
+        "sk": "A teda dlho, dlho nič. Potom si povedali: OK,\nvypneme to, zlepšíme výkon a skúsime znova.",
+        "cs": "A dlouho tedy nic. Pak si řekli: OK, vypneme to,\nzlepšíme výkon a zkusíme to znovu."
+      },
+      "asrWordRange": [
+        1631,
+        1649
+      ]
+    },
+    {
+      "start": 733.985,
+      "end": 735.756,
+      "kind": "speech",
+      "text": {
+        "sk": "Keď prešli na lepší výkon, tak po…",
+        "cs": "Když přešli na lepší výkon, tak po…"
+      },
+      "asrWordRange": [
+        1649,
+        1656
+      ]
+    },
+    {
+      "start": 737.323,
+      "end": 740.457,
+      "kind": "speech",
+      "text": {
+        "sk": "Myslím si, že to bolo po pár mesiacoch, po tom,\nčo to nabehlo",
+        "cs": "Myslím, že to bylo po pár měsících od spuštění"
+      },
+      "asrWordRange": [
+        1656,
+        1670
+      ]
+    },
+    {
+      "start": 741.582,
+      "end": 745.038,
+      "kind": "speech",
+      "text": {
+        "sk": "s kvalitnejšími senzormi, oznámili prvý objav",
+        "cs": "s kvalitnějšími senzory, oznámili první objev"
+      },
+      "asrWordRange": [
+        1670,
+        1676
+      ]
+    },
+    {
+      "start": 746.152,
+      "end": 749.968,
+      "kind": "speech",
+      "text": {
+        "sk": "gravitačných vĺn. Tie pochádzali zo zrážky dvoch\nčiernych dier,",
+        "cs": "gravitačních vln. Ty pocházely ze srážky dvou\nčerných děr,"
+      },
+      "asrWordRange": [
+        1676,
+        1687
+      ]
+    },
+    {
+      "start": 749.968,
+      "end": 753.768,
+      "kind": "speech",
+      "text": {
+        "sk": "z ktorých každá vážila zhruba ako 30 našich\nsĺnk.",
+        "cs": "z nichž každá vážila zhruba jako 30 našich\nSluncí."
+      },
+      "asrWordRange": [
+        1687,
+        1695
+      ]
+    },
+    {
+      "start": 755.242,
+      "end": 759.638,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže 60 hmotností Slnka a značná časť tej\nenergie, takých 5 hmotností Slnka,",
+        "cs": "Tedy 60 hmotností Slunce a značná část té\nenergie, nějakých 5 hmotností Slunce,"
+      },
+      "asrWordRange": [
+        1695,
+        1707
+      ]
+    },
+    {
+      "start": 760.483,
+      "end": 764.419,
+      "kind": "speech",
+      "text": {
+        "sk": "sa zmenila na čistú energiu v podobe\ngravitačných vĺn. Čiže obrovský tresk, ktorý by",
+        "cs": "se změnila na čistou energii v podobě\ngravitačních vln. Obrovský třesk, který by"
+      },
+      "asrWordRange": [
+        1707,
+        1721
+      ]
+    },
+    {
+      "start": 764.419,
+      "end": 768.558,
+      "kind": "speech",
+      "text": {
+        "sk": "bol neprežiteľný v dosť veľkej vzdialenosti. Ale\nudialo sa to, neviem teraz, či",
+        "cs": "byl nepřežitelný v dost velké vzdálenosti. Ale\nstalo se to, teď nevím, jestli"
+      },
+      "asrWordRange": [
+        1721,
+        1735
+      ]
+    },
+    {
+      "start": 768.561,
+      "end": 775.129,
+      "kind": "speech",
+      "text": {
+        "sk": "stovky miliónov kilometrov od nás alebo dokonca\nmiliardy. Nie kilometrov, ale svetelných rokov.\nTakže v bezpečnom odstupe to bolo.",
+        "cs": "stovky milionů kilometrů od nás, nebo dokonce\nmiliardy. Ne kilometrů, ale světelných let.\nTakže to bylo v bezpečné vzdálenosti."
+      },
+      "asrWordRange": [
+        1735,
+        1743
+      ]
+    },
+    {
+      "start": 775.701,
+      "end": 779.998,
+      "kind": "speech",
+      "text": {
+        "sk": "takže nám nič nehrozilo z tejto zrážky, ale my\nsme ich mohli",
+        "cs": "takže nám z této srážky nic nehrozilo, ale mohli\njsme je"
+      },
+      "asrWordRange": [
+        1743,
+        1755
+      ]
+    },
+    {
+      "start": 781.435,
+      "end": 785.789,
+      "kind": "speech",
+      "text": {
+        "sk": "pozorovať. A myslím si, že tento tím aj získal\nNobelovu cenu za tento svoj",
+        "cs": "pozorovat. A myslím, že tento tým za svůj"
+      },
+      "asrWordRange": [
+        1755,
+        1769
+      ]
+    },
+    {
+      "start": 785.789,
+      "end": 787.987,
+      "kind": "speech",
+      "text": {
+        "sk": "objav. Áno, áno, dostali Nobelovu cenu.",
+        "cs": "objev získal i Nobelovu cenu. Ano, dostali\nNobelovu cenu."
+      },
+      "asrWordRange": [
+        1769,
+        1775
+      ]
+    },
+    {
+      "start": 790.013,
+      "end": 793.147,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale potom sa hovorilo, či to nebolo trošku…",
+        "cs": "Ale potom se říkalo, jestli to nebylo trochu…"
+      },
+      "asrWordRange": [
+        1775,
+        1784
+      ]
+    },
+    {
+      "start": 794.676,
+      "end": 796.006,
+      "kind": "speech",
+      "text": {
+        "sk": "Či im to nedali trošku moc rýchlo,",
+        "cs": "Jestli jim ji nedali trochu moc rychle,"
+      },
+      "asrWordRange": [
+        1784,
+        1790
+      ]
+    },
+    {
+      "start": 796.712,
+      "end": 800.488,
+      "kind": "speech",
+      "text": {
+        "sk": "lebo niektorí ľudia hovorili, či náhodou nebol\nten výsledok iba chybou",
+        "cs": "protože někteří lidé říkali, jestli ten výsledek\nnebyl jen chybou"
+      },
+      "asrWordRange": [
+        1790,
+        1803
+      ]
+    },
+    {
+      "start": 800.488,
+      "end": 803.628,
+      "kind": "speech",
+      "text": {
+        "sk": "experimentu. Napríklad tam majú také veci, že",
+        "cs": "experimentu. Například tam mají takové věci, že"
+      },
+      "asrWordRange": [
+        1803,
+        1812
+      ]
+    },
+    {
+      "start": 805.265,
+      "end": 809.358,
+      "kind": "speech",
+      "text": {
+        "sk": "vkladajú umelé dáta, aby otestovali, či tie\nsystémy reagujú správne.",
+        "cs": "vkládají umělá data, aby otestovali, zda systémy\nreagují správně."
+      },
+      "asrWordRange": [
+        1812,
+        1823
+      ]
+    },
+    {
+      "start": 809.943,
+      "end": 812.858,
+      "kind": "speech",
+      "text": {
+        "sk": "A potom sa riešilo, či to tam vlastne v rámci\npokusu niekto nevložil.",
+        "cs": "A pak se řešilo, zda to tam vlastně někdo v\nrámci pokusu nevložil."
+      },
+      "asrWordRange": [
+        1823,
+        1837
+      ]
+    },
+    {
+      "start": 813.582,
+      "end": 818.499,
+      "kind": "speech",
+      "text": {
+        "sk": "Chýbal tam taký nezávislý pokus od iného\nexperimentálneho zariadenia, nezávislého od",
+        "cs": "Chyběl tam nezávislý pokus od jiného\nexperimentálního zařízení, nezávislého na"
+      },
+      "asrWordRange": [
+        1837,
+        1848
+      ]
+    },
+    {
+      "start": 818.499,
+      "end": 823.498,
+      "kind": "speech",
+      "text": {
+        "sk": "nich, ktorý by to potvrdil. Ale potom sa už\ntieto veci pooverovali a už sa tomu viac-menej\nstopercentne verí.",
+        "cs": "nich, který by to potvrdil. Pak se ale tyto věci\nověřily a už se tomu víceméně stoprocentně věří."
+      },
+      "asrWordRange": [
+        1848,
+        1868
+      ]
+    },
+    {
+      "start": 825.154,
+      "end": 826.606,
+      "kind": "speech",
+      "text": {
+        "sk": "Aha, takže bolo tam overenie.",
+        "cs": "Aha, takže to bylo ověřeno."
+      },
+      "asrWordRange": [
+        1868,
+        1873
+      ]
+    },
+    {
+      "start": 827.933,
+      "end": 832.89,
+      "kind": "speech",
+      "text": {
+        "sk": "A mám tu takú zaujímavú poznámku, že vraj\ngravitačné vlny sa dajú preniesť do",
+        "cs": "A mám tu zajímavou poznámku, že prý se\ngravitační vlny dají převést do"
+      },
+      "asrWordRange": [
+        1873,
+        1887
+      ]
+    },
+    {
+      "start": 832.89,
+      "end": 835.147,
+      "kind": "speech",
+      "text": {
+        "sk": "zvukového spektra. O tom by si nám vedel niečo\npovedať?",
+        "cs": "zvukového spektra. Mohl bys nám o tom něco říct?"
+      },
+      "asrWordRange": [
+        1887,
+        1897
+      ]
+    },
+    {
+      "start": 836.412,
+      "end": 841.19,
+      "kind": "speech",
+      "text": {
+        "sk": "Tie gravitačné vlny sú vytvorené tým, že tie\nčierne diery sa k sebe začnú blížiť a",
+        "cs": "Gravitační vlny vznikají tím, že se černé díry k\nsobě začnou přibližovat a"
+      },
+      "asrWordRange": [
+        1897,
+        1913
+      ]
+    },
+    {
+      "start": 841.19,
+      "end": 842.727,
+      "kind": "speech",
+      "text": {
+        "sk": "okolo seba sa začnú otáčať, až sa spoja.",
+        "cs": "začnou kolem sebe obíhat, až splynou."
+      },
+      "asrWordRange": [
+        1913,
+        1922
+      ]
+    },
+    {
+      "start": 844.202,
+      "end": 847.878,
+      "kind": "speech",
+      "text": {
+        "sk": "A v podstate úplne zhodou okolností, tým, aké sú\nveľké, ale zároveň ako sa",
+        "cs": "A v podstatě úplnou shodou okolností, vzhledem k\ntomu, jak jsou velké a zároveň jak"
+      },
+      "asrWordRange": [
+        1922,
+        1939
+      ]
+    },
+    {
+      "start": 847.882,
+      "end": 852.497,
+      "kind": "speech",
+      "text": {
+        "sk": "rýchlo točia, je frekvencia tohto procesu, keď\nsa upraví o gravitačné efekty,",
+        "cs": "rychle obíhají, je frekvence tohoto procesu po\núpravě o gravitační efekty"
+      },
+      "asrWordRange": [
+        1939,
+        1953
+      ]
+    },
+    {
+      "start": 854.305,
+      "end": 858.8,
+      "kind": "speech",
+      "text": {
+        "sk": "zhruba taká, akú dokáže človek počuť. Čiže môžu\nzobrať tie",
+        "cs": "zhruba taková, jakou člověk dokáže slyšet. Mohou\ntedy vzít ty"
+      },
+      "asrWordRange": [
+        1953,
+        1966
+      ]
+    },
+    {
+      "start": 858.8,
+      "end": 863.92,
+      "kind": "speech",
+      "text": {
+        "sk": "gravitačné vlny, presne sa pozrieť, akú mali\nfrekvenciu a amplitúdu, a preložiť to",
+        "cs": "gravitační vlny, podívat se přesně na jejich\nfrekvenci a amplitudu a převést je"
+      },
+      "asrWordRange": [
+        1966,
+        1980
+      ]
+    },
+    {
+      "start": 863.92,
+      "end": 868.279,
+      "kind": "speech",
+      "text": {
+        "sk": "do akustickej vlny. Samotné gravitačné vlny nie\nje počuť, ale za pomoci počítačov",
+        "cs": "na akustickou vlnu. Samotné gravitační vlny\nnejsou slyšet, ale pomocí počítačů"
+      },
+      "asrWordRange": [
+        1980,
+        1995
+      ]
+    },
+    {
+      "start": 868.279,
+      "end": 874.18,
+      "kind": "speech",
+      "text": {
+        "sk": "ich vieme pretlmočiť do zvuku. A ten zvuk znie\nzhruba takto, ako",
+        "cs": "je dokážeme převést na zvuk. A ten zvuk zní\nzhruba jako"
+      },
+      "asrWordRange": [
+        1995,
+        2007
+      ]
+    },
+    {
+      "start": 874.262,
+      "end": 878.758,
+      "kind": "speech",
+      "text": {
+        "sk": "také otváranie fľašky alebo také cmuknutie.\nŠampus, keď otváraš.",
+        "cs": "otevírání lahve nebo takové mlasknutí. Jako když\notevíráš šampaňské."
+      },
+      "asrWordRange": [
+        2007,
+        2017
+      ]
+    },
+    {
+      "start": 880.183,
+      "end": 884.858,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže aj takto dlho zhruba trvá tá\nnajturbulentnejšia časť toho procesu,",
+        "cs": "Tak dlouho zhruba trvá ta nejbouřlivější část\nprocesu,"
+      },
+      "asrWordRange": [
+        2017,
+        2028
+      ]
+    },
+    {
+      "start": 884.858,
+      "end": 888.638,
+      "kind": "speech",
+      "text": {
+        "sk": "takže zhruba sekundu alebo zlomok sekundy.",
+        "cs": "tedy zhruba sekundu nebo zlomek sekundy."
+      },
+      "asrWordRange": [
+        2028,
+        2034
+      ]
+    },
+    {
+      "start": 889.522,
+      "end": 895.44,
+      "kind": "speech",
+      "text": {
+        "sk": "A môže spôsobiť gravitačné vlny ešte niečo?\nOkrem čiernych dier, zrážky",
+        "cs": "A může gravitační vlny způsobit ještě něco?\nKromě černých děr, srážky"
+      },
+      "asrWordRange": [
+        2034,
+        2045
+      ]
+    },
+    {
+      "start": 895.44,
+      "end": 900.579,
+      "kind": "speech",
+      "text": {
+        "sk": "čiernych dier? Dobrá otázka. V podstate sa\nhovorí, že by to",
+        "cs": "černých děr? Dobrá otázka. V podstatě se říká,\nže by to"
+      },
+      "asrWordRange": [
+        2045,
+        2056
+      ]
+    },
+    {
+      "start": 900.582,
+      "end": 904.258,
+      "kind": "speech",
+      "text": {
+        "sk": "mali vedieť aj supernovy, ale ešte sa nám to,\nmyslím, nepodarilo zachytiť.",
+        "cs": "měly dokázat i supernovy, ale to se nám, myslím,\nzatím nepodařilo zachytit."
+      },
+      "asrWordRange": [
+        2056,
+        2068
+      ]
+    },
+    {
+      "start": 906.042,
+      "end": 910.74,
+      "kind": "speech",
+      "text": {
+        "sk": "Bežne to bývajú aj dve… No nie bežne, zatiaľ sme\nto zachytili len",
+        "cs": "Běžně to bývají i dvě… Tedy ne běžně, zatím jsme\nto zachytili jen"
+      },
+      "asrWordRange": [
+        2068,
+        2085
+      ]
+    },
+    {
+      "start": 910.74,
+      "end": 915.778,
+      "kind": "speech",
+      "text": {
+        "sk": "raz alebo párkrát, ale asi sa to deje pomerne\nbežne, že sa zrazia dve neutrónové",
+        "cs": "jednou nebo párkrát, ale asi se poměrně běžně\nstává, že se srazí dvě neutronové"
+      },
+      "asrWordRange": [
+        2085,
+        2100
+      ]
+    },
+    {
+      "start": 915.802,
+      "end": 920.598,
+      "kind": "speech",
+      "text": {
+        "sk": "hviezdy. To sú pozostatky hviezd tvorené z\nneutrónovej hmoty.",
+        "cs": "hvězdy. To jsou pozůstatky hvězd tvořené\nneutronovou hmotou."
+      },
+      "asrWordRange": [
+        2100,
+        2111
+      ]
+    },
+    {
+      "start": 921.614,
+      "end": 924.608,
+      "kind": "speech",
+      "text": {
+        "sk": "A môže to byť aj kombinácia čierna diera a\nneutrónová hviezda.",
+        "cs": "Může to být i kombinace černé díry a neutronové\nhvězdy."
+      },
+      "asrWordRange": [
+        2111,
+        2122
+      ]
+    },
+    {
+      "start": 925.864,
+      "end": 927.796,
+      "kind": "speech",
+      "text": {
+        "sk": "A tiež tieto vytvárajú",
+        "cs": "A ty také vytvářejí"
+      },
+      "asrWordRange": [
+        2122,
+        2126
+      ]
+    },
+    {
+      "start": 928.962,
+      "end": 933.238,
+      "kind": "speech",
+      "text": {
+        "sk": "gravitačné vlny, ktoré vieme pozorovať. Áno. A\nbolo také jedno zaujímavé",
+        "cs": "gravitační vlny, které dokážeme pozorovat. Ano.\nA bylo jedno zajímavé"
+      },
+      "asrWordRange": [
+        2126,
+        2138
+      ]
+    },
+    {
+      "start": 933.925,
+      "end": 937.84,
+      "kind": "speech",
+      "text": {
+        "sk": "pozorovanie, ktoré sa volá GW170817.",
+        "cs": "pozorování, které se jmenuje GW170817."
+      },
+      "asrWordRange": [
+        2138,
+        2144
+      ]
+    },
+    {
+      "start": 939.724,
+      "end": 944.118,
+      "kind": "speech",
+      "text": {
+        "sk": "A to bolo zaujímavé tým, že gravitačné vlny\nvyvolala práve zrážka dvoch",
+        "cs": "To bylo zajímavé tím, že gravitační vlny\nvyvolala právě srážka dvou"
+      },
+      "asrWordRange": [
+        2144,
+        2156
+      ]
+    },
+    {
+      "start": 944.781,
+      "end": 950.189,
+      "kind": "speech",
+      "text": {
+        "sk": "neutrónových hviezd. A okrem toho, že sme\nzachytili gravitačné vlny, sme",
+        "cs": "neutronových hvězd. A kromě toho, že jsme\nzachytili gravitační vlny, jsme"
+      },
+      "asrWordRange": [
+        2156,
+        2169
+      ]
+    },
+    {
+      "start": 950.234,
+      "end": 951.986,
+      "kind": "speech",
+      "text": {
+        "sk": "zachytili aj viditeľné svetlo.",
+        "cs": "zachytili i viditelné světlo."
+      },
+      "asrWordRange": [
+        2169,
+        2173
+      ]
+    },
+    {
+      "start": 954.031,
+      "end": 959.359,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže znova, z tých troch spôsobov pozorovania\nsme niečo videli týmito dvomi.",
+        "cs": "Takže opět, ze tří způsobů pozorování jsme něco\nviděli těmito dvěma."
+      },
+      "asrWordRange": [
+        2173,
+        2187
+      ]
+    },
+    {
+      "start": 959.78,
+      "end": 964.678,
+      "kind": "speech",
+      "text": {
+        "sk": "Gravitačné vlny plus svetlo a potom máme aj\nsvetlo plus neutrína. Takže už len čakáme",
+        "cs": "Gravitační vlny plus světlo a pak máme i světlo\nplus neutrina. Takže už jen čekáme"
+      },
+      "asrWordRange": [
+        2187,
+        2202
+      ]
+    },
+    {
+      "start": 964.742,
+      "end": 970.219,
+      "kind": "speech",
+      "text": {
+        "sk": "na tú trojkombináciu, ten hetrik, kedy sa podarí\nvedcom pozorovať všetkými",
+        "cs": "na tu trojkombinaci, ten hattrick, kdy se vědcům\npodaří pozorovat všemi"
+      },
+      "asrWordRange": [
+        2202,
+        2215
+      ]
+    },
+    {
+      "start": 970.543,
+      "end": 975.639,
+      "kind": "speech",
+      "text": {
+        "sk": "tromi spôsobmi jeden jav. Keď to správne chápem.\nÁno, tomu sa hovorí taký",
+        "cs": "třemi způsoby jeden jev. Pokud to správně chápu.\nAno, tomu se říká takový"
+      },
+      "asrWordRange": [
+        2215,
+        2230
+      ]
+    },
+    {
+      "start": 975.639,
+      "end": 978.718,
+      "kind": "speech",
+      "text": {
+        "sk": "veľký triumf astrofyziky alebo taká v\núvodzovkách rosettská doska:",
+        "cs": "velký triumf astrofyziky nebo taková v\nuvozovkách rosettská deska:"
+      },
+      "asrWordRange": [
+        2230,
+        2238
+      ]
+    },
+    {
+      "start": 980.866,
+      "end": 984.978,
+      "kind": "speech",
+      "text": {
+        "sk": "Pozorovať jeden jav aj pomocou svetla, aj\npomocou",
+        "cs": "Pozorovat jeden jev pomocí světla,"
+      },
+      "asrWordRange": [
+        2238,
+        2247
+      ]
+    },
+    {
+      "start": 985.024,
+      "end": 986.776,
+      "kind": "speech",
+      "text": {
+        "sk": "neutrín, aj pomocou gravitačných vĺn.",
+        "cs": "neutrin i gravitačních vln."
+      },
+      "asrWordRange": [
+        2247,
+        2252
+      ]
+    },
+    {
+      "start": 988.225,
+      "end": 989.615,
+      "kind": "speech",
+      "text": {
+        "sk": "Pár mesiacov dozadu bol taký…",
+        "cs": "Před pár měsíci byl takový…"
+      },
+      "asrWordRange": [
+        2252,
+        2257
+      ]
+    },
+    {
+      "start": 991.414,
+      "end": 993.847,
+      "kind": "speech",
+      "text": {
+        "sk": "Rozruch sa rozšíril astrofyzikálnou komunitou,",
+        "cs": "Astrofyzikální komunitou se rozšířil rozruch,"
+      },
+      "asrWordRange": [
+        2257,
+        2262
+      ]
+    },
+    {
+      "start": 995.02,
+      "end": 999.189,
+      "kind": "speech",
+      "text": {
+        "sk": "lebo LIGO, ten detektor gravitačných vĺn,\nspustil alarm",
+        "cs": "protože LIGO, detektor gravitačních vln, spustil\npoplach"
+      },
+      "asrWordRange": [
+        2262,
+        2271
+      ]
+    },
+    {
+      "start": 1000.142,
+      "end": 1006.179,
+      "kind": "speech",
+      "text": {
+        "sk": "a zhruba v ten istý čas, o pár minút neskôr,\nIceCube, ten detektor neutrín zakopaný v ľade,",
+        "cs": "a zhruba ve stejnou dobu, o pár minut později,\nIceCube, detektor neutrin zakopaný v ledu,"
+      },
+      "asrWordRange": [
+        2271,
+        2289
+      ]
+    },
+    {
+      "start": 1006.96,
+      "end": 1012.278,
+      "kind": "speech",
+      "text": {
+        "sk": "zachytil pomerne veľa neutrín. Takže spustil sa\nalarm v LIGU,",
+        "cs": "zachytil poměrně hodně neutrin. Spustil se tedy\npoplach v LIGU,"
+      },
+      "asrWordRange": [
+        2289,
+        2302
+      ]
+    },
+    {
+      "start": 1013.762,
+      "end": 1018.978,
+      "kind": "speech",
+      "text": {
+        "sk": "neutrína zapípali a bolo jasné, že rýchlo sa\ntreba natočiť, skúsiť odhadnúť smer,",
+        "cs": "neutrina zapípala a bylo jasné, že je třeba se\nrychle natočit, zkusit odhadnout směr,"
+      },
+      "asrWordRange": [
+        2302,
+        2316
+      ]
+    },
+    {
+      "start": 1018.978,
+      "end": 1023.878,
+      "kind": "speech",
+      "text": {
+        "sk": "z ktorého to prichádza, a natočiť na to čo\nnajviac teleskopov, aby sme videli",
+        "cs": "ze kterého to přichází, a namířit tam co nejvíc\nteleskopů, abychom viděli"
+      },
+      "asrWordRange": [
+        2316,
+        2330
+      ]
+    },
+    {
+      "start": 1024.745,
+      "end": 1028.078,
+      "kind": "speech",
+      "text": {
+        "sk": "tú viditeľnú časť, teda to svetlo, ktoré odtiaľ\nprichádza.",
+        "cs": "viditelnou část, tedy světlo, které odtamtud\npřichází."
+      },
+      "asrWordRange": [
+        2330,
+        2340
+      ]
+    },
+    {
+      "start": 1029.032,
+      "end": 1034.51,
+      "kind": "speech",
+      "text": {
+        "sk": "Pomerne dlho veľa teleskopov hľadalo. A to je\ntaké, že oni majú niečo",
+        "cs": "Poměrně dlouho hledalo hodně teleskopů. Ony mají\nněco"
+      },
+      "asrWordRange": [
+        2340,
+        2354
+      ]
+    },
+    {
+      "start": 1034.51,
+      "end": 1037.688,
+      "kind": "speech",
+      "text": {
+        "sk": "naplánované, tak nie všetky sa podarí natočiť.\nAle nič nevideli.",
+        "cs": "naplánováno, takže se je nepodaří natočit\nvšechny. Ale nic neviděly."
+      },
+      "asrWordRange": [
+        2354,
+        2363
+      ]
+    },
+    {
+      "start": 1039.163,
+      "end": 1042.758,
+      "kind": "speech",
+      "text": {
+        "sk": "Čo najprv bolo také sklamanie, ale potom sa\nzistilo, že tie neutrína",
+        "cs": "To bylo zpočátku zklamání, ale pak se zjistilo,\nže ta neutrina"
+      },
+      "asrWordRange": [
+        2363,
+        2376
+      ]
+    },
+    {
+      "start": 1042.962,
+      "end": 1048.319,
+      "kind": "speech",
+      "text": {
+        "sk": "pravdepodobne majú pôvod na Zemi, lebo vtedy\nbola strašne silná búrka a ony",
+        "cs": "pravděpodobně pocházejí ze Země, protože tehdy\nbyla velmi silná bouřka a ona"
+      },
+      "asrWordRange": [
+        2376,
+        2389
+      ]
+    },
+    {
+      "start": 1048.319,
+      "end": 1053.158,
+      "kind": "speech",
+      "text": {
+        "sk": "vznikajú aj pri takých… Keď veľmi silné blesky\nšľahajú, môžu vznikať v trochu",
+        "cs": "vznikají i při takových… Když šlehají velmi\nsilné blesky, mohou vznikat v trochu"
+      },
+      "asrWordRange": [
+        2389,
+        2404
+      ]
+    },
+    {
+      "start": 1053.158,
+      "end": 1059.08,
+      "kind": "speech",
+      "text": {
+        "sk": "väčšom počte. Takže pravdepodobne takéto ich\nnavýšenie meraní bolo spôsobené tou",
+        "cs": "větším počtu. Takže jejich zvýšený naměřený\npočet byl pravděpodobně způsoben tou"
+      },
+      "asrWordRange": [
+        2404,
+        2415
+      ]
+    },
+    {
+      "start": 1059.08,
+      "end": 1061.257,
+      "kind": "speech",
+      "text": {
+        "sk": "búrkou a nie tým astrofyzikálnym javom.",
+        "cs": "bouřkou, a ne astrofyzikálním jevem."
+      },
+      "asrWordRange": [
+        2415,
+        2421
+      ]
+    },
+    {
+      "start": 1062.662,
+      "end": 1067.959,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak dúfajme, že sa nejaký takýto jav podarí a\nbudeme ho môcť všetkými",
+        "cs": "Doufejme tedy, že se nějaký takový jev podaří a\nbudeme ho moci všemi"
+      },
+      "asrWordRange": [
+        2421,
+        2435
+      ]
+    },
+    {
+      "start": 1067.962,
+      "end": 1072.395,
+      "kind": "speech",
+      "text": {
+        "sk": "spôsobmi pozorovať a konečne tento",
+        "cs": "způsoby pozorovat a konečně tento"
+      },
+      "asrWordRange": [
+        2435,
+        2440
+      ]
+    },
+    {
+      "start": 1074.362,
+      "end": 1078.318,
+      "kind": "speech",
+      "text": {
+        "sk": "triumf alebo tento hetrik sa vede podarí. Ja ti\nveľmi pekne ďakujem.",
+        "cs": "triumf nebo hattrick se vědě podaří. Moc ti\nděkuji."
+      },
+      "asrWordRange": [
+        2440,
+        2453
+      ]
+    },
+    {
+      "start": 1080.262,
+      "end": 1084.118,
+      "kind": "speech",
+      "text": {
+        "sk": "Ja už len poslednú vec poviem: Keď som naposledy\ntakto predvídal dopredu, že sa",
+        "cs": "Řeknu už jen poslední věc: Když jsem naposledy\npředpovídal, že se"
+      },
+      "asrWordRange": [
+        2453,
+        2468
+      ]
+    },
+    {
+      "start": 1084.162,
+      "end": 1088.658,
+      "kind": "speech",
+      "text": {
+        "sk": "urobí fotka čiernej diery, tak sa to pomerne\nrýchlo podarilo. Možno máme šťastie a",
+        "cs": "pořídí fotka černé díry, tak se to poměrně\nrychle podařilo. Třeba máme štěstí a"
+      },
+      "asrWordRange": [
+        2468,
+        2483
+      ]
+    },
+    {
+      "start": 1088.658,
+      "end": 1092.8,
+      "kind": "speech",
+      "text": {
+        "sk": "tesne potom, ako vyjde tento podcast, sa to\npodarí a budeme extrémne aktuálni. Tak",
+        "cs": "povede se to těsně po vydání tohoto podcastu a\nbudeme mimořádně aktuální. Tak"
+      },
+      "asrWordRange": [
+        2483,
+        2497
+      ]
+    },
+    {
+      "start": 1092.8,
+      "end": 1097.058,
+      "kind": "speech",
+      "text": {
+        "sk": "bodaj by. A nech nás dajú do poďakovania pri\nNobelovej cene alebo",
+        "cs": "kéž by. A ať nás uvedou v poděkování při udělení\nNobelovy ceny nebo"
+      },
+      "asrWordRange": [
+        2497,
+        2509
+      ]
+    },
+    {
+      "start": 1097.745,
+      "end": 1100.898,
+      "kind": "speech",
+      "text": {
+        "sk": "niekde. Ja ti veľmi pekne ďakujem za dnešný náš\nrozhovor.",
+        "cs": "někde. Moc ti děkuji za náš dnešní rozhovor."
+      },
+      "asrWordRange": [
+        2509,
+        2519
+      ]
+    },
+    {
+      "start": 1102.563,
+      "end": 1107.178,
+      "kind": "speech",
+      "text": {
+        "sk": "To je z našej strany všetko. Ak máte nápady na\nzaujímavé témy, napíšte nám na",
+        "cs": "To je od nás všechno. Pokud máte nápady na\nzajímavá témata, napište nám na"
+      },
+      "asrWordRange": [
+        2519,
+        2534
+      ]
+    },
+    {
+      "start": 1107.242,
+      "end": 1112.819,
+      "kind": "speech",
+      "text": {
+        "sk": "Facebooku alebo na náš web vedator.space. Tento\npodcast nájdete",
+        "cs": "Facebooku nebo na náš web vedator.space. Tento\npodcast najdete"
+      },
+      "asrWordRange": [
+        2534,
+        2544
+      ]
+    },
+    {
+      "start": 1112.819,
+      "end": 1116.539,
+      "kind": "speech",
+      "text": {
+        "sk": "všade, kde nájdete svoje podcasty: na Apple\nPodcasts, Spotify.",
+        "cs": "všude, kde najdete své podcasty: na Apple\nPodcasts, Spotify."
+      },
+      "asrWordRange": [
+        2544,
+        2553
+      ]
+    },
+    {
+      "start": 1118.564,
+      "end": 1121.578,
+      "kind": "speech",
+      "text": {
+        "sk": "Ďakujeme veľmi pekne za počúvanie. Dopočutia.\nMajte sa.",
+        "cs": "Moc děkujeme za poslech. Na slyšenou. Mějte se."
+      },
+      "asrWordRange": [
+        2553,
+        2562
+      ]
+    }
+  ]
+}
