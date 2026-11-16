@@ -1,11 +1,18 @@
 {
-  "status": "machine-draft-needs-listening-review",
   "episode": 3,
-  "duration": 876.878375,
-  "wordCount": 1998,
+  "status": "editorial-checked-awaiting-audio-review",
   "cueCount": 204,
-  "uncertainSegments": [],
-  "audioSha256": "1efc1181fd441fb145ac6e926c3b4c75cb89e0d09d1908efc142a91b5658e622",
-  "asr": "medium",
-  "translation": "facebook/nllb-200-distilled-600M"
+  "checkedCues": 204,
+  "languages": [
+    "cs",
+    "sk"
+  ],
+  "changes": [
+    "Corrected all machine-generated Slovak and Czech segments",
+    "Fixed astrophysics names and terms",
+    "Restored negation about primordial black-hole hypothesis",
+    "Reformatted readable subtitle lines"
+  ],
+  "audioListened": false,
+  "warning": "An editorial text check is not an audio verification. Timing inherited from word-aligned ASR."
 }

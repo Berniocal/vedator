@@ -7,7 +7,7 @@
     "cs",
     "sk"
   ],
-  "quality": "machine-draft-needs-review",
+  "quality": "editorial-corrected-machine-draft-needs-audio-review",
   "source": {
     "type": "podcast-MP3-word-aligned-ASR",
     "audio": "https://mcdn.podbean.com/mf/web/jvjwv6/podcast_ep3.mp3",
@@ -15,8 +15,9 @@
     "audioBytes": 28744017,
     "transcriber": "faster-whisper/medium",
     "translator": "facebook/nllb-200-distilled-600M",
-    "review": "machine-generated; manual listening not completed",
-    "legacy": "Original episode 3 SRT is corrupted and was not copied"
+    "review": "Slovak and Czech captions reviewed and rewritten for grammar, names, terminology and contextual coherence. Not independently checked against the audio.",
+    "legacy": "Original episode 3 SRT is corrupted and was not copied",
+    "editorialChanges": "204/204 cues revised; semantic reversal in primordial black-hole hypothesis corrected; speaker and timeline terminology normalized."
   },
   "cues": [
     {
@@ -24,8 +25,8 @@
       "end": 17.57,
       "kind": "speech",
       "text": {
-        "sk": "Od elektronu cez Čiernodieru až po emitentu\nsklenníkových klinov. Veda",
-        "cs": "Od elektronu přes Černou díru až po emitenta\nledových klínů."
+        "sk": "Od elektrónu cez čiernu dieru až po emisie\nskleníkových plynov. Veda",
+        "cs": "Od elektronu přes černou díru až po emise skleníkových\nplynů. Věda"
       }
     },
     {
@@ -34,7 +35,7 @@
       "kind": "speech",
       "text": {
         "sk": "nás obklopuje na každom kroku.",
-        "cs": "Obklopuje nás na každém kroku."
+        "cs": "nás obklopuje na každém kroku."
       }
     },
     {
@@ -42,8 +43,8 @@
       "end": 24.57,
       "kind": "speech",
       "text": {
-        "sk": "Vitajte pri Vedatorskom podcaste, ktorom budeme\ndiskutovať o vede a prírode okolo",
-        "cs": "Vítejte v podcastu Vedator, který bude diskutovat\no vědě a přírodě kolem nás."
+        "sk": "Vitajte pri Vedátorskom podcaste, v ktorom budeme\ndiskutovať o vede a prírode okolo",
+        "cs": "Vítejte u Vedátorského podcastu, ve kterém budeme\nmluvit o vědě a přírodě kolem"
       }
     },
     {
@@ -51,8 +52,8 @@
       "end": 27.81,
       "kind": "speech",
       "text": {
-        "sk": "nás. Moje jmenuje Jozef a ja som Samuel.",
-        "cs": "Moje jméno je Josef a já jsem Samuel."
+        "sk": "nás. Ja som Jozef. A ja som Samuel.",
+        "cs": "nás. Já jsem Jozef. A já jsem Samuel."
       }
     },
     {
@@ -60,8 +61,8 @@
       "end": 30.29,
       "kind": "speech",
       "text": {
-        "sk": "Dnešná téma je Deviata planéta.",
-        "cs": "Dnešní téma je 9. planeta."
+        "sk": "Dnešnou témou je deviata planéta.",
+        "cs": "Dnešním tématem je devátá planeta."
       }
     },
     {
@@ -69,8 +70,8 @@
       "end": 36.76,
       "kind": "speech",
       "text": {
-        "sk": "Je fascinujúce, dovidíme piaž na koniec našej\nslnečnej sústavy, avšak stále o",
-        "cs": "Je fascinující, že vidíme pláž na konci naší\nsluneční soustavy, ale stále o"
+        "sk": "Je fascinujúce, že dovidíme až na koniec našej\nslnečnej sústavy, a predsa o",
+        "cs": "Je fascinující, že dohlédneme až na konec naší\nsluneční soustavy, a přesto o"
       }
     },
     {
@@ -78,8 +79,8 @@
       "end": 38.96,
       "kind": "speech",
       "text": {
-        "sk": "nej strašne veľa vecí nevieme.",
-        "cs": "Nevíme o mnoha věcech."
+        "sk": "nej stále strašne veľa vecí nevieme.",
+        "cs": "ní stále spoustu věcí nevíme."
       }
     },
     {
@@ -87,7 +88,7 @@
       "end": 40.72,
       "kind": "speech",
       "text": {
-        "sk": "Samuel, jak je toto možné?",
+        "sk": "Samuel, ako je to možné?",
         "cs": "Samuele, jak je to možné?"
       }
     },
@@ -97,7 +98,7 @@
       "kind": "speech",
       "text": {
         "sk": "Dokonca by som povedal, že dovidíme takmer až na\nkoniec vesmíru, alebo teda do",
-        "cs": "Dokonce bych řekl, že se dostaneme téměř do konce\nvesmíru, nebo do"
+        "cs": "Dokonce bych řekl, že dohlédneme téměř až na konec\nvesmíru, nebo alespoň do"
       }
     },
     {
@@ -105,8 +106,8 @@
       "end": 48.06,
       "kind": "speech",
       "text": {
-        "sk": "jeho najranejší štády.",
-        "cs": "jeho rané fáze."
+        "sk": "jeho najranejších štádií.",
+        "cs": "jeho nejranějších fází."
       }
     },
     {
@@ -114,8 +115,8 @@
       "end": 54.13,
       "kind": "speech",
       "text": {
-        "sk": "Ale to, vidíme vo vesmíre, vedíme koli tomu, že\nnapríklad svetlo, ktoré pochádza z",
-        "cs": "Ale to, co vidíme ve vesmíru, víme jen z toho, že\nnapříklad světlo, které pochází z"
+        "sk": "Ale to, čo vidíme vo vesmíre, vidíme vďaka tomu, že\nnapríklad svetlo pochádza",
+        "cs": "To, co ve vesmíru vidíme, je díky tomu, že k nám\nnapříklad přichází světlo"
       }
     },
     {
@@ -123,8 +124,8 @@
       "end": 55.77,
       "kind": "speech",
       "text": {
-        "sk": "silnej supernovy.",
-        "cs": "silnou supernovou."
+        "sk": "zo silnej supernovy.",
+        "cs": "ze silné supernovy."
       }
     },
     {
@@ -132,8 +133,8 @@
       "end": 60.79,
       "kind": "speech",
       "text": {
-        "sk": "Problém s tým, že prečo nepoznáme našu slnečnú\nsústavu, že je tam kopaveci, ktoré",
-        "cs": "Problém s tím, proč neznáme naše sluneční\nsoustavu, je, že tam jsou kopáři, kteří"
+        "sk": "Problém, prečo nepoznáme našu slnečnú sústavu, je, že\nje tam kopa vecí, ktoré",
+        "cs": "Proč tedy neznáme ani vlastní sluneční soustavu? Je v\nní spousta těles, která"
       }
     },
     {
@@ -141,8 +142,8 @@
       "end": 64.85,
       "kind": "speech",
       "text": {
-        "sk": "sú buď malé planetky, astrojedy a podobne, ktoré\nnesvietia a teda sú pre nás",
-        "cs": "Jsou to buď malé planety, nebo asteroidy, nebo\npodobné věci, které nesvítí, takže jsou pro nás."
+        "sk": "sú malé planétky, asteroidy a podobne. Samy nesvietia,\na preto sú pre nás",
+        "cs": "jsou malé planetky, asteroidy a podobně. Samy nesvítí,\na proto jsou pro nás"
       }
     },
     {
@@ -151,7 +152,7 @@
       "kind": "speech",
       "text": {
         "sk": "prakticky neviditeľné.",
-        "cs": "prakticky neviditelné."
+        "cs": "prakticky neviditelná."
       }
     },
     {
@@ -159,8 +160,8 @@
       "end": 72.4,
       "kind": "speech",
       "text": {
-        "sk": "A jak sme sa teda dostali k planetám? Ako sme ich\nobjavili, keďže neemitujú žiadne",
-        "cs": "Jak jsme se tedy dostali k planetám? Jak jsme je\nobjevili, protože žádné nemitují."
+        "sk": "Ako sme sa teda dostali k planétam? Ako sme ich\nobjavili, keďže nevyžarujú vlastné",
+        "cs": "Jak jsme tedy planety objevovali, když samy nevyzařují\nvlastní"
       }
     },
     {
@@ -168,8 +169,8 @@
       "end": 76.34,
       "kind": "speech",
       "text": {
-        "sk": "svetlo? Niektoré planety boli pomerne jednoduché,\ntak na zemi sme sa objavili, to",
-        "cs": "Některé planety byly poměrně jednoduché, takže\njsme se objevili na Zemi."
+        "sk": "svetlo? Niektoré planéty boli pomerne jednoduché: na\nZemi sme sa objavili, tú",
+        "cs": "světlo? U některých to bylo snadné: na Zemi jsme se\nobjevili, tu"
       }
     },
     {
@@ -177,8 +178,8 @@
       "end": 81.06,
       "kind": "speech",
       "text": {
-        "sk": "bolo ľahké nájsť. A potom sú niektoré planety,\nktoré viac menej vidíť voľným okom,",
-        "cs": "A pak existují planety, které jsou méně viditelné\nsvobodným okom,"
+        "sk": "bolo ľahké nájsť. A niektoré ďalšie planéty viac-menej\nvidno voľným okom:",
+        "cs": "bylo snadné najít. A některé další planety jsou vidět\npouhým okem:"
       }
     },
     {
@@ -186,8 +187,8 @@
       "end": 83.56,
       "kind": "speech",
       "text": {
-        "sk": "čiže Merkur, Venus a Mars, Jupiter, Saturn.",
-        "cs": "Merkur, Venuše a Mars, Jupiter, Saturn."
+        "sk": "Merkúr, Venušu, Mars, Jupiter a Saturn.",
+        "cs": "Merkur, Venuši, Mars, Jupiter a Saturn."
       }
     },
     {
@@ -195,8 +196,8 @@
       "end": 88.08,
       "kind": "speech",
       "text": {
-        "sk": "A tie boli známe ešte v Babylonie, to možno ty\nlepšie objež vedeť, že kedy zhruba",
-        "cs": "A ty byly známé ještě v Babylonsku, takže možná\nbudete lépe vědět, že kdykoli kolem"
+        "sk": "Tie poznali už v Babylone. Možno ty vieš lepšie, z\nktorého približne",
+        "cs": "Znali je už v Babylonu. Možná lépe víš, ze kterého\npřibližně"
       }
     },
     {
@@ -204,8 +205,8 @@
       "end": 88.92,
       "kind": "speech",
       "text": {
-        "sk": "bol?",
-        "cs": "Byl?"
+        "sk": "obdobia.",
+        "cs": "období."
       }
     },
     {
@@ -213,8 +214,8 @@
       "end": 95.03,
       "kind": "speech",
       "text": {
-        "sk": "No, viem, že Mars bol bohom vojny hrimským a\nurčite,",
-        "cs": "No, vím, že Mars byl bohem války a jistě,"
+        "sk": "Viem, že Mars bol u Rimanov bohom vojny, a určite",
+        "cs": "Vím, že Mars byl u Římanů bohem války, a určitě"
       }
     },
     {
@@ -222,8 +223,8 @@
       "end": 100.21,
       "kind": "speech",
       "text": {
-        "sk": "bo aj Babylončane mali zmápované nebezske telesa.",
-        "cs": "Nebo i Babyloniáni budou mít nebezpečné těla."
+        "sk": "aj Babylončania mali zmapované nebeské telesá.",
+        "cs": "i Babyloňané měli nebeská tělesa zmapovaná."
       }
     },
     {
@@ -231,8 +232,8 @@
       "end": 105.46,
       "kind": "speech",
       "text": {
-        "sk": "Hej, ale teda ako hovorí, že tieto planety všetky\nzohravali taký",
-        "cs": "Jo, ale jak se říká, že tyto planety všechny hrály\ntak"
+        "sk": "Hej. Ale ako hovoríš, všetky tieto planéty mali aj",
+        "cs": "Ano. Ale jak říkáš, všechny tyto planety měly také"
       }
     },
     {
@@ -240,8 +241,8 @@
       "end": 110.69,
       "kind": "speech",
       "text": {
-        "sk": "mistický charakter, že predstavali si pod nimi\nbohov a",
-        "cs": "Mystický charakter, že představovali pod nimi bohů\na"
+        "sk": "mystický význam. Ľudia si pod nimi predstavovali bohov\na",
+        "cs": "mystický význam. Lidé si je spojovali s bohy a"
       }
     },
     {
@@ -249,8 +250,8 @@
       "end": 115.13,
       "kind": "speech",
       "text": {
-        "sk": "podobne. Čiže toto sú také tie ľahké objavy. A\nteraz je zajímavá otázka, že kedy",
-        "cs": "Takže tohle jsou takové lehké objevy. A teď je\nzajímavá otázka, kdy"
+        "sk": "podobne. To boli tie ľahké objavy. Zaujímavá otázka\nvšak je, kedy",
+        "cs": "podobně. To byly ty snadné objevy. Zajímavé ale je,\nkdy"
       }
     },
     {
@@ -258,8 +259,8 @@
       "end": 119.65,
       "kind": "speech",
       "text": {
-        "sk": "vlastne prišiel prvý objav innej planety, ako\ntieto, ktoré sa dajú vidieť pomerne",
-        "cs": "V podstatě přišlo první objevení jiné planety, než\nje tato, která je relativně viditelná."
+        "sk": "prišiel prvý objav inej planéty než tých, ktoré sú\npomerne",
+        "cs": "byla poprvé objevena jiná planeta než ty, které jsou\npoměrně"
       }
     },
     {
@@ -267,8 +268,8 @@
       "end": 124.68,
       "kind": "speech",
       "text": {
-        "sk": "ľahko? Teda, keby si si mal tak tipnúť, že kedy to\nasi bolo, ktoré storočie?",
-        "cs": "Takže, pokud byste se domnívali, kdy to bylo, jaký\nstoletí?"
+        "sk": "ľahko viditeľné. Skús si tipnúť, v ktorom storočí to\nbolo.",
+        "cs": "snadno viditelné. Zkus si tipnout, v jakém století se\nto stalo."
       }
     },
     {
@@ -276,8 +277,8 @@
       "end": 126.31,
       "kind": "speech",
       "text": {
-        "sk": "15.",
-        "cs": "15."
+        "sk": "V pätnástom?",
+        "cs": "V patnáctém?"
       }
     },
     {
@@ -285,8 +286,8 @@
       "end": 131.11,
       "kind": "speech",
       "text": {
-        "sk": "Takmer bolo to 17. storočie, kedy sa vlastne\npodaralo skonšturovať prvé ďaleko",
-        "cs": "Bylo to téměř v 17. století, kdy se podařilo\nvytvořit první vzdálené"
+        "sk": "Takmer. Bolo to v sedemnástom storočí, keď sa podarilo\nskonštruovať prvé",
+        "cs": "Skoro. Bylo to v sedmnáctém století, kdy se podařilo\nsestrojit první"
       }
     },
     {
@@ -294,8 +295,8 @@
       "end": 136.39,
       "kind": "speech",
       "text": {
-        "sk": "hlady. To, sa objavilo, boli zaprvé mesiace\nJupitera a Saturnu.",
-        "cs": "Zjistilo se, že to byly první měsíce Jupitera a\nSaturnu."
+        "sk": "ďalekohľady. Najprv sa objavili mesiace Jupitera a\nSaturnu.",
+        "cs": "dalekohledy. Nejdřív byly objeveny měsíce Jupitera a\nSaturnu."
       }
     },
     {
@@ -303,8 +304,8 @@
       "end": 140.33,
       "kind": "speech",
       "text": {
-        "sk": "S tým Saturnom to bolo ešte také zvláštné, že on\nmá prstence.",
-        "cs": "S Saturnem to bylo tak zvláštní, že má prsteny."
+        "sk": "So Saturnom to bolo zvláštne, pretože má prstence.",
+        "cs": "Se Saturnem to bylo zvláštní, protože má prstence."
       }
     },
     {
@@ -312,8 +313,8 @@
       "end": 143.15,
       "kind": "speech",
       "text": {
-        "sk": "Keď ho videli, tak si myslel, že tá planeta má\nuši.",
-        "cs": "Když ho viděli, myslel si, že ta planeta má uši."
+        "sk": "Keď ho videli, mysleli si, že tá planéta má uši.",
+        "cs": "Když ho pozorovali, mysleli si, že má planeta uši."
       }
     },
     {
@@ -321,8 +322,8 @@
       "end": 148.04,
       "kind": "speech",
       "text": {
-        "sk": "I aj, že tie prstence pôsobili ako uši pre\nastronautu.",
-        "cs": "A také, že ty prsteny fungovaly jako uši pro\nastronauty."
+        "sk": "Prstence totiž vtedajším astronómom pripomínali uši.",
+        "cs": "Prstence totiž tehdejším astronomům připomínaly uši."
       }
     },
     {
@@ -330,8 +331,8 @@
       "end": 153.42,
       "kind": "speech",
       "text": {
-        "sk": "A z Jupiterom to bolo zajmavé z iného dôvodu, že\non má mesiace.",
-        "cs": "A Jupiter byl obtížný z jiného důvodu, že má\nměsíce."
+        "sk": "A Jupiter bol zaujímavý z iného dôvodu: má mesiace.",
+        "cs": "A Jupiter byl zajímavý z jiného důvodu: má měsíce."
       }
     },
     {
@@ -339,8 +340,8 @@
       "end": 157.68,
       "kind": "speech",
       "text": {
-        "sk": "A ľudia si všimli, že tie mesiace ako keby\nmeškali.",
-        "cs": "A lidé si všimli, že měsíce zpožděly."
+        "sk": "Ľudia si všimli, že tie mesiace akoby meškali.",
+        "cs": "Lidé si všimli, že se tyto měsíce jakoby opožďují."
       }
     },
     {
@@ -348,8 +349,8 @@
       "end": 161.98,
       "kind": "speech",
       "text": {
-        "sk": "Že oni, niekedy ich vidíme pred Jupiterom, niekedy\nsú za Jupiterom. A včas poza",
-        "cs": "Někdy je vidíme před Jupitrem, někdy za Jupitrem."
+        "sk": "Niekedy ich vidíme pred Jupiterom, inokedy za ním.",
+        "cs": "Někdy je vidíme před Jupiterem, jindy za ním."
       }
     },
     {
@@ -357,8 +358,8 @@
       "end": 162.82,
       "kind": "speech",
       "text": {
-        "sk": "ňom musíte da viť.",
-        "cs": "Musíte mu věřit."
+        "sk": "A občas ich vôbec nevidno.",
+        "cs": "A někdy nejsou vidět vůbec."
       }
     },
     {
@@ -366,8 +367,8 @@
       "end": 168.63,
       "kind": "speech",
       "text": {
-        "sk": "A ľudia si všimli, že tie mesiace meškajú v tomto\nvychádzani, keď je Jupiter na",
-        "cs": "A lidé si všimli, že měsíce jsou pozdě v tomto\nvýstupu, když je Jupiter na"
+        "sk": "Zistili, že mesiace sa pri svojom vychádzaní\noneskorujú, keď je Jupiter",
+        "cs": "Zjistili, že měsíce při svém vynořování nabírají\nzpoždění, když je Jupiter"
       }
     },
     {
@@ -375,8 +376,8 @@
       "end": 170.23,
       "kind": "speech",
       "text": {
-        "sk": "opačnej strane slnka a kozem.",
-        "cs": "na opačné straně slunce a koza."
+        "sk": "na opačnej strane Slnka než Zem.",
+        "cs": "na opačné straně Slunce než Země."
       }
     },
     {
@@ -384,8 +385,8 @@
       "end": 176.98,
       "kind": "speech",
       "text": {
-        "sk": "A z toho niekomu docvaklo, že to je asi spôsobené\ntým, že svetlo sa hýbe konečnou",
-        "cs": "A někdo z nich si uvědomil, že je to asi způsobeno\ntím, že se světlo pohybuje konečně."
+        "sk": "Niekto si uvedomil, že to bude tým, že svetlo sa šíri\nkonečnou",
+        "cs": "Někdo si uvědomil, že je to tím, že se světlo šíří\nkonečnou"
       }
     },
     {
@@ -393,8 +394,8 @@
       "end": 180.72,
       "kind": "speech",
       "text": {
-        "sk": "rýchlosťou, musí prejsť väčšiu dráhu. Meškal to\nasi 15 minut.",
-        "cs": "Je to asi 15 minut."
+        "sk": "rýchlosťou a musí prekonať dlhšiu dráhu. Meškanie bolo\nasi pätnásť minút.",
+        "cs": "rychlostí a musí urazit delší dráhu. Zpoždění bylo asi\npatnáct minut."
       }
     },
     {
@@ -402,8 +403,8 @@
       "end": 186.79,
       "kind": "speech",
       "text": {
-        "sk": "z toho takomto pomerne sdialenom storoči ľudia\nspočtali rýchlo",
-        "cs": "Z tohoto poměrně vzdáleného století lidé počítaly\nrychle"
+        "sk": "A tak ľudia už v tomto pomerne dávnom storočí\nvypočítali rýchlosť",
+        "cs": "A tak lidé už v tak dávném století vypočítali rychlost"
       }
     },
     {
@@ -412,7 +413,7 @@
       "kind": "speech",
       "text": {
         "sk": "svetla.",
-        "cs": "Světlo."
+        "cs": "světla."
       }
     },
     {
@@ -420,8 +421,8 @@
       "end": 190.22,
       "kind": "speech",
       "text": {
-        "sk": "Vyšlo im to zhruba 200 000 km. za hodinu.",
-        "cs": "Vydělali to asi 200 000 km za hodinu."
+        "sk": "Vyšlo im to približne dvestotisíc kilometrov za\nsekundu.",
+        "cs": "Vyšlo jim to přibližně dvě stě tisíc kilometrů za\nsekundu."
       }
     },
     {
@@ -429,8 +430,8 @@
       "end": 193.11,
       "kind": "speech",
       "text": {
-        "sk": "To už v tomto 17. storoči na toto prišli?",
-        "cs": "Už v 17. století to zjistili?"
+        "sk": "Na toto prišli už v sedemnástom storočí?",
+        "cs": "Na to přišli už v sedmnáctém století?"
       }
     },
     {
@@ -438,8 +439,8 @@
       "end": 195.93,
       "kind": "speech",
       "text": {
-        "sk": "To by som povedal, že to je 20.",
-        "cs": "Řekl bych, že je to 20."
+        "sk": "Ja by som povedal, že až v dvadsiatom",
+        "cs": "Řekl bych, že až ve dvacátém,"
       }
     },
     {
@@ -447,8 +448,8 @@
       "end": 201.35,
       "kind": "speech",
       "text": {
-        "sk": "až 19. storočie. Takýto objav, na koľko rýchlo\nsvetla. Myslím, že 19.",
-        "cs": "Takovéto objevy, jak rychle světlo proudí. Myslím,\nže 19."
+        "sk": "alebo devätnástom storočí. Takýto objav, ako rýchlosť\nsvetla! Myslel som, že",
+        "cs": "nebo devatenáctém století. Takový objev, jako je\nrychlost světla! Myslel jsem, že"
       }
     },
     {
@@ -456,8 +457,8 @@
       "end": 205.55,
       "kind": "speech",
       "text": {
-        "sk": "až začiatkom 20. storočie sa podarilo odmerať.",
-        "cs": "Až na začátek 20. století se to podařilo měřit."
+        "sk": "až v devätnástom alebo začiatkom dvadsiateho storočia\nju dokázali zmerať.",
+        "cs": "až v devatenáctém nebo na začátku dvacátého století ji\ndokázali změřit."
       }
     },
     {
@@ -465,8 +466,8 @@
       "end": 207.15,
       "kind": "speech",
       "text": {
-        "sk": "A toto je úžasné.",
-        "cs": "A tohle je úžasné."
+        "sk": "Je to úžasné.",
+        "cs": "Je to úžasné."
       }
     },
     {
@@ -474,8 +475,8 @@
       "end": 212.11,
       "kind": "speech",
       "text": {
-        "sk": "Ako asi sa troška sekli pri to meraní, som\npovedal,",
-        "cs": "A když se asi trochu zkurvili v tom měření, řekl\njsem:"
+        "sk": "Pri tom meraní sa síce trochu pomýlili,",
+        "cs": "Při tom měření se sice trochu spletli,"
       }
     },
     {
@@ -483,8 +484,8 @@
       "end": 216.43,
       "kind": "speech",
       "text": {
-        "sk": "ale je to obrovsky podľa mňa skok na 17.",
-        "cs": "ale myslím, že je to obrovský skok na 17."
+        "sk": "ale podľa mňa to bol na sedemnáste",
+        "cs": "ale podle mě to byl na sedmnácté"
       }
     },
     {
@@ -492,8 +493,8 @@
       "end": 220.75,
       "kind": "speech",
       "text": {
-        "sk": "storoče. Myslím si, že by veľmi malo našich\nposluchačov povedalo, že 17.",
-        "cs": "Myslím, že by měli naši posluchači říci, že 17."
+        "sk": "storočie obrovský skok. Myslím, že málokto z našich\nposlucháčov by povedal, že v",
+        "cs": "století obrovský skok. Myslím, že málokdo z našich\nposluchačů by řekl, že v"
       }
     },
     {
@@ -501,8 +502,8 @@
       "end": 225.53,
       "kind": "speech",
       "text": {
-        "sk": "storoči počítal rýchlo svetla vďaka Jupiterovým\nmesiacom.",
-        "cs": "V tomto století rychle počítal světlo díky\nJupiteru."
+        "sk": "sedemnástom storočí vypočítali rýchlosť svetla vďaka\nJupiterovým mesiacom.",
+        "cs": "sedmnáctém století vypočítali rychlost světla díky\nJupiterovým měsícům."
       }
     },
     {
@@ -510,8 +511,8 @@
       "end": 229.85,
       "kind": "speech",
       "text": {
-        "sk": "Takže bol to rok 1676.",
-        "cs": "Takže to bylo v roce 1676."
+        "sk": "Bolo to v roku 1676.",
+        "cs": "Bylo to v roce 1676."
       }
     },
     {
@@ -519,8 +520,8 @@
       "end": 235.43,
       "kind": "speech",
       "text": {
-        "sk": "Podarlo sa to Romerovi. Neviem, či to meno správne\nčítam, lebo to je preškrknuté.",
-        "cs": "Romerovi se to podařilo, ale nevím, jestli jsem to\nsprávně přečetl, protože je to přeškrtnuté."
+        "sk": "Podarilo sa to Ole Rømerovi. Neviem, či to meno čítam\nsprávne.",
+        "cs": "Dokázal to Ole Rømer. Nevím, jestli jeho jméno\nvyslovuji správně."
       }
     },
     {
@@ -528,8 +529,8 @@
       "end": 242.25,
       "kind": "speech",
       "text": {
-        "sk": "Ospravlňujeme sa dopredu, keď sme to zle prečítali\nvšetkým dánským posluchačom.",
-        "cs": "Když jsme to špatně přečetli všem dánským\nposluchačům, tak jsme se upravili."
+        "sk": "Vopred sa ospravedlňujeme všetkým dánskym poslucháčom,\nak sme ho vyslovili zle.",
+        "cs": "Předem se omlouváme všem dánským posluchačům, jestli\njsme ho vyslovili špatně."
       }
     },
     {
@@ -537,8 +538,8 @@
       "end": 245.65,
       "kind": "speech",
       "text": {
-        "sk": "Všetkým dánským astrofyzikom sa ospravlňujeme.\nÁno, áno.",
-        "cs": "Všechny dánské astrophysicistky se opravují."
+        "sk": "A všetkým dánskym astrofyzikom sa tiež\nospravedlňujeme. Áno, áno.",
+        "cs": "A všem dánským astrofyzikům se také omlouváme. Ano,\nano."
       }
     },
     {
@@ -546,8 +547,8 @@
       "end": 251.27,
       "kind": "speech",
       "text": {
-        "sk": "Dobre, čiže to bol Jupiter a Saturn teda ich\nmesiace, tak to bol také prvé veľké,",
-        "cs": "Dobře, pokud to byl Jupiter a Saturn, takže jejich\nměsíce, tak to byl první tak velký měsíc,"
+        "sk": "Dobre, čiže Jupiter a Saturn, ich mesiace. To boli tie\nprvé veľké",
+        "cs": "Dobře, takže Jupiter a Saturn, jejich měsíce. To byly\nprvní velké"
       }
     },
     {
@@ -555,8 +556,8 @@
       "end": 254.85,
       "kind": "speech",
       "text": {
-        "sk": "neviem či prekvapenie, lebo keď zemá mesiac, tak\nsa asi dočakovať, že iné planety",
-        "cs": "Nevím, jestli je to překvapení, protože když se\nnarodí měsíc, asi se očekává, že jiné planety"
+        "sk": "objavy. Neviem, či to bolo prekvapenie, keďže Zem má\nMesiac, a tak sa dalo čakať, že aj iné planéty",
+        "cs": "objevy. Nevím, zda to bylo překvapení. Když má Zem\nMěsíc, dalo se čekat, že i jiné planety"
       }
     },
     {
@@ -564,8 +565,8 @@
       "end": 258.46,
       "kind": "speech",
       "text": {
-        "sk": "ho majú. Prvú ďalšiu planetu objavili v 18.",
-        "cs": "První další planeta byla objevena v 18."
+        "sk": "ho majú. Ďalšiu planétu objavili v osemnástom",
+        "cs": "ho mají. Další planetu objevili v osmnáctém"
       }
     },
     {
@@ -573,8 +574,8 @@
       "end": 260.58,
       "kind": "speech",
       "text": {
-        "sk": "storočí a išlo Urán.",
-        "cs": "století a šel Uran."
+        "sk": "storočí a bol to Urán.",
+        "cs": "století a byl to Uran."
       }
     },
     {
@@ -582,8 +583,8 @@
       "end": 264.32,
       "kind": "speech",
       "text": {
-        "sk": "A objavil ho astronóm s menom Hershel.",
-        "cs": "A byl objeven astronomem jménem Hershel."
+        "sk": "Objavil ho astronóm William Herschel.",
+        "cs": "Objevil ho astronom William Herschel."
       }
     },
     {
@@ -591,8 +592,8 @@
       "end": 269.21,
       "kind": "speech",
       "text": {
-        "sk": "Vlastne ho objavil, ale myslel si, že to je\nkometa. A to je jeden z tých",
-        "cs": "Vlastně ho objevil, ale myslel si, že je to\nkometa."
+        "sk": "Vlastne ho objavil, ale myslel si, že ide o kométu. To\nje jeden z",
+        "cs": "Vlastně ho objevil, ale myslel si, že jde o kometu. To\nje jeden z"
       }
     },
     {
@@ -600,8 +601,8 @@
       "end": 273.67,
       "kind": "speech",
       "text": {
-        "sk": "problémov, že vzdialené planety majú veľmi dlhý\nčas obehu okolo slnka.",
-        "cs": "Problém je, že vzdálené planety obíhají kolem\nSlunce velmi dlouhou dobu."
+        "sk": "problémov: vzdialené planéty obiehajú okolo Slnka\nveľmi dlho.",
+        "cs": "problémů: vzdálené planety obíhají kolem Slunce velmi\ndlouho."
       }
     },
     {
@@ -609,8 +610,8 @@
       "end": 278.58,
       "kind": "speech",
       "text": {
-        "sk": "Takže sa hýbú len veľmi pomaly, takže to vyzerá\nako taká bodka, a teraz nie je",
-        "cs": "Takže se pohybují velmi pomalu, takže to vypadá\njako bod, a teď to není."
+        "sk": "Pohybujú sa teda veľmi pomaly, vyzerajú ako bodka a\nnie je",
+        "cs": "Pohybují se tedy velmi pomalu, vypadají jako tečka a\nnení"
       }
     },
     {
@@ -618,8 +619,8 @@
       "end": 279.84,
       "kind": "speech",
       "text": {
-        "sk": "jasné, čo to vlastne je.",
-        "cs": "Jasně, co to vlastně je."
+        "sk": "jasné, čo vlastne pozorujeme.",
+        "cs": "jasné, co vlastně pozorujeme."
       }
     },
     {
@@ -627,8 +628,8 @@
       "end": 283.02,
       "kind": "speech",
       "text": {
-        "sk": "Že veľmi sa to podoba na kometu pri tej\nvzdialenosti.",
-        "cs": "Je to velmi podobný kometě z této vzdálenosti."
+        "sk": "Na takú vzdialenosť to vyzerá ako kométa.",
+        "cs": "Na takovou vzdálenost to vypadá jako kometa."
       }
     },
     {
@@ -636,8 +637,8 @@
       "end": 285.86,
       "kind": "speech",
       "text": {
-        "sk": "Podoba sa to na kometu a zároveň sa to podoba na\nslabé hviezdy.",
-        "cs": "Vypadá to jako kometa a zároveň jako slabá hvězda."
+        "sk": "Zároveň to môže pripomínať aj slabú hviezdu.",
+        "cs": "Zároveň to může připomínat i slabou hvězdu."
       }
     },
     {
@@ -645,8 +646,8 @@
       "end": 290.86,
       "kind": "speech",
       "text": {
-        "sk": "Čiže najprv teda počkač sa to hýbe a potom sa\ntreba pokúsiť uvidie, či to má",
-        "cs": "Takže nejprve se čekatel pohybuje a pak se musí\npokusit zjistit, jestli to má."
+        "sk": "Treba teda najprv počkať, či sa to pohybuje, a potom\nskúsiť zistiť, či to má",
+        "cs": "Je tedy třeba počkat, jestli se objekt pohybuje, a\npotom zjistit, zda má"
       }
     },
     {
@@ -654,8 +655,8 @@
       "end": 295.32,
       "kind": "speech",
       "text": {
-        "sk": "chvost",
-        "cs": "Ostrovní dno"
+        "sk": "chvost.",
+        "cs": "ohon."
       }
     },
     {
@@ -663,8 +664,8 @@
       "end": 304.78,
       "kind": "speech",
       "text": {
-        "sk": "Takže asi zo svojho objavu bol viacej nadšený, že\nje to nová planeta, ako keby že",
-        "cs": "Takže byl asi nadšený z toho, že je to nová\nplaneta."
+        "sk": "Možno bol zo svojho objavu nadšenejší, keď si myslel,\nže je to nová planéta, než keby",
+        "cs": "Možná byl ze svého objevu nadšenější, když se ukázalo,\nže jde o planetu, než kdyby"
       }
     },
     {
@@ -672,8 +673,8 @@
       "end": 308.92,
       "kind": "speech",
       "text": {
-        "sk": "je to kometa, ktorá je častejšia v slnečnej\nsústave.",
-        "cs": "Je to kometa, která je častější ve sluneční\nsoustavě."
+        "sk": "šlo o kométu, ktorých je v slnečnej sústave viac.",
+        "cs": "šlo o kometu, kterých je ve sluneční soustavě víc."
       }
     },
     {
@@ -682,7 +683,7 @@
       "kind": "speech",
       "text": {
         "sk": "Asi nie.",
-        "cs": "Nejspíš ne."
+        "cs": "Asi ne."
       }
     },
     {
@@ -690,8 +691,8 @@
       "end": 317.42,
       "kind": "speech",
       "text": {
-        "sk": "ktorá bola ďalšia? Asi postupujeme postupne?",
-        "cs": "Co je další? Myslím, že jdeme postupně?"
+        "sk": "Ktorá bola ďalšia? Postupujeme pekne po poradí?",
+        "cs": "Která byla další? Postupujeme pěkně popořadě?"
       }
     },
     {
@@ -699,8 +700,8 @@
       "end": 320.5,
       "kind": "speech",
       "text": {
-        "sk": "Hej, hej, hej, doplním, že teda 17.",
-        "cs": "Hej, hej, hej, doplním, že je to 17."
+        "sk": "Hej, hej. Doplním, že v sedemnástom",
+        "cs": "Ano, ano. Doplním, že v sedmnáctém"
       }
     },
     {
@@ -708,8 +709,8 @@
       "end": 325.84,
       "kind": "speech",
       "text": {
-        "sk": "storočie bol mesiacie Jupitera a Saturnu ty tie\nmesiacie pribudajú",
-        "cs": "V století byly měsíce Jupitera a Saturna. Ty\nměsíce se objevují."
+        "sk": "storočí objavili mesiace Jupitera a Saturnu. A tieto\nmesiace pribúdajú",
+        "cs": "století objevili měsíce Jupitera a Saturnu. A jejich\npočet roste"
       }
     },
     {
@@ -717,8 +718,8 @@
       "end": 328.76,
       "kind": "speech",
       "text": {
-        "sk": "praktycky až do dneška, že stále sa objavujú\nďalšie a ďalšie.",
-        "cs": "prakticky k dnešnímu dni, že se stále objevují\ndalší a další."
+        "sk": "prakticky dodnes, stále sa objavujú ďalšie a ďalšie.",
+        "cs": "prakticky dodnes, stále se objevují další a další."
       }
     },
     {
@@ -726,8 +727,8 @@
       "end": 331.4,
       "kind": "speech",
       "text": {
-        "sk": "18. storočie Urán a 19.",
-        "cs": "18. století Uran a 19. století"
+        "sk": "V osemnástom storočí Urán a v devätnástom",
+        "cs": "V osmnáctém století Uran a v devatenáctém"
       }
     },
     {
@@ -735,8 +736,8 @@
       "end": 335.9,
       "kind": "speech",
       "text": {
-        "sk": "storočie sa to začalo rozbiehať samozrejme ako sa\nzlepšovali technológie.",
-        "cs": "V tomto století to samozřejmě začalo probíhat s\nvylepšováním technologií."
+        "sk": "storočí sa objavy rozbehli, pretože sa zlepšovali\ntechnológie.",
+        "cs": "století se objevy rozběhly díky zlepšujícím se\ntechnologiím."
       }
     },
     {
@@ -744,8 +745,8 @@
       "end": 341.5,
       "kind": "speech",
       "text": {
-        "sk": "Objavil sa napríklad Ceres, čo je teraz už\noznačovaný za trpazličiu planetu, čo je",
-        "cs": "Například objevil se Ceres, který je nyní známý\njako trpaslíka."
+        "sk": "Objavili napríklad Ceres, ktorý dnes radíme medzi\ntrpasličie planéty.",
+        "cs": "Objevili například Ceres, který dnes řadíme mezi\ntrpasličí planety."
       }
     },
     {
@@ -753,8 +754,8 @@
       "end": 343.78,
       "kind": "speech",
       "text": {
-        "sk": "také menej zajímavé, ale povedlo sa objavit\nNeptune.",
-        "cs": "Je to méně zajímavé, ale Neptun se objevil."
+        "sk": "To je menej zaujímavé, ale podarilo sa objaviť aj\nNeptún.",
+        "cs": "To je méně zajímavé, ale podařilo se objevit také\nNeptun."
       }
     },
     {
@@ -762,8 +763,8 @@
       "end": 351.3,
       "kind": "speech",
       "text": {
-        "sk": "Teraz, kdo ten Neptune objavil, nie je úplne\njasné, že keď sa našli poznámky",
-        "cs": "Teď, kdo objevil Neptuna, není úplně jasné, že\nkdyž byly nalezeny poznámky"
+        "sk": "Kto vlastne Neptún objavil, nie je celkom jasné. Keď\ntotiž našli poznámky",
+        "cs": "Kdo vlastně Neptun objevil, není úplně jasné. Když\ntotiž našli poznámky"
       }
     },
     {
@@ -771,8 +772,8 @@
       "end": 356.47,
       "kind": "speech",
       "text": {
-        "sk": "Galileo Galilea, v tých poznámkach mal zakreslené\ntaké",
-        "cs": "Galileo Galilei, ve svých poznámkách, napsal:"
+        "sk": "Galilea Galileiho, mal v nich zakreslené",
+        "cs": "Galilea Galileiho, měl v nich zakreslené"
       }
     },
     {
@@ -780,8 +781,8 @@
       "end": 361.29,
       "kind": "speech",
       "text": {
-        "sk": "bodky, ktoré presne odpovedali trajektórii\nNeptuneu v tom roku.",
-        "cs": "body, které přesně odpovídají trajektorii Neptunu\nv tomto roce."
+        "sk": "bodky, ktoré zodpovedali polohe Neptúna v tom čase.",
+        "cs": "tečky, které odpovídaly poloze Neptunu v té době."
       }
     },
     {
@@ -789,8 +790,8 @@
       "end": 366.08,
       "kind": "speech",
       "text": {
-        "sk": "A teraz je otázka, či to už on videl, alebo je to\nnáhoda, alebo si to s niečím",
-        "cs": "A teď je otázka, jestli to viděl, nebo je to\nnáhoda, nebo se s něčím souvisí."
+        "sk": "Otázkou je, či ho naozaj videl, či to bola náhoda,\nalebo si ho s niečím",
+        "cs": "Otázkou je, jestli ho skutečně viděl, jestli to byla\nnáhoda, nebo si ho s něčím"
       }
     },
     {
@@ -798,8 +799,8 @@
       "end": 366.92,
       "kind": "speech",
       "text": {
-        "sk": "poplitol?",
-        "cs": "Je to zmatený?"
+        "sk": "pomýlil.",
+        "cs": "spletl."
       }
     },
     {
@@ -807,8 +808,8 @@
       "end": 372.88,
       "kind": "speech",
       "text": {
-        "sk": "Aha, že či nemal tie isté pozorovania Neptuneu,\nlen to nepriradil ako k",
-        "cs": "Oh, že i kdyby neměl stejné pozorování Neptuna,\ntak to prostě neřídil jako..."
+        "sk": "Čiže mohol Neptún pozorovať, len ho nepovažoval za",
+        "cs": "Takže mohl Neptun pozorovat, jen ho nepovažoval za"
       }
     },
     {
@@ -816,17 +817,17 @@
       "end": 373.72,
       "kind": "speech",
       "text": {
-        "sk": "planete,",
-        "cs": "planety,"
+        "sk": "planétu.",
+        "cs": "planetu."
       }
     },
     {
       "start": 375.36,
-      "end": 379.0,
+      "end": 379,
       "kind": "speech",
       "text": {
-        "sk": "ale nemal takú techniku, aby to mohol potvrdiť, že\nje to ďalšia planeta.",
-        "cs": "Ale neměl takovou techniku, aby to potvrdil, že je\nto další planeta."
+        "sk": "Nemal ani také vybavenie, aby dokázal potvrdiť, že ide\no ďalšiu planétu.",
+        "cs": "Neměl ani takové vybavení, aby dokázal potvrdit, že\njde o další planetu."
       }
     },
     {
@@ -834,8 +835,8 @@
       "end": 384.9,
       "kind": "speech",
       "text": {
-        "sk": "Takže možno to videl, možno je to náhoda, ale je\nto dostatočne známy človek na to,",
-        "cs": "Takže možná to viděl, možná je to náhoda, ale je\nto dostatečně známý člověk na to,"
+        "sk": "Možno ho teda videl, možno je to náhoda. Bol však dosť\nslávny na to,",
+        "cs": "Možná ho tedy viděl, možná je to náhoda. Byl ale dost\nslavný na to,"
       }
     },
     {
@@ -843,8 +844,8 @@
       "end": 387.86,
       "kind": "speech",
       "text": {
-        "sk": "aby sa niekto hrabal v jeho poznámkach a takúto\ndrobnost tam objavil.",
-        "cs": "aby se někdo podíval do jeho poznámek a objevil\nněco takového."
+        "sk": "aby niekto prehľadal jeho poznámky a objavil takúto\ndrobnosť.",
+        "cs": "aby někdo prohlédl jeho poznámky a objevil takovou\ndrobnost."
       }
     },
     {
@@ -852,8 +853,8 @@
       "end": 393.24,
       "kind": "speech",
       "text": {
-        "sk": "A to sa asi tiež nikdy nedozvieme, či Galileo\nGalilei objavil. Už asi tí ľudia,",
-        "cs": "A pravděpodobně se nikdy nedozvíme, jestli Galileo\nGalilei objevil."
+        "sk": "A asi sa nikdy nedozvieme, či Galileo Galilei Neptún\nnaozaj objavil. Ľudia,",
+        "cs": "A asi se nikdy nedozvíme, jestli Galileo Galilei\nNeptun skutečně objevil. Lidé,"
       }
     },
     {
@@ -861,8 +862,8 @@
       "end": 398.34,
       "kind": "speech",
       "text": {
-        "sk": "ktorí sa hrabali v poznámkach, sa pokusili nájsť\nodpoveď a teda nevedia.",
-        "cs": "kteří se snažili najít odpověď, ale nevědí."
+        "sk": "ktorí skúmali jeho poznámky, odpoveď zrejme nenašli.",
+        "cs": "kteří zkoumali jeho poznámky, odpověď zřejmě nenašli."
       }
     },
     {
@@ -870,8 +871,8 @@
       "end": 401.98,
       "kind": "speech",
       "text": {
-        "sk": "ale tak teda, Neptune sa biel v 19.",
-        "cs": "Neptun se vybílí v 19 hodinách."
+        "sk": "Neptún teda definitívne objavili v devätnástom",
+        "cs": "Neptun tedy definitivně objevili v devatenáctém"
       }
     },
     {
@@ -879,8 +880,8 @@
       "end": 406.08,
       "kind": "speech",
       "text": {
-        "sk": "storoči definitívne a teraz je zajímavé, že ako sa\nho vlastne podarilo objaviť a",
-        "cs": "století definitivně a teď je zajímavé, jak se\nvlastně objevil a"
+        "sk": "storočí. Zaujímavé je, ako sa to podarilo.",
+        "cs": "století. Zajímavé je, jak se to podařilo."
       }
     },
     {
@@ -888,8 +889,8 @@
       "end": 407.94,
       "kind": "speech",
       "text": {
-        "sk": "podarilo sa ho objaviť takým spôsobom,",
-        "cs": "Věděli jsme, že se objevil takto."
+        "sk": "Objavili ho totiž takto:",
+        "cs": "Objevili ho totiž takto:"
       }
     },
     {
@@ -897,8 +898,8 @@
       "end": 413.17,
       "kind": "speech",
       "text": {
-        "sk": "že Alexis Bouvard si všimol v roku 1821,",
-        "cs": "že Alexis Bouvard si všiml v roce 1821,"
+        "sk": "Alexis Bouvard si v roku 1821 všimol,",
+        "cs": "Alexis Bouvard si v roce 1821 všiml,"
       }
     },
     {
@@ -906,8 +907,8 @@
       "end": 418.75,
       "kind": "speech",
       "text": {
-        "sk": "že vyzerá to tak, že na úran niečo gravitačne\npôsobí. Že neoblíta len tak okolo",
-        "cs": "že je to něco, co působí gravitačně na úran."
+        "sk": "že na Urán zrejme niečo gravitačne pôsobí. Neobieha\ntotiž okolo",
+        "cs": "že na Uran zřejmě něco gravitačně působí. Neobíhá\ntotiž kolem"
       }
     },
     {
@@ -915,8 +916,8 @@
       "end": 422.95,
       "kind": "speech",
       "text": {
-        "sk": "slnka, ale že jeho dráhe je trošku vychýlená\njedným smerom.",
-        "cs": "Slunce, ale jeho dráha je trochu nakřivená jedním\nsměrem."
+        "sk": "Slnka presne podľa očakávaní, jeho dráha je mierne\nvychýlená.",
+        "cs": "Slunce přesně podle očekávání, jeho dráha je mírně\nvychýlená."
       }
     },
     {
@@ -924,8 +925,8 @@
       "end": 428.56,
       "kind": "speech",
       "text": {
-        "sk": "Teda úsodil, že niečo na ňo pôsobí a keď už tie\nplanety tak pribudali, tak celkom",
-        "cs": "Takže se domníval, že na něj něco působí, a když\nse tyto planety probudily, tak úplně."
+        "sk": "Usúdil teda, že naň niečo pôsobí. Keďže pribúdali\nobjavy planét,",
+        "cs": "Usoudil tedy, že na něj něco působí. Protože přibývaly\nobjevy planet,"
       }
     },
     {
@@ -933,8 +934,8 @@
       "end": 431.02,
       "kind": "speech",
       "text": {
-        "sk": "dobre si týpol, že asi je tam ešte taká ďalšia\nplaneta.",
-        "cs": "Dobře, řekl jsi, že je tam asi další planeta."
+        "sk": "správne odhadol, že tam môže byť ešte ďalšia planéta.",
+        "cs": "správně odhadl, že tam může být ještě další planeta."
       }
     },
     {
@@ -942,8 +943,8 @@
       "end": 435.48,
       "kind": "speech",
       "text": {
-        "sk": "Teda, že na úran niečo pôsobí, týpol si, že je\nďalšia planeta, bolo teda problémy",
-        "cs": "Takže když něco působí na úran, tak jste si řekli,\nže je to další planeta, takže jsme měli problémy."
+        "sk": "Predpokladal teda ďalšiu planétu, len bol problém ju",
+        "cs": "Předpokládal tedy další planetu, jen byl problém ji"
       }
     },
     {
@@ -952,7 +953,7 @@
       "kind": "speech",
       "text": {
         "sk": "nájsť.",
-        "cs": "Najděte to."
+        "cs": "najít."
       }
     },
     {
@@ -960,8 +961,8 @@
       "end": 439.82,
       "kind": "speech",
       "text": {
-        "sk": "O zhruba 20 rokov",
-        "cs": "Přibližně 20 let."
+        "sk": "Približne o dvadsať rokov",
+        "cs": "Přibližně o dvacet let"
       }
     },
     {
@@ -969,8 +970,8 @@
       "end": 445.49,
       "kind": "speech",
       "text": {
-        "sk": "toto spravil tak podobné vypočti Le Verrier, ktorý\nju robil oveľa",
-        "cs": "Tento udělal tak podobný výpočet Le Verrier, který\nudělal hodně"
+        "sk": "urobil podobné, ale omnoho presnejšie výpočty Urbain\nLe Verrier.",
+        "cs": "provedl podobné, ale mnohem přesnější výpočty Urbain\nLe Verrier."
       }
     },
     {
@@ -978,8 +979,8 @@
       "end": 450.83,
       "kind": "speech",
       "text": {
-        "sk": "presnejšie a potom vďaka nemu v roku 1846 ho\nobjavil Gall.",
-        "cs": "Přesněji a díky němu byl v roce 1846 objeven\nGallem."
+        "sk": "Vďaka nim Neptún v roku 1846 pozoroval Johann Galle.",
+        "cs": "Díky nim Neptun v roce 1846 pozoroval Johann Galle."
       }
     },
     {
@@ -987,8 +988,8 @@
       "end": 455.93,
       "kind": "speech",
       "text": {
-        "sk": "Zhruba jeden stúpeň od miesta, kde ho Le Verrier\npredpovedal.",
-        "cs": "Asi kousek od místa, kde to předpověděl Le\nVerrier."
+        "sk": "Našiel ho asi jeden stupeň od miesta, ktoré Le Verrier\npredpovedal.",
+        "cs": "Našel ho asi jeden stupeň od místa, které Le Verrier\npředpověděl."
       }
     },
     {
@@ -996,8 +997,8 @@
       "end": 460.13,
       "kind": "speech",
       "text": {
-        "sk": "Čiže bola to taká kombinácia teoretických\nvypočtov, ktoré v začiatku neboli veľmi",
-        "cs": "Takže to byla taková kombinace teoretických\nvýpočtů, které zpočátku nebyly velmi"
+        "sk": "Bola to teda kombinácia teoretických výpočtov, ktoré\nspočiatku neboli veľmi",
+        "cs": "Šlo tedy o kombinaci teoretických výpočtů, které\nzpočátku nebyly příliš"
       }
     },
     {
@@ -1005,8 +1006,8 @@
       "end": 463.41,
       "kind": "speech",
       "text": {
-        "sk": "presné, ale v priebehu 2 -10 ročí sa spresnili.",
-        "cs": "Přesně, ale během 2 až 10 let se to přesnilo."
+        "sk": "presné, no v priebehu dvadsiatich rokov sa\nspresňovali.",
+        "cs": "přesné, ale během dvaceti let se zpřesňovaly."
       }
     },
     {
@@ -1014,8 +1015,8 @@
       "end": 467.04,
       "kind": "speech",
       "text": {
-        "sk": "Jež boli tie experimentály, tie teoretické vypočty\ndostatočne presné,",
-        "cs": "Když byly ty experimenty, ty teoretické výpočty\ndostatečně přesné,"
+        "sk": "Keď už boli teoretické výpočty dostatočne presné,",
+        "cs": "Když už byly teoretické výpočty dostatečně přesné,"
       }
     },
     {
@@ -1023,8 +1024,8 @@
       "end": 473.53,
       "kind": "speech",
       "text": {
-        "sk": "tak už astronómovie vedeli presne kam nasmerovať,\nale kohľady a pomerne hravo",
-        "cs": "Takže astronomové věděli přesně kam směřovat, ale\ns kolečkami a poměrně hračky."
+        "sk": "astronómovia vedeli, kam nasmerovať ďalekohľady, a\npomerne ľahko",
+        "cs": "astronomové věděli, kam namířit dalekohledy, a poměrně\nsnadno"
       }
     },
     {
@@ -1032,8 +1033,8 @@
       "end": 474.98,
       "kind": "speech",
       "text": {
-        "sk": "neptún našli.",
-        "cs": "Neptune našli."
+        "sk": "Neptún našli.",
+        "cs": "Neptun našli."
       }
     },
     {
@@ -1041,8 +1042,8 @@
       "end": 482.38,
       "kind": "speech",
       "text": {
-        "sk": "Dobre. A potom asi nájsť neskôrší objav, alebo čo\nsa týka nášich",
-        "cs": "Dobře. A pak asi najdeme další objevy, nebo co se\ntýče našeho"
+        "sk": "Dobre. A potom nasledoval asi najneskorší objav,\npokiaľ ide o naše",
+        "cs": "Dobře. A pak následoval asi nejpozdější objev, pokud\njde o naše"
       }
     },
     {
@@ -1050,8 +1051,8 @@
       "end": 485.56,
       "kind": "speech",
       "text": {
-        "sk": "planetárnych teles, bola bývala planeta Pluto.",
-        "cs": "Země, kde bývala planeta Pluto."
+        "sk": "planétové telesá: bývalá planéta Pluto.",
+        "cs": "planetární tělesa: bývalá planeta Pluto."
       }
     },
     {
@@ -1059,8 +1060,8 @@
       "end": 489.23,
       "kind": "speech",
       "text": {
-        "sk": "Ta bola kedy objavená?",
-        "cs": "Kdy to bylo objeveno?"
+        "sk": "Kedy ho objavili?",
+        "cs": "Kdy ho objevili?"
       }
     },
     {
@@ -1068,8 +1069,8 @@
       "end": 493.07,
       "kind": "speech",
       "text": {
-        "sk": "bol objavené v roku 1930.",
-        "cs": "Byl objeven v roce 1930."
+        "sk": "Pluto objavili v roku 1930.",
+        "cs": "Pluto objevili v roce 1930."
       }
     },
     {
@@ -1077,8 +1078,8 @@
       "end": 497.93,
       "kind": "speech",
       "text": {
-        "sk": "O ľuďa sa tak pajedia trochu, že bol vyškrtnutý z\ntoho znamu, lebo sme videli ho",
-        "cs": "O lidech se tak mluví, že byl vytržen z toho\nznamení, protože jsme ho viděli."
+        "sk": "Ľudia sa trochu hnevajú, že ho vyškrtli zo zoznamu\nplanét. Videli sme",
+        "cs": "Lidé se trochu zlobí, že ho vyškrtli ze seznamu\nplanet. Viděli jsme"
       }
     },
     {
@@ -1086,8 +1087,8 @@
       "end": 499.69,
       "kind": "speech",
       "text": {
-        "sk": "pekné fotky s takým srdiečkom.",
-        "cs": "krásné fotky s takovým srdcem."
+        "sk": "predsa tie pekné fotky so srdiečkom.",
+        "cs": "přece ty pěkné fotografie se srdíčkem."
       }
     },
     {
@@ -1095,7 +1096,7 @@
       "end": 501.71,
       "kind": "speech",
       "text": {
-        "sk": "Ano, je to najkrajšie planeta.",
+        "sk": "Áno, je to najkrajšia planéta.",
         "cs": "Ano, je to nejkrásnější planeta."
       }
     },
@@ -1104,8 +1105,8 @@
       "end": 506.29,
       "kind": "speech",
       "text": {
-        "sk": "Mam asi 7 väčších favorítov, ale akože pokojne.",
-        "cs": "Mám asi sedm nejoblíbenějších, ale zdá se, že je\nto v klidu."
+        "sk": "Mám asi sedem väčších favoritov, ale pokojne.",
+        "cs": "Já mám asi sedm větších favoritů, ale budiž."
       }
     },
     {
@@ -1113,8 +1114,8 @@
       "end": 511.43,
       "kind": "speech",
       "text": {
-        "sk": "A teda problém, prečo sa vyškrtol, je že podobných\nplanet Pluto vie viac, už ten",
-        "cs": "Problém je, že podobné planety jako Pluto vědí víc\nnež on."
+        "sk": "Problém je, že podobných telies ako Pluto poznáme\nviac. Napríklad už",
+        "cs": "Problém je, že podobných těles jako Pluto známe víc.\nNapříklad už"
       }
     },
     {
@@ -1122,8 +1123,8 @@
       "end": 513.67,
       "kind": "speech",
       "text": {
-        "sk": "spomínaný Ceres, Homa,",
-        "cs": "zmíněný Ceres, Homa,"
+        "sk": "spomínanú Ceres či Haumeu,",
+        "cs": "zmiňovaný Ceres nebo Haumeu,"
       }
     },
     {
@@ -1140,8 +1141,8 @@
       "end": 520.29,
       "kind": "speech",
       "text": {
-        "sk": "Eris a podobne.",
-        "cs": "Eris a podobně."
+        "sk": "Eris a ďalšie.",
+        "cs": "Eris a další."
       }
     },
     {
@@ -1149,8 +1150,8 @@
       "end": 525.71,
       "kind": "speech",
       "text": {
-        "sk": "Žažko sa hľadá, lebo 1 rok plúta, čiže 1 obieho\nkolo slnka trvá",
-        "cs": "Hledáme žárovku, protože rok plutu trvá jeden kruh\nslunce."
+        "sk": "Ťažko sa hľadajú. Jeden rok na Plute, teda jeden obeh\nokolo Slnka, trvá",
+        "cs": "Těžko se hledají. Jeden rok na Plutu, tedy jeden oběh\nkolem Slunce, trvá"
       }
     },
     {
@@ -1158,8 +1159,8 @@
       "end": 530.9,
       "kind": "speech",
       "text": {
-        "sk": "250 pozemských rokov. Zároveň je tak ďal,",
-        "cs": "250 zemských let."
+        "sk": "asi 250 pozemských rokov. Navyše je tak ďaleko,",
+        "cs": "asi 250 pozemských let. Navíc je tak daleko,"
       }
     },
     {
@@ -1167,8 +1168,8 @@
       "end": 536.52,
       "kind": "speech",
       "text": {
-        "sk": "že slnko na ňo svietí veľmi slabo a je také malý,\nže z toho svetlen veľkú veľmi",
-        "cs": "že slunce na ní svítí velmi slabě a je tak malé,\nže z toho světlo velké velmi"
+        "sk": "že Slnko naň svieti veľmi slabo. A je také malé, že\nodráža len",
+        "cs": "že na něj Slunce svítí velmi slabě. A je tak malé, že\nodráží jen"
       }
     },
     {
@@ -1176,8 +1177,8 @@
       "end": 539.52,
       "kind": "speech",
       "text": {
-        "sk": "malú čas odrázi späť, takže naozaj je veľmi ťažké\nho nájsť.",
-        "cs": "Vrátí se zpět, takže je velmi těžké ho najít."
+        "sk": "malú časť svetla. Preto je skutočne ťažké ho nájsť.",
+        "cs": "malou část světla. Proto je opravdu těžké ho najít."
       }
     },
     {
@@ -1185,17 +1186,17 @@
       "end": 544.24,
       "kind": "speech",
       "text": {
-        "sk": "Trvalo to pomerne dlho, kým sa našlo Pluto potom\nsa škrtlo zo znamu, lebo patrí",
-        "cs": "Trvalo to dost dlouho, než se objevil Pluto, pak\nse ztratil z známky, protože patří"
+        "sk": "Trvalo dlho, kým Pluto objavili, a potom ho vyškrtli\nzo zoznamu planét,",
+        "cs": "Trvalo dlouho, než Pluto objevili, a pak ho vyškrtli\nze seznamu planet,"
       }
     },
     {
       "start": 544.28,
-      "end": 548.0,
+      "end": 548,
       "kind": "speech",
       "text": {
-        "sk": "medzi trpazličie planety, ktorých je viac. keď už\nby tam bolo Pluto, preč tam nie",
-        "cs": "Když tam byl Pluto, tak tam nebyl."
+        "sk": "pretože patrí medzi trpasličie planéty, ktorých je\nviac. Ak by medzi planétami bolo Pluto, prečo",
+        "cs": "protože patří mezi trpasličí planety, kterých je více.\nPokud by mezi planetami bylo Pluto, proč"
       }
     },
     {
@@ -1203,8 +1204,8 @@
       "end": 549.24,
       "kind": "speech",
       "text": {
-        "sk": "sú ostatné a naopak.",
-        "cs": "jsou ostatní a naopak."
+        "sk": "by tam neboli aj ostatné?",
+        "cs": "by tam neměly být i ostatní?"
       }
     },
     {
@@ -1212,8 +1213,8 @@
       "end": 555.27,
       "kind": "speech",
       "text": {
-        "sk": "Okrem planet sú ešte dve také veľmi zájímavé\nmiesta v slnečnej sústave. Jedným z",
-        "cs": "Kromě planet jsou v naší sluneční soustavě dvě\ndalší velmi zajímavé místa."
+        "sk": "Okrem planét sú v slnečnej sústave dve veľmi zaujímavé\noblasti. Jednou z",
+        "cs": "Kromě planet jsou ve sluneční soustavě dvě velmi\nzajímavé oblasti. Jednou z"
       }
     },
     {
@@ -1221,8 +1222,8 @@
       "end": 560.64,
       "kind": "speech",
       "text": {
-        "sk": "nich je Orthomrag, čo je v hodzokách Kopa Šutra a\nLadu v obrovskej",
-        "cs": "Je to Orthomrag, který se nachází ve vodách Kopa\nŠutra a Ladu v obrovském"
+        "sk": "nich je Oortov oblak, obrovská oblasť plná ľadových a\nkamenných telies",
+        "cs": "nich je Oortův oblak, obrovská oblast plná ledových a\nkamenných těles"
       }
     },
     {
@@ -1230,8 +1231,8 @@
       "end": 565.82,
       "kind": "speech",
       "text": {
-        "sk": "vzdialenosti a potom je tam Kúperov pás, ktorý je\nzase blízko drahy",
-        "cs": "vzdálenost a pak je tam Cooperův pás, který je\nopět blízko k drahým"
+        "sk": "vo veľkej vzdialenosti. Potom je tu Kuiperov pás,\nktorý leží bližšie,",
+        "cs": "ve velké vzdálenosti. Pak je tu Kuiperův pás, který\nleží blíže,"
       }
     },
     {
@@ -1239,8 +1240,8 @@
       "end": 570.89,
       "kind": "speech",
       "text": {
-        "sk": "Jupitera. A práve ten Orthomrag je veľmi\nzaujímavý, sa nachádzal v vzdialenosti",
-        "cs": "A právě tento Orthomrag je velmi zajímavý, byl ve\nvzdálenosti"
+        "sk": "za dráhou Neptúna. Oortov oblak je však obzvlášť\nzaujímavý. Nachádza sa vo vzdialenosti",
+        "cs": "za dráhou Neptunu. Oortův oblak je ale obzvlášť\nzajímavý. Nachází se ve vzdálenosti"
       }
     },
     {
@@ -1248,8 +1249,8 @@
       "end": 573.83,
       "kind": "speech",
       "text": {
-        "sk": "2000 až 20 000 astronomických jednotiek.",
-        "cs": "2000 až 20 000 astronomických jednotek."
+        "sk": "približne 2 000 až 20 000 astronomických jednotiek.",
+        "cs": "přibližně 2 000 až 20 000 astronomických jednotek."
       }
     },
     {
@@ -1257,8 +1258,8 @@
       "end": 577.83,
       "kind": "speech",
       "text": {
-        "sk": "Astronomická jednotka je v vzdialenosti medzi\nslnkom a zemou.",
-        "cs": "Astronomická jednotka je vzdálená od Slunce a\nZemě."
+        "sk": "Astronomická jednotka je približne vzdialenosť Zeme od\nSlnka.",
+        "cs": "Astronomická jednotka odpovídá přibližně vzdálenosti\nZemě od Slunce."
       }
     },
     {
@@ -1266,8 +1267,8 @@
       "end": 583.61,
       "kind": "speech",
       "text": {
-        "sk": "Čiže on obrovskú časť toho, čo voláme slnečná\nsústava,",
-        "cs": "Takže to je obrovská část toho, co nazýváme\nslunečním systémem,"
+        "sk": "Obrovskú časť toho, čo nazývame slnečnou sústavou,",
+        "cs": "Obrovskou část toho, čemu říkáme sluneční soustava,"
       }
     },
     {
@@ -1275,8 +1276,8 @@
       "end": 588.51,
       "kind": "speech",
       "text": {
-        "sk": "je práve tento mrag a to si treba predstaviť ako\nkopa takého zmrznutého",
-        "cs": "Je to ten mrak, který si musíte představit jako\nhromadu tak zmrzlého."
+        "sk": "teda tvorí práve tento oblak. Predstavte si ho ako\nmnožstvo zmrznutého",
+        "cs": "tedy tvoří právě tento oblak. Představte si jej jako\nmnožství zmrzlého"
       }
     },
     {
@@ -1284,8 +1285,8 @@
       "end": 590.61,
       "kind": "speech",
       "text": {
-        "sk": "práchu, vladu a podobne.",
-        "cs": "prášku, vládu a tak dále."
+        "sk": "prachu, ľadu a podobného materiálu.",
+        "cs": "prachu, ledu a podobného materiálu."
       }
     },
     {
@@ -1293,8 +1294,8 @@
       "end": 597.26,
       "kind": "speech",
       "text": {
-        "sk": "A teda čo si znova všimli, čo zistili ľudia pri\npozorovanie je, že tento",
-        "cs": "A co si znovu všimli, co lidé zjistili při\npozorování, je, že tento"
+        "sk": "Astronómovia si pri pozorovaní všimli náznaky, že",
+        "cs": "Astronomové při pozorování zaznamenali náznaky, že"
       }
     },
     {
@@ -1302,8 +1303,8 @@
       "end": 602.46,
       "kind": "speech",
       "text": {
-        "sk": "mrag tiež vyjaví také známky, ako keby sa tam\nniečo ďalšie hýbalo, taká veľká",
-        "cs": "Oblak také vykazuje známky, jako by se tam něco\njiného pohybovalo, tak velké."
+        "sk": "vo vzdialených oblastiach sústavy môže pôsobiť ešte\niné veľké teleso,",
+        "cs": "ve vzdálených oblastech soustavy může působit ještě\njiné velké těleso,"
       }
     },
     {
@@ -1311,8 +1312,8 @@
       "end": 607.37,
       "kind": "speech",
       "text": {
-        "sk": "planeta, ktorá za sebou častočne ťaha časť toho",
-        "cs": "planeta, která často přitahuje část tohoto"
+        "sk": "možno planéta, ktorá svojou gravitáciou ovplyvňuje\npohyb",
+        "cs": "možná planeta, která svou gravitací ovlivňuje pohyb"
       }
     },
     {
@@ -1320,8 +1321,8 @@
       "end": 612.19,
       "kind": "speech",
       "text": {
-        "sk": "sutia, ktoré sa tam nachádza. Z toho ortovoho\nmraku. Áno, presne.",
-        "cs": "Z toho ortodoxního mraky."
+        "sk": "menších telies. Áno, presne.",
+        "cs": "menších těles. Ano, přesně."
       }
     },
     {
@@ -1329,8 +1330,8 @@
       "end": 618.07,
       "kind": "speech",
       "text": {
-        "sk": "Z čoho usudzujú, že nie je to vlastne tak, že\nmožno je tam ešte nejde ďalšia",
-        "cs": "Z čeho se domnívají, že to není vlastně tak, že\nmožná tam ještě není další"
+        "sk": "Preto sa pýtajú, či sa tam nenachádza ešte nejaká",
+        "cs": "Proto se ptají, zda se tam nenachází ještě nějaká"
       }
     },
     {
@@ -1338,8 +1339,8 @@
       "end": 622.11,
       "kind": "speech",
       "text": {
-        "sk": "veľká planeta, čiže nie je niečo taký drobček ako\npútel, ale niečo veľké, ale",
-        "cs": "Velká planeta, což není něco tak malého jako\nstřecha, ale něco tak velkého, ale"
+        "sk": "veľká planéta. Nie taký drobček ako Pluto, ale niečo\nveľké,",
+        "cs": "velká planeta. Ne takový drobeček jako Pluto, ale něco\nvelkého,"
       }
     },
     {
@@ -1347,8 +1348,8 @@
       "end": 627.47,
       "kind": "speech",
       "text": {
-        "sk": "zároveň strašne ďaleko, toto je pomerne",
-        "cs": "a zároveň strašně daleko, to je poměrně"
+        "sk": "a zároveň nesmierne vzdialené. Je to pomerne",
+        "cs": "a zároveň nesmírně vzdáleného. Je to poměrně"
       }
     },
     {
@@ -1356,8 +1357,8 @@
       "end": 631.91,
       "kind": "speech",
       "text": {
-        "sk": "ťažké dokázať. Dá sa spočítať, že kde by sa mala\nnachádzať, ale nič sa zatiaľ",
-        "cs": "Je těžké zjistit, kde by se měla nacházet, ale\nzatím nic není jasné."
+        "sk": "ťažké dokázať. Dá sa odhadnúť, kde by mohla byť, no\nzatiaľ sa",
+        "cs": "těžké dokázat. Dá se odhadnout, kde by mohla být, ale\nzatím se"
       }
     },
     {
@@ -1365,8 +1366,8 @@
       "end": 637.25,
       "kind": "speech",
       "text": {
-        "sk": "nepodarilo objaviť. A i skutočnosť, že sa nič\nnepodarilo objaviť, viedla",
-        "cs": "A skutečnost, že nic nebylo objeveno, vedla k\ntomu,"
+        "sk": "nič nepodarilo objaviť. A práve to, že sa zatiaľ nič\nnenašlo, viedlo",
+        "cs": "nic nepodařilo objevit. A právě to, že se zatím nic\nnenašlo, vedlo"
       }
     },
     {
@@ -1374,8 +1375,8 @@
       "end": 640.13,
       "kind": "speech",
       "text": {
-        "sk": "k takým kontroverznejším hypotézam.",
-        "cs": "k těmto kontroverzním předpokladům."
+        "sk": "aj ku kontroverznejším hypotézam.",
+        "cs": "i ke kontroverznějším hypotézám."
       }
     },
     {
@@ -1383,8 +1384,8 @@
       "end": 644.35,
       "kind": "speech",
       "text": {
-        "sk": "Napríklad pred zhruba mesiacom sa objevila taká,\nže či tam vlastne nie je taká",
-        "cs": "Například asi před měsícem se objevila kniha,\nkterá se týkala toho, zda není."
+        "sk": "Pred približne mesiacom sa napríklad objavila\nhypotéza, že by tam mohla byť",
+        "cs": "Před přibližně měsícem se například objevila hypotéza,\nže by tam mohla být"
       }
     },
     {
@@ -1392,8 +1393,8 @@
       "end": 648.56,
       "kind": "speech",
       "text": {
-        "sk": "mala čierna diera, ktorá krúži okolo snečnej\nsústavy.",
-        "cs": "měla černou díru, která obklopuje sluneční systém."
+        "sk": "malá čierna diera, ktorá obieha vo vonkajších\noblastiach slnečnej sústavy.",
+        "cs": "malá černá díra, která obíhá ve vnějších oblastech\nsluneční soustavy."
       }
     },
     {
@@ -1401,8 +1402,8 @@
       "end": 653.84,
       "kind": "speech",
       "text": {
-        "sk": "To je teraz populárna čierna diera, všetci sa na\nto veľmi sústredia, takže to",
-        "cs": "Je to populární černá díra, na kterou se všichni\nsoustředí."
+        "sk": "Čierne diery sú teraz populárne, všetci sa na ne\nsústreďujú, takže to",
+        "cs": "Černé díry jsou teď populární, všichni se na ně\nsoustředí, takže to"
       }
     },
     {
@@ -1410,8 +1411,8 @@
       "end": 658.12,
       "kind": "speech",
       "text": {
-        "sk": "určite zavojalo, aj vo vedeckých kruhoch, aj\nlaických kruhoch. Ja som napríklad",
-        "cs": "Vědecký i laický obvod, jako jsem já,"
+        "sk": "určite vyvolalo záujem vo vedeckých aj laických\nkruhoch. Ja som napríklad",
+        "cs": "určitě vzbudilo zájem mezi vědci i laiky. Já jsem\nnapříklad"
       }
     },
     {
@@ -1420,7 +1421,7 @@
       "kind": "speech",
       "text": {
         "sk": "čítal, že by tam mohla byť",
-        "cs": "Četl jsem, že by tam mohla být."
+        "cs": "četl, že by tam mohla být"
       }
     },
     {
@@ -1428,8 +1429,8 @@
       "end": 663.18,
       "kind": "speech",
       "text": {
-        "sk": "nemesý zviezda k nášmu slnku.",
-        "cs": "Nesměsná hvězda k našemu slunci."
+        "sk": "aj sprievodná hviezda nášho Slnka.",
+        "cs": "také průvodní hvězda našeho Slunce."
       }
     },
     {
@@ -1437,8 +1438,8 @@
       "end": 668.38,
       "kind": "speech",
       "text": {
-        "sk": "Buď by to bol červený trpazlík alebo hnedý\ntrpazlík, ktorý emituje tak málo",
-        "cs": "Buď je to červená trubka, nebo je to hnědá trubka,\nkterá tak málo emituje."
+        "sk": "Mohlo by ísť o červeného alebo hnedého trpaslíka,\nktorý vyžaruje tak málo",
+        "cs": "Mohlo by jít o červeného nebo hnědého trpaslíka, který\nvyzařuje tak málo"
       }
     },
     {
@@ -1447,7 +1448,7 @@
       "kind": "speech",
       "text": {
         "sk": "svetla,",
-        "cs": "světlo,"
+        "cs": "světla,"
       }
     },
     {
@@ -1464,8 +1465,8 @@
       "end": 673.52,
       "kind": "speech",
       "text": {
-        "sk": "nie je ho možné zachytiť vlastne.",
-        "cs": "Není možné ho zachytit."
+        "sk": "ho prakticky nedokážeme zachytiť.",
+        "cs": "ho prakticky nedokážeme zachytit."
       }
     },
     {
@@ -1473,8 +1474,8 @@
       "end": 678.84,
       "kind": "speech",
       "text": {
-        "sk": "A má takú obrovskú obežnú dráhu, že sa to počíta\nna",
-        "cs": "A má tak velkou oběžnou dráhu, že se počítá s"
+        "sk": "A mohol by mať takú obrovskú obežnú dráhu, že jeden\nobeh trvá",
+        "cs": "A mohl by mít tak obrovskou oběžnou dráhu, že jeden\noběh trvá"
       }
     },
     {
@@ -1482,17 +1483,17 @@
       "end": 683.42,
       "kind": "speech",
       "text": {
-        "sk": "desiatky tisíc rokov. Ona by sa mal nacházať\nzhruba v rozdielanosti 1 ,5",
-        "cs": "Mělo by být v rozmezí zhruba 1,5."
+        "sk": "desiatky tisíc rokov. Nachádzal by sa zhruba vo\nvzdialenosti jeden a pol",
+        "cs": "desítky tisíc let. Nacházel by se přibližně ve\nvzdálenosti jednoho a půl"
       }
     },
     {
       "start": 683.46,
-      "end": 688.0,
+      "end": 688,
       "kind": "speech",
       "text": {
-        "sk": "svetelného roka, čo je zhruba 100 000\nastronomických jednotiek, čiže tak v",
-        "cs": "Světlový rok, což je asi 100 000 astronomických\njednotek."
+        "sk": "svetelného roka, teda asi 100 000 astronomických\njednotiek,",
+        "cs": "světelného roku, tedy asi 100 000 astronomických\njednotek,"
       }
     },
     {
@@ -1500,8 +1501,8 @@
       "end": 693.34,
       "kind": "speech",
       "text": {
-        "sk": "polovici toho ortoho mraku. Ona má mať obrovskú",
-        "cs": "má mít obrovské množství."
+        "sk": "približne uprostred Oortovho oblaku. Mal by teda\nnesmierne dlhú",
+        "cs": "přibližně uprostřed Oortova oblaku. Měl by tedy\nnesmírně dlouhou"
       }
     },
     {
@@ -1509,8 +1510,8 @@
       "end": 698.36,
       "kind": "speech",
       "text": {
-        "sk": "periódu obehu a teraz niektorú ľudia rozmýšľali,\nže či to nemôže potom súvisieť",
-        "cs": "a nyní si někteří lidé mysleli, že to nemůže být\nspojeno"
+        "sk": "obežnú dobu. Niektorí ľudia uvažovali, či to nesúvisí",
+        "cs": "oběžnou dobu. Někteří lidé uvažovali, zda to nesouvisí"
       }
     },
     {
@@ -1518,8 +1519,8 @@
       "end": 703.66,
       "kind": "speech",
       "text": {
-        "sk": "dokonca s takými geologickými jaumy, ktoré sa to\ndejú na",
-        "cs": "a to i s geologickými výkyvy, které se dějí na"
+        "sk": "aj s geologickými javmi, ktoré sa odohrávajú na",
+        "cs": "také s geologickými jevy, které se odehrávají v"
       }
     },
     {
@@ -1527,8 +1528,8 @@
       "end": 708.92,
       "kind": "speech",
       "text": {
-        "sk": "geologických škávach, ako také masové výhyny, keď\ntou hviezdou sa niečo stane, do",
-        "cs": "Geologické skály, jako jsou hmotnostní výhonky,\nkdyž se něco stane se hvězdou,"
+        "sk": "geologických časových škálach, napríklad s masovými\nvymieraniami. Keď sa",
+        "cs": "geologických časových škálách, například s hromadnými\nvymíráními. Když se"
       }
     },
     {
@@ -1536,8 +1537,8 @@
       "end": 712.06,
       "kind": "speech",
       "text": {
-        "sk": "niečoho pohľutí hmotu a na chvíľku niečo vyžiari.",
-        "cs": "Něco se roztočí a na okamžik něco vyzařuje."
+        "sk": "pri tej hviezde niečo udeje, môže sa uvoľniť hmota\nalebo žiarenie.",
+        "cs": "u takové hvězdy něco stane, může se uvolnit hmota nebo\nzáření."
       }
     },
     {
@@ -1545,8 +1546,8 @@
       "end": 718.34,
       "kind": "speech",
       "text": {
-        "sk": "jeden z kandidátov, ktorom sa rozmýšľalo, alebo\nskôr rozmýšľalo je, či to",
-        "cs": "Jeden z kandidátů, který přemýšlel, nebo spíš\npřemýšlel,"
+        "sk": "Ďalším kandidátom, o ktorom sa uvažovalo, je",
+        "cs": "Dalším kandidátem, o kterém se uvažovalo, je"
       }
     },
     {
@@ -1554,8 +1555,8 @@
       "end": 723.38,
       "kind": "speech",
       "text": {
-        "sk": "nemôže byť malá hviezda, ktorá svieti tak slabo,\nže",
-        "cs": "Nemůže být malá hvězda, která svítí tak slabě, že"
+        "sk": "malá hviezda, ktorá svieti tak slabo, že",
+        "cs": "malá hvězda, která svítí tak slabě, že"
       }
     },
     {
@@ -1563,8 +1564,8 @@
       "end": 728.16,
       "kind": "speech",
       "text": {
-        "sk": "prakticky ju neni vidno, ak nie ste veľmi blízko.\nČiže tzv. hnedý trpazlíka.",
-        "cs": "Není prakticky viditelná, pokud nejste velmi\nblízko."
+        "sk": "ju takmer nevidno, pokiaľ nie ste veľmi blízko. Teda\nhnedý trpaslík.",
+        "cs": "ji téměř nevidíte, pokud nejste velmi blízko. Tedy\nhnědý trpaslík."
       }
     },
     {
@@ -1572,8 +1573,8 @@
       "end": 734.32,
       "kind": "speech",
       "text": {
-        "sk": "Ale toto treba brať tak, ako sa hovorí, z\nrezervou,",
-        "cs": "Ale tohle se má brát, jak se říká, s výhradou,"
+        "sk": "Tieto úvahy však treba brať s rezervou.",
+        "cs": "Tyto úvahy je ale třeba brát s rezervou."
       }
     },
     {
@@ -1581,8 +1582,8 @@
       "end": 739.91,
       "kind": "speech",
       "text": {
-        "sk": "lebo je to hypotéza, nemáme preto žiadne dobre\ndôkazy, podobne ako pre tú čiernu",
-        "cs": "protože je to hypotéza, takže nemáme žádné dobré\ndůkazy, stejně jako na černou."
+        "sk": "Sú to len hypotézy, nemáme pre ne dobré dôkazy.\nRovnako ani pre tú čiernu",
+        "cs": "Jsou to jen hypotézy, nemáme pro ně dobré důkazy.\nStejně jako pro tu černou"
       }
     },
     {
@@ -1590,8 +1591,8 @@
       "end": 744.51,
       "kind": "speech",
       "text": {
-        "sk": "dieru. Čo ešte tak dodám, že netreba si potom\nčiernu dieru predstavovať niečo",
-        "cs": "Co ještě musím říct je, že černé díry nemusí být\nněco, co by se dalo představovat."
+        "sk": "dieru. A dodám, že si tú čiernu dieru netreba\npredstavovať ako niečo",
+        "cs": "díru. A dodám, že si tu černou díru nemáme\npředstavovat jako něco"
       }
     },
     {
@@ -1599,8 +1600,8 @@
       "end": 749.77,
       "kind": "speech",
       "text": {
-        "sk": "veľké a skôr by to mal byť taká čierna diera, že\nniekoľko metrov rozmer.",
-        "cs": "Velká a spíše by měla být taková černá díra, že by\nměla být několik metrů rozměrová."
+        "sk": "obrovské. Mohla by mať rozmery len niekoľko metrov.",
+        "cs": "obrovského. Mohla by mít rozměry pouhých několika\nmetrů."
       }
     },
     {
@@ -1608,8 +1609,8 @@
       "end": 754.2,
       "kind": "speech",
       "text": {
-        "sk": "Čo je strašný problém, že ak nestojte naozaj veľmi\nblízko pri nej, tak ju",
-        "cs": "Což je hrozný problém, že pokud nejste opravdu\nblízko k ní, tak ji"
+        "sk": "Problém je, že ak by ste neboli naozaj veľmi blízko,",
+        "cs": "Problém je, že pokud byste nebyli opravdu velmi\nblízko,"
       }
     },
     {
@@ -1617,8 +1618,8 @@
       "end": 757.5,
       "kind": "speech",
       "text": {
-        "sk": "neuvidíte žiadným spôsobom. Čiže je to trošku také\nsmutné.",
-        "cs": "Takže je to tak trochu smutné."
+        "sk": "žiadnym spôsobom by ste ju nevideli. To je trochu\nsmutné.",
+        "cs": "nijak byste ji neviděli. To je trochu smutné."
       }
     },
     {
@@ -1626,8 +1627,8 @@
       "end": 760.73,
       "kind": "speech",
       "text": {
-        "sk": "Ale len je gravitačné učinky.",
-        "cs": "Ale je to jen gravitační působení."
+        "sk": "Zostávajú len jej gravitačné účinky.",
+        "cs": "Zůstávají jen její gravitační účinky."
       }
     },
     {
@@ -1635,8 +1636,8 @@
       "end": 766.47,
       "kind": "speech",
       "text": {
-        "sk": "Možno by sa prejavili ako gravitačná šošoká, ale\ninači je to prakticky",
-        "cs": "Možná by se projevily jako gravitační čočky, ale\njinak je to praktické."
+        "sk": "Možno by sa prejavila gravitačným šošovkovaním, ale\ninak by ju bolo prakticky",
+        "cs": "Možná by se projevila gravitačním čočkováním, ale\njinak by ji bylo prakticky"
       }
     },
     {
@@ -1644,8 +1645,8 @@
       "end": 767.31,
       "kind": "speech",
       "text": {
-        "sk": "nenájditeľné.",
-        "cs": "Ne naleznete."
+        "sk": "nemožné nájsť.",
+        "cs": "nemožné najít."
       }
     },
     {
@@ -1653,8 +1654,8 @@
       "end": 772.77,
       "kind": "speech",
       "text": {
-        "sk": "Ano, pár metrov v kozmickom priestore si že\nnenájditeľné.",
-        "cs": "Ano, pár metrů ve vesmírném prostoru jste\nnenalezitelný."
+        "sk": "Áno, pár metrov v kozmickom priestore sa hľadá naozaj\nťažko.",
+        "cs": "Ano, pár metrů v kosmickém prostoru se hledá opravdu\ntěžko."
       }
     },
     {
@@ -1662,8 +1663,8 @@
       "end": 776.05,
       "kind": "speech",
       "text": {
-        "sk": "A teraz vlastne veci pracujú s týmito",
-        "cs": "A nyní věci pracují s tímhle."
+        "sk": "Vedci teda pracujú najmä s týmito",
+        "cs": "Vědci tedy pracují zejména s těmito"
       }
     },
     {
@@ -1671,8 +1672,8 @@
       "end": 781.25,
       "kind": "speech",
       "text": {
-        "sk": "hlavnými asi troma hypotézami. Že bude tam nejaká\nmalá,",
-        "cs": "Tři hlavní hypotézy."
+        "sk": "tromi hypotézami: môže tam byť malá",
+        "cs": "třemi hypotézami: může tam být malá"
       }
     },
     {
@@ -1680,8 +1681,8 @@
       "end": 786.01,
       "kind": "speech",
       "text": {
-        "sk": "tmavá čierna diera. Som chcel povedať tmavý\ntrpazlík.",
-        "cs": "Chci říct, tmavý trpaslík."
+        "sk": "čierna diera, chcel som povedať hnedý trpaslík, alebo\ndeviata planéta.",
+        "cs": "černá díra, chtěl jsem říct hnědý trpaslík, nebo\ndevátá planeta."
       }
     },
     {
@@ -1689,8 +1690,8 @@
       "end": 794.63,
       "kind": "speech",
       "text": {
-        "sk": "Čo je podľa teba najpravdepodobnejšie a či jedna z\ntých, je podľa teba",
-        "cs": "Co je podle tebe nejpravděpodobnější a jestli je\njedno z nich podle tebe"
+        "sk": "Čo je podľa teba najpravdepodobnejšie? A je vôbec\nniektorá z tých možností",
+        "cs": "Co je podle tebe nejpravděpodobnější? A je vůbec\nněkterá z těch možností"
       }
     },
     {
@@ -1698,8 +1699,8 @@
       "end": 798.93,
       "kind": "speech",
       "text": {
-        "sk": "pravdepodobná? Lebo počul som aj také názory, že\nkeby existuje, už by sme ju",
-        "cs": "Protože jsem slyšela také názory, že kdyby\nexistovala,"
+        "sk": "pravdepodobná? Počul som totiž aj názory, že keby tam\nniečo bolo, už by sme to",
+        "cs": "pravděpodobná? Slyšel jsem totiž i názory, že kdyby\ntam něco bylo, už bychom to"
       }
     },
     {
@@ -1708,7 +1709,7 @@
       "kind": "speech",
       "text": {
         "sk": "našli.",
-        "cs": "Našli jsme to."
+        "cs": "našli."
       }
     },
     {
@@ -1716,8 +1717,8 @@
       "end": 805.3,
       "kind": "speech",
       "text": {
-        "sk": "Myslím si, že je pomerdenie pravdepodobné, že by\nto bola čierna diera.",
-        "cs": "Myslím, že je velmi pravděpodobné, že by to byla\nčerná díra."
+        "sk": "Myslím si, že je pomerne nepravdepodobné, aby to bola\nčierna diera.",
+        "cs": "Myslím, že je poměrně nepravděpodobné, že by to byla\nčerná díra."
       }
     },
     {
@@ -1725,8 +1726,8 @@
       "end": 810.5,
       "kind": "speech",
       "text": {
-        "sk": "Že to je skôr také scifi, ako seriózna hypotéza.\nJe",
-        "cs": "Že je to spíš sci-fi než vážná hypotéza."
+        "sk": "To je skôr sci-fi než seriózna hypotéza.",
+        "cs": "To je spíš sci-fi než seriózní hypotéza."
       }
     },
     {
@@ -1734,8 +1735,8 @@
       "end": 815.26,
       "kind": "speech",
       "text": {
-        "sk": "to dobre, že to niekto spomenul môžu to ľudia v\nbudúcnosti vyškrpnúť, keď to tako",
-        "cs": "Je dobře, že to někdo zmínil. Lidé by to mohli v\nbudoucnu vyřezat, když to tak bude."
+        "sk": "Je dobré, že to niekto spomenul. V budúcnosti to možno\nbudeme môcť",
+        "cs": "Je dobře, že to někdo zmínil. V budoucnu to možná\nbudeme moci"
       }
     },
     {
@@ -1743,8 +1744,8 @@
       "end": 818.94,
       "kind": "speech",
       "text": {
-        "sk": "vylúčia. K tomu sa asi aj da uviezť taký dôvod, že\nak by to bola čierna diera, to",
-        "cs": "Možná je důvod, proč by to byla černá díra."
+        "sk": "vylúčiť. Ak by to totiž bola čierna diera, musela by",
+        "cs": "vyloučit. Kdyby to totiž byla černá díra, musela by"
       }
     },
     {
@@ -1752,8 +1753,8 @@
       "end": 822.9,
       "kind": "speech",
       "text": {
-        "sk": "by mala byť taká čierna diera z počiatku vesmíru,\ntzv.",
-        "cs": "Měla by to být taková černá díra z počátku\nvesmíru."
+        "sk": "pochádzať z počiatkov vesmíru, išlo by o takzvanú",
+        "cs": "pocházet z počátků vesmíru, šlo by o takzvanou"
       }
     },
     {
@@ -1761,8 +1762,8 @@
       "end": 824.44,
       "kind": "speech",
       "text": {
-        "sk": "primordiálna čierna diera.",
-        "cs": "primordiální černá díra."
+        "sk": "primordiálnu čiernu dieru.",
+        "cs": "primordiální černou díru."
       }
     },
     {
@@ -1770,8 +1771,8 @@
       "end": 830.04,
       "kind": "speech",
       "text": {
-        "sk": "Pri nej by bolo otázne, prečo do seba\nnenahromadila veľkú časť moty, ktorá sa v",
-        "cs": "V této souvislosti by se mohlo stát otázkou, proč\nse v sobě neskupila velká část"
+        "sk": "V takom prípade by bolo otázne, prečo na seba\nnenabalila veľkú časť hmoty,",
+        "cs": "V takovém případě by bylo otázkou, proč na sebe\nnenabalila velkou část hmoty,"
       }
     },
     {
@@ -1779,8 +1780,8 @@
       "end": 831.6,
       "kind": "speech",
       "text": {
-        "sk": "jej blízkosti nachádza.",
-        "cs": "Její blízkost."
+        "sk": "ktorá sa v jej blízkosti nachádza.",
+        "cs": "která se nachází v jejím okolí."
       }
     },
     {
@@ -1788,8 +1789,8 @@
       "end": 836.82,
       "kind": "speech",
       "text": {
-        "sk": "Nejajta hviezda mi príde ako taká pomerne\npritiahnuté zavlasy.",
-        "cs": "Největší hvězda se mi zdá být poměrně přitažlivá."
+        "sk": "Aj predstava ďalšej hviezdy mi príde trochu\npritiahnutá za vlasy.",
+        "cs": "I představa další hvězdy mi připadá trochu přitažená\nza vlasy."
       }
     },
     {
@@ -1797,8 +1798,8 @@
       "end": 842.14,
       "kind": "speech",
       "text": {
-        "sk": "Myslím, že to bude mať také vysvetlenie možno vo\nforme takéj relativne obyčajnej",
-        "cs": "Myslím, že to bude mít takové vysvětlení možná ve\nformě relativně obyčejného"
+        "sk": "Myslím, že vysvetlenie bude možno oveľa jednoduchšie,\nnapríklad v podobe",
+        "cs": "Myslím, že vysvětlení bude možná mnohem jednodušší,\nnapříklad v podobě"
       }
     },
     {
@@ -1806,8 +1807,8 @@
       "end": 847.54,
       "kind": "speech",
       "text": {
-        "sk": "planéty. Nemusí to byť hviezda, možno taká\nplanéta, ale nie som odborný.",
-        "cs": "Nemusí to být hvězda, možná taková planeta, ale\nnejsem odborník."
+        "sk": "relatívne obyčajnej planéty. Ale nie som odborník, je\nto len tipovanie.",
+        "cs": "relativně obyčejné planety. Nejsem ale odborník, jen\nhádám."
       }
     },
     {
@@ -1815,8 +1816,8 @@
       "end": 855.8,
       "kind": "speech",
       "text": {
-        "sk": "Tak uvidíme, čo nám čas prinesie. Ja ti Samuelu\nveľmi pekne ďakujem za dnešný náš",
-        "cs": "Díky, Samuele, za dnešní den."
+        "sk": "Uvidíme, čo nám prinesie čas. Samuel, veľmi pekne ti\nďakujem za dnešný",
+        "cs": "Uvidíme, co přinese čas. Samuele, moc ti děkuji za\ndnešní"
       }
     },
     {
@@ -1825,7 +1826,7 @@
       "kind": "speech",
       "text": {
         "sk": "rozhovor. To je z našej strany všetko. Ak máte\nzaujímavé nápady, napíšte nám na",
-        "cs": "Tohle je vše na naší straně. Pokud máte nějaké\nzajímavé nápady, napište nám na"
+        "cs": "rozhovor. To je z naší strany všechno. Pokud máte\nzajímavé nápady, napište nám na"
       }
     },
     {
@@ -1833,8 +1834,8 @@
       "end": 863.78,
       "kind": "speech",
       "text": {
-        "sk": "Facebooku, pozrite si našu stránku Vedator",
-        "cs": "Na Facebooku, podívejte se na naši stránku Vedator"
+        "sk": "Facebooku, pozrite si našu stránku Vedátor",
+        "cs": "Facebooku, podívejte se na naše stránky Vedátor"
       }
     },
     {
@@ -1842,8 +1843,8 @@
       "end": 869.64,
       "kind": "speech",
       "text": {
-        "sk": "a stiahnite si naše podcasty na Apple Podcasts,\nSpotify a všade, kde",
-        "cs": "a stáhněte si naše podcasty na Apple Podcasts,\nSpotify a kdekoliv jinde"
+        "sk": "a počúvajte naše podcasty na Apple Podcasts, Spotify a\nvšade tam, kde",
+        "cs": "a poslouchejte naše podcasty na Apple Podcasts,\nSpotify a všude tam, kde"
       }
     },
     {
@@ -1851,8 +1852,8 @@
       "end": 872.56,
       "kind": "speech",
       "text": {
-        "sk": "získavate podcasty. Do počute a majte sa!",
-        "cs": "Počkejte a užijte se!"
+        "sk": "počúvate podcasty. Dopočutia a majte sa!",
+        "cs": "posloucháte podcasty. Na slyšenou a mějte se!"
       }
     }
   ]
