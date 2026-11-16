@@ -123,7 +123,7 @@ try{
   check(await page.evaluate(()=>!document.querySelector('.vedator-caption-wake-video')&&window.__wakeLocks.every(x=>x.released)),'Turning off captions releases keep-awake');
   await page.evaluate(()=>document.getElementById('player-caption-toggle-v2').click());await wait(100);
   // A system release is renewed on the next gesture without repeated requests per tick.
-  await page.evaluate(()=>window.__wakeLocks.at(-1).release());
+  await page.evaluate(()=>window.__wakeLocks.at(-1)?.release());
   await page.click('#player-speed-v2');await wait(150);
   check(await page.evaluate(()=>window.__wakeLocks.filter(x=>!x.released).length===1),'Gesture restores system-released screen lock');
   await page.evaluate(()=>document.getElementById('player-close-v2').click());await wait(100);
