@@ -1092,6 +1092,22 @@
     });
   }
   let captionReaderActive=false,captionReaderTimer=null,captionReaderWasFullscreen=false;
+  // The inline MP3 caption display used to depend on audio timeupdate,
+  // which Android may dispatch less often than the fullscreen reader's timer.
+  // Poll the exact same playback clock in both modes; never modify YouTube timing.
+  let captionInlineTimer=null;
+  function updateCaptionInlineTimer(available){
+    const shouldRun=available&&Boolean(state.current)&&captionPreference!=='off';
+    if(!shouldRun){
+      if(captionInlineTimer!==null){clearInterval(captionInlineTimer);captionInlineTimer=null}
+      return;
+    }
+    if(captionInlineTimer!==null)return;
+    captionInlineTimer=setInterval(()=>{
+      if(document.hidden||!state.current||captionReaderActive||youtubeActive()||captionPreference==='off')return;
+      syncYoutubeCaptions();
+    },160);
+  }
   // A tiny muted MP4 loop is the *only* keep-screen-awake mechanism.
   // Start it whenever captions are enabled, independent of MP3/YouTube/reader.
   // It lives inside the fullscreen reader when that overlay is active.
@@ -1227,6 +1243,7 @@
     const select=$('#player-caption-language-v2'),note=$('#player-caption-note-v2'),session=activeCaptionSession();
     if(!box||!display||!select||!note)return;
     const available=Boolean(session?.captionFile),showVideo=youtubeActive()&&Boolean(videoDisplay);
+    updateCaptionInlineTimer(available);
     refreshCaptionWake();
     const target=showVideo?videoDisplay:display;
     box.classList.toggle('hidden',!available);
