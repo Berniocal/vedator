@@ -24,6 +24,7 @@ for(const list of [data.findings,data.archive.findings]){
  }
 }
 assert.deepEqual(data.sections.options.map(x=>x.count),[270,627]);
+assert.deepEqual(data.archive.sections.options.map(x=>x.count),[270,627], 'Reset archive section totals must match');
 assert.equal(data.sections.review.reviewedFindings,897);
 assert.equal(data.sections.scopeCorrection.movedFromEpisodes,53);
 for(const field of ['kategorie','stav']){
