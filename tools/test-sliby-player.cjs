@@ -19,6 +19,16 @@ const toggle=(label,checked)=>{const input=label.children[0];if(input.checked!==
 const openSection=id=>{assert(sections.some(b=>b.dataset.section===id));for(const label of sections)toggle(label,label.dataset.section===id)};
 const setCategory=value=>{for(const label of elements.categories.children)toggle(label,!value||label.dataset.category===value)};
 const inSection=id=>data.findings.filter(r=>r.section===id);
+
+const correctedScope=require('../sliby/episode-scope-review.json');
+assert.equal(correctedScope.entries.length,53);
+for(const entry of correctedScope.entries){
+ const key=r=>r.candidate===entry.candidate&&r.tema===entry.tema;
+ const rows=data.findings.filter(key);
+ assert.equal(rows.length,1,'Missing exact reviewed key');
+ assert.equal(rows[0].section,'other','Incorrectly retained non-episode promise');
+}
+
 const rendered=()=>elements.cards.children.filter(n=>n.tag==='article').map(card=>[Number(card.dataset.candidate),card.children[1].children[0].children.find(n=>n.className==='topic-toggle').textContent.replace(/ \(\d+×\)$/,'')]);
 const expected=rows=>rows.map(r=>[r.candidate,elements['compact-view'].checked?(r.compactTitle||r.displayTema||r.tema):(r.displayTema||r.tema)]);
 const searchPriority=(r,q)=>context.searchMatch(r,q)?.priority??2;
@@ -34,7 +44,7 @@ for(const section of ['episodes','other']){
  const categories=new Set(inSection(section).map(r=>r.kategorie));
  assert(categories.has('Sliby'));assert(categories.has('Návrhy / nápady'));
 }
-for(const candidate of [19,1047,195,217,1035,1045,210,1043,26,1049,1050,1054,1057,1077,1079,1081,1095,1096,121,126,1102,1107,1121,1125,1131,1132,1137,1148,1153,213,1162,1173,1363,1391,655,904,905,951,1174,1271,928,955,983,1010]){
+for(const candidate of [19,1047,195,217,1035,1045,210,1043,26,1049,1050,1054,1057,1079,126,1107,1121,1125,1137,1148,1153,213,1363,904,951,1174,1271,928,955,983,1010]){
  const rows=data.findings.filter(r=>r.candidate===candidate||(r.mergedFrom||[]).some(m=>m.candidate===candidate));assert(rows.length);assert(rows.every(r=>r.section==='episodes'));
 }
 for(const candidate of [1072,1080,1110,1126,1128,1145,1146,1147,1154,1155,1157,1158,1160,777,1111,1133,1141,1144,1041,28,1056,58,1071,1075,1092,135,1112,1115,167,184,1140,1143,1156,232,1167,1168,1169,1170,1172,1176,1179,1182,1185,1191,1192,1249,1263,1267,303,1274,1279,1284,1285,1286,1292,1295,1298,1305,1306,1308,1316,1318,1320,1322,1329,1330,1338,1348,1350,1356,1358,1359,1360,1361,1364,1370,1372,1403,1409,463,464,1411,1415,1417,1422,1425,1426,501,516,519,535,555,700,753,803,938]){

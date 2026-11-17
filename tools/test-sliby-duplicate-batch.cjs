@@ -15,7 +15,7 @@ const groupSizes=new Map([
 ]);
 assert.equal(data.consolidation.originalFindings,1052);
 assert.equal(active.length,897);
-assert.equal(data.sections.options.find(s=>s.id==='episodes').count,323);
+assert.equal(data.sections.options.find(s=>s.id==='episodes').count,270);
 assert.equal(data.consolidation.latestBatch.groups,3);
 assert.deepEqual(active.map(r=>[r.candidate,r.tema]),archive.map(r=>[r.candidate,r.tema]));
 for(const [candidate,count] of groupSizes){

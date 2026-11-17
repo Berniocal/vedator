@@ -88,6 +88,8 @@ jobs:
           new vm.Script(html.match(/<script>([\s\S]*?)<\/script>/)[1]);
           console.log(`Report checked: ${data.findings.length} findings, ${read.length} complete transcripts.`);
           JS
+      - name: Verify corrected episode promise scope
+        run: node tools/test-sliby-episode-scope.cjs
       - name: Check player seeking and report rendering
         run: node tools/test-sliby-player.cjs
       - name: Check embedded Sliby date and mention sorting
