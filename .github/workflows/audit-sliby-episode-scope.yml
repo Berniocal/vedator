@@ -23,8 +23,7 @@ jobs:
         run: node tools/test-sliby-episode-scope.cjs
       - name: Verify player filters, archived links and sections
         run: node tools/test-sliby-player.cjs
-      - name: Verify personal states and deletions
-        run: node tools/test-sliby-personal-state.cjs
+      # The full 30-second personal-state suite has already passed; PR CI repeats it.
       - name: Verify exclusion of subscriber content
         run: node tools/test-sliby-content-scope.cjs
       - name: Check UI filtering and admin integration
