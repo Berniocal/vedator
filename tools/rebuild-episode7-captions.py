@@ -95,19 +95,31 @@ def align():
             if audit["asrStart"]==cue["start"] and audit["asrEnd"]==cue["end"] and audit.get("alignmentText")==cue.get("alignmentText",cue["text"]["sk"]) and old["start"]>=previous:
                 cues.append({**old,"text":wrapped});alignment.append({**audit,"cue":i+1});previous=old["end"];continue
         start=max(0,float(cue["start"])-.5);end=min(len(wave)/16000,float(cue["end"])+.5)
-        text=cue.get("alignmentText",cue["text"]["sk"]).replace("\n"," ")
-        text=text.upper() if upper else text.lower()
-        chars="".join(ch if ch in vocab else " " for ch in text.replace(" ",processor.tokenizer.word_delimiter_token))
-        chars=re.sub(r"\s+","",chars)
-        tokens=[vocab[ch] for ch in chars if ch in vocab and vocab[ch]!=blank]
-        # A valid short reply can contain only one or two letters.
-        assert tokens,(i,text)
         inputs=processor(wave[int(start*16000):int(end*16000)],sampling_rate=16000,return_tensors="pt",padding=True)
         with torch.inference_mode(): logits=model(**inputs).logits.log_softmax(-1)
-        paths,scores=torchaudio.functional.forced_align(logits,torch.tensor([tokens],dtype=torch.int32),blank=blank)
-        spans=torchaudio.functional.merge_tokens(paths[0],scores[0].exp(),blank=blank)
-        assert len(spans)==len(tokens),(i,len(spans),len(tokens))
-        speech=[s for s in spans if s.token!=vocab.get(processor.tokenizer.word_delimiter_token)]
+        # Printed numerals are expanded only in the acoustic input; captions retain digits.
+        # Where years have several spoken forms, choose among explicit pronunciations
+        # using the same acoustic emissions and retain the winner in the edited source.
+        candidates=cue.get("alignmentVariants",[cue.get("alignmentText",cue["text"]["sk"])])
+        aligned=[]
+        for candidate in candidates:
+            text=candidate.replace("\n"," ")
+            assert not re.search(r"\d",text),(i,"Unexpanded numeral",text)
+            text=text.upper() if upper else text.lower()
+            chars="".join(ch if ch in vocab else " " for ch in text.replace(" ",processor.tokenizer.word_delimiter_token))
+            chars=re.sub(r"\s+","",chars)
+            tokens=[vocab[ch] for ch in chars if ch in vocab and vocab[ch]!=blank]
+            # A valid short reply can contain only one or two letters.
+            assert tokens,(i,text)
+            paths,scores=torchaudio.functional.forced_align(logits,torch.tensor([tokens],dtype=torch.int32),blank=blank)
+            spans=torchaudio.functional.merge_tokens(paths[0],scores[0].exp(),blank=blank)
+            assert len(spans)==len(tokens),(i,len(spans),len(tokens))
+            speech=[s for s in spans if s.token!=vocab.get(processor.tokenizer.word_delimiter_token)]
+            confidence=float(sum(s.score for s in speech)/len(speech))
+            aligned.append((confidence,candidate,spans,speech))
+        confidence,chosen,spans,speech=max(aligned,key=lambda x:x[0])
+        cue["alignmentText"]=chosen
+        if len(aligned)>1:print("Numeral pronunciation:",i+1,chosen,round(confidence,4),flush=True)
         ratio=(end-start)/logits.shape[1]
         a=start+speech[0].start*ratio;b=start+speech[-1].end*ratio
         confidence=float(sum(s.score for s in speech)/len(speech))
@@ -130,6 +142,7 @@ def align():
     for i,c in enumerate(cues):
         assert c["end"]>c["start"] and (not i or c["start"]>=cues[i-1]["end"])
         assert all(len(c["text"][lang])<=240 for lang in ("cs","sk"))
+    write(EDITED,edited)
     write(OUT/"episode-7.json",result)
     write(SOURCE/"episode-7-alignment.json",{"model":ALIGN_MODEL,"audioSha256":meta["audioSha256"],"cues":alignment})
     for lang in ("cs","sk"):

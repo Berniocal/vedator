@@ -26,6 +26,9 @@ windows += [{"start":max(0,duration*f-5),"end":min(duration,duration*f+7),"reaso
 if "--final-review" in sys.argv:
     windows=[{"start":a,"end":b,"reason":"final-editorial-cross-check","priority":1} for a,b in
              [(68,85),(232,250),(341,360),(850,867),(1040,1057),(1210,1240),(1270,1291),(1495,1514)]]
+if "--alignment-review" in sys.argv:
+    windows=[{"start":a,"end":b,"reason":"low-CTC-score-cross-check","priority":1} for a,b in
+             [(54,72),(799,822),(976,999),(1499,1510)]]
 windows.sort(key=lambda c:c["start"]);merged=[]
 for w in windows:
     if merged and w["start"]<merged[-1]["end"] and max(w["end"],merged[-1]["end"])-merged[-1]["start"]<35:
@@ -40,4 +43,4 @@ for window in merged:
         word_timestamps=True,vad_filter=False,condition_on_previous_text=False)
     result={**window,"segments":[{"start":round(a+s.start,3),"end":round(a+s.end,3),"text":s.text.strip()} for s in segments]}
     out.append(result);print(json.dumps(result,ensure_ascii=False),flush=True)
-(root/("captions/source/episode-7-final-checks.sk.json" if "--final-review" in sys.argv else "captions/source/episode-7-extra-checks.sk.json")).write_text(json.dumps({"episode":7,"model":"large-v3","audioSha256":draft["source"]["audioSha256"],"passages":out},ensure_ascii=False,indent=2)+"\n")
+(root/("captions/source/episode-7-alignment-checks.sk.json" if "--alignment-review" in sys.argv else "captions/source/episode-7-final-checks.sk.json" if "--final-review" in sys.argv else "captions/source/episode-7-extra-checks.sk.json")).write_text(json.dumps({"episode":7,"model":"large-v3","audioSha256":draft["source"]["audioSha256"],"passages":out},ensure_ascii=False,indent=2)+"\n")

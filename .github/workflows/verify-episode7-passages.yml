@@ -36,12 +36,12 @@ jobs:
           path: /tmp/vedator-ep7-audio
           key: vedator-original-episode-7-audio-v1
       - name: Check speech gaps and uncertain proper names against original audio
-        run: python tools/verify-episode7-passages.py --final-review
+        run: python tools/verify-episode7-passages.py --alignment-review
       - name: Save recognizer evidence
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add captions/source/episode-7-final-checks.sk.json
+          git add captions/source/episode-7-alignment-checks.sk.json
           git diff --cached --quiet && exit 0
           git commit -m "Cross-check final episode 7 disputed speech with full large-v3"
           git pull --rebase origin "${GITHUB_REF_NAME}"

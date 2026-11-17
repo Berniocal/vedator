@@ -7,7 +7,7 @@
     "model": "large-v3-turbo",
     "duration": 1723.115125
   },
-  "review": "Manually revised each of 374 ASR subtitle blocks in Slovak and Czech, compared against independent large-v3 samples but NOT comprehensively verified by direct audio listening. Two ASR speech gaps recovered from independent recognizer; one unclear brief reply remains explicitly marked. Do not publish without quality gates. Final editorial pass: preserve the spoken term jurisdiction in Czech and merge short adjacent fragments for readable display; sourceCues retain original ASR cue references.",
+  "review": "Manually revised each of 374 ASR subtitle blocks in Slovak and Czech, compared against independent large-v3 samples but NOT comprehensively verified by direct audio listening. Two ASR speech gaps recovered from independent recognizer; one unclear brief reply remains explicitly marked. Do not publish without quality gates. Final editorial pass: preserve the spoken term jurisdiction in Czech and merge short adjacent fragments for readable display; sourceCues retain original ASR cue references. Printed numbers are retained in the visible text and expanded to Slovak pronunciations for acoustic alignment; alternative year pronunciations are selected by the acoustic score and retained in alignmentText.",
   "checkWindows": [
     [
       980.75,
@@ -32,6 +32,34 @@
     [
       1236,
       1251
+    ],
+    [
+      340,
+      359
+    ],
+    [
+      1312,
+      1321
+    ],
+    [
+      1390,
+      1408
+    ],
+    [
+      1535,
+      1548
+    ],
+    [
+      1700,
+      1707
+    ],
+    [
+      54,
+      72
+    ],
+    [
+      799,
+      822
     ]
   ],
   "cues": [
@@ -260,7 +288,7 @@
         165
       ],
       "sourceCue": 17,
-      "alignmentText": "obyčaj, že začína to niekde medzi 30 kilometrami a až 160"
+      "alignmentText": "obyčaj, že začína to niekde medzi tridsiatimi kilometrami a až sto šesťdesiatimi"
     },
     {
       "start": 81.6,
@@ -372,7 +400,7 @@
         245
       ],
       "sourceCue": 25,
-      "alignmentText": "tú suverenitu uznávajú pri 50 kilometroch, niekedy pri 100 a tak ďalej. Záleží to"
+      "alignmentText": "tú suverenitu uznávajú pri päťdesiatich kilometroch, niekedy pri sto a tak ďalej. Záleží to"
     },
     {
       "start": 124.73,
@@ -554,7 +582,7 @@
         386
       ],
       "sourceCue": 38,
-      "alignmentText": "50 rokmi, nemusí byť teraz. Máš tie tvoje dve otázky? Jednu si zodpovedal, ale"
+      "alignmentText": "päťdesiatimi rokmi, nemusí byť teraz. Máš tie tvoje dve otázky? Jednu si zodpovedal, ale"
     },
     {
       "start": 190.52,
@@ -792,7 +820,7 @@
         563
       ],
       "sourceCue": 55,
-      "alignmentText": "nariadenia a tak ďalej, ale zaujímavé, že sú tie medzinárodné. No a v 50. rokoch, ako"
+      "alignmentText": "nariadenia a tak ďalej, ale zaujímavé, že sú tie medzinárodné. No a v päťdesiatych rokoch, ako"
     },
     {
       "start": 274.46,
@@ -848,7 +876,12 @@
         600
       ],
       "sourceCue": 59,
-      "alignmentText": "aj vlastne dobývanie vesmíru. No a tak si uvedomili, že v roku 1957 bola prvá"
+      "alignmentText": "aj vlastne dobývanie vesmíru. No a tak si uvedomili, že v roku tisíc deväťsto päťdesiat sedem bola prvá",
+      "alignmentVariants": [
+        "aj vlastne dobývanie vesmíru. No a tak si uvedomili, že v roku tisíc deväťsto päťdesiat sedem bola prvá",
+        "aj vlastne dobývanie vesmíru. No a tak si uvedomili, že v roku devätnásťsto päťdesiat sedem bola prvá",
+        "aj vlastne dobývanie vesmíru. No a tak si uvedomili, že v roku päťdesiat sedem bola prvá"
+      ]
     },
     {
       "start": 293.3,
@@ -862,7 +895,7 @@
         609
       ],
       "sourceCue": 60,
-      "alignmentText": "družica vypustená Rusmi, Sputnik 1, a si uvedomili, že"
+      "alignmentText": "družica vypustená Rusmi, Sputnik jedna, a si uvedomili, že"
     },
     {
       "start": 297.98,
@@ -988,7 +1021,12 @@
         692
       ],
       "sourceCue": 69,
-      "alignmentText": "v roku 1958 vznikla taká ad hoc rada, taká"
+      "alignmentText": "v roku tisíc deväťsto päťdesiat osem vznikla taká ad hoc rada, taká",
+      "alignmentVariants": [
+        "v roku tisíc deväťsto päťdesiat osem vznikla taká ad hoc rada, taká",
+        "v roku devätnásťsto päťdesiat osem vznikla taká ad hoc rada, taká",
+        "v roku päťdesiat osem vznikla taká ad hoc rada, taká"
+      ]
     },
     {
       "start": 342.27,
@@ -1338,7 +1376,7 @@
         982
       ],
       "sourceCue": 94,
-      "alignmentText": "To, čo je nad tým, od tej výšky zhruba 100 kilometrov, tak sa riadi"
+      "alignmentText": "To, čo je nad tým, od tej výšky zhruba sto kilometrov, tak sa riadi"
     },
     {
       "start": 469.27,
@@ -1408,7 +1446,12 @@
         1042
       ],
       "sourceCue": 99,
-      "alignmentText": "vlastne prijalo sa päť takých zmlúv od 1967 až po"
+      "alignmentText": "vlastne prijalo sa päť takých zmlúv od tisíc deväťsto šesťdesiat sedem až po",
+      "alignmentVariants": [
+        "vlastne prijalo sa päť takých zmlúv od tisíc deväťsto šesťdesiat sedem až po",
+        "vlastne prijalo sa päť takých zmlúv od šesťdesiat sedem až po",
+        "vlastne prijalo sa päť takých zmlúv od šesťdesiatom siedmom až po"
+      ]
     },
     {
       "start": 492.91,
@@ -1422,7 +1465,12 @@
         1047
       ],
       "sourceCue": 100,
-      "alignmentText": "1984 sa prijímali tieto zmluvy."
+      "alignmentText": "tisíc deväťsto osemdesiat štyri sa prijímali tieto zmluvy.",
+      "alignmentVariants": [
+        "tisíc deväťsto osemdesiat štyri sa prijímali tieto zmluvy.",
+        "osemdesiat štyri sa prijímali tieto zmluvy.",
+        "osemdesiatom štvrtom sa prijímali tieto zmluvy."
+      ]
     },
     {
       "start": 498.19,
@@ -1604,7 +1652,12 @@
         1190
       ],
       "sourceCue": 113,
-      "alignmentText": "Komerčné, toto nikoho podľa mňa ani nenapadlo v roku 1967. A jasné,"
+      "alignmentText": "Komerčné, toto nikoho podľa mňa ani nenapadlo v roku tisíc deväťsto šesťdesiat sedem. A jasné,",
+      "alignmentVariants": [
+        "Komerčné, toto nikoho podľa mňa ani nenapadlo v roku tisíc deväťsto šesťdesiat sedem. A jasné,",
+        "Komerčné, toto nikoho podľa mňa ani nenapadlo v roku šesťdesiat sedem. A jasné,",
+        "Komerčné, toto nikoho podľa mňa ani nenapadlo v roku šesťdesiatom siedmom. A jasné,"
+      ]
     },
     {
       "start": 568.42,
@@ -1957,7 +2010,12 @@
         1452
       ],
       "sourceCue": 139,
-      "alignmentText": "už spísaná v roku 1979,"
+      "alignmentText": "už spísaná v roku tisíc deväťsto sedemdesiat deväť,",
+      "alignmentVariants": [
+        "už spísaná v roku tisíc deväťsto sedemdesiat deväť,",
+        "už spísaná v roku sedemdesiat deväť,",
+        "už spísaná v roku sedemdesiatom deviatom,"
+      ]
     },
     {
       "start": 693.22,
@@ -1971,7 +2029,12 @@
         1458
       ],
       "sourceCue": 140,
-      "alignmentText": "ale do účinnosti vošla až v roku 1984."
+      "alignmentText": "ale do účinnosti vošla až v roku tisíc deväťsto osemdesiat štyri.",
+      "alignmentVariants": [
+        "ale do účinnosti vošla až v roku tisíc deväťsto osemdesiat štyri.",
+        "ale do účinnosti vošla až v roku osemdesiat štyri.",
+        "ale do účinnosti vošla až v roku osemdesiatom štvrtom."
+      ]
     },
     {
       "start": 696.54,
@@ -1999,7 +2062,7 @@
         1484
       ],
       "sourceCue": 142,
-      "alignmentText": "18 štátov, ktoré ju podpísali, takže z medzinárodného hľadiska veľmi málo štátov,"
+      "alignmentText": "osemnásť štátov, ktoré ju podpísali, takže z medzinárodného hľadiska veľmi málo štátov,"
     },
     {
       "start": 707.04,
@@ -2349,7 +2412,7 @@
         1730
       ],
       "sourceCue": 167,
-      "alignmentText": "tej vesmírnej činnosti, lebo keď sa pozrieme na to, v 67., to je rok predtým,"
+      "alignmentText": "tej vesmírnej činnosti, lebo keď sa pozrieme na to, v šesťdesiat sedem, to je rok predtým,"
     },
     {
       "start": 825.8,
@@ -2363,7 +2426,7 @@
         1742
       ],
       "sourceCue": 168,
-      "alignmentText": "ako prví astronauti vyšli na Mesiac a tak ďalej, potom 68. bola"
+      "alignmentText": "ako prví astronauti vyšli na Mesiac a tak ďalej, potom šesťdesiat osem bola"
     },
     {
       "start": 831,
@@ -2377,7 +2440,7 @@
         1755
       ],
       "sourceCue": 169,
-      "alignmentText": "ďalšia, potom 72., potom 75. A každá z tých zmlúv je menej a"
+      "alignmentText": "ďalšia, potom sedemdesiat dva, potom sedemdesiat päť A každá z tých zmlúv je menej a"
     },
     {
       "start": 836.5,
@@ -2405,7 +2468,7 @@
         1773
       ],
       "sourceCue": 171,
-      "alignmentText": "vyše 120 krajín sveta, ale tú poslednú, ako som hovoril, ten"
+      "alignmentText": "vyše sto dvadsať krajín sveta, ale tú poslednú, ako som hovoril, ten"
     },
     {
       "start": 845.76,
@@ -2419,7 +2482,7 @@
         1785
       ],
       "sourceCue": 172,
-      "alignmentText": "Moon len 18. Takže štáty akoby prestali mať až taký záujem."
+      "alignmentText": "Moon len osemnásť. Takže štáty akoby prestali mať až taký záujem."
     },
     {
       "start": 851.14,
@@ -3554,7 +3617,7 @@
       "end": 1224.95,
       "text": {
         "sk": "nestal sa tohto roku",
-        "cs": "nestal se toho roku"
+        "cs": "nestal se tohoto roku"
       },
       "asrWordRange": [
         2578,
@@ -4540,7 +4603,7 @@
         3238,
         3249
       ],
-      "alignmentText": "No 120 krajín zo 190, ale povedzme, že veľmi veľké jadro",
+      "alignmentText": "No sto dvadsať krajín zo sto deväťdesiat, ale povedzme, že veľmi veľké jadro",
       "sourceCues": [
         334,
         335
