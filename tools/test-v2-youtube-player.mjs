@@ -22,7 +22,7 @@ assert(captions.cues.every(cue=>cue.kind==='speech'&&!/\[(?:Úsek|Nejasný|Nesro
 assert(captions.cues.some(cue=>cue.start<670&&cue.end>655&&/turbín/.test(cue.text.cs+cue.text.sk)),'Restore the lost explanation in the formerly repeated passage');
 assert(captions.cues.every((cue,i)=>cue.start>=0&&cue.end>cue.start&&(!i||cue.start>=captions.cues[i-1].end)&&cue.text.cs&&cue.text.sk));
 assert.equal(data.episodes.find(e=>e.number===1).captionFile,'captions/episode-1.json');
-assert(data.episodes.filter(e=>e.number!==1).every(e=>!e.captionFile),'Only the pilot episode has edited captions');
+assert.deepEqual(data.episodes.filter(e=>e.captionFile).map(e=>e.number).sort((a,b)=>a-b),[1,2,3,4,5,6,7,8],'All reviewed episodes 1–8 provide custom captions');
 const captionAt=(time,lang)=>captions.cues.find(c=>c.start<=time&&time<c.end)?.text[lang]||'';
 assert.equal(mappings.length,10);
 for(let n=1;n<=10;n++){
@@ -92,7 +92,7 @@ try{
   assert.equal(frame.referrerPolicy,'strict-origin-when-cross-origin');
   assert.equal(t.captionRequests.length,1);
   assert.equal(t.$('#player-caption-text-v2').textContent,captionAt(153.5,'cs'));
-  assert(!t.$('#player-video-host-v2').contains(t.$('#player-captions-v2')),'Custom text must be outside the YouTube player');
+  assert(t.$('#player-video-host-v2').contains(t.$('#player-captions-v2')),'Custom text must overlay inside the video host');
   const seek=t.$('#player-seek-v2');seek.value='201';seek.dispatchEvent(new t.w.Event('change'));
   player.ready();await wait();assert.equal(player.lastSeek,201,'Seek before API readiness must survive');assert(!player.paused);
   assert.equal(t.$('#player-caption-text-v2').textContent,captionAt(201,'cs'));
@@ -128,7 +128,7 @@ try{
   await t.play(11);assert(t.$('#player-video-v2').disabled);assert(!t.$('#player-youtube-frame-v2'));assert(t.audio.src.includes('podcast_ep11.mp3'));
   assert.equal(t.w.localStorage.getItem('vedator-youtube-enabled-v1'),'true','Unmapped episode must not erase preference');
   await t.play(2);player=t.players.at(-1);assert(t.$('#player-youtube-frame-v2').src.includes('QY9pL56nmsA'));player.ready();
-  assert(t.$('#player-captions-v2').classList.contains('hidden'),'No pilot captions on other episodes');
+  assert(!t.$('#player-captions-v2').classList.contains('hidden'),'Other reviewed episodes must also show their custom captions');
   player.events.onAutoplayBlocked();assert.equal(t.$('#player-play-v2').textContent,'▶');assert(t.$('#player-video-status-v2').textContent.includes('▶'));
   player.events.onError({data:150});assert(t.$('#player-video-status-v2 a').href.includes('QY9pL56nmsA'));
   await t.click('#player-play-v2');await t.click('#player-close-v2');assert(player.paused,'Collapsed video must pause');
