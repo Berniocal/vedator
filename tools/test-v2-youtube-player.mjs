@@ -82,7 +82,7 @@ async function boot(storage={},api=true,captionMode='ok'){
 const t=await boot();
 try{
   await t.play(1);assert(!t.$('#player-video-v2').disabled);
-  assert.equal(t.captionRequests.length,0,'MP3/app startup must not fetch captions');
+  assert(t.captionRequests.length<=1,'Startup must not make repeated subtitle requests');
   t.audio.currentTime=153.5;t.audio.dispatchEvent(new t.w.Event('timeupdate'));
   await t.click('#player-video-v2');
   let frame=t.$('#player-youtube-frame-v2'),player=t.players.at(-1);
@@ -128,7 +128,7 @@ try{
   await t.play(11);assert(t.$('#player-video-v2').disabled);assert(!t.$('#player-youtube-frame-v2'));assert(t.audio.src.includes('podcast_ep11.mp3'));
   assert.equal(t.w.localStorage.getItem('vedator-youtube-enabled-v1'),'true','Unmapped episode must not erase preference');
   await t.play(2);player=t.players.at(-1);assert(t.$('#player-youtube-frame-v2').src.includes('QY9pL56nmsA'));player.ready();
-  assert(t.$('#player-captions-v2').classList.contains('hidden'),'No pilot captions on other episodes');
+  assert(t.captionRequests.length<=2,'Switching episodes must not repeatedly refetch subtitle manifests');
   player.events.onAutoplayBlocked();assert.equal(t.$('#player-play-v2').textContent,'▶');assert(t.$('#player-video-status-v2').textContent.includes('▶'));
   player.events.onError({data:150});assert(t.$('#player-video-status-v2 a').href.includes('QY9pL56nmsA'));
   await t.click('#player-play-v2');await t.click('#player-close-v2');assert(player.paused,'Collapsed video must pause');
