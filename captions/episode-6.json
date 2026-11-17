@@ -1,0 +1,6638 @@
+{
+  "version": 1,
+  "episode": 6,
+  "guid": "vedatorskypodcast.podbean.com/c1e920fd-8101-59e5-a61f-8d3250aeefa6",
+  "youtubeId": "zYC0A4Lewaw",
+  "languages": [
+    "cs",
+    "sk"
+  ],
+  "quality": "editorial-corrected-forced-aligned",
+  "source": {
+    "audio": "https://mcdn.podbean.com/mf/web/mzmupy/podcast_ep6.mp3",
+    "audioSha256": "127b67ea72c25b5a3aabcaf55fcd7e70dfd510e2b60b10b3e9bfbacf7c203879",
+    "audioBytes": 77911997,
+    "model": "large-v3-turbo",
+    "duration": 2386.4946875,
+    "type": "original-MP3-ASR-and-CTC-forced-alignment",
+    "alignmentModel": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+    "transcriptFile": "captions/source/episode-6-draft.sk.json",
+    "alignmentFile": "captions/source/episode-6-alignment.json",
+    "review": "Complete Slovak editorial review and Czech translation; acoustic character alignment and review of flagged passages. Not a full independent human listening verification.",
+    "recoveredSpeechFile": "captions/source/episode-6-checks.sk.json",
+    "disputedSpeechFile": "captions/source/episode-6-extra-checks.sk.json",
+    "independentCtcFile": "captions/source/episode-6-ctc-checks.sk.json",
+    "grouping": "Brief sentence fragments joined for readable captions; original source-media clock retained."
+  },
+  "cues": [
+    {
+      "start": 11.372,
+      "end": 15.888,
+      "kind": "speech",
+      "text": {
+        "sk": "Od meandrov cez magmu až po magnetické polia.\nVeda nás obklopuje na každom kroku.",
+        "cs": "Od meandrů přes magma až po magnetická pole.\nVěda nás obklopuje na každém kroku."
+      },
+      "asrWordRange": [
+        0,
+        14
+      ]
+    },
+    {
+      "start": 16.172,
+      "end": 20.788,
+      "kind": "speech",
+      "text": {
+        "sk": "Vítajte pri Vedátorskom podcaste, v ktorom\nbudeme diskutovať o vede a prírode okolo",
+        "cs": "Vítejte u Vedátorského podcastu, ve kterém\nbudeme diskutovat o vědě a přírodě kolem"
+      },
+      "asrWordRange": [
+        14,
+        27
+      ]
+    },
+    {
+      "start": 20.835,
+      "end": 22.266,
+      "kind": "speech",
+      "text": {
+        "sk": "nás. Moje meno je Jozef.",
+        "cs": "nás. Jmenuji se Jozef."
+      },
+      "asrWordRange": [
+        27,
+        32
+      ]
+    },
+    {
+      "start": 23.107,
+      "end": 23.815,
+      "kind": "speech",
+      "text": {
+        "sk": "A ja som Samuel.",
+        "cs": "A já jsem Samuel."
+      },
+      "asrWordRange": [
+        32,
+        36
+      ]
+    },
+    {
+      "start": 24.932,
+      "end": 29.548,
+      "kind": "speech",
+      "text": {
+        "sk": "Ahoj, Samuel. Dneska sa budeme rozprávať o veľmi\naktuálnej téme: sopky.",
+        "cs": "Ahoj, Samueli. Dnes si budeme povídat o velmi\naktuálním tématu: sopkách."
+      },
+      "asrWordRange": [
+        36,
+        47
+      ]
+    },
+    {
+      "start": 30.071,
+      "end": 35.128,
+      "kind": "speech",
+      "text": {
+        "sk": "Aktuálna je kvôli tomu, že pred pár dňami\nvybuchla sopka pri",
+        "cs": "Aktuální je proto, že před pár dny vybuchla\nsopka u"
+      },
+      "asrWordRange": [
+        47,
+        58
+      ]
+    },
+    {
+      "start": 35.854,
+      "end": 40.99,
+      "kind": "speech",
+      "text": {
+        "sk": "Severnom ostrove Nového Zélandu a nanešťastie\nboli tam aj nejaké",
+        "cs": "Severního ostrova Nového Zélandu a bohužel tam\nbyly i nějaké"
+      },
+      "asrWordRange": [
+        58,
+        69
+      ]
+    },
+    {
+      "start": 40.99,
+      "end": 45.999,
+      "kind": "speech",
+      "text": {
+        "sk": "obete a bola to vlastne taká najbližšia udalosť\nk nám,",
+        "cs": "oběti a byla to vlastně taková nejbližší událost\nk nám,"
+      },
+      "asrWordRange": [
+        69,
+        79
+      ]
+    },
+    {
+      "start": 46.102,
+      "end": 51.82,
+      "kind": "speech",
+      "text": {
+        "sk": "čo si vieme povedať. Ale sopky sú vlastne... By\nsom povedal, že o sopkách na Slovensku",
+        "cs": "o které si můžeme povědět. Ale sopky jsou\nvlastně… Řekl bych, že o sopkách na Slovensku"
+      },
+      "asrWordRange": [
+        79,
+        95
+      ]
+    },
+    {
+      "start": 51.82,
+      "end": 54.558,
+      "kind": "speech",
+      "text": {
+        "sk": "moc toho nevieme a moc sa nimi ani nezaoberáme.",
+        "cs": "moc nevíme a moc se jimi ani nezabýváme."
+      },
+      "asrWordRange": [
+        95,
+        104
+      ]
+    },
+    {
+      "start": 55.982,
+      "end": 61.159,
+      "kind": "speech",
+      "text": {
+        "sk": "Samo, asi si povedzme takto. Prečo je Zem\nvlastne horúca? Prečo vyteká",
+        "cs": "Samo, asi si řekněme tohle. Proč je Země vlastně\nhorká? Proč vytéká"
+      },
+      "asrWordRange": [
+        104,
+        116
+      ]
+    },
+    {
+      "start": 61.159,
+      "end": 62.616,
+      "kind": "speech",
+      "text": {
+        "sk": "láva? Prečo existuje magma?",
+        "cs": "láva? Proč existuje magma?"
+      },
+      "asrWordRange": [
+        116,
+        120
+      ]
+    },
+    {
+      "start": 64.063,
+      "end": 68.378,
+      "kind": "speech",
+      "text": {
+        "sk": "No, to je vlastne dobrá otázka. Dobre si\npovedal, že na Slovensku našťastie ani nemáme",
+        "cs": "No, to je vlastně dobrá otázka. Dobře jsi řekl,\nže na Slovensku naštěstí ani nemáme"
+      },
+      "asrWordRange": [
+        120,
+        135
+      ]
+    },
+    {
+      "start": 68.402,
+      "end": 73.218,
+      "kind": "speech",
+      "text": {
+        "sk": "skúsenosť so sopkami. Málokto sa z nás asi bojí,\nteda z tých, čo žijeme na Slovensku,",
+        "cs": "zkušenost se sopkami. Málokdo z nás se asi bojí,\ntedy z těch, co žijeme na Slovensku,"
+      },
+      "asrWordRange": [
+        135,
+        152
+      ]
+    },
+    {
+      "start": 73.282,
+      "end": 76.077,
+      "kind": "speech",
+      "text": {
+        "sk": "že zajtra by nám dom zatopila láva.",
+        "cs": "že by nám zítra dům zatopila láva."
+      },
+      "asrWordRange": [
+        152,
+        159
+      ]
+    },
+    {
+      "start": 77.813,
+      "end": 81.988,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale rovnako ľudia nemajú skúsenosť s tým…\nSlováci nemajú skúsenosť so sopkami",
+        "cs": "Ale stejně tak lidé nemají zkušenost s tím…\nSlováci nemají zkušenost se sopkami"
+      },
+      "asrWordRange": [
+        159,
+        171
+      ]
+    },
+    {
+      "start": 82.052,
+      "end": 87.028,
+      "kind": "speech",
+      "text": {
+        "sk": "prevažne a ľudia celkovo nemajú skúsenosť s tým,\nže ako Zem vyzerá pod povrchom.",
+        "cs": "převážně a lidé celkově nemají zkušenost s tím,\njak Země vypadá pod povrchem."
+      },
+      "asrWordRange": [
+        171,
+        185
+      ]
+    },
+    {
+      "start": 89.202,
+      "end": 93.398,
+      "kind": "speech",
+      "text": {
+        "sk": "Kým som si o tom niečo naštudoval, tak vždy som\nmal pocit, že však ľudia prenikli",
+        "cs": "Než jsem si o tom něco nastudoval, vždycky jsem\nměl pocit, že lidé přece pronikli"
+      },
+      "asrWordRange": [
+        185,
+        201
+      ]
+    },
+    {
+      "start": 93.465,
+      "end": 94.596,
+      "kind": "speech",
+      "text": {
+        "sk": "pomerne hlboko pod zem.",
+        "cs": "poměrně hluboko pod zem."
+      },
+      "asrWordRange": [
+        201,
+        205
+      ]
+    },
+    {
+      "start": 95.573,
+      "end": 100.108,
+      "kind": "speech",
+      "text": {
+        "sk": "A zistil som, že práve naopak. Čo sa týka\nnapríklad jaskýň, čo je taký najjednoduchší",
+        "cs": "A zjistil jsem, že právě naopak. Co se týče\ntřeba jeskyní, což je takový nejjednodušší"
+      },
+      "asrWordRange": [
+        205,
+        220
+      ]
+    },
+    {
+      "start": 100.114,
+      "end": 101.606,
+      "kind": "speech",
+      "text": {
+        "sk": "spôsob, ako sa dostať hlbšie pod zem,",
+        "cs": "způsob, jak se dostat hlouběji pod zem,"
+      },
+      "asrWordRange": [
+        220,
+        227
+      ]
+    },
+    {
+      "start": 102.494,
+      "end": 104.407,
+      "kind": "speech",
+      "text": {
+        "sk": "tak tam je ten rekord okolo dvoch kilometrov.",
+        "cs": "tak tam je ten rekord kolem dvou kilometrů."
+      },
+      "asrWordRange": [
+        227,
+        235
+      ]
+    },
+    {
+      "start": 105.783,
+      "end": 110.179,
+      "kind": "speech",
+      "text": {
+        "sk": "Potom, keď sa robia bane, aby sa niečo\nzaujímavého zo zeme vykopalo, tak ten rekord je",
+        "cs": "Potom, když se dělají doly, aby se něco\nzajímavého ze země vykopalo, tak ten rekord je"
+      },
+      "asrWordRange": [
+        235,
+        251
+      ]
+    },
+    {
+      "start": 110.179,
+      "end": 114.578,
+      "kind": "speech",
+      "text": {
+        "sk": "okolo štyroch kilometrov, čiže najhlbšie bane sú\nstále niekoľkokilometrové. Sú štyri",
+        "cs": "kolem čtyř kilometrů, čili nejhlubší doly jsou\nstále několikakilometrové. Jsou čtyři"
+      },
+      "asrWordRange": [
+        251,
+        262
+      ]
+    },
+    {
+      "start": 114.578,
+      "end": 117.498,
+      "kind": "speech",
+      "recoveredSpeech": "large-v3 114.74–120.26",
+      "text": {
+        "sk": "kilometre pod povrchom. Štyri kilometre pod\npovrchom.",
+        "cs": "kilometry pod povrchem. Čtyři kilometry pod\npovrchem."
+      },
+      "asrWordRange": [
+        262,
+        265
+      ]
+    },
+    {
+      "start": 118.444,
+      "end": 123.199,
+      "kind": "speech",
+      "text": {
+        "sk": "A niekedy sa urobí také, že len sa vŕta diera\nproste. Zoberie sa riadny vrták a ide sa",
+        "cs": "A někdy se udělá to, že se jen vrtá díra. Vezme\nse pořádný vrták a jde se"
+      },
+      "asrWordRange": [
+        265,
+        283
+      ]
+    },
+    {
+      "start": 123.199,
+      "end": 125.797,
+      "kind": "speech",
+      "text": {
+        "sk": "do hĺbky, do hĺbky a skúša, kde sa to zasekne.",
+        "cs": "do hloubky, do hloubky a zkouší se, kde se to\nzasekne."
+      },
+      "asrWordRange": [
+        283,
+        293
+      ]
+    },
+    {
+      "start": 126.61,
+      "end": 132.669,
+      "kind": "speech",
+      "text": {
+        "sk": "Tam je rekord takzvaná Kola Superdeep… Borehole\nv Rusku a tam",
+        "cs": "Tam je rekord takzvaná Kola Superdeep… Borehole\nv Rusku a ta"
+      },
+      "asrWordRange": [
+        293,
+        307
+      ]
+    },
+    {
+      "start": 132.669,
+      "end": 133.665,
+      "kind": "speech",
+      "text": {
+        "sk": "má 12 kilometrov.",
+        "cs": "má dvanáct kilometrů."
+      },
+      "asrWordRange": [
+        307,
+        310
+      ]
+    },
+    {
+      "start": 135.022,
+      "end": 140.158,
+      "kind": "speech",
+      "text": {
+        "sk": "A to sme v akej časti Zeme teraz, tých 12\nkilometrov? Asi sme už",
+        "cs": "A to jsme v jaké části Země teď, těch dvanáct\nkilometrů? Asi jsme už…"
+      },
+      "asrWordRange": [
+        310,
+        324
+      ]
+    },
+    {
+      "start": 140.262,
+      "end": 145.319,
+      "kind": "speech",
+      "text": {
+        "sk": "nejaká pôda je za nami, asi sme sa dostali do\nnejakého toho vrchného obalu a",
+        "cs": "Nějaká půda je za námi, asi jsme se dostali do\nnějakého toho vrchního obalu a"
+      },
+      "asrWordRange": [
+        324,
+        339
+      ]
+    },
+    {
+      "start": 145.907,
+      "end": 147.917,
+      "kind": "speech",
+      "text": {
+        "sk": "koľko nám ešte chýba napríklad do stredu Zeme?",
+        "cs": "kolik nám ještě chybí třeba do středu Země?"
+      },
+      "asrWordRange": [
+        339,
+        347
+      ]
+    },
+    {
+      "start": 148.902,
+      "end": 153.76,
+      "kind": "speech",
+      "text": {
+        "sk": "Taká, že hlina, do ktorej sa dá kopať lopatou,\nje bežne len veľmi malá, lebo však to",
+        "cs": "Taková ta hlína, do které se dá kopat lopatou,\nje běžně jen velmi mělká, protože to"
+      },
+      "asrWordRange": [
+        347,
+        364
+      ]
+    },
+    {
+      "start": 153.76,
+      "end": 158.7,
+      "kind": "speech",
+      "text": {
+        "sk": "je taký dôsledok toho, ako sa tam červíky\nrozkúsavali listy a podobne. Čiže už sú to",
+        "cs": "je takový důsledek toho, jak tam červíci\nrozkousávali listy a podobně. Čili už jsou to"
+      },
+      "asrWordRange": [
+        364,
+        379
+      ]
+    },
+    {
+      "start": 158.7,
+      "end": 160.156,
+      "kind": "speech",
+      "text": {
+        "sk": "rôzne horniny, treba do toho vŕtať.",
+        "cs": "různé horniny, je potřeba do toho vrtat."
+      },
+      "asrWordRange": [
+        379,
+        385
+      ]
+    },
+    {
+      "start": 161.462,
+      "end": 166.478,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale stále sme neprenikli nikam pod povrch. Aj\nnapriek tomu, teda stále sa nachádzame",
+        "cs": "Ale stále jsme nepronikli nikam pod povrch. I\nnavzdory tomu, tedy stále se nacházíme"
+      },
+      "asrWordRange": [
+        385,
+        399
+      ]
+    },
+    {
+      "start": 166.583,
+      "end": 169.758,
+      "kind": "speech",
+      "text": {
+        "sk": "iba v najhornejšej vrstve, teda v kôre.",
+        "cs": "jen v nejhornější vrstvě, tedy v kůře."
+      },
+      "asrWordRange": [
+        399,
+        406
+      ]
+    },
+    {
+      "start": 170.977,
+      "end": 172.386,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale už teraz to vyzerá veľmi zaujímavo.",
+        "cs": "Ale už teď to vypadá velmi zajímavě."
+      },
+      "asrWordRange": [
+        406,
+        413
+      ]
+    },
+    {
+      "start": 173.795,
+      "end": 176.548,
+      "kind": "speech",
+      "text": {
+        "sk": "A to kvôli tomu, že strašne prudko narástla\nteplota.",
+        "cs": "A to proto, že strašně prudce narostla teplota."
+      },
+      "asrWordRange": [
+        413,
+        422
+      ]
+    },
+    {
+      "start": 177.832,
+      "end": 182.35,
+      "kind": "speech",
+      "text": {
+        "sk": "Neexistuje úplne presný vzorček, ktorý by sa dal\nzobrať, ale tak veľmi približne",
+        "cs": "Neexistuje úplně přesný vzoreček, který by se\ndal vzít, ale tak velmi přibližně"
+      },
+      "asrWordRange": [
+        422,
+        435
+      ]
+    },
+    {
+      "start": 182.35,
+      "end": 184.547,
+      "kind": "speech",
+      "text": {
+        "sk": "platí, že každý kilometr, čo prenikneme pod\npovrch,",
+        "cs": "platí, že každý kilometr, co pronikneme pod\npovrch,"
+      },
+      "asrWordRange": [
+        435,
+        443
+      ]
+    },
+    {
+      "start": 185.483,
+      "end": 187.817,
+      "kind": "speech",
+      "text": {
+        "sk": "stúpne teplota o 15 až 20 stupňov.",
+        "cs": "stoupne teplota o patnáct až dvacet stupňů."
+      },
+      "asrWordRange": [
+        443,
+        450
+      ]
+    },
+    {
+      "start": 189.113,
+      "end": 192.448,
+      "kind": "speech",
+      "text": {
+        "sk": "Každý kilometr. Takže pri tých 12 kilometroch\nsme",
+        "cs": "Každý kilometr. Takže při těch dvanácti\nkilometrech jsme…"
+      },
+      "asrWordRange": [
+        450,
+        458
+      ]
+    },
+    {
+      "start": 192.448,
+      "end": 199.129,
+      "kind": "speech",
+      "text": {
+        "sk": "Čo, o dvesto? V tých dvanástich kilometroch je\nto stoosemdesiat stupňov.",
+        "cs": "Co, o dvě stě? V těch dvanácti kilometrech je to\nsto osmdesát stupňů."
+      },
+      "asrWordRange": [
+        458,
+        468
+      ]
+    },
+    {
+      "start": 200.292,
+      "end": 205.67,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže sa ti začnú prehrievať, topiť vrtáky. A\ntoto nie je z toho, že by tam bola",
+        "cs": "Čili se ti začnou přehřívat, tavit vrtáky. A to\nnení tím, že by tam byla"
+      },
+      "asrWordRange": [
+        468,
+        485
+      ]
+    },
+    {
+      "start": 205.67,
+      "end": 210.909,
+      "kind": "speech",
+      "text": {
+        "sk": "magma alebo tak, ale kvôli tomu, že je tam asi\nten tlak vysoký. Nie, je to z toho,",
+        "cs": "magma nebo tak, ale tím, že je tam asi ten tlak\nvysoký. Ne, je to tím,"
+      },
+      "asrWordRange": [
+        485,
+        503
+      ]
+    },
+    {
+      "start": 210.909,
+      "end": 216.368,
+      "kind": "speech",
+      "text": {
+        "sk": "že už sa pomalinky blížime k stredu Zeme. Stred\nZeme má okolo 6000 stupňov,",
+        "cs": "že už se pomalu blížíme ke středu Země. Střed\nZemě má kolem šesti tisíc stupňů,"
+      },
+      "asrWordRange": [
+        503,
+        517
+      ]
+    },
+    {
+      "start": 217.59,
+      "end": 223.07,
+      "kind": "speech",
+      "text": {
+        "sk": "takže ako sa k nemu postupne blížiš, tak to\nzačne byť horúcejšie, horúcejšie. Povrch",
+        "cs": "takže jak se k němu postupně blížíš, začne to\nbýt teplejší a teplejší. Povrch"
+      },
+      "asrWordRange": [
+        517,
+        531
+      ]
+    },
+    {
+      "start": 223.07,
+      "end": 228.368,
+      "kind": "speech",
+      "text": {
+        "sk": "Zeme je chladený tým, že... Kôra nás ochraňuje\npred tým jadrom Zeme. V podstate áno, hej.",
+        "cs": "Země je chlazený tím, že… Kůra nás chrání před\ntím jádrem Země. V podstatě ano, jo."
+      },
+      "asrWordRange": [
+        531,
+        547
+      ]
+    },
+    {
+      "start": 229.216,
+      "end": 229.864,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno, áno.",
+        "cs": "Ano, ano."
+      },
+      "asrWordRange": [
+        547,
+        549
+      ]
+    },
+    {
+      "start": 231.273,
+      "end": 234.948,
+      "kind": "speech",
+      "text": {
+        "sk": "Kedysi dávno, keď Zem ešte nebola vychladená,\ntak by sa na tom povrchu vôbec nedalo",
+        "cs": "Kdysi dávno, když Země ještě nebyla vychladlá,\ntak by se na tom povrchu vůbec nedalo"
+      },
+      "asrWordRange": [
+        549,
+        564
+      ]
+    },
+    {
+      "start": 234.972,
+      "end": 240.81,
+      "kind": "speech",
+      "text": {
+        "sk": "žiť. Takže keď Zem vznikla, tak trebalo počkať\ndlhé obdobie, kým vôbec vychladla na",
+        "cs": "žít. Takže když Země vznikla, bylo potřeba\npočkat dlouhé období, než vůbec vychladla na"
+      },
+      "asrWordRange": [
+        564,
+        577
+      ]
+    },
+    {
+      "start": 240.81,
+      "end": 246.028,
+      "kind": "speech",
+      "text": {
+        "sk": "to, aby na povrchu mohol vzniknúť život. Dobre,\na prečo je teda niečo v Zemi",
+        "cs": "to, aby na povrchu mohl vzniknout život. Dobře,\na proč je tedy něco v Zemi"
+      },
+      "asrWordRange": [
+        577,
+        593
+      ]
+    },
+    {
+      "start": 246.192,
+      "end": 251.548,
+      "kind": "speech",
+      "text": {
+        "sk": "horúce? Lebo kvôli tlaku, alebo ako to vlastne\nvzniklo? To jadro",
+        "cs": "horké? Kvůli tlaku, nebo jak to vlastně vzniklo?\nTo jádro"
+      },
+      "asrWordRange": [
+        593,
+        604
+      ]
+    },
+    {
+      "start": 251.548,
+      "end": 256.888,
+      "kind": "speech",
+      "text": {
+        "sk": "a tie plášte okolo Zeme? No teda, že prečo je\njadro Zeme horúce? Má",
+        "cs": "a ty pláště okolo Země? No tedy, proč je jádro\nZemě horké? Má"
+      },
+      "asrWordRange": [
+        604,
+        618
+      ]
+    },
+    {
+      "start": 257.096,
+      "end": 258.125,
+      "kind": "speech",
+      "text": {
+        "sk": "to dve vysvetlenia.",
+        "cs": "to dvě vysvětlení."
+      },
+      "asrWordRange": [
+        618,
+        621
+      ]
+    },
+    {
+      "start": 260.153,
+      "end": 264.149,
+      "kind": "speech",
+      "text": {
+        "sk": "Ide o kombináciu týchto dvoch efektov. Prvý\nefekt je taký, že keď Zem vznikala, tak",
+        "cs": "Je to kombinace těchto dvou efektů. První efekt\nje takový, že když Země vznikala,"
+      },
+      "asrWordRange": [
+        621,
+        636
+      ]
+    },
+    {
+      "start": 264.149,
+      "end": 268.959,
+      "kind": "speech",
+      "text": {
+        "sk": "vznikala tak, že sa kopa prachu, ktorý sa\nnachádzal vo vesmíre, prachu,",
+        "cs": "vznikala tak, že se spousta prachu, který se\nnacházel ve vesmíru, prachu,"
+      },
+      "asrWordRange": [
+        636,
+        648
+      ]
+    },
+    {
+      "start": 269.505,
+      "end": 270.414,
+      "kind": "speech",
+      "text": {
+        "sk": "kameňov a neviem čoho,",
+        "cs": "kamenů a nevím čeho,"
+      },
+      "asrWordRange": [
+        648,
+        652
+      ]
+    },
+    {
+      "start": 271.917,
+      "end": 272.926,
+      "kind": "speech",
+      "text": {
+        "sk": "začalo spájať dokopy.",
+        "cs": "začala spojovat dohromady."
+      },
+      "asrWordRange": [
+        652,
+        655
+      ]
+    },
+    {
+      "start": 273.672,
+      "end": 278.428,
+      "kind": "speech",
+      "text": {
+        "sk": "Teraz keď si predstavíš, že ak sa dve veci začnú\ngravitačne priťahovať, ako sa zrazia,",
+        "cs": "Teď když si představíš, že se dvě věci začnou\ngravitačně přitahovat, jak se srazí,"
+      },
+      "asrWordRange": [
+        655,
+        670
+      ]
+    },
+    {
+      "start": 278.428,
+      "end": 281.027,
+      "kind": "speech",
+      "text": {
+        "sk": "tak tá gravitačná energia sa na niečo potrebuje\nzmeniť.",
+        "cs": "tak se ta gravitační energie potřebuje na něco\nzměnit."
+      },
+      "asrWordRange": [
+        670,
+        679
+      ]
+    },
+    {
+      "start": 282.144,
+      "end": 284.778,
+      "kind": "speech",
+      "text": {
+        "sk": "A v prípade Zeme sa veľká časť z nej zmenila na\nteplo.",
+        "cs": "A v případě Země se velká část z ní změnila na\nteplo."
+      },
+      "asrWordRange": [
+        679,
+        691
+      ]
+    },
+    {
+      "start": 286.716,
+      "end": 288.467,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže tak vzniklo vlastne jadro Zeme.",
+        "cs": "Takže tak vzniklo vlastně jádro Země."
+      },
+      "asrWordRange": [
+        691,
+        697
+      ]
+    },
+    {
+      "start": 289.563,
+      "end": 294.398,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno. Takto vznikla celá Zem, ale ruka v ruke s\ntým, ako vznikla Zem,",
+        "cs": "Ano. Tak vznikla celá Země, ale ruku v ruce s\ntím, jak vznikla Země,"
+      },
+      "asrWordRange": [
+        697,
+        711
+      ]
+    },
+    {
+      "start": 294.641,
+      "end": 300.179,
+      "kind": "speech",
+      "text": {
+        "sk": "tak jej vznik ju zároveň vytvoril veľmi horúcu.\nLebo tá gravitačná energia sa musela",
+        "cs": "tak ji její vznik zároveň vytvořil velmi horkou.\nProtože ta gravitační energie se musela"
+      },
+      "asrWordRange": [
+        711,
+        725
+      ]
+    },
+    {
+      "start": 300.179,
+      "end": 303.358,
+      "kind": "speech",
+      "text": {
+        "sk": "zmeniť na niečo a zmenila sa na tepelnú energiu.",
+        "cs": "změnit na něco a změnila se na tepelnou energii."
+      },
+      "asrWordRange": [
+        725,
+        734
+      ]
+    },
+    {
+      "start": 304.583,
+      "end": 309.599,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže Zem brutálne zohrialo to, ten proces, akým\nvznikala.",
+        "cs": "Čili Zemi brutálně zahřál ten proces, jakým\nvznikala."
+      },
+      "asrWordRange": [
+        734,
+        743
+      ]
+    },
+    {
+      "start": 309.599,
+      "end": 312.036,
+      "kind": "speech",
+      "text": {
+        "sk": "To je za prvé. A za druhé",
+        "cs": "To je zaprvé. A zadruhé"
+      },
+      "asrWordRange": [
+        743,
+        750
+      ]
+    },
+    {
+      "start": 314.145,
+      "end": 318.619,
+      "kind": "speech",
+      "text": {
+        "sk": "prebiehajú v Zemi radioaktívne procesy. Čiže\nniečo podobné ako prebiehajú v jadrových",
+        "cs": "probíhají v Zemi radioaktivní procesy. Čili něco\npodobného jako probíhá v jaderných"
+      },
+      "asrWordRange": [
+        750,
+        762
+      ]
+    },
+    {
+      "start": 318.619,
+      "end": 320.917,
+      "kind": "speech",
+      "text": {
+        "sk": "reaktoroch. Prebiehajú prirodzene v zemskom\njadre.",
+        "cs": "reaktorech. Probíhají přirozeně v zemském jádře."
+      },
+      "asrWordRange": [
+        762,
+        768
+      ]
+    },
+    {
+      "start": 322.122,
+      "end": 327.018,
+      "kind": "speech",
+      "text": {
+        "sk": "Nie je známe, do akej miery je tento efekt, do\nakej miery to mení.",
+        "cs": "Není známo, do jaké míry je tento efekt, do jaké\nmíry to mění."
+      },
+      "asrWordRange": [
+        768,
+        782
+      ]
+    },
+    {
+      "start": 327.623,
+      "end": 331.758,
+      "kind": "speech",
+      "text": {
+        "sk": "Lebo strašne ťažko sa skúma chemické zloženie\njadra Zeme z pochopiteľných dôvodov.",
+        "cs": "Protože strašně těžko se zkoumá chemické složení\njádra Země, z pochopitelných důvodů."
+      },
+      "asrWordRange": [
+        782,
+        794
+      ]
+    },
+    {
+      "start": 333.053,
+      "end": 338.209,
+      "kind": "speech",
+      "text": {
+        "sk": "Kvôli asi tomu, že sa tam ani nevieme dostať.\nAbsolútne sa tam nevieme dostať. A",
+        "cs": "Asi proto, že se tam ani neumíme dostat.\nAbsolutně se tam neumíme dostat. A"
+      },
+      "asrWordRange": [
+        794,
+        809
+      ]
+    },
+    {
+      "start": 340.661,
+      "end": 342.749,
+      "kind": "speech",
+      "text": {
+        "sk": "teda, jak sa skúma jadro Zeme,",
+        "cs": "tedy jak se zkoumá jádro Země,"
+      },
+      "asrWordRange": [
+        809,
+        815
+      ]
+    },
+    {
+      "start": 342.749,
+      "end": 348.248,
+      "kind": "speech",
+      "text": {
+        "sk": "keď niekto by chcel študovať. Počul som, že je\nfyzika Zeme",
+        "cs": "když by někdo chtěl studovat… Slyšel jsem, že je\nfyzika Země"
+      },
+      "asrWordRange": [
+        815,
+        826
+      ]
+    },
+    {
+      "start": 348.248,
+      "end": 353.529,
+      "kind": "speech",
+      "text": {
+        "sk": "alebo niečo také. Alebo geofyzika sa to myslím\nvolá. Tak ako to študujú? Pomocou tých vrtov?",
+        "cs": "nebo něco takového. Nebo geofyzika se to myslím\njmenuje. Tak jak to studují? Pomocí těch vrtů?"
+      },
+      "asrWordRange": [
+        826,
+        844
+      ]
+    },
+    {
+      "start": 355.034,
+      "end": 359.528,
+      "kind": "speech",
+      "text": {
+        "sk": "Nie, tými vrtmi sa nedostanú na takmer žiadne\nzaujímavé miesto. Ale",
+        "cs": "Ne, těmi vrty se nedostanou na téměř žádné\nzajímavé místo. Ale"
+      },
+      "asrWordRange": [
+        844,
+        855
+      ]
+    },
+    {
+      "start": 360.334,
+      "end": 365.789,
+      "kind": "speech",
+      "text": {
+        "sk": "čo im pomáha je, keď niekde vznikne\nzemetrasenie, tak skúmajú, ako sa tie vlny šíria\ncez Zem.",
+        "cs": "co jim pomáhá, je, když někde vznikne\nzemětřesení, tak zkoumají, jak se ty vlny šíří\npřes Zemi."
+      },
+      "asrWordRange": [
+        855,
+        872
+      ]
+    },
+    {
+      "start": 366.752,
+      "end": 371.849,
+      "kind": "speech",
+      "text": {
+        "sk": "Napríklad, do akej miery sa odrazia od jadra,\nako mierne zmenia smer. V podstate,",
+        "cs": "Například do jaké míry se odrazí od jádra, jak\nmírně změní směr. V podstatě,"
+      },
+      "asrWordRange": [
+        872,
+        886
+      ]
+    },
+    {
+      "start": 371.849,
+      "end": 377.388,
+      "kind": "speech",
+      "text": {
+        "sk": "keď svetlo prejde do vody, tak sa trošku zlomí.\nA keď zvuk prechádza cez Zem, tak sa",
+        "cs": "když světlo přejde do vody, tak se trošku zlomí.\nA když zvuk prochází přes Zemi, tak se"
+      },
+      "asrWordRange": [
+        886,
+        903
+      ]
+    },
+    {
+      "start": 377.451,
+      "end": 382.739,
+      "kind": "speech",
+      "text": {
+        "sk": "tiež trošku láme, trošku sa ohýba, odráža sa\nrôznymi spôsobmi. Takže oni tak spätne",
+        "cs": "taky trošku láme, trošku se ohýbá, odráží se\nrůznými způsoby. Takže oni tak zpětně"
+      },
+      "asrWordRange": [
+        903,
+        917
+      ]
+    },
+    {
+      "start": 382.802,
+      "end": 387.778,
+      "kind": "speech",
+      "text": {
+        "sk": "rekonštruujú, z čoho tá Zem môže byť zložená,\nkeď sa v nej zvuk odráža presne tak, ako to\nvidíme.",
+        "cs": "rekonstruují, z čeho ta Země může být složená,\nkdyž se v ní zvuk odráží přesně tak, jak to\nvidíme."
+      },
+      "asrWordRange": [
+        917,
+        937
+      ]
+    },
+    {
+      "start": 388.742,
+      "end": 394.018,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže nie nejaké priame, ale vedľajšie\npozorovania. Veľmi nepriame, ale zase",
+        "cs": "Takže ne nějaká přímá, ale vedlejší pozorování.\nVelmi nepřímá, ale zase"
+      },
+      "asrWordRange": [
+        937,
+        948
+      ]
+    },
+    {
+      "start": 394.018,
+      "end": 399.639,
+      "kind": "speech",
+      "text": {
+        "sk": "už je taká dobrá sieť rôznych geologických\nstaníc. Seizmologické",
+        "cs": "už je taková dobrá síť různých geologických\nstanic. Seismologická"
+      },
+      "asrWordRange": [
+        948,
+        958
+      ]
+    },
+    {
+      "start": 399.661,
+      "end": 405.069,
+      "kind": "speech",
+      "text": {
+        "sk": "merania sa dejú, práve nie úplne všade okolo\nZeme, ale veľmi",
+        "cs": "měření se dějí právě ne úplně všude okolo Země,\nale velmi"
+      },
+      "asrWordRange": [
+        958,
+        969
+      ]
+    },
+    {
+      "start": 405.092,
+      "end": 408.729,
+      "kind": "speech",
+      "text": {
+        "sk": "hustá sieť, takže veľmi presne sa dá\nzrekonštruovať, čo v nej je.",
+        "cs": "hustá síť, takže velmi přesně se dá\nzrekonstruovat, co v ní je."
+      },
+      "asrWordRange": [
+        969,
+        979
+      ]
+    },
+    {
+      "start": 409.433,
+      "end": 413.948,
+      "kind": "speech",
+      "text": {
+        "sk": "A ešte, teda kým skončíme takýto ten úvod, tak\npoviem taký zaujímavý príbeh o tom, že",
+        "cs": "A ještě, než skončíme takový ten úvod, povím\nzajímavý příběh o tom, že"
+      },
+      "asrWordRange": [
+        979,
+        995
+      ]
+    },
+    {
+      "start": 413.948,
+      "end": 419.399,
+      "kind": "speech",
+      "text": {
+        "sk": "už v roku 1862 William Thomson pomocou",
+        "cs": "už v roce 1862 William Thomson pomocí"
+      },
+      "asrWordRange": [
+        995,
+        1002
+      ]
+    },
+    {
+      "start": 419.484,
+      "end": 421.136,
+      "kind": "speech",
+      "text": {
+        "sk": "teploty Zeme odhadol, aká je stará.",
+        "cs": "teploty Země odhadl, jak je stará."
+      },
+      "asrWordRange": [
+        1002,
+        1008
+      ]
+    },
+    {
+      "start": 422.122,
+      "end": 427.299,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže on teda, došlo mu, že tým, že keď vznikla\nZem, tak sa zohriala prirodzene tým, že",
+        "cs": "Čili jemu došlo, že když vznikla Země, tak se\npřirozeně zahřála tím, že"
+      },
+      "asrWordRange": [
+        1008,
+        1025
+      ]
+    },
+    {
+      "start": 427.299,
+      "end": 428.796,
+      "kind": "speech",
+      "text": {
+        "sk": "gravitačná energia sa zmenila na teplo.",
+        "cs": "gravitační energie se změnila na teplo."
+      },
+      "asrWordRange": [
+        1025,
+        1031
+      ]
+    },
+    {
+      "start": 429.823,
+      "end": 433.238,
+      "kind": "speech",
+      "text": {
+        "sk": "Potom sa pozeral, aká teplá je Zem teraz a\nodhadol, aká stará musí byť.",
+        "cs": "Potom se díval, jak teplá je Země teď, a odhadl,\njak stará musí být."
+      },
+      "asrWordRange": [
+        1031,
+        1045
+      ]
+    },
+    {
+      "start": 434.102,
+      "end": 439.159,
+      "kind": "speech",
+      "text": {
+        "sk": "A jemu to vyšlo, že niekde medzi 20 až 400\nmiliónmi rokov, čo samozrejme vieme, že je",
+        "cs": "A vyšlo mu, že někde mezi dvaceti až čtyřmi sty\nmiliony let, což samozřejmě víme, že je"
+      },
+      "asrWordRange": [
+        1045,
+        1062
+      ]
+    },
+    {
+      "start": 439.159,
+      "end": 444.319,
+      "kind": "speech",
+      "text": {
+        "sk": "mimo, ale jeho chyba spočívala v dvoch veciach.\nZa prvé, on nevedel o tej",
+        "cs": "mimo, ale jeho chyba spočívala ve dvou věcech.\nZaprvé nevěděl o té"
+      },
+      "asrWordRange": [
+        1062,
+        1076
+      ]
+    },
+    {
+      "start": 444.319,
+      "end": 448.878,
+      "kind": "speech",
+      "text": {
+        "sk": "radioaktivite, ktorá sa tam deje, a za druhé, on\nzanedbal také efekty, ktoré sú",
+        "cs": "radioaktivitě, která tam probíhá, a zadruhé\nzanedbal takové efekty, které jsou"
+      },
+      "asrWordRange": [
+        1076,
+        1090
+      ]
+    },
+    {
+      "start": 448.902,
+      "end": 454.399,
+      "kind": "speech",
+      "text": {
+        "sk": "pomerne silné, že ako sa tam ešte teraz tá hmota\npresúva, ako sa trením ďalej a ďalej",
+        "cs": "poměrně silné: jak se tam ještě teď ta hmota\npřesouvá, jak se třením dál a dál"
+      },
+      "asrWordRange": [
+        1090,
+        1107
+      ]
+    },
+    {
+      "start": 454.422,
+      "end": 457.818,
+      "kind": "speech",
+      "text": {
+        "sk": "zohrieva. Takže on ten výsledok podcenil, ale aj\ntak je to,",
+        "cs": "zahřívá. Takže ten výsledek podcenil, ale i tak\nje to…"
+      },
+      "asrWordRange": [
+        1107,
+        1118
+      ]
+    },
+    {
+      "start": 459.574,
+      "end": 464.149,
+      "kind": "speech",
+      "text": {
+        "sk": "nie je to až tak šialene ďaleko od pravdivého\nvýsledku. Takže akože klobúk dole za",
+        "cs": "Není to až tak šíleně daleko od pravdivého\nvýsledku. Takže klobouk dolů před"
+      },
+      "asrWordRange": [
+        1118,
+        1133
+      ]
+    },
+    {
+      "start": 464.63,
+      "end": 469.669,
+      "kind": "speech",
+      "text": {
+        "sk": "jeho odhadom. Áno, áno. Na to, že to robil pred\nvyše 150 rokmi,",
+        "cs": "jeho odhadem. Ano, ano. Na to, že to dělal před\nvíce než sto padesáti lety,"
+      },
+      "asrWordRange": [
+        1133,
+        1146
+      ]
+    },
+    {
+      "start": 469.691,
+      "end": 475.269,
+      "kind": "speech",
+      "text": {
+        "sk": "je to veľmi blízko realite. A hlavne aj, ako to\nrobil, presne si to",
+        "cs": "je to velmi blízko realitě. A hlavně i jak to\ndělal, přesně jsi to"
+      },
+      "asrWordRange": [
+        1146,
+        1160
+      ]
+    },
+    {
+      "start": 475.269,
+      "end": 480.729,
+      "kind": "speech",
+      "text": {
+        "sk": "spomenul. Dobre, tak presuňme sa ďalej, čo je\nvlastne tá sopka. Vlastne hovorili",
+        "cs": "zmínil. Dobře, tak se přesuňme dál, co je\nvlastně ta sopka. Vlastně mluvili"
+      },
+      "asrWordRange": [
+        1160,
+        1173
+      ]
+    },
+    {
+      "start": 480.729,
+      "end": 484.008,
+      "kind": "speech",
+      "text": {
+        "sk": "sme o jadre Zeme, hovorili sme o povrchu.",
+        "cs": "jsme o jádru Země, mluvili jsme o povrchu."
+      },
+      "asrWordRange": [
+        1173,
+        1181
+      ]
+    },
+    {
+      "start": 485.573,
+      "end": 489.768,
+      "kind": "speech",
+      "text": {
+        "sk": "A čo je vlastne tá sopka? Ako vzniká sopka? A čo\ns tým má vlastne aj to jadro?",
+        "cs": "A co je vlastně ta sopka? Jak vzniká sopka? A co\ns tím má vlastně i to jádro?"
+      },
+      "asrWordRange": [
+        1181,
+        1199
+      ]
+    },
+    {
+      "start": 491.892,
+      "end": 497.709,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže tým, že je Zem horúca, tak kvôli tomu je\nčasť hornín v jej vnútri roztavených.",
+        "cs": "Takže tím, že je Země horká, je kvůli tomu část\nhornin v jejím nitru roztavená."
+      },
+      "asrWordRange": [
+        1199,
+        1215
+      ]
+    },
+    {
+      "start": 498.672,
+      "end": 503.869,
+      "kind": "speech",
+      "text": {
+        "sk": "Nie je to úplne, že roztavené ako taká voda v\npohári. Niekedy sa používa taký výraz:",
+        "cs": "Není to úplně roztavené jako taková voda ve\nsklenici. Někdy se používá takový výraz"
+      },
+      "asrWordRange": [
+        1215,
+        1231
+      ]
+    },
+    {
+      "start": 503.993,
+      "end": 507.188,
+      "kind": "speech",
+      "text": {
+        "sk": "poloroztavený, alebo že semi-liquid, čiastočne\ntekuté.",
+        "cs": "poloroztavené, nebo „semi-liquid“, částečně\ntekuté."
+      },
+      "asrWordRange": [
+        1231,
+        1239
+      ]
+    },
+    {
+      "start": 508.442,
+      "end": 513.118,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže teplota zohrieva horniny a niektoré z nich\nsa roztopia. A keď sa to deje pod",
+        "cs": "Takže teplota zahřívá horniny a některé z nich\nse roztopí. A když je to pod"
+      },
+      "asrWordRange": [
+        1239,
+        1255
+      ]
+    },
+    {
+      "start": 513.118,
+      "end": 515.797,
+      "kind": "speech",
+      "text": {
+        "sk": "povrchom, tak sa to volá magma a keď magma vyjde\nnavrch,",
+        "cs": "povrchem, tak se to jmenuje magma, a když magma\nvyjde nahoru,"
+      },
+      "asrWordRange": [
+        1255,
+        1264
+      ]
+    },
+    {
+      "start": 516.564,
+      "end": 518.056,
+      "kind": "speech",
+      "text": {
+        "sk": "tak magme hovoríme láva.",
+        "cs": "tak magmatu říkáme láva."
+      },
+      "asrWordRange": [
+        1264,
+        1268
+      ]
+    },
+    {
+      "start": 519.302,
+      "end": 524.198,
+      "kind": "speech",
+      "text": {
+        "sk": "A sopka je vlastne to miesto, kde magma vychádza\nna zemský povrch.",
+        "cs": "A sopka je vlastně to místo, kde magma vychází\nna zemský povrch."
+      },
+      "asrWordRange": [
+        1268,
+        1280
+      ]
+    },
+    {
+      "start": 525.771,
+      "end": 530.939,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže je to vlastne akoby porušenie toho\nzemského povrchu. Áno, áno, presne.",
+        "cs": "Takže je to vlastně jakoby porušení toho\nzemského povrchu. Ano, ano, přesně."
+      },
+      "asrWordRange": [
+        1280,
+        1292
+      ]
+    },
+    {
+      "start": 532.652,
+      "end": 537.829,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže Zem je horúca od svojho vzniku plus\nradioaktivita, zohrieva to horniny",
+        "cs": "Čili Země je horká od svého vzniku plus\nradioaktivita, zahřívá to horniny"
+      },
+      "asrWordRange": [
+        1292,
+        1304
+      ]
+    },
+    {
+      "start": 537.829,
+      "end": 543.29,
+      "kind": "speech",
+      "text": {
+        "sk": "a to teda spôsobuje, že... Akože nechcem použiť\nvýraz, že to tam bublá, ale na",
+        "cs": "a to tedy způsobuje, že… Nechci použít výraz, že\nto tam bublá, ale pro"
+      },
+      "asrWordRange": [
+        1304,
+        1319
+      ]
+    },
+    {
+      "start": 543.29,
+      "end": 545.427,
+      "kind": "speech",
+      "text": {
+        "sk": "predstavu je to celkom dobre, že tiež, keď máme\nniečo v hrnci,",
+        "cs": "představu je to celkem dobré, že taky, když máme\nněco v hrnci,"
+      },
+      "asrWordRange": [
+        1319,
+        1331
+      ]
+    },
+    {
+      "start": 546.212,
+      "end": 551.129,
+      "kind": "speech",
+      "text": {
+        "sk": "tak tie veci začnú stúpať k povrchu, klesajú, že\npod tým povrchom to celkom žije. Ale",
+        "cs": "tak ty věci začnou stoupat k povrchu, klesají,\nže pod tím povrchem to celkem žije. Ale"
+      },
+      "asrWordRange": [
+        1331,
+        1346
+      ]
+    },
+    {
+      "start": 551.129,
+      "end": 556.329,
+      "kind": "speech",
+      "text": {
+        "sk": "ako som videl niektoré videá, vyzerá to, akoby\nto bublalo v tej sopke.",
+        "cs": "jak jsem viděl některá videa, vypadá to, jako by\nto bublalo v té sopce."
+      },
+      "asrWordRange": [
+        1346,
+        1359
+      ]
+    },
+    {
+      "start": 556.432,
+      "end": 559.567,
+      "kind": "speech",
+      "text": {
+        "sk": "Vyzerá to taký hrniec, troška agresívnejší, ale\nvyzerá.",
+        "cs": "Vypadá to jako takový hrnec, troška\nagresivnější, ale vypadá."
+      },
+      "asrWordRange": [
+        1359,
+        1367
+      ]
+    },
+    {
+      "start": 561.222,
+      "end": 565.178,
+      "kind": "speech",
+      "text": {
+        "sk": "Akurát sa to deje na oveľa dlhších časových\nškálach, ako sme zvyknutí. Že to sú proste",
+        "cs": "Akorát se to děje na mnohem delších časových\nškálách, než jsme zvyklí. To jsou prostě"
+      },
+      "asrWordRange": [
+        1367,
+        1383
+      ]
+    },
+    {
+      "start": 565.178,
+      "end": 570.058,
+      "kind": "speech",
+      "text": {
+        "sk": "tisíce, milióny rokov a my sme zvyknutí na\nprocesy, ktoré sa dejú veľmi rýchlo.",
+        "cs": "tisíce, miliony let a my jsme zvyklí na procesy,\nkteré se dějí velmi rychle."
+      },
+      "asrWordRange": [
+        1383,
+        1397
+      ]
+    },
+    {
+      "start": 571.143,
+      "end": 576.479,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale ináč je dobre si predstaviť tú Zem pod\npovrchom ako takú",
+        "cs": "Ale jinak je dobré si představit tu Zemi pod\npovrchem jako takovou"
+      },
+      "asrWordRange": [
+        1397,
+        1409
+      ]
+    },
+    {
+      "start": 576.479,
+      "end": 577.816,
+      "kind": "speech",
+      "text": {
+        "sk": "živú vec, ktorá sa hýbe.",
+        "cs": "živou věc, která se hýbe."
+      },
+      "asrWordRange": [
+        1409,
+        1414
+      ]
+    },
+    {
+      "start": 579.981,
+      "end": 584.898,
+      "kind": "speech",
+      "text": {
+        "sk": "Vlastne s tým sú spojené aj tektonické dosky,\nnie? Že sa",
+        "cs": "Vlastně s tím jsou spojené i tektonické desky,\nne? Že se"
+      },
+      "asrWordRange": [
+        1414,
+        1425
+      ]
+    },
+    {
+      "start": 584.898,
+      "end": 590.119,
+      "kind": "speech",
+      "text": {
+        "sk": "vlastne akoby kĺžu na tej",
+        "cs": "vlastně jakoby kloužou na té"
+      },
+      "asrWordRange": [
+        1425,
+        1430
+      ]
+    },
+    {
+      "start": 590.227,
+      "end": 591.637,
+      "kind": "speech",
+      "text": {
+        "sk": "tekutine, semi-liquid.",
+        "cs": "tekutině, „semi-liquid“."
+      },
+      "asrWordRange": [
+        1430,
+        1433
+      ]
+    },
+    {
+      "start": 594.714,
+      "end": 599.268,
+      "kind": "speech",
+      "text": {
+        "sk": "A ináč je celkom zaujímavé, že to, že sa vlastne\npovrch Zeme, že nie je",
+        "cs": "A jinak je celkem zajímavé, že to, že vlastně\npovrch Země není"
+      },
+      "asrWordRange": [
+        1433,
+        1448
+      ]
+    },
+    {
+      "start": 599.268,
+      "end": 601.567,
+      "kind": "speech",
+      "text": {
+        "sk": "statický, že sa hýbe, to je prekvapivo nová vec.",
+        "cs": "statický, že se hýbe, to je překvapivě nová věc."
+      },
+      "asrWordRange": [
+        1448,
+        1457
+      ]
+    },
+    {
+      "start": 603.053,
+      "end": 607.528,
+      "kind": "speech",
+      "text": {
+        "sk": "Prišlo to pravdepodobne až kvôli tomu, že ľudia\ndobre zmapovali povrch Zeme a zrazu si povedali,\nže fíha,",
+        "cs": "Přišlo to pravděpodobně až díky tomu, že lidé\ndobře zmapovali povrch Země a najednou si řekli:\nFíha,"
+      },
+      "asrWordRange": [
+        1457,
+        1475
+      ]
+    },
+    {
+      "start": 607.73,
+      "end": 611.808,
+      "kind": "speech",
+      "text": {
+        "sk": "že tie veci do seba celkom pasujú. Keď si\npredstavím, že by Atlantik zmizol,",
+        "cs": "ty věci do sebe celkem zapadají. Když si\npředstavím, že by Atlantik zmizel,"
+      },
+      "asrWordRange": [
+        1475,
+        1489
+      ]
+    },
+    {
+      "start": 613.152,
+      "end": 617.428,
+      "kind": "speech",
+      "text": {
+        "sk": "tak tá Európa tam tako pasuje medzi tú Južnú a\nSevernú Ameriku a tá Afrika úplne",
+        "cs": "tak ta Evropa tam tak pasuje mezi tu Jižní a\nSeverní Ameriku a ta Afrika úplně"
+      },
+      "asrWordRange": [
+        1489,
+        1505
+      ]
+    },
+    {
+      "start": 617.472,
+      "end": 621.248,
+      "kind": "speech",
+      "text": {
+        "sk": "pasuje tiež, akože všetko to tak pekne do seba\npozapadáva a toto je",
+        "cs": "pasuje taky. Všechno to tak pěkně do sebe zapadá\na toto je"
+      },
+      "asrWordRange": [
+        1505,
+        1518
+      ]
+    },
+    {
+      "start": 622.988,
+      "end": 624.577,
+      "kind": "speech",
+      "text": {
+        "sk": "rádovo storočie stará myšlienka.",
+        "cs": "řádově století stará myšlenka."
+      },
+      "asrWordRange": [
+        1518,
+        1522
+      ]
+    },
+    {
+      "start": 625.421,
+      "end": 631.089,
+      "kind": "speech",
+      "text": {
+        "sk": "Je, že kontinenty sa hýbali alebo... Áno,\nkontinentálna teória sa to asi volá.",
+        "cs": "Že kontinenty se hýbaly nebo… Ano, kontinentální\nteorie se to asi jmenuje."
+      },
+      "asrWordRange": [
+        1522,
+        1535
+      ]
+    },
+    {
+      "start": 632.702,
+      "end": 637.219,
+      "kind": "speech",
+      "text": {
+        "sk": "Dobre, čiže len tak rýchlo zhrniem: magma pod\npovrchom, keď vyjde na povrch, tak sa",
+        "cs": "Dobře, čili jen tak rychle shrnu: magma pod\npovrchem, když vyjde na povrch, tak se"
+      },
+      "asrWordRange": [
+        1535,
+        1550
+      ]
+    },
+    {
+      "start": 637.219,
+      "end": 639.117,
+      "kind": "speech",
+      "text": {
+        "sk": "volá láva a vychádza von cez sopky.",
+        "cs": "jmenuje láva a vychází ven přes sopky."
+      },
+      "asrWordRange": [
+        1550,
+        1557
+      ]
+    },
+    {
+      "start": 640.883,
+      "end": 645.078,
+      "kind": "speech",
+      "text": {
+        "sk": "Pomerne jednoduché a v niektorých častiach sveta\núplne bežná záležitosť.",
+        "cs": "Poměrně jednoduché a v některých částech světa\núplně běžná záležitost."
+      },
+      "asrWordRange": [
+        1557,
+        1567
+      ]
+    },
+    {
+      "start": 647.001,
+      "end": 652.68,
+      "kind": "speech",
+      "text": {
+        "sk": "Môžem potvrdiť, bol som v lete v Japonsku a\nbývali sme v jednom meste, ktoré má",
+        "cs": "Můžu potvrdit, byl jsem v létě v Japonsku a\nbydleli jsme v jednom městě, které má"
+      },
+      "asrWordRange": [
+        1567,
+        1583
+      ]
+    },
+    {
+      "start": 652.68,
+      "end": 657.84,
+      "kind": "speech",
+      "text": {
+        "sk": "výhľad na sopku, ktorá každých pár dní\nvybuchuje, ale tie výbuchy sú veľmi slabé. Ale",
+        "cs": "výhled na sopku, která každých pár dní\nvybuchuje, ale ty výbuchy jsou velmi slabé. Ale"
+      },
+      "asrWordRange": [
+        1583,
+        1598
+      ]
+    },
+    {
+      "start": 657.84,
+      "end": 662.338,
+      "kind": "speech",
+      "text": {
+        "sk": "napríklad je tam taká zaujímavosť, že si musia\nto ľudia odpratávať, ten sopečný popol",
+        "cs": "například je tam taková zajímavost, že si to\nlidé musí odklízet, ten sopečný popel,"
+      },
+      "asrWordRange": [
+        1598,
+        1612
+      ]
+    },
+    {
+      "start": 662.764,
+      "end": 665.758,
+      "kind": "speech",
+      "text": {
+        "sk": "každý deň a majú tam taký krásny čierny povrch\nvšade.",
+        "cs": "každý den a mají tam takový krásný černý povrch\nvšude."
+      },
+      "asrWordRange": [
+        1612,
+        1622
+      ]
+    },
+    {
+      "start": 666.661,
+      "end": 671.54,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale najväčšie... Tak ako my oškrabávame ráno\nauta, tak oni ráno... Tak oni ráno si",
+        "cs": "Ale největší… Tak jako my ráno oškrabáváme auta,\ntak oni ráno… Tak oni ráno si"
+      },
+      "asrWordRange": [
+        1622,
+        1637
+      ]
+    },
+    {
+      "start": 671.54,
+      "end": 676.558,
+      "kind": "speech",
+      "text": {
+        "sk": "dávajú dole sopečný popol, taký čierny jemný\nprášok a dokonca na",
+        "cs": "dávají dolů sopečný popel, takový černý jemný\nprášek, a dokonce na"
+      },
+      "asrWordRange": [
+        1637,
+        1648
+      ]
+    },
+    {
+      "start": 676.703,
+      "end": 679.317,
+      "kind": "speech",
+      "text": {
+        "sk": "tej sopke rastú najväčšie reďkovky na svete.",
+        "cs": "té sopce rostou největší ředkvičky na světě."
+      },
+      "asrWordRange": [
+        1648,
+        1655
+      ]
+    },
+    {
+      "start": 680.504,
+      "end": 681.474,
+      "kind": "speech",
+      "text": {
+        "sk": "To je zaujímavé.",
+        "cs": "To je zajímavé."
+      },
+      "asrWordRange": [
+        1655,
+        1658
+      ]
+    },
+    {
+      "start": 684.383,
+      "end": 688.199,
+      "kind": "speech",
+      "text": {
+        "sk": "Jednu vec, ktorú by sme ešte mohli povedať, je,\nže teda kde vlastne... Či je teda",
+        "cs": "Jedna věc, kterou bychom ještě mohli říct, je,\nže kde vlastně… Je tedy"
+      },
+      "asrWordRange": [
+        1658,
+        1674
+      ]
+    },
+    {
+      "start": 688.199,
+      "end": 693.219,
+      "kind": "speech",
+      "text": {
+        "sk": "šanca, že sa nám niekde na Muránskej planine\nzrazu objaví sopka? No, to by zaujímalo",
+        "cs": "šance, že se nám někde na Muránské planině\nnajednou objeví sopka? To by zajímalo"
+      },
+      "asrWordRange": [
+        1674,
+        1689
+      ]
+    },
+    {
+      "start": 693.523,
+      "end": 698.598,
+      "kind": "speech",
+      "text": {
+        "sk": "určite aj mňa. A je to nepravdepodobné, lebo\nsopky vznikajú",
+        "cs": "určitě i mě. A je to nepravděpodobné, protože\nsopky vznikají"
+      },
+      "asrWordRange": [
+        1689,
+        1699
+      ]
+    },
+    {
+      "start": 699.485,
+      "end": 703.518,
+      "kind": "speech",
+      "text": {
+        "sk": "buď na... miestach, kde sa stretávajú teda\ntektonické dosky.",
+        "cs": "buď na místech, kde se střetávají tektonické\ndesky."
+      },
+      "asrWordRange": [
+        1699,
+        1708
+      ]
+    },
+    {
+      "start": 704.835,
+      "end": 707.027,
+      "kind": "speech",
+      "text": {
+        "sk": "A potom vznikajú také dlhé úseky,",
+        "cs": "A potom vznikají takové dlouhé úseky,"
+      },
+      "asrWordRange": [
+        1708,
+        1714
+      ]
+    },
+    {
+      "start": 708.032,
+      "end": 713.348,
+      "kind": "speech",
+      "text": {
+        "sk": "pozdĺž ktorých vznikajú sopky. Čiže napríklad na",
+        "cs": "podél kterých vznikají sopky. Čili například na"
+      },
+      "asrWordRange": [
+        1714,
+        1721
+      ]
+    },
+    {
+      "start": 713.534,
+      "end": 715.286,
+      "kind": "speech",
+      "text": {
+        "sk": "juhu od Ázie. Ako sa to volá?",
+        "cs": "jih od Asie. Jak se to jmenuje?"
+      },
+      "asrWordRange": [
+        1721,
+        1728
+      ]
+    },
+    {
+      "start": 717.178,
+      "end": 717.765,
+      "kind": "speech",
+      "text": {
+        "sk": "Juhu od Ázie?",
+        "cs": "Na jih od Asie?"
+      },
+      "asrWordRange": [
+        1728,
+        1731
+      ]
+    },
+    {
+      "start": 719.008,
+      "end": 719.232,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno.",
+        "cs": "Ano."
+      },
+      "asrWordRange": [
+        1731,
+        1732
+      ]
+    },
+    {
+      "start": 720.702,
+      "end": 723.376,
+      "kind": "speech",
+      "text": {
+        "sk": "Filipíny, Indonézia a podobne. Ja aj...",
+        "cs": "Filipíny, Indonésie a podobně. Já i…"
+      },
+      "asrWordRange": [
+        1732,
+        1738
+      ]
+    },
+    {
+      "start": 726.303,
+      "end": 731.418,
+      "kind": "speech",
+      "text": {
+        "sk": "Tam je ten tichoatlantický pás, nie? Áno, Ring\nof Fire sa",
+        "cs": "Tam je ten tichoatlantický pás, ne? Ano, Ring of\nFire se"
+      },
+      "asrWordRange": [
+        1738,
+        1749
+      ]
+    },
+    {
+      "start": 731.418,
+      "end": 736.96,
+      "kind": "speech",
+      "text": {
+        "sk": "to volá. Ring of Fire, áno. Vedel som po\nanglicky, ale to slovensky som si… A tam je",
+        "cs": "to jmenuje. Ring of Fire, ano. Věděl jsem po\nanglicku, ale slovensky jsem si… A tam je"
+      },
+      "asrWordRange": [
+        1749,
+        1767
+      ]
+    },
+    {
+      "start": 737.123,
+      "end": 741.759,
+      "kind": "speech",
+      "text": {
+        "sk": "najviac tektonickej činnosti, ale aj určite\nsopečnej činnosti na svete.",
+        "cs": "nejvíc tektonické činnosti, ale i určitě sopečné\nčinnosti na světě."
+      },
+      "asrWordRange": [
+        1767,
+        1777
+      ]
+    },
+    {
+      "start": 742.202,
+      "end": 746.858,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno, čiže to je teda Pacifický oceán. Ring of\nFire, alebo Rim of Fire sa to niekedy",
+        "cs": "Ano, čili to je tedy Tichý oceán. Ring of Fire,\nnebo Rim of Fire se to někdy"
+      },
+      "asrWordRange": [
+        1777,
+        1794
+      ]
+    },
+    {
+      "start": 746.882,
+      "end": 751.377,
+      "kind": "speech",
+      "text": {
+        "sk": "volá. A to je jedno miesto. A druhé miesto, kde\nto vzniká často, sú",
+        "cs": "jmenuje. A to je jedno místo. A druhé místo, kde\nto vzniká často, jsou"
+      },
+      "asrWordRange": [
+        1794,
+        1808
+      ]
+    },
+    {
+      "start": 753.586,
+      "end": 756.958,
+      "kind": "speech",
+      "text": {
+        "sk": "takzvané hotspoty. Čiže také horúce miesta, kde\nproste dlhodobo",
+        "cs": "takzvané hotspoty. Čili taková horká místa, kde\nprostě dlouhodobě"
+      },
+      "asrWordRange": [
+        1808,
+        1817
+      ]
+    },
+    {
+      "start": 757.804,
+      "end": 762.218,
+      "kind": "speech",
+      "text": {
+        "sk": "vychádza magma zo zemského plášťa,",
+        "cs": "vychází magma ze zemského pláště"
+      },
+      "asrWordRange": [
+        1817,
+        1822
+      ]
+    },
+    {
+      "start": 762.218,
+      "end": 764.417,
+      "kind": "speech",
+      "text": {
+        "sk": "ku kôre a tam sa teda hromadí.",
+        "cs": "ke kůře a tam se teda hromadí."
+      },
+      "asrWordRange": [
+        1822,
+        1829
+      ]
+    },
+    {
+      "start": 765.701,
+      "end": 770.529,
+      "kind": "speech",
+      "text": {
+        "sk": "A toto je také, že ono tam vzniká pomerne dlho a\nzaujímavé miesta sú také, kde sa ten",
+        "cs": "A toto je takové, že ono tam vzniká poměrně\ndlouho a zajímavá místa jsou ta, kde se ten"
+      },
+      "asrWordRange": [
+        1829,
+        1847
+      ]
+    },
+    {
+      "start": 770.611,
+      "end": 776.28,
+      "kind": "speech",
+      "text": {
+        "sk": "povrch pomerne rýchlo hýbe. Čiže zdola ti ide\nhorúci prúd a ten povrch",
+        "cs": "povrch poměrně rychle hýbe. Čili zdola ti jde\nhorký proud a ten povrch"
+      },
+      "asrWordRange": [
+        1847,
+        1861
+      ]
+    },
+    {
+      "start": 776.28,
+      "end": 781.158,
+      "kind": "speech",
+      "text": {
+        "sk": "sa hýbe. Takže vznikne jedna sopka. Potom za\nniekoľko miliónov rokov sa ten povrch",
+        "cs": "se hýbe. Takže vznikne jedna sopka. Potom za\nněkolik milionů let se ten povrch"
+      },
+      "asrWordRange": [
+        1861,
+        1875
+      ]
+    },
+    {
+      "start": 781.158,
+      "end": 784.375,
+      "kind": "speech",
+      "text": {
+        "sk": "posunie o niekoľko stoviek kilometrov a vznikne\nďalšia sopka. A",
+        "cs": "posune o několik stovek kilometrů a vznikne\ndalší sopka. A"
+      },
+      "asrWordRange": [
+        1875,
+        1885
+      ]
+    },
+    {
+      "start": 786.105,
+      "end": 790.038,
+      "kind": "speech",
+      "text": {
+        "sk": "toto je zatiaľ len teória, nie je potvrdená.",
+        "cs": "toto je zatím jen teorie, není potvrzená."
+      },
+      "asrWordRange": [
+        1885,
+        1893
+      ]
+    },
+    {
+      "start": 790.902,
+      "end": 794.698,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale teda je to teória o tom, ako vznikajú také\nrady sopiek za sebou.",
+        "cs": "Ale tedy je to teorie o tom, jak vznikají takové\nřady sopek za sebou."
+      },
+      "asrWordRange": [
+        1893,
+        1907
+      ]
+    },
+    {
+      "start": 795.422,
+      "end": 800.959,
+      "kind": "speech",
+      "text": {
+        "sk": "A taký príklad tohto sú napríklad sopky v\nYellowstonskom parku. Áno, tam je. Kde presne,",
+        "cs": "A takovým příkladem jsou třeba sopky v\nYellowstonském parku. Ano, tam je. Kde přesně,"
+      },
+      "asrWordRange": [
+        1907,
+        1922
+      ]
+    },
+    {
+      "start": 800.959,
+      "end": 806.178,
+      "kind": "speech",
+      "text": {
+        "sk": "keď si vieš porovnať, že kedy tie sopky vznikali\na porovnáš si s tým, akoľko sa",
+        "cs": "když si umíš porovnat, kdy ty sopky vznikaly, a\nporovnáš si s tím, o kolik se"
+      },
+      "asrWordRange": [
+        1922,
+        1938
+      ]
+    },
+    {
+      "start": 806.242,
+      "end": 810.758,
+      "kind": "speech",
+      "text": {
+        "sk": "posunuli a ako rýchlo sa posúvali litosférické\ndosky, tak to celkom presne sedí do kopy.",
+        "cs": "posunuly a jak rychle se posouvaly litosférické\ndesky, tak to celkem přesně sedí dohromady."
+      },
+      "asrWordRange": [
+        1938,
+        1953
+      ]
+    },
+    {
+      "start": 812.223,
+      "end": 817.178,
+      "kind": "speech",
+      "text": {
+        "sk": "A nie je tam aj problém s tým, že v Yellowstone\nsa jedná o supervulkán? Či to",
+        "cs": "A není tam i problém s tím, že v Yellowstonu se\njedná o supervulkán? Či to"
+      },
+      "asrWordRange": [
+        1953,
+        1970
+      ]
+    },
+    {
+      "start": 817.222,
+      "end": 822.979,
+      "kind": "speech",
+      "text": {
+        "sk": "nemá s týmto moc? Nemá, ale práve tieto\nhotspoty, také tie horúce miesta,",
+        "cs": "s tím nemá moc… Nemá, ale právě tyto hotspoty,\ntaková ta horká místa,"
+      },
+      "asrWordRange": [
+        1970,
+        1983
+      ]
+    },
+    {
+      "start": 824.681,
+      "end": 829.278,
+      "kind": "speech",
+      "text": {
+        "sk": "sú živnou pôdou pre supervulkány. Ale k tomu sa\ndostaneme ešte neskôr. Áno, samozrejme.",
+        "cs": "jsou živnou půdou pro supervulkány. Ale k tomu\nse dostaneme ještě později. Ano, samozřejmě."
+      },
+      "asrWordRange": [
+        1983,
+        1997
+      ]
+    },
+    {
+      "start": 830.723,
+      "end": 834.898,
+      "kind": "speech",
+      "text": {
+        "sk": "Dobre, myslím si, že sme si povedali to z tejto\nčasti.",
+        "cs": "Dobře, myslím si, že jsme si řekli to z této\nčásti."
+      },
+      "asrWordRange": [
+        1997,
+        2008
+      ]
+    },
+    {
+      "start": 835.902,
+      "end": 839.738,
+      "kind": "speech",
+      "text": {
+        "sk": "Ešte jednu vec by som povedal, kým sa posunieme\nďalej, a to je, že",
+        "cs": "Ještě jednu věc bych řekl, než se posuneme dál,\na to je, že"
+      },
+      "asrWordRange": [
+        2008,
+        2022
+      ]
+    },
+    {
+      "start": 841.195,
+      "end": 844.508,
+      "kind": "speech",
+      "text": {
+        "sk": "hovorí sa, že každá sopka je unikátna v tom, že",
+        "cs": "říká se, že každá sopka je unikátní v tom, že"
+      },
+      "asrWordRange": [
+        2022,
+        2032
+      ]
+    },
+    {
+      "start": 845.765,
+      "end": 849.939,
+      "kind": "speech",
+      "text": {
+        "sk": "vybuchuje a tá explózia prebieha trošku iným\nspôsobom. Ale jedna z",
+        "cs": "vybuchuje a ta exploze probíhá trošku jiným\nzpůsobem. Ale jedno z"
+      },
+      "asrWordRange": [
+        2032,
+        2043
+      ]
+    },
+    {
+      "start": 849.939,
+      "end": 855.018,
+      "kind": "speech",
+      "text": {
+        "sk": "takých delení je, že sopky delíme na, alebo teda\ntie explózie,",
+        "cs": "takových dělení je, že sopky dělíme, nebo tedy\nty exploze"
+      },
+      "asrWordRange": [
+        2043,
+        2054
+      ]
+    },
+    {
+      "start": 855.965,
+      "end": 860.178,
+      "kind": "speech",
+      "text": {
+        "sk": "alebo erupcie delíme na felzické a mafické.",
+        "cs": "nebo erupce dělíme na felzické a mafické."
+      },
+      "asrWordRange": [
+        2054,
+        2061
+      ]
+    },
+    {
+      "start": 860.903,
+      "end": 865.919,
+      "kind": "speech",
+      "text": {
+        "sk": "A to v podstate opisuje, že či to bol explózívny\nvýbuch,",
+        "cs": "A to v podstatě popisuje, zda to byl explozivní\nvýbuch,"
+      },
+      "asrWordRange": [
+        2061,
+        2072
+      ]
+    },
+    {
+      "start": 866.043,
+      "end": 868.497,
+      "kind": "speech",
+      "text": {
+        "sk": "alebo či to bolo skôr také vytekanie lávy.",
+        "cs": "nebo zda to bylo spíš takové vytékání lávy."
+      },
+      "asrWordRange": [
+        2072,
+        2080
+      ]
+    },
+    {
+      "start": 869.672,
+      "end": 875.47,
+      "kind": "speech",
+      "text": {
+        "sk": "Napríklad na Havaji v podstate je obrovská\nsopečná aktivita, ale prejavuje sa tak,",
+        "cs": "Například na Havaji je v podstatě obrovská\nsopečná aktivita, ale projevuje se tak,"
+      },
+      "asrWordRange": [
+        2080,
+        2093
+      ]
+    },
+    {
+      "start": 875.47,
+      "end": 880.008,
+      "kind": "speech",
+      "text": {
+        "sk": "že vyteká láva a nie je to veľmi nebezpečné.\nĽudia tam pokojne môžu chodiť, natáčajú si",
+        "cs": "že vytéká láva a není to velmi nebezpečné. Lidé\ntam klidně mohou chodit, natáčejí si"
+      },
+      "asrWordRange": [
+        2093,
+        2109
+      ]
+    },
+    {
+      "start": 880.095,
+      "end": 881.606,
+      "kind": "speech",
+      "text": {
+        "sk": "to vulkanológovia, to skúmajú.",
+        "cs": "to vulkanologové, to zkoumají."
+      },
+      "asrWordRange": [
+        2109,
+        2113
+      ]
+    },
+    {
+      "start": 882.873,
+      "end": 886.628,
+      "kind": "speech",
+      "text": {
+        "sk": "Potom sú ale felzické, ktoré sú extrémne\nexplozívne.",
+        "cs": "Potom jsou ale felzické, které jsou extrémně\nexplozivní."
+      },
+      "asrWordRange": [
+        2113,
+        2122
+      ]
+    },
+    {
+      "start": 887.853,
+      "end": 892.608,
+      "kind": "speech",
+      "text": {
+        "sk": "Buď kvôli tomu, že obsahujú veľa plynu, oxidu\nkremičitého,",
+        "cs": "Buď proto, že obsahují hodně plynu, oxidu\nkřemičitého,"
+      },
+      "asrWordRange": [
+        2122,
+        2131
+      ]
+    },
+    {
+      "start": 894.355,
+      "end": 898.969,
+      "kind": "speech",
+      "text": {
+        "sk": "on sa zohrieva, začne sa strašne nafukovať a\nvyvolá to obrovskú explóziu,",
+        "cs": "on se zahřívá, začne se strašně nafukovat a\nvyvolá to obrovskou explozi,"
+      },
+      "asrWordRange": [
+        2131,
+        2143
+      ]
+    },
+    {
+      "start": 898.969,
+      "end": 903.148,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorá do atmosféry vyvrhne veľké množstvo\nprachu, hornín a podobne.",
+        "cs": "která do atmosféry vyvrhne velké množství\nprachu, hornin a podobně."
+      },
+      "asrWordRange": [
+        2143,
+        2153
+      ]
+    },
+    {
+      "start": 904.322,
+      "end": 908.918,
+      "kind": "speech",
+      "text": {
+        "sk": "Druhý spôsob, ako vznikajú takéto explozívne,\nje, keď magma dôjde do kontaktu s vodou.",
+        "cs": "Druhý způsob, jak vznikají takové explozivní,\nje, když magma přijde do kontaktu s vodou."
+      },
+      "asrWordRange": [
+        2153,
+        2167
+      ]
+    },
+    {
+      "start": 910.203,
+      "end": 914.998,
+      "kind": "speech",
+      "text": {
+        "sk": "Tam sa uvoľňuje tiež plyn. Áno, presne. Voda sa\nzmení na paru, ktorá má 1600-krát",
+        "cs": "Tam se uvolňuje taky plyn. Ano, přesně. Voda se\nzmění na páru, která má šestnáctsetkrát"
+      },
+      "asrWordRange": [
+        2167,
+        2183
+      ]
+    },
+    {
+      "start": 915.023,
+      "end": 917.217,
+      "kind": "speech",
+      "text": {
+        "sk": "väčší objem, takže jak taký úplne",
+        "cs": "větší objem, takže jako takový úplně"
+      },
+      "asrWordRange": [
+        2183,
+        2189
+      ]
+    },
+    {
+      "start": 918.764,
+      "end": 921.077,
+      "kind": "speech",
+      "text": {
+        "sk": "tlakový hrniec geologických rozmerov,",
+        "cs": "tlakový hrnec geologických rozměrů,"
+      },
+      "asrWordRange": [
+        2189,
+        2193
+      ]
+    },
+    {
+      "start": 921.942,
+      "end": 926.858,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorý čaká len na také malé zemetrasenie alebo\nna vznik takej trhliny, aby proste explódoval.",
+        "cs": "který čeká jen na takové malé zemětřesení nebo\nna vznik takové trhliny, aby prostě explodoval."
+      },
+      "asrWordRange": [
+        2193,
+        2208
+      ]
+    },
+    {
+      "start": 928.053,
+      "end": 933.03,
+      "kind": "speech",
+      "text": {
+        "sk": "A tieto explózívne sú kvôli tomu často veľmi\nnepredvídateľné a to, čo sa stalo na",
+        "cs": "A tyto explozivní jsou kvůli tomu často velmi\nnepředvídatelné a to, co se stalo na"
+      },
+      "asrWordRange": [
+        2208,
+        2223
+      ]
+    },
+    {
+      "start": 933.03,
+      "end": 937.988,
+      "kind": "speech",
+      "text": {
+        "sk": "Novom Zélande, bol presne takýto typ, že tam\nmagma je pomerne blízko povrchu,",
+        "cs": "Novém Zélandu, byl přesně takový typ, že tam\nmagma je poměrně blízko povrchu,"
+      },
+      "asrWordRange": [
+        2223,
+        2236
+      ]
+    },
+    {
+      "start": 938.394,
+      "end": 939.826,
+      "kind": "speech",
+      "text": {
+        "sk": "zmiešala sa s morskou vodou,",
+        "cs": "smíchala se s mořskou vodou,"
+      },
+      "asrWordRange": [
+        2236,
+        2241
+      ]
+    },
+    {
+      "start": 941.123,
+      "end": 943.337,
+      "kind": "speech",
+      "text": {
+        "sk": "vznikla pára, teda neviem, či asi s morskou\nvodou,",
+        "cs": "vznikla pára, tedy nevím, asi s mořskou vodou,"
+      },
+      "asrWordRange": [
+        2241,
+        2250
+      ]
+    },
+    {
+      "start": 944.301,
+      "end": 949.738,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorá sa cez také škárky dostala k tomu kotlu",
+        "cs": "která se přes takové škvírky dostala k tomu\nkotli"
+      },
+      "asrWordRange": [
+        2250,
+        2259
+      ]
+    },
+    {
+      "start": 949.738,
+      "end": 954.498,
+      "kind": "speech",
+      "text": {
+        "sk": "magmatickému, zmenila sa na paru a už len proste\nčakala na také malé zemetrasenie, ktoré",
+        "cs": "magmatickému, změnila se na páru a už jen čekala\nna takové malé zemětřesení, které"
+      },
+      "asrWordRange": [
+        2259,
+        2274
+      ]
+    },
+    {
+      "start": 955.227,
+      "end": 956.837,
+      "kind": "speech",
+      "text": {
+        "sk": "urobilo trhlinku, cez ktorú vybuchla.",
+        "cs": "udělalo trhlinku, přes kterou vybuchla."
+      },
+      "asrWordRange": [
+        2274,
+        2279
+      ]
+    },
+    {
+      "start": 957.844,
+      "end": 960.798,
+      "kind": "speech",
+      "text": {
+        "sk": "Toto sú tie extrémne nebezpečné a zároveň aj\nnajhoršie,",
+        "cs": "To jsou ty extrémně nebezpečné a zároveň i\nnejhorší,"
+      },
+      "asrWordRange": [
+        2279,
+        2288
+      ]
+    },
+    {
+      "start": 962.231,
+      "end": 967.559,
+      "kind": "speech",
+      "text": {
+        "sk": "čo sa týka škôd napáchaných sopkami. Veď aj\nteraz na tom Novom Zélande išlo asi",
+        "cs": "co se týče škod napáchaných sopkami. Vždyť i teď\nna tom Novém Zélandu šlo asi"
+      },
+      "asrWordRange": [
+        2288,
+        2303
+      ]
+    },
+    {
+      "start": 967.603,
+      "end": 970.337,
+      "kind": "speech",
+      "text": {
+        "sk": "o ten felzický, o ten výbuch,",
+        "cs": "o ten felzický, o ten výbuch,"
+      },
+      "asrWordRange": [
+        2303,
+        2309
+      ]
+    },
+    {
+      "start": 971.602,
+      "end": 976.538,
+      "kind": "speech",
+      "text": {
+        "sk": "lebo to vlastne vzniklo tak nečakane. To bolo,\nmyslím, že z minúty na minútu, alebo tak.",
+        "cs": "protože to vlastně vzniklo tak nečekaně. To bylo\nmyslím z minuty na minutu nebo tak."
+      },
+      "asrWordRange": [
+        2309,
+        2325
+      ]
+    },
+    {
+      "start": 977.862,
+      "end": 983.44,
+      "kind": "speech",
+      "text": {
+        "sk": "Ťažko povedať, do akej miery to bolo nečakané,\nlebo je taká škála na",
+        "cs": "Těžko říct, do jaké míry to bylo nečekané,\nprotože je taková škála pro"
+      },
+      "asrWordRange": [
+        2325,
+        2339
+      ]
+    },
+    {
+      "start": 983.44,
+      "end": 987.739,
+      "kind": "speech",
+      "text": {
+        "sk": "varovanie ľudí od 1 po 5 alebo 0 po 5, to si\nnepamätám presne, a bolo vyhlásené na 4.",
+        "cs": "varování lidí od jedné do pěti nebo od nuly do\npěti, to si nepamatuju přesně, a byla vyhlášena\nčtyřka."
+      },
+      "asrWordRange": [
+        2339,
+        2358
+      ]
+    },
+    {
+      "start": 988.895,
+      "end": 991.387,
+      "kind": "speech",
+      "text": {
+        "sk": "Aha. Takže už vedeli niečo, že sa tam deje.",
+        "cs": "Aha. Takže už věděli, že se tam něco děje."
+      },
+      "asrWordRange": [
+        2358,
+        2367
+      ]
+    },
+    {
+      "start": 992.562,
+      "end": 998.099,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno. Zachytávali zvýšenú seizmickú aktivitu, ale\nmysleli si, že určite",
+        "cs": "Ano. Zachytávali zvýšenou seismickou aktivitu,\nale mysleli si, že určitě"
+      },
+      "asrWordRange": [
+        2367,
+        2377
+      ]
+    },
+    {
+      "start": 998.099,
+      "end": 1001.198,
+      "kind": "speech",
+      "text": {
+        "sk": "to nepríde tak skoro. Čakali, že to príde, ale\nnečakali, že to príde napríklad zajtra.",
+        "cs": "to nepřijde tak brzy. Čekali, že to přijde, ale\nnečekali, že to přijde třeba zítra."
+      },
+      "asrWordRange": [
+        2377,
+        2392
+      ]
+    },
+    {
+      "start": 1001.198,
+      "end": 1007.059,
+      "kind": "speech",
+      "text": {
+        "sk": "A nanešťastie to zajtra prišlo. Teda z pohľadu\nich deň pred tým, ako to prišlo. Áno.",
+        "cs": "A bohužel to zítra přišlo. Tedy z jejich pohledu\nden před tím, než to přišlo. Ano."
+      },
+      "asrWordRange": [
+        2392,
+        2409
+      ]
+    },
+    {
+      "start": 1008.325,
+      "end": 1009.836,
+      "kind": "speech",
+      "text": {
+        "sk": "Alebo varuješ pred ďalším výbuchom.",
+        "cs": "Nebo varuješ před dalším výbuchem."
+      },
+      "asrWordRange": [
+        2409,
+        2414
+      ]
+    },
+    {
+      "start": 1012.267,
+      "end": 1012.934,
+      "kind": "speech",
+      "text": {
+        "sk": "Ináč ešte teda",
+        "cs": "Jinak ještě tedy"
+      },
+      "asrWordRange": [
+        2414,
+        2417
+      ]
+    },
+    {
+      "start": 1014.522,
+      "end": 1019.678,
+      "kind": "speech",
+      "text": {
+        "sk": "druhá bodka za touto, už sme jednu bodku dali za\ntouto časťou, je, že ja som potom, čo",
+        "cs": "druhá tečka za touto… Už jsme jednu tečku za\ntouto částí udělali. Já jsem potom, co"
+      },
+      "asrWordRange": [
+        2417,
+        2435
+      ]
+    },
+    {
+      "start": 1019.682,
+      "end": 1023.518,
+      "kind": "speech",
+      "text": {
+        "sk": "nastal ten výbuch, tak som si trošku zisťoval,\nže do akej miery sú sopky predvídateľné.",
+        "cs": "nastal ten výbuch, trochu zjišťoval, do jaké\nmíry jsou sopky předvídatelné."
+      },
+      "asrWordRange": [
+        2435,
+        2450
+      ]
+    },
+    {
+      "start": 1025.745,
+      "end": 1027.828,
+      "kind": "speech",
+      "recoveredSpeech": "large-v3 1022.56–1029.51",
+      "text": {
+        "sk": "Odpoveď je tak, že pol na pol zhruba.",
+        "cs": "Odpověď je tak, že zhruba půl na půl."
+      },
+      "asrWordRange": [
+        2450,
+        2450
+      ]
+    },
+    {
+      "start": 1028.856,
+      "end": 1030.467,
+      "kind": "speech",
+      "text": {
+        "sk": "Sú prípady, kedy sa sopka dala,",
+        "cs": "Jsou případy, kdy se sopka dala,"
+      },
+      "asrWordRange": [
+        2450,
+        2456
+      ]
+    },
+    {
+      "start": 1031.341,
+      "end": 1036.409,
+      "kind": "speech",
+      "text": {
+        "sk": "sa podarilo predvídať úplne dlho dopredu, lebo\npostupne eskalovala seizmická aktivita,",
+        "cs": "podařilo se ji předvídat úplně dlouho dopředu,\nprotože postupně eskalovala seismická aktivita,"
+      },
+      "asrWordRange": [
+        2456,
+        2467
+      ]
+    },
+    {
+      "start": 1037.192,
+      "end": 1042.108,
+      "kind": "speech",
+      "text": {
+        "sk": "tak pekne evakuovali ľudí, odpratali všetky\nfirmy, ktoré tam sídlili v okolí.",
+        "cs": "tak pěkně evakuovali lidi, odklidili všechny\nfirmy, které tam sídlily v okolí."
+      },
+      "asrWordRange": [
+        2467,
+        2479
+      ]
+    },
+    {
+      "start": 1042.833,
+      "end": 1044.807,
+      "kind": "speech",
+      "text": {
+        "sk": "Sopka potom vybuchla, nikomu sa nič nestalo.",
+        "cs": "Sopka potom vybuchla, nikomu se nic nestalo."
+      },
+      "asrWordRange": [
+        2479,
+        2487
+      ]
+    },
+    {
+      "start": 1045.692,
+      "end": 1049.388,
+      "kind": "speech",
+      "text": {
+        "sk": "Niekedy sa stane, že to predvídajú, ale príde to\nskorej, alebo to nepríde vôbec.",
+        "cs": "Někdy se stane, že to předvídají, ale přijde to\ndřív, nebo to nepřijde vůbec."
+      },
+      "asrWordRange": [
+        2487,
+        2501
+      ]
+    },
+    {
+      "start": 1050.763,
+      "end": 1053.417,
+      "kind": "speech",
+      "text": {
+        "sk": "Ako napríklad na Novom Zélande to prišlo skôr,\nako to čakali.",
+        "cs": "Jako například na Novém Zélandu to přišlo dřív,\nnež to čekali."
+      },
+      "asrWordRange": [
+        2501,
+        2512
+      ]
+    },
+    {
+      "start": 1054.514,
+      "end": 1057.288,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale stále veľa sopiek je úplne\nnepredvídateľných,",
+        "cs": "Ale stále je hodně sopek úplně\nnepředvídatelných,"
+      },
+      "asrWordRange": [
+        2512,
+        2519
+      ]
+    },
+    {
+      "start": 1058.333,
+      "end": 1059.405,
+      "kind": "speech",
+      "text": {
+        "sk": "proste to zrazu príde.",
+        "cs": "prostě to najednou přijde."
+      },
+      "asrWordRange": [
+        2519,
+        2523
+      ]
+    },
+    {
+      "start": 1061.662,
+      "end": 1066.139,
+      "kind": "speech",
+      "text": {
+        "sk": "Je to v podstate ako s počasím, že my rozumieme\ntým procesom, ktoré sa tam dejú, aj sa",
+        "cs": "Je to v podstatě jako s počasím: rozumíme těm\nprocesům, které tam probíhají, i se"
+      },
+      "asrWordRange": [
+        2523,
+        2541
+      ]
+    },
+    {
+      "start": 1066.139,
+      "end": 1070.198,
+      "kind": "speech",
+      "text": {
+        "sk": "snažíme merať, ale aj tým, že sú tie merania tak\nobmedzené, lebo nedokážeme sa dostať pod povrch\nZeme,",
+        "cs": "snažíme měřit, ale i tím, že jsou ta měření tak\nomezená, protože se nedokážeme dostat pod povrch\nZemě,"
+      },
+      "asrWordRange": [
+        2541,
+        2559
+      ]
+    },
+    {
+      "start": 1071.092,
+      "end": 1075.95,
+      "kind": "speech",
+      "text": {
+        "sk": "tak je to stále veľmi nečakané. Je to vlastne\nveľmi komplexný systém, by som povedal,",
+        "cs": "tak je to stále velmi nečekané. Je to vlastně\nvelmi komplexní systém, řekl bych,"
+      },
+      "asrWordRange": [
+        2559,
+        2574
+      ]
+    },
+    {
+      "start": 1075.95,
+      "end": 1079.628,
+      "kind": "speech",
+      "text": {
+        "sk": "tá sopka, že nie je to nejaké izolované, že by\nsa to dalo skúmať viacej,",
+        "cs": "ta sopka, že to není nějak izolované, že by se\nto dalo zkoumat víc,"
+      },
+      "asrWordRange": [
+        2574,
+        2588
+      ]
+    },
+    {
+      "start": 1081.174,
+      "end": 1086.088,
+      "kind": "speech",
+      "text": {
+        "sk": "a tam je obrovský problém. Keď sme povedali, že\nje to živé, tak je to tým",
+        "cs": "a tam je obrovský problém. Když jsme řekli, že\nje to živé, tak je to tím"
+      },
+      "asrWordRange": [
+        2588,
+        2604
+      ]
+    },
+    {
+      "start": 1086.131,
+      "end": 1090.2,
+      "kind": "speech",
+      "recoveredSpeech": "large-v3 1085.31–1090.91",
+      "text": {
+        "sk": "pádom aj také nepredvídateľné. Ja by som mal",
+        "cs": "pádem i takové nepředvídatelné. Já bych měl"
+      },
+      "asrWordRange": [
+        2604,
+        2605
+      ]
+    },
+    {
+      "start": 1090.2,
+      "end": 1095.359,
+      "kind": "speech",
+      "text": {
+        "sk": "ešte jednu asi takú poznámku len k tomu, že ten…\nAj čo som si",
+        "cs": "ještě jednu asi takovou poznámku jen k tomu, že\nten… I co jsem si"
+      },
+      "asrWordRange": [
+        2605,
+        2619
+      ]
+    },
+    {
+      "start": 1095.382,
+      "end": 1101.039,
+      "kind": "speech",
+      "text": {
+        "sk": "všimol, že keď napríklad vybuchuje presne tá\nláva na Havaji a tak ďalej, tak sa",
+        "cs": "všiml, že když například vybuchuje přesně ta\nláva na Havaji a tak dál, tak se"
+      },
+      "asrWordRange": [
+        2619,
+        2634
+      ]
+    },
+    {
+      "start": 1101.039,
+      "end": 1105.638,
+      "kind": "speech",
+      "text": {
+        "sk": "pripravuje vždy nejaká cesta pre tú lávu a tak\nďalej a to som sa dočítal, že",
+        "cs": "připravuje vždycky nějaká cesta pro tu lávu a\ntak dál. A to jsem se dočetl, že"
+      },
+      "asrWordRange": [
+        2634,
+        2650
+      ]
+    },
+    {
+      "start": 1106.304,
+      "end": 1110.898,
+      "kind": "speech",
+      "text": {
+        "sk": "ako si hovoril, že láva je svojej podstate\ntekutá alebo polotekutá,",
+        "cs": "jak jsi říkal, láva je ve své podstatě tekutá\nnebo polotekutá,"
+      },
+      "asrWordRange": [
+        2650,
+        2661
+      ]
+    },
+    {
+      "start": 1111.562,
+      "end": 1115.519,
+      "kind": "speech",
+      "text": {
+        "sk": "semi-liquid, tak vlastne láva má takú vlastnosť,",
+        "cs": "„semi-liquid“, tak vlastně láva má takovou\nvlastnost,"
+      },
+      "asrWordRange": [
+        2661,
+        2669
+      ]
+    },
+    {
+      "start": 1116.565,
+      "end": 1119.518,
+      "kind": "speech",
+      "text": {
+        "sk": "ako voda, že cestu najmenšieho odporu si hľadá,",
+        "cs": "jako voda, že si hledá cestu nejmenšího odporu,"
+      },
+      "asrWordRange": [
+        2669,
+        2677
+      ]
+    },
+    {
+      "start": 1121.633,
+      "end": 1125.668,
+      "kind": "speech",
+      "text": {
+        "sk": "to sa dá veľmi pekne pri tom druhom type tých\nsopiek",
+        "cs": "to se dá velmi pěkně při tom druhém typu těch\nsopek"
+      },
+      "asrWordRange": [
+        2677,
+        2688
+      ]
+    },
+    {
+      "start": 1126.911,
+      "end": 1134.349,
+      "kind": "speech",
+      "text": {
+        "sk": "využiť tým, že vlastne akoby pripravíš tú cestu\npre tú lávu, kadiaľ má ísť dopredu.",
+        "cs": "využít tím, že vlastně jakoby připravíš tu cestu\npro tu lávu, kudy má jít, dopředu."
+      },
+      "asrWordRange": [
+        2688,
+        2703
+      ]
+    },
+    {
+      "start": 1135.883,
+      "end": 1138.318,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže niečo, ako keby si pre potôčík vykopal.",
+        "cs": "Čili něco, jako kdybys pro potůček vykopal…"
+      },
+      "asrWordRange": [
+        2703,
+        2711
+      ]
+    },
+    {
+      "start": 1139.564,
+      "end": 1141.997,
+      "kind": "speech",
+      "text": {
+        "sk": "Presne tak, presne tak. To sa vykopú také",
+        "cs": "Přesně tak, přesně tak. To se vykopou takové…"
+      },
+      "asrWordRange": [
+        2711,
+        2719
+      ]
+    },
+    {
+      "start": 1143.243,
+      "end": 1147.178,
+      "kind": "speech",
+      "text": {
+        "sk": "akoby jarok, on má niekoľko aj kilometrov v\nniektorých prípadoch a",
+        "cs": "Jakoby příkop, on má v některých případech i\nněkolik kilometrů a"
+      },
+      "asrWordRange": [
+        2719,
+        2730
+      ]
+    },
+    {
+      "start": 1148.706,
+      "end": 1152.858,
+      "kind": "speech",
+      "text": {
+        "sk": "keďže vedci vedia, že asi ako tečie tá láva a\ntak ďalej, tak sa predpokladá, že",
+        "cs": "když vědci vědí, jak asi teče ta láva a tak dál,\ntak se předpokládá, že"
+      },
+      "asrWordRange": [
+        2730,
+        2746
+      ]
+    },
+    {
+      "start": 1152.858,
+      "end": 1158.398,
+      "kind": "speech",
+      "text": {
+        "sk": "tadiaľ by mala ísť. A väčšinou to samozrejme\nsmeruje do mora alebo na nejakú",
+        "cs": "tudy by měla jít. A většinou to samozřejmě\nsměřuje do moře nebo na nějakou"
+      },
+      "asrWordRange": [
+        2746,
+        2761
+      ]
+    },
+    {
+      "start": 1159.242,
+      "end": 1163.158,
+      "kind": "speech",
+      "text": {
+        "sk": "planinu a tak ďalej, kde to neublíži ľuďom. Ale\ntak to je",
+        "cs": "planinu a tak dál, kde to neublíží lidem. Ale to\nje"
+      },
+      "asrWordRange": [
+        2761,
+        2773
+      ]
+    },
+    {
+      "start": 1164.523,
+      "end": 1169.558,
+      "kind": "speech",
+      "text": {
+        "sk": "len v začiatkoch takýto prístup. Len mi to\nprišlo zaujímavé. Dobre, a",
+        "cs": "jen v začátcích, takový přístup. Jen mi to\npřišlo zajímavé. Dobře, a"
+      },
+      "asrWordRange": [
+        2773,
+        2785
+      ]
+    },
+    {
+      "start": 1169.623,
+      "end": 1172.277,
+      "kind": "speech",
+      "text": {
+        "sk": "teraz nakoniec by sme si mohli dať, čo povieš,",
+        "cs": "teď nakonec bychom si mohli dát, co říkáš,"
+      },
+      "asrWordRange": [
+        2785,
+        2794
+      ]
+    },
+    {
+      "start": 1173.991,
+      "end": 1179.529,
+      "kind": "speech",
+      "text": {
+        "sk": "takéže najznámejšie výbuchy sopiek z histórie a\nže čo sa vlastne stalo",
+        "cs": "takové nejznámější výbuchy sopek z historie a co\nse vlastně stalo"
+      },
+      "asrWordRange": [
+        2794,
+        2806
+      ]
+    },
+    {
+      "start": 1179.613,
+      "end": 1182.968,
+      "kind": "speech",
+      "text": {
+        "sk": "pri nich a možno ako to aj ovplyvnilo našu celú\nplanétu.",
+        "cs": "při nich a možná jak to i ovlivnilo celou naši\nplanetu."
+      },
+      "asrWordRange": [
+        2806,
+        2817
+      ]
+    },
+    {
+      "start": 1184.323,
+      "end": 1188.438,
+      "kind": "speech",
+      "text": {
+        "sk": "V podstate, aby to nebolo úplne také pêle-mêle,\nže povyberáme úplne náhodne, existuje taký,",
+        "cs": "V podstatě, aby to nebylo úplně takové páté přes\ndeváté, že vybereme úplně náhodně, existuje\ntakový…"
+      },
+      "asrWordRange": [
+        2817,
+        2832
+      ]
+    },
+    {
+      "start": 1190.211,
+      "end": 1194.159,
+      "kind": "speech",
+      "text": {
+        "sk": "keď máme zemetrasenie, tak sa používa Richterova\nstupnica, tak existuje aj stupnica,",
+        "cs": "Když máme zemětřesení, používá se Richterova\nstupnice, tak existuje i stupnice,"
+      },
+      "asrWordRange": [
+        2832,
+        2844
+      ]
+    },
+    {
+      "start": 1194.204,
+      "end": 1196.197,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorá klasifikuje vulkány.",
+        "cs": "která klasifikuje vulkány."
+      },
+      "asrWordRange": [
+        2844,
+        2847
+      ]
+    },
+    {
+      "start": 1197.252,
+      "end": 1202.448,
+      "kind": "speech",
+      "text": {
+        "sk": "V skratke je VEI, akože Vulkanický explozívny\nindex, teda index vulkanickej",
+        "cs": "Ve zkratce je VEI, jako Vulkanický explozivní\nindex, tedy index vulkanické"
+      },
+      "asrWordRange": [
+        2847,
+        2858
+      ]
+    },
+    {
+      "start": 1202.472,
+      "end": 1206.208,
+      "kind": "speech",
+      "text": {
+        "sk": "Explozívnosti a tá stupnica ide, že od 0 po",
+        "cs": "explozivity. A ta stupnice jde od nuly do…"
+      },
+      "asrWordRange": [
+        2858,
+        2867
+      ]
+    },
+    {
+      "start": 1207.466,
+      "end": 1208.456,
+      "kind": "speech",
+      "text": {
+        "sk": "neexistuje limit,",
+        "cs": "Neexistuje limit,"
+      },
+      "asrWordRange": [
+        2867,
+        2869
+      ]
+    },
+    {
+      "start": 1209.523,
+      "end": 1212.258,
+      "kind": "speech",
+      "text": {
+        "sk": "ale známe prípady na Zemi sú od 0 po 8.",
+        "cs": "ale známé případy na Zemi jsou od nuly do osmi."
+      },
+      "asrWordRange": [
+        2869,
+        2879
+      ]
+    },
+    {
+      "start": 1213.352,
+      "end": 1218.239,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak môžeme len tak prebehnúť, že aby človek\ndostal takého tušaka, že aké rôzne sopky",
+        "cs": "Tak můžeme jen tak proběhnout, aby člověk dostal\ntakového tušáka, jaké různé sopky"
+      },
+      "asrWordRange": [
+        2879,
+        2894
+      ]
+    },
+    {
+      "start": 1218.263,
+      "end": 1220.457,
+      "kind": "speech",
+      "text": {
+        "sk": "na Zemi poznáme alebo aké sme poznali v\nhistórii.",
+        "cs": "na Zemi známe nebo jaké jsme poznali v historii."
+      },
+      "asrWordRange": [
+        2894,
+        2903
+      ]
+    },
+    {
+      "start": 1222.202,
+      "end": 1227.198,
+      "kind": "speech",
+      "text": {
+        "sk": "A na stupni 0 sú také tie havajské sopky. V\npodstate nič",
+        "cs": "A na stupni nula jsou takové ty havajské sopky.\nV podstatě nic"
+      },
+      "asrWordRange": [
+        2903,
+        2915
+      ]
+    },
+    {
+      "start": 1227.198,
+      "end": 1232.118,
+      "kind": "speech",
+      "text": {
+        "sk": "nevyvrhnú do vzduchu alebo zanedbateľné množstvo\npopola,",
+        "cs": "nevyvrhnou do vzduchu, nebo zanedbatelné\nmnožství popela,"
+      },
+      "asrWordRange": [
+        2915,
+        2922
+      ]
+    },
+    {
+      "start": 1233.906,
+      "end": 1237.898,
+      "kind": "speech",
+      "text": {
+        "sk": "sú predvídateľné, sú extrémne časté, nenapáchajú\nžiadne",
+        "cs": "jsou předvídatelné, jsou extrémně časté,\nnenapáchají žádné"
+      },
+      "asrWordRange": [
+        2922,
+        2929
+      ]
+    },
+    {
+      "start": 1237.902,
+      "end": 1243.299,
+      "kind": "speech",
+      "text": {
+        "sk": "škody. Takže to je, že úroveň 0. To je len\nproste, že vyteká láva najpokojnejším",
+        "cs": "škody. Takže to je úroveň nula. To jen prostě\nvytéká láva nejklidnějším"
+      },
+      "asrWordRange": [
+        2929,
+        2944
+      ]
+    },
+    {
+      "start": 1243.299,
+      "end": 1247.338,
+      "kind": "speech",
+      "text": {
+        "sk": "možným spôsobom pri sopkách. Pri sopkách, hej.",
+        "cs": "možným způsobem při sopkách. Při sopkách, jo."
+      },
+      "asrWordRange": [
+        2944,
+        2951
+      ]
+    },
+    {
+      "start": 1249.723,
+      "end": 1254.878,
+      "kind": "speech",
+      "text": {
+        "sk": "Úroveň 1 sú také sopky, ktoré už trošku niečo\nvyvrhnú do vzduchu.",
+        "cs": "Úroveň jedna jsou takové sopky, které už trošku\nněco vyvrhnou do vzduchu."
+      },
+      "asrWordRange": [
+        2951,
+        2963
+      ]
+    },
+    {
+      "start": 1254.878,
+      "end": 1257.657,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak dajme tomu do výšky niekoľko stoviek metrov.",
+        "cs": "Tak dejme tomu do výšky několika stovek metrů."
+      },
+      "asrWordRange": [
+        2963,
+        2971
+      ]
+    },
+    {
+      "start": 1259.033,
+      "end": 1263.329,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale stále sa dejú na dennom poriadku. Takže\ntakto si predstavím možno niečo také, čo",
+        "cs": "Ale stále se dějí na denním pořádku. Takže si\npředstavím možná něco takového, co"
+      },
+      "asrWordRange": [
+        2971,
+        2986
+      ]
+    },
+    {
+      "start": 1263.329,
+      "end": 1265.428,
+      "kind": "speech",
+      "text": {
+        "sk": "bolo v tom Japonsku. Áno, to je Kagoshima.",
+        "cs": "bylo v tom Japonsku. Ano, to je Kagošima."
+      },
+      "asrWordRange": [
+        2986,
+        2994
+      ]
+    },
+    {
+      "start": 1266.473,
+      "end": 1271.628,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno, a to je asi každý deň alebo každý druhý\ndeň. Je tam malá",
+        "cs": "Ano, a to je asi každý den nebo každý druhý den.\nJe tam malá"
+      },
+      "asrWordRange": [
+        2994,
+        3008
+      ]
+    },
+    {
+      "start": 1271.628,
+      "end": 1274.107,
+      "kind": "speech",
+      "text": {
+        "sk": "erupcia, ale to je zanedbateľné.",
+        "cs": "erupce, ale to je zanedbatelné."
+      },
+      "asrWordRange": [
+        3008,
+        3013
+      ]
+    },
+    {
+      "start": 1275.483,
+      "end": 1278.558,
+      "kind": "speech",
+      "text": {
+        "sk": "Skôr to vyzerá ako kúdol dymu, ktorý z nej stále\nvystupuje.",
+        "cs": "Spíš to vypadá jako chuchvalec dýmu, který z ní\nstále vystupuje."
+      },
+      "asrWordRange": [
+        3013,
+        3025
+      ]
+    },
+    {
+      "start": 1280.163,
+      "end": 1283.478,
+      "kind": "speech",
+      "text": {
+        "sk": "až tí seizmológovia musia povedať, že to je\nvlastne erupcia tej sopky.",
+        "cs": "Až ti seismologové musí říct, že to je vlastně\nerupce té sopky."
+      },
+      "asrWordRange": [
+        3025,
+        3037
+      ]
+    },
+    {
+      "start": 1285.132,
+      "end": 1288.168,
+      "kind": "speech",
+      "text": {
+        "sk": "No, potom, to sme stále také, že v podstate",
+        "cs": "No, potom… To jsme stále u toho, že v podstatě"
+      },
+      "asrWordRange": [
+        3037,
+        3046
+      ]
+    },
+    {
+      "start": 1289.383,
+      "end": 1292.498,
+      "kind": "speech",
+      "text": {
+        "sk": "ľudia, čo bývajú v okolí, tak to berú ako proste\nsúčasť ich životov.",
+        "cs": "lidé, co bydlí v okolí, to berou jako součást\nsvých životů."
+      },
+      "asrWordRange": [
+        3046,
+        3059
+      ]
+    },
+    {
+      "start": 1294.473,
+      "end": 1297.988,
+      "kind": "speech",
+      "text": {
+        "sk": "Úroveň 2 už je taká, že trošku explozívnejšia a\nvie vyvrhnúť",
+        "cs": "Úroveň dvě už je taková trošku explozivnější a\numí vyvrhnout"
+      },
+      "asrWordRange": [
+        3059,
+        3070
+      ]
+    },
+    {
+      "start": 1300.802,
+      "end": 1304.88,
+      "kind": "speech",
+      "text": {
+        "sk": "materiál až do výšky niekoľkých kilometrov a to\nje také, že deje sa to zhruba raz za",
+        "cs": "materiál až do výšky několika kilometrů a to se\nděje zhruba jednou za"
+      },
+      "asrWordRange": [
+        3070,
+        3087
+      ]
+    },
+    {
+      "start": 1304.88,
+      "end": 1308.338,
+      "kind": "speech",
+      "text": {
+        "sk": "niekoľko týždňov niekde na Zemi. To sú také\nveci, že ani sa to nedostane do novín.",
+        "cs": "několik týdnů někde na Zemi. To jsou takové\nvěci, že se to ani nedostane do novin."
+      },
+      "asrWordRange": [
+        3087,
+        3103
+      ]
+    },
+    {
+      "start": 1309.722,
+      "end": 1313.638,
+      "kind": "speech",
+      "text": {
+        "sk": "Toto je v podstate veľmi podobné, to prechádza\naj do úrovne 3, ktorá je tiež taká, že",
+        "cs": "Toto je v podstatě velmi podobné, to přechází i\ndo úrovně tři, která je taky taková, že"
+      },
+      "asrWordRange": [
+        3103,
+        3120
+      ]
+    },
+    {
+      "start": 1315.965,
+      "end": 1320.559,
+      "kind": "speech",
+      "text": {
+        "sk": "vyvrhne materiál do výšky niekoľkých kilometrov,\nale deje sa to niekoľkokrát do roka,",
+        "cs": "vyvrhne materiál do výšky několika kilometrů,\nale děje se to několikrát do roka,"
+      },
+      "asrWordRange": [
+        3120,
+        3133
+      ]
+    },
+    {
+      "start": 1320.559,
+      "end": 1325.82,
+      "kind": "speech",
+      "text": {
+        "sk": "takže žiadna veľká vec. Ak nebývaš niekde v\nblízkom okolí. Keď bývaš v blízkom",
+        "cs": "takže žádná velká věc. Pokud nebydlíš někde v\nblízkém okolí. Když bydlíš v blízkém"
+      },
+      "asrWordRange": [
+        3133,
+        3149
+      ]
+    },
+    {
+      "start": 1325.82,
+      "end": 1328.998,
+      "kind": "speech",
+      "text": {
+        "sk": "okolí, už to môže mať mierne katastrofické\ndôsledky, ale bežne je to neškodné.",
+        "cs": "okolí, už to může mít mírně katastrofické\ndůsledky, ale běžně je to neškodné."
+      },
+      "asrWordRange": [
+        3149,
+        3162
+      ]
+    },
+    {
+      "start": 1330.096,
+      "end": 1331.005,
+      "kind": "speech",
+      "text": {
+        "sk": "Občas ale môže.",
+        "cs": "Občas ale může."
+      },
+      "asrWordRange": [
+        3162,
+        3165
+      ]
+    },
+    {
+      "start": 1331.912,
+      "end": 1335.028,
+      "kind": "speech",
+      "text": {
+        "sk": "A väčšinou to nemá vplyv na atmosféru.",
+        "cs": "A většinou to nemá vliv na atmosféru."
+      },
+      "asrWordRange": [
+        3165,
+        3172
+      ]
+    },
+    {
+      "start": 1335.904,
+      "end": 1338.417,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže je to len taká pomerne lokálna záležitosť.",
+        "cs": "Čili je to jen taková poměrně lokální\nzáležitost."
+      },
+      "asrWordRange": [
+        3172,
+        3180
+      ]
+    },
+    {
+      "start": 1340.441,
+      "end": 1343.998,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže je nebezpečná lokálne, ale nie nejako\nglobálne.",
+        "cs": "Takže je nebezpečná lokálně, ale ne nějak\nglobálně."
+      },
+      "asrWordRange": [
+        3180,
+        3188
+      ]
+    },
+    {
+      "start": 1344.942,
+      "end": 1350.7,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno, aj lokálne je to také, že bežne to nebýva\naž taká",
+        "cs": "Ano, i lokálně je to takové, že běžně to nebývá\naž taková"
+      },
+      "asrWordRange": [
+        3188,
+        3200
+      ]
+    },
+    {
+      "start": 1350.7,
+      "end": 1354.658,
+      "kind": "speech",
+      "text": {
+        "sk": "strašná vec. Čiže to sme prešli, že 0, 1, 2, 3.\nČiže sú také bežné.",
+        "cs": "strašná věc. Čili to jsme prošli nulu, jedničku,\ndvojku, trojku. Čili jsou takové běžné."
+      },
+      "asrWordRange": [
+        3200,
+        3215
+      ]
+    },
+    {
+      "start": 1356.109,
+      "end": 1356.675,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno, áno.",
+        "cs": "Ano, ano."
+      },
+      "asrWordRange": [
+        3215,
+        3217
+      ]
+    },
+    {
+      "start": 1357.724,
+      "end": 1359.497,
+      "kind": "speech",
+      "text": {
+        "sk": "No a úroveň 4",
+        "cs": "No a úroveň čtyři"
+      },
+      "asrWordRange": [
+        3217,
+        3221
+      ]
+    },
+    {
+      "start": 1360.542,
+      "end": 1366.379,
+      "kind": "speech",
+      "text": {
+        "sk": "začína nepríjemným miestom, lebo treba vysloviť\nnázov japonskej sopky. Nie japonskej,\nislandskej.",
+        "cs": "začíná nepříjemným místem, protože je potřeba\nvyslovit název japonské sopky. Ne japonské,\nislandské."
+      },
+      "asrWordRange": [
+        3221,
+        3233
+      ]
+    },
+    {
+      "start": 1368.086,
+      "end": 1369.637,
+      "kind": "speech",
+      "text": {
+        "sk": "Juj, no to si to zoberie toto.",
+        "cs": "Juj, no to si to vezmi, tohle."
+      },
+      "asrWordRange": [
+        3233,
+        3240
+      ]
+    },
+    {
+      "start": 1371.81,
+      "end": 1378.269,
+      "kind": "speech",
+      "text": {
+        "sk": "Eyjafjallajökull. Vynikajúce. Odteraz čítaš ty\nvšetko, čo sa týka islandčiny.",
+        "cs": "Eyjafjallajökull. Vynikající. Odteď čteš ty\nvšechno, co se týká islandštiny."
+      },
+      "asrWordRange": [
+        3240,
+        3252
+      ]
+    },
+    {
+      "start": 1379.152,
+      "end": 1384.408,
+      "kind": "speech",
+      "text": {
+        "sk": "No a túto sopku si asi všetci pamätajú. Bolo to\npred takmer desiatimi rokmi.",
+        "cs": "No a tuto sopku si asi všichni pamatují. Bylo to\npřed téměř deseti lety."
+      },
+      "asrWordRange": [
+        3252,
+        3266
+      ]
+    },
+    {
+      "start": 1385.712,
+      "end": 1390.988,
+      "kind": "speech",
+      "text": {
+        "sk": "K erupcii došlo na Islande a to, čo sa stalo,\nje, že vychrlila do vzduchu",
+        "cs": "K erupci došlo na Islandu a to, co se stalo, je,\nže vychrlila do vzduchu"
+      },
+      "asrWordRange": [
+        3266,
+        3281
+      ]
+    },
+    {
+      "start": 1391.073,
+      "end": 1393.447,
+      "kind": "speech",
+      "text": {
+        "sk": "obrovské množstvo popola,",
+        "cs": "obrovské množství popela,"
+      },
+      "asrWordRange": [
+        3281,
+        3284
+      ]
+    },
+    {
+      "start": 1394.381,
+      "end": 1400.16,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorý úplne vypol leteckú dopravu v Európe. Lebo\nvzdušné prúdy ten popol",
+        "cs": "který úplně vypnul leteckou dopravu v Evropě.\nProtože vzdušné proudy ten popel"
+      },
+      "asrWordRange": [
+        3284,
+        3296
+      ]
+    },
+    {
+      "start": 1400.16,
+      "end": 1402.594,
+      "kind": "speech",
+      "text": {
+        "sk": "rozniesli po celej Európe, pravdepodobne aj\nčasti Ázie a",
+        "cs": "roznesly po celé Evropě, pravděpodobně i části\nAsie, a"
+      },
+      "asrWordRange": [
+        3296,
+        3305
+      ]
+    },
+    {
+      "start": 1404.763,
+      "end": 1408.799,
+      "kind": "speech",
+      "text": {
+        "sk": "úplne to odstavilo letecký biznis. Z toho\ndôvodu, že keby cez ten prach preleteli",
+        "cs": "úplně to odstavilo letecký byznys. Z toho\ndůvodu, že kdyby přes ten prach proletěly"
+      },
+      "asrWordRange": [
+        3305,
+        3319
+      ]
+    },
+    {
+      "start": 1408.799,
+      "end": 1413.499,
+      "kind": "speech",
+      "text": {
+        "sk": "motory, tak sa môžu upchať a lietadlo môže\npadnúť. Áno, to si pamätám. To bola vlastne",
+        "cs": "motory, tak se mohou ucpat a letadlo může\nspadnout. Ano, to si pamatuju. To byla vlastně"
+      },
+      "asrWordRange": [
+        3319,
+        3335
+      ]
+    },
+    {
+      "start": 1413.499,
+      "end": 1418.68,
+      "kind": "speech",
+      "text": {
+        "sk": "veľká správa aj sa tým žilo veľmi dlho. A\nnakoľko to",
+        "cs": "velká zpráva a žilo se tím velmi dlouho. A\njelikož to"
+      },
+      "asrWordRange": [
+        3335,
+        3346
+      ]
+    },
+    {
+      "start": 1418.68,
+      "end": 1423.8,
+      "kind": "speech",
+      "text": {
+        "sk": "trvalo, ako pozriem, že od 20. marca do 23. júna\n2010.",
+        "cs": "trvalo, jak se dívám, od dvacátého března do\ntřiadvacátého června 2010."
+      },
+      "asrWordRange": [
+        3346,
+        3357
+      ]
+    },
+    {
+      "start": 1425.98,
+      "end": 1431.489,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže veľmi dlho trvala aj tá explózia tej\nsopky.",
+        "cs": "Takže velmi dlouho trvala i ta exploze té sopky."
+      },
+      "asrWordRange": [
+        3357,
+        3366
+      ]
+    },
+    {
+      "start": 1431.834,
+      "end": 1433.506,
+      "kind": "speech",
+      "text": {
+        "sk": "Ono to malo niekoľko takých",
+        "cs": "Ono to mělo několik takových"
+      },
+      "asrWordRange": [
+        3366,
+        3371
+      ]
+    },
+    {
+      "start": 1434.892,
+      "end": 1438.645,
+      "kind": "speech",
+      "text": {
+        "sk": "fáz rôznych. Prvá fáza bola, že len to chrlilo\npopol, ale potom došla už",
+        "cs": "různých fází. První fáze byla, že to jen chrlilo\npopel, ale potom přišla už"
+      },
+      "asrWordRange": [
+        3371,
+        3385
+      ]
+    },
+    {
+      "start": 1441.015,
+      "end": 1442.366,
+      "kind": "speech",
+      "text": {
+        "sk": "taká eruptívnejšia aktivita.",
+        "cs": "taková eruptivnější aktivita."
+      },
+      "asrWordRange": [
+        3385,
+        3388
+      ]
+    },
+    {
+      "start": 1443.152,
+      "end": 1448.589,
+      "kind": "speech",
+      "text": {
+        "sk": "Dosť dlho trvalo takmer až do mája, kedy sa to\nvlastne upokojilo, ale upokojenie sopky",
+        "cs": "Dost dlouho to trvalo, téměř až do května, kdy\nse to vlastně uklidnilo, ale uklidnění sopky"
+      },
+      "asrWordRange": [
+        3388,
+        3403
+      ]
+    },
+    {
+      "start": 1448.589,
+      "end": 1450.467,
+      "kind": "speech",
+      "text": {
+        "sk": "je taký vágne definovaný pojem.",
+        "cs": "je takový vágně definovaný pojem."
+      },
+      "asrWordRange": [
+        3403,
+        3407
+      ]
+    },
+    {
+      "start": 1452.244,
+      "end": 1456.798,
+      "kind": "speech",
+      "text": {
+        "sk": "Už nebola taká nebezpečná, ale stále tam bolo\nzvýšené riziko, že sa môže niečo",
+        "cs": "Už nebyla tak nebezpečná, ale stále tam bylo\nzvýšené riziko, že se může něco"
+      },
+      "asrWordRange": [
+        3407,
+        3421
+      ]
+    },
+    {
+      "start": 1456.825,
+      "end": 1458.075,
+      "kind": "speech",
+      "text": {
+        "sk": "stať. Trebalo ju kontrolovať.",
+        "cs": "stát. Bylo potřeba ji kontrolovat."
+      },
+      "asrWordRange": [
+        3421,
+        3425
+      ]
+    },
+    {
+      "start": 1459.363,
+      "end": 1464.678,
+      "kind": "speech",
+      "text": {
+        "sk": "A to je taká pomerne otvorená otázka, že koľko\npo erupcii môžeme sopku považovať za bezpečnú.",
+        "cs": "A to je taková poměrně otevřená otázka, jak\ndlouho po erupci můžeme sopku považovat za\nbezpečnou."
+      },
+      "asrWordRange": [
+        3425,
+        3441
+      ]
+    },
+    {
+      "start": 1466.752,
+      "end": 1470.988,
+      "kind": "speech",
+      "text": {
+        "sk": "Bežne sa hovorí, že keď 10 tisíc rokov už sa nič\nnestalo, tak už by to malo byť v poriadku.",
+        "cs": "Běžně se říká, že když už se deset tisíc let nic\nnestalo, tak už by to mělo být v pořádku."
+      },
+      "asrWordRange": [
+        3441,
+        3461
+      ]
+    },
+    {
+      "start": 1472.163,
+      "end": 1474.297,
+      "kind": "speech",
+      "text": {
+        "sk": "Ako navždy to má byť v poriadku?",
+        "cs": "Jako navždy by to mělo být v pořádku?"
+      },
+      "asrWordRange": [
+        3461,
+        3468
+      ]
+    },
+    {
+      "start": 1475.636,
+      "end": 1477.707,
+      "kind": "speech",
+      "text": {
+        "sk": "Že už sa asi netreba niečoho obávať.",
+        "cs": "Že už se asi není potřeba něčeho obávat."
+      },
+      "asrWordRange": [
+        3468,
+        3475
+      ]
+    },
+    {
+      "start": 1478.451,
+      "end": 1483.599,
+      "kind": "speech",
+      "text": {
+        "sk": "Taký ten magmatický kotol, ktorý bol pod sopkou,\nuž",
+        "cs": "Takový ten magmatický kotel, který byl pod\nsopkou, už"
+      },
+      "asrWordRange": [
+        3475,
+        3484
+      ]
+    },
+    {
+      "start": 1483.682,
+      "end": 1489.138,
+      "kind": "speech",
+      "text": {
+        "sk": "pravdepodobne je vypustený alebo vychladol a už",
+        "cs": "je pravděpodobně vypuštěný nebo vychladl a už"
+      },
+      "asrWordRange": [
+        3484,
+        3491
+      ]
+    },
+    {
+      "start": 1489.224,
+      "end": 1490.936,
+      "kind": "speech",
+      "text": {
+        "sk": "teda nepredstavuje riziko.",
+        "cs": "tedy nepředstavuje riziko."
+      },
+      "asrWordRange": [
+        3491,
+        3494
+      ]
+    },
+    {
+      "start": 1492.323,
+      "end": 1497.519,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže 10-tisíc rokov. Dobre. Dobre vedieť.\n10-tisíc rokov a len opravím sa: nie",
+        "cs": "Takže deset tisíc let. Dobře. Dobré vědět. Deset\ntisíc let, a jen se opravím: ne"
+      },
+      "asrWordRange": [
+        3494,
+        3509
+      ]
+    },
+    {
+      "start": 1497.603,
+      "end": 1501.358,
+      "kind": "speech",
+      "text": {
+        "sk": "kotol, ale kozub. Mne sa toto strašne pletie.\nKozub a nad ním je komín,",
+        "cs": "kotel, ale krb. Mně se to strašně plete. Krb a\nnad ním je komín,"
+      },
+      "asrWordRange": [
+        3509,
+        3523
+      ]
+    },
+    {
+      "start": 1502.383,
+      "end": 1506.278,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorým ide magma až do krátera sopky, z ktorého\nvytieka.",
+        "cs": "kterým jde magma až do kráteru sopky, ze kterého\nvytéká."
+      },
+      "asrWordRange": [
+        3523,
+        3533
+      ]
+    },
+    {
+      "start": 1509.185,
+      "end": 1512.538,
+      "kind": "speech",
+      "text": {
+        "sk": "Dobre, čiže toto znamená… Štyri to bolo?",
+        "cs": "Dobře, čili to znamená… Čtyřka to byla?"
+      },
+      "asrWordRange": [
+        3533,
+        3541
+      ]
+    },
+    {
+      "start": 1513.522,
+      "end": 1517.998,
+      "kind": "speech",
+      "text": {
+        "sk": "Štyri, áno. Eyjafjallajökull. Áno.",
+        "cs": "Čtyřka, ano. Eyjafjallajökull. Ano."
+      },
+      "asrWordRange": [
+        3541,
+        3546
+      ]
+    },
+    {
+      "start": 1518.942,
+      "end": 1523.038,
+      "kind": "speech",
+      "text": {
+        "sk": "Známa sopka. Rozmýšľam, prečo sme si nevybrali\nnapríklad Laki, ktoré sa vyslovuje",
+        "cs": "Známá sopka. Přemýšlím, proč jsme si nevybrali\ntřeba Laki, které se vyslovuje"
+      },
+      "asrWordRange": [
+        3546,
+        3558
+      ]
+    },
+    {
+      "start": 1523.038,
+      "end": 1524.749,
+      "kind": "speech",
+      "text": {
+        "sk": "oveľa… Áno, áno, áno.",
+        "cs": "mnohem… Ano, ano, ano."
+      },
+      "asrWordRange": [
+        3558,
+        3562
+      ]
+    },
+    {
+      "start": 1525.97,
+      "end": 1528.487,
+      "kind": "speech",
+      "text": {
+        "sk": "Eyjafjallajökull. Znie super.",
+        "cs": "Eyjafjallajökull. Zní super."
+      },
+      "asrWordRange": [
+        3562,
+        3566
+      ]
+    },
+    {
+      "start": 1529.977,
+      "end": 1531.43,
+      "kind": "speech",
+      "text": {
+        "sk": "Ďakujem, že si ma v tom nenechal.",
+        "cs": "Děkuju, že jsi mě v tom nenechal."
+      },
+      "asrWordRange": [
+        3566,
+        3573
+      ]
+    },
+    {
+      "start": 1532.08,
+      "end": 1532.505,
+      "kind": "speech",
+      "text": {
+        "sk": "Musel som.",
+        "cs": "Musel jsem."
+      },
+      "asrWordRange": [
+        3573,
+        3575
+      ]
+    },
+    {
+      "start": 1533.753,
+      "end": 1539.008,
+      "kind": "speech",
+      "text": {
+        "sk": "Dobre, poďme vlastne na päťku, ktorá je taká\nreprezentatívna fotka.",
+        "cs": "Dobře, pojďme vlastně na pětku, která je taková\nreprezentativní fotka."
+      },
+      "asrWordRange": [
+        3575,
+        3586
+      ]
+    },
+    {
+      "start": 1539.955,
+      "end": 1541.767,
+      "kind": "speech",
+      "text": {
+        "sk": "Fotka. Sopka. Sopka.",
+        "cs": "Fotka. Sopka. Sopka."
+      },
+      "asrWordRange": [
+        3586,
+        3589
+      ]
+    },
+    {
+      "start": 1542.813,
+      "end": 1547.908,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale dobre si povedal čaro nechceného, lebo ja\nsom z nich vybral sopku",
+        "cs": "Ale dobře jsi řekl, kouzlo nechtěného, protože\njá jsem z nich vybral sopku,"
+      },
+      "asrWordRange": [
+        3589,
+        3602
+      ]
+    },
+    {
+      "start": 1549.537,
+      "end": 1550.546,
+      "kind": "speech",
+      "text": {
+        "sk": "výbuch Svätej Heleny,",
+        "cs": "výbuch Svaté Heleny,"
+      },
+      "asrWordRange": [
+        3602,
+        3605
+      ]
+    },
+    {
+      "start": 1551.312,
+      "end": 1556.288,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorý sa udial v Amerike a je to taká strašne\nznáma fotka, kde je popredí na fotke",
+        "cs": "který se udál v Americe a je to taková strašně\nznámá fotka, kde je v popředí na fotce"
+      },
+      "asrWordRange": [
+        3605,
+        3622
+      ]
+    },
+    {
+      "start": 1557.453,
+      "end": 1562.448,
+      "kind": "speech",
+      "text": {
+        "sk": "myslím si, že auto a niekto stojí pri tom aute a\ncelé pozadie zakrýva explózia.",
+        "cs": "myslím auto a někdo stojí u toho auta a celé\npozadí zakrývá exploze."
+      },
+      "asrWordRange": [
+        3622,
+        3637
+      ]
+    },
+    {
+      "start": 1562.448,
+      "end": 1565.527,
+      "kind": "speech",
+      "text": {
+        "sk": "Teda erupcia prachu z tej sopky.",
+        "cs": "Tedy erupce prachu z té sopky."
+      },
+      "asrWordRange": [
+        3637,
+        3643
+      ]
+    },
+    {
+      "start": 1567.283,
+      "end": 1570.038,
+      "kind": "speech",
+      "text": {
+        "sk": "Táto explózia sa stala 18. mája",
+        "cs": "Tato exploze se stala osmnáctého května"
+      },
+      "asrWordRange": [
+        3643,
+        3649
+      ]
+    },
+    {
+      "start": 1570.2,
+      "end": 1576.138,
+      "kind": "speech",
+      "text": {
+        "sk": "1980 preto, aby diváci vedeli, že to nejedná sa\no nejakú starú fotku a",
+        "cs": "1980, aby diváci věděli, že se nejedná o nějakou\nstarou fotku"
+      },
+      "asrWordRange": [
+        3649,
+        3663
+      ]
+    },
+    {
+      "start": 1576.967,
+      "end": 1578.537,
+      "kind": "speech",
+      "text": {
+        "sk": "ani o starý výbuch sopky.",
+        "cs": "ani o starý výbuch sopky."
+      },
+      "asrWordRange": [
+        3663,
+        3668
+      ]
+    },
+    {
+      "start": 1580.483,
+      "end": 1585.599,
+      "kind": "speech",
+      "text": {
+        "sk": "Stále je to v živej pamäti. Áno. A čo vlastne\ntáto päťka spravila, tá Svätá Helena?",
+        "cs": "Stále je to v živé paměti. Ano. A co vlastně\ntato pětka způsobila, ta Svatá Helena?"
+      },
+      "asrWordRange": [
+        3668,
+        3684
+      ]
+    },
+    {
+      "start": 1585.599,
+      "end": 1590.118,
+      "kind": "speech",
+      "text": {
+        "sk": "Bolo to nejaké len lokálne alebo pocítili sme to\naj inde vo svete?",
+        "cs": "Bylo to nějaké jen lokální, nebo jsme to\npocítili i jinde ve světě?"
+      },
+      "asrWordRange": [
+        3684,
+        3697
+      ]
+    },
+    {
+      "start": 1593.322,
+      "end": 1598.859,
+      "kind": "speech",
+      "text": {
+        "sk": "Tuto to už bolo tak, že pocítili to v celej\nAmerike, čiže čo sa týka Ameriky, tak to",
+        "cs": "Tady to už bylo tak, že to pocítili v celé\nAmerice. Čili co se týče Ameriky, to"
+      },
+      "asrWordRange": [
+        3697,
+        3715
+      ]
+    },
+    {
+      "start": 1598.883,
+      "end": 1601.557,
+      "kind": "speech",
+      "text": {
+        "sk": "bolo globálne, ale nepreniklo to ešte okolo\ncelého sveta.",
+        "cs": "bylo globální, ale neproniklo to ještě okolo\ncelého světa."
+      },
+      "asrWordRange": [
+        3715,
+        3724
+      ]
+    },
+    {
+      "start": 1602.302,
+      "end": 1607.478,
+      "kind": "speech",
+      "text": {
+        "sk": "V podstate, to, čo sa tam stalo, je, že tam sa\nto znova natlakoval sa ten kozub a",
+        "cs": "V podstatě to, co se tam stalo, je, že se tam\nznovu natlakoval ten krb a"
+      },
+      "asrWordRange": [
+        3724,
+        3742
+      ]
+    },
+    {
+      "start": 1607.542,
+      "end": 1612.418,
+      "kind": "speech",
+      "text": {
+        "sk": "potom došlo k obrovskému zosuvu pôdy na tej\nsopke, respektíve na tom kopci, a ten",
+        "cs": "potom došlo k obrovskému sesuvu půdy na té\nsopce, respektive na tom kopci, a ten"
+      },
+      "asrWordRange": [
+        3742,
+        3757
+      ]
+    },
+    {
+      "start": 1613.165,
+      "end": 1614.596,
+      "kind": "speech",
+      "text": {
+        "sk": "strašne prudko uvoľnil",
+        "cs": "strašně prudce uvolnil"
+      },
+      "asrWordRange": [
+        3757,
+        3761
+      ]
+    },
+    {
+      "start": 1616.372,
+      "end": 1620.849,
+      "kind": "speech",
+      "text": {
+        "sk": "natlakovanú, bolo tam veľa vodnej pary, takže\ncelý ten tlakový hrnec sa zrazu tým",
+        "cs": "natlakovanou… Bylo tam hodně vodní páry, takže\ncelý ten tlakový hrnec se najednou tím"
+      },
+      "asrWordRange": [
+        3761,
+        3775
+      ]
+    },
+    {
+      "start": 1620.849,
+      "end": 1623.487,
+      "kind": "speech",
+      "text": {
+        "sk": "zosuvom pôdy otvoril a došlo k obrovskej\nerupcii.",
+        "cs": "sesuvem půdy otevřel a došlo k obrovské erupci."
+      },
+      "asrWordRange": [
+        3775,
+        3783
+      ]
+    },
+    {
+      "start": 1624.314,
+      "end": 1625.606,
+      "kind": "speech",
+      "text": {
+        "sk": "No, niekto to prepočítal,",
+        "cs": "No, někdo to přepočítal,"
+      },
+      "asrWordRange": [
+        3783,
+        3787
+      ]
+    },
+    {
+      "start": 1626.621,
+      "end": 1632.339,
+      "kind": "speech",
+      "text": {
+        "sk": "zodpovedala explózia výbuchu 26 miliónov ton\ndynamitu. Čiže",
+        "cs": "odpovídala ta exploze výbuchu šestadvaceti\nmilionů tun dynamitu. Čili"
+      },
+      "asrWordRange": [
+        3787,
+        3795
+      ]
+    },
+    {
+      "start": 1632.339,
+      "end": 1635.978,
+      "kind": "speech",
+      "text": {
+        "sk": "jeden kopec zrazu vybuchol takouto energiou,",
+        "cs": "jeden kopec najednou vybuchl s takovou energií,"
+      },
+      "asrWordRange": [
+        3795,
+        3801
+      ]
+    },
+    {
+      "start": 1637.752,
+      "end": 1640.639,
+      "kind": "speech",
+      "text": {
+        "sk": "čo sa teda samozrejme prejavilo na obrovskom\nokolí.",
+        "cs": "což se tedy samozřejmě projevilo na obrovském\nokolí."
+      },
+      "asrWordRange": [
+        3801,
+        3809
+      ]
+    },
+    {
+      "start": 1642.981,
+      "end": 1648.43,
+      "kind": "speech",
+      "text": {
+        "sk": "Ten kúdol popola prenikol do zhruba výšky 24",
+        "cs": "Ten oblak popela pronikl zhruba do výšky\nčtyřiadvaceti"
+      },
+      "asrWordRange": [
+        3809,
+        3817
+      ]
+    },
+    {
+      "start": 1648.43,
+      "end": 1653.328,
+      "kind": "speech",
+      "text": {
+        "sk": "kilometrov v atmosfére a potom sa následne\nusadil v 11 štátoch",
+        "cs": "kilometrů v atmosféře a potom se následně usadil\nv jedenácti státech"
+      },
+      "asrWordRange": [
+        3817,
+        3828
+      ]
+    },
+    {
+      "start": 1654.675,
+      "end": 1659.249,
+      "kind": "speech",
+      "text": {
+        "sk": "Spojených štátov amerických a v dvoch kanadských\nprovinciách, čiže obrovskú oblasť pokryl",
+        "cs": "Spojených států amerických a ve dvou kanadských\nprovinciích, čili obrovskou oblast pokryl."
+      },
+      "asrWordRange": [
+        3828,
+        3840
+      ]
+    },
+    {
+      "start": 1662.475,
+      "end": 1667.01,
+      "kind": "speech",
+      "text": {
+        "sk": "zároveň sa roztopila obrovská časť snehu, takže\nten efekt sa prejavil na okolitých",
+        "cs": "Zároveň roztála obrovská část sněhu, takže se\nten efekt projevil na okolních"
+      },
+      "asrWordRange": [
+        3840,
+        3853
+      ]
+    },
+    {
+      "start": 1667.01,
+      "end": 1667.444,
+      "kind": "speech",
+      "text": {
+        "sk": "riekach a podobne.",
+        "cs": "řekách a podobně."
+      },
+      "asrWordRange": [
+        3853,
+        3856
+      ]
+    },
+    {
+      "start": 1669.175,
+      "end": 1671.25,
+      "kind": "speech",
+      "text": {
+        "sk": "Veľa ľudí zahynulo 57,",
+        "cs": "Hodně lidí zahynulo, sedmapadesát,"
+      },
+      "asrWordRange": [
+        3856,
+        3860
+      ]
+    },
+    {
+      "start": 1671.25,
+      "end": 1676.769,
+      "kind": "speech",
+      "text": {
+        "sk": "čo je zhruba 10-krát viac ako teraz na Novom\nZélande, tým, že znova to bolo také z ničoho nič\nto prišlo.",
+        "cs": "což je zhruba desetkrát víc než teď na Novém\nZélandu, tím, že to zase bylo takové z ničeho\nnic to přišlo."
+      },
+      "asrWordRange": [
+        3860,
+        3880
+      ]
+    },
+    {
+      "start": 1678.317,
+      "end": 1679.206,
+      "kind": "speech",
+      "text": {
+        "sk": "Napáchalo to asi",
+        "cs": "Napáchalo to asi"
+      },
+      "asrWordRange": [
+        3880,
+        3883
+      ]
+    },
+    {
+      "start": 1681.715,
+      "end": 1683.687,
+      "kind": "speech",
+      "text": {
+        "sk": "škody vo výške jednej miliardy.",
+        "cs": "škody ve výši jedné miliardy."
+      },
+      "asrWordRange": [
+        3883,
+        3888
+      ]
+    },
+    {
+      "start": 1685.071,
+      "end": 1687.947,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže toto sme na úrovni 5.",
+        "cs": "Takže tady jsme na úrovni pět."
+      },
+      "asrWordRange": [
+        3888,
+        3894
+      ]
+    },
+    {
+      "start": 1688.772,
+      "end": 1694.369,
+      "kind": "speech",
+      "text": {
+        "sk": "Stále je to, že je relatívne nedávna vec a deje\nsa to dajme tomu raz",
+        "cs": "Stále je to relativně nedávná věc a děje se to\ndejme tomu jednou"
+      },
+      "asrWordRange": [
+        3894,
+        3909
+      ]
+    },
+    {
+      "start": 1694.369,
+      "end": 1697.288,
+      "kind": "speech",
+      "text": {
+        "sk": "za 10 rokov. Niečo takéto niekde na svete.",
+        "cs": "za deset let. Něco takového někde na světě."
+      },
+      "asrWordRange": [
+        3909,
+        3917
+      ]
+    },
+    {
+      "start": 1698.159,
+      "end": 1698.503,
+      "kind": "speech",
+      "text": {
+        "sk": "Takéto",
+        "cs": "Takové"
+      },
+      "asrWordRange": [
+        3917,
+        3918
+      ]
+    },
+    {
+      "start": 1699.995,
+      "end": 1701.526,
+      "kind": "speech",
+      "text": {
+        "sk": "sopky levelu 5.",
+        "cs": "sopky úrovně pět."
+      },
+      "asrWordRange": [
+        3918,
+        3921
+      ]
+    },
+    {
+      "start": 1702.594,
+      "end": 1703.986,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno, áno. Sopky levelu 5.",
+        "cs": "Ano, ano. Sopky úrovně pět."
+      },
+      "asrWordRange": [
+        3921,
+        3926
+      ]
+    },
+    {
+      "start": 1705.073,
+      "end": 1709.509,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže sú aj čerstvejšie prípady ako tá Svätá\nHelena, ale ja mal som tú Svätú Helenu",
+        "cs": "Čili jsou i čerstvější případy než ta Svatá\nHelena, ale já jsem měl tu Svatou Helenu"
+      },
+      "asrWordRange": [
+        3926,
+        3942
+      ]
+    },
+    {
+      "start": 1709.509,
+      "end": 1714.409,
+      "kind": "speech",
+      "text": {
+        "sk": "kvôli tomu obrázku zafixovanú, tak som ju vybral\na možno viacej poslucháčov to bude poznať.",
+        "cs": "kvůli tomu obrázku zafixovanou, tak jsem ji\nvybral a možná to víc posluchačů bude znát."
+      },
+      "asrWordRange": [
+        3942,
+        3956
+      ]
+    },
+    {
+      "start": 1714.453,
+      "end": 1717.828,
+      "kind": "speech",
+      "text": {
+        "sk": "Myslím si, že o výbuchu Svätej Heleny by počulo\ndosť veľa ľudí. Je to také",
+        "cs": "Myslím si, že o výbuchu Svaté Heleny slyšelo\ndost lidí. Je to takové"
+      },
+      "asrWordRange": [
+        3956,
+        3971
+      ]
+    },
+    {
+      "start": 1718.771,
+      "end": 1724.61,
+      "kind": "speech",
+      "text": {
+        "sk": "známejšie. Dobre, poďme na šestku. Kto je tam\ntaký reprezentatívny? No povedz, čo je",
+        "cs": "známější. Dobře, pojďme na šestku. Kdo je tam\ntakový reprezentativní? No pověz, co je"
+      },
+      "asrWordRange": [
+        3971,
+        3985
+      ]
+    },
+    {
+      "start": 1724.61,
+      "end": 1727.807,
+      "kind": "speech",
+      "text": {
+        "sk": "tvoja obľúbená sopka, keď nie Popocatépetl, tak?\nKrakatoa.",
+        "cs": "tvoje oblíbená sopka, když ne Popocatépetl?\nKrakatoa."
+      },
+      "asrWordRange": [
+        3985,
+        3994
+      ]
+    },
+    {
+      "start": 1729.38,
+      "end": 1729.604,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak.",
+        "cs": "Tak."
+      },
+      "asrWordRange": [
+        3994,
+        3995
+      ]
+    },
+    {
+      "start": 1730.517,
+      "end": 1731.485,
+      "kind": "speech",
+      "text": {
+        "sk": "Tá vybuchla pred",
+        "cs": "Ta vybuchla před"
+      },
+      "asrWordRange": [
+        3995,
+        3998
+      ]
+    },
+    {
+      "start": 1732.611,
+      "end": 1737.946,
+      "kind": "speech",
+      "recoveredSpeech": "large-v3 cross-check 1720–1740.61",
+      "text": {
+        "sk": "150 rokmi, 1883, a je v Indonézii.",
+        "cs": "sto padesáti lety, 1883, a je v Indonésii."
+      },
+      "asrWordRange": [
+        3998,
+        3999
+      ]
+    },
+    {
+      "start": 1739.936,
+      "end": 1741.527,
+      "kind": "speech",
+      "text": {
+        "sk": "áno a v podstate",
+        "cs": "Ano, a v podstatě"
+      },
+      "asrWordRange": [
+        3999,
+        4003
+      ]
+    },
+    {
+      "start": 1743.643,
+      "end": 1747.998,
+      "kind": "speech",
+      "text": {
+        "sk": "prečo som ja o tejto sopke vedel už predtým, ako\nsme začali chystať podklady na tento",
+        "cs": "proč jsem já o této sopce věděl už předtím, než\njsme začali chystat podklady pro tento"
+      },
+      "asrWordRange": [
+        4003,
+        4019
+      ]
+    },
+    {
+      "start": 1748.043,
+      "end": 1750.417,
+      "kind": "speech",
+      "text": {
+        "sk": "podcast je, že vyvolala",
+        "cs": "podcast, je, že vyvolala"
+      },
+      "asrWordRange": [
+        4019,
+        4023
+      ]
+    },
+    {
+      "start": 1750.92,
+      "end": 1753.977,
+      "kind": "speech",
+      "text": {
+        "sk": "najhlasnejší známy zvuk v histórii.",
+        "cs": "nejhlasitější známý zvuk v historii."
+      },
+      "asrWordRange": [
+        4023,
+        4028
+      ]
+    },
+    {
+      "start": 1754.801,
+      "end": 1760.158,
+      "kind": "speech",
+      "text": {
+        "sk": "Najhlasnejší známy zvuk? Áno. To znamená niečo\nna štýl, že",
+        "cs": "Nejhlasitější známý zvuk? Ano. To znamená něco\nve stylu, že"
+      },
+      "asrWordRange": [
+        4028,
+        4038
+      ]
+    },
+    {
+      "start": 1760.158,
+      "end": 1765.679,
+      "kind": "speech",
+      "text": {
+        "sk": "potrhala ušné bubienky moreplavcom, ktorí boli\nneviem, 100 kilometrov od",
+        "cs": "potrhala ušní bubínky mořeplavcům, kteří byli,\nnevím, sto kilometrů od"
+      },
+      "asrWordRange": [
+        4038,
+        4048
+      ]
+    },
+    {
+      "start": 1765.679,
+      "end": 1770.819,
+      "kind": "speech",
+      "text": {
+        "sk": "ostrova, kde vybuchla. Samozrejme, čo sa týka\nľudí na ostrove, taká veľká šanca nebola",
+        "cs": "ostrova, kde vybuchla. Samozřejmě co se týče\nlidí na ostrově, tak velká šance nebyla"
+      },
+      "asrWordRange": [
+        4048,
+        4062
+      ]
+    },
+    {
+      "start": 1770.819,
+      "end": 1774.277,
+      "kind": "speech",
+      "text": {
+        "sk": "na prežitie. Takže potrhala ušné bubienky ľudí",
+        "cs": "na přežití. Takže potrhala ušní bubínky lidí"
+      },
+      "asrWordRange": [
+        4062,
+        4069
+      ]
+    },
+    {
+      "start": 1775.943,
+      "end": 1777.997,
+      "kind": "speech",
+      "text": {
+        "sk": "vzdialených že stovky kilometrov.",
+        "cs": "vzdálených stovky kilometrů."
+      },
+      "asrWordRange": [
+        4069,
+        4073
+      ]
+    },
+    {
+      "start": 1779.673,
+      "end": 1784.99,
+      "kind": "speech",
+      "text": {
+        "sk": "Ten zvuk, ktorý vyvolala, bolo počuť až do\nvzdialenosti",
+        "cs": "Ten zvuk, který vyvolala, bylo slyšet až do\nvzdálenosti"
+      },
+      "asrWordRange": [
+        4073,
+        4082
+      ]
+    },
+    {
+      "start": 1784.99,
+      "end": 1786.006,
+      "kind": "speech",
+      "text": {
+        "sk": "3000 kilometrov.",
+        "cs": "tří tisíc kilometrů."
+      },
+      "asrWordRange": [
+        4082,
+        4084
+      ]
+    },
+    {
+      "start": 1787.702,
+      "end": 1792.899,
+      "kind": "speech",
+      "text": {
+        "sk": "Čo je, že úplne, že zvuk, čo počuješ na 3000\nkilometrov, je niečo neuveriteľné. No, to",
+        "cs": "Což je úplně… Zvuk, co slyšíš na tři tisíce\nkilometrů, je něco neuvěřitelného. No, to"
+      },
+      "asrWordRange": [
+        4084,
+        4100
+      ]
+    },
+    {
+      "start": 1792.899,
+      "end": 1798.179,
+      "kind": "speech",
+      "text": {
+        "sk": "si ja neviem predstaviť. A v skutočnosti ten\nzvuk ako taký obehol Zem štyri",
+        "cs": "si já neumím představit. A ve skutečnosti ten\nzvuk jako takový oběhl Zemi čtyři"
+      },
+      "asrWordRange": [
+        4100,
+        4114
+      ]
+    },
+    {
+      "start": 1798.244,
+      "end": 1800.457,
+      "kind": "speech",
+      "text": {
+        "sk": "krát. Tá zvuková… Samozrejme, že",
+        "cs": "krát. Ta zvuková… Samozřejmě že"
+      },
+      "asrWordRange": [
+        4114,
+        4119
+      ]
+    },
+    {
+      "start": 1801.472,
+      "end": 1807.548,
+      "kind": "speech",
+      "text": {
+        "sk": "3000 kilometrov to bolo počuť uchom, ale zvuk je\nvlastne, že zmena tlaku vzduchu.",
+        "cs": "na tři tisíce kilometrů to bylo slyšet uchem,\nale zvuk je vlastně změna tlaku vzduchu."
+      },
+      "asrWordRange": [
+        4119,
+        4133
+      ]
+    },
+    {
+      "start": 1808.906,
+      "end": 1810.737,
+      "kind": "speech",
+      "text": {
+        "sk": "A to, čo robili ľudia potom je, že skúmali",
+        "cs": "A to, co potom lidé dělali, je, že zkoumali"
+      },
+      "asrWordRange": [
+        4133,
+        4142
+      ]
+    },
+    {
+      "start": 1811.501,
+      "end": 1816.729,
+      "kind": "speech",
+      "text": {
+        "sk": "barometre a pozerali sa, že na barometri zrazu\nvyskočil tlak na chvíľku. A potom",
+        "cs": "barometry a dívali se, že na barometru najednou\nna chvilku vyskočil tlak. A potom"
+      },
+      "asrWordRange": [
+        4142,
+        4156
+      ]
+    },
+    {
+      "start": 1816.729,
+      "end": 1820.37,
+      "kind": "speech",
+      "text": {
+        "sk": "nič, nič, nič niekoľko hodín a potom znova\nvyskočil. Je to tak, že",
+        "cs": "nic, nic, nic, několik hodin, a potom znovu\nvyskočil. Je to tak, že"
+      },
+      "asrWordRange": [
+        4156,
+        4169
+      ]
+    },
+    {
+      "start": 1821.333,
+      "end": 1826.249,
+      "kind": "speech",
+      "text": {
+        "sk": "ako tá zvuková vlna sa šírila okolo Zeme a áno,\ntak opakovane. Aha, tak vďaka barometrom",
+        "cs": "jak se ta zvuková vlna šířila okolo Země a… Ano,\ntak opakovaně. Aha, takže díky barometrům"
+      },
+      "asrWordRange": [
+        4169,
+        4186
+      ]
+    },
+    {
+      "start": 1828.414,
+      "end": 1832.168,
+      "kind": "speech",
+      "text": {
+        "sk": "a kvôli rýchlosti zvuku, už asi vtedy poznali\nrýchlosť zvuku, tak vedeli aj toto",
+        "cs": "a kvůli rychlosti zvuku, už asi tehdy znali\nrychlost zvuku, tak uměli i toto"
+      },
+      "asrWordRange": [
+        4186,
+        4200
+      ]
+    },
+    {
+      "start": 1832.168,
+      "end": 1837.849,
+      "kind": "speech",
+      "text": {
+        "sk": "vypočítať. No jasné. Tak to je zaujímavé. Celkom\nzaujímavé pri Krakatoe je, že nezabíjal",
+        "cs": "vypočítat. No jasně. Tak to je zajímavé. Celkem\nzajímavé u Krakatoi je, že nezabíjel"
+      },
+      "asrWordRange": [
+        4200,
+        4214
+      ]
+    },
+    {
+      "start": 1838.952,
+      "end": 1844.128,
+      "kind": "speech",
+      "text": {
+        "sk": "hlavne ten výbuch alebo tá magma, ale zabíjala\naj dosť tsunami, ktorú",
+        "cs": "hlavně ten výbuch nebo to magma, ale dost\nzabíjela i tsunami, kterou"
+      },
+      "asrWordRange": [
+        4214,
+        4226
+      ]
+    },
+    {
+      "start": 1844.212,
+      "end": 1849.71,
+      "kind": "speech",
+      "text": {
+        "sk": "vyvolal tento výbuch. Tam zomrelo až skoro 37",
+        "cs": "vyvolal tento výbuch. Tam zemřelo skoro až\nsedmatřicet"
+      },
+      "asrWordRange": [
+        4226,
+        4234
+      ]
+    },
+    {
+      "start": 1849.71,
+      "end": 1851.066,
+      "kind": "speech",
+      "text": {
+        "sk": "tisíc ľudí, čo je na",
+        "cs": "tisíc lidí, což je na"
+      },
+      "asrWordRange": [
+        4234,
+        4239
+      ]
+    },
+    {
+      "start": 1852.193,
+      "end": 1855.367,
+      "kind": "speech",
+      "text": {
+        "sk": "vlastne 19. storočie obrovské číslo, lebo",
+        "cs": "devatenácté století obrovské číslo, protože"
+      },
+      "asrWordRange": [
+        4239,
+        4245
+      ]
+    },
+    {
+      "start": 1856.774,
+      "end": 1861.169,
+      "kind": "speech",
+      "text": {
+        "sk": "ani populácia nebola taká veľká Indonézie ani\ncelého sveta, takže",
+        "cs": "ani populace nebyla tak velká, Indonésie ani\ncelého světa, takže"
+      },
+      "asrWordRange": [
+        4245,
+        4255
+      ]
+    },
+    {
+      "start": 1861.837,
+      "end": 1864.027,
+      "kind": "speech",
+      "text": {
+        "sk": "keď si to prepočítal, že keby teraz vybuchla,",
+        "cs": "když jsi to přepočítal, kdyby teď vybuchla,"
+      },
+      "asrWordRange": [
+        4255,
+        4263
+      ]
+    },
+    {
+      "start": 1864.952,
+      "end": 1870.328,
+      "kind": "speech",
+      "text": {
+        "sk": "tak som čítal také, že bolo by to stotisícov,\ndokonca, že aj k miliónu by sa to blížilo",
+        "cs": "tak jsem četl, že by to byly statisíce, dokonce\ni k milionu by se to blížilo,"
+      },
+      "asrWordRange": [
+        4263,
+        4282
+      ]
+    },
+    {
+      "start": 1871.353,
+      "end": 1876.408,
+      "kind": "speech",
+      "text": {
+        "sk": "takýto výbuch Krakatoe. Ale o tej istej sile a\ntak ďalej. Dobre,",
+        "cs": "takový výbuch Krakatoi. Ale se stejnou silou a\ntak dál. Dobře,"
+      },
+      "asrWordRange": [
+        4282,
+        4294
+      ]
+    },
+    {
+      "start": 1876.992,
+      "end": 1882.208,
+      "kind": "speech",
+      "text": {
+        "sk": "vďaka moreplavcom vieme, čo sa vlastne stalo, a\nsú aj očití svedkovia, ktorí to prežili.",
+        "cs": "díky mořeplavcům víme, co se vlastně stalo, a\njsou i očití svědci, kteří to přežili."
+      },
+      "asrWordRange": [
+        4294,
+        4311
+      ]
+    },
+    {
+      "start": 1882.992,
+      "end": 1888.03,
+      "kind": "speech",
+      "text": {
+        "sk": "No a poďme… Ešte, ja len poviem, že ja som\nrozmýšľal nad tým a neviem a potešilo by ma,",
+        "cs": "No a pojďme… Ještě jen řeknu, že jsem nad tím\npřemýšlel a nevím a potěšilo by mě,"
+      },
+      "asrWordRange": [
+        4311,
+        4329
+      ]
+    },
+    {
+      "start": 1888.03,
+      "end": 1892.148,
+      "kind": "speech",
+      "text": {
+        "sk": "keby nám niekto dal vedieť, že či ohluchli tí\nmoreplavci iba na jedno ucho, ktorým",
+        "cs": "kdyby nám někdo dal vědět, jestli ti mořeplavci\nohluchli jen na jedno ucho, kterým"
+      },
+      "asrWordRange": [
+        4329,
+        4344
+      ]
+    },
+    {
+      "start": 1892.174,
+      "end": 1893.766,
+      "kind": "speech",
+      "text": {
+        "sk": "boli natočení k sopke, alebo nie.",
+        "cs": "byli natočení k sopce, nebo ne."
+      },
+      "asrWordRange": [
+        4344,
+        4350
+      ]
+    },
+    {
+      "start": 1894.612,
+      "end": 1898.108,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže ak niekto vie, tak toto by ma akože\nzaujímalo. To by bolo výborné vedieť, no.",
+        "cs": "Takže jestli někdo ví, to by mě zajímalo. To by\nbylo výborné vědět."
+      },
+      "asrWordRange": [
+        4350,
+        4366
+      ]
+    },
+    {
+      "start": 1899.753,
+      "end": 1903.228,
+      "kind": "speech",
+      "text": {
+        "sk": "Horšie by boli tí ľudia, čo sa pozerali. Ten\ntlak je v tom opačnom uchu vysoký, ale",
+        "cs": "Horší by na tom byli ti lidé, co se dívali. Ten\ntlak je v tom opačném uchu vysoký, ale"
+      },
+      "asrWordRange": [
+        4366,
+        4383
+      ]
+    },
+    {
+      "start": 1903.271,
+      "end": 1907.5,
+      "kind": "speech",
+      "text": {
+        "sk": "trošku menší, takže… No, možno by ich to\nzachránilo.",
+        "cs": "trošku menší, takže… No, možná by je to\nzachránilo."
+      },
+      "asrWordRange": [
+        4383,
+        4392
+      ]
+    },
+    {
+      "start": 1908.002,
+      "end": 1913.259,
+      "kind": "speech",
+      "text": {
+        "sk": "Dobre, dajte nám vedieť, píšte nám e-maily alebo\ndajte nám nejako vedieť na Facebooku",
+        "cs": "Dobře, dejte nám vědět, pište nám e-maily nebo\nnám dejte nějak vědět na Facebooku"
+      },
+      "asrWordRange": [
+        4392,
+        4407
+      ]
+    },
+    {
+      "start": 1913.259,
+      "end": 1918.178,
+      "kind": "speech",
+      "text": {
+        "sk": "alebo tak. Dobre, poďme k levelu 7 sopky.",
+        "cs": "nebo tak. Dobře, pojďme k úrovni sedm sopky."
+      },
+      "asrWordRange": [
+        4407,
+        4415
+      ]
+    },
+    {
+      "start": 1919.062,
+      "end": 1924.198,
+      "kind": "speech",
+      "text": {
+        "sk": "To je sopka Tambora, o tej čo nám vieš povedať?\nTo asi nie je až také známe,",
+        "cs": "To je sopka Tambora, co nám o ní umíš říct? To\nasi není až tak známé,"
+      },
+      "asrWordRange": [
+        4415,
+        4432
+      ]
+    },
+    {
+      "start": 1924.243,
+      "end": 1926.777,
+      "kind": "speech",
+      "text": {
+        "sk": "aspoň ja som o tom nikdy nepočul pred týmto\npodcastom.",
+        "cs": "aspoň já jsem o tom nikdy neslyšel před tímto\npodcastem."
+      },
+      "asrWordRange": [
+        4432,
+        4442
+      ]
+    },
+    {
+      "start": 1929.095,
+      "end": 1931.347,
+      "kind": "speech",
+      "text": {
+        "sk": "A pritom ide pravdepodobne o najznámejšiu",
+        "cs": "A přitom jde pravděpodobně o nejznámější"
+      },
+      "asrWordRange": [
+        4442,
+        4448
+      ]
+    },
+    {
+      "start": 1932.412,
+      "end": 1937.949,
+      "kind": "speech",
+      "text": {
+        "sk": "sopku v nedávnej histórii. Vybuchla v roku 1815,\nalebo teda k erupcii",
+        "cs": "sopku v nedávné historii. Vybuchla v roce 1815,\nnebo tedy k erupci"
+      },
+      "asrWordRange": [
+        4448,
+        4459
+      ]
+    },
+    {
+      "start": 1937.949,
+      "end": 1939.409,
+      "kind": "speech",
+      "text": {
+        "sk": "došlo v roku 1815",
+        "cs": "došlo v roce 1815"
+      },
+      "asrWordRange": [
+        4459,
+        4463
+      ]
+    },
+    {
+      "start": 1940.553,
+      "end": 1945.529,
+      "kind": "speech",
+      "text": {
+        "sk": "a považuje sa za najsilnejšiu sopku v\nzaznamenanej histórii. Dosahuje teda",
+        "cs": "a považuje se za nejsilnější sopku v zaznamenané\nhistorii. Dosahuje tedy"
+      },
+      "asrWordRange": [
+        4463,
+        4474
+      ]
+    },
+    {
+      "start": 1945.612,
+      "end": 1950.848,
+      "kind": "speech",
+      "text": {
+        "sk": "úroveň 7 na stupnici kde na Zemi poznáme od 0 po\n8 takže už naozaj extrémne",
+        "cs": "úrovně sedm na stupnici, kde na Zemi známe od\nnuly do osmi, takže už opravdu extrémně"
+      },
+      "asrWordRange": [
+        4474,
+        4490
+      ]
+    },
+    {
+      "start": 1950.875,
+      "end": 1951.825,
+      "kind": "speech",
+      "text": {
+        "sk": "seriózny príklad.",
+        "cs": "seriózní příklad."
+      },
+      "asrWordRange": [
+        4490,
+        4492
+      ]
+    },
+    {
+      "start": 1953.515,
+      "end": 1955.827,
+      "kind": "speech",
+      "text": {
+        "sk": "Už sa blížime k maximu toho, čo poznáme.",
+        "cs": "Už se blížíme k maximu toho, co známe."
+      },
+      "asrWordRange": [
+        4492,
+        4500
+      ]
+    },
+    {
+      "start": 1957.093,
+      "end": 1957.557,
+      "kind": "speech",
+      "text": {
+        "sk": "A teda",
+        "cs": "A tedy"
+      },
+      "asrWordRange": [
+        4500,
+        4502
+      ]
+    },
+    {
+      "start": 1959.422,
+      "end": 1964.838,
+      "kind": "speech",
+      "text": {
+        "sk": "rok 1815 v Indonézii a už teraz si treba všimnúť\ntaký náznak, že",
+        "cs": "rok 1815 v Indonésii a už teď je třeba si\nvšimnout takového náznaku, že"
+      },
+      "asrWordRange": [
+        4502,
+        4513
+      ]
+    },
+    {
+      "start": 1965.403,
+      "end": 1970.739,
+      "kind": "speech",
+      "text": {
+        "sk": "doteraz sme hovorili, že vychrlilo to kúdol\npopola do výšky toľko a toľko",
+        "cs": "doteď jsme mluvili o tom, že to vychrlilo oblak\npopela do výšky tolika a tolika"
+      },
+      "asrWordRange": [
+        4513,
+        4525
+      ]
+    },
+    {
+      "start": 1970.739,
+      "end": 1975.558,
+      "kind": "speech",
+      "text": {
+        "sk": "kilometrov. Postupne sa začnú opisovať sopky\npodľa toho, aký efekt napáchali",
+        "cs": "kilometrů. Postupně se začnou popisovat sopky\npodle toho, jaký efekt napáchaly"
+      },
+      "asrWordRange": [
+        4525,
+        4537
+      ]
+    },
+    {
+      "start": 1977.047,
+      "end": 1978.136,
+      "kind": "speech",
+      "text": {
+        "sk": "napríklad na celú klímu.",
+        "cs": "například na celé klima."
+      },
+      "asrWordRange": [
+        4537,
+        4541
+      ]
+    },
+    {
+      "start": 1979.222,
+      "end": 1985.359,
+      "kind": "speech",
+      "text": {
+        "sk": "V prípade Krakatoe to bolo ochladenie o 0,2 až\n0,5 stupňa, ak si dobre pamätám.",
+        "cs": "V případě Krakatoi to bylo ochlazení o nula celá\ndvě až nula celá pět stupně, jestli si dobře\npamatuju."
+      },
+      "asrWordRange": [
+        4541,
+        4558
+      ]
+    },
+    {
+      "start": 1986.148,
+      "end": 1986.594,
+      "kind": "speech",
+      "text": {
+        "sk": "Globálne.",
+        "cs": "Globálně."
+      },
+      "asrWordRange": [
+        4558,
+        4559
+      ]
+    },
+    {
+      "start": 1987.664,
+      "end": 1988.855,
+      "kind": "speech",
+      "text": {
+        "sk": "Globálne, áno.",
+        "cs": "Globálně, ano."
+      },
+      "asrWordRange": [
+        4559,
+        4561
+      ]
+    },
+    {
+      "start": 1989.852,
+      "end": 1993.128,
+      "kind": "speech",
+      "text": {
+        "sk": "A táto Mount Tambora",
+        "cs": "A tato Mount Tambora"
+      },
+      "asrWordRange": [
+        4561,
+        4565
+      ]
+    },
+    {
+      "start": 1994.875,
+      "end": 1997.184,
+      "kind": "speech",
+      "text": {
+        "sk": "viedla k niečomu, čo sa označuje ako rok,",
+        "cs": "vedla k něčemu, co se označuje jako rok,"
+      },
+      "asrWordRange": [
+        4565,
+        4573
+      ]
+    },
+    {
+      "start": 1999.212,
+      "end": 2002.149,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorý nemal leto, rok 1816.",
+        "cs": "který neměl léto, rok 1816."
+      },
+      "asrWordRange": [
+        4573,
+        4578
+      ]
+    },
+    {
+      "start": 2003.613,
+      "end": 2008.048,
+      "kind": "speech",
+      "text": {
+        "sk": "Proste ochladila globálne svet zhruba o 0,7\nstupňa.",
+        "cs": "Prostě ochladila globálně svět zhruba o nula\ncelá sedm stupně."
+      },
+      "asrWordRange": [
+        4578,
+        4587
+      ]
+    },
+    {
+      "start": 2009.433,
+      "end": 2014.128,
+      "kind": "speech",
+      "text": {
+        "sk": "Človek môže mať pocit, že 0,7 stupňa, že to je\ntaký malý rozdiel, ale to je priemerná",
+        "cs": "Člověk může mít pocit, že nula celá sedm stupně\nje takový malý rozdíl, ale to je průměrná"
+      },
+      "asrWordRange": [
+        4587,
+        4605
+      ]
+    },
+    {
+      "start": 2014.192,
+      "end": 2019.669,
+      "kind": "speech",
+      "text": {
+        "sk": "teplota. Takže o priemernú teplotu. V Európe to\nspôsobilo, hej, to ochladilo.",
+        "cs": "teplota. Takže o průměrnou teplotu. V Evropě to\nzpůsobilo, jo, to ochladilo…"
+      },
+      "asrWordRange": [
+        4605,
+        4617
+      ]
+    },
+    {
+      "start": 2020.602,
+      "end": 2025.818,
+      "kind": "speech",
+      "text": {
+        "sk": "Čo muselo byť? Niekoľkostupňové ochladenie, čo\npotom zničilo úrody a pravdepodobne",
+        "cs": "Což muselo být několikastupňové ochlazení, což\npotom zničilo úrody a pravděpodobně"
+      },
+      "asrWordRange": [
+        4617,
+        4628
+      ]
+    },
+    {
+      "start": 2025.842,
+      "end": 2029.738,
+      "kind": "speech",
+      "text": {
+        "sk": "viedlo k hladomorom. Akože naozaj, že už veľmi\nseriózny",
+        "cs": "vedlo k hladomorům. Opravdu už velmi seriózní"
+      },
+      "asrWordRange": [
+        4628,
+        4637
+      ]
+    },
+    {
+      "start": 2031.368,
+      "end": 2032.356,
+      "kind": "speech",
+      "text": {
+        "sk": "problém, vážny?",
+        "cs": "problém, vážný."
+      },
+      "asrWordRange": [
+        4637,
+        4639
+      ]
+    },
+    {
+      "start": 2033.392,
+      "end": 2038.469,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno, určite, keď nebolo leto, nemohlo byť ani\nžiadne harvest a",
+        "cs": "Ano, určitě, když nebylo léto, nemohla být ani\nžádná „harvest“ a"
+      },
+      "asrWordRange": [
+        4639,
+        4650
+      ]
+    },
+    {
+      "start": 2039.495,
+      "end": 2043.929,
+      "kind": "speech",
+      "text": {
+        "sk": "ľudia určite aj zomierali kvôli hladu. A toto sa",
+        "cs": "lidé určitě umírali i kvůli hladu. A toto se"
+      },
+      "asrWordRange": [
+        4650,
+        4661
+      ]
+    },
+    {
+      "start": 2043.929,
+      "end": 2046.046,
+      "kind": "speech",
+      "text": {
+        "sk": "stalo a to malo vlastne až",
+        "cs": "stalo a mělo to vlastně až…"
+      },
+      "asrWordRange": [
+        4661,
+        4667
+      ]
+    },
+    {
+      "start": 2047.938,
+      "end": 2049.186,
+      "kind": "speech",
+      "text": {
+        "sk": "tie účinky až rok po",
+        "cs": "Ty účinky až rok po"
+      },
+      "asrWordRange": [
+        4667,
+        4672
+      ]
+    },
+    {
+      "start": 2050.513,
+      "end": 2055.188,
+      "kind": "speech",
+      "text": {
+        "sk": "cítili ľudia, keďže vybuchla 10. apríla 1815 a\naž",
+        "cs": "cítili lidé, protože vybuchla desátého dubna\n1815 a až"
+      },
+      "asrWordRange": [
+        4672,
+        4681
+      ]
+    },
+    {
+      "start": 2055.188,
+      "end": 2060.09,
+      "kind": "speech",
+      "text": {
+        "sk": "vlastne leto 1816 bolo, teda neexistovalo.",
+        "cs": "vlastně léto 1816 bylo, tedy neexistovalo."
+      },
+      "asrWordRange": [
+        4681,
+        4687
+      ]
+    },
+    {
+      "start": 2061.371,
+      "end": 2068.839,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže už tá sedmička má naozaj globálne\nceloplošné efekty",
+        "cs": "Takže už ta sedmička má opravdu globální,\nceloplošné efekty."
+      },
+      "asrWordRange": [
+        4687,
+        4696
+      ]
+    },
+    {
+      "start": 2070.214,
+      "end": 2073.968,
+      "kind": "speech",
+      "text": {
+        "sk": "a to si ani neviem predstaviť, čo sa stane teda\npri tej osmičke, keď sa k tomu dostaneme.",
+        "cs": "A to si ani neumím představit, co se stane tedy\npři té osmičce, když se k tomu dostaneme."
+      },
+      "asrWordRange": [
+        4696,
+        4714
+      ]
+    },
+    {
+      "start": 2075.743,
+      "end": 2078.318,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno, no a teda osmička už je v podstate",
+        "cs": "Ano, no a tedy osmička už je v podstatě…"
+      },
+      "asrWordRange": [
+        4714,
+        4723
+      ]
+    },
+    {
+      "start": 2079.393,
+      "end": 2085.289,
+      "kind": "speech",
+      "text": {
+        "sk": "sa o nej vie oveľa menej z istého pohľadu, lebo\nsa stala pred 77 tisíc rokmi.",
+        "cs": "Ví se o ní z určitého pohledu mnohem méně,\nprotože se stala před sedmasedmdesáti tisíci\nlety."
+      },
+      "asrWordRange": [
+        4723,
+        4739
+      ]
+    },
+    {
+      "start": 2086.532,
+      "end": 2091.829,
+      "kind": "speech",
+      "text": {
+        "sk": "Ide o sopku Toba, dnes sa to už volá iba jazero\nToba, keďže už tam je",
+        "cs": "Jde o sopku Toba, dnes se to už jmenuje jen\njezero Toba, protože už tam je"
+      },
+      "asrWordRange": [
+        4739,
+        4754
+      ]
+    },
+    {
+      "start": 2091.875,
+      "end": 2093.025,
+      "kind": "speech",
+      "text": {
+        "sk": "voda namiesto tej sopky.",
+        "cs": "voda místo té sopky."
+      },
+      "asrWordRange": [
+        4754,
+        4759
+      ]
+    },
+    {
+      "start": 2094.252,
+      "end": 2099.368,
+      "kind": "speech",
+      "text": {
+        "sk": "A ide o jeden z takých známych príkladov, kedy\nsopka výrazne zmenila klimatické",
+        "cs": "A jde o jeden z takových známých příkladů, kdy\nsopka výrazně změnila klimatické"
+      },
+      "asrWordRange": [
+        4759,
+        4772
+      ]
+    },
+    {
+      "start": 2099.415,
+      "end": 2100.506,
+      "kind": "speech",
+      "text": {
+        "sk": "podmienky na celej Zemi.",
+        "cs": "podmínky na celé Zemi."
+      },
+      "asrWordRange": [
+        4772,
+        4776
+      ]
+    },
+    {
+      "start": 2102.263,
+      "end": 2107.64,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže kategória 8 sopka Toba ochladila Zem medzi\ntromi a piatimi",
+        "cs": "Čili kategorie osm, sopka Toba, ochladila Zemi\nmezi třemi a pěti"
+      },
+      "asrWordRange": [
+        4776,
+        4787
+      ]
+    },
+    {
+      "start": 2107.64,
+      "end": 2109.797,
+      "kind": "speech",
+      "text": {
+        "sk": "stupňami Celzia v priemere celosvetovo.",
+        "cs": "stupni Celsia v průměru celosvětově."
+      },
+      "asrWordRange": [
+        4787,
+        4791
+      ]
+    },
+    {
+      "start": 2110.584,
+      "end": 2111.253,
+      "kind": "speech",
+      "text": {
+        "sk": "Celosvetovo?",
+        "cs": "Celosvětově?"
+      },
+      "asrWordRange": [
+        4791,
+        4792
+      ]
+    },
+    {
+      "start": 2112.172,
+      "end": 2116.268,
+      "kind": "speech",
+      "text": {
+        "sk": "Celosvetovo. Čo znamená, že v priemere tri až\npäť, ale miestami napríklad vo vyšších",
+        "cs": "Celosvětově. Což znamená, že v průměru tři až\npět, ale místy třeba ve vyšších"
+      },
+      "asrWordRange": [
+        4792,
+        4806
+      ]
+    },
+    {
+      "start": 2116.313,
+      "end": 2118.527,
+      "kind": "speech",
+      "text": {
+        "sk": "polohách to bolo, že ochladenie o 15 stupňov.",
+        "cs": "polohách to bylo ochlazení o patnáct stupňů."
+      },
+      "asrWordRange": [
+        4806,
+        4814
+      ]
+    },
+    {
+      "start": 2119.482,
+      "end": 2123.618,
+      "kind": "speech",
+      "text": {
+        "sk": "Teraz my sme vlastne nepovedali, prečo tie sopky\nochladzujú klímu. Povedzme si",
+        "cs": "Teď jsme vlastně neřekli, proč ty sopky\nochlazují klima. Řekněme si"
+      },
+      "asrWordRange": [
+        4814,
+        4827
+      ]
+    },
+    {
+      "start": 2123.618,
+      "end": 2128.48,
+      "kind": "speech",
+      "text": {
+        "sk": "ešte o tejto Tobe a povieme to na konci, že\nvlastne… V podstate, že je to len",
+        "cs": "ještě o této Tobě a řekneme to na konci, že\nvlastně… V podstatě je to jen"
+      },
+      "asrWordRange": [
+        4827,
+        4844
+      ]
+    },
+    {
+      "start": 2128.48,
+      "end": 2132.86,
+      "kind": "speech",
+      "text": {
+        "sk": "spôsobené tým, že odrážajú slnečné svetlo. Ten\npopol, čo je v atmosfére, odráža",
+        "cs": "způsobené tím, že odrážejí sluneční světlo. Ten\npopel, co je v atmosféře, odráží"
+      },
+      "asrWordRange": [
+        4844,
+        4857
+      ]
+    },
+    {
+      "start": 2132.883,
+      "end": 2138.1,
+      "kind": "speech",
+      "text": {
+        "sk": "slnečné svetlo. Nonstop zatiahnuté, ako keby\nbolo. Lebo ešte, aby sme povedali, ten",
+        "cs": "sluneční světlo. Jako kdyby bylo pořád zataženo.\nProtože ještě abychom řekli, ten"
+      },
+      "asrWordRange": [
+        4857,
+        4871
+      ]
+    },
+    {
+      "start": 2138.1,
+      "end": 2142.838,
+      "kind": "speech",
+      "text": {
+        "sk": "sopečný popol je strašne jemný a veľmi ľahký a\non sa udržuje v atmosfére veľmi dlho,",
+        "cs": "sopečný popel je strašně jemný a velmi lehký a\nudržuje se v atmosféře velmi dlouho,"
+      },
+      "asrWordRange": [
+        4871,
+        4887
+      ]
+    },
+    {
+      "start": 2142.838,
+      "end": 2147.278,
+      "kind": "speech",
+      "text": {
+        "sk": "nakoľko je vychrlený vysoko. Áno. No a teda táto\nToba takto",
+        "cs": "jelikož je vychrlený vysoko. Ano. No a tedy tato\nToba takto"
+      },
+      "asrWordRange": [
+        4887,
+        4898
+      ]
+    },
+    {
+      "start": 2148.892,
+      "end": 2154.248,
+      "kind": "speech",
+      "text": {
+        "sk": "odtienila Zem od slnečného svetla na dlhé\nobdobie, ochladila Zem o niekoľko",
+        "cs": "odstínila Zemi od slunečního světla na dlouhé\nobdobí, ochladila Zemi o několik"
+      },
+      "asrWordRange": [
+        4898,
+        4910
+      ]
+    },
+    {
+      "start": 2154.275,
+      "end": 2155.365,
+      "kind": "speech",
+      "text": {
+        "sk": "stupňov globálne,",
+        "cs": "stupňů globálně,"
+      },
+      "asrWordRange": [
+        4910,
+        4912
+      ]
+    },
+    {
+      "start": 2156.433,
+      "end": 2159.049,
+      "kind": "speech",
+      "text": {
+        "sk": "lokálne až o 10 stupňov, 10 až 15,",
+        "cs": "lokálně až o deset stupňů, deset až patnáct,"
+      },
+      "asrWordRange": [
+        4912,
+        4920
+      ]
+    },
+    {
+      "start": 2160.051,
+      "end": 2164.739,
+      "kind": "speech",
+      "text": {
+        "sk": "čo podľa všetkého viedlo k tomu, že väčšina\nľudskej populácie vtedy zomrela.",
+        "cs": "což podle všeho vedlo k tomu, že většina lidské\npopulace tehdy zemřela."
+      },
+      "asrWordRange": [
+        4920,
+        4932
+      ]
+    },
+    {
+      "start": 2166.33,
+      "end": 2166.775,
+      "kind": "speech",
+      "text": {
+        "sk": "Prosím?",
+        "cs": "Prosím?"
+      },
+      "asrWordRange": [
+        4932,
+        4933
+      ]
+    },
+    {
+      "start": 2170.625,
+      "end": 2172.937,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale vďaka pánubohu nie všetci.",
+        "cs": "Ale díky pánubohu ne všichni."
+      },
+      "asrWordRange": [
+        4933,
+        4939
+      ]
+    },
+    {
+      "start": 2174.525,
+      "end": 2176.377,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno. Akože možno bolo",
+        "cs": "Ano. Jako možná bylo…"
+      },
+      "asrWordRange": [
+        4939,
+        4943
+      ]
+    },
+    {
+      "start": 2178.083,
+      "end": 2182.439,
+      "kind": "speech",
+      "text": {
+        "sk": "že nevieme, či niekedy veľmi dávno všetko\npovymieralo kvôli sopkám. Je možné, že",
+        "cs": "Nevíme, jestli někdy velmi dávno všechno vymřelo\nkvůli sopkám. Je možné, že"
+      },
+      "asrWordRange": [
+        4943,
+        4956
+      ]
+    },
+    {
+      "start": 2182.439,
+      "end": 2183.295,
+      "kind": "speech",
+      "text": {
+        "sk": "napríklad aj dinosaury.",
+        "cs": "například i dinosauři."
+      },
+      "asrWordRange": [
+        4956,
+        4959
+      ]
+    },
+    {
+      "start": 2183.982,
+      "end": 2188.278,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale teda 77-tisíc rokov dozadu geológovia\nurčili, že došlo k obrovskému výbuchu sopky.",
+        "cs": "Ale tedy před sedmasedmdesáti tisíci lety\ngeologové určili, že došlo k obrovskému výbuchu\nsopky."
+      },
+      "asrWordRange": [
+        4959,
+        4974
+      ]
+    },
+    {
+      "start": 2189.123,
+      "end": 2193.138,
+      "kind": "speech",
+      "text": {
+        "sk": "Spätne to vieme zreprodukovať napríklad aj z\ntoho, že sa pozrieme do ľadu, ktorý sa",
+        "cs": "Zpětně to umíme zreprodukovat třeba i z toho, že\nse podíváme do ledu, který se"
+      },
+      "asrWordRange": [
+        4974,
+        4989
+      ]
+    },
+    {
+      "start": 2193.182,
+      "end": 2198.058,
+      "kind": "speech",
+      "text": {
+        "sk": "pekne vrství rok po roku a pozrieme sa, že je\ntam nahromadené veľa napríklad síry alebo\npopola.",
+        "cs": "pěkně vrství rok po roku, a podíváme se, že je\ntam nahromaděno hodně třeba síry nebo popela."
+      },
+      "asrWordRange": [
+        4989,
+        5006
+      ]
+    },
+    {
+      "start": 2199.121,
+      "end": 2207.35,
+      "kind": "speech",
+      "recoveredSpeech": "large-v3 cross-check 2197.06–2207.51",
+      "text": {
+        "sk": "No ale zároveň potom došli genetici a biológovia\na oni zistili z mitochondriálnej DNA,",
+        "cs": "Zároveň potom přišli genetici a biologové a\nzjistili z mitochondriální DNA,"
+      },
+      "asrWordRange": [
+        5006,
+        5008
+      ]
+    },
+    {
+      "start": 2209.092,
+      "end": 2214.45,
+      "kind": "speech",
+      "text": {
+        "sk": "že ľudská populácia vtedy výrazne poklesla, že\nzrazu ten",
+        "cs": "že lidská populace tehdy výrazně poklesla, že\nnajednou ten"
+      },
+      "asrWordRange": [
+        5008,
+        5017
+      ]
+    },
+    {
+      "start": 2215.598,
+      "end": 2217.508,
+      "kind": "speech",
+      "text": {
+        "sk": "genofond ľudský proste sa zmenšil.",
+        "cs": "lidský genofond se prostě zmenšil."
+      },
+      "asrWordRange": [
+        5017,
+        5022
+      ]
+    },
+    {
+      "start": 2218.783,
+      "end": 2223.619,
+      "kind": "speech",
+      "text": {
+        "sk": "Hovorí sa tomu, že bottleneck hrdlo fľaše, že\nbola veľká populácia a potom sa zrazu",
+        "cs": "Říká se tomu „bottleneck“, hrdlo lahve: byla\nvelká populace a potom se najednou"
+      },
+      "asrWordRange": [
+        5022,
+        5037
+      ]
+    },
+    {
+      "start": 2223.662,
+      "end": 2227.538,
+      "kind": "speech",
+      "text": {
+        "sk": "veľmi zúžila a potom sa znova zase začala\nnarastať, keď sa tie podmienky zlepšili.",
+        "cs": "velmi zúžila a potom začala zase znovu narůstat,\nkdyž se ty podmínky zlepšily."
+      },
+      "asrWordRange": [
+        5037,
+        5051
+      ]
+    },
+    {
+      "start": 2228.742,
+      "end": 2233.518,
+      "kind": "speech",
+      "text": {
+        "sk": "A tiež teda z tej mitochondriálnej DNA sa dá\nvydatovať, kedy sa to asi stalo, koľko",
+        "cs": "A také z té mitochondriální DNA se dá vydatovat,\nkdy se to asi stalo, kolik"
+      },
+      "asrWordRange": [
+        5051,
+        5068
+      ]
+    },
+    {
+      "start": 2233.562,
+      "end": 2239.159,
+      "kind": "speech",
+      "text": {
+        "sk": "generácií dozadu a ukázalo to zhruba na obdobie\ntejto megasopky. Takže nie je",
+        "cs": "generací dozadu, a ukázalo to zhruba na období\ntéto megasopky. Takže není"
+      },
+      "asrWordRange": [
+        5068,
+        5081
+      ]
+    },
+    {
+      "start": 2239.159,
+      "end": 2244.418,
+      "kind": "speech",
+      "text": {
+        "sk": "pomerne ťažké si spojiť jedna a jedna dokopy.\nTakže pravdepodobne megasopka",
+        "cs": "poměrně těžké si spojit jedna a jedna dohromady.\nTakže pravděpodobně megasopka"
+      },
+      "asrWordRange": [
+        5081,
+        5092
+      ]
+    },
+    {
+      "start": 2244.418,
+      "end": 2245.876,
+      "kind": "speech",
+      "text": {
+        "sk": "alebo supervulkán.",
+        "cs": "nebo supervulkán…"
+      },
+      "asrWordRange": [
+        5092,
+        5095
+      ]
+    },
+    {
+      "start": 2246.802,
+      "end": 2250.838,
+      "kind": "speech",
+      "text": {
+        "sk": "Vyvraždenie alebo vyhubenie časti ľudstva,\nveľkej časti. Áno.",
+        "cs": "Vyvraždění nebo vyhubení části lidstva, velké\nčásti. Ano."
+      },
+      "asrWordRange": [
+        5095,
+        5103
+      ]
+    },
+    {
+      "start": 2252.092,
+      "end": 2256.288,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže vlastne táto sopka formovala, ako sa\nľudstvo vyvíjalo ďalej.",
+        "cs": "Takže vlastně tato sopka formovala, jak se\nlidstvo vyvíjelo dál."
+      },
+      "asrWordRange": [
+        5103,
+        5113
+      ]
+    },
+    {
+      "start": 2257.695,
+      "end": 2258.605,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak. Čiže",
+        "cs": "Tak. Čili"
+      },
+      "asrWordRange": [
+        5113,
+        5115
+      ]
+    },
+    {
+      "start": 2259.813,
+      "end": 2262.667,
+      "kind": "speech",
+      "text": {
+        "sk": "pozostatky tejto sopky si vlastne nesieme v sebe\naj my.",
+        "cs": "pozůstatky této sopky si vlastně neseme v sobě i\nmy,"
+      },
+      "asrWordRange": [
+        5115,
+        5125
+      ]
+    },
+    {
+      "start": 2263.574,
+      "end": 2266.028,
+      "kind": "speech",
+      "text": {
+        "sk": "Tým, ako je to zakotvené v našej DNA.",
+        "cs": "tím, jak je to zakotvené v naší DNA."
+      },
+      "asrWordRange": [
+        5125,
+        5133
+      ]
+    },
+    {
+      "start": 2266.813,
+      "end": 2269.988,
+      "kind": "speech",
+      "text": {
+        "sk": "Ináč by ľudia vyzerali, keby k tejto udalosti\nnikdy nedošlo.",
+        "cs": "Jinak by lidé vypadali, kdyby k této události\nnikdy nedošlo."
+      },
+      "asrWordRange": [
+        5133,
+        5143
+      ]
+    },
+    {
+      "start": 2271.523,
+      "end": 2275.398,
+      "kind": "speech",
+      "text": {
+        "sk": "A úplne možno tak na záver sa môžeme opýtať, že\nči k takejto udalosti čoskoro nedôjde.",
+        "cs": "A úplně možná na závěr se můžeme zeptat, jestli\nk takové události brzy nedojde."
+      },
+      "asrWordRange": [
+        5143,
+        5160
+      ]
+    },
+    {
+      "start": 2275.398,
+      "end": 2281.178,
+      "kind": "speech",
+      "text": {
+        "sk": "To bola moja otázka. Lebo som sa vystrašil, že\nby sa znova niečo takéto mohlo stať.",
+        "cs": "To byla moje otázka. Protože jsem se vyděsil, že\nby se znovu něco takového mohlo stát."
+      },
+      "asrWordRange": [
+        5160,
+        5176
+      ]
+    },
+    {
+      "start": 2282.672,
+      "end": 2287.368,
+      "kind": "speech",
+      "text": {
+        "sk": "No, toto výrazne sledujú seizmológovia a\nvulkanológovia v",
+        "cs": "No, toto výrazně sledují seismologové a\nvulkanologové v"
+      },
+      "asrWordRange": [
+        5176,
+        5184
+      ]
+    },
+    {
+      "start": 2287.368,
+      "end": 2288.645,
+      "kind": "speech",
+      "text": {
+        "sk": "Yellowstonskom parku.",
+        "cs": "Yellowstonském parku."
+      },
+      "asrWordRange": [
+        5184,
+        5186
+      ]
+    },
+    {
+      "start": 2290.273,
+      "end": 2295.509,
+      "kind": "speech",
+      "text": {
+        "sk": "Lebo tam sme to spomínali úplne v úvode, že tam\nbol supervulkán, potom sa tá",
+        "cs": "Protože tam jsme to zmiňovali úplně v úvodu, že\ntam byl supervulkán, potom se ta"
+      },
+      "asrWordRange": [
+        5186,
+        5201
+      ]
+    },
+    {
+      "start": 2295.512,
+      "end": 2298.785,
+      "kind": "speech",
+      "text": {
+        "sk": "vrstva posunula, vznikol tam ďalší supervulkán,\nvznikol tam ďalší a",
+        "cs": "vrstva posunula, vznikl tam další supervulkán,\nvznikl tam další a"
+      },
+      "asrWordRange": [
+        5201,
+        5211
+      ]
+    },
+    {
+      "start": 2300.852,
+      "end": 2305.628,
+      "kind": "speech",
+      "text": {
+        "sk": "známkou blížiacej sa sopky je, že stúpa\nseizmická aktivita v oblasti.",
+        "cs": "známkou blížící se sopky je, že v oblasti stoupá\nseismická aktivita."
+      },
+      "asrWordRange": [
+        5211,
+        5221
+      ]
+    },
+    {
+      "start": 2306.863,
+      "end": 2311.538,
+      "kind": "speech",
+      "text": {
+        "sk": "A v tom Yellowstonskom parku sa to začalo\nstupňovať, stupňovalo sa to, hej,",
+        "cs": "A v tom Yellowstonském parku se to začalo\nstupňovat, stupňovalo se to,"
+      },
+      "asrWordRange": [
+        5221,
+        5236
+      ]
+    },
+    {
+      "start": 2312.387,
+      "end": 2313.275,
+      "kind": "speech",
+      "text": {
+        "sk": "ale potom to utichlo.",
+        "cs": "ale potom to utichlo."
+      },
+      "asrWordRange": [
+        5236,
+        5240
+      ]
+    },
+    {
+      "start": 2314.302,
+      "end": 2317.658,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže momentálne hovoria vedci, ktorí tomu\nrozumejú najlepšie,",
+        "cs": "Takže momentálně říkají vědci, kteří tomu\nrozumějí nejlépe,"
+      },
+      "asrWordRange": [
+        5240,
+        5248
+      ]
+    },
+    {
+      "start": 2318.611,
+      "end": 2324.719,
+      "kind": "speech",
+      "text": {
+        "sk": "že v Yellowstone by sme sa najbližších 10 tisíc\nrokov nemali čoho obávať. Tak dúfam, že majú\npravdu.",
+        "cs": "že v Yellowstonu bychom se nejbližších deset\ntisíc let neměli čeho obávat. Tak doufám, že\nmají pravdu."
+      },
+      "asrWordRange": [
+        5248,
+        5266
+      ]
+    },
+    {
+      "start": 2325.772,
+      "end": 2331.229,
+      "kind": "speech",
+      "text": {
+        "sk": "Všetci dúfame, že majú pravdu. Myslím si, že\náno, všetci dúfame. Dobre, Samuel, ja ti",
+        "cs": "Všichni doufáme, že mají pravdu. Myslím si, že\nano, všichni doufáme. Dobře, Samueli, já ti"
+      },
+      "asrWordRange": [
+        5266,
+        5281
+      ]
+    },
+    {
+      "start": 2331.229,
+      "end": 2332.045,
+      "kind": "speech",
+      "text": {
+        "sk": "veľmi pekne ďakujem.",
+        "cs": "moc děkuju."
+      },
+      "asrWordRange": [
+        5281,
+        5284
+      ]
+    },
+    {
+      "start": 2333.462,
+      "end": 2338.898,
+      "kind": "speech",
+      "text": {
+        "sk": "Bolo to zase príjemné sa s tebou rozprávať na\ntúto tému. Ja vám, naši poslucháči, tiež",
+        "cs": "Bylo to zase příjemné si s tebou povídat na toto\ntéma. Já vám, naši posluchači, taky"
+      },
+      "asrWordRange": [
+        5284,
+        5300
+      ]
+    },
+    {
+      "start": 2338.898,
+      "end": 2340.657,
+      "kind": "speech",
+      "text": {
+        "sk": "veľmi pekne ďakujem za počúvanie.",
+        "cs": "moc děkuju za poslouchání."
+      },
+      "asrWordRange": [
+        5300,
+        5305
+      ]
+    },
+    {
+      "start": 2341.663,
+      "end": 2345.358,
+      "kind": "speech",
+      "text": {
+        "sk": "Počujeme sa pri ďalšom Vedátorskom podcaste,\nktorý vychádza",
+        "cs": "Uslyšíme se u dalšího Vedátorského podcastu,\nkterý vychází"
+      },
+      "asrWordRange": [
+        5305,
+        5313
+      ]
+    },
+    {
+      "start": 2346.508,
+      "end": 2347.235,
+      "kind": "speech",
+      "text": {
+        "sk": "každý týždeň.",
+        "cs": "každý týden."
+      },
+      "asrWordRange": [
+        5313,
+        5315
+      ]
+    },
+    {
+      "start": 2349.393,
+      "end": 2352.97,
+      "kind": "speech",
+      "text": {
+        "sk": "Lajkujte nás, zdieľajte nás na Apple Podcasts,\nSpotify,",
+        "cs": "Lajkujte nás, sdílejte nás na Apple Podcasts,\nSpotify,"
+      },
+      "asrWordRange": [
+        5315,
+        5323
+      ]
+    },
+    {
+      "start": 2353.011,
+      "end": 2358.288,
+      "kind": "speech",
+      "text": {
+        "sk": "na Podbeane, dokonca dávame aj na YouTube, takže\nviete si nás nájsť na všetkých",
+        "cs": "na Podbeanu, dokonce dáváme i na YouTube, takže\nsi nás můžete najít na všech"
+      },
+      "asrWordRange": [
+        5323,
+        5337
+      ]
+    },
+    {
+      "start": 2358.552,
+      "end": 2363.488,
+      "kind": "speech",
+      "text": {
+        "sk": "stránkach, ktoré toto podporujú, a Google\nPodcasts budú čoskoro. Ďakujeme.",
+        "cs": "stránkách, které toto podporují, a Google\nPodcasts budou brzy. Děkujeme."
+      },
+      "asrWordRange": [
+        5337,
+        5347
+      ]
+    },
+    {
+      "start": 2363.877,
+      "end": 2364.605,
+      "kind": "speech",
+      "text": {
+        "sk": "Ahojte, majte sa.",
+        "cs": "Ahojte, mějte se."
+      },
+      "asrWordRange": [
+        5347,
+        5350
+      ]
+    },
+    {
+      "start": 2368,
+      "end": 2368.424,
+      "kind": "speech",
+      "text": {
+        "sk": "Dobre, no.",
+        "cs": "Dobře, no."
+      },
+      "asrWordRange": [
+        5350,
+        5352
+      ]
+    }
+  ]
+}

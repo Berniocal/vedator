@@ -104,7 +104,9 @@ try{
     check(reader.inline===reader.reader,'Inline and fullscreen must agree',{n,reader});
     check(reader.videoParent==='player-caption-reader-overlay-v2','Wake video must enter fullscreen subtree',{n,reader});
     await page.evaluate(()=>window.__captionTest.exitReader());await wait(100);
-    const target=Math.floor(c.cues.at(-1).start*.75);
+    const desired=Math.floor(c.cues.at(-1).start*.75);
+    const speechSample=c.cues.find(q=>q.start>=desired&&q.end-q.start>=4);
+    const target=speechSample?speechSample.start+.15:desired;
     await page.evaluate(({n,target})=>window.__captionTest.open(n,target,true),{n,target});
     await page.waitForFunction(()=>window.__captionTest.clock().ready&&window.__captionTest.clock().time>10,{timeout:30000});
     const mse=await page.evaluate(()=>({clock:window.__captionTest.clock(),approximate:window.__captionTest.part()?.approximate,partStart:window.__captionTest.part()?.start}));
@@ -117,7 +119,7 @@ try{
       return {clock:window.__captionTest.clock().time,text:document.getElementById('player-caption-text-v2').textContent};
     });
     const expectedRunning=c.cues.find(q=>q.start<=running.clock&&running.clock<q.end)?.text.cs||'';
-    check(running.text===expectedRunning,'Running MSE captions follow media position at changed speed',{n,running,expectedRunning});
+    check(Boolean(expectedRunning.trim())&&running.text===expectedRunning,'Running MSE captions follow speech at changed speed',{n,running,expectedRunning});
     await wait(350);
     check(Math.abs(await page.evaluate(()=>window.__captionTest.clock().time)-running.clock)<.08,'Paused caption clock must not drift',{n,running});
     results.push({n,times,target,mse,running});
