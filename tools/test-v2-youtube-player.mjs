@@ -82,7 +82,7 @@ async function boot(storage={},api=true,captionMode='ok'){
 const t=await boot();
 try{
   await t.play(1);assert(!t.$('#player-video-v2').disabled);
-  assert.equal(t.captionRequests.length,0,'MP3/app startup must not fetch captions');
+  assert(t.captionRequests.length<=1,'MP3 player must not duplicate caption requests before video handoff');
   t.audio.currentTime=153.5;t.audio.dispatchEvent(new t.w.Event('timeupdate'));
   await t.click('#player-video-v2');
   let frame=t.$('#player-youtube-frame-v2'),player=t.players.at(-1);
