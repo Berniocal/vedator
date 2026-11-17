@@ -1,4 +1,4 @@
-name: Validate episode 8 captions before release
+name: Validate episode 9 captions before release
 on:
   push:
     branches: [captions/episode-9-precise-20261117]
@@ -43,7 +43,7 @@ jobs:
           test -s captions/episode-9.review.json
           test -s captions/source/episode-9-draft.sk.json
           test -s captions/source/episode-9-alignment.json
-      - name: Download and authenticate original episode 8 MP3
+      - name: Download and authenticate original episode 9 MP3
         run: |
           mkdir -p "$RUNNER_TEMP/caption-ep9-audio"
           python - <<'PY'
