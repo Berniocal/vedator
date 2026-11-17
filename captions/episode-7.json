@@ -18,7 +18,9 @@
     "alignmentModel": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
     "transcriptFile": "captions/source/episode-7-draft.sk.json",
     "alignmentFile": "captions/source/episode-7-alignment.json",
-    "review": "Complete Slovak editorial review and Czech translation; acoustic character alignment and review of flagged passages. Not a full independent human listening verification."
+    "review": "Complete Slovak editorial review and Czech translation; acoustic character alignment and review of flagged passages. Not a full independent human listening verification.",
+    "independentPassageAuditFile": "captions/source/episode-7-alignment-checks.sk.json",
+    "verificationLimits": "CTC forced alignment and independent large-v3 checks performed; complete direct human audio listening and direct YouTube-versus-MP3 acoustic comparison not performed."
   },
   "cues": [
     {
