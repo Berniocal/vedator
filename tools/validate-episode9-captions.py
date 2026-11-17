@@ -130,7 +130,7 @@ def main():
         check(word_range == expected and detail is not None,
               f"Cue {i}: CTC under 0.35 without explicit independent-audio exception")
         if detail:
-            check(detail["cueTextSk"] == cues[i-1]["text"]["sk"].replace("\\n", " "),
+            check(detail["cueTextSk"] == cues[i-1]["text"]["sk"].replace("\n", " "),
                   f"Cue {i}: review text mismatch")
             check(detail.get("humanListeningVerified") is False,
                   f"Cue {i}: source review must not falsely claim human listening")
