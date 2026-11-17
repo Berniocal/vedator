@@ -76,7 +76,7 @@ async function main(){
  assert(boot(storage).card(pending));
  // Distinct topics that share a candidate id retain independent personal state.
  const siblings=data.findings.filter(r=>r.candidate===391);assert.equal(siblings.length,2);
- const duplicateApp=boot(new Map());duplicateApp.selectSection(siblings[0].section);duplicateApp.remove(siblings[0]);assert(duplicateApp.card(siblings[1]));assert(!duplicateApp.card(siblings[0]));
+ const duplicateApp=boot(new Map());duplicateApp.selectSection(siblings[0].section);duplicateApp.remove(siblings[0]);duplicateApp.selectSection(siblings[1].section);assert(duplicateApp.card(siblings[1]));duplicateApp.selectSection(siblings[0].section);assert(!duplicateApp.card(siblings[0]));
  // A second tab's change must survive a write and its storage event must redraw.
  const external=JSON.parse(storage.get(KEY));external.items[key(pending)].fulfilled=false;storage.set(KEY,JSON.stringify(external));
  app.events.storage({key:KEY});assert(!app.nodes(app.card(pending)).find(e=>e.type==='checkbox').checked);
