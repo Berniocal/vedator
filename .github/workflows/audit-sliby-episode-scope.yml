@@ -15,9 +15,11 @@ jobs:
           node <<'JS'
           const fs=require('node:fs');
           const html=fs.readFileSync('sliby/index.html','utf8');
-          const match=html.match(/<script type="application\\/json" id="audit-data">([\\s\\S]*?)<\\/script>/);
-          if(!match)throw Error('audit-data missing');
-          const data=JSON.parse(match[1]);
+          const tag='<script type="application/json" id="audit-data">';
+          const start=html.indexOf(tag);
+          if(start<0)throw Error('audit-data missing');
+          const stop=html.indexOf('</script>',start);
+          const data=JSON.parse(html.slice(start+tag.length,stop));
           const ep=data.findings.filter(r=>r.section==='episodes');
           console.log('AUDIT_COUNT '+ep.length+' TOTAL '+data.findings.length);
           for(const r of ep){
