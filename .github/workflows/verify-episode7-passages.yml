@@ -1,7 +1,7 @@
 name: Cross-check uncertain episode 7 speech
 on:
   push:
-    branches: [captions/episode-7-precise-20261117]
+    branches: [captions/episode-7-precise-20261117, captions/episode-7-finish-20261117]
     paths:
       - tools/verify-episode7-passages.py
       - .github/workflows/verify-episode7-passages.yml
@@ -26,7 +26,7 @@ jobs:
       - name: Wait for complete source transcription
         run: |
           for attempt in $(seq 1 320); do
-            git pull --ff-only origin captions/episode-7-precise-20261117
+            git pull --ff-only origin "${GITHUB_REF_NAME}"
             if test -f captions/source/episode-7-draft.sk.json; then exit 0; fi
             sleep 15
           done
@@ -36,12 +36,13 @@ jobs:
           path: /tmp/vedator-ep7-audio
           key: vedator-original-episode-7-audio-v1
       - name: Check speech gaps and uncertain proper names against original audio
-        run: python tools/verify-episode7-passages.py
+        run: python tools/verify-episode7-passages.py --final-review
       - name: Save recognizer evidence
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add captions/source/episode-7-extra-checks.sk.json
-          git commit -m "Cross-check episode 7 speech gaps and uncertain passages with full large-v3"
-          git pull --rebase origin captions/episode-7-precise-20261117
-          git push origin HEAD:captions/episode-7-precise-20261117
+          git add captions/source/episode-7-final-checks.sk.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Cross-check final episode 7 disputed speech with full large-v3"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
