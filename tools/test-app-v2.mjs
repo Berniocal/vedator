@@ -17,6 +17,13 @@ window.localStorage.setItem('vedator-user-playlists-v1',JSON.stringify(legacyPla
 const progressBefore=window.localStorage.getItem('vedatorPlaybackProgressV1');
 const playlistsBefore=window.localStorage.getItem('vedator-user-playlists-v1');
 
+// The app supports an XMLHttpRequest fallback; never let this test contact example.test.
+window.XMLHttpRequest=class {
+  open(){}
+  send(){queueMicrotask(()=>{this.status=200;this.responseText=JSON.stringify(data);this.onload?.()})}
+  setRequestHeader(){}
+  abort(){}
+};
 window.fetch=async()=>({ok:true,status:200,json:async()=>data});
 window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};
