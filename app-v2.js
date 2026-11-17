@@ -1088,11 +1088,14 @@
       pending.catch(()=>{if(youtubeCaptionFiles.get(session.captionFile)===pending)youtubeCaptionFiles.delete(session.captionFile)});
     }
     pending.then(data=>{
-      if(activeCaptionSession()!==session)return;
-      session.captions=validateYoutubeCaptions(data,session);syncYoutubeCaptions();
+      // A source switch can temporarily hide this session while the cached
+      // caption promise settles. Retain the result for a later return to MP3.
+      session.captions=validateYoutubeCaptions(data,session);
+      if(activeCaptionSession()===session)syncYoutubeCaptions();
     }).catch(()=>{
-      if(activeCaptionSession()!==session)return;
-      youtubeCaptionFiles.delete(session.captionFile);session.captionError=true;syncYoutubeCaptions();
+      if(youtubeCaptionFiles.get(session.captionFile)===pending)youtubeCaptionFiles.delete(session.captionFile);
+      session.captionError=true;
+      if(activeCaptionSession()===session)syncYoutubeCaptions();
     });
   }
   let captionReaderActive=false,captionReaderTimer=null,captionReaderWasFullscreen=false;
