@@ -1,4 +1,4 @@
-name: Recheck episode 8 disputed speech against original audio
+name: Recheck episode 9 disputed speech against original audio
 on:
   push:
     branches: [captions/episode-9-precise-20261117]
@@ -44,6 +44,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add captions/source/episode-9-followup-checks.sk.json
           git diff --cached --quiet && exit 0
-          git commit -m "Independently recheck 14 disputed episode 8 passage windows"
+          git commit -m "Independently recheck 7 disputed episode 9 passage windows"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
