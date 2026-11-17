@@ -27,7 +27,8 @@ const server=http.createServer((req,res)=>{
     const entries=Object.fromEntries(numbers.map(n=>[base+'/episode-'+n+'.mp3',data.entries[source.episodes.find(e=>e.number===n).enclosure]]).filter(([,entry])=>entry));
     res.setHeader('Content-Type','application/json');res.end(JSON.stringify({version:1,entries}));return;
   }
-  const match=name.match(/^\/episode-(\d+)\.mp3$/);
+  const match=name.match(/^\/(?:audio\/)?episode-(\d+)\.mp3$/);
+  if(name==='/episode-5.mp3'){res.writeHead(503);res.end('Simulated unavailable original episode 5 CDN');return}
   if(match&&numbers.includes(Number(match[1]))){
     const bytes=audio[match[1]],range=req.headers.range?.match(/^bytes=(\d+)-(\d*)$/);
     let start=range?Number(range[1]):0,end=range&&range[2]?Math.min(bytes.length-1,Number(range[2])):bytes.length-1;
@@ -132,6 +133,21 @@ try{
     check(await page.$eval('#player-video-caption-v2',e=>e.textContent)===captions[n].cues[5].text.sk,'YouTube Slovak cue timing',{n});
     await page.select('#player-caption-language-v2','cs');
   }
+  // Episode 5 must work while its upstream URL is unavailable.
+  await page.evaluate(()=>window.__captionTest.open(5,400));
+  await page.waitForFunction(()=>document.getElementById('audio-v2').readyState>=2&&!document.getElementById('audio-v2').paused&&document.getElementById('audio-v2').currentTime>=400,{timeout:15000});
+  check((await page.$eval('#audio-v2',a=>a.currentSrc)).includes('/audio/episode-5.mp3'),'Episode 5 uses verified same-origin MP3');
+  await page.click('#player-video-v2');
+  await page.waitForFunction(()=>!!document.getElementById('player-youtube-frame-v2'));
+  await page.click('#player-video-v2');
+  await page.waitForFunction(()=>!document.getElementById('player-youtube-frame-v2')&&!document.getElementById('audio-v2').paused&&document.getElementById('audio-v2').readyState>=2,{timeout:15000});
+  check((await page.$eval('#audio-v2',a=>a.currentSrc)).includes('/audio/episode-5.mp3'),'Playing YouTube hands back to independent MP3');
+  await page.click('#player-video-v2');await page.click('#player-play-v2');
+  await page.click('#player-video-v2');
+  await page.waitForFunction(()=>!document.getElementById('player-youtube-frame-v2')&&document.getElementById('audio-v2').readyState>=2,{timeout:15000});
+  check(await page.$eval('#audio-v2',a=>a.paused),'Paused video handoff stays paused');
+  await page.click('#player-play-v2');
+  await page.waitForFunction(()=>!document.getElementById('audio-v2').paused&&document.getElementById('audio-v2').currentTime>400,{timeout:15000});
   // Keep-alive playback must be decodable and advance, both inline and fullscreen.
   const wake=await page.evaluate(()=>{const v=document.querySelector('.vedator-caption-wake-video');return {exists:!!v,time:v?.currentTime,error:v?.error?.code,paused:v?.paused,requests:window.__wakeRequests,locks:window.__wakeLocks.filter(x=>!x.released).length}});
   await wait(3200);

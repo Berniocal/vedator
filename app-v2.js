@@ -1743,7 +1743,7 @@
       try{const cache=await caches.open(OFFLINE_CACHE);await cache.delete(record.cacheUrl);const blobUrl=state.blobUrls.get(key);if(blobUrl)URL.revokeObjectURL(blobUrl);state.blobUrls.delete(key);delete state.offlineIndex[key];writeJson(OFFLINE_INDEX_KEY,state.offlineIndex);n.help.textContent=text('Offline kopie byla smazána.','Offline kópia bola zmazaná.')}catch{n.help.textContent=text('Offline kopii se nepodařilo smazat.','Offline kópiu sa nepodarilo zmazať.')}syncPlayer();return;
     }
     if(!('caches'in window)){n.help.textContent=text('Offline ukládání tento prohlížeč nepodporuje.','Offline ukladanie tento prehliadač nepodporuje.');return}
-    const url=current.episode.enclosure;if(!url)return;n.offline.disabled=true;n.offline.dataset.busy='1';n.offline.textContent=text('Offline 0 %','Offline 0 %');n.help.textContent=text('Ukládám epizodu offline…','Ukladám epizódu offline…');
+    const url=episodeAudioSource(current.episode);if(!url)return;n.offline.disabled=true;n.offline.dataset.busy='1';n.offline.textContent=text('Offline 0 %','Offline 0 %');n.help.textContent=text('Ukládám epizodu offline…','Ukladám epizódu offline…');
     try{
       try{await navigator.storage?.persist?.()}catch{}
       const response=await fetch(url,{mode:'cors',cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);
