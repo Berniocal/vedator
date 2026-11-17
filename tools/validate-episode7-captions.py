@@ -93,7 +93,14 @@ def main():
               f"Cue {i}: ASR word-range gap or invalid range")
         check(edited["cues"][i - 1]["asrWordRange"] == cue["asrWordRange"],
               f"Cue {i}: edited/final word-range mismatch")
+        check(audit.get("alignmentText") == edited["cues"][i - 1].get("alignmentText", edited["cues"][i - 1]["text"]["sk"]),
+              f"Cue {i}: alignment does not describe the reviewed Slovak text")
+        check(bool(audit.get("characters")), f"Cue {i}: missing character alignment evidence")
+        check(not re.search(r"\d", audit.get("alignmentText", "")),
+              f"Cue {i}: printed numerals were silently omitted from acoustic alignment")
         for language in ("cs", "sk"):
+            check(cue["text"][language].replace("\n", " ") == edited["cues"][i - 1]["text"][language],
+                  f"Cue {i}: final {language} text differs from reviewed text")
             lines = cue["text"][language].split("\n")
             if len(lines) > 2:
                 three_lines.append((i, language, len(lines)))
