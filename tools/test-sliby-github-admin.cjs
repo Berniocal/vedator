@@ -129,16 +129,20 @@ const keys=new Set(assignments.map(item=>JSON.stringify([item.candidate,item.tit
 assert.equal(keys.size,assignments.length,'One classification per unique promise identity');
 const validGroups=new Set(topicApi.topics.map(topic=>topic.id));
 const nonPromisesInTopicBatch=[];
+const scopedCorrection=JSON.parse(fs.readFileSync('sliby/episode-scope-review.json','utf8'));
+const movedScopeKeys=new Set(scopedCorrection.entries.map(r=>JSON.stringify([r.candidate,r.tema])));
+const wasMovedOut=r=>movedScopeKeys.has(JSON.stringify([r.candidate,r.tema]));
 for(const item of assignments){
   if(topicApi.reviewed.includes(item))assert(existingReview.groups.some(group=>group.title===item.title&&getRootCandidate(group.members[0])===item.candidate),'Duplicate-review assignment must be documented: '+item.title);
   const matches=actual.findings.filter(row=>Number(row.candidate)===item.candidate&&(row.displayTema||row.compactTitle||row.tema)===item.title);
   assert.equal(matches.length,1,'Curated assignment must exist exactly once in the live report: '+item.title);
-  assert.equal(matches[0].section,'episodes','Only real promises on episodes may be tagged: '+item.title);
+  assert.equal(matches[0].section,wasMovedOut(matches[0])?'other':'episodes','Corrected promise scope: '+item.title);
   if(matches[0].kategorie!=='Sliby')nonPromisesInTopicBatch.push({candidate:item.candidate,title:item.title,actual:matches[0].kategorie});
   const record={candidate:item.candidate,displayTema:item.title,section:'episodes',kategorie:'Sliby'};
   const broad=Array.from(topicApi.groupIds(item.ids));
   assert(broad.length>0&&broad.every(id=>validGroups.has(id)),'Every assignment must map to a known broad topic: '+item.title);
-  assert.deepEqual(Array.from(topicApi.topicsFor(record)),broad,'Broad topic must preserve fine-grained review evidence');
+  assert.deepEqual(Array.from(topicApi.topicsFor(record)),broad,'Historic title taxonomy keeps fine-grained review evidence');
+  assert.deepEqual(Array.from(topicApi.topicsFor(matches[0])),wasMovedOut(matches[0])?[]:broad,'Only current episode records may display topic buttons');
   assert.equal(topicApi.topicsFor({...record,section:'other'}).length,0,'Never categorize non-episode promises');
   assert.equal(topicApi.topicsFor({...record,kategorie:'Návrhy / nápady'}).length,0,'Do not classify ideas as promised episodes');
   assert.equal(topicApi.topicsFor({...record,candidate:item.candidate+200000}).length,0,'An identical title with a different identity must not match');
@@ -157,11 +161,11 @@ for(const item of allIdeaAssignments){
   ideaKeys.add(key);
   const found=actual.findings.filter(row=>Number(row.candidate)===item.candidate&&(row.displayTema||row.compactTitle||row.tema)===item.title);
   assert.equal(found.length,1,'Reviewed idea must exist exactly once in the published catalog: '+item.title);
-  assert.equal(found[0].section,'episodes','Never assign non-episode ideas: '+item.title);
+  assert.equal(found[0].section,wasMovedOut(found[0])?'other':'episodes','Corrected scope for idea: '+item.title);
   assert.equal(found[0].kategorie,'Návrhy / nápady','Never silently convert an idea to a promise: '+item.title);
   const actualGroups=Array.from(topicApi.topicsFor(found[0]));
   const expectedGroups=Array.from(topicApi.groupIds(item.ids));
-  assert.deepEqual(actualGroups,expectedGroups,'Reviewed idea must match its selected topics: '+item.title);
+  assert.deepEqual(actualGroups,wasMovedOut(found[0])?[]:expectedGroups,'Only actual episode ideas may retain visible topic labels: '+item.title);
   assert(expectedGroups.length>=1&&expectedGroups.every(id=>validGroups.has(id)),'Unknown broad topic: '+item.title);
   assert.equal(topicApi.topicsFor({...found[0],kategorie:'Sliby'}).length,0,'Idea must never leak into the promises category');
   assert.equal(topicApi.topicsFor({...found[0],section:'other'}).length,0,'Idea must never leak to non-episode section');
@@ -184,7 +188,7 @@ const returnedToUnclassified=[
 for(const [candidate,title] of returnedToUnclassified){
   const original=actual.findings.find(row=>row.candidate===candidate&&(row.displayTema||row.compactTitle||row.tema)===title);
   assert(original,'Original record must remain in catalog: '+title);
-  assert.equal(original.section,'episodes','The original section must remain unchanged');
+  assert.equal(original.section,wasMovedOut(original)?'other':'episodes','Editorial scope changes must preserve record identity: '+title);
   assert.equal(original.kategorie,'Návrhy / nápady','Return to unclassified must not delete or relabel original idea');
   assert.equal(topicApi.topicsFor(original).length,0,'Do not topic-filter a joke, garbled hint or hypothetical idea: '+title);
 }
@@ -193,8 +197,10 @@ console.log('PASS: '+allIdeaAssignments.length+' real episode ideas categorized 
 assert.deepEqual(nonPromisesInTopicBatch,[],'Topic batch must omit these reviewed ideas until the next phase: '+JSON.stringify(nonPromisesInTopicBatch));
 console.log('PASS: '+assignments.length+' documented episode-promise assignments across '+topicApi.topics.length+' broad groups, no ideas or other-section promises.');
 const episodeIdeas=actual.findings.filter(row=>row.section==='episodes'&&row.kategorie==='Návrhy / nápady');
-assert.equal(episodeIdeas.length,203,'A new audit may change the source catalog; update classification deliberately if the count changes');
-assert.equal(episodeIdeas.length-allIdeaAssignments.length,32,'32 ambiguous, joking or non-episode items remain accessible as Nezařazené');
+const movedIdeas=scopedCorrection.entries.filter(entry=>actual.findings.some(row=>row.candidate===entry.candidate&&row.tema===entry.tema&&row.kategorie==='Návrhy / nápady')).length;
+assert.equal(episodeIdeas.length,203-movedIdeas,'Editorial episode scope must not change idea status');
+const visibleAssignedIdeas=allIdeaAssignments.filter(item=>actual.findings.some(row=>row.candidate===item.candidate&&(row.displayTema||row.compactTitle||row.tema)===item.title&&row.section==='episodes')).length;
+assert.equal(episodeIdeas.length-visibleAssignedIdeas,32-(movedIdeas-(allIdeaAssignments.length-visibleAssignedIdeas)),'Remaining genuinely unclassified episode ideas preserved');
 
 assert(appHtml.includes('html body .summary,html body .summary+.personal-help{display:none!important}'),'Old big status summary must be hidden');
 assert(appHtml.includes("['fulfilled','Splněné'],['unfulfilled','Nesplněné'],['future','Budoucí sliby']"),'Only three combined status group choices are offered');
