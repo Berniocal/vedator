@@ -10,6 +10,7 @@ on:
       - 'tools/test-sliby-player.cjs'
       - 'tools/test-sliby-personal-state.cjs'
       - 'tools/consolidate-sliby.cjs'
+      - 'tools/test-sliby-content-scope.cjs'
       - 'tools/test-sliby-duplicate-batch.cjs'
       - 'tools/test-sliby-duplicate-third-batch.cjs'
       - 'tools/patch-sliby-admin-runtime.cjs'
@@ -27,6 +28,7 @@ on:
       - 'tools/test-sliby-player.cjs'
       - 'tools/test-sliby-personal-state.cjs'
       - 'tools/consolidate-sliby.cjs'
+      - 'tools/test-sliby-content-scope.cjs'
       - 'tools/test-sliby-duplicate-batch.cjs'
       - 'tools/test-sliby-duplicate-third-batch.cjs'
       - 'tools/patch-sliby-admin-runtime.cjs'
@@ -49,6 +51,8 @@ jobs:
           node-version: '24'
       - name: Check token admin and durable manual status overlays
         run: node tools/test-sliby-github-admin.cjs
+      - name: Check public promise scope
+        run: node tools/test-sliby-content-scope.cjs
       - name: Check report data and time links
         run: |
           node --input-type=module <<'JS'

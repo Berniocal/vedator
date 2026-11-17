@@ -4,19 +4,19 @@ const html=fs.readFileSync('sliby/index.html','utf8');
 const m=html.match(/<script type="application\/json" id="audit-data">([\s\S]*?)<\/script>/);
 assert(m,'Missing embedded Sliby data');
 const d=JSON.parse(m[1]),r=JSON.parse(fs.readFileSync('sliby/duplicate-review.json','utf8'));
-const batch=r.groups.filter(g=>g.batch===r.batchId);
-assert.equal(r.batchId,'2026-11-12-3');
+const batch=r.groups.filter(g=>g.batch==='2026-11-12-3');
+assert.equal(r.batchId,'2026-11-12-4');
 assert.equal(batch.length,1,'Only the single confirmed episode-topic duplicate may merge');
 assert.deepEqual(batch.map(g=>g.members),[[1187,1190]]);
 assert.equal(d.consolidation.originalFindings,1052);
-assert.equal(d.findings.length,917);
-assert.equal(d.sections.options.find(s=>s.id==='episodes').count,328);
-assert.equal(d.consolidation.latestBatch.groups,1);
-assert.equal(d.sections.options.find(s=>s.id==='other').count,589,'Non-episode promises must remain untouched');
+assert.equal(d.findings.length,897);
+assert.equal(d.sections.options.find(s=>s.id==='episodes').count,323);
+assert.equal(d.consolidation.latestBatch.groups,3);
+assert.equal(d.sections.options.find(s=>s.id==='other').count,574,'Only reviewed paid-content cards leave the other section');
 const key=x=>JSON.stringify([x.candidate,x.tema]);
 const originals=x=>x.mergedFrom||[x];
 assert.deepEqual(d.findings.map(key),d.archive.findings.map(key));
-assert.equal(new Set(d.findings.flatMap(x=>originals(x).map(key))).size,1052,'Historical promises lost');
+assert.equal(new Set(d.findings.flatMap(x=>originals(x).map(key))).size,1052-27,'Unexpected public promises lost');
 for(const group of batch){
   const root=d.findings.find(x=>x.candidate===group.members[0]);
   assert(root,'Missing root '+group.members[0]);
@@ -38,4 +38,4 @@ for(const e of r.exclusions){
   const bad=d.findings.find(x=>originals(x).some(y=>y.candidate===a)&&originals(x).some(y=>y.candidate===b));
   assert(!bad,'Accidental merge of distinct promises '+a+' and '+b);
 }
-console.log('PASS: one verified episode-promise duplicate, unchanged other section; all 1,052 original statements, evidence, statuses and exclusions preserved.');
+console.log('PASS: one verified episode-promise duplicate, paid content excluded; all 1,025 retained statements, evidence, statuses and exclusions preserved.');
