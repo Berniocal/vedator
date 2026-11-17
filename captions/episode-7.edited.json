@@ -7,7 +7,7 @@
     "model": "large-v3-turbo",
     "duration": 1723.115125
   },
-  "review": "Manually revised each of 374 ASR subtitle blocks in Slovak and Czech, compared against independent large-v3 samples but NOT comprehensively verified by direct audio listening. Two ASR speech gaps recovered from independent recognizer; one unclear brief reply remains explicitly marked. Do not publish without quality gates. Final editorial pass: preserve the spoken term jurisdiction in Czech and merge short adjacent fragments for readable display; sourceCues retain original ASR cue references. Printed numbers are retained in the visible text and expanded to Slovak pronunciations for acoustic alignment; alternative year pronunciations are selected by the acoustic score and retained in alignmentText.",
+  "review": "Manually revised each of 374 ASR subtitle blocks in Slovak and Czech, compared against independent large-v3 samples but NOT comprehensively verified by direct audio listening. Two ASR speech gaps recovered from independent recognizer; one unclear brief reply remains explicitly marked. Do not publish without quality gates. Final editorial pass: preserve the spoken term jurisdiction in Czech and merge short adjacent fragments for readable display; sourceCues retain original ASR cue references. Printed numbers are retained in the visible text and expanded to Slovak pronunciations for acoustic alignment; alternative year pronunciations are selected by the acoustic score and retained in alignmentText. Final acoustic pass: merge fragmented replies with adjacent spoken clauses; one rapid overlapping exchange at 981–989 s remains acoustically uncertain, explicitly flagged.",
   "checkWindows": [
     [
       980.75,
@@ -60,6 +60,14 @@
     [
       799,
       822
+    ],
+    [
+      59.8,
+      65
+    ],
+    [
+      804,
+      814
     ]
   ],
   "cues": [
@@ -208,31 +216,20 @@
     },
     {
       "start": 56.5,
-      "end": 60.6,
+      "end": 63.76,
       "text": {
-        "sk": "ale kde je tá hranica, že kedy začína toto právo mať",
-        "cs": "ale kde je ta hranice, odkdy začíná toto právo mít"
+        "sk": "ale kde je tá hranica, že kedy začína toto právo mať pôsobnosť? Áno,",
+        "cs": "ale kde je ta hranice, odkdy začíná toto právo mít působnost? Ano,"
       },
       "asrWordRange": [
         110,
-        121
-      ],
-      "sourceCue": 12,
-      "alignmentText": "ale kde je tá hranica, že kedy začína toto právo mať"
-    },
-    {
-      "start": 61.52,
-      "end": 63.76,
-      "text": {
-        "sk": "pôsobnosť? Áno,",
-        "cs": "působnost? Ano,"
-      },
-      "asrWordRange": [
-        121,
         126
       ],
-      "sourceCue": 13,
-      "alignmentText": "pôsobnosť? Áno,"
+      "sourceCues": [
+        12,
+        13
+      ],
+      "alignmentText": "ale kde je tá hranica, že kedy začína toto právo mať pôsobnosť? Áno,"
     },
     {
       "start": 64.46,
@@ -2346,31 +2343,20 @@
     },
     {
       "start": 804.55,
-      "end": 809.97,
+      "end": 811.83,
       "text": {
-        "sk": "No a tento Moon... Ono vlastne tá posledná dohoda nie je až taká, že by",
-        "cs": "No a tahle Moon... Ta poslední dohoda vlastně není taková, že by"
+        "sk": "No a tento Moon... Tá posledná dohoda vlastne nie je až taká, že by bola nezaujímavá.",
+        "cs": "No a tahle Moon... Ta poslední dohoda vlastně není taková, že by byla nezajímavá."
       },
       "asrWordRange": [
         1688,
-        1702
-      ],
-      "sourceCue": 163,
-      "alignmentText": "No a tento Moon... Ono vlastne tá posledná dohoda nie je až taká, že by"
-    },
-    {
-      "start": 809.97,
-      "end": 811.83,
-      "text": {
-        "sk": "bola nezaujímavá",
-        "cs": "byla nezajímavá"
-      },
-      "asrWordRange": [
-        1702,
         1703
       ],
-      "sourceCue": 164,
-      "alignmentText": "bola nezaujímavá"
+      "sourceCues": [
+        163,
+        164
+      ],
+      "alignmentText": "No a tento Moon... Tá posledná dohoda vlastne nie je až taká, že by bola nezaujímavá."
     },
     {
       "start": 813.82,
