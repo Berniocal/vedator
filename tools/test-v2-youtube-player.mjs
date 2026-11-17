@@ -92,7 +92,7 @@ try{
   assert.equal(frame.referrerPolicy,'strict-origin-when-cross-origin');
   assert.equal(t.captionRequests.length,1);
   assert.equal(t.$('#player-caption-text-v2').textContent,captionAt(153.5,'cs'));
-  assert(t.$('#player-video-host-v2').contains(t.$('#player-captions-v2')),'Custom text must overlay inside the video host');
+  assert(!t.$('#player-video-host-v2').contains(t.$('#player-captions-v2')),'Custom overlay stays outside the iframe host while displaying over the video area');
   const seek=t.$('#player-seek-v2');seek.value='201';seek.dispatchEvent(new t.w.Event('change'));
   player.ready();await wait();assert.equal(player.lastSeek,201,'Seek before API readiness must survive');assert(!player.paused);
   assert.equal(t.$('#player-caption-text-v2').textContent,captionAt(201,'cs'));
