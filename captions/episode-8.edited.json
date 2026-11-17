@@ -7,7 +7,7 @@
     "model": "large-v3-turbo",
     "duration": 941.6098125
   },
-  "review": "All 210 fresh Slovak ASR cues were read; 140 received language corrections, all 210 were independently Czech-translated and reviewed against Slovak; large-v3 source audio checks restore missed speech and cross-check uncertain technical names. This is editorial ASR/audio-model review, NOT an independent human listen of every spoken word. Uncertain words (notably the short interjection around 5:40 and acid-temperature phrase around 11:07) are documented for follow-up.",
+  "review": "All 210 fresh Slovak ASR cues were read; 140 received language corrections, all 210 were independently Czech-translated and reviewed against Slovak; large-v3 source audio checks restore missed speech and cross-check uncertain technical names. This is editorial ASR/audio-model review, NOT an independent human listen of every spoken word. Uncertain words (notably the short interjection around 5:40 and acid-temperature phrase around 11:07) are documented for follow-up. Additional long blocks split at existing source-audio ASR word boundaries to improve mobile two-line readability; corrected speaker utterance at 206s.",
   "checkWindows": [
     [
       25,
@@ -672,26 +672,42 @@
     },
     {
       "start": 201.64,
-      "end": 206.02,
+      "end": 204.14,
       "text": {
-        "sk": "A musím si to tiež niekedy vyskúšať, pravdu povedať, lebo vyzeralo to až moc jednoducho, keď",
-        "cs": "A musím si to někdy vyzkoušet, popravdě, protože když to dělali oni, vypadalo to až moc jednoduše."
+        "sk": "A musím si to tiež niekedy vyskúšať, pravdu povedať,",
+        "cs": "A musím si to někdy vyzkoušet, popravdě řečeno,"
       },
       "asrWordRange": [
         443,
+        451
+      ],
+      "sourceCues": [
+        43
+      ],
+      "alignmentText": "A musím si to tiež niekedy vyskúšať, pravdu povedať,"
+    },
+    {
+      "start": 204.22,
+      "end": 206.02,
+      "text": {
+        "sk": "lebo vyzeralo to až moc jednoducho, keď",
+        "cs": "protože to vypadalo až moc jednoduše, když"
+      },
+      "asrWordRange": [
+        451,
         458
       ],
       "sourceCues": [
         43
       ],
-      "alignmentText": "A musím si to tiež niekedy vyskúšať, pravdu povedať, lebo vyzeralo to až moc jednoducho, keď"
+      "alignmentText": "lebo vyzeralo to až moc jednoducho, keď"
     },
     {
       "start": 206.02,
       "end": 211.12,
       "text": {
         "sk": "to robili oni. Mňa to tiež prekvapilo. Ja som to chcel použiť na prednáške na Pohode,",
-        "cs": "Mě to taky překvapilo. Chtěl jsem to použít na přednášce na Pohodě,"
+        "cs": "to dělali oni. Mě to taky překvapilo. Chtěl jsem to použít na přednášce na Pohodě,"
       },
       "asrWordRange": [
         458,
@@ -848,20 +864,37 @@
     },
     {
       "start": 248.36,
-      "end": 253.3,
+      "end": 251.46,
       "text": {
-        "sk": "presne opísali, ako to teraz treba spraviť, tak to neskúšajte doma. Áno, áno, tak. Ani nikde inde.",
-        "cs": "teď přesně popsali, jak to máte udělat, takže to doma nezkoušejte. Ano, ano. Ani nikde jinde."
+        "sk": "presne opísali, ako to teraz treba spraviť, tak to neskúšajte doma.",
+        "cs": "teď přesně popsali, jak to máte udělat, takže to doma nezkoušejte."
       },
       "asrWordRange": [
         594,
+        604
+      ],
+      "sourceCues": [
+        54,
+        55
+      ],
+      "alignmentText": "presne opísali, ako to teraz treba spraviť, tak to neskúšajte doma."
+    },
+    {
+      "start": 251.66,
+      "end": 253.3,
+      "text": {
+        "sk": "Áno, áno, tak. Ani nikde inde.",
+        "cs": "Ano, ano. Ani nikde jinde."
+      },
+      "asrWordRange": [
+        604,
         610
       ],
       "sourceCues": [
         54,
         55
       ],
-      "alignmentText": "presne opísali, ako to teraz treba spraviť, tak to neskúšajte doma. Áno, áno, tak. Ani nikde inde."
+      "alignmentText": "Áno, áno, tak. Ani nikde inde."
     },
     {
       "start": 254.02,
@@ -960,20 +993,37 @@
     },
     {
       "start": 284.42,
-      "end": 290.08,
+      "end": 288.2,
       "text": {
-        "sk": "zasvieti. No a tuto existovali vo fyzike dve vysvetlenia. Bolo jasné, že jedno z nich je správne.",
-        "cs": "zasvítí. A tady ve fyzice existovala dvě vysvětlení. Bylo jasné, že jedno z nich je správné."
+        "sk": "zasvieti. No a tuto existovali vo fyzike dve vysvetlenia.",
+        "cs": "zasvítí. A tady ve fyzice existovala dvě vysvětlení."
       },
       "asrWordRange": [
         680,
+        689
+      ],
+      "sourceCues": [
+        61,
+        62
+      ],
+      "alignmentText": "zasvieti. No a tuto existovali vo fyzike dve vysvetlenia."
+    },
+    {
+      "start": 288.34,
+      "end": 290.08,
+      "text": {
+        "sk": "Bolo jasné, že jedno z nich je správne.",
+        "cs": "Bylo jasné, že jedno z nich je správné."
+      },
+      "asrWordRange": [
+        689,
         697
       ],
       "sourceCues": [
         61,
         62
       ],
-      "alignmentText": "zasvieti. No a tuto existovali vo fyzike dve vysvetlenia. Bolo jasné, že jedno z nich je správne."
+      "alignmentText": "Bolo jasné, že jedno z nich je správne."
     },
     {
       "start": 290.85,
@@ -1137,20 +1187,37 @@
     },
     {
       "start": 334.45,
-      "end": 339.37,
+      "end": 335.89,
       "text": {
-        "sk": "Povedz mi nesprávnu najprv. Tak nesprávna odpoveď je, že ukázalo sa, že nie sú to tie kvantové zbrane.",
-        "cs": "Nejdřív mi řekni nesprávnou. Tak nesprávná odpověď je, že se ukázalo, že to nejsou kvantové zbraně."
+        "sk": "Povedz mi nesprávnu najprv.",
+        "cs": "Nejdřív mi řekni nesprávnou."
       },
       "asrWordRange": [
         812,
+        816
+      ],
+      "sourceCues": [
+        73,
+        74
+      ],
+      "alignmentText": "Povedz mi nesprávnu najprv."
+    },
+    {
+      "start": 336.25,
+      "end": 339.37,
+      "text": {
+        "sk": "Tak nesprávna odpoveď je, že ukázalo sa, že nie sú to tie kvantové zbrane.",
+        "cs": "Tak nesprávná odpověď je, že se ukázalo, že to nejsou kvantové zbraně."
+      },
+      "asrWordRange": [
+        816,
         830
       ],
       "sourceCues": [
         73,
         74
       ],
-      "alignmentText": "Povedz mi nesprávnu najprv. Tak nesprávna odpoveď je, že ukázalo sa, že nie sú to tie kvantové zbrane."
+      "alignmentText": "Tak nesprávna odpoveď je, že ukázalo sa, že nie sú to tie kvantové zbrane."
     },
     {
       "start": 340.41,
@@ -1543,20 +1610,37 @@
     },
     {
       "start": 456.52,
-      "end": 461.82,
+      "end": 459.56,
       "text": {
-        "sk": "No a to, čo si fyzici mysleli a začali to overovať, je, že také tie malé bublinky, ktoré tie krevety vytvoria,",
-        "cs": "A fyzikové si mysleli a začali ověřovat, že takové malé bublinky, které krevety vytvářejí,"
+        "sk": "No a to, čo si fyzici mysleli a začali to overovať, je, že",
+        "cs": "A fyzikové si mysleli a začali ověřovat, že"
       },
       "asrWordRange": [
         1146,
+        1159
+      ],
+      "sourceCues": [
+        100,
+        101
+      ],
+      "alignmentText": "No a to, čo si fyzici mysleli a začali to overovať, je, že"
+    },
+    {
+      "start": 459.56,
+      "end": 461.82,
+      "text": {
+        "sk": "také tie malé bublinky, ktoré tie krevety vytvoria,",
+        "cs": "takové malé bublinky, které krevety vytvářejí,"
+      },
+      "asrWordRange": [
+        1159,
         1167
       ],
       "sourceCues": [
         100,
         101
       ],
-      "alignmentText": "No a to, čo si fyzici mysleli a začali to overovať, je, že také tie malé bublinky, ktoré tie krevety vytvoria,"
+      "alignmentText": "také tie malé bublinky, ktoré tie krevety vytvoria,"
     },
     {
       "start": 462.58,
@@ -1624,20 +1708,37 @@
     },
     {
       "start": 481.57,
-      "end": 486.25,
+      "end": 484.47,
       "text": {
-        "sk": "všelikde, ale ukázalo sa, že pri týchto bublinách to nie je ono, že nedávalo to správne vysvetlenie.",
-        "cs": "na různých místech, ale ukázalo se, že u těchto bublin to není ono, protože neposkytoval správné vysvětlení."
+        "sk": "všelikde, ale ukázalo sa, že pri týchto bublinách to nie je ono,",
+        "cs": "na různých místech, ale ukázalo se, že u těchto bublin to není ono,"
       },
       "asrWordRange": [
         1226,
+        1237
+      ],
+      "sourceCues": [
+        106,
+        107
+      ],
+      "alignmentText": "všelikde, ale ukázalo sa, že pri týchto bublinách to nie je ono,"
+    },
+    {
+      "start": 484.59,
+      "end": 486.25,
+      "text": {
+        "sk": "že nedávalo to správne vysvetlenie.",
+        "cs": "protože neposkytoval správné vysvětlení."
+      },
+      "asrWordRange": [
+        1237,
         1242
       ],
       "sourceCues": [
         106,
         107
       ],
-      "alignmentText": "všelikde, ale ukázalo sa, že pri týchto bublinách to nie je ono, že nedávalo to správne vysvetlenie."
+      "alignmentText": "že nedávalo to správne vysvetlenie."
     },
     {
       "start": 487.15,
@@ -1993,20 +2094,37 @@
     },
     {
       "start": 587.3,
-      "end": 592.94,
+      "end": 589.68,
       "text": {
-        "sk": "nemá čo z neho vyjsť, takže veľmi rýchlo sa tam vytvorí taká akoby parná atmosféra v tej bublínke.",
-        "cs": "nic z něj nevychází, takže se tam velmi rychle vytvoří taková parní atmosféra v té bublince."
+        "sk": "nemá čo z neho vyjsť, takže veľmi rýchlo sa tam vytvorí",
+        "cs": "nic z něj nevychází, takže se tam velmi rychle vytvoří"
       },
       "asrWordRange": [
         1484,
+        1495
+      ],
+      "sourceCues": [
+        130,
+        131
+      ],
+      "alignmentText": "nemá čo z neho vyjsť, takže veľmi rýchlo sa tam vytvorí"
+    },
+    {
+      "start": 590.22,
+      "end": 592.94,
+      "text": {
+        "sk": "taká akoby parná atmosféra v tej bublínke.",
+        "cs": "taková parní atmosféra v té bublince."
+      },
+      "asrWordRange": [
+        1495,
         1503
       ],
       "sourceCues": [
         130,
         131
       ],
-      "alignmentText": "nemá čo z neho vyjsť, takže veľmi rýchlo sa tam vytvorí taká akoby parná atmosféra v tej bublínke."
+      "alignmentText": "taká akoby parná atmosféra v tej bublínke."
     },
     {
       "start": 594.2,
@@ -2318,19 +2436,35 @@
     },
     {
       "start": 675.42,
-      "end": 679.16,
+      "end": 677.12,
       "text": {
-        "sk": "ako voda. Je možné, že v iných plynoch to dopadne ešte drastickejšie, lebo ide o to,",
-        "cs": "než ve vodě. Je možné, že v jiných plynech bude výsledek ještě výraznější, protože záleží na tom,"
+        "sk": "ako voda. Je možné, že v iných",
+        "cs": "než ve vodě. Je možné, že v jiných"
       },
       "asrWordRange": [
         1711,
+        1718
+      ],
+      "sourceCues": [
+        151
+      ],
+      "alignmentText": "ako voda. Je možné, že v iných"
+    },
+    {
+      "start": 677.12,
+      "end": 679.16,
+      "text": {
+        "sk": "plynoch to dopadne ešte drastickejšie, lebo ide o to,",
+        "cs": "plynech bude výsledek ještě výraznější, protože záleží na tom,"
+      },
+      "asrWordRange": [
+        1718,
         1727
       ],
       "sourceCues": [
         151
       ],
-      "alignmentText": "ako voda. Je možné, že v iných plynoch to dopadne ešte drastickejšie, lebo ide o to,"
+      "alignmentText": "plynoch to dopadne ešte drastickejšie, lebo ide o to,"
     },
     {
       "start": 679.26,
