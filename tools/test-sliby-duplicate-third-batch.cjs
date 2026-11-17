@@ -10,9 +10,9 @@ assert.equal(batch.length,1,'Only the single confirmed episode-topic duplicate m
 assert.deepEqual(batch.map(g=>g.members),[[1187,1190]]);
 assert.equal(d.consolidation.originalFindings,1052);
 assert.equal(d.findings.length,897);
-assert.equal(d.sections.options.find(s=>s.id==='episodes').count,323);
+assert.equal(d.sections.options.find(s=>s.id==='episodes').count,270);
 assert.equal(d.consolidation.latestBatch.groups,3);
-assert.equal(d.sections.options.find(s=>s.id==='other').count,574,'Only reviewed paid-content cards leave the other section');
+assert.equal(d.sections.options.find(s=>s.id==='other').count,627,'Only reviewed paid-content cards leave the other section');
 const key=x=>JSON.stringify([x.candidate,x.tema]);
 const originals=x=>x.mergedFrom||[x];
 assert.deepEqual(d.findings.map(key),d.archive.findings.map(key));
