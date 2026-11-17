@@ -44,11 +44,13 @@ jobs:
           exit 1
       - name: Create unreviewed Czech translation draft (not publishable)
         run: python tools/translate-episode9-draft.py
+      - name: Flag uncertain audio windows and incomplete Czech translation
+        run: python tools/triage-episode9-draft.py
       - name: Store draft for manual language review
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add captions/source/episode-9-translation-draft.cs.json
+          git add captions/source/episode-9-translation-draft.cs.json captions/source/episode-9-editorial-triage.json captions/source/episode-9-editorial-triage.md
           if ! git diff --cached --quiet; then
             git commit -m "Add unreviewed Czech translation draft for episode 9"
             git pull --rebase origin captions/episode-9-precise-20261117
