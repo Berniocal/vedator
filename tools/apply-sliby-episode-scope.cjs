@@ -62,21 +62,24 @@ assert.equal(sectionCount(data.findings,'episodes'),review.expectedEpisodes);
 assert.equal(sectionCount(data.findings,'other'),review.expectedOther);
 assert.equal(sectionCount(data.archive.findings,'episodes'),review.expectedEpisodes);
 assert.equal(sectionCount(data.archive.findings,'other'),review.expectedOther);
-for(const option of data.sections.options){
- option.count=sectionCount(data.findings,option.id);
-}
-data.sections.rule='Mezi Epizody patří jen výslovný slib nebo námět na nový podcastový díl (včetně plánované tematické série). Krátká zmínka či odpověď v jiném dílu, návrat v tomtéž dílu, přednáška, článek, samostatné video, jiné médium a žertovná narážka patří mezi Ostatní. Sliby a Nápady se rozlišují nezávisle podle závaznosti.';
-data.sections.review.date=review.date;
-data.sections.review.reviewedFindings=data.findings.length;
-// The previous review was a historical source classification. Preserve it and
-// separately record the present stricter 53-key editorial correction.
-data.sections.scopeCorrection={
- date:review.date,reviewFile:reviewPath,
- movedFromEpisodes:review.changed,
- previousEpisodes:review.previousEpisodes,
- finalEpisodes:review.expectedEpisodes,
- finalOther:review.expectedOther
+const rule='Mezi Epizody patří jen výslovný slib nebo námět na nový podcastový díl (včetně plánované tematické série). Krátká zmínka či odpověď v jiném dílu, návrat v tomtéž dílu, přednáška, článek, samostatné video, jiné médium a žertovná narážka patří mezi Ostatní. Sliby a Nápady se rozlišují nezávisle podle závaznosti.';
+const fixSectionMetadata=sections=>{
+ assert.deepEqual(sections.options.map(o=>o.id),['episodes','other']);
+ for(const option of sections.options)option.count=sectionCount(data.findings,option.id);
+ sections.rule=rule;
+ sections.review.date=review.date;
+ sections.review.reviewedFindings=data.findings.length;
+ sections.scopeCorrection={
+  date:review.date,reviewFile:reviewPath,
+  movedFromEpisodes:review.changed,
+  previousEpisodes:review.previousEpisodes,
+  finalEpisodes:review.expectedEpisodes,
+  finalOther:review.expectedOther
+ };
 };
+fixSectionMetadata(data.sections);
+// The reset archive includes its OWN sections metadata and is used by downloads.
+fixSectionMetadata(data.archive.sections);
 assert.equal(data.classification.categoryCounts['Sliby'],463);
 assert.equal(data.classification.categoryCounts['Návrhy / nápady'],434);
 assert.equal(Object.values(data.classification.statusCounts).reduce((a,b)=>a+b,0),data.findings.length);
