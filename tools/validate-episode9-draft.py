@@ -34,10 +34,10 @@ def verify():
             recovered+=1
         cursor=hi
         assert c["sourceCues"] and all(1<=int(n)<=520 for n in c["sourceCues"])
-        assert c["alignmentText"] and not re.search(r"\\d",c["alignmentText"]),(i,"numeric alignment")
+        assert c["alignmentText"] and not re.search(r"\d",c["alignmentText"]),(i,"numeric alignment")
         for lang in ("cs","sk"):
             text=c["text"][lang]
-            assert text.strip() and "\\n" not in text,(i,lang,"empty or wrapped")
+            assert text.strip() and "\n" not in text,(i,lang,"empty or wrapped")
             assert len(text)<=96,(i,lang,"too long",len(text))
             max_chars=max(max_chars,len(text))
     assert cursor==len(src["words"]),(cursor,len(src["words"]))
@@ -45,12 +45,12 @@ def verify():
     for lang in ("cs","sk"):
         path=ROOT/f"captions/source/episode-9.{lang}.draft.srt"
         raw=path.read_text(encoding="utf-8-sig").strip()
-        blocks=re.split(r"\\n\\s*\\n",raw)
+        blocks=re.split(r"\n\s*\n",raw)
         assert len(blocks)==len(cues),(lang,len(blocks),len(cues))
         for i,(c,block) in enumerate(zip(cues,blocks),1):
             fields=block.splitlines()
             assert fields[0]==str(i) and fields[1]==f"{stamp(c['start'])} --> {stamp(c['end'])}",(lang,i,"time")
-            assert "\\n".join(fields[2:])==c["text"][lang],(lang,i,"text")
+            assert "\n".join(fields[2:])==c["text"][lang],(lang,i,"text")
     print(json.dumps({"ok":True,"episode":9,"bilingualCues":len(cues),"asrWordsCovered":cursor,
         "independentASRPassageChecks":len(independent["passages"]),
         "recoveredSpeechCues":recovered,"maxCharactersPerCue":max_chars,
