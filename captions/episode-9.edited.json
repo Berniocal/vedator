@@ -12,7 +12,8 @@
   "review": {
     "status": "editorial-first-pass-followed-by-independent-acoustic-alignment",
     "reference": "Original MP3 large-v3-turbo, NLLB draft, 25 large-v3 independent sample windows",
-    "warning": "Not a complete independent human listening verification. Acoustic CTC scores must be examined before release."
+    "warning": "Not a complete independent human listening verification. Acoustic CTC scores must be examined before release.",
+    "recoveredSpeech": "Recovered omitted sentence around 29:00 from independent full large-v3 acoustic window; CTC alignment pending."
   },
   "checkWindows": [
     [
@@ -6706,11 +6707,29 @@
       "alignmentText": "Áno, áno, presne."
     },
     {
+      "start": 1739.35,
+      "end": 1746.25,
+      "text": {
+        "sk": "No a teda toto bol prvý dôkaz, že nič iné ako čierne diery tieto",
+        "cs": "Byl to tedy první důkaz, že nic jiného než černé díry tyto"
+      },
+      "asrWordRange": [
+        3978,
+        3978
+      ],
+      "sourceCues": [
+        408,
+        409
+      ],
+      "recoveredSpeech": "independent-large-v3-source-audio-recheck-1738-1747",
+      "alignmentText": "No a teda toto bol prvý dôkaz, že nič iné ako čierne diery tieto"
+    },
+    {
       "start": 1746.29,
       "end": 1750.39,
       "text": {
-        "sk": "Nič iné také gravitačné vlny, ktoré sme pozorovali, nedokáže vyvolať. A bolo to teda prvé také",
-        "cs": "Takové gravitační vlny, jaké jsme pozorovali, nedokáže vyvolat nic jiného. A byl to"
+        "sk": "gravitačné vlny, ktoré sme pozorovali, nedokáže vyvolať. A bolo to teda prvé také",
+        "cs": "gravitační vlny, které jsme pozorovali, nedokáže vyvolat. Bylo to první takové"
       },
       "asrWordRange": [
         3978,
@@ -6719,7 +6738,7 @@
       "sourceCues": [
         409
       ],
-      "alignmentText": "Nič iné také gravitačné vlny, ktoré sme pozorovali, nedokáže vyvolať. A bolo to teda prvé také"
+      "alignmentText": "gravitačné vlny, ktoré sme pozorovali, nedokáže vyvolať. A bolo to teda prvé také"
     },
     {
       "start": 1750.39,
