@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parent.parent
 OUT=ROOT/"captions"
 SOURCE=OUT/"source"
-AUDIO=Path(os.environ.get("VEDATOR_EP7_AUDIO","/tmp/vedator-ep6-audio"))/"episode-7.mp3"
+AUDIO=Path(os.environ.get("VEDATOR_EP7_AUDIO","/tmp/vedator-ep7-audio"))/"episode-7.mp3"
 DRAFT=SOURCE/"episode-7-draft.sk.json"
 EDITED=OUT/"episode-7.edited.json"
 MODEL="large-v3-turbo"
@@ -100,7 +100,7 @@ def align():
         chars="".join(ch if ch in vocab else " " for ch in text.replace(" ",processor.tokenizer.word_delimiter_token))
         chars=re.sub(r"\s+","",chars)
         tokens=[vocab[ch] for ch in chars if ch in vocab and vocab[ch]!=blank]
-        assert len(tokens)>2,(i,text)
+        assert len(tokens)>0,(i,text)  # A valid short spoken cue may contain only one or two phonemes
         inputs=processor(wave[int(start*16000):int(end*16000)],sampling_rate=16000,return_tensors="pt",padding=True)
         with torch.inference_mode(): logits=model(**inputs).logits.log_softmax(-1)
         paths,scores=torchaudio.functional.forced_align(logits,torch.tensor([tokens],dtype=torch.int32),blank=blank)
