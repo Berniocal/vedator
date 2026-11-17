@@ -1,7 +1,7 @@
 name: Verify caption MP3 clock and screen wake
 on:
   push:
-    branches: [main, fix/captions-mp3-clock-20261116, captions/episode-5-precise-20261116]
+    branches: [main, fix/captions-mp3-clock-20261116, captions/episode-5-precise-20261116, fix/episode-5-mp3-source-20261117, captions/episode-6-precise-20261117]
     paths:
       - app-v2.js
       - episode-videos.json
@@ -36,6 +36,7 @@ jobs:
           for(const n of data.episodes.filter(e=>e.captionFile).map(e=>e.number)){
             const e=data.episodes.find(e=>e.number===n);
             console.log(JSON.stringify({episode:n,enclosure:e.enclosure,captionFile:e.captionFile}));
+            if(e.audioFile){fs.copyFileSync(e.audioFile,process.env.RUNNER_TEMP+'/caption-audio/episode-'+n+'.mp3');continue}
             execFileSync('curl',['--fail','--location','--retry','3','--max-time','120',e.enclosure,'-o',process.env.RUNNER_TEMP+'/caption-audio/episode-'+n+'.mp3'],{stdio:'inherit'});
           }
           JS

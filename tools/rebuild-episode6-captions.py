@@ -81,7 +81,7 @@ def align():
     cues=[];alignment=[];previous=0;word_cursor=0
     for i,cue in enumerate(edited["cues"]):
         lo,hi=cue["asrWordRange"]
-        assert lo==word_cursor and hi>lo;word_cursor=hi
+        assert lo==word_cursor and hi>=lo and (hi>lo or cue.get("recoveredSpeech"));word_cursor=hi
         assert all(cue["text"][lang].strip() for lang in ("cs","sk"))
         wrapped={lang:"\n".join(textwrap.wrap(cue["text"][lang],width=48,break_long_words=False,break_on_hyphens=False)) for lang in ("sk","cs")}
         if old_result and old_alignment:
@@ -106,7 +106,7 @@ def align():
         confidence=float(sum(s.score for s in speech)/len(speech))
         a=max(previous,round(a,3));b=max(a+.15,round(b,3))
         assert a>=previous and b<=len(wave)/16000+.1,(i,a,b)
-        cues.append({"start":a,"end":b,"kind":"speech","text":{lang:"\n".join(textwrap.wrap(cue["text"][lang],width=48,break_long_words=False,break_on_hyphens=False)) for lang in ("sk","cs")},"asrWordRange":[lo,hi]})
+        cues.append({"start":a,"end":b,"kind":"speech",**({"recoveredSpeech":cue["recoveredSpeech"]} if cue.get("recoveredSpeech") else {}),"text":{lang:"\n".join(textwrap.wrap(cue["text"][lang],width=48,break_long_words=False,break_on_hyphens=False)) for lang in ("sk","cs")},"asrWordRange":[lo,hi]})
         alignment.append({"cue":i+1,"start":a,"end":b,"meanCharacterScore":round(confidence,4),"asrStart":cue["start"],"asrEnd":cue["end"],"alignmentText":cue.get("alignmentText",cue["text"]["sk"]),
             "characters":[{"token":int(s.token),"start":round(start+s.start*ratio,3),"end":round(start+s.end*ratio,3),"score":round(float(s.score),4)} for s in spans]})
         previous=b

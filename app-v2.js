@@ -1039,10 +1039,14 @@
     const cache=await caches.open(OFFLINE_CACHE),response=await cache.match(record.cacheUrl);if(!response)return'';
     const url=URL.createObjectURL(await response.blob());state.blobUrls.set(record.key,url);return url;
   }
+  function episodeAudioSource(episode){
+    const file=String(episode?.audioFile||'');
+    return /^audio\/episode-[1-9]\d*\.mp3$/.test(file)?new URL('./'+file,location.href).href:episode.enclosure;
+  }
   async function playbackUrl(episode){
     const record=state.offlineIndex[episodeKey(episode.number)];
     if(record){try{const blob=await offlineBlobUrl(record);if(blob)return blob}catch{}}
-    return episode.enclosure;
+    return episodeAudioSource(episode);
   }
 
   function episodeYoutubeId(episode){const id=String(episode?.youtubeId||'');return /^[A-Za-z0-9_-]{11}$/.test(id)?id:''}
@@ -1646,7 +1650,7 @@
     // Online episodes already have their MP3 URL in the data bundle.
     // Avoid *any* await when a track ends: Android can suspend audio between tasks.
     // Offline MP3s likewise switch synchronously if their Blob URL is already cached.
-    let source=episode.enclosure;
+    let source=episodeAudioSource(episode);
     const offlineRecord=state.offlineIndex[key];
     const cachedOfflineUrl=offlineRecord?state.blobUrls.get(key):null;
     if(cachedOfflineUrl)source=cachedOfflineUrl;
@@ -1739,7 +1743,7 @@
       try{const cache=await caches.open(OFFLINE_CACHE);await cache.delete(record.cacheUrl);const blobUrl=state.blobUrls.get(key);if(blobUrl)URL.revokeObjectURL(blobUrl);state.blobUrls.delete(key);delete state.offlineIndex[key];writeJson(OFFLINE_INDEX_KEY,state.offlineIndex);n.help.textContent=text('Offline kopie byla smazána.','Offline kópia bola zmazaná.')}catch{n.help.textContent=text('Offline kopii se nepodařilo smazat.','Offline kópiu sa nepodarilo zmazať.')}syncPlayer();return;
     }
     if(!('caches'in window)){n.help.textContent=text('Offline ukládání tento prohlížeč nepodporuje.','Offline ukladanie tento prehliadač nepodporuje.');return}
-    const url=current.episode.enclosure;if(!url)return;n.offline.disabled=true;n.offline.dataset.busy='1';n.offline.textContent=text('Offline 0 %','Offline 0 %');n.help.textContent=text('Ukládám epizodu offline…','Ukladám epizódu offline…');
+    const url=episodeAudioSource(current.episode);if(!url)return;n.offline.disabled=true;n.offline.dataset.busy='1';n.offline.textContent=text('Offline 0 %','Offline 0 %');n.help.textContent=text('Ukládám epizodu offline…','Ukladám epizódu offline…');
     try{
       try{await navigator.storage?.persist?.()}catch{}
       const response=await fetch(url,{mode:'cors',cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);

@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
+import crypto from 'node:crypto';
 
 const ROOT=process.cwd();
 const FAQ=[362,361,358,350,346,340,337,332,326,319,313,300,295,289,284,278,272,270,263,257,248,244,226,218,211,203,190,179,170,158,143,138,133,128,119,112,100,89,82,75,69,60,51,35,26,17];
@@ -341,11 +342,18 @@ function specialEpisodeIdentity(title){
 const episodeVideos=JSON.parse(read('episode-videos.json'));
 const videosByGuid=new Map();
 const captionsByGuid=new Map();
+const audioFilesByGuid=new Map();
 for(const video of episodeVideos){
   if(!video.guid||!Number.isInteger(video.episode)||!/^[A-Za-z0-9_-]{11}$/.test(video.youtubeId)||videosByGuid.has(video.guid))throw new Error('Invalid/duplicate episode video: '+JSON.stringify(video));
   const source=sourceEpisodes.find(episode=>String(episode.id)===video.guid);
   if(!source||Number(source.number)!==video.episode)throw new Error('Video does not match RSS episode: '+video.episode);
   videosByGuid.set(video.guid,video.youtubeId);
+  if(video.audioFile){
+    if(video.audioFile!=='audio/episode-'+video.episode+'.mp3'||!/^[0-9a-f]{64}$/.test(video.audioSha256||''))throw new Error('Invalid curated MP3 asset');
+    const digest=crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT,video.audioFile))).digest('hex');
+    if(digest!==video.audioSha256)throw new Error('Curated MP3 audio hash mismatch: '+video.episode);
+    audioFilesByGuid.set(video.guid,video.audioFile);
+  }
   if(video.captionFile){
     if(!/^captions\/episode-[1-9]\d*\.json$/.test(video.captionFile))throw new Error('Invalid caption path');
     const captions=JSON.parse(read(video.captionFile));
@@ -377,6 +385,7 @@ const episodes=sourceEpisodes.map(e=>{
     link:String(e.link||''),
     enclosure:String(e.enclosure||''),
     id:String(e.id||''),
+    ...(audioFilesByGuid.has(String(e.id))?{audioFile:audioFilesByGuid.get(String(e.id))}:{}),
     ...(videosByGuid.has(String(e.id))?{youtubeId:videosByGuid.get(String(e.id))}:{}),
     ...(captionsByGuid.has(String(e.id))?{captionFile:captionsByGuid.get(String(e.id))}:{})
   };

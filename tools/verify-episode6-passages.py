@@ -20,6 +20,7 @@ gaps=sorted(candidates,key=lambda c:c["priority"],reverse=True)[:12]
 low=sorted((w for w in words if w["confidence"]<.5),key=lambda w:w["confidence"])[:12]
 windows=gaps+[{"start":max(0,w["start"]-2),"end":w["end"]+2,"reason":"low-ASR-confidence","priority":1-w["confidence"]} for w in low]
 windows += [{"start":a,"end":b,"reason":"volcano-names-and-eruption-data","priority":1} for a,b in [(1358,1378),(1540,1562),(1720,1740),(1916,1936),(2084,2104),(2269,2289)]]
+windows=[{"start":a,"end":b,"reason":"editorial-disputed-phrase","priority":1} for a,b in [(54,63),(189,201),(393,409),(452,469),(723,738),(1506,1535),(1957,1967),(2172,2189),(2210,2251)]]
 windows.sort(key=lambda c:c["start"]);merged=[]
 for w in windows:
     if merged and w["start"]<merged[-1]["end"] and max(w["end"],merged[-1]["end"])-merged[-1]["start"]<35:
@@ -34,4 +35,4 @@ for window in merged:
         word_timestamps=True,vad_filter=False,condition_on_previous_text=False)
     result={**window,"segments":[{"start":round(a+s.start,3),"end":round(a+s.end,3),"text":s.text.strip()} for s in segments]}
     out.append(result);print(json.dumps(result,ensure_ascii=False),flush=True)
-(root/"captions/source/episode-6-checks.sk.json").write_text(json.dumps({"episode":6,"model":"large-v3","audioSha256":draft["source"]["audioSha256"],"passages":out},ensure_ascii=False,indent=2)+"\n")
+(root/"captions/source/episode-6-extra-checks.sk.json").write_text(json.dumps({"episode":6,"model":"large-v3","audioSha256":draft["source"]["audioSha256"],"passages":out},ensure_ascii=False,indent=2)+"\n")
