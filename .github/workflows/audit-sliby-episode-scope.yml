@@ -1,29 +1,37 @@
-name: Audit promised episode scope (temporary)
+name: Apply reviewed episode promise scope (temporary)
 on:
   push:
     branches: [audit/episode-promises-20261117]
-    paths: ['.github/workflows/audit-sliby-episode-scope.yml']
+    paths:
+      - '.github/workflows/audit-sliby-episode-scope.yml'
 permissions:
-  contents: read
+  contents: write
 jobs:
-  list:
+  apply:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Print episode records for manual scope review
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Apply 53 individually reviewed scope changes
+        run: node tools/apply-sliby-episode-scope.cjs
+      - name: Check exact episode-only grouping and archive
+        run: node tools/test-sliby-episode-scope.cjs
+      - name: Verify player filters, archived links and sections
+        run: node tools/test-sliby-player.cjs
+      - name: Verify personal states and deletions
+        run: node tools/test-sliby-personal-state.cjs
+      - name: Verify exclusion of subscriber content
+        run: node tools/test-sliby-content-scope.cjs
+      - name: Commit reviewed HTML classification to this branch
         run: |
-          node <<'JS'
-          const fs=require('node:fs');
-          const html=fs.readFileSync('sliby/index.html','utf8');
-          const tag='<script type="application/json" id="audit-data">';
-          const start=html.indexOf(tag);
-          if(start<0)throw Error('audit-data missing');
-          const stop=html.indexOf('</script>',start);
-          const data=JSON.parse(html.slice(start+tag.length,stop));
-          const ep=data.findings.filter(r=>r.section==='episodes');
-          console.log('AUDIT_META '+JSON.stringify({keys:Object.keys(data),sections:data.sections,classification:data.classification,firstFindingKeys:Object.keys(data.findings[0]),firstArchiveKeys:Object.keys(data.archive.findings[0]),archiveLength:data.archive.findings.length}).slice(0,14000));
-          console.log('AUDIT_COUNT '+ep.length+' TOTAL '+data.findings.length);
-          for(const r of ep){
-            console.log('AUDIT_RECORD '+JSON.stringify({candidate:r.candidate,tema:r.tema,title:r.displayTema||r.tema,compactTitle:r.compactTitle,kategorie:r.kategorie,section:r.section,explanation:String(r.vysvetleni||'').slice(0,420)}));
-          }
-          JS
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sliby/index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Keep only real future podcast episodes in episode promise section"
+            git push origin HEAD:audit/episode-promises-20261117
+          fi
