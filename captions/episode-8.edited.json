@@ -7,7 +7,7 @@
     "model": "large-v3-turbo",
     "duration": 941.6098125
   },
-  "review": "All 210 fresh Slovak ASR cues were read; 140 received language corrections, all 210 were independently Czech-translated and reviewed against Slovak; large-v3 source audio checks restore missed speech and cross-check uncertain technical names. This is editorial ASR/audio-model review, NOT an independent human listen of every spoken word. Uncertain words (notably the short interjection around 5:40 and acid-temperature phrase around 11:07) are documented for follow-up. Additional long blocks split at existing source-audio ASR word boundaries to improve mobile two-line readability; corrected speaker utterance at 206s. Final short/long sentence balance checked against exact audio ASR word boundaries; no speech intentionally omitted.",
+  "review": "All 210 fresh Slovak ASR cues were read; 140 received language corrections, all 210 were independently Czech-translated and reviewed against Slovak; large-v3 source audio checks restore missed speech and cross-check uncertain technical names. This is editorial ASR/audio-model review, NOT an independent human listen of every spoken word. Uncertain words (notably the short interjection around 5:40 and acid-temperature phrase around 11:07) are documented for follow-up. Additional long blocks split at existing source-audio ASR word boundaries to improve mobile two-line readability; corrected speaker utterance at 206s. Final short/long sentence balance checked against exact audio ASR word boundaries; no speech intentionally omitted. Rebalanced a short low-confidence CTC cue by moving its sentence boundary to a longer original-audio speech span (around 9:40), preserving all spoken text.",
   "checkWindows": [
     [
       25,
@@ -2096,35 +2096,36 @@
     },
     {
       "start": 577.96,
-      "end": 583.12,
+      "end": 579.9,
       "text": {
-        "sk": "kým tam nie sú nasytené vodné pary. A vákuum je asi na toto veľmi dobré prostredie.",
-        "cs": "dokud tam není nasycená vodní pára. A vakuum je na to asi velmi dobré prostředí."
+        "sk": "kým tam nie sú nasytené vodné pary.",
+        "cs": "dokud tam není nasycená vodní pára."
       },
       "asrWordRange": [
         1453,
-        1469
+        1460
       ],
       "sourceCues": [
         128
       ],
-      "alignmentText": "kým tam nie sú nasytené vodné pary. A vákuum je asi na toto veľmi dobré prostredie."
+      "alignmentText": "kým tam nie sú nasytené vodné pary."
     },
     {
-      "start": 583.12,
+      "start": 580.36,
       "end": 584.16,
       "text": {
-        "sk": "Vákuum je úplne, hej, presne.",
-        "cs": "Vakuum je úplně, ano, přesně."
+        "sk": "A vákuum je asi na toto veľmi dobré prostredie. Vákuum je úplne, hej, presne.",
+        "cs": "A vakuum je na to asi velmi dobré prostředí. Vakuum je úplně, ano, přesně."
       },
       "asrWordRange": [
-        1469,
+        1460,
         1474
       ],
       "sourceCues": [
+        128,
         129
       ],
-      "alignmentText": "Vákuum je úplne, hej, presne."
+      "alignmentText": "A vákuum je asi na toto veľmi dobré prostredie. Vákuum je úplne, hej, presne."
     },
     {
       "start": 584.16,
