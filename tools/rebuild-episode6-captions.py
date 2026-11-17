@@ -66,28 +66,34 @@ def align():
     upper=sum(ch.isupper() for ch in vocab)>sum(ch.islower() for ch in vocab)
     print("Alignment vocabulary:",sorted(vocab),flush=True)
     # Keep independent CTC decodes of disputed identifiers and the negation.
+    checks_file=SOURCE/"episode-6-ctc-checks.sk.json"
+    prior_checks=read(checks_file) if checks_file.exists() else {}
+    cached_checks={(c["start"],c["end"]):c for c in prior_checks.get("passages",[])} if prior_checks.get("audioSha256")==meta["audioSha256"] and prior_checks.get("model")==ALIGN_MODEL else {}
     acoustic_checks=[]
     for a,b in edited.get("checkWindows",[]):
+        if (a,b) in cached_checks:
+            acoustic_checks.append(cached_checks[(a,b)]);continue
         inputs=processor(wave[int(a*16000):int(b*16000)],sampling_rate=16000,return_tensors="pt",padding=True)
         with torch.inference_mode(): logits=model(**inputs).logits
         text=processor.batch_decode(logits.argmax(-1))[0]
         acoustic_checks.append({"start":a,"end":b,"text":text})
         print("Independent CTC decode:",a,b,text,flush=True)
-    write(SOURCE/"episode-6-ctc-checks.sk.json",{"model":ALIGN_MODEL,"passages":acoustic_checks})
+    write(SOURCE/"episode-6-ctc-checks.sk.json",{"model":ALIGN_MODEL,"audioSha256":meta["audioSha256"],"passages":acoustic_checks})
     old_result=read(OUT/"episode-6.json") if (OUT/"episode-6.json").exists() else None
     old_alignment=read(SOURCE/"episode-6-alignment.json") if (SOURCE/"episode-6-alignment.json").exists() else None
-    if not old_result or old_result["source"]["audioSha256"]!=meta["audioSha256"] or len(old_result["cues"])!=len(edited["cues"]):
+    if not old_result or old_result["source"]["audioSha256"]!=meta["audioSha256"]:
         old_result=old_alignment=None
+    cached={(tuple(c["asrWordRange"])):(c,a) for c,a in zip(old_result["cues"],old_alignment["cues"])} if old_result and old_alignment else {}
     cues=[];alignment=[];previous=0;word_cursor=0
     for i,cue in enumerate(edited["cues"]):
         lo,hi=cue["asrWordRange"]
         assert lo==word_cursor and hi>=lo and (hi>lo or cue.get("recoveredSpeech"));word_cursor=hi
         assert all(cue["text"][lang].strip() for lang in ("cs","sk"))
         wrapped={lang:"\n".join(textwrap.wrap(cue["text"][lang],width=48,break_long_words=False,break_on_hyphens=False)) for lang in ("sk","cs")}
-        if old_result and old_alignment:
-            old=old_result["cues"][i];audit=old_alignment["cues"][i]
-            if old["text"]==wrapped and old["asrWordRange"]==[lo,hi] and audit["asrStart"]==cue["start"] and audit["asrEnd"]==cue["end"] and audit.get("alignmentText")==cue.get("alignmentText",cue["text"]["sk"]) and old["start"]>=previous:
-                cues.append(old);alignment.append(audit);previous=old["end"];continue
+        if (lo,hi) in cached:
+            old,audit=cached[(lo,hi)]
+            if audit["asrStart"]==cue["start"] and audit["asrEnd"]==cue["end"] and audit.get("alignmentText")==cue.get("alignmentText",cue["text"]["sk"]) and old["start"]>=previous:
+                cues.append({**old,"text":wrapped});alignment.append({**audit,"cue":i+1});previous=old["end"];continue
         start=max(0,float(cue["start"])-.5);end=min(len(wave)/16000,float(cue["end"])+.5)
         text=cue.get("alignmentText",cue["text"]["sk"]).replace("\n"," ")
         text=text.upper() if upper else text.lower()
