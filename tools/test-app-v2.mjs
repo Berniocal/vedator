@@ -18,6 +18,18 @@ const progressBefore=window.localStorage.getItem('vedatorPlaybackProgressV1');
 const playlistsBefore=window.localStorage.getItem('vedator-user-playlists-v1');
 
 window.fetch=async()=>({ok:true,status:200,json:async()=>data});
+// The production app downloads the catalog using XHR to report byte progress.
+// Keep the jsdom fixture local instead of contacting the fake example.test domain.
+window.XMLHttpRequest=class {
+  open(method,url){this.method=method;this.url=url}
+  send(){queueMicrotask(()=>{
+    if(!String(this.url).includes('content-v2.json')){this.onerror?.(new Error('Unexpected XHR URL: '+this.url));return}
+    this.status=200;
+    this.responseText=JSON.stringify(data);
+    this.onprogress?.({lengthComputable:true,loaded:this.responseText.length,total:this.responseText.length});
+    this.onload?.();
+  })}
+};
 window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};
 window.HTMLMediaElement.prototype.load=()=>{};
