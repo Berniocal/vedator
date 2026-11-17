@@ -135,6 +135,22 @@ try{
     check(await page.$eval('#player-video-caption-v2',e=>e.textContent)===captions[n].cues[5].text.sk,'YouTube Slovak cue timing',{n});
     await page.select('#player-caption-language-v2','cs');
   }
+  // A cached caption promise can settle while its MP3 session is hidden by
+  // YouTube. Returning to that same session must display captions immediately.
+  await page.evaluate(()=>{
+    window.__captionTest.open(1,100);
+    window.__captionTest.open(6,400);
+    window.__captionTest.video();
+  });
+  await page.waitForFunction(()=>!!document.getElementById('player-youtube-frame-v2')&&!!document.getElementById('player-video-caption-v2')?.textContent);
+  await page.click('#player-video-v2');
+  await page.waitForFunction(()=>!document.getElementById('player-youtube-frame-v2')&&document.getElementById('audio-v2').readyState>=2&&!document.getElementById('audio-v2').paused,{timeout:15000});
+  await page.click('#player-play-v2');
+  await page.waitForFunction(cues=>{
+    const t=window.__captionTest.clock().time,q=cues.find(q=>q.start<=t&&t<q.end);
+    return !!q&&document.getElementById('player-caption-text-v2').textContent===q.text.cs;
+  },{timeout:5000},captions[6].cues);
+  check(!/Načít|Načítav/.test(await page.$eval('#player-caption-text-v2',e=>e.textContent)),'Cached MP3 captions survive a video handoff');
   // Episode 5 must work while its upstream URL is unavailable.
   await page.evaluate(()=>window.__captionTest.open(5,400));
   await page.waitForFunction(()=>document.getElementById('audio-v2').readyState>=2&&!document.getElementById('audio-v2').paused&&document.getElementById('audio-v2').currentTime>=400,{timeout:15000});
