@@ -1,28 +1,9 @@
 {
   "episode": 7,
-  "cueCount": 353,
+  "cueCount": 354,
   "asrWordCount": 3614,
   "audioSha256": "602a47266a4ceb0bdfe16129fbd65f572387a443c685835cd124b877800145dc",
-  "lowScoreCues": [
-    {
-      "cue": 160,
-      "start": 804.752,
-      "end": 810.686,
-      "meanCharacterScore": 0.3468,
-      "asrStart": 804.55,
-      "asrEnd": 811.83,
-      "alignmentText": "No a tento Moon... Tá posledná dohoda vlastne nie je až taká, že by bola nezaujímavá."
-    },
-    {
-      "cue": 196,
-      "start": 981.828,
-      "end": 989.3,
-      "meanCharacterScore": 0.2586,
-      "asrStart": 981.81,
-      "asrEnd": 988.8,
-      "alignmentText": "Falcon môže byť? Falcony, ale Saturn sa myslím, že chystá. Nie, Saturn je následný."
-    }
-  ],
+  "lowScoreCues": [],
   "maxBoundaryChange": 2.0689999999999884,
-  "status": "review-further-if-low-score-cues-otherwise-needs-independent-listening"
+  "status": "editorially-reviewed-acoustically-aligned-needs-independent-listening"
 }

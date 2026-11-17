@@ -156,8 +156,8 @@
       "end": 64.2,
       "kind": "speech",
       "text": {
-        "sk": "ale kde je tá hranica, že kedy začína toto právo\nmať pôsobnosť? Áno,",
-        "cs": "ale kde je ta hranice, odkdy začíná toto právo\nmít působnost? Ano,"
+        "sk": "ale kde je tá hranica, že kedy začína toto právo\nmať? Kedy začína mať pôsobnosť? Áno,",
+        "cs": "ale kde je ta hranice, kdy začíná toto právo\nmít? Kdy začíná mít působnost? Ano,"
       },
       "asrWordRange": [
         110,
@@ -2089,12 +2089,12 @@
       ]
     },
     {
-      "start": 804.752,
-      "end": 810.686,
+      "start": 804.751,
+      "end": 813.639,
       "kind": "speech",
       "text": {
-        "sk": "No a tento Moon... Tá posledná dohoda vlastne\nnie je až taká, že by bola nezaujímavá.",
-        "cs": "No a tahle Moon... Ta poslední dohoda vlastně\nnení taková, že by byla nezajímavá."
+        "sk": "No a tento Moon... Tá posledná dohoda vlastne\nnie je až taká, že by... nezaujímavá.",
+        "cs": "No a tahle Moon... Ta poslední dohoda vlastně\nnení taková, že by... nezajímavá."
       },
       "asrWordRange": [
         1688,
@@ -2102,7 +2102,7 @@
       ]
     },
     {
-      "start": 813.461,
+      "start": 813.639,
       "end": 816.977,
       "kind": "speech",
       "text": {
@@ -2545,11 +2545,11 @@
     },
     {
       "start": 979.57,
-      "end": 981.828,
+      "end": 981.419,
       "kind": "speech",
       "text": {
-        "sk": "vlastne vymyslelo prvú, myslím, že Saturn...",
-        "cs": "vlastně přišlo s první... Myslím, že Saturn..."
+        "sk": "vlastne vymyslelo prvú, myslím, že...",
+        "cs": "vlastně přišlo s první, myslím, že..."
       },
       "asrWordRange": [
         2054,
@@ -2557,13 +2557,13 @@
       ]
     },
     {
-      "start": 981.828,
-      "end": 989.3,
+      "start": 981.419,
+      "end": 986.219,
       "kind": "speech",
-      "recoveredSpeech": "Speech present in 981.8–989.4 s gap, recognized independently with large-v3; wording still needs direct listening",
+      "recoveredSpeech": "Recovered from the original ASR gap; revised against wider independent large-v3 976–999 s and independent Slovak CTC decode. Narrow-window hallucination je následný removed.",
       "text": {
-        "sk": "Falcon môže byť? Falcony, ale Saturn sa myslím,\nže chystá. Nie, Saturn je následný.",
-        "cs": "Mohl by to být Falcon? Falcony, ale Saturn se\nmyslím teprve chystá. Ne, Saturn je následující."
+        "sk": "Nie Saturn, nespomeniem si. Falcon, môže byť?",
+        "cs": "Ne Saturn, nevzpomenu si. Mohl by to být Falcon?"
       },
       "asrWordRange": [
         2060,
@@ -2571,7 +2571,21 @@
       ]
     },
     {
-      "start": 989.3,
+      "start": 986.219,
+      "end": 989.378,
+      "kind": "speech",
+      "recoveredSpeech": "Recovered from the original ASR gap; revised against wider independent large-v3 976–999 s and independent Slovak CTC decode. Narrow-window hallucination je následný removed.",
+      "text": {
+        "sk": "Falcon, hej, Falcony, ale Saturn sa myslím, že\nchystá.",
+        "cs": "Falcon, ano, Falcony, ale Saturn se myslím\nteprve chystá."
+      },
+      "asrWordRange": [
+        2060,
+        2060
+      ]
+    },
+    {
+      "start": 989.378,
       "end": 994.488,
       "kind": "speech",
       "text": {
