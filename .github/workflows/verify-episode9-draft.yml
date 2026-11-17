@@ -1,0 +1,29 @@
+name: Validate episode 9 editorial draft structure
+on:
+  push:
+    branches: [captions/episode-9-precise-20261117]
+    paths:
+      - tools/validate-episode9-draft.py
+      - captions/episode-9.edited.json
+      - 'captions/source/episode-9*'
+      - .github/workflows/verify-episode9-draft.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - tools/validate-episode9-draft.py
+      - captions/episode-9.edited.json
+      - 'captions/source/episode-9*'
+      - .github/workflows/verify-episode9-draft.yml
+permissions:
+  contents: read
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check bilingual draft coverage, provenance and ASR-timed review SRTs
+        run: python tools/validate-episode9-draft.py
