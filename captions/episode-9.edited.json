@@ -436,19 +436,35 @@
     },
     {
       "start": 121.38,
-      "end": 126.94,
+      "end": 125.1,
       "text": {
-        "sk": "teória gravitácie oslávila pred štyrmi rokmi storočnicu, to znamená, že teraz má stoštyri rokov,",
-        "cs": "teorie gravitace oslavila před čtyřmi lety stoleté výročí, takže má nyní 104 let."
+        "sk": "teória gravitácie oslávila pred štyrmi rokmi storočnicu,",
+        "cs": "teorie gravitace oslavila před čtyřmi lety stoleté výročí,"
       },
       "asrWordRange": [
         223,
+        230
+      ],
+      "sourceCues": [
+        24
+      ],
+      "alignmentText": "teória gravitácie oslávila pred štyrmi rokmi storočnicu,"
+    },
+    {
+      "start": 125.28,
+      "end": 126.94,
+      "text": {
+        "sk": "to znamená, že teraz má stoštyri rokov,",
+        "cs": "což znamená, že nyní má 104 let."
+      },
+      "asrWordRange": [
+        230,
         237
       ],
       "sourceCues": [
         24
       ],
-      "alignmentText": "teória gravitácie oslávila pred štyrmi rokmi storočnicu, to znamená, že teraz má stoštyri rokov,"
+      "alignmentText": "to znamená, že teraz má stoštyri rokov,"
     },
     {
       "start": 127.1,
@@ -1100,19 +1116,35 @@
     },
     {
       "start": 306.31,
-      "end": 311.29,
+      "end": 309.49,
       "text": {
-        "sk": "A on toho už veľa nenarozprával, o tom, čo odvodil tie rovnice, lebo už sa z frontu nevrátil.",
-        "cs": "O tom, co ze svých rovnic odvodil, už ani moc nemluvil, protože se z fronty nevrátil."
+        "sk": "A on toho už veľa nenarozprával, o tom, čo odvodil tie rovnice,",
+        "cs": "O tom, co ze svých rovnic odvodil, už ani moc nemluvil,"
       },
       "asrWordRange": [
         628,
+        639
+      ],
+      "sourceCues": [
+        65
+      ],
+      "alignmentText": "A on toho už veľa nenarozprával, o tom, čo odvodil tie rovnice,"
+    },
+    {
+      "start": 309.71,
+      "end": 311.29,
+      "text": {
+        "sk": "lebo už sa z frontu nevrátil.",
+        "cs": "protože se z fronty nevrátil."
+      },
+      "asrWordRange": [
+        639,
         645
       ],
       "sourceCues": [
         65
       ],
-      "alignmentText": "A on toho už veľa nenarozprával, o tom, čo odvodil tie rovnice, lebo už sa z frontu nevrátil."
+      "alignmentText": "lebo už sa z frontu nevrátil."
     },
     {
       "start": 312.28,
@@ -7446,19 +7478,51 @@
     },
     {
       "start": 1955.46,
-      "end": 1959.7,
+      "end": 1956.84,
       "text": {
-        "sk": "teleskopy po celej planéte, myslím, že do nejakých šiestich rôznych staníc a poprepájali ich do",
-        "cs": "dalekohledy po celé planetě, myslím do asi šesti různých stanic, a propojili je"
+        "sk": "teleskopy po celej planéte,",
+        "cs": "dalekohledy po celé planetě,"
       },
       "asrWordRange": [
         4459,
+        4463
+      ],
+      "sourceCues": [
+        454
+      ],
+      "alignmentText": "teleskopy po celej planéte,"
+    },
+    {
+      "start": 1957.32,
+      "end": 1958.82,
+      "text": {
+        "sk": "myslím, že do nejakých šiestich rôznych staníc",
+        "cs": "myslím, do asi šesti různých stanic"
+      },
+      "asrWordRange": [
+        4463,
+        4470
+      ],
+      "sourceCues": [
+        454
+      ],
+      "alignmentText": "myslím, že do nejakých šiestich rôznych staníc"
+    },
+    {
+      "start": 1958.82,
+      "end": 1959.7,
+      "text": {
+        "sk": "a poprepájali ich do",
+        "cs": "a propojili je"
+      },
+      "asrWordRange": [
+        4470,
         4474
       ],
       "sourceCues": [
         454
       ],
-      "alignmentText": "teleskopy po celej planéte, myslím, že do nejakých šiestich rôznych staníc a poprepájali ich do"
+      "alignmentText": "a poprepájali ich do"
     },
     {
       "start": 1959.7,
