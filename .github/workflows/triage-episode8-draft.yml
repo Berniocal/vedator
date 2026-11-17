@@ -1,0 +1,46 @@
+name: Review episode 8 ASR and translation risks
+on:
+  push:
+    branches: [captions/episode-8-precise-20261117]
+    paths:
+      - 'tools/triage-episode8-draft.py'
+      - '.github/workflows/triage-episode8-draft.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: vedator-episode8-triage
+  cancel-in-progress: true
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Wait for complete ASR, Czech draft, and independent speech checks
+        run: |
+          for attempt in $(seq 1 240); do
+            git pull --ff-only origin "${GITHUB_REF_NAME}"
+            if test -s captions/source/episode-8-draft.sk.json && \
+               test -s captions/source/episode-8-translation-draft.cs.json && \
+               test -s captions/source/episode-8-extra-checks.sk.json; then exit 0; fi
+            sleep 15
+          done
+          echo 'Incomplete prerequisite recordings or draft files' >&2
+          exit 1
+      - name: Produce source-only editorial triage
+        run: python tools/triage-episode8-draft.py
+      - name: Commit review evidence (never finished subtitles)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add captions/source/episode-8-editorial-triage.json captions/source/episode-8-editorial-triage.md
+          git diff --cached --quiet && exit 0
+          git commit -m "Document episode 8 untranslated phrases and uncertain ASR for editorial review"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

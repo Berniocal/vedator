@@ -1,0 +1,851 @@
+{
+  "episode": 8,
+  "status": "review-evidence-only-not-subtitles",
+  "audioSha256": "ebb1390d75241b0a5ffb107ffefb4bdd290771c9f18049f1fc5192ae42948cd6",
+  "duration": 941.6098125,
+  "draftCueCount": 210,
+  "asrWords": 2365,
+  "lowConfidenceWords": [
+    {
+      "start": 92.4,
+      "end": 92.56,
+      "text": "Tak",
+      "confidence": 0.3725
+    },
+    {
+      "start": 137.07,
+      "end": 137.23,
+      "text": "To",
+      "confidence": 0.3221
+    },
+    {
+      "start": 212.3,
+      "end": 212.62,
+      "text": "Tak",
+      "confidence": 0.1698
+    },
+    {
+      "start": 215.3,
+      "end": 215.34,
+      "text": "Ja",
+      "confidence": 0.3492
+    },
+    {
+      "start": 313.54,
+      "end": 314.0,
+      "text": "Hej,",
+      "confidence": 0.3918
+    },
+    {
+      "start": 363.33,
+      "end": 363.49,
+      "text": "ja",
+      "confidence": 0.0227
+    },
+    {
+      "start": 399.6,
+      "end": 399.84,
+      "text": "Aha,",
+      "confidence": 0.1436
+    },
+    {
+      "start": 402.38,
+      "end": 402.7,
+      "text": "ako",
+      "confidence": 0.2961
+    },
+    {
+      "start": 405.32,
+      "end": 405.44,
+      "text": "tých",
+      "confidence": 0.1336
+    },
+    {
+      "start": 521.4,
+      "end": 521.52,
+      "text": "v",
+      "confidence": 0.3064
+    },
+    {
+      "start": 606.11,
+      "end": 606.57,
+      "text": "A",
+      "confidence": 0.1117
+    },
+    {
+      "start": 616.09,
+      "end": 616.17,
+      "text": "ju",
+      "confidence": 0.2225
+    },
+    {
+      "start": 694.66,
+      "end": 694.74,
+      "text": "ten",
+      "confidence": 0.3839
+    },
+    {
+      "start": 743.52,
+      "end": 744.14,
+      "text": "to",
+      "confidence": 0.1656
+    },
+    {
+      "start": 788.6,
+      "end": 789.08,
+      "text": "a",
+      "confidence": 0.1783
+    },
+    {
+      "start": 790.7,
+      "end": 790.8,
+      "text": "bol",
+      "confidence": 0.1574
+    },
+    {
+      "start": 798.02,
+      "end": 798.2,
+      "text": "a",
+      "confidence": 0.0395
+    },
+    {
+      "start": 798.38,
+      "end": 798.54,
+      "text": "s",
+      "confidence": 0.3373
+    },
+    {
+      "start": 804.44,
+      "end": 804.7,
+      "text": "že",
+      "confidence": 0.0726
+    },
+    {
+      "start": 816.82,
+      "end": 816.98,
+      "text": "to,",
+      "confidence": 0.0635
+    },
+    {
+      "start": 839.04,
+      "end": 839.14,
+      "text": "i",
+      "confidence": 0.1948
+    },
+    {
+      "start": 846.96,
+      "end": 847.08,
+      "text": "si",
+      "confidence": 0.3915
+    },
+    {
+      "start": 875.56,
+      "end": 875.96,
+      "text": "a",
+      "confidence": 0.2962
+    },
+    {
+      "start": 910.78,
+      "end": 911.52,
+      "text": "ja",
+      "confidence": 0.1953
+    }
+  ],
+  "asrGaps": [
+    {
+      "start": 234.56,
+      "end": 236.1,
+      "seconds": 1.54
+    },
+    {
+      "start": 262.06,
+      "end": 268.14,
+      "seconds": 6.08
+    },
+    {
+      "start": 272.24,
+      "end": 273.82,
+      "seconds": 1.58
+    },
+    {
+      "start": 372.53,
+      "end": 373.94,
+      "seconds": 1.41
+    },
+    {
+      "start": 427.98,
+      "end": 429.96,
+      "seconds": 1.98
+    },
+    {
+      "start": 552.3,
+      "end": 553.71,
+      "seconds": 1.41
+    },
+    {
+      "start": 604.38,
+      "end": 606.11,
+      "seconds": 1.73
+    },
+    {
+      "start": 652.54,
+      "end": 654.94,
+      "seconds": 2.4
+    },
+    {
+      "start": 656.28,
+      "end": 658.48,
+      "seconds": 2.2
+    },
+    {
+      "start": 682.96,
+      "end": 684.57,
+      "seconds": 1.61
+    },
+    {
+      "start": 728.92,
+      "end": 730.68,
+      "seconds": 1.76
+    }
+  ],
+  "translationLengthFlags": [
+    {
+      "cue": 6,
+      "at": 32.65,
+      "sk": "Je ti veľmi teplo a viem aj ten dôvod, prečo je ti veľmi teplo. Máme dobre",
+      "draftCs": "Je ti moc horko a já vím, proč je to tak horko.",
+      "ratio": 0.61
+    },
+    {
+      "cue": 7,
+      "at": 38.01,
+      "sk": "zaizolované nahrávacie štúdio. Dobre, ja sa ťa chcem upýtať,",
+      "draftCs": "Dobře, chci se tě zeptat,",
+      "ratio": 0.404
+    },
+    {
+      "cue": 8,
+      "at": 43.49,
+      "sk": "o čom sa budeme dnes rozprávať? Aká je téma? Dnes sa budeme rozprávať o pištolnických",
+      "draftCs": "O čem se dnes budeme bavit? Co je to za téma?",
+      "ratio": 0.493
+    },
+    {
+      "cue": 10,
+      "at": 50.63,
+      "sk": "O pištolnických krevetách? Tak povedz nám, prečo sa volajú pištolnické krevety,",
+      "draftCs": "Řekněte nám, proč se píšťalové krevety nazývají",
+      "ratio": 0.594
+    },
+    {
+      "cue": 16,
+      "at": 80.23,
+      "sk": "Takže od podmorskej biológie pôjdeme až k kvantovej mechanike. Presne tak.",
+      "draftCs": "Od podmořské biologie až po kvantovou mechaniku.",
+      "ratio": 0.656
+    },
+    {
+      "cue": 40,
+      "at": 185.82,
+      "sk": "Aha, a keby tam bol taký piest vodný. Áno, áno, presne. Ty si",
+      "draftCs": "A kdyby tam byla taková vodná plocha?",
+      "ratio": 0.633
+    },
+    {
+      "cue": 51,
+      "at": 236.1,
+      "sk": "Buchnúť po viečku. Áno, áno, z hora buchnúť po flaške. Len aby ľudia",
+      "draftCs": "Jo, jo, z hory, z láhve.",
+      "ratio": 0.339
+    },
+    {
+      "cue": 54,
+      "at": 248.36,
+      "sk": "presne opísali, ako teraz treba spraviť, tak to neskúšajte doma. Áno, áno, tak. Ani",
+      "draftCs": "Takže to nesnažte doma. Ano, ano, tak.",
+      "ratio": 0.457
+    },
+    {
+      "cue": 59,
+      "at": 273.82,
+      "sk": "No a druhá časť je, že prečo vlastne toto vytvorí svetelný záblesk. Čiže keď tá",
+      "draftCs": "A druhá část je, proč to vlastně vytváří záblesk.",
+      "ratio": 0.631
+    },
+    {
+      "cue": 69,
+      "at": 318.56,
+      "sk": "tak okrem toho sú extrémne vybavené. Áno, sú to takí vesmírni marináci. A veci",
+      "draftCs": "Ano, jsou to vesmírní námořníci.",
+      "ratio": 0.431
+    },
+    {
+      "cue": 71,
+      "at": 325.84,
+      "sk": "či používajú plazmové zbranie alebo používajú kvantové zbranie? No, chceš počuť",
+      "draftCs": "Používají plazmové zbraně nebo kvantové zbraně?",
+      "ratio": 0.609
+    },
+    {
+      "cue": 76,
+      "at": 345.17,
+      "sk": "alebo kasimírovú silu a pokusím sa teraz vysvetliť, ako to funguje.",
+      "draftCs": "A teď se pokusím vysvětlit, jak to funguje.",
+      "ratio": 0.632
+    },
+    {
+      "cue": 79,
+      "at": 360.44,
+      "sk": "priťahovaná. Že ty tú loď odparkuješ ja neviem, meter od móla a ak je to",
+      "draftCs": "Že parkováš tu loď, nevím, metr od moulu.",
+      "ratio": 0.586
+    },
+    {
+      "cue": 87,
+      "at": 397.3,
+      "sk": "pritlačí k tomu pilieru alebo teda k tomu mólu. Aha, takže z mora vždy prichádza",
+      "draftCs": "Přitahuje k tomu pilíru, nebo k tomu moulu.",
+      "ratio": 0.545
+    },
+    {
+      "cue": 89,
+      "at": 406.8,
+      "sk": "zmestia, takže je tam nerovnováha vlastne. Áno, to je ako keby si mal ľudí vo",
+      "draftCs": "Je to tak, jako byste měli lidi v",
+      "ratio": 0.413
+    },
+    {
+      "cue": 109,
+      "at": 492.81,
+      "sk": "Na nešťastie.",
+      "draftCs": "Bohužel.",
+      "ratio": 0.667
+    },
+    {
+      "cue": 111,
+      "at": 500.12,
+      "sk": "také. No počkaj, počkaj. Toto bolo to kvantové vysvetlenie. Či kvantovú biológiu.",
+      "draftCs": "To bylo kvantové vysvětlení, nebo kvantová biologie.",
+      "ratio": 0.657
+    },
+    {
+      "cue": 114,
+      "at": 513.46,
+      "sk": "Dobre, a teda tak zísili, že to nie je ten kasimírov efekt a potom",
+      "draftCs": "Dobře, takže to není kasířský efekt, a pak",
+      "ratio": 0.66
+    },
+    {
+      "cue": 125,
+      "at": 563.39,
+      "sk": "čiže plynu. Kvôli tomu, že je tamto vákuum, tak preto sa",
+      "draftCs": "Jelikož je to vákuum,",
+      "ratio": 0.391
+    },
+    {
+      "cue": 126,
+      "at": 568.9,
+      "sk": "do nej začne vyparovať? Voda sa rada vyparuje, kým môže.",
+      "draftCs": "Voda se chce vypařit, dokud může.",
+      "ratio": 0.596
+    },
+    {
+      "cue": 128,
+      "at": 577.96,
+      "sk": "kým tam nie sú nasytené vodné pary. A vákuum je asi na toto veľmi dobré prostredie.",
+      "draftCs": "A vákuum je asi pro tohle velmi dobré prostředí.",
+      "ratio": 0.588
+    },
+    {
+      "cue": 138,
+      "at": 618.97,
+      "sk": "zmenšovať svoj objem a ten plyn v nej sa začne zohrievať. A on dokonca",
+      "draftCs": "se zmenší a ten plyn se zahřeje.",
+      "ratio": 0.456
+    },
+    {
+      "cue": 149,
+      "at": 666.38,
+      "sk": "kľa aj vyššia teplota, že okolo 20 tisíc stupňov. Správne som si. Je možné, že sa to",
+      "draftCs": "Větší teplota je asi 20 000 stupňů.",
+      "ratio": 0.426
+    },
+    {
+      "cue": 155,
+      "at": 695.22,
+      "sk": "o tú tlakovú vlnu, o ten náraz, ktorý to vyvolá. Že toto je len taký, neviem, či",
+      "draftCs": "Ta tlaková vlna, ten náraz, který to vyvolává.",
+      "ratio": 0.609
+    },
+    {
+      "cue": 159,
+      "at": 712.1,
+      "sk": "ktorý potrebuje k tomu loveniu. No, to je neskutočné, takže na svete máme",
+      "draftCs": "Je to neuvěřitelné, takže na světě máme",
+      "ratio": 0.541
+    },
+    {
+      "cue": 165,
+      "at": 739.82,
+      "sk": "rybičkami,",
+      "draftCs": "ryby,",
+      "ratio": 0.5
+    },
+    {
+      "cue": 175,
+      "at": 781.32,
+      "sk": "to správne povie, asi nám napíšu takí biológovia,",
+      "draftCs": "Věřím, že nám napíše biologové.",
+      "ratio": 0.643
+    },
+    {
+      "cue": 188,
+      "at": 837.46,
+      "sk": "Bud narastie alebo sa skoro i zmení. Dobre, Samuel, neviem, či máš ešte k tejto téme",
+      "draftCs": "Dobře, Samuele, nevím, jestli jsi na tom ještě.",
+      "ratio": 0.58
+    },
+    {
+      "cue": 191,
+      "at": 848.04,
+      "sk": "povedal, že keď je odpadne jedno kreveto, tak druhé nahradí. Spomenul som si na takého",
+      "draftCs": "Říkal, že když se jedna postel ztratí, nahradí jinou.",
+      "ratio": 0.625
+    },
+    {
+      "cue": 197,
+      "at": 874.0,
+      "sk": "ich tými sasankami a tiež, že keď svoju sasanku strati, tak potom si musí najsť takú",
+      "draftCs": "A také, že když ztratí svou kočku, tak musí najít jednu.",
+      "ratio": 0.667
+    },
+    {
+      "cue": 198,
+      "at": 878.58,
+      "sk": "inú, ktorá dorastie a ktorá nahradí tú odpadnotu. Tak len som si tak spomenul. Takže",
+      "draftCs": "Další, která vyroste a nahradí odpadnutí.",
+      "ratio": 0.514
+    },
+    {
+      "cue": 204,
+      "at": 902.48,
+      "sk": "Samuel, ja ti veľmi pekne ďakujem za dnešný rozhovor. Ďakujem za polovú časť.",
+      "draftCs": "Samuel, moc ti děkuji za dnešní rozhovor.",
+      "ratio": 0.538
+    },
+    {
+      "cue": 210,
+      "at": 932.38,
+      "sk": "našu facebookovú skupinu Vedator .sk. Pekný deň vám prajem. Do počúťa. Majte sa.",
+      "draftCs": "Dobrý den, pozdravujte se.",
+      "ratio": 0.338
+    }
+  ],
+  "asrLexicalFlags": [],
+  "independentWindows": [
+    {
+      "start": 13.832196249999999,
+      "end": 25.83219625,
+      "reason": "timeline-sample",
+      "priority": 0.8,
+      "segments": [
+        {
+          "start": 13.832,
+          "end": 15.812,
+          "text": "Veda nás obklopuje na každom kroku."
+        },
+        {
+          "start": 15.832,
+          "end": 18.012,
+          "text": "Vítajte pri Vedatorskom podcaste,"
+        },
+        {
+          "start": 18.012,
+          "end": 19.912,
+          "text": "v ktorom budeme diskutovať o vede"
+        },
+        {
+          "start": 19.912,
+          "end": 21.572,
+          "text": "a prírode okolo nás."
+        },
+        {
+          "start": 21.632,
+          "end": 22.892,
+          "text": "Moje meno je Jozef."
+        },
+        {
+          "start": 22.892,
+          "end": 23.732,
+          "text": "A ja som Samuel."
+        },
+        {
+          "start": 24.712,
+          "end": 25.572,
+          "text": "Ahoj Samuel."
+        }
+      ]
+    },
+    {
+      "start": 210.3,
+      "end": 214.62,
+      "reason": "low-ASR-confidence",
+      "priority": 0.8302,
+      "segments": [
+        {
+          "start": 210.3,
+          "end": 212.28,
+          "text": "prednáške na pohode, kde som mal o fyzike piva,"
+        },
+        {
+          "start": 212.32,
+          "end": 214.18,
+          "text": "tak som rozmýšľal, že naplním jednu"
+        },
+        {
+          "start": 214.18,
+          "end": 214.52,
+          "text": "flašku."
+        }
+      ]
+    },
+    {
+      "start": 230.402453125,
+      "end": 242.402453125,
+      "reason": "timeline-sample;speech-in-ASR-gap",
+      "priority": 0.8,
+      "segments": [
+        {
+          "start": 230.402,
+          "end": 232.382,
+          "text": "silno buchnúť, v tej fľaše musí byť voda"
+        },
+        {
+          "start": 232.382,
+          "end": 234.522,
+          "text": "a vystrelí to dno tej nádoby."
+        },
+        {
+          "start": 234.882,
+          "end": 235.742,
+          "text": "A teda to..."
+        },
+        {
+          "start": 235.742,
+          "end": 238.322,
+          "text": "Buchnúť po viečku, tam nie je viečka."
+        },
+        {
+          "start": 238.502,
+          "end": 239.782,
+          "text": "Áno, z hora buchnúť po fľaške."
+        },
+        {
+          "start": 240.062,
+          "end": 242.342,
+          "text": "Len aby ľudia neskúšali nejak..."
+        }
+      ]
+    },
+    {
+      "start": 261.06,
+      "end": 269.14,
+      "reason": "speech-in-ASR-gap",
+      "priority": 4.800000000000011,
+      "segments": [
+        {
+          "start": 261.06,
+          "end": 265.12,
+          "text": "vždycky tlak z dola nič a ten tlak vrazí tú vodu do dna a vyrazí ho."
+        },
+        {
+          "start": 266.28,
+          "end": 268.48,
+          "text": "Takže toto je prvá časť, čo sa tam deje."
+        }
+      ]
+    },
+    {
+      "start": 361.33,
+      "end": 365.49,
+      "reason": "low-ASR-confidence",
+      "priority": 0.9773,
+      "segments": [
+        {
+          "start": 361.75,
+          "end": 364.93,
+          "text": "že ty tú loď odparkuješ, ja neviem, meter od mola."
+        }
+      ]
+    },
+    {
+      "start": 397.6,
+      "end": 401.84,
+      "reason": "low-ASR-confidence",
+      "priority": 0.8564,
+      "segments": [
+        {
+          "start": 397.6,
+          "end": 399.62,
+          "text": "tlačí k tomu pilieru, alebo teda k tomu môlu."
+        },
+        {
+          "start": 399.64,
+          "end": 401.72,
+          "text": "Aha, takže z môra vždy prichádza viac."
+        }
+      ]
+    },
+    {
+      "start": 403.32,
+      "end": 407.44,
+      "reason": "low-ASR-confidence",
+      "priority": 0.8664000000000001,
+      "segments": [
+        {
+          "start": 403.78,
+          "end": 406.06,
+          "text": "Lebo nie všetky z nich sa tam zmestia."
+        }
+      ]
+    },
+    {
+      "start": 465.80490625,
+      "end": 477.80490625,
+      "reason": "timeline-sample",
+      "priority": 0.8,
+      "segments": [
+        {
+          "start": 465.805,
+          "end": 469.765,
+          "text": "vákum v sebe menia, čo sa v ňom môže nacházať, čo tam môže bublotať a toto vytvorí"
+        },
+        {
+          "start": 469.765,
+          "end": 473.865,
+          "text": "ten záblesk. Čiže fyzici overali takú myšlenku, že či ten záblesk"
+        },
+        {
+          "start": 473.865,
+          "end": 476.845,
+          "text": "nevyvoláva, ako sa mení vákum vo vnútri tej bubliny."
+        }
+      ]
+    },
+    {
+      "start": 604.11,
+      "end": 608.57,
+      "reason": "low-ASR-confidence",
+      "priority": 0.8883,
+      "segments": [
+        {
+          "start": 604.11,
+          "end": 604.85,
+          "text": "zohrievať."
+        },
+        {
+          "start": 606.43,
+          "end": 607.85,
+          "text": "Príklad je tomu, že keď stlačáš"
+        },
+        {
+          "start": 607.85,
+          "end": 608.55,
+          "text": "plyn, tak sa zohrie."
+        }
+      ]
+    },
+    {
+      "start": 651.54,
+      "end": 655.94,
+      "reason": "speech-in-ASR-gap",
+      "priority": 1.9560000000000173,
+      "segments": [
+        {
+          "start": 651.54,
+          "end": 652.46,
+          "text": "si podal veľmi pekný."
+        }
+      ]
+    },
+    {
+      "start": 701.207359375,
+      "end": 713.207359375,
+      "reason": "timeline-sample",
+      "priority": 0.8,
+      "segments": [
+        {
+          "start": 701.207,
+          "end": 703.187,
+          "text": "produkt evolúcie, ale je to až"
+        },
+        {
+          "start": 703.187,
+          "end": 705.087,
+          "text": "druhorada, že to urobí ešte aj to bliknutie."
+        },
+        {
+          "start": 705.347,
+          "end": 707.087,
+          "text": "No, skore by som nepovedal, že"
+        },
+        {
+          "start": 707.087,
+          "end": 708.947,
+          "text": "nežiaducí efekt evolúcie, ale"
+        },
+        {
+          "start": 708.947,
+          "end": 711.047,
+          "text": "proste je to sprevádzajúci efekt,"
+        },
+        {
+          "start": 711.047,
+          "end": 713.127,
+          "text": "ktorý potrebuje k tomu."
+        }
+      ]
+    },
+    {
+      "start": 741.52,
+      "end": 746.14,
+      "reason": "low-ASR-confidence",
+      "priority": 0.8344,
+      "segments": [
+        {
+          "start": 741.52,
+          "end": 745.4,
+          "text": "A z čelade hlavačovitých, to je také pomerne..."
+        }
+      ]
+    },
+    {
+      "start": 786.6,
+      "end": 792.8,
+      "reason": "low-ASR-confidence;low-ASR-confidence",
+      "priority": 0.8217,
+      "segments": [
+        {
+          "start": 786.6,
+          "end": 787.5,
+          "text": "do nory a schovať sa."
+        },
+        {
+          "start": 788.6,
+          "end": 790.62,
+          "text": "A na internete strašne"
+        },
+        {
+          "start": 790.62,
+          "end": 792.5,
+          "text": "veľa obrázkov, kde proste táto dvojca vyzerá"
+        },
+        {
+          "start": 792.5,
+          "end": 792.78,
+          "text": "ako takáto."
+        }
+      ]
+    },
+    {
+      "start": 796.02,
+      "end": 800.2,
+      "reason": "low-ASR-confidence",
+      "priority": 0.9605,
+      "segments": [
+        {
+          "start": 796.02,
+          "end": 797.86,
+          "text": "Chodia vedľa"
+        },
+        {
+          "start": 797.86,
+          "end": 798.98,
+          "text": "jeden so zbraňou."
+        }
+      ]
+    },
+    {
+      "start": 802.44,
+      "end": 806.7,
+      "reason": "low-ASR-confidence",
+      "priority": 0.9274,
+      "segments": [
+        {
+          "start": 802.44,
+          "end": 806.6,
+          "text": "Ja som myslel, že povieš, že odporúčiš krevety, že na olivovom oleji, alebo takže..."
+        }
+      ]
+    },
+    {
+      "start": 814.82,
+      "end": 818.98,
+      "reason": "low-ASR-confidence",
+      "priority": 0.9365,
+      "segments": [
+        {
+          "start": 814.82,
+          "end": 818.74,
+          "text": "keď to klepietko, lebo jedno má väčšie ako to druhé."
+        }
+      ]
+    },
+    {
+      "start": 837.04,
+      "end": 841.14,
+      "reason": "low-ASR-confidence",
+      "priority": 0.8052,
+      "segments": [
+        {
+          "start": 837.04,
+          "end": 838.98,
+          "text": "Buď narastie, alebo sa skoro"
+        },
+        {
+          "start": 838.98,
+          "end": 840.36,
+          "text": "i zmení. Dobre, Samuel..."
+        }
+      ]
+    },
+    {
+      "start": 917.7776162499999,
+      "end": 929.7776162499999,
+      "reason": "timeline-sample",
+      "priority": 0.8,
+      "segments": [
+        {
+          "start": 917.778,
+          "end": 919.858,
+          "text": "jeho vydania sa môžete nájsť na Spotify,"
+        },
+        {
+          "start": 920.078,
+          "end": 921.338,
+          "text": "na Apple Podcaste"
+        },
+        {
+          "start": 921.338,
+          "end": 923.198,
+          "text": "a na Podbean"
+        },
+        {
+          "start": 923.198,
+          "end": 925.378,
+          "text": "a všade, kde viete nájsť"
+        },
+        {
+          "start": 925.378,
+          "end": 926.358,
+          "text": "dobré podcasty."
+        },
+        {
+          "start": 926.978,
+          "end": 929.478,
+          "text": "Samozrejme našujte aj našu stránku www."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2756 @@
+{
+  "version": 1,
+  "episode": 8,
+  "guid": "vedatorskypodcast.podbean.com/6356840e-9914-5b08-bac0-2b010d53f620",
+  "youtubeId": "oGDzgEeouMs",
+  "languages": [
+    "cs",
+    "sk"
+  ],
+  "quality": "editorial-corrected-forced-aligned",
+  "source": {
+    "audio": "https://mcdn.podbean.com/mf/web/nq2dvm/podcast_ep8.mp3",
+    "audioSha256": "ebb1390d75241b0a5ffb107ffefb4bdd290771c9f18049f1fc5192ae42948cd6",
+    "audioBytes": 30764659,
+    "model": "large-v3-turbo",
+    "duration": 941.6098125,
+    "type": "original-MP3-ASR-and-CTC-forced-alignment",
+    "alignmentModel": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+    "transcriptFile": "captions/source/episode-8-draft.sk.json",
+    "alignmentFile": "captions/source/episode-8-alignment.json",
+    "review": "Complete Slovak editorial review and Czech translation; acoustic character alignment and review of flagged passages. Not a full independent human listening verification."
+  },
+  "cues": [
+    {
+      "start": 11.612,
+      "end": 16.568,
+      "kind": "speech",
+      "text": {
+        "sk": "Od kavitácie cez kvantá až po krevety. Veda nás\nobklopuje na každom kroku. Vitajte",
+        "cs": "Od kavitace přes kvanta až po krevety. Věda nás\nobklopuje na každém kroku. Vítejte"
+      },
+      "asrWordRange": [
+        0,
+        14
+      ]
+    },
+    {
+      "start": 16.752,
+      "end": 22.088,
+      "kind": "speech",
+      "text": {
+        "sk": "pri Vedátorskom podcaste, v ktorom budeme\ndiskutovať o vede a prírode okolo nás. Moje",
+        "cs": "u Vedátorského podcastu, ve kterém budeme\ndiskutovat o vědě a přírodě kolem nás. Moje"
+      },
+      "asrWordRange": [
+        14,
+        28
+      ]
+    },
+    {
+      "start": 22.134,
+      "end": 23.907,
+      "kind": "speech",
+      "text": {
+        "sk": "meno je Jozef. A ja som Samuel.",
+        "cs": "jméno je Jozef. A já jsem Samuel."
+      },
+      "asrWordRange": [
+        28,
+        35
+      ]
+    },
+    {
+      "start": 25.213,
+      "end": 30.168,
+      "kind": "speech",
+      "text": {
+        "sk": "Ahoj, Samuel, pri ďalšom vydaní nášho\nVedátorského podcastu. Ako sa máš? Mám sa",
+        "cs": "Ahoj, Samueli, u dalšího vydání našeho\nVedátorského podcastu. Jak se máš? Mám se"
+      },
+      "asrWordRange": [
+        35,
+        48
+      ]
+    },
+    {
+      "start": 30.168,
+      "end": 31.706,
+      "kind": "speech",
+      "text": {
+        "sk": "celkom dobre a je mi veľmi teplo.",
+        "cs": "docela dobře a je mi velmi horko."
+      },
+      "asrWordRange": [
+        48,
+        55
+      ]
+    },
+    {
+      "start": 32.812,
+      "end": 38.049,
+      "kind": "speech",
+      "text": {
+        "sk": "Je ti veľmi teplo a viem aj ten dôvod, prečo je\nti veľmi teplo. Máme dobre",
+        "cs": "Je ti velké horko a vím i proč. Máme dobře"
+      },
+      "asrWordRange": [
+        55,
+        71
+      ]
+    },
+    {
+      "start": 38.092,
+      "end": 43.328,
+      "kind": "speech",
+      "text": {
+        "sk": "zaizolované nahrávacie štúdio. Dobre, ja sa ťa\nchcem opýtať,",
+        "cs": "zaizolované nahrávací studio. Dobře, chci se tě\nzeptat,"
+      },
+      "asrWordRange": [
+        71,
+        80
+      ]
+    },
+    {
+      "start": 43.328,
+      "end": 46.107,
+      "kind": "speech",
+      "text": {
+        "sk": "o čom sa budeme dnes rozprávať? Aká je téma?",
+        "cs": "o čem si dnes budeme povídat? Jaké je téma?"
+      },
+      "asrWordRange": [
+        80,
+        89
+      ]
+    },
+    {
+      "start": 46.573,
+      "end": 49.528,
+      "kind": "speech",
+      "text": {
+        "sk": "Dnes sa budeme rozprávať o pištoľníckych\nkrevetách.",
+        "cs": "Dnes si budeme povídat o pistolových krevetách."
+      },
+      "asrWordRange": [
+        89,
+        96
+      ]
+    },
+    {
+      "start": 50.752,
+      "end": 55.45,
+      "kind": "speech",
+      "text": {
+        "sk": "O pištoľníckych krevetách? Tak povedz nám, prečo\nsa volajú pištoľnícke krevety,",
+        "cs": "O pistolových krevetách? Tak nám pověz, proč se\njim říká pistolové krevety,"
+      },
+      "asrWordRange": [
+        96,
+        107
+      ]
+    },
+    {
+      "start": 55.45,
+      "end": 60.088,
+      "kind": "speech",
+      "text": {
+        "sk": "pištoľnícke krevety? Pištoľnícke krevety sú také\nzvláštne krevety, ktoré",
+        "cs": "pistolové krevety? Jsou to takové zvláštní\nkrevety, které"
+      },
+      "asrWordRange": [
+        107,
+        116
+      ]
+    },
+    {
+      "start": 61.054,
+      "end": 66.07,
+      "kind": "speech",
+      "text": {
+        "sk": "majú jedno klepeto väčšie ako druhé a zabíjajú\npomocou tlakovej vlny, ktorú",
+        "cs": "mají jedno klepeto větší než druhé a zabíjejí\npomocí tlakové vlny, kterou"
+      },
+      "asrWordRange": [
+        116,
+        128
+      ]
+    },
+    {
+      "start": 66.07,
+      "end": 71.048,
+      "kind": "speech",
+      "text": {
+        "sk": "vyvolajú. A vlastne, k čomu sa budeme chcieť\ndostať v tomto podcaste, že ja som na",
+        "cs": "vyvolají. A vlastně to, k čemu se chceme v tomto\npodcastu dostat, je, že jsem na"
+      },
+      "asrWordRange": [
+        128,
+        144
+      ]
+    },
+    {
+      "start": 71.113,
+      "end": 74.147,
+      "kind": "speech",
+      "text": {
+        "sk": "tieto krevety narazil pri štúdiu kvantovej\nmechaniky.",
+        "cs": "tyto krevety narazil při studiu kvantové\nmechaniky."
+      },
+      "asrWordRange": [
+        144,
+        151
+      ]
+    },
+    {
+      "start": 75.383,
+      "end": 79.298,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže sa pokúsime o takmer nemožné a prepojeme\nkrevety s kvantovou mechanikou.",
+        "cs": "Takže se pokusíme o téměř nemožné a propojíme\nkrevety s kvantovou mechanikou."
+      },
+      "asrWordRange": [
+        151,
+        163
+      ]
+    },
+    {
+      "start": 80.332,
+      "end": 85.689,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže od podmorskej biológie pôjdeme až k\nkvantovej mechanike. Presne tak.",
+        "cs": "Takže od podmořské biologie dojdeme až ke\nkvantové mechanice. Přesně tak."
+      },
+      "asrWordRange": [
+        163,
+        174
+      ]
+    },
+    {
+      "start": 85.689,
+      "end": 88.848,
+      "kind": "speech",
+      "text": {
+        "sk": "Wow, tak to je naozaj prepojenie.",
+        "cs": "Wow, to je opravdu propojení."
+      },
+      "asrWordRange": [
+        174,
+        180
+      ]
+    },
+    {
+      "start": 90.203,
+      "end": 95.019,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak povedz, kde je to prepojenie? Tak začína to\nvlastne tým, ako tieto krevety lovia.",
+        "cs": "Tak pověz, kde je to propojení? Začíná to\nvlastně tím, jak tyto krevety loví."
+      },
+      "asrWordRange": [
+        180,
+        196
+      ]
+    },
+    {
+      "start": 96.103,
+      "end": 100.358,
+      "kind": "speech",
+      "text": {
+        "sk": "A ony lovia tak, že majú taký špeciálny, strašne\nsilný sval, cvaknú klepetom.",
+        "cs": "Loví tak, že mají zvláštní, strašně silný sval a\ncvaknou klepetem."
+      },
+      "asrWordRange": [
+        196,
+        210
+      ]
+    },
+    {
+      "start": 101.503,
+      "end": 107.16,
+      "kind": "speech",
+      "text": {
+        "sk": "A to cvaknutie klepeta vyvolá takú tlakovú vlnu\nvo vode. Bežne tlakové vlny",
+        "cs": "A cvaknutí klepetem vyvolá takovou tlakovou vlnu\nve vodě. Běžné tlakové vlny"
+      },
+      "asrWordRange": [
+        210,
+        223
+      ]
+    },
+    {
+      "start": 107.16,
+      "end": 108.416,
+      "kind": "speech",
+      "text": {
+        "sk": "sú napríklad zvukové vlny.",
+        "cs": "jsou třeba zvukové vlny."
+      },
+      "asrWordRange": [
+        223,
+        227
+      ]
+    },
+    {
+      "start": 109.162,
+      "end": 114.579,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak niečo ako taká zvuková vlna, ale prebehne vo\nvode. No a táto vlna",
+        "cs": "Je to něco jako zvuková vlna, ale šíří se vodou.\nA tato vlna"
+      },
+      "asrWordRange": [
+        227,
+        241
+      ]
+    },
+    {
+      "start": 114.579,
+      "end": 119.339,
+      "kind": "speech",
+      "text": {
+        "sk": "vlastne narazí na takého drobného malého\nživočícha, omráči ho a tá kreveta si s ním",
+        "cs": "narazí na drobného živočicha, omráčí ho a\nkreveta si s ním"
+      },
+      "asrWordRange": [
+        241,
+        255
+      ]
+    },
+    {
+      "start": 119.339,
+      "end": 124.559,
+      "kind": "speech",
+      "text": {
+        "sk": "potom robí, čo sa jej zachce. Taký sprievodný\njav tohto celého je, že tá",
+        "cs": "pak dělá, co se jí zachce. Doprovodným jevem\ntoho všeho je, že ta"
+      },
+      "asrWordRange": [
+        255,
+        269
+      ]
+    },
+    {
+      "start": 124.559,
+      "end": 130.18,
+      "kind": "speech",
+      "text": {
+        "sk": "tlaková vlna zároveň urobí bublinu. Taký veľmi\nzvláštny jav je, že táto bublina",
+        "cs": "tlaková vlna zároveň vytvoří bublinu. Zvláštní\nje, že tato bublina"
+      },
+      "asrWordRange": [
+        269,
+        282
+      ]
+    },
+    {
+      "start": 130.18,
+      "end": 134.829,
+      "kind": "speech",
+      "text": {
+        "sk": "vlastne zasvieti počas svojho krátkeho\nbublinového života.",
+        "cs": "během svého krátkého bublinového života dokonce\nzasvítí."
+      },
+      "asrWordRange": [
+        282,
+        289
+      ]
+    },
+    {
+      "start": 135.931,
+      "end": 141.52,
+      "kind": "speech",
+      "text": {
+        "sk": "Bublina zasvieti? To kvôli čomu? Rozdelím tú\nodpoveď na dve časti. Prvá časť je,",
+        "cs": "Bublina zasvítí? Jak to? Rozdělím odpověď na dvě\nčásti. První část je,"
+      },
+      "asrWordRange": [
+        289,
+        303
+      ]
+    },
+    {
+      "start": 141.52,
+      "end": 144.798,
+      "kind": "speech",
+      "text": {
+        "sk": "že prečo vlastne vo vode vznikajú bubliny.",
+        "cs": "proč vlastně ve vodě vznikají bubliny."
+      },
+      "asrWordRange": [
+        303,
+        310
+      ]
+    },
+    {
+      "start": 145.582,
+      "end": 149.318,
+      "kind": "speech",
+      "text": {
+        "sk": "Tento jav sa volá kavitácia. Cavity po anglicky\nje dutina.",
+        "cs": "Tento jev se nazývá kavitace. Anglické cavity\nznamená dutina."
+      },
+      "asrWordRange": [
+        310,
+        320
+      ]
+    },
+    {
+      "start": 150.322,
+      "end": 155.418,
+      "kind": "speech",
+      "text": {
+        "sk": "To je pomerne bežný jav vo vode, že keď sa niečo\nvo vode prudko hýbe alebo to",
+        "cs": "To je ve vodě poměrně běžný jev, když se něco\nprudce pohybuje nebo"
+      },
+      "asrWordRange": [
+        320,
+        337
+      ]
+    },
+    {
+      "start": 155.523,
+      "end": 158.758,
+      "kind": "speech",
+      "text": {
+        "sk": "prúdko narazí, tak to vytvorí drobné bublinky,",
+        "cs": "prudce narazí, vytvoří to drobné bublinky,"
+      },
+      "asrWordRange": [
+        337,
+        344
+      ]
+    },
+    {
+      "start": 159.544,
+      "end": 161.176,
+      "kind": "speech",
+      "text": {
+        "sk": "ktoré sú v princípe úplne prázdne.",
+        "cs": "které jsou v podstatě úplně prázdné."
+      },
+      "asrWordRange": [
+        344,
+        350
+      ]
+    },
+    {
+      "start": 162.482,
+      "end": 166.478,
+      "kind": "speech",
+      "text": {
+        "sk": "Takýto jav si dokonca môžeme otestovať niekedy\nna fľaške, že keď veľmi prudko udrieme",
+        "cs": "Takový jev si dokonce někdy můžeme vyzkoušet s\nlahví. Když velmi prudce udeříme"
+      },
+      "asrWordRange": [
+        350,
+        364
+      ]
+    },
+    {
+      "start": 166.478,
+      "end": 168.176,
+      "kind": "speech",
+      "text": {
+        "sk": "o vrch fľašky,",
+        "cs": "do hrdla lahve,"
+      },
+      "asrWordRange": [
+        364,
+        367
+      ]
+    },
+    {
+      "start": 169.452,
+      "end": 174.529,
+      "kind": "speech",
+      "text": {
+        "sk": "tak tá fľaška sa pohne smerom nadol a tekutina v\nnej ostane chvíľku stáť na mieste,",
+        "cs": "tak se lahev pohne dolů a kapalina v ní na\nokamžik zůstane na místě,"
+      },
+      "asrWordRange": [
+        367,
+        383
+      ]
+    },
+    {
+      "start": 174.529,
+      "end": 178.408,
+      "kind": "speech",
+      "text": {
+        "sk": "takže pod tou tekutinou vznikne taká veľká\nbublina.",
+        "cs": "takže pod kapalinou vznikne velká bublina."
+      },
+      "asrWordRange": [
+        383,
+        391
+      ]
+    },
+    {
+      "start": 179.666,
+      "end": 181.377,
+      "kind": "speech",
+      "text": {
+        "sk": "Potom je tam teda obrovský podtlak,",
+        "cs": "Pak tam vznikne obrovský podtlak,"
+      },
+      "asrWordRange": [
+        391,
+        397
+      ]
+    },
+    {
+      "start": 181.377,
+      "end": 185.038,
+      "kind": "speech",
+      "text": {
+        "sk": "tá voda znova plesne o dno nádoby a tú nádobu\ndokáže rozbiť.",
+        "cs": "voda znovu udeří o dno nádoby a nádobu dokáže\nrozbít."
+      },
+      "asrWordRange": [
+        397,
+        408
+      ]
+    },
+    {
+      "start": 186.123,
+      "end": 191.5,
+      "kind": "speech",
+      "text": {
+        "sk": "Aha, a keby tam bol taký piest vodný. Áno, áno,\npresne. Ty si",
+        "cs": "Aha, jako kdyby tam byl vodní píst. Ano, ano,\npřesně. Tys"
+      },
+      "asrWordRange": [
+        408,
+        421
+      ]
+    },
+    {
+      "start": 191.5,
+      "end": 196.84,
+      "kind": "speech",
+      "text": {
+        "sk": "posielal také video, tamto chlapci vlastne\nrobili taký experiment a vyzeralo to veľmi",
+        "cs": "posílal video, kde kluci dělali tento pokus, a\nvypadalo to velmi"
+      },
+      "asrWordRange": [
+        421,
+        434
+      ]
+    },
+    {
+      "start": 196.84,
+      "end": 200.258,
+      "kind": "speech",
+      "text": {
+        "sk": "jednoducho. Stačilo vlastne do toho hrdla udrieť\ntroška silnejšie.",
+        "cs": "jednoduše. Stačilo trochu silněji udeřit do\nhrdla."
+      },
+      "asrWordRange": [
+        434,
+        443
+      ]
+    },
+    {
+      "start": 201.2,
+      "end": 204.519,
+      "kind": "speech",
+      "text": {
+        "sk": "A musím si to tiež niekedy vyskúšať, pravdu\npovedať,",
+        "cs": "A musím si to někdy vyzkoušet, popravdě řečeno,"
+      },
+      "asrWordRange": [
+        443,
+        451
+      ]
+    },
+    {
+      "start": 204.519,
+      "end": 206.339,
+      "kind": "speech",
+      "text": {
+        "sk": "lebo vyzeralo to až moc jednoducho, keď",
+        "cs": "protože to vypadalo až moc jednoduše, když"
+      },
+      "asrWordRange": [
+        451,
+        458
+      ]
+    },
+    {
+      "start": 206.339,
+      "end": 211.279,
+      "kind": "speech",
+      "text": {
+        "sk": "to robili oni. Mňa to tiež prekvapilo. Ja som to\nchcel použiť na prednáške na Pohode,",
+        "cs": "to dělali oni. Mě to taky překvapilo. Chtěl jsem\nto použít na přednášce na Pohodě,"
+      },
+      "asrWordRange": [
+        458,
+        474
+      ]
+    },
+    {
+      "start": 211.279,
+      "end": 214.918,
+      "kind": "speech",
+      "text": {
+        "sk": "kde som mal o fyzike piva. Tak som rozmýšľal, že\nnaplním jednu fľašku vodou a",
+        "cs": "kde jsem mluvil o fyzice piva. Přemýšlel jsem,\nže naplním jednu láhev vodou a"
+      },
+      "asrWordRange": [
+        474,
+        489
+      ]
+    },
+    {
+      "start": 214.918,
+      "end": 218.278,
+      "kind": "speech",
+      "text": {
+        "sk": "rozbijem. A potom sa budeme baviť o kavitácii,\nale už mi na to neostával čas, tak",
+        "cs": "rozbiji ji. A pak budeme mluvit o kavitaci.\nJenže už mi nezbyl čas, tak"
+      },
+      "asrWordRange": [
+        489,
+        506
+      ]
+    },
+    {
+      "start": 218.278,
+      "end": 220.016,
+      "kind": "speech",
+      "text": {
+        "sk": "som to vynechal. Ináč to vyzerá veľmi pekne.",
+        "cs": "jsem to vynechal. Jinak to vypadá velmi pěkně."
+      },
+      "asrWordRange": [
+        506,
+        514
+      ]
+    },
+    {
+      "start": 221.122,
+      "end": 225.8,
+      "kind": "speech",
+      "text": {
+        "sk": "Asi aj kvôli bezpečnosti bolo dobré, asi je\ndobré, že sme to",
+        "cs": "Asi i kvůli bezpečnosti to bylo dobře, asi je\ndobře, že jsme to"
+      },
+      "asrWordRange": [
+        514,
+        530
+      ]
+    },
+    {
+      "start": 225.8,
+      "end": 229.438,
+      "kind": "speech",
+      "text": {
+        "sk": "nestihli, ale v podstate stačí si zobrať hrubú\nrukavicu, jednou rukou chytiť fľašu,",
+        "cs": "nestihli, ale v podstatě stačí vzít si silnou\nrukavici, jednou rukou držet láhev,"
+      },
+      "asrWordRange": [
+        530,
+        543
+      ]
+    },
+    {
+      "start": 229.522,
+      "end": 234.598,
+      "kind": "speech",
+      "text": {
+        "sk": "druhou po nej silno buchnúť. V tej fľaši musí\nbyť voda a vystrelí to dno tej nádoby.",
+        "cs": "druhou do ní silně udeřit. V lahvi musí být voda\na vystřelí to její dno."
+      },
+      "asrWordRange": [
+        543,
+        560
+      ]
+    },
+    {
+      "start": 236.122,
+      "end": 241.639,
+      "kind": "speech",
+      "text": {
+        "sk": "Buchnúť po viečku. Áno, áno, zhora buchnúť po\nfľaške. Len aby ľudia",
+        "cs": "Udeřit do víčka. Ano, ano, udeřit do lahve\nshora. Jen aby lidé"
+      },
+      "asrWordRange": [
+        560,
+        573
+      ]
+    },
+    {
+      "start": 241.684,
+      "end": 243.819,
+      "kind": "speech",
+      "text": {
+        "sk": "neskúšali nejako z boku do nej buchať.",
+        "cs": "do ní nezkoušeli nějak bouchat z boku."
+      },
+      "asrWordRange": [
+        573,
+        580
+      ]
+    },
+    {
+      "start": 244.562,
+      "end": 248.86,
+      "kind": "speech",
+      "text": {
+        "sk": "A upozorňujeme, dávajte si pozor. Neskúšajte to,\nčo sme vám",
+        "cs": "A upozorňujeme: dávejte si pozor. Nezkoušejte\nto, co jsme vám"
+      },
+      "asrWordRange": [
+        580,
+        594
+      ]
+    },
+    {
+      "start": 248.86,
+      "end": 251.88,
+      "kind": "speech",
+      "text": {
+        "sk": "presne opísali, ako to teraz treba spraviť, tak\nto neskúšajte doma.",
+        "cs": "teď přesně popsali, jak to máte udělat, takže to\ndoma nezkoušejte."
+      },
+      "asrWordRange": [
+        594,
+        604
+      ]
+    },
+    {
+      "start": 251.88,
+      "end": 253.397,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno, áno, tak. Ani nikde inde.",
+        "cs": "Ano, ano. Ani nikde jinde."
+      },
+      "asrWordRange": [
+        604,
+        610
+      ]
+    },
+    {
+      "start": 254.203,
+      "end": 258.058,
+      "kind": "speech",
+      "text": {
+        "sk": "No a teda to, čo sa tam deje, je, že dôjde ku\nkavitácii, čiže na dne fľaše vznikne",
+        "cs": "A to, co se tam děje, je kavitace: na dně lahve\nvznikne"
+      },
+      "asrWordRange": [
+        610,
+        628
+      ]
+    },
+    {
+      "start": 258.122,
+      "end": 262.54,
+      "kind": "speech",
+      "text": {
+        "sk": "bublina, potom je obrovský podtlak, lebo zhora\ntlačí atmosférický tlak, zdola nič",
+        "cs": "bublina, pak obrovský podtlak, protože shora\ntlačí atmosférický tlak a zdola nic"
+      },
+      "asrWordRange": [
+        628,
+        642
+      ]
+    },
+    {
+      "start": 262.54,
+      "end": 268.078,
+      "kind": "speech",
+      "recoveredSpeech": "Reconstructed from original source-audio gap 262.06–268.14 s with independent large-v3 from 261.06–269.14; split at the original ASR cue 58 boundary to retain asrWordRange coverage.",
+      "text": {
+        "sk": "a ten tlak vlastne vrazí tú vodu do dna a vyrazí\nho. Takže toto je prvá časť, čo sa",
+        "cs": "a ten tlak vlastně vrazí vodu do dna a prorazí\nho. Tohle je první část toho, co se"
+      },
+      "asrWordRange": [
+        642,
+        642
+      ]
+    },
+    {
+      "start": 268.102,
+      "end": 272.298,
+      "kind": "speech",
+      "text": {
+        "sk": "tam deje, že prudkou zmenou tlaku dochádza k\nvytvoreniu bublinky.",
+        "cs": "tam děje: prudká změna tlaku vede ke vzniku\nbublinky."
+      },
+      "asrWordRange": [
+        642,
+        652
+      ]
+    },
+    {
+      "start": 273.822,
+      "end": 279.5,
+      "kind": "speech",
+      "text": {
+        "sk": "No a druhá časť je, že prečo vlastne toto\nvytvorí svetelný záblesk. Čiže keď tá",
+        "cs": "A druhá část je, proč to vlastně vytváří\nsvětelný záblesk. Takže když"
+      },
+      "asrWordRange": [
+        652,
+        667
+      ]
+    },
+    {
+      "start": 279.5,
+      "end": 284.459,
+      "kind": "speech",
+      "text": {
+        "sk": "kreveta cvakne klepetom, vystrelí sa taká\ntlaková vlna, vyrobí bublinku a tá bublinka",
+        "cs": "kreveta cvakne klepetem, vyšle tlakovou vlnu,\nvytvoří bublinku a ta bublinka"
+      },
+      "asrWordRange": [
+        667,
+        680
+      ]
+    },
+    {
+      "start": 284.462,
+      "end": 288.198,
+      "kind": "speech",
+      "text": {
+        "sk": "zasvieti. No a tuto existovali vo fyzike dve\nvysvetlenia.",
+        "cs": "zasvítí. A tady ve fyzice existovala dvě\nvysvětlení."
+      },
+      "asrWordRange": [
+        680,
+        689
+      ]
+    },
+    {
+      "start": 288.198,
+      "end": 290.076,
+      "kind": "speech",
+      "text": {
+        "sk": "Bolo jasné, že jedno z nich je správne.",
+        "cs": "Bylo jasné, že jedno z nich je správné."
+      },
+      "asrWordRange": [
+        689,
+        697
+      ]
+    },
+    {
+      "start": 291.133,
+      "end": 295.148,
+      "kind": "speech",
+      "text": {
+        "sk": "A jedno z nich je, že cez kvantovú mechaniku a\ndruhé je cez plazmovú fyziku.",
+        "cs": "Jedno z nich využívalo kvantovou mechaniku a\ndruhé fyziku plazmatu."
+      },
+      "asrWordRange": [
+        697,
+        712
+      ]
+    },
+    {
+      "start": 296.262,
+      "end": 300.498,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže hociktorá z týchto možností je správna,\ntak je jasné, že tie krevety sú proste",
+        "cs": "Takže ať je správná kterákoli z možností, je\njasné, že ty krevety jsou prostě"
+      },
+      "asrWordRange": [
+        712,
+        728
+      ]
+    },
+    {
+      "start": 300.498,
+      "end": 305.44,
+      "kind": "speech",
+      "text": {
+        "sk": "extrémne zaujímavé, lebo využívajú buď plazmové\nzbrane, alebo kvantové zbrane. To",
+        "cs": "mimořádně zajímavé, protože používají buď\nplazmové, nebo kvantové zbraně. To"
+      },
+      "asrWordRange": [
+        728,
+        739
+      ]
+    },
+    {
+      "start": 305.44,
+      "end": 307.197,
+      "kind": "speech",
+      "text": {
+        "sk": "znie až neuveriteľné, keď to tak hovoríš,",
+        "cs": "zní až neuvěřitelně, když to říkáš,"
+      },
+      "asrWordRange": [
+        739,
+        746
+      ]
+    },
+    {
+      "start": 308.162,
+      "end": 312.738,
+      "kind": "speech",
+      "text": {
+        "sk": "akoby si mi hovoril nejakú scénu zo Star Wars\nalebo z nejakého sci-fi filmu.",
+        "cs": "jako bys mi vyprávěl scénu ze Star Wars nebo\nnějakého sci-fi filmu."
+      },
+      "asrWordRange": [
+        746,
+        761
+      ]
+    },
+    {
+      "start": 313.943,
+      "end": 318.498,
+      "kind": "speech",
+      "text": {
+        "sk": "Hej, akože okrem toho, že sú teda obalené v\nexoskelete a neviem, čo ďalšie tie krevety,",
+        "cs": "Ano, kromě toho, že jsou obalené exoskeletem a\nnevím čím ještě ty krevety,"
+      },
+      "asrWordRange": [
+        761,
+        777
+      ]
+    },
+    {
+      "start": 318.542,
+      "end": 323.979,
+      "kind": "speech",
+      "text": {
+        "sk": "tak okrem toho sú extrémne vybavené. Áno, sú to\ntakí vesmírni mariňáci. A vedci",
+        "cs": "jsou navíc mimořádně vybavené. Ano, jsou to\ntakoví vesmírní mariňáci. A vědci"
+      },
+      "asrWordRange": [
+        777,
+        791
+      ]
+    },
+    {
+      "start": 324.026,
+      "end": 325.035,
+      "kind": "speech",
+      "text": {
+        "sk": "teda došli na to,",
+        "cs": "tedy přišli na to,"
+      },
+      "asrWordRange": [
+        791,
+        795
+      ]
+    },
+    {
+      "start": 326.403,
+      "end": 331.279,
+      "kind": "speech",
+      "text": {
+        "sk": "či používajú plazmové zbrane alebo používajú\nkvantové zbrane? No, chceš počuť",
+        "cs": "zda používají plazmové nebo kvantové zbraně?\nChceš jako první slyšet"
+      },
+      "asrWordRange": [
+        795,
+        806
+      ]
+    },
+    {
+      "start": 331.279,
+      "end": 333.356,
+      "kind": "speech",
+      "text": {
+        "sk": "správnu alebo nesprávnu odpoveď ako prvú?",
+        "cs": "správnou, nebo nesprávnou odpověď?"
+      },
+      "asrWordRange": [
+        806,
+        812
+      ]
+    },
+    {
+      "start": 334.777,
+      "end": 335.906,
+      "kind": "speech",
+      "text": {
+        "sk": "Povedz mi nesprávnu najprv.",
+        "cs": "Nejdřív mi řekni nesprávnou."
+      },
+      "asrWordRange": [
+        812,
+        816
+      ]
+    },
+    {
+      "start": 336.353,
+      "end": 339.388,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak nesprávna odpoveď je, že ukázalo sa, že nie\nsú to tie kvantové zbrane.",
+        "cs": "Tak nesprávná odpověď je, že se ukázalo, že to\nnejsou kvantové zbraně."
+      },
+      "asrWordRange": [
+        816,
+        830
+      ]
+    },
+    {
+      "start": 340.512,
+      "end": 345.208,
+      "kind": "speech",
+      "text": {
+        "sk": "Dokiaľ? Ale ja som sa teda k tomuto dostal cez\ntakzvaný Casimirov efekt",
+        "cs": "Dokdy? Ale já jsem se k tomu dostal přes\ntakzvaný Casimirův jev"
+      },
+      "asrWordRange": [
+        830,
+        843
+      ]
+    },
+    {
+      "start": 345.995,
+      "end": 349.928,
+      "kind": "speech",
+      "text": {
+        "sk": "alebo Casimirovu silu a pokúsim sa teraz\nvysvetliť, ako to funguje.",
+        "cs": "neboli Casimirovu sílu a pokusím se teď\nvysvětlit, jak to funguje."
+      },
+      "asrWordRange": [
+        843,
+        854
+      ]
+    },
+    {
+      "start": 351.463,
+      "end": 355.138,
+      "kind": "speech",
+      "text": {
+        "sk": "Začnem takým jednoduchým príkladom, že keď sa\nnachádza loď",
+        "cs": "Začnu jednoduchým příkladem. Když je loď"
+      },
+      "asrWordRange": [
+        854,
+        863
+      ]
+    },
+    {
+      "start": 355.881,
+      "end": 360.458,
+      "kind": "speech",
+      "text": {
+        "sk": "blízko móla, tak vzniká taký zvláštny efekt, že\ntá loď je k tomu mólu akoby",
+        "cs": "blízko mola, vzniká zvláštní jev, jako by byla k\nmolu"
+      },
+      "asrWordRange": [
+        863,
+        879
+      ]
+    },
+    {
+      "start": 360.541,
+      "end": 366.029,
+      "kind": "speech",
+      "text": {
+        "sk": "priťahovaná. Že ty tú loď odparkuješ, ja neviem,\nmeter od móla a ak je to",
+        "cs": "přitahovaná. Zaparkuješ loď třeba metr od mola,\na pokud je"
+      },
+      "asrWordRange": [
+        879,
+        894
+      ]
+    },
+    {
+      "start": 366.072,
+      "end": 369.849,
+      "kind": "speech",
+      "text": {
+        "sk": "mólo pevné, že nie sú to len také piliere, ale\nje to taká stena, tak tá loď sa",
+        "cs": "molo pevné, nejsou to jen pilíře, ale taková\nstěna, začne se loď"
+      },
+      "asrWordRange": [
+        894,
+        912
+      ]
+    },
+    {
+      "start": 369.849,
+      "end": 372.548,
+      "kind": "speech",
+      "text": {
+        "sk": "postupne bude hýbať smerom k nemu, ako keby sa k\nnemu prilepila.",
+        "cs": "postupně pohybovat k němu, jako by se na něj\npřilepila."
+      },
+      "asrWordRange": [
+        912,
+        924
+      ]
+    },
+    {
+      "start": 374.222,
+      "end": 379.439,
+      "kind": "speech",
+      "text": {
+        "sk": "A dôvod, prečo to funguje, je, že na mori\nvznikajú rôzne vlny a",
+        "cs": "A důvod, proč to funguje, je, že na moři\nvznikají různé vlny a"
+      },
+      "asrWordRange": [
+        924,
+        937
+      ]
+    },
+    {
+      "start": 379.442,
+      "end": 384.838,
+      "kind": "speech",
+      "text": {
+        "sk": "nie všetky z tých vĺn sa zmestia medzi loď a to\nmólo. Takže menej",
+        "cs": "ne všechny ty vlny se vejdou mezi loď a molo.\nTakže se do mezery vejde méně"
+      },
+      "asrWordRange": [
+        937,
+        951
+      ]
+    },
+    {
+      "start": 384.882,
+      "end": 390.439,
+      "kind": "speech",
+      "text": {
+        "sk": "vĺn sa zmestí do tej medzery a to znamená, že\nmenej vĺn naráža z jednej strany",
+        "cs": "vln a to znamená, že do lodi z jedné strany\nnaráží méně vln"
+      },
+      "asrWordRange": [
+        951,
+        967
+      ]
+    },
+    {
+      "start": 390.439,
+      "end": 392.096,
+      "kind": "speech",
+      "text": {
+        "sk": "do tej lode ako z celého mora.",
+        "cs": "než od otevřeného moře."
+      },
+      "asrWordRange": [
+        967,
+        974
+      ]
+    },
+    {
+      "start": 392.982,
+      "end": 397.639,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže ony obmedzia, aké vlny tam môžu vznikať a\nten prebytok vĺn z druhej strany to",
+        "cs": "Tím se omezí, jaké vlny tam mohou vznikat, a\npřebytek vln z druhé strany ji"
+      },
+      "asrWordRange": [
+        974,
+        991
+      ]
+    },
+    {
+      "start": 397.639,
+      "end": 401.719,
+      "kind": "speech",
+      "text": {
+        "sk": "pritlačí k tomu pilieru alebo teda k tomu mólu.\nAha, takže z mora vždy prichádza",
+        "cs": "přitlačí k pilíři nebo k molu. Aha, takže z moře\nvždy přichází"
+      },
+      "asrWordRange": [
+        991,
+        1006
+      ]
+    },
+    {
+      "start": 401.719,
+      "end": 407.3,
+      "kind": "speech",
+      "text": {
+        "sk": "viac vĺn ako od tej steny. Lebo nie všetky z\ntých sa tam zmestia. Áno, sa tam",
+        "cs": "víc vln než od té stěny. Protože ne všechny se\ntam vejdou. Ano,"
+      },
+      "asrWordRange": [
+        1006,
+        1023
+      ]
+    },
+    {
+      "start": 407.3,
+      "end": 412.379,
+      "kind": "speech",
+      "text": {
+        "sk": "zmestia, takže je tam nerovnováha vlastne. Áno,\nto je, ako keby si mal ľudí vo",
+        "cs": "takže je tam vlastně nerovnováha. Ano, jako\nkdybys měl lidi ve"
+      },
+      "asrWordRange": [
+        1023,
+        1038
+      ]
+    },
+    {
+      "start": 414.227,
+      "end": 418.159,
+      "kind": "speech",
+      "text": {
+        "sk": "veľkej miestnosti a zrazu povieš, že napravo\nmôžu ísť len tí,",
+        "cs": "velké místnosti a najednou řekl, že doprava\nmohou jít jen ti,"
+      },
+      "asrWordRange": [
+        1038,
+        1049
+      ]
+    },
+    {
+      "start": 418.159,
+      "end": 422.658,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorí majú menej ako 160 centimetrov. Tak zrazu\nna jednej strane ti vznikne taký",
+        "cs": "kteří měří méně než 160 centimetrů. Najednou na\njedné straně vznikne"
+      },
+      "asrWordRange": [
+        1049,
+        1063
+      ]
+    },
+    {
+      "start": 422.742,
+      "end": 427.978,
+      "kind": "speech",
+      "text": {
+        "sk": "pretlak, na druhej strane je málo a tam, kde je\nviac, tak začnú tak utláčať tú menšinu.",
+        "cs": "přetlak, na druhé straně jich je málo a ti\npočetnější začnou utlačovat tu menšinu."
+      },
+      "asrWordRange": [
+        1063,
+        1080
+      ]
+    },
+    {
+      "start": 430.485,
+      "end": 432.697,
+      "kind": "speech",
+      "text": {
+        "sk": "No a niečo podobné sa deje v kvantovej\nmechanike, že",
+        "cs": "A něco podobného se děje v kvantové mechanice,\nže"
+      },
+      "asrWordRange": [
+        1080,
+        1090
+      ]
+    },
+    {
+      "start": 434.385,
+      "end": 438.698,
+      "kind": "speech",
+      "text": {
+        "sk": "vieme, že keď máš vákuum, čiže úplne prázdny\npriestor, tak tam vyskakujú také veci.",
+        "cs": "víme, že když máš vakuum, tedy úplně prázdný\nprostor, objevují se v něm různé věci."
+      },
+      "asrWordRange": [
+        1090,
+        1104
+      ]
+    },
+    {
+      "start": 440.073,
+      "end": 444.608,
+      "kind": "speech",
+      "text": {
+        "sk": "A teraz ty, keď to vákuum takto obmedzíš,\nzmenšíš alebo zväčšíš, napríklad, že ho",
+        "cs": "A když to vakuum takto omezíš, zmenšíš nebo\nzvětšíš, například ho"
+      },
+      "asrWordRange": [
+        1104,
+        1118
+      ]
+    },
+    {
+      "start": 444.608,
+      "end": 449.568,
+      "kind": "speech",
+      "text": {
+        "sk": "uzavrieš, že máš veľkú vákuovú bublinu alebo\nmalú vákuovú bublinu, tak v ňom môžu",
+        "cs": "uzavřeš, takže máš velkou nebo malou vakuovou\nbublinu, mohou v něm"
+      },
+      "asrWordRange": [
+        1118,
+        1132
+      ]
+    },
+    {
+      "start": 449.956,
+      "end": 451.587,
+      "kind": "speech",
+      "text": {
+        "sk": "kypieť kvantovo rôzne veci.",
+        "cs": "kvantově kypět různé věci."
+      },
+      "asrWordRange": [
+        1132,
+        1136
+      ]
+    },
+    {
+      "start": 452.433,
+      "end": 455.708,
+      "kind": "speech",
+      "text": {
+        "sk": "Niekedy tam buble veľmi, niekedy veľmi málo,\nniekedy veľmi veľa.",
+        "cs": "Někdy to tam bublá hodně, někdy málo, jindy zase\nvelmi moc."
+      },
+      "asrWordRange": [
+        1136,
+        1146
+      ]
+    },
+    {
+      "start": 456.864,
+      "end": 459.859,
+      "kind": "speech",
+      "text": {
+        "sk": "No a to, čo si fyzici mysleli a začali to\noverovať, je, že",
+        "cs": "A fyzikové si mysleli a začali ověřovat, že"
+      },
+      "asrWordRange": [
+        1146,
+        1159
+      ]
+    },
+    {
+      "start": 459.859,
+      "end": 461.857,
+      "kind": "speech",
+      "text": {
+        "sk": "také tie malé bublinky, ktoré tie krevety\nvytvoria,",
+        "cs": "takové malé bublinky, které krevety vytvářejí,"
+      },
+      "asrWordRange": [
+        1159,
+        1167
+      ]
+    },
+    {
+      "start": 462.582,
+      "end": 467.238,
+      "kind": "speech",
+      "text": {
+        "sk": "tak ony vlastne tým, ako menia svoju veľkosť,\ntak menia to vákuum v sebe, menia, čo sa",
+        "cs": "svou proměnlivou velikostí mění vakuum uvnitř\nsebe, a tím i to, co se"
+      },
+      "asrWordRange": [
+        1167,
+        1184
+      ]
+    },
+    {
+      "start": 467.238,
+      "end": 470.518,
+      "kind": "speech",
+      "text": {
+        "sk": "v ňom môže nachádzať, čo tam môže bublať a toto\nvytvorí ten záblesk.",
+        "cs": "v něm může nacházet a co tam může bublat, a to\nzpůsobí záblesk."
+      },
+      "asrWordRange": [
+        1184,
+        1197
+      ]
+    },
+    {
+      "start": 471.552,
+      "end": 476.51,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže fyzici overili takú myšlenku, že či ten\nzáblesk nevyvoláva, ako sa mení vákuum vo",
+        "cs": "Fyzikové tedy ověřovali myšlenku, jestli ten\nzáblesk nevyvolává změna vakua"
+      },
+      "asrWordRange": [
+        1197,
+        1212
+      ]
+    },
+    {
+      "start": 476.51,
+      "end": 481.889,
+      "kind": "speech",
+      "text": {
+        "sk": "vnútri tej bubliny, čo sa teda volá Casimirov\nefekt. A Casimirov efekt je pozorovaný",
+        "cs": "uvnitř bubliny, tedy Casimirův jev. Casimirův\njev se pozoruje"
+      },
+      "asrWordRange": [
+        1212,
+        1226
+      ]
+    },
+    {
+      "start": 481.889,
+      "end": 484.407,
+      "kind": "speech",
+      "text": {
+        "sk": "všelikde, ale ukázalo sa, že pri týchto\nbublinách to nie je ono,",
+        "cs": "na různých místech, ale ukázalo se, že u těchto\nbublin to není ono,"
+      },
+      "asrWordRange": [
+        1226,
+        1237
+      ]
+    },
+    {
+      "start": 484.407,
+      "end": 486.246,
+      "kind": "speech",
+      "text": {
+        "sk": "že nedávalo to správne vysvetlenie.",
+        "cs": "protože neposkytoval správné vysvětlení."
+      },
+      "asrWordRange": [
+        1237,
+        1242
+      ]
+    },
+    {
+      "start": 487.172,
+      "end": 491.928,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže sa nejednalo o ten Casimirov efekt pri\ntýchto krevetách.",
+        "cs": "Takže u těchto krevet nešlo o Casimirův jev."
+      },
+      "asrWordRange": [
+        1242,
+        1251
+      ]
+    },
+    {
+      "start": 492.857,
+      "end": 493.484,
+      "kind": "speech",
+      "text": {
+        "sk": "Nanešťastie.",
+        "cs": "Bohužel."
+      },
+      "asrWordRange": [
+        1251,
+        1253
+      ]
+    },
+    {
+      "start": 494.963,
+      "end": 500.118,
+      "kind": "speech",
+      "text": {
+        "sk": "Možno by to otvorilo zaujímavú nejakú plazmovú\nbiológiu alebo niečo",
+        "cs": "Možná by to otevřelo nějakou zajímavou plazmovou\nbiologii nebo něco"
+      },
+      "asrWordRange": [
+        1253,
+        1263
+      ]
+    },
+    {
+      "start": 500.118,
+      "end": 504.458,
+      "kind": "speech",
+      "text": {
+        "sk": "také. No počkaj, počkaj. Toto bolo to kvantové\nvysvetlenie. Či kvantovú biológiu.",
+        "cs": "podobného. Počkej, počkej, tohle bylo kvantové\nvysvětlení. Tedy kvantovou biologii."
+      },
+      "asrWordRange": [
+        1263,
+        1275
+      ]
+    },
+    {
+      "start": 505.282,
+      "end": 508.217,
+      "kind": "speech",
+      "text": {
+        "sk": "Kvantová biológia existuje, ale venuje sa takým\niným veciam.",
+        "cs": "Kvantová biologie existuje, ale zabývá se jinými\nvěcmi."
+      },
+      "asrWordRange": [
+        1275,
+        1284
+      ]
+    },
+    {
+      "start": 509.14,
+      "end": 512.157,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno, ale myslel som to skôr s týmito krevetami.",
+        "cs": "Ano, ale myslel jsem to spíš s těmi krevetami."
+      },
+      "asrWordRange": [
+        1284,
+        1293
+      ]
+    },
+    {
+      "start": 513.763,
+      "end": 518.878,
+      "kind": "speech",
+      "text": {
+        "sk": "Dobre, a teda tak zistili, že to nie je ten\nCasimirov efekt a potom",
+        "cs": "Dobře, a tak zjistili, že to není Casimirův jev,\na co tedy"
+      },
+      "asrWordRange": [
+        1293,
+        1307
+      ]
+    },
+    {
+      "start": 518.878,
+      "end": 523.94,
+      "kind": "speech",
+      "text": {
+        "sk": "teda čo sa zistilo, že čo to je vlastne ten\nzáblesk v tej bublinke, lebo viem, že tie",
+        "cs": "zjistili, že vlastně způsobuje ten záblesk v\nbublince? Vím totiž, že ty"
+      },
+      "asrWordRange": [
+        1307,
+        1325
+      ]
+    },
+    {
+      "start": 523.94,
+      "end": 528.218,
+      "kind": "speech",
+      "text": {
+        "sk": "krevety žijú celkom nízko pod vodou, tak je to\ntaké",
+        "cs": "krevety žijí docela hluboko pod vodou, takže je\nto"
+      },
+      "asrWordRange": [
+        1325,
+        1335
+      ]
+    },
+    {
+      "start": 528.342,
+      "end": 533.499,
+      "kind": "speech",
+      "text": {
+        "sk": "nepravdepodobné miesto, kde by človek nehľadal\nmoc nejaké zdroje svetla alebo tak.",
+        "cs": "nepravděpodobné místo, kde by člověk hledal\nnějaké zdroje světla."
+      },
+      "asrWordRange": [
+        1335,
+        1347
+      ]
+    },
+    {
+      "start": 534.102,
+      "end": 538.458,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno. Čiže tento jav, ktorý sa volá, a teraz sa\ndržte,",
+        "cs": "Ano. Takže tento jev, který se jmenuje, a teď se\ndržte,"
+      },
+      "asrWordRange": [
+        1347,
+        1359
+      ]
+    },
+    {
+      "start": 538.622,
+      "end": 542.678,
+      "kind": "speech",
+      "text": {
+        "sk": "sonoluminiscencia, čiže svetlo vytvorené zvukom,",
+        "cs": "sonoluminiscence, tedy světlo vytvořené zvukem,"
+      },
+      "asrWordRange": [
+        1359,
+        1364
+      ]
+    },
+    {
+      "start": 543.241,
+      "end": 544.294,
+      "kind": "speech",
+      "text": {
+        "sk": "sonoluminiscencia,",
+        "cs": "sonoluminiscence,"
+      },
+      "asrWordRange": [
+        1364,
+        1365
+      ]
+    },
+    {
+      "start": 545.562,
+      "end": 550.698,
+      "kind": "speech",
+      "text": {
+        "sk": "tak to svetlo vyvolá plazma. A vlastne to, čo sa\ndeje, že keď vznikne bublínka,",
+        "cs": "způsobuje plazma. A děje se to, že když vznikne\nbublinka,"
+      },
+      "asrWordRange": [
+        1365,
+        1380
+      ]
+    },
+    {
+      "start": 550.698,
+      "end": 552.295,
+      "kind": "speech",
+      "text": {
+        "sk": "tak tá bublínka je prázdna.",
+        "cs": "je prázdná."
+      },
+      "asrWordRange": [
+        1380,
+        1385
+      ]
+    },
+    {
+      "start": 554.053,
+      "end": 558.388,
+      "kind": "speech",
+      "text": {
+        "sk": "Okolo nej je voda a tá voda sa veľmi prudko do\nnej začne vyparovať. Takže na začiatku",
+        "cs": "Kolem ní je voda a voda se do ní začne velmi\nprudce odpařovat. Takže na začátku"
+      },
+      "asrWordRange": [
+        1385,
+        1402
+      ]
+    },
+    {
+      "start": 558.492,
+      "end": 563.008,
+      "kind": "speech",
+      "text": {
+        "sk": "vznikne prázdna bublínka a po veľmi krátkej\nchvíľke je to bublínka plná vodnej pary,",
+        "cs": "vznikne prázdná bublinka a za krátkou chvíli je\nplná vodní páry,"
+      },
+      "asrWordRange": [
+        1402,
+        1416
+      ]
+    },
+    {
+      "start": 563.631,
+      "end": 569.38,
+      "kind": "speech",
+      "text": {
+        "sk": "čiže plynu. Kvôli tomu, že je tam to vákuum, tak\npreto sa",
+        "cs": "tedy plynu. Protože je tam vakuum, tak právě\nproto"
+      },
+      "asrWordRange": [
+        1416,
+        1427
+      ]
+    },
+    {
+      "start": 569.38,
+      "end": 572.838,
+      "kind": "speech",
+      "text": {
+        "sk": "do nej začne vyparovať? Voda sa rada vyparuje,\nkým môže.",
+        "cs": "se do ní začne voda odpařovat? Voda se ráda\nodpařuje, dokud může."
+      },
+      "asrWordRange": [
+        1427,
+        1437
+      ]
+    },
+    {
+      "start": 573.883,
+      "end": 577.938,
+      "kind": "speech",
+      "text": {
+        "sk": "A keď ti tomu nič nebraní, tak využije to\nnaplno, rýchlo sa tam začne vyparovať, až",
+        "cs": "A když jí v tom nic nebrání, využije toho\nnaplno, rychle se tam začne odpařovat, až"
+      },
+      "asrWordRange": [
+        1437,
+        1453
+      ]
+    },
+    {
+      "start": 578.004,
+      "end": 579.917,
+      "kind": "speech",
+      "text": {
+        "sk": "kým tam nie sú nasytené vodné pary.",
+        "cs": "dokud tam není nasycená vodní pára."
+      },
+      "asrWordRange": [
+        1453,
+        1460
+      ]
+    },
+    {
+      "start": 580.483,
+      "end": 584.66,
+      "kind": "speech",
+      "text": {
+        "sk": "A vákuum je asi na toto veľmi dobré prostredie.\nVákuum je úplne, hej, presne.",
+        "cs": "A vakuum je na to asi velmi dobré prostředí.\nVakuum je úplně, ano, přesně."
+      },
+      "asrWordRange": [
+        1460,
+        1474
+      ]
+    },
+    {
+      "start": 584.66,
+      "end": 587.499,
+      "kind": "speech",
+      "text": {
+        "sk": "Akože v úvodzovkách taký magnet, že všetko do\nneho vchádza a",
+        "cs": "V uvozovkách jako magnet, do kterého všechno\nvstupuje a"
+      },
+      "asrWordRange": [
+        1474,
+        1484
+      ]
+    },
+    {
+      "start": 587.499,
+      "end": 589.637,
+      "kind": "speech",
+      "text": {
+        "sk": "nemá čo z neho vyjsť, takže veľmi rýchlo sa tam\nvytvorí",
+        "cs": "nic z něj nevychází, takže se tam velmi rychle\nvytvoří"
+      },
+      "asrWordRange": [
+        1484,
+        1495
+      ]
+    },
+    {
+      "start": 590.444,
+      "end": 592.978,
+      "kind": "speech",
+      "text": {
+        "sk": "taká akoby parná atmosféra v tej bublínke.",
+        "cs": "taková parní atmosféra v té bublince."
+      },
+      "asrWordRange": [
+        1495,
+        1503
+      ]
+    },
+    {
+      "start": 594.625,
+      "end": 597.077,
+      "kind": "speech",
+      "text": {
+        "sk": "No a teraz, ak si niekedy nafukoval",
+        "cs": "A teď, jestli jsi někdy nafukoval"
+      },
+      "asrWordRange": [
+        1503,
+        1510
+      ]
+    },
+    {
+      "start": 597.981,
+      "end": 602.298,
+      "kind": "speech",
+      "text": {
+        "sk": "pneumatiky na bicykli takou pumpičkou, tak si si\nmožno všimol, že keď veľmi prudko",
+        "cs": "pneumatiky na kole takovou pumpičkou, možná sis\nvšiml, že když velmi rychle"
+      },
+      "asrWordRange": [
+        1510,
+        1524
+      ]
+    },
+    {
+      "start": 602.464,
+      "end": 604.84,
+      "kind": "speech",
+      "text": {
+        "sk": "fúkaš, tak tá pumpička sa začne zohrievať.",
+        "cs": "pumpuješ, začne se ta pumpička zahřívat."
+      },
+      "asrWordRange": [
+        1524,
+        1531
+      ]
+    },
+    {
+      "start": 606.475,
+      "end": 608.887,
+      "kind": "speech",
+      "text": {
+        "sk": "A to je kvôli tomu, že keď stlačaš plyn, tak sa\nzohrieva.",
+        "cs": "A to proto, že když stlačuješ plyn, zahřívá se."
+      },
+      "asrWordRange": [
+        1531,
+        1543
+      ]
+    },
+    {
+      "start": 610.373,
+      "end": 614.468,
+      "kind": "speech",
+      "text": {
+        "sk": "No a to, čo sa stane v tej bublínke, že tá\nbublínka veľmi prudko začne kolabovať.",
+        "cs": "A to, co se stane v bublince, je, že začne velmi\nprudce kolabovat."
+      },
+      "asrWordRange": [
+        1543,
+        1559
+      ]
+    },
+    {
+      "start": 614.468,
+      "end": 619.169,
+      "kind": "speech",
+      "text": {
+        "sk": "Kvôli tomu, že proste celý oceán sa ju snaží\nstlačiť, takže ona strašne prudko začne",
+        "cs": "Protože ji vlastně celý oceán tlačí, začne se\nvelmi rychle"
+      },
+      "asrWordRange": [
+        1559,
+        1574
+      ]
+    },
+    {
+      "start": 619.169,
+      "end": 624.369,
+      "kind": "speech",
+      "text": {
+        "sk": "zmenšovať svoj objem a ten plyn v nej sa začne\nzohrievať. A on dokonca",
+        "cs": "zmenšovat a plyn v ní se začne zahřívat. Dokonce"
+      },
+      "asrWordRange": [
+        1574,
+        1588
+      ]
+    },
+    {
+      "start": 624.369,
+      "end": 628.248,
+      "kind": "speech",
+      "text": {
+        "sk": "nadobudne teplotu zhruba ako na povrchu Slnka,\nže niekoľko tisíc stupňov,",
+        "cs": "dosáhne teploty přibližně jako na povrchu\nSlunce, tedy několik tisíc stupňů,"
+      },
+      "asrWordRange": [
+        1588,
+        1600
+      ]
+    },
+    {
+      "start": 629.602,
+      "end": 634.979,
+      "kind": "speech",
+      "text": {
+        "sk": "niekoľko tisíc stupňov a teplota vznikne v tej\nbublinke, tam sa vytvorí plazma. To",
+        "cs": "několik tisíc stupňů, a při této teplotě se v\nbublince vytvoří plazma. To"
+      },
+      "asrWordRange": [
+        1600,
+        1614
+      ]
+    },
+    {
+      "start": 635.002,
+      "end": 641.0,
+      "kind": "speech",
+      "text": {
+        "sk": "znamená, že elektróny sa odtrhnú od atómov a je\nto tam proste taký elektrizovaný",
+        "cs": "znamená, že se elektrony odtrhnou od atomů a je\ntam elektricky nabitý"
+      },
+      "asrWordRange": [
+        1614,
+        1628
+      ]
+    },
+    {
+      "start": 641.0,
+      "end": 641.736,
+      "kind": "speech",
+      "text": {
+        "sk": "alebo ionizovaný plyn",
+        "cs": "neboli ionizovaný plyn"
+      },
+      "asrWordRange": [
+        1628,
+        1631
+      ]
+    },
+    {
+      "start": 642.792,
+      "end": 647.849,
+      "kind": "speech",
+      "text": {
+        "sk": "a vznikne tam teda záblesk kvôli tomu, že tam je\nextrémne horúci plyn.",
+        "cs": "a vznikne světelný záblesk, protože ten plyn je\nmimořádně horký."
+      },
+      "asrWordRange": [
+        1631,
+        1644
+      ]
+    },
+    {
+      "start": 648.865,
+      "end": 650.236,
+      "kind": "speech",
+      "text": {
+        "sk": "Vznikne tam malé slniečko.",
+        "cs": "Vznikne tam malé sluníčko."
+      },
+      "asrWordRange": [
+        1644,
+        1648
+      ]
+    },
+    {
+      "start": 651.166,
+      "end": 652.556,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno, to si povedal veľmi pekne.",
+        "cs": "Ano, to jsi řekl moc hezky."
+      },
+      "asrWordRange": [
+        1648,
+        1654
+      ]
+    },
+    {
+      "start": 655.408,
+      "end": 656.256,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak to je úžasné.",
+        "cs": "To je úžasné."
+      },
+      "asrWordRange": [
+        1654,
+        1658
+      ]
+    },
+    {
+      "start": 658.803,
+      "end": 663.44,
+      "kind": "speech",
+      "text": {
+        "sk": "Čítal som v jednom článku, čo som im posielal na\npodklady, že vedci dokonca zistili,",
+        "cs": "Četl jsem v jednom článku, který jsem jim\nposílal jako podklad, že vědci dokonce zjistili,"
+      },
+      "asrWordRange": [
+        1658,
+        1673
+      ]
+    },
+    {
+      "start": 663.44,
+      "end": 665.798,
+      "kind": "speech",
+      "text": {
+        "sk": "že keby sa tento efekt deje v kyseline,",
+        "cs": "že kdyby tento jev probíhal v kyselině,"
+      },
+      "asrWordRange": [
+        1673,
+        1681
+      ]
+    },
+    {
+      "start": 666.522,
+      "end": 671.478,
+      "kind": "speech",
+      "text": {
+        "sk": "aj vyššia teplota, že okolo 20-tisíc stupňov.\nSprávne som si...? Je možné, že sa to",
+        "cs": "i vyšší teplota, asi 20 tisíc stupňů. Pamatuji\nsi to správně? Je možné, že se to"
+      },
+      "asrWordRange": [
+        1681,
+        1698
+      ]
+    },
+    {
+      "start": 671.542,
+      "end": 675.438,
+      "kind": "speech",
+      "text": {
+        "sk": "testovalo v niečom, ešte akože v takých\ndrastickejších podmienkach alebo v niečom inom",
+        "cs": "zkoušelo v něčem, v drsnějších podmínkách nebo v\nněčem jiném"
+      },
+      "asrWordRange": [
+        1698,
+        1711
+      ]
+    },
+    {
+      "start": 675.438,
+      "end": 677.136,
+      "kind": "speech",
+      "text": {
+        "sk": "ako voda. Je možné, že v iných",
+        "cs": "než ve vodě. Je možné, že v jiných"
+      },
+      "asrWordRange": [
+        1711,
+        1718
+      ]
+    },
+    {
+      "start": 677.136,
+      "end": 679.559,
+      "kind": "speech",
+      "text": {
+        "sk": "plynoch to dopadne ešte drastickejšie, lebo ide\no to,",
+        "cs": "plynech bude výsledek ještě výraznější, protože\nzáleží na tom,"
+      },
+      "asrWordRange": [
+        1718,
+        1727
+      ]
+    },
+    {
+      "start": 679.66,
+      "end": 682.958,
+      "kind": "speech",
+      "text": {
+        "sk": "ako sa daná tekutina rýchlo vyparuje a podobne.",
+        "cs": "jak rychle se daná kapalina odpařuje a podobně."
+      },
+      "asrWordRange": [
+        1727,
+        1735
+      ]
+    },
+    {
+      "start": 684.973,
+      "end": 689.528,
+      "kind": "speech",
+      "text": {
+        "sk": "A ja by som ešte len pre úplnosť, aby sme\nnezneli zavádzajúco, uviedol, že",
+        "cs": "A pro úplnost bych jen rád řekl, abychom\nneuváděli posluchače v omyl, že"
+      },
+      "asrWordRange": [
+        1735,
+        1749
+      ]
+    },
+    {
+      "start": 690.753,
+      "end": 695.219,
+      "kind": "speech",
+      "text": {
+        "sk": "to, čím omračuje tá kreveta, to nie je ten\nzáblesk svetla, tam ide o ten záblesk,",
+        "cs": "to, čím kreveta omračuje, není ten světelný\nzáblesk, jde o"
+      },
+      "asrWordRange": [
+        1749,
+        1766
+      ]
+    },
+    {
+      "start": 695.219,
+      "end": 700.539,
+      "kind": "speech",
+      "text": {
+        "sk": "o tú tlakovú vlnu, o ten náraz, ktorý to vyvolá.\nŽe toto je len taký, neviem, či",
+        "cs": "tlakovou vlnu, ten náraz, který to vyvolá. Tohle\nje jen takový, nevím, jestli"
+      },
+      "asrWordRange": [
+        1766,
+        1783
+      ]
+    },
+    {
+      "start": 700.539,
+      "end": 705.138,
+      "kind": "speech",
+      "text": {
+        "sk": "nežiaduci produkt evolúcie, ale je to až\ndruhoradé, že to urobí ešte aj to bliknutie.",
+        "cs": "nežádoucí produkt evoluce, ale je to až\ndruhotné, že to navíc i blikne."
+      },
+      "asrWordRange": [
+        1783,
+        1798
+      ]
+    },
+    {
+      "start": 705.622,
+      "end": 709.698,
+      "kind": "speech",
+      "text": {
+        "sk": "No, skôr by som nepovedal, že nežiaduci efekt\nevolúcie, ale proste je to",
+        "cs": "Spíš bych neřekl, že nežádoucí produkt evoluce,\nprostě je to"
+      },
+      "asrWordRange": [
+        1798,
+        1811
+      ]
+    },
+    {
+      "start": 710.006,
+      "end": 711.52,
+      "kind": "speech",
+      "text": {
+        "sk": "sprevádzajúci efekt,",
+        "cs": "doprovodný jev,"
+      },
+      "asrWordRange": [
+        1811,
+        1813
+      ]
+    },
+    {
+      "start": 711.6,
+      "end": 717.12,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorý potrebuje k tomu loveniu. No, to je\nneskutočné, takže na svete máme",
+        "cs": "který k tomu lovu potřebuje. Je neuvěřitelné, že\nna světě máme"
+      },
+      "asrWordRange": [
+        1813,
+        1826
+      ]
+    },
+    {
+      "start": 717.326,
+      "end": 719.477,
+      "kind": "speech",
+      "text": {
+        "sk": "živočicha, ktorý vďaka,",
+        "cs": "živočicha, který díky,"
+      },
+      "asrWordRange": [
+        1826,
+        1829
+      ]
+    },
+    {
+      "start": 720.722,
+      "end": 725.718,
+      "kind": "speech",
+      "text": {
+        "sk": "povedzme, plazmovou zbraňou a exoskeletom loví\nostatných živočíchov na",
+        "cs": "řekněme, plazmové zbrani a exoskeletu loví\nostatní živočichy na"
+      },
+      "asrWordRange": [
+        1829,
+        1838
+      ]
+    },
+    {
+      "start": 725.763,
+      "end": 728.918,
+      "kind": "speech",
+      "text": {
+        "sk": "morskom dne. Možno, na záver môžeme o ňom\npovedať jednu peknú vec.",
+        "cs": "mořském dně. Možná bychom o něm na závěr mohli\nříct ještě něco hezkého."
+      },
+      "asrWordRange": [
+        1838,
+        1850
+      ]
+    },
+    {
+      "start": 730.743,
+      "end": 734.098,
+      "kind": "speech",
+      "text": {
+        "sk": "Vrelo odporúčam ľuďom, aby ste to skúsili cez\ntaký vyhľadávač nájsť,",
+        "cs": "Vřele doporučuji všem, abyste si ho zkusili\nvyhledat,"
+      },
+      "asrWordRange": [
+        1850,
+        1861
+      ]
+    },
+    {
+      "start": 734.781,
+      "end": 740.459,
+      "kind": "speech",
+      "text": {
+        "sk": "totiž tieto krevety majú symbiotický vzťah s\ntakými malými rybičkami,",
+        "cs": "protože tyto krevety žijí v symbióze s takovými\nmalými rybičkami,"
+      },
+      "asrWordRange": [
+        1861,
+        1871
+      ]
+    },
+    {
+      "start": 741.762,
+      "end": 746.938,
+      "kind": "speech",
+      "text": {
+        "sk": "z čeľade hlaváčovitých, to sú také pomerne malé,\noranžovo-",
+        "cs": "z čeledi hlaváčovitých, jsou to poměrně malé,\noranžovo-"
+      },
+      "asrWordRange": [
+        1871,
+        1880
+      ]
+    },
+    {
+      "start": 747.043,
+      "end": 748.435,
+      "kind": "speech",
+      "text": {
+        "sk": "sivo-čierne rybičky.",
+        "cs": "šedočerné rybičky."
+      },
+      "asrWordRange": [
+        1880,
+        1883
+      ]
+    },
+    {
+      "start": 749.581,
+      "end": 749.763,
+      "kind": "speech",
+      "text": {
+        "sk": "Nemo?",
+        "cs": "Nemo?"
+      },
+      "asrWordRange": [
+        1883,
+        1884
+      ]
+    },
+    {
+      "start": 750.955,
+      "end": 753.347,
+      "kind": "speech",
+      "text": {
+        "sk": "Nie až také pásikavé, ale podobné, hej.",
+        "cs": "Nejsou až tak pruhované, ale podobné, ano."
+      },
+      "asrWordRange": [
+        1884,
+        1891
+      ]
+    },
+    {
+      "start": 754.172,
+      "end": 759.589,
+      "kind": "speech",
+      "text": {
+        "sk": "Á, škoda. Ten symbiotický vzťah spočíva v tom,\nže tá kreveta je pomerne",
+        "cs": "Ach, škoda. Symbiotický vztah spočívá v tom, že\nkreveta je poměrně"
+      },
+      "asrWordRange": [
+        1891,
+        1904
+      ]
+    },
+    {
+      "start": 759.812,
+      "end": 765.109,
+      "kind": "speech",
+      "text": {
+        "sk": "slepá. Teda ona má veľmi dobrý zrak, ale na malú\nvzdialenosť a",
+        "cs": "slepá. Má tedy dobrý zrak, ale jen na krátkou\nvzdálenost, a"
+      },
+      "asrWordRange": [
+        1904,
+        1916
+      ]
+    },
+    {
+      "start": 765.109,
+      "end": 769.188,
+      "kind": "speech",
+      "text": {
+        "sk": "tá ryba zase vidí do diaľky, ale nevie tak dobre\nkopať, nevie tak dobre strážiť.",
+        "cs": "ryba zase vidí do dálky, ale neumí tak dobře\nhrabat, neumí tak dobře hlídat."
+      },
+      "asrWordRange": [
+        1916,
+        1931
+      ]
+    },
+    {
+      "start": 769.911,
+      "end": 774.968,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže ryba vlastne slúži na to v tomto páre, že\ndeteguje nebezpečenstvo",
+        "cs": "Ryba tedy v tomto páru slouží k tomu, že\nodhaluje nebezpečí"
+      },
+      "asrWordRange": [
+        1931,
+        1943
+      ]
+    },
+    {
+      "start": 776.263,
+      "end": 781.68,
+      "kind": "speech",
+      "text": {
+        "sk": "a kreveta potom odkomunikuje to. Kreveta to cez\nsvoje tykadlá, alebo neviem, ako sa",
+        "cs": "a kreveta pak to komunikuje. Kreveta to\nprostřednictvím tykadel, nebo nevím, jak se"
+      },
+      "asrWordRange": [
+        1943,
+        1957
+      ]
+    },
+    {
+      "start": 781.68,
+      "end": 783.477,
+      "kind": "speech",
+      "text": {
+        "sk": "to správne povie, asi nám napíšu takí\nbiológovia,",
+        "cs": "to správně říká, snad nám napíší nějací\nbiologové,"
+      },
+      "asrWordRange": [
+        1957,
+        1965
+      ]
+    },
+    {
+      "start": 784.282,
+      "end": 788.978,
+      "kind": "speech",
+      "text": {
+        "sk": "to vycíti a obe vedia, že sa majú rýchlo\nstiahnuť do nory a schovať sa. Takže a",
+        "cs": "vycítí a obě vědí, že se mají rychle stáhnout do\nnory a schovat. Takže"
+      },
+      "asrWordRange": [
+        1965,
+        1982
+      ]
+    },
+    {
+      "start": 789.885,
+      "end": 793.518,
+      "kind": "speech",
+      "text": {
+        "sk": "na internete je strašne veľa obrázkov, kde\nproste táto dvojica vyzerá ako taký malý gang,",
+        "cs": "na internetu je spousta obrázků, kde tahle\ndvojice vypadá jako malý gang,"
+      },
+      "asrWordRange": [
+        1982,
+        1996
+      ]
+    },
+    {
+      "start": 793.562,
+      "end": 796.759,
+      "kind": "speech",
+      "text": {
+        "sk": "alebo čo, lebo jeden s takým prerasteným\nklepetom.",
+        "cs": "nebo co, protože jeden má přerostlé klepeto."
+      },
+      "asrWordRange": [
+        1996,
+        2004
+      ]
+    },
+    {
+      "start": 796.759,
+      "end": 799.097,
+      "kind": "speech",
+      "text": {
+        "sk": "Ja, že chodia vedľa seba a jeden so zbraňou",
+        "cs": "Jdou vedle sebe a jeden má zbraň"
+      },
+      "asrWordRange": [
+        2004,
+        2013
+      ]
+    },
+    {
+      "start": 800.001,
+      "end": 804.898,
+      "kind": "speech",
+      "text": {
+        "sk": "pripravenou ako na Divokom západe. Ja som\nmyslel, že povieš, že odporučíš krevety na",
+        "cs": "připravenou jako na Divokém západě. Myslel jsem,\nže řekneš, že krevety doporučíš na"
+      },
+      "asrWordRange": [
+        2013,
+        2028
+      ]
+    },
+    {
+      "start": 804.898,
+      "end": 809.418,
+      "kind": "speech",
+      "text": {
+        "sk": "olivovom oleji alebo tak, že... Ešte rovno s tou\nrybičkou.",
+        "cs": "olivovém oleji nebo tak... Ještě rovnou s tou\nrybičkou."
+      },
+      "asrWordRange": [
+        2028,
+        2036
+      ]
+    },
+    {
+      "start": 810.363,
+      "end": 814.138,
+      "kind": "speech",
+      "text": {
+        "sk": "Že výborne chutia. Ja by som len pridal taký fun\nfact, čo si aj ty písal v tom svojom",
+        "cs": "Že výborně chutnají. Já bych ještě přidal\nzajímavost, o které jsi psal ve svém"
+      },
+      "asrWordRange": [
+        2036,
+        2055
+      ]
+    },
+    {
+      "start": 814.182,
+      "end": 818.798,
+      "kind": "speech",
+      "text": {
+        "sk": "článku, že keď to klepietko, lebo jedno má\nväčšie ako to druhé,",
+        "cs": "článku. Když to klepítko, protože jedno má větší\nnež druhé,"
+      },
+      "asrWordRange": [
+        2055,
+        2068
+      ]
+    },
+    {
+      "start": 819.943,
+      "end": 825.038,
+      "kind": "speech",
+      "text": {
+        "sk": "sa mu odtrhne alebo nejako stratí, alebo ho\nnevie používať, tak vlastne to druhé",
+        "cs": "se jí utrhne nebo ho nějak ztratí či nemůže\npoužívat, pak se to druhé"
+      },
+      "asrWordRange": [
+        2068,
+        2082
+      ]
+    },
+    {
+      "start": 825.122,
+      "end": 829.018,
+      "kind": "speech",
+      "text": {
+        "sk": "klepietko sa prispôsobí, aby mohla tá kreveta\nloviť vlastne,",
+        "cs": "klepítko přizpůsobí, aby kreveta mohla dál\nlovit,"
+      },
+      "asrWordRange": [
+        2082,
+        2091
+      ]
+    },
+    {
+      "start": 829.822,
+      "end": 835.038,
+      "kind": "speech",
+      "text": {
+        "sk": "aby neostala hladná. Čiže keď príde o svoju\npištoľ, tak druhá ruka, to druhé klepeto",
+        "cs": "aby nezůstala hladová. Když tedy přijde o svou\npistoli, druhá ruka, druhé klepeto,"
+      },
+      "asrWordRange": [
+        2091,
+        2106
+      ]
+    },
+    {
+      "start": 835.038,
+      "end": 836.356,
+      "kind": "speech",
+      "text": {
+        "sk": "jej narastie tak, aby ho nahradilo.",
+        "cs": "jí naroste tak, aby ji nahradilo."
+      },
+      "asrWordRange": [
+        2106,
+        2111
+      ]
+    },
+    {
+      "start": 837.843,
+      "end": 842.798,
+      "kind": "speech",
+      "text": {
+        "sk": "Buď narastie, alebo sa skôr aj zmení. Dobre,\nSamuel, neviem, či máš ešte k tejto téme niečo.",
+        "cs": "Buď naroste, nebo se spíš změní. Dobře, Samueli,\nmáš ještě k tomuto tématu něco?"
+      },
+      "asrWordRange": [
+        2111,
+        2128
+      ]
+    },
+    {
+      "start": 843.903,
+      "end": 848.058,
+      "kind": "speech",
+      "text": {
+        "sk": "okrem výborného receptu na pištolnícke krevety.\nTak si mi pripomenul tým, ako si",
+        "cs": "Kromě výborného receptu na pistolové krevety.\nPřipomněl jsi mi tím, jak jsi"
+      },
+      "asrWordRange": [
+        2128,
+        2141
+      ]
+    },
+    {
+      "start": 848.058,
+      "end": 851.698,
+      "kind": "speech",
+      "text": {
+        "sk": "povedal, že keď jej odpadne jedno klepeto, tak\ndruhé ho nahradí. Spomenul som si na takého",
+        "cs": "říkal, že když jí odpadne jedno klepeto, druhé\nho nahradí. Vzpomněl jsem si na takového"
+      },
+      "asrWordRange": [
+        2141,
+        2156
+      ]
+    },
+    {
+      "start": 851.826,
+      "end": 853.116,
+      "kind": "speech",
+      "text": {
+        "sk": "strašne smiešného kraba,",
+        "cs": "strašně legračního kraba,"
+      },
+      "asrWordRange": [
+        2156,
+        2159
+      ]
+    },
+    {
+      "start": 853.901,
+      "end": 859.27,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorý má také latinské meno, ale doslovný\npreklad z angličtiny je, že",
+        "cs": "který má latinské jméno, ale doslovný překlad z\nangličtiny je"
+      },
+      "asrWordRange": [
+        2159,
+        2171
+      ]
+    },
+    {
+      "start": 859.27,
+      "end": 862.265,
+      "kind": "speech",
+      "text": {
+        "sk": "brmbolcový krab alebo niekedy sa volá krab boxer\na",
+        "cs": "krab s bambulkami, někdy se mu říká krab boxer,\na"
+      },
+      "asrWordRange": [
+        2171,
+        2179
+      ]
+    },
+    {
+      "start": 863.902,
+      "end": 868.518,
+      "kind": "speech",
+      "text": {
+        "sk": "to je taký strašne smiešny krab, lebo on si do\nkaždého klepietka chytí sasanku,",
+        "cs": "je to strašně legrační krab, protože si do\nkaždého klepeta chytí sasanku,"
+      },
+      "asrWordRange": [
+        2179,
+        2193
+      ]
+    },
+    {
+      "start": 869.362,
+      "end": 874.279,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorá je jedovatá, a s inými krabmi alebo\nživočíchmi, tak proste dôjde za nimi a tlčie",
+        "cs": "která je jedovatá, a když potká jiné kraby nebo\nživočichy, prostě k nim přijde a mlátí"
+      },
+      "asrWordRange": [
+        2193,
+        2209
+      ]
+    },
+    {
+      "start": 874.279,
+      "end": 879.02,
+      "kind": "speech",
+      "text": {
+        "sk": "ich tými sasankami a tiež, že keď svoju sasanku\nstratí, tak potom si musí nájsť takú",
+        "cs": "je těmi sasankami. Když o jednu přijde, musí si\npak najít"
+      },
+      "asrWordRange": [
+        2209,
+        2225
+      ]
+    },
+    {
+      "start": 879.02,
+      "end": 883.658,
+      "kind": "speech",
+      "text": {
+        "sk": "inú, ktorá dorastie a ktorá nahradí tú\nodpadnutú. Tak len som si tak spomenul. Takže",
+        "cs": "jinou, která doroste a nahradí tu ztracenou. Jen\njsem si na to vzpomněl. Takže"
+      },
+      "asrWordRange": [
+        2225,
+        2240
+      ]
+    },
+    {
+      "start": 883.722,
+      "end": 889.098,
+      "kind": "speech",
+      "text": {
+        "sk": "keď vidí nejakú novú veľkú sasanku, tak\nodhadzuje a ide zobrať väčšiu, aby mohol",
+        "cs": "když uvidí novou velkou sasanku, starou zahodí a\nvezme si větší, aby mohl"
+      },
+      "asrWordRange": [
+        2240,
+        2254
+      ]
+    },
+    {
+      "start": 889.162,
+      "end": 893.759,
+      "kind": "speech",
+      "text": {
+        "sk": "viac biť ostatné živočíchy. Čiže brmbolcový\nkrab. O tom sme písali na Vedátorovi",
+        "cs": "víc mlátit ostatní živočichy. Takže krab s\nbambulkami. O tom jsme psali na Vedátorovi"
+      },
+      "asrWordRange": [
+        2254,
+        2267
+      ]
+    },
+    {
+      "start": 893.759,
+      "end": 897.698,
+      "kind": "speech",
+      "text": {
+        "sk": "a je to niekde u nás na stránke, takže keď to\ndáte do vyhľadávača svojho",
+        "cs": "a je to někde na našich stránkách, takže když si\nto dáte do svého oblíbeného"
+      },
+      "asrWordRange": [
+        2267,
+        2283
+      ]
+    },
+    {
+      "start": 897.698,
+      "end": 899.897,
+      "kind": "speech",
+      "text": {
+        "sk": "obľúbeného, tak to pravdepodobne nájdete.",
+        "cs": "vyhledávače, pravděpodobně to najdete."
+      },
+      "asrWordRange": [
+        2283,
+        2288
+      ]
+    },
+    {
+      "start": 901.249,
+      "end": 901.614,
+      "kind": "speech",
+      "text": {
+        "sk": "Určite.",
+        "cs": "Určitě."
+      },
+      "asrWordRange": [
+        2288,
+        2289
+      ]
+    },
+    {
+      "start": 902.823,
+      "end": 907.838,
+      "kind": "speech",
+      "text": {
+        "sk": "Samuel, ja ti veľmi pekne ďakujem za dnešný\nrozhovor. Ďakujem za spoluúčasť.",
+        "cs": "Samueli, moc ti děkuji za dnešní rozhovor.\nDěkuji za spoluúčast."
+      },
+      "asrWordRange": [
+        2289,
+        2302
+      ]
+    },
+    {
+      "start": 908.726,
+      "end": 909.796,
+      "kind": "speech",
+      "text": {
+        "sk": "Za spoluúčasť, áno.",
+        "cs": "Za spoluúčast, ano."
+      },
+      "asrWordRange": [
+        2302,
+        2306
+      ]
+    },
+    {
+      "start": 910.622,
+      "end": 915.498,
+      "kind": "speech",
+      "text": {
+        "sk": "Tak ja vám všetkým, našim poslucháčom, veľmi\npekne ďakujem, že ste nás počúvali.",
+        "cs": "A já vám všem, našim posluchačům, moc děkuji, že\njste nás poslouchali."
+      },
+      "asrWordRange": [
+        2306,
+        2319
+      ]
+    },
+    {
+      "start": 916.323,
+      "end": 921.86,
+      "kind": "speech",
+      "text": {
+        "sk": "Tento podcast a aj ďalšie jeho vydania môžete\nnájsť na Spotify, na Apple Podcastoch",
+        "cs": "Tento podcast i jeho další díly najdete na\nSpotify, Apple Podcasts"
+      },
+      "asrWordRange": [
+        2319,
+        2333
+      ]
+    },
+    {
+      "start": 921.86,
+      "end": 926.358,
+      "kind": "speech",
+      "text": {
+        "sk": "a na Podbeane a všade, kde viete nájsť dobré\npodcasty.",
+        "cs": "a na Podbeanu a všude tam, kde najdete dobré\npodcasty."
+      },
+      "asrWordRange": [
+        2333,
+        2343
+      ]
+    },
+    {
+      "start": 927.242,
+      "end": 932.74,
+      "kind": "speech",
+      "text": {
+        "sk": "Samozrejme, navštívte aj našu stránku\nwww.vedator.space a",
+        "cs": "Samozřejmě navštivte i naše stránky\nwww.vedator.space a"
+      },
+      "asrWordRange": [
+        2343,
+        2352
+      ]
+    },
+    {
+      "start": 932.74,
+      "end": 937.438,
+      "kind": "speech",
+      "text": {
+        "sk": "našu facebookovú skupinu Vedátor.sk. Pekný deň\nvám prajem. Dopočutia. Majte sa.",
+        "cs": "naši facebookovou skupinu Vedátor.sk. Přeji vám\nhezký den. Na slyšenou. Mějte se."
+      },
+      "asrWordRange": [
+        2352,
+        2365
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3437 @@
+{
+  "episode": 8,
+  "source": {
+    "audio": "https://mcdn.podbean.com/mf/web/nq2dvm/podcast_ep8.mp3",
+    "audioSha256": "ebb1390d75241b0a5ffb107ffefb4bdd290771c9f18049f1fc5192ae42948cd6",
+    "audioBytes": 30764659,
+    "model": "large-v3-turbo",
+    "duration": 941.6098125
+  },
+  "review": "All 210 fresh Slovak ASR cues were read; 140 received language corrections, all 210 were independently Czech-translated and reviewed against Slovak; large-v3 source audio checks restore missed speech and cross-check uncertain technical names. This is editorial ASR/audio-model review, NOT an independent human listen of every spoken word. Uncertain words (notably the short interjection around 5:40 and acid-temperature phrase around 11:07) are documented for follow-up. Additional long blocks split at existing source-audio ASR word boundaries to improve mobile two-line readability; corrected speaker utterance at 206s. Final short/long sentence balance checked against exact audio ASR word boundaries; no speech intentionally omitted. Rebalanced a short low-confidence CTC cue by moving its sentence boundary to a longer original-audio speech span (around 9:40), preserving all spoken text.",
+  "checkWindows": [
+    [
+      25,
+      40
+    ],
+    [
+      233,
+      243
+    ],
+    [
+      259,
+      272
+    ],
+    [
+      336,
+      352
+    ],
+    [
+      535,
+      547
+    ],
+    [
+      659,
+      672
+    ],
+    [
+      772,
+      785
+    ],
+    [
+      900,
+      939
+    ]
+  ],
+  "cues": [
+    {
+      "start": 11.57,
+      "end": 16.55,
+      "text": {
+        "sk": "Od kavitácie cez kvantá až po krevety. Veda nás obklopuje na každom kroku. Vitajte",
+        "cs": "Od kavitace přes kvanta až po krevety. Věda nás obklopuje na každém kroku. Vítejte"
+      },
+      "asrWordRange": [
+        0,
+        14
+      ],
+      "sourceCues": [
+        1
+      ],
+      "alignmentText": "Od kavitácie cez kvantá až po krevety. Veda nás obklopuje na každom kroku. Vitajte"
+    },
+    {
+      "start": 16.55,
+      "end": 22.09,
+      "text": {
+        "sk": "pri Vedátorskom podcaste, v ktorom budeme diskutovať o vede a prírode okolo nás. Moje",
+        "cs": "u Vedátorského podcastu, ve kterém budeme diskutovat o vědě a přírodě kolem nás. Moje"
+      },
+      "asrWordRange": [
+        14,
+        28
+      ],
+      "sourceCues": [
+        2
+      ],
+      "alignmentText": "pri Vedátorskom podcaste, v ktorom budeme diskutovať o vede a prírode okolo nás. Moje"
+    },
+    {
+      "start": 22.09,
+      "end": 23.79,
+      "text": {
+        "sk": "meno je Jozef. A ja som Samuel.",
+        "cs": "jméno je Jozef. A já jsem Samuel."
+      },
+      "asrWordRange": [
+        28,
+        35
+      ],
+      "sourceCues": [
+        3
+      ],
+      "alignmentText": "meno je Jozef. A ja som Samuel."
+    },
+    {
+      "start": 24.81,
+      "end": 30.15,
+      "text": {
+        "sk": "Ahoj, Samuel, pri ďalšom vydaní nášho Vedátorského podcastu. Ako sa máš? Mám sa",
+        "cs": "Ahoj, Samueli, u dalšího vydání našeho Vedátorského podcastu. Jak se máš? Mám se"
+      },
+      "asrWordRange": [
+        35,
+        48
+      ],
+      "sourceCues": [
+        4
+      ],
+      "alignmentText": "Ahoj, Samuel, pri ďalšom vydaní nášho Vedátorského podcastu. Ako sa máš? Mám sa"
+    },
+    {
+      "start": 30.15,
+      "end": 31.69,
+      "text": {
+        "sk": "celkom dobre a je mi veľmi teplo.",
+        "cs": "docela dobře a je mi velmi horko."
+      },
+      "asrWordRange": [
+        48,
+        55
+      ],
+      "sourceCues": [
+        5
+      ],
+      "alignmentText": "celkom dobre a je mi veľmi teplo."
+    },
+    {
+      "start": 32.65,
+      "end": 38.01,
+      "text": {
+        "sk": "Je ti veľmi teplo a viem aj ten dôvod, prečo je ti veľmi teplo. Máme dobre",
+        "cs": "Je ti velké horko a vím i proč. Máme dobře"
+      },
+      "asrWordRange": [
+        55,
+        71
+      ],
+      "sourceCues": [
+        6
+      ],
+      "alignmentText": "Je ti veľmi teplo a viem aj ten dôvod, prečo je ti veľmi teplo. Máme dobre"
+    },
+    {
+      "start": 38.01,
+      "end": 43.33,
+      "text": {
+        "sk": "zaizolované nahrávacie štúdio. Dobre, ja sa ťa chcem opýtať,",
+        "cs": "zaizolované nahrávací studio. Dobře, chci se tě zeptat,"
+      },
+      "asrWordRange": [
+        71,
+        80
+      ],
+      "sourceCues": [
+        7
+      ],
+      "alignmentText": "zaizolované nahrávacie štúdio. Dobre, ja sa ťa chcem opýtať,"
+    },
+    {
+      "start": 43.49,
+      "end": 46.09,
+      "text": {
+        "sk": "o čom sa budeme dnes rozprávať? Aká je téma?",
+        "cs": "o čem si dnes budeme povídat? Jaké je téma?"
+      },
+      "asrWordRange": [
+        80,
+        89
+      ],
+      "sourceCues": [
+        8,
+        9
+      ],
+      "alignmentText": "o čom sa budeme dnes rozprávať? Aká je téma?"
+    },
+    {
+      "start": 46.45,
+      "end": 49.51,
+      "text": {
+        "sk": "Dnes sa budeme rozprávať o pištoľníckych krevetách.",
+        "cs": "Dnes si budeme povídat o pistolových krevetách."
+      },
+      "asrWordRange": [
+        89,
+        96
+      ],
+      "sourceCues": [
+        8,
+        9
+      ],
+      "alignmentText": "Dnes sa budeme rozprávať o pištoľníckych krevetách."
+    },
+    {
+      "start": 50.63,
+      "end": 55.07,
+      "text": {
+        "sk": "O pištoľníckych krevetách? Tak povedz nám, prečo sa volajú pištoľnícke krevety,",
+        "cs": "O pistolových krevetách? Tak nám pověz, proč se jim říká pistolové krevety,"
+      },
+      "asrWordRange": [
+        96,
+        107
+      ],
+      "sourceCues": [
+        10
+      ],
+      "alignmentText": "O pištoľníckych krevetách? Tak povedz nám, prečo sa volajú pištoľnícke krevety,"
+    },
+    {
+      "start": 55.25,
+      "end": 60.23,
+      "text": {
+        "sk": "pištoľnícke krevety? Pištoľnícke krevety sú také zvláštne krevety, ktoré",
+        "cs": "pistolové krevety? Jsou to takové zvláštní krevety, které"
+      },
+      "asrWordRange": [
+        107,
+        116
+      ],
+      "sourceCues": [
+        11
+      ],
+      "alignmentText": "pištoľnícke krevety? Pištoľnícke krevety sú také zvláštne krevety, ktoré"
+    },
+    {
+      "start": 60.23,
+      "end": 65.59,
+      "text": {
+        "sk": "majú jedno klepeto väčšie ako druhé a zabíjajú pomocou tlakovej vlny, ktorú",
+        "cs": "mají jedno klepeto větší než druhé a zabíjejí pomocí tlakové vlny, kterou"
+      },
+      "asrWordRange": [
+        116,
+        128
+      ],
+      "sourceCues": [
+        12
+      ],
+      "alignmentText": "majú jedno klepeto väčšie ako druhé a zabíjajú pomocou tlakovej vlny, ktorú"
+    },
+    {
+      "start": 65.59,
+      "end": 71.05,
+      "text": {
+        "sk": "vyvolajú. A vlastne, k čomu sa budeme chcieť dostať v tomto podcaste, že ja som na",
+        "cs": "vyvolají. A vlastně to, k čemu se chceme v tomto podcastu dostat, je, že jsem na"
+      },
+      "asrWordRange": [
+        128,
+        144
+      ],
+      "sourceCues": [
+        13
+      ],
+      "alignmentText": "vyvolajú. A vlastne, k čomu sa budeme chcieť dostať v tomto podcaste, že ja som na"
+    },
+    {
+      "start": 71.05,
+      "end": 74.19,
+      "text": {
+        "sk": "tieto krevety narazil pri štúdiu kvantovej mechaniky.",
+        "cs": "tyto krevety narazil při studiu kvantové mechaniky."
+      },
+      "asrWordRange": [
+        144,
+        151
+      ],
+      "sourceCues": [
+        14
+      ],
+      "alignmentText": "tieto krevety narazil pri štúdiu kvantovej mechaniky."
+    },
+    {
+      "start": 75.04,
+      "end": 79.34,
+      "text": {
+        "sk": "Takže sa pokúsime o takmer nemožné a prepojeme krevety s kvantovou mechanikou.",
+        "cs": "Takže se pokusíme o téměř nemožné a propojíme krevety s kvantovou mechanikou."
+      },
+      "asrWordRange": [
+        151,
+        163
+      ],
+      "sourceCues": [
+        15
+      ],
+      "alignmentText": "Takže sa pokúsime o takmer nemožné a prepojeme krevety s kvantovou mechanikou."
+    },
+    {
+      "start": 80.23,
+      "end": 85.59,
+      "text": {
+        "sk": "Takže od podmorskej biológie pôjdeme až k kvantovej mechanike. Presne tak.",
+        "cs": "Takže od podmořské biologie dojdeme až ke kvantové mechanice. Přesně tak."
+      },
+      "asrWordRange": [
+        163,
+        174
+      ],
+      "sourceCues": [
+        16
+      ],
+      "alignmentText": "Takže od podmorskej biológie pôjdeme až k kvantovej mechanike. Presne tak."
+    },
+    {
+      "start": 85.59,
+      "end": 88.85,
+      "text": {
+        "sk": "Wow, tak to je naozaj prepojenie.",
+        "cs": "Wow, to je opravdu propojení."
+      },
+      "asrWordRange": [
+        174,
+        180
+      ],
+      "sourceCues": [
+        17
+      ],
+      "alignmentText": "Wow, tak to je naozaj prepojenie."
+    },
+    {
+      "start": 89.76,
+      "end": 94.98,
+      "text": {
+        "sk": "Tak povedz, kde je to prepojenie? Tak začína to vlastne tým, ako tieto krevety lovia.",
+        "cs": "Tak pověz, kde je to propojení? Začíná to vlastně tím, jak tyto krevety loví."
+      },
+      "asrWordRange": [
+        180,
+        196
+      ],
+      "sourceCues": [
+        18,
+        19
+      ],
+      "alignmentText": "Tak povedz, kde je to prepojenie? Tak začína to vlastne tým, ako tieto krevety lovia."
+    },
+    {
+      "start": 95.7,
+      "end": 100.36,
+      "text": {
+        "sk": "A ony lovia tak, že majú taký špeciálny, strašne silný sval, cvaknú klepetom.",
+        "cs": "Loví tak, že mají zvláštní, strašně silný sval a cvaknou klepetem."
+      },
+      "asrWordRange": [
+        196,
+        210
+      ],
+      "sourceCues": [
+        20
+      ],
+      "alignmentText": "A ony lovia tak, že majú taký špeciálny, strašne silný sval, cvaknú klepetom."
+    },
+    {
+      "start": 101.16,
+      "end": 106.72,
+      "text": {
+        "sk": "A to cvaknutie klepeta vyvolá takú tlakovú vlnu vo vode. Bežne tlakové vlny",
+        "cs": "A cvaknutí klepetem vyvolá takovou tlakovou vlnu ve vodě. Běžné tlakové vlny"
+      },
+      "asrWordRange": [
+        210,
+        223
+      ],
+      "sourceCues": [
+        21
+      ],
+      "alignmentText": "A to cvaknutie klepeta vyvolá takú tlakovú vlnu vo vode. Bežne tlakové vlny"
+    },
+    {
+      "start": 106.72,
+      "end": 108.44,
+      "text": {
+        "sk": "sú napríklad zvukové vlny.",
+        "cs": "jsou třeba zvukové vlny."
+      },
+      "asrWordRange": [
+        223,
+        227
+      ],
+      "sourceCues": [
+        22
+      ],
+      "alignmentText": "sú napríklad zvukové vlny."
+    },
+    {
+      "start": 109.1,
+      "end": 114.32,
+      "text": {
+        "sk": "Tak niečo ako taká zvuková vlna, ale prebehne vo vode. No a táto vlna",
+        "cs": "Je to něco jako zvuková vlna, ale šíří se vodou. A tato vlna"
+      },
+      "asrWordRange": [
+        227,
+        241
+      ],
+      "sourceCues": [
+        23
+      ],
+      "alignmentText": "Tak niečo ako taká zvuková vlna, ale prebehne vo vode. No a táto vlna"
+    },
+    {
+      "start": 114.32,
+      "end": 119.02,
+      "text": {
+        "sk": "vlastne narazí na takého drobného malého živočícha, omráči ho a tá kreveta si s ním",
+        "cs": "narazí na drobného živočicha, omráčí ho a kreveta si s ním"
+      },
+      "asrWordRange": [
+        241,
+        255
+      ],
+      "sourceCues": [
+        24
+      ],
+      "alignmentText": "vlastne narazí na takého drobného malého živočícha, omráči ho a tá kreveta si s ním"
+    },
+    {
+      "start": 119.02,
+      "end": 124.42,
+      "text": {
+        "sk": "potom robí, čo sa jej zachce. Taký sprievodný jav tohto celého je, že tá",
+        "cs": "pak dělá, co se jí zachce. Doprovodným jevem toho všeho je, že ta"
+      },
+      "asrWordRange": [
+        255,
+        269
+      ],
+      "sourceCues": [
+        25
+      ],
+      "alignmentText": "potom robí, čo sa jej zachce. Taký sprievodný jav tohto celého je, že tá"
+    },
+    {
+      "start": 124.42,
+      "end": 129.76,
+      "text": {
+        "sk": "tlaková vlna zároveň urobí bublinu. Taký veľmi zvláštny jav je, že táto bublina",
+        "cs": "tlaková vlna zároveň vytvoří bublinu. Zvláštní je, že tato bublina"
+      },
+      "asrWordRange": [
+        269,
+        282
+      ],
+      "sourceCues": [
+        26
+      ],
+      "alignmentText": "tlaková vlna zároveň urobí bublinu. Taký veľmi zvláštny jav je, že táto bublina"
+    },
+    {
+      "start": 129.76,
+      "end": 134.83,
+      "text": {
+        "sk": "vlastne zasvieti počas svojho krátkeho bublinového života.",
+        "cs": "během svého krátkého bublinového života dokonce zasvítí."
+      },
+      "asrWordRange": [
+        282,
+        289
+      ],
+      "sourceCues": [
+        27
+      ],
+      "alignmentText": "vlastne zasvieti počas svojho krátkeho bublinového života."
+    },
+    {
+      "start": 135.75,
+      "end": 141.32,
+      "text": {
+        "sk": "Bublina zasvieti? To kvôli čomu? Rozdelím tú odpoveď na dve časti. Prvá časť je,",
+        "cs": "Bublina zasvítí? Jak to? Rozdělím odpověď na dvě části. První část je,"
+      },
+      "asrWordRange": [
+        289,
+        303
+      ],
+      "sourceCues": [
+        28
+      ],
+      "alignmentText": "Bublina zasvieti? To kvôli čomu? Rozdelím tú odpoveď na dve časti. Prvá časť je,"
+    },
+    {
+      "start": 141.42,
+      "end": 144.78,
+      "text": {
+        "sk": "že prečo vlastne vo vode vznikajú bubliny.",
+        "cs": "proč vlastně ve vodě vznikají bubliny."
+      },
+      "asrWordRange": [
+        303,
+        310
+      ],
+      "sourceCues": [
+        29
+      ],
+      "alignmentText": "že prečo vlastne vo vode vznikajú bubliny."
+    },
+    {
+      "start": 145.5,
+      "end": 149.3,
+      "text": {
+        "sk": "Tento jav sa volá kavitácia. Cavity po anglicky je dutina.",
+        "cs": "Tento jev se nazývá kavitace. Anglické cavity znamená dutina."
+      },
+      "asrWordRange": [
+        310,
+        320
+      ],
+      "sourceCues": [
+        30
+      ],
+      "alignmentText": "Tento jav sa volá kavitácia. Cavity po anglicky je dutina."
+    },
+    {
+      "start": 150.04,
+      "end": 155.42,
+      "text": {
+        "sk": "To je pomerne bežný jav vo vode, že keď sa niečo vo vode prudko hýbe alebo to",
+        "cs": "To je ve vodě poměrně běžný jev, když se něco prudce pohybuje nebo"
+      },
+      "asrWordRange": [
+        320,
+        337
+      ],
+      "sourceCues": [
+        31
+      ],
+      "alignmentText": "To je pomerne bežný jav vo vode, že keď sa niečo vo vode prudko hýbe alebo to"
+    },
+    {
+      "start": 155.42,
+      "end": 158.7,
+      "text": {
+        "sk": "prúdko narazí, tak to vytvorí drobné bublinky,",
+        "cs": "prudce narazí, vytvoří to drobné bublinky,"
+      },
+      "asrWordRange": [
+        337,
+        344
+      ],
+      "sourceCues": [
+        32
+      ],
+      "alignmentText": "prúdko narazí, tak to vytvorí drobné bublinky,"
+    },
+    {
+      "start": 159.54,
+      "end": 161.18,
+      "text": {
+        "sk": "ktoré sú v princípe úplne prázdne.",
+        "cs": "které jsou v podstatě úplně prázdné."
+      },
+      "asrWordRange": [
+        344,
+        350
+      ],
+      "sourceCues": [
+        33
+      ],
+      "alignmentText": "ktoré sú v princípe úplne prázdne."
+    },
+    {
+      "start": 162.34,
+      "end": 166.52,
+      "text": {
+        "sk": "Takýto jav si dokonca môžeme otestovať niekedy na fľaške, že keď veľmi prudko udrieme",
+        "cs": "Takový jev si dokonce někdy můžeme vyzkoušet s lahví. Když velmi prudce udeříme"
+      },
+      "asrWordRange": [
+        350,
+        364
+      ],
+      "sourceCues": [
+        34
+      ],
+      "alignmentText": "Takýto jav si dokonca môžeme otestovať niekedy na fľaške, že keď veľmi prudko udrieme"
+    },
+    {
+      "start": 166.52,
+      "end": 168.18,
+      "text": {
+        "sk": "o vrch fľašky,",
+        "cs": "do hrdla lahve,"
+      },
+      "asrWordRange": [
+        364,
+        367
+      ],
+      "sourceCues": [
+        35
+      ],
+      "alignmentText": "o vrch fľašky,"
+    },
+    {
+      "start": 169.47,
+      "end": 174.23,
+      "text": {
+        "sk": "tak tá fľaška sa pohne smerom nadol a tekutina v nej ostane chvíľku stáť na mieste,",
+        "cs": "tak se lahev pohne dolů a kapalina v ní na okamžik zůstane na místě,"
+      },
+      "asrWordRange": [
+        367,
+        383
+      ],
+      "sourceCues": [
+        36
+      ],
+      "alignmentText": "tak tá fľaška sa pohne smerom nadol a tekutina v nej ostane chvíľku stáť na mieste,"
+    },
+    {
+      "start": 174.33,
+      "end": 178.39,
+      "text": {
+        "sk": "takže pod tou tekutinou vznikne taká veľká bublina.",
+        "cs": "takže pod kapalinou vznikne velká bublina."
+      },
+      "asrWordRange": [
+        383,
+        391
+      ],
+      "sourceCues": [
+        37
+      ],
+      "alignmentText": "takže pod tou tekutinou vznikne taká veľká bublina."
+    },
+    {
+      "start": 179.34,
+      "end": 181.32,
+      "text": {
+        "sk": "Potom je tam teda obrovský podtlak,",
+        "cs": "Pak tam vznikne obrovský podtlak,"
+      },
+      "asrWordRange": [
+        391,
+        397
+      ],
+      "sourceCues": [
+        38,
+        39
+      ],
+      "alignmentText": "Potom je tam teda obrovský podtlak,"
+    },
+    {
+      "start": 181.56,
+      "end": 185.02,
+      "text": {
+        "sk": "tá voda znova plesne o dno nádoby a tú nádobu dokáže rozbiť.",
+        "cs": "voda znovu udeří o dno nádoby a nádobu dokáže rozbít."
+      },
+      "asrWordRange": [
+        397,
+        408
+      ],
+      "sourceCues": [
+        38,
+        39
+      ],
+      "alignmentText": "tá voda znova plesne o dno nádoby a tú nádobu dokáže rozbiť."
+    },
+    {
+      "start": 185.82,
+      "end": 191,
+      "text": {
+        "sk": "Aha, a keby tam bol taký piest vodný. Áno, áno, presne. Ty si",
+        "cs": "Aha, jako kdyby tam byl vodní píst. Ano, ano, přesně. Tys"
+      },
+      "asrWordRange": [
+        408,
+        421
+      ],
+      "sourceCues": [
+        40
+      ],
+      "alignmentText": "Aha, a keby tam bol taký piest vodný. Áno, áno, presne. Ty si"
+    },
+    {
+      "start": 191,
+      "end": 196.5,
+      "text": {
+        "sk": "posielal také video, tamto chlapci vlastne robili taký experiment a vyzeralo to veľmi",
+        "cs": "posílal video, kde kluci dělali tento pokus, a vypadalo to velmi"
+      },
+      "asrWordRange": [
+        421,
+        434
+      ],
+      "sourceCues": [
+        41
+      ],
+      "alignmentText": "posielal také video, tamto chlapci vlastne robili taký experiment a vyzeralo to veľmi"
+    },
+    {
+      "start": 196.5,
+      "end": 200.26,
+      "text": {
+        "sk": "jednoducho. Stačilo vlastne do toho hrdla udrieť troška silnejšie.",
+        "cs": "jednoduše. Stačilo trochu silněji udeřit do hrdla."
+      },
+      "asrWordRange": [
+        434,
+        443
+      ],
+      "sourceCues": [
+        42
+      ],
+      "alignmentText": "jednoducho. Stačilo vlastne do toho hrdla udrieť troška silnejšie."
+    },
+    {
+      "start": 201.64,
+      "end": 204.14,
+      "text": {
+        "sk": "A musím si to tiež niekedy vyskúšať, pravdu povedať,",
+        "cs": "A musím si to někdy vyzkoušet, popravdě řečeno,"
+      },
+      "asrWordRange": [
+        443,
+        451
+      ],
+      "sourceCues": [
+        43
+      ],
+      "alignmentText": "A musím si to tiež niekedy vyskúšať, pravdu povedať,"
+    },
+    {
+      "start": 204.22,
+      "end": 206.02,
+      "text": {
+        "sk": "lebo vyzeralo to až moc jednoducho, keď",
+        "cs": "protože to vypadalo až moc jednoduše, když"
+      },
+      "asrWordRange": [
+        451,
+        458
+      ],
+      "sourceCues": [
+        43
+      ],
+      "alignmentText": "lebo vyzeralo to až moc jednoducho, keď"
+    },
+    {
+      "start": 206.02,
+      "end": 211.12,
+      "text": {
+        "sk": "to robili oni. Mňa to tiež prekvapilo. Ja som to chcel použiť na prednáške na Pohode,",
+        "cs": "to dělali oni. Mě to taky překvapilo. Chtěl jsem to použít na přednášce na Pohodě,"
+      },
+      "asrWordRange": [
+        458,
+        474
+      ],
+      "sourceCues": [
+        44
+      ],
+      "alignmentText": "to robili oni. Mňa to tiež prekvapilo. Ja som to chcel použiť na prednáške na Pohode,"
+    },
+    {
+      "start": 211.2,
+      "end": 214.88,
+      "text": {
+        "sk": "kde som mal o fyzike piva. Tak som rozmýšľal, že naplním jednu fľašku vodou a",
+        "cs": "kde jsem mluvil o fyzice piva. Přemýšlel jsem, že naplním jednu láhev vodou a"
+      },
+      "asrWordRange": [
+        474,
+        489
+      ],
+      "sourceCues": [
+        45
+      ],
+      "alignmentText": "kde som mal o fyzike piva. Tak som rozmýšľal, že naplním jednu fľašku vodou a"
+    },
+    {
+      "start": 214.88,
+      "end": 218.24,
+      "text": {
+        "sk": "rozbijem. A potom sa budeme baviť o kavitácii, ale už mi na to neostával čas, tak",
+        "cs": "rozbiji ji. A pak budeme mluvit o kavitaci. Jenže už mi nezbyl čas, tak"
+      },
+      "asrWordRange": [
+        489,
+        506
+      ],
+      "sourceCues": [
+        46
+      ],
+      "alignmentText": "rozbijem. A potom sa budeme baviť o kavitácii, ale už mi na to neostával čas, tak"
+    },
+    {
+      "start": 218.24,
+      "end": 220,
+      "text": {
+        "sk": "som to vynechal. Ináč to vyzerá veľmi pekne.",
+        "cs": "jsem to vynechal. Jinak to vypadá velmi pěkně."
+      },
+      "asrWordRange": [
+        506,
+        514
+      ],
+      "sourceCues": [
+        47
+      ],
+      "alignmentText": "som to vynechal. Ináč to vyzerá veľmi pekne."
+    },
+    {
+      "start": 220.98,
+      "end": 225.3,
+      "text": {
+        "sk": "Asi aj kvôli bezpečnosti bolo dobré, asi je dobré, že sme to",
+        "cs": "Asi i kvůli bezpečnosti to bylo dobře, asi je dobře, že jsme to"
+      },
+      "asrWordRange": [
+        514,
+        530
+      ],
+      "sourceCues": [
+        48
+      ],
+      "alignmentText": "Asi aj kvôli bezpečnosti bolo dobré, asi je dobré, že sme to"
+    },
+    {
+      "start": 225.3,
+      "end": 229.44,
+      "text": {
+        "sk": "nestihli, ale v podstate stačí si zobrať hrubú rukavicu, jednou rukou chytiť fľašu,",
+        "cs": "nestihli, ale v podstatě stačí vzít si silnou rukavici, jednou rukou držet láhev,"
+      },
+      "asrWordRange": [
+        530,
+        543
+      ],
+      "sourceCues": [
+        49
+      ],
+      "alignmentText": "nestihli, ale v podstate stačí si zobrať hrubú rukavicu, jednou rukou chytiť fľašu,"
+    },
+    {
+      "start": 229.5,
+      "end": 234.56,
+      "text": {
+        "sk": "druhou po nej silno buchnúť. V tej fľaši musí byť voda a vystrelí to dno tej nádoby.",
+        "cs": "druhou do ní silně udeřit. V lahvi musí být voda a vystřelí to její dno."
+      },
+      "asrWordRange": [
+        543,
+        560
+      ],
+      "sourceCues": [
+        50
+      ],
+      "alignmentText": "druhou po nej silno buchnúť. V tej fľaši musí byť voda a vystrelí to dno tej nádoby."
+    },
+    {
+      "start": 236.1,
+      "end": 241.62,
+      "text": {
+        "sk": "Buchnúť po viečku. Áno, áno, zhora buchnúť po fľaške. Len aby ľudia",
+        "cs": "Udeřit do víčka. Ano, ano, udeřit do lahve shora. Jen aby lidé"
+      },
+      "asrWordRange": [
+        560,
+        573
+      ],
+      "sourceCues": [
+        51
+      ],
+      "alignmentText": "Buchnúť po viečku. Áno, áno, zhora buchnúť po fľaške. Len aby ľudia"
+    },
+    {
+      "start": 241.62,
+      "end": 243.48,
+      "text": {
+        "sk": "neskúšali nejako z boku do nej buchať.",
+        "cs": "do ní nezkoušeli nějak bouchat z boku."
+      },
+      "asrWordRange": [
+        573,
+        580
+      ],
+      "sourceCues": [
+        52
+      ],
+      "alignmentText": "neskúšali nejako z boku do nej buchať."
+    },
+    {
+      "start": 244.46,
+      "end": 248.36,
+      "text": {
+        "sk": "A upozorňujeme, dávajte si pozor. Neskúšajte to, čo sme vám",
+        "cs": "A upozorňujeme: dávejte si pozor. Nezkoušejte to, co jsme vám"
+      },
+      "asrWordRange": [
+        580,
+        594
+      ],
+      "sourceCues": [
+        53
+      ],
+      "alignmentText": "A upozorňujeme, dávajte si pozor. Neskúšajte to, čo sme vám"
+    },
+    {
+      "start": 248.36,
+      "end": 251.46,
+      "text": {
+        "sk": "presne opísali, ako to teraz treba spraviť, tak to neskúšajte doma.",
+        "cs": "teď přesně popsali, jak to máte udělat, takže to doma nezkoušejte."
+      },
+      "asrWordRange": [
+        594,
+        604
+      ],
+      "sourceCues": [
+        54,
+        55
+      ],
+      "alignmentText": "presne opísali, ako to teraz treba spraviť, tak to neskúšajte doma."
+    },
+    {
+      "start": 251.66,
+      "end": 253.3,
+      "text": {
+        "sk": "Áno, áno, tak. Ani nikde inde.",
+        "cs": "Ano, ano. Ani nikde jinde."
+      },
+      "asrWordRange": [
+        604,
+        610
+      ],
+      "sourceCues": [
+        54,
+        55
+      ],
+      "alignmentText": "Áno, áno, tak. Ani nikde inde."
+    },
+    {
+      "start": 254.02,
+      "end": 258.06,
+      "text": {
+        "sk": "No a teda to, čo sa tam deje, je, že dôjde ku kavitácii, čiže na dne fľaše vznikne",
+        "cs": "A to, co se tam děje, je kavitace: na dně lahve vznikne"
+      },
+      "asrWordRange": [
+        610,
+        628
+      ],
+      "sourceCues": [
+        56
+      ],
+      "alignmentText": "No a teda to, čo sa tam deje, je, že dôjde ku kavitácii, čiže na dne fľaše vznikne"
+    },
+    {
+      "start": 258.06,
+      "end": 262.06,
+      "text": {
+        "sk": "bublina, potom je obrovský podtlak, lebo zhora tlačí atmosférický tlak, zdola nič",
+        "cs": "bublina, pak obrovský podtlak, protože shora tlačí atmosférický tlak a zdola nic"
+      },
+      "asrWordRange": [
+        628,
+        642
+      ],
+      "sourceCues": [
+        57
+      ],
+      "alignmentText": "bublina, potom je obrovský podtlak, lebo zhora tlačí atmosférický tlak, zdola nič"
+    },
+    {
+      "start": 262.06,
+      "end": 268.14,
+      "asrWordRange": [
+        642,
+        642
+      ],
+      "text": {
+        "sk": "a ten tlak vlastne vrazí tú vodu do dna a vyrazí ho. Takže toto je prvá časť, čo sa",
+        "cs": "a ten tlak vlastně vrazí vodu do dna a prorazí ho. Tohle je první část toho, co se"
+      },
+      "recoveredSpeech": "Reconstructed from original source-audio gap 262.06–268.14 s with independent large-v3 from 261.06–269.14; split at the original ASR cue 58 boundary to retain asrWordRange coverage.",
+      "sourceCues": [],
+      "alignmentText": "a ten tlak vlastne vrazí tú vodu do dna a vyrazí ho. Takže toto je prvá časť, čo sa"
+    },
+    {
+      "start": 268.14,
+      "end": 272.24,
+      "text": {
+        "sk": "tam deje, že prudkou zmenou tlaku dochádza k vytvoreniu bublinky.",
+        "cs": "tam děje: prudká změna tlaku vede ke vzniku bublinky."
+      },
+      "asrWordRange": [
+        642,
+        652
+      ],
+      "sourceCues": [
+        58
+      ],
+      "alignmentText": "tam deje, že prudkou zmenou tlaku dochádza k vytvoreniu bublinky."
+    },
+    {
+      "start": 273.82,
+      "end": 279.08,
+      "text": {
+        "sk": "No a druhá časť je, že prečo vlastne toto vytvorí svetelný záblesk. Čiže keď tá",
+        "cs": "A druhá část je, proč to vlastně vytváří světelný záblesk. Takže když"
+      },
+      "asrWordRange": [
+        652,
+        667
+      ],
+      "sourceCues": [
+        59
+      ],
+      "alignmentText": "No a druhá časť je, že prečo vlastne toto vytvorí svetelný záblesk. Čiže keď tá"
+    },
+    {
+      "start": 279.08,
+      "end": 284.42,
+      "text": {
+        "sk": "kreveta cvakne klepetom, vystrelí sa taká tlaková vlna, vyrobí bublinku a tá bublinka",
+        "cs": "kreveta cvakne klepetem, vyšle tlakovou vlnu, vytvoří bublinku a ta bublinka"
+      },
+      "asrWordRange": [
+        667,
+        680
+      ],
+      "sourceCues": [
+        60
+      ],
+      "alignmentText": "kreveta cvakne klepetom, vystrelí sa taká tlaková vlna, vyrobí bublinku a tá bublinka"
+    },
+    {
+      "start": 284.42,
+      "end": 288.2,
+      "text": {
+        "sk": "zasvieti. No a tuto existovali vo fyzike dve vysvetlenia.",
+        "cs": "zasvítí. A tady ve fyzice existovala dvě vysvětlení."
+      },
+      "asrWordRange": [
+        680,
+        689
+      ],
+      "sourceCues": [
+        61,
+        62
+      ],
+      "alignmentText": "zasvieti. No a tuto existovali vo fyzike dve vysvetlenia."
+    },
+    {
+      "start": 288.34,
+      "end": 290.08,
+      "text": {
+        "sk": "Bolo jasné, že jedno z nich je správne.",
+        "cs": "Bylo jasné, že jedno z nich je správné."
+      },
+      "asrWordRange": [
+        689,
+        697
+      ],
+      "sourceCues": [
+        61,
+        62
+      ],
+      "alignmentText": "Bolo jasné, že jedno z nich je správne."
+    },
+    {
+      "start": 290.85,
+      "end": 295.13,
+      "text": {
+        "sk": "A jedno z nich je, že cez kvantovú mechaniku a druhé je cez plazmovú fyziku.",
+        "cs": "Jedno z nich využívalo kvantovou mechaniku a druhé fyziku plazmatu."
+      },
+      "asrWordRange": [
+        697,
+        712
+      ],
+      "sourceCues": [
+        63
+      ],
+      "alignmentText": "A jedno z nich je, že cez kvantovú mechaniku a druhé je cez plazmovú fyziku."
+    },
+    {
+      "start": 296.1,
+      "end": 300.42,
+      "text": {
+        "sk": "Takže hociktorá z týchto možností je správna, tak je jasné, že tie krevety sú proste",
+        "cs": "Takže ať je správná kterákoli z možností, je jasné, že ty krevety jsou prostě"
+      },
+      "asrWordRange": [
+        712,
+        728
+      ],
+      "sourceCues": [
+        64
+      ],
+      "alignmentText": "Takže hociktorá z týchto možností je správna, tak je jasné, že tie krevety sú proste"
+    },
+    {
+      "start": 300.42,
+      "end": 304.94,
+      "text": {
+        "sk": "extrémne zaujímavé, lebo využívajú buď plazmové zbrane, alebo kvantové zbrane. To",
+        "cs": "mimořádně zajímavé, protože používají buď plazmové, nebo kvantové zbraně. To"
+      },
+      "asrWordRange": [
+        728,
+        739
+      ],
+      "sourceCues": [
+        65
+      ],
+      "alignmentText": "extrémne zaujímavé, lebo využívajú buď plazmové zbrane, alebo kvantové zbrane. To"
+    },
+    {
+      "start": 304.94,
+      "end": 307.24,
+      "text": {
+        "sk": "znie až neuveriteľné, keď to tak hovoríš,",
+        "cs": "zní až neuvěřitelně, když to říkáš,"
+      },
+      "asrWordRange": [
+        739,
+        746
+      ],
+      "sourceCues": [
+        66
+      ],
+      "alignmentText": "znie až neuveriteľné, keď to tak hovoríš,"
+    },
+    {
+      "start": 308.06,
+      "end": 312.8,
+      "text": {
+        "sk": "akoby si mi hovoril nejakú scénu zo Star Wars alebo z nejakého sci-fi filmu.",
+        "cs": "jako bys mi vyprávěl scénu ze Star Wars nebo nějakého sci-fi filmu."
+      },
+      "asrWordRange": [
+        746,
+        761
+      ],
+      "sourceCues": [
+        67
+      ],
+      "alignmentText": "akoby si mi hovoril nejakú scénu zo Star Wars alebo z nejakého sci-fi filmu."
+    },
+    {
+      "start": 313.54,
+      "end": 318.48,
+      "text": {
+        "sk": "Hej, akože okrem toho, že sú teda obalené v exoskelete a neviem, čo ďalšie tie krevety,",
+        "cs": "Ano, kromě toho, že jsou obalené exoskeletem a nevím čím ještě ty krevety,"
+      },
+      "asrWordRange": [
+        761,
+        777
+      ],
+      "sourceCues": [
+        68
+      ],
+      "alignmentText": "Hej, akože okrem toho, že sú teda obalené v exoskelete a neviem, čo ďalšie tie krevety,"
+    },
+    {
+      "start": 318.56,
+      "end": 323.92,
+      "text": {
+        "sk": "tak okrem toho sú extrémne vybavené. Áno, sú to takí vesmírni mariňáci. A vedci",
+        "cs": "jsou navíc mimořádně vybavené. Ano, jsou to takoví vesmírní mariňáci. A vědci"
+      },
+      "asrWordRange": [
+        777,
+        791
+      ],
+      "sourceCues": [
+        69
+      ],
+      "alignmentText": "tak okrem toho sú extrémne vybavené. Áno, sú to takí vesmírni mariňáci. A vedci"
+    },
+    {
+      "start": 323.92,
+      "end": 325.04,
+      "text": {
+        "sk": "teda došli na to,",
+        "cs": "tedy přišli na to,"
+      },
+      "asrWordRange": [
+        791,
+        795
+      ],
+      "sourceCues": [
+        70
+      ],
+      "alignmentText": "teda došli na to,"
+    },
+    {
+      "start": 325.84,
+      "end": 331.24,
+      "text": {
+        "sk": "či používajú plazmové zbrane alebo používajú kvantové zbrane? No, chceš počuť",
+        "cs": "zda používají plazmové nebo kvantové zbraně? Chceš jako první slyšet"
+      },
+      "asrWordRange": [
+        795,
+        806
+      ],
+      "sourceCues": [
+        71
+      ],
+      "alignmentText": "či používajú plazmové zbrane alebo používajú kvantové zbrane? No, chceš počuť"
+    },
+    {
+      "start": 331.24,
+      "end": 333.44,
+      "text": {
+        "sk": "správnu alebo nesprávnu odpoveď ako prvú?",
+        "cs": "správnou, nebo nesprávnou odpověď?"
+      },
+      "asrWordRange": [
+        806,
+        812
+      ],
+      "sourceCues": [
+        72
+      ],
+      "alignmentText": "správnu alebo nesprávnu odpoveď ako prvú?"
+    },
+    {
+      "start": 334.45,
+      "end": 335.89,
+      "text": {
+        "sk": "Povedz mi nesprávnu najprv.",
+        "cs": "Nejdřív mi řekni nesprávnou."
+      },
+      "asrWordRange": [
+        812,
+        816
+      ],
+      "sourceCues": [
+        73,
+        74
+      ],
+      "alignmentText": "Povedz mi nesprávnu najprv."
+    },
+    {
+      "start": 336.25,
+      "end": 339.37,
+      "text": {
+        "sk": "Tak nesprávna odpoveď je, že ukázalo sa, že nie sú to tie kvantové zbrane.",
+        "cs": "Tak nesprávná odpověď je, že se ukázalo, že to nejsou kvantové zbraně."
+      },
+      "asrWordRange": [
+        816,
+        830
+      ],
+      "sourceCues": [
+        73,
+        74
+      ],
+      "alignmentText": "Tak nesprávna odpoveď je, že ukázalo sa, že nie sú to tie kvantové zbrane."
+    },
+    {
+      "start": 340.41,
+      "end": 345.17,
+      "text": {
+        "sk": "Dokiaľ? Ale ja som sa teda k tomuto dostal cez takzvaný Casimirov efekt",
+        "cs": "Dokdy? Ale já jsem se k tomu dostal přes takzvaný Casimirův jev"
+      },
+      "asrWordRange": [
+        830,
+        843
+      ],
+      "sourceCues": [
+        75
+      ],
+      "alignmentText": "Dokiaľ? Ale ja som sa teda k tomuto dostal cez takzvaný Casimirov efekt"
+    },
+    {
+      "start": 345.17,
+      "end": 349.93,
+      "text": {
+        "sk": "alebo Casimirovu silu a pokúsim sa teraz vysvetliť, ako to funguje.",
+        "cs": "neboli Casimirovu sílu a pokusím se teď vysvětlit, jak to funguje."
+      },
+      "asrWordRange": [
+        843,
+        854
+      ],
+      "sourceCues": [
+        76
+      ],
+      "alignmentText": "alebo Casimirovu silu a pokúsim sa teraz vysvetliť, ako to funguje."
+    },
+    {
+      "start": 351.2,
+      "end": 355.18,
+      "text": {
+        "sk": "Začnem takým jednoduchým príkladom, že keď sa nachádza loď",
+        "cs": "Začnu jednoduchým příkladem. Když je loď"
+      },
+      "asrWordRange": [
+        854,
+        863
+      ],
+      "sourceCues": [
+        77
+      ],
+      "alignmentText": "Začnem takým jednoduchým príkladom, že keď sa nachádza loď"
+    },
+    {
+      "start": 356.04,
+      "end": 360.44,
+      "text": {
+        "sk": "blízko móla, tak vzniká taký zvláštny efekt, že tá loď je k tomu mólu akoby",
+        "cs": "blízko mola, vzniká zvláštní jev, jako by byla k molu"
+      },
+      "asrWordRange": [
+        863,
+        879
+      ],
+      "sourceCues": [
+        78
+      ],
+      "alignmentText": "blízko móla, tak vzniká taký zvláštny efekt, že tá loď je k tomu mólu akoby"
+    },
+    {
+      "start": 360.44,
+      "end": 366.01,
+      "text": {
+        "sk": "priťahovaná. Že ty tú loď odparkuješ, ja neviem, meter od móla a ak je to",
+        "cs": "přitahovaná. Zaparkuješ loď třeba metr od mola, a pokud je"
+      },
+      "asrWordRange": [
+        879,
+        894
+      ],
+      "sourceCues": [
+        79
+      ],
+      "alignmentText": "priťahovaná. Že ty tú loď odparkuješ, ja neviem, meter od móla a ak je to"
+    },
+    {
+      "start": 366.01,
+      "end": 369.55,
+      "text": {
+        "sk": "mólo pevné, že nie sú to len také piliere, ale je to taká stena, tak tá loď sa",
+        "cs": "molo pevné, nejsou to jen pilíře, ale taková stěna, začne se loď"
+      },
+      "asrWordRange": [
+        894,
+        912
+      ],
+      "sourceCues": [
+        80
+      ],
+      "alignmentText": "mólo pevné, že nie sú to len také piliere, ale je to taká stena, tak tá loď sa"
+    },
+    {
+      "start": 369.55,
+      "end": 372.53,
+      "text": {
+        "sk": "postupne bude hýbať smerom k nemu, ako keby sa k nemu prilepila.",
+        "cs": "postupně pohybovat k němu, jako by se na něj přilepila."
+      },
+      "asrWordRange": [
+        912,
+        924
+      ],
+      "sourceCues": [
+        81
+      ],
+      "alignmentText": "postupne bude hýbať smerom k nemu, ako keby sa k nemu prilepila."
+    },
+    {
+      "start": 373.94,
+      "end": 379.4,
+      "text": {
+        "sk": "A dôvod, prečo to funguje, je, že na mori vznikajú rôzne vlny a",
+        "cs": "A důvod, proč to funguje, je, že na moři vznikají různé vlny a"
+      },
+      "asrWordRange": [
+        924,
+        937
+      ],
+      "sourceCues": [
+        82
+      ],
+      "alignmentText": "A dôvod, prečo to funguje, je, že na mori vznikajú rôzne vlny a"
+    },
+    {
+      "start": 379.4,
+      "end": 384.84,
+      "text": {
+        "sk": "nie všetky z tých vĺn sa zmestia medzi loď a to mólo. Takže menej",
+        "cs": "ne všechny ty vlny se vejdou mezi loď a molo. Takže se do mezery vejde méně"
+      },
+      "asrWordRange": [
+        937,
+        951
+      ],
+      "sourceCues": [
+        83
+      ],
+      "alignmentText": "nie všetky z tých vĺn sa zmestia medzi loď a to mólo. Takže menej"
+    },
+    {
+      "start": 384.84,
+      "end": 390.42,
+      "text": {
+        "sk": "vĺn sa zmestí do tej medzery a to znamená, že menej vĺn naráža z jednej strany",
+        "cs": "vln a to znamená, že do lodi z jedné strany naráží méně vln"
+      },
+      "asrWordRange": [
+        951,
+        967
+      ],
+      "sourceCues": [
+        84
+      ],
+      "alignmentText": "vĺn sa zmestí do tej medzery a to znamená, že menej vĺn naráža z jednej strany"
+    },
+    {
+      "start": 390.42,
+      "end": 392.14,
+      "text": {
+        "sk": "do tej lode ako z celého mora.",
+        "cs": "než od otevřeného moře."
+      },
+      "asrWordRange": [
+        967,
+        974
+      ],
+      "sourceCues": [
+        85
+      ],
+      "alignmentText": "do tej lode ako z celého mora."
+    },
+    {
+      "start": 392.88,
+      "end": 397.3,
+      "text": {
+        "sk": "Čiže ony obmedzia, aké vlny tam môžu vznikať a ten prebytok vĺn z druhej strany to",
+        "cs": "Tím se omezí, jaké vlny tam mohou vznikat, a přebytek vln z druhé strany ji"
+      },
+      "asrWordRange": [
+        974,
+        991
+      ],
+      "sourceCues": [
+        86
+      ],
+      "alignmentText": "Čiže ony obmedzia, aké vlny tam môžu vznikať a ten prebytok vĺn z druhej strany to"
+    },
+    {
+      "start": 397.3,
+      "end": 401.4,
+      "text": {
+        "sk": "pritlačí k tomu pilieru alebo teda k tomu mólu. Aha, takže z mora vždy prichádza",
+        "cs": "přitlačí k pilíři nebo k molu. Aha, takže z moře vždy přichází"
+      },
+      "asrWordRange": [
+        991,
+        1006
+      ],
+      "sourceCues": [
+        87
+      ],
+      "alignmentText": "pritlačí k tomu pilieru alebo teda k tomu mólu. Aha, takže z mora vždy prichádza"
+    },
+    {
+      "start": 401.4,
+      "end": 406.8,
+      "text": {
+        "sk": "viac vĺn ako od tej steny. Lebo nie všetky z tých sa tam zmestia. Áno, sa tam",
+        "cs": "víc vln než od té stěny. Protože ne všechny se tam vejdou. Ano,"
+      },
+      "asrWordRange": [
+        1006,
+        1023
+      ],
+      "sourceCues": [
+        88
+      ],
+      "alignmentText": "viac vĺn ako od tej steny. Lebo nie všetky z tých sa tam zmestia. Áno, sa tam"
+    },
+    {
+      "start": 406.8,
+      "end": 412.34,
+      "text": {
+        "sk": "zmestia, takže je tam nerovnováha vlastne. Áno, to je, ako keby si mal ľudí vo",
+        "cs": "takže je tam vlastně nerovnováha. Ano, jako kdybys měl lidi ve"
+      },
+      "asrWordRange": [
+        1023,
+        1038
+      ],
+      "sourceCues": [
+        89
+      ],
+      "alignmentText": "zmestia, takže je tam nerovnováha vlastne. Áno, to je, ako keby si mal ľudí vo"
+    },
+    {
+      "start": 412.34,
+      "end": 417.86,
+      "text": {
+        "sk": "veľkej miestnosti a zrazu povieš, že napravo môžu ísť len tí,",
+        "cs": "velké místnosti a najednou řekl, že doprava mohou jít jen ti,"
+      },
+      "asrWordRange": [
+        1038,
+        1049
+      ],
+      "sourceCues": [
+        90
+      ],
+      "alignmentText": "veľkej miestnosti a zrazu povieš, že napravo môžu ísť len tí,"
+    },
+    {
+      "start": 417.98,
+      "end": 422.68,
+      "text": {
+        "sk": "ktorí majú menej ako 160 centimetrov. Tak zrazu na jednej strane ti vznikne taký",
+        "cs": "kteří měří méně než 160 centimetrů. Najednou na jedné straně vznikne"
+      },
+      "asrWordRange": [
+        1049,
+        1063
+      ],
+      "sourceCues": [
+        91
+      ],
+      "alignmentText": "ktorí majú menej ako sto šesťdesiat centimetrov. Tak zrazu na jednej strane ti vznikne taký",
+      "alignmentVariants": [
+        "ktorí majú menej ako stošesťdesiat centimetrov. Tak zrazu na jednej strane ti vznikne taký",
+        "ktorí majú menej ako sto šesťdesiat centimetrov. Tak zrazu na jednej strane ti vznikne taký"
+      ]
+    },
+    {
+      "start": 422.68,
+      "end": 427.98,
+      "text": {
+        "sk": "pretlak, na druhej strane je málo a tam, kde je viac, tak začnú tak utláčať tú menšinu.",
+        "cs": "přetlak, na druhé straně jich je málo a ti početnější začnou utlačovat tu menšinu."
+      },
+      "asrWordRange": [
+        1063,
+        1080
+      ],
+      "sourceCues": [
+        92,
+        93
+      ],
+      "alignmentText": "pretlak, na druhej strane je málo a tam, kde je viac, tak začnú tak utláčať tú menšinu."
+    },
+    {
+      "start": 429.96,
+      "end": 432.74,
+      "text": {
+        "sk": "No a niečo podobné sa deje v kvantovej mechanike, že",
+        "cs": "A něco podobného se děje v kvantové mechanice, že"
+      },
+      "asrWordRange": [
+        1080,
+        1090
+      ],
+      "sourceCues": [
+        94
+      ],
+      "alignmentText": "No a niečo podobné sa deje v kvantovej mechanike, že"
+    },
+    {
+      "start": 433.48,
+      "end": 438.68,
+      "text": {
+        "sk": "vieme, že keď máš vákuum, čiže úplne prázdny priestor, tak tam vyskakujú také veci.",
+        "cs": "víme, že když máš vakuum, tedy úplně prázdný prostor, objevují se v něm různé věci."
+      },
+      "asrWordRange": [
+        1090,
+        1104
+      ],
+      "sourceCues": [
+        95
+      ],
+      "alignmentText": "vieme, že keď máš vákuum, čiže úplne prázdny priestor, tak tam vyskakujú také veci."
+    },
+    {
+      "start": 439.71,
+      "end": 444.61,
+      "text": {
+        "sk": "A teraz ty, keď to vákuum takto obmedzíš, zmenšíš alebo zväčšíš, napríklad, že ho",
+        "cs": "A když to vakuum takto omezíš, zmenšíš nebo zvětšíš, například ho"
+      },
+      "asrWordRange": [
+        1104,
+        1118
+      ],
+      "sourceCues": [
+        96
+      ],
+      "alignmentText": "A teraz ty, keď to vákuum takto obmedzíš, zmenšíš alebo zväčšíš, napríklad, že ho"
+    },
+    {
+      "start": 444.61,
+      "end": 449.59,
+      "text": {
+        "sk": "uzavrieš, že máš veľkú vákuovú bublinu alebo malú vákuovú bublinu, tak v ňom môžu",
+        "cs": "uzavřeš, takže máš velkou nebo malou vakuovou bublinu, mohou v něm"
+      },
+      "asrWordRange": [
+        1118,
+        1132
+      ],
+      "sourceCues": [
+        97
+      ],
+      "alignmentText": "uzavrieš, že máš veľkú vákuovú bublinu alebo malú vákuovú bublinu, tak v ňom môžu"
+    },
+    {
+      "start": 449.59,
+      "end": 451.57,
+      "text": {
+        "sk": "kypieť kvantovo rôzne veci.",
+        "cs": "kvantově kypět různé věci."
+      },
+      "asrWordRange": [
+        1132,
+        1136
+      ],
+      "sourceCues": [
+        98
+      ],
+      "alignmentText": "kypieť kvantovo rôzne veci."
+    },
+    {
+      "start": 452.35,
+      "end": 455.73,
+      "text": {
+        "sk": "Niekedy tam buble veľmi, niekedy veľmi málo, niekedy veľmi veľa.",
+        "cs": "Někdy to tam bublá hodně, někdy málo, jindy zase velmi moc."
+      },
+      "asrWordRange": [
+        1136,
+        1146
+      ],
+      "sourceCues": [
+        99
+      ],
+      "alignmentText": "Niekedy tam buble veľmi, niekedy veľmi málo, niekedy veľmi veľa."
+    },
+    {
+      "start": 456.52,
+      "end": 459.56,
+      "text": {
+        "sk": "No a to, čo si fyzici mysleli a začali to overovať, je, že",
+        "cs": "A fyzikové si mysleli a začali ověřovat, že"
+      },
+      "asrWordRange": [
+        1146,
+        1159
+      ],
+      "sourceCues": [
+        100,
+        101
+      ],
+      "alignmentText": "No a to, čo si fyzici mysleli a začali to overovať, je, že"
+    },
+    {
+      "start": 459.56,
+      "end": 461.82,
+      "text": {
+        "sk": "také tie malé bublinky, ktoré tie krevety vytvoria,",
+        "cs": "takové malé bublinky, které krevety vytvářejí,"
+      },
+      "asrWordRange": [
+        1159,
+        1167
+      ],
+      "sourceCues": [
+        100,
+        101
+      ],
+      "alignmentText": "také tie malé bublinky, ktoré tie krevety vytvoria,"
+    },
+    {
+      "start": 462.58,
+      "end": 467.2,
+      "text": {
+        "sk": "tak ony vlastne tým, ako menia svoju veľkosť, tak menia to vákuum v sebe, menia, čo sa",
+        "cs": "svou proměnlivou velikostí mění vakuum uvnitř sebe, a tím i to, co se"
+      },
+      "asrWordRange": [
+        1167,
+        1184
+      ],
+      "sourceCues": [
+        102
+      ],
+      "alignmentText": "tak ony vlastne tým, ako menia svoju veľkosť, tak menia to vákuum v sebe, menia, čo sa"
+    },
+    {
+      "start": 467.2,
+      "end": 470.52,
+      "text": {
+        "sk": "v ňom môže nachádzať, čo tam môže bublať a toto vytvorí ten záblesk.",
+        "cs": "v něm může nacházet a co tam může bublat, a to způsobí záblesk."
+      },
+      "asrWordRange": [
+        1184,
+        1197
+      ],
+      "sourceCues": [
+        103
+      ],
+      "alignmentText": "v ňom môže nachádzať, čo tam môže bublať a toto vytvorí ten záblesk."
+    },
+    {
+      "start": 471.51,
+      "end": 476.01,
+      "text": {
+        "sk": "Čiže fyzici overili takú myšlenku, že či ten záblesk nevyvoláva, ako sa mení vákuum vo",
+        "cs": "Fyzikové tedy ověřovali myšlenku, jestli ten záblesk nevyvolává změna vakua"
+      },
+      "asrWordRange": [
+        1197,
+        1212
+      ],
+      "sourceCues": [
+        104
+      ],
+      "alignmentText": "Čiže fyzici overili takú myšlenku, že či ten záblesk nevyvoláva, ako sa mení vákuum vo"
+    },
+    {
+      "start": 476.01,
+      "end": 481.57,
+      "text": {
+        "sk": "vnútri tej bubliny, čo sa teda volá Casimirov efekt. A Casimirov efekt je pozorovaný",
+        "cs": "uvnitř bubliny, tedy Casimirův jev. Casimirův jev se pozoruje"
+      },
+      "asrWordRange": [
+        1212,
+        1226
+      ],
+      "sourceCues": [
+        105
+      ],
+      "alignmentText": "vnútri tej bubliny, čo sa teda volá Casimirov efekt. A Casimirov efekt je pozorovaný"
+    },
+    {
+      "start": 481.57,
+      "end": 484.47,
+      "text": {
+        "sk": "všelikde, ale ukázalo sa, že pri týchto bublinách to nie je ono,",
+        "cs": "na různých místech, ale ukázalo se, že u těchto bublin to není ono,"
+      },
+      "asrWordRange": [
+        1226,
+        1237
+      ],
+      "sourceCues": [
+        106,
+        107
+      ],
+      "alignmentText": "všelikde, ale ukázalo sa, že pri týchto bublinách to nie je ono,"
+    },
+    {
+      "start": 484.59,
+      "end": 486.25,
+      "text": {
+        "sk": "že nedávalo to správne vysvetlenie.",
+        "cs": "protože neposkytoval správné vysvětlení."
+      },
+      "asrWordRange": [
+        1237,
+        1242
+      ],
+      "sourceCues": [
+        106,
+        107
+      ],
+      "alignmentText": "že nedávalo to správne vysvetlenie."
+    },
+    {
+      "start": 487.15,
+      "end": 491.93,
+      "text": {
+        "sk": "Takže sa nejednalo o ten Casimirov efekt pri týchto krevetách.",
+        "cs": "Takže u těchto krevet nešlo o Casimirův jev."
+      },
+      "asrWordRange": [
+        1242,
+        1251
+      ],
+      "sourceCues": [
+        108
+      ],
+      "alignmentText": "Takže sa nejednalo o ten Casimirov efekt pri týchto krevetách."
+    },
+    {
+      "start": 492.81,
+      "end": 493.47,
+      "text": {
+        "sk": "Nanešťastie.",
+        "cs": "Bohužel."
+      },
+      "asrWordRange": [
+        1251,
+        1253
+      ],
+      "sourceCues": [
+        109
+      ],
+      "alignmentText": "Nanešťastie."
+    },
+    {
+      "start": 494.58,
+      "end": 500.12,
+      "text": {
+        "sk": "Možno by to otvorilo zaujímavú nejakú plazmovú biológiu alebo niečo",
+        "cs": "Možná by to otevřelo nějakou zajímavou plazmovou biologii nebo něco"
+      },
+      "asrWordRange": [
+        1253,
+        1263
+      ],
+      "sourceCues": [
+        110
+      ],
+      "alignmentText": "Možno by to otvorilo zaujímavú nejakú plazmovú biológiu alebo niečo"
+    },
+    {
+      "start": 500.12,
+      "end": 504.42,
+      "text": {
+        "sk": "také. No počkaj, počkaj. Toto bolo to kvantové vysvetlenie. Či kvantovú biológiu.",
+        "cs": "podobného. Počkej, počkej, tohle bylo kvantové vysvětlení. Tedy kvantovou biologii."
+      },
+      "asrWordRange": [
+        1263,
+        1275
+      ],
+      "sourceCues": [
+        111
+      ],
+      "alignmentText": "také. No počkaj, počkaj. Toto bolo to kvantové vysvetlenie. Či kvantovú biológiu."
+    },
+    {
+      "start": 505.36,
+      "end": 508.24,
+      "text": {
+        "sk": "Kvantová biológia existuje, ale venuje sa takým iným veciam.",
+        "cs": "Kvantová biologie existuje, ale zabývá se jinými věcmi."
+      },
+      "asrWordRange": [
+        1275,
+        1284
+      ],
+      "sourceCues": [
+        112
+      ],
+      "alignmentText": "Kvantová biológia existuje, ale venuje sa takým iným veciam."
+    },
+    {
+      "start": 509.6,
+      "end": 512.16,
+      "text": {
+        "sk": "Áno, ale myslel som to skôr s týmito krevetami.",
+        "cs": "Ano, ale myslel jsem to spíš s těmi krevetami."
+      },
+      "asrWordRange": [
+        1284,
+        1293
+      ],
+      "sourceCues": [
+        113
+      ],
+      "alignmentText": "Áno, ale myslel som to skôr s týmito krevetami."
+    },
+    {
+      "start": 513.46,
+      "end": 518.88,
+      "text": {
+        "sk": "Dobre, a teda tak zistili, že to nie je ten Casimirov efekt a potom",
+        "cs": "Dobře, a tak zjistili, že to není Casimirův jev, a co tedy"
+      },
+      "asrWordRange": [
+        1293,
+        1307
+      ],
+      "sourceCues": [
+        114
+      ],
+      "alignmentText": "Dobre, a teda tak zistili, že to nie je ten Casimirov efekt a potom"
+    },
+    {
+      "start": 518.88,
+      "end": 523.44,
+      "text": {
+        "sk": "teda čo sa zistilo, že čo to je vlastne ten záblesk v tej bublinke, lebo viem, že tie",
+        "cs": "zjistili, že vlastně způsobuje ten záblesk v bublince? Vím totiž, že ty"
+      },
+      "asrWordRange": [
+        1307,
+        1325
+      ],
+      "sourceCues": [
+        115
+      ],
+      "alignmentText": "teda čo sa zistilo, že čo to je vlastne ten záblesk v tej bublinke, lebo viem, že tie"
+    },
+    {
+      "start": 523.44,
+      "end": 528.22,
+      "text": {
+        "sk": "krevety žijú celkom nízko pod vodou, tak je to také",
+        "cs": "krevety žijí docela hluboko pod vodou, takže je to"
+      },
+      "asrWordRange": [
+        1325,
+        1335
+      ],
+      "sourceCues": [
+        116
+      ],
+      "alignmentText": "krevety žijú celkom nízko pod vodou, tak je to také"
+    },
+    {
+      "start": 528.22,
+      "end": 533.42,
+      "text": {
+        "sk": "nepravdepodobné miesto, kde by človek nehľadal moc nejaké zdroje svetla alebo tak.",
+        "cs": "nepravděpodobné místo, kde by člověk hledal nějaké zdroje světla."
+      },
+      "asrWordRange": [
+        1335,
+        1347
+      ],
+      "sourceCues": [
+        117
+      ],
+      "alignmentText": "nepravdepodobné miesto, kde by človek nehľadal moc nejaké zdroje svetla alebo tak."
+    },
+    {
+      "start": 533.96,
+      "end": 538.5,
+      "text": {
+        "sk": "Áno. Čiže tento jav, ktorý sa volá, a teraz sa držte,",
+        "cs": "Ano. Takže tento jev, který se jmenuje, a teď se držte,"
+      },
+      "asrWordRange": [
+        1347,
+        1359
+      ],
+      "sourceCues": [
+        118
+      ],
+      "alignmentText": "Áno. Čiže tento jav, ktorý sa volá, a teraz sa držte,"
+    },
+    {
+      "start": 538.5,
+      "end": 542.72,
+      "text": {
+        "sk": "sonoluminiscencia, čiže svetlo vytvorené zvukom,",
+        "cs": "sonoluminiscence, tedy světlo vytvořené zvukem,"
+      },
+      "asrWordRange": [
+        1359,
+        1364
+      ],
+      "sourceCues": [
+        119
+      ],
+      "alignmentText": "sonoluminiscencia, čiže svetlo vytvorené zvukom,"
+    },
+    {
+      "start": 543.68,
+      "end": 544.28,
+      "text": {
+        "sk": "sonoluminiscencia,",
+        "cs": "sonoluminiscence,"
+      },
+      "asrWordRange": [
+        1364,
+        1365
+      ],
+      "sourceCues": [
+        120
+      ],
+      "alignmentText": "sonoluminiscencia,"
+    },
+    {
+      "start": 545.54,
+      "end": 550.7,
+      "text": {
+        "sk": "tak to svetlo vyvolá plazma. A vlastne to, čo sa deje, že keď vznikne bublínka,",
+        "cs": "způsobuje plazma. A děje se to, že když vznikne bublinka,"
+      },
+      "asrWordRange": [
+        1365,
+        1380
+      ],
+      "sourceCues": [
+        121
+      ],
+      "alignmentText": "tak to svetlo vyvolá plazma. A vlastne to, čo sa deje, že keď vznikne bublínka,"
+    },
+    {
+      "start": 551.1,
+      "end": 552.3,
+      "text": {
+        "sk": "tak tá bublínka je prázdna.",
+        "cs": "je prázdná."
+      },
+      "asrWordRange": [
+        1380,
+        1385
+      ],
+      "sourceCues": [
+        122
+      ],
+      "alignmentText": "tak tá bublínka je prázdna."
+    },
+    {
+      "start": 553.71,
+      "end": 558.41,
+      "text": {
+        "sk": "Okolo nej je voda a tá voda sa veľmi prudko do nej začne vyparovať. Takže na začiatku",
+        "cs": "Kolem ní je voda a voda se do ní začne velmi prudce odpařovat. Takže na začátku"
+      },
+      "asrWordRange": [
+        1385,
+        1402
+      ],
+      "sourceCues": [
+        123
+      ],
+      "alignmentText": "Okolo nej je voda a tá voda sa veľmi prudko do nej začne vyparovať. Takže na začiatku"
+    },
+    {
+      "start": 558.41,
+      "end": 562.99,
+      "text": {
+        "sk": "vznikne prázdna bublínka a po veľmi krátkej chvíľke je to bublínka plná vodnej pary,",
+        "cs": "vznikne prázdná bublinka a za krátkou chvíli je plná vodní páry,"
+      },
+      "asrWordRange": [
+        1402,
+        1416
+      ],
+      "sourceCues": [
+        124
+      ],
+      "alignmentText": "vznikne prázdna bublínka a po veľmi krátkej chvíľke je to bublínka plná vodnej pary,"
+    },
+    {
+      "start": 563.39,
+      "end": 568.9,
+      "text": {
+        "sk": "čiže plynu. Kvôli tomu, že je tam to vákuum, tak preto sa",
+        "cs": "tedy plynu. Protože je tam vakuum, tak právě proto"
+      },
+      "asrWordRange": [
+        1416,
+        1427
+      ],
+      "sourceCues": [
+        125
+      ],
+      "alignmentText": "čiže plynu. Kvôli tomu, že je tam to vákuum, tak preto sa"
+    },
+    {
+      "start": 568.9,
+      "end": 572.82,
+      "text": {
+        "sk": "do nej začne vyparovať? Voda sa rada vyparuje, kým môže.",
+        "cs": "se do ní začne voda odpařovat? Voda se ráda odpařuje, dokud může."
+      },
+      "asrWordRange": [
+        1427,
+        1437
+      ],
+      "sourceCues": [
+        126
+      ],
+      "alignmentText": "do nej začne vyparovať? Voda sa rada vyparuje, kým môže."
+    },
+    {
+      "start": 573.58,
+      "end": 577.96,
+      "text": {
+        "sk": "A keď ti tomu nič nebraní, tak využije to naplno, rýchlo sa tam začne vyparovať, až",
+        "cs": "A když jí v tom nic nebrání, využije toho naplno, rychle se tam začne odpařovat, až"
+      },
+      "asrWordRange": [
+        1437,
+        1453
+      ],
+      "sourceCues": [
+        127
+      ],
+      "alignmentText": "A keď ti tomu nič nebraní, tak využije to naplno, rýchlo sa tam začne vyparovať, až"
+    },
+    {
+      "start": 577.96,
+      "end": 579.9,
+      "text": {
+        "sk": "kým tam nie sú nasytené vodné pary.",
+        "cs": "dokud tam není nasycená vodní pára."
+      },
+      "asrWordRange": [
+        1453,
+        1460
+      ],
+      "sourceCues": [
+        128
+      ],
+      "alignmentText": "kým tam nie sú nasytené vodné pary."
+    },
+    {
+      "start": 580.36,
+      "end": 584.16,
+      "text": {
+        "sk": "A vákuum je asi na toto veľmi dobré prostredie. Vákuum je úplne, hej, presne.",
+        "cs": "A vakuum je na to asi velmi dobré prostředí. Vakuum je úplně, ano, přesně."
+      },
+      "asrWordRange": [
+        1460,
+        1474
+      ],
+      "sourceCues": [
+        128,
+        129
+      ],
+      "alignmentText": "A vákuum je asi na toto veľmi dobré prostredie. Vákuum je úplne, hej, presne."
+    },
+    {
+      "start": 584.16,
+      "end": 587.3,
+      "text": {
+        "sk": "Akože v úvodzovkách taký magnet, že všetko do neho vchádza a",
+        "cs": "V uvozovkách jako magnet, do kterého všechno vstupuje a"
+      },
+      "asrWordRange": [
+        1474,
+        1484
+      ],
+      "sourceCues": [
+        129
+      ],
+      "alignmentText": "Akože v úvodzovkách taký magnet, že všetko do neho vchádza a"
+    },
+    {
+      "start": 587.3,
+      "end": 589.68,
+      "text": {
+        "sk": "nemá čo z neho vyjsť, takže veľmi rýchlo sa tam vytvorí",
+        "cs": "nic z něj nevychází, takže se tam velmi rychle vytvoří"
+      },
+      "asrWordRange": [
+        1484,
+        1495
+      ],
+      "sourceCues": [
+        130,
+        131
+      ],
+      "alignmentText": "nemá čo z neho vyjsť, takže veľmi rýchlo sa tam vytvorí"
+    },
+    {
+      "start": 590.22,
+      "end": 592.94,
+      "text": {
+        "sk": "taká akoby parná atmosféra v tej bublínke.",
+        "cs": "taková parní atmosféra v té bublince."
+      },
+      "asrWordRange": [
+        1495,
+        1503
+      ],
+      "sourceCues": [
+        130,
+        131
+      ],
+      "alignmentText": "taká akoby parná atmosféra v tej bublínke."
+    },
+    {
+      "start": 594.2,
+      "end": 597.08,
+      "text": {
+        "sk": "No a teraz, ak si niekedy nafukoval",
+        "cs": "A teď, jestli jsi někdy nafukoval"
+      },
+      "asrWordRange": [
+        1503,
+        1510
+      ],
+      "sourceCues": [
+        132
+      ],
+      "alignmentText": "No a teraz, ak si niekedy nafukoval"
+    },
+    {
+      "start": 598.22,
+      "end": 602.3,
+      "text": {
+        "sk": "pneumatiky na bicykli takou pumpičkou, tak si si možno všimol, že keď veľmi prudko",
+        "cs": "pneumatiky na kole takovou pumpičkou, možná sis všiml, že když velmi rychle"
+      },
+      "asrWordRange": [
+        1510,
+        1524
+      ],
+      "sourceCues": [
+        133
+      ],
+      "alignmentText": "pneumatiky na bicykli takou pumpičkou, tak si si možno všimol, že keď veľmi prudko"
+    },
+    {
+      "start": 602.3,
+      "end": 604.38,
+      "text": {
+        "sk": "fúkaš, tak tá pumpička sa začne zohrievať.",
+        "cs": "pumpuješ, začne se ta pumpička zahřívat."
+      },
+      "asrWordRange": [
+        1524,
+        1531
+      ],
+      "sourceCues": [
+        134
+      ],
+      "alignmentText": "fúkaš, tak tá pumpička sa začne zohrievať."
+    },
+    {
+      "start": 606.11,
+      "end": 608.89,
+      "text": {
+        "sk": "A to je kvôli tomu, že keď stlačaš plyn, tak sa zohrieva.",
+        "cs": "A to proto, že když stlačuješ plyn, zahřívá se."
+      },
+      "asrWordRange": [
+        1531,
+        1543
+      ],
+      "sourceCues": [
+        135
+      ],
+      "alignmentText": "A to je kvôli tomu, že keď stlačaš plyn, tak sa zohrieva."
+    },
+    {
+      "start": 610.05,
+      "end": 614.45,
+      "text": {
+        "sk": "No a to, čo sa stane v tej bublínke, že tá bublínka veľmi prudko začne kolabovať.",
+        "cs": "A to, co se stane v bublince, je, že začne velmi prudce kolabovat."
+      },
+      "asrWordRange": [
+        1543,
+        1559
+      ],
+      "sourceCues": [
+        136
+      ],
+      "alignmentText": "No a to, čo sa stane v tej bublínke, že tá bublínka veľmi prudko začne kolabovať."
+    },
+    {
+      "start": 614.53,
+      "end": 618.97,
+      "text": {
+        "sk": "Kvôli tomu, že proste celý oceán sa ju snaží stlačiť, takže ona strašne prudko začne",
+        "cs": "Protože ji vlastně celý oceán tlačí, začne se velmi rychle"
+      },
+      "asrWordRange": [
+        1559,
+        1574
+      ],
+      "sourceCues": [
+        137
+      ],
+      "alignmentText": "Kvôli tomu, že proste celý oceán sa ju snaží stlačiť, takže ona strašne prudko začne"
+    },
+    {
+      "start": 618.97,
+      "end": 624.21,
+      "text": {
+        "sk": "zmenšovať svoj objem a ten plyn v nej sa začne zohrievať. A on dokonca",
+        "cs": "zmenšovat a plyn v ní se začne zahřívat. Dokonce"
+      },
+      "asrWordRange": [
+        1574,
+        1588
+      ],
+      "sourceCues": [
+        138
+      ],
+      "alignmentText": "zmenšovať svoj objem a ten plyn v nej sa začne zohrievať. A on dokonca"
+    },
+    {
+      "start": 624.21,
+      "end": 628.23,
+      "text": {
+        "sk": "nadobudne teplotu zhruba ako na povrchu Slnka, že niekoľko tisíc stupňov,",
+        "cs": "dosáhne teploty přibližně jako na povrchu Slunce, tedy několik tisíc stupňů,"
+      },
+      "asrWordRange": [
+        1588,
+        1600
+      ],
+      "sourceCues": [
+        139
+      ],
+      "alignmentText": "nadobudne teplotu zhruba ako na povrchu Slnka, že niekoľko tisíc stupňov,"
+    },
+    {
+      "start": 629.42,
+      "end": 634.96,
+      "text": {
+        "sk": "niekoľko tisíc stupňov a teplota vznikne v tej bublinke, tam sa vytvorí plazma. To",
+        "cs": "několik tisíc stupňů, a při této teplotě se v bublince vytvoří plazma. To"
+      },
+      "asrWordRange": [
+        1600,
+        1614
+      ],
+      "sourceCues": [
+        140
+      ],
+      "alignmentText": "niekoľko tisíc stupňov a teplota vznikne v tej bublinke, tam sa vytvorí plazma. To"
+    },
+    {
+      "start": 634.96,
+      "end": 640.56,
+      "text": {
+        "sk": "znamená, že elektróny sa odtrhnú od atómov a je to tam proste taký elektrizovaný",
+        "cs": "znamená, že se elektrony odtrhnou od atomů a je tam elektricky nabitý"
+      },
+      "asrWordRange": [
+        1614,
+        1628
+      ],
+      "sourceCues": [
+        141
+      ],
+      "alignmentText": "znamená, že elektróny sa odtrhnú od atómov a je to tam proste taký elektrizovaný"
+    },
+    {
+      "start": 640.56,
+      "end": 641.68,
+      "text": {
+        "sk": "alebo ionizovaný plyn",
+        "cs": "neboli ionizovaný plyn"
+      },
+      "asrWordRange": [
+        1628,
+        1631
+      ],
+      "sourceCues": [
+        142
+      ],
+      "alignmentText": "alebo ionizovaný plyn"
+    },
+    {
+      "start": 642.55,
+      "end": 647.81,
+      "text": {
+        "sk": "a vznikne tam teda záblesk kvôli tomu, že tam je extrémne horúci plyn.",
+        "cs": "a vznikne světelný záblesk, protože ten plyn je mimořádně horký."
+      },
+      "asrWordRange": [
+        1631,
+        1644
+      ],
+      "sourceCues": [
+        143
+      ],
+      "alignmentText": "a vznikne tam teda záblesk kvôli tomu, že tam je extrémne horúci plyn."
+    },
+    {
+      "start": 648.72,
+      "end": 650.22,
+      "text": {
+        "sk": "Vznikne tam malé slniečko.",
+        "cs": "Vznikne tam malé sluníčko."
+      },
+      "asrWordRange": [
+        1644,
+        1648
+      ],
+      "sourceCues": [
+        144
+      ],
+      "alignmentText": "Vznikne tam malé slniečko."
+    },
+    {
+      "start": 650.9,
+      "end": 652.54,
+      "text": {
+        "sk": "Áno, to si povedal veľmi pekne.",
+        "cs": "Ano, to jsi řekl moc hezky."
+      },
+      "asrWordRange": [
+        1648,
+        1654
+      ],
+      "sourceCues": [
+        145
+      ],
+      "alignmentText": "Áno, to si povedal veľmi pekne."
+    },
+    {
+      "start": 654.94,
+      "end": 656.28,
+      "text": {
+        "sk": "Tak to je úžasné.",
+        "cs": "To je úžasné."
+      },
+      "asrWordRange": [
+        1654,
+        1658
+      ],
+      "sourceCues": [
+        146
+      ],
+      "alignmentText": "Tak to je úžasné."
+    },
+    {
+      "start": 658.48,
+      "end": 663.02,
+      "text": {
+        "sk": "Čítal som v jednom článku, čo som im posielal na podklady, že vedci dokonca zistili,",
+        "cs": "Četl jsem v jednom článku, který jsem jim posílal jako podklad, že vědci dokonce zjistili,"
+      },
+      "asrWordRange": [
+        1658,
+        1673
+      ],
+      "sourceCues": [
+        147
+      ],
+      "alignmentText": "Čítal som v jednom článku, čo som im posielal na podklady, že vedci dokonca zistili,"
+    },
+    {
+      "start": 663.1,
+      "end": 665.72,
+      "text": {
+        "sk": "že keby sa tento efekt deje v kyseline,",
+        "cs": "že kdyby tento jev probíhal v kyselině,"
+      },
+      "asrWordRange": [
+        1673,
+        1681
+      ],
+      "sourceCues": [
+        148
+      ],
+      "alignmentText": "že keby sa tento efekt deje v kyseline,"
+    },
+    {
+      "start": 666.38,
+      "end": 671.46,
+      "text": {
+        "sk": "aj vyššia teplota, že okolo 20-tisíc stupňov. Správne som si...? Je možné, že sa to",
+        "cs": "i vyšší teplota, asi 20 tisíc stupňů. Pamatuji si to správně? Je možné, že se to"
+      },
+      "asrWordRange": [
+        1681,
+        1698
+      ],
+      "sourceCues": [
+        149
+      ],
+      "alignmentText": "aj vyššia teplota, že okolo dvadsaťtisíc stupňov. Správne som si...? Je možné, že sa to",
+      "alignmentVariants": [
+        "aj vyššia teplota, že okolo dvadsať tisíc stupňov. Správne som si...? Je možné, že sa to",
+        "aj vyššia teplota, že okolo dvadsaťtisíc stupňov. Správne som si...? Je možné, že sa to"
+      ]
+    },
+    {
+      "start": 671.46,
+      "end": 675.42,
+      "text": {
+        "sk": "testovalo v niečom, ešte akože v takých drastickejších podmienkach alebo v niečom inom",
+        "cs": "zkoušelo v něčem, v drsnějších podmínkách nebo v něčem jiném"
+      },
+      "asrWordRange": [
+        1698,
+        1711
+      ],
+      "sourceCues": [
+        150
+      ],
+      "alignmentText": "testovalo v niečom, ešte akože v takých drastickejších podmienkach alebo v niečom inom"
+    },
+    {
+      "start": 675.42,
+      "end": 677.12,
+      "text": {
+        "sk": "ako voda. Je možné, že v iných",
+        "cs": "než ve vodě. Je možné, že v jiných"
+      },
+      "asrWordRange": [
+        1711,
+        1718
+      ],
+      "sourceCues": [
+        151
+      ],
+      "alignmentText": "ako voda. Je možné, že v iných"
+    },
+    {
+      "start": 677.12,
+      "end": 679.16,
+      "text": {
+        "sk": "plynoch to dopadne ešte drastickejšie, lebo ide o to,",
+        "cs": "plynech bude výsledek ještě výraznější, protože záleží na tom,"
+      },
+      "asrWordRange": [
+        1718,
+        1727
+      ],
+      "sourceCues": [
+        151
+      ],
+      "alignmentText": "plynoch to dopadne ešte drastickejšie, lebo ide o to,"
+    },
+    {
+      "start": 679.26,
+      "end": 682.96,
+      "text": {
+        "sk": "ako sa daná tekutina rýchlo vyparuje a podobne.",
+        "cs": "jak rychle se daná kapalina odpařuje a podobně."
+      },
+      "asrWordRange": [
+        1727,
+        1735
+      ],
+      "sourceCues": [
+        152
+      ],
+      "alignmentText": "ako sa daná tekutina rýchlo vyparuje a podobne."
+    },
+    {
+      "start": 684.57,
+      "end": 689.55,
+      "text": {
+        "sk": "A ja by som ešte len pre úplnosť, aby sme nezneli zavádzajúco, uviedol, že",
+        "cs": "A pro úplnost bych jen rád řekl, abychom neuváděli posluchače v omyl, že"
+      },
+      "asrWordRange": [
+        1735,
+        1749
+      ],
+      "sourceCues": [
+        153
+      ],
+      "alignmentText": "A ja by som ešte len pre úplnosť, aby sme nezneli zavádzajúco, uviedol, že"
+    },
+    {
+      "start": 689.55,
+      "end": 695.12,
+      "text": {
+        "sk": "to, čím omračuje tá kreveta, to nie je ten záblesk svetla, tam ide o ten záblesk,",
+        "cs": "to, čím kreveta omračuje, není ten světelný záblesk, jde o"
+      },
+      "asrWordRange": [
+        1749,
+        1766
+      ],
+      "sourceCues": [
+        154
+      ],
+      "alignmentText": "to, čím omračuje tá kreveta, to nie je ten záblesk svetla, tam ide o ten záblesk,"
+    },
+    {
+      "start": 695.22,
+      "end": 700.3,
+      "text": {
+        "sk": "o tú tlakovú vlnu, o ten náraz, ktorý to vyvolá. Že toto je len taký, neviem, či",
+        "cs": "tlakovou vlnu, ten náraz, který to vyvolá. Tohle je jen takový, nevím, jestli"
+      },
+      "asrWordRange": [
+        1766,
+        1783
+      ],
+      "sourceCues": [
+        155
+      ],
+      "alignmentText": "o tú tlakovú vlnu, o ten náraz, ktorý to vyvolá. Že toto je len taký, neviem, či"
+    },
+    {
+      "start": 700.3,
+      "end": 705.12,
+      "text": {
+        "sk": "nežiaduci produkt evolúcie, ale je to až druhoradé, že to urobí ešte aj to bliknutie.",
+        "cs": "nežádoucí produkt evoluce, ale je to až druhotné, že to navíc i blikne."
+      },
+      "asrWordRange": [
+        1783,
+        1798
+      ],
+      "sourceCues": [
+        156
+      ],
+      "alignmentText": "nežiaduci produkt evolúcie, ale je to až druhoradé, že to urobí ešte aj to bliknutie."
+    },
+    {
+      "start": 705.56,
+      "end": 709.76,
+      "text": {
+        "sk": "No, skôr by som nepovedal, že nežiaduci efekt evolúcie, ale proste je to",
+        "cs": "Spíš bych neřekl, že nežádoucí produkt evoluce, prostě je to"
+      },
+      "asrWordRange": [
+        1798,
+        1811
+      ],
+      "sourceCues": [
+        157
+      ],
+      "alignmentText": "No, skôr by som nepovedal, že nežiaduci efekt evolúcie, ale proste je to"
+    },
+    {
+      "start": 709.76,
+      "end": 711.06,
+      "text": {
+        "sk": "sprevádzajúci efekt,",
+        "cs": "doprovodný jev,"
+      },
+      "asrWordRange": [
+        1811,
+        1813
+      ],
+      "sourceCues": [
+        158
+      ],
+      "alignmentText": "sprevádzajúci efekt,"
+    },
+    {
+      "start": 712.1,
+      "end": 716.68,
+      "text": {
+        "sk": "ktorý potrebuje k tomu loveniu. No, to je neskutočné, takže na svete máme",
+        "cs": "který k tomu lovu potřebuje. Je neuvěřitelné, že na světě máme"
+      },
+      "asrWordRange": [
+        1813,
+        1826
+      ],
+      "sourceCues": [
+        159
+      ],
+      "alignmentText": "ktorý potrebuje k tomu loveniu. No, to je neskutočné, takže na svete máme"
+    },
+    {
+      "start": 716.68,
+      "end": 719.6,
+      "text": {
+        "sk": "živočicha, ktorý vďaka,",
+        "cs": "živočicha, který díky,"
+      },
+      "asrWordRange": [
+        1826,
+        1829
+      ],
+      "sourceCues": [
+        160
+      ],
+      "alignmentText": "živočicha, ktorý vďaka,"
+    },
+    {
+      "start": 720.46,
+      "end": 725.7,
+      "text": {
+        "sk": "povedzme, plazmovou zbraňou a exoskeletom loví ostatných živočíchov na",
+        "cs": "řekněme, plazmové zbrani a exoskeletu loví ostatní živočichy na"
+      },
+      "asrWordRange": [
+        1829,
+        1838
+      ],
+      "sourceCues": [
+        161
+      ],
+      "alignmentText": "povedzme, plazmovou zbraňou a exoskeletom loví ostatných živočíchov na"
+    },
+    {
+      "start": 725.7,
+      "end": 728.92,
+      "text": {
+        "sk": "morskom dne. Možno, na záver môžeme o ňom povedať jednu peknú vec.",
+        "cs": "mořském dně. Možná bychom o něm na závěr mohli říct ještě něco hezkého."
+      },
+      "asrWordRange": [
+        1838,
+        1850
+      ],
+      "sourceCues": [
+        162
+      ],
+      "alignmentText": "morskom dne. Možno, na záver môžeme o ňom povedať jednu peknú vec."
+    },
+    {
+      "start": 730.68,
+      "end": 734.12,
+      "text": {
+        "sk": "Vrelo odporúčam ľuďom, aby ste to skúsili cez taký vyhľadávač nájsť,",
+        "cs": "Vřele doporučuji všem, abyste si ho zkusili vyhledat,"
+      },
+      "asrWordRange": [
+        1850,
+        1861
+      ],
+      "sourceCues": [
+        163
+      ],
+      "alignmentText": "Vrelo odporúčam ľuďom, aby ste to skúsili cez taký vyhľadávač nájsť,"
+    },
+    {
+      "start": 734.8,
+      "end": 740.44,
+      "text": {
+        "sk": "totiž tieto krevety majú symbiotický vzťah s takými malými rybičkami,",
+        "cs": "protože tyto krevety žijí v symbióze s takovými malými rybičkami,"
+      },
+      "asrWordRange": [
+        1861,
+        1871
+      ],
+      "sourceCues": [
+        164,
+        165
+      ],
+      "alignmentText": "totiž tieto krevety majú symbiotický vzťah s takými malými rybičkami,"
+    },
+    {
+      "start": 741.52,
+      "end": 747.04,
+      "text": {
+        "sk": "z čeľade hlaváčovitých, to sú také pomerne malé, oranžovo-",
+        "cs": "z čeledi hlaváčovitých, jsou to poměrně malé, oranžovo-"
+      },
+      "asrWordRange": [
+        1871,
+        1880
+      ],
+      "sourceCues": [
+        166
+      ],
+      "alignmentText": "z čeľade hlaváčovitých, to sú také pomerne malé, oranžovo-"
+    },
+    {
+      "start": 747.16,
+      "end": 748.46,
+      "text": {
+        "sk": "sivo-čierne rybičky.",
+        "cs": "šedočerné rybičky."
+      },
+      "asrWordRange": [
+        1880,
+        1883
+      ],
+      "sourceCues": [
+        167
+      ],
+      "alignmentText": "sivo-čierne rybičky."
+    },
+    {
+      "start": 749.21,
+      "end": 749.81,
+      "text": {
+        "sk": "Nemo?",
+        "cs": "Nemo?"
+      },
+      "asrWordRange": [
+        1883,
+        1884
+      ],
+      "sourceCues": [
+        168
+      ],
+      "alignmentText": "Nemo?"
+    },
+    {
+      "start": 750.61,
+      "end": 753.35,
+      "text": {
+        "sk": "Nie až také pásikavé, ale podobné, hej.",
+        "cs": "Nejsou až tak pruhované, ale podobné, ano."
+      },
+      "asrWordRange": [
+        1884,
+        1891
+      ],
+      "sourceCues": [
+        169
+      ],
+      "alignmentText": "Nie až také pásikavé, ale podobné, hej."
+    },
+    {
+      "start": 754.07,
+      "end": 759.55,
+      "text": {
+        "sk": "Á, škoda. Ten symbiotický vzťah spočíva v tom, že tá kreveta je pomerne",
+        "cs": "Ach, škoda. Symbiotický vztah spočívá v tom, že kreveta je poměrně"
+      },
+      "asrWordRange": [
+        1891,
+        1904
+      ],
+      "sourceCues": [
+        170
+      ],
+      "alignmentText": "Á, škoda. Ten symbiotický vzťah spočíva v tom, že tá kreveta je pomerne"
+    },
+    {
+      "start": 759.55,
+      "end": 765.09,
+      "text": {
+        "sk": "slepá. Teda ona má veľmi dobrý zrak, ale na malú vzdialenosť a",
+        "cs": "slepá. Má tedy dobrý zrak, ale jen na krátkou vzdálenost, a"
+      },
+      "asrWordRange": [
+        1904,
+        1916
+      ],
+      "sourceCues": [
+        171
+      ],
+      "alignmentText": "slepá. Teda ona má veľmi dobrý zrak, ale na malú vzdialenosť a"
+    },
+    {
+      "start": 765.09,
+      "end": 769.29,
+      "text": {
+        "sk": "tá ryba zase vidí do diaľky, ale nevie tak dobre kopať, nevie tak dobre strážiť.",
+        "cs": "ryba zase vidí do dálky, ale neumí tak dobře hrabat, neumí tak dobře hlídat."
+      },
+      "asrWordRange": [
+        1916,
+        1931
+      ],
+      "sourceCues": [
+        172
+      ],
+      "alignmentText": "tá ryba zase vidí do diaľky, ale nevie tak dobre kopať, nevie tak dobre strážiť."
+    },
+    {
+      "start": 770.23,
+      "end": 774.97,
+      "text": {
+        "sk": "Takže ryba vlastne slúži na to v tomto páre, že deteguje nebezpečenstvo",
+        "cs": "Ryba tedy v tomto páru slouží k tomu, že odhaluje nebezpečí"
+      },
+      "asrWordRange": [
+        1931,
+        1943
+      ],
+      "sourceCues": [
+        173
+      ],
+      "alignmentText": "Takže ryba vlastne slúži na to v tomto páre, že deteguje nebezpečenstvo"
+    },
+    {
+      "start": 775.88,
+      "end": 781.32,
+      "text": {
+        "sk": "a kreveta potom odkomunikuje to. Kreveta to cez svoje tykadlá, alebo neviem, ako sa",
+        "cs": "a kreveta pak to komunikuje. Kreveta to prostřednictvím tykadel, nebo nevím, jak se"
+      },
+      "asrWordRange": [
+        1943,
+        1957
+      ],
+      "sourceCues": [
+        174
+      ],
+      "alignmentText": "a kreveta potom odkomunikuje to. Kreveta to cez svoje tykadlá, alebo neviem, ako sa"
+    },
+    {
+      "start": 781.32,
+      "end": 783.48,
+      "text": {
+        "sk": "to správne povie, asi nám napíšu takí biológovia,",
+        "cs": "to správně říká, snad nám napíší nějací biologové,"
+      },
+      "asrWordRange": [
+        1957,
+        1965
+      ],
+      "sourceCues": [
+        175
+      ],
+      "alignmentText": "to správne povie, asi nám napíšu takí biológovia,"
+    },
+    {
+      "start": 784.18,
+      "end": 789.08,
+      "text": {
+        "sk": "to vycíti a obe vedia, že sa majú rýchlo stiahnuť do nory a schovať sa. Takže a",
+        "cs": "vycítí a obě vědí, že se mají rychle stáhnout do nory a schovat. Takže"
+      },
+      "asrWordRange": [
+        1965,
+        1982
+      ],
+      "sourceCues": [
+        176
+      ],
+      "alignmentText": "to vycíti a obe vedia, že sa majú rýchlo stiahnuť do nory a schovať sa. Takže a"
+    },
+    {
+      "start": 789.08,
+      "end": 793.5,
+      "text": {
+        "sk": "na internete je strašne veľa obrázkov, kde proste táto dvojica vyzerá ako taký malý gang,",
+        "cs": "na internetu je spousta obrázků, kde tahle dvojice vypadá jako malý gang,"
+      },
+      "asrWordRange": [
+        1982,
+        1996
+      ],
+      "sourceCues": [
+        177
+      ],
+      "alignmentText": "na internete je strašne veľa obrázkov, kde proste táto dvojica vyzerá ako taký malý gang,"
+    },
+    {
+      "start": 793.62,
+      "end": 796.36,
+      "text": {
+        "sk": "alebo čo, lebo jeden s takým prerasteným klepetom.",
+        "cs": "nebo co, protože jeden má přerostlé klepeto."
+      },
+      "asrWordRange": [
+        1996,
+        2004
+      ],
+      "sourceCues": [
+        178,
+        179
+      ],
+      "alignmentText": "alebo čo, lebo jeden s takým prerasteným klepetom."
+    },
+    {
+      "start": 796.48,
+      "end": 799.06,
+      "text": {
+        "sk": "Ja, že chodia vedľa seba a jeden so zbraňou",
+        "cs": "Jdou vedle sebe a jeden má zbraň"
+      },
+      "asrWordRange": [
+        2004,
+        2013
+      ],
+      "sourceCues": [
+        178,
+        179
+      ],
+      "alignmentText": "Ja, že chodia vedľa seba a jeden so zbraňou"
+    },
+    {
+      "start": 800.14,
+      "end": 804.9,
+      "text": {
+        "sk": "pripravenou ako na Divokom západe. Ja som myslel, že povieš, že odporučíš krevety na",
+        "cs": "připravenou jako na Divokém západě. Myslel jsem, že řekneš, že krevety doporučíš na"
+      },
+      "asrWordRange": [
+        2013,
+        2028
+      ],
+      "sourceCues": [
+        180
+      ],
+      "alignmentText": "pripravenou ako na Divokom západe. Ja som myslel, že povieš, že odporučíš krevety na"
+    },
+    {
+      "start": 804.9,
+      "end": 809.42,
+      "text": {
+        "sk": "olivovom oleji alebo tak, že... Ešte rovno s tou rybičkou.",
+        "cs": "olivovém oleji nebo tak... Ještě rovnou s tou rybičkou."
+      },
+      "asrWordRange": [
+        2028,
+        2036
+      ],
+      "sourceCues": [
+        181
+      ],
+      "alignmentText": "olivovom oleji alebo tak, že... Ešte rovno s tou rybičkou."
+    },
+    {
+      "start": 810.14,
+      "end": 814.14,
+      "text": {
+        "sk": "Že výborne chutia. Ja by som len pridal taký fun fact, čo si aj ty písal v tom svojom",
+        "cs": "Že výborně chutnají. Já bych ještě přidal zajímavost, o které jsi psal ve svém"
+      },
+      "asrWordRange": [
+        2036,
+        2055
+      ],
+      "sourceCues": [
+        182
+      ],
+      "alignmentText": "Že výborne chutia. Ja by som len pridal taký fun fact, čo si aj ty písal v tom svojom"
+    },
+    {
+      "start": 814.14,
+      "end": 818.84,
+      "text": {
+        "sk": "článku, že keď to klepietko, lebo jedno má väčšie ako to druhé,",
+        "cs": "článku. Když to klepítko, protože jedno má větší než druhé,"
+      },
+      "asrWordRange": [
+        2055,
+        2068
+      ],
+      "sourceCues": [
+        183
+      ],
+      "alignmentText": "článku, že keď to klepietko, lebo jedno má väčšie ako to druhé,"
+    },
+    {
+      "start": 819.6,
+      "end": 825.08,
+      "text": {
+        "sk": "sa mu odtrhne alebo nejako stratí, alebo ho nevie používať, tak vlastne to druhé",
+        "cs": "se jí utrhne nebo ho nějak ztratí či nemůže používat, pak se to druhé"
+      },
+      "asrWordRange": [
+        2068,
+        2082
+      ],
+      "sourceCues": [
+        184
+      ],
+      "alignmentText": "sa mu odtrhne alebo nejako stratí, alebo ho nevie používať, tak vlastne to druhé"
+    },
+    {
+      "start": 825.08,
+      "end": 829.04,
+      "text": {
+        "sk": "klepietko sa prispôsobí, aby mohla tá kreveta loviť vlastne,",
+        "cs": "klepítko přizpůsobí, aby kreveta mohla dál lovit,"
+      },
+      "asrWordRange": [
+        2082,
+        2091
+      ],
+      "sourceCues": [
+        185
+      ],
+      "alignmentText": "klepietko sa prispôsobí, aby mohla tá kreveta loviť vlastne,"
+    },
+    {
+      "start": 829.8,
+      "end": 835.04,
+      "text": {
+        "sk": "aby neostala hladná. Čiže keď príde o svoju pištoľ, tak druhá ruka, to druhé klepeto",
+        "cs": "aby nezůstala hladová. Když tedy přijde o svou pistoli, druhá ruka, druhé klepeto,"
+      },
+      "asrWordRange": [
+        2091,
+        2106
+      ],
+      "sourceCues": [
+        186
+      ],
+      "alignmentText": "aby neostala hladná. Čiže keď príde o svoju pištoľ, tak druhá ruka, to druhé klepeto"
+    },
+    {
+      "start": 835.04,
+      "end": 836.32,
+      "text": {
+        "sk": "jej narastie tak, aby ho nahradilo.",
+        "cs": "jí naroste tak, aby ji nahradilo."
+      },
+      "asrWordRange": [
+        2106,
+        2111
+      ],
+      "sourceCues": [
+        187
+      ],
+      "alignmentText": "jej narastie tak, aby ho nahradilo."
+    },
+    {
+      "start": 837.46,
+      "end": 842.86,
+      "text": {
+        "sk": "Buď narastie, alebo sa skôr aj zmení. Dobre, Samuel, neviem, či máš ešte k tejto téme niečo.",
+        "cs": "Buď naroste, nebo se spíš změní. Dobře, Samueli, máš ještě k tomuto tématu něco?"
+      },
+      "asrWordRange": [
+        2111,
+        2128
+      ],
+      "sourceCues": [
+        188,
+        189
+      ],
+      "alignmentText": "Buď narastie, alebo sa skôr aj zmení. Dobre, Samuel, neviem, či máš ešte k tejto téme niečo."
+    },
+    {
+      "start": 843.6,
+      "end": 848.04,
+      "text": {
+        "sk": "okrem výborného receptu na pištolnícke krevety. Tak si mi pripomenul tým, ako si",
+        "cs": "Kromě výborného receptu na pistolové krevety. Připomněl jsi mi tím, jak jsi"
+      },
+      "asrWordRange": [
+        2128,
+        2141
+      ],
+      "sourceCues": [
+        190
+      ],
+      "alignmentText": "okrem výborného receptu na pištolnícke krevety. Tak si mi pripomenul tým, ako si"
+    },
+    {
+      "start": 848.04,
+      "end": 851.62,
+      "text": {
+        "sk": "povedal, že keď jej odpadne jedno klepeto, tak druhé ho nahradí. Spomenul som si na takého",
+        "cs": "říkal, že když jí odpadne jedno klepeto, druhé ho nahradí. Vzpomněl jsem si na takového"
+      },
+      "asrWordRange": [
+        2141,
+        2156
+      ],
+      "sourceCues": [
+        191
+      ],
+      "alignmentText": "povedal, že keď jej odpadne jedno klepeto, tak druhé ho nahradí. Spomenul som si na takého"
+    },
+    {
+      "start": 851.62,
+      "end": 853.08,
+      "text": {
+        "sk": "strašne smiešného kraba,",
+        "cs": "strašně legračního kraba,"
+      },
+      "asrWordRange": [
+        2156,
+        2159
+      ],
+      "sourceCues": [
+        192
+      ],
+      "alignmentText": "strašne smiešného kraba,"
+    },
+    {
+      "start": 853.92,
+      "end": 858.77,
+      "text": {
+        "sk": "ktorý má také latinské meno, ale doslovný preklad z angličtiny je, že",
+        "cs": "který má latinské jméno, ale doslovný překlad z angličtiny je"
+      },
+      "asrWordRange": [
+        2159,
+        2171
+      ],
+      "sourceCues": [
+        193
+      ],
+      "alignmentText": "ktorý má také latinské meno, ale doslovný preklad z angličtiny je, že"
+    },
+    {
+      "start": 858.77,
+      "end": 863.15,
+      "text": {
+        "sk": "brmbolcový krab alebo niekedy sa volá krab boxer a",
+        "cs": "krab s bambulkami, někdy se mu říká krab boxer, a"
+      },
+      "asrWordRange": [
+        2171,
+        2179
+      ],
+      "sourceCues": [
+        194
+      ],
+      "alignmentText": "brmbolcový krab alebo niekedy sa volá krab boxer a"
+    },
+    {
+      "start": 863.98,
+      "end": 868.56,
+      "text": {
+        "sk": "to je taký strašne smiešny krab, lebo on si do každého klepietka chytí sasanku,",
+        "cs": "je to strašně legrační krab, protože si do každého klepeta chytí sasanku,"
+      },
+      "asrWordRange": [
+        2179,
+        2193
+      ],
+      "sourceCues": [
+        195
+      ],
+      "alignmentText": "to je taký strašne smiešny krab, lebo on si do každého klepietka chytí sasanku,"
+    },
+    {
+      "start": 869.42,
+      "end": 874,
+      "text": {
+        "sk": "ktorá je jedovatá, a s inými krabmi alebo živočíchmi, tak proste dôjde za nimi a tlčie",
+        "cs": "která je jedovatá, a když potká jiné kraby nebo živočichy, prostě k nim přijde a mlátí"
+      },
+      "asrWordRange": [
+        2193,
+        2209
+      ],
+      "sourceCues": [
+        196
+      ],
+      "alignmentText": "ktorá je jedovatá, a s inými krabmi alebo živočíchmi, tak proste dôjde za nimi a tlčie"
+    },
+    {
+      "start": 874,
+      "end": 878.58,
+      "text": {
+        "sk": "ich tými sasankami a tiež, že keď svoju sasanku stratí, tak potom si musí nájsť takú",
+        "cs": "je těmi sasankami. Když o jednu přijde, musí si pak najít"
+      },
+      "asrWordRange": [
+        2209,
+        2225
+      ],
+      "sourceCues": [
+        197
+      ],
+      "alignmentText": "ich tými sasankami a tiež, že keď svoju sasanku stratí, tak potom si musí nájsť takú"
+    },
+    {
+      "start": 878.58,
+      "end": 883.66,
+      "text": {
+        "sk": "inú, ktorá dorastie a ktorá nahradí tú odpadnutú. Tak len som si tak spomenul. Takže",
+        "cs": "jinou, která doroste a nahradí tu ztracenou. Jen jsem si na to vzpomněl. Takže"
+      },
+      "asrWordRange": [
+        2225,
+        2240
+      ],
+      "sourceCues": [
+        198
+      ],
+      "alignmentText": "inú, ktorá dorastie a ktorá nahradí tú odpadnutú. Tak len som si tak spomenul. Takže"
+    },
+    {
+      "start": 883.66,
+      "end": 889.1,
+      "text": {
+        "sk": "keď vidí nejakú novú veľkú sasanku, tak odhadzuje a ide zobrať väčšiu, aby mohol",
+        "cs": "když uvidí novou velkou sasanku, starou zahodí a vezme si větší, aby mohl"
+      },
+      "asrWordRange": [
+        2240,
+        2254
+      ],
+      "sourceCues": [
+        199
+      ],
+      "alignmentText": "keď vidí nejakú novú veľkú sasanku, tak odhadzuje a ide zobrať väčšiu, aby mohol"
+    },
+    {
+      "start": 889.1,
+      "end": 893.66,
+      "text": {
+        "sk": "viac biť ostatné živočíchy. Čiže brmbolcový krab. O tom sme písali na Vedátorovi",
+        "cs": "víc mlátit ostatní živočichy. Takže krab s bambulkami. O tom jsme psali na Vedátorovi"
+      },
+      "asrWordRange": [
+        2254,
+        2267
+      ],
+      "sourceCues": [
+        200
+      ],
+      "alignmentText": "viac biť ostatné živočíchy. Čiže brmbolcový krab. O tom sme písali na Vedátorovi"
+    },
+    {
+      "start": 893.66,
+      "end": 897.62,
+      "text": {
+        "sk": "a je to niekde u nás na stránke, takže keď to dáte do vyhľadávača svojho",
+        "cs": "a je to někde na našich stránkách, takže když si to dáte do svého oblíbeného"
+      },
+      "asrWordRange": [
+        2267,
+        2283
+      ],
+      "sourceCues": [
+        201
+      ],
+      "alignmentText": "a je to niekde u nás na stránke, takže keď to dáte do vyhľadávača svojho"
+    },
+    {
+      "start": 897.62,
+      "end": 899.88,
+      "text": {
+        "sk": "obľúbeného, tak to pravdepodobne nájdete.",
+        "cs": "vyhledávače, pravděpodobně to najdete."
+      },
+      "asrWordRange": [
+        2283,
+        2288
+      ],
+      "sourceCues": [
+        202
+      ],
+      "alignmentText": "obľúbeného, tak to pravdepodobne nájdete."
+    },
+    {
+      "start": 901,
+      "end": 901.58,
+      "text": {
+        "sk": "Určite.",
+        "cs": "Určitě."
+      },
+      "asrWordRange": [
+        2288,
+        2289
+      ],
+      "sourceCues": [
+        203
+      ],
+      "alignmentText": "Určite."
+    },
+    {
+      "start": 902.48,
+      "end": 907.84,
+      "text": {
+        "sk": "Samuel, ja ti veľmi pekne ďakujem za dnešný rozhovor. Ďakujem za spoluúčasť.",
+        "cs": "Samueli, moc ti děkuji za dnešní rozhovor. Děkuji za spoluúčast."
+      },
+      "asrWordRange": [
+        2289,
+        2302
+      ],
+      "sourceCues": [
+        204
+      ],
+      "alignmentText": "Samuel, ja ti veľmi pekne ďakujem za dnešný rozhovor. Ďakujem za spoluúčasť."
+    },
+    {
+      "start": 908.52,
+      "end": 909.78,
+      "text": {
+        "sk": "Za spoluúčasť, áno.",
+        "cs": "Za spoluúčast, ano."
+      },
+      "asrWordRange": [
+        2302,
+        2306
+      ],
+      "sourceCues": [
+        205
+      ],
+      "alignmentText": "Za spoluúčasť, áno."
+    },
+    {
+      "start": 910.58,
+      "end": 915.54,
+      "text": {
+        "sk": "Tak ja vám všetkým, našim poslucháčom, veľmi pekne ďakujem, že ste nás počúvali.",
+        "cs": "A já vám všem, našim posluchačům, moc děkuji, že jste nás poslouchali."
+      },
+      "asrWordRange": [
+        2306,
+        2319
+      ],
+      "sourceCues": [
+        206
+      ],
+      "alignmentText": "Tak ja vám všetkým, našim poslucháčom, veľmi pekne ďakujem, že ste nás počúvali."
+    },
+    {
+      "start": 916.02,
+      "end": 921.36,
+      "text": {
+        "sk": "Tento podcast a aj ďalšie jeho vydania môžete nájsť na Spotify, na Apple Podcastoch",
+        "cs": "Tento podcast i jeho další díly najdete na Spotify, Apple Podcasts"
+      },
+      "asrWordRange": [
+        2319,
+        2333
+      ],
+      "sourceCues": [
+        207
+      ],
+      "alignmentText": "Tento podcast a aj ďalšie jeho vydania môžete nájsť na Spotify, na Apple Podcastoch"
+    },
+    {
+      "start": 921.36,
+      "end": 926.4,
+      "text": {
+        "sk": "a na Podbeane a všade, kde viete nájsť dobré podcasty.",
+        "cs": "a na Podbeanu a všude tam, kde najdete dobré podcasty."
+      },
+      "asrWordRange": [
+        2333,
+        2343
+      ],
+      "sourceCues": [
+        208
+      ],
+      "alignmentText": "a na Podbeane a všade, kde viete nájsť dobré podcasty."
+    },
+    {
+      "start": 927.16,
+      "end": 932.38,
+      "text": {
+        "sk": "Samozrejme, navštívte aj našu stránku www.vedator.space a",
+        "cs": "Samozřejmě navštivte i naše stránky www.vedator.space a"
+      },
+      "asrWordRange": [
+        2343,
+        2352
+      ],
+      "sourceCues": [
+        209
+      ],
+      "alignmentText": "Samozrejme, navštívte aj našu stránku www.vedator.space a"
+    },
+    {
+      "start": 932.38,
+      "end": 937.4,
+      "text": {
+        "sk": "našu facebookovú skupinu Vedátor.sk. Pekný deň vám prajem. Dopočutia. Majte sa.",
+        "cs": "naši facebookovou skupinu Vedátor.sk. Přeji vám hezký den. Na slyšenou. Mějte se."
+      },
+      "asrWordRange": [
+        2352,
+        2365
+      ],
+      "sourceCues": [
+        210
+      ],
+      "alignmentText": "našu facebookovú skupinu Vedátor.sk. Pekný deň vám prajem. Dopočutia. Majte sa."
+    }
+  ]
+}

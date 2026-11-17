@@ -1,0 +1,83 @@
+{
+  "episode": 8,
+  "status": "candidate-revisions-backed-by-fresh-ASR-plus-independent-large-v3;not-yet-CTC-aligned",
+  "replace": {
+    "5": {
+      "sk": "celkom dobre a je mi veľmi teplo.",
+      "cs": "docela dobře a je mi velmi horko.",
+      "reason": "Full large-v3 25–43 seconds independently contradicts turbo's 'a je by'."
+    },
+    "48": {
+      "sk": "Asi aj kvôli bezpečnosti bolo dobré, asi je dobré, že sme to",
+      "cs": "Asi i kvůli bezpečnosti to bylo dobře, asi je dobře, že jsme to",
+      "reason": "Full large-v3 199–255 seconds contradicts the hallucinated 'že ti nezostal čas'."
+    },
+    "51": {
+      "sk": "Buchnúť po viečku. Áno, áno, zhora buchnúť po fľaške. Len aby ľudia",
+      "cs": "Udeřit do víčka. Ano, ano, udeřit do lahve shora. Jen aby lidé",
+      "reason": "Wider independent 199–255 s pass does not confirm narrow-model hallucination 'tam nie je viečka'."
+    },
+    "53": {
+      "sk": "A upozorňujeme, dávajte si pozor. Neskúšajte to, čo sme vám",
+      "cs": "A upozorňujeme: dávejte si pozor. Nezkoušejte to, co jsme vám",
+      "reason": "Full large-v3 199–255 s omits hallucinated 'Robíte to na vlastné riziko'; do not infer an unheard phrase."
+    },
+    "58": {
+      "sk": "tam deje, že prudkou zmenou tlaku dochádza k vytvoreniu bublinky.",
+      "cs": "tam děje: prudká změna tlaku vede ke vzniku bublinky.",
+      "reason": "ASR 'nám deje' should be 'tam deje' at boundary with recovered ASR gap."
+    },
+    "61": {
+      "sk": "zasvieti. No a tuto existovali vo fyzike dve vysvetlenia. Bolo jasné, že jedno z nich",
+      "cs": "zasvítí. A tady ve fyzice existovala dvě vysvětlení. Bylo jasné, že jedno z nich",
+      "reason": "Restore complete premise and Slovak agreement."
+    },
+    "62": {
+      "sk": "je správne.",
+      "cs": "je správné.",
+      "reason": "Spoken continuation of preceding sentence."
+    },
+    "75": {
+      "sk": "Dokiaľ? Ale ja som sa teda k tomuto dostal cez takzvaný Casimirov efekt",
+      "cs": "Dokdy? Ale já jsem se k tomu dostal přes takzvaný Casimirův jev",
+      "reason": "Preserve unclear short interjection recognized as 'Dokiaľ?' in independent full model; flag for manual audio review."
+    },
+    "96": {
+      "sk": "A teraz ty, keď to vákuum takto obmedzíš, zmenšíš alebo zväčšíš, napríklad, že ho",
+      "cs": "A když to vakuum takto omezíš, zmenšíš nebo zvětšíš, například ho",
+      "reason": "Remove ASR false 'tako' without changing example."
+    },
+    "147": {
+      "sk": "Čítal som v jednom článku, čo som im posielal na podklady, že vedci dokonca zistili,",
+      "cs": "Četl jsem v jednom článku, který jsem jim posílal jako podklad, že vědci dokonce zjistili,",
+      "reason": "Full large-v3 655–682 independently recognizes 'im', not 'ti'."
+    },
+    "149": {
+      "sk": "aj vyššia teplota, že okolo 20-tisíc stupňov. Správne som si...? Je možné, že sa to",
+      "cs": "i vyšší teplota, asi 20 tisíc stupňů. Pamatuji si to správně? Je možné, že se to",
+      "reason": "Beginning of phrase remains acoustically unresolved in both ASR models; do not insert unverified 'bola'."
+    }
+  },
+  "insertAfterCue": {
+    "57": [
+      {
+        "start": 262.06,
+        "end": 268.14,
+        "asrWordRange": [
+          700,
+          700
+        ],
+        "text": {
+          "sk": "a ten tlak vlastne vrazí tú vodu do dna a vyrazí ho. Takže toto je prvá časť, čo sa",
+          "cs": "a ten tlak vlastně vrazí vodu do dna a prorazí ho. Tohle je první část toho, co se"
+        },
+        "recoveredSpeech": "Reconstructed from original source-audio gap 262.06–268.14 s with independent large-v3 from 261.06–269.14; split at the original ASR cue 58 boundary to retain asrWordRange coverage."
+      }
+    ]
+  },
+  "reviewNotes": [
+    "The zero-width ASR word range for recovered speech must be derived from cue 57 end dynamically, not the static illustrative [700,700] above.",
+    "Do not claim human independent listening: evidence is original-MP3 ASR and independent large-v3.",
+    "Dokiaľ? cue 75 and uncertain onset of 149 must remain in review report; no independent listening performed."
+  ]
+}

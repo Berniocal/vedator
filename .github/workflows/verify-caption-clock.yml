@@ -1,7 +1,7 @@
 name: Verify caption MP3 clock and screen wake
 on:
   push:
-    branches: [main, fix/captions-mp3-clock-20261116, captions/episode-5-precise-20261116, fix/episode-5-mp3-source-20261117, captions/episode-6-precise-20261117, captions/episode-7-precise-20261117, captions/episode-7-finish-20261117]
+    branches: [main, fix/captions-mp3-clock-20261116, captions/episode-5-precise-20261116, fix/episode-5-mp3-source-20261117, captions/episode-6-precise-20261117, captions/episode-7-precise-20261117, captions/episode-7-finish-20261117, captions/episode-8-precise-20261117]
     paths:
       - app-v2.js
       - episode-videos.json
