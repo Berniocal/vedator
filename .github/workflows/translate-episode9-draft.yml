@@ -35,7 +35,7 @@ jobs:
           python -m pip install --disable-pip-version-check transformers==4.45.2 'numpy<2' sentencepiece
       - name: Read completed Slovak ASR from preparation branch
         run: |
-          for attempt in $(seq 1 60); do
+          for attempt in $(seq 1 240); do
             git pull --ff-only origin captions/episode-9-precise-20261117
             if test -s captions/source/episode-9-draft.sk.json; then exit 0; fi
             sleep 15
