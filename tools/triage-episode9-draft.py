@@ -45,7 +45,7 @@ data={"episode":9,"status":"review-evidence-only-not-subtitles",
     "translationLengthFlags":ratio,"asrLexicalFlags":red_flags,
     "independentWindows":B.get("passages",[])}
 (SOURCE/"episode-9-editorial-triage.json").write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-lines=["# Vedátorský podcast 8 – redakční kontrola pracovní verze","",
+lines=["# Vedátorský podcast 9 – redakční kontrola pracovní verze","",
        "**Toto není hotový přepis ani zkontrolovaný překlad.**",
        f"Zvuk SHA-256: `{data['audioSha256']}`.",
        f"Délka: {clock(data['duration'])}; slova: {len(A['words'])}; bloky: {len(A['cues'])}.",
