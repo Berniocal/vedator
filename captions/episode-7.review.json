@@ -1,0 +1,37 @@
+{
+  "episode": 7,
+  "cueCount": 355,
+  "asrWordCount": 3614,
+  "audioSha256": "602a47266a4ceb0bdfe16129fbd65f572387a443c685835cd124b877800145dc",
+  "lowScoreCues": [
+    {
+      "cue": 12,
+      "start": 61.302,
+      "end": 63.153,
+      "meanCharacterScore": 0.166,
+      "asrStart": 61.52,
+      "asrEnd": 63.76,
+      "alignmentText": "pôsobnosť? Áno,"
+    },
+    {
+      "cue": 162,
+      "start": 809.888,
+      "end": 810.739,
+      "meanCharacterScore": 0.066,
+      "asrStart": 809.97,
+      "asrEnd": 811.83,
+      "alignmentText": "bola nezaujímavá"
+    },
+    {
+      "cue": 198,
+      "start": 981.828,
+      "end": 989.3,
+      "meanCharacterScore": 0.2586,
+      "asrStart": 981.81,
+      "asrEnd": 988.8,
+      "alignmentText": "Falcon môže byť? Falcony, ale Saturn sa myslím, že chystá. Nie, Saturn je následný."
+    }
+  ],
+  "maxBoundaryChange": 2.0689999999999884,
+  "status": "review-further-if-low-score-cues-otherwise-needs-independent-listening"
+}
