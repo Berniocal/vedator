@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parent.parent
 OUT=ROOT/"captions"
 SOURCE=OUT/"source"
-AUDIO=Path(os.environ.get("VEDATOR_EP8_AUDIO","/tmp/vedator-ep8-audio"))/"episode-9.mp3"
+AUDIO=Path(os.environ.get("VEDATOR_EP9_AUDIO","/tmp/vedator-ep9-audio"))/"episode-9.mp3"
 DRAFT=SOURCE/"episode-9-draft.sk.json"
 EDITED=OUT/"episode-9.edited.json"
 MODEL="large-v3-turbo"
