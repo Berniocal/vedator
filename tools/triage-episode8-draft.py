@@ -25,8 +25,8 @@ def clock(v):
 
 ratio=[]
 for i,(c,t) in enumerate(zip(A["cues"],T["cues"]),start=1):
-    n=len(re.sub(r"\\s+","",c["text"]))
-    o=len(re.sub(r"\\s+","",t["draftCs"]))
+    n=len(re.sub(r"\s+","",c["text"]))
+    o=len(re.sub(r"\s+","",t["draftCs"]))
     if n==0 or o/n < .67 or o/n > 1.5:
         ratio.append({"cue":i,"at":c["start"],"sk":c["text"],"draftCs":t["draftCs"],"ratio":round(o/max(n,1),3)})
 low=[{"start":w["start"],"end":w["end"],"text":w["text"],"confidence":w["confidence"]}
@@ -37,7 +37,7 @@ for prev,now in zip(A["words"],A["words"][1:]):
     if delta>1.4:
         gaps.append({"start":prev["end"],"end":now["start"],"seconds":round(delta,2)})
 red_flags=[(i+1,c["text"]) for i,c in enumerate(A["cues"])
-           if re.search(r"\\b(?:nesrozumitel|nezrozumite|poďakujem|písnot|pridvate)\\b",c["text"],flags=re.I)]
+           if re.search(r"\b(?:nesrozumitel|nezrozumite|poďakujem|písnot|pridvate)\b",c["text"],flags=re.I)]
 data={"episode":8,"status":"review-evidence-only-not-subtitles",
     "audioSha256":A["source"]["audioSha256"],"duration":A["source"]["duration"],
     "draftCueCount":len(A["cues"]),"asrWords":len(A["words"]),
