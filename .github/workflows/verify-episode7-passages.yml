@@ -1,0 +1,48 @@
+name: Cross-check uncertain episode 7 speech
+on:
+  push:
+    branches: [captions/episode-7-precise-20261117, captions/episode-7-finish-20261117]
+    paths:
+      - tools/verify-episode7-passages.py
+      - .github/workflows/verify-episode7-passages.yml
+concurrency:
+  group: vedator-episode7-independent-speech-check
+  cancel-in-progress: true
+permissions:
+  contents: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install independent recognizer
+        run: python -m pip install --disable-pip-version-check faster-whisper==1.2.1
+      - name: Wait for complete source transcription
+        run: |
+          for attempt in $(seq 1 320); do
+            git pull --ff-only origin "${GITHUB_REF_NAME}"
+            if test -f captions/source/episode-7-draft.sk.json; then exit 0; fi
+            sleep 15
+          done
+          exit 1
+      - uses: actions/cache@v4
+        with:
+          path: /tmp/vedator-ep7-audio
+          key: vedator-original-episode-7-audio-v1
+      - name: Check speech gaps and uncertain proper names against original audio
+        run: python tools/verify-episode7-passages.py --alignment-review
+      - name: Save recognizer evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add captions/source/episode-7-alignment-checks.sk.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Cross-check final episode 7 disputed speech with full large-v3"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

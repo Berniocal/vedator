@@ -1,0 +1,4632 @@
+{
+  "version": 1,
+  "episode": 7,
+  "guid": "vedatorskypodcast.podbean.com/88a0e393-5f39-53c2-bc36-8f17301f88f7",
+  "youtubeId": "iiSiedklLhA",
+  "languages": [
+    "cs",
+    "sk"
+  ],
+  "quality": "editorial-corrected-forced-aligned",
+  "source": {
+    "audio": "https://mcdn.podbean.com/mf/web/ngcvxz/podcast_ep7.mp3",
+    "audioSha256": "602a47266a4ceb0bdfe16129fbd65f572387a443c685835cd124b877800145dc",
+    "audioBytes": 55617655,
+    "model": "large-v3-turbo",
+    "duration": 1723.115125,
+    "type": "original-MP3-ASR-and-CTC-forced-alignment",
+    "alignmentModel": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+    "transcriptFile": "captions/source/episode-7-draft.sk.json",
+    "alignmentFile": "captions/source/episode-7-alignment.json",
+    "review": "Complete Slovak editorial review and Czech translation; acoustic character alignment and review of flagged passages. Not a full independent human listening verification.",
+    "independentPassageAuditFile": "captions/source/episode-7-alignment-checks.sk.json",
+    "verificationLimits": "CTC forced alignment and independent large-v3 checks performed; complete direct human audio listening and direct YouTube-versus-MP3 acoustic comparison not performed."
+  },
+  "cues": [
+    {
+      "start": 11.282,
+      "end": 16.138,
+      "kind": "speech",
+      "text": {
+        "sk": "Od paracetamolu cez protóny až po pijavice. Veda\nnás obklopuje na každom kroku.",
+        "cs": "Od paracetamolu přes protony až po pijavice.\nVěda nás obklopuje na každém kroku."
+      },
+      "asrWordRange": [
+        0,
+        13
+      ]
+    },
+    {
+      "start": 16.542,
+      "end": 21.558,
+      "kind": "speech",
+      "text": {
+        "sk": "Vitajte pri Vedátorskom podcaste, v ktorom\nbudeme diskutovať o vede a prírode okolo nás.",
+        "cs": "Vítejte u Vedátorského podcastu, ve kterém\nbudeme diskutovat o vědě a přírodě kolem nás."
+      },
+      "asrWordRange": [
+        13,
+        27
+      ]
+    },
+    {
+      "start": 22.304,
+      "end": 24.257,
+      "kind": "speech",
+      "text": {
+        "sk": "Moje meno je Jozef. Ja som Samuel.",
+        "cs": "Jmenuji se Jozef. A já jsem Samuel."
+      },
+      "asrWordRange": [
+        27,
+        34
+      ]
+    },
+    {
+      "start": 25.703,
+      "end": 31.26,
+      "kind": "speech",
+      "text": {
+        "sk": "Vitaj, Samo, pri ďalšom vydaní nášho podcastu,\nVedátorského podcastu. Dneska to bude",
+        "cs": "Vítej, Samo, u dalšího vydání našeho podcastu,\nVedátorského podcastu. Dnes to bude"
+      },
+      "asrWordRange": [
+        34,
+        47
+      ]
+    },
+    {
+      "start": 31.26,
+      "end": 35.878,
+      "kind": "speech",
+      "text": {
+        "sk": "troška vymenené a dneska sa budeš ty pýtať a ja\nsa budem snažiť ti",
+        "cs": "trochu obráceně. Dnes se budeš ptát ty a já se\nti budu snažit"
+      },
+      "asrWordRange": [
+        47,
+        61
+      ]
+    },
+    {
+      "start": 35.984,
+      "end": 38.177,
+      "kind": "speech",
+      "text": {
+        "sk": "odpovedať, čo najlepšie budem vedieť,",
+        "cs": "odpovědět, jak nejlépe budu umět,"
+      },
+      "asrWordRange": [
+        61,
+        66
+      ]
+    },
+    {
+      "start": 39.243,
+      "end": 41.897,
+      "kind": "speech",
+      "text": {
+        "sk": "nakoľko je dnes naša téma vesmírne právo.",
+        "cs": "protože naším dnešním tématem je vesmírné právo."
+      },
+      "asrWordRange": [
+        66,
+        73
+      ]
+    },
+    {
+      "start": 43.453,
+      "end": 48.629,
+      "kind": "speech",
+      "text": {
+        "sk": "O ktorom ja neviem nič a ty vieš niečo. Ja viem\nniečo, áno. Naštudoval som si a pozrel",
+        "cs": "O kterém já nevím nic a ty víš něco. Něco vím,\nano. Nastudoval jsem si to a podíval"
+      },
+      "asrWordRange": [
+        73,
+        91
+      ]
+    },
+    {
+      "start": 48.629,
+      "end": 48.958,
+      "kind": "speech",
+      "text": {
+        "sk": "som si to. Tak",
+        "cs": "jsem se na to. Tak"
+      },
+      "asrWordRange": [
+        91,
+        95
+      ]
+    },
+    {
+      "start": 51.042,
+      "end": 56.639,
+      "kind": "speech",
+      "text": {
+        "sk": "ja sa teda rovno opýtam, že vesmírne právo, tak\nčlovek tuší, že platí vo vesmíre,",
+        "cs": "já se rovnou zeptám: vesmírné právo, člověk\ntuší, že platí ve vesmíru,"
+      },
+      "asrWordRange": [
+        95,
+        110
+      ]
+    },
+    {
+      "start": 56.639,
+      "end": 64.2,
+      "kind": "speech",
+      "text": {
+        "sk": "ale kde je tá hranica, že kedy začína toto právo\nmať? Kedy začína mať pôsobnosť? Áno,",
+        "cs": "ale kde je ta hranice, kdy začíná toto právo\nmít? Kdy začíná mít působnost? Ano,"
+      },
+      "asrWordRange": [
+        110,
+        126
+      ]
+    },
+    {
+      "start": 64.482,
+      "end": 69.458,
+      "kind": "speech",
+      "text": {
+        "sk": "výborne si to povedal, toto je jeden z\nnajväčších vlastne aj problémov vo vesmírnom",
+        "cs": "řekl jsi to výborně. To je totiž jeden z\nnejvětších problémů vesmírného"
+      },
+      "asrWordRange": [
+        126,
+        140
+      ]
+    },
+    {
+      "start": 69.528,
+      "end": 69.813,
+      "kind": "speech",
+      "text": {
+        "sk": "práve.",
+        "cs": "práva."
+      },
+      "asrWordRange": [
+        140,
+        141
+      ]
+    },
+    {
+      "start": 71.482,
+      "end": 77.4,
+      "kind": "speech",
+      "text": {
+        "sk": "Je väčšinou taká dohoda medzi štátmi, ale je\nnepísaná, skôr je to taká",
+        "cs": "Je to víceméně dohoda mezi státy, ale nepsaná,\nspíš jde o takový"
+      },
+      "asrWordRange": [
+        141,
+        154
+      ]
+    },
+    {
+      "start": 77.4,
+      "end": 82.1,
+      "kind": "speech",
+      "text": {
+        "sk": "obyčaj, že začína to niekde medzi 30 kilometrami\na až 160",
+        "cs": "zvyk, že to začíná někde mezi 30 až 160"
+      },
+      "asrWordRange": [
+        154,
+        165
+      ]
+    },
+    {
+      "start": 82.183,
+      "end": 87.138,
+      "kind": "speech",
+      "text": {
+        "sk": "kilometrami nad zemským povrchom. A vlastne to\nsú",
+        "cs": "kilometry nad zemským povrchem. A to jsou\nvlastně"
+      },
+      "asrWordRange": [
+        165,
+        178
+      ]
+    },
+    {
+      "start": 87.222,
+      "end": 92.499,
+      "kind": "speech",
+      "text": {
+        "sk": "hranice najnižších možných orbitálnych dráh\nsatelitov, umelých",
+        "cs": "hranice nejnižších možných oběžných drah družic,\numělých"
+      },
+      "asrWordRange": [
+        178,
+        185
+      ]
+    },
+    {
+      "start": 92.582,
+      "end": 98.099,
+      "kind": "speech",
+      "text": {
+        "sk": "alebo prírodných a tak ďalej nad Zemou.\nNapríklad sú krajiny ako Venezuela",
+        "cs": "nebo přírodních, nad Zemí. Například existují\nzemě jako Venezuela"
+      },
+      "asrWordRange": [
+        185,
+        197
+      ]
+    },
+    {
+      "start": 98.283,
+      "end": 103.178,
+      "kind": "speech",
+      "text": {
+        "sk": "a Ekvádor, ktoré neuznávajú žiadne obmedzenie\nsvojej suverenity, čo sa týka",
+        "cs": "a Ekvádor, které neuznávají žádné omezení své\nsvrchovanosti, pokud jde o"
+      },
+      "asrWordRange": [
+        197,
+        208
+      ]
+    },
+    {
+      "start": 103.262,
+      "end": 108.218,
+      "kind": "speech",
+      "text": {
+        "sk": "tohto výškového. Čo sa týka ostatných krajín,\nsamozrejme",
+        "cs": "výšku. Ostatní země samozřejmě"
+      },
+      "asrWordRange": [
+        208,
+        216
+      ]
+    },
+    {
+      "start": 109.896,
+      "end": 113.949,
+      "kind": "speech",
+      "text": {
+        "sk": "uznávajú. Napríklad USA používajú také zaujímavé\npravidlo, že ide",
+        "cs": "takové omezení uznávají. Například USA mají\nzajímavé pravidlo: posuzují to"
+      },
+      "asrWordRange": [
+        216,
+        225
+      ]
+    },
+    {
+      "start": 113.949,
+      "end": 119.368,
+      "kind": "speech",
+      "text": {
+        "sk": "od prípadu k prípadu. Takže niekedy",
+        "cs": "případ od případu. Takže někdy"
+      },
+      "asrWordRange": [
+        225,
+        231
+      ]
+    },
+    {
+      "start": 119.773,
+      "end": 124.728,
+      "kind": "speech",
+      "text": {
+        "sk": "tú suverenitu uznávajú pri 50 kilometroch,\nniekedy pri 100 a tak ďalej. Záleží to",
+        "cs": "svrchovanost uznávají do 50 kilometrů, jindy do\n100 a tak dále. Záleží to"
+      },
+      "asrWordRange": [
+        231,
+        245
+      ]
+    },
+    {
+      "start": 124.855,
+      "end": 125.722,
+      "kind": "speech",
+      "text": {
+        "sk": "naozaj od prípadu.",
+        "cs": "opravdu na konkrétním případě."
+      },
+      "asrWordRange": [
+        245,
+        248
+      ]
+    },
+    {
+      "start": 127.513,
+      "end": 132.369,
+      "kind": "speech",
+      "text": {
+        "sk": "Môžem dve otázky? Počkaj, len toto dokončím.\nVeľmi dôležité,",
+        "cs": "Můžu položit dvě otázky? Počkej, jen to\ndokončím. Je velmi důležité,"
+      },
+      "asrWordRange": [
+        248,
+        257
+      ]
+    },
+    {
+      "start": 132.893,
+      "end": 138.309,
+      "kind": "speech",
+      "text": {
+        "sk": "prečo sa vlastne aj bavíme o tom, prečo by mala\nniekde tá suverenita tých štátov",
+        "cs": "proč se vlastně bavíme o tom, že by měla\nsvrchovanost jednotlivých států někde"
+      },
+      "asrWordRange": [
+        257,
+        272
+      ]
+    },
+    {
+      "start": 138.309,
+      "end": 143.67,
+      "kind": "speech",
+      "text": {
+        "sk": "končiť. Je to z toho dôvodu, že keď napríklad\nletíš lietadlom, tak to",
+        "cs": "končit. Důvod je ten, že když třeba letíš\nletadlem, tak to"
+      },
+      "asrWordRange": [
+        272,
+        285
+      ]
+    },
+    {
+      "start": 143.67,
+      "end": 147.328,
+      "kind": "speech",
+      "text": {
+        "sk": "lietadlo musí mať povolenie na vstup do\nvzdušného priestoru.",
+        "cs": "letadlo musí mít povolení ke vstupu do vzdušného\nprostoru."
+      },
+      "asrWordRange": [
+        285,
+        294
+      ]
+    },
+    {
+      "start": 148.893,
+      "end": 153.829,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale pri satelitoch, nakoľko by USA alebo Rusko\nalebo Čína,",
+        "cs": "Jenže u družic, kdyby USA nebo Rusko nebo Čína,"
+      },
+      "asrWordRange": [
+        294,
+        304
+      ]
+    },
+    {
+      "start": 153.852,
+      "end": 158.35,
+      "kind": "speech",
+      "text": {
+        "sk": "hociktorá krajina vypustila svoj satelit, alebo\naj Slovensko, keby vypustilo, by",
+        "cs": "kterákoli země vypustila svou družici, třeba i\nSlovensko, musela by"
+      },
+      "asrWordRange": [
+        304,
+        317
+      ]
+    },
+    {
+      "start": 158.35,
+      "end": 163.108,
+      "kind": "speech",
+      "text": {
+        "sk": "musela mať so všetkými krajinami nejakú\nbilaterálnu zmluvu. Ale to",
+        "cs": "mít se všemi zeměmi nějakou dvoustrannou\nsmlouvu. Ale to"
+      },
+      "asrWordRange": [
+        317,
+        327
+      ]
+    },
+    {
+      "start": 163.832,
+      "end": 168.479,
+      "kind": "speech",
+      "text": {
+        "sk": "by bolo až nereálne, takéto zmluvy vždy, keď",
+        "cs": "by bylo naprosto nereálné, pokaždé, když"
+      },
+      "asrWordRange": [
+        327,
+        335
+      ]
+    },
+    {
+      "start": 168.479,
+      "end": 173.958,
+      "kind": "speech",
+      "text": {
+        "sk": "nejaká krajina niečo vypúšťa, uzatvárať, čo už\nlen z logistického, časového,",
+        "cs": "nějaká země něco vypouští, takové smlouvy\nuzavírat. Už z logistického a časového,"
+      },
+      "asrWordRange": [
+        335,
+        346
+      ]
+    },
+    {
+      "start": 173.958,
+      "end": 179.719,
+      "kind": "speech",
+      "text": {
+        "sk": "ale aj z nejakého takého hľadiska, že sú veľmi\nnáročné tieto zmluvy",
+        "cs": "ale i z hlediska toho, že tyto smlouvy jsou\nvelmi náročné"
+      },
+      "asrWordRange": [
+        346,
+        358
+      ]
+    },
+    {
+      "start": 179.762,
+      "end": 185.239,
+      "kind": "speech",
+      "text": {
+        "sk": "na uzavretie a aj čo sa týka ich aktuálnosti, že\nčo bolo aktuálne pred",
+        "cs": "na uzavření. A také z hlediska aktuálnosti: to,\nco bylo aktuální před"
+      },
+      "asrWordRange": [
+        358,
+        372
+      ]
+    },
+    {
+      "start": 185.239,
+      "end": 190.9,
+      "kind": "speech",
+      "text": {
+        "sk": "50 rokmi, nemusí byť teraz. Máš tie tvoje dve\notázky? Jednu si zodpovedal, ale",
+        "cs": "50 lety, dnes už být nemusí. Tak ty tvoje dvě\notázky? Na jednu jsi odpověděl, ale"
+      },
+      "asrWordRange": [
+        372,
+        386
+      ]
+    },
+    {
+      "start": 190.9,
+      "end": 196.34,
+      "kind": "speech",
+      "text": {
+        "sk": "vlastne jedna bola teda, že či si ľudia vo\nVenezuele, alebo teda vláda vo",
+        "cs": "jedna vlastně byla, jestli si lidé ve Venezuele,\nnebo tedy vláda ve"
+      },
+      "asrWordRange": [
+        386,
+        400
+      ]
+    },
+    {
+      "start": 196.34,
+      "end": 200.199,
+      "kind": "speech",
+      "text": {
+        "sk": "Venezuele myslí, že im všetci, čo sa nachádzajú\nnad nimi, dlhujú dane, čiže keď sa",
+        "cs": "Venezuele myslí, že jí všichni, kdo jsou nad ní,\ndluží daně. Tedy třeba když se"
+      },
+      "asrWordRange": [
+        400,
+        415
+      ]
+    },
+    {
+      "start": 200.199,
+      "end": 205.64,
+      "kind": "speech",
+      "text": {
+        "sk": "nachádza niekto napríklad na Mesiaci. Toto je\nveľmi ťažká otázka, čo si myslí vláda vo",
+        "cs": "někdo nachází na Měsíci. To je velmi těžká\notázka, co si vláda ve"
+      },
+      "asrWordRange": [
+        415,
+        430
+      ]
+    },
+    {
+      "start": 205.64,
+      "end": 211.18,
+      "kind": "speech",
+      "text": {
+        "sk": "Venezuele. Skôr by to išlo z toho hľadiska, že\nnemajú",
+        "cs": "Venezuele myslí. Spíš bych řekl, že nemají"
+      },
+      "asrWordRange": [
+        430,
+        440
+      ]
+    },
+    {
+      "start": 212.649,
+      "end": 215.178,
+      "kind": "speech",
+      "text": {
+        "sk": "žiadne možnosti, ako",
+        "cs": "žádnou možnost, jak"
+      },
+      "asrWordRange": [
+        440,
+        443
+      ]
+    },
+    {
+      "start": 216.526,
+      "end": 220.298,
+      "kind": "speech",
+      "text": {
+        "sk": "vlastne sa k tým peniazom, aj keby chceli nejaké\ndostať,",
+        "cs": "se vlastně k těm penězům dostat, i kdyby je\nchtěli,"
+      },
+      "asrWordRange": [
+        443,
+        453
+      ]
+    },
+    {
+      "start": 220.963,
+      "end": 225.178,
+      "kind": "speech",
+      "text": {
+        "sk": "čo sa týka nejakého právneho hľadiska a aj\nfyzického hľadiska, lebo tie satelity",
+        "cs": "ať už z právního, nebo fyzického hlediska,\nprotože ty družice"
+      },
+      "asrWordRange": [
+        453,
+        466
+      ]
+    },
+    {
+      "start": 225.178,
+      "end": 229.678,
+      "kind": "speech",
+      "text": {
+        "sk": "nevieš obmedziť nad svojím územím. Ale môžeš od\nnich pýtať mýto?",
+        "cs": "nemůžeš nad svým územím omezovat. Ale můžeš po\nnich chtít mýtné?"
+      },
+      "asrWordRange": [
+        466,
+        477
+      ]
+    },
+    {
+      "start": 229.678,
+      "end": 235.2,
+      "kind": "speech",
+      "text": {
+        "sk": "Môžeš od nich pýtať mýto, ale nemyslím si, že u",
+        "cs": "Můžeš po nich chtít mýtné, ale nemyslím si, že\nve"
+      },
+      "asrWordRange": [
+        477,
+        487
+      ]
+    },
+    {
+      "start": 235.2,
+      "end": 240.399,
+      "kind": "speech",
+      "text": {
+        "sk": "Venezuely to skôr ide o nejaké deklaratórne\nvyjadrenie ich postoja k medzinárodnej",
+        "cs": "Venezuele jde spíš o nějaké deklarativní\nvyjádření jejího postoje k mezinárodnímu"
+      },
+      "asrWordRange": [
+        487,
+        499
+      ]
+    },
+    {
+      "start": 240.422,
+      "end": 244.998,
+      "kind": "speech",
+      "text": {
+        "sk": "komunite, ako skôr nejaké, že by chceli z toho\nnejaké reálne",
+        "cs": "společenství než o to, že by z toho chtěla\nnějaké skutečné"
+      },
+      "asrWordRange": [
+        499,
+        510
+      ]
+    },
+    {
+      "start": 244.998,
+      "end": 249.839,
+      "kind": "speech",
+      "text": {
+        "sk": "nejaké sankcie, zdroj príjmov. Ale",
+        "cs": "sankce nebo zdroj příjmů. Ale"
+      },
+      "asrWordRange": [
+        510,
+        515
+      ]
+    },
+    {
+      "start": 251.749,
+      "end": 254.318,
+      "kind": "speech",
+      "text": {
+        "sk": "ako presne hovoríš, napríklad lietadlá tiež\nplatia",
+        "cs": "jak přesně říkáš, také letadla platí"
+      },
+      "asrWordRange": [
+        515,
+        522
+      ]
+    },
+    {
+      "start": 254.944,
+      "end": 260.06,
+      "kind": "speech",
+      "text": {
+        "sk": "nejaké čiastky všetkým krajinám, keď prechádzajú\nnad ich územím.",
+        "cs": "určité částky všem zemím, nad jejichž územím\npřelétají."
+      },
+      "asrWordRange": [
+        522,
+        531
+      ]
+    },
+    {
+      "start": 260.06,
+      "end": 264.419,
+      "kind": "speech",
+      "text": {
+        "sk": "Tam sa to tiež spravuje medzinárodnými dohodami,\nbuď v",
+        "cs": "I to se upravuje mezinárodními dohodami, ať už v"
+      },
+      "asrWordRange": [
+        531,
+        540
+      ]
+    },
+    {
+      "start": 264.419,
+      "end": 269.639,
+      "kind": "speech",
+      "text": {
+        "sk": "európskom... Európska únia má vlastné dohody aj",
+        "cs": "evropském... Evropská unie má vlastní dohody i"
+      },
+      "asrWordRange": [
+        540,
+        547
+      ]
+    },
+    {
+      "start": 269.639,
+      "end": 274.519,
+      "kind": "speech",
+      "text": {
+        "sk": "nariadenia a tak ďalej, ale zaujímavé, že sú tie\nmedzinárodné. No a v 50. rokoch, ako",
+        "cs": "nařízení a tak dále, ale zajímavé je, že jsou\nmezinárodní. No a v 50. letech, když"
+      },
+      "asrWordRange": [
+        547,
+        563
+      ]
+    },
+    {
+      "start": 274.522,
+      "end": 279.879,
+      "kind": "speech",
+      "text": {
+        "sk": "začalo vlastne zbrojenie a tak ďalej medzi\nZápadom a",
+        "cs": "vlastně začalo zbrojení mezi Západem a"
+      },
+      "asrWordRange": [
+        563,
+        572
+      ]
+    },
+    {
+      "start": 279.879,
+      "end": 281.456,
+      "kind": "speech",
+      "text": {
+        "sk": "Východom, tak jedna z tých",
+        "cs": "Východem, byla jednou z těch"
+      },
+      "asrWordRange": [
+        572,
+        577
+      ]
+    },
+    {
+      "start": 283.264,
+      "end": 287.397,
+      "kind": "speech",
+      "text": {
+        "sk": "oblastí, kde sa predbiehal Východ so Západom,",
+        "cs": "oblastí, ve kterých mezi sebou Východ a Západ\nsoupeřily,"
+      },
+      "asrWordRange": [
+        577,
+        586
+      ]
+    },
+    {
+      "start": 288.022,
+      "end": 293.78,
+      "kind": "speech",
+      "text": {
+        "sk": "aj vlastne dobývanie vesmíru. No a tak si\nuvedomili, že v roku 1957 bola prvá",
+        "cs": "také kosmonautika. A tak si uvědomili, že roku\n1957 byla první"
+      },
+      "asrWordRange": [
+        586,
+        600
+      ]
+    },
+    {
+      "start": 293.78,
+      "end": 297.818,
+      "kind": "speech",
+      "text": {
+        "sk": "družica vypustená Rusmi, Sputnik 1, a si\nuvedomili, že",
+        "cs": "družice vypuštěná Rusy, Sputnik 1, a uvědomili\nsi, že"
+      },
+      "asrWordRange": [
+        600,
+        609
+      ]
+    },
+    {
+      "start": 299.266,
+      "end": 302.978,
+      "kind": "speech",
+      "text": {
+        "sk": "vlastne tú družicu nikto iný nevie zastaviť a\nprebieha nad",
+        "cs": "vlastně tu družici nikdo jiný nedokáže zastavit\na přelétá nad"
+      },
+      "asrWordRange": [
+        609,
+        619
+      ]
+    },
+    {
+      "start": 303.383,
+      "end": 307.819,
+      "kind": "speech",
+      "text": {
+        "sk": "ostatnými krajinami. To bolo aj z dôvodu nejakej\nnárodnej bezpečnosti,",
+        "cs": "ostatními zeměmi. Šlo také o otázku národní\nbezpečnosti,"
+      },
+      "asrWordRange": [
+        619,
+        629
+      ]
+    },
+    {
+      "start": 308.543,
+      "end": 312.998,
+      "kind": "speech",
+      "text": {
+        "sk": "že mohli sa tam dať kamery a mohli sa fotiť\nzariadenia, ktoré predtým",
+        "cs": "protože na ni mohli umístit kamery a\nfotografovat zařízení, která předtím"
+      },
+      "asrWordRange": [
+        629,
+        642
+      ]
+    },
+    {
+      "start": 313.443,
+      "end": 318.619,
+      "kind": "speech",
+      "text": {
+        "sk": "nikdy by neboli nejako odhalené, ale vďaka\nvlastne družici",
+        "cs": "nikdy nemohla být odhalena, ale díky družici"
+      },
+      "asrWordRange": [
+        642,
+        651
+      ]
+    },
+    {
+      "start": 318.644,
+      "end": 320.317,
+      "kind": "speech",
+      "text": {
+        "sk": "je to možné. No",
+        "cs": "to bylo možné. No"
+      },
+      "asrWordRange": [
+        651,
+        655
+      ]
+    },
+    {
+      "start": 320.972,
+      "end": 326.35,
+      "kind": "speech",
+      "text": {
+        "sk": "A vlastne k tomuto sa zapojila OSN, Organizácia\nSpojených národov,",
+        "cs": "A do toho se vlastně zapojila OSN, Organizace\nspojených národů,"
+      },
+      "asrWordRange": [
+        655,
+        665
+      ]
+    },
+    {
+      "start": 326.35,
+      "end": 331.388,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorá sa v tomto začala veľmi angažovať,",
+        "cs": "která se v tom začala hodně angažovat,"
+      },
+      "asrWordRange": [
+        665,
+        673
+      ]
+    },
+    {
+      "start": 332.394,
+      "end": 337.068,
+      "kind": "speech",
+      "text": {
+        "sk": "čo je na jednej strane aj dobre. A už vlastne",
+        "cs": "což je na jednu stranu i dobře. A už"
+      },
+      "asrWordRange": [
+        673,
+        683
+      ]
+    },
+    {
+      "start": 337.413,
+      "end": 342.569,
+      "kind": "speech",
+      "text": {
+        "sk": "v roku 1958 vznikla taká ad hoc rada, taká",
+        "cs": "v roce 1958 vznikl takový výbor ad hoc,"
+      },
+      "asrWordRange": [
+        683,
+        692
+      ]
+    },
+    {
+      "start": 342.569,
+      "end": 348.11,
+      "kind": "speech",
+      "text": {
+        "sk": "vytvorená. Ona má taký zvláštny názov. Ona je\nCommittee",
+        "cs": "který má zvláštní název. Jmenuje se Committee"
+      },
+      "asrWordRange": [
+        692,
+        701
+      ]
+    },
+    {
+      "start": 348.11,
+      "end": 353.188,
+      "kind": "speech",
+      "text": {
+        "sk": "on the Peaceful Uses of Outer Space. A skratku\nmá COPUOS, čo je",
+        "cs": "on the Peaceful Uses of Outer Space. A zkratka\nje COPUOS, což je"
+      },
+      "asrWordRange": [
+        701,
+        713
+      ]
+    },
+    {
+      "start": 354.656,
+      "end": 358.969,
+      "kind": "speech",
+      "text": {
+        "sk": "nie moc dobrý... Áno. Ale ide o to,",
+        "cs": "ne zrovna dobré... Ano. Ale jde o to,"
+      },
+      "asrWordRange": [
+        713,
+        722
+      ]
+    },
+    {
+      "start": 358.969,
+      "end": 363.948,
+      "kind": "speech",
+      "text": {
+        "sk": "že vlastne táto rada potom bola vytvorená aj ako\nstály",
+        "cs": "že tento výbor byl potom vytvořen také jako\nstálý"
+      },
+      "asrWordRange": [
+        722,
+        734
+      ]
+    },
+    {
+      "start": 364.032,
+      "end": 368.908,
+      "kind": "speech",
+      "text": {
+        "sk": "orgán OSN, ale ide o to, že táto rada sa začala\nzaoberať tým,",
+        "cs": "orgán OSN. A začal se zabývat tím,"
+      },
+      "asrWordRange": [
+        734,
+        749
+      ]
+    },
+    {
+      "start": 369.393,
+      "end": 372.628,
+      "kind": "speech",
+      "text": {
+        "sk": "ako by sa dalo regulovať právo vo vesmíre.\nMôžem?",
+        "cs": "jak by se dalo upravit právo ve vesmíru. Můžu?"
+      },
+      "asrWordRange": [
+        749,
+        758
+      ]
+    },
+    {
+      "start": 374.254,
+      "end": 378.608,
+      "kind": "speech",
+      "text": {
+        "sk": "Áno. Áno, jasné. Len teda, aby som sa nestratil,\nlebo to začína byť veľa. Čiže",
+        "cs": "Ano. Ano, jasně. Jen abych se v tom neztratil,\nzačíná toho být hodně. Takže"
+      },
+      "asrWordRange": [
+        758,
+        774
+      ]
+    },
+    {
+      "start": 379.995,
+      "end": 384.71,
+      "kind": "speech",
+      "text": {
+        "sk": "hranicu určili tak, že v podstate pokiaľ siaha\nvzduch, teda tam môžu lietať",
+        "cs": "hranici určili tak, že v podstatě tam, kam sahá\nvzduch, kde mohou létat"
+      },
+      "asrWordRange": [
+        774,
+        787
+      ]
+    },
+    {
+      "start": 384.71,
+      "end": 388.728,
+      "kind": "speech",
+      "text": {
+        "sk": "lietadlá, tak je to ešte súčasťou. Je nepísané\npravidlo, že tam, kde končí",
+        "cs": "letadla, to ještě spadá pod běžné právo.\nExistuje nepsané pravidlo, že tam, kde končí"
+      },
+      "asrWordRange": [
+        787,
+        800
+      ]
+    },
+    {
+      "start": 389.594,
+      "end": 394.008,
+      "kind": "speech",
+      "text": {
+        "sk": "aerodynamika a začínajú Keplerove zákony, tak to\nje hranica vesmíru.",
+        "cs": "aerodynamika a začínají Keplerovy zákony, je\nhranice vesmíru."
+      },
+      "asrWordRange": [
+        800,
+        810
+      ]
+    },
+    {
+      "start": 394.472,
+      "end": 398.968,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale je to nepísané. Nikde v žiadnej zmluve to\nnie je upravené. Nie je to v nejakom",
+        "cs": "Je to ale nepsané. Není to upraveno v žádné\nsmlouvě. Není to v žádném"
+      },
+      "asrWordRange": [
+        810,
+        827
+      ]
+    },
+    {
+      "start": 398.968,
+      "end": 403.408,
+      "kind": "speech",
+      "text": {
+        "sk": "takom... Hovorí sa, že hard law. Vlastne nie je\nto nikde",
+        "cs": "takovém... Říká se tomu hard law, tedy závazné\nprávo. Vlastně to nikde"
+      },
+      "asrWordRange": [
+        827,
+        838
+      ]
+    },
+    {
+      "start": 404.354,
+      "end": 409.45,
+      "kind": "speech",
+      "text": {
+        "sk": "upravené. To je jeden z tých problémov toho\nvesmírneho práva, že síce sú tam",
+        "cs": "upravené není. To je jeden z problémů vesmírného\npráva: sice existují"
+      },
+      "asrWordRange": [
+        838,
+        852
+      ]
+    },
+    {
+      "start": 409.45,
+      "end": 413.779,
+      "kind": "speech",
+      "text": {
+        "sk": "nejaké zmluvy, sú tam nejaké rezolúcie a tak\nďalej, ale veľa",
+        "cs": "nějaké smlouvy, rezoluce a tak dále, ale řada"
+      },
+      "asrWordRange": [
+        852,
+        863
+      ]
+    },
+    {
+      "start": 414.282,
+      "end": 418.559,
+      "kind": "speech",
+      "text": {
+        "sk": "termínov nie je definovaných. Napríklad, čo by\nsi povedal, kto je astronaut?",
+        "cs": "pojmů není definována. Co bys třeba řekl, kdo je\nastronaut?"
+      },
+      "asrWordRange": [
+        863,
+        876
+      ]
+    },
+    {
+      "start": 420.441,
+      "end": 425.509,
+      "kind": "speech",
+      "text": {
+        "sk": "Niekto, kto sa nachádza na orbite Zeme. No, áno,",
+        "cs": "Někdo, kdo se nachází na oběžné dráze Země. No\nano,"
+      },
+      "asrWordRange": [
+        876,
+        886
+      ]
+    },
+    {
+      "start": 425.509,
+      "end": 430.548,
+      "kind": "speech",
+      "text": {
+        "sk": "to je asi taká najjednoduchšia, ale napríklad\nnikde",
+        "cs": "to je asi nejjednodušší odpověď, ale například\nnikde,"
+      },
+      "asrWordRange": [
+        886,
+        894
+      ]
+    },
+    {
+      "start": 431.375,
+      "end": 435.228,
+      "kind": "speech",
+      "text": {
+        "sk": "síce hovoria tie zmluvy, ktoré boli prijaté, a\naj",
+        "cs": "ačkoli ty přijaté smlouvy a také"
+      },
+      "asrWordRange": [
+        894,
+        903
+      ]
+    },
+    {
+      "start": 435.974,
+      "end": 440.088,
+      "kind": "speech",
+      "text": {
+        "sk": "rôzne iné o tom, že existujú nejakí astronauti a\ntak, ale nikde to nie je",
+        "cs": "různé další dokumenty mluví o astronautech a tak\ndál, nikde to není"
+      },
+      "asrWordRange": [
+        903,
+        918
+      ]
+    },
+    {
+      "start": 440.573,
+      "end": 445.569,
+      "kind": "speech",
+      "text": {
+        "sk": "zadefinované. Takže musí sa vychádzať z\nnejakých... Čiže všetko je také vágne. Všetko",
+        "cs": "definované. Takže se musí vycházet z nějakých...\nVšechno je tedy dost vágní. Všechno"
+      },
+      "asrWordRange": [
+        918,
+        931
+      ]
+    },
+    {
+      "start": 445.569,
+      "end": 450.728,
+      "kind": "speech",
+      "text": {
+        "sk": "je veľmi vágne, áno, presne tak. OK, čiže\nurčili, že tam, kde je",
+        "cs": "je velmi vágní, ano, přesně tak. Dobře, takže\ntam, kde je"
+      },
+      "asrWordRange": [
+        931,
+        945
+      ]
+    },
+    {
+      "start": 451.418,
+      "end": 452.165,
+      "kind": "speech",
+      "text": {
+        "sk": "aerodynamika,",
+        "cs": "aerodynamika,"
+      },
+      "asrWordRange": [
+        945,
+        946
+      ]
+    },
+    {
+      "start": 452.892,
+      "end": 458.79,
+      "kind": "speech",
+      "text": {
+        "sk": "tak je to normálne právo. Je to normálne právo.\nNo,",
+        "cs": "platí normální právo. Normální právo. No,"
+      },
+      "asrWordRange": [
+        946,
+        956
+      ]
+    },
+    {
+      "start": 458.79,
+      "end": 463.448,
+      "kind": "speech",
+      "text": {
+        "sk": "akože to, čo bežný človek nazve normálnym\nprávom, teda právo jednotlivých krajín.",
+        "cs": "to, čemu běžný člověk říká normální právo, tedy\nprávo jednotlivých zemí."
+      },
+      "asrWordRange": [
+        956,
+        968
+      ]
+    },
+    {
+      "start": 464.293,
+      "end": 469.63,
+      "kind": "speech",
+      "text": {
+        "sk": "To, čo je nad tým, od tej výšky zhruba 100\nkilometrov, tak sa riadi",
+        "cs": "To, co je nad tím, od výšky zhruba 100\nkilometrů, se řídí"
+      },
+      "asrWordRange": [
+        968,
+        982
+      ]
+    },
+    {
+      "start": 469.63,
+      "end": 474.308,
+      "kind": "speech",
+      "text": {
+        "sk": "vesmírnym právom. A začalo to ľudí zaujímať\nvtedy, keď sa vypustil Sputnik a zrazu si",
+        "cs": "vesmírným právem. A lidi to začalo zajímat, když\nvypustili Sputnik a najednou si"
+      },
+      "asrWordRange": [
+        982,
+        997
+      ]
+    },
+    {
+      "start": 474.313,
+      "end": 476.827,
+      "kind": "speech",
+      "text": {
+        "sk": "zistili, že Sovieti vedia behať",
+        "cs": "uvědomili, že Sověti mohou létat"
+      },
+      "asrWordRange": [
+        997,
+        1002
+      ]
+    },
+    {
+      "start": 477.612,
+      "end": 483.069,
+      "kind": "speech",
+      "text": {
+        "sk": "Američanom po záhradke. Áno, bez toho, aby\nAmeričania k tomu mohli niečo povedať. Tak",
+        "cs": "Američanům nad zahrádkou. Ano, aniž by k tomu\nAmeričané mohli něco říct. Tak"
+      },
+      "asrWordRange": [
+        1002,
+        1016
+      ]
+    },
+    {
+      "start": 483.069,
+      "end": 487.548,
+      "kind": "speech",
+      "text": {
+        "sk": "vtedy si OSN povedala, že niečo s tým treba...\nÁno, niečo s tým treba spraviť. A",
+        "cs": "si tehdy OSN řekla, že se s tím musí něco...\nAno, že se s tím musí něco udělat. A"
+      },
+      "asrWordRange": [
+        1016,
+        1032
+      ]
+    },
+    {
+      "start": 487.592,
+      "end": 492.888,
+      "kind": "speech",
+      "text": {
+        "sk": "vlastne prijalo sa päť takých zmlúv od 1967 až\npo",
+        "cs": "vlastně se přijalo pět takových smluv, od roku\n1967 až do"
+      },
+      "asrWordRange": [
+        1032,
+        1042
+      ]
+    },
+    {
+      "start": 492.888,
+      "end": 496.528,
+      "kind": "speech",
+      "text": {
+        "sk": "1984 sa prijímali tieto zmluvy.",
+        "cs": "roku 1984 se tyto smlouvy přijímaly."
+      },
+      "asrWordRange": [
+        1042,
+        1047
+      ]
+    },
+    {
+      "start": 498.511,
+      "end": 504.16,
+      "kind": "speech",
+      "text": {
+        "sk": "Oni majú také zvláštne názvy, ale\nnajdôležitejšia, čo tam",
+        "cs": "Mají zvláštní názvy, ale nejdůležitější z nich"
+      },
+      "asrWordRange": [
+        1047,
+        1056
+      ]
+    },
+    {
+      "start": 504.16,
+      "end": 508.158,
+      "kind": "speech",
+      "text": {
+        "sk": "je, je Zmluva o zásadách činnosti štátov pri\nvýskume a využívaní kozmického priestoru,",
+        "cs": "je Smlouva o zásadách činnosti států při výzkumu\na využívání kosmického prostoru,"
+      },
+      "asrWordRange": [
+        1056,
+        1069
+      ]
+    },
+    {
+      "start": 508.162,
+      "end": 512.678,
+      "kind": "speech",
+      "text": {
+        "sk": "vrátane Mesiaca a iných nebeských telies. To je\nvlastne tá najstaršia",
+        "cs": "včetně Měsíce a jiných nebeských těles. To je\nvlastně ta nejstarší"
+      },
+      "asrWordRange": [
+        1069,
+        1080
+      ]
+    },
+    {
+      "start": 513.625,
+      "end": 517.598,
+      "kind": "speech",
+      "text": {
+        "sk": "zmluva z tých a taký vlastne rámec toho celého\nvesmírneho práva.",
+        "cs": "z nich a představuje rámec celého vesmírného\npráva."
+      },
+      "asrWordRange": [
+        1080,
+        1091
+      ]
+    },
+    {
+      "start": 520.143,
+      "end": 525.099,
+      "kind": "speech",
+      "text": {
+        "sk": "Táto zmluva má pár takých hlavných bodov, ale\nten najhlavnejší podľa mňa,",
+        "cs": "Tato smlouva má několik hlavních bodů, ale ten\núplně nejdůležitější podle mě"
+      },
+      "asrWordRange": [
+        1091,
+        1103
+      ]
+    },
+    {
+      "start": 525.141,
+      "end": 530.678,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorý je, je, že sa nesmú vypúšťať jadrové",
+        "cs": "je, že se nesmějí vypouštět jaderné"
+      },
+      "asrWordRange": [
+        1103,
+        1111
+      ]
+    },
+    {
+      "start": 530.762,
+      "end": 535.558,
+      "kind": "speech",
+      "text": {
+        "sk": "zbrane a zbrane hromadného ničenia na orbitu a\nvšetky",
+        "cs": "zbraně ani zbraně hromadného ničení na oběžnou\ndráhu a všechna"
+      },
+      "asrWordRange": [
+        1111,
+        1120
+      ]
+    },
+    {
+      "start": 535.582,
+      "end": 540.938,
+      "kind": "speech",
+      "text": {
+        "sk": "vesmírne telesá a Mesiac sa nesmú používať na\nvojenské účely. Takže vlastne",
+        "cs": "vesmírná tělesa a Měsíc se nesmějí využívat k\nvojenským účelům. Takže vlastně"
+      },
+      "asrWordRange": [
+        1120,
+        1132
+      ]
+    },
+    {
+      "start": 541.363,
+      "end": 546.639,
+      "kind": "speech",
+      "text": {
+        "sk": "touto zmluvou všetky strany, ktoré k nej\npristúpili, vlastne deklarovali, že",
+        "cs": "touto smlouvou všechny strany, které k ní\npřistoupily, prohlásily, že"
+      },
+      "asrWordRange": [
+        1132,
+        1145
+      ]
+    },
+    {
+      "start": 546.639,
+      "end": 551.919,
+      "kind": "speech",
+      "text": {
+        "sk": "vesmír je voľný len pre bádanie ľudstva a pre\nvýskum.",
+        "cs": "vesmír je volný jen pro lidské bádání a výzkum."
+      },
+      "asrWordRange": [
+        1145,
+        1155
+      ]
+    },
+    {
+      "start": 552.383,
+      "end": 557.178,
+      "kind": "speech",
+      "text": {
+        "sk": "To je tiež aj tam zadefinované, že vlastne\nvesmír je na",
+        "cs": "Také je tam uvedeno, že vesmír je určen"
+      },
+      "asrWordRange": [
+        1155,
+        1166
+      ]
+    },
+    {
+      "start": 557.222,
+      "end": 562.278,
+      "kind": "speech",
+      "text": {
+        "sk": "výskum a pre vedecké účely a tak ďalej. A\nkomerčné asi aj tiež?",
+        "cs": "k výzkumu a vědeckým účelům a tak dále. A asi i\nke komerčním?"
+      },
+      "asrWordRange": [
+        1166,
+        1179
+      ]
+    },
+    {
+      "start": 562.982,
+      "end": 568.319,
+      "kind": "speech",
+      "text": {
+        "sk": "Komerčné, toto nikoho podľa mňa ani nenapadlo v\nroku 1967. A jasné,",
+        "cs": "Komerčním? Na to podle mě v roce 1967 nikdo ani\nnepomyslel. Jasně,"
+      },
+      "asrWordRange": [
+        1179,
+        1190
+      ]
+    },
+    {
+      "start": 568.361,
+      "end": 573.96,
+      "kind": "speech",
+      "text": {
+        "sk": "to ešte sme v takých tých počiatkoch. Áno, to\nsme v úplných počiatkoch, že tam sa",
+        "cs": "to jsme ještě v úplných počátcích. Ano, v\núplných počátcích, kdy se tam"
+      },
+      "asrWordRange": [
+        1190,
+        1206
+      ]
+    },
+    {
+      "start": 573.96,
+      "end": 579.139,
+      "kind": "speech",
+      "text": {
+        "sk": "povedalo, že čo je tak. Napríklad, čo je tam\nveľmi zaujímavá povinnosť, tam",
+        "cs": "říkalo, co a jak. Například je tam jedna velmi\nzajímavá povinnost,"
+      },
+      "asrWordRange": [
+        1206,
+        1219
+      ]
+    },
+    {
+      "start": 579.139,
+      "end": 584.049,
+      "kind": "speech",
+      "text": {
+        "sk": "bolo, každá krajina môže vypúšťať do vesmírneho\npriestoru",
+        "cs": "totiž že každá země může vypouštět do vesmírného\nprostoru"
+      },
+      "asrWordRange": [
+        1219,
+        1227
+      ]
+    },
+    {
+      "start": 585.316,
+      "end": 589.308,
+      "kind": "speech",
+      "text": {
+        "sk": "na Mesiac a na vesmírne telesá. Vesmírne telesá\nsú vlastne všetko,",
+        "cs": "na Měsíc a další kosmická tělesa. Kosmická\ntělesa jsou vlastně všechno,"
+      },
+      "asrWordRange": [
+        1227,
+        1238
+      ]
+    },
+    {
+      "start": 589.972,
+      "end": 593.427,
+      "kind": "speech",
+      "text": {
+        "sk": "čo nie je vesmírom a čo nie je Mesiacom. Takže\nto sú asteroidy,",
+        "cs": "co není samotným prostorem ani Měsícem. Tedy\nasteroidy,"
+      },
+      "asrWordRange": [
+        1238,
+        1251
+      ]
+    },
+    {
+      "start": 594.452,
+      "end": 597.508,
+      "kind": "speech",
+      "text": {
+        "sk": "iné planéty, mesiace, dokonca aj Slnko. Takže\ntak.",
+        "cs": "jiné planety, měsíce, dokonce i Slunce. Takže\ntak."
+      },
+      "asrWordRange": [
+        1251,
+        1259
+      ]
+    },
+    {
+      "start": 602.234,
+      "end": 603.599,
+      "kind": "speech",
+      "text": {
+        "sk": "A aby som sa k tomu späť dostal,",
+        "cs": "A abych se k tomu vrátil,"
+      },
+      "asrWordRange": [
+        1259,
+        1267
+      ]
+    },
+    {
+      "start": 604.422,
+      "end": 608.698,
+      "kind": "speech",
+      "text": {
+        "sk": "že každá krajina si musí upraviť interne, alebo\nvlastne vnútroštátne,",
+        "cs": "každá země si musí interně, tedy v rámci svého\nprávního řádu, upravit,"
+      },
+      "asrWordRange": [
+        1267,
+        1277
+      ]
+    },
+    {
+      "start": 609.845,
+      "end": 614.178,
+      "kind": "speech",
+      "text": {
+        "sk": "ako vlastne sa budú registrovať tieto satelity a\nvšetky",
+        "cs": "jak se budou registrovat družice a všechny"
+      },
+      "asrWordRange": [
+        1277,
+        1286
+      ]
+    },
+    {
+      "start": 614.703,
+      "end": 619.678,
+      "kind": "speech",
+      "text": {
+        "sk": "vlastne lode, ktoré pôjdu do vesmírneho\npriestoru. Je to z toho dôvodu, aby",
+        "cs": "vesmírné lodě, které poletí do kosmu. Důvodem\nje, aby"
+      },
+      "asrWordRange": [
+        1286,
+        1300
+      ]
+    },
+    {
+      "start": 620.745,
+      "end": 625.078,
+      "kind": "speech",
+      "text": {
+        "sk": "mali aj zodpovednosť tie krajiny za tie svoje\nlode, čo sa týka, buď,",
+        "cs": "ty země nesly odpovědnost za své lodě, ať už,"
+      },
+      "asrWordRange": [
+        1300,
+        1313
+      ]
+    },
+    {
+      "start": 625.262,
+      "end": 630.979,
+      "kind": "speech",
+      "text": {
+        "sk": "kebyže, alebo za satelity, kebyže spadne satelit\ndo záhradky, tak podľa",
+        "cs": "nebo za družice. Když ti družice spadne na\nzahrádku, tak podle"
+      },
+      "asrWordRange": [
+        1313,
+        1324
+      ]
+    },
+    {
+      "start": 630.979,
+      "end": 635.878,
+      "kind": "speech",
+      "text": {
+        "sk": "vlastne jednej z týchto zmlúv vieš od štátu,\nktorý bol vlastne vysielajúcim štátom,",
+        "cs": "jedné z těchto smluv můžeš od státu, který ji\nvypustil,"
+      },
+      "asrWordRange": [
+        1324,
+        1337
+      ]
+    },
+    {
+      "start": 635.903,
+      "end": 639.26,
+      "kind": "speech",
+      "text": {
+        "sk": "žiadať nejakú náhradu, nejakú satisfakciu.",
+        "cs": "požadovat určitou náhradu, nějaké odškodnění."
+      },
+      "asrWordRange": [
+        1337,
+        1342
+      ]
+    },
+    {
+      "start": 639.887,
+      "end": 640.916,
+      "kind": "speech",
+      "text": {
+        "sk": "Je zodpovedný za škodu.",
+        "cs": "Nese odpovědnost za škodu."
+      },
+      "asrWordRange": [
+        1342,
+        1346
+      ]
+    },
+    {
+      "start": 642.633,
+      "end": 648.129,
+      "kind": "speech",
+      "text": {
+        "sk": "Čo sa týkalo nejakej explorácie vesmíru, tak tie\nďalšie dohody v svojom podstate len",
+        "cs": "Pokud jde o průzkum vesmíru, další dohody ve své\npodstatě jen"
+      },
+      "asrWordRange": [
+        1346,
+        1360
+      ]
+    },
+    {
+      "start": 649.622,
+      "end": 655.08,
+      "kind": "speech",
+      "text": {
+        "sk": "alebo tie zmluvy skôr len spresnili niektoré tie\nustanovenia.",
+        "cs": "nebo ty smlouvy spíš jen upřesnily některá\nustanovení."
+      },
+      "asrWordRange": [
+        1360,
+        1369
+      ]
+    },
+    {
+      "start": 655.08,
+      "end": 659.498,
+      "kind": "speech",
+      "text": {
+        "sk": "Napríklad jedna z tých dohôd je o registrácii\nobjektov vypustených do kozmického",
+        "cs": "Jedna z těch dohod se například týká registrace\nobjektů vypuštěných do kosmického"
+      },
+      "asrWordRange": [
+        1369,
+        1381
+      ]
+    },
+    {
+      "start": 659.522,
+      "end": 664.038,
+      "kind": "speech",
+      "text": {
+        "sk": "priestoru. To je veľmi jednoduchá zmluva, tam sa\nlen presnejšie určilo, akým spôsobom",
+        "cs": "prostoru. Je to velmi jednoduchá smlouva, která\npřesněji stanovila, jakým způsobem"
+      },
+      "asrWordRange": [
+        1381,
+        1394
+      ]
+    },
+    {
+      "start": 664.042,
+      "end": 669.78,
+      "kind": "speech",
+      "text": {
+        "sk": "sa registrujú objekty, ktoré vypúšťame do\nvesmíru a tak ďalej, aby to zjednodušilo. No",
+        "cs": "se registrují objekty, které vypouštíme do\nvesmíru, a podobně, aby se to zjednodušilo. No"
+      },
+      "asrWordRange": [
+        1394,
+        1408
+      ]
+    },
+    {
+      "start": 669.78,
+      "end": 673.678,
+      "kind": "speech",
+      "text": {
+        "sk": "a najzaujímavejšia z tých piatich v tomto\nprocese bola asi tá piata.",
+        "cs": "a nejzajímavější z těch pěti byla v tomto\nprocesu asi ta pátá."
+      },
+      "asrWordRange": [
+        1408,
+        1421
+      ]
+    },
+    {
+      "start": 674.342,
+      "end": 679.9,
+      "kind": "speech",
+      "text": {
+        "sk": "Tam vlastne chceli... Ona sa volá po anglicky\nMoon, ale po slovensky je Zmluva o",
+        "cs": "Tam vlastně chtěli... Anglicky se jí říká Moon,\nale slovensky je to Smlouva o"
+      },
+      "asrWordRange": [
+        1421,
+        1435
+      ]
+    },
+    {
+      "start": 679.9,
+      "end": 683.858,
+      "kind": "speech",
+      "text": {
+        "sk": "činnosti štátov na Mesiaci a iných vesmírnych\ntelesách.",
+        "cs": "činnosti států na Měsíci a jiných kosmických\ntělesech."
+      },
+      "asrWordRange": [
+        1435,
+        1443
+      ]
+    },
+    {
+      "start": 683.858,
+      "end": 689.118,
+      "kind": "speech",
+      "text": {
+        "sk": "A vlastne tam ona bola vlastne",
+        "cs": "A ta vlastně byla"
+      },
+      "asrWordRange": [
+        1443,
+        1449
+      ]
+    },
+    {
+      "start": 689.263,
+      "end": 692.64,
+      "kind": "speech",
+      "text": {
+        "sk": "už spísaná v roku 1979,",
+        "cs": "sepsána už v roce 1979,"
+      },
+      "asrWordRange": [
+        1449,
+        1452
+      ]
+    },
+    {
+      "start": 693.524,
+      "end": 696.38,
+      "kind": "speech",
+      "text": {
+        "sk": "ale do účinnosti vošla až v roku 1984.",
+        "cs": "ale v platnost vstoupila až v roce 1984."
+      },
+      "asrWordRange": [
+        1452,
+        1458
+      ]
+    },
+    {
+      "start": 696.943,
+      "end": 702.46,
+      "kind": "speech",
+      "text": {
+        "sk": "A to kvôli tomu, že bol nezáujem štátov\npristúpiť k nej. Doteraz je len",
+        "cs": "A to proto, že státy neměly zájem k ní\npřistoupit. Dosud je to jen"
+      },
+      "asrWordRange": [
+        1458,
+        1472
+      ]
+    },
+    {
+      "start": 702.46,
+      "end": 707.018,
+      "kind": "speech",
+      "text": {
+        "sk": "18 štátov, ktoré ju podpísali, takže z\nmedzinárodného hľadiska veľmi málo štátov,",
+        "cs": "18 států, které ji podepsaly, takže z\nmezinárodního hlediska velmi málo zemí,"
+      },
+      "asrWordRange": [
+        1472,
+        1484
+      ]
+    },
+    {
+      "start": 707.421,
+      "end": 712.129,
+      "kind": "speech",
+      "text": {
+        "sk": "ktoré by boli viazané. Dokonca ani Slovenská\nrepublika",
+        "cs": "které by jí byly vázány. Dokonce ani Slovenská\nrepublika"
+      },
+      "asrWordRange": [
+        1484,
+        1492
+      ]
+    },
+    {
+      "start": 712.129,
+      "end": 715.408,
+      "kind": "speech",
+      "text": {
+        "sk": "nepodpísala túto zmluvu a neratifikovala ju.",
+        "cs": "tuto smlouvu nepodepsala a neratifikovala."
+      },
+      "asrWordRange": [
+        1492,
+        1498
+      ]
+    },
+    {
+      "start": 716.562,
+      "end": 722.099,
+      "kind": "speech",
+      "text": {
+        "sk": "Máme zálusk na Mesiac? Je to z toho, že presne,\nvýborne si to",
+        "cs": "Máme zálusk na Měsíc? Je to právě tím, že,\npřesně, výborně jsi to"
+      },
+      "asrWordRange": [
+        1498,
+        1511
+      ]
+    },
+    {
+      "start": 722.099,
+      "end": 727.398,
+      "kind": "speech",
+      "text": {
+        "sk": "povedal, možno my nie, ale sú iné krajiny, ktoré\nmajú zálusk na Mesiac. A čo sa",
+        "cs": "řekl. Možná my ne, ale jsou jiné země, které\nmají na Měsíc zálusk. A co se"
+      },
+      "asrWordRange": [
+        1511,
+        1527
+      ]
+    },
+    {
+      "start": 727.502,
+      "end": 733.039,
+      "kind": "speech",
+      "text": {
+        "sk": "týka... Takto, v prvej zmluve bolo definované,\nže žiadna",
+        "cs": "týče... Takhle: v první smlouvě bylo stanoveno,\nže žádná"
+      },
+      "asrWordRange": [
+        1527,
+        1536
+      ]
+    },
+    {
+      "start": 733.039,
+      "end": 738.84,
+      "kind": "speech",
+      "text": {
+        "sk": "krajina si nemôže vesmírne telesá ani Mesiac\nprivlastniť",
+        "cs": "země si nemůže kosmická tělesa ani Měsíc\npřivlastnit"
+      },
+      "asrWordRange": [
+        1536,
+        1544
+      ]
+    },
+    {
+      "start": 738.84,
+      "end": 743.138,
+      "kind": "speech",
+      "text": {
+        "sk": "a jurisdikcia tam neplatí proste žiadneho štátu.\nTakže aj keď tam Američania dali",
+        "cs": "a neplatí tam jurisdikce žádného státu. Takže i\nkdyž tam Američané vztyčili"
+      },
+      "asrWordRange": [
+        1544,
+        1557
+      ]
+    },
+    {
+      "start": 743.183,
+      "end": 745.817,
+      "kind": "speech",
+      "text": {
+        "sk": "vlajku, dokonca to je taká zaujímavá príhoda,",
+        "cs": "vlajku, to je mimochodem zajímavá historka,"
+      },
+      "asrWordRange": [
+        1557,
+        1564
+      ]
+    },
+    {
+      "start": 747.162,
+      "end": 752.418,
+      "kind": "speech",
+      "text": {
+        "sk": "tá vlajka bola len patriotického charakteru.\nSenát vtedy prijal zákon, že to",
+        "cs": "ta vlajka měla jen vlastenecký význam. Senát\ntehdy přijal zákon, že to"
+      },
+      "asrWordRange": [
+        1564,
+        1576
+      ]
+    },
+    {
+      "start": 752.465,
+      "end": 753.796,
+      "kind": "speech",
+      "text": {
+        "sk": "nebolo vyjadrenie,",
+        "cs": "nebylo vyjádření,"
+      },
+      "asrWordRange": [
+        1576,
+        1578
+      ]
+    },
+    {
+      "start": 755.504,
+      "end": 760.278,
+      "kind": "speech",
+      "text": {
+        "sk": "keď Apollo, astronauti ako prví pristáli na\nMesiaci, to",
+        "cs": "když astronauti Apolla jako první přistáli na\nMěsíci, že"
+      },
+      "asrWordRange": [
+        1578,
+        1587
+      ]
+    },
+    {
+      "start": 760.278,
+      "end": 765.258,
+      "kind": "speech",
+      "text": {
+        "sk": "vztýčenie tej vlajky, to nebol nejaký čin alebo",
+        "cs": "vztyčení té vlajky nebyl čin ani"
+      },
+      "asrWordRange": [
+        1587,
+        1597
+      ]
+    },
+    {
+      "start": 765.964,
+      "end": 771.019,
+      "kind": "speech",
+      "text": {
+        "sk": "akt, ktorý by znamenal, že si privlastňujú\nMesiac alebo časť Mesiaca, to bol len",
+        "cs": "akt, který by znamenal, že si přivlastňují Měsíc\nnebo jeho část. Byl to jen"
+      },
+      "asrWordRange": [
+        1597,
+        1612
+      ]
+    },
+    {
+      "start": 771.019,
+      "end": 776.119,
+      "kind": "speech",
+      "text": {
+        "sk": "patriotický čin, že oni chceli len deklaratórne\npovedať, že Američania tam",
+        "cs": "vlastenecký čin. Chtěli jen symbolicky vyjádřit,\nže tam Američané"
+      },
+      "asrWordRange": [
+        1612,
+        1624
+      ]
+    },
+    {
+      "start": 776.704,
+      "end": 780.478,
+      "kind": "speech",
+      "text": {
+        "sk": "boli. Chceli sa pochváliť. Áno, že chceli sa,\nlebo",
+        "cs": "byli. Chtěli se pochlubit. Ano, chtěli se\npochlubit, protože"
+      },
+      "asrWordRange": [
+        1624,
+        1633
+      ]
+    },
+    {
+      "start": 781.484,
+      "end": 786.259,
+      "kind": "speech",
+      "text": {
+        "sk": "kedysi to tak existovalo, že v medzinárodnom\npráve, keď sa našiel nový ostrov a tak",
+        "cs": "dříve to tak v mezinárodním právu fungovalo:\nkdyž se našel nový ostrov a tak"
+      },
+      "asrWordRange": [
+        1633,
+        1647
+      ]
+    },
+    {
+      "start": 786.259,
+      "end": 791.238,
+      "kind": "speech",
+      "text": {
+        "sk": "ďalej, čo teraz už nie je až tak možné, lebo už\nkaždá časť Zeme niekomu patrí,",
+        "cs": "dále, což už dnes tolik nejde, protože každá\nčást Země někomu patří,"
+      },
+      "asrWordRange": [
+        1647,
+        1663
+      ]
+    },
+    {
+      "start": 791.703,
+      "end": 795.979,
+      "kind": "speech",
+      "text": {
+        "sk": "ale prišlo sa tam a vztýčila sa vlajka a vlastne\nvďaka tomu si",
+        "cs": "připlulo se tam, vztyčila se vlajka a díky tomu\nsi"
+      },
+      "asrWordRange": [
+        1663,
+        1677
+      ]
+    },
+    {
+      "start": 795.979,
+      "end": 798.077,
+      "kind": "speech",
+      "text": {
+        "sk": "štát mohol nárokovať",
+        "cs": "stát mohl nárokovat"
+      },
+      "asrWordRange": [
+        1677,
+        1680
+      ]
+    },
+    {
+      "start": 799.814,
+      "end": 802.948,
+      "kind": "speech",
+      "text": {
+        "sk": "práva nad týmto územím a vlastne tú suverenitu.",
+        "cs": "práva k tomu území a svrchovanost nad ním."
+      },
+      "asrWordRange": [
+        1680,
+        1688
+      ]
+    },
+    {
+      "start": 804.751,
+      "end": 813.639,
+      "kind": "speech",
+      "text": {
+        "sk": "No a tento Moon... Tá posledná dohoda vlastne\nnie je až taká, že by... nezaujímavá.",
+        "cs": "No a tahle Moon... Ta poslední dohoda vlastně\nnení taková, že by... nezajímavá."
+      },
+      "asrWordRange": [
+        1688,
+        1703
+      ]
+    },
+    {
+      "start": 813.639,
+      "end": 816.977,
+      "kind": "speech",
+      "text": {
+        "sk": "alebo tak. Tá dohoda, len skôr tam došlo",
+        "cs": "nebo něco takového. Ale spíš tam došlo"
+      },
+      "asrWordRange": [
+        1703,
+        1712
+      ]
+    },
+    {
+      "start": 818.448,
+      "end": 819.436,
+      "kind": "speech",
+      "text": {
+        "sk": "k takému utlmeniu",
+        "cs": "k určitému útlumu"
+      },
+      "asrWordRange": [
+        1712,
+        1715
+      ]
+    },
+    {
+      "start": 820.903,
+      "end": 825.778,
+      "kind": "speech",
+      "text": {
+        "sk": "tej vesmírnej činnosti, lebo keď sa pozrieme na\nto, v 67., to je rok predtým,",
+        "cs": "vesmírné činnosti. Když se totiž podíváme: rok\n1967, to je rok předtím,"
+      },
+      "asrWordRange": [
+        1715,
+        1730
+      ]
+    },
+    {
+      "start": 825.802,
+      "end": 831.059,
+      "kind": "speech",
+      "text": {
+        "sk": "ako prví astronauti vyšli na Mesiac a tak ďalej,\npotom 68. bola",
+        "cs": "než první astronauti vystoupili na Měsíc a tak\ndále. Pak v roce 1968 byla"
+      },
+      "asrWordRange": [
+        1730,
+        1742
+      ]
+    },
+    {
+      "start": 831.102,
+      "end": 836.84,
+      "kind": "speech",
+      "text": {
+        "sk": "ďalšia, potom 72., potom 75. A každá z tých\nzmlúv je menej a",
+        "cs": "další, pak v roce 1972, pak v roce 1975. A každá\ndalší smlouva je méně a"
+      },
+      "asrWordRange": [
+        1742,
+        1755
+      ]
+    },
+    {
+      "start": 836.84,
+      "end": 840.08,
+      "kind": "speech",
+      "text": {
+        "sk": "menej ratifikovaná. Napríklad tú prvú\nratifikovalo",
+        "cs": "méně ratifikovaná. Například tu první\nratifikovalo"
+      },
+      "asrWordRange": [
+        1755,
+        1762
+      ]
+    },
+    {
+      "start": 840.382,
+      "end": 846.059,
+      "kind": "speech",
+      "text": {
+        "sk": "vyše 120 krajín sveta, ale tú poslednú, ako som\nhovoril, ten",
+        "cs": "přes 120 zemí světa, ale tu poslední, jak jsem\nříkal, tu"
+      },
+      "asrWordRange": [
+        1762,
+        1773
+      ]
+    },
+    {
+      "start": 846.059,
+      "end": 849.798,
+      "kind": "speech",
+      "text": {
+        "sk": "Moon len 18. Takže štáty akoby prestali mať až\ntaký záujem.",
+        "cs": "Moon jen 18. Takže státy jako by přestávaly mít\ntakový zájem."
+      },
+      "asrWordRange": [
+        1773,
+        1785
+      ]
+    },
+    {
+      "start": 851.122,
+      "end": 856.22,
+      "kind": "speech",
+      "text": {
+        "sk": "Je to kvôli tomu, že čím je to reálnejšie, takže\ntú prvú podpísali tak v úvodzovkách, že",
+        "cs": "Je to proto, že čím je to reálnější, tím víc...\nTu první podepsaly tak v uvozovkách s tím, že"
+      },
+      "asrWordRange": [
+        1785,
+        1802
+      ]
+    },
+    {
+      "start": 856.22,
+      "end": 858.877,
+      "kind": "speech",
+      "text": {
+        "sk": "z ich strany však aj tak o nič nejde a teraz už\nvedia, že to môže mať",
+        "cs": "z jejich strany vlastně o nic nejde, a teď už\nvědí, že to může mít"
+      },
+      "asrWordRange": [
+        1802,
+        1818
+      ]
+    },
+    {
+      "start": 859.971,
+      "end": 866.328,
+      "kind": "speech",
+      "text": {
+        "sk": "o desaťročia obrovské dôsledky. Určite, má to\nobrovské dôsledky a hlavne sa začalo aj",
+        "cs": "za desítky let obrovské důsledky. Určitě, má to\nobrovské důsledky a hlavně se začalo také"
+      },
+      "asrWordRange": [
+        1818,
+        1833
+      ]
+    },
+    {
+      "start": 867.713,
+      "end": 870.367,
+      "kind": "speech",
+      "text": {
+        "sk": "vlastne skloňovať nejaké komerčné využitie",
+        "cs": "vlastně mluvit o nějakém komerčním využívání"
+      },
+      "asrWordRange": [
+        1833,
+        1838
+      ]
+    },
+    {
+      "start": 871.691,
+      "end": 877.369,
+      "kind": "speech",
+      "text": {
+        "sk": "vesmírneho priestoru a vesmírnych telies, čo\npredtým bolo nemysliteľné, alebo skôr si",
+        "cs": "vesmírného prostoru a kosmických těles, což dřív\nbylo nemyslitelné, nebo spíš si"
+      },
+      "asrWordRange": [
+        1838,
+        1850
+      ]
+    },
+    {
+      "start": 877.369,
+      "end": 882.849,
+      "kind": "speech",
+      "text": {
+        "sk": "to nikto ani nevedel predstaviť. Ale výborne na\nto narážaš a dobre si",
+        "cs": "to nikdo neuměl ani představit. Ale dobře na to\nnarážíš a správně ses"
+      },
+      "asrWordRange": [
+        1850,
+        1863
+      ]
+    },
+    {
+      "start": 882.872,
+      "end": 886.948,
+      "kind": "speech",
+      "text": {
+        "sk": "sa toho dotkol. Napríklad teraz sú spoločnosti\nako SpaceX, Virgin a tak ďalej, ktoré",
+        "cs": "toho dotkl. Teď jsou například firmy jako\nSpaceX, Virgin a další, které"
+      },
+      "asrWordRange": [
+        1863,
+        1877
+      ]
+    },
+    {
+      "start": 887.413,
+      "end": 892.749,
+      "kind": "speech",
+      "text": {
+        "sk": "sa snažia dostať do toho vesmírneho priestoru\nsvojou komerčnou aktivitou.",
+        "cs": "se snaží dostat do vesmírného prostoru svou\nkomerční činností."
+      },
+      "asrWordRange": [
+        1877,
+        1887
+      ]
+    },
+    {
+      "start": 893.813,
+      "end": 898.228,
+      "kind": "speech",
+      "text": {
+        "sk": "A tá komerčná aktivita, to je jedno, či oni\nvyvíjajú tie",
+        "cs": "A tou komerční činností, ať už vyvíjejí ta"
+      },
+      "asrWordRange": [
+        1887,
+        1898
+      ]
+    },
+    {
+      "start": 899.077,
+      "end": 901.41,
+      "kind": "speech",
+      "text": {
+        "sk": "zariadenia, alebo chcú ísť až",
+        "cs": "zařízení, nebo chtějí jít až"
+      },
+      "asrWordRange": [
+        1898,
+        1902
+      ]
+    },
+    {
+      "start": 902.413,
+      "end": 907.65,
+      "kind": "speech",
+      "text": {
+        "sk": "na prepravu ľudí alebo na prepravu len materiálu\na tak ďalej. Ale napríklad",
+        "cs": "k přepravě lidí nebo jen materiálu a tak dále.\nAle například"
+      },
+      "asrWordRange": [
+        1902,
+        1915
+      ]
+    },
+    {
+      "start": 907.65,
+      "end": 911.929,
+      "kind": "speech",
+      "text": {
+        "sk": "NASA, ako vieme, prestala používať svoj projekt\nraketoplánov",
+        "cs": "NASA, jak víme, přestala používat svůj program\nraketoplánů"
+      },
+      "asrWordRange": [
+        1915,
+        1923
+      ]
+    },
+    {
+      "start": 911.929,
+      "end": 916.808,
+      "kind": "speech",
+      "text": {
+        "sk": "a vlastne s tým USA stratili možnosť sa dostávať\ndo",
+        "cs": "a USA tím vlastně ztratily možnost dostávat se\ndo"
+      },
+      "asrWordRange": [
+        1923,
+        1933
+      ]
+    },
+    {
+      "start": 916.972,
+      "end": 922.408,
+      "kind": "speech",
+      "text": {
+        "sk": "vesmírneho priestoru. Takže využívajú napríklad\ncez medzinárodné zmluvy a cez dohody",
+        "cs": "vesmírného prostoru. Proto využívají třeba\nmezinárodní smlouvy a dohody"
+      },
+      "asrWordRange": [
+        1933,
+        1944
+      ]
+    },
+    {
+      "start": 923.932,
+      "end": 929.83,
+      "kind": "speech",
+      "text": {
+        "sk": "ruskú pomoc, ktorí stále majú aktívne možnosti",
+        "cs": "s Ruskem, které stále má prostředky"
+      },
+      "asrWordRange": [
+        1944,
+        1952
+      ]
+    },
+    {
+      "start": 929.83,
+      "end": 931.547,
+      "kind": "speech",
+      "text": {
+        "sk": "sa dostávať do vesmírneho priestoru, ale taktiež",
+        "cs": "dostat se do vesmíru. Ale také"
+      },
+      "asrWordRange": [
+        1952,
+        1959
+      ]
+    },
+    {
+      "start": 932.735,
+      "end": 934.547,
+      "kind": "speech",
+      "text": {
+        "sk": "tie technológie, ktoré používajú, sú,",
+        "cs": "technologie, které používají, jsou,"
+      },
+      "asrWordRange": [
+        1959,
+        1964
+      ]
+    },
+    {
+      "start": 936.006,
+      "end": 937.979,
+      "kind": "speech",
+      "text": {
+        "sk": "nechcem povedať zastarané, ale",
+        "cs": "nechci říct zastaralé, ale"
+      },
+      "asrWordRange": [
+        1964,
+        1968
+      ]
+    },
+    {
+      "start": 941.412,
+      "end": 943.106,
+      "kind": "speech",
+      "text": {
+        "sk": "neodzrkadľujú túto dobu.",
+        "cs": "neodpovídají dnešní době."
+      },
+      "asrWordRange": [
+        1968,
+        1972
+      ]
+    },
+    {
+      "start": 944.292,
+      "end": 948.768,
+      "kind": "speech",
+      "text": {
+        "sk": "Nedržia krok s dobou. Nedržia krok s dobou, áno,\npresne tak by som to povedal, lebo",
+        "cs": "Nedrží krok s dobou. Nedrží krok s dobou, ano,\npřesně tak bych to řekl, protože"
+      },
+      "asrWordRange": [
+        1972,
+        1988
+      ]
+    },
+    {
+      "start": 948.768,
+      "end": 953.728,
+      "kind": "speech",
+      "text": {
+        "sk": "napríklad teraz Elon Musk a jeho SpaceX\ndokázali, čo bolo nemysliteľné, že",
+        "cs": "například Elon Musk a jeho SpaceX dokázali něco,\nco bylo nepředstavitelné:"
+      },
+      "asrWordRange": [
+        1988,
+        2000
+      ]
+    },
+    {
+      "start": 954.196,
+      "end": 956.287,
+      "kind": "speech",
+      "text": {
+        "sk": "znovupoužívanie tých rakiet.",
+        "cs": "opětovné používání raket."
+      },
+      "asrWordRange": [
+        2000,
+        2004
+      ]
+    },
+    {
+      "start": 958.333,
+      "end": 963.43,
+      "kind": "speech",
+      "text": {
+        "sk": "Lebo rakety boli, to určite vieš, ale predtým\nrakety, ktoré sa",
+        "cs": "Protože rakety dřív, to určitě víš, ty rakety,\nkteré se"
+      },
+      "asrWordRange": [
+        2004,
+        2016
+      ]
+    },
+    {
+      "start": 963.43,
+      "end": 969.07,
+      "kind": "speech",
+      "text": {
+        "sk": "používali pri vlastne tých letoch na orbitu\nalebo na Mesiac, tak",
+        "cs": "používaly k letům na oběžnou dráhu nebo na\nMěsíc,"
+      },
+      "asrWordRange": [
+        2016,
+        2027
+      ]
+    },
+    {
+      "start": 969.07,
+      "end": 973.307,
+      "kind": "speech",
+      "text": {
+        "sk": "vždy sa hodili vlastne buď do nejakej púšte, ale\nväčšinou do mora a",
+        "cs": "se vždycky zahodily, buď do nějaké pouště, ale\nvětšinou do moře, a"
+      },
+      "asrWordRange": [
+        2027,
+        2040
+      ]
+    },
+    {
+      "start": 974.494,
+      "end": 979.57,
+      "kind": "speech",
+      "text": {
+        "sk": "boli len na jedno použitie a to bolo neskutočne\nnákladné. No a teraz SpaceX",
+        "cs": "byly jen na jedno použití. Bylo to neuvěřitelně\nnákladné. A teď SpaceX"
+      },
+      "asrWordRange": [
+        2040,
+        2054
+      ]
+    },
+    {
+      "start": 979.57,
+      "end": 981.419,
+      "kind": "speech",
+      "text": {
+        "sk": "vlastne vymyslelo prvú, myslím, že...",
+        "cs": "vlastně přišlo s první, myslím, že..."
+      },
+      "asrWordRange": [
+        2054,
+        2060
+      ]
+    },
+    {
+      "start": 981.419,
+      "end": 986.219,
+      "kind": "speech",
+      "recoveredSpeech": "Recovered from the original ASR gap; revised against wider independent large-v3 976–999 s and independent Slovak CTC decode. Narrow-window hallucination je následný removed.",
+      "text": {
+        "sk": "Nie Saturn, nespomeniem si. Falcon, môže byť?",
+        "cs": "Ne Saturn, nevzpomenu si. Mohl by to být Falcon?"
+      },
+      "asrWordRange": [
+        2060,
+        2060
+      ]
+    },
+    {
+      "start": 986.219,
+      "end": 989.378,
+      "kind": "speech",
+      "recoveredSpeech": "Recovered from the original ASR gap; revised against wider independent large-v3 976–999 s and independent Slovak CTC decode. Narrow-window hallucination je následný removed.",
+      "text": {
+        "sk": "Falcon, hej, Falcony, ale Saturn sa myslím, že\nchystá.",
+        "cs": "Falcon, ano, Falcony, ale Saturn se myslím\nteprve chystá."
+      },
+      "asrWordRange": [
+        2060,
+        2060
+      ]
+    },
+    {
+      "start": 989.378,
+      "end": 994.488,
+      "kind": "speech",
+      "text": {
+        "sk": "Saturn bola tá stará, myslím Falcon a Falcon\nHeavy. No",
+        "cs": "Saturn byla ta stará raketa, myslím Falcon a\nFalcon Heavy. No"
+      },
+      "asrWordRange": [
+        2060,
+        2070
+      ]
+    },
+    {
+      "start": 995.092,
+      "end": 999.659,
+      "kind": "speech",
+      "text": {
+        "sk": "a to sú vlastne prvé projekty, ktoré im vyšli\ntak, že",
+        "cs": "a to jsou vlastně první projekty, které se jim\npovedly tak, že"
+      },
+      "asrWordRange": [
+        2070,
+        2081
+      ]
+    },
+    {
+      "start": 1000.063,
+      "end": 1004.678,
+      "kind": "speech",
+      "text": {
+        "sk": "dostali sa do vesmírneho priestoru a znova s\nnimi dokázali pristáť.",
+        "cs": "se dostali do vesmíru a pak s nimi dokázali\nznovu přistát."
+      },
+      "asrWordRange": [
+        2081,
+        2092
+      ]
+    },
+    {
+      "start": 1005.363,
+      "end": 1009.198,
+      "kind": "speech",
+      "text": {
+        "sk": "A čo sa týka nejakého znovupoužitia, tak tam sa\nstrašne",
+        "cs": "A pokud jde o opětovné použití, tak se tím\nopravdu hodně"
+      },
+      "asrWordRange": [
+        2092,
+        2103
+      ]
+    },
+    {
+      "start": 1010.785,
+      "end": 1012.397,
+      "kind": "speech",
+      "text": {
+        "sk": "šetrí na tých materiáloch.",
+        "cs": "šetří materiál."
+      },
+      "asrWordRange": [
+        2103,
+        2107
+      ]
+    },
+    {
+      "start": 1013.121,
+      "end": 1019.2,
+      "kind": "speech",
+      "text": {
+        "sk": "Lebo vlastne každá tá jedna vesmírna misia bola\no tom, že sa tá",
+        "cs": "Protože při každé kosmické misi se ta"
+      },
+      "asrWordRange": [
+        2107,
+        2120
+      ]
+    },
+    {
+      "start": 1019.2,
+      "end": 1024.259,
+      "kind": "speech",
+      "text": {
+        "sk": "raketa len zhodila a vždy sa budovala nová.\nTakže",
+        "cs": "raketa prostě zahodila a pokaždé se stavěla\nnová. Takže"
+      },
+      "asrWordRange": [
+        2120,
+        2129
+      ]
+    },
+    {
+      "start": 1024.302,
+      "end": 1027.978,
+      "kind": "speech",
+      "text": {
+        "sk": "to bolo neudržateľné, čo sa týkalo nejakého\nekonomického hľadiska.",
+        "cs": "to bylo z ekonomického hlediska neudržitelné."
+      },
+      "asrWordRange": [
+        2129,
+        2138
+      ]
+    },
+    {
+      "start": 1029.183,
+      "end": 1034.8,
+      "kind": "speech",
+      "text": {
+        "sk": "A tieto nové spoločnosti... No a ako môžu\nspoločnosti vlastne využívať? Ja ti",
+        "cs": "A tyhle nové společnosti... No a jak to\nspolečnosti mohou využívat? Já ti"
+      },
+      "asrWordRange": [
+        2138,
+        2151
+      ]
+    },
+    {
+      "start": 1034.8,
+      "end": 1037.097,
+      "kind": "speech",
+      "text": {
+        "sk": "zase do toho skočím. No, skoč, skoč. Teda",
+        "cs": "do toho zase skočím. No, skoč, skoč. Tedy"
+      },
+      "asrWordRange": [
+        2151,
+        2159
+      ]
+    },
+    {
+      "start": 1037.4,
+      "end": 1040.837,
+      "kind": "speech",
+      "text": {
+        "sk": "zaujímavé, že je tá doba recyklovaných rakiet v\núvodzovkách.",
+        "cs": "je zajímavé, že je to doba „recyklovaných\nraket“, v uvozovkách."
+      },
+      "asrWordRange": [
+        2159,
+        2167
+      ]
+    },
+    {
+      "start": 1041.912,
+      "end": 1045.529,
+      "kind": "speech",
+      "text": {
+        "sk": "To je prvé, čo som chcel povedať. Druhé je, že\nja mám pocit, že oni často nechávali",
+        "cs": "To je první věc, kterou jsem chtěl říct. Druhá\nje, že mám pocit, že často nechávali"
+      },
+      "asrWordRange": [
+        2167,
+        2184
+      ]
+    },
+    {
+      "start": 1045.529,
+      "end": 1049.789,
+      "kind": "speech",
+      "text": {
+        "sk": "proste zhorieť v atmosfére také tie časti. Že to\nje zase niečo, áno, že nie, že",
+        "cs": "ty části prostě shořet v atmosféře. Že to je\ntaky něco... Ano, že ne, že"
+      },
+      "asrWordRange": [
+        2184,
+        2200
+      ]
+    },
+    {
+      "start": 1049.789,
+      "end": 1053.41,
+      "kind": "speech",
+      "text": {
+        "sk": "dopadnú do púšte, ale proste že to zhorí. Podľa\ntoho, ktoré to bolo štádium tej",
+        "cs": "dopadnou do pouště, ale že prostě shoří. Záleží\nna tom, který to byl stupeň"
+      },
+      "asrWordRange": [
+        2200,
+        2216
+      ]
+    },
+    {
+      "start": 1053.41,
+      "end": 1057.81,
+      "kind": "speech",
+      "text": {
+        "sk": "rakety, lebo tam ono to bolo viacstupňové, ale\nmáš pravdu, keď to bolo v",
+        "cs": "rakety, protože rakety byly vícestupňové. Ale\nmáš pravdu, když se to odhodilo"
+      },
+      "asrWordRange": [
+        2216,
+        2231
+      ]
+    },
+    {
+      "start": 1057.81,
+      "end": 1063.31,
+      "kind": "speech",
+      "text": {
+        "sk": "dostatočnej výške zhodené, tak ono to zhorelo v\natmosfére. Ale tiež, ako je to",
+        "cs": "v dostatečné výšce, tak to shořelo v atmosféře.\nAle také je to"
+      },
+      "asrWordRange": [
+        2231,
+        2245
+      ]
+    },
+    {
+      "start": 1063.31,
+      "end": 1068.109,
+      "kind": "speech",
+      "text": {
+        "sk": "z toho hľadiska to isté, ako keď sa toho zbavia,\nproste že tam išlo o to ekonomické,",
+        "cs": "z tohoto hlediska stejné, jako když se toho\nzbaví. Šlo mi o ekonomickou stránku,"
+      },
+      "asrWordRange": [
+        2245,
+        2262
+      ]
+    },
+    {
+      "start": 1068.109,
+      "end": 1068.604,
+      "kind": "speech",
+      "text": {
+        "sk": "čo som chcel povedať.",
+        "cs": "to jsem chtěl říct."
+      },
+      "asrWordRange": [
+        2262,
+        2266
+      ]
+    },
+    {
+      "start": 1069.502,
+      "end": 1074.178,
+      "kind": "speech",
+      "text": {
+        "sk": "No a teraz sa opýtam za všetkých poslucháčov\nasi. Keď si postavím na záhrade raketu,",
+        "cs": "A teď se asi zeptám za všechny posluchače. Když\nsi na zahradě postavím raketu,"
+      },
+      "asrWordRange": [
+        2266,
+        2281
+      ]
+    },
+    {
+      "start": 1074.564,
+      "end": 1076.877,
+      "kind": "speech",
+      "text": {
+        "sk": "môžem s ňou vyjsť na orbitu? No,",
+        "cs": "můžu s ní vyletět na oběžnou dráhu? No,"
+      },
+      "asrWordRange": [
+        2281,
+        2288
+      ]
+    },
+    {
+      "start": 1077.825,
+      "end": 1078.855,
+      "kind": "speech",
+      "text": {
+        "sk": "sú dve hľadiská.",
+        "cs": "jsou dvě hlediska."
+      },
+      "asrWordRange": [
+        2288,
+        2291
+      ]
+    },
+    {
+      "start": 1079.141,
+      "end": 1082.257,
+      "kind": "speech",
+      "text": {
+        "sk": "Z fyzického hľadiska môžeš, ale",
+        "cs": "Z fyzikálního hlediska můžeš, ale"
+      },
+      "asrWordRange": [
+        2291,
+        2296
+      ]
+    },
+    {
+      "start": 1083.743,
+      "end": 1088.598,
+      "kind": "speech",
+      "text": {
+        "sk": "asi by ti niekto potom klopal na dvere. A\nhlavne, keby staviaš raketu, tak",
+        "cs": "asi by ti pak někdo klepal na dveře. A hlavně\nkdybys stavěl raketu, tak"
+      },
+      "asrWordRange": [
+        2296,
+        2310
+      ]
+    },
+    {
+      "start": 1089.464,
+      "end": 1094.138,
+      "kind": "speech",
+      "text": {
+        "sk": "by ti klopalo dosť veľa ľudí na dvere, lebo to\nby si asi všimol niekto. Okrem",
+        "cs": "by ti na dveře klepalo docela dost lidí, protože\nby si toho někdo všiml. Kromě"
+      },
+      "asrWordRange": [
+        2310,
+        2326
+      ]
+    },
+    {
+      "start": 1094.145,
+      "end": 1095.014,
+      "kind": "speech",
+      "text": {
+        "sk": "susedov, myslím.",
+        "cs": "sousedů, myslím."
+      },
+      "asrWordRange": [
+        2326,
+        2328
+      ]
+    },
+    {
+      "start": 1097.103,
+      "end": 1100.678,
+      "kind": "speech",
+      "text": {
+        "sk": "Asi aj CIA by sa s tebou chcela porozprávať. Ale\nnie.",
+        "cs": "Asi i CIA by si s tebou chtěla promluvit. Ale\nne."
+      },
+      "asrWordRange": [
+        2328,
+        2340
+      ]
+    },
+    {
+      "start": 1101.362,
+      "end": 1106.338,
+      "kind": "speech",
+      "text": {
+        "sk": "A druhá vec je, že ako som hovoril, v tej prvej\nzmluve bolo vlastne zadefinované také",
+        "cs": "A druhá věc je, že jak jsem říkal, v té první\nsmlouvě bylo stanoveno takové"
+      },
+      "asrWordRange": [
+        2340,
+        2356
+      ]
+    },
+    {
+      "start": 1106.382,
+      "end": 1111.158,
+      "kind": "speech",
+      "text": {
+        "sk": "pravidlo, že každá krajina má prístup k vesmíru\na môže vlastne",
+        "cs": "pravidlo, že každá země má přístup do vesmíru a\nmůže"
+      },
+      "asrWordRange": [
+        2356,
+        2367
+      ]
+    },
+    {
+      "start": 1111.846,
+      "end": 1112.735,
+      "kind": "speech",
+      "text": {
+        "sk": "vysielať do vesmíru",
+        "cs": "do vesmíru vysílat"
+      },
+      "asrWordRange": [
+        2367,
+        2370
+      ]
+    },
+    {
+      "start": 1114.123,
+      "end": 1118.519,
+      "kind": "speech",
+      "text": {
+        "sk": "buď rakety, alebo satelity a tak ďalej. Ale čo\nje dôležité",
+        "cs": "rakety nebo družice a tak dále. Ale co je\ndůležité"
+      },
+      "asrWordRange": [
+        2370,
+        2381
+      ]
+    },
+    {
+      "start": 1120.383,
+      "end": 1125.639,
+      "kind": "speech",
+      "text": {
+        "sk": "pre túto otázku, bolo, že bolo zadefinované aj\nto, že",
+        "cs": "pro tuhle otázku, je, že tam bylo také\nstanoveno, že"
+      },
+      "asrWordRange": [
+        2381,
+        2391
+      ]
+    },
+    {
+      "start": 1127.509,
+      "end": 1128.236,
+      "kind": "speech",
+      "text": {
+        "sk": "tretie osoby,",
+        "cs": "třetí osoby,"
+      },
+      "asrWordRange": [
+        2391,
+        2393
+      ]
+    },
+    {
+      "start": 1129.822,
+      "end": 1134.878,
+      "kind": "speech",
+      "text": {
+        "sk": "mimoštátne agentúry môžu tiež vysielať, ak\nzískajú vlastne",
+        "cs": "nestátní organizace mohou také vypouštět, pokud\nzískají"
+      },
+      "asrWordRange": [
+        2393,
+        2401
+      ]
+    },
+    {
+      "start": 1135.564,
+      "end": 1139.959,
+      "kind": "speech",
+      "text": {
+        "sk": "súhlas toho štátu, z ktorého vysielajú. Takže\nnapríklad SpaceX",
+        "cs": "souhlas státu, ze kterého startují. Tak\nnapříklad SpaceX"
+      },
+      "asrWordRange": [
+        2401,
+        2410
+      ]
+    },
+    {
+      "start": 1140.163,
+      "end": 1145.158,
+      "kind": "speech",
+      "text": {
+        "sk": "pracuje v USA, tak má dohodu s USA, že môže\nvysielať do",
+        "cs": "působí v USA, a tak má od USA povolení vypouštět\ndo"
+      },
+      "asrWordRange": [
+        2410,
+        2423
+      ]
+    },
+    {
+      "start": 1145.202,
+      "end": 1150.58,
+      "kind": "speech",
+      "text": {
+        "sk": "vesmíru a oni sú aj registrovaní pod USA. Kebyže\nnapríklad padne SpaceX",
+        "cs": "vesmíru a je tam také registrována. Kdyby\nnapříklad SpaceX spadla"
+      },
+      "asrWordRange": [
+        2423,
+        2435
+      ]
+    },
+    {
+      "start": 1150.58,
+      "end": 1151.494,
+      "kind": "speech",
+      "text": {
+        "sk": "nejaká raketa, tak",
+        "cs": "nějaká raketa, tak"
+      },
+      "asrWordRange": [
+        2435,
+        2438
+      ]
+    },
+    {
+      "start": 1153.003,
+      "end": 1158.239,
+      "kind": "speech",
+      "text": {
+        "sk": "Spojené štáty americké sú zodpovedné podľa tej\nzmluvy za vlastne",
+        "cs": "podle té smlouvy Spojené státy americké nesou\nodpovědnost za"
+      },
+      "asrWordRange": [
+        2438,
+        2448
+      ]
+    },
+    {
+      "start": 1158.406,
+      "end": 1159.736,
+      "kind": "speech",
+      "text": {
+        "sk": "hocijakú škodu, čo sa stane.",
+        "cs": "jakoukoli škodu, ke které dojde."
+      },
+      "asrWordRange": [
+        2448,
+        2453
+      ]
+    },
+    {
+      "start": 1161.242,
+      "end": 1166.498,
+      "kind": "speech",
+      "text": {
+        "sk": "Čiže v tomto máme jasno. No a už niekto porušil\nvesmírne právo? No, to je",
+        "cs": "Takže v tom máme jasno. A porušil už někdo\nvesmírné právo? No, to je"
+      },
+      "asrWordRange": [
+        2453,
+        2468
+      ]
+    },
+    {
+      "start": 1167.426,
+      "end": 1170.358,
+      "kind": "speech",
+      "text": {
+        "sk": "veľmi dobré, že sa pýtaš. Akoby si bol\nnabrífovaný.",
+        "cs": "velmi dobré, že se ptáš. Jako bys byl předem\ninformovaný."
+      },
+      "asrWordRange": [
+        2468,
+        2477
+      ]
+    },
+    {
+      "start": 1172.603,
+      "end": 1176.918,
+      "kind": "speech",
+      "text": {
+        "sk": "Doteraz kto bol vysielaný do vesmíru, boli buď",
+        "cs": "Dosud byli do vesmíru vysíláni buď"
+      },
+      "asrWordRange": [
+        2477,
+        2485
+      ]
+    },
+    {
+      "start": 1177.886,
+      "end": 1180.617,
+      "kind": "speech",
+      "text": {
+        "sk": "vojaci, vedci a veľmi trénovaný",
+        "cs": "vojáci, vědci a velmi dobře vycvičený"
+      },
+      "asrWordRange": [
+        2485,
+        2490
+      ]
+    },
+    {
+      "start": 1183.023,
+      "end": 1186.478,
+      "kind": "speech",
+      "text": {
+        "sk": "personál. Všetci astronauti, nikto z nich nebol",
+        "cs": "personál. Všichni astronauti, nikdo z nich nebyl"
+      },
+      "asrWordRange": [
+        2490,
+        2497
+      ]
+    },
+    {
+      "start": 1187.582,
+      "end": 1192.959,
+      "kind": "speech",
+      "text": {
+        "sk": "nejaký obyčajný laik, a aj keď bol, keď sa\nniekomu podarilo, tak",
+        "cs": "nějaký obyčejný laik, a i když byl, pokud se to\nněkomu podařilo, tak"
+      },
+      "asrWordRange": [
+        2497,
+        2509
+      ]
+    },
+    {
+      "start": 1193.022,
+      "end": 1197.158,
+      "kind": "speech",
+      "text": {
+        "sk": "mal niekoľkomesačný, dokonca niekoľkoročný\nvýcvik, aby sa dostal do toho vesmíru.",
+        "cs": "měl několikaměsíční, dokonce několikaletý\nvýcvik, aby se do vesmíru dostal."
+      },
+      "asrWordRange": [
+        2509,
+        2522
+      ]
+    },
+    {
+      "start": 1197.682,
+      "end": 1203.02,
+      "kind": "speech",
+      "text": {
+        "sk": "Avšak teraz, ako sme hovorili o tých súkromných\nspoločnostiach, začínajú byť už také",
+        "cs": "Ale teď, jak jsme mluvili o soukromých\nspolečnostech, se už objevují takové"
+      },
+      "asrWordRange": [
+        2522,
+        2535
+      ]
+    },
+    {
+      "start": 1203.02,
+      "end": 1208.058,
+      "kind": "speech",
+      "text": {
+        "sk": "plány, že ľudia majú také plány, neviem, či\nzrealizovateľné, ale že by chceli robiť",
+        "cs": "plány, nevím, jestli uskutečnitelné, ale lidé by\nchtěli stavět"
+      },
+      "asrWordRange": [
+        2535,
+        2549
+      ]
+    },
+    {
+      "start": 1208.504,
+      "end": 1211.618,
+      "kind": "speech",
+      "text": {
+        "sk": "hotely na obežnej dráhe, hotely na",
+        "cs": "hotely na oběžné dráze, hotely na"
+      },
+      "asrWordRange": [
+        2549,
+        2555
+      ]
+    },
+    {
+      "start": 1213.022,
+      "end": 1218.519,
+      "kind": "speech",
+      "text": {
+        "sk": "Mesiaci a dokonca hotel na Marse by niekto chcel\nspraviť. No a teraz, presne ako",
+        "cs": "Měsíci a dokonce by někdo chtěl postavit hotel\nna Marsu. A teď, přesně jak"
+      },
+      "asrWordRange": [
+        2555,
+        2570
+      ]
+    },
+    {
+      "start": 1218.519,
+      "end": 1220.297,
+      "kind": "speech",
+      "text": {
+        "sk": "hovoríš, či sa stal nejaký trestný čin,",
+        "cs": "říkáš, zda se stal nějaký trestný čin,"
+      },
+      "asrWordRange": [
+        2570,
+        2578
+      ]
+    },
+    {
+      "start": 1222.433,
+      "end": 1224.967,
+      "kind": "speech",
+      "text": {
+        "sk": "nestal sa tohto roku",
+        "cs": "nestal se tohoto roku"
+      },
+      "asrWordRange": [
+        2578,
+        2582
+      ]
+    },
+    {
+      "start": 1226.923,
+      "end": 1231.519,
+      "kind": "speech",
+      "text": {
+        "sk": "len na Medzinárodnej vesmírnej stanici ISS.",
+        "cs": "jen na Mezinárodní vesmírné stanici ISS."
+      },
+      "asrWordRange": [
+        2582,
+        2588
+      ]
+    },
+    {
+      "start": 1232.722,
+      "end": 1237.699,
+      "kind": "speech",
+      "text": {
+        "sk": "Tento rok bol ešte... Stále to nie je jasné, či\nje to trestný čin, lebo je to v štádiu",
+        "cs": "Letos se objevil... Stále není jasné, jestli jde\no trestný čin, protože je to ve fázi"
+      },
+      "asrWordRange": [
+        2588,
+        2607
+      ]
+    },
+    {
+      "start": 1237.702,
+      "end": 1242.84,
+      "kind": "speech",
+      "text": {
+        "sk": "vyšetrovania, ale sa hovorí, že jedna\nastronautka svojej manželke",
+        "cs": "vyšetřování, ale říká se, že jedna astronautka\nsvé manželce"
+      },
+      "asrWordRange": [
+        2607,
+        2616
+      ]
+    },
+    {
+      "start": 1242.84,
+      "end": 1247.538,
+      "kind": "speech",
+      "text": {
+        "sk": "neoprávnene vstúpila na bankový účet a v USA je\nto trestným činom,",
+        "cs": "neoprávněně vstoupila na bankovní účet, a v USA\nje to trestný čin,"
+      },
+      "asrWordRange": [
+        2616,
+        2628
+      ]
+    },
+    {
+      "start": 1248.723,
+      "end": 1250.856,
+      "kind": "speech",
+      "text": {
+        "sk": "tak ju začali vyšetrovať kvôli tomu.",
+        "cs": "tak ji kvůli tomu začali vyšetřovat."
+      },
+      "asrWordRange": [
+        2628,
+        2634
+      ]
+    },
+    {
+      "start": 1251.752,
+      "end": 1257.028,
+      "kind": "speech",
+      "text": {
+        "sk": "No a je to taký zaujímavý príklad, že ako sa k\ntomu postavia. V tomto",
+        "cs": "A je to zajímavý příklad, jak se k tomu postaví.\nV tomto"
+      },
+      "asrWordRange": [
+        2634,
+        2649
+      ]
+    },
+    {
+      "start": 1257.072,
+      "end": 1262.589,
+      "kind": "speech",
+      "text": {
+        "sk": "prípade je to taká jasná problematika, lebo\nmožno by si mal otázku,",
+        "cs": "případě je ta problematika poměrně jasná,\nprotože možná by ses ptal,"
+      },
+      "asrWordRange": [
+        2649,
+        2661
+      ]
+    },
+    {
+      "start": 1262.589,
+      "end": 1267.908,
+      "kind": "speech",
+      "text": {
+        "sk": "či ju bude súdiť USA a tak ďalej, že kto tam má\nprávomoc nejakú, tak právomoc tam má",
+        "cs": "jestli ji budou soudit USA a tak dále, kdo má\nvlastně pravomoc. Pravomoc tam mají"
+      },
+      "asrWordRange": [
+        2661,
+        2679
+      ]
+    },
+    {
+      "start": 1267.908,
+      "end": 1270.687,
+      "kind": "speech",
+      "text": {
+        "sk": "USA z dvoch vlastne",
+        "cs": "USA hned ze dvou"
+      },
+      "asrWordRange": [
+        2679,
+        2683
+      ]
+    },
+    {
+      "start": 1271.893,
+      "end": 1276.288,
+      "kind": "speech",
+      "text": {
+        "sk": "nejakých titulov. Prvý je, že na ISS platí\nmedzinárodná zmluva,",
+        "cs": "důvodů. První je, že na ISS platí mezinárodní\nsmlouva,"
+      },
+      "asrWordRange": [
+        2683,
+        2693
+      ]
+    },
+    {
+      "start": 1277.304,
+      "end": 1278.395,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorú pripravili",
+        "cs": "kterou připravily"
+      },
+      "asrWordRange": [
+        2693,
+        2695
+      ]
+    },
+    {
+      "start": 1280.753,
+      "end": 1285.368,
+      "kind": "speech",
+      "text": {
+        "sk": "Spojené štáty a všetky krajiny, ktoré tam\nvysielajú svojich",
+        "cs": "Spojené státy, a všechny země, které tam\nvysílají své"
+      },
+      "asrWordRange": [
+        2695,
+        2704
+      ]
+    },
+    {
+      "start": 1285.494,
+      "end": 1287.828,
+      "kind": "speech",
+      "text": {
+        "sk": "kozmonautov alebo astronautov,",
+        "cs": "kosmonauty nebo astronauty,"
+      },
+      "asrWordRange": [
+        2704,
+        2707
+      ]
+    },
+    {
+      "start": 1288.492,
+      "end": 1293.528,
+      "kind": "speech",
+      "text": {
+        "sk": "tak musia podpísať túto zmluvu a tam si\nzachovávajú vlastne jurisdikciu nad",
+        "cs": "ji musejí podepsat. V té smlouvě si zachovávají\njurisdikci nad"
+      },
+      "asrWordRange": [
+        2707,
+        2719
+      ]
+    },
+    {
+      "start": 1293.528,
+      "end": 1298.168,
+      "kind": "speech",
+      "text": {
+        "sk": "svojimi občanmi tieto krajiny, ktoré ich\nvysielajú. Takže kebyže je to ruská",
+        "cs": "svými občany ty země, které je vysílají. Takže\nkdyby šlo o ruskou"
+      },
+      "asrWordRange": [
+        2719,
+        2732
+      ]
+    },
+    {
+      "start": 1298.631,
+      "end": 1303.71,
+      "kind": "speech",
+      "text": {
+        "sk": "astronautku, aby sa pozrela na americký účet,\ntam by to už bolo troška horšie, lebo by",
+        "cs": "astronautku, která se podívala na americký účet,\nbylo by to trochu složitější, protože by"
+      },
+      "asrWordRange": [
+        2732,
+        2748
+      ]
+    },
+    {
+      "start": 1303.71,
+      "end": 1306.748,
+      "kind": "speech",
+      "text": {
+        "sk": "aj porušila nejaký trestný zákon",
+        "cs": "také porušila nějaký trestní zákon"
+      },
+      "asrWordRange": [
+        2748,
+        2753
+      ]
+    },
+    {
+      "start": 1307.753,
+      "end": 1311.408,
+      "kind": "speech",
+      "text": {
+        "sk": "Spojených štátov, ale stále Rusko by ju mohlo\nsúdiť.",
+        "cs": "Spojených států, ale pořád by ji mohlo soudit\nRusko."
+      },
+      "asrWordRange": [
+        2753,
+        2762
+      ]
+    },
+    {
+      "start": 1312.845,
+      "end": 1314.777,
+      "kind": "speech",
+      "text": {
+        "sk": "A ona by mohla povedať, že poďte si po mňa.",
+        "cs": "A mohla by říct: Tak si pro mě přijďte."
+      },
+      "asrWordRange": [
+        2762,
+        2772
+      ]
+    },
+    {
+      "start": 1316.304,
+      "end": 1320.198,
+      "kind": "speech",
+      "text": {
+        "sk": "No, ale áno, mohla by, come at me, ale",
+        "cs": "No ano, mohla by, come at me, ale"
+      },
+      "asrWordRange": [
+        2772,
+        2780
+      ]
+    },
+    {
+      "start": 1321.423,
+      "end": 1326.178,
+      "kind": "speech",
+      "text": {
+        "sk": "no to nespravila, vrátila sa domov a teraz ju\nFBI rieši a",
+        "cs": "to neudělala. Vrátila se domů a teď ji vyšetřuje\nFBI a"
+      },
+      "asrWordRange": [
+        2780,
+        2792
+      ]
+    },
+    {
+      "start": 1326.869,
+      "end": 1328.098,
+      "kind": "speech",
+      "text": {
+        "sk": "riešia ju aj",
+        "cs": "zabývá se jí také"
+      },
+      "asrWordRange": [
+        2792,
+        2795
+      ]
+    },
+    {
+      "start": 1329.244,
+      "end": 1330.916,
+      "kind": "speech",
+      "text": {
+        "sk": "prokuratúra a tak ďalej. Ale",
+        "cs": "prokuratura a tak dále. Ale"
+      },
+      "asrWordRange": [
+        2795,
+        2800
+      ]
+    },
+    {
+      "start": 1332.483,
+      "end": 1336.879,
+      "kind": "speech",
+      "text": {
+        "sk": "zaznamenal som takú poslednú správu, že asi to\nnebude trestný čin, že dajú",
+        "cs": "zachytil jsem poslední zprávu, že to asi nebude\ntrestný čin, že jí dají"
+      },
+      "asrWordRange": [
+        2800,
+        2813
+      ]
+    },
+    {
+      "start": 1336.879,
+      "end": 1339.857,
+      "kind": "speech",
+      "text": {
+        "sk": "jej len pokutu, myslím si, a",
+        "cs": "jen pokutu, myslím, a"
+      },
+      "asrWordRange": [
+        2813,
+        2819
+      ]
+    },
+    {
+      "start": 1341.744,
+      "end": 1346.278,
+      "kind": "speech",
+      "text": {
+        "sk": "bude to ako priestupok riešené. Takže sme sa\nnedočkali toho prvého trestného činu.",
+        "cs": "budou to řešit jako přestupek. Takže jsme se\nprvního trestného činu nedočkali."
+      },
+      "asrWordRange": [
+        2819,
+        2832
+      ]
+    },
+    {
+      "start": 1347.062,
+      "end": 1352.499,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže aby sme si vyjasnili, že keby na americkej\ndružici",
+        "cs": "Takže abychom si to ujasnili: kdyby na americké\ndružici,"
+      },
+      "asrWordRange": [
+        2832,
+        2841
+      ]
+    },
+    {
+      "start": 1353.424,
+      "end": 1358.679,
+      "kind": "speech",
+      "text": {
+        "sk": "nad Ruskom letí Nemec, zabije Japonca. Tak",
+        "cs": "která letí nad Ruskem, Němec zabil Japonce. Tak"
+      },
+      "asrWordRange": [
+        2841,
+        2848
+      ]
+    },
+    {
+      "start": 1358.721,
+      "end": 1360.911,
+      "kind": "speech",
+      "recoveredSpeech": "Speech present in 1358.6–1362.4 s gap, recognized independently with large-v3; exact wording needs direct listening",
+      "text": {
+        "sk": "Toto je komplikované. Ultimátne,",
+        "cs": "To je složité. Nakonec ale,"
+      },
+      "asrWordRange": [
+        2848,
+        2848
+      ]
+    },
+    {
+      "start": 1362.001,
+      "end": 1363.616,
+      "kind": "speech",
+      "text": {
+        "sk": "čo je to dôležité, že?",
+        "cs": "co je v tom důležité?"
+      },
+      "asrWordRange": [
+        2848,
+        2853
+      ]
+    },
+    {
+      "start": 1365.153,
+      "end": 1370.048,
+      "kind": "speech",
+      "text": {
+        "sk": "To, že letí nad Ruskom, je zbytočné. To, že letí\nnad Ruskom, to môžeme dať preč.",
+        "cs": "To, že letí nad Ruskem, je zbytečné. To, že letí\nnad Ruskem, můžeme vypustit."
+      },
+      "asrWordRange": [
+        2853,
+        2869
+      ]
+    },
+    {
+      "start": 1370.653,
+      "end": 1373.728,
+      "kind": "speech",
+      "text": {
+        "sk": "To môžeme vyškrtnúť. To je jedno. To sa môže\nnachádzať, lebo sa nachádzame vo",
+        "cs": "To můžeme škrtnout. Je to jedno. Může to být\nkdekoli, protože se nacházíme ve"
+      },
+      "asrWordRange": [
+        2869,
+        2883
+      ]
+    },
+    {
+      "start": 1373.728,
+      "end": 1377.228,
+      "kind": "speech",
+      "text": {
+        "sk": "vesmíre, tak tam platia tie zmluvy, ako som\nhovoril.",
+        "cs": "vesmíru, takže tam platí ty smlouvy, jak jsem\nříkal."
+      },
+      "asrWordRange": [
+        2883,
+        2892
+      ]
+    },
+    {
+      "start": 1378.784,
+      "end": 1381.337,
+      "kind": "speech",
+      "text": {
+        "sk": "Po druhé, keďže je to registrované plavidlo,",
+        "cs": "Za druhé, protože jde o registrované plavidlo,"
+      },
+      "asrWordRange": [
+        2892,
+        2899
+      ]
+    },
+    {
+      "start": 1383.302,
+      "end": 1388.619,
+      "kind": "speech",
+      "text": {
+        "sk": "USA majú takú zvláštnosť vo svojom trestnom\nzákone, som si to pozeral. Oni si prijali,",
+        "cs": "mají USA ve svém trestním zákoně jednu\nzvláštnost, díval jsem se na to. Přijaly,"
+      },
+      "asrWordRange": [
+        2899,
+        2914
+      ]
+    },
+    {
+      "start": 1388.945,
+      "end": 1390.837,
+      "kind": "speech",
+      "text": {
+        "sk": "že keď je vlastne",
+        "cs": "že když je vlastně"
+      },
+      "asrWordRange": [
+        2914,
+        2919
+      ]
+    },
+    {
+      "start": 1392.644,
+      "end": 1394.577,
+      "kind": "speech",
+      "text": {
+        "sk": "plavidlo registrované pod",
+        "cs": "plavidlo registrované pod"
+      },
+      "asrWordRange": [
+        2919,
+        2922
+      ]
+    },
+    {
+      "start": 1397.142,
+      "end": 1402.379,
+      "kind": "speech",
+      "text": {
+        "sk": "vlajkou USA, čo volá právo vlajky, u nás to tiež\nmáme, ale len na lode a",
+        "cs": "vlajkou USA, čemuž se říká právo vlajky, máme to\ntaké, ale jen pro lodě a"
+      },
+      "asrWordRange": [
+        2922,
+        2938
+      ]
+    },
+    {
+      "start": 1402.379,
+      "end": 1404.036,
+      "kind": "speech",
+      "text": {
+        "sk": "lietadlá, nemáme to ešte na vesmírne",
+        "cs": "letadla, ještě to nemáme pro vesmírné"
+      },
+      "asrWordRange": [
+        2938,
+        2944
+      ]
+    },
+    {
+      "start": 1404.924,
+      "end": 1407.317,
+      "kind": "speech",
+      "text": {
+        "sk": "koráby, čoskoro, coming soon,",
+        "cs": "koráby, už brzy, coming soon,"
+      },
+      "asrWordRange": [
+        2944,
+        2948
+      ]
+    },
+    {
+      "start": 1408.543,
+      "end": 1412.919,
+      "kind": "speech",
+      "text": {
+        "sk": "tak USA si to upravili, že aj keď sa nachádzajú\nna vesmírnej stanici alebo na",
+        "cs": "tak USA to mají upravené tak, že i když se\nnacházejí na vesmírné stanici nebo na"
+      },
+      "asrWordRange": [
+        2948,
+        2963
+      ]
+    },
+    {
+      "start": 1412.919,
+      "end": 1417.538,
+      "kind": "speech",
+      "text": {
+        "sk": "nejakej vesmírnej družici alebo hocijakom\nvesmírnom plavidle, tak platí tam",
+        "cs": "nějaké družici nebo jakémkoli kosmickém\nplavidle, platí tam"
+      },
+      "asrWordRange": [
+        2963,
+        2973
+      ]
+    },
+    {
+      "start": 1418.244,
+      "end": 1422.899,
+      "kind": "speech",
+      "text": {
+        "sk": "trestný poriadok aj trestný zákon USA.",
+        "cs": "trestní řád i trestní zákon USA."
+      },
+      "asrWordRange": [
+        2973,
+        2979
+      ]
+    },
+    {
+      "start": 1424.314,
+      "end": 1428.35,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže je to to isté, ako keby sa tá situácia\nstala niekde v New Yorku na námestí. Je",
+        "cs": "Je to tedy stejné, jako kdyby k té situaci došlo\nněkde na náměstí v New Yorku. Je"
+      },
+      "asrWordRange": [
+        2979,
+        2997
+      ]
+    },
+    {
+      "start": 1428.35,
+      "end": 1433.589,
+      "kind": "speech",
+      "text": {
+        "sk": "to veľmi podobné. Je to veľmi podobné. Takže keď\nNemec napríklad by zastrelil Japonca",
+        "cs": "to hodně podobné. Hodně podobné. Takže kdyby\nNěmec například zastřelil Japonce"
+      },
+      "asrWordRange": [
+        2997,
+        3011
+      ]
+    },
+    {
+      "start": 1433.754,
+      "end": 1436.268,
+      "kind": "speech",
+      "text": {
+        "sk": "v USA, tak by ho súdili v USA.",
+        "cs": "v USA, tak by ho soudili v USA."
+      },
+      "asrWordRange": [
+        3011,
+        3018
+      ]
+    },
+    {
+      "start": 1437.583,
+      "end": 1442.678,
+      "kind": "speech",
+      "text": {
+        "sk": "A dokonca, ešte tam je taká zaujímavosť, Rusko a\nUSA nemajú extradičnú dohodu,",
+        "cs": "A ještě je tu zajímavost: Rusko a USA nemají\nextradiční dohodu,"
+      },
+      "asrWordRange": [
+        3018,
+        3031
+      ]
+    },
+    {
+      "start": 1442.763,
+      "end": 1444.876,
+      "kind": "speech",
+      "text": {
+        "sk": "že o vydávaní.",
+        "cs": "tedy dohodu o vydávání osob."
+      },
+      "asrWordRange": [
+        3031,
+        3034
+      ]
+    },
+    {
+      "start": 1446.6,
+      "end": 1453.199,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže keď Snowden ušiel do Ruska, tak si mohol\nbyť istý, že ho Rusi nevydajú,",
+        "cs": "Takže když Snowden utekl do Ruska, mohl si být\njistý, že ho Rusové nevydají,"
+      },
+      "asrWordRange": [
+        3034,
+        3049
+      ]
+    },
+    {
+      "start": 1454.424,
+      "end": 1458.398,
+      "kind": "speech",
+      "text": {
+        "sk": "lebo neexistuje takáto dohoda. Ale keby\nastronaut chcel to isté spraviť, že by",
+        "cs": "protože taková dohoda neexistuje. Kdyby ale\nastronaut chtěl udělat totéž,"
+      },
+      "asrWordRange": [
+        3049,
+        3062
+      ]
+    },
+    {
+      "start": 1458.423,
+      "end": 1461.598,
+      "kind": "speech",
+      "text": {
+        "sk": "napríklad nejako sa dostal do Ruska, aby si\npovedal,",
+        "cs": "třeba se nějak dostal do Ruska a řekl si,"
+      },
+      "asrWordRange": [
+        3062,
+        3071
+      ]
+    },
+    {
+      "start": 1462.424,
+      "end": 1464.477,
+      "kind": "speech",
+      "text": {
+        "sk": "hovoríme o nejakom USA astronautovi,",
+        "cs": "mluvíme o nějakém americkém astronautovi,"
+      },
+      "asrWordRange": [
+        3071,
+        3076
+      ]
+    },
+    {
+      "start": 1466.083,
+      "end": 1471.139,
+      "kind": "speech",
+      "text": {
+        "sk": "že chcel by takto vlastne utiecť spravodlivosti,\ntak podľa tej medzinárodnej",
+        "cs": "že by takhle chtěl utéct před spravedlností, tak\npodle té mezinárodní"
+      },
+      "asrWordRange": [
+        3076,
+        3087
+      ]
+    },
+    {
+      "start": 1471.162,
+      "end": 1476.998,
+      "kind": "speech",
+      "text": {
+        "sk": "dohody, čo spravuje ISS, International Space\nStation, tak je extradičná dohoda",
+        "cs": "dohody, která upravuje ISS, International Space\nStation, je extradiční dohoda"
+      },
+      "asrWordRange": [
+        3087,
+        3100
+      ]
+    },
+    {
+      "start": 1478.426,
+      "end": 1480.357,
+      "kind": "speech",
+      "text": {
+        "sk": "medzi vlastne každou krajinou a USA.",
+        "cs": "vlastně mezi každou zemí a USA."
+      },
+      "asrWordRange": [
+        3100,
+        3106
+      ]
+    },
+    {
+      "start": 1481.005,
+      "end": 1482.255,
+      "kind": "speech",
+      "text": {
+        "sk": "No, jasné. Takže",
+        "cs": "No jasně. Takže"
+      },
+      "asrWordRange": [
+        3106,
+        3109
+      ]
+    },
+    {
+      "start": 1483.603,
+      "end": 1488.818,
+      "kind": "speech",
+      "text": {
+        "sk": "si to veľmi takto upravili, aby náhodou niekoho\nnenapadlo nejaký",
+        "cs": "si to takhle pečlivě upravili, aby náhodou\nněkoho nenapadlo nějaký"
+      },
+      "asrWordRange": [
+        3109,
+        3120
+      ]
+    },
+    {
+      "start": 1489.903,
+      "end": 1494.118,
+      "kind": "speech",
+      "text": {
+        "sk": "strašne zložitý trestný čin vo vesmíre spáchať.",
+        "cs": "strašně složitý trestný čin ve vesmíru spáchat."
+      },
+      "asrWordRange": [
+        3120,
+        3127
+      ]
+    },
+    {
+      "start": 1495.182,
+      "end": 1499.579,
+      "kind": "speech",
+      "text": {
+        "sk": "Ale skôr... Myslíš Elona Muska, lebo nikto iný\nsi to nemôže dovoliť. Presne tak,",
+        "cs": "Ale spíš... Myslíš Elona Muska, protože nikdo\njiný si to nemůže dovolit. Přesně tak,"
+      },
+      "asrWordRange": [
+        3127,
+        3143
+      ]
+    },
+    {
+      "start": 1499.579,
+      "end": 1505.099,
+      "kind": "speech",
+      "text": {
+        "sk": "presne tak. To auto, čo vyslal, tak to nebola\nfigurína,",
+        "cs": "přesně tak. To auto, které vyslal, tam nebyla\nfigurína,"
+      },
+      "asrWordRange": [
+        3143,
+        3153
+      ]
+    },
+    {
+      "start": 1505.162,
+      "end": 1510.539,
+      "kind": "speech",
+      "text": {
+        "sk": "čo tam bola? [nezrozumiteľné]. Áno. Kým to\nuzavrieme, tak mám ešte podľa mňa veľmi",
+        "cs": "která tam byla? [nesrozumitelné]. Ano. Než to\nuzavřeme, mám ještě podle mě velmi"
+      },
+      "asrWordRange": [
+        3153,
+        3168
+      ]
+    },
+    {
+      "start": 1510.562,
+      "end": 1515.458,
+      "kind": "speech",
+      "text": {
+        "sk": "dôležitú otázku. Doteraz to bolo všetko také, že\nnás, bežných ľudí, to až tak veľmi",
+        "cs": "důležitou otázku. Dosud to bylo takové, že nás,\nběžných lidí, se to až tak moc"
+      },
+      "asrWordRange": [
+        3168,
+        3183
+      ]
+    },
+    {
+      "start": 1515.462,
+      "end": 1519.578,
+      "kind": "speech",
+      "text": {
+        "sk": "neovplyvňuje, lebo asi nepoletí, väčšina z nás\nnepoletí do vesmíru,",
+        "cs": "netýká, protože asi nepoletíme, většina z nás\nnepoletí do vesmíru,"
+      },
+      "asrWordRange": [
+        3183,
+        3193
+      ]
+    },
+    {
+      "start": 1520.632,
+      "end": 1525.988,
+      "kind": "speech",
+      "text": {
+        "sk": "ale bežne sa objavuje na internete výzva, že\nkúpte si parcelu na Mesiaci alebo na",
+        "cs": "ale běžně se na internetu objevují nabídky:\nKupte si pozemek na Měsíci nebo na"
+      },
+      "asrWordRange": [
+        3193,
+        3208
+      ]
+    },
+    {
+      "start": 1526.014,
+      "end": 1527.486,
+      "kind": "speech",
+      "text": {
+        "sk": "Marse alebo kadetade.",
+        "cs": "Marsu nebo kdekoli jinde."
+      },
+      "asrWordRange": [
+        3208,
+        3211
+      ]
+    },
+    {
+      "start": 1528.833,
+      "end": 1533.168,
+      "kind": "speech",
+      "text": {
+        "sk": "Toto je z pohľadu vesmírneho práva úplný\nvýmysel. Tak som tomu porozumel, je to tak?",
+        "cs": "Z pohledu vesmírného práva je to úplný výmysl.\nPochopil jsem to správně?"
+      },
+      "asrWordRange": [
+        3211,
+        3226
+      ]
+    },
+    {
+      "start": 1533.673,
+      "end": 1538.168,
+      "kind": "speech",
+      "text": {
+        "sk": "Výborne si tomu porozumel, nakoľko už v tej\nprvej dohode sa všetky",
+        "cs": "Pochopil jsi to výborně, protože už v té první\ndohodě se všechny..."
+      },
+      "asrWordRange": [
+        3226,
+        3238
+      ]
+    },
+    {
+      "start": 1538.934,
+      "end": 1543.968,
+      "kind": "speech",
+      "text": {
+        "sk": "No 120 krajín zo 190, ale povedzme, že veľmi\nveľké jadro",
+        "cs": "No, 120 zemí ze 190, řekněme, že velmi velká\nčást"
+      },
+      "asrWordRange": [
+        3238,
+        3249
+      ]
+    },
+    {
+      "start": 1545.834,
+      "end": 1547.766,
+      "kind": "speech",
+      "text": {
+        "sk": "medzinárodného spoločenstva sa dohodlo, že",
+        "cs": "mezinárodního společenství se shodla, že"
+      },
+      "asrWordRange": [
+        3249,
+        3254
+      ]
+    },
+    {
+      "start": 1549.433,
+      "end": 1554.629,
+      "kind": "speech",
+      "text": {
+        "sk": "žiadne vesmírne teleso, Mesiac ani časť vesmíru\nnemôže patriť",
+        "cs": "žádné kosmické těleso, Měsíc ani část vesmíru\nnemůže patřit"
+      },
+      "asrWordRange": [
+        3254,
+        3265
+      ]
+    },
+    {
+      "start": 1554.629,
+      "end": 1559.869,
+      "kind": "speech",
+      "text": {
+        "sk": "žiadnemu štátu. A ako som hovoril o USA s tou\nvlajkou, ako ju tam dávali, že to",
+        "cs": "žádnému státu. A jak jsem říkal o USA a té\nvlajce, kterou tam vztyčili, že to"
+      },
+      "asrWordRange": [
+        3265,
+        3282
+      ]
+    },
+    {
+      "start": 1559.869,
+      "end": 1560.985,
+      "kind": "speech",
+      "text": {
+        "sk": "bolo nejaké deklaratórne,",
+        "cs": "bylo jen nějaké symbolické vyjádření,"
+      },
+      "asrWordRange": [
+        3282,
+        3285
+      ]
+    },
+    {
+      "start": 1562.193,
+      "end": 1565.247,
+      "kind": "speech",
+      "text": {
+        "sk": "tak ty ako občan môžeš vlastniť",
+        "cs": "tak ty jako občan můžeš vlastnit"
+      },
+      "asrWordRange": [
+        3285,
+        3291
+      ]
+    },
+    {
+      "start": 1566.252,
+      "end": 1571.669,
+      "kind": "speech",
+      "text": {
+        "sk": "nejaký pozemok, a to tým, že to odvodzuješ od\nštátu, ktorý ho vlastnil",
+        "cs": "nějaký pozemek jen proto, že své vlastnické\nprávo odvozuješ od státu, který ho vlastnil"
+      },
+      "asrWordRange": [
+        3291,
+        3304
+      ]
+    },
+    {
+      "start": 1571.669,
+      "end": 1576.068,
+      "kind": "speech",
+      "text": {
+        "sk": "nejako prvotne. Jasné. To by sme sa dostali do\nnejakých historických... A to tu nechcem,",
+        "cs": "původně. Jasně. To bychom se dostali k nějakým\nhistorickým otázkám a to nechci,"
+      },
+      "asrWordRange": [
+        3304,
+        3319
+      ]
+    },
+    {
+      "start": 1576.372,
+      "end": 1581.73,
+      "kind": "speech",
+      "text": {
+        "sk": "ale odvodzuješ to od štátu. Ty, že vlastníš\nniečo, prvotne to vlastnil štát a až potom",
+        "cs": "ale odvozuješ to od státu. Když něco vlastníš,\npůvodně to vlastnil stát a teprve potom"
+      },
+      "asrWordRange": [
+        3319,
+        3335
+      ]
+    },
+    {
+      "start": 1581.73,
+      "end": 1584.968,
+      "kind": "speech",
+      "text": {
+        "sk": "to prešlo na teba. Ale keďže sa väčšina",
+        "cs": "to přešlo na tebe. Ale protože se většina"
+      },
+      "asrWordRange": [
+        3335,
+        3343
+      ]
+    },
+    {
+      "start": 1585.934,
+      "end": 1587.566,
+      "kind": "speech",
+      "text": {
+        "sk": "medzinárodného spoločenstva vzdala",
+        "cs": "mezinárodního společenství vzdala"
+      },
+      "asrWordRange": [
+        3343,
+        3346
+      ]
+    },
+    {
+      "start": 1588.231,
+      "end": 1591.29,
+      "kind": "speech",
+      "text": {
+        "sk": "takejto možnosti, že by niečo takéto mohli\nvlastniť, čo",
+        "cs": "možnosti, že by něco takového mohli vlastnit,\npokud"
+      },
+      "asrWordRange": [
+        3346,
+        3353
+      ]
+    },
+    {
+      "start": 1592.391,
+      "end": 1598.069,
+      "kind": "speech",
+      "text": {
+        "sk": "sa týka Mesiaca, Marsu a iných, kde to\nrozpredávajú títo ľudia, tak",
+        "cs": "jde o Měsíc, Mars a další tělesa, na kterých\nlidé pozemky rozprodávají, tak"
+      },
+      "asrWordRange": [
+        3353,
+        3365
+      ]
+    },
+    {
+      "start": 1598.092,
+      "end": 1602.868,
+      "kind": "speech",
+      "text": {
+        "sk": "nie. Nemôžeš vlastniť. Je to zlá správa, keďže\nniekto chce predávať",
+        "cs": "ne. Nemůžeš je vlastnit. To je špatná zpráva pro\nněkoho, kdo je chce prodávat"
+      },
+      "asrWordRange": [
+        3365,
+        3376
+      ]
+    },
+    {
+      "start": 1603.413,
+      "end": 1608.248,
+      "kind": "speech",
+      "text": {
+        "sk": "alebo to nechať svojim potomkom, ktorí to\npredajú za veľké milióny. Toto sa",
+        "cs": "nebo je odkázat potomkům, kteří je prodají za\nvelké miliony. To"
+      },
+      "asrWordRange": [
+        3376,
+        3389
+      ]
+    },
+    {
+      "start": 1608.274,
+      "end": 1609.806,
+      "kind": "speech",
+      "text": {
+        "sk": "nebude dať spraviť",
+        "cs": "nebude možné udělat,"
+      },
+      "asrWordRange": [
+        3389,
+        3392
+      ]
+    },
+    {
+      "start": 1611.032,
+      "end": 1616.369,
+      "kind": "speech",
+      "text": {
+        "sk": "aspoň pri tomto spôsobe, ako je vesmírne právo\nnastavené teraz. Keď",
+        "cs": "alespoň za současného nastavení vesmírného\npráva. Když"
+      },
+      "asrWordRange": [
+        3392,
+        3403
+      ]
+    },
+    {
+      "start": 1616.369,
+      "end": 1618.667,
+      "kind": "speech",
+      "text": {
+        "sk": "si aj človek všimne, väčšina tých",
+        "cs": "si člověk všimne, většina těch"
+      },
+      "asrWordRange": [
+        3403,
+        3409
+      ]
+    },
+    {
+      "start": 1620.033,
+      "end": 1624.929,
+      "kind": "speech",
+      "text": {
+        "sk": "listov vlastníctva má na sebe, že ide o zábavné\núčely a nejde o právny dokument.",
+        "cs": "listin o vlastnictví uvádí, že jsou určeny pro\nzábavu a nejde o právní dokument."
+      },
+      "asrWordRange": [
+        3409,
+        3424
+      ]
+    },
+    {
+      "start": 1625.576,
+      "end": 1626.786,
+      "kind": "speech",
+      "text": {
+        "sk": "Takže majú to ešte aj takto.",
+        "cs": "Takže to mají ošetřené i takhle."
+      },
+      "asrWordRange": [
+        3424,
+        3430
+      ]
+    },
+    {
+      "start": 1628.012,
+      "end": 1633.249,
+      "kind": "speech",
+      "text": {
+        "sk": "Najviac sa na tom zabávajú tí, čo ich predávajú\nasi. Určite, určite. Ale sú niektorí,",
+        "cs": "Nejvíc se tím asi baví ti, kdo je prodávají.\nUrčitě, určitě. Ale jsou i někteří,"
+      },
+      "asrWordRange": [
+        3430,
+        3445
+      ]
+    },
+    {
+      "start": 1633.249,
+      "end": 1638.369,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorí vehementne bojujú s tým. Je dokonca jeden\npán, nepamätám si teraz jeho meno,",
+        "cs": "kteří proti tomu vehementně bojují. Je dokonce\njeden pán, teď si nevzpomenu na jméno,"
+      },
+      "asrWordRange": [
+        3445,
+        3459
+      ]
+    },
+    {
+      "start": 1638.369,
+      "end": 1639.446,
+      "kind": "speech",
+      "text": {
+        "sk": "ktorý si registroval",
+        "cs": "který si zaregistroval"
+      },
+      "asrWordRange": [
+        3459,
+        3462
+      ]
+    },
+    {
+      "start": 1640.922,
+      "end": 1644.698,
+      "kind": "speech",
+      "text": {
+        "sk": "na jednom úrade v USA, že mu patrí",
+        "cs": "na jednom úřadě v USA, že mu patří"
+      },
+      "asrWordRange": [
+        3462,
+        3470
+      ]
+    },
+    {
+      "start": 1645.823,
+      "end": 1648.318,
+      "kind": "speech",
+      "text": {
+        "sk": "Mesiac. A vláda USA",
+        "cs": "Měsíc. A vláda USA"
+      },
+      "asrWordRange": [
+        3470,
+        3474
+      ]
+    },
+    {
+      "start": 1649.102,
+      "end": 1654.4,
+      "kind": "speech",
+      "text": {
+        "sk": "sa k tomu nijako nevyjadrila, tak on stále\nhovorí, že ho vlastne vlastní, lebo",
+        "cs": "se k tomu nijak nevyjádřila, takže stále tvrdí,\nže ho vlastní, protože"
+      },
+      "asrWordRange": [
+        3474,
+        3489
+      ]
+    },
+    {
+      "start": 1654.4,
+      "end": 1659.719,
+      "kind": "speech",
+      "text": {
+        "sk": "vláda USA mu nič k tomu nepovedala. Takže tak,\nale z medzinárodného práva,",
+        "cs": "mu vláda USA nic neřekla. Takže tak, ale z\nhlediska mezinárodního práva,"
+      },
+      "asrWordRange": [
+        3489,
+        3502
+      ]
+    },
+    {
+      "start": 1659.719,
+      "end": 1664.938,
+      "kind": "speech",
+      "text": {
+        "sk": "z nejakého faktického... A je aj veľmi dôležité\nbyť schopný ovládať",
+        "cs": "z nějakého faktického hlediska... A také je\ndůležité dokázat ovládat"
+      },
+      "asrWordRange": [
+        3502,
+        3513
+      ]
+    },
+    {
+      "start": 1665.584,
+      "end": 1669.638,
+      "kind": "speech",
+      "text": {
+        "sk": "tú vec, ktorú vlastníš. A myslím si, že pozemok\nna Mesiaci,",
+        "cs": "to, co vlastníš. A myslím, že pozemek na Měsíci,"
+      },
+      "asrWordRange": [
+        3513,
+        3524
+      ]
+    },
+    {
+      "start": 1670.384,
+      "end": 1673.097,
+      "kind": "speech",
+      "text": {
+        "sk": "kebyže mu tam hocijaká vláda postaví nejakú",
+        "cs": "kdyby mu tam jakákoli vláda postavila nějakou"
+      },
+      "asrWordRange": [
+        3524,
+        3531
+      ]
+    },
+    {
+      "start": 1674.162,
+      "end": 1679.338,
+      "kind": "speech",
+      "text": {
+        "sk": "základňu alebo niečo, by veľmi ťažko išiel tam\nsa sťažovať alebo ich",
+        "cs": "základnu nebo něco podobného, těžko by si tam\njel stěžovat nebo je"
+      },
+      "asrWordRange": [
+        3531,
+        3543
+      ]
+    },
+    {
+      "start": 1679.338,
+      "end": 1680.656,
+      "kind": "speech",
+      "text": {
+        "sk": "vyhadzovať odtiaľ.",
+        "cs": "odtamtud vyhánět."
+      },
+      "asrWordRange": [
+        3543,
+        3545
+      ]
+    },
+    {
+      "start": 1683.554,
+      "end": 1685.587,
+      "kind": "speech",
+      "text": {
+        "sk": "OK, dobre. Máš ešte niečo, čo by si chcel\npovedať?",
+        "cs": "Dobře. Máš ještě něco, co bys chtěl říct?"
+      },
+      "asrWordRange": [
+        3545,
+        3555
+      ]
+    },
+    {
+      "start": 1686.352,
+      "end": 1691.728,
+      "kind": "speech",
+      "text": {
+        "sk": "Myslím si, že zatiaľ všetko. Ďakujeme veľmi\npekne za rozhovor",
+        "cs": "Myslím, že zatím všechno. Moc děkujeme za\nrozhovor"
+      },
+      "asrWordRange": [
+        3555,
+        3565
+      ]
+    },
+    {
+      "start": 1692.054,
+      "end": 1695.028,
+      "kind": "speech",
+      "text": {
+        "sk": "tebe, Samuel, a ďakujeme za počúvanie všetkým\nnašim divákom.",
+        "cs": "tobě, Samueli, a děkujeme za poslech všem našim\ndivákům."
+      },
+      "asrWordRange": [
+        3565,
+        3574
+      ]
+    },
+    {
+      "start": 1696.523,
+      "end": 1701.299,
+      "kind": "speech",
+      "text": {
+        "sk": "A ja ďakujem aj tebe teda za všetky zaujímavé\ninformácie a počúvajte nás na Spotify,",
+        "cs": "A já děkuji i tobě za všechny zajímavé informace\na poslouchejte nás na Spotify,"
+      },
+      "asrWordRange": [
+        3574,
+        3589
+      ]
+    },
+    {
+      "start": 1701.402,
+      "end": 1706.739,
+      "kind": "speech",
+      "text": {
+        "sk": "Podbeane, Apple Podcasts, čoskoro na Google\nPodcastoch a YouTube",
+        "cs": "Podbeanu, Apple Podcasts, brzy na Google\nPodcasts a YouTube"
+      },
+      "asrWordRange": [
+        3589,
+        3598
+      ]
+    },
+    {
+      "start": 1707.083,
+      "end": 1712.599,
+      "kind": "speech",
+      "text": {
+        "sk": "a nájdete nás rovnako aj na webe vedator.space a\nna Facebooku. Majte sa! Čaute!",
+        "cs": "a najdete nás také na webu vedator.space a na\nFacebooku. Mějte se! Čau!"
+      },
+      "asrWordRange": [
+        3598,
+        3614
+      ]
+    }
+  ]
+}
