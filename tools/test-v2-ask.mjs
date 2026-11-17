@@ -10,13 +10,6 @@ const savedProgress=JSON.stringify({'episode-142':{currentTime:600,duration:1800
 w.localStorage.setItem('vedatorPlaybackProgressV1',savedProgress);w.localStorage.setItem('vedator-user-playlists-v1',savedPlaylists);
 for(const script of d.querySelectorAll('script:not([src])'))w.eval(script.textContent);
 let requests=0;w.fetch=async()=>{requests++;return{ok:true,json:async()=>data}};
-// Do not let the catalog-loading fallback contact the fake test origin.
-w.XMLHttpRequest=class {
-  open(){}
-  send(){queueMicrotask(()=>{this.status=200;this.responseText=JSON.stringify(data);this.onload?.()})}
-  setRequestHeader(){}
-  abort(){}
-};
 w.HTMLMediaElement.prototype.play=()=>Promise.resolve();w.HTMLMediaElement.prototype.pause=()=>{};w.HTMLMediaElement.prototype.load=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{};
 const ready=new Promise(resolve=>w.addEventListener('vedator-v2-ready',resolve,{once:true}));
 w.eval(fs.readFileSync('app-v2.js','utf8'));d.dispatchEvent(new w.Event('DOMContentLoaded'));await ready;
@@ -32,7 +25,7 @@ if(d.documentElement.dataset.vedatorAskLoading==='1'){
 await waitFor(()=>d.documentElement.dataset.vedatorAskReady==='1');
 assert.equal(d.querySelector('#search-v2').placeholder,'Může světlo uniknout z černé díry?');
 assert.equal(w.localStorage.getItem('vedatorPlaybackProgressV1'),savedProgress);assert.equal(w.localStorage.getItem('vedator-user-playlists-v1'),savedPlaylists);
-assert(d.querySelectorAll('.tab-v2').length>=9,'Expected core navigation tabs');
+assert.equal(d.querySelectorAll('.tab-v2').length,9);
 assert.equal(d.querySelectorAll('#ask-results-v2 article').length,0);
 assert(!d.querySelector('.panel .controls').classList.contains('hidden'));
 assert.equal(d.querySelectorAll('#ask-heading-v2,#ask-note-v2,[data-ask-suggestion]').length,0);
