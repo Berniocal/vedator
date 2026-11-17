@@ -1,0 +1,26 @@
+name: Audit promised episode scope (temporary)
+on:
+  push:
+    branches: [audit/episode-promises-20261117]
+    paths: ['.github/workflows/audit-sliby-episode-scope.yml']
+permissions:
+  contents: read
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Print episode records for manual scope review
+        run: |
+          node <<'JS'
+          const fs=require('node:fs');
+          const html=fs.readFileSync('sliby/index.html','utf8');
+          const match=html.match(/<script type="application\\/json" id="audit-data">([\\s\\S]*?)<\\/script>/);
+          if(!match)throw Error('audit-data missing');
+          const data=JSON.parse(match[1]);
+          const ep=data.findings.filter(r=>r.section==='episodes');
+          console.log('AUDIT_COUNT '+ep.length+' TOTAL '+data.findings.length);
+          for(const r of ep){
+            console.log('AUDIT_RECORD '+JSON.stringify({candidate:r.candidate,tema:r.tema,title:r.displayTema||r.tema,compactTitle:r.compactTitle,kategorie:r.kategorie,section:r.section,explanation:String(r.vysvetleni||'').slice(0,420)}));
+          }
+          JS
