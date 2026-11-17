@@ -1,8 +1,10 @@
 name: Validate episode 7 captions before release
 on:
   push:
-    branches: [captions/episode-7-precise-20261117, captions/episode-7-finish-20261117]
+    branches: [main, captions/episode-7-precise-20261117, captions/episode-7-finish-20261117]
     paths:
+      - '.github/workflows/validate-episode7-captions.yml'
+      - 'tools/validate-episode7-captions.py'
       - 'captions/episode-7.json'
       - 'captions/episode-7.cs.srt'
       - 'captions/episode-7.sk.srt'
@@ -11,6 +13,15 @@ on:
       - 'captions/source/episode-7-alignment.json'
       - 'audio-seek-index.json'
       - 'episode-videos.json'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'captions/episode-7*'
+      - 'captions/source/episode-7*'
+      - tools/validate-episode7-captions.py
+      - episode-videos.json
+      - audio-seek-index.json
+      - .github/workflows/validate-episode7-captions.yml
   workflow_dispatch:
 permissions:
   contents: read

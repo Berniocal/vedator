@@ -10,6 +10,15 @@ on:
       - audio-seek-index.json
       - tools/test-caption-clock-browser.mjs
       - .github/workflows/verify-caption-clock.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - app-v2.js
+      - episode-videos.json
+      - 'captions/**'
+      - audio-seek-index.json
+      - tools/test-caption-clock-browser.mjs
+      - .github/workflows/verify-caption-clock.yml
   workflow_dispatch:
 permissions:
   contents: read
