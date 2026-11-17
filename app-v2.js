@@ -1039,10 +1039,14 @@
     const cache=await caches.open(OFFLINE_CACHE),response=await cache.match(record.cacheUrl);if(!response)return'';
     const url=URL.createObjectURL(await response.blob());state.blobUrls.set(record.key,url);return url;
   }
+  function episodeAudioSource(episode){
+    const file=String(episode?.audioFile||'');
+    return /^audio\/episode-[1-9]\d*\.mp3$/.test(file)?new URL('./'+file,location.href).href:episode.enclosure;
+  }
   async function playbackUrl(episode){
     const record=state.offlineIndex[episodeKey(episode.number)];
     if(record){try{const blob=await offlineBlobUrl(record);if(blob)return blob}catch{}}
-    return episode.enclosure;
+    return episodeAudioSource(episode);
   }
 
   function episodeYoutubeId(episode){const id=String(episode?.youtubeId||'');return /^[A-Za-z0-9_-]{11}$/.test(id)?id:''}
@@ -1646,7 +1650,7 @@
     // Online episodes already have their MP3 URL in the data bundle.
     // Avoid *any* await when a track ends: Android can suspend audio between tasks.
     // Offline MP3s likewise switch synchronously if their Blob URL is already cached.
-    let source=episode.enclosure;
+    let source=episodeAudioSource(episode);
     const offlineRecord=state.offlineIndex[key];
     const cachedOfflineUrl=offlineRecord?state.blobUrls.get(key):null;
     if(cachedOfflineUrl)source=cachedOfflineUrl;

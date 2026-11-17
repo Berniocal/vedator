@@ -1,0 +1,44 @@
+name: Verify and stage original episode 5 MP3
+on:
+  push:
+    branches: [fix/episode-5-mp3-source-20261117]
+    paths: [.github/workflows/stage-episode5-mp3.yml]
+permissions:
+  contents: write
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Preserve exact caption source audio
+        run: |
+          mkdir -p audio
+          curl --fail --location --retry 2 --max-time 90 'https://mcdn.podbean.com/mf/web/zzp3ai/podcast_ep5.mp3' -o audio/episode-5.mp3
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          p=Path("audio/episode-5.mp3")
+          assert p.stat().st_size==37065020
+          digest=hashlib.sha256(p.read_bytes()).hexdigest()
+          assert digest=="2008fcfd831b8663cdff193610a31cc240f68a98a7bcd666a9686d960dd14667"
+          print("Verified exact original MP3:",p.stat().st_size,digest)
+          PY
+      - name: Check data and seek index compatibility
+        run: |
+          node --check app-v2.js
+          node tools/build-content-v2.mjs
+          cp audio-seek-index.json "$RUNNER_TEMP/original-seek-index.json"
+          node tools/build-mp3-seek-index.mjs audio/episode-5.mp3 'https://mcdn.podbean.com/mf/web/zzp3ai/podcast_ep5.mp3'
+          cmp audio-seek-index.json "$RUNNER_TEMP/original-seek-index.json"
+      - name: Commit verified media asset
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git restore content-v2.json
+          git add audio/episode-5.mp3
+          git commit -m "Preserve verified original episode 5 MP3 for reliable same-origin playback"
+          git pull --rebase origin fix/episode-5-mp3-source-20261117
+          git push origin HEAD:fix/episode-5-mp3-source-20261117
