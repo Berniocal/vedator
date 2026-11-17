@@ -1,4 +1,4 @@
-name: Draft Czech translation of episode 8 for editorial review
+name: Draft Czech translation of episode 9 for editorial review
 on:
   push:
     branches: [captions/episode-9-precise-20261117]
@@ -50,7 +50,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add captions/source/episode-9-translation-draft.cs.json
           if ! git diff --cached --quiet; then
-            git commit -m "Add unreviewed Czech translation draft for episode 8"
+            git commit -m "Add unreviewed Czech translation draft for episode 9"
             git pull --rebase origin captions/episode-9-precise-20261117
             git push origin HEAD:captions/episode-9-precise-20261117
           fi
