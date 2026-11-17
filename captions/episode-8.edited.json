@@ -7,7 +7,7 @@
     "model": "large-v3-turbo",
     "duration": 941.6098125
   },
-  "review": "All 210 fresh Slovak ASR cues were read; 140 received language corrections, all 210 were independently Czech-translated and reviewed against Slovak; large-v3 source audio checks restore missed speech and cross-check uncertain technical names. This is editorial ASR/audio-model review, NOT an independent human listen of every spoken word. Uncertain words (notably the short interjection around 5:40 and acid-temperature phrase around 11:07) are documented for follow-up. Additional long blocks split at existing source-audio ASR word boundaries to improve mobile two-line readability; corrected speaker utterance at 206s.",
+  "review": "All 210 fresh Slovak ASR cues were read; 140 received language corrections, all 210 were independently Czech-translated and reviewed against Slovak; large-v3 source audio checks restore missed speech and cross-check uncertain technical names. This is editorial ASR/audio-model review, NOT an independent human listen of every spoken word. Uncertain words (notably the short interjection around 5:40 and acid-temperature phrase around 11:07) are documented for follow-up. Additional long blocks split at existing source-audio ASR word boundaries to improve mobile two-line readability; corrected speaker utterance at 206s. Final short/long sentence balance checked against exact audio ASR word boundaries; no speech intentionally omitted.",
   "checkWindows": [
     [
       25,
@@ -157,20 +157,37 @@
     },
     {
       "start": 43.49,
-      "end": 49.51,
+      "end": 46.09,
       "text": {
-        "sk": "o čom sa budeme dnes rozprávať? Aká je téma? Dnes sa budeme rozprávať o pištoľníckych krevetách.",
-        "cs": "o čem si dnes budeme povídat? Jaké je téma? Dnes si budeme povídat o pistolových krevetách."
+        "sk": "o čom sa budeme dnes rozprávať? Aká je téma?",
+        "cs": "o čem si dnes budeme povídat? Jaké je téma?"
       },
       "asrWordRange": [
         80,
+        89
+      ],
+      "sourceCues": [
+        8,
+        9
+      ],
+      "alignmentText": "o čom sa budeme dnes rozprávať? Aká je téma?"
+    },
+    {
+      "start": 46.45,
+      "end": 49.51,
+      "text": {
+        "sk": "Dnes sa budeme rozprávať o pištoľníckych krevetách.",
+        "cs": "Dnes si budeme povídat o pistolových krevetách."
+      },
+      "asrWordRange": [
+        89,
         96
       ],
       "sourceCues": [
         8,
         9
       ],
-      "alignmentText": "o čom sa budeme dnes rozprávať? Aká je téma? Dnes sa budeme rozprávať o pištoľníckych krevetách."
+      "alignmentText": "Dnes sa budeme rozprávať o pištoľníckych krevetách."
     },
     {
       "start": 50.63,
@@ -607,20 +624,37 @@
     },
     {
       "start": 179.34,
-      "end": 185.02,
+      "end": 181.32,
       "text": {
-        "sk": "Potom je tam teda obrovský podtlak, tá voda znova plesne o dno nádoby a tú nádobu dokáže rozbiť.",
-        "cs": "Pak tam vznikne obrovský podtlak, voda znovu udeří o dno nádoby a nádobu dokáže rozbít."
+        "sk": "Potom je tam teda obrovský podtlak,",
+        "cs": "Pak tam vznikne obrovský podtlak,"
       },
       "asrWordRange": [
         391,
+        397
+      ],
+      "sourceCues": [
+        38,
+        39
+      ],
+      "alignmentText": "Potom je tam teda obrovský podtlak,"
+    },
+    {
+      "start": 181.56,
+      "end": 185.02,
+      "text": {
+        "sk": "tá voda znova plesne o dno nádoby a tú nádobu dokáže rozbiť.",
+        "cs": "voda znovu udeří o dno nádoby a nádobu dokáže rozbít."
+      },
+      "asrWordRange": [
+        397,
         408
       ],
       "sourceCues": [
         38,
         39
       ],
-      "alignmentText": "Potom je tam teda obrovský podtlak, tá voda znova plesne o dno nádoby a tú nádobu dokáže rozbiť."
+      "alignmentText": "tá voda znova plesne o dno nádoby a tú nádobu dokáže rozbiť."
     },
     {
       "start": 185.82,
@@ -2078,19 +2112,35 @@
     },
     {
       "start": 583.12,
-      "end": 587.3,
+      "end": 584.16,
       "text": {
-        "sk": "Vákuum je úplne, hej, presne. Akože v úvodzovkách taký magnet, že všetko do neho vchádza a",
-        "cs": "Vakuum je úplně, ano, přesně. V uvozovkách jako magnet, do kterého všechno vstupuje a"
+        "sk": "Vákuum je úplne, hej, presne.",
+        "cs": "Vakuum je úplně, ano, přesně."
       },
       "asrWordRange": [
         1469,
+        1474
+      ],
+      "sourceCues": [
+        129
+      ],
+      "alignmentText": "Vákuum je úplne, hej, presne."
+    },
+    {
+      "start": 584.16,
+      "end": 587.3,
+      "text": {
+        "sk": "Akože v úvodzovkách taký magnet, že všetko do neho vchádza a",
+        "cs": "V uvozovkách jako magnet, do kterého všechno vstupuje a"
+      },
+      "asrWordRange": [
+        1474,
         1484
       ],
       "sourceCues": [
         129
       ],
-      "alignmentText": "Vákuum je úplne, hej, presne. Akože v úvodzovkách taký magnet, že všetko do neho vchádza a"
+      "alignmentText": "Akože v úvodzovkách taký magnet, že všetko do neho vchádza a"
     },
     {
       "start": 587.3,
@@ -2869,20 +2919,37 @@
     },
     {
       "start": 793.62,
-      "end": 799.06,
+      "end": 796.36,
       "text": {
-        "sk": "alebo čo, lebo jeden s takým prerasteným klepetom. Ja, že chodia vedľa seba a jeden so zbraňou",
-        "cs": "nebo co, protože jeden má přerostlé klepeto. Jdou vedle sebe a jeden má zbraň"
+        "sk": "alebo čo, lebo jeden s takým prerasteným klepetom.",
+        "cs": "nebo co, protože jeden má přerostlé klepeto."
       },
       "asrWordRange": [
         1996,
+        2004
+      ],
+      "sourceCues": [
+        178,
+        179
+      ],
+      "alignmentText": "alebo čo, lebo jeden s takým prerasteným klepetom."
+    },
+    {
+      "start": 796.48,
+      "end": 799.06,
+      "text": {
+        "sk": "Ja, že chodia vedľa seba a jeden so zbraňou",
+        "cs": "Jdou vedle sebe a jeden má zbraň"
+      },
+      "asrWordRange": [
+        2004,
         2013
       ],
       "sourceCues": [
         178,
         179
       ],
-      "alignmentText": "alebo čo, lebo jeden s takým prerasteným klepetom. Ja, že chodia vedľa seba a jeden so zbraňou"
+      "alignmentText": "Ja, že chodia vedľa seba a jeden so zbraňou"
     },
     {
       "start": 800.14,
