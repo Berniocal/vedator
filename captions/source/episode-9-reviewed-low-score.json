@@ -1,0 +1,27 @@
+{
+  "episode": 9,
+  "status": "independent-ASR-corroboration-of-colloquial-pronunciation-not-human-listening",
+  "audioSha256": "dd81a65551a56e8228cf2c7340e0b6f605c7a93cddc01dd4739b9a541f48cd84",
+  "independentTranscriptFile": "captions/source/episode-9-followup-checks.sk.json",
+  "exceptions": [
+    {
+      "sourceCues": [
+        360,
+        361
+      ],
+      "asrWordRange": [
+        3567,
+        3572
+      ],
+      "cueTextSk": "Áno. Teda v Mliečnej ceste.",
+      "sourceAsrTextSk": "Áno. Teda v mnešnej ceste.",
+      "independentWindow": [
+        1550,
+        1560
+      ],
+      "independentHeardText": "aj v galaxii. Predpokladám, nie v mnešnej galaxii. Teda v mnešnej ceste. Wow, to je neuveriteľné, že na takú vzdialnosť...",
+      "reason": "Both recognizers render the fast colloquial Mliečnej pronunciation approximately as 'mnešnej'. The context explicitly names the Milky Way (Mliečna cesta). Retain the correct proper name in subtitles; preserve and disclose low CTC character-score uncertainty.",
+      "humanListeningVerified": false
+    }
+  ]
+}

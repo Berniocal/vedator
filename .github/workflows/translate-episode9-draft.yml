@@ -1,0 +1,58 @@
+name: Draft Czech translation of episode 9 for editorial review
+on:
+  push:
+    branches: [captions/episode-9-precise-20261117]
+    paths:
+      - tools/translate-episode9-draft.py
+      - .github/workflows/translate-episode9-draft.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: vedator-episode9-czech-draft
+  cancel-in-progress: true
+jobs:
+  translation-draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: vedator-nllb-600m-episode9-v1
+      - name: Install translation model dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --index-url https://download.pytorch.org/whl/cpu torch==2.5.1
+          python -m pip install --disable-pip-version-check transformers==4.45.2 'numpy<2' sentencepiece
+      - name: Read completed Slovak ASR from preparation branch
+        run: |
+          for attempt in $(seq 1 240); do
+            git pull --ff-only origin captions/episode-9-precise-20261117
+            if test -s captions/source/episode-9-draft.sk.json; then exit 0; fi
+            sleep 15
+          done
+          echo 'Episode 9 source ASR was not available' >&2
+          exit 1
+      - name: Create unreviewed Czech translation draft (not publishable)
+        run: python tools/translate-episode9-draft.py
+      - name: Flag uncertain audio windows and incomplete Czech translation
+        run: python tools/triage-episode9-draft.py
+      - name: Store draft for manual language review
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add captions/source/episode-9-translation-draft.cs.json captions/source/episode-9-editorial-triage.json captions/source/episode-9-editorial-triage.md
+          if ! git diff --cached --quiet; then
+            git commit -m "Add unreviewed Czech translation draft for episode 9"
+            git pull --rebase origin captions/episode-9-precise-20261117
+            git push origin HEAD:captions/episode-9-precise-20261117
+          fi

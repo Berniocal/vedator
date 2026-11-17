@@ -1,0 +1,49 @@
+name: Recheck episode 9 disputed speech against original audio
+on:
+  push:
+    branches: [captions/episode-9-precise-20261117]
+    paths:
+      - captions/source/episode-9-review-windows.json
+      - .github/workflows/verify-episode9-editorial-passages.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: vedator-episode9-editorial-cross-check
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install independent full recognizer
+        run: python -m pip install --disable-pip-version-check faster-whisper==1.2.1
+      - name: Wait until complete source transcript is available
+        run: |
+          for attempt in $(seq 1 120); do
+            git pull --ff-only origin "${GITHUB_REF_NAME}"
+            if test -s captions/source/episode-9-draft.sk.json; then exit 0; fi
+            sleep 15
+          done
+          exit 1
+      - uses: actions/cache@v4
+        with:
+          path: /tmp/vedator-ep9-audio
+          key: vedator-original-episode-9-audio-v1
+      - name: Recognize disputed source-audio windows with large-v3
+        run: python tools/verify-episode9-passages.py --editorial-review
+      - name: Commit independent-acoustic evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add captions/source/episode-9-followup-checks.sk.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Independently recheck 7 disputed episode 9 passage windows"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

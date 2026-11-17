@@ -22,7 +22,7 @@ assert(captions.cues.every(cue=>cue.kind==='speech'&&!/\[(?:Úsek|Nejasný|Nesro
 assert(captions.cues.some(cue=>cue.start<670&&cue.end>655&&/turbín/.test(cue.text.cs+cue.text.sk)),'Restore the lost explanation in the formerly repeated passage');
 assert(captions.cues.every((cue,i)=>cue.start>=0&&cue.end>cue.start&&(!i||cue.start>=captions.cues[i-1].end)&&cue.text.cs&&cue.text.sk));
 assert.equal(data.episodes.find(e=>e.number===1).captionFile,'captions/episode-1.json');
-assert(data.episodes.filter(e=>e.number!==1).every(e=>!e.captionFile),'Only the pilot episode has edited captions');
+for(const mapping of mappings){const episode=data.episodes.find(e=>e.number===mapping.episode);assert(episode,'Catalog entry for mapped episode');if(mapping.captionFile)assert.equal(episode.captionFile,mapping.captionFile,`Published captions episode ${mapping.episode}`);else assert(!episode.captionFile,`Episode ${mapping.episode} should not have captions`);}
 const captionAt=(time,lang)=>captions.cues.find(c=>c.start<=time&&time<c.end)?.text[lang]||'';
 assert.equal(mappings.length,10);
 for(let n=1;n<=10;n++){
