@@ -5,6 +5,9 @@ on:
     paths:
       - tools/verify-episode7-passages.py
       - .github/workflows/verify-episode7-passages.yml
+concurrency:
+  group: vedator-episode7-independent-speech-check
+  cancel-in-progress: true
 permissions:
   contents: write
 jobs:
@@ -30,7 +33,7 @@ jobs:
           exit 1
       - uses: actions/cache@v4
         with:
-          path: /tmp/vedator-ep6-audio
+          path: /tmp/vedator-ep7-audio
           key: vedator-original-episode-7-audio-v1
       - name: Check speech gaps and uncertain proper names against original audio
         run: python tools/verify-episode7-passages.py
