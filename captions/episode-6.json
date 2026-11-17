@@ -18,7 +18,11 @@
     "alignmentModel": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
     "transcriptFile": "captions/source/episode-6-draft.sk.json",
     "alignmentFile": "captions/source/episode-6-alignment.json",
-    "review": "Complete Slovak editorial review and Czech translation; acoustic character alignment and review of flagged passages. Not a full independent human listening verification."
+    "review": "Complete Slovak editorial review and Czech translation; acoustic character alignment and review of flagged passages. Not a full independent human listening verification.",
+    "recoveredSpeechFile": "captions/source/episode-6-checks.sk.json",
+    "disputedSpeechFile": "captions/source/episode-6-extra-checks.sk.json",
+    "independentCtcFile": "captions/source/episode-6-ctc-checks.sk.json",
+    "grouping": "Brief sentence fragments joined for readable captions; original source-media clock retained."
   },
   "cues": [
     {
@@ -6618,7 +6622,7 @@
       ]
     },
     {
-      "start": 2368.0,
+      "start": 2368,
       "end": 2368.424,
       "kind": "speech",
       "text": {
