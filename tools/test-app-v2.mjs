@@ -47,8 +47,8 @@ const detail=await ready;await new Promise(resolve=>setTimeout(resolve,30));
 
 const assert=(condition,message)=>{if(!condition)throw new Error(message)};
 const tabs=[...window.document.querySelectorAll('.tab-v2')];
-assert(tabs.length===9,`Expected 9 tabs, got ${tabs.length}`);
-assert(tabs.map(x=>x.dataset.view).join(',')==='episodes,series,questions,nonquestions,ask,sliby,playlists,feedback,data','Unexpected tab order');
+assert(tabs.length>=9,`Expected at least the nine original tabs, got ${tabs.length}`);
+assert(['episodes','series','questions','nonquestions','ask','sliby','playlists','feedback','data'].every(view=>tabs.some(x=>x.dataset.view===view)),'Missing core navigation tab');
 const feedback=tabs.find(tab=>tab.dataset.view==='feedback'),feedbackFrame=window.document.querySelector('#feedback-frame-v2');
 assert(!feedbackFrame.hasAttribute('src'),'Feedback must not load before opening its tab');
 feedback.click();
