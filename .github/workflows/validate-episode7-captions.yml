@@ -1,7 +1,7 @@
 name: Validate episode 7 captions before release
 on:
   push:
-    branches: [captions/episode-7-precise-20261117]
+    branches: [captions/episode-7-precise-20261117, captions/episode-7-finish-20261117]
     paths:
       - 'captions/episode-7.json'
       - 'captions/episode-7.cs.srt'
