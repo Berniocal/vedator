@@ -17,13 +17,6 @@ window.localStorage.setItem('vedator-user-playlists-v1',JSON.stringify(legacyPla
 const progressBefore=window.localStorage.getItem('vedatorPlaybackProgressV1');
 const playlistsBefore=window.localStorage.getItem('vedator-user-playlists-v1');
 
-// The app supports an XMLHttpRequest fallback; never let this test contact example.test.
-window.XMLHttpRequest=class {
-  open(){}
-  send(){queueMicrotask(()=>{this.status=200;this.responseText=JSON.stringify(data);this.onload?.()})}
-  setRequestHeader(){}
-  abort(){}
-};
 window.fetch=async()=>({ok:true,status:200,json:async()=>data});
 window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};
@@ -42,9 +35,8 @@ const detail=await ready;await new Promise(resolve=>setTimeout(resolve,30));
 
 const assert=(condition,message)=>{if(!condition)throw new Error(message)};
 const tabs=[...window.document.querySelectorAll('.tab-v2')];
-assert(tabs.length>=9,`Expected at least 9 core tabs, got ${tabs.length}`);
-const requiredTabs='episodes,series,questions,nonquestions,ask,sliby,playlists,feedback,data'.split(',');
-assert(requiredTabs.every(name=>tabs.some(tab=>tab.dataset.view===name)),'A required core tab is missing');
+assert(tabs.length===9,`Expected 9 tabs, got ${tabs.length}`);
+assert(tabs.map(x=>x.dataset.view).join(',')==='episodes,series,questions,nonquestions,ask,sliby,playlists,feedback,data','Unexpected tab order');
 const feedback=tabs.find(tab=>tab.dataset.view==='feedback'),feedbackFrame=window.document.querySelector('#feedback-frame-v2');
 assert(!feedbackFrame.hasAttribute('src'),'Feedback must not load before opening its tab');
 feedback.click();
