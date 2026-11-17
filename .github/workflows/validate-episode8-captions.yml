@@ -3,8 +3,6 @@ on:
   push:
     branches: [captions/episode-8-precise-20261117]
     paths:
-      - '.github/workflows/validate-episode8-captions.yml'
-      - 'tools/validate-episode8-captions.py'
       - 'captions/episode-8.json'
       - 'captions/episode-8.cs.srt'
       - 'captions/episode-8.sk.srt'
