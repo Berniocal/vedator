@@ -1,5 +1,5 @@
 name: Apply reviewed episode promise scope (temporary)
-# Includes corrected historical archive section totals.
+# Includes corrected historical archive section totals and historical topic fixtures.
 on:
   push:
     branches: [audit/episode-promises-20261117]
