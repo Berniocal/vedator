@@ -1,4 +1,4 @@
-name: Prepare precise episode 8 captions
+name: Prepare precise episode 9 captions
 on:
   push:
     branches: [captions/episode-9-precise-20261117]
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
-      VEDATOR_EP8_AUDIO: '/tmp/vedator-ep8-audio'
+      VEDATOR_EP9_AUDIO: '/tmp/vedator-ep9-audio'
       HF_HUB_DISABLE_TELEMETRY: '1'
       TOKENIZERS_PARALLELISM: 'false'
     steps:
@@ -27,7 +27,7 @@ jobs:
           python-version: '3.11'
       - uses: actions/cache@v4
         with:
-          path: '/tmp/vedator-ep8-audio'
+          path: '/tmp/vedator-ep9-audio'
           key: vedator-original-episode-9-audio-v1
       - uses: actions/cache@v4
         with:
@@ -61,7 +61,7 @@ jobs:
           if test -f captions/episode-9.edited.json; then git add captions/episode-9*; fi
           git restore content-v2.json
           if ! git diff --cached --quiet; then
-            git commit -m "Prepare episode 8 source transcript or acoustically aligned bilingual captions"
+            git commit -m "Prepare episode 9 source transcript or acoustically aligned bilingual captions"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
