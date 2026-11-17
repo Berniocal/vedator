@@ -1,0 +1,52 @@
+{
+  "episode": 8,
+  "status": "candidate-revisions-backed-by-fresh-ASR-plus-independent-large-v3;not-yet-CTC-aligned",
+  "replace": {
+    "51": {
+      "sk": "Buchnúť po viečku? Tam nie je viečka. Áno, zhora buchnúť po fľaške. Len aby ľudia",
+      "cs": "Udeřit do víčka? Tam žádné víčko není. Ano, udeřit do lahve shora. Jen aby lidé",
+      "reason": "Independent large-v3 230.4–242.4 recovered speaker interruption."
+    },
+    "58": {
+      "sk": "tam deje, že prudkou zmenou tlaku dochádza k vytvoreniu bublinky.",
+      "cs": "tam děje: prudká změna tlaku vede ke vzniku bublinky.",
+      "reason": "ASR 'nám deje' should be 'tam deje' at boundary with recovered ASR gap."
+    },
+    "61": {
+      "sk": "zasvieti. No a tuto existovali vo fyzike dve vysvetlenia. Bolo jasné, že jedno z nich",
+      "cs": "zasvítí. A tady ve fyzice existovala dvě vysvětlení. Bylo jasné, že jedno z nich",
+      "reason": "Restore complete premise and Slovak agreement."
+    },
+    "62": {
+      "sk": "je správne.",
+      "cs": "je správné.",
+      "reason": "Spoken continuation of preceding sentence."
+    },
+    "96": {
+      "sk": "A teraz ty, keď to vákuum takto obmedzíš, zmenšíš alebo zväčšíš, napríklad, že ho",
+      "cs": "A když to vakuum takto omezíš, zmenšíš nebo zvětšíš, například ho",
+      "reason": "Remove ASR false 'tako' without changing example."
+    }
+  },
+  "insertAfterCue": {
+    "57": [
+      {
+        "start": 262.06,
+        "end": 268.14,
+        "asrWordRange": [
+          700,
+          700
+        ],
+        "text": {
+          "sk": "a ten tlak vrazí tú vodu do dna a vyrazí ho. Takže toto je prvá časť, čo sa",
+          "cs": "a ten tlak vrazí vodu do dna a prorazí ho. To je tedy první část toho, co se"
+        },
+        "recoveredSpeech": "Reconstructed from original source-audio gap 262.06–268.14 s with independent large-v3 from 261.06–269.14; split at the original ASR cue 58 boundary to retain asrWordRange coverage."
+      }
+    ]
+  },
+  "reviewNotes": [
+    "The zero-width ASR word range for recovered speech must be derived from cue 57 end dynamically, not the static illustrative [700,700] above.",
+    "Do not claim human independent listening: evidence is original-MP3 ASR and independent large-v3."
+  ]
+}
