@@ -111,7 +111,36 @@ def main():
         scores.append(float(audit.get("meanCharacterScore", 0)))
         word_end, last_end = hi, b
     check(word_end == word_count, f"ASR words omitted at end: {word_end}/{word_count}")
-    check(not any(score < .35 for score in scores), "CTC alignments under 0.35 require manual review")
+    # A low CTC character score is never silently accepted. One exact source
+    # phrase may be corroborated by independent large-v3 on the original MP3.
+    low_alignment = [(i + 1, a) for i, a in enumerate(alignment["cues"])
+                     if float(a.get("meanCharacterScore", 0)) < .35]
+    evidence_path = CAP / "source" / "episode-9-reviewed-low-score.json"
+    followup_path = CAP / "source" / "episode-9-followup-checks.sk.json"
+    evidence = load(evidence_path) if evidence_path.exists() else {}
+    followup = load(followup_path) if followup_path.exists() else {}
+    exceptions = {tuple(x["asrWordRange"]): x for x in evidence.get("exceptions", [])}
+    check(len(low_alignment) <= 1, "More than one unresolved CTC alignment below 0.35")
+    check(evidence.get("audioSha256") == sha and followup.get("audioSha256") == sha,
+          "Low-CTC review evidence must correspond to authenticated original MP3")
+    for i, audit in low_alignment:
+        expected = (3567, 3572)
+        word_range = tuple(cues[i - 1]["asrWordRange"])
+        detail = exceptions.get(word_range)
+        check(word_range == expected and detail is not None,
+              f"Cue {i}: CTC under 0.35 without explicit independent-audio exception")
+        if detail:
+            check(detail["cueTextSk"] == cues[i-1]["text"]["sk"].replace("\\n", " "),
+                  f"Cue {i}: review text mismatch")
+            check(detail.get("humanListeningVerified") is False,
+                  f"Cue {i}: source review must not falsely claim human listening")
+            check(any(p["start"] <= detail["independentWindow"][0] and
+                      p["end"] >= detail["independentWindow"][1] and
+                      "mnešnej ceste" in " ".join(s["text"] for s in p["segments"]).lower()
+                      for p in followup.get("passages", [])),
+                  f"Cue {i}: independent ASR does not corroborate intended Mliečna cesta")
+    if low_alignment:
+        warnings.append("1 lower-score CTC cue documented with independent original-audio ASR; not independently listened to")
     if long_lines:
         warnings.append(f"{len(long_lines)} lines exceed 48 characters")
     if three_lines:
@@ -144,6 +173,7 @@ def main():
               "asrWordsCovered": word_end, "asrWordCount": word_count,
               "duration": duration, "audioSha256": sha,
               "lowCtcScoreCount": sum(v < .35 for v in scores),
+              "independentlyCorroboratedLowCtcCues": len(low_alignment),
               "warnings": warnings, "issues": issues,
               "caution": "Automated structure checks do not prove accuracy of spoken text or YouTube/MP3 acoustic sync."}
     print(json.dumps(result, ensure_ascii=False, indent=2))
