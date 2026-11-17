@@ -7,7 +7,7 @@
     "model": "large-v3-turbo",
     "duration": 1723.115125
   },
-  "review": "Manually revised each of 374 ASR subtitle blocks in Slovak and Czech, compared against independent large-v3 samples but NOT comprehensively verified by direct audio listening. Two ASR speech gaps recovered from independent recognizer; one unclear brief reply remains explicitly marked. Do not publish without quality gates.",
+  "review": "Manually revised each of 374 ASR subtitle blocks in Slovak and Czech, compared against independent large-v3 samples but NOT comprehensively verified by direct audio listening. Two ASR speech gaps recovered from independent recognizer; one unclear brief reply remains explicitly marked. Do not publish without quality gates. Final editorial pass: preserve the spoken term jurisdiction in Czech and merge short adjacent fragments for readable display; sourceCues retain original ASR cue references.",
   "checkWindows": [
     [
       980.75,
@@ -51,31 +51,20 @@
     },
     {
       "start": 16.5,
-      "end": 21.32,
+      "end": 21.56,
       "text": {
-        "sk": "Vitajte pri Vedátorskom podcaste, v ktorom budeme diskutovať o vede a prírode okolo",
-        "cs": "Vítejte u Vedátorského podcastu, ve kterém budeme diskutovat o vědě a přírodě kolem"
+        "sk": "Vitajte pri Vedátorskom podcaste, v ktorom budeme diskutovať o vede a prírode okolo nás.",
+        "cs": "Vítejte u Vedátorského podcastu, ve kterém budeme diskutovat o vědě a přírodě kolem nás."
       },
       "asrWordRange": [
         13,
-        26
-      ],
-      "sourceCue": 2,
-      "alignmentText": "Vitajte pri Vedátorskom podcaste, v ktorom budeme diskutovať o vede a prírode okolo"
-    },
-    {
-      "start": 21.32,
-      "end": 21.56,
-      "text": {
-        "sk": "nás.",
-        "cs": "nás."
-      },
-      "asrWordRange": [
-        26,
         27
       ],
-      "sourceCue": 3,
-      "alignmentText": "nás."
+      "alignmentText": "Vitajte pri Vedátorskom podcaste, v ktorom budeme diskutovať o vede a prírode okolo nás.",
+      "sourceCues": [
+        2,
+        3
+      ]
     },
     {
       "start": 22.22,
@@ -1829,31 +1818,20 @@
     },
     {
       "start": 642.05,
-      "end": 647.27,
+      "end": 648.09,
       "text": {
-        "sk": "Čo sa týkalo nejakej explorácie vesmíru, tak tie ďalšie dohody v svojom",
-        "cs": "Pokud jde o průzkum vesmíru, další dohody ve své"
+        "sk": "Čo sa týkalo nejakej explorácie vesmíru, tak tie ďalšie dohody v svojom podstate len",
+        "cs": "Pokud jde o průzkum vesmíru, další dohody ve své podstatě jen"
       },
       "asrWordRange": [
         1346,
-        1358
-      ],
-      "sourceCue": 129,
-      "alignmentText": "Čo sa týkalo nejakej explorácie vesmíru, tak tie ďalšie dohody v svojom"
-    },
-    {
-      "start": 647.27,
-      "end": 648.09,
-      "text": {
-        "sk": "podstate len",
-        "cs": "podstatě jen"
-      },
-      "asrWordRange": [
-        1358,
         1360
       ],
-      "sourceCue": 130,
-      "alignmentText": "podstate len"
+      "alignmentText": "Čo sa týkalo nejakej explorácie vesmíru, tak tie ďalšie dohody v svojom podstate len",
+      "sourceCues": [
+        129,
+        130
+      ]
     },
     {
       "start": 649.38,
@@ -2112,7 +2090,7 @@
       "end": 743.12,
       "text": {
         "sk": "a jurisdikcia tam neplatí proste žiadneho štátu. Takže aj keď tam Američania dali",
-        "cs": "a neplatí tam svrchovanost žádného státu. Takže i když tam Američané vztyčili"
+        "cs": "a neplatí tam jurisdikce žádného státu. Takže i když tam Američané vztyčili"
       },
       "asrWordRange": [
         1544,
@@ -2473,31 +2451,20 @@
     },
     {
       "start": 860.29,
-      "end": 865.87,
+      "end": 866.45,
       "text": {
-        "sk": "o desaťročia obrovské dôsledky. Určite, má to obrovské dôsledky a hlavne sa začalo",
-        "cs": "za desítky let obrovské důsledky. Určitě, má to obrovské důsledky a hlavně se začalo"
+        "sk": "o desaťročia obrovské dôsledky. Určite, má to obrovské dôsledky a hlavne sa začalo aj",
+        "cs": "za desítky let obrovské důsledky. Určitě, má to obrovské důsledky a hlavně se začalo také"
       },
       "asrWordRange": [
         1818,
-        1832
-      ],
-      "sourceCue": 175,
-      "alignmentText": "o desaťročia obrovské dôsledky. Určite, má to obrovské dôsledky a hlavne sa začalo"
-    },
-    {
-      "start": 865.87,
-      "end": 866.45,
-      "text": {
-        "sk": "aj",
-        "cs": "také"
-      },
-      "asrWordRange": [
-        1832,
         1833
       ],
-      "sourceCue": 176,
-      "alignmentText": "aj"
+      "alignmentText": "o desaťročia obrovské dôsledky. Určite, má to obrovské dôsledky a hlavne sa začalo aj",
+      "sourceCues": [
+        175,
+        176
+      ]
     },
     {
       "start": 867.71,
@@ -2557,31 +2524,20 @@
     },
     {
       "start": 887.01,
-      "end": 892.13,
+      "end": 892.73,
       "text": {
-        "sk": "sa snažia dostať do toho vesmírneho priestoru svojou komerčnou",
-        "cs": "se snaží dostat do vesmírného prostoru svou komerční"
+        "sk": "sa snažia dostať do toho vesmírneho priestoru svojou komerčnou aktivitou.",
+        "cs": "se snaží dostat do vesmírného prostoru svou komerční činností."
       },
       "asrWordRange": [
         1877,
-        1886
-      ],
-      "sourceCue": 181,
-      "alignmentText": "sa snažia dostať do toho vesmírneho priestoru svojou komerčnou"
-    },
-    {
-      "start": 892.13,
-      "end": 892.73,
-      "text": {
-        "sk": "aktivitou.",
-        "cs": "činností."
-      },
-      "asrWordRange": [
-        1886,
         1887
       ],
-      "sourceCue": 182,
-      "alignmentText": "aktivitou."
+      "alignmentText": "sa snažia dostať do toho vesmírneho priestoru svojou komerčnou aktivitou.",
+      "sourceCues": [
+        181,
+        182
+      ]
     },
     {
       "start": 893.59,
@@ -2655,31 +2611,20 @@
     },
     {
       "start": 916.83,
-      "end": 921.99,
+      "end": 922.47,
       "text": {
-        "sk": "vesmírneho priestoru. Takže využívajú napríklad cez medzinárodné zmluvy a cez",
-        "cs": "vesmírného prostoru. Proto využívají třeba mezinárodní smlouvy a"
+        "sk": "vesmírneho priestoru. Takže využívajú napríklad cez medzinárodné zmluvy a cez dohody",
+        "cs": "vesmírného prostoru. Proto využívají třeba mezinárodní smlouvy a dohody"
       },
       "asrWordRange": [
         1933,
-        1943
-      ],
-      "sourceCue": 188,
-      "alignmentText": "vesmírneho priestoru. Takže využívajú napríklad cez medzinárodné zmluvy a cez"
-    },
-    {
-      "start": 921.99,
-      "end": 922.47,
-      "text": {
-        "sk": "dohody",
-        "cs": "dohody"
-      },
-      "asrWordRange": [
-        1943,
         1944
       ],
-      "sourceCue": 189,
-      "alignmentText": "dohody"
+      "alignmentText": "vesmírneho priestoru. Takže využívajú napríklad cez medzinárodné zmluvy a cez dohody",
+      "sourceCues": [
+        188,
+        189
+      ]
     },
     {
       "start": 923.83,
@@ -3006,31 +2951,20 @@
     },
     {
       "start": 1034.32,
-      "end": 1035.22,
+      "end": 1037.1,
       "text": {
-        "sk": "zase do toho skočím.",
-        "cs": "do toho zase skočím."
+        "sk": "zase do toho skočím. No, skoč, skoč. Teda",
+        "cs": "do toho zase skočím. No, skoč, skoč. Tedy"
       },
       "asrWordRange": [
         2151,
-        2155
-      ],
-      "sourceCue": 212,
-      "alignmentText": "zase do toho skočím."
-    },
-    {
-      "start": 1035.9,
-      "end": 1037.1,
-      "text": {
-        "sk": "No, skoč, skoč. Teda",
-        "cs": "No, skoč, skoč. Tedy"
-      },
-      "asrWordRange": [
-        2155,
         2159
       ],
-      "sourceCue": 213,
-      "alignmentText": "No, skoč, skoč. Teda"
+      "alignmentText": "zase do toho skočím. No, skoč, skoč. Teda",
+      "sourceCues": [
+        212,
+        213
+      ]
     },
     {
       "start": 1037.82,
@@ -3160,31 +3094,20 @@
     },
     {
       "start": 1074.36,
-      "end": 1075.64,
+      "end": 1076.9,
       "text": {
-        "sk": "môžem s ňou vyjsť na orbitu?",
-        "cs": "můžu s ní vyletět na oběžnou dráhu?"
+        "sk": "môžem s ňou vyjsť na orbitu? No,",
+        "cs": "můžu s ní vyletět na oběžnou dráhu? No,"
       },
       "asrWordRange": [
         2281,
-        2287
-      ],
-      "sourceCue": 223,
-      "alignmentText": "môžem s ňou vyjsť na orbitu?"
-    },
-    {
-      "start": 1076.62,
-      "end": 1076.9,
-      "text": {
-        "sk": "No,",
-        "cs": "No,"
-      },
-      "asrWordRange": [
-        2287,
         2288
       ],
-      "sourceCue": 224,
-      "alignmentText": "No,"
+      "alignmentText": "môžem s ňou vyjsť na orbitu? No,",
+      "sourceCues": [
+        223,
+        224
+      ]
     },
     {
       "start": 1077.82,
@@ -3258,31 +3181,20 @@
     },
     {
       "start": 1096.8,
-      "end": 1099.4,
+      "end": 1100.66,
       "text": {
-        "sk": "Asi aj CIA by sa s tebou chcela porozprávať.",
-        "cs": "Asi i CIA by si s tebou chtěla promluvit."
+        "sk": "Asi aj CIA by sa s tebou chcela porozprávať. Ale nie.",
+        "cs": "Asi i CIA by si s tebou chtěla promluvit. Ale ne."
       },
       "asrWordRange": [
         2328,
-        2338
-      ],
-      "sourceCue": 230,
-      "alignmentText": "Asi aj CIA by sa s tebou chcela porozprávať."
-    },
-    {
-      "start": 1100.22,
-      "end": 1100.66,
-      "text": {
-        "sk": "Ale nie.",
-        "cs": "Ale ne."
-      },
-      "asrWordRange": [
-        2338,
         2340
       ],
-      "sourceCue": 231,
-      "alignmentText": "Ale nie."
+      "alignmentText": "Asi aj CIA by sa s tebou chcela porozprávať. Ale nie.",
+      "sourceCues": [
+        230,
+        231
+      ]
     },
     {
       "start": 1101.34,
@@ -3342,31 +3254,20 @@
     },
     {
       "start": 1119.74,
-      "end": 1124.72,
+      "end": 1125.56,
       "text": {
-        "sk": "pre túto otázku, bolo, že bolo zadefinované aj to,",
-        "cs": "pro tuhle otázku, je, že tam bylo také stanoveno,"
+        "sk": "pre túto otázku, bolo, že bolo zadefinované aj to, že",
+        "cs": "pro tuhle otázku, je, že tam bylo také stanoveno, že"
       },
       "asrWordRange": [
         2381,
-        2390
-      ],
-      "sourceCue": 236,
-      "alignmentText": "pre túto otázku, bolo, že bolo zadefinované aj to,"
-    },
-    {
-      "start": 1125.32,
-      "end": 1125.56,
-      "text": {
-        "sk": "že",
-        "cs": "že"
-      },
-      "asrWordRange": [
-        2390,
         2391
       ],
-      "sourceCue": 237,
-      "alignmentText": "že"
+      "alignmentText": "pre túto otázku, bolo, že bolo zadefinované aj to, že",
+      "sourceCues": [
+        236,
+        237
+      ]
     },
     {
       "start": 1127.06,
@@ -3650,59 +3551,37 @@
     },
     {
       "start": 1222.31,
-      "end": 1223.11,
+      "end": 1224.95,
       "text": {
-        "sk": "nestal sa",
-        "cs": "nestal se"
+        "sk": "nestal sa tohto roku",
+        "cs": "nestal se toho roku"
       },
       "asrWordRange": [
         2578,
-        2580
-      ],
-      "sourceCue": 258,
-      "alignmentText": "nestal sa"
-    },
-    {
-      "start": 1224.07,
-      "end": 1224.95,
-      "text": {
-        "sk": "tohto roku",
-        "cs": "toho roku"
-      },
-      "asrWordRange": [
-        2580,
         2582
       ],
-      "sourceCue": 259,
-      "alignmentText": "tohto roku"
+      "alignmentText": "nestal sa tohto roku",
+      "sourceCues": [
+        258,
+        259
+      ]
     },
     {
       "start": 1226.6,
-      "end": 1228.04,
+      "end": 1231.34,
       "text": {
-        "sk": "len na",
-        "cs": "jen na"
+        "sk": "len na Medzinárodnej vesmírnej stanici ISS.",
+        "cs": "jen na Mezinárodní vesmírné stanici ISS."
       },
       "asrWordRange": [
         2582,
-        2584
-      ],
-      "sourceCue": 260,
-      "alignmentText": "len na"
-    },
-    {
-      "start": 1229.26,
-      "end": 1231.34,
-      "text": {
-        "sk": "Medzinárodnej vesmírnej stanici ISS.",
-        "cs": "Mezinárodní vesmírné stanici ISS."
-      },
-      "asrWordRange": [
-        2584,
         2588
       ],
-      "sourceCue": 261,
-      "alignmentText": "Medzinárodnej vesmírnej stanici ISS."
+      "alignmentText": "len na Medzinárodnej vesmírnej stanici ISS.",
+      "sourceCues": [
+        260,
+        261
+      ]
     },
     {
       "start": 1232.46,
@@ -3905,7 +3784,7 @@
       "end": 1303.31,
       "text": {
         "sk": "astronautku, aby sa pozrela na americký účet, tam by to už bolo troška horšie, lebo by",
-        "cs": "astronautku, která by se podívala na americký účet, tam by to bylo trochu složitější, protože by"
+        "cs": "astronautku, která se podívala na americký účet, bylo by to trochu složitější, protože by"
       },
       "asrWordRange": [
         2732,
@@ -3916,31 +3795,20 @@
     },
     {
       "start": 1303.31,
-      "end": 1303.99,
+      "end": 1306.77,
       "text": {
-        "sk": "aj porušila",
-        "cs": "také porušila"
+        "sk": "aj porušila nejaký trestný zákon",
+        "cs": "také porušila nějaký trestní zákon"
       },
       "asrWordRange": [
         2748,
-        2750
-      ],
-      "sourceCue": 277,
-      "alignmentText": "aj porušila"
-    },
-    {
-      "start": 1304.75,
-      "end": 1306.77,
-      "text": {
-        "sk": "nejaký trestný zákon",
-        "cs": "nějaký trestní zákon"
-      },
-      "asrWordRange": [
-        2750,
         2753
       ],
-      "sourceCue": 278,
-      "alignmentText": "nejaký trestný zákon"
+      "alignmentText": "aj porušila nejaký trestný zákon",
+      "sourceCues": [
+        277,
+        278
+      ]
     },
     {
       "start": 1307.55,
@@ -3972,31 +3840,20 @@
     },
     {
       "start": 1315.82,
-      "end": 1319.08,
+      "end": 1320.2,
       "text": {
-        "sk": "No, ale áno, mohla by, come at me,",
-        "cs": "No ano, mohla by, come at me,"
+        "sk": "No, ale áno, mohla by, come at me, ale",
+        "cs": "No ano, mohla by, come at me, ale"
       },
       "asrWordRange": [
         2772,
-        2779
-      ],
-      "sourceCue": 281,
-      "alignmentText": "No, ale áno, mohla by, come at me,"
-    },
-    {
-      "start": 1319.84,
-      "end": 1320.2,
-      "text": {
-        "sk": "ale",
-        "cs": "ale"
-      },
-      "asrWordRange": [
-        2779,
         2780
       ],
-      "sourceCue": 282,
-      "alignmentText": "ale"
+      "alignmentText": "No, ale áno, mohla by, come at me, ale",
+      "sourceCues": [
+        281,
+        282
+      ]
     },
     {
       "start": 1320.9,
@@ -4098,31 +3955,20 @@
     },
     {
       "start": 1352.46,
-      "end": 1358.06,
+      "end": 1358.64,
       "text": {
-        "sk": "nad Ruskom letí Nemec, zabije Japonca.",
-        "cs": "která letí nad Ruskem, Němec zabil Japonce."
+        "sk": "nad Ruskom letí Nemec, zabije Japonca. Tak",
+        "cs": "která letí nad Ruskem, Němec zabil Japonce. Tak"
       },
       "asrWordRange": [
         2841,
-        2847
-      ],
-      "sourceCue": 290,
-      "alignmentText": "nad Ruskom letí Nemec, zabije Japonca."
-    },
-    {
-      "start": 1358.24,
-      "end": 1358.64,
-      "text": {
-        "sk": "Tak",
-        "cs": "Tak"
-      },
-      "asrWordRange": [
-        2847,
         2848
       ],
-      "sourceCue": 291,
-      "alignmentText": "Tak"
+      "alignmentText": "nad Ruskom letí Nemec, zabije Japonca. Tak",
+      "sourceCues": [
+        290,
+        291
+      ]
     },
     {
       "start": 1359.04,
@@ -4323,31 +4169,20 @@
     },
     {
       "start": 1417.52,
-      "end": 1420.86,
+      "end": 1422.82,
       "text": {
-        "sk": "trestný poriadok aj trestný zákon",
-        "cs": "trestní řád i trestní zákon"
+        "sk": "trestný poriadok aj trestný zákon USA.",
+        "cs": "trestní řád i trestní zákon USA."
       },
       "asrWordRange": [
         2973,
-        2978
-      ],
-      "sourceCue": 305,
-      "alignmentText": "trestný poriadok aj trestný zákon"
-    },
-    {
-      "start": 1422.26,
-      "end": 1422.82,
-      "text": {
-        "sk": "USA.",
-        "cs": "USA."
-      },
-      "asrWordRange": [
-        2978,
         2979
       ],
-      "sourceCue": 306,
-      "alignmentText": "USA."
+      "alignmentText": "trestný poriadok aj trestný zákon USA.",
+      "sourceCues": [
+        305,
+        306
+      ]
     },
     {
       "start": 1423.91,
@@ -4421,31 +4256,20 @@
     },
     {
       "start": 1446.96,
-      "end": 1447.58,
+      "end": 1453.24,
       "text": {
-        "sk": "Takže keď",
-        "cs": "Takže když"
+        "sk": "Takže keď Snowden ušiel do Ruska, tak si mohol byť istý, že ho Rusi nevydajú,",
+        "cs": "Takže když Snowden utekl do Ruska, mohl si být jistý, že ho Rusové nevydají,"
       },
       "asrWordRange": [
         3034,
-        3036
-      ],
-      "sourceCue": 312,
-      "alignmentText": "Takže keď"
-    },
-    {
-      "start": 1448.4,
-      "end": 1453.24,
-      "text": {
-        "sk": "Snowden ušiel do Ruska, tak si mohol byť istý, že ho Rusi nevydajú,",
-        "cs": "Snowden utekl do Ruska, mohl si být jistý, že ho Rusové nevydají,"
-      },
-      "asrWordRange": [
-        3036,
         3049
       ],
-      "sourceCue": 313,
-      "alignmentText": "Snowden ušiel do Ruska, tak si mohol byť istý, že ho Rusi nevydajú,"
+      "alignmentText": "Takže keď Snowden ušiel do Ruska, tak si mohol byť istý, že ho Rusi nevydajú,",
+      "sourceCues": [
+        312,
+        313
+      ]
     },
     {
       "start": 1453.7,
@@ -4505,31 +4329,20 @@
     },
     {
       "start": 1471.1,
-      "end": 1476.52,
+      "end": 1477.1,
       "text": {
-        "sk": "dohody, čo spravuje ISS, International Space Station, tak je extradičná",
-        "cs": "dohody, která upravuje ISS, International Space Station, je extradiční"
+        "sk": "dohody, čo spravuje ISS, International Space Station, tak je extradičná dohoda",
+        "cs": "dohody, která upravuje ISS, International Space Station, je extradiční dohoda"
       },
       "asrWordRange": [
         3087,
-        3099
-      ],
-      "sourceCue": 318,
-      "alignmentText": "dohody, čo spravuje ISS, International Space Station, tak je extradičná"
-    },
-    {
-      "start": 1476.52,
-      "end": 1477.1,
-      "text": {
-        "sk": "dohoda",
-        "cs": "dohoda"
-      },
-      "asrWordRange": [
-        3099,
         3100
       ],
-      "sourceCue": 319,
-      "alignmentText": "dohoda"
+      "alignmentText": "dohody, čo spravuje ISS, International Space Station, tak je extradičná dohoda",
+      "sourceCues": [
+        318,
+        319
+      ]
     },
     {
       "start": 1477.96,
@@ -4561,31 +4374,20 @@
     },
     {
       "start": 1483.06,
-      "end": 1488.36,
+      "end": 1488.9,
       "text": {
-        "sk": "si to veľmi takto upravili, aby náhodou niekoho nenapadlo",
-        "cs": "si to takhle pečlivě upravili, aby náhodou někoho nenapadlo"
+        "sk": "si to veľmi takto upravili, aby náhodou niekoho nenapadlo nejaký",
+        "cs": "si to takhle pečlivě upravili, aby náhodou někoho nenapadlo nějaký"
       },
       "asrWordRange": [
         3109,
-        3119
-      ],
-      "sourceCue": 322,
-      "alignmentText": "si to veľmi takto upravili, aby náhodou niekoho nenapadlo"
-    },
-    {
-      "start": 1488.36,
-      "end": 1488.9,
-      "text": {
-        "sk": "nejaký",
-        "cs": "nějaký"
-      },
-      "asrWordRange": [
-        3119,
         3120
       ],
-      "sourceCue": 323,
-      "alignmentText": "nejaký"
+      "alignmentText": "si to veľmi takto upravili, aby náhodou niekoho nenapadlo nejaký",
+      "sourceCues": [
+        322,
+        323
+      ]
     },
     {
       "start": 1489.72,
@@ -4729,31 +4531,20 @@
     },
     {
       "start": 1538.21,
-      "end": 1543.61,
+      "end": 1543.99,
       "text": {
-        "sk": "No 120 krajín zo 190, ale povedzme, že veľmi veľké",
-        "cs": "No, 120 zemí ze 190, řekněme, že velmi velká"
+        "sk": "No 120 krajín zo 190, ale povedzme, že veľmi veľké jadro",
+        "cs": "No, 120 zemí ze 190, řekněme, že velmi velká část"
       },
       "asrWordRange": [
         3238,
-        3248
-      ],
-      "sourceCue": 334,
-      "alignmentText": "No 120 krajín zo 190, ale povedzme, že veľmi veľké"
-    },
-    {
-      "start": 1543.61,
-      "end": 1543.99,
-      "text": {
-        "sk": "jadro",
-        "cs": "část"
-      },
-      "asrWordRange": [
-        3248,
         3249
       ],
-      "sourceCue": 335,
-      "alignmentText": "jadro"
+      "alignmentText": "No 120 krajín zo 190, ale povedzme, že veľmi veľké jadro",
+      "sourceCues": [
+        334,
+        335
+      ]
     },
     {
       "start": 1545.67,
@@ -4869,31 +4660,20 @@
     },
     {
       "start": 1581.25,
-      "end": 1582.07,
+      "end": 1585.03,
       "text": {
-        "sk": "to prešlo na teba.",
-        "cs": "to přešlo na tebe."
+        "sk": "to prešlo na teba. Ale keďže sa väčšina",
+        "cs": "to přešlo na tebe. Ale protože se většina"
       },
       "asrWordRange": [
         3335,
-        3339
-      ],
-      "sourceCue": 344,
-      "alignmentText": "to prešlo na teba."
-    },
-    {
-      "start": 1582.83,
-      "end": 1585.03,
-      "text": {
-        "sk": "Ale keďže sa väčšina",
-        "cs": "Ale protože se většina"
-      },
-      "asrWordRange": [
-        3339,
         3343
       ],
-      "sourceCue": 345,
-      "alignmentText": "Ale keďže sa väčšina"
+      "alignmentText": "to prešlo na teba. Ale keďže sa väčšina",
+      "sourceCues": [
+        344,
+        345
+      ]
     },
     {
       "start": 1585.89,
@@ -5275,31 +5055,20 @@
     },
     {
       "start": 1706.5,
-      "end": 1711.9,
+      "end": 1712.54,
       "text": {
-        "sk": "a nájdete nás rovnako aj na webe vedator.space a na Facebooku. Majte sa!",
-        "cs": "a najdete nás také na webu vedator.space a na Facebooku. Mějte se!"
+        "sk": "a nájdete nás rovnako aj na webe vedator.space a na Facebooku. Majte sa! Čaute!",
+        "cs": "a najdete nás také na webu vedator.space a na Facebooku. Mějte se! Čau!"
       },
       "asrWordRange": [
         3598,
-        3613
-      ],
-      "sourceCue": 373,
-      "alignmentText": "a nájdete nás rovnako aj na webe vedator.space a na Facebooku. Majte sa!"
-    },
-    {
-      "start": 1712.22,
-      "end": 1712.54,
-      "text": {
-        "sk": "Čaute!",
-        "cs": "Čau!"
-      },
-      "asrWordRange": [
-        3613,
         3614
       ],
-      "sourceCue": 374,
-      "alignmentText": "Čaute!"
+      "alignmentText": "a nájdete nás rovnako aj na webe vedator.space a na Facebooku. Majte sa! Čaute!",
+      "sourceCues": [
+        373,
+        374
+      ]
     }
   ]
 }

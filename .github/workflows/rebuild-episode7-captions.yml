@@ -1,7 +1,7 @@
 name: Prepare precise episode 7 captions
 on:
   push:
-    branches: [captions/episode-7-precise-20261117]
+    branches: [captions/episode-7-precise-20261117, captions/episode-7-finish-20261117]
     paths:
       - tools/rebuild-episode7-captions.py
       - .github/workflows/rebuild-episode7-captions.yml
@@ -62,6 +62,6 @@ jobs:
           git restore content-v2.json
           if ! git diff --cached --quiet; then
             git commit -m "Prepare episode 7 source transcript or acoustically aligned bilingual captions"
-            git pull --rebase origin captions/episode-7-precise-20261117
-            git push origin HEAD:captions/episode-7-precise-20261117
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
