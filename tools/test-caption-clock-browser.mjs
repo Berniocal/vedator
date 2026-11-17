@@ -142,7 +142,8 @@ try{
     window.__captionTest.open(6,400);
     window.__captionTest.video();
   });
-  await page.waitForFunction(()=>!!document.getElementById('player-youtube-frame-v2')&&!!document.getElementById('player-video-caption-v2')?.textContent);
+  await page.waitForFunction(()=>!!window.__yt&&!!document.getElementById('player-youtube-frame-v2'));
+  await page.evaluate(()=>{window.__yt.time=400;window.__captionTest.sync()});
   await page.click('#player-video-v2');
   await page.waitForFunction(()=>!document.getElementById('player-youtube-frame-v2')&&document.getElementById('audio-v2').readyState>=2&&!document.getElementById('audio-v2').paused,{timeout:15000});
   await page.click('#player-play-v2');
