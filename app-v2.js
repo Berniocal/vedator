@@ -1099,6 +1099,86 @@
     });
   }
   let captionReaderActive=false,captionReaderTimer=null,captionReaderWasFullscreen=false;
+  let captionReaderControlsVisible=false,captionReaderHistory=false,captionReaderValue='';
+  const captionReadingCues=new WeakMap();
+  function readerCues(cues,lang){
+    let languages=captionReadingCues.get(cues);
+    if(!languages){languages={};captionReadingCues.set(cues,languages)}
+    if(languages[lang])return languages[lang];
+    // Only presentation windows change. Preserve the original acoustic timestamps
+    // for video/inline captions, and never extend across another spoken cue.
+    const result=cues.map((cue,i)=>{
+      const value=cue.text[lang].replace(/\s+/g,' ').trim();
+      const minimum=Math.min(6,Math.max(1.5,value.length/17));
+      const nextStart=cues[i+1]?.start??Infinity;
+      let end=Math.min(nextStart,cue.end+2.5,Math.max(cue.end,cue.start+minimum));
+      if(nextStart-end<=.8&&nextStart-cue.end<=2.5)end=nextStart;
+      const previousEnd=i?cues[i-1].end:0;
+      const start=Math.max(previousEnd,cue.start-Math.min(.35,Math.max(0,minimum-(end-cue.start))));
+      return {start,end,value};
+    });
+    // Earlier windows may use some of the same silence. Give that silence to the
+    // previous caption first; seeking always produces the same nonoverlapping cue.
+    for(let i=1;i<result.length;i++)result[i].start=Math.max(result[i].start,result[i-1].end);
+    languages[lang]=result;return result;
+  }
+  function readerCaptionAt(cues,lang,time){
+    const windows=readerCues(cues,lang);let lo=0,hi=windows.length;
+    while(lo<hi){const mid=(lo+hi)>>>1;if(windows[mid].start<=time)lo=mid+1;else hi=mid}
+    const cue=windows[lo-1];return cue&&time<cue.end?cue.value:'';
+  }
+  function layoutCaptionReader(){
+    const node=$('#player-caption-reader-text-v2');if(!captionReaderActive||!node)return;
+    const words=captionReaderValue.replace(/\s+/g,' ').trim().split(' ').filter(Boolean);
+    node.style.fontSize='';node.replaceChildren();if(!words.length)return;
+    const style=getComputedStyle(node),base=parseFloat(style.fontSize);
+    const canvas=document.createElement('canvas'),context=canvas.getContext('2d');
+    if(!context){node.textContent=words.join(' ');return}
+    context.font=style.font;
+    const measure=value=>context.measureText(value).width;
+    const width=node.clientWidth||node.parentElement.clientWidth-44;
+    const value=words.join(' ');let lines=[value];
+    if(measure(value)>width&&words.length>1){
+      let best=Infinity;
+      for(let i=1;i<words.length;i++){
+        const pair=[words.slice(0,i).join(' '),words.slice(i).join(' ')];
+        const a=measure(pair[0]),b=measure(pair[1]);
+        // Keep the lines balanced and avoid a single-letter preposition at a break.
+        const score=Math.max(a,b)+Math.abs(a-b)*.15+(/(?:^| )[aikosuvz]$/i.test(pair[0])?base*2:0);
+        if(score<best){best=score;lines=pair}
+      }
+    }
+    const widest=Math.max(...lines.map(measure));
+    const height=node.parentElement.clientHeight-160;
+    node.style.fontSize=Math.min(base,base*width/Math.max(width,widest),Math.max(1,height)/(1.35*lines.length))+'px';
+    for(let i=0;i<lines.length;i++){
+      if(i)node.append(document.createTextNode('\n'));
+      const line=document.createElement('span');line.className='caption-reader-line-v2';line.textContent=lines[i];node.append(line);
+    }
+  }
+  function syncCaptionReaderControls(){
+    if(!captionReaderActive)return;
+    const play=$('#caption-reader-play-v2');
+    if(play){const playing=playbackIsPlaying();play.textContent=playing?'❚❚':'▶';play.title=playing?text('Pauza','Pauza'):text('Přehrát','Prehrať');play.setAttribute('aria-label',play.title)}
+    const back=$('#caption-reader-back-v2'),forward=$('#caption-reader-forward-v2'),close=$('#caption-reader-close-v2');
+    if(back){back.title=text('Zpět o 10 sekund','Späť o 10 sekúnd');back.setAttribute('aria-label',back.title)}
+    if(forward){forward.title=text('Vpřed o 10 sekund','Vpred o 10 sekúnd');forward.setAttribute('aria-label',forward.title)}
+    if(close){close.title=text('Zrušit celou obrazovku','Zrušiť celú obrazovku');close.setAttribute('aria-label',close.title)}
+  }
+  function setCaptionReaderControls(visible,gesture=false){
+    captionReaderControlsVisible=visible;
+    const bar=$('#caption-reader-controls-v2');if(bar)bar.hidden=!visible;
+    const overlay=$('#player-caption-reader-overlay-v2');overlay?.setAttribute('aria-label',text('Titulky přes celou obrazovku. Klepnutím zobrazíte nebo skryjete ovládání.','Titulky cez celú obrazovku. Ťuknutím zobrazíte alebo skryjete ovládanie.'));
+    syncCaptionReaderControls();
+    // The browser decides whether it can reveal Android's system navigation.
+    if(gesture&&document.fullscreenElement===overlay){
+      try{overlay.requestFullscreen?.({navigationUI:visible?'show':'hide'}).catch(()=>{})}catch(_){}
+    }
+  }
+  function addCaptionReaderHistory(){
+    if(!captionReaderActive||captionReaderHistory)return;
+    history.pushState({...history.state,vedatorCaptionReader:true},'');captionReaderHistory=true;
+  }
   // The inline MP3 caption display used to depend on audio timeupdate,
   // which Android may dispatch less often than the fullscreen reader's timer.
   // Poll the exact same playback clock in both modes; never modify YouTube timing.
@@ -1242,12 +1322,13 @@
   document.addEventListener('keydown',retryCaptionWake,{capture:true});
   document.addEventListener('fullscreenchange',()=>{moveCaptionWakeVideo();refreshCaptionWake()});
   function updateCaptionReader(value){
-    const textNode=$('#player-caption-reader-text-v2');
-    if(captionReaderActive&&textNode&&textNode.textContent!==value)textNode.textContent=value;
-  }
-  function exitCaptionReader(){
     if(!captionReaderActive)return;
-    captionReaderActive=false;captionReaderWasFullscreen=false;
+    if(captionReaderValue!==value){captionReaderValue=value;layoutCaptionReader()}
+    syncCaptionReaderControls();
+  }
+  function exitCaptionReader(fromHistory=false){
+    if(!captionReaderActive)return;
+    captionReaderActive=false;captionReaderWasFullscreen=false;captionReaderValue='';
     if(captionReaderTimer!==null){clearInterval(captionReaderTimer);captionReaderTimer=null}
     const overlay=$('#player-caption-reader-overlay-v2');
     if(overlay){
@@ -1255,20 +1336,27 @@
       if(document.fullscreenElement===overlay)document.exitFullscreen?.().catch(()=>{});
     }
     document.body.classList.remove('vedator-caption-reading');
+    if(captionReaderHistory){captionReaderHistory=false;if(!fromHistory&&history.state?.vedatorCaptionReader)history.back()}
     moveCaptionWakeVideo();
+    $('#player-caption-reader-button-v2')?.focus({preventScroll:true});
   }
   function enterCaptionReader(){
     if(captionReaderActive||captionPreference==='off'||!activeCaptionSession()?.captionFile)return;
     const overlay=$('#player-caption-reader-overlay-v2');if(!overlay)return;
-    captionReaderActive=true;captionReaderWasFullscreen=false;
+    captionReaderActive=true;captionReaderWasFullscreen=false;captionReaderValue='';
     overlay.hidden=false;overlay.setAttribute('aria-hidden','false');
     document.body.classList.add('vedator-caption-reading');
+    setCaptionReaderControls(false);
     moveCaptionWakeVideo();
     syncYoutubeCaptions();
-    captionReaderTimer=setInterval(syncYoutubeCaptions,250);
+    captionReaderTimer=setInterval(syncYoutubeCaptions,160);
     overlay.focus({preventScroll:true});
-    // The fixed black overlay is a fallback on browsers without element fullscreen.
-    try{overlay.requestFullscreen?.().catch(()=>{})}catch(_){}
+    // Fullscreen Back is handled by fullscreenchange. The fixed-overlay fallback
+    // needs its own history entry so Back closes it without leaving the app.
+    try{
+      if(overlay.requestFullscreen)overlay.requestFullscreen({navigationUI:'hide'}).catch(addCaptionReaderHistory);
+      else addCaptionReaderHistory();
+    }catch(_){addCaptionReaderHistory()}
   }
   function syncYoutubeCaptions(){
     const box=$('#player-captions-v2'),display=$('#player-caption-text-v2'),videoDisplay=$('#player-video-caption-v2');
@@ -1289,7 +1377,7 @@
       readerButton.hidden=!available;
       readerButton.disabled=!available||captionPreference==='off';
       readerButton.textContent=text('▣ Čtečka','▣ Čítačka');
-      readerButton.title=text('Černá obrazovka s titulky; klepnutím se vrátíte','Čierna obrazovka s titulkami; ťuknutím sa vrátite');
+      readerButton.title=text('Titulky přes celou obrazovku; klepnutím zobrazíte ovládání','Titulky cez celú obrazovku; ťuknutím zobrazíte ovládanie');
     }
     if(!available){
       display.textContent='';if(videoDisplay)videoDisplay.textContent='';
@@ -1297,11 +1385,11 @@
       return;
     }
     const setText=(node,value)=>{if(node&&node.textContent!==value)node.textContent=value};
-    const setCaptionText=value=>{
+    const setCaptionText=(value,reader=true)=>{
       setText(target,value);
       if(target!==display)setText(display,'');
       if(videoDisplay&&target!==videoDisplay)setText(videoDisplay,'');
-      updateCaptionReader(value);
+      if(reader)updateCaptionReader(value);
     };
     setText($('#player-caption-label-v2'),text('Titulky','Titulky'));
     setText(select.options[0],text('Podle jazyka aplikace','Podľa jazyka aplikácie'));
@@ -1330,7 +1418,8 @@
     let lo=0,hi=cues.length;
     while(lo<hi){const mid=(lo+hi)>>>1;if(cues[mid].start<=time)lo=mid+1;else hi=mid}
     const cue=cues[lo-1];
-    setCaptionText(cue&&time<cue.end?cue.text[lang]:'');
+    setCaptionText(cue&&time<cue.end?cue.text[lang]:'',false);
+    if(captionReaderActive)updateCaptionReader(readerCaptionAt(cues,lang,time));
     target.lang=lang;
     const readerText=$('#player-caption-reader-text-v2');if(readerText)readerText.lang=lang;
   }
@@ -2803,14 +2892,31 @@
   $('#player-caption-toggle-v2')?.addEventListener('click',toggleCaptions);
   $('#player-caption-reader-button-v2')?.addEventListener('click',enterCaptionReader);
   const captionReaderOverlay=$('#player-caption-reader-overlay-v2');
-  captionReaderOverlay?.addEventListener('click',exitCaptionReader);
-  captionReaderOverlay?.addEventListener('keydown',event=>{
-    if(['Escape','Enter',' '].includes(event.key)){event.preventDefault();exitCaptionReader()}
+  captionReaderOverlay?.addEventListener('click',event=>{
+    if(event.target.closest?.('#caption-reader-controls-v2'))return;
+    setCaptionReaderControls(!captionReaderControlsVisible,true);
   });
+  $('#caption-reader-controls-v2')?.addEventListener('click',event=>event.stopPropagation());
+  $('#caption-reader-play-v2')?.addEventListener('click',()=>{$('#player-play-v2')?.click();syncCaptionReaderControls()});
+  $('#caption-reader-back-v2')?.addEventListener('click',()=>seekParity(-10));
+  $('#caption-reader-forward-v2')?.addEventListener('click',()=>seekParity(10));
+  $('#caption-reader-close-v2')?.addEventListener('click',()=>exitCaptionReader());
+  captionReaderOverlay?.addEventListener('keydown',event=>{
+    if(event.key==='Escape'){event.preventDefault();exitCaptionReader();return}
+    if(event.target!==captionReaderOverlay)return;
+    if(['Enter',' '].includes(event.key)){event.preventDefault();setCaptionReaderControls(!captionReaderControlsVisible,true)}
+    if(event.key==='Tab')setCaptionReaderControls(true);
+    if(['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();seekParity(event.key==='ArrowLeft'?-10:10)}
+  });
+  window.addEventListener('popstate',()=>{if(captionReaderActive&&captionReaderHistory)exitCaptionReader(true)});
   document.addEventListener('fullscreenchange',()=>{
     if(document.fullscreenElement===captionReaderOverlay)captionReaderWasFullscreen=true;
     else if(captionReaderWasFullscreen&&captionReaderActive)exitCaptionReader();
+    layoutCaptionReader();
   });
+  if(window.ResizeObserver&&captionReaderOverlay)new ResizeObserver(layoutCaptionReader).observe(captionReaderOverlay);
+  window.addEventListener('resize',layoutCaptionReader);
+  document.fonts?.ready.then(layoutCaptionReader);
   $('#audio-v2')?.addEventListener('ended',()=>{if(youtubeActive())return;if(continuousActive()){playbackAutoplayWanted=false;return}if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else playbackAutoplayWanted=false});
 
   /* V2_FINAL_UI_FAQ_GUIDE_V1 */
