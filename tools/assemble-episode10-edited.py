@@ -76,17 +76,25 @@ def main():
         }
         cues.append(cue)
         if index==133:
-            # Audible sentence omitted by the first VAD pass. This is an
-            # explicitly marked recovery, never an invented ASR word range.
-            recovered="odo mňa preč. A potom ty ten medicinbal nehodíš späť, ja ho zase chytím, posúvam sa tým ďalej."
-            cues.append({
-              "start":586.65,"end":593.05,
-              "text":{"sk":recovered,
-                      "cs":"ode mě pryč. A potom ty ten medicinbal nehodíš zpátky, já ho zase chytím a posunu se dál."},
-              "asrWordRange":[hi,hi],"sourceCues":[133],
-              "recoveredSpeech":"Recovered from independent full large-v3; return-throw negation awaits wider audio check",
-              "alignmentText":for_ctc(recovered)
-            })
+            # Separate zero-word-range cues recover speech missed by the
+            # first model's VAD. The wide independent large-v3 check confirms
+            # both phrases but cannot constitute independent human listening.
+            recoveries=[
+                (586.65,589.97,
+                 "odo mňa preč. A potom ty ten medicinbal nehodíš späť.",
+                 "ode mě pryč. A potom ty ten medicinbal nehodíš zpátky."),
+                (589.97,593.04,
+                 "Ja ho zase chytím, posúvam sa tým ďalej.",
+                 "Já ho zase chytím a posunu se tím dál.")
+            ]
+            for a,b,slo,ces in recoveries:
+                cues.append({
+                  "start":a,"end":b,
+                  "text":{"sk":slo,"cs":ces},
+                  "asrWordRange":[hi,hi],"sourceCues":[133],
+                  "recoveredSpeech":"Independently checked original audio window 578-601 seconds; no ASR word indices",
+                  "alignmentText":for_ctc(slo)
+                })
     assert cursor==len(source["words"])
     assert all(cues[i]["start"]>=cues[i-1]["end"] for i in range(1,len(cues)))
     result={
