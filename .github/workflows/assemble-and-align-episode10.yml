@@ -42,8 +42,9 @@ jobs:
           done
           test -s captions/source/episode-10-translation-draft.cs.json
           test -s captions/source/episode-10-editorial-patches.json
+          test -s captions/source/episode-10-cs-editorial-patches.json
           test -s captions/source/episode-10-extra-checks.sk.json
-      - name: Assemble reviewed-source preliminary bilingual subtitle draft
+      - name: Assemble complete editorially translated bilingual subtitle draft
         run: python tools/assemble-episode10-edited.py
       - name: Install acoustic alignment
         run: |
