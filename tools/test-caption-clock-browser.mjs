@@ -101,7 +101,9 @@ try{
     }
     await page.evaluate(()=>window.__captionTest.reader());await wait(300);
     const reader=await page.evaluate(()=>({inline:document.getElementById('player-caption-text-v2').textContent,reader:document.getElementById('player-caption-reader-text-v2').textContent,videoParent:document.querySelector('.vedator-caption-wake-video')?.parentElement.id}));
-    check(reader.inline===reader.reader,'Inline and fullscreen must agree',{n,reader});
+    check(reader.inline.replace(/\s+/g,' ').trim()===reader.reader.replace(/\s+/g,' ').trim(),'Inline and fullscreen preserve the same spoken words after reader reflow',{n,reader});
+    const readerLayout=await page.evaluate(()=>{const node=document.getElementById('player-caption-reader-text-v2');return {lines:node.querySelectorAll('.caption-reader-line-v2').length,fits:node.scrollWidth<=node.clientWidth+1}});
+    check(readerLayout.lines<=2&&readerLayout.fits,'Fullscreen captions fit at most two complete lines',{n,readerLayout});
     check(reader.videoParent==='player-caption-reader-overlay-v2','Wake video must enter fullscreen subtree',{n,reader});
     await page.evaluate(()=>window.__captionTest.exitReader());await wait(100);
     const desired=Math.floor(c.cues.at(-1).start*.75);

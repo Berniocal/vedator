@@ -1,6 +1,9 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
-import {JSDOM,VirtualConsole} from 'jsdom';
+import path from 'node:path';
+import {createRequire} from 'node:module';
+const require=createRequire(path.join(process.env.VEDATOR_TEST_DEPS||process.cwd(),'package.json'));
+const {JSDOM,VirtualConsole}=require('jsdom');
 const html=fs.readFileSync('index.html','utf8'),source=fs.readFileSync('app-v2.js','utf8'),data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const app=source.replace('  function syncYoutubeCaptions(){', '  window.__readerTest={readerCues,readerCaptionAt,sync:syncYoutubeCaptions};\n  function syncYoutubeCaptions(){');
 const original=JSON.parse(fs.readFileSync('captions/episode-1.json','utf8'));
