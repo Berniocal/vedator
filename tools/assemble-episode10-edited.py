@@ -102,9 +102,10 @@ def main():
        "source":{**source["source"],"transcriptFile":"captions/source/episode-10-draft.sk.json",
                  "independentChecks":"captions/source/episode-10-extra-checks.sk.json",
                  "editorialPatches":"captions/source/episode-10-editorial-patches.json",
+                 "czechEditorialPatches":"captions/source/episode-10-cs-editorial-patches.json",
                  "machineTranslationDraft":"captions/source/episode-10-translation-draft.cs.json"},
-       "review":{"status":"text-editorial-draft-needs-acoustic-approval",
-                 "note":"No independent full human listening performed; machine Czech draft requires comprehensive editorial correction before release."},
+       "review":{"status":"complete-model-assisted-bilingual-text-review-needs-independent-listening",
+                 "note":"All 294 Czech subtitle source cues received individual language editing; entire Slovak ASR reviewed with targeted independent full large-v3 source-audio checks. Original MP3 CTC alignment is separate. Complete independent human listening and YouTube audio comparison were not performed."},
        "checkWindows":[[578,599],[1030,1048],[1190,1208]],
        "cues":cues
     }
