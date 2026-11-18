@@ -5,7 +5,7 @@
   "patches": {
     "1": "Od hibernácie cez Hamiltonián až po hyperboly. Veda nás obklopuje na každom",
     "2": "kroku. Vitajte pri Vedátorskom podcaste, v ktorom budeme diskutovať o vede a prírode",
-    "3": "okolo nás. Moje meno je Jozef. Ja som Samuel.",
+    "3": "okolo nás. Moje meno je Jozef. A ja som Samuel.",
     "4": "Ahoj, Samuel. Dnes máme výročný podcast, desiate",
     "5": "vydanie. Desiate výročie, hej. Desiate výročie vydávania nášho podcastu.",
     "7": "Gratulujem. Všetko najlepšie, Vedátorský podcast. A sme už v dvojciferných",
@@ -52,7 +52,7 @@
     "74": "A také známe, neviem, či veľmi alebo nie, sú neutrína. To sú také",
     "76": "A tento zoznam ešte nie je úplný, patrí k nim ešte pár ďalších častíc, ale keby",
     "77": "som to len takto všetko vychrlil, tak by podľa mňa v tom poslucháčom vznikol úplný",
-    "79": "Súhlasím. Bolo by to len také, že bez hlavy a skladu proste sypanie názvov.",
+    "79": "Súhlasím. Bolo by to len také, že bez ladu a skladu proste sypanie názvov.",
     "80": "A druhý nepríjemný aspekt tejto oblasti: všetky tieto veci dostanú nové názvy,",
     "83": "mezónové, toto sú baryóny, leptóny, strašne veľa klasifikácií. A",
     "84": "začne sa v tom proste človek topiť.",
@@ -154,7 +154,7 @@
     "264": "takmer nikto už neveril, že sa im to vlastne podarí nájsť. Takže on na záver vyhral",
     "265": "takých dvadsať porcií zmrzliny alebo koľko, lebo on tvrdil, že sa to podarí. A všetci",
     "266": "hovorili, že už to asi nedokážeme. On má také svoje limity, akú presnosť dokážu z toho",
-    "268": "vytrieskať, aké energie a podobne. A dlho tam nebolo nič, takže už začali byť ľudia trochu skeptickí.",
+    "268": "vytrieskať, aké energie a podobne. A dlho tam nebolo nič, takže ľudia začali byť trošku skeptickí.",
     "269": "Aha, takže asi išlo od človeka k človeku. A ja som odtiaľ zobral tú informáciu. Čo",
     "270": "som vlastne nepovedal, je, že Higgsov bozón bol posledný dielik skladačky,",
     "273": "túto poslednú vec tam trebalo rozlúštiť. Akože rozdiel tých hmotností, že nehmotné a",
@@ -173,5 +173,27 @@
   },
   "reviewedCueCount": 150,
   "baseCueCount": 294,
-  "sourceAudioSha256": "b4d944a41aa46e581453305f60bde676fd920e5a1bf5262999e2ec417f162c7e"
+  "sourceAudioSha256": "b4d944a41aa46e581453305f60bde676fd920e5a1bf5262999e2ec417f162c7e",
+  "reviewNotes": [
+    {
+      "originalCue": 133,
+      "between": [
+        133,
+        134
+      ],
+      "at": [
+        585.65,
+        593.09
+      ],
+      "issue": "Independent full large-v3 detected speech omitted by VAD/ASR; recover it with separate 0-word cue and check disputed return-throw wording against audio."
+    },
+    {
+      "originalCue": 3,
+      "issue": "Independent ASR confirms 'A ja som Samuel'."
+    },
+    {
+      "originalCue": 79,
+      "issue": "Independent ASR confirms idiom 'bez ladu a skladu'."
+    }
+  ]
 }
