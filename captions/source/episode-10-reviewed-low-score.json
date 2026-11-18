@@ -1,0 +1,58 @@
+{
+  "episode": 10,
+  "audioSha256": "b4d944a41aa46e581453305f60bde676fd920e5a1bf5262999e2ec417f162c7e",
+  "reviewState": "documented-short-utterance-score-exceptions-no-human-listening",
+  "modelNote": "Original large-v3-turbo and unforced Slovak wav2vec2 CTC compared; full large-v3 also checked the windows but did not transcribe these ultra-short interjections. No human listening certification is claimed.",
+  "exceptions": [
+    {
+      "cue": 14,
+      "asrWordRange": [
+        106,
+        107
+      ],
+      "cueTextSk": "Fúha.",
+      "asrRecognizedWords": [
+        {
+          "text": "Fúha.",
+          "confidence": 0.9292,
+          "start": 72.01,
+          "end": 72.53
+        }
+      ],
+      "ctcScore": 0.2668,
+      "ctcRawWindow": [
+        71.1,
+        73.15
+      ],
+      "ctcGreedyText": "lnihek fuá",
+      "independentLargeV3Text": "Nie. Nie? Tak už nedávame ľuďom nikdy.",
+      "humanListeningVerified": false,
+      "confidenceNote": "Short interjection: forced CTC below 0.35; raw unforced CTC contains phonetic suggestion, original ASR strongly recognizes token, wider full-model ASR omits the ultra-short interjection; exact independent human listening remains outstanding."
+    },
+    {
+      "cue": 85,
+      "asrWordRange": [
+        848,
+        849
+      ],
+      "cueTextSk": "Áno.",
+      "asrRecognizedWords": [
+        {
+          "text": "Áno.",
+          "confidence": 0.7312,
+          "start": 383.78,
+          "end": 384
+        }
+      ],
+      "ctcScore": 0.3271,
+      "ctcRawWindow": [
+        382.6,
+        385
+      ],
+      "ctcGreedyText": "ltopyť anak žéň",
+      "independentLargeV3Text": "a začne sa som proste človek topiť. Takže urobme takú dohodu, že nepovieme úplne",
+      "humanListeningVerified": false,
+      "confidenceNote": "Short interjection: forced CTC below 0.35; raw unforced CTC contains phonetic suggestion, original ASR strongly recognizes token, wider full-model ASR omits the ultra-short interjection; exact independent human listening remains outstanding."
+    }
+  ]
+}
