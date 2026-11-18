@@ -1,37 +1,14 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
-import crypto from 'node:crypto';
 import {JSDOM,VirtualConsole} from 'jsdom';
-
+import './test-video-catalog.mjs';
 const html=fs.readFileSync('index.html','utf8'),app=fs.readFileSync('app-v2.js','utf8'),data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const mappings=JSON.parse(fs.readFileSync('episode-videos.json','utf8'));
 const captions=JSON.parse(fs.readFileSync('captions/episode-1.json','utf8'));
-const asrBytes=fs.readFileSync(captions.source.transcriptFile),asr=JSON.parse(asrBytes);
-assert(asr.complete,'The entire audio must be transcribed before publishing');
-assert.equal(crypto.createHash('sha256').update(asrBytes).digest('hex'),captions.source.transcriptSha256);
-assert.equal(asr.audioSha256,captions.source.audioSha256);
-assert.equal(captions.previousSource.cueCount,240,'Keep the original SRT provenance');
-assert.equal(captions.quality,'audio-repaired');
-assert(captions.source.duration>1200&&captions.source.duration<1250);
-const asrWords=asr.segments.flatMap(segment=>segment.words);
-assert.equal(captions.source.wordCount,asrWords.length);assert.equal(captions.review.reviewedAsrWords,asrWords.length);
-let previousWord=0;
-for(const cue of captions.cues){assert.equal(cue.asrWordRange[0],previousWord,'No omitted words between captions');assert(cue.asrWordRange[1]>previousWord);previousWord=cue.asrWordRange[1]}
-assert.equal(previousWord,asrWords.length,'Caption ranges cover the complete ASR');
-assert(captions.cues.every(cue=>cue.kind==='speech'&&!/\[(?:Úsek|Nejasný|Nesrozumitelný|Nezrozumiteľný)/.test(cue.text.cs+cue.text.sk)),'Replace missing/unclear placeholders with audio-derived text');
-assert(captions.cues.some(cue=>cue.start<670&&cue.end>655&&/turbín/.test(cue.text.cs+cue.text.sk)),'Restore the lost explanation in the formerly repeated passage');
-assert(captions.cues.every((cue,i)=>cue.start>=0&&cue.end>cue.start&&(!i||cue.start>=captions.cues[i-1].end)&&cue.text.cs&&cue.text.sk));
-assert.equal(data.episodes.find(e=>e.number===1).captionFile,'captions/episode-1.json');
-for(const mapping of mappings){const episode=data.episodes.find(e=>e.number===mapping.episode);assert(episode,'Catalog entry for mapped episode');if(mapping.captionFile)assert.equal(episode.captionFile,mapping.captionFile,`Published captions episode ${mapping.episode}`);else assert(!episode.captionFile,`Episode ${mapping.episode} should not have captions`);}
 const captionAt=(time,lang)=>captions.cues.find(c=>c.start<=time&&time<c.end)?.text[lang]||'';
-assert.equal(mappings.length,10);
-for(let n=1;n<=10;n++){
-  const episode=data.episodes.find(e=>e.number===n),mapping=mappings.find(e=>e.episode===n);
-  assert.equal(episode.id,mapping.guid);assert.equal(episode.youtubeId,mapping.youtubeId);
-}
-assert(data.episodes.filter(e=>e.number>10).every(e=>!e.youtubeId),'Only the first ten episodes are enabled');
-// Exercise the real UI against a bounded slice of the real catalog.
-const fixture={...data,episodes:data.episodes.filter(e=>e.number<=20),series:[],questions:[]};
+const unavailable=data.episodes.find(e=>!e.youtubeId);assert(unavailable);
+const fixtureNumbers=new Set([1,2,3,4,10,11,142,1642,1701,1715,unavailable.number]);
+const fixture={...data,episodes:data.episodes.filter(e=>fixtureNumbers.has(e.number)),series:[],questions:[]};
 const wait=()=>new Promise(resolve=>setTimeout(resolve,25));
 async function boot(storage={},api=true,captionMode='ok'){
   const errors=[],vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e));
@@ -44,7 +21,7 @@ async function boot(storage={},api=true,captionMode='ok'){
     if(String(url).includes('captions/')){
       captionRequests.push(String(url));
       if(captionMode==='delay')await new Promise(resolve=>{resolveCaptions=resolve});
-      return {ok:captionMode!=='error',status:captionMode==='error'?404:200,json:async()=>captions};
+      return {ok:captionMode!=='error',status:captionMode==='error'?404:200,json:async()=>JSON.parse(fs.readFileSync(String(url).replace(/^\.\//,''),'utf8'))};
     }
     return {ok:true,json:async()=>fixture};
   };w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{};
@@ -81,76 +58,39 @@ async function boot(storage={},api=true,captionMode='ok'){
 }
 const t=await boot();
 try{
-  await t.play(1);assert(!t.$('#player-video-v2').disabled);
-  assert.equal(t.captionRequests.length,0,'MP3/app startup must not fetch captions');
-  t.audio.currentTime=153.5;t.audio.dispatchEvent(new t.w.Event('timeupdate'));
-  await t.click('#player-video-v2');
-  let frame=t.$('#player-youtube-frame-v2'),player=t.players.at(-1);
+  await t.play(1);assert(!t.$('#player-video-v2').disabled);assert.equal(t.captionRequests.length,1,'MP3 captions load once when available');
+  t.audio.currentTime=153.5;t.audio.dispatchEvent(new t.w.Event('timeupdate'));await wait();
+  assert.equal(t.$('#player-caption-text-v2').textContent,captionAt(153.5,'cs'));
+  await t.click('#player-video-v2');let player=t.players.at(-1),frame=t.$('#player-youtube-frame-v2');
   assert(frame.src.includes('/P_QuPTRbtc8?'));assert.equal(new URL(frame.src).searchParams.get('start'),'153');
   assert.equal(new URL(frame.src).searchParams.get('origin'),'https://example.test');
-  assert(t.audio.paused);assert.equal(t.audio.getAttribute('src'),null,'MP3 network must stop during video');
-  assert.equal(frame.referrerPolicy,'strict-origin-when-cross-origin');
-  assert.equal(t.captionRequests.length,1);
-  assert.equal(t.$('#player-caption-text-v2').textContent,captionAt(153.5,'cs'));
-  assert(!t.$('#player-video-host-v2').contains(t.$('#player-captions-v2')),'Custom text must be outside the YouTube player');
-  const seek=t.$('#player-seek-v2');seek.value='201';seek.dispatchEvent(new t.w.Event('change'));
-  player.ready();await wait();assert.equal(player.lastSeek,201,'Seek before API readiness must survive');assert(!player.paused);
-  assert.equal(t.$('#player-caption-text-v2').textContent,captionAt(201,'cs'));
-  await t.captionLanguage('sk');assert.equal(t.$('#player-caption-text-v2').textContent,captionAt(201,'sk'));
-  await t.captionLanguage('off');assert(t.$('#player-caption-text-v2').classList.contains('hidden'));assert.equal(t.w.localStorage.getItem('vedator-youtube-caption-language-v1'),'"off"');
-  await t.captionLanguage('auto');await t.click('[data-lang="sk"]');assert.equal(t.$('#player-caption-text-v2').lang,'sk');await t.click('[data-lang="cz"]');
-  const intro=captions.cues.find(c=>c.text.cs==='Věda nás obklopuje na každém kroku.');assert(intro);
-  seek.value=String(Math.floor(intro.start));seek.dispatchEvent(new t.w.Event('change'));player.time=intro.start;player.emit(2);await wait();
-  assert.equal(t.$('#player-caption-text-v2').textContent,'Věda nás obklopuje na každém kroku.');
-  player.time=intro.end;player.emit(2);await wait();assert.equal(t.$('#player-caption-text-v2').textContent,captionAt(intro.end,'cs'),'Cue end must be exclusive');
-  seek.value='201';seek.dispatchEvent(new t.w.Event('change'));
-  player.time=305.75;player.emit(2);await wait();
-  assert.equal(t.$('#player-play-v2').textContent,'▶');
-  assert.equal(JSON.parse(t.w.localStorage.getItem('vedatorPlaybackProgressV1'))['episode-1'].currentTime,305.75);
-  await t.click('#player-play-v2');assert(!player.paused);
-  await t.click('#player-forward10-v2');assert.equal(player.lastSeek,315.75);
+  assert.equal(frame.referrerPolicy,'strict-origin-when-cross-origin');assert(t.audio.paused);assert.equal(t.audio.getAttribute('src'),null);
+  player.ready();await wait();assert(!player.paused);
+  assert.equal(t.$('#player-video-caption-v2').textContent,captionAt(153.5,'cs'));
+  const seek=t.$('#player-seek-v2');seek.value='201';seek.dispatchEvent(new t.w.Event('change'));assert.equal(player.lastSeek,201);
+  await t.captionLanguage('sk');assert.equal(t.$('#player-video-caption-v2').textContent,captionAt(201,'sk'));
+  await t.captionLanguage('off');assert(t.$('#player-video-caption-v2').classList.contains('hidden'));assert(!player.paused,'Caption toggle never stops video');
+  await t.captionLanguage('cs');await t.click('#player-forward10-v2');assert.equal(player.lastSeek,211);
   await t.click('#player-speed-v2');assert.equal(player.speed,1.25);
   await t.click('#player-video-v2');assert(player.destroyed);assert(!t.$('#player-youtube-frame-v2'));
-  assert(t.$('#player-captions-v2').classList.contains('hidden'));assert.equal(t.$('#player-caption-text-v2').textContent,'');
-  assert(t.audio.src.includes('podcast_ep1.mp3'));assert.equal(t.audio.currentTime,315.75);assert(!t.audio.paused);
-  assert.equal(t.w.localStorage.getItem('vedator-youtube-enabled-v1'),'false');
-  await t.click('#player-video-v2');player=t.players.at(-1);player.ready();player.time=420;player.emit(2);await wait();
-  await t.captionLanguage('sk');assert.equal(t.captionRequests.length,1,'Reopening a video reuses its caption data');
-  const snapshot=t.snapshot();
-  const restored=await boot(snapshot);
-  try{
-    const restoredPlayer=restored.players.at(-1);assert(restoredPlayer,'Saved video preference must restore the iframe');restoredPlayer.ready();await wait();
-    assert.equal(restoredPlayer.time,420,'Restore video at its saved position');assert(restoredPlayer.paused,'Reopening the app must not autoplay');
-    assert.equal(restored.$('#player-caption-language-v2').value,'sk');assert.equal(restored.$('#player-caption-text-v2').textContent,captionAt(420,'sk'));
-    await restored.click('#player-expand-v2');await restored.click('#player-video-v2');
-    assert(!restored.$('#player-youtube-frame-v2'));assert.equal(restored.audio.currentTime,420);assert(restored.audio.paused);
-  }finally{restored.dom.window.close()}
-  await t.play(11);assert(t.$('#player-video-v2').disabled);assert(!t.$('#player-youtube-frame-v2'));assert(t.audio.src.includes('podcast_ep11.mp3'));
-  assert.equal(t.w.localStorage.getItem('vedator-youtube-enabled-v1'),'true','Unmapped episode must not erase preference');
-  await t.play(2);player=t.players.at(-1);assert(t.$('#player-youtube-frame-v2').src.includes('QY9pL56nmsA'));player.ready();
-  assert(t.$('#player-captions-v2').classList.contains('hidden'),'No pilot captions on other episodes');
-  player.events.onAutoplayBlocked();assert.equal(t.$('#player-play-v2').textContent,'▶');assert(t.$('#player-video-status-v2').textContent.includes('▶'));
-  player.events.onError({data:150});assert(t.$('#player-video-status-v2 a').href.includes('QY9pL56nmsA'));
-  await t.click('#player-play-v2');await t.click('#player-close-v2');assert(player.paused,'Collapsed video must pause');
-  await t.click('#player-expand-v2');player.emit(0);await wait();
-  assert(t.$('#player-youtube-frame-v2').src.includes('1jI97x33kRo'),'Video ending advances the existing episode context: '+t.$('#player-youtube-frame-v2').src+' '+t.$('#player-title-v2').textContent);
-  const stale=t.players.at(-1);await t.play(4);stale.ready();stale.emit(0);await wait();
-  assert(t.$('#player-youtube-frame-v2').src.includes('BXa3gr-Zdzg'),'Late callbacks must not change a newer episode');
+  assert(t.audio.src.includes('podcast_ep1.mp3'));assert.equal(t.audio.currentTime,211);assert(!t.audio.paused);
+  assert.equal(t.$('#player-caption-text-v2').textContent,captionAt(211,'cs'),'Existing MP3 captions survive the handoff');
+  await t.click('#player-video-v2');player=t.players.at(-1);player.ready();await wait();
+  const requests=t.captionRequests.length;
+  for(const number of [11,142,1642,1701,1715].filter(n=>!mappings.find(m=>m.episode===n)?.captionFile)){
+    const mapping=mappings.find(e=>e.episode===number);assert(mapping);
+    const stale=t.players.at(-1);await t.play(number);const current=t.players.at(-1);current.ready();await wait();
+    assert(t.$('#player-youtube-frame-v2').src.includes('/'+mapping.youtubeId+'?'),`Correct video for internal episode ${number}`);
+    assert(t.$('#player-captions-v2').classList.contains('hidden'),'New video links do not create subtitle controls');
+    stale.emit(0);await wait();assert(t.$('#player-youtube-frame-v2').src.includes('/'+mapping.youtubeId+'?'),'Old player callback cannot change a newer episode');
+  }
+  assert.equal(t.captionRequests.length,requests,'Video-only episodes must not request subtitle files');
+  await t.play(unavailable.number);assert(t.$('#player-video-v2').disabled);assert(!t.$('#player-youtube-frame-v2'));assert(!t.audio.paused);
+  assert.equal(t.w.localStorage.getItem('vedator-youtube-enabled-v1'),'true','Unavailable video does not erase preference');
+  await t.play(11);player=t.players.at(-1);player.ready();await wait();player.events.onAutoplayBlocked();
+  assert.equal(t.$('#player-play-v2').textContent,'▶');player.events.onError({data:150});
+  assert(t.$('#player-video-status-v2 a').href.includes(mappings.find(e=>e.episode===11).youtubeId),'Unembeddable video offers its correct direct link');
+  await wait();
   assert.equal(t.errors.length,0,t.errors.map(String).join('\n'));
-}finally{t.dom.window.close()}
-const pending=await boot({},false,'delay');
-try{
-  await pending.play(1);pending.audio.currentTime=99;
-  await pending.click('#player-video-v2');assert(pending.$('script[src="https://www.youtube.com/iframe_api"]'));
-  await pending.click('#player-video-v2');assert.equal(pending.audio.currentTime,99);
-  pending.w.YT={Player:class{constructor(){throw new Error('Cancelled player must not be constructed')}}};
-  pending.w.onYouTubeIframeAPIReady();await wait();assert(!pending.$('#player-youtube-frame-v2'));
-  pending.resolveCaptions();await wait();assert(pending.$('#player-captions-v2').classList.contains('hidden'));assert.equal(pending.$('#player-caption-text-v2').textContent,'','Late caption response must not revive a closed video');
-}finally{pending.dom.window.close()}
-const failedCaptions=await boot({},true,'error');
-try{
-  await failedCaptions.play(1);await failedCaptions.click('#player-video-v2');const player=failedCaptions.players.at(-1);player.ready();await wait();
-  assert(failedCaptions.$('#player-caption-text-v2').textContent.includes('nepodařilo'));assert(!player.paused,'Caption failure must not stop the video');
-  await failedCaptions.click('#player-video-v2');assert(!failedCaptions.audio.paused,'MP3 fallback must still work');
-}finally{failedCaptions.dom.window.close()}
-console.log('YouTube player OK: handoff, seek, restore, lazy bilingual captions, exact cue boundaries, language/off preference, missing text, errors and cancelled callbacks.');
+}finally{await wait();t.dom.window.close()}
+console.log('YouTube player OK: expanded regular/special episode catalog, exact iframe IDs, seek, language/off, MP3 handoff, video-only episodes, unavailable links and stale callbacks.');

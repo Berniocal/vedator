@@ -9,13 +9,15 @@ const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const rss=JSON.parse(fs.readFileSync('episodes.json','utf8')).episodes;
 const specials=rss.filter(e=>!Number(e.number));
 const byGuid=new Map(data.episodes.map(e=>[e.id,e]));
+const testData={...data,episodes:data.episodes.filter(e=>specials.some(s=>s.id===e.id)),questions:[],series:[]};
 const assert=(condition,message)=>{if(!condition)throw new Error(message)};
 assert(specials.length>=41,'Expected historical unnumbered special collection');
 
 const dom=new JSDOM(html,{url:'https://example.test/vedator/',runScripts:'outside-only',pretendToBeVisual:true});
 const {window}=dom;
 window.localStorage.setItem('vedator-ui-language-v1','cz');
-window.fetch=async()=>({ok:true,status:200,json:async()=>data});
+window.fetch=async()=>({ok:true,status:200,json:async()=>testData});
+window.XMLHttpRequest=class{open(){}send(){queueMicrotask(()=>{this.status=200;this.responseText=JSON.stringify(testData);this.onload()})}};
 window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};
 window.HTMLMediaElement.prototype.load=()=>{};

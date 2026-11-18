@@ -40,6 +40,7 @@ jobs:
         run: |
           node --check app-v2.js
           node tools/test-content-v2.mjs
+          node tools/test-video-catalog.mjs
           node tools/test-v2-faq-integrity.mjs
           node tools/test-v2-series-topics.mjs
 

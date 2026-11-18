@@ -341,12 +341,14 @@ function specialEpisodeIdentity(title){
 // Match curated YouTube links by RSS GUID, so numbered specials cannot collide.
 const episodeVideos=JSON.parse(read('episode-videos.json'));
 const videosByGuid=new Map();
+const videoEpisodeNumbersByGuid=new Map();
 const captionsByGuid=new Map();
 const audioFilesByGuid=new Map();
 for(const video of episodeVideos){
   if(!video.guid||!Number.isInteger(video.episode)||!/^[A-Za-z0-9_-]{11}$/.test(video.youtubeId)||videosByGuid.has(video.guid))throw new Error('Invalid/duplicate episode video: '+JSON.stringify(video));
   const source=sourceEpisodes.find(episode=>String(episode.id)===video.guid);
-  if(!source||Number(source.number)!==video.episode)throw new Error('Video does not match RSS episode: '+video.episode);
+  if(!source)throw new Error('Video does not match RSS GUID: '+video.episode);
+  videoEpisodeNumbersByGuid.set(video.guid,video.episode);
   videosByGuid.set(video.guid,video.youtubeId);
   if(video.audioFile){
     if(video.audioFile!=='audio/episode-'+video.episode+'.mp3'||!/^[0-9a-f]{64}$/.test(video.audioSha256||''))throw new Error('Invalid curated MP3 asset');
@@ -400,6 +402,8 @@ const episodes=sourceEpisodes.map(e=>{
 // Do not silently route two independent RSS entries to the same player.
 const seenEpisodeNumbers=new Set(),seenEpisodeGuids=new Set();
 for(const episode of episodes){
+  // Validate after resolving stable internal IDs for specials and duplicate RSS numbers.
+  if(videoEpisodeNumbersByGuid.has(episode.id)&&videoEpisodeNumbersByGuid.get(episode.id)!==episode.number)throw new Error('Video does not match resolved RSS episode: '+episode.number);
   if(!Number.isInteger(episode.number)||episode.number<=0||episode.number>=2048||seenEpisodeNumbers.has(episode.number))
     throw new Error(`Invalid/duplicate playback number ${episode.number}: ${episode.title}`);
   if(!episode.id||seenEpisodeGuids.has(episode.id)||!episode.enclosure)
