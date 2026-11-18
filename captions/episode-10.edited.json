@@ -1,0 +1,4772 @@
+{
+  "episode": 10,
+  "source": {
+    "audio": "https://mcdn.podbean.com/mf/web/n5wn8y/podcast_ep10.mp3",
+    "audioSha256": "b4d944a41aa46e581453305f60bde676fd920e5a1bf5262999e2ec417f162c7e",
+    "audioBytes": 42347899,
+    "model": "large-v3-turbo",
+    "duration": 1295.386125,
+    "transcriptFile": "captions/source/episode-10-draft.sk.json",
+    "independentChecks": "captions/source/episode-10-extra-checks.sk.json",
+    "editorialPatches": "captions/source/episode-10-editorial-patches.json",
+    "machineTranslationDraft": "captions/source/episode-10-translation-draft.cs.json"
+  },
+  "review": {
+    "status": "text-editorial-draft-needs-acoustic-approval",
+    "note": "No independent full human listening performed; machine Czech draft requires comprehensive editorial correction before release."
+  },
+  "checkWindows": [
+    [
+      578,
+      599
+    ],
+    [
+      1030,
+      1048
+    ],
+    [
+      1190,
+      1208
+    ]
+  ],
+  "cues": [
+    {
+      "start": 11.57,
+      "end": 16.97,
+      "text": {
+        "sk": "Od hibernácie cez Hamiltonián až po hyperboly. Veda nás obklopuje na každom",
+        "cs": "Od hibernace přes hamiltonián až po hyperboly. Věda nás obklopuje na každém"
+      },
+      "asrWordRange": [
+        0,
+        12
+      ],
+      "sourceCues": [
+        1
+      ],
+      "alignmentText": "Od hibernácie cez Hamiltonián až po hyperboly. Veda nás obklopuje na každom"
+    },
+    {
+      "start": 16.97,
+      "end": 22.25,
+      "text": {
+        "sk": "kroku. Vitajte pri Vedátorskom podcaste, v ktorom budeme diskutovať o vede a prírode",
+        "cs": "kroku. Vítejte u Vedátorského podcastu, ve kterém budeme diskutovat o vědě a přírodě"
+      },
+      "asrWordRange": [
+        12,
+        25
+      ],
+      "sourceCues": [
+        2
+      ],
+      "alignmentText": "kroku. Vitajte pri Vedátorskom podcaste, v ktorom budeme diskutovať o vede a prírode"
+    },
+    {
+      "start": 22.25,
+      "end": 25.35,
+      "text": {
+        "sk": "okolo nás. Moje meno je Jozef. A ja som Samuel.",
+        "cs": "kolem nás. Jmenuji se Jozef. A já jsem Samuel."
+      },
+      "asrWordRange": [
+        25,
+        34
+      ],
+      "sourceCues": [
+        3
+      ],
+      "alignmentText": "okolo nás. Moje meno je Jozef. A ja som Samuel."
+    },
+    {
+      "start": 26.78,
+      "end": 31.42,
+      "text": {
+        "sk": "Ahoj, Samuel. Dnes máme výročný podcast, desiate",
+        "cs": "Ahoj, Samuele. Dnes máme výroční podcast, desáté"
+      },
+      "asrWordRange": [
+        34,
+        41
+      ],
+      "sourceCues": [
+        4
+      ],
+      "alignmentText": "Ahoj, Samuel. Dnes máme výročný podcast, desiate"
+    },
+    {
+      "start": 32.88,
+      "end": 38.02,
+      "text": {
+        "sk": "vydanie. Desiate výročie, hej. Desiate výročie vydávania nášho podcastu.",
+        "cs": "vydání. Desáté výročí, ano. Desáté výročí vydávání našeho podcastu."
+      },
+      "asrWordRange": [
+        41,
+        50
+      ],
+      "sourceCues": [
+        5
+      ],
+      "alignmentText": "vydanie. Desiate výročie, hej. Desiate výročie vydávania nášho podcastu."
+    },
+    {
+      "start": 39.2,
+      "end": 42.28,
+      "text": {
+        "sk": "Ale nesrandujem, je to náš 10. podcast.",
+        "cs": "Ale nežertuji, je to náš desátý podcast."
+      },
+      "asrWordRange": [
+        50,
+        57
+      ],
+      "sourceCues": [
+        6
+      ],
+      "alignmentText": "Ale nesrandujem, je to náš desiaty podcast."
+    },
+    {
+      "start": 45.32,
+      "end": 50.6,
+      "text": {
+        "sk": "Gratulujem. Všetko najlepšie, Vedátorský podcast. A sme už v dvojciferných",
+        "cs": "Gratuluji. Všechno nejlepší, Vedátorský podcaste. A už jsme u dvojciferných"
+      },
+      "asrWordRange": [
+        57,
+        67
+      ],
+      "sourceCues": [
+        7
+      ],
+      "alignmentText": "Gratulujem. Všetko najlepšie, Vedátorský podcast. A sme už v dvojciferných"
+    },
+    {
+      "start": 50.6,
+      "end": 55.98,
+      "text": {
+        "sk": "číslach, ale teraz dôležitejšia vec. Dali sme na",
+        "cs": "čísel, ale teď něco důležitějšího. Dali jsme na"
+      },
+      "asrWordRange": [
+        67,
+        75
+      ],
+      "sourceCues": [
+        8
+      ],
+      "alignmentText": "číslach, ale teraz dôležitejšia vec. Dali sme na"
+    },
+    {
+      "start": 55.98,
+      "end": 61.04,
+      "text": {
+        "sk": "Facebooku ľuďom možnosť zahlasovať alebo navrhnúť tému nášho desiateho podcastu.",
+        "cs": "Facebooku lidem možnost hlasovat nebo navrhnout téma našeho desátého podcastu."
+      },
+      "asrWordRange": [
+        75,
+        85
+      ],
+      "sourceCues": [
+        9
+      ],
+      "alignmentText": "Facebooku ľuďom možnosť zahlasovať alebo navrhnúť tému nášho desiateho podcastu."
+    },
+    {
+      "start": 61.04,
+      "end": 66.46,
+      "text": {
+        "sk": "A vybrali nám Higgsov bozón. Veľmi veľa ľudí to zaujímalo a ideme sa",
+        "cs": "A vybrali nám Higgsův boson. Velmi mnoho lidí to zajímalo a dnes si o něm"
+      },
+      "asrWordRange": [
+        85,
+        98
+      ],
+      "sourceCues": [
+        10
+      ],
+      "alignmentText": "A vybrali nám Higgsov bozón. Veľmi veľa ľudí to zaujímalo a ideme sa"
+    },
+    {
+      "start": 66.46,
+      "end": 67.9,
+      "text": {
+        "sk": "dnes o ňom rozprávať. Tešíš sa?",
+        "cs": "budeme povídat. Těšíš se?"
+      },
+      "asrWordRange": [
+        98,
+        104
+      ],
+      "sourceCues": [
+        11
+      ],
+      "alignmentText": "dnes o ňom rozprávať. Tešíš sa?"
+    },
+    {
+      "start": 69.47,
+      "end": 69.75,
+      "text": {
+        "sk": "Nie.",
+        "cs": "Ne."
+      },
+      "asrWordRange": [
+        104,
+        105
+      ],
+      "sourceCues": [
+        12
+      ],
+      "alignmentText": "Nie."
+    },
+    {
+      "start": 70.87,
+      "end": 71.35,
+      "text": {
+        "sk": "Nie?",
+        "cs": "Ne?"
+      },
+      "asrWordRange": [
+        105,
+        106
+      ],
+      "sourceCues": [
+        13
+      ],
+      "alignmentText": "Nie?"
+    },
+    {
+      "start": 72.01,
+      "end": 72.53,
+      "text": {
+        "sk": "Fúha.",
+        "cs": "Fíha."
+      },
+      "asrWordRange": [
+        106,
+        107
+      ],
+      "sourceCues": [
+        14
+      ],
+      "alignmentText": "Fúha."
+    },
+    {
+      "start": 73.53,
+      "end": 78.53,
+      "text": {
+        "sk": "Tak už nedávame ľuďom nikdy hlasovať. Mne totiž táto téma napadla už dávno,",
+        "cs": "Tak už lidem nikdy nedáme hlasovat. Mě totiž tohle téma napadlo už dávno,"
+      },
+      "asrWordRange": [
+        107,
+        121
+      ],
+      "sourceCues": [
+        15
+      ],
+      "alignmentText": "Tak už nedávame ľuďom nikdy hlasovať. Mne totiž táto téma napadla už dávno,"
+    },
+    {
+      "start": 78.67,
+      "end": 83.98,
+      "text": {
+        "sk": "lebo bola za to Nobelova cena, úplne to preletelo všetkými médiami.",
+        "cs": "protože za něj byla Nobelova cena a prolétlo všemi médii."
+      },
+      "asrWordRange": [
+        121,
+        132
+      ],
+      "sourceCues": [
+        16
+      ],
+      "alignmentText": "lebo bola za to Nobelova cena, úplne to preletelo všetkými médiami."
+    },
+    {
+      "start": 84.52,
+      "end": 89.94,
+      "text": {
+        "sk": "Úplne, že boli roky, keď všetci poznali slovné spojenie Higgsov bozón a nikto",
+        "cs": "Dokonce byly roky, kdy všichni znali slovní spojení Higgsův boson a nikdo"
+      },
+      "asrWordRange": [
+        132,
+        145
+      ],
+      "sourceCues": [
+        17
+      ],
+      "alignmentText": "Úplne, že boli roky, keď všetci poznali slovné spojenie Higgsov bozón a nikto"
+    },
+    {
+      "start": 89.94,
+      "end": 94.86,
+      "text": {
+        "sk": "absolútne netušil, čo to znamená. A dôvod na to je taký, že pomerne ťažko sa",
+        "cs": "vůbec netušil, co to znamená. A důvod je ten, že je poměrně těžké"
+      },
+      "asrWordRange": [
+        145,
+        160
+      ],
+      "sourceCues": [
+        18
+      ],
+      "alignmentText": "absolútne netušil, čo to znamená. A dôvod na to je taký, že pomerne ťažko sa"
+    },
+    {
+      "start": 94.86,
+      "end": 99.34,
+      "text": {
+        "sk": "vysvetľuje, čo to vlastne je. Preto som sa do toho moc nechcel púšťať v podcaste, ale",
+        "cs": "vysvětlit, co to vlastně je. Proto jsem se do toho v podcastu moc nechtěl pouštět, ale"
+      },
+      "asrWordRange": [
+        160,
+        176
+      ],
+      "sourceCues": [
+        19
+      ],
+      "alignmentText": "vysvetľuje, čo to vlastne je. Preto som sa do toho moc nechcel púšťať v podcaste, ale"
+    },
+    {
+      "start": 99.34,
+      "end": 102.76,
+      "text": {
+        "sk": "keď nás poslucháči presvedčili, že ich to zaujíma, tak sa teda pokúsime.",
+        "cs": "když nás posluchači přesvědčili, že je to zajímá, tak to zkusíme."
+      },
+      "asrWordRange": [
+        176,
+        188
+      ],
+      "sourceCues": [
+        20
+      ],
+      "alignmentText": "keď nás poslucháči presvedčili, že ich to zaujíma, tak sa teda pokúsime."
+    },
+    {
+      "start": 103.86,
+      "end": 109.24,
+      "text": {
+        "sk": "Pokúsime, áno. Tak začneme úplne tou najzákladnejšou vecou: čo je to Higgsov",
+        "cs": "Zkusíme, ano. Začněme tedy tou nejzákladnější věcí: co je Higgsův"
+      },
+      "asrWordRange": [
+        188,
+        200
+      ],
+      "sourceCues": [
+        21
+      ],
+      "alignmentText": "Pokúsime, áno. Tak začneme úplne tou najzákladnejšou vecou: čo je to Higgsov"
+    },
+    {
+      "start": 109.24,
+      "end": 112.88,
+      "text": {
+        "sk": "bozón? Keď si to tak nechcel vysvetľovať, tak skús to teraz.",
+        "cs": "boson? Když se ti to tak nechtělo vysvětlovat, tak to teď zkus."
+      },
+      "asrWordRange": [
+        200,
+        211
+      ],
+      "sourceCues": [
+        22
+      ],
+      "alignmentText": "bozón? Keď si to tak nechcel vysvetľovať, tak skús to teraz."
+    },
+    {
+      "start": 113.93,
+      "end": 118.81,
+      "text": {
+        "sk": "Takže Higgsov bozón je elementárna častica, ktorá je súčasťou takzvaného",
+        "cs": "Higgsův boson je tedy elementární částice, která je součástí takzvaného"
+      },
+      "asrWordRange": [
+        211,
+        221
+      ],
+      "sourceCues": [
+        23
+      ],
+      "alignmentText": "Takže Higgsov bozón je elementárna častica, ktorá je súčasťou takzvaného"
+    },
+    {
+      "start": 119.67,
+      "end": 124.45,
+      "text": {
+        "sk": "štandardného modelu časticovej fyziky, ktorý opisuje zloženie hmoty okolo nás.",
+        "cs": "standardního modelu částicové fyziky, který popisuje složení hmoty kolem nás."
+      },
+      "asrWordRange": [
+        221,
+        231
+      ],
+      "sourceCues": [
+        24
+      ],
+      "alignmentText": "štandardného modelu časticovej fyziky, ktorý opisuje zloženie hmoty okolo nás."
+    },
+    {
+      "start": 125.58,
+      "end": 130.12,
+      "text": {
+        "sk": "To nebolo také zle, nie? To sa ešte dalo rozumieť. To sa dalo, to som tomu myslím, že",
+        "cs": "To nebylo tak špatné, ne? Tomu se ještě dalo rozumět. Dalo, myslím, že jsem tomu"
+      },
+      "asrWordRange": [
+        231,
+        249
+      ],
+      "sourceCues": [
+        25
+      ],
+      "alignmentText": "To nebolo také zle, nie? To sa ešte dalo rozumieť. To sa dalo, to som tomu myslím, že"
+    },
+    {
+      "start": 130.12,
+      "end": 131.2,
+      "text": {
+        "sk": "až moc rozumel.",
+        "cs": "rozuměl až moc."
+      },
+      "asrWordRange": [
+        249,
+        252
+      ],
+      "sourceCues": [
+        26
+      ],
+      "alignmentText": "až moc rozumel."
+    },
+    {
+      "start": 132.84,
+      "end": 135.16,
+      "text": {
+        "sk": "To sa budem snažiť, aby si rozumel menej teda.",
+        "cs": "Tak se budu snažit, abys rozuměl méně."
+      },
+      "asrWordRange": [
+        252,
+        261
+      ],
+      "sourceCues": [
+        27
+      ],
+      "alignmentText": "To sa budem snažiť, aby si rozumel menej teda."
+    },
+    {
+      "start": 136.62,
+      "end": 141.34,
+      "text": {
+        "sk": "Nie, nie, musíme, aby tomu každý rozumel, a keď tomu ja rozumiem, tak ja verím, že",
+        "cs": "Ne, ne, musíme, aby tomu rozuměli všichni, a když tomu rozumím já, věřím, že"
+      },
+      "asrWordRange": [
+        261,
+        277
+      ],
+      "sourceCues": [
+        28
+      ],
+      "alignmentText": "Nie, nie, musíme, aby tomu každý rozumel, a keď tomu ja rozumiem, tak ja verím, že"
+    },
+    {
+      "start": 141.34,
+      "end": 142.44,
+      "text": {
+        "sk": "každý tomu bude rozumieť.",
+        "cs": "tomu budou rozumět všichni."
+      },
+      "asrWordRange": [
+        277,
+        281
+      ],
+      "sourceCues": [
+        29
+      ],
+      "alignmentText": "každý tomu bude rozumieť."
+    },
+    {
+      "start": 143.36,
+      "end": 148.26,
+      "text": {
+        "sk": "Povedzme si, použil si také spojenie, že elementárna častica. Môžem si pod tým",
+        "cs": "Řekl jsi spojení elementární částice. Můžu si pod tím"
+      },
+      "asrWordRange": [
+        281,
+        294
+      ],
+      "sourceCues": [
+        30
+      ],
+      "alignmentText": "Povedzme si, použil si také spojenie, že elementárna častica. Môžem si pod tým"
+    },
+    {
+      "start": 148.26,
+      "end": 152.08,
+      "text": {
+        "sk": "predstavovať atóm, elektrón, protón? Čo je to elementárna častica?",
+        "cs": "představit atom, elektron, proton? Co je elementární částice?"
+      },
+      "asrWordRange": [
+        294,
+        303
+      ],
+      "sourceCues": [
+        31
+      ],
+      "alignmentText": "predstavovať atóm, elektrón, protón? Čo je to elementárna častica?"
+    },
+    {
+      "start": 154.05,
+      "end": 156.33,
+      "text": {
+        "sk": "Takže spomenul som, že štandardný model.",
+        "cs": "Zmínil jsem tedy standardní model."
+      },
+      "asrWordRange": [
+        303,
+        309
+      ],
+      "sourceCues": [
+        32
+      ],
+      "alignmentText": "Takže spomenul som, že štandardný model."
+    },
+    {
+      "start": 157.09,
+      "end": 160.39,
+      "text": {
+        "sk": "Štandardný model je v prvom rade strašne hlúpe označenie.",
+        "cs": "Standardní model je v první řadě hrozně hloupé označení."
+      },
+      "asrWordRange": [
+        309,
+        318
+      ],
+      "sourceCues": [
+        33
+      ],
+      "alignmentText": "Štandardný model je v prvom rade strašne hlúpe označenie."
+    },
+    {
+      "start": 161.22,
+      "end": 166.56,
+      "text": {
+        "sk": "Je to súbor častíc a ich interakcií. Teda častíc, ktoré tvoria hmotu, a",
+        "cs": "Je to soubor částic a jejich interakcí. Tedy částic, které tvoří hmotu, a"
+      },
+      "asrWordRange": [
+        318,
+        331
+      ],
+      "sourceCues": [
+        34
+      ],
+      "alignmentText": "Je to súbor častíc a ich interakcií. Teda častíc, ktoré tvoria hmotu, a"
+    },
+    {
+      "start": 166.56,
+      "end": 168.38,
+      "text": {
+        "sk": "interakcie, ktoré medzi nimi prebiehajú.",
+        "cs": "interakcí, které mezi nimi probíhají."
+      },
+      "asrWordRange": [
+        331,
+        336
+      ],
+      "sourceCues": [
+        35
+      ],
+      "alignmentText": "interakcie, ktoré medzi nimi prebiehajú."
+    },
+    {
+      "start": 169.14,
+      "end": 173.42,
+      "text": {
+        "sk": "Štandardný model je taký divný názov, ktorý podľa mňa nič nehovorí, lebo štandardný",
+        "cs": "Standardní model je takový divný název, který podle mě nic neříká, protože standardní"
+      },
+      "asrWordRange": [
+        336,
+        349
+      ],
+      "sourceCues": [
+        36
+      ],
+      "alignmentText": "Štandardný model je taký divný názov, ktorý podľa mňa nič nehovorí, lebo štandardný"
+    },
+    {
+      "start": 173.42,
+      "end": 175.1,
+      "text": {
+        "sk": "model môžeš použiť na úplne hocičo.",
+        "cs": "model můžeš použít úplně na cokoli."
+      },
+      "asrWordRange": [
+        349,
+        355
+      ],
+      "sourceCues": [
+        37
+      ],
+      "alignmentText": "model môžeš použiť na úplne hocičo."
+    },
+    {
+      "start": 176.64,
+      "end": 179.92,
+      "text": {
+        "sk": "Nanešťastie je v časticovej fyzike presne takýto trend, že všetky veci dostávajú",
+        "cs": "Bohužel je v částicové fyzice právě takový trend, že všechny věci dostávají"
+      },
+      "asrWordRange": [
+        355,
+        367
+      ],
+      "sourceCues": [
+        38
+      ],
+      "alignmentText": "Nanešťastie je v časticovej fyzike presne takýto trend, že všetky veci dostávajú"
+    },
+    {
+      "start": 179.92,
+      "end": 182.52,
+      "text": {
+        "sk": "strašne zlé názvy a potom je v tom úplný mišung.",
+        "cs": "hrozně špatné názvy a pak je v tom úplný guláš."
+      },
+      "asrWordRange": [
+        367,
+        377
+      ],
+      "sourceCues": [
+        39
+      ],
+      "alignmentText": "strašne zlé názvy a potom je v tom úplný mišung."
+    },
+    {
+      "start": 183.53,
+      "end": 189.06,
+      "text": {
+        "sk": "Takže štandardný model je proste najlepšia teória časticovej fyziky, akú",
+        "cs": "Takže standardní model je prostě nejlepší teorie částicové fyziky, jakou"
+      },
+      "asrWordRange": [
+        377,
+        387
+      ],
+      "sourceCues": [
+        40
+      ],
+      "alignmentText": "Takže štandardný model je proste najlepšia teória časticovej fyziky, akú"
+    },
+    {
+      "start": 189.06,
+      "end": 192.48,
+      "text": {
+        "sk": "momentálne máme. A Higgsov bozón je jej súčasťou.",
+        "cs": "momentálně máme. A Higgsův boson je její součástí."
+      },
+      "asrWordRange": [
+        387,
+        395
+      ],
+      "sourceCues": [
+        41
+      ],
+      "alignmentText": "momentálne máme. A Higgsov bozón je jej súčasťou."
+    },
+    {
+      "start": 193.92,
+      "end": 198.54,
+      "text": {
+        "sk": "Elementárne častice sú častice, ktoré sa už nedajú deliť ďalej. Čiže vieme, že hmota",
+        "cs": "Elementární částice jsou takové, které už nejdou dále dělit. Víme tedy, že hmota"
+      },
+      "asrWordRange": [
+        395,
+        409
+      ],
+      "sourceCues": [
+        42
+      ],
+      "alignmentText": "Elementárne častice sú častice, ktoré sa už nedajú deliť ďalej. Čiže vieme, že hmota"
+    },
+    {
+      "start": 198.54,
+      "end": 200.06,
+      "text": {
+        "sk": "okolo nás sa skladá z molekúl,",
+        "cs": "kolem nás se skládá z molekul,"
+      },
+      "asrWordRange": [
+        409,
+        415
+      ],
+      "sourceCues": [
+        43
+      ],
+      "alignmentText": "okolo nás sa skladá z molekúl,"
+    },
+    {
+      "start": 201.0,
+      "end": 202.8,
+      "text": {
+        "sk": "molekuly sa skladajú z atómov,",
+        "cs": "molekuly se skládají z atomů,"
+      },
+      "asrWordRange": [
+        415,
+        420
+      ],
+      "sourceCues": [
+        44
+      ],
+      "alignmentText": "molekuly sa skladajú z atómov,"
+    },
+    {
+      "start": 203.48,
+      "end": 206.44,
+      "text": {
+        "sk": "atómy sa skladajú z elektrónového obalu a z jadier.",
+        "cs": "atomy se skládají z elektronového obalu a jader."
+      },
+      "asrWordRange": [
+        420,
+        429
+      ],
+      "sourceCues": [
+        45
+      ],
+      "alignmentText": "atómy sa skladajú z elektrónového obalu a z jadier."
+    },
+    {
+      "start": 207.7,
+      "end": 211.6,
+      "text": {
+        "sk": "Tam to ale nekončí, lebo jadrá sa dajú rozdeliť na protóny a neutróny.",
+        "cs": "Tím to ale nekončí, protože jádra lze rozdělit na protony a neutrony."
+      },
+      "asrWordRange": [
+        429,
+        442
+      ],
+      "sourceCues": [
+        46
+      ],
+      "alignmentText": "Tam to ale nekončí, lebo jadrá sa dajú rozdeliť na protóny a neutróny."
+    },
+    {
+      "start": 212.63,
+      "end": 217.59,
+      "text": {
+        "sk": "A ak sa veľmi snažíš, tak aj protóny a neutróny sa dajú rozbiť na drobné, a to drobné",
+        "cs": "A když se hodně snažíš, dají se i protony a neutrony rozbít na drobné částice, a ty"
+      },
+      "asrWordRange": [
+        442,
+        460
+      ],
+      "sourceCues": [
+        47
+      ],
+      "alignmentText": "A ak sa veľmi snažíš, tak aj protóny a neutróny sa dajú rozbiť na drobné, a to drobné"
+    },
+    {
+      "start": 217.59,
+      "end": 218.39,
+      "text": {
+        "sk": "sa volá, že kvark.",
+        "cs": "se nazývají kvarky."
+      },
+      "asrWordRange": [
+        460,
+        464
+      ],
+      "sourceCues": [
+        48
+      ],
+      "alignmentText": "sa volá, že kvark."
+    },
+    {
+      "start": 219.32,
+      "end": 224.78,
+      "text": {
+        "sk": "Čiže hmota okolo nás je tvorená z kvarkov a z elektrónov. A teda",
+        "cs": "Hmota kolem nás tedy sestává z kvarků a elektronů. A tak"
+      },
+      "asrWordRange": [
+        464,
+        477
+      ],
+      "sourceCues": [
+        49
+      ],
+      "alignmentText": "Čiže hmota okolo nás je tvorená z kvarkov a z elektrónov. A teda"
+    },
+    {
+      "start": 224.78,
+      "end": 228.44,
+      "text": {
+        "sk": "hovoríme, že kvarky a elektróny sú elementárne častice,",
+        "cs": "říkáme, že kvarky a elektrony jsou elementární částice,"
+      },
+      "asrWordRange": [
+        477,
+        485
+      ],
+      "sourceCues": [
+        50
+      ],
+      "alignmentText": "hovoríme, že kvarky a elektróny sú elementárne častice,"
+    },
+    {
+      "start": 229.18,
+      "end": 232.22,
+      "text": {
+        "sk": "lebo podľa našich aktuálnych vedomostí sa už nedajú deliť ďalej.",
+        "cs": "protože podle našich současných poznatků už nejdou dále dělit."
+      },
+      "asrWordRange": [
+        485,
+        495
+      ],
+      "sourceCues": [
+        51
+      ],
+      "alignmentText": "lebo podľa našich aktuálnych vedomostí sa už nedajú deliť ďalej."
+    },
+    {
+      "start": 233.53,
+      "end": 238.85,
+      "text": {
+        "sk": "Aha, podľa našich vedeckých poznatkov už sme došli na tú najnižšiu",
+        "cs": "Aha, podle našich vědeckých poznatků už jsme se dostali k té nejmenší"
+      },
+      "asrWordRange": [
+        495,
+        506
+      ],
+      "sourceCues": [
+        52
+      ],
+      "alignmentText": "Aha, podľa našich vedeckých poznatkov už sme došli na tú najnižšiu"
+    },
+    {
+      "start": 239.36,
+      "end": 244.76,
+      "text": {
+        "sk": "časticu. V podstate ono sa",
+        "cs": "částici. V podstatě se"
+      },
+      "asrWordRange": [
+        506,
+        511
+      ],
+      "sourceCues": [
+        53
+      ],
+      "alignmentText": "časticu. V podstate ono sa"
+    },
+    {
+      "start": 244.76,
+      "end": 249.92,
+      "text": {
+        "sk": "verí, že ešte je niečo za tým, ale pritom v rámci štandardného modelu",
+        "cs": "věří, že za tím ještě něco je, ale v rámci standardního modelu"
+      },
+      "asrWordRange": [
+        511,
+        524
+      ],
+      "sourceCues": [
+        54
+      ],
+      "alignmentText": "verí, že ešte je niečo za tým, ale pritom v rámci štandardného modelu"
+    },
+    {
+      "start": 250.52,
+      "end": 255.97,
+      "text": {
+        "sk": "tej súčasnej predstavy už nič menšie nie je. Možno ho niekedy nejaká teória nahradí.",
+        "cs": "a současné představy nic menšího není. Možná ho jednou nějaká teorie nahradí."
+      },
+      "asrWordRange": [
+        524,
+        538
+      ],
+      "sourceCues": [
+        55
+      ],
+      "alignmentText": "tej súčasnej predstavy už nič menšie nie je. Možno ho niekedy nejaká teória nahradí."
+    },
+    {
+      "start": 256.29,
+      "end": 258.53,
+      "text": {
+        "sk": "A táto teória je strašne úspešná.",
+        "cs": "A tahle teorie je nesmírně úspěšná."
+      },
+      "asrWordRange": [
+        538,
+        544
+      ],
+      "sourceCues": [
+        56
+      ],
+      "alignmentText": "A táto teória je strašne úspešná."
+    },
+    {
+      "start": 259.25,
+      "end": 263.79,
+      "text": {
+        "sk": "Matematicky, keď spravíš také predpovede a potom ich overíš v časticovom urýchľovači",
+        "cs": "Matematicky: když vytvoříš nějaké předpovědi a potom je ověříš v částicovém urychlovači"
+      },
+      "asrWordRange": [
+        544,
+        556
+      ],
+      "sourceCues": [
+        57
+      ],
+      "alignmentText": "Matematicky, keď spravíš také predpovede a potom ich overíš v časticovom urýchľovači"
+    },
+    {
+      "start": 263.79,
+      "end": 267.93,
+      "text": {
+        "sk": "v CERNe, tak niektoré z nich sedia na dvanásť desatinných miest.",
+        "cs": "v CERNu, některé sedí na dvanáct desetinných míst."
+      },
+      "asrWordRange": [
+        556,
+        567
+      ],
+      "sourceCues": [
+        58
+      ],
+      "alignmentText": "v CERNe, tak niektoré z nich sedia na dvanásť desatinných miest."
+    },
+    {
+      "start": 269.33,
+      "end": 274.15,
+      "text": {
+        "sk": "12 desatinných miest? To je akože zmerať vzdialenosť medzi Bratislavou a Košicami",
+        "cs": "Dvanáct desetinných míst? To je jako změřit vzdálenost mezi Bratislavou a Košicemi"
+      },
+      "asrWordRange": [
+        567,
+        579
+      ],
+      "sourceCues": [
+        59
+      ],
+      "alignmentText": "dvanásť desatinných miest? To je akože zmerať vzdialenosť medzi Bratislavou a Košicami"
+    },
+    {
+      "start": 274.15,
+      "end": 279.71,
+      "text": {
+        "sk": "na milióntinu metra. S takou presnosťou. Wow. Tak niektoré",
+        "cs": "na miliontinu metru. S takovou přesností. Páni. Tak některé"
+      },
+      "asrWordRange": [
+        579,
+        588
+      ],
+      "sourceCues": [
+        60
+      ],
+      "alignmentText": "na milióntinu metra. S takou presnosťou. Wow. Tak niektoré"
+    },
+    {
+      "start": 279.71,
+      "end": 284.25,
+      "text": {
+        "sk": "vlastnosti častíc, taký anomálny magnetický moment miónu sa to volá, proste také",
+        "cs": "vlastnosti částic, například anomální magnetický moment mionu, takové"
+      },
+      "asrWordRange": [
+        588,
+        600
+      ],
+      "sourceCues": [
+        61
+      ],
+      "alignmentText": "vlastnosti častíc, taký anomálny magnetický moment miónu sa to volá, proste také"
+    },
+    {
+      "start": 284.25,
+      "end": 289.41,
+      "text": {
+        "sk": "čudo-judo, tak úplne, že brutálne presne to vieš spočítať a brutálne presne to vieš",
+        "cs": "podivnosti, dokážeš úplně neuvěřitelně přesně spočítat a stejně přesně"
+      },
+      "asrWordRange": [
+        600,
+        615
+      ],
+      "sourceCues": [
+        62
+      ],
+      "alignmentText": "čudo-judo, tak úplne, že brutálne presne to vieš spočítať a brutálne presne to vieš"
+    },
+    {
+      "start": 289.41,
+      "end": 294.41,
+      "text": {
+        "sk": "odmerať a sedí to. A čo asi pri takých malých časticiach je veľmi potrebné, aby to",
+        "cs": "změřit, a souhlasí to. A při tak malých částicích je asi moc důležité, aby to"
+      },
+      "asrWordRange": [
+        615,
+        631
+      ],
+      "sourceCues": [
+        63
+      ],
+      "alignmentText": "odmerať a sedí to. A čo asi pri takých malých časticiach je veľmi potrebné, aby to"
+    },
+    {
+      "start": 294.41,
+      "end": 295.91,
+      "text": {
+        "sk": "bolo čo najpresnejšie?",
+        "cs": "bylo co nejpřesnější?"
+      },
+      "asrWordRange": [
+        631,
+        634
+      ],
+      "sourceCues": [
+        64
+      ],
+      "alignmentText": "bolo čo najpresnejšie?"
+    },
+    {
+      "start": 297.6,
+      "end": 302.58,
+      "text": {
+        "sk": "V podstate ako kedy, ale hej, áno. No, samozrejme, že čím presne, že tým lepší, ale",
+        "cs": "Vlastně záleží kdy, ale ano. Samozřejmě čím přesnější, tím lepší, ale"
+      },
+      "asrWordRange": [
+        634,
+        650
+      ],
+      "sourceCues": [
+        65
+      ],
+      "alignmentText": "V podstate ako kedy, ale hej, áno. No, samozrejme, že čím presne, že tým lepší, ale"
+    },
+    {
+      "start": 302.58,
+      "end": 305.92,
+      "text": {
+        "sk": "niekedy je to už zase také, že posúvame to len, aby sme mohli machrovať, že je to dvanásť",
+        "cs": "někdy už přesnost posouváme jen proto, abychom se mohli chlubit, že je to dvanáct"
+      },
+      "asrWordRange": [
+        650,
+        668
+      ],
+      "sourceCues": [
+        66
+      ],
+      "alignmentText": "niekedy je to už zase také, že posúvame to len, aby sme mohli machrovať, že je to dvanásť"
+    },
+    {
+      "start": 305.92,
+      "end": 308.28,
+      "text": {
+        "sk": "desatinných miest. Ja, ja, až takto je to?",
+        "cs": "desetinných míst. Vážně až takhle?"
+      },
+      "asrWordRange": [
+        668,
+        676
+      ],
+      "sourceCues": [
+        67
+      ],
+      "alignmentText": "desatinných miest. Ja, ja, až takto je to?"
+    },
+    {
+      "start": 309.3,
+      "end": 313.04,
+      "text": {
+        "sk": "Sú miesta, kde sú tie desatinné miesta strašne rozhodujúce a sú miesta, kde až tak",
+        "cs": "Jsou místa, kde jsou desetinná místa opravdu rozhodující, a místa, kde až tak"
+      },
+      "asrWordRange": [
+        676,
+        691
+      ],
+      "sourceCues": [
+        68
+      ],
+      "alignmentText": "Sú miesta, kde sú tie desatinné miesta strašne rozhodujúce a sú miesta, kde až tak"
+    },
+    {
+      "start": 313.04,
+      "end": 315.62,
+      "text": {
+        "sk": "nie. No ale dobre, to je teraz úplne nepodstatné.",
+        "cs": "ne. Ale dobře, to je teď úplně nepodstatné."
+      },
+      "asrWordRange": [
+        691,
+        700
+      ],
+      "sourceCues": [
+        69
+      ],
+      "alignmentText": "nie. No ale dobre, to je teraz úplne nepodstatné."
+    },
+    {
+      "start": 316.32,
+      "end": 321.72,
+      "text": {
+        "sk": "Mhm, jasný. Čiže elementárne častice sú najmenšie dieliky hmoty",
+        "cs": "Jasně. Elementární částice jsou tedy ty nejmenší dílky hmoty"
+      },
+      "asrWordRange": [
+        700,
+        709
+      ],
+      "sourceCues": [
+        70
+      ],
+      "alignmentText": "Mhm, jasný. Čiže elementárne častice sú najmenšie dieliky hmoty"
+    },
+    {
+      "start": 321.72,
+      "end": 322.52,
+      "text": {
+        "sk": "okolo nás.",
+        "cs": "kolem nás."
+      },
+      "asrWordRange": [
+        709,
+        711
+      ],
+      "sourceCues": [
+        71
+      ],
+      "alignmentText": "okolo nás."
+    },
+    {
+      "start": 323.76,
+      "end": 329.0,
+      "text": {
+        "sk": "Zatiaľ sme spomínali kvarky a elektróny, tie tvoria dokopy atómy.",
+        "cs": "Zatím jsme zmínili kvarky a elektrony, které dohromady tvoří atomy."
+      },
+      "asrWordRange": [
+        711,
+        721
+      ],
+      "sourceCues": [
+        72
+      ],
+      "alignmentText": "Zatiaľ sme spomínali kvarky a elektróny, tie tvoria dokopy atómy."
+    },
+    {
+      "start": 329.44,
+      "end": 334.12,
+      "text": {
+        "sk": "Potom ľudia poznajú ešte fotóny, to sú častice svetla.",
+        "cs": "Lidé potom ještě znají fotony, to jsou částice světla."
+      },
+      "asrWordRange": [
+        721,
+        730
+      ],
+      "sourceCues": [
+        73
+      ],
+      "alignmentText": "Potom ľudia poznajú ešte fotóny, to sú častice svetla."
+    },
+    {
+      "start": 335.84,
+      "end": 341.2,
+      "text": {
+        "sk": "A také známe, neviem, či veľmi alebo nie, sú neutrína. To sú také",
+        "cs": "A další známé, nevím, jak moc, jsou neutrina. To jsou takové"
+      },
+      "asrWordRange": [
+        730,
+        743
+      ],
+      "sourceCues": [
+        74
+      ],
+      "alignmentText": "A také známe, neviem, či veľmi alebo nie, sú neutrína. To sú také"
+    },
+    {
+      "start": 341.2,
+      "end": 344.34,
+      "text": {
+        "sk": "malé guličky, ktoré prakticky neinteragujú.",
+        "cs": "malé kuličky, které prakticky neinteragují."
+      },
+      "asrWordRange": [
+        743,
+        748
+      ],
+      "sourceCues": [
+        75
+      ],
+      "alignmentText": "malé guličky, ktoré prakticky neinteragujú."
+    },
+    {
+      "start": 345.22,
+      "end": 350.3,
+      "text": {
+        "sk": "A tento zoznam ešte nie je úplný, patrí k nim ešte pár ďalších častíc, ale keby",
+        "cs": "A tento seznam není úplný, patří k nim ještě několik dalších částic, ale kdybych"
+      },
+      "asrWordRange": [
+        748,
+        765
+      ],
+      "sourceCues": [
+        76
+      ],
+      "alignmentText": "A tento zoznam ešte nie je úplný, patrí k nim ešte pár ďalších častíc, ale keby"
+    },
+    {
+      "start": 350.78,
+      "end": 355.64,
+      "text": {
+        "sk": "som to len takto všetko vychrlil, tak by podľa mňa v tom poslucháčom vznikol úplný",
+        "cs": "je tady všechny vychrlil, podle mě by z toho měli posluchači naprostý"
+      },
+      "asrWordRange": [
+        765,
+        780
+      ],
+      "sourceCues": [
+        77
+      ],
+      "alignmentText": "som to len takto všetko vychrlil, tak by podľa mňa v tom poslucháčom vznikol úplný"
+    },
+    {
+      "start": 355.64,
+      "end": 356.02,
+      "text": {
+        "sk": "chaos.",
+        "cs": "chaos."
+      },
+      "asrWordRange": [
+        780,
+        781
+      ],
+      "sourceCues": [
+        78
+      ],
+      "alignmentText": "chaos."
+    },
+    {
+      "start": 357.16,
+      "end": 360.74,
+      "text": {
+        "sk": "Súhlasím. Bolo by to len také, že bez ladu a skladu proste sypanie názvov.",
+        "cs": "Souhlasím. Bylo by to jen takové sypání názvů bez ladu a skladu."
+      },
+      "asrWordRange": [
+        781,
+        794
+      ],
+      "sourceCues": [
+        79
+      ],
+      "alignmentText": "Súhlasím. Bolo by to len také, že bez ladu a skladu proste sypanie názvov."
+    },
+    {
+      "start": 361.78,
+      "end": 365.76,
+      "text": {
+        "sk": "A druhý nepríjemný aspekt tejto oblasti: všetky tieto veci dostanú nové názvy,",
+        "cs": "A druhý nepříjemný aspekt téhle oblasti: všechny ty věci dostávají nové názvy,"
+      },
+      "asrWordRange": [
+        794,
+        807
+      ],
+      "sourceCues": [
+        80
+      ],
+      "alignmentText": "A druhý nepríjemný aspekt tejto oblasti: všetky tieto veci dostanú nové názvy,"
+    },
+    {
+      "start": 367.05,
+      "end": 370.35,
+      "text": {
+        "sk": "ktoré ľudia nepoznajú a potom sa v tom strašne rýchlo zamotajú.",
+        "cs": "které lidé neznají, a pak se v tom strašně rychle zamotají."
+      },
+      "asrWordRange": [
+        807,
+        818
+      ],
+      "sourceCues": [
+        81
+      ],
+      "alignmentText": "ktoré ľudia nepoznajú a potom sa v tom strašne rýchlo zamotajú."
+    },
+    {
+      "start": 371.16,
+      "end": 375.96,
+      "text": {
+        "sk": "Čo myslíš, že dostanú nové názvy? Máme, že toto sú hadrónové častice, toto sú",
+        "cs": "Co tím myslíš, nové názvy? Máme hadronové částice,"
+      },
+      "asrWordRange": [
+        818,
+        832
+      ],
+      "sourceCues": [
+        82
+      ],
+      "alignmentText": "Čo myslíš, že dostanú nové názvy? Máme, že toto sú hadrónové častice, toto sú"
+    },
+    {
+      "start": 375.96,
+      "end": 380.32,
+      "text": {
+        "sk": "mezónové, toto sú baryóny, leptóny, strašne veľa klasifikácií. A",
+        "cs": "mezony, baryony, leptony, strašně moc různých klasifikací. A"
+      },
+      "asrWordRange": [
+        832,
+        841
+      ],
+      "sourceCues": [
+        83
+      ],
+      "alignmentText": "mezónové, toto sú baryóny, leptóny, strašne veľa klasifikácií. A"
+    },
+    {
+      "start": 380.32,
+      "end": 383.0,
+      "text": {
+        "sk": "začne sa v tom proste človek topiť.",
+        "cs": "člověk se v tom začne topit."
+      },
+      "asrWordRange": [
+        841,
+        848
+      ],
+      "sourceCues": [
+        84
+      ],
+      "alignmentText": "začne sa v tom proste človek topiť."
+    },
+    {
+      "start": 383.78,
+      "end": 384.0,
+      "text": {
+        "sk": "Áno.",
+        "cs": "Ano."
+      },
+      "asrWordRange": [
+        848,
+        849
+      ],
+      "sourceCues": [
+        85
+      ],
+      "alignmentText": "Áno."
+    },
+    {
+      "start": 385.36,
+      "end": 389.1,
+      "text": {
+        "sk": "Takže urobme takú dohodu, že nepovieme úplne všetko,",
+        "cs": "Domluvme se tedy, že neřekneme úplně všechno,"
+      },
+      "asrWordRange": [
+        849,
+        857
+      ],
+      "sourceCues": [
+        86
+      ],
+      "alignmentText": "Takže urobme takú dohodu, že nepovieme úplne všetko,"
+    },
+    {
+      "start": 390.02,
+      "end": 394.22,
+      "text": {
+        "sk": "lebo by toho bolo strašne moc a začalo by to byť zložité, že budeme sa sústrediť len",
+        "cs": "protože by toho bylo strašně moc a začalo by to být složité. Zaměříme se jen"
+      },
+      "asrWordRange": [
+        857,
+        874
+      ],
+      "sourceCues": [
+        87
+      ],
+      "alignmentText": "lebo by toho bolo strašne moc a začalo by to byť zložité, že budeme sa sústrediť len"
+    },
+    {
+      "start": 394.22,
+      "end": 396.94,
+      "text": {
+        "sk": "na tie veci, aby sme vedeli vysvetliť, čo je to Higgsov bozón.",
+        "cs": "na věci, které potřebujeme k vysvětlení, co je Higgsův boson."
+      },
+      "asrWordRange": [
+        874,
+        886
+      ],
+      "sourceCues": [
+        88
+      ],
+      "alignmentText": "na tie veci, aby sme vedeli vysvetliť, čo je to Higgsov bozón."
+    },
+    {
+      "start": 397.68,
+      "end": 402.68,
+      "text": {
+        "sk": "Dobre, tak poďme sa len sústrediť na tie veci. Toto nebude úplný prehľad časticovej",
+        "cs": "Dobře, soustřeďme se tedy jen na ně. Nepůjde o úplný přehled částicové"
+      },
+      "asrWordRange": [
+        886,
+        900
+      ],
+      "sourceCues": [
+        89
+      ],
+      "alignmentText": "Dobre, tak poďme sa len sústrediť na tie veci. Toto nebude úplný prehľad časticovej"
+    },
+    {
+      "start": 402.68,
+      "end": 407.42,
+      "text": {
+        "sk": "fyziky, len najpriamejšia cesta k Higgsovmu bozónu, aká sa len dá.",
+        "cs": "fyziky, ale o co nejpřímější cestu k Higgsůvu bosonu."
+      },
+      "asrWordRange": [
+        900,
+        911
+      ],
+      "sourceCues": [
+        90
+      ],
+      "alignmentText": "fyziky, len najpriamejšia cesta k Higgsovmu bozónu, aká sa len dá."
+    },
+    {
+      "start": 408.14,
+      "end": 413.54,
+      "text": {
+        "sk": "Dobre, a čo potrebujeme poznať, aby sme vedeli definovať ten Higgsov",
+        "cs": "Dobře, a co potřebujeme vědět, abychom dokázali definovat Higgsův"
+      },
+      "asrWordRange": [
+        911,
+        922
+      ],
+      "sourceCues": [
+        91
+      ],
+      "alignmentText": "Dobre, a čo potrebujeme poznať, aby sme vedeli definovať ten Higgsov"
+    },
+    {
+      "start": 413.54,
+      "end": 417.68,
+      "text": {
+        "sk": "bozón, alebo aby nám dával zmysel v tom štandardnom modeli?",
+        "cs": "boson, nebo aby nám dával smysl ve standardním modelu?"
+      },
+      "asrWordRange": [
+        922,
+        932
+      ],
+      "sourceCues": [
+        92
+      ],
+      "alignmentText": "bozón, alebo aby nám dával zmysel v tom štandardnom modeli?"
+    },
+    {
+      "start": 418.48,
+      "end": 423.52,
+      "text": {
+        "sk": "Tak kľúčové bude vedieť, čo znamená slovo bozón. To je jedna klasifikácia, ktorú",
+        "cs": "Klíčové bude vědět, co znamená slovo boson. To je jedna klasifikace, kterou"
+      },
+      "asrWordRange": [
+        932,
+        945
+      ],
+      "sourceCues": [
+        93
+      ],
+      "alignmentText": "Tak kľúčové bude vedieť, čo znamená slovo bozón. To je jedna klasifikácia, ktorú"
+    },
+    {
+      "start": 423.52,
+      "end": 428.92,
+      "text": {
+        "sk": "potrebujeme si povedať, a to je, že častice sa delia na fermióny. To meno je po",
+        "cs": "si musíme vysvětlit: částice se dělí na fermiony. Jméno je po"
+      },
+      "asrWordRange": [
+        945,
+        961
+      ],
+      "sourceCues": [
+        94
+      ],
+      "alignmentText": "potrebujeme si povedať, a to je, že častice sa delia na fermióny. To meno je po"
+    },
+    {
+      "start": 428.92,
+      "end": 434.48,
+      "text": {
+        "sk": "Enricovi Fermim, čiže fermióny a bozóny. To je zase po",
+        "cs": "Enricu Fermim, tedy fermiony a bosony. A to druhé zase po"
+      },
+      "asrWordRange": [
+        961,
+        971
+      ],
+      "sourceCues": [
+        95
+      ],
+      "alignmentText": "Enricovi Fermim, čiže fermióny a bozóny. To je zase po"
+    },
+    {
+      "start": 434.48,
+      "end": 435.66,
+      "text": {
+        "sk": "Bosem pomenované.",
+        "cs": "Bosem."
+      },
+      "asrWordRange": [
+        971,
+        973
+      ],
+      "sourceCues": [
+        96
+      ],
+      "alignmentText": "Bosem pomenované."
+    },
+    {
+      "start": 437.52,
+      "end": 442.02,
+      "text": {
+        "sk": "Ja som dlho na toto vymýšľal takú analógiu, cez ktorú by sa to dalo vysvetliť.",
+        "cs": "Dlouho jsem vymýšlel analogii, kterou by se to dalo vysvětlit."
+      },
+      "asrWordRange": [
+        973,
+        988
+      ],
+      "sourceCues": [
+        97
+      ],
+      "alignmentText": "Ja som dlho na toto vymýšľal takú analógiu, cez ktorú by sa to dalo vysvetliť."
+    },
+    {
+      "start": 442.76,
+      "end": 444.52,
+      "text": {
+        "sk": "To by bolo pomerne užitočné.",
+        "cs": "To by bylo docela užitečné."
+      },
+      "asrWordRange": [
+        988,
+        993
+      ],
+      "sourceCues": [
+        98
+      ],
+      "alignmentText": "To by bolo pomerne užitočné."
+    },
+    {
+      "start": 445.44,
+      "end": 450.92,
+      "text": {
+        "sk": "A keď pečieme koláč, tak v recepte máme dva druhy veci. Jedna časť",
+        "cs": "Když pečeme koláč, máme v receptu dva druhy věcí. Jedna část"
+      },
+      "asrWordRange": [
+        993,
+        1006
+      ],
+      "sourceCues": [
+        99
+      ],
+      "alignmentText": "A keď pečieme koláč, tak v recepte máme dva druhy veci. Jedna časť"
+    },
+    {
+      "start": 450.92,
+      "end": 452.74,
+      "text": {
+        "sk": "veci je, že aby ten koláč držal po kope.",
+        "cs": "jsou věci, díky kterým ten koláč drží pohromadě."
+      },
+      "asrWordRange": [
+        1006,
+        1015
+      ],
+      "sourceCues": [
+        100
+      ],
+      "alignmentText": "veci je, že aby ten koláč držal po kope."
+    },
+    {
+      "start": 453.68,
+      "end": 458.96,
+      "text": {
+        "sk": "Múka, vajíčka, mlieko. A potom tam máme veci, ktoré ten koláč ozvláštňujú, že",
+        "cs": "Mouka, vajíčka, mléko. A pak tam máme věci, které koláč nějak ozvláštňují,"
+      },
+      "asrWordRange": [
+        1015,
+        1028
+      ],
+      "sourceCues": [
+        101
+      ],
+      "alignmentText": "Múka, vajíčka, mlieko. A potom tam máme veci, ktoré ten koláč ozvláštňujú, že"
+    },
+    {
+      "start": 458.96,
+      "end": 460.14,
+      "text": {
+        "sk": "dodávajú mu také chute,",
+        "cs": "dodávají mu určité chutě,"
+      },
+      "asrWordRange": [
+        1028,
+        1032
+      ],
+      "sourceCues": [
+        102
+      ],
+      "alignmentText": "dodávajú mu také chute,"
+    },
+    {
+      "start": 461.24,
+      "end": 462.94,
+      "text": {
+        "sk": "hrozienka, čokoláda a podobne.",
+        "cs": "rozinky, čokoláda a podobně."
+      },
+      "asrWordRange": [
+        1032,
+        1036
+      ],
+      "sourceCues": [
+        103
+      ],
+      "alignmentText": "hrozienka, čokoláda a podobne."
+    },
+    {
+      "start": 464.6,
+      "end": 470.17,
+      "text": {
+        "sk": "A teraz fermióny sú častice, ktoré tvoria akoby podstatu hmoty. To sú",
+        "cs": "Fermiony jsou částice, které tvoří jakoby podstatu hmoty. To jsou"
+      },
+      "asrWordRange": [
+        1036,
+        1049
+      ],
+      "sourceCues": [
+        104
+      ],
+      "alignmentText": "A teraz fermióny sú častice, ktoré tvoria akoby podstatu hmoty. To sú"
+    },
+    {
+      "start": 470.17,
+      "end": 472.53,
+      "text": {
+        "sk": "tie elektróny, kvarky a podobne.",
+        "cs": "elektrony, kvarky a podobně."
+      },
+      "asrWordRange": [
+        1049,
+        1054
+      ],
+      "sourceCues": [
+        105
+      ],
+      "alignmentText": "tie elektróny, kvarky a podobne."
+    },
+    {
+      "start": 473.36,
+      "end": 478.46,
+      "text": {
+        "sk": "A bozóny sú tie veci, čo to všetko držia pokope. Ako taká tá múka, mlieko, vajíčka.",
+        "cs": "A bosony jsou ty věci, které všechno drží pohromadě. Jako mouka, mléko, vajíčka."
+      },
+      "asrWordRange": [
+        1054,
+        1071
+      ],
+      "sourceCues": [
+        106
+      ],
+      "alignmentText": "A bozóny sú tie veci, čo to všetko držia pokope. Ako taká tá múka, mlieko, vajíčka."
+    },
+    {
+      "start": 479.65,
+      "end": 485.03,
+      "text": {
+        "sk": "Čiže fermióny sú v hrozienkach tá esencia a bozóny sú ten lep,",
+        "cs": "Takže fermiony jsou ta podstata ukrytá v rozinkách a bosony to lepidlo,"
+      },
+      "asrWordRange": [
+        1071,
+        1083
+      ],
+      "sourceCues": [
+        107
+      ],
+      "alignmentText": "Čiže fermióny sú v hrozienkach tá esencia a bozóny sú ten lep,"
+    },
+    {
+      "start": 485.27,
+      "end": 486.15,
+      "text": {
+        "sk": "čo ich drží pokope.",
+        "cs": "které je drží pohromadě."
+      },
+      "asrWordRange": [
+        1083,
+        1088
+      ],
+      "sourceCues": [
+        108
+      ],
+      "alignmentText": "čo ich drží pokope."
+    },
+    {
+      "start": 487.14,
+      "end": 489.86,
+      "text": {
+        "sk": "Tá forma. Tá forma, ako keby áno.",
+        "cs": "Ta forma. Ano, jakoby ta forma."
+      },
+      "asrWordRange": [
+        1088,
+        1095
+      ],
+      "sourceCues": [
+        109
+      ],
+      "alignmentText": "Tá forma. Tá forma, ako keby áno."
+    },
+    {
+      "start": 490.68,
+      "end": 494.82,
+      "text": {
+        "sk": "Niekedy sa tomu hovorí, že mediátorové bozóny, lebo presnejšie toto delenie pochádza z",
+        "cs": "Někdy se jim říká zprostředkující bosony, protože přesněji tohle rozdělení pochází"
+      },
+      "asrWordRange": [
+        1095,
+        1108
+      ],
+      "sourceCues": [
+        110
+      ],
+      "alignmentText": "Niekedy sa tomu hovorí, že mediátorové bozóny, lebo presnejšie toto delenie pochádza z"
+    },
+    {
+      "start": 494.82,
+      "end": 499.46,
+      "text": {
+        "sk": "niečoho iného, ale celkom dobre to môžeme použiť v tomto priblížení, aké",
+        "cs": "z něčeho jiného, ale pro naše účely to v tomto přiblížení můžeme"
+      },
+      "asrWordRange": [
+        1108,
+        1121
+      ],
+      "sourceCues": [
+        111
+      ],
+      "alignmentText": "niečoho iného, ale celkom dobre to môžeme použiť v tomto priblížení, aké"
+    },
+    {
+      "start": 499.46,
+      "end": 500.06,
+      "text": {
+        "sk": "potrebujeme.",
+        "cs": "použít."
+      },
+      "asrWordRange": [
+        1121,
+        1122
+      ],
+      "sourceCues": [
+        112
+      ],
+      "alignmentText": "potrebujeme."
+    },
+    {
+      "start": 500.76,
+      "end": 505.4,
+      "text": {
+        "sk": "Nie je to úplne presné, takže keď už teraz niekto v Ženeve žhaví e-maily, tak môže sa",
+        "cs": "Není to úplně přesné, takže pokud už někdo v Ženevě žhaví e-maily, může se"
+      },
+      "asrWordRange": [
+        1122,
+        1140
+      ],
+      "sourceCues": [
+        113
+      ],
+      "alignmentText": "Nie je to úplne presné, takže keď už teraz niekto v Ženeve žhaví e-maily, tak môže sa"
+    },
+    {
+      "start": 505.4,
+      "end": 510.84,
+      "text": {
+        "sk": "ozvať, ale... Budeme radi. Na takú základnú predstavu, aký je",
+        "cs": "ozvat, ale... Budeme rádi. Pro takovou základní představu, jaký je"
+      },
+      "asrWordRange": [
+        1140,
+        1151
+      ],
+      "sourceCues": [
+        114
+      ],
+      "alignmentText": "ozvať, ale... Budeme radi. Na takú základnú predstavu, aký je"
+    },
+    {
+      "start": 510.84,
+      "end": 514.86,
+      "text": {
+        "sk": "rozdiel medzi fermiónmi a bozónmi, to, čo potrebujeme, je takýto, že fermióny sú tá",
+        "cs": "rozdíl mezi fermiony a bosony, nám stačí, že fermiony jsou ta"
+      },
+      "asrWordRange": [
+        1151,
+        1165
+      ],
+      "sourceCues": [
+        115
+      ],
+      "alignmentText": "rozdiel medzi fermiónmi a bozónmi, to, čo potrebujeme, je takýto, že fermióny sú tá"
+    },
+    {
+      "start": 514.86,
+      "end": 517.68,
+      "text": {
+        "sk": "hmota a bozóny sú to, čo ju drží pokope.",
+        "cs": "hmota a bosony ji drží pohromadě."
+      },
+      "asrWordRange": [
+        1165,
+        1174
+      ],
+      "sourceCues": [
+        116
+      ],
+      "alignmentText": "hmota a bozóny sú to, čo ju drží pokope."
+    },
+    {
+      "start": 518.7,
+      "end": 523.96,
+      "text": {
+        "sk": "Dobre, tak tu máme toto rozdelenie, fermióny a bozóny. A čo",
+        "cs": "Dobře, máme tedy tohle rozdělení na fermiony a bosony. A co"
+      },
+      "asrWordRange": [
+        1174,
+        1185
+      ],
+      "sourceCues": [
+        117
+      ],
+      "alignmentText": "Dobre, tak tu máme toto rozdelenie, fermióny a bozóny. A čo"
+    },
+    {
+      "start": 523.96,
+      "end": 525.86,
+      "text": {
+        "sk": "je to ten bozón?",
+        "cs": "je ten boson?"
+      },
+      "asrWordRange": [
+        1185,
+        1189
+      ],
+      "sourceCues": [
+        118
+      ],
+      "alignmentText": "je to ten bozón?"
+    },
+    {
+      "start": 526.56,
+      "end": 528.78,
+      "text": {
+        "sk": "Čiže otázka je vlastne, že ako tie bozóny",
+        "cs": "Otázka vlastně zní, jak ty bosony"
+      },
+      "asrWordRange": [
+        1189,
+        1197
+      ],
+      "sourceCues": [
+        119
+      ],
+      "alignmentText": "Čiže otázka je vlastne, že ako tie bozóny"
+    },
+    {
+      "start": 530.36,
+      "end": 534.4,
+      "text": {
+        "sk": "sprostredkúvajú interakcie medzi časticami. Tým, že tá interakcia môže byť niekedy",
+        "cs": "zprostředkovávají interakce mezi částicemi. Protože ta interakce může někdy být"
+      },
+      "asrWordRange": [
+        1197,
+        1208
+      ],
+      "sourceCues": [
+        120
+      ],
+      "alignmentText": "sprostredkúvajú interakcie medzi časticami. Tým, že tá interakcia môže byť niekedy"
+    },
+    {
+      "start": 534.4,
+      "end": 536.32,
+      "text": {
+        "sk": "príťažlivá sila a niekedy odpudivá.",
+        "cs": "přitažlivou silou a jindy odpudivou."
+      },
+      "asrWordRange": [
+        1208,
+        1213
+      ],
+      "sourceCues": [
+        121
+      ],
+      "alignmentText": "príťažlivá sila a niekedy odpudivá."
+    },
+    {
+      "start": 537.61,
+      "end": 543.17,
+      "text": {
+        "sk": "A tu je čas na ďalšiu analogiu. A to je, že predstav si, že napríklad my dvaja sme",
+        "cs": "A tady je čas na další analogii. Představ si, že my dva jsme"
+      },
+      "asrWordRange": [
+        1213,
+        1231
+      ],
+      "sourceCues": [
+        122
+      ],
+      "alignmentText": "A tu je čas na ďalšiu analogiu. A to je, že predstav si, že napríklad my dvaja sme"
+    },
+    {
+      "start": 543.17,
+      "end": 547.11,
+      "text": {
+        "sk": "na ľade, na korčuliach a ideme si hádzať medicinbal.",
+        "cs": "na ledě, na bruslích, a házíme si medicinbalem."
+      },
+      "asrWordRange": [
+        1231,
+        1240
+      ],
+      "sourceCues": [
+        123
+      ],
+      "alignmentText": "na ľade, na korčuliach a ideme si hádzať medicinbal."
+    },
+    {
+      "start": 548.34,
+      "end": 553.0,
+      "text": {
+        "sk": "Takže áno, veľmi hlúpy nápad a nemali by sme mať asi právo robiť Vedátorský podcast,",
+        "cs": "Takže ano, je to velmi hloupý nápad a asi bychom neměli mít právo dělat Vedátorský podcast,"
+      },
+      "asrWordRange": [
+        1240,
+        1256
+      ],
+      "sourceCues": [
+        124
+      ],
+      "alignmentText": "Takže áno, veľmi hlúpy nápad a nemali by sme mať asi právo robiť Vedátorský podcast,"
+    },
+    {
+      "start": 553.06,
+      "end": 558.42,
+      "text": {
+        "sk": "keď si hádžeme medicinbal na korčuliach, ale ako myšlienkový experiment aspoň.",
+        "cs": "když si házíme medicinbalem na bruslích. Ale aspoň jako myšlenkový experiment."
+      },
+      "asrWordRange": [
+        1256,
+        1267
+      ],
+      "sourceCues": [
+        125
+      ],
+      "alignmentText": "keď si hádžeme medicinbal na korčuliach, ale ako myšlienkový experiment aspoň."
+    },
+    {
+      "start": 559.5,
+      "end": 562.84,
+      "text": {
+        "sk": "Čiže najprv sa... Ja ti hodím medicinbal, tak najprv sa sústredíme, čo sa stane so",
+        "cs": "Nejprve ti hodím medicinbal a soustředíme se na to, co se stane se"
+      },
+      "asrWordRange": [
+        1267,
+        1283
+      ],
+      "sourceCues": [
+        126
+      ],
+      "alignmentText": "Čiže najprv sa... Ja ti hodím medicinbal, tak najprv sa sústredíme, čo sa stane so"
+    },
+    {
+      "start": 562.84,
+      "end": 563.06,
+      "text": {
+        "sk": "mňou.",
+        "cs": "mnou."
+      },
+      "asrWordRange": [
+        1283,
+        1284
+      ],
+      "sourceCues": [
+        127
+      ],
+      "alignmentText": "mňou."
+    },
+    {
+      "start": 564.14,
+      "end": 568.86,
+      "text": {
+        "sk": "Keď hodím ten medicinbal, tak mňa to zároveň odrazí dozadu na tých korčuliach. Hej, že",
+        "cs": "Když ten medicinbal hodím, zároveň mě to na bruslích odrazí dozadu. Ano,"
+      },
+      "asrWordRange": [
+        1284,
+        1299
+      ],
+      "sourceCues": [
+        128
+      ],
+      "alignmentText": "Keď hodím ten medicinbal, tak mňa to zároveň odrazí dozadu na tých korčuliach. Hej, že"
+    },
+    {
+      "start": 568.86,
+      "end": 572.44,
+      "text": {
+        "sk": "ja ho hádžem pred seba a taký zákon zachovania hybnosti mňa tlačí dozadu. Čiže...",
+        "cs": "házím ho před sebe a zákon zachování hybnosti mě tlačí dozadu. Takže..."
+      },
+      "asrWordRange": [
+        1299,
+        1313
+      ],
+      "sourceCues": [
+        129
+      ],
+      "alignmentText": "ja ho hádžem pred seba a taký zákon zachovania hybnosti mňa tlačí dozadu. Čiže..."
+    },
+    {
+      "start": 572.44,
+      "end": 574.92,
+      "text": {
+        "sk": "Začnem sa kĺzať dozadu. Áno, stál som na mieste",
+        "cs": "Začnu klouzat dozadu. Ano, stál jsem na místě"
+      },
+      "asrWordRange": [
+        1313,
+        1322
+      ],
+      "sourceCues": [
+        130
+      ],
+      "alignmentText": "Začnem sa kĺzať dozadu. Áno, stál som na mieste"
+    },
+    {
+      "start": 575.67,
+      "end": 581.07,
+      "text": {
+        "sk": "a zrazu hodím medicinbal a hýbnem sa dozadu. No a teraz ty zase stojíš na mieste. No,",
+        "cs": "a najednou hodím medicinbal a začnu se pohybovat dozadu. Ty zatím stojíš. No,"
+      },
+      "asrWordRange": [
+        1322,
+        1339
+      ],
+      "sourceCues": [
+        131
+      ],
+      "alignmentText": "a zrazu hodím medicinbal a hýbnem sa dozadu. No a teraz ty zase stojíš na mieste. No,"
+    },
+    {
+      "start": 581.25,
+      "end": 582.01,
+      "text": {
+        "sk": "teraz ja chytám.",
+        "cs": "teď ho chytám."
+      },
+      "asrWordRange": [
+        1339,
+        1342
+      ],
+      "sourceCues": [
+        132
+      ],
+      "alignmentText": "teraz ja chytám."
+    },
+    {
+      "start": 582.77,
+      "end": 586.65,
+      "text": {
+        "sk": "Chytíš ten medicinbal a ako ho zachytíš, tak ten medicinbal teba začne tlačiť",
+        "cs": "Chytíš medicinbal a když ho zachytíš, začne tě ten medicinbal tlačit"
+      },
+      "asrWordRange": [
+        1342,
+        1355
+      ],
+      "sourceCues": [
+        133
+      ],
+      "alignmentText": "Chytíš ten medicinbal a ako ho zachytíš, tak ten medicinbal teba začne tlačiť"
+    },
+    {
+      "start": 586.65,
+      "end": 589.97,
+      "text": {
+        "sk": "odo mňa preč. A potom ty ten medicinbal nehodíš späť.",
+        "cs": "ode mě pryč. A potom ty ten medicinbal nehodíš zpátky."
+      },
+      "asrWordRange": [
+        1355,
+        1355
+      ],
+      "sourceCues": [
+        133
+      ],
+      "recoveredSpeech": "Independently checked original audio window 578-601 seconds; no ASR word indices",
+      "alignmentText": "odo mňa preč. A potom ty ten medicinbal nehodíš späť."
+    },
+    {
+      "start": 589.97,
+      "end": 593.04,
+      "text": {
+        "sk": "Ja ho zase chytím, posúvam sa tým ďalej.",
+        "cs": "Já ho zase chytím a posunu se tím dál."
+      },
+      "asrWordRange": [
+        1355,
+        1355
+      ],
+      "sourceCues": [
+        133
+      ],
+      "recoveredSpeech": "Independently checked original audio window 578-601 seconds; no ASR word indices",
+      "alignmentText": "Ja ho zase chytím, posúvam sa tým ďalej."
+    },
+    {
+      "start": 593.09,
+      "end": 598.52,
+      "text": {
+        "sk": "takto si prehadzujeme medicinbal a efektívne sa od seba vzďaľujeme. Lebo ja keď ho",
+        "cs": "takhle si medicinbal přehazujeme a vlastně se od sebe vzdalujeme. Protože když ho já"
+      },
+      "asrWordRange": [
+        1355,
+        1369
+      ],
+      "sourceCues": [
+        134
+      ],
+      "alignmentText": "takto si prehadzujeme medicinbal a efektívne sa od seba vzďaľujeme. Lebo ja keď ho"
+    },
+    {
+      "start": 598.52,
+      "end": 602.78,
+      "text": {
+        "sk": "hodím a ty keď ho chytíš, tak vždy nás to posunie od seba trošku ďalej.",
+        "cs": "hodím a ty chytíš, vždy nás to od sebe o něco více posune."
+      },
+      "asrWordRange": [
+        1369,
+        1384
+      ],
+      "sourceCues": [
+        135
+      ],
+      "alignmentText": "hodím a ty keď ho chytíš, tak vždy nás to posunie od seba trošku ďalej."
+    },
+    {
+      "start": 604.35,
+      "end": 605.49,
+      "text": {
+        "sk": "Takže z tohto pohľadu",
+        "cs": "Takže z tohoto pohledu"
+      },
+      "asrWordRange": [
+        1384,
+        1388
+      ],
+      "sourceCues": [
+        136
+      ],
+      "alignmentText": "Takže z tohto pohľadu"
+    },
+    {
+      "start": 606.33,
+      "end": 611.63,
+      "text": {
+        "sk": "medicinbal funguje ako mediátorový bozón. Že je to častica, pomocou ktorej si my",
+        "cs": "medicinbal funguje jako zprostředkující boson. Je to částice, pomocí níž si"
+      },
+      "asrWordRange": [
+        1388,
+        1401
+      ],
+      "sourceCues": [
+        137
+      ],
+      "alignmentText": "medicinbal funguje ako mediátorový bozón. Že je to častica, pomocou ktorej si my"
+    },
+    {
+      "start": 611.63,
+      "end": 612.83,
+      "text": {
+        "sk": "vymieňame interakciu.",
+        "cs": "vyměňujeme interakci."
+      },
+      "asrWordRange": [
+        1401,
+        1403
+      ],
+      "sourceCues": [
+        138
+      ],
+      "alignmentText": "vymieňame interakciu."
+    },
+    {
+      "start": 613.52,
+      "end": 618.74,
+      "text": {
+        "sk": "V časticovej fyzike napríklad takto sa opisuje interakcia medzi elektrónmi. Že ide",
+        "cs": "V částicové fyzice se například takto popisuje interakce mezi elektrony. Jeden"
+      },
+      "asrWordRange": [
+        1403,
+        1415
+      ],
+      "sourceCues": [
+        139
+      ],
+      "alignmentText": "V časticovej fyzike napríklad takto sa opisuje interakcia medzi elektrónmi. Že ide"
+    },
+    {
+      "start": 618.74,
+      "end": 623.72,
+      "text": {
+        "sk": "jeden elektrón, priblíži sa k nemu druhý a začnú si medzi sebou prehadzovať fotón. A on",
+        "cs": "elektron se přiblíží k druhému a začnou si mezi sebou přehazovat foton. A"
+      },
+      "asrWordRange": [
+        1415,
+        1431
+      ],
+      "sourceCues": [
+        140
+      ],
+      "alignmentText": "jeden elektrón, priblíži sa k nemu druhý a začnú si medzi sebou prehadzovať fotón. A on"
+    },
+    {
+      "start": 623.72,
+      "end": 627.62,
+      "text": {
+        "sk": "vždy, keď ten jeden fotón vypustí, tak sa vzdiali trošku, keď ten druhý ho zachytí,",
+        "cs": "pokaždé když jeden foton vyšle, o kousek se vzdálí. Když ho druhý zachytí,"
+      },
+      "asrWordRange": [
+        1431,
+        1446
+      ],
+      "sourceCues": [
+        141
+      ],
+      "alignmentText": "vždy, keď ten jeden fotón vypustí, tak sa vzdiali trošku, keď ten druhý ho zachytí,"
+    },
+    {
+      "start": 627.72,
+      "end": 632.56,
+      "text": {
+        "sk": "tak sa zase vzdiali a takto si medzi sebou prehadzujú fotóny a efektívne sa od seba",
+        "cs": "tak se zase vzdálí, a tak si mezi sebou přehazují fotony a vlastně se od sebe"
+      },
+      "asrWordRange": [
+        1446,
+        1462
+      ],
+      "sourceCues": [
+        142
+      ],
+      "alignmentText": "tak sa zase vzdiali a takto si medzi sebou prehadzujú fotóny a efektívne sa od seba"
+    },
+    {
+      "start": 632.56,
+      "end": 633.44,
+      "text": {
+        "sk": "ako keby odrazia.",
+        "cs": "jakoby odrazí."
+      },
+      "asrWordRange": [
+        1462,
+        1465
+      ],
+      "sourceCues": [
+        143
+      ],
+      "alignmentText": "ako keby odrazia."
+    },
+    {
+      "start": 634.6,
+      "end": 638.5,
+      "text": {
+        "sk": "Elektróny od seba sa odrazia. A elektróny sa odrazia, lebo si vymieňajú fotóny.",
+        "cs": "Elektrony se od sebe odrazí. Ano, odrazí se, protože si vyměňují fotony."
+      },
+      "asrWordRange": [
+        1465,
+        1478
+      ],
+      "sourceCues": [
+        144
+      ],
+      "alignmentText": "Elektróny od seba sa odrazia. A elektróny sa odrazia, lebo si vymieňajú fotóny."
+    },
+    {
+      "start": 640.04,
+      "end": 645.06,
+      "text": {
+        "sk": "Elektróny sú tie fermióny, čiže tá esencia, a bozóny sprostredkovali tú interakciu",
+        "cs": "Elektrony jsou ty fermiony, tedy podstata hmoty, a bosony mezi nimi zprostředkovaly"
+      },
+      "asrWordRange": [
+        1478,
+        1490
+      ],
+      "sourceCues": [
+        145
+      ],
+      "alignmentText": "Elektróny sú tie fermióny, čiže tá esencia, a bozóny sprostredkovali tú interakciu"
+    },
+    {
+      "start": 645.06,
+      "end": 645.52,
+      "text": {
+        "sk": "medzi nimi.",
+        "cs": "interakci."
+      },
+      "asrWordRange": [
+        1490,
+        1492
+      ],
+      "sourceCues": [
+        146
+      ],
+      "alignmentText": "medzi nimi."
+    },
+    {
+      "start": 646.87,
+      "end": 649.11,
+      "text": {
+        "sk": "Aha, takže tu sa k tomu dostávame. OK.",
+        "cs": "Aha, takže k tomu se dostáváme. Dobře."
+      },
+      "asrWordRange": [
+        1492,
+        1500
+      ],
+      "sourceCues": [
+        147
+      ],
+      "alignmentText": "Aha, takže tu sa k tomu dostávame. OK."
+    },
+    {
+      "start": 651.05,
+      "end": 655.13,
+      "text": {
+        "sk": "Čiže mám pocit, že už je celkom dobré rozumieť, čo robí tie bozóny.",
+        "cs": "Mám pocit, že už docela dobře rozumíme tomu, co bosony dělají."
+      },
+      "asrWordRange": [
+        1500,
+        1513
+      ],
+      "sourceCues": [
+        148
+      ],
+      "alignmentText": "Čiže mám pocit, že už je celkom dobré rozumieť, čo robí tie bozóny."
+    },
+    {
+      "start": 656.92,
+      "end": 662.4,
+      "text": {
+        "sk": "A z tých bozónov je ich asi viacej, predpokladám. Je ich viacej, čiže",
+        "cs": "A těch bosonů je asi více, předpokládám. Ano, je jich více,"
+      },
+      "asrWordRange": [
+        1513,
+        1526
+      ],
+      "sourceCues": [
+        149
+      ],
+      "alignmentText": "A z tých bozónov je ich asi viacej, predpokladám. Je ich viacej, čiže"
+    },
+    {
+      "start": 662.4,
+      "end": 665.66,
+      "text": {
+        "sk": "spomenuli sme fotón. Fotón si medzi sebou prehadzujú elektróny.",
+        "cs": "zmínili jsme foton. Elektrony si mezi sebou přehazují fotony."
+      },
+      "asrWordRange": [
+        1526,
+        1535
+      ],
+      "sourceCues": [
+        150
+      ],
+      "alignmentText": "spomenuli sme fotón. Fotón si medzi sebou prehadzujú elektróny."
+    },
+    {
+      "start": 666.6,
+      "end": 671.96,
+      "text": {
+        "sk": "Potom je gluón. Glue je od slova lepidlo po anglicky, čiže to je zase taký, ktorý lepí",
+        "cs": "Pak je tu gluon. Anglické glue znamená lepidlo, takže takhle slepuje"
+      },
+      "asrWordRange": [
+        1535,
+        1552
+      ],
+      "sourceCues": [
+        151
+      ],
+      "alignmentText": "Potom je gluón. Glue je od slova lepidlo po anglicky, čiže to je zase taký, ktorý lepí"
+    },
+    {
+      "start": 671.96,
+      "end": 675.58,
+      "text": {
+        "sk": "dokopy kvarky. Tá interakcia vie fungovať aj trošku iným spôsobom, že tie veci vie",
+        "cs": "dohromady kvarky. Ta interakce může fungovat i trochu jinak, může částice"
+      },
+      "asrWordRange": [
+        1552,
+        1567
+      ],
+      "sourceCues": [
+        152
+      ],
+      "alignmentText": "dokopy kvarky. Tá interakcia vie fungovať aj trošku iným spôsobom, že tie veci vie"
+    },
+    {
+      "start": 675.58,
+      "end": 676.26,
+      "text": {
+        "sk": "držať pokope.",
+        "cs": "držet pohromadě."
+      },
+      "asrWordRange": [
+        1567,
+        1569
+      ],
+      "sourceCues": [
+        153
+      ],
+      "alignmentText": "držať pokope."
+    },
+    {
+      "start": 677.66,
+      "end": 680.0,
+      "text": {
+        "sk": "Takže kvarky si zase vymieňajú gluóny.",
+        "cs": "Kvarky si tedy mezi sebou vyměňují gluony."
+      },
+      "asrWordRange": [
+        1569,
+        1575
+      ],
+      "sourceCues": [
+        154
+      ],
+      "alignmentText": "Takže kvarky si zase vymieňajú gluóny."
+    },
+    {
+      "start": 681.07,
+      "end": 686.55,
+      "text": {
+        "sk": "No a potom sú dva bozóny, pri ktorých sa nikto neobťažoval dať veľmi pekné meno, tak",
+        "cs": "A potom jsou dva bosony, u kterých se nikdo nenamáhal vymyslet nějaké hezké jméno,"
+      },
+      "asrWordRange": [
+        1575,
+        1592
+      ],
+      "sourceCues": [
+        155
+      ],
+      "alignmentText": "No a potom sú dva bozóny, pri ktorých sa nikto neobťažoval dať veľmi pekné meno, tak"
+    },
+    {
+      "start": 686.55,
+      "end": 687.95,
+      "text": {
+        "sk": "sa volajú W a Z.",
+        "cs": "takže se jim říká W a Z."
+      },
+      "asrWordRange": [
+        1592,
+        1599
+      ],
+      "sourceCues": [
+        156
+      ],
+      "alignmentText": "sa volajú dvojité vé a zet."
+    },
+    {
+      "start": 689.56,
+      "end": 690.6,
+      "text": {
+        "sk": "W a Z bozóny.",
+        "cs": "Bosony W a Z."
+      },
+      "asrWordRange": [
+        1599,
+        1601
+      ],
+      "sourceCues": [
+        157
+      ],
+      "alignmentText": "dvojité vé a zet bozóny."
+    },
+    {
+      "start": 691.72,
+      "end": 697.16,
+      "text": {
+        "sk": "No a tieto spôsobovali vrásky časticovým fyzikom. A kvôli čomu? A to z",
+        "cs": "A tyhle částicovým fyzikům dělaly vrásky. Proč? A to z"
+      },
+      "asrWordRange": [
+        1601,
+        1614
+      ],
+      "sourceCues": [
+        158
+      ],
+      "alignmentText": "No a tieto spôsobovali vrásky časticovým fyzikom. A kvôli čomu? A to z"
+    },
+    {
+      "start": 697.16,
+      "end": 702.58,
+      "text": {
+        "sk": "takého dôvodu, že v jednej časti teórie bola nutná požiadavka,",
+        "cs": "toho důvodu, že v jedné části teorie byl nutný požadavek,"
+      },
+      "asrWordRange": [
+        1614,
+        1624
+      ],
+      "sourceCues": [
+        159
+      ],
+      "alignmentText": "takého dôvodu, že v jednej časti teórie bola nutná požiadavka,"
+    },
+    {
+      "start": 702.84,
+      "end": 704.38,
+      "text": {
+        "sk": "že aby tá teória dávala zmysel,",
+        "cs": "že aby teorie dávala smysl,"
+      },
+      "asrWordRange": [
+        1624,
+        1630
+      ],
+      "sourceCues": [
+        160
+      ],
+      "alignmentText": "že aby tá teória dávala zmysel,"
+    },
+    {
+      "start": 705.22,
+      "end": 710.74,
+      "text": {
+        "sk": "tak W a Z bozóny musia byť nehmotné. Podobne ako fotón má nulovú hmotnosť a gluón má",
+        "cs": "bosony W a Z musejí být nehmotné. Podobně jako má foton nulovou hmotnost a gluon"
+      },
+      "asrWordRange": [
+        1630,
+        1647
+      ],
+      "sourceCues": [
+        161
+      ],
+      "alignmentText": "tak dvojité vé a zet bozóny musia byť nehmotné. Podobne ako fotón má nulovú hmotnosť a gluón má"
+    },
+    {
+      "start": 710.74,
+      "end": 713.84,
+      "text": {
+        "sk": "nulovú hmotnosť, tak povedali, že tieto dva bozóny,",
+        "cs": "nulovou hmotnost, tak se řeklo, že tyhle dva bosony,"
+      },
+      "asrWordRange": [
+        1647,
+        1655
+      ],
+      "sourceCues": [
+        162
+      ],
+      "alignmentText": "nulovú hmotnosť, tak povedali, že tieto dva bozóny,"
+    },
+    {
+      "start": 714.66,
+      "end": 716.32,
+      "text": {
+        "sk": "W a Z, musia byť nehmotné.",
+        "cs": "W a Z, musejí být nehmotné."
+      },
+      "asrWordRange": [
+        1655,
+        1662
+      ],
+      "sourceCues": [
+        163
+      ],
+      "alignmentText": "dvojité vé a zet, musia byť nehmotné."
+    },
+    {
+      "start": 717.46,
+      "end": 721.98,
+      "text": {
+        "sk": "V inej časti teórie sa objavilo, že tieto bozóny musia byť strašne ťažké.",
+        "cs": "V jiné části teorie se ale ukázalo, že tyhle bosony musejí být velmi těžké."
+      },
+      "asrWordRange": [
+        1662,
+        1675
+      ],
+      "sourceCues": [
+        164
+      ],
+      "alignmentText": "V inej časti teórie sa objavilo, že tieto bozóny musia byť strašne ťažké."
+    },
+    {
+      "start": 723.2,
+      "end": 728.02,
+      "text": {
+        "sk": "Obe tieto podmienky boli nutné k tomu, aby tá teória dávala zmysel, ale zároveň sa",
+        "cs": "Obě podmínky byly nutné, aby teorie dávala smysl, ale zároveň se"
+      },
+      "asrWordRange": [
+        1675,
+        1690
+      ],
+      "sourceCues": [
+        165
+      ],
+      "alignmentText": "Obe tieto podmienky boli nutné k tomu, aby tá teória dávala zmysel, ale zároveň sa"
+    },
+    {
+      "start": 728.02,
+      "end": 728.72,
+      "text": {
+        "sk": "vylúčovali.",
+        "cs": "vzájemně vylučovaly."
+      },
+      "asrWordRange": [
+        1690,
+        1691
+      ],
+      "sourceCues": [
+        166
+      ],
+      "alignmentText": "vylúčovali."
+    },
+    {
+      "start": 729.6,
+      "end": 734.98,
+      "text": {
+        "sk": "Vylúčovalo sa kvôli tomu, že museli byť zároveň nehmotné aj hmotné zároveň?",
+        "cs": "Vylučovaly se proto, že musely být zároveň nehmotné i hmotné?"
+      },
+      "asrWordRange": [
+        1691,
+        1703
+      ],
+      "sourceCues": [
+        167
+      ],
+      "alignmentText": "Vylúčovalo sa kvôli tomu, že museli byť zároveň nehmotné aj hmotné zároveň?"
+    },
+    {
+      "start": 736.0,
+      "end": 740.24,
+      "text": {
+        "sk": "Vylúčovali sa kvôli tomu, že museli byť hmotné aj nehmotné zároveň? Áno.",
+        "cs": "Vylučovaly se proto, že musely být zároveň hmotné i nehmotné? Ano."
+      },
+      "asrWordRange": [
+        1703,
+        1715
+      ],
+      "sourceCues": [
+        168
+      ],
+      "alignmentText": "Vylúčovali sa kvôli tomu, že museli byť hmotné aj nehmotné zároveň? Áno."
+    },
+    {
+      "start": 741.38,
+      "end": 745.88,
+      "text": {
+        "sk": "A ako sa s tým vysporiadali? To je, ako keby si proste mal hrať vo filme a režisér ti",
+        "cs": "A jak se s tím vypořádali? To je jako kdybys měl hrát ve filmu a režisér ti"
+      },
+      "asrWordRange": [
+        1715,
+        1734
+      ],
+      "sourceCues": [
+        169
+      ],
+      "alignmentText": "A ako sa s tým vysporiadali? To je, ako keby si proste mal hrať vo filme a režisér ti"
+    },
+    {
+      "start": 745.88,
+      "end": 750.14,
+      "text": {
+        "sk": "povie, že potrebujem, aby si strašne schudol a zároveň bol strašne tučný. A ty teraz",
+        "cs": "řekl, že potřebuje, abys hrozně zhubl, a zároveň byl strašně tlustý. A ty teď"
+      },
+      "asrWordRange": [
+        1734,
+        1749
+      ],
+      "sourceCues": [
+        170
+      ],
+      "alignmentText": "povie, že potrebujem, aby si strašne schudol a zároveň bol strašne tučný. A ty teraz"
+    },
+    {
+      "start": 750.14,
+      "end": 753.38,
+      "text": {
+        "sk": "nevieš, čo máš vlastne urobiť, lebo keď splníš jednu požiadavku, druhú nesplníš a",
+        "cs": "nevíš, co vlastně udělat, protože když splníš jeden požadavek, nesplníš druhý,"
+      },
+      "asrWordRange": [
+        1749,
+        1762
+      ],
+      "sourceCues": [
+        171
+      ],
+      "alignmentText": "nevieš, čo máš vlastne urobiť, lebo keď splníš jednu požiadavku, druhú nesplníš a"
+    },
+    {
+      "start": 753.38,
+      "end": 758.72,
+      "text": {
+        "sk": "naopak. Samozrejme. Tak teoretici mali na W a Z bozóny presne",
+        "cs": "a naopak. Samozřejmě. Teoretici měli na bosony W a Z přesně"
+      },
+      "asrWordRange": [
+        1762,
+        1773
+      ],
+      "sourceCues": [
+        172
+      ],
+      "alignmentText": "naopak. Samozrejme. Tak teoretici mali na dvojité vé a zet bozóny presne"
+    },
+    {
+      "start": 758.72,
+      "end": 763.5,
+      "text": {
+        "sk": "takéto protichodné požiadavky. Aby teória dávala zmysel, museli byť nehmotné a veľmi",
+        "cs": "takové protichůdné požadavky. Aby teorie dávala smysl, musely být nehmotné a velmi"
+      },
+      "asrWordRange": [
+        1773,
+        1785
+      ],
+      "sourceCues": [
+        173
+      ],
+      "alignmentText": "takéto protichodné požiadavky. Aby teória dávala zmysel, museli byť nehmotné a veľmi"
+    },
+    {
+      "start": 763.5,
+      "end": 764.16,
+      "text": {
+        "sk": "ťažké naraz.",
+        "cs": "těžké zároveň."
+      },
+      "asrWordRange": [
+        1785,
+        1787
+      ],
+      "sourceCues": [
+        174
+      ],
+      "alignmentText": "ťažké naraz."
+    },
+    {
+      "start": 764.95,
+      "end": 770.31,
+      "text": {
+        "sk": "A ako sa tento problém podarilo vyriešiť? No, tu do hry vstupuje Higgsov bozón.",
+        "cs": "A jak se ten problém podařilo vyřešit? Tady vstupuje do hry Higgsův boson."
+      },
+      "asrWordRange": [
+        1787,
+        1800
+      ],
+      "sourceCues": [
+        175
+      ],
+      "alignmentText": "A ako sa tento problém podarilo vyriešiť? No, tu do hry vstupuje Higgsov bozón."
+    },
+    {
+      "start": 771.03,
+      "end": 774.99,
+      "text": {
+        "sk": "A Higgsov bozón sa objavil pôvodne v trošku inej časti fyziky,",
+        "cs": "A Higgsův boson se původně objevil v trochu jiné části fyziky,"
+      },
+      "asrWordRange": [
+        1800,
+        1810
+      ],
+      "sourceCues": [
+        176
+      ],
+      "alignmentText": "A Higgsov bozón sa objavil pôvodne v trošku inej časti fyziky,"
+    },
+    {
+      "start": 776.01,
+      "end": 781.27,
+      "text": {
+        "sk": "ale niekoľko ľudí došlo na to, že vlastne by mohol pomôcť vysvetliť tento problém.",
+        "cs": "ale několik lidí přišlo na to, že by mohl pomoci vysvětlit tento problém."
+      },
+      "asrWordRange": [
+        1810,
+        1824
+      ],
+      "sourceCues": [
+        177
+      ],
+      "alignmentText": "ale niekoľko ľudí došlo na to, že vlastne by mohol pomôcť vysvetliť tento problém."
+    },
+    {
+      "start": 782.43,
+      "end": 787.83,
+      "text": {
+        "sk": "Nobelovú cenu za tento nápad si odnesol Peter Higgs a François Englert.",
+        "cs": "Nobelovu cenu za tenhle nápad získali Peter Higgs a François Englert."
+      },
+      "asrWordRange": [
+        1824,
+        1836
+      ],
+      "sourceCues": [
+        178
+      ],
+      "alignmentText": "Nobelovú cenu za tento nápad si odnesol Peter Higgs a François Englert."
+    },
+    {
+      "start": 789.15,
+      "end": 790.87,
+      "text": {
+        "sk": "V roku dvetisíctrinásť Nobelova cena za fyziku.",
+        "cs": "V roce 2013 Nobelova cena za fyziku."
+      },
+      "asrWordRange": [
+        1836,
+        1841
+      ],
+      "sourceCues": [
+        179
+      ],
+      "alignmentText": "V roku dvetisíctrinásť Nobelova cena za fyziku."
+    },
+    {
+      "start": 791.92,
+      "end": 794.64,
+      "text": {
+        "sk": "A ten ich nápad bol taký, že čo keď je taká ďalšia častica,",
+        "cs": "A jejich nápad byl: co když existuje další částice,"
+      },
+      "asrWordRange": [
+        1841,
+        1854
+      ],
+      "sourceCues": [
+        180
+      ],
+      "alignmentText": "A ten ich nápad bol taký, že čo keď je taká ďalšia častica,"
+    },
+    {
+      "start": 795.58,
+      "end": 800.96,
+      "text": {
+        "sk": "ktorá má takú zvláštnu schopnosť, že nachádza sa všade v priestore.",
+        "cs": "která má tu zvláštní schopnost, že je všude v prostoru?"
+      },
+      "asrWordRange": [
+        1854,
+        1865
+      ],
+      "sourceCues": [
+        181
+      ],
+      "alignmentText": "ktorá má takú zvláštnu schopnosť, že nachádza sa všade v priestore."
+    },
+    {
+      "start": 801.36,
+      "end": 805.72,
+      "text": {
+        "sk": "To je prvá vlastnosť. A druhá vlastnosť je, že sa veľmi dobre lepí na tie W a Z",
+        "cs": "To je první vlastnost. Druhou je, že se velmi dobře lepí na bosony W a Z."
+      },
+      "asrWordRange": [
+        1865,
+        1883
+      ],
+      "sourceCues": [
+        182
+      ],
+      "alignmentText": "To je prvá vlastnosť. A druhá vlastnosť je, že sa veľmi dobre lepí na tie dvojité vé a zet"
+    },
+    {
+      "start": 805.72,
+      "end": 811.2,
+      "text": {
+        "sk": "bozóny. A keď vznikne jeden z týchto bozónov, tak sa naň Higgsov bozón hneď nalepí",
+        "cs": "A když vznikne některý z těchto bosonů, Higgsův boson se na něj hned nalepí"
+      },
+      "asrWordRange": [
+        1883,
+        1899
+      ],
+      "sourceCues": [
+        183
+      ],
+      "alignmentText": "bozóny. A keď vznikne jeden z týchto bozónov, tak sa naň Higgsov bozón hneď nalepí"
+    },
+    {
+      "start": 811.2,
+      "end": 816.44,
+      "text": {
+        "sk": "a efektívne mu akoby pridá svoju hmotnosť. Takže spĺňa tú podmienku?",
+        "cs": "a vlastně mu jakoby přidá svou hmotnost. Takže splní tu podmínku?"
+      },
+      "asrWordRange": [
+        1899,
+        1911
+      ],
+      "sourceCues": [
+        184
+      ],
+      "alignmentText": "a efektívne mu akoby pridá svoju hmotnosť. Takže spĺňa tú podmienku?"
+    },
+    {
+      "start": 816.74,
+      "end": 818.98,
+      "text": {
+        "sk": "Čiže splňa zrazu obe podmienky, áno.",
+        "cs": "Najednou splní obě podmínky, ano."
+      },
+      "asrWordRange": [
+        1911,
+        1917
+      ],
+      "sourceCues": [
+        185
+      ],
+      "alignmentText": "Čiže splňa zrazu obe podmienky, áno."
+    },
+    {
+      "start": 819.96,
+      "end": 825.3,
+      "text": {
+        "sk": "A vďaka Higgsovmu bozónu. Áno. Čiže je nehmotný. W a Z bozóny sú",
+        "cs": "A díky Higgsůvu bosonu. Ano. Takže je nehmotný. Bosony W a Z jsou"
+      },
+      "asrWordRange": [
+        1917,
+        1928
+      ],
+      "sourceCues": [
+        186
+      ],
+      "alignmentText": "A vďaka Higgsovmu bozónu. Áno. Čiže je nehmotný. dvojité vé a zet bozóny sú"
+    },
+    {
+      "start": 825.3,
+      "end": 830.22,
+      "text": {
+        "sk": "nehmotné. Ale ten Higgsov bozón je akoby taká umelá hmotnosť, ktorá sa na nich hneď",
+        "cs": "nehmotné. Ale Higgsův boson představuje jakoby umělou hmotnost, která se na ně hned"
+      },
+      "asrWordRange": [
+        1928,
+        1944
+      ],
+      "sourceCues": [
+        187
+      ],
+      "alignmentText": "nehmotné. Ale ten Higgsov bozón je akoby taká umelá hmotnosť, ktorá sa na nich hneď"
+    },
+    {
+      "start": 830.22,
+      "end": 830.68,
+      "text": {
+        "sk": "nalepí.",
+        "cs": "nalepí."
+      },
+      "asrWordRange": [
+        1944,
+        1945
+      ],
+      "sourceCues": [
+        188
+      ],
+      "alignmentText": "nalepí."
+    },
+    {
+      "start": 831.44,
+      "end": 835.19,
+      "text": {
+        "sk": "Veľká zvláštnosť tohto Higgsovho bozónu je,",
+        "cs": "Velkou zvláštností toho Higgsůva bosonu je,"
+      },
+      "asrWordRange": [
+        1945,
+        1951
+      ],
+      "sourceCues": [
+        189
+      ],
+      "alignmentText": "Veľká zvláštnosť tohto Higgsovho bozónu je,"
+    },
+    {
+      "start": 835.9,
+      "end": 840.43,
+      "text": {
+        "sk": "že on vlastne vypĺňa akoby celý priestor. Keď zoberieš krabicu a všetko z nej",
+        "cs": "že vlastně vyplňuje celý prostor. Když vezmeš krabici a všechno z ní"
+      },
+      "asrWordRange": [
+        1951,
+        1966
+      ],
+      "sourceCues": [
+        190
+      ],
+      "alignmentText": "že on vlastne vypĺňa akoby celý priestor. Keď zoberieš krabicu a všetko z nej"
+    },
+    {
+      "start": 840.43,
+      "end": 842.13,
+      "text": {
+        "sk": "povýhadzuješ, tak je tam prázdno.",
+        "cs": "vyházíš, tak je prázdná."
+      },
+      "asrWordRange": [
+        1966,
+        1971
+      ],
+      "sourceCues": [
+        191
+      ],
+      "alignmentText": "povýhadzuješ, tak je tam prázdno."
+    },
+    {
+      "start": 845.21,
+      "end": 850.75,
+      "text": {
+        "sk": "Je tam nulové elektrónové pole, nulové fotónové pole, nulové kvarkové pole, ale je tam",
+        "cs": "Je tam nulové elektronové pole, nulové fotonové pole, nulové kvarkové pole, ale"
+      },
+      "asrWordRange": [
+        1971,
+        1985
+      ],
+      "sourceCues": [
+        192
+      ],
+      "alignmentText": "Je tam nulové elektrónové pole, nulové fotónové pole, nulové kvarkové pole, ale je tam"
+    },
+    {
+      "start": 850.75,
+      "end": 856.07,
+      "text": {
+        "sk": "nenulové Higgsovo pole. Zvláštnosť tohto poľa je, že jeho najmenšia energia nie je",
+        "cs": "nenulové Higgsůvo pole. Zvláštností tohoto pole je, že jeho nejmenší energie není"
+      },
+      "asrWordRange": [
+        1985,
+        1998
+      ],
+      "sourceCues": [
+        193
+      ],
+      "alignmentText": "nenulové Higgsovo pole. Zvláštnosť tohto poľa je, že jeho najmenšia energia nie je"
+    },
+    {
+      "start": 856.07,
+      "end": 861.51,
+      "text": {
+        "sk": "vtedy, keď je nulové, ale keď je nenulové. Aha. Čiže taká veľmi zvláštna",
+        "cs": "při nulové hodnotě, ale při nenulové. Aha. To je velice zvláštní"
+      },
+      "asrWordRange": [
+        1998,
+        2011
+      ],
+      "sourceCues": [
+        194
+      ],
+      "alignmentText": "vtedy, keď je nulové, ale keď je nenulové. Aha. Čiže taká veľmi zvláštna"
+    },
+    {
+      "start": 861.51,
+      "end": 866.55,
+      "text": {
+        "sk": "vlastnosť, ktorá teda spôsobuje, že je pripravený všade hneď, aby na tie W a Z bozóny",
+        "cs": "vlastnost, díky které je všude připravený na bosony W a Z"
+      },
+      "asrWordRange": [
+        2011,
+        2025
+      ],
+      "sourceCues": [
+        195
+      ],
+      "alignmentText": "vlastnosť, ktorá teda spôsobuje, že je pripravený všade hneď, aby na tie dvojité vé a zet bozóny"
+    },
+    {
+      "start": 866.55,
+      "end": 871.77,
+      "text": {
+        "sk": "ponaskakoval a efektívne im pridal svoju hmotnosť. Čiže taký",
+        "cs": "naskakovat a efektivně jim přidávat svou hmotnost. Takový"
+      },
+      "asrWordRange": [
+        2025,
+        2034
+      ],
+      "sourceCues": [
+        196
+      ],
+      "alignmentText": "ponaskakoval a efektívne im pridal svoju hmotnosť. Čiže taký"
+    },
+    {
+      "start": 871.77,
+      "end": 876.83,
+      "text": {
+        "sk": "šikovný nástroj, ako z nehmotných vecí robiť hmotné. Ale to sa mi zdá skôr,",
+        "cs": "šikovný nástroj, který dělá z nehmotných věcí hmotné. Ale to mi připadá spíš,"
+      },
+      "asrWordRange": [
+        2034,
+        2048
+      ],
+      "sourceCues": [
+        197
+      ],
+      "alignmentText": "šikovný nástroj, ako z nehmotných vecí robiť hmotné. Ale to sa mi zdá skôr,"
+    },
+    {
+      "start": 877.45,
+      "end": 879.47,
+      "text": {
+        "sk": "aké by si vyriešili len nejakú vec,",
+        "cs": "jako by vyřešili jen nějakou věc"
+      },
+      "asrWordRange": [
+        2048,
+        2055
+      ],
+      "sourceCues": [
+        198
+      ],
+      "alignmentText": "aké by si vyriešili len nejakú vec,"
+    },
+    {
+      "start": 881.75,
+      "end": 887.25,
+      "text": {
+        "sk": "nejakým teoretickým konštatovaním, ale to sa zmenilo tým, že",
+        "cs": "pouhým teoretickým konstatováním. To se ale změnilo, když"
+      },
+      "asrWordRange": [
+        2055,
+        2065
+      ],
+      "sourceCues": [
+        199
+      ],
+      "alignmentText": "nejakým teoretickým konštatovaním, ale to sa zmenilo tým, že"
+    },
+    {
+      "start": 887.25,
+      "end": 892.57,
+      "text": {
+        "sk": "ho aj dokázali prakticky. Áno, áno. Samozrejme, že takto to zatiaľ bola iba",
+        "cs": "ho také prakticky dokázali. Ano, samozřejmě, zatím to totiž byla jen"
+      },
+      "asrWordRange": [
+        2065,
+        2078
+      ],
+      "sourceCues": [
+        200
+      ],
+      "alignmentText": "ho aj dokázali prakticky. Áno, áno. Samozrejme, že takto to zatiaľ bola iba"
+    },
+    {
+      "start": 892.57,
+      "end": 897.39,
+      "text": {
+        "sk": "teória, ale vlastne, že ak by mali pravdu, tak oni tým vysvetlili, prečo sú tie W a Z",
+        "cs": "teorie, ale kdyby měli pravdu, vysvětlili by tím, proč jsou bosony W a Z"
+      },
+      "asrWordRange": [
+        2078,
+        2096
+      ],
+      "sourceCues": [
+        201
+      ],
+      "alignmentText": "teória, ale vlastne, že ak by mali pravdu, tak oni tým vysvetlili, prečo sú tie dvojité vé a zet"
+    },
+    {
+      "start": 897.39,
+      "end": 902.29,
+      "text": {
+        "sk": "bozóny také ťažké. Ale samozrejme, veľkou výzvou pre CERN bolo Higgsov bozón priamo",
+        "cs": "tak těžké. A velkou výzvou pro CERN bylo Higgsův boson přímo"
+      },
+      "asrWordRange": [
+        2096,
+        2110
+      ],
+      "sourceCues": [
+        202
+      ],
+      "alignmentText": "bozóny také ťažké. Ale samozrejme, veľkou výzvou pre CERN bolo Higgsov bozón priamo"
+    },
+    {
+      "start": 902.29,
+      "end": 902.91,
+      "text": {
+        "sk": "pozorovať.",
+        "cs": "pozorovat."
+      },
+      "asrWordRange": [
+        2110,
+        2111
+      ],
+      "sourceCues": [
+        203
+      ],
+      "alignmentText": "pozorovať."
+    },
+    {
+      "start": 904.1,
+      "end": 909.64,
+      "text": {
+        "sk": "Čo je strašne zložité, lebo, ako som povedal, toto nie je častica hmoty v",
+        "cs": "To je nesmírně složité, protože jak jsem říkal, nejde o částici hmoty v"
+      },
+      "asrWordRange": [
+        2111,
+        2126
+      ],
+      "sourceCues": [
+        204
+      ],
+      "alignmentText": "Čo je strašne zložité, lebo, ako som povedal, toto nie je častica hmoty v"
+    },
+    {
+      "start": 909.64,
+      "end": 914.28,
+      "text": {
+        "sk": "tom bežnom slova zmysle, že by tvorila také atómy alebo čo. Ona len takto vzniká",
+        "cs": "běžném slova smyslu, která by tvořila atomy nebo něco takového. Jen takhle vzniká"
+      },
+      "asrWordRange": [
+        2126,
+        2141
+      ],
+      "sourceCues": [
+        205
+      ],
+      "alignmentText": "tom bežnom slova zmysle, že by tvorila také atómy alebo čo. Ona len takto vzniká"
+    },
+    {
+      "start": 914.28,
+      "end": 919.66,
+      "text": {
+        "sk": "počas interakcií, kde prenáša také, akoby nie sily, ale také interakcie medzi",
+        "cs": "během interakcí a přenáší jakoby ne síly, ale určité interakce mezi"
+      },
+      "asrWordRange": [
+        2141,
+        2154
+      ],
+      "sourceCues": [
+        206
+      ],
+      "alignmentText": "počas interakcií, kde prenáša také, akoby nie sily, ale také interakcie medzi"
+    },
+    {
+      "start": 919.66,
+      "end": 920.2,
+      "text": {
+        "sk": "časticami.",
+        "cs": "částicemi."
+      },
+      "asrWordRange": [
+        2154,
+        2155
+      ],
+      "sourceCues": [
+        207
+      ],
+      "alignmentText": "časticami."
+    },
+    {
+      "start": 921.75,
+      "end": 925.13,
+      "text": {
+        "sk": "No a to, čo vlastne v CERN museli robiť, že CERN funguje takým zvláštnym spôsobom.",
+        "cs": "A v CERNu museli dělat následující věc. CERN funguje trochu zvláštním způsobem."
+      },
+      "asrWordRange": [
+        2155,
+        2170
+      ],
+      "sourceCues": [
+        208
+      ],
+      "alignmentText": "No a to, čo vlastne v CERN museli robiť, že CERN funguje takým zvláštnym spôsobom."
+    },
+    {
+      "start": 925.13,
+      "end": 929.33,
+      "text": {
+        "sk": "Robí pomerne nepresné veci, ale robí ich strašne veľakrát,",
+        "cs": "Dělá poměrně nepřesné věci, ale dělá je strašně mnohokrát,"
+      },
+      "asrWordRange": [
+        2170,
+        2180
+      ],
+      "sourceCues": [
+        209
+      ],
+      "alignmentText": "Robí pomerne nepresné veci, ale robí ich strašne veľakrát,"
+    },
+    {
+      "start": 930.2,
+      "end": 933.68,
+      "text": {
+        "sk": "až sa z toho dostane veľmi presné výsledky.",
+        "cs": "až z toho získá velmi přesné výsledky."
+      },
+      "asrWordRange": [
+        2180,
+        2188
+      ],
+      "sourceCues": [
+        210
+      ],
+      "alignmentText": "až sa z toho dostane veľmi presné výsledky."
+    },
+    {
+      "start": 934.5,
+      "end": 939.6,
+      "text": {
+        "sk": "Lebo v CERNe skúmajú zrážky elementárnych častíc. Tie",
+        "cs": "Protože v CERNu zkoumají srážky elementárních částic. Tyhle"
+      },
+      "asrWordRange": [
+        2188,
+        2196
+      ],
+      "sourceCues": [
+        211
+      ],
+      "alignmentText": "Lebo v CERNe skúmajú zrážky elementárnych častíc. Tie"
+    },
+    {
+      "start": 939.6,
+      "end": 943.7,
+      "text": {
+        "sk": "zrážky elementárnych častíc podliehajú takým náhodným procesom, ktoré sa stanú",
+        "cs": "srážky podléhají náhodným procesům, ke kterým dochází"
+      },
+      "asrWordRange": [
+        2196,
+        2206
+      ],
+      "sourceCues": [
+        212
+      ],
+      "alignmentText": "zrážky elementárnych častíc podliehajú takým náhodným procesom, ktoré sa stanú"
+    },
+    {
+      "start": 943.7,
+      "end": 945.56,
+      "text": {
+        "sk": "napríklad raz za miliardu zrážok.",
+        "cs": "třeba jen jednou za miliardu srážek."
+      },
+      "asrWordRange": [
+        2206,
+        2211
+      ],
+      "sourceCues": [
+        213
+      ],
+      "alignmentText": "napríklad raz za miliardu zrážok."
+    },
+    {
+      "start": 946.5,
+      "end": 950.6,
+      "text": {
+        "sk": "Takže keby ich urobili sto alebo tisíc, tak si nič zaujímavé nevšimnú.",
+        "cs": "Kdyby jich udělali sto nebo tisíc, ničeho zajímavého by si nevšimli."
+      },
+      "asrWordRange": [
+        2211,
+        2223
+      ],
+      "sourceCues": [
+        214
+      ],
+      "alignmentText": "Takže keby ich urobili sto alebo tisíc, tak si nič zaujímavé nevšimnú."
+    },
+    {
+      "start": 951.45,
+      "end": 955.35,
+      "text": {
+        "sk": "To, čo oni spravia v CERN je, že tie zrážky opakujú miliardu krát za sekundu, niekoľko",
+        "cs": "V CERNu ale ty srážky opakují miliardkrát za sekundu, několik"
+      },
+      "asrWordRange": [
+        2223,
+        2239
+      ],
+      "sourceCues": [
+        215
+      ],
+      "alignmentText": "To, čo oni spravia v CERN je, že tie zrážky opakujú miliardu krát za sekundu, niekoľko"
+    },
+    {
+      "start": 955.35,
+      "end": 959.39,
+      "text": {
+        "sk": "rokov v kuse, a potom si všimajú, ako sa tie veci menia štatisticky, že",
+        "cs": "let v kuse, a potom sledují, jak se věci statisticky mění, třeba že"
+      },
+      "asrWordRange": [
+        2239,
+        2253
+      ],
+      "sourceCues": [
+        216
+      ],
+      "alignmentText": "rokov v kuse, a potom si všimajú, ako sa tie veci menia štatisticky, že"
+    },
+    {
+      "start": 959.68,
+      "end": 965.22,
+      "text": {
+        "sk": "každú milióntu zrážku sme videli niečo takéto zvláštne, a každú päťmilióntu niečo",
+        "cs": "při každé milionté srážce viděli něco zvláštního a při každé pětimilionté zase"
+      },
+      "asrWordRange": [
+        2253,
+        2268
+      ],
+      "sourceCues": [
+        217
+      ],
+      "alignmentText": "každú milióntu zrážku sme videli niečo takéto zvláštne, a každú päťmilióntu niečo"
+    },
+    {
+      "start": 965.22,
+      "end": 970.22,
+      "text": {
+        "sk": "iné. No a vlastne Higgsov bozón bol objavený ako taká štatistická anomália.",
+        "cs": "něco jiného. Higgsův boson byl vlastně objeven jako statistická anomálie."
+      },
+      "asrWordRange": [
+        2268,
+        2281
+      ],
+      "sourceCues": [
+        218
+      ],
+      "alignmentText": "iné. No a vlastne Higgsov bozón bol objavený ako taká štatistická anomália."
+    },
+    {
+      "start": 971.42,
+      "end": 976.4,
+      "text": {
+        "sk": "Pri týchto zrážkach. Áno, že oni museli robiť strašne veľa zrážok,",
+        "cs": "Při těchto srážkách. Ano, museli udělat ohromné množství srážek,"
+      },
+      "asrWordRange": [
+        2281,
+        2292
+      ],
+      "sourceCues": [
+        219
+      ],
+      "alignmentText": "Pri týchto zrážkach. Áno, že oni museli robiť strašne veľa zrážok,"
+    },
+    {
+      "start": 976.86,
+      "end": 980.68,
+      "text": {
+        "sk": "aby z nich vedeli vybrať také veľmi špeciálne, ktoré by bez Higgsa nedokázali",
+        "cs": "aby z nich vybrali ty velmi zvláštní, u kterých by bez Higgse nedokázali"
+      },
+      "asrWordRange": [
+        2292,
+        2305
+      ],
+      "sourceCues": [
+        220
+      ],
+      "alignmentText": "aby z nich vedeli vybrať také veľmi špeciálne, ktoré by bez Higgsa nedokázali"
+    },
+    {
+      "start": 980.68,
+      "end": 985.3,
+      "text": {
+        "sk": "vysvetliť, prečo nastávajú tak často, ako nastávajú. Ale teda samozrejme tým, že oni",
+        "cs": "vysvětlit, proč nastávají tak často, jak nastávají. A protože"
+      },
+      "asrWordRange": [
+        2305,
+        2318
+      ],
+      "sourceCues": [
+        221
+      ],
+      "alignmentText": "vysvetliť, prečo nastávajú tak často, ako nastávajú. Ale teda samozrejme tým, že oni"
+    },
+    {
+      "start": 985.3,
+      "end": 990.44,
+      "text": {
+        "sk": "tam majú úplne desiatky rôznych detektorov, tak vedeli spätne zrekonštruovať, aká ťažká",
+        "cs": "tam mají desítky různých detektorů, dokázali zpětně zrekonstruovat, jak těžká"
+      },
+      "asrWordRange": [
+        2318,
+        2330
+      ],
+      "sourceCues": [
+        222
+      ],
+      "alignmentText": "tam majú úplne desiatky rôznych detektorov, tak vedeli spätne zrekonštruovať, aká ťažká"
+    },
+    {
+      "start": 990.44,
+      "end": 992.84,
+      "text": {
+        "sk": "je tá častica, aké má elektrické vlastnosti,",
+        "cs": "ta částice je, jaké má elektrické vlastnosti,"
+      },
+      "asrWordRange": [
+        2330,
+        2337
+      ],
+      "sourceCues": [
+        223
+      ],
+      "alignmentText": "je tá častica, aké má elektrické vlastnosti,"
+    },
+    {
+      "start": 994.04,
+      "end": 999.24,
+      "text": {
+        "sk": "akú má priestorovú orientáciu. A všetky tieto veci presne zodpovedali tej teoretickej",
+        "cs": "jakou má prostorovou orientaci. A všechno přesně odpovídalo teoretické"
+      },
+      "asrWordRange": [
+        2337,
+        2349
+      ],
+      "sourceCues": [
+        224
+      ],
+      "alignmentText": "akú má priestorovú orientáciu. A všetky tieto veci presne zodpovedali tej teoretickej"
+    },
+    {
+      "start": 999.24,
+      "end": 999.82,
+      "text": {
+        "sk": "predpovedi.",
+        "cs": "předpovědi."
+      },
+      "asrWordRange": [
+        2349,
+        2350
+      ],
+      "sourceCues": [
+        225
+      ],
+      "alignmentText": "predpovedi."
+    },
+    {
+      "start": 1000.82,
+      "end": 1004.84,
+      "text": {
+        "sk": "Tá teoretická predpoveď teda nebola len, že Higgs existuje, ale aj pekne zoznam jeho",
+        "cs": "Ta teoretická předpověď tedy neříkala jen, že Higgs existuje, ale obsahovala celý seznam"
+      },
+      "asrWordRange": [
+        2350,
+        2365
+      ],
+      "sourceCues": [
+        226
+      ],
+      "alignmentText": "Tá teoretická predpoveď teda nebola len, že Higgs existuje, ale aj pekne zoznam jeho"
+    },
+    {
+      "start": 1004.84,
+      "end": 1005.5,
+      "text": {
+        "sk": "vlastností,",
+        "cs": "jeho vlastností,"
+      },
+      "asrWordRange": [
+        2365,
+        2366
+      ],
+      "sourceCues": [
+        227
+      ],
+      "alignmentText": "vlastností,"
+    },
+    {
+      "start": 1006.26,
+      "end": 1011.78,
+      "text": {
+        "sk": "ktoré potom s veľkou dávkou trpezlivosti získali v CERNe z experimentálnych",
+        "cs": "které potom s velkou dávkou trpělivosti získali v CERNu z experimentálních"
+      },
+      "asrWordRange": [
+        2366,
+        2377
+      ],
+      "sourceCues": [
+        228
+      ],
+      "alignmentText": "ktoré potom s veľkou dávkou trpezlivosti získali v CERNe z experimentálnych"
+    },
+    {
+      "start": 1011.78,
+      "end": 1016.44,
+      "text": {
+        "sk": "dát, z obrovského množstva experimentálnych dát. Tam v CERNE",
+        "cs": "dat, z ohromného množství experimentálních dat. Tam v CERNu"
+      },
+      "asrWordRange": [
+        2377,
+        2386
+      ],
+      "sourceCues": [
+        229
+      ],
+      "alignmentText": "dát, z obrovského množstva experimentálnych dát. Tam v CERNE"
+    },
+    {
+      "start": 1016.44,
+      "end": 1019.26,
+      "text": {
+        "sk": "prevláda kvantita nad kvalitou.",
+        "cs": "převažuje kvantita nad kvalitou."
+      },
+      "asrWordRange": [
+        2386,
+        2390
+      ],
+      "sourceCues": [
+        230
+      ],
+      "alignmentText": "prevláda kvantita nad kvalitou."
+    },
+    {
+      "start": 1020.22,
+      "end": 1025.0,
+      "text": {
+        "sk": "Ja by som to nazval taká zvláštna kombinácia kvality a kvantity. Nie, to bolo",
+        "cs": "Já bych to nazval zvláštní kombinací kvality a kvantity. Ne, to bylo"
+      },
+      "asrWordRange": [
+        2390,
+        2404
+      ],
+      "sourceCues": [
+        231
+      ],
+      "alignmentText": "Ja by som to nazval taká zvláštna kombinácia kvality a kvantity. Nie, to bolo"
+    },
+    {
+      "start": 1025.0,
+      "end": 1030.28,
+      "text": {
+        "sk": "samozrejme odľahčené. Samo ja mám takú otázku. Dosť veľakrát sa také slovné",
+        "cs": "samozřejmě odlehčení. Samo, mám takovou otázku. Docela často se"
+      },
+      "asrWordRange": [
+        2404,
+        2416
+      ],
+      "sourceCues": [
+        232
+      ],
+      "alignmentText": "samozrejme odľahčené. Samo ja mám takú otázku. Dosť veľakrát sa také slovné"
+    },
+    {
+      "start": 1030.28,
+      "end": 1033.88,
+      "text": {
+        "sk": "spojenie spája s Higgsovým bozónom. Božská častica.",
+        "cs": "s Higgsůvým bosonem spojuje výraz božská částice."
+      },
+      "asrWordRange": [
+        2416,
+        2423
+      ],
+      "sourceCues": [
+        233
+      ],
+      "alignmentText": "spojenie spája s Higgsovým bozónom. Božská častica."
+    },
+    {
+      "start": 1035.62,
+      "end": 1038.6,
+      "text": {
+        "sk": "Prečo mu to hovoria? Lebo keď si to teraz vysvetlil,",
+        "cs": "Proč mu tak říkají? Protože když jsi ho teď vysvětlil,"
+      },
+      "asrWordRange": [
+        2423,
+        2432
+      ],
+      "sourceCues": [
+        234
+      ],
+      "alignmentText": "Prečo mu to hovoria? Lebo keď si to teraz vysvetlil,"
+    },
+    {
+      "start": 1039.91,
+      "end": 1044.97,
+      "text": {
+        "sk": "akože je veľmi zaujímavá tá častica, ale že by bola boská, neviem,",
+        "cs": "je to velmi zajímavá částice, ale že by byla božská, nevím,"
+      },
+      "asrWordRange": [
+        2432,
+        2444
+      ],
+      "sourceCues": [
+        235
+      ],
+      "alignmentText": "akože je veľmi zaujímavá tá častica, ale že by bola boská, neviem,"
+    },
+    {
+      "start": 1045.37,
+      "end": 1050.87,
+      "text": {
+        "sk": "neviem, mne nepríde boská. Áno, akože je unikátna v tom tým, to sú",
+        "cs": "nevím, mně se božská nezdá. Ano, je jedinečná tím, že je"
+      },
+      "asrWordRange": [
+        2444,
+        2457
+      ],
+      "sourceCues": [
+        236
+      ],
+      "alignmentText": "neviem, mne nepríde boská. Áno, akože je unikátna v tom tým, to sú"
+    },
+    {
+      "start": 1050.87,
+      "end": 1055.41,
+      "text": {
+        "sk": "v úvodzovkách všadeprítomnosťou, že všade v priestore sa nachádza, alebo má teda odborne",
+        "cs": "v uvozovkách všudypřítomná, že se nachází všude v prostoru, nebo má odborně"
+      },
+      "asrWordRange": [
+        2457,
+        2471
+      ],
+      "sourceCues": [
+        237
+      ],
+      "alignmentText": "v úvodzovkách všadeprítomnosťou, že všade v priestore sa nachádza, alebo má teda odborne"
+    },
+    {
+      "start": 1055.41,
+      "end": 1057.63,
+      "text": {
+        "sk": "povedané nenulovú vákuovú hodnotu.",
+        "cs": "řečeno nenulovou vakuovou hodnotu."
+      },
+      "asrWordRange": [
+        2471,
+        2475
+      ],
+      "sourceCues": [
+        238
+      ],
+      "alignmentText": "povedané nenulovú vákuovú hodnotu."
+    },
+    {
+      "start": 1058.81,
+      "end": 1063.71,
+      "text": {
+        "sk": "Ale toto je marketing, ten názov, ktorý si použil, z veľkej časti. Áno. Ja som z toho",
+        "cs": "Ale ten název, který jsi použil, je z velké části marketing. Ano. Chtěl jsem z toho"
+      },
+      "asrWordRange": [
+        2475,
+        2492
+      ],
+      "sourceCues": [
+        239
+      ],
+      "alignmentText": "Ale toto je marketing, ten názov, ktorý si použil, z veľkej časti. Áno. Ja som z toho"
+    },
+    {
+      "start": 1063.71,
+      "end": 1067.33,
+      "text": {
+        "sk": "chcel obviniť CERN, ale nenašiel som to na ich stránke. Neviem, či to dali preč.",
+        "cs": "obvinit CERN, ale nenašel jsem to na jejich stránkách. Nevím, jestli to smazali."
+      },
+      "asrWordRange": [
+        2492,
+        2507
+      ],
+      "sourceCues": [
+        240
+      ],
+      "alignmentText": "chcel obviniť CERN, ale nenašiel som to na ich stránke. Neviem, či to dali preč."
+    },
+    {
+      "start": 1068.21,
+      "end": 1072.37,
+      "text": {
+        "sk": "Ale toto sa novináli strašne chytili, že aha, že ešte, ak to je vlastne častica, ktorá",
+        "cs": "Novináři se toho ale strašně chytili: aha, jestli je to vlastně částice, která"
+      },
+      "asrWordRange": [
+        2507,
+        2523
+      ],
+      "sourceCues": [
+        241
+      ],
+      "alignmentText": "Ale toto sa novináli strašne chytili, že aha, že ešte, ak to je vlastne častica, ktorá"
+    },
+    {
+      "start": 1072.37,
+      "end": 1073.03,
+      "text": {
+        "sk": "dáva vznik",
+        "cs": "dává vzniknout"
+      },
+      "asrWordRange": [
+        2523,
+        2525
+      ],
+      "sourceCues": [
+        242
+      ],
+      "alignmentText": "dáva vznik"
+    },
+    {
+      "start": 1074.03,
+      "end": 1078.21,
+      "text": {
+        "sk": "hmote, tak to je vlastne častica, ktorá tvorí všetko okolo nás a preto ju nazvime",
+        "cs": "hmotě, tak je to přece částice, která tvoří všechno kolem nás, a proto jí říkejme"
+      },
+      "asrWordRange": [
+        2525,
+        2540
+      ],
+      "sourceCues": [
+        243
+      ],
+      "alignmentText": "hmote, tak to je vlastne častica, ktorá tvorí všetko okolo nás a preto ju nazvime"
+    },
+    {
+      "start": 1078.21,
+      "end": 1083.55,
+      "text": {
+        "sk": "božskou a to sa chytilo. Ale to je úplný nezmysel, lebo ona",
+        "cs": "božská. A uchytilo se to. To je ale úplný nesmysl, protože tvoří"
+      },
+      "asrWordRange": [
+        2540,
+        2552
+      ],
+      "sourceCues": [
+        244
+      ],
+      "alignmentText": "božskou a to sa chytilo. Ale to je úplný nezmysel, lebo ona"
+    },
+    {
+      "start": 1083.55,
+      "end": 1087.05,
+      "text": {
+        "sk": "tvorí len veľmi malú časť hmoty a hmotnosti okolo nás.",
+        "cs": "jen velmi malou část hmoty a hmotnosti kolem nás."
+      },
+      "asrWordRange": [
+        2552,
+        2562
+      ],
+      "sourceCues": [
+        245
+      ],
+      "alignmentText": "tvorí len veľmi malú časť hmoty a hmotnosti okolo nás."
+    },
+    {
+      "start": 1088.09,
+      "end": 1093.41,
+      "text": {
+        "sk": "Áno, si to veľmi dobre vysvetlil, čo robí, takže... Hej. Veľká časť tej hmoty",
+        "cs": "Ano, to jsi velmi dobře vysvětlil, co dělá, takže... Ano. Velká část hmoty"
+      },
+      "asrWordRange": [
+        2562,
+        2576
+      ],
+      "sourceCues": [
+        246
+      ],
+      "alignmentText": "Áno, si to veľmi dobre vysvetlil, čo robí, takže... Hej. Veľká časť tej hmoty"
+    },
+    {
+      "start": 1093.41,
+      "end": 1098.71,
+      "text": {
+        "sk": "vzniká úplne iným spôsobom a ten Higgs je unikátny, krásny teoretický mechanizmus, ako",
+        "cs": "vzniká úplně jiným způsobem a Higgs je jedinečný, krásný teoretický mechanismus,"
+      },
+      "asrWordRange": [
+        2576,
+        2589
+      ],
+      "sourceCues": [
+        247
+      ],
+      "alignmentText": "vzniká úplne iným spôsobom a ten Higgs je unikátny, krásny teoretický mechanizmus, ako"
+    },
+    {
+      "start": 1098.71,
+      "end": 1103.69,
+      "text": {
+        "sk": "to funguje, ako sa to podarilo, ale Božská častica je strašné novinárske",
+        "cs": "jak to funguje a jak se to podařilo vysvětlit, ale označení božská částice je hrozné novinářské"
+      },
+      "asrWordRange": [
+        2589,
+        2601
+      ],
+      "sourceCues": [
+        248
+      ],
+      "alignmentText": "to funguje, ako sa to podarilo, ale Božská častica je strašné novinárske"
+    },
+    {
+      "start": 1103.69,
+      "end": 1104.37,
+      "text": {
+        "sk": "preháňanie.",
+        "cs": "přehánění."
+      },
+      "asrWordRange": [
+        2601,
+        2602
+      ],
+      "sourceCues": [
+        249
+      ],
+      "alignmentText": "preháňanie."
+    },
+    {
+      "start": 1106.07,
+      "end": 1110.41,
+      "text": {
+        "sk": "Akože teraz asi nechcem... Podľa mňa je zase super, že sa o tom v médiách toľko",
+        "cs": "Teď asi nechci... Podle mě je naopak skvělé, že se o tom v médiích tolik"
+      },
+      "asrWordRange": [
+        2602,
+        2618
+      ],
+      "sourceCues": [
+        250
+      ],
+      "alignmentText": "Akože teraz asi nechcem... Podľa mňa je zase super, že sa o tom v médiách toľko"
+    },
+    {
+      "start": 1110.41,
+      "end": 1114.59,
+      "text": {
+        "sk": "hovorilo a písalo a aj trochu rozumiem, že je to proste strašne chytlavý názov a aj",
+        "cs": "mluvilo a psalo. A trochu rozumím tomu, že je to nesmírně chytlavý název a i"
+      },
+      "asrWordRange": [
+        2618,
+        2634
+      ],
+      "sourceCues": [
+        251
+      ],
+      "alignmentText": "hovorilo a písalo a aj trochu rozumiem, že je to proste strašne chytlavý názov a aj"
+    },
+    {
+      "start": 1114.59,
+      "end": 1116.37,
+      "text": {
+        "sk": "vďaka tomu sa o tom toľko rozprávalo.",
+        "cs": "díky tomu se o tom tolik mluvilo."
+      },
+      "asrWordRange": [
+        2634,
+        2641
+      ],
+      "sourceCues": [
+        252
+      ],
+      "alignmentText": "vďaka tomu sa o tom toľko rozprávalo."
+    },
+    {
+      "start": 1117.09,
+      "end": 1120.47,
+      "text": {
+        "sk": "Len je to proste nešťastný názov. Je to, samozrejme.",
+        "cs": "Jen je to prostě nešťastný název. Je, samozřejmě."
+      },
+      "asrWordRange": [
+        2641,
+        2650
+      ],
+      "sourceCues": [
+        253
+      ],
+      "alignmentText": "Len je to proste nešťastný názov. Je to, samozrejme."
+    },
+    {
+      "start": 1121.59,
+      "end": 1125.31,
+      "text": {
+        "sk": "Viem, že aj v CERNe bolo trošku aj smutno, keď sa vlastne dokázala",
+        "cs": "Vím, že i v CERNu byli trochu smutní, když se ta částice konečně podařila"
+      },
+      "asrWordRange": [
+        2650,
+        2663
+      ],
+      "sourceCues": [
+        254
+      ],
+      "alignmentText": "Viem, že aj v CERNe bolo trošku aj smutno, keď sa vlastne dokázala"
+    },
+    {
+      "start": 1127.07,
+      "end": 1130.49,
+      "text": {
+        "sk": "tá častica, ten Higgsov bozón, kvôli tomu, že CERN bol",
+        "cs": "dokázat, ten Higgsův boson, protože CERN byl"
+      },
+      "asrWordRange": [
+        2663,
+        2673
+      ],
+      "sourceCues": [
+        255
+      ],
+      "alignmentText": "tá častica, ten Higgsov bozón, kvôli tomu, že CERN bol"
+    },
+    {
+      "start": 1132.17,
+      "end": 1133.97,
+      "text": {
+        "sk": "vlastne zameraný na jej hľadanie, nie?",
+        "cs": "vlastně zaměřený na její hledání, ne?"
+      },
+      "asrWordRange": [
+        2673,
+        2679
+      ],
+      "sourceCues": [
+        256
+      ],
+      "alignmentText": "vlastne zameraný na jej hľadanie, nie?"
+    },
+    {
+      "start": 1134.71,
+      "end": 1138.01,
+      "text": {
+        "sk": "Áno, presne. Toto bola jedna z hlavných motivácií CERNu, že...",
+        "cs": "Ano, přesně. To byla jedna z hlavních motivací CERNu, že..."
+      },
+      "asrWordRange": [
+        2679,
+        2689
+      ],
+      "sourceCues": [
+        257
+      ],
+      "alignmentText": "Áno, presne. Toto bola jedna z hlavných motivácií CERNu, že..."
+    },
+    {
+      "start": 1139.02,
+      "end": 1140.52,
+      "text": {
+        "sk": "A že našli ju veľmi rýchlo.",
+        "cs": "A že ji našli velmi rychle."
+      },
+      "asrWordRange": [
+        2689,
+        2695
+      ],
+      "sourceCues": [
+        258
+      ],
+      "alignmentText": "A že našli ju veľmi rýchlo."
+    },
+    {
+      "start": 1141.18,
+      "end": 1141.94,
+      "text": {
+        "sk": "To by som nepovedal.",
+        "cs": "To bych neřekl."
+      },
+      "asrWordRange": [
+        2695,
+        2699
+      ],
+      "sourceCues": [
+        259
+      ],
+      "alignmentText": "To by som nepovedal."
+    },
+    {
+      "start": 1142.84,
+      "end": 1146.84,
+      "text": {
+        "sk": "Čítal som nejakého fyzika, že bol až sklamaný, ako rýchlo ju našli. No,",
+        "cs": "Četl jsem o nějakém fyzikovi, že byl až zklamaný, jak rychle ji našli. No,"
+      },
+      "asrWordRange": [
+        2699,
+        2712
+      ],
+      "sourceCues": [
+        260
+      ],
+      "alignmentText": "Čítal som nejakého fyzika, že bol až sklamaný, ako rýchlo ju našli. No,"
+    },
+    {
+      "start": 1147.7,
+      "end": 1151.08,
+      "text": {
+        "sk": "nie že sklamaný, ale že... To už je také preháňanie po tom, čo sa to podarilo.",
+        "cs": "ne že zklamaný, ale... To už je trochu přehnané, když se to podařilo."
+      },
+      "asrWordRange": [
+        2712,
+        2726
+      ],
+      "sourceCues": [
+        261
+      ],
+      "alignmentText": "nie že sklamaný, ale že... To už je také preháňanie po tom, čo sa to podarilo."
+    },
+    {
+      "start": 1152.52,
+      "end": 1153.0,
+      "text": {
+        "sk": "Totiž,",
+        "cs": "Totiž,"
+      },
+      "asrWordRange": [
+        2726,
+        2727
+      ],
+      "sourceCues": [
+        262
+      ],
+      "alignmentText": "Totiž,"
+    },
+    {
+      "start": 1153.72,
+      "end": 1158.98,
+      "text": {
+        "sk": "ja mám známeho, ktorý v CERNe pôsobí, a on uzatváral stávky s rôznymi ľuďmi, lebo",
+        "cs": "mám známého, který působí v CERNu, a ten uzavíral s různými lidmi sázky, protože"
+      },
+      "asrWordRange": [
+        2727,
+        2743
+      ],
+      "sourceCues": [
+        263
+      ],
+      "alignmentText": "ja mám známeho, ktorý v CERNe pôsobí, a on uzatváral stávky s rôznymi ľuďmi, lebo"
+    },
+    {
+      "start": 1158.98,
+      "end": 1163.66,
+      "text": {
+        "sk": "takmer nikto už neveril, že sa im to vlastne podarí nájsť. Takže on na záver vyhral",
+        "cs": "už téměř nikdo nevěřil, že se jim tu částici podaří najít. Takže nakonec vyhrál"
+      },
+      "asrWordRange": [
+        2743,
+        2759
+      ],
+      "sourceCues": [
+        264
+      ],
+      "alignmentText": "takmer nikto už neveril, že sa im to vlastne podarí nájsť. Takže on na záver vyhral"
+    },
+    {
+      "start": 1163.66,
+      "end": 1168.64,
+      "text": {
+        "sk": "takých dvadsať porcií zmrzliny alebo koľko, lebo on tvrdil, že sa to podarí. A všetci",
+        "cs": "asi dvacet porcí zmrzliny nebo kolik, protože tvrdil, že se to podaří. A všichni"
+      },
+      "asrWordRange": [
+        2759,
+        2774
+      ],
+      "sourceCues": [
+        265
+      ],
+      "alignmentText": "takých dvadsať porcií zmrzliny alebo koľko, lebo on tvrdil, že sa to podarí. A všetci"
+    },
+    {
+      "start": 1168.64,
+      "end": 1173.4,
+      "text": {
+        "sk": "hovorili, že už to asi nedokážeme. On má také svoje limity, akú presnosť dokážu z toho",
+        "cs": "říkali, že už to asi nezvládnou. Má to své limity: jakou přesnost z toho dokážou"
+      },
+      "asrWordRange": [
+        2774,
+        2790
+      ],
+      "sourceCues": [
+        266
+      ],
+      "alignmentText": "hovorili, že už to asi nedokážeme. On má také svoje limity, akú presnosť dokážu z toho"
+    },
+    {
+      "start": 1173.4,
+      "end": 1175.18,
+      "text": {
+        "sk": "vytrieskať, aké energie a podobne.",
+        "cs": "vymáčknout, jaké energie a podobně."
+      },
+      "asrWordRange": [
+        2790,
+        2795
+      ],
+      "sourceCues": [
+        267
+      ],
+      "alignmentText": "vytrieskať, aké energie a podobne."
+    },
+    {
+      "start": 1175.86,
+      "end": 1178.86,
+      "text": {
+        "sk": "A dlho tam nebolo nič, takže ľudia začali byť trošku skeptickí.",
+        "cs": "A dlouho tam nic nebylo, takže lidé začínali být trochu skeptičtí."
+      },
+      "asrWordRange": [
+        2795,
+        2807
+      ],
+      "sourceCues": [
+        268
+      ],
+      "alignmentText": "A dlho tam nebolo nič, takže ľudia začali byť trošku skeptickí."
+    },
+    {
+      "start": 1179.76,
+      "end": 1185.26,
+      "text": {
+        "sk": "Aha, takže asi išlo od človeka k človeku. A ja som odtiaľ zobral tú informáciu. Čo",
+        "cs": "Aha, takže se to asi lišilo člověk od člověka. Já jsem odtud tu informaci převzal. Co"
+      },
+      "asrWordRange": [
+        2807,
+        2823
+      ],
+      "sourceCues": [
+        269
+      ],
+      "alignmentText": "Aha, takže asi išlo od človeka k človeku. A ja som odtiaľ zobral tú informáciu. Čo"
+    },
+    {
+      "start": 1185.26,
+      "end": 1190.48,
+      "text": {
+        "sk": "som vlastne nepovedal, je, že Higgsov bozón bol posledný dielik skladačky,",
+        "cs": "jsem vlastně neřekl, je, že Higgsův boson byl posledním dílkem skládačky,"
+      },
+      "asrWordRange": [
+        2823,
+        2834
+      ],
+      "sourceCues": [
+        270
+      ],
+      "alignmentText": "som vlastne nepovedal, je, že Higgsov bozón bol posledný dielik skladačky,"
+    },
+    {
+      "start": 1190.98,
+      "end": 1194.78,
+      "text": {
+        "sk": "ktorú voláme štandardný model. Že všetky tie ostatné veci pasovali dokopy.",
+        "cs": "které říkáme standardní model. Všechny ostatní věci do sebe zapadaly."
+      },
+      "asrWordRange": [
+        2834,
+        2845
+      ],
+      "sourceCues": [
+        271
+      ],
+      "alignmentText": "ktorú voláme štandardný model. Že všetky tie ostatné veci pasovali dokopy."
+    },
+    {
+      "start": 1195.66,
+      "end": 1196.1,
+      "text": {
+        "sk": "A chýbal tam,",
+        "cs": "A chyběla tam"
+      },
+      "asrWordRange": [
+        2845,
+        2848
+      ],
+      "sourceCues": [
+        272
+      ],
+      "alignmentText": "A chýbal tam,"
+    },
+    {
+      "start": 1196.82,
+      "end": 1201.44,
+      "text": {
+        "sk": "túto poslednú vec tam trebalo rozlúštiť. Akože rozdiel tých hmotností, že nehmotné a",
+        "cs": "tahle poslední věc, kterou bylo potřeba rozluštit. Rozdíl těch hmotností, že nehmotné a"
+      },
+      "asrWordRange": [
+        2848,
+        2861
+      ],
+      "sourceCues": [
+        273
+      ],
+      "alignmentText": "túto poslednú vec tam trebalo rozlúštiť. Akože rozdiel tých hmotností, že nehmotné a"
+    },
+    {
+      "start": 1201.44,
+      "end": 1204.14,
+      "text": {
+        "sk": "hmotné. On to vyriešil a týmto je uzavreté.",
+        "cs": "hmotné. To vyřešil, a tím je to uzavřené."
+      },
+      "asrWordRange": [
+        2861,
+        2869
+      ],
+      "sourceCues": [
+        274
+      ],
+      "alignmentText": "hmotné. On to vyriešil a týmto je uzavreté."
+    },
+    {
+      "start": 1205.26,
+      "end": 1208.02,
+      "text": {
+        "sk": "Takže štandardný model sa považuje za uzavretý,",
+        "cs": "Takže standardní model je považován za uzavřený,"
+      },
+      "asrWordRange": [
+        2869,
+        2876
+      ],
+      "sourceCues": [
+        275
+      ],
+      "alignmentText": "Takže štandardný model sa považuje za uzavretý,"
+    },
+    {
+      "start": 1208.84,
+      "end": 1213.74,
+      "text": {
+        "sk": "čo neznamená, že sme s ním úplne spokojní a sú ďalšie otázky, ktoré máme, ale už sa",
+        "cs": "což neznamená, že jsme s ním úplně spokojení. Máme další otázky, ale už se"
+      },
+      "asrWordRange": [
+        2876,
+        2893
+      ],
+      "sourceCues": [
+        276
+      ],
+      "alignmentText": "čo neznamená, že sme s ním úplne spokojní a sú ďalšie otázky, ktoré máme, ale už sa"
+    },
+    {
+      "start": 1213.74,
+      "end": 1216.42,
+      "text": {
+        "sk": "verí, že toto vyrieši fyzika za štandardným modelom.",
+        "cs": "věří, že je vyřeší fyzika za standardním modelem."
+      },
+      "asrWordRange": [
+        2893,
+        2901
+      ],
+      "sourceCues": [
+        277
+      ],
+      "alignmentText": "verí, že toto vyrieši fyzika za štandardným modelom."
+    },
+    {
+      "start": 1217.31,
+      "end": 1218.55,
+      "text": {
+        "sk": "Ktorá sa teraz hľada,",
+        "cs": "A ta se právě hledá."
+      },
+      "asrWordRange": [
+        2901,
+        2905
+      ],
+      "sourceCues": [
+        278
+      ],
+      "alignmentText": "Ktorá sa teraz hľada,"
+    },
+    {
+      "start": 1219.25,
+      "end": 1224.52,
+      "text": {
+        "sk": "Veľmi v CERNe dúfali, že sa im niečo podarí nájsť, ale zatiaľ to vyzerá, že",
+        "cs": "V CERNu moc doufali, že se jim něco podaří objevit, ale zatím to vypadá, že"
+      },
+      "asrWordRange": [
+        2905,
+        2920
+      ],
+      "sourceCues": [
+        279
+      ],
+      "alignmentText": "Veľmi v CERNe dúfali, že sa im niečo podarí nájsť, ale zatiaľ to vyzerá, že"
+    },
+    {
+      "start": 1224.52,
+      "end": 1224.74,
+      "text": {
+        "sk": "nič.",
+        "cs": "nic."
+      },
+      "asrWordRange": [
+        2920,
+        2921
+      ],
+      "sourceCues": [
+        280
+      ],
+      "alignmentText": "nič."
+    },
+    {
+      "start": 1225.58,
+      "end": 1230.76,
+      "text": {
+        "sk": "Zatiaľ je to všetko podľa predpovedí, čo je super, že tie predpovedie sú správne,",
+        "cs": "Zatím je všechno podle předpovědí, což je skvělé, protože ty předpovědi jsou správné,"
+      },
+      "asrWordRange": [
+        2921,
+        2935
+      ],
+      "sourceCues": [
+        281
+      ],
+      "alignmentText": "Zatiaľ je to všetko podľa predpovedí, čo je super, že tie predpovedie sú správne,"
+    },
+    {
+      "start": 1230.98,
+      "end": 1236.06,
+      "text": {
+        "sk": "ale fyzikov by veľmi potešil taký nesúlad, na ktorom by mohli začať pracovať.",
+        "cs": "ale fyziky by opravdu potěšil nějaký nesoulad, na kterém by mohli začít pracovat."
+      },
+      "asrWordRange": [
+        2935,
+        2948
+      ],
+      "sourceCues": [
+        282
+      ],
+      "alignmentText": "ale fyzikov by veľmi potešil taký nesúlad, na ktorom by mohli začať pracovať."
+    },
+    {
+      "start": 1236.62,
+      "end": 1237.94,
+      "text": {
+        "sk": "A mohli by sa posunúť ďalšie.",
+        "cs": "A posunout se zase dál."
+      },
+      "asrWordRange": [
+        2948,
+        2954
+      ],
+      "sourceCues": [
+        283
+      ],
+      "alignmentText": "A mohli by sa posunúť ďalšie."
+    },
+    {
+      "start": 1238.62,
+      "end": 1242.08,
+      "text": {
+        "sk": "Samozrejme, napríklad objav supersymetrie, o ktorej si môžeme niekedy v budúcnosti",
+        "cs": "Samozřejmě, třeba objevení supersymetrie, o které bychom někdy v budoucnu mohli"
+      },
+      "asrWordRange": [
+        2954,
+        2966
+      ],
+      "sourceCues": [
+        284
+      ],
+      "alignmentText": "Samozrejme, napríklad objav supersymetrie, o ktorej si môžeme niekedy v budúcnosti"
+    },
+    {
+      "start": 1242.08,
+      "end": 1246.22,
+      "text": {
+        "sk": "spraviť podcast tiež. To je výborná téma. Samko, máš ešte niečo k tejto téme?",
+        "cs": "udělat další podcast. To je výborné téma. Samo, máš k tomu ještě něco?"
+      },
+      "asrWordRange": [
+        2966,
+        2977
+      ],
+      "sourceCues": [
+        285
+      ],
+      "alignmentText": "spraviť podcast tiež. To je výborná téma. Samko, máš ešte niečo k tejto téme?"
+    },
+    {
+      "start": 1246.94,
+      "end": 1247.8,
+      "text": {
+        "sk": "A myslím si, že nie.",
+        "cs": "Myslím, že ne."
+      },
+      "asrWordRange": [
+        2977,
+        2982
+      ],
+      "sourceCues": [
+        286
+      ],
+      "alignmentText": "A myslím si, že nie."
+    },
+    {
+      "start": 1249.23,
+      "end": 1254.49,
+      "text": {
+        "sk": "Dúfam, že sme sa nezamotali, takže... Ja ti veľmi pekne ďakujem za vysvetlenie",
+        "cs": "Doufám, že jsme se do toho nezamotali, takže... Moc ti děkuji za vysvětlení"
+      },
+      "asrWordRange": [
+        2982,
+        2995
+      ],
+      "sourceCues": [
+        287
+      ],
+      "alignmentText": "Dúfam, že sme sa nezamotali, takže... Ja ti veľmi pekne ďakujem za vysvetlenie"
+    },
+    {
+      "start": 1254.49,
+      "end": 1258.65,
+      "text": {
+        "sk": "Higgsovho bozónu. Ja som veľmi porozumel. Dúfam, že aj naši poslucháči,",
+        "cs": "Higgsůva bosonu. Myslím, že jsem pochopil dost. Doufám, že i naši posluchači."
+      },
+      "asrWordRange": [
+        2995,
+        3006
+      ],
+      "sourceCues": [
+        288
+      ],
+      "alignmentText": "Higgsovho bozónu. Ja som veľmi porozumel. Dúfam, že aj naši poslucháči,"
+    },
+    {
+      "start": 1259.39,
+      "end": 1264.01,
+      "text": {
+        "sk": "keby vám nie je niečo jasné, píšte nám e-maily, na Facebooku a tak ďalej. Ďakujeme",
+        "cs": "Kdyby vám něco nebylo jasné, napište nám e-mail nebo na Facebook. Děkujeme"
+      },
+      "asrWordRange": [
+        3006,
+        3022
+      ],
+      "sourceCues": [
+        289
+      ],
+      "alignmentText": "keby vám nie je niečo jasné, píšte nám e-maily, na Facebooku a tak ďalej. Ďakujeme"
+    },
+    {
+      "start": 1264.01,
+      "end": 1269.33,
+      "text": {
+        "sk": "veľmi pekne za počúvanie. Samko, ja ti veľmi pekne ďakujem. Ahoj. Ahojte, majte sa. A",
+        "cs": "moc za poslech. Samo, ještě jednou ti děkuji. Ahoj. Ahojte, mějte se. A"
+      },
+      "asrWordRange": [
+        3022,
+        3037
+      ],
+      "sourceCues": [
+        290
+      ],
+      "alignmentText": "veľmi pekne za počúvanie. Samko, ja ti veľmi pekne ďakujem. Ahoj. Ahojte, majte sa. A"
+    },
+    {
+      "start": 1269.33,
+      "end": 1273.17,
+      "text": {
+        "sk": "naši poslucháči, môžete nás nájsť na YouTube, Spotify,",
+        "cs": "naši posluchači, najdete nás na YouTube, Spotify,"
+      },
+      "asrWordRange": [
+        3037,
+        3045
+      ],
+      "sourceCues": [
+        291
+      ],
+      "alignmentText": "naši poslucháči, môžete nás nájsť na YouTube, Spotify,"
+    },
+    {
+      "start": 1273.99,
+      "end": 1279.59,
+      "text": {
+        "sk": "všade, kde nájdete svoje obľúbené podcasty, na Apple Podcastoch samozrejme. A",
+        "cs": "všude, kde posloucháte své oblíbené podcasty, samozřejmě i v Apple Podcastech. A"
+      },
+      "asrWordRange": [
+        3045,
+        3057
+      ],
+      "sourceCues": [
+        292
+      ],
+      "alignmentText": "všade, kde nájdete svoje obľúbené podcasty, na Apple Podcastoch samozrejme. A"
+    },
+    {
+      "start": 1279.59,
+      "end": 1284.87,
+      "text": {
+        "sk": "ďakujeme vám za počúvanie a ďakujeme, že si nás",
+        "cs": "děkujeme vám za poslech a za to, že si nás"
+      },
+      "asrWordRange": [
+        3057,
+        3066
+      ],
+      "sourceCues": [
+        293
+      ],
+      "alignmentText": "ďakujeme vám za počúvanie a ďakujeme, že si nás"
+    },
+    {
+      "start": 1284.87,
+      "end": 1287.87,
+      "text": {
+        "sk": "sťahujete už desiatykrát. Dovidenia. Majte sa.",
+        "cs": "stahujete už podesáté. Na shledanou. Mějte se."
+      },
+      "asrWordRange": [
+        3066,
+        3072
+      ],
+      "sourceCues": [
+        294
+      ],
+      "alignmentText": "sťahujete už desiatykrát. Dovidenia. Majte sa."
+    }
+  ]
+}

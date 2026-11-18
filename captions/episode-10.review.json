@@ -1,0 +1,37 @@
+{
+  "episode": 10,
+  "cueCount": 296,
+  "asrWordCount": 3072,
+  "audioSha256": "b4d944a41aa46e581453305f60bde676fd920e5a1bf5262999e2ec417f162c7e",
+  "lowScoreCues": [
+    {
+      "cue": 14,
+      "start": 72.24,
+      "end": 72.442,
+      "meanCharacterScore": 0.2668,
+      "asrStart": 72.01,
+      "asrEnd": 72.53,
+      "alignmentText": "Fúha."
+    },
+    {
+      "cue": 85,
+      "start": 383.809,
+      "end": 384.114,
+      "meanCharacterScore": 0.3271,
+      "asrStart": 383.78,
+      "asrEnd": 384.0,
+      "alignmentText": "Áno."
+    },
+    {
+      "cue": 285,
+      "start": 1236.584,
+      "end": 1238.339,
+      "meanCharacterScore": 0.345,
+      "asrStart": 1236.62,
+      "asrEnd": 1237.94,
+      "alignmentText": "A mohli by sa posunúť ďalšie."
+    }
+  ],
+  "maxBoundaryChange": 2.9909999999999854,
+  "status": "review-further-if-low-score-cues-otherwise-needs-independent-listening"
+}
