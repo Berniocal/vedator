@@ -1229,8 +1229,20 @@
     $('#player-play-v2')?.click();syncCaptionReaderControls();
     showCaptionReaderFeedback(playbackIsPlaying()?text('Přehrávání','Prehrávanie'):text('Pauza','Pauza'));
   }
-  function clearCaptionReaderGesture(){
+  function finishCaptionReaderHold(gesture){
+    if(!gesture?.held||!gesture.resumeAfterHold)return;
+    gesture.resumeAfterHold=false;
+    // Resume only the playback that this finger paused. A source change, book
+    // mode or leaving the foreground must never start another episode by surprise.
+    if(!captionReaderActive||captionBookMode||document.hidden||state.current?.key!==gesture.playbackKey||playbackSequence!==gesture.playbackSequence)return;
+    if(!playbackIsPlaying())$('#player-play-v2')?.click();
+    syncCaptionReaderControls();
+    showCaptionReaderFeedback(playbackIsPlaying()?text('Přehrávání','Prehrávanie'):text('Pauza','Pauza'));
+  }
+  function clearCaptionReaderGesture(resumeHold=false){
+    const gesture=captionGesture;
     clearTimeout(captionHoldTimer);clearTimeout(captionTapTimer);captionHoldTimer=null;captionTapTimer=null;captionLastTap=null;captionGesture=null;
+    if(resumeHold)finishCaptionReaderHold(gesture);
   }
   function captionReaderTap(x,y,keyboard=false){
     if(!captionReaderActive)return;
@@ -1476,10 +1488,10 @@
     if(captionReaderValue!==value){captionReaderValue=value;layoutCaptionReader()}
     syncCaptionReaderControls();
   }
-  function exitCaptionReader(fromHistory=false){
+  function exitCaptionReader(fromHistory=false,resumeHold=true){
     if(!captionReaderActive)return;
     if(captionBookMode)saveCaptionBookPlace();
-    clearCaptionReaderGesture();clearTimeout(captionFeedbackTimer);$('#caption-reader-feedback-v2').hidden=true;
+    clearCaptionReaderGesture(resumeHold);clearTimeout(captionFeedbackTimer);$('#caption-reader-feedback-v2').hidden=true;
     captionReaderActive=false;captionReaderWasFullscreen=false;captionReaderValue='';captionBookMode=false;captionBook=null;
     $('#player-caption-reader-overlay-v2')?.classList.remove('caption-book-mode-v2');
     if(captionReaderTimer!==null){clearInterval(captionReaderTimer);captionReaderTimer=null}
@@ -1931,7 +1943,7 @@
     if(autoplay)startCurrentAudio(sequence);
   }
   function closePlayer(){
-    exitCaptionReader();
+    exitCaptionReader(false,false);
     ++playbackSequence;playbackAutoplayWanted=false;playbackNeedsReload=false;playbackSourcePending=false;
     saveProgress(true,false);
     stopYoutubePlayback();
@@ -3053,13 +3065,18 @@
   const captionReaderOverlay=$('#player-caption-reader-overlay-v2');
   captionReaderOverlay?.addEventListener('pointerdown',event=>{
     if(event.target.closest?.('#caption-reader-controls-v2'))return;
-    if(event.isPrimary===false||event.button>0){clearCaptionReaderGesture();captionSuppressClickUntil=Date.now()+600;return}
+    if(event.isPrimary===false||event.button>0){clearCaptionReaderGesture(true);captionSuppressClickUntil=Date.now()+600;return}
     captionGesture={id:event.pointerId,x:event.clientX,y:event.clientY,at:Date.now(),moved:false,held:false};
     const rect=captionReaderOverlay.getBoundingClientRect(),part=rect.width?(event.clientX-rect.left)/rect.width:.5;
     try{captionReaderOverlay.setPointerCapture(event.pointerId)}catch(_){}
     if(!captionBookMode&&part>=1/3&&part<=2/3)captionHoldTimer=setTimeout(()=>{
       if(!captionGesture||captionGesture.moved)return;
-      captionGesture.held=true;clearTimeout(captionTapTimer);captionLastTap=null;toggleCaptionReaderPlayback();
+      const gesture=captionGesture;
+      gesture.held=true;gesture.resumeAfterHold=playbackIsPlaying();
+      gesture.playbackKey=state.current?.key;gesture.playbackSequence=playbackSequence;
+      clearTimeout(captionTapTimer);captionLastTap=null;
+      if(gesture.resumeAfterHold)pausePlayback();
+      syncCaptionReaderControls();showCaptionReaderFeedback(text('Pauza při podržení','Pauza pri podržaní'));
     },500);
   });
   captionReaderOverlay?.addEventListener('pointermove',event=>{
@@ -3069,11 +3086,15 @@
   captionReaderOverlay?.addEventListener('pointerup',event=>{
     const g=captionGesture;if(!g||g.id!==event.pointerId)return;
     clearTimeout(captionHoldTimer);captionGesture=null;
+    finishCaptionReaderHold(g);
     const dx=event.clientX-g.x,dy=event.clientY-g.y;
     if(g.held||g.moved||Math.hypot(dx,dy)>12){captionSuppressClickUntil=Date.now()+600;clearTimeout(captionTapTimer);captionLastTap=null}
     if(captionBookMode&&!g.held&&Math.abs(dx)>=48&&Math.abs(dx)>Math.abs(dy)*1.4)turnCaptionBook(dx<0?1:-1);
   });
-  captionReaderOverlay?.addEventListener('pointercancel',()=>{clearCaptionReaderGesture();captionSuppressClickUntil=Date.now()+600});
+  captionReaderOverlay?.addEventListener('pointercancel',()=>{clearCaptionReaderGesture(true);captionSuppressClickUntil=Date.now()+600});
+  captionReaderOverlay?.addEventListener('lostpointercapture',()=>{if(captionGesture){clearCaptionReaderGesture(true);captionSuppressClickUntil=Date.now()+600}});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)clearCaptionReaderGesture()});
+  window.addEventListener('blur',()=>clearCaptionReaderGesture());
   captionReaderOverlay?.addEventListener('contextmenu',event=>{if(!event.target.closest?.('#caption-reader-controls-v2'))event.preventDefault()});
   captionReaderOverlay?.addEventListener('click',event=>{
     if(event.target.closest?.('#caption-reader-controls-v2')||Date.now()<captionSuppressClickUntil)return;

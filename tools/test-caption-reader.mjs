@@ -150,10 +150,26 @@ try{
   await t.click('#player-caption-reader-button-v2');await t.click('#player-caption-reader-overlay-v2');await t.click('#caption-reader-mode-v2');assert.equal(node.textContent,pageBeforeClose,'Book resumes saved place');
   const resumeTime=w.__readerTest.book().pages[w.__readerTest.book().index].time;
   await t.click('#caption-reader-mode-v2');await wait();assert(!audio.paused);assert.equal(audio.currentTime,resumeTime,'Listening starts at the displayed page');
-  const playingBeforeHold=!audio.paused;
-  pointer('pointerdown',450,350);await new Promise(r=>setTimeout(r,550));pointer('pointerup',450,350);assert.equal(audio.paused,playingBeforeHold,'Center hold toggles pause');
-  assert(!$('#caption-reader-feedback-v2').hidden);
-  pointer('pointerdown',450,350);await new Promise(r=>setTimeout(r,550));pointer('pointerup',450,350);assert.equal(audio.paused,!playingBeforeHold,'Second hold resumes');
+  pointer('pointerdown',450,350);await new Promise(r=>setTimeout(r,550));
+  assert(audio.paused,'Playback pauses while center is held');assert(!$('#caption-reader-feedback-v2').hidden);
+  pointer('pointerup',450,350);assert(!audio.paused,'Lifting the finger resumes the previously playing audio');
+  pointer('pointerdown',450,350);await new Promise(r=>setTimeout(r,550));assert(audio.paused);
+  pointer('pointerup',450,350);assert(!audio.paused,'Each hold is temporary');
+  await t.click('#caption-reader-play-v2');assert(audio.paused);
+  pointer('pointerdown',450,350);await new Promise(r=>setTimeout(r,550));assert(audio.paused,'Holding already paused audio never starts it');
+  pointer('pointerup',450,350);assert(audio.paused,'Already paused audio stays paused on release');
+  await t.click('#caption-reader-play-v2');assert(!audio.paused);
+  pointer('pointerdown',450,350);pointer('pointerup',450,350);await new Promise(r=>setTimeout(r,550));assert(!audio.paused,'Short taps cannot leave a delayed pause');
+  pointer('pointerdown',450,350);await new Promise(r=>setTimeout(r,550));assert(audio.paused);
+  pointer('pointercancel',450,350);assert(!audio.paused,'Cancelling a held pointer releases the temporary pause');
+  pointer('pointerdown',450,350);await new Promise(r=>setTimeout(r,550));assert(audio.paused);
+  pointer('lostpointercapture',450,350);assert(!audio.paused,'Lost capture cannot leave playback stuck paused');
+  pointer('pointerdown',450,350);await new Promise(r=>setTimeout(r,550));assert(audio.paused);
+  await t.click('#caption-reader-mode-v2');assert(audio.paused,'Switching to book mode never resumes a held pause');
+  await t.click('#caption-reader-mode-v2');await wait();assert(!audio.paused);
+  pointer('pointerdown',450,350);await new Promise(r=>setTimeout(r,550));assert(audio.paused);
+  await t.play(2);await t.click('#player-play-v2');assert(audio.paused);
+  pointer('pointerup',450,350);assert(audio.paused,'Releasing an old hold cannot resume another episode');
   await new Promise(r=>setTimeout(r,650));
   overlay.dispatchEvent(new w.MouseEvent('click',{clientX:450,clientY:350,detail:1,bubbles:true}));
   overlay.dispatchEvent(new w.MouseEvent('click',{clientX:452,clientY:350,detail:2,bubbles:true}));assert(overlay.hidden,'Quick double tap closes reader');await wait();
@@ -161,5 +177,5 @@ try{
   $('#caption-reader-back-v2').dispatchEvent(new w.MouseEvent('dblclick',{bubbles:true}));assert(!overlay.hidden,'Toolbar double click never closes reader');
   await t.click('#caption-reader-close-v2');await wait();
   assert.equal(t.errors.length,0,t.errors.map(String).join('\n'));
-  console.log('Caption reader OK: bilingual nonoverlapping reading windows, preserved timing/text, balanced two-line reflow, tap/swipe book pages, bookmarks, font sizes, playback resume, long press, double tap, Back and fullscreen navigation.');
+  console.log('Caption reader OK: bilingual nonoverlapping reading windows, preserved timing/text, balanced two-line reflow, tap/swipe book pages, bookmarks, font sizes, playback resume, pause-only-while-held, double tap, Back and fullscreen navigation.');
 }finally{t.dom.window.close()}

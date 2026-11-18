@@ -183,6 +183,13 @@ try{
   check(await page.$eval('#player-caption-reader-text-v2',e=>e.scrollWidth<=e.clientWidth+1),'Larger book text stays within the mobile screen');
   await page.click('#caption-reader-mode-v2');
   await page.waitForFunction(()=>!document.getElementById('audio-v2').paused&&document.getElementById('audio-v2').readyState>=2,{timeout:15000});
+  const holdPoint=await page.$eval('#player-caption-reader-overlay-v2',e=>{const r=e.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2}});
+  await page.mouse.move(holdPoint.x,holdPoint.y);await page.mouse.down();await wait(650);
+  const heldTime=await page.$eval('#audio-v2',e=>({paused:e.paused,time:e.currentTime}));
+  check(heldTime.paused,'Center hold pauses actual MP3 while the finger is down',heldTime);
+  await wait(300);
+  check(Math.abs(await page.$eval('#audio-v2',e=>e.currentTime)-heldTime.time)<.08,'Reading hold freezes the source clock');
+  await page.mouse.up();await page.waitForFunction(()=>!document.getElementById('audio-v2').paused,{timeout:5000});
   await page.evaluate(()=>window.__captionTest.exitReader());
   // Keep-alive playback must be decodable and advance, both inline and fullscreen.
   const wake=await page.evaluate(()=>{const v=document.querySelector('.vedator-caption-wake-video');return {exists:!!v,time:v?.currentTime,error:v?.error?.code,paused:v?.paused,requests:window.__wakeRequests,locks:window.__wakeLocks.filter(x=>!x.released).length}});
