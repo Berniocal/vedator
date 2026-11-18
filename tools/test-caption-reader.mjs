@@ -154,6 +154,7 @@ try{
   assert(shorter.maxLines<beforeResize.maxLines,'Shorter screens show fewer lines');
   assert(shorter.pages[shorter.index].from<=resizeAnchor&&shorter.pages[shorter.index].to>resizeAnchor,'Resize retains current passage');
   readingHeight=550;w.dispatchEvent(new w.Event('resize'));
+  await new Promise(r=>setTimeout(r,650)); // Let the preceding swipe's synthetic-click guard expire.
   const pageBeforeClose=node.textContent;node.dispatchEvent(new w.MouseEvent('dblclick',{bubbles:true}));assert(overlay.hidden,'Double click in book text returns to the app');await wait();
   await t.click('#player-caption-reader-button-v2');await t.click('#player-caption-reader-overlay-v2');await t.click('#caption-reader-mode-v2');assert.equal(node.textContent,pageBeforeClose,'Book resumes saved place');
   const resumeTime=w.__readerTest.book().pages[w.__readerTest.book().index].time;
