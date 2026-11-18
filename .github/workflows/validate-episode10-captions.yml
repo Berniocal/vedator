@@ -10,6 +10,8 @@ on:
       - 'captions/source/episode-10-alignment.json'
       - 'audio-seek-index.json'
       - 'episode-videos.json'
+      - tools/validate-episode10-captions.py
+      - .github/workflows/validate-episode10-captions.yml
   pull_request:
     branches: [main]
     paths:
@@ -43,6 +45,9 @@ jobs:
           test -s captions/episode-10.review.json
           test -s captions/source/episode-10-draft.sk.json
           test -s captions/source/episode-10-alignment.json
+          test -s captions/source/episode-10-low-ctc-raw-decode.json
+          test -s captions/source/episode-10-reviewed-low-score.json
+          test -s captions/source/episode-10-cs-editorial-patches.json
       - name: Download and authenticate original episode 10 MP3
         run: |
           mkdir -p "$RUNNER_TEMP/caption-ep10-audio"
