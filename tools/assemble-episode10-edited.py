@@ -44,7 +44,7 @@ def for_ctc(text):
     s=text.replace("W a Z", "dvojité vé a zet").replace("W a", "dvojité vé a")
     s=re.sub(r"\bW\b", "dvojité vé", s)
     s=re.sub(r"\bZ\b", "zet", s)
-    s=re.sub(r"\b10\.\b", "desiate", s)
+    s=re.sub(r"(?<!\w)10\.(?=\s|$)", "desiaty", s)
     for num,pron in [("2013","dvetisíctrinásť"),("12","dvanásť"),("20","dvadsať"),("10","desať"),("5","päť")]:
         s=re.sub(r"(?<!\d)"+num+r"(?!\d)",pron,s)
     assert not re.search(r"\d",s),("Unexpanded numerals in CTC",s)
