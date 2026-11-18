@@ -1130,7 +1130,7 @@
     while(from<value.length){
       let wrapped=wrapCaptionBook(value,from,value.length,width,maxLines,measure);
       if(wrapped.to<value.length){
-        const sample=value.slice(from,wrapped.to),minimum=sample.length*.55;
+        const sample=value.slice(from,wrapped.to),minimum=sample.length*.85;
         let boundary=0;
         for(const match of sample.matchAll(/[.!?…][»”"')\]]*(?=\s|$)/g))if(match.index+match[0].length>=minimum)boundary=from+match.index+match[0].length;
         if(boundary>from){while(boundary<value.length&&/\s/.test(value[boundary]))boundary++;wrapped=wrapCaptionBook(value,from,boundary,width,maxLines,measure)}
@@ -1152,12 +1152,18 @@
     const node=$('#player-caption-reader-text-v2'),overlay=$('#player-caption-reader-overlay-v2'),session=activeCaptionSession();
     if(!captionReaderActive||!captionBookMode||!node||!session?.captions)return;
     const lang=captionBookLanguage(),storageKey=captionBookStorageKey(session,lang);
+    syncCaptionReaderControls();
     node.style.fontSize='';
     const availableWidth=Math.max(1,node.clientWidth||overlay.clientWidth-44||300);
     const base=Math.max(18,Math.min(26,availableWidth/18)),font=base*captionBookScale;
     const overlayStyle=getComputedStyle(overlay);
-    const height=(overlay.clientHeight||window.innerHeight)-(parseFloat(overlayStyle.paddingTop)||112)-(parseFloat(overlayStyle.paddingBottom)||60);
-    const maxLines=Math.max(1,Math.min(8,Math.round(6/captionBookScale),Math.floor(height/(font*1.6))));
+    // The book's grid reserves the measured toolbar and page counter even when
+    // controls are hidden, so tapping cannot move the passage to another page.
+    const barHeight=$('#caption-reader-controls-v2').getBoundingClientRect().height||56;
+    const footerHeight=$('#caption-book-progress-v2').getBoundingClientRect().height||20;
+    const fallbackHeight=(overlay.clientHeight||window.innerHeight)-(parseFloat(overlayStyle.paddingTop)||16)-(parseFloat(overlayStyle.paddingBottom)||16)-barHeight-footerHeight-2*(parseFloat(overlayStyle.rowGap)||16);
+    const height=node.clientHeight||fallbackHeight;
+    const maxLines=Math.max(1,Math.floor((height-1)/(font*1.6)));
     const layoutKey=[storageKey,availableWidth,font,maxLines].join('|');
     node.style.fontSize=font+'px';
     if(captionBook?.layoutKey!==layoutKey||captionBook.cues!==session.captions.cues){
@@ -1250,9 +1256,7 @@
     if(!keyboard&&captionLastTap&&now-captionLastTap.time<320&&Math.hypot(x-captionLastTap.x,y-captionLastTap.y)<48){clearCaptionReaderGesture();exitCaptionReader();return}
     const single=()=>{
       captionTapTimer=null;captionLastTap=null;if(!captionReaderActive)return;
-      const rect=$('#player-caption-reader-overlay-v2').getBoundingClientRect(),part=rect.width?(x-rect.left)/rect.width:.5;
-      if(captionBookMode&&!keyboard&&(part<1/3||part>2/3))turnCaptionBook(part<1/3?-1:1);
-      else setCaptionReaderControls(!captionReaderControlsVisible,true);
+      setCaptionReaderControls(!captionReaderControlsVisible,true);
     };
     if(keyboard){single();return}
     clearTimeout(captionTapTimer);captionLastTap={x,y,time:now};captionTapTimer=setTimeout(single,320);
@@ -1319,8 +1323,8 @@
     const play=$('#caption-reader-play-v2');
     if(play){play.hidden=captionBookMode;const playing=playbackIsPlaying(),symbol=playing?'❚❚':'▶';if(play.textContent!==symbol)play.textContent=symbol;play.title=playing?text('Pauza','Pauza'):text('Přehrát','Prehrať');play.setAttribute('aria-label',play.title)}
     const back=$('#caption-reader-back-v2'),forward=$('#caption-reader-forward-v2'),close=$('#caption-reader-close-v2');
-    if(back){back.textContent=captionBookMode?'←':'−10 s';back.title=captionBookMode?text('Předchozí strana','Predchádzajúca strana'):text('Zpět o 10 sekund','Späť o 10 sekúnd');back.setAttribute('aria-label',back.title);back.disabled=captionBookMode&&(!captionBook||captionBook.index===0)}
-    if(forward){forward.textContent=captionBookMode?'→':'+10 s';forward.title=captionBookMode?text('Další strana','Ďalšia strana'):text('Vpřed o 10 sekund','Vpred o 10 sekúnd');forward.setAttribute('aria-label',forward.title);forward.disabled=captionBookMode&&(!captionBook||captionBook.index>=captionBook.pages.length-1)}
+    if(back){back.hidden=captionBookMode;back.textContent=captionBookMode?'←':'−10 s';back.title=captionBookMode?text('Předchozí strana','Predchádzajúca strana'):text('Zpět o 10 sekund','Späť o 10 sekúnd');back.setAttribute('aria-label',back.title);back.disabled=captionBookMode&&(!captionBook||captionBook.index===0)}
+    if(forward){forward.hidden=captionBookMode;forward.textContent=captionBookMode?'→':'+10 s';forward.title=captionBookMode?text('Další strana','Ďalšia strana'):text('Vpřed o 10 sekund','Vpred o 10 sekúnd');forward.setAttribute('aria-label',forward.title);forward.disabled=captionBookMode&&(!captionBook||captionBook.index>=captionBook.pages.length-1)}
     if(close){close.title=text('Zrušit celou obrazovku','Zrušiť celú obrazovku');close.setAttribute('aria-label',close.title)}
     const mode=$('#caption-reader-mode-v2');if(mode){mode.textContent=captionBookMode?text('Poslech','Počúvanie'):text('Čtení','Čítanie');mode.setAttribute('aria-pressed',String(captionBookMode));mode.title=captionBookMode?text('Pokračovat v poslechu od této strany','Pokračovať v počúvaní od tejto strany'):text('Číst jako knížku','Čítať ako knihu');mode.setAttribute('aria-label',mode.title)}
     for(const [id,cs,sl,disabled] of [['caption-book-smaller-v2','Menší písmo','Menšie písmo',captionBookScale<=.75],['caption-book-larger-v2','Větší písmo','Väčšie písmo',captionBookScale>=1.5]]){const b=$('#'+id);if(b){b.hidden=!captionBookMode;b.title=text(cs,sl);b.setAttribute('aria-label',b.title);b.disabled=disabled}}

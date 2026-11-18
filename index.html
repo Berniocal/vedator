@@ -140,8 +140,12 @@ audio#audio-v2{display:none}
 #caption-reader-controls-v2 button[hidden]{display:none!important}
 #caption-reader-controls-v2 button:disabled{opacity:.4;cursor:default}
 #caption-reader-close-v2{margin-left:4px}
-#player-caption-reader-overlay-v2.caption-book-mode-v2{padding-top:max(112px,env(safe-area-inset-top));padding-bottom:max(60px,env(safe-area-inset-bottom))}
-#player-caption-reader-overlay-v2.caption-book-mode-v2 #player-caption-reader-text-v2{max-width:900px;font-weight:450;line-height:1.6;text-align:left;white-space:normal;letter-spacing:normal}
+#player-caption-reader-overlay-v2.caption-book-mode-v2{display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:16px;padding:max(16px,env(safe-area-inset-top)) max(22px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(22px,env(safe-area-inset-left));align-items:stretch;justify-content:normal}
+#player-caption-reader-overlay-v2.caption-book-mode-v2 #caption-reader-controls-v2{position:static;justify-self:center;padding:0}
+#player-caption-reader-overlay-v2.caption-book-mode-v2 #caption-reader-controls-v2[hidden]{display:flex!important;visibility:hidden;pointer-events:none}
+#player-caption-reader-overlay-v2.caption-book-mode-v2 #caption-reader-controls-v2 button{min-width:44px;padding:6px 10px}
+#player-caption-reader-overlay-v2.caption-book-mode-v2 #caption-book-progress-v2{position:static}
+#player-caption-reader-overlay-v2.caption-book-mode-v2 #player-caption-reader-text-v2{max-width:900px;min-height:0;height:100%;justify-self:center;font-weight:450;line-height:1.6;text-align:left;white-space:normal;letter-spacing:normal}
 .caption-book-line-v2{display:block;white-space:pre}
 #caption-book-progress-v2{position:absolute;left:22px;right:22px;bottom:max(20px,env(safe-area-inset-bottom));margin:0;text-align:center;color:#aaa;font:400 .85rem/1.4 system-ui,sans-serif;pointer-events:none}
 #caption-reader-feedback-v2{position:absolute;bottom:max(56px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);padding:8px 14px;background:#272727;border-radius:12px;color:white;font:500 1rem/1.4 system-ui,sans-serif;pointer-events:none}

@@ -173,12 +173,21 @@ try{
   await page.evaluate(()=>window.__captionTest.reader());
   await page.keyboard.press('Enter');await page.click('#caption-reader-mode-v2');
   const bookLayout=await page.evaluate(()=>{
-    const node=document.getElementById('player-caption-reader-text-v2'),rect=node.getBoundingClientRect(),overlay=document.getElementById('player-caption-reader-overlay-v2');
-    return {paused:document.getElementById('audio-v2').paused,lines:node.querySelectorAll('.caption-book-line-v2').length,font:parseFloat(getComputedStyle(node).fontSize),fits:node.scrollWidth<=node.clientWidth+1&&rect.top>=0&&rect.bottom<=overlay.clientHeight,page:document.getElementById('caption-book-progress-v2').textContent};
+    const node=document.getElementById('player-caption-reader-text-v2'),rect=node.getBoundingClientRect(),lines=node.querySelectorAll('.caption-book-line-v2'),bar=document.getElementById('caption-reader-controls-v2'),footer=document.getElementById('caption-book-progress-v2');
+    return {paused:document.getElementById('audio-v2').paused,lines:lines.length,font:parseFloat(getComputedStyle(node).fontSize),fits:node.scrollWidth<=node.clientWidth+1&&rect.top>=bar.getBoundingClientRect().bottom+15&&lines[lines.length-1].getBoundingClientRect().bottom<=footer.getBoundingClientRect().top-15,page:footer.textContent,height:node.clientHeight,text:node.textContent};
   });
-  check(bookLayout.paused&&bookLayout.lines>=3&&bookLayout.lines<=6&&bookLayout.font<26&&bookLayout.fits,'Mobile book mode fits a readable multi-line page and pauses audio',bookLayout);
-  await page.click('#caption-reader-forward-v2');
-  check(await page.$eval('#caption-book-progress-v2',e=>e.textContent)!==bookLayout.page,'Mobile book next-page control advances');
+  check(bookLayout.paused&&bookLayout.lines>8&&bookLayout.font<26&&bookLayout.fits,'Mobile book mode fits a readable multi-line page and pauses audio',bookLayout);
+  for(const fraction of [.8,.2]){
+    const point=await page.$eval('#player-caption-reader-text-v2',(e,f)=>{const r=e.getBoundingClientRect();return {x:r.left+r.width*f,y:r.top+r.height/2}},fraction);
+    await page.mouse.click(point.x,point.y);await wait(370);
+    const tapped=await page.evaluate(()=>({page:document.getElementById('caption-book-progress-v2').textContent,text:document.getElementById('player-caption-reader-text-v2').textContent,height:document.getElementById('player-caption-reader-text-v2').clientHeight,hidden:document.getElementById('caption-reader-controls-v2').hidden}));
+    check(tapped.page===bookLayout.page&&tapped.text===bookLayout.text&&tapped.height===bookLayout.height&&tapped.hidden===(fraction===.8),'Text taps toggle toolbar without changing book page or geometry',tapped);
+  }
+  await page.evaluate(()=>{
+    const overlay=document.getElementById('player-caption-reader-overlay-v2'),r=overlay.getBoundingClientRect(),y=r.height/2;
+    for(const [type,x] of [['pointerdown',r.width*.8],['pointermove',r.width*.2],['pointerup',r.width*.2]])overlay.dispatchEvent(new PointerEvent(type,{pointerId:10,isPrimary:true,clientX:x,clientY:y,bubbles:true}));
+  });
+  check(await page.$eval('#caption-book-progress-v2',e=>e.textContent)!==bookLayout.page,'Mobile book swipe advances');
   await page.click('#caption-book-larger-v2');
   check(await page.$eval('#player-caption-reader-text-v2',e=>e.scrollWidth<=e.clientWidth+1),'Larger book text stays within the mobile screen');
   await page.click('#caption-reader-mode-v2');
