@@ -15,10 +15,10 @@ on:
     paths:
       - 'captions/episode-10*'
       - 'captions/source/episode-10*'
-      - tools/validate-episode9-captions.py
+      - tools/validate-episode10-captions.py
       - episode-videos.json
       - audio-seek-index.json
-      - .github/workflows/validate-episode9-captions.yml
+      - .github/workflows/validate-episode10-captions.yml
   workflow_dispatch:
 permissions:
   contents: read
@@ -53,7 +53,7 @@ jobs:
                           src['audio'],'-o',os.environ['RUNNER_TEMP']+'/caption-ep10-audio/episode-10.mp3'], check=True)
           PY
       - name: Verify all source hashes, words, timings, CTC scores, SRTs and seek index
-        run: python tools/validate-episode9-captions.py --audio "$RUNNER_TEMP/caption-ep10-audio/episode-10.mp3"
+        run: python tools/validate-episode10-captions.py --audio "$RUNNER_TEMP/caption-ep10-audio/episode-10.mp3"
       - name: Rebuild content and check application scripts
         run: |
           node tools/build-content-v2.mjs
