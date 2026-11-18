@@ -169,6 +169,21 @@ try{
   check(await page.$eval('#audio-v2',a=>a.paused),'Paused video handoff stays paused');
   await page.click('#player-play-v2');
   await page.waitForFunction(()=>!document.getElementById('audio-v2').paused&&document.getElementById('audio-v2').currentTime>400,{timeout:15000});
+  // Book mode uses actual mobile font metrics and keeps whole pages while paused.
+  await page.evaluate(()=>window.__captionTest.reader());
+  await page.keyboard.press('Enter');await page.click('#caption-reader-mode-v2');
+  const bookLayout=await page.evaluate(()=>{
+    const node=document.getElementById('player-caption-reader-text-v2'),rect=node.getBoundingClientRect(),overlay=document.getElementById('player-caption-reader-overlay-v2');
+    return {paused:document.getElementById('audio-v2').paused,lines:node.querySelectorAll('.caption-book-line-v2').length,font:parseFloat(getComputedStyle(node).fontSize),fits:node.scrollWidth<=node.clientWidth+1&&rect.top>=0&&rect.bottom<=overlay.clientHeight,page:document.getElementById('caption-book-progress-v2').textContent};
+  });
+  check(bookLayout.paused&&bookLayout.lines>=3&&bookLayout.lines<=6&&bookLayout.font<26&&bookLayout.fits,'Mobile book mode fits a readable multi-line page and pauses audio',bookLayout);
+  await page.click('#caption-reader-forward-v2');
+  check(await page.$eval('#caption-book-progress-v2',e=>e.textContent)!==bookLayout.page,'Mobile book next-page control advances');
+  await page.click('#caption-book-larger-v2');
+  check(await page.$eval('#player-caption-reader-text-v2',e=>e.scrollWidth<=e.clientWidth+1),'Larger book text stays within the mobile screen');
+  await page.click('#caption-reader-mode-v2');
+  await page.waitForFunction(()=>!document.getElementById('audio-v2').paused&&document.getElementById('audio-v2').readyState>=2,{timeout:15000});
+  await page.evaluate(()=>window.__captionTest.exitReader());
   // Keep-alive playback must be decodable and advance, both inline and fullscreen.
   const wake=await page.evaluate(()=>{const v=document.querySelector('.vedator-caption-wake-video');return {exists:!!v,time:v?.currentTime,error:v?.error?.code,paused:v?.paused,requests:window.__wakeRequests,locks:window.__wakeLocks.filter(x=>!x.released).length}});
   await wait(3200);

@@ -1100,6 +1100,151 @@
   }
   let captionReaderActive=false,captionReaderTimer=null,captionReaderWasFullscreen=false;
   let captionReaderControlsVisible=false,captionReaderHistory=false,captionReaderValue='';
+  const CAPTION_BOOKMARKS_KEY='vedator-caption-bookmarks-v1',CAPTION_BOOK_SIZE_KEY='vedator-caption-book-size-v1';
+  let captionBookMode=false,captionBook=null,captionBookScale=Math.min(1.5,Math.max(.75,Number(readJson(CAPTION_BOOK_SIZE_KEY,1))||1));
+  let captionGesture=null,captionHoldTimer=null,captionTapTimer=null,captionLastTap=null,captionSuppressClickUntil=0,captionFeedbackTimer=null;
+  const captionBookLanguage=()=>captionPreference==='auto'?(sk()?'sk':'cs'):captionPreference;
+  function captionBookDocument(cues,lang){
+    let value='';const ranges=[];
+    for(const cue of cues){const start=value.length;value+=cue.text[lang].replace(/\s+/g,' ').trim()+' ';ranges.push({start,end:value.length,time:cue.start})}
+    return {value,ranges};
+  }
+  // Page ranges address the original normalized text, including across cue and
+  // sentence boundaries. No word is dropped when the font or orientation changes.
+  function wrapCaptionBook(value,from,limit,width,maxLines,measure){
+    const lines=[];let cursor=from;
+    while(cursor<limit&&lines.length<maxLines){
+      let lo=1,hi=Math.min(512,limit-cursor),fit=0;
+      while(lo<=hi){const mid=(lo+hi)>>>1;if(measure(value.slice(cursor,cursor+mid))<=width){fit=mid;lo=mid+1}else hi=mid-1}
+      let end=cursor+Math.max(1,fit);
+      if(end<limit&&/[\uDC00-\uDFFF]/.test(value[end]))end--;
+      if(end<=cursor)end=Math.min(limit,cursor+2);
+      if(end<limit&&!/\s/.test(value[end])){const space=value.lastIndexOf(' ',end-1);if(space>cursor)end=space}
+      const visibleEnd=end;while(end<limit&&/\s/.test(value[end]))end++;
+      lines.push({from:cursor,to:visibleEnd,next:end});cursor=end;
+    }
+    return {lines,to:cursor};
+  }
+  function paginateCaptionBook(document,width,maxLines,measure){
+    const {value}=document,pages=[];let from=0;
+    while(from<value.length){
+      let wrapped=wrapCaptionBook(value,from,value.length,width,maxLines,measure);
+      if(wrapped.to<value.length){
+        const sample=value.slice(from,wrapped.to),minimum=sample.length*.55;
+        let boundary=0;
+        for(const match of sample.matchAll(/[.!?…][»”"')\]]*(?=\s|$)/g))if(match.index+match[0].length>=minimum)boundary=from+match.index+match[0].length;
+        if(boundary>from){while(boundary<value.length&&/\s/.test(value[boundary]))boundary++;wrapped=wrapCaptionBook(value,from,boundary,width,maxLines,measure)}
+      }
+      const range=document.ranges.find(r=>r.end>from)||document.ranges.at(-1);
+      pages.push({from,to:wrapped.to,lines:wrapped.lines,time:range?.time||0});from=wrapped.to;
+    }
+    return pages;
+  }
+  function captionBookStorageKey(session,lang){return session.captionFile+'|'+session.captionGuid+'|'+lang}
+  function saveCaptionBookPlace(){
+    const page=captionBook?.pages[captionBook.index];if(!page)return;
+    const stored=readJson(CAPTION_BOOKMARKS_KEY,{}),marks=stored&&typeof stored==='object'&&!Array.isArray(stored)?stored:{};
+    marks[captionBook.storageKey]={offset:page.from,time:page.time,updatedAt:Date.now()};
+    const recent=Object.entries(marks).sort((a,b)=>(Number(b[1]?.updatedAt)||0)-(Number(a[1]?.updatedAt)||0)).slice(0,100);
+    writeJson(CAPTION_BOOKMARKS_KEY,Object.fromEntries(recent));
+  }
+  function renderCaptionBook(){
+    const node=$('#player-caption-reader-text-v2'),overlay=$('#player-caption-reader-overlay-v2'),session=activeCaptionSession();
+    if(!captionReaderActive||!captionBookMode||!node||!session?.captions)return;
+    const lang=captionBookLanguage(),storageKey=captionBookStorageKey(session,lang);
+    node.style.fontSize='';
+    const availableWidth=Math.max(1,node.clientWidth||overlay.clientWidth-44||300);
+    const base=Math.max(18,Math.min(26,availableWidth/18)),font=base*captionBookScale;
+    const overlayStyle=getComputedStyle(overlay);
+    const height=(overlay.clientHeight||window.innerHeight)-(parseFloat(overlayStyle.paddingTop)||112)-(parseFloat(overlayStyle.paddingBottom)||60);
+    const maxLines=Math.max(1,Math.min(8,Math.round(6/captionBookScale),Math.floor(height/(font*1.6))));
+    const layoutKey=[storageKey,availableWidth,font,maxLines].join('|');
+    node.style.fontSize=font+'px';
+    if(captionBook?.layoutKey!==layoutKey||captionBook.cues!==session.captions.cues){
+      const sameBook=captionBook?.storageKey===storageKey;
+      const saved=readJson(CAPTION_BOOKMARKS_KEY,{})?.[storageKey];
+      const offset=sameBook?captionBook.pages[captionBook.index]?.from:Number.isFinite(saved?.offset)?Math.max(0,saved.offset):null;
+      const currentTime=captionBook?captionBook.pages[captionBook.index]?.time:playbackClock().time;
+      const document=captionBookDocument(session.captions.cues,lang);
+      const canvas=window.document.createElement('canvas'),context=canvas.getContext('2d');
+      if(context)context.font=getComputedStyle(node).font;
+      const measure=value=>context?context.measureText(value).width:Array.from(value).length*font*.6;
+      const pages=paginateCaptionBook(document,Math.max(1,availableWidth-2),maxLines,measure);
+      let anchor=offset;
+      if(anchor===null||anchor===undefined){anchor=document.ranges.findLast(r=>r.time<=(currentTime||0))?.start||0}
+      let index=pages.findIndex(p=>anchor>=p.from&&anchor<p.to);if(index<0)index=Math.max(0,pages.length-1);
+      captionBook={...document,cues:session.captions.cues,storageKey,layoutKey,pages,index,font,maxLines};
+      delete node.dataset.bookPage;
+    }
+    const page=captionBook.pages[captionBook.index];if(!page)return;
+    const renderKey=captionBook.layoutKey+'|'+page.from;
+    if(node.dataset.bookPage!==renderKey){
+      node.replaceChildren();
+      for(const line of page.lines){
+        const span=document.createElement('span');span.className='caption-book-line-v2';span.textContent=captionBook.value.slice(line.from,line.to);node.append(span);
+        if(line.next>line.to)node.append(document.createTextNode(captionBook.value.slice(line.to,line.next)));
+      }
+      node.dataset.bookPage=renderKey;node.lang=lang;saveCaptionBookPlace();
+    }
+    const progress=$('#caption-book-progress-v2');
+    if(progress)progress.textContent=text('Strana ','Strana ')+(captionBook.index+1)+' / '+captionBook.pages.length;
+    syncCaptionReaderControls();
+  }
+  function showCaptionReaderFeedback(value){
+    const node=$('#caption-reader-feedback-v2');if(!node)return;
+    clearTimeout(captionFeedbackTimer);node.textContent=value;node.hidden=false;
+    captionFeedbackTimer=setTimeout(()=>{node.hidden=true},1100);
+  }
+  function turnCaptionBook(delta){
+    if(!captionBookMode||!captionBook)return;
+    const next=Math.max(0,Math.min(captionBook.pages.length-1,captionBook.index+delta));
+    if(next===captionBook.index){showCaptionReaderFeedback(delta>0?text('Poslední strana','Posledná strana'):text('První strana','Prvá strana'));return}
+    captionBook.index=next;renderCaptionBook();
+  }
+  function setCaptionBookMode(enabled){
+    if(!captionReaderActive)return;
+    clearCaptionReaderGesture();
+    const page=captionBook?.pages[captionBook.index],resumeTime=page?.time;
+    if(captionBookMode)saveCaptionBookPlace();
+    captionBookMode=enabled;
+    const overlay=$('#player-caption-reader-overlay-v2'),node=$('#player-caption-reader-text-v2');
+    overlay?.classList.toggle('caption-book-mode-v2',enabled);delete node.dataset.bookPage;
+    if(enabled){captionBook=null;pausePlayback();renderCaptionBook()}
+    else{
+      captionBook=null;captionReaderValue='';node.style.fontSize='';
+      // Starting from the displayed page is explicit. Reopen through the shared
+      // source path so a distant page also works with native MP3 and MSE buffers.
+      if(Number.isFinite(resumeTime)&&state.current){const {episode,itemRef}=state.current;void openPlayback(episode,{start:resumeTime,context:state.context,itemRef,autoplay:true})}
+      syncYoutubeCaptions();layoutCaptionReader();
+    }
+    syncCaptionReaderControls();
+  }
+  function changeCaptionBookSize(delta){
+    if(!captionBookMode)return;
+    captionBookScale=Math.round(Math.max(.75,Math.min(1.5,captionBookScale+delta))*100)/100;
+    writeJson(CAPTION_BOOK_SIZE_KEY,captionBookScale);renderCaptionBook();
+  }
+  function toggleCaptionReaderPlayback(){
+    if(captionBookMode)return;
+    $('#player-play-v2')?.click();syncCaptionReaderControls();
+    showCaptionReaderFeedback(playbackIsPlaying()?text('Přehrávání','Prehrávanie'):text('Pauza','Pauza'));
+  }
+  function clearCaptionReaderGesture(){
+    clearTimeout(captionHoldTimer);clearTimeout(captionTapTimer);captionHoldTimer=null;captionTapTimer=null;captionLastTap=null;captionGesture=null;
+  }
+  function captionReaderTap(x,y,keyboard=false){
+    if(!captionReaderActive)return;
+    const now=Date.now();
+    if(!keyboard&&captionLastTap&&now-captionLastTap.time<320&&Math.hypot(x-captionLastTap.x,y-captionLastTap.y)<48){clearCaptionReaderGesture();exitCaptionReader();return}
+    const single=()=>{
+      captionTapTimer=null;captionLastTap=null;if(!captionReaderActive)return;
+      const rect=$('#player-caption-reader-overlay-v2').getBoundingClientRect(),part=rect.width?(x-rect.left)/rect.width:.5;
+      if(captionBookMode&&!keyboard&&(part<1/3||part>2/3))turnCaptionBook(part<1/3?-1:1);
+      else setCaptionReaderControls(!captionReaderControlsVisible,true);
+    };
+    if(keyboard){single();return}
+    clearTimeout(captionTapTimer);captionLastTap={x,y,time:now};captionTapTimer=setTimeout(single,320);
+  }
   const captionReadingCues=new WeakMap();
   function readerCues(cues,lang){
     let languages=captionReadingCues.get(cues);
@@ -1129,6 +1274,7 @@
   }
   function layoutCaptionReader(){
     const node=$('#player-caption-reader-text-v2');if(!captionReaderActive||!node)return;
+    if(captionBookMode){renderCaptionBook();return}
     const words=captionReaderValue.replace(/\s+/g,' ').trim().split(' ').filter(Boolean);
     node.style.fontSize='';node.replaceChildren();if(!words.length)return;
     const style=getComputedStyle(node),base=parseFloat(style.fontSize);
@@ -1159,11 +1305,14 @@
   function syncCaptionReaderControls(){
     if(!captionReaderActive)return;
     const play=$('#caption-reader-play-v2');
-    if(play){const playing=playbackIsPlaying();play.textContent=playing?'❚❚':'▶';play.title=playing?text('Pauza','Pauza'):text('Přehrát','Prehrať');play.setAttribute('aria-label',play.title)}
+    if(play){play.hidden=captionBookMode;const playing=playbackIsPlaying(),symbol=playing?'❚❚':'▶';if(play.textContent!==symbol)play.textContent=symbol;play.title=playing?text('Pauza','Pauza'):text('Přehrát','Prehrať');play.setAttribute('aria-label',play.title)}
     const back=$('#caption-reader-back-v2'),forward=$('#caption-reader-forward-v2'),close=$('#caption-reader-close-v2');
-    if(back){back.title=text('Zpět o 10 sekund','Späť o 10 sekúnd');back.setAttribute('aria-label',back.title)}
-    if(forward){forward.title=text('Vpřed o 10 sekund','Vpred o 10 sekúnd');forward.setAttribute('aria-label',forward.title)}
+    if(back){back.textContent=captionBookMode?'←':'−10 s';back.title=captionBookMode?text('Předchozí strana','Predchádzajúca strana'):text('Zpět o 10 sekund','Späť o 10 sekúnd');back.setAttribute('aria-label',back.title);back.disabled=captionBookMode&&(!captionBook||captionBook.index===0)}
+    if(forward){forward.textContent=captionBookMode?'→':'+10 s';forward.title=captionBookMode?text('Další strana','Ďalšia strana'):text('Vpřed o 10 sekund','Vpred o 10 sekúnd');forward.setAttribute('aria-label',forward.title);forward.disabled=captionBookMode&&(!captionBook||captionBook.index>=captionBook.pages.length-1)}
     if(close){close.title=text('Zrušit celou obrazovku','Zrušiť celú obrazovku');close.setAttribute('aria-label',close.title)}
+    const mode=$('#caption-reader-mode-v2');if(mode){mode.textContent=captionBookMode?text('Poslech','Počúvanie'):text('Čtení','Čítanie');mode.setAttribute('aria-pressed',String(captionBookMode));mode.title=captionBookMode?text('Pokračovat v poslechu od této strany','Pokračovať v počúvaní od tejto strany'):text('Číst jako knížku','Čítať ako knihu');mode.setAttribute('aria-label',mode.title)}
+    for(const [id,cs,sl,disabled] of [['caption-book-smaller-v2','Menší písmo','Menšie písmo',captionBookScale<=.75],['caption-book-larger-v2','Větší písmo','Väčšie písmo',captionBookScale>=1.5]]){const b=$('#'+id);if(b){b.hidden=!captionBookMode;b.title=text(cs,sl);b.setAttribute('aria-label',b.title);b.disabled=disabled}}
+    const progress=$('#caption-book-progress-v2');if(progress)progress.hidden=!captionBookMode;
   }
   function setCaptionReaderControls(visible,gesture=false){
     captionReaderControlsVisible=visible;
@@ -1323,12 +1472,16 @@
   document.addEventListener('fullscreenchange',()=>{moveCaptionWakeVideo();refreshCaptionWake()});
   function updateCaptionReader(value){
     if(!captionReaderActive)return;
+    if(captionBookMode){if(activeCaptionSession()?.captions)renderCaptionBook();else{const node=$('#player-caption-reader-text-v2');delete node.dataset.bookPage;node.textContent=value}syncCaptionReaderControls();return}
     if(captionReaderValue!==value){captionReaderValue=value;layoutCaptionReader()}
     syncCaptionReaderControls();
   }
   function exitCaptionReader(fromHistory=false){
     if(!captionReaderActive)return;
-    captionReaderActive=false;captionReaderWasFullscreen=false;captionReaderValue='';
+    if(captionBookMode)saveCaptionBookPlace();
+    clearCaptionReaderGesture();clearTimeout(captionFeedbackTimer);$('#caption-reader-feedback-v2').hidden=true;
+    captionReaderActive=false;captionReaderWasFullscreen=false;captionReaderValue='';captionBookMode=false;captionBook=null;
+    $('#player-caption-reader-overlay-v2')?.classList.remove('caption-book-mode-v2');
     if(captionReaderTimer!==null){clearInterval(captionReaderTimer);captionReaderTimer=null}
     const overlay=$('#player-caption-reader-overlay-v2');
     if(overlay){
@@ -1343,7 +1496,10 @@
   function enterCaptionReader(){
     if(captionReaderActive||captionPreference==='off'||!activeCaptionSession()?.captionFile)return;
     const overlay=$('#player-caption-reader-overlay-v2');if(!overlay)return;
-    captionReaderActive=true;captionReaderWasFullscreen=false;captionReaderValue='';
+    clearCaptionReaderGesture();captionSuppressClickUntil=0;
+    captionReaderActive=true;captionReaderWasFullscreen=false;captionReaderValue='';captionBookMode=false;captionBook=null;
+    $('#player-caption-reader-text-v2').style.fontSize='';
+    delete $('#player-caption-reader-text-v2').dataset.bookPage;
     overlay.hidden=false;overlay.setAttribute('aria-hidden','false');
     document.body.classList.add('vedator-caption-reading');
     setCaptionReaderControls(false);
@@ -1419,7 +1575,10 @@
     while(lo<hi){const mid=(lo+hi)>>>1;if(cues[mid].start<=time)lo=mid+1;else hi=mid}
     const cue=cues[lo-1];
     setCaptionText(cue&&time<cue.end?cue.text[lang]:'',false);
-    if(captionReaderActive)updateCaptionReader(readerCaptionAt(cues,lang,time));
+    if(captionReaderActive){
+      if(captionBookMode){if(playbackIsPlaying())pausePlayback();renderCaptionBook()}
+      else updateCaptionReader(readerCaptionAt(cues,lang,time));
+    }
     target.lang=lang;
     const readerText=$('#player-caption-reader-text-v2');if(readerText)readerText.lang=lang;
   }
@@ -2892,21 +3051,58 @@
   $('#player-caption-toggle-v2')?.addEventListener('click',toggleCaptions);
   $('#player-caption-reader-button-v2')?.addEventListener('click',enterCaptionReader);
   const captionReaderOverlay=$('#player-caption-reader-overlay-v2');
-  captionReaderOverlay?.addEventListener('click',event=>{
+  captionReaderOverlay?.addEventListener('pointerdown',event=>{
     if(event.target.closest?.('#caption-reader-controls-v2'))return;
-    setCaptionReaderControls(!captionReaderControlsVisible,true);
+    if(event.isPrimary===false||event.button>0){clearCaptionReaderGesture();captionSuppressClickUntil=Date.now()+600;return}
+    captionGesture={id:event.pointerId,x:event.clientX,y:event.clientY,at:Date.now(),moved:false,held:false};
+    const rect=captionReaderOverlay.getBoundingClientRect(),part=rect.width?(event.clientX-rect.left)/rect.width:.5;
+    try{captionReaderOverlay.setPointerCapture(event.pointerId)}catch(_){}
+    if(!captionBookMode&&part>=1/3&&part<=2/3)captionHoldTimer=setTimeout(()=>{
+      if(!captionGesture||captionGesture.moved)return;
+      captionGesture.held=true;clearTimeout(captionTapTimer);captionLastTap=null;toggleCaptionReaderPlayback();
+    },500);
   });
-  $('#caption-reader-controls-v2')?.addEventListener('click',event=>event.stopPropagation());
-  $('#caption-reader-play-v2')?.addEventListener('click',()=>{$('#player-play-v2')?.click();syncCaptionReaderControls()});
-  $('#caption-reader-back-v2')?.addEventListener('click',()=>seekParity(-10));
-  $('#caption-reader-forward-v2')?.addEventListener('click',()=>seekParity(10));
+  captionReaderOverlay?.addEventListener('pointermove',event=>{
+    const g=captionGesture;if(!g||g.id!==event.pointerId)return;
+    if(Math.hypot(event.clientX-g.x,event.clientY-g.y)>12){g.moved=true;clearTimeout(captionHoldTimer)}
+  });
+  captionReaderOverlay?.addEventListener('pointerup',event=>{
+    const g=captionGesture;if(!g||g.id!==event.pointerId)return;
+    clearTimeout(captionHoldTimer);captionGesture=null;
+    const dx=event.clientX-g.x,dy=event.clientY-g.y;
+    if(g.held||g.moved||Math.hypot(dx,dy)>12){captionSuppressClickUntil=Date.now()+600;clearTimeout(captionTapTimer);captionLastTap=null}
+    if(captionBookMode&&!g.held&&Math.abs(dx)>=48&&Math.abs(dx)>Math.abs(dy)*1.4)turnCaptionBook(dx<0?1:-1);
+  });
+  captionReaderOverlay?.addEventListener('pointercancel',()=>{clearCaptionReaderGesture();captionSuppressClickUntil=Date.now()+600});
+  captionReaderOverlay?.addEventListener('contextmenu',event=>{if(!event.target.closest?.('#caption-reader-controls-v2'))event.preventDefault()});
+  captionReaderOverlay?.addEventListener('click',event=>{
+    if(event.target.closest?.('#caption-reader-controls-v2')||Date.now()<captionSuppressClickUntil)return;
+    captionReaderTap(event.clientX,event.clientY,event.detail===0);
+  });
+  captionReaderOverlay?.addEventListener('dblclick',event=>{
+    if(event.target.closest?.('#caption-reader-controls-v2')||Date.now()<captionSuppressClickUntil)return;
+    event.preventDefault();exitCaptionReader();
+  });
+  $('#caption-reader-controls-v2')?.addEventListener('click',event=>{event.stopPropagation();clearTimeout(captionTapTimer);captionLastTap=null});
+  $('#caption-reader-play-v2')?.addEventListener('click',toggleCaptionReaderPlayback);
+  $('#caption-reader-back-v2')?.addEventListener('click',()=>captionBookMode?turnCaptionBook(-1):seekParity(-10));
+  $('#caption-reader-forward-v2')?.addEventListener('click',()=>captionBookMode?turnCaptionBook(1):seekParity(10));
+  $('#caption-reader-mode-v2')?.addEventListener('click',()=>setCaptionBookMode(!captionBookMode));
+  $('#caption-book-smaller-v2')?.addEventListener('click',()=>changeCaptionBookSize(-.1));
+  $('#caption-book-larger-v2')?.addEventListener('click',()=>changeCaptionBookSize(.1));
   $('#caption-reader-close-v2')?.addEventListener('click',()=>exitCaptionReader());
   captionReaderOverlay?.addEventListener('keydown',event=>{
     if(event.key==='Escape'){event.preventDefault();exitCaptionReader();return}
+    if(event.key==='Tab'){
+      setCaptionReaderControls(true);
+      const controls=[...captionReaderOverlay.querySelectorAll('button')].filter(b=>!b.hidden&&!b.disabled);
+      if(event.shiftKey&&(event.target===controls[0]||event.target===captionReaderOverlay)){event.preventDefault();controls.at(-1)?.focus()}
+      else if(!event.shiftKey&&(event.target===controls.at(-1)||event.target===captionReaderOverlay)){event.preventDefault();controls[0]?.focus()}
+      return;
+    }
     if(event.target!==captionReaderOverlay)return;
-    if(['Enter',' '].includes(event.key)){event.preventDefault();setCaptionReaderControls(!captionReaderControlsVisible,true)}
-    if(event.key==='Tab')setCaptionReaderControls(true);
-    if(['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();seekParity(event.key==='ArrowLeft'?-10:10)}
+    if(['Enter',' '].includes(event.key)){event.preventDefault();captionReaderTap(0,0,true)}
+    if(['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();const delta=event.key==='ArrowLeft'?-1:1;if(captionBookMode)turnCaptionBook(delta);else seekParity(delta*10)}
   });
   window.addEventListener('popstate',()=>{if(captionReaderActive&&captionReaderHistory)exitCaptionReader(true)});
   document.addEventListener('fullscreenchange',()=>{

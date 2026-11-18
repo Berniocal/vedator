@@ -5,7 +5,7 @@ import {createRequire} from 'node:module';
 const require=createRequire(path.join(process.env.VEDATOR_TEST_DEPS||process.cwd(),'package.json'));
 const {JSDOM,VirtualConsole}=require('jsdom');
 const html=fs.readFileSync('index.html','utf8'),source=fs.readFileSync('app-v2.js','utf8'),data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
-const app=source.replace('  function syncYoutubeCaptions(){', '  window.__readerTest={readerCues,readerCaptionAt,sync:syncYoutubeCaptions};\n  function syncYoutubeCaptions(){');
+const app=source.replace('  function syncYoutubeCaptions(){', '  window.__readerTest={readerCues,readerCaptionAt,captionBookDocument,paginateCaptionBook,book:()=>captionBook,sync:syncYoutubeCaptions};\n  function syncYoutubeCaptions(){');
 const original=JSON.parse(fs.readFileSync('captions/episode-1.json','utf8'));
 const cue=(start,end,cs)=>({start,end,text:{cs,sk:cs}});
 const captions={...original,cues:[cue(1,1.15,'Ano.'),cue(4,4.2,'Tohle je delší titulek, který potřebuje více času na čtení.'),cue(12,12.2,'Další.'),cue(12.3,13,'Souvislá řeč.'),cue(20,21,'První dlouhý řádek se spoustou slov\njedno\na třetí řádek, který se má přesunout do dvou vyvážených řádků.')]};
@@ -103,6 +103,63 @@ try{
       });assert.equal(JSON.stringify(real.cues),before,'No transcript or acoustic timestamp changes');
     }
   }
+  // Complete book pages preserve both language texts at every tested geometry.
+  for(const file of fs.readdirSync('captions').filter(f=>/^episode-\d+\.json$/.test(f))){
+    const real=JSON.parse(fs.readFileSync('captions/'+file,'utf8'));
+    for(const lang of ['cs','sk'])for(const width of [180,320,900]){
+      const document=w.__readerTest.captionBookDocument(real.cues,lang),measure=value=>Array.from(value).length*9;
+      const pages=w.__readerTest.paginateCaptionBook(document,width,6,measure);
+      assert.equal(pages.map(p=>document.value.slice(p.from,p.to)).join(''),document.value,'No missing or repeated text across pages');
+      pages.forEach((page,i)=>{
+        assert(page.lines.length>=1&&page.lines.length<=6);assert(page.to>page.from);if(i)assert.equal(page.from,pages[i-1].to);
+        for(const line of page.lines)assert(measure(document.value.slice(line.from,line.to))<=width+1,'Book line fits viewport');
+      });
+    }
+  }
+  const tricky=w.__readerTest.captionBookDocument([cue(0,1,'🙂'.repeat(200)+' slovo. Další věta.')],'cs');
+  const trickyPages=w.__readerTest.paginateCaptionBook(tricky,45,4,v=>Array.from(v).length*9);
+  assert.equal(trickyPages.map(p=>tricky.value.slice(p.from,p.to)).join(''),tricky.value,'Long words and surrogate pairs survive page splits');
+  assert(trickyPages.every(p=>p.lines.every(l=>!/^[\uDC00-\uDFFF]/.test(tricky.value.slice(l.from,l.to)))));
+  // Keep book tests in a regular portrait layout, independent of MP3 progression.
+  Object.defineProperty(node,'clientWidth',{configurable:true,get:()=>300});
+  overlay.getBoundingClientRect=()=>({left:0,top:0,width:900,height:700});
+  await t.click('#player-caption-reader-button-v2');await t.click('#player-caption-reader-overlay-v2');
+  audio.currentTime=1;await t.click('#caption-reader-mode-v2');
+  assert(audio.paused,'Book mode pauses audio');assert(overlay.classList.contains('caption-book-mode-v2'));
+  assert(node.querySelectorAll('.caption-book-line-v2').length>=3,'Book mode shows more text than two subtitle lines');
+  const firstPage=w.__readerTest.book().index,firstText=node.textContent;
+  audio.currentTime=20;w.__readerTest.sync();assert.equal(node.textContent,firstText,'Reading pages never follow the playback clock');
+  await t.click('#caption-reader-forward-v2');assert.equal(w.__readerTest.book().index,firstPage+1);
+  await t.click('#caption-reader-back-v2');assert.equal(w.__readerTest.book().index,firstPage);
+  function pointer(type,x,y,id=1,primary=true){const e=new w.MouseEvent(type,{clientX:x,clientY:y,bubbles:true});Object.defineProperties(e,{pointerId:{value:id},isPrimary:{value:primary}});overlay.dispatchEvent(e)}
+  pointer('pointerdown',750,350);pointer('pointermove',300,360);pointer('pointerup',300,360);
+  assert.equal(w.__readerTest.book().index,firstPage+1,'Left swipe advances a whole page');
+  overlay.dispatchEvent(new w.MouseEvent('click',{clientX:300,clientY:360,detail:1,bubbles:true}));await new Promise(r=>setTimeout(r,350));
+  assert.equal(w.__readerTest.book().index,firstPage+1,'Synthetic click after swipe cannot turn a second page');
+  pointer('pointerdown',300,350);pointer('pointermove',750,350);pointer('pointerup',750,350);assert.equal(w.__readerTest.book().index,firstPage,'Right swipe returns');
+  pointer('pointerdown',600,250);pointer('pointermove',610,550);pointer('pointerup',610,550);assert.equal(w.__readerTest.book().index,firstPage,'Vertical motion does not turn pages');
+  pointer('pointerdown',600,350);pointer('pointercancel',600,350);assert.equal(w.__readerTest.book().index,firstPage,'Cancelled gestures do nothing');
+  await new Promise(r=>setTimeout(r,650));
+  overlay.dispatchEvent(new w.MouseEvent('click',{clientX:800,clientY:350,detail:1,bubbles:true}));await new Promise(r=>setTimeout(r,350));assert.equal(w.__readerTest.book().index,firstPage+1,'Right third advances');
+  overlay.dispatchEvent(new w.MouseEvent('click',{clientX:100,clientY:350,detail:1,bubbles:true}));await new Promise(r=>setTimeout(r,350));assert.equal(w.__readerTest.book().index,firstPage,'Left third goes back');
+  await t.click('#caption-reader-forward-v2');
+  const anchor=w.__readerTest.book().pages[w.__readerTest.book().index].from;
+  await t.click('#caption-book-larger-v2');const enlarged=w.__readerTest.book();assert(enlarged.pages[enlarged.index].from<=anchor&&enlarged.pages[enlarged.index].to>anchor,'Font changes retain the current passage');
+  assert.equal(JSON.parse(w.localStorage.getItem('vedator-caption-book-size-v1')),1.1);
+  const pageBeforeClose=node.textContent;await t.click('#caption-reader-close-v2');await wait();
+  await t.click('#player-caption-reader-button-v2');await t.click('#player-caption-reader-overlay-v2');await t.click('#caption-reader-mode-v2');assert.equal(node.textContent,pageBeforeClose,'Book resumes saved place');
+  const resumeTime=w.__readerTest.book().pages[w.__readerTest.book().index].time;
+  await t.click('#caption-reader-mode-v2');await wait();assert(!audio.paused);assert.equal(audio.currentTime,resumeTime,'Listening starts at the displayed page');
+  const playingBeforeHold=!audio.paused;
+  pointer('pointerdown',450,350);await new Promise(r=>setTimeout(r,550));pointer('pointerup',450,350);assert.equal(audio.paused,playingBeforeHold,'Center hold toggles pause');
+  assert(!$('#caption-reader-feedback-v2').hidden);
+  pointer('pointerdown',450,350);await new Promise(r=>setTimeout(r,550));pointer('pointerup',450,350);assert.equal(audio.paused,!playingBeforeHold,'Second hold resumes');
+  await new Promise(r=>setTimeout(r,650));
+  overlay.dispatchEvent(new w.MouseEvent('click',{clientX:450,clientY:350,detail:1,bubbles:true}));
+  overlay.dispatchEvent(new w.MouseEvent('click',{clientX:452,clientY:350,detail:2,bubbles:true}));assert(overlay.hidden,'Quick double tap closes reader');await wait();
+  await t.click('#player-caption-reader-button-v2');assert(!overlay.hidden);await t.click('#player-caption-reader-overlay-v2');
+  $('#caption-reader-back-v2').dispatchEvent(new w.MouseEvent('dblclick',{bubbles:true}));assert(!overlay.hidden,'Toolbar double click never closes reader');
+  await t.click('#caption-reader-close-v2');await wait();
   assert.equal(t.errors.length,0,t.errors.map(String).join('\n'));
-  console.log('Caption reader OK: bilingual nonoverlapping reading windows, preserved timing/text, balanced two-line reflow, toggle controls, play/pause, ±10 s, close, Back and fullscreen navigation.');
+  console.log('Caption reader OK: bilingual nonoverlapping reading windows, preserved timing/text, balanced two-line reflow, tap/swipe book pages, bookmarks, font sizes, playback resume, long press, double tap, Back and fullscreen navigation.');
 }finally{t.dom.window.close()}
