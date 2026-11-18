@@ -9,7 +9,7 @@ A=json.loads((SOURCE/"episode-10-draft.sk.json").read_text(encoding="utf-8"))
 T=json.loads((SOURCE/"episode-10-translation-draft.cs.json").read_text(encoding="utf-8"))
 CHECKS=SOURCE/"episode-10-extra-checks.sk.json"
 B=json.loads(CHECKS.read_text(encoding="utf-8")) if CHECKS.exists() else {}
-assert A["episode"]==T["episode"]==9
+assert A["episode"]==T["episode"]==10
 assert A["source"]["audioSha256"]==T["sourceAudioSha256"]
 if B:assert B.get("audioSha256")==A["source"]["audioSha256"]
 assert len(A["cues"])==len(T["cues"])
@@ -38,14 +38,14 @@ for prev,now in zip(A["words"],A["words"][1:]):
         gaps.append({"start":prev["end"],"end":now["start"],"seconds":round(delta,2)})
 red_flags=[(i+1,c["text"]) for i,c in enumerate(A["cues"])
            if re.search(r"\b(?:nesrozumitel|nezrozumite|poďakujem|písnot|pridvate)\b",c["text"],flags=re.I)]
-data={"episode":9,"status":"review-evidence-only-not-subtitles",
+data={"episode":10,"status":"review-evidence-only-not-subtitles",
     "audioSha256":A["source"]["audioSha256"],"duration":A["source"]["duration"],
     "draftCueCount":len(A["cues"]),"asrWords":len(A["words"]),
     "lowConfidenceWords":low,"asrGaps":gaps,
     "translationLengthFlags":ratio,"asrLexicalFlags":red_flags,
     "independentWindows":B.get("passages",[])}
 (SOURCE/"episode-10-editorial-triage.json").write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-lines=["# Vedátorský podcast 9 – redakční kontrola pracovní verze","",
+lines=["# Vedátorský podcast 10 – redakční kontrola pracovní verze","",
        "**Toto není hotový přepis ani zkontrolovaný překlad.**",
        f"Zvuk SHA-256: `{data['audioSha256']}`.",
        f"Délka: {clock(data['duration'])}; slova: {len(A['words'])}; bloky: {len(A['cues'])}.",
@@ -67,6 +67,6 @@ for p in B.get("passages",[]):
     lines.append(f"- {clock(p['start'])}–{clock(p['end'])} ({p.get('reason','')}): {txt}")
 lines+=["","Před vydáním je nutné redakčně přečíst **všechny** bloky, opravit nejisté řeči podle zvuku, úplně přeložit a zarovnat opravenou slovenštinu CTC proti skutečné MP3; dodržet shodné časy CZ/SK a ověřit přehrávač.",""]
 (SOURCE/"episode-10-editorial-triage.md").write_text("\n".join(lines),encoding="utf-8")
-print(json.dumps({"status":"triage-created","episode":9,"words":len(A["words"]),
+print(json.dumps({"status":"triage-created","episode":10,"words":len(A["words"]),
                   "cues":len(A["cues"]),"translationFlags":len(ratio),
                   "lowWords":len(low),"gaps":len(gaps)},ensure_ascii=False))
