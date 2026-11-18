@@ -164,6 +164,7 @@
     "277": "verí, že toto vyrieši fyzika za štandardným modelom.",
     "279": "Veľmi v CERNe dúfali, že sa im niečo podarí nájsť, ale zatiaľ to vyzerá, že",
     "282": "ale fyzikov by veľmi potešil taký nesúlad, na ktorom by mohli začať pracovať.",
+    "283": "A mohli by sa posunúť ďalej.",
     "284": "Samozrejme, napríklad objav supersymetrie, o ktorej si môžeme niekedy v budúcnosti",
     "285": "spraviť podcast tiež. To je výborná téma. Samko, máš ešte niečo k tejto téme?",
     "287": "Dúfam, že sme sa nezamotali, takže... Ja ti veľmi pekne ďakujem za vysvetlenie",
@@ -201,6 +202,10 @@
     {
       "originalCue": 260,
       "issue": "Wider full-model ASR confirms wording about disappointed physicist; preserved his actual statement rather than shortened noisy ASR."
+    },
+    {
+      "originalCue": 283,
+      "issue": "CTC audit flagged mistranscribed 'ďalšie'; corrected contextual Slovak phrase to 'ďalej', matching Czech meaning. Verify with independent full recognizer."
     }
   ]
 }
