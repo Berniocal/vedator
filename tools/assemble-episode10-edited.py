@@ -17,12 +17,12 @@ def write(p, x):
 
 def normalize_sk(s):
     rules = [
-        (r"(?i)\\bhyksov", "Higgsov"), (r"(?i)\\bhyxov", "Higgsov"),
-        (r"(?i)\\bhygsov", "Higgsov"), (r"(?i)\\bhyks", "Higgs"),
-        (r"(?i)\\bhiggsov bozon", "Higgsov bozón"),
-        (r"(?i)\\bbozon\\b", "bozón"), (r"(?i)\\bbozony\\b", "bozóny"),
-        (r"(?i)\\bkvárky\\b", "kvarky"), (r"(?i)\\bkvárkov\\b", "kvarkov"),
-        (r"(?i)\\bVedatorsk", "Vedátorsk"), (r"\\be -maily\\b", "e-maily")
+        (r"(?i)\bhyksov", "Higgsov"), (r"(?i)\bhyxov", "Higgsov"),
+        (r"(?i)\bhygsov", "Higgsov"), (r"(?i)\bhyks", "Higgs"),
+        (r"(?i)\bhiggsov bozon", "Higgsov bozón"),
+        (r"(?i)\bbozon\b", "bozón"), (r"(?i)\bbozony\b", "bozóny"),
+        (r"(?i)\bkvárky\b", "kvarky"), (r"(?i)\bkvárkov\b", "kvarkov"),
+        (r"(?i)\bVedatorsk", "Vedátorsk"), (r"\be -maily\b", "e-maily")
     ]
     for pat,repl in rules: s = re.sub(pat, repl, s)
     return " ".join(s.split())
@@ -42,12 +42,12 @@ def for_ctc(text):
     # Numerals and abbreviations are expanded for the acoustic recognizer
     # without replacing what readers see in the original-language subtitles.
     s=text.replace("W a Z", "dvojité vé a zet").replace("W a", "dvojité vé a")
-    s=re.sub(r"\\bW\\b", "dvojité vé", s)
-    s=re.sub(r"\\bZ\\b", "zet", s)
-    s=re.sub(r"\\b10\\.\\b", "desiate", s)
+    s=re.sub(r"\bW\b", "dvojité vé", s)
+    s=re.sub(r"\bZ\b", "zet", s)
+    s=re.sub(r"\b10\.\b", "desiate", s)
     for num,pron in [("2013","dvetisíctrinásť"),("12","dvanásť"),("20","dvadsať"),("10","desať"),("5","päť")]:
-        s=re.sub(r"(?<!\\d)"+num+r"(?!\\d)",pron,s)
-    assert not re.search(r"\\d",s),("Unexpanded numerals in CTC",s)
+        s=re.sub(r"(?<!\d)"+num+r"(?!\d)",pron,s)
+    assert not re.search(r"\d",s),("Unexpanded numerals in CTC",s)
     return s
 
 def main():
