@@ -1,0 +1,78 @@
+name: Decode disputed short episode 10 interjections directly with Slovak CTC
+on:
+  push:
+    branches: [captions/episode-10-precise-20261118]
+    paths:
+      - .github/workflows/decode-episode10-short-cues.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  ctc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/cache@v4
+        with:
+          path: /tmp/vedator-ep10-audio
+          key: vedator-original-episode-10-audio-v1
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: vedator-asr-turbo-and-slovak-ctc-v2
+      - name: Install CTC audio decoding dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          python -m pip install --disable-pip-version-check --index-url https://download.pytorch.org/whl/cpu torch==2.5.1 torchaudio==2.5.1
+          python -m pip install --disable-pip-version-check transformers==4.45.2 'numpy<2'
+      - name: Decode raw speech in three contested original-MP3 windows
+        run: |
+          python - <<'PY'
+          import json,subprocess,hashlib,re
+          from pathlib import Path
+          import numpy as np,torch
+          from transformers import Wav2Vec2Processor,Wav2Vec2ForCTC
+          torch.set_num_threads(4)
+          root=Path.cwd();src=json.loads((root/'captions/source/episode-10-draft.sk.json').read_text())
+          audio=Path('/tmp/vedator-ep10-audio/episode-10.mp3')
+          if not audio.exists():
+              audio.parent.mkdir(parents=True,exist_ok=True)
+              subprocess.run(['curl','--fail','--location','--retry','3',src['source']['audio'],'-o',str(audio)],check=True)
+          sha=hashlib.file_digest(audio.open('rb'),'sha256').hexdigest()
+          assert sha==src['source']['audioSha256']
+          model_id='comodoro/wav2vec2-xls-r-300m-sk-cv8'
+          processor=Wav2Vec2Processor.from_pretrained(model_id)
+          model=Wav2Vec2ForCTC.from_pretrained(model_id);model.eval()
+          windows=[(71.1,73.15,'Fúha'),(382.6,385.0,'Áno'),(1234.2,1239.3,'ďalej')]
+          out=[]
+          for a,b,label in windows:
+              pcm=subprocess.check_output(['ffmpeg','-v','error','-ss',str(a),'-to',str(b),'-i',str(audio),'-f','f32le','-ac','1','-ar','16000','-'])
+              wave=np.frombuffer(pcm,dtype=np.float32).copy()
+              inputs=processor(wave,sampling_rate=16000,return_tensors='pt',padding=True)
+              with torch.inference_mode(): logits=model(**inputs).logits
+              decoded=processor.batch_decode(logits.argmax(-1))[0]
+              row={'start':a,'end':b,'expected':label,'ctcGreedyText':decoded}
+              out.append(row);print(json.dumps(row,ensure_ascii=False),flush=True)
+          path=root/'captions/source/episode-10-low-ctc-raw-decode.json'
+          path.write_text(json.dumps({'episode':10,'audioSha256':sha,'model':model_id,
+            'method':'raw-argmax-decoding-without-forced-expected-text','passages':out},
+            ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+      - name: Preserve acoustic evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add captions/source/episode-10-low-ctc-raw-decode.json
+          git commit -m "Record raw Slovak CTC decoding of 3 short episode 10 phrases"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
