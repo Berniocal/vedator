@@ -1,0 +1,563 @@
+{
+  "episode": 362,
+  "status": "editorial-candidates-pending-acoustic-followup",
+  "audioSha256": "5490eaa4886dd65515bb8f83f1751bad199fefff3254d305f5a35b0b31d1528b",
+  "independentReviewSha256": "34050fedb88bc862ca4ed8655310ba44a24b175edb9ae3a9144f66fabe59a4b5",
+  "humanListeningVerified": false,
+  "groups": {
+    "3": {
+      "textSk": "prírode okolo nás. Moje meno je Jozef. A ja som Samuel. Tento podcast vychádza v spolupráci so SME. Samko, ako sa máš?",
+      "textCs": "přírodě kolem nás. Jmenuji se Jozef. A já jsem Samuel. Tento podcast vychází ve spolupráci se SME. Samko, jak se máš?",
+      "reason": "Samko vs corrupted s Hankou; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        0
+      ],
+      "status": "resolved"
+    },
+    "9": {
+      "textSk": "strašne pekne vyzerá naživo. Môžem konečne vymeniť túto vytlačenú za",
+      "textCs": "naživo vypadá strašně pěkně. Konečně můžu vyměnit tuhle vytištěnou za",
+      "reason": "Môžeš/Môžem speaker exchange; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        1
+      ],
+      "status": "resolved"
+    },
+    "15": {
+      "textSk": "A dneska som mal s jedným tímom z Chile a potom s Denžom a Yumom, čiže Japonsko a Írsko.",
+      "textCs": "A dnes jsem měl s jedním týmem z Chile a pak s Denžou a Yumem, čili Japonskem a Irskem.",
+      "reason": "Collaborator names Denžo and Yuma; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        2
+      ],
+      "status": "resolved"
+    },
+    "18": {
+      "textSk": "nejako rozložené, nie naraz, ale teraz to vyšlo všetko naraz a…",
+      "textCs": "nějak rozložené, ne najednou, ale teď vyšlo všechno najednou a…",
+      "reason": "Rozložené vs rozladené; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        3
+      ],
+      "status": "resolved"
+    },
+    "22": {
+      "textSk": "Vyzbierali sme detské otázky. Moje obľúbené obdobie je halloweenske, predvianočné, takže sa teším.",
+      "textCs": "Sesbírali jsme dětské otázky. Moje oblíbené období je halloweenské, předvánoční, takže se těším.",
+      "reason": "Clashing overlap between Halloween weather and questions; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        4
+      ],
+      "status": "needs-followup"
+    },
+    "41": {
+      "textSk": "zachytávať signál, lebo my sme zvyknutí, že komunikujeme… Tie družice, či…",
+      "textCs": "zachytávat signál, protože jsme zvyklí, že komunikujeme… Ty družice, nebo…",
+      "reason": "Preposition in satellite communication remark; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        5
+      ],
+      "status": "needs-followup"
+    },
+    "46": {
+      "textSk": "Vysielačky rovno pošlú signál do všetkých smerov a keď si dosť blízko, dokážeš ho zachytiť. Robia to, čo telefón vlastne nerobí, že majú",
+      "textCs": "Vysílačky pošlou signál přímo do všech směrů, a když jsi dost blízko, zachytíš ho. Dělají to, co telefon vlastně nedělá, že mají",
+      "reason": "Phone direct-communication overlap; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        6
+      ],
+      "status": "needs-followup"
+    },
+    "47": {
+      "textSk": "aj tú prijímaciu a vysielaciu časť, že sa vedia pripojiť na seba. Áno.",
+      "textCs": "i přijímací a vysílací část, že se dokážou propojit mezi sebou. Ano.",
+      "reason": "Phone receiver negation/claim; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        6
+      ],
+      "status": "needs-followup"
+    },
+    "50": {
+      "textSk": "Ale keď nie ste od seba dosť ďaleko, tak môžete používať obyčajné vysielačky. A to to je v podstate ako hlasné kričanie, ale hlasné kričanie v",
+      "textCs": "Ale když nejste od sebe dost daleko, tak můžete používat obyčejné vysílačky. A to to je v podstatě jako hlasité křik, ale hlasité křik v",
+      "reason": "Distance negation formulation; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        7
+      ],
+      "status": "resolved"
+    },
+    "57": {
+      "textSk": "Ja by som len pripomenul, že o tomto máme epizódu, ktorú sme s O2 nahrávali, myslím.",
+      "textCs": "Jen bych připomněl, že o tom máme epizodu, kterou jsme myslím nahrávali s O2.",
+      "reason": "O2 partner brand vs Outom; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        8
+      ],
+      "status": "resolved"
+    },
+    "66": {
+      "textSk": "Čoskoro maturant z fyziky. Áno, o päť miliárd rokov odhodí svoj plášť a",
+      "textCs": "Brzy maturant z fyziky. Ano, za pět miliard let odhodí svůj plášť a",
+      "reason": "Missing number before miliárd; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        9
+      ],
+      "status": "resolved"
+    },
+    "69": {
+      "textSk": "trpaslík by bola malinká hviezda, ktorá už tlie, horí, ale neprodukuje… Nemá v sebe fúziu. Má fúziu, ale slabučkú.",
+      "textCs": "trpaslík by byla malinká hvězda, která už doutná, hoří, ale neprodukuje… Nemá v sobě fúzi. Má fúzi, ale slaboučkou.",
+      "reason": "Overlapping correction of red-dwarf fusion; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        10
+      ],
+      "status": "needs-followup"
+    },
+    "71": {
+      "textSk": "Áno, bude to také jemné dožitie. No, pre nás nebude jemné.",
+      "textCs": "Ano, bude to takové jemné dožití. Pro nás ale jemné nebude.",
+      "reason": "Interrupted Sun/Earth future comparison; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        11
+      ],
+      "status": "resolved"
+    },
+    "72": {
+      "textSk": "My už nebudeme, ale máloktoré hviezdy končia supernovou. Na supernovu musíš mať vhodné podmienky. Je to veľmi drastické,",
+      "textCs": "My už tady nebudeme, ale málokteré hvězdy končí supernovou. Musíš pro ni mít vhodné podmínky. Je to velmi drastické,",
+      "reason": "Na Zemi vs zrejme; possible lost sentence; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        11
+      ],
+      "status": "resolved"
+    },
+    "76": {
+      "textSk": "Dobre, ďakujeme veľmi pekne za otázku. Timi, sedemročná, sa pýta: Koľko je hviezd vo vesmíre?",
+      "textCs": "Dobře, moc děkujeme za otázku. Sedmiletá Timi se ptá: Kolik je hvězd ve vesmíru?",
+      "reason": "Child questioner name Timi/Timea; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        12
+      ],
+      "status": "needs-followup"
+    },
+    "82": {
+      "textSk": "A ten odhad ti dá číslo. Ešte aj cez hmotu, nie? Keď sa spočíta hmota vo vesmíre… To už je potom, keď chceš dopočítať celkové",
+      "textCs": "A ten odhad ti dá číslo. I přes hmotnost, ne? Když se spočítá hmota ve vesmíru… To už je potom, když chceš dopočítat celkové",
+      "reason": "Overlapping question about matter mass; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        13
+      ],
+      "status": "resolved"
+    },
+    "95": {
+      "textSk": "nafúkne na melón, tak to ti naozaj dáva približne tú zemeguľu. Zemeguľa, všetko piesok, nedá toľko ako Zem. Takže hej, to dávalo zmysel.",
+      "textCs": "nafoukne na meloun, opravdu ti to dá přibližně zeměkouli. Zeměkoule, všechno písek, nedá tolik jako Země. Takže jo, to dávalo smysl.",
+      "reason": "Overlapping Earth/melon comparison; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        14
+      ],
+      "status": "needs-followup"
+    },
+    "104": {
+      "textSk": "Ja to mám podobne teraz, keď počúvam Červenákovho kapitána Báthoryho. Tiež tam občas niečo také zaznie, že sa zamyslíš nad tým, kedy vznikol tento",
+      "textCs": "Podobně to mám teď, když poslouchám Červenákova kapitána Báthoryho. Také tam občas něco takového zazní, že se zamyslíš, kdy vznikl tento",
+      "reason": "Červený kapitán/Báthory title or author; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        15
+      ],
+      "status": "needs-followup"
+    },
+    "110": {
+      "textSk": "A toto sa mení výrazne. Ale rozumieš pod ňou vodnú paru?",
+      "textCs": "A tohle se výrazně mění. Ale rozumíš tím vodní páru?",
+      "reason": "Overlapping phase-change and water-vapor question; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        16
+      ],
+      "status": "resolved"
+    },
+    "141": {
+      "textSk": "Tiež sme to riešili na našich nedávnych Fakt dobrých otázkach. Tým len teda navnadíme Alexa, že je pred ním veľa zaujímavého počúvania.",
+      "textCs": "Také jsme to řešili na našich nedávných Fakt dobrých otázkách. Tím jen navnadíme Alexe, že ho čeká spousta zajímavého poslechu.",
+      "reason": "Naberáme/nabádame wording about Alex; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        17
+      ],
+      "status": "needs-followup"
+    },
+    "147": {
+      "textSk": "v zime ochladí a cítiš tam, ako proste raz fúka jedným smerom a potom fúka opačným smerom. Takže vo všeobecnosti platí, že",
+      "textCs": "v zimě ochladí v zimě a cítíte tam, jak prostě jednou fou v jednom směru a pak fou v opačným směrem. Takže obecně platí, že",
+      "reason": "V zime vs v noci: preserve spoken contrast; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        18
+      ],
+      "status": "resolved"
+    },
+    "152": {
+      "textSk": "Aj v tropickejších častiach sveta sú častejšie hurikány, tak to asi… Kvôli tomu rozdielu v teplote, hej.",
+      "textCs": "I v tropičtějších částech světa jsou hurikány častější, takže to asi… Kvůli rozdílu v teplotě, jo.",
+      "reason": "Missing question about hurricane locations; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        19
+      ],
+      "status": "resolved"
+    },
+    "153": {
+      "textSk": "Inak taký hurikán na Antarktíde? Toto je dobrý námet do nejakého fantasy. Presne ako si spomenul Game of Thrones, tam vlastne boli také ľadové",
+      "textCs": "Jinak takový hurikán na Antarktidě? To je dobrý námět do nějaké fantasy. Jak jsi zmínil Game of Thrones, tam vlastně byla taková ledová",
+      "reason": "Interrupted fantasy analogy; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        19
+      ],
+      "status": "resolved"
+    },
+    "155": {
+      "textSk": "Ďakujeme za otázku, Alex. Vilma, päťročná, sa pýta: [nezrozumiteľné]",
+      "textCs": "Děkujeme za otázku, Alexi. Pětiletá Vilma se ptá: [nesrozumitelné]",
+      "reason": "Child Vilma question is garbled; must recover from original audio; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        20
+      ],
+      "status": "needs-followup"
+    },
+    "165": {
+      "textSk": "To neviem, či by aj ľudstvo stihlo. Čo to je, 160… Za sto rokov prejdeš osem minút a koľko je",
+      "textCs": "Nevím, jestli by to stihlo i lidstvo. Co to je, sto šedesát… Za sto let ujedeš osm minut a kolik je",
+      "reason": "Interrupted speed/time calculation; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        21
+      ],
+      "status": "needs-followup"
+    },
+    "169": {
+      "textSk": "250 000 generácií.",
+      "textCs": "250 000 generací.",
+      "reason": "Generácií vs storočí spoken unit; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        22
+      ],
+      "status": "resolved"
+    },
+    "175": {
+      "textSk": "Uhm. A ináč ešte ako si prešiel vlastne ten hurikán na tej Antarktíde.",
+      "textCs": "A jinak ještě jak si prošel vlastně ten hurikán na té Antarktidě.",
+      "reason": "Antarktída vs Atlantik in hurricane discussion; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        23
+      ],
+      "status": "resolved"
+    },
+    "179": {
+      "textSk": "zoberie troška energie. Všelijaké zložité deje… Ale keď to potom hitlo v decembri alebo januári Dublin,",
+      "textCs": "ubere trochu energie. Různé složité děje… Ale když to potom v prosinci nebo lednu zasáhlo Dublin,",
+      "reason": "Broken Gulf Stream explanation; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        24
+      ],
+      "status": "resolved"
+    },
+    "188": {
+      "textSk": "pardon, kozmonauti. Astronauti chodia normálne, lebo oni sú na zemi, ale kozmonauti v beztiažovom stave",
+      "textCs": "pardon, kosmonauti. Astronauti chodí normálně normálně, protože oni jsou na zemi, ale kosmonauti v beztížném stavu",
+      "reason": "Astronauti vs astronómovia joke; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        25
+      ],
+      "status": "needs-followup"
+    },
+    "190": {
+      "textSk": "majú tie záchody, čo vedia robiť podtlak, okrem iného. Inak odporúčam znova našu epizódu ISS.",
+      "textCs": "mají mimo jiné záchody, které umějí vytvářet podtlak. Jinak znovu doporučuji naši epizodu o ISS.",
+      "reason": "Broken pointer to ISS episode; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        25
+      ],
+      "status": "resolved"
+    },
+    "208": {
+      "textSk": "Tak, dobre, Teo sa pýta: Čo sa stalo, keď sa bábätko narodilo vo vesmíre?",
+      "textCs": "Dobře, Teo se ptá: Co se stalo, když se ve vesmíru narodilo miminko?",
+      "reason": "Mačiatko vs bábätko in child question; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        26
+      ],
+      "status": "needs-followup"
+    },
+    "210": {
+      "textSk": "Odpoveď je, že sa to v lietadle osvedčilo. Nie, nie, nikdy sa to nestalo.",
+      "textCs": "Odpověď je, že se to v letadle osvědčilo. Ne, ne, nikdy se to nestalo.",
+      "reason": "Garbled short answer and plane reference; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        26
+      ],
+      "status": "needs-followup"
+    },
+    "228": {
+      "textSk": "človek má nejakú jasnú os. Ale to sa nejde… Či náhodou bábätko by nebolo nejak pomýlené alebo ten reflex by",
+      "textCs": "člověk má nějakou jasnou osu. Ale to nejde… Jestli by miminko nebylo nějak zmatené nebo ten reflex by",
+      "reason": "Interrupted embryo-symmetry claim; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        27
+      ],
+      "status": "resolved"
+    },
+    "229": {
+      "textSk": "nemalo, že by sa neotočilo pri pôrode. No… A keď už by sa narodilo, tak by malo",
+      "textCs": "nemělo, že by se při porodu neotočilo. No… A když už by se narodilo, mělo by",
+      "reason": "Overlapping birth orientation question; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        27
+      ],
+      "status": "resolved"
+    },
+    "233": {
+      "textSk": "Tak mu sa takto narodiť, takže… Áno, bude to potrebovať. Leo sa pýta:",
+      "textCs": "Takhle se narodit, takže… Ano, bude to potřebovat. Leo se ptá:",
+      "reason": "Interrupted farewell to hypothetical baby; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        28
+      ],
+      "status": "needs-followup"
+    },
+    "241": {
+      "textSk": "zvuku, ktorý potom počuješ ako sa šíri ďalej. Ale vždy je to naozaj o tom, že buď máš médium, ktoré rozvibruješ alebo rozvibruješ priamo vzduch, ako",
+      "textCs": "zvuku, který potom slyšíš, jak se šíří dál. Ale vždy jde o to, že buď máš prostředí, které rozvibruješ, nebo rozvibruješ přímo vzduch, jako",
+      "reason": "Zvuku vs vzduchu acoustic claim; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        29
+      ],
+      "status": "resolved"
+    },
+    "255": {
+      "textSk": "to blenklo. Počkaj, pozriem sa, alebo to napodobním znova.",
+      "textCs": "to vypadlo. Počkej, podívám se, nebo to napodobím znovu.",
+      "reason": "Blenklo vs blinklo; forgotten bird name; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        30
+      ],
+      "status": "resolved"
+    },
+    "258": {
+      "textSk": "veľmi pekne... Tak, takže dobre, super, ďakujeme, Leo, za otázku.",
+      "textCs": "velmi pěkně… Takže dobře, super, děkujeme, Leo, za otázku.",
+      "reason": "Missing verb at audio-analysis advice end; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        31
+      ],
+      "status": "resolved"
+    },
+    "263": {
+      "textSk": "Pluto nerátame medzi planéty, pretože nie je vlastne planétou podľa nejakých definícií, ktoré máme. Planéta má...",
+      "textCs": "Pluto nepočítáme mezi planety, protože vlastně není planetou podle definic, které máme. Planeta má…",
+      "reason": "Planéta vs Pluto at next sentence start; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        32
+      ],
+      "status": "resolved"
+    },
+    "272": {
+      "textSk": "A úplne náhodou to vyzeralo, že našťastie, akurát tam, kam pozreli, našli Pluto. A čakali, že to bude veľká vec, a keď sa zlepšovali",
+      "textCs": "A úplně náhodou to vypadalo, že naštěstí tam, kam se dívali, našli Pluto a čekali, že to bude velká věc, a když se zlepšovali",
+      "reason": "Náhodou phrase fragmented; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        33
+      ],
+      "status": "resolved"
+    },
+    "274": {
+      "textSk": "A naozaj sú to nádherné fotky. No ale sme potom presne…",
+      "textCs": "A opravdu jsou to nádherné fotky. Ale potom jsme přesně…",
+      "reason": "Odd phrase about Pluto images dali si ho na seba; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        34
+      ],
+      "status": "needs-followup"
+    },
+    "285": {
+      "textSk": "Aha, ja ti poviem, akú gumičku. Zoberieš kancelársku gumičku a natiahneš ju okolo Zeme. A táto otázka mi robila najväčšiu bolesť hlavy.",
+      "textCs": "Aha, řeknu ti, jakou gumičku. Vezmeš kancelářskou gumičku a natáhneš ji kolem Země. Z téhle otázky mě nejvíc bolela hlava.",
+      "reason": "Mám tri roky vs mám tri odpovede; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        35
+      ],
+      "status": "needs-followup"
+    },
+    "296": {
+      "textSk": "sa zmení na energiu tej gumičky, ktorá by bola zároveň veľmi, veľmi ľahká,",
+      "textCs": "se změní na energii té gumičky, která by byla zároveň velmi, velmi lehká,",
+      "reason": "Energy conversion sentence missing kinetic energy; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        36
+      ],
+      "status": "resolved"
+    },
+    "304": {
+      "textSk": "svetla a podobne, tak odhad je taký, že by to mohlo trvať až niekoľko dní. A dosahovala by rýchlosti niekoľko stoviek metrov a",
+      "textCs": "světla a podobně, takže odhad je takový, že by to mohlo trvat až několik dní. A dosahovala by rychlosti několik set metrů a",
+      "reason": "Speed unit incomplete; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        37
+      ],
+      "status": "needs-followup"
+    },
+    "308": {
+      "textSk": "To je škoda, že nie. Dobre, tak Leovi ďakujeme. Oskar sa pýta.",
+      "textCs": "To je škoda, že ne. Dobře, Leovi děkujeme. Oskar se ptá:",
+      "reason": "To je škoda vs škoda že nie / jokes; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        38
+      ],
+      "status": "needs-followup"
+    },
+    "319": {
+      "textSk": "No, máš? Čo si!",
+      "textCs": "No, je tam? Ale prosím tě!",
+      "reason": "Brown-on-rainbow negation; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        39
+      ],
+      "status": "needs-followup"
+    },
+    "325": {
+      "textSk": "A absencia farby je čierna, takže preto je vesmír čierny. A máme viac absencie svetla, ako hviezdičiek vidíme.",
+      "textCs": "A nepřítomnost barvy je černá, proto je vesmír černý. Máme víc nepřítomnosti světla, než kolik vidíme hvězdiček.",
+      "reason": "Overlapping absence-of-light phrase; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        40
+      ],
+      "status": "resolved"
+    },
+    "338": {
+      "textSk": "Aj nenápadne, dokonca je tam vo viacerých kapitolách, ale jedna kapitola je vlastne venovaná tomu, ako funguje Slnko.",
+      "textCs": "I nenápadně, dokonce je tam ve více kapitolách, ale jedna kapitola je vlastně věnovaná tomu, jak funguje Slunce.",
+      "reason": "Book title overlap; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        43
+      ],
+      "status": "needs-followup"
+    },
+    "342": {
+      "textSk": "trošku iné parametre sa môžu pomeniť, ale fyzika za tým je tá istá.",
+      "textCs": "mohou se trochu změnit parametry, ale fyzika za tím je stejná.",
+      "reason": "Pomýliť vs pomeniť parameters; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        44
+      ],
+      "status": "resolved"
+    },
+    "361": {
+      "textSk": "v ruke. No a televízor. Veď aj ľudia, keď si nejako vzdialený, tak vidíš len bodky, že sú ľudia. Proste sa ti to tak začne… Vzdialené zdroje vyzerajú, hovorí sa",
+      "textCs": "v ruce. A televize. I lidi, když jsi daleko, vidíš jen jako tečky, že to jsou lidé. Prostě se ti to tak začne… Vzdálené zdroje vypadají, říká se",
+      "reason": "Garbled example about distant people and TV; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        45
+      ],
+      "status": "needs-followup"
+    },
+    "366": {
+      "textSk": "je jednoznačne Jupiter, Saturn, Mars, Venuša, aj keď tá tu nie je až tak dobre…",
+      "textCs": "je jednoznačně Jupiter, Saturn, Mars, Venuše, i když ta tady není tak dobře…",
+      "reason": "Interrupted Venus description; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        46
+      ],
+      "status": "needs-followup"
+    },
+    "367": {
+      "textSk": "Ale choďte do planetária. Naozaj tam mávajú aj nejaké zábery, môžete si pozrieť. Takže je vlastne cool, že keď Galileo a podobne prvýkrát chytili do",
+      "textCs": "Ale zajděte do planetária. Opravdu tam mívají i nějaké záběry, můžete se podívat. Je vlastně úžasné, že když Galileo a další poprvé vzali do",
+      "reason": "Planetarium suggestion overlaps Galileo explanation; compared archived Slovak wording and independent large-v3 evidence.",
+      "evidencePassages": [
+        46
+      ],
+      "status": "resolved"
+    }
+  },
+  "gaps": {
+    "41": {
+      "decision": "recover-English-child-question",
+      "reason": "Five complete English clauses independently recognized in both overlapping windows; translate them, retaining original speech as alignment input."
+    },
+    "42": {
+      "decision": "recover-English-child-question",
+      "reason": "Five complete English clauses independently recognized in both overlapping windows; translate them, retaining original speech as alignment input."
+    },
+    "47": {
+      "decision": "non-speech",
+      "reason": "Pause/music transition before Labák preview; no intelligible omitted words."
+    }
+  },
+  "recovered": [
+    {
+      "start": 2374.0,
+      "end": 2376.92,
+      "sourceLanguage": "en",
+      "originalSpeech": "How are stars born in the clouds?",
+      "text": {
+        "sk": "Ako sa rodia hviezdy v oblakoch?",
+        "cs": "Jak se rodí hvězdy v oblacích?"
+      },
+      "evidencePassages": [
+        41,
+        42
+      ]
+    },
+    {
+      "start": 2380.43,
+      "end": 2382.85,
+      "sourceLanguage": "en",
+      "originalSpeech": "What happens to them after?",
+      "text": {
+        "sk": "Čo sa s nimi deje potom?",
+        "cs": "Co se s nimi děje potom?"
+      },
+      "evidencePassages": [
+        41,
+        42
+      ]
+    },
+    {
+      "start": 2386.12,
+      "end": 2388.48,
+      "sourceLanguage": "en",
+      "originalSpeech": "Why do they look the same as planets?",
+      "text": {
+        "sk": "Prečo vyzerajú rovnako ako planéty?",
+        "cs": "Proč vypadají stejně jako planety?"
+      },
+      "evidencePassages": [
+        41,
+        42
+      ]
+    },
+    {
+      "start": 2389.92,
+      "end": 2391.46,
+      "sourceLanguage": "en",
+      "originalSpeech": "In the night sky.",
+      "text": {
+        "sk": "Na nočnej oblohe.",
+        "cs": "Na noční obloze."
+      },
+      "evidencePassages": [
+        41,
+        42
+      ]
+    },
+    {
+      "start": 2394.87,
+      "end": 2395.89,
+      "sourceLanguage": "en",
+      "originalSpeech": "Thank you.",
+      "text": {
+        "sk": "Ďakujem.",
+        "cs": "Děkuji."
+      },
+      "evidencePassages": [
+        41,
+        42
+      ]
+    }
+  ]
+}
