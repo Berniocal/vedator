@@ -2289,7 +2289,7 @@
     questionUi.deepProcessing=true;try{
       const [kind,value]=entry;
       if(kind==='episode'){
-        const episode=findEpisodeFromDeep(value);if(!episode)return;setView('episodes');state.query='';$('#search-v2').value='';filterActive();markDeepTarget($('#episodes-v2 article[data-episode="'+episode.number+'"]'));return;
+        const episode=findEpisodeFromDeep(value);if(!episode)return;setView('episodes');state.query='';$('#search-v2').value='';readyTabLists.delete('episodes');filterActive();markDeepTarget($('#episodes-v2 article[data-episode="'+episode.number+'"]'));return;
       }
       if(kind==='question'||kind==='nonquestion'){
         const view=kind==='question'?'questions':'nonquestions';let episode=0,order=-1,secondsValue=-1;const direct=String(value).match(/^(\d+):(\d+)$/),legacy=String(value).match(/^(.+)@(\d+)$/);
@@ -2299,7 +2299,7 @@
         if(item)markDeepTarget($("[data-item='"+itemId(item,view==='questions'?'q':'n')+"']"));return;
       }
       if(kind==='series'){
-        const target=decodeURIComponent(value),index=state.data.series.findIndex(series=>slug(series.name)===target||(series.legacyNames||[]).some(name=>slug(name)===target)||oldSeriesKey(series)===target||oldSeriesKey(series).split('.')[0]===target.split('.')[0]);if(index<0)return;setView('series');state.query='';$('#search-v2').value='';filterActive();markDeepTarget($('#series-v2 .series[data-series-index="'+index+'"]'));
+        const target=decodeURIComponent(value),index=state.data.series.findIndex(series=>slug(series.name)===target||(series.legacyNames||[]).some(name=>slug(name)===target)||oldSeriesKey(series)===target||oldSeriesKey(series).split('.')[0]===target.split('.')[0]);if(index<0)return;setView('series');state.query='';$('#search-v2').value='';readyTabLists.delete('series');filterActive();markDeepTarget($('#series-v2 .series[data-series-index="'+index+'"]'));
       }
     }finally{questionUi.deepProcessing=false}
   }
