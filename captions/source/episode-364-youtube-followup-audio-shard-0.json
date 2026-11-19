@@ -1,0 +1,2455 @@
+{
+  "episode": 364,
+  "audioSha256": "0f1b946a2dd5c73fcc2a92652d634a5a0b2fcf0d261966b509b660b4fe0e6b72",
+  "status": "independent-ASR-evidence-requires-editorial-decision",
+  "passages": [
+    {
+      "start": 12.0,
+      "end": 21.5,
+      "language": "sk",
+      "groups": [
+        2
+      ],
+      "model": "large-v3-turbo",
+      "segments": [
+        {
+          "start": 12.0,
+          "end": 16.36,
+          "text": "Od úzlov cez rovnice až po útvary, ktorá nás obkopuje na každom kroku.",
+          "avgLogprob": -0.18614814351586734,
+          "words": [
+            {
+              "start": 12.0,
+              "end": 12.88,
+              "text": " Od",
+              "probability": 0.5499809384346008
+            },
+            {
+              "start": 12.88,
+              "end": 13.22,
+              "text": " úzlov",
+              "probability": 0.9075766603151957
+            },
+            {
+              "start": 13.22,
+              "end": 13.48,
+              "text": " cez",
+              "probability": 0.8859084844589233
+            },
+            {
+              "start": 13.48,
+              "end": 13.9,
+              "text": " rovnice",
+              "probability": 0.9959662854671478
+            },
+            {
+              "start": 13.9,
+              "end": 14.16,
+              "text": " až",
+              "probability": 0.9903486967086792
+            },
+            {
+              "start": 14.16,
+              "end": 14.28,
+              "text": " po",
+              "probability": 0.9859091639518738
+            },
+            {
+              "start": 14.28,
+              "end": 14.62,
+              "text": " útvary,",
+              "probability": 0.798662543296814
+            },
+            {
+              "start": 14.8,
+              "end": 14.96,
+              "text": " ktorá",
+              "probability": 0.6400560637315115
+            },
+            {
+              "start": 14.96,
+              "end": 15.12,
+              "text": " nás",
+              "probability": 0.9778617322444916
+            },
+            {
+              "start": 15.12,
+              "end": 15.62,
+              "text": " obkopuje",
+              "probability": 0.8817540605862936
+            },
+            {
+              "start": 15.62,
+              "end": 15.76,
+              "text": " na",
+              "probability": 0.9990569949150085
+            },
+            {
+              "start": 15.76,
+              "end": 16.06,
+              "text": " každom",
+              "probability": 0.9726215600967407
+            },
+            {
+              "start": 16.06,
+              "end": 16.36,
+              "text": " kroku.",
+              "probability": 0.8617404997348785
+            }
+          ]
+        },
+        {
+          "start": 16.46,
+          "end": 20.66,
+          "text": "Vítajte pri vedátorskom podcaste, v ktorom sa budeme rozprávať o vede a prírode okolo nás.",
+          "avgLogprob": -0.18614814351586734,
+          "words": [
+            {
+              "start": 16.46,
+              "end": 16.76,
+              "text": " Vítajte",
+              "probability": 0.8721499562263488
+            },
+            {
+              "start": 16.76,
+              "end": 16.92,
+              "text": " pri",
+              "probability": 0.9862444996833801
+            },
+            {
+              "start": 16.92,
+              "end": 17.46,
+              "text": " vedátorskom",
+              "probability": 0.7061365246772766
+            },
+            {
+              "start": 17.46,
+              "end": 18.0,
+              "text": " podcaste,",
+              "probability": 0.9620040357112885
+            },
+            {
+              "start": 18.22,
+              "end": 18.36,
+              "text": " v",
+              "probability": 0.9923464059829712
+            },
+            {
+              "start": 18.36,
+              "end": 18.52,
+              "text": " ktorom",
+              "probability": 0.9930252631505331
+            },
+            {
+              "start": 18.52,
+              "end": 18.62,
+              "text": " sa",
+              "probability": 0.9998964071273804
+            },
+            {
+              "start": 18.62,
+              "end": 18.88,
+              "text": " budeme",
+              "probability": 0.9983244836330414
+            },
+            {
+              "start": 18.88,
+              "end": 19.32,
+              "text": " rozprávať",
+              "probability": 0.9209688067436218
+            },
+            {
+              "start": 19.32,
+              "end": 19.4,
+              "text": " o",
+              "probability": 0.991407573223114
+            },
+            {
+              "start": 19.4,
+              "end": 19.54,
+              "text": " vede",
+              "probability": 0.9123369455337524
+            },
+            {
+              "start": 19.54,
+              "end": 19.76,
+              "text": " a",
+              "probability": 0.9983733892440796
+            },
+            {
+              "start": 19.76,
+              "end": 20.1,
+              "text": " prírode",
+              "probability": 0.9632704555988312
+            },
+            {
+              "start": 20.1,
+              "end": 20.44,
+              "text": " okolo",
+              "probability": 0.9293606877326965
+            },
+            {
+              "start": 20.44,
+              "end": 20.66,
+              "text": " nás.",
+              "probability": 0.8959618508815765
+            }
+          ]
+        },
+        {
+          "start": 20.78,
+          "end": 21.48,
+          "text": "Moje meno je Jozef.",
+          "avgLogprob": -0.18614814351586734,
+          "words": [
+            {
+              "start": 20.78,
+              "end": 20.94,
+              "text": " Moje",
+              "probability": 0.9900383651256561
+            },
+            {
+              "start": 20.94,
+              "end": 21.08,
+              "text": " meno",
+              "probability": 0.8453536033630371
+            },
+            {
+              "start": 21.08,
+              "end": 21.2,
+              "text": " je",
+              "probability": 0.9512470364570618
+            },
+            {
+              "start": 21.2,
+              "end": 21.48,
+              "text": " Jozef.",
+              "probability": 0.9242750406265259
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 778.999,
+      "end": 789.299,
+      "language": "sk",
+      "groups": [
+        112
+      ],
+      "model": "large-v3-turbo",
+      "segments": [
+        {
+          "start": 778.999,
+          "end": 780.679,
+          "text": "že máš nejaké základné pravidla.",
+          "avgLogprob": -0.1898489588615941,
+          "words": [
+            {
+              "start": 778.999,
+              "end": 779.219,
+              "text": " že",
+              "probability": 0.9293989539146423
+            },
+            {
+              "start": 779.219,
+              "end": 779.839,
+              "text": " máš",
+              "probability": 0.9984613656997681
+            },
+            {
+              "start": 779.839,
+              "end": 780.079,
+              "text": " nejaké",
+              "probability": 0.9988514184951782
+            },
+            {
+              "start": 780.079,
+              "end": 780.519,
+              "text": " základné",
+              "probability": 0.9721533536911011
+            },
+            {
+              "start": 780.519,
+              "end": 780.679,
+              "text": " pravidla.",
+              "probability": 0.9143394430478414
+            }
+          ]
+        },
+        {
+          "start": 780.679,
+          "end": 782.519,
+          "text": "Keď sedíš na fakulte matematiky a nie.",
+          "avgLogprob": -0.1898489588615941,
+          "words": [
+            {
+              "start": 780.679,
+              "end": 780.699,
+              "text": " Keď",
+              "probability": 0.8586954176425934
+            },
+            {
+              "start": 780.699,
+              "end": 780.999,
+              "text": " sedíš",
+              "probability": 0.9648683468500773
+            },
+            {
+              "start": 780.999,
+              "end": 781.119,
+              "text": " na",
+              "probability": 0.9988263249397278
+            },
+            {
+              "start": 781.119,
+              "end": 781.559,
+              "text": " fakulte",
+              "probability": 0.9893119136492411
+            },
+            {
+              "start": 781.559,
+              "end": 782.259,
+              "text": " matematiky",
+              "probability": 0.9985496699810028
+            },
+            {
+              "start": 782.259,
+              "end": 782.419,
+              "text": " a",
+              "probability": 0.6883850693702698
+            },
+            {
+              "start": 782.419,
+              "end": 782.519,
+              "text": " nie.",
+              "probability": 0.9105631113052368
+            }
+          ]
+        },
+        {
+          "start": 782.699,
+          "end": 785.159,
+          "text": "Ale môžeš mať, vieš, tam môžeš mať tenké steny",
+          "avgLogprob": -0.1898489588615941,
+          "words": [
+            {
+              "start": 782.699,
+              "end": 782.919,
+              "text": " Ale",
+              "probability": 0.9674429893493652
+            },
+            {
+              "start": 782.919,
+              "end": 783.399,
+              "text": " môžeš",
+              "probability": 0.9850820600986481
+            },
+            {
+              "start": 783.399,
+              "end": 783.539,
+              "text": " mať,",
+              "probability": 0.9903203547000885
+            },
+            {
+              "start": 783.559,
+              "end": 783.739,
+              "text": " vieš,",
+              "probability": 0.8345395028591156
+            },
+            {
+              "start": 783.779,
+              "end": 783.859,
+              "text": " tam",
+              "probability": 0.9898049831390381
+            },
+            {
+              "start": 783.859,
+              "end": 784.239,
+              "text": " môžeš",
+              "probability": 0.9976069182157516
+            },
+            {
+              "start": 784.239,
+              "end": 784.419,
+              "text": " mať",
+              "probability": 0.9993221163749695
+            },
+            {
+              "start": 784.419,
+              "end": 784.839,
+              "text": " tenké",
+              "probability": 0.993381937344869
+            },
+            {
+              "start": 784.839,
+              "end": 785.159,
+              "text": " steny",
+              "probability": 0.987101823091507
+            }
+          ]
+        },
+        {
+          "start": 785.159,
+          "end": 787.399,
+          "text": "a obrokov za vás občas dajú viacerých do jednokanclu.",
+          "avgLogprob": -0.1898489588615941,
+          "words": [
+            {
+              "start": 785.159,
+              "end": 785.319,
+              "text": " a",
+              "probability": 0.9253004193305969
+            },
+            {
+              "start": 785.319,
+              "end": 785.599,
+              "text": " obrokov",
+              "probability": 0.4529128794868787
+            },
+            {
+              "start": 785.599,
+              "end": 785.779,
+              "text": " za",
+              "probability": 0.3314567506313324
+            },
+            {
+              "start": 785.779,
+              "end": 785.939,
+              "text": " vás",
+              "probability": 0.9852333962917328
+            },
+            {
+              "start": 785.939,
+              "end": 786.159,
+              "text": " občas",
+              "probability": 0.9973698059717814
+            },
+            {
+              "start": 786.159,
+              "end": 786.339,
+              "text": " dajú",
+              "probability": 0.9671109716097513
+            },
+            {
+              "start": 786.339,
+              "end": 786.719,
+              "text": " viacerých",
+              "probability": 0.9884545207023621
+            },
+            {
+              "start": 786.719,
+              "end": 786.819,
+              "text": " do",
+              "probability": 0.9986733198165894
+            },
+            {
+              "start": 786.819,
+              "end": 787.399,
+              "text": " jednokanclu.",
+              "probability": 0.8855722069740295
+            }
+          ]
+        },
+        {
+          "start": 787.559,
+          "end": 789.219,
+          "text": "A nám sa toto deje často, lebo...",
+          "avgLogprob": -0.1898489588615941,
+          "words": [
+            {
+              "start": 787.559,
+              "end": 787.859,
+              "text": " A",
+              "probability": 0.9996727705001831
+            },
+            {
+              "start": 787.859,
+              "end": 788.019,
+              "text": " nám",
+              "probability": 0.9999223947525024
+            },
+            {
+              "start": 788.019,
+              "end": 788.139,
+              "text": " sa",
+              "probability": 0.993096649646759
+            },
+            {
+              "start": 788.139,
+              "end": 788.379,
+              "text": " toto",
+              "probability": 0.9980980455875397
+            },
+            {
+              "start": 788.379,
+              "end": 788.539,
+              "text": " deje",
+              "probability": 0.9623272716999054
+            },
+            {
+              "start": 788.539,
+              "end": 788.819,
+              "text": " často,",
+              "probability": 0.9992915391921997
+            },
+            {
+              "start": 788.879,
+              "end": 789.219,
+              "text": " lebo...",
+              "probability": 0.9683653910954794
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 2306.316,
+      "end": 2314.116,
+      "language": "sk",
+      "groups": [
+        326
+      ],
+      "model": "large-v3-turbo",
+      "segments": [
+        {
+          "start": 2306.316,
+          "end": 2308.076,
+          "text": "ducha tej hypotézy.",
+          "avgLogprob": -0.19810299484097227,
+          "words": [
+            {
+              "start": 2306.316,
+              "end": 2307.236,
+              "text": " ducha",
+              "probability": 0.8096760809421539
+            },
+            {
+              "start": 2307.236,
+              "end": 2307.636,
+              "text": " tej",
+              "probability": 0.8145866990089417
+            },
+            {
+              "start": 2307.636,
+              "end": 2308.076,
+              "text": " hypotézy.",
+              "probability": 0.8695254474878311
+            }
+          ]
+        },
+        {
+          "start": 2308.276,
+          "end": 2310.436,
+          "text": "Pre mňa je to úplne",
+          "avgLogprob": -0.19810299484097227,
+          "words": [
+            {
+              "start": 2308.276,
+              "end": 2308.796,
+              "text": " Pre",
+              "probability": 0.8844924569129944
+            },
+            {
+              "start": 2308.796,
+              "end": 2309.996,
+              "text": " mňa",
+              "probability": 0.9404465556144714
+            },
+            {
+              "start": 2309.996,
+              "end": 2310.076,
+              "text": " je",
+              "probability": 0.9935356378555298
+            },
+            {
+              "start": 2310.076,
+              "end": 2310.136,
+              "text": " to",
+              "probability": 0.9956541061401367
+            },
+            {
+              "start": 2310.136,
+              "end": 2310.436,
+              "text": " úplne",
+              "probability": 0.9981849590937296
+            }
+          ]
+        },
+        {
+          "start": 2310.436,
+          "end": 2312.156,
+          "text": "to isté, že toto je naozaj veľmi abstraktná",
+          "avgLogprob": -0.19810299484097227,
+          "words": [
+            {
+              "start": 2310.436,
+              "end": 2310.536,
+              "text": " to",
+              "probability": 0.9886272549629211
+            },
+            {
+              "start": 2310.536,
+              "end": 2310.796,
+              "text": " isté,",
+              "probability": 0.9565427899360657
+            },
+            {
+              "start": 2310.876,
+              "end": 2310.896,
+              "text": " že",
+              "probability": 0.9426454901695251
+            },
+            {
+              "start": 2310.896,
+              "end": 2311.056,
+              "text": " toto",
+              "probability": 0.7786611914634705
+            },
+            {
+              "start": 2311.056,
+              "end": 2311.156,
+              "text": " je",
+              "probability": 0.7897905111312866
+            },
+            {
+              "start": 2311.156,
+              "end": 2311.456,
+              "text": " naozaj",
+              "probability": 0.9847286144892374
+            },
+            {
+              "start": 2311.456,
+              "end": 2311.696,
+              "text": " veľmi",
+              "probability": 0.9991511305173238
+            },
+            {
+              "start": 2311.696,
+              "end": 2312.156,
+              "text": " abstraktná",
+              "probability": 0.9588401764631271
+            }
+          ]
+        },
+        {
+          "start": 2312.156,
+          "end": 2312.716,
+          "text": "matematika.",
+          "avgLogprob": -0.19810299484097227,
+          "words": [
+            {
+              "start": 2312.156,
+              "end": 2312.716,
+              "text": " matematika.",
+              "probability": 0.9985343416531881
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 2868.423,
+      "end": 2879.8230000000003,
+      "language": "sk",
+      "groups": [
+        402
+      ],
+      "model": "large-v3-turbo",
+      "segments": [
+        {
+          "start": 2868.943,
+          "end": 2870.983,
+          "text": "ja sa snažím vo výskume používať",
+          "avgLogprob": -0.19041078027925992,
+          "words": [
+            {
+              "start": 2868.943,
+              "end": 2869.383,
+              "text": " ja",
+              "probability": 0.31785765290260315
+            },
+            {
+              "start": 2869.383,
+              "end": 2869.523,
+              "text": " sa",
+              "probability": 0.9991798996925354
+            },
+            {
+              "start": 2869.523,
+              "end": 2869.923,
+              "text": " snažím",
+              "probability": 0.9981938997904459
+            },
+            {
+              "start": 2869.923,
+              "end": 2870.023,
+              "text": " vo",
+              "probability": 0.9912829399108887
+            },
+            {
+              "start": 2870.023,
+              "end": 2870.383,
+              "text": " výskume",
+              "probability": 0.919914498925209
+            },
+            {
+              "start": 2870.383,
+              "end": 2870.983,
+              "text": " používať",
+              "probability": 0.9995139718055726
+            }
+          ]
+        },
+        {
+          "start": 2870.983,
+          "end": 2872.403,
+          "text": "aj jajko, ale",
+          "avgLogprob": -0.19041078027925992,
+          "words": [
+            {
+              "start": 2870.983,
+              "end": 2871.163,
+              "text": " aj",
+              "probability": 0.34074896574020386
+            },
+            {
+              "start": 2871.163,
+              "end": 2871.563,
+              "text": " jajko,",
+              "probability": 0.9112167755762736
+            },
+            {
+              "start": 2871.863,
+              "end": 2872.403,
+              "text": " ale",
+              "probability": 0.9987320303916931
+            }
+          ]
+        },
+        {
+          "start": 2873.783,
+          "end": 2874.943,
+          "text": "nie tým štýlom, že",
+          "avgLogprob": -0.19041078027925992,
+          "words": [
+            {
+              "start": 2873.783,
+              "end": 2874.223,
+              "text": " nie",
+              "probability": 0.9631564021110535
+            },
+            {
+              "start": 2874.223,
+              "end": 2874.443,
+              "text": " tým",
+              "probability": 0.999419629573822
+            },
+            {
+              "start": 2874.443,
+              "end": 2874.783,
+              "text": " štýlom,",
+              "probability": 0.990265691280365
+            },
+            {
+              "start": 2874.843,
+              "end": 2874.943,
+              "text": " že",
+              "probability": 0.9996535778045654
+            }
+          ]
+        },
+        {
+          "start": 2874.943,
+          "end": 2876.883,
+          "text": "napíšeš zadania a skopíruješ výsledok,",
+          "avgLogprob": -0.19041078027925992,
+          "words": [
+            {
+              "start": 2874.943,
+              "end": 2875.463,
+              "text": " napíšeš",
+              "probability": 0.924449622631073
+            },
+            {
+              "start": 2875.463,
+              "end": 2875.823,
+              "text": " zadania",
+              "probability": 0.8467140793800354
+            },
+            {
+              "start": 2875.823,
+              "end": 2875.943,
+              "text": " a",
+              "probability": 0.692733883857727
+            },
+            {
+              "start": 2875.943,
+              "end": 2876.323,
+              "text": " skopíruješ",
+              "probability": 0.7847365935643514
+            },
+            {
+              "start": 2876.323,
+              "end": 2876.883,
+              "text": " výsledok,",
+              "probability": 0.9977396845817565
+            }
+          ]
+        },
+        {
+          "start": 2876.983,
+          "end": 2878.563,
+          "text": "ale povieš, že budem s toto úlohou,",
+          "avgLogprob": -0.19041078027925992,
+          "words": [
+            {
+              "start": 2876.983,
+              "end": 2877.063,
+              "text": " ale",
+              "probability": 0.9996228218078613
+            },
+            {
+              "start": 2877.063,
+              "end": 2877.383,
+              "text": " povieš,",
+              "probability": 0.9618686238924662
+            },
+            {
+              "start": 2877.543,
+              "end": 2877.583,
+              "text": " že",
+              "probability": 0.998211145401001
+            },
+            {
+              "start": 2877.583,
+              "end": 2877.883,
+              "text": " budem",
+              "probability": 0.9695097804069519
+            },
+            {
+              "start": 2877.883,
+              "end": 2878.043,
+              "text": " s",
+              "probability": 0.9593620300292969
+            },
+            {
+              "start": 2878.043,
+              "end": 2878.203,
+              "text": " toto",
+              "probability": 0.5386574864387512
+            },
+            {
+              "start": 2878.203,
+              "end": 2878.563,
+              "text": " úlohou,",
+              "probability": 0.9190578063329061
+            }
+          ]
+        },
+        {
+          "start": 2878.643,
+          "end": 2879.803,
+          "text": "mám pocit, že treba ísť takýmto...",
+          "avgLogprob": -0.19041078027925992,
+          "words": [
+            {
+              "start": 2878.643,
+              "end": 2878.803,
+              "text": " mám",
+              "probability": 0.9944261312484741
+            },
+            {
+              "start": 2878.803,
+              "end": 2878.943,
+              "text": " pocit,",
+              "probability": 0.9860113561153412
+            },
+            {
+              "start": 2879.023,
+              "end": 2879.063,
+              "text": " že",
+              "probability": 0.9997507929801941
+            },
+            {
+              "start": 2879.063,
+              "end": 2879.303,
+              "text": " treba",
+              "probability": 0.9921813905239105
+            },
+            {
+              "start": 2879.303,
+              "end": 2879.443,
+              "text": " ísť",
+              "probability": 0.9794466892878214
+            },
+            {
+              "start": 2879.443,
+              "end": 2879.803,
+              "text": " takýmto...",
+              "probability": 0.8464266657829285
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 3024.924,
+      "end": 3031.824,
+      "language": "sk",
+      "groups": [
+        422
+      ],
+      "model": "large-v3-turbo",
+      "segments": [
+        {
+          "start": 3025.724,
+          "end": 3027.824,
+          "text": "Tak už on keby o tom niečo porozprával.",
+          "avgLogprob": -0.2598011619166324,
+          "words": [
+            {
+              "start": 3025.724,
+              "end": 3026.124,
+              "text": " Tak",
+              "probability": 0.8000906705856323
+            },
+            {
+              "start": 3026.124,
+              "end": 3026.524,
+              "text": " už",
+              "probability": 0.9898059964179993
+            },
+            {
+              "start": 3026.524,
+              "end": 3026.624,
+              "text": " on",
+              "probability": 0.7365001440048218
+            },
+            {
+              "start": 3026.624,
+              "end": 3026.824,
+              "text": " keby",
+              "probability": 0.9799629747867584
+            },
+            {
+              "start": 3026.824,
+              "end": 3026.964,
+              "text": " o",
+              "probability": 0.9740321040153503
+            },
+            {
+              "start": 3026.964,
+              "end": 3027.024,
+              "text": " tom",
+              "probability": 0.9960979223251343
+            },
+            {
+              "start": 3027.024,
+              "end": 3027.304,
+              "text": " niečo",
+              "probability": 0.9979488054911295
+            },
+            {
+              "start": 3027.304,
+              "end": 3027.824,
+              "text": " porozprával.",
+              "probability": 0.986059844493866
+            }
+          ]
+        },
+        {
+          "start": 3027.844,
+          "end": 3029.304,
+          "text": "O jedno lepšie ako gravitáciu.",
+          "avgLogprob": -0.2598011619166324,
+          "words": [
+            {
+              "start": 3027.844,
+              "end": 3027.944,
+              "text": " O",
+              "probability": 0.4795108139514923
+            },
+            {
+              "start": 3027.944,
+              "end": 3028.384,
+              "text": " jedno",
+              "probability": 0.8538181781768799
+            },
+            {
+              "start": 3028.384,
+              "end": 3028.584,
+              "text": " lepšie",
+              "probability": 0.8819006979465485
+            },
+            {
+              "start": 3028.584,
+              "end": 3028.684,
+              "text": " ako",
+              "probability": 0.9960355162620544
+            },
+            {
+              "start": 3028.684,
+              "end": 3029.304,
+              "text": " gravitáciu.",
+              "probability": 0.9398095607757568
+            }
+          ]
+        },
+        {
+          "start": 3031.304,
+          "end": 3031.704,
+          "text": "Dobre.",
+          "avgLogprob": -0.2598011619166324,
+          "words": [
+            {
+              "start": 3031.304,
+              "end": 3031.704,
+              "text": " Dobre.",
+              "probability": 0.9936097860336304
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 3123.9249999999997,
+      "end": 3135.7250000000004,
+      "language": "sk",
+      "groups": [
+        434
+      ],
+      "model": "large-v3-turbo",
+      "segments": [
+        {
+          "start": 3123.925,
+          "end": 3125.905,
+          "text": "máme zadarmo hyrov",
+          "avgLogprob": -0.23464320618429302,
+          "words": [
+            {
+              "start": 3123.925,
+              "end": 3125.185,
+              "text": " máme",
+              "probability": 0.6668282151222229
+            },
+            {
+              "start": 3125.185,
+              "end": 3125.645,
+              "text": " zadarmo",
+              "probability": 0.9959919055302938
+            },
+            {
+              "start": 3125.645,
+              "end": 3125.905,
+              "text": " hyrov",
+              "probability": 0.6836750507354736
+            }
+          ]
+        },
+        {
+          "start": 3125.905,
+          "end": 3128.185,
+          "text": "hyrov, prvé dva, jeden týždeň",
+          "avgLogprob": -0.23464320618429302,
+          "words": [
+            {
+              "start": 3125.905,
+              "end": 3126.225,
+              "text": " hyrov,",
+              "probability": 0.546147994697094
+            },
+            {
+              "start": 3126.405,
+              "end": 3126.645,
+              "text": " prvé",
+              "probability": 0.9655796885490417
+            },
+            {
+              "start": 3126.645,
+              "end": 3127.105,
+              "text": " dva,",
+              "probability": 0.8421384394168854
+            },
+            {
+              "start": 3127.225,
+              "end": 3127.485,
+              "text": " jeden",
+              "probability": 0.985666811466217
+            },
+            {
+              "start": 3127.485,
+              "end": 3128.185,
+              "text": " týždeň",
+              "probability": 0.9893867075443268
+            }
+          ]
+        },
+        {
+          "start": 3129.005,
+          "end": 3130.385,
+          "text": "všetko si chciete vypočať",
+          "avgLogprob": -0.23464320618429302,
+          "words": [
+            {
+              "start": 3129.005,
+              "end": 3129.405,
+              "text": " všetko",
+              "probability": 0.8212985545396805
+            },
+            {
+              "start": 3129.405,
+              "end": 3129.525,
+              "text": " si",
+              "probability": 0.9379073977470398
+            },
+            {
+              "start": 3129.525,
+              "end": 3129.785,
+              "text": " chciete",
+              "probability": 0.632700522740682
+            },
+            {
+              "start": 3129.785,
+              "end": 3130.385,
+              "text": " vypočať",
+              "probability": 0.8902322590351105
+            }
+          ]
+        },
+        {
+          "start": 3130.385,
+          "end": 3131.605,
+          "text": "počas varenia",
+          "avgLogprob": -0.23464320618429302,
+          "words": [
+            {
+              "start": 3130.385,
+              "end": 3131.085,
+              "text": " počas",
+              "probability": 0.9929622213045756
+            },
+            {
+              "start": 3131.085,
+              "end": 3131.605,
+              "text": " varenia",
+              "probability": 0.9623537460962931
+            }
+          ]
+        },
+        {
+          "start": 3131.605,
+          "end": 3133.165,
+          "text": "a pečenia koláčov",
+          "avgLogprob": -0.23464320618429302,
+          "words": [
+            {
+              "start": 3131.605,
+              "end": 3132.165,
+              "text": " a",
+              "probability": 0.9242515563964844
+            },
+            {
+              "start": 3132.165,
+              "end": 3132.585,
+              "text": " pečenia",
+              "probability": 0.998188242316246
+            },
+            {
+              "start": 3132.585,
+              "end": 3133.165,
+              "text": " koláčov",
+              "probability": 0.9546540230512619
+            }
+          ]
+        },
+        {
+          "start": 3133.165,
+          "end": 3135.705,
+          "text": "a potom vlastne zistíte, že vy nás chcete",
+          "avgLogprob": -0.23464320618429302,
+          "words": [
+            {
+              "start": 3133.165,
+              "end": 3133.245,
+              "text": " a",
+              "probability": 0.32722556591033936
+            },
+            {
+              "start": 3133.245,
+              "end": 3133.905,
+              "text": " potom",
+              "probability": 0.9845553934574127
+            },
+            {
+              "start": 3133.905,
+              "end": 3134.245,
+              "text": " vlastne",
+              "probability": 0.9076356689135233
+            },
+            {
+              "start": 3134.245,
+              "end": 3134.925,
+              "text": " zistíte,",
+              "probability": 0.8770178854465485
+            },
+            {
+              "start": 3135.005,
+              "end": 3135.105,
+              "text": " že",
+              "probability": 0.9997963309288025
+            },
+            {
+              "start": 3135.105,
+              "end": 3135.245,
+              "text": " vy",
+              "probability": 0.9970520734786987
+            },
+            {
+              "start": 3135.245,
+              "end": 3135.445,
+              "text": " nás",
+              "probability": 0.9987168908119202
+            },
+            {
+              "start": 3135.445,
+              "end": 3135.705,
+              "text": " chcete",
+              "probability": 0.9996230999628702
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 12.0,
+      "end": 21.5,
+      "language": "sk",
+      "groups": [
+        2
+      ],
+      "model": "large-v3",
+      "segments": [
+        {
+          "start": 12.0,
+          "end": 16.32,
+          "text": "Od úzlovce z rovnice až po útvary, ktorá nás obkopuje na každom kroku.",
+          "avgLogprob": -0.1496694005397429,
+          "words": [
+            {
+              "start": 12.0,
+              "end": 12.8,
+              "text": " Od",
+              "probability": 0.5347152948379517
+            },
+            {
+              "start": 12.8,
+              "end": 13.34,
+              "text": " úzlovce",
+              "probability": 0.7450702413916588
+            },
+            {
+              "start": 13.34,
+              "end": 13.42,
+              "text": " z",
+              "probability": 0.8848058581352234
+            },
+            {
+              "start": 13.42,
+              "end": 13.76,
+              "text": " rovnice",
+              "probability": 0.982645183801651
+            },
+            {
+              "start": 13.76,
+              "end": 14.08,
+              "text": " až",
+              "probability": 0.9971971213817596
+            },
+            {
+              "start": 14.08,
+              "end": 14.16,
+              "text": " po",
+              "probability": 0.9784635901451111
+            },
+            {
+              "start": 14.16,
+              "end": 14.6,
+              "text": " útvary,",
+              "probability": 0.7599235971768697
+            },
+            {
+              "start": 14.6,
+              "end": 14.86,
+              "text": " ktorá",
+              "probability": 0.7930588722229004
+            },
+            {
+              "start": 14.86,
+              "end": 15.08,
+              "text": " nás",
+              "probability": 0.9971662163734436
+            },
+            {
+              "start": 15.08,
+              "end": 15.58,
+              "text": " obkopuje",
+              "probability": 0.9405444264411926
+            },
+            {
+              "start": 15.58,
+              "end": 15.68,
+              "text": " na",
+              "probability": 0.9997696280479431
+            },
+            {
+              "start": 15.68,
+              "end": 16.0,
+              "text": " každom",
+              "probability": 0.9965372880299886
+            },
+            {
+              "start": 16.0,
+              "end": 16.32,
+              "text": " kroku.",
+              "probability": 0.8836822807788849
+            }
+          ]
+        },
+        {
+          "start": 16.36,
+          "end": 20.66,
+          "text": "Vítejte pri Vedatorskom podcaste, v ktorom sa budeme rozprávať o vede a prírode okolo nás.",
+          "avgLogprob": -0.1496694005397429,
+          "words": [
+            {
+              "start": 16.36,
+              "end": 16.7,
+              "text": " Vítejte",
+              "probability": 0.8803505897521973
+            },
+            {
+              "start": 16.7,
+              "end": 16.86,
+              "text": " pri",
+              "probability": 0.9975346326828003
+            },
+            {
+              "start": 16.86,
+              "end": 17.38,
+              "text": " Vedatorskom",
+              "probability": 0.8161258300145467
+            },
+            {
+              "start": 17.38,
+              "end": 17.96,
+              "text": " podcaste,",
+              "probability": 0.9743568599224091
+            },
+            {
+              "start": 17.98,
+              "end": 18.32,
+              "text": " v",
+              "probability": 0.997748076915741
+            },
+            {
+              "start": 18.32,
+              "end": 18.48,
+              "text": " ktorom",
+              "probability": 0.9960446953773499
+            },
+            {
+              "start": 18.48,
+              "end": 18.56,
+              "text": " sa",
+              "probability": 0.9981709718704224
+            },
+            {
+              "start": 18.56,
+              "end": 18.82,
+              "text": " budeme",
+              "probability": 0.9979251027107239
+            },
+            {
+              "start": 18.82,
+              "end": 19.28,
+              "text": " rozprávať",
+              "probability": 0.9909638881683349
+            },
+            {
+              "start": 19.28,
+              "end": 19.36,
+              "text": " o",
+              "probability": 0.9990586638450623
+            },
+            {
+              "start": 19.36,
+              "end": 19.54,
+              "text": " vede",
+              "probability": 0.9862724244594574
+            },
+            {
+              "start": 19.54,
+              "end": 19.66,
+              "text": " a",
+              "probability": 0.9992899894714355
+            },
+            {
+              "start": 19.66,
+              "end": 20.08,
+              "text": " prírode",
+              "probability": 0.9886134117841721
+            },
+            {
+              "start": 20.08,
+              "end": 20.38,
+              "text": " okolo",
+              "probability": 0.9890438318252563
+            },
+            {
+              "start": 20.38,
+              "end": 20.66,
+              "text": " nás.",
+              "probability": 0.9946579039096832
+            }
+          ]
+        },
+        {
+          "start": 20.66,
+          "end": 21.48,
+          "text": "Moje meno je Josef.",
+          "avgLogprob": -0.1496694005397429,
+          "words": [
+            {
+              "start": 20.66,
+              "end": 20.84,
+              "text": " Moje",
+              "probability": 0.99168261885643
+            },
+            {
+              "start": 20.84,
+              "end": 21.02,
+              "text": " meno",
+              "probability": 0.7555771470069885
+            },
+            {
+              "start": 21.02,
+              "end": 21.12,
+              "text": " je",
+              "probability": 0.6820803880691528
+            },
+            {
+              "start": 21.12,
+              "end": 21.48,
+              "text": " Josef.",
+              "probability": 0.7947427034378052
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 778.999,
+      "end": 789.299,
+      "language": "sk",
+      "groups": [
+        112
+      ],
+      "model": "large-v3",
+      "segments": [
+        {
+          "start": 778.999,
+          "end": 780.599,
+          "text": "že máš nejaké základné pravidlá.",
+          "avgLogprob": -0.15332103856638366,
+          "words": [
+            {
+              "start": 778.999,
+              "end": 779.179,
+              "text": " že",
+              "probability": 0.6879780292510986
+            },
+            {
+              "start": 779.179,
+              "end": 779.759,
+              "text": " máš",
+              "probability": 0.9974476397037506
+            },
+            {
+              "start": 779.759,
+              "end": 780.019,
+              "text": " nejaké",
+              "probability": 0.9996122519175211
+            },
+            {
+              "start": 780.019,
+              "end": 780.439,
+              "text": " základné",
+              "probability": 0.9797780036926269
+            },
+            {
+              "start": 780.439,
+              "end": 780.599,
+              "text": " pravidlá.",
+              "probability": 0.8772957921028137
+            }
+          ]
+        },
+        {
+          "start": 780.619,
+          "end": 782.459,
+          "text": "Keď sedíš na fakulte matematiky a nie.",
+          "avgLogprob": -0.15332103856638366,
+          "words": [
+            {
+              "start": 780.619,
+              "end": 780.619,
+              "text": " Keď",
+              "probability": 0.9936587512493134
+            },
+            {
+              "start": 780.619,
+              "end": 780.999,
+              "text": " sedíš",
+              "probability": 0.9712119102478027
+            },
+            {
+              "start": 780.999,
+              "end": 780.999,
+              "text": " na",
+              "probability": 0.9992295503616333
+            },
+            {
+              "start": 780.999,
+              "end": 781.519,
+              "text": " fakulte",
+              "probability": 0.9949925541877747
+            },
+            {
+              "start": 781.519,
+              "end": 782.219,
+              "text": " matematiky",
+              "probability": 0.9988466650247574
+            },
+            {
+              "start": 782.219,
+              "end": 782.299,
+              "text": " a",
+              "probability": 0.5346760749816895
+            },
+            {
+              "start": 782.299,
+              "end": 782.459,
+              "text": " nie.",
+              "probability": 0.9003641605377197
+            }
+          ]
+        },
+        {
+          "start": 782.599,
+          "end": 785.139,
+          "text": "Ale môžeš mať, vieš, tam môžeš mať tenké steny",
+          "avgLogprob": -0.15332103856638366,
+          "words": [
+            {
+              "start": 782.599,
+              "end": 782.879,
+              "text": " Ale",
+              "probability": 0.9782740473747253
+            },
+            {
+              "start": 782.879,
+              "end": 783.319,
+              "text": " môžeš",
+              "probability": 0.9698735326528549
+            },
+            {
+              "start": 783.319,
+              "end": 783.499,
+              "text": " mať,",
+              "probability": 0.9993013739585876
+            },
+            {
+              "start": 783.499,
+              "end": 783.699,
+              "text": " vieš,",
+              "probability": 0.9434905052185059
+            },
+            {
+              "start": 783.699,
+              "end": 783.819,
+              "text": " tam",
+              "probability": 0.9858706593513489
+            },
+            {
+              "start": 783.819,
+              "end": 784.139,
+              "text": " môžeš",
+              "probability": 0.9993332028388977
+            },
+            {
+              "start": 784.139,
+              "end": 784.399,
+              "text": " mať",
+              "probability": 0.9999179244041443
+            },
+            {
+              "start": 784.399,
+              "end": 784.739,
+              "text": " tenké",
+              "probability": 0.9948438405990601
+            },
+            {
+              "start": 784.739,
+              "end": 785.139,
+              "text": " steny",
+              "probability": 0.9778794348239899
+            }
+          ]
+        },
+        {
+          "start": 785.139,
+          "end": 786.999,
+          "text": "a obrokov za vás občas dajú viacerých do jednoho",
+          "avgLogprob": -0.15332103856638366,
+          "words": [
+            {
+              "start": 785.139,
+              "end": 785.199,
+              "text": " a",
+              "probability": 0.9542580842971802
+            },
+            {
+              "start": 785.199,
+              "end": 785.539,
+              "text": " obrokov",
+              "probability": 0.643846352895101
+            },
+            {
+              "start": 785.539,
+              "end": 785.779,
+              "text": " za",
+              "probability": 0.24964262545108795
+            },
+            {
+              "start": 785.779,
+              "end": 785.899,
+              "text": " vás",
+              "probability": 0.9684948027133942
+            },
+            {
+              "start": 785.899,
+              "end": 786.099,
+              "text": " občas",
+              "probability": 0.9928112228711446
+            },
+            {
+              "start": 786.099,
+              "end": 786.299,
+              "text": " dajú",
+              "probability": 0.9939980506896973
+            },
+            {
+              "start": 786.299,
+              "end": 786.679,
+              "text": " viacerých",
+              "probability": 0.9925109346707662
+            },
+            {
+              "start": 786.679,
+              "end": 786.779,
+              "text": " do",
+              "probability": 0.9992744326591492
+            },
+            {
+              "start": 786.779,
+              "end": 786.999,
+              "text": " jednoho",
+              "probability": 0.7944623430569967
+            }
+          ]
+        },
+        {
+          "start": 786.999,
+          "end": 788.999,
+          "text": "kanclu a nám sa toto deje často, lebo",
+          "avgLogprob": -0.15332103856638366,
+          "words": [
+            {
+              "start": 786.999,
+              "end": 787.319,
+              "text": " kanclu",
+              "probability": 0.9578266739845276
+            },
+            {
+              "start": 787.319,
+              "end": 787.699,
+              "text": " a",
+              "probability": 0.3735696077346802
+            },
+            {
+              "start": 787.699,
+              "end": 787.999,
+              "text": " nám",
+              "probability": 0.9999564290046692
+            },
+            {
+              "start": 787.999,
+              "end": 788.039,
+              "text": " sa",
+              "probability": 0.9964755177497864
+            },
+            {
+              "start": 788.039,
+              "end": 788.319,
+              "text": " toto",
+              "probability": 0.9974086284637451
+            },
+            {
+              "start": 788.319,
+              "end": 788.499,
+              "text": " deje",
+              "probability": 0.9870891273021698
+            },
+            {
+              "start": 788.499,
+              "end": 788.779,
+              "text": " často,",
+              "probability": 0.9997089803218842
+            },
+            {
+              "start": 788.779,
+              "end": 788.999,
+              "text": " lebo",
+              "probability": 0.9993310570716858
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 2306.316,
+      "end": 2314.116,
+      "language": "sk",
+      "groups": [
+        326
+      ],
+      "model": "large-v3",
+      "segments": [
+        {
+          "start": 2306.316,
+          "end": 2308.036,
+          "text": "ducha tej hypotézy.",
+          "avgLogprob": -0.1952190399169922,
+          "words": [
+            {
+              "start": 2306.316,
+              "end": 2307.156,
+              "text": " ducha",
+              "probability": 0.9014918804168701
+            },
+            {
+              "start": 2307.156,
+              "end": 2307.476,
+              "text": " tej",
+              "probability": 0.9011120796203613
+            },
+            {
+              "start": 2307.476,
+              "end": 2308.036,
+              "text": " hypotézy.",
+              "probability": 0.8571545034646988
+            }
+          ]
+        },
+        {
+          "start": 2308.076,
+          "end": 2310.376,
+          "text": "Pre mňa je to úplne",
+          "avgLogprob": -0.1952190399169922,
+          "words": [
+            {
+              "start": 2308.076,
+              "end": 2308.676,
+              "text": " Pre",
+              "probability": 0.659269392490387
+            },
+            {
+              "start": 2308.676,
+              "end": 2309.956,
+              "text": " mňa",
+              "probability": 0.9985556602478027
+            },
+            {
+              "start": 2309.956,
+              "end": 2310.056,
+              "text": " je",
+              "probability": 0.997870922088623
+            },
+            {
+              "start": 2310.056,
+              "end": 2310.056,
+              "text": " to",
+              "probability": 0.9985787868499756
+            },
+            {
+              "start": 2310.056,
+              "end": 2310.376,
+              "text": " úplne",
+              "probability": 0.9998917182286581
+            }
+          ]
+        },
+        {
+          "start": 2310.376,
+          "end": 2312.116,
+          "text": "to isté, že toto je naozaj veľmi abstraktná",
+          "avgLogprob": -0.1952190399169922,
+          "words": [
+            {
+              "start": 2310.376,
+              "end": 2310.476,
+              "text": " to",
+              "probability": 0.9957472681999207
+            },
+            {
+              "start": 2310.476,
+              "end": 2310.756,
+              "text": " isté,",
+              "probability": 0.9940519034862518
+            },
+            {
+              "start": 2310.776,
+              "end": 2310.856,
+              "text": " že",
+              "probability": 0.9829432964324951
+            },
+            {
+              "start": 2310.856,
+              "end": 2311.036,
+              "text": " toto",
+              "probability": 0.7144432067871094
+            },
+            {
+              "start": 2311.036,
+              "end": 2311.076,
+              "text": " je",
+              "probability": 0.886897087097168
+            },
+            {
+              "start": 2311.076,
+              "end": 2311.436,
+              "text": " naozaj",
+              "probability": 0.9845210909843445
+            },
+            {
+              "start": 2311.436,
+              "end": 2311.656,
+              "text": " veľmi",
+              "probability": 0.9997835556666056
+            },
+            {
+              "start": 2311.656,
+              "end": 2312.116,
+              "text": " abstraktná",
+              "probability": 0.9987875074148178
+            }
+          ]
+        },
+        {
+          "start": 2312.116,
+          "end": 2312.676,
+          "text": "matematika.",
+          "avgLogprob": -0.1952190399169922,
+          "words": [
+            {
+              "start": 2312.116,
+              "end": 2312.676,
+              "text": " matematika.",
+              "probability": 0.9986706376075745
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 2868.423,
+      "end": 2879.8230000000003,
+      "language": "sk",
+      "groups": [
+        402
+      ],
+      "model": "large-v3",
+      "segments": [
+        {
+          "start": 2868.423,
+          "end": 2870.963,
+          "text": "ja sa snažím vo výskume používať",
+          "avgLogprob": -0.17720598547082198,
+          "words": [
+            {
+              "start": 2868.423,
+              "end": 2869.323,
+              "text": " ja",
+              "probability": 0.301227867603302
+            },
+            {
+              "start": 2869.323,
+              "end": 2869.463,
+              "text": " sa",
+              "probability": 0.9999465942382812
+            },
+            {
+              "start": 2869.463,
+              "end": 2869.863,
+              "text": " snažím",
+              "probability": 0.9998889168103536
+            },
+            {
+              "start": 2869.863,
+              "end": 2869.983,
+              "text": " vo",
+              "probability": 0.9769823551177979
+            },
+            {
+              "start": 2869.983,
+              "end": 2870.323,
+              "text": " výskume",
+              "probability": 0.9901805073022842
+            },
+            {
+              "start": 2870.323,
+              "end": 2870.963,
+              "text": " používať",
+              "probability": 0.9992862582206726
+            }
+          ]
+        },
+        {
+          "start": 2870.963,
+          "end": 2872.303,
+          "text": "aj jajko, ale",
+          "avgLogprob": -0.17720598547082198,
+          "words": [
+            {
+              "start": 2870.963,
+              "end": 2871.063,
+              "text": " aj",
+              "probability": 0.4723701477050781
+            },
+            {
+              "start": 2871.063,
+              "end": 2871.463,
+              "text": " jajko,",
+              "probability": 0.7925017674763998
+            },
+            {
+              "start": 2871.583,
+              "end": 2872.303,
+              "text": " ale",
+              "probability": 0.9995025396347046
+            }
+          ]
+        },
+        {
+          "start": 2873.683,
+          "end": 2874.723,
+          "text": "nie tým štýlom,",
+          "avgLogprob": -0.17720598547082198,
+          "words": [
+            {
+              "start": 2873.683,
+              "end": 2874.143,
+              "text": " nie",
+              "probability": 0.8946015238761902
+            },
+            {
+              "start": 2874.143,
+              "end": 2874.363,
+              "text": " tým",
+              "probability": 0.9997886021931967
+            },
+            {
+              "start": 2874.363,
+              "end": 2874.723,
+              "text": " štýlom,",
+              "probability": 0.9928714513778687
+            }
+          ]
+        },
+        {
+          "start": 2874.743,
+          "end": 2876.843,
+          "text": "že napíšeš zadanie a skopíruješ výsledok,",
+          "avgLogprob": -0.17720598547082198,
+          "words": [
+            {
+              "start": 2874.743,
+              "end": 2874.923,
+              "text": " že",
+              "probability": 0.999202311038971
+            },
+            {
+              "start": 2874.923,
+              "end": 2875.423,
+              "text": " napíšeš",
+              "probability": 0.9705649018287659
+            },
+            {
+              "start": 2875.423,
+              "end": 2875.763,
+              "text": " zadanie",
+              "probability": 0.8627618253231049
+            },
+            {
+              "start": 2875.763,
+              "end": 2875.843,
+              "text": " a",
+              "probability": 0.9665334820747375
+            },
+            {
+              "start": 2875.843,
+              "end": 2876.263,
+              "text": " skopíruješ",
+              "probability": 0.7995641678571701
+            },
+            {
+              "start": 2876.263,
+              "end": 2876.843,
+              "text": " výsledok,",
+              "probability": 0.9989434003829956
+            }
+          ]
+        },
+        {
+          "start": 2876.843,
+          "end": 2878.543,
+          "text": "ale povieš, že budem s touto úlohou,",
+          "avgLogprob": -0.17720598547082198,
+          "words": [
+            {
+              "start": 2876.843,
+              "end": 2877.003,
+              "text": " ale",
+              "probability": 0.999880313873291
+            },
+            {
+              "start": 2877.003,
+              "end": 2877.343,
+              "text": " povieš,",
+              "probability": 0.969655970732371
+            },
+            {
+              "start": 2877.383,
+              "end": 2877.503,
+              "text": " že",
+              "probability": 0.9995433688163757
+            },
+            {
+              "start": 2877.503,
+              "end": 2877.843,
+              "text": " budem",
+              "probability": 0.9278636872768402
+            },
+            {
+              "start": 2877.843,
+              "end": 2877.963,
+              "text": " s",
+              "probability": 0.9617784023284912
+            },
+            {
+              "start": 2877.963,
+              "end": 2878.243,
+              "text": " touto",
+              "probability": 0.7026439756155014
+            },
+            {
+              "start": 2878.243,
+              "end": 2878.543,
+              "text": " úlohou,",
+              "probability": 0.9510656197865804
+            }
+          ]
+        },
+        {
+          "start": 2878.543,
+          "end": 2879.703,
+          "text": "mám pocit, že treba ísť s takýmto",
+          "avgLogprob": -0.17720598547082198,
+          "words": [
+            {
+              "start": 2878.543,
+              "end": 2878.743,
+              "text": " mám",
+              "probability": 0.9936791658401489
+            },
+            {
+              "start": 2878.743,
+              "end": 2878.923,
+              "text": " pocit,",
+              "probability": 0.9913888871669769
+            },
+            {
+              "start": 2878.943,
+              "end": 2879.043,
+              "text": " že",
+              "probability": 0.9998099207878113
+            },
+            {
+              "start": 2879.043,
+              "end": 2879.283,
+              "text": " treba",
+              "probability": 0.9988258481025696
+            },
+            {
+              "start": 2879.283,
+              "end": 2879.403,
+              "text": " ísť",
+              "probability": 0.9583519697189331
+            },
+            {
+              "start": 2879.403,
+              "end": 2879.443,
+              "text": " s",
+              "probability": 0.35081833600997925
+            },
+            {
+              "start": 2879.443,
+              "end": 2879.703,
+              "text": " takýmto",
+              "probability": 0.9995265454053879
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 3024.924,
+      "end": 3031.824,
+      "language": "sk",
+      "groups": [
+        422
+      ],
+      "model": "large-v3",
+      "segments": [
+        {
+          "start": 3025.644,
+          "end": 3027.804,
+          "text": "Tak už on keby o tom niečo porozprával.",
+          "avgLogprob": -0.2501622360003622,
+          "words": [
+            {
+              "start": 3025.644,
+              "end": 3026.044,
+              "text": " Tak",
+              "probability": 0.8828745484352112
+            },
+            {
+              "start": 3026.044,
+              "end": 3026.424,
+              "text": " už",
+              "probability": 0.9768973588943481
+            },
+            {
+              "start": 3026.424,
+              "end": 3026.564,
+              "text": " on",
+              "probability": 0.901786744594574
+            },
+            {
+              "start": 3026.564,
+              "end": 3026.744,
+              "text": " keby",
+              "probability": 0.9899593889713287
+            },
+            {
+              "start": 3026.744,
+              "end": 3026.904,
+              "text": " o",
+              "probability": 0.998668909072876
+            },
+            {
+              "start": 3026.904,
+              "end": 3026.964,
+              "text": " tom",
+              "probability": 0.9949175119400024
+            },
+            {
+              "start": 3026.964,
+              "end": 3027.264,
+              "text": " niečo",
+              "probability": 0.9975902636845907
+            },
+            {
+              "start": 3027.264,
+              "end": 3027.804,
+              "text": " porozprával.",
+              "probability": 0.9960147738456726
+            }
+          ]
+        },
+        {
+          "start": 3027.824,
+          "end": 3029.204,
+          "text": "O jedno lepšie ako gravitáciu.",
+          "avgLogprob": -0.2501622360003622,
+          "words": [
+            {
+              "start": 3027.824,
+              "end": 3027.864,
+              "text": " O",
+              "probability": 0.5680058598518372
+            },
+            {
+              "start": 3027.864,
+              "end": 3028.204,
+              "text": " jedno",
+              "probability": 0.9852936565876007
+            },
+            {
+              "start": 3028.204,
+              "end": 3028.424,
+              "text": " lepšie",
+              "probability": 0.9848460108041763
+            },
+            {
+              "start": 3028.424,
+              "end": 3028.604,
+              "text": " ako",
+              "probability": 0.9905418753623962
+            },
+            {
+              "start": 3028.604,
+              "end": 3029.204,
+              "text": " gravitáciu.",
+              "probability": 0.897999902566274
+            }
+          ]
+        },
+        {
+          "start": 3030.644,
+          "end": 3031.044,
+          "text": "Dobre.",
+          "avgLogprob": -0.2501622360003622,
+          "words": [
+            {
+              "start": 3030.644,
+              "end": 3031.044,
+              "text": " Dobre.",
+              "probability": 0.9953755140304565
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 3123.9249999999997,
+      "end": 3135.7250000000004,
+      "language": "sk",
+      "groups": [
+        434
+      ],
+      "model": "large-v3",
+      "segments": [
+        {
+          "start": 3123.925,
+          "end": 3125.965,
+          "text": "Máme zadarmo Hero Hero",
+          "avgLogprob": -0.22457208162472572,
+          "words": [
+            {
+              "start": 3123.925,
+              "end": 3125.085,
+              "text": " Máme",
+              "probability": 0.7085099915663401
+            },
+            {
+              "start": 3125.085,
+              "end": 3125.565,
+              "text": " zadarmo",
+              "probability": 0.9857263167699178
+            },
+            {
+              "start": 3125.565,
+              "end": 3125.765,
+              "text": " Hero",
+              "probability": 0.7823176980018616
+            },
+            {
+              "start": 3125.765,
+              "end": 3125.965,
+              "text": " Hero",
+              "probability": 0.7704411745071411
+            }
+          ]
+        },
+        {
+          "start": 3125.965,
+          "end": 3127.945,
+          "text": "prvé dva, jeden týždeň.",
+          "avgLogprob": -0.22457208162472572,
+          "words": [
+            {
+              "start": 3125.965,
+              "end": 3126.565,
+              "text": " prvé",
+              "probability": 0.6879403740167618
+            },
+            {
+              "start": 3126.565,
+              "end": 3127.025,
+              "text": " dva,",
+              "probability": 0.8825625479221344
+            },
+            {
+              "start": 3127.025,
+              "end": 3127.385,
+              "text": " jeden",
+              "probability": 0.8571372032165527
+            },
+            {
+              "start": 3127.385,
+              "end": 3127.945,
+              "text": " týždeň.",
+              "probability": 0.9986756443977356
+            }
+          ]
+        },
+        {
+          "start": 3129.065,
+          "end": 3130.305,
+          "text": "Všetko si chcete vypočuť",
+          "avgLogprob": -0.22457208162472572,
+          "words": [
+            {
+              "start": 3128.955,
+              "end": 3129.365,
+              "text": " Všetko",
+              "probability": 0.973339706659317
+            },
+            {
+              "start": 3129.365,
+              "end": 3129.405,
+              "text": " si",
+              "probability": 0.984572172164917
+            },
+            {
+              "start": 3129.405,
+              "end": 3129.745,
+              "text": " chcete",
+              "probability": 0.9718380371729533
+            },
+            {
+              "start": 3129.745,
+              "end": 3130.305,
+              "text": " vypočuť",
+              "probability": 0.9706711411476135
+            }
+          ]
+        },
+        {
+          "start": 3130.305,
+          "end": 3131.545,
+          "text": "počas varenia",
+          "avgLogprob": -0.22457208162472572,
+          "words": [
+            {
+              "start": 3130.305,
+              "end": 3131.045,
+              "text": " počas",
+              "probability": 0.9422479867935181
+            },
+            {
+              "start": 3131.045,
+              "end": 3131.545,
+              "text": " varenia",
+              "probability": 0.968009352684021
+            }
+          ]
+        },
+        {
+          "start": 3131.545,
+          "end": 3132.825,
+          "text": "a pečenia koláčov.",
+          "avgLogprob": -0.22457208162472572,
+          "words": [
+            {
+              "start": 3131.545,
+              "end": 3131.985,
+              "text": " a",
+              "probability": 0.9465386867523193
+            },
+            {
+              "start": 3131.985,
+              "end": 3132.545,
+              "text": " pečenia",
+              "probability": 0.9989339113235474
+            },
+            {
+              "start": 3132.545,
+              "end": 3132.825,
+              "text": " koláčov.",
+              "probability": 0.8846106380224228
+            }
+          ]
+        },
+        {
+          "start": 3132.825,
+          "end": 3135.645,
+          "text": "A potom vlastne zistíte, že vy nás chcete",
+          "avgLogprob": -0.22457208162472572,
+          "words": [
+            {
+              "start": 3132.825,
+              "end": 3133.205,
+              "text": " A",
+              "probability": 0.3668970465660095
+            },
+            {
+              "start": 3133.205,
+              "end": 3133.905,
+              "text": " potom",
+              "probability": 0.9984966218471527
+            },
+            {
+              "start": 3133.905,
+              "end": 3134.225,
+              "text": " vlastne",
+              "probability": 0.9487967491149902
+            },
+            {
+              "start": 3134.225,
+              "end": 3134.865,
+              "text": " zistíte,",
+              "probability": 0.9830892831087112
+            },
+            {
+              "start": 3134.865,
+              "end": 3135.065,
+              "text": " že",
+              "probability": 0.9997789263725281
+            },
+            {
+              "start": 3135.065,
+              "end": 3135.165,
+              "text": " vy",
+              "probability": 0.9883869290351868
+            },
+            {
+              "start": 3135.165,
+              "end": 3135.405,
+              "text": " nás",
+              "probability": 0.9992783665657043
+            },
+            {
+              "start": 3135.405,
+              "end": 3135.645,
+              "text": " chcete",
+              "probability": 0.9973636666933695
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
