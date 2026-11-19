@@ -71,3 +71,10 @@ Dávka zahrnuje Enrica Fermiho (363), dětské FAQ (362) a Opekáčkový speciá
 Sporné pasáže jsou doložené nezávislým rozpoznáním large-v3, kontrolou bez VAD a u významových rozdílů i porovnáním alternativ na stejném zvuku. Několik krátkých překřikovaných nebo špatně slyšitelných fragmentů v 361 a dětská nahrávka v 362 zůstávají výslovně označeny jako nesrozumitelné; nejsou doplněné podle následné odpovědi. Věcná tvrzení ani přeřeknutí mluvčích se nepřepisují na jiný význam. Nejde o úplný nezávislý lidský poslech všech tří nahrávek.
 
 `tools/validate-youtube-caption-batch.py` před registrací kontroluje původ zvuku, návaznost všech redigovaných slov v obou jazycích, totožnost SRT s JSON, akustické hranice, doložení nízkých skóre a přesný seek index. Zdrojové přepisy a kontrolní důkazy zůstávají v `captions/source/episode-36*-youtube-*`; aplikace načítá `captions/episode-36*.json` podle `episode-videos.json`. Nové titulky vstupují do verzované offline cache stejným způsobem jako starší díly.
+
+
+## Video a vlastní titulky přes celou obrazovku (19. 11. 2026)
+
+Tlačítko **⛶ Celá obrazovka** pod videem roztahuje společný panel obsahující YouTube iframe i titulkovou vrstvu. Nativní tlačítko iframe je nahrazené tímto společným ovládáním, aby se titulky při zvětšení neztratily. Video se při vstupu ani návratu nepřesouvá a znovu nenačítá; zůstává čas, stav přehrávání a jazyk titulků. Panel zůstává zvětšený také při přechodu na další dostupné video. Přepnutí na MP3 nebo zavření přehrávače jej ukončí.
+
+Pokud prohlížeč Fullscreen API odmítne nebo nemá, panel pokryje dostupnou plochu aplikace. Zpět, Escape a tlačítko Zmenšit vracejí běžné zobrazení. V obou orientacích zůstává obraz v poměru 16:9 a titulky uvnitř jeho plochy. Testy ověřují zachování iframe, času a titulků, odmítnuté fullscreen oprávnění i návrat zpět; browser kontrola zahrnuje skutečné Fullscreen API v mobilní velikosti na výšku i na šířku.
