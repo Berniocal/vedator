@@ -10,7 +10,7 @@ const unavailable=data.episodes.find(e=>!e.youtubeId);assert(unavailable);
 const fixtureNumbers=new Set([1,2,3,4,10,11,142,1642,1701,1715,unavailable.number]);
 const fixture={...data,episodes:data.episodes.filter(e=>fixtureNumbers.has(e.number)),series:[],questions:[]};
 const wait=()=>new Promise(resolve=>setTimeout(resolve,25));
-async function boot(storage={},api=true,captionMode='ok'){
+async function boot(storage={},api=true,captionMode='ok',nativeMode='ready'){
   const errors=[],vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e));
   const dom=new JSDOM(html,{url:'https://example.test/vedator/',runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:vc}),w=dom.window;
   for(const [key,value] of Object.entries(storage))w.localStorage.setItem(key,value);
@@ -26,13 +26,14 @@ async function boot(storage={},api=true,captionMode='ok'){
     return {ok:true,json:async()=>fixture};
   };w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{};
   w.matchMedia=()=>({matches:false,addEventListener(){}});w.alert=()=>{};
+  w.HTMLCanvasElement.prototype.getContext=()=>({font:'',measureText:value=>({width:value.length*9})});
   const media=w.HTMLMediaElement.prototype;
   Object.defineProperty(media,'paused',{get(){return this._paused!==false}});
   Object.defineProperty(media,'duration',{get(){return this._loaded?1800:NaN}});
   Object.defineProperty(media,'readyState',{get(){return this._loaded?4:0}});
   media.pause=function(){const wasPlaying=!this.paused;this._paused=true;if(wasPlaying)this.dispatchEvent(new w.Event('pause'))};
   media.play=function(){this._paused=false;this.dispatchEvent(new w.Event('play'));return Promise.resolve()};
-  media.load=function(){this._loaded=false;this.currentTime=0;const version=this._version=(this._version||0)+1;if(this.getAttribute('src'))queueMicrotask(()=>{if(version!==this._version)return;this._loaded=true;this.dispatchEvent(new w.Event('loadedmetadata'))})};
+  media.load=function(){this._loaded=false;this.currentTime=0;const version=this._version=(this._version||0)+1;if(this.getAttribute('src')){const finish=()=>{if(version!==this._version)return;this._loaded=true;this.dispatchEvent(new w.Event('loadedmetadata'))};if(nativeMode==='delay')this._resolveMetadata=finish;else queueMicrotask(finish)}};
   const players=[];
   class Player{
     constructor(frame,{events}){this.frame=frame;this.events=events;this.time=0;this.destroyed=false;this.paused=true;players.push(this);}
@@ -40,7 +41,7 @@ async function boot(storage={},api=true,captionMode='ok'){
     emit(value){this.events.onStateChange({target:this,data:value});}
     playVideo(){this.paused=false;this.emit(1)}
     pauseVideo(){this.paused=true;this.emit(2)}
-    seekTo(time){this.time=time;this.lastSeek=time}
+    seekTo(time){if(!this.delaySeek)this.time=time;this.lastSeek=time}
     setPlaybackRate(speed){this.speed=speed}
     getCurrentTime(){return this.time}
     getDuration(){return 1800}
@@ -53,11 +54,17 @@ async function boot(storage={},api=true,captionMode='ok'){
   const sort=$('#parity-sort-v2');sort.value='old';sort.dispatchEvent(new w.Event('change',{bubbles:true}));await wait();
   async function play(n){$(`.episode-card-v2[data-episode="${n}"] > .actions .play`).click();await wait();}
   async function click(selector){$(selector).click();await wait();}
-  async function captionLanguage(value){$('#player-caption-language-v2').value=value;$('#player-caption-language-v2').dispatchEvent(new w.Event('change'));await wait()}
+  async function captionLanguage(value){
+    const toggle=$('#player-caption-toggle-v2');
+    if(value==='off'){if(toggle.getAttribute('aria-pressed')==='true')toggle.click()}
+    else{if(toggle.getAttribute('aria-pressed')==='false')toggle.click();$('.language-v2 [data-lang="'+(value==='sk'?'sk':'cz')+'"]').click()}
+    await wait();
+  }
   return {dom,w,$,audio,players,play,click,errors,captionLanguage,captionRequests,resolveCaptions:()=>resolveCaptions?.(),snapshot:()=>Object.fromEntries(Object.keys(w.localStorage).map(k=>[k,w.localStorage.getItem(k)]))};
 }
-const t=await boot();
+const t=await boot({'vedator-youtube-caption-language-v1':JSON.stringify('sk')});
 try{
+  assert(!t.$('#player-caption-language-v2'),'Caption language selector is removed');
   await t.play(1);assert(!t.$('#player-video-v2').disabled);assert.equal(t.captionRequests.length,1,'MP3 captions load once when available');
   t.audio.currentTime=153.5;t.audio.dispatchEvent(new t.w.Event('timeupdate'));await wait();
   assert.equal(t.$('#player-caption-text-v2').textContent,captionAt(153.5,'cs'));
@@ -119,4 +126,34 @@ try{
   await wait();
   assert.equal(t.errors.length,0,t.errors.map(String).join('\n'));
 }finally{await wait();t.dom.window.close()}
+// A source can be switched again before MP3 metadata or YouTube readiness.
+const delayed=await boot({'vedatorPlaybackProgressV1':JSON.stringify({'episode-1':{currentTime:153.5,duration:1800,completed:false}})},true,'ok','delay');
+try{
+  await delayed.play(1);assert.equal(delayed.audio.currentTime,0,'Decoder deliberately has no metadata yet');
+  assert.equal(delayed.$('#player-current-v2').textContent,'2:33','Pending MP3 retains the intended shared time');
+  await delayed.click('#player-video-v2');let player=delayed.players.at(-1);
+  player.delaySeek=true;player.ready();await wait();assert.equal(player.lastSeek,153.5,'YouTube inherits the pending MP3 position');
+  const actualNow=delayed.w.Date.now;delayed.w.Date.now=()=>actualNow()+5000;
+  await delayed.click('#player-video-v2');delayed.w.Date.now=actualNow;
+  assert.equal(delayed.$('#player-current-v2').textContent,'2:33','A stale zero from an unbuffered YouTube seek cannot replace the shared position');
+  await delayed.click('#player-video-v2');player=delayed.players.at(-1);player.ready();await wait();
+  player.time=275.25;await delayed.click('#player-play-v2');assert(player.paused);
+  await delayed.click('#player-video-v2');assert(delayed.audio.paused,'Paused video stays paused as MP3');
+  assert.equal(delayed.$('#player-current-v2').textContent,'4:35');
+  await delayed.click('#player-video-v2');player=delayed.players.at(-1);player.ready();await wait();
+  assert.equal(player.lastSeek,275.25);assert(player.paused,'Fast paused round trip preserves time and pause');
+  await delayed.click('#player-caption-reader-button-v2');await delayed.click('#caption-reader-forward-v2');
+  assert.equal(player.lastSeek,285.25,'Reader seeks the same YouTube clock');
+  await delayed.click('#caption-reader-close-v2');await delayed.captionLanguage('sk');
+  assert.equal(player.time,285.25,'Reader exit and application language keep the exact position');
+  await delayed.captionLanguage('off');await delayed.captionLanguage('cs');assert.equal(player.time,285.25);
+  await delayed.click('#player-video-v2');
+  const seek=delayed.$('#player-seek-v2');seek.value='301';seek.dispatchEvent(new delayed.w.Event('change'));
+  delayed.audio._resolveMetadata();await wait();assert.equal(delayed.audio.currentTime,301,'The latest seek wins when metadata eventually arrives');
+  await delayed.click('#player-caption-reader-button-v2');await delayed.click('#caption-reader-forward-v2');
+  assert.equal(delayed.audio.currentTime,311);await delayed.click('#caption-reader-close-v2');
+  await delayed.click('#player-video-v2');player=delayed.players.at(-1);player.ready();await wait();
+  assert.equal(player.lastSeek,311,'MP3 reader position transfers back into video');
+  assert.equal(delayed.errors.length,0,delayed.errors.map(String).join('\n'));
+}finally{delayed.dom.window.close()}
 console.log('YouTube player OK: expanded regular/special episode catalog, exact iframe IDs, seek, language/off, MP3 handoff, video-only episodes, unavailable links and stale callbacks.');

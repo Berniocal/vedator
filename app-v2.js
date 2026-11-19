@@ -28,8 +28,8 @@
   const readJson=(key,fallback)=>{try{const raw=localStorage.getItem(key);return raw===null?fallback:JSON.parse(raw)}catch{return fallback}};
   const writeJson=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));return true}catch{return false}};
   let youtubeEnabled=readJson(VIDEO_ENABLED_KEY,false)===true;
-  let captionPreference=readJson(CAPTION_LANGUAGE_KEY,'auto');
-  if(!['auto','cs','sk','off'].includes(captionPreference))captionPreference='auto';
+  // Retain the on/off choice; caption language always follows the application.
+  let captionPreference=readJson(CAPTION_LANGUAGE_KEY,'auto')==='off'?'off':'auto';
   const uid=()=>crypto.randomUUID?crypto.randomUUID():Date.now()+Math.random().toString(36).slice(2);
   const initialLanguage=()=>{try{return localStorage.getItem(LANGUAGE_KEY)==='cz'?'cz':'sk'}catch{return'sk'}};
 
@@ -381,10 +381,10 @@
     else $('#count-v2').textContent=text('Lokální data','Lokálne dáta');
   }
 
-  let continuousPlayer=null,continuousContextOffset=0,playerSeekEditing=false;
+  let continuousPlayer=null,continuousContextOffset=0,playerSeekEditing=false,nativePendingPosition=null;
   const continuousActive=()=>Boolean(continuousPlayer?.session);
   const youtubeActive=()=>Boolean(youtubeSession);
-  function playbackIsPlaying(){return youtubeActive()?youtubeSession.wantPlay:continuousActive()?continuousPlayer.session.wantPlay:!playerNodes().audio.paused}
+  function playbackIsPlaying(){return youtubeActive()?youtubeSession.wantPlay:continuousActive()?continuousPlayer.session.wantPlay:nativePendingPosition?.sequence===playbackSequence?playbackAutoplayWanted:!playerNodes().audio.paused}
   function playbackClock(){
     if(youtubeActive())return youtubePlaybackClock();
     const audio=playerNodes().audio;
@@ -394,9 +394,10 @@
       const duration=part?.end!=null?Math.max(0,part.end-part.start):part?.durationHint||session.indexes.get(session.items[index]?.url)?.duration||saved;
       const pending=index===session.index&&session.seekTo!=null;
       const time=pending?session.seekTo:part?Math.round(Math.max(0,(Number(audio.currentTime)||0)-part.start)*1000)/1000:Math.max(0,Number(session.items[index]?.startAt)||0);
-      return {time:duration?Math.min(time,duration):time,duration,available:part?Math.max(time,continuousPlayer.bufferEnd()-part.start):time,ready:!pending&&audio.readyState>0&&Boolean(part?.bytes)};
+      return {time:duration?Math.min(time,duration):time,duration,available:part?Math.max(time,continuousPlayer.bufferEnd()-part.start):time,ready:!pending&&audio.readyState>0&&Boolean(part?.bytes),pending};
     }
-    return {time:Number(audio.currentTime)||0,duration:Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:0,available:0,ready:audio.readyState>0};
+    const pending=nativePendingPosition?.sequence===playbackSequence&&nativePendingPosition.key===state.current?.key?nativePendingPosition:null;
+    return {time:pending?pending.time:Number(audio.currentTime)||0,duration:Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:Number(state.progress[state.current?.key]?.duration)||0,available:0,ready:!pending&&audio.readyState>0,pending:Boolean(pending)};
   }
   function stopContinuousPlayback(){
     if(!continuousActive())return;
@@ -427,6 +428,13 @@
     n.help.textContent=target>0?text('Načítám od ','Načítavam od ')+fmtTime(target)+'…':text('Pozice se průběžně ukládá do tohoto zařízení.','Pozícia sa priebežne ukladá do tohto zariadenia.');
     continuousPlayer.start(items,{seekTo:target>0?target:null});n.audio.playbackRate=state.speed;n.shell.classList.remove('hidden');syncPlayer();
   }
+  function applyNativePosition(){
+    const pending=nativePendingPosition,audio=playerNodes().audio;
+    if(!pending||pending.sequence!==playbackSequence||pending.key!==state.current?.key||audio.readyState===0)return;
+    const end=Number.isFinite(audio.duration)&&audio.duration>0?Math.max(0,audio.duration-.001):Infinity;
+    pending.time=Math.min(end,pending.time);
+    try{audio.currentTime=pending.time;if(Math.abs(audio.currentTime-pending.time)<.2)nativePendingPosition=null}catch{}
+  }
   function seekPlayback(seconds,{restart=true}={}){
     const target=Math.max(0,Number(seconds)||0),audio=playerNodes().audio;
     if(youtubeActive()){
@@ -436,10 +444,10 @@
     }
     if(continuousActive()){
       if(continuousPlayer.seek(target)){saveProgress(true,false);syncPlayer();return}
-      if(restart&&state.current)openPlayback(state.current.episode,{start:target,context:state.context,itemRef:state.current.itemRef});
+      if(restart&&state.current)openPlayback(state.current.episode,{start:target,context:state.context,itemRef:state.current.itemRef,autoplay:playbackIsPlaying()});
       return;
     }
-    try{audio.currentTime=Math.min(audio.duration||Infinity,target)}catch{}
+    nativePendingPosition={sequence:playbackSequence,key:state.current?.key,time:target};applyNativePosition();
     saveProgress(true,false);syncPlayer();
   }
   /* CONTINUOUS_AUDIO_ENGINE_BEGIN */
@@ -1100,10 +1108,12 @@
   }
   let captionReaderActive=false,captionReaderTimer=null,captionReaderWasFullscreen=false;
   let captionReaderControlsVisible=false,captionReaderHistory=false,captionReaderValue='';
+  const CAPTION_READER_SIZE_KEY='vedator-caption-listening-size-v1';
+  let captionReaderScale=Math.min(2,Math.max(.6,Number(readJson(CAPTION_READER_SIZE_KEY,1))||1));
   const CAPTION_BOOKMARKS_KEY='vedator-caption-bookmarks-v1',CAPTION_BOOK_SIZE_KEY='vedator-caption-book-size-v1';
   let captionBookMode=false,captionBook=null,captionBookScale=Math.min(1.5,Math.max(.75,Number(readJson(CAPTION_BOOK_SIZE_KEY,1))||1));
   let captionGesture=null,captionHoldTimer=null,captionTapTimer=null,captionLastTap=null,captionSuppressClickUntil=0,captionFeedbackTimer=null;
-  const captionBookLanguage=()=>captionPreference==='auto'?(sk()?'sk':'cs'):captionPreference;
+  const captionBookLanguage=()=>sk()?'sk':'cs';
   function captionBookDocument(cues,lang){
     let value='';const ranges=[];
     for(const cue of cues){const start=value.length;value+=cue.text[lang].replace(/\s+/g,' ').trim()+' ';ranges.push({start,end:value.length,time:cue.start})}
@@ -1144,7 +1154,7 @@
   function saveCaptionBookPlace(){
     const page=captionBook?.pages[captionBook.index];if(!page)return;
     const stored=readJson(CAPTION_BOOKMARKS_KEY,{}),marks=stored&&typeof stored==='object'&&!Array.isArray(stored)?stored:{};
-    marks[captionBook.storageKey]={offset:page.from,time:page.time,updatedAt:Date.now()};
+    marks[captionBook.storageKey]={offset:page.from,time:playbackClock().time,updatedAt:Date.now()};
     const recent=Object.entries(marks).sort((a,b)=>(Number(b[1]?.updatedAt)||0)-(Number(a[1]?.updatedAt)||0)).slice(0,100);
     writeJson(CAPTION_BOOKMARKS_KEY,Object.fromEntries(recent));
   }
@@ -1169,7 +1179,7 @@
     if(captionBook?.layoutKey!==layoutKey||captionBook.cues!==session.captions.cues){
       const sameBook=captionBook?.storageKey===storageKey;
       const saved=readJson(CAPTION_BOOKMARKS_KEY,{})?.[storageKey];
-      const offset=sameBook?captionBook.pages[captionBook.index]?.from:Number.isFinite(saved?.offset)?Math.max(0,saved.offset):null;
+      const offset=sameBook?captionBook.pages[captionBook.index]?.from:Number.isFinite(saved?.offset)&&Math.abs(saved.time-playbackClock().time)<.5?Math.max(0,saved.offset):null;
       const currentTime=captionBook?captionBook.pages[captionBook.index]?.time:playbackClock().time;
       const document=captionBookDocument(session.captions.cues,lang);
       const canvas=window.document.createElement('canvas'),context=canvas.getContext('2d');
@@ -1205,12 +1215,12 @@
     if(!captionBookMode||!captionBook)return;
     const next=Math.max(0,Math.min(captionBook.pages.length-1,captionBook.index+delta));
     if(next===captionBook.index){showCaptionReaderFeedback(delta>0?text('Poslední strana','Posledná strana'):text('První strana','Prvá strana'));return}
-    captionBook.index=next;renderCaptionBook();
+    captionBook.index=next;seekPlayback(captionBook.pages[next].time);renderCaptionBook();
   }
   function setCaptionBookMode(enabled){
     if(!captionReaderActive)return;
     clearCaptionReaderGesture();
-    const page=captionBook?.pages[captionBook.index],resumeTime=page?.time;
+    const resumeTime=playbackClock().time;
     if(captionBookMode)saveCaptionBookPlace();
     captionBookMode=enabled;
     const overlay=$('#player-caption-reader-overlay-v2'),node=$('#player-caption-reader-text-v2');
@@ -1218,15 +1228,16 @@
     if(enabled){captionBook=null;pausePlayback();renderCaptionBook()}
     else{
       captionBook=null;captionReaderValue='';node.style.fontSize='';
-      // Starting from the displayed page is explicit. Reopen through the shared
-      // source path so a distant page also works with native MP3 and MSE buffers.
+      // Page turns already update the shared position. Keep its exact time when
+      // returning to listening instead of rewinding to the top of the page.
       if(Number.isFinite(resumeTime)&&state.current){const {episode,itemRef}=state.current;void openPlayback(episode,{start:resumeTime,context:state.context,itemRef,autoplay:true})}
       syncYoutubeCaptions();layoutCaptionReader();
     }
     syncCaptionReaderControls();
   }
   function changeCaptionBookSize(delta){
-    if(!captionBookMode)return;
+    if(!captionReaderActive)return;
+    if(!captionBookMode){captionReaderScale=Math.round(Math.max(.6,Math.min(2,captionReaderScale+delta))*100)/100;writeJson(CAPTION_READER_SIZE_KEY,captionReaderScale);layoutCaptionReader();syncCaptionReaderControls();showCaptionReaderFeedback(Math.round(captionReaderScale*100)+' %');return}
     captionBookScale=Math.round(Math.max(.75,Math.min(1.5,captionBookScale+delta))*100)/100;
     writeJson(CAPTION_BOOK_SIZE_KEY,captionBookScale);renderCaptionBook();
   }
@@ -1293,7 +1304,7 @@
     if(captionBookMode){renderCaptionBook();return}
     const words=captionReaderValue.replace(/\s+/g,' ').trim().split(' ').filter(Boolean);
     node.style.fontSize='';node.replaceChildren();if(!words.length)return;
-    const style=getComputedStyle(node),base=parseFloat(style.fontSize);
+    const style=getComputedStyle(node),base=parseFloat(style.fontSize)||Math.max(26,Math.min(56,(window.innerWidth||390)*.06));
     const canvas=document.createElement('canvas'),context=canvas.getContext('2d');
     if(!context){node.textContent=words.join(' ');return}
     context.font=style.font;
@@ -1311,8 +1322,22 @@
       }
     }
     const widest=Math.max(...lines.map(measure));
-    const height=node.parentElement.clientHeight-160;
-    node.style.fontSize=Math.min(base,base*width/Math.max(width,widest),Math.max(1,height)/(1.35*lines.length))+'px';
+    const controlsHeight=$('#caption-reader-controls-v2')?.getBoundingClientRect().height||0;
+    const height=node.parentElement.clientHeight-Math.max(160,2*(controlsHeight+24));
+    let size=Math.min(base,base*width/Math.max(width,widest),Math.max(1,height)/(1.35*lines.length))*captionReaderScale;
+    if(captionReaderScale>1){
+      // Larger text may use more rows; never shrink it back to the old two-row
+      // limit just because the user deliberately enlarged it.
+      for(let attempt=0;attempt<4;attempt++){
+        context.font=style.fontWeight+' '+size+'px '+style.fontFamily;
+        lines=[];let line='';
+        for(const word of words){const joined=line?line+' '+word:word;if(line&&measure(joined)>width){lines.push(line);line=word}else line=joined}
+        if(line)lines.push(line);
+        const factor=Math.min(1,width/Math.max(width,...lines.map(measure)),Math.max(1,height)/(1.35*size*lines.length));
+        if(factor>=.999)break;size*=factor;
+      }
+    }
+    node.style.fontSize=size+'px';
     for(let i=0;i<lines.length;i++){
       if(i)node.append(document.createTextNode('\n'));
       const line=document.createElement('span');line.className='caption-reader-line-v2';line.textContent=lines[i];node.append(line);
@@ -1327,7 +1352,7 @@
     if(forward){forward.hidden=captionBookMode;forward.textContent=captionBookMode?'→':'+10 s';forward.title=captionBookMode?text('Další strana','Ďalšia strana'):text('Vpřed o 10 sekund','Vpred o 10 sekúnd');forward.setAttribute('aria-label',forward.title);forward.disabled=captionBookMode&&(!captionBook||captionBook.index>=captionBook.pages.length-1)}
     if(close){close.title=text('Zrušit celou obrazovku','Zrušiť celú obrazovku');close.setAttribute('aria-label',close.title)}
     const mode=$('#caption-reader-mode-v2');if(mode){mode.textContent=captionBookMode?text('Poslech','Počúvanie'):text('Čtení','Čítanie');mode.setAttribute('aria-pressed',String(captionBookMode));mode.title=captionBookMode?text('Pokračovat v poslechu od této strany','Pokračovať v počúvaní od tejto strany'):text('Číst jako knížku','Čítať ako knihu');mode.setAttribute('aria-label',mode.title)}
-    for(const [id,cs,sl,disabled] of [['caption-book-smaller-v2','Menší písmo','Menšie písmo',captionBookScale<=.75],['caption-book-larger-v2','Větší písmo','Väčšie písmo',captionBookScale>=1.5]]){const b=$('#'+id);if(b){b.hidden=!captionBookMode;b.title=text(cs,sl);b.setAttribute('aria-label',b.title);b.disabled=disabled}}
+    for(const [id,cs,sl,disabled] of [['caption-book-smaller-v2','Menší písmo','Menšie písmo',captionBookMode?captionBookScale<=.75:captionReaderScale<=.6],['caption-book-larger-v2','Větší písmo','Väčšie písmo',captionBookMode?captionBookScale>=1.5:captionReaderScale>=2]]){const b=$('#'+id);if(b){b.hidden=false;b.title=text(cs,sl);b.setAttribute('aria-label',b.title);b.disabled=disabled}}
     const progress=$('#caption-book-progress-v2');if(progress)progress.hidden=!captionBookMode;
   }
   function setCaptionReaderControls(visible,gesture=false){
@@ -1532,13 +1557,14 @@
   }
   function syncYoutubeCaptions(){
     const box=$('#player-captions-v2'),display=$('#player-caption-text-v2'),videoDisplay=$('#player-video-caption-v2');
-    const select=$('#player-caption-language-v2'),note=$('#player-caption-note-v2'),session=activeCaptionSession();
-    if(!box||!display||!select||!note)return;
+    const controls=$('#player-media-controls-v2'),note=$('#player-caption-note-v2'),session=activeCaptionSession();
+    if(!box||!display||!controls||!note)return;
     const available=Boolean(session?.captionFile),showVideo=youtubeActive()&&Boolean(videoDisplay);
     updateCaptionInlineTimer(available);
     refreshCaptionWake();
     const target=showVideo?videoDisplay:display;
-    box.classList.toggle('hidden',!available);
+    controls.classList.toggle('hidden',!available&&!showVideo);
+    box.classList.toggle('hidden',!available||showVideo||captionPreference==='off');
     const toggle=$('#player-caption-toggle-v2'),readerButton=$('#player-caption-reader-button-v2');
     if(toggle){
       toggle.hidden=!available;
@@ -1563,12 +1589,6 @@
       if(videoDisplay&&target!==videoDisplay)setText(videoDisplay,'');
       if(reader)updateCaptionReader(value);
     };
-    setText($('#player-caption-label-v2'),text('Titulky','Titulky'));
-    setText(select.options[0],text('Podle jazyka aplikace','Podľa jazyka aplikácie'));
-    setText(select.options[1],text('Čeština','Čeština'));
-    setText(select.options[2],text('Slovenština','Slovenčina'));
-    setText(select.options[3],text('Vypnuto','Vypnuté'));
-    select.value=captionPreference;
     const enabled=captionPreference!=='off';
     display.classList.toggle('hidden',!enabled||showVideo);
     videoDisplay?.classList.toggle('hidden',!enabled||!showVideo);
@@ -1586,7 +1606,7 @@
     if(!session.captions){setCaptionText(text('Načítám titulky…','Načítavam titulky…'));return}
     const seconds=youtubeActive()?youtubePlaybackClock().time:playbackClock().time;
     const time=Math.max(0,Number(seconds)||0);
-    const cues=session.captions.cues,lang=captionPreference==='auto'?(sk()?'sk':'cs'):captionPreference;
+    const cues=session.captions.cues,lang=captionBookLanguage();
     let lo=0,hi=cues.length;
     while(lo<hi){const mid=(lo+hi)>>>1;if(cues[mid].start<=time)lo=mid+1;else hi=mid}
     const cue=cues[lo-1];
@@ -1605,18 +1625,11 @@
     button.title=on?text('Vypnout titulky','Vypnúť titulky'):text('Zapnout titulky','Zapnúť titulky');
     button.setAttribute('aria-label',button.title);
   }
-  let lastCaptionLanguage=captionPreference==='off'?'auto':captionPreference;
-  function changeYoutubeCaptionLanguage(){
-    const value=$('#player-caption-language-v2').value;if(!['auto','cs','sk','off'].includes(value))return;
-    captionPreference=value;if(value!=='off')lastCaptionLanguage=value;
-    writeJson(CAPTION_LANGUAGE_KEY,value);
-    const session=activeCaptionSession();
-    if(session?.captionError){session.captionError=false;session.captionLoadStarted=false}
-    syncYoutubeCaptions();
-  }
   function toggleCaptions(){
     if(!state.current||!episodeCaptionFile(state.current.episode))return;
-    captionPreference=captionPreference==='off'?lastCaptionLanguage:'off';
+    captionPreference=captionPreference==='off'?'auto':'off';
+    const session=activeCaptionSession();
+    if(captionPreference!=='off'&&session?.captionError){session.captionError=false;session.captionLoadStarted=false}
     writeJson(CAPTION_LANGUAGE_KEY,captionPreference);
     syncYoutubeCaptions();
   }
@@ -1627,11 +1640,11 @@
         const time=Number(session.player.getCurrentTime()),duration=Number(session.player.getDuration());
         if(duration>0)session.duration=duration;
         if(Number.isFinite(time)&&time>=0){
-          if(session.pendingSeek===null||Math.abs(time-session.pendingSeek)<1.5||Date.now()>session.seekDeadline){session.time=time;session.pendingSeek=null}
+          if(session.pendingSeek===null||Math.abs(time-session.pendingSeek)<1.5||Date.now()>session.seekDeadline&&time>0){session.time=time;session.pendingSeek=null}
         }
       }catch{}
     }
-    return {time:session.time,duration:session.duration,available:session.duration,ready:session.ready};
+    return {time:session.time,duration:session.duration,available:session.duration,ready:session.ready,pending:session.pendingSeek!==null};
   }
   function youtubeStatus(message='',withLink=false){
     const node=$('#player-video-status-v2');if(!node)return;
@@ -1645,9 +1658,12 @@
   let videoFullscreenActive=false,videoFullscreenNative=false,videoFullscreenHistory=false,videoFullscreenRequest=0;
   function syncVideoFullscreenButton(){
     const button=$('#player-video-fullscreen-v2');if(!button)return;
-    button.textContent=videoFullscreenActive?text('⤡ Zmenšit','⤡ Zmenšiť'):text('⛶ Celá obrazovka','⛶ Celá obrazovka');
+    button.textContent=text('⛶ Celá obrazovka','⛶ Celá obrazovka');
+    button.hidden=!youtubeActive();
+    const close=$('#player-video-fullscreen-close-v2');
+    if(close){close.title=text('Zmenšit video','Zmenšiť video');close.setAttribute('aria-label',close.title)}
     button.setAttribute('aria-pressed',String(videoFullscreenActive));
-    button.setAttribute('aria-label',videoFullscreenActive?text('Zmenšit video','Zmenšiť video'):text('Video s titulky přes celou obrazovku','Video s titulkami na celú obrazovku'));
+    button.setAttribute('aria-label',text('Video s titulky přes celou obrazovku','Video s titulkami na celú obrazovku'));
   }
   function addVideoFullscreenHistory(request){
     if(!videoFullscreenActive||request!==videoFullscreenRequest||videoFullscreenHistory)return;
@@ -1782,7 +1798,7 @@
   }
   function toggleYoutubePlayback(){
     if(!state.current||!episodeYoutubeId(state.current.episode))return;
-    const active=youtubeActive(),clock=playbackClock(),current=state.current,context=state.context,autoplay=active?playbackIsPlaying():true;
+    const active=youtubeActive(),clock=playbackClock(),current=state.current,context=state.context,autoplay=playbackIsPlaying();
     videoBackgroundSuspended=false; // A deliberate switch cancels a pending automatic restore.
     youtubeEnabled=!active;writeJson(VIDEO_ENABLED_KEY,youtubeEnabled);
     openPlayback(current.episode,{start:clock.time,context,itemRef:current.itemRef,autoplay});
@@ -1859,7 +1875,7 @@
     collection.lastItemId=id;collection.label=context.label;collection.type=context.type;collection.updatedAt=Date.now();state.collectionProgress[context.id]=collection;writeJson(COLLECTION_KEY,state.collectionProgress);
   }
   function saveProgress(force=false,ended=false){
-    const n=playerNodes(),audio=n.audio,current=state.current,clock=playbackClock();if(!current||!clock.ready)return;
+    const n=playerNodes(),audio=n.audio,current=state.current,clock=playbackClock();if(!current||!clock.ready&&!(force&&clock.pending))return;
     const duration=clock.duration||Number(state.progress[current.key]?.duration)||0,time=ended&&duration>0?duration:clock.time,second=Math.floor(time);
     if(!force&&state.lastSavedSecond>=0&&Math.abs(second-state.lastSavedSecond)<5)return;state.lastSavedSecond=second;
     const previous=state.progress[current.key]||{},completed=Boolean(previous.completed)||(ended||(duration>0&&(time/duration>=.9||duration-time<=120)));
@@ -1941,8 +1957,8 @@
   }
   async function openPlayback(episode,{start=null,context=null,itemRef='',autoplay=true}={}){
     if(!episode?.enclosure)return;
-    const sequence=++playbackSequence;
     saveProgress(true,false);
+    const sequence=++playbackSequence;
     stopYoutubePlayback(videoFullscreenActive&&youtubeEnabled&&!videoBackgroundSuspended&&Boolean(episodeYoutubeId(episode)));
     stopContinuousPlayback();
     const n=playerNodes(),audio=n.audio,key=episodeKey(episode.number),record=state.progress[key]||{};
@@ -1960,11 +1976,13 @@
     playbackAutoplayWanted=Boolean(autoplay);
     playbackNeedsReload=false;
     playbackSourcePending=false; // Clear a cancelled/older offline lookup before the synchronous path.
+    nativePendingPosition=null;
     if(youtubeEnabled&&!videoBackgroundSuspended&&episodeYoutubeId(episode)){beginYoutubePlayback(episode,target||0,autoplay,sequence);return}
     if(autoplay&&canStartContinuous()){beginContinuousPlayback(target||0);return}
     // Online episodes already have their MP3 URL in the data bundle.
     // Avoid *any* await when a track ends: Android can suspend audio between tasks.
     // Offline MP3s likewise switch synchronously if their Blob URL is already cached.
+    nativePendingPosition={sequence,key,time:Math.max(0,Number(target)||0)};
     let source=episodeAudioSource(episode);
     const offlineRecord=state.offlineIndex[key];
     const cachedOfflineUrl=offlineRecord?state.blobUrls.get(key):null;
@@ -1984,10 +2002,9 @@
     playbackMetadataHandler=()=>{
       if(sequence!==playbackSequence)return;
       playbackMetadataHandler=null;
-      if(Number.isFinite(target)&&target>0){
-        try{audio.currentTime=Math.min(target,Math.max(0,(audio.duration||target)-1))}catch{}
-      }
-      if(!autoplay)n.help.textContent=target>0?text('Pozice ','Pozícia ')+fmtTime(target)+text(' je připravená. Klepněte na Přehrát.',' je pripravená. Klepnite na Prehrať.'):text('Klepněte na Přehrát.','Klepnite na Prehrať.');
+      applyNativePosition();
+      const readyTime=playbackClock().time;
+      if(!autoplay)n.help.textContent=readyTime>0?text('Pozice ','Pozícia ')+fmtTime(readyTime)+text(' je připravená. Klepněte na Přehrát.',' je pripravená. Klepnite na Prehrať.'):text('Klepněte na Přehrát.','Klepnite na Prehrať.');
       syncPlayer();
     };
     audio.addEventListener('loadedmetadata',playbackMetadataHandler,{once:true});
@@ -1996,8 +2013,8 @@
   }
   function closePlayer(){
     exitCaptionReader(false,false);
-    ++playbackSequence;playbackAutoplayWanted=false;playbackNeedsReload=false;playbackSourcePending=false;
     saveProgress(true,false);
+    ++playbackSequence;nativePendingPosition=null;playbackAutoplayWanted=false;playbackNeedsReload=false;playbackSourcePending=false;
     stopYoutubePlayback();
     stopContinuousPlayback();
     const n=playerNodes();
@@ -2139,7 +2156,7 @@
       restoreYoutubeWhenVisible();
       resumePendingAudioWhenVisible();
       refreshCaptionWake();requestCaptionScreenLock(true);
-    });n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!continuousActive()&&!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=false;saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{syncPlayer();saveProgress(false,false)});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{if(youtubeActive())return;saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
+    });n.audio.addEventListener('play',syncPlayer);n.audio.addEventListener('pause',()=>{if(!continuousActive()&&!playbackSwitchingSource&&!playbackSourcePending&&!n.audio.ended&&n.audio.paused)playbackAutoplayWanted=false;saveProgress(true,false);syncPlayer()});n.audio.addEventListener('timeupdate',()=>{syncPlayer();saveProgress(false,false)});n.audio.addEventListener('seeked',()=>{const pending=nativePendingPosition;if(pending?.sequence===playbackSequence&&pending.key===state.current?.key&&Math.abs(n.audio.currentTime-pending.time)<.2)nativePendingPosition=null;syncPlayer()});n.audio.addEventListener('durationchange',syncPlayer);n.audio.addEventListener('loadeddata',syncPlayer);n.audio.addEventListener('ended',()=>{if(youtubeActive())return;saveProgress(true,true);syncPlayer()});window.addEventListener('pagehide',()=>saveProgress(true,false));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveProgress(true,false)});$('#data-file-v2').addEventListener('change',()=>{const file=$('#data-file-v2').files?.[0];if(file)importBackup(file)});
   }
 
 
@@ -3112,7 +3129,7 @@
   $('#player-download-v2')?.addEventListener('click',event=>{event.preventDefault();downloadCurrentMp3()});
   $('#player-video-v2')?.addEventListener('click',toggleYoutubePlayback);
   $('#player-video-fullscreen-v2')?.addEventListener('click',toggleVideoFullscreen);
-  $('#player-caption-language-v2')?.addEventListener('change',changeYoutubeCaptionLanguage);
+  $('#player-video-fullscreen-close-v2')?.addEventListener('click',()=>exitVideoFullscreen());
   $('#player-caption-toggle-v2')?.addEventListener('click',toggleCaptions);
   $('#player-caption-reader-button-v2')?.addEventListener('click',enterCaptionReader);
   const captionReaderOverlay=$('#player-caption-reader-overlay-v2');

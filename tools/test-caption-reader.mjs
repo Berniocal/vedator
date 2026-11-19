@@ -55,7 +55,12 @@ async function boot(storage={},api=true,captionMode='ok'){
   const sort=$('#parity-sort-v2');sort.value='old';sort.dispatchEvent(new w.Event('change',{bubbles:true}));await wait();
   async function play(n){$(`.episode-card-v2[data-episode="${n}"] > .actions .play`).click();await wait();}
   async function click(selector){$(selector).click();await wait();}
-  async function captionLanguage(value){$('#player-caption-language-v2').value=value;$('#player-caption-language-v2').dispatchEvent(new w.Event('change'));await wait()}
+  async function captionLanguage(value){
+    const toggle=$('#player-caption-toggle-v2');
+    if(value==='off'){if(toggle.getAttribute('aria-pressed')==='true')toggle.click()}
+    else{if(toggle.getAttribute('aria-pressed')==='false')toggle.click();$('.language-v2 [data-lang="'+(value==='sk'?'sk':'cz')+'"]').click()}
+    await wait();
+  }
   return {dom,w,$,audio,players,play,click,errors,captionLanguage,captionRequests,resolveCaptions:()=>resolveCaptions?.(),snapshot:()=>Object.fromEntries(Object.keys(w.localStorage).map(k=>[k,w.localStorage.getItem(k)]))};
 }
 const t=await boot();
@@ -70,6 +75,14 @@ try{
   await t.captionLanguage('cs');await t.click('#player-caption-reader-button-v2');
   const overlay=$('#player-caption-reader-overlay-v2'),bar=$('#caption-reader-controls-v2');
   assert(!overlay.hidden);assert(bar.hidden,'Reader starts with hidden controls');
+  assert(!$('#caption-book-smaller-v2').hidden&&!$('#caption-book-larger-v2').hidden,'Font controls also exist while listening');
+  const originalFont=parseFloat($('#player-caption-reader-text-v2').style.fontSize),originalTime=audio.currentTime;
+  await t.click('#caption-book-larger-v2');
+  assert(parseFloat($('#player-caption-reader-text-v2').style.fontSize)>originalFont,'Live subtitle size increases');
+  assert.equal(JSON.parse(w.localStorage.getItem('vedator-caption-listening-size-v1')),1.1);
+  assert.equal(audio.currentTime,originalTime,'Changing subtitle size never seeks');
+  await t.click('#caption-book-smaller-v2');assert.equal(JSON.parse(w.localStorage.getItem('vedator-caption-listening-size-v1')),1);
+
   await t.click('#player-caption-reader-overlay-v2');assert(!bar.hidden);assert(!overlay.hidden);
   await t.click('#caption-reader-play-v2');assert(audio.paused);assert(!bar.hidden,'Playback buttons do not hide the bar');
   await t.click('#caption-reader-play-v2');assert(!audio.paused);
@@ -136,6 +149,7 @@ try{
   function pointer(type,x,y,id=1,primary=true){const e=new w.MouseEvent(type,{clientX:x,clientY:y,bubbles:true});Object.defineProperties(e,{pointerId:{value:id},isPrimary:{value:primary}});overlay.dispatchEvent(e)}
   pointer('pointerdown',750,350);pointer('pointermove',300,360);pointer('pointerup',300,360);
   assert.equal(w.__readerTest.book().index,firstPage+1,'Left swipe advances a whole page');
+  assert.equal(audio.currentTime,w.__readerTest.book().pages[w.__readerTest.book().index].time,'Page turns update the shared playback position');
   overlay.dispatchEvent(new w.MouseEvent('click',{clientX:300,clientY:360,detail:1,bubbles:true}));await new Promise(r=>setTimeout(r,350));
   assert.equal(w.__readerTest.book().index,firstPage+1,'Synthetic click after swipe cannot turn a second page');
   pointer('pointerdown',300,350);pointer('pointermove',750,350);pointer('pointerup',750,350);assert.equal(w.__readerTest.book().index,firstPage,'Right swipe returns');
@@ -157,8 +171,8 @@ try{
   await new Promise(r=>setTimeout(r,650)); // Let the preceding swipe's synthetic-click guard expire.
   const pageBeforeClose=node.textContent;node.dispatchEvent(new w.MouseEvent('dblclick',{bubbles:true}));assert(overlay.hidden,'Double click in book text returns to the app');await wait();
   await t.click('#player-caption-reader-button-v2');await t.click('#player-caption-reader-overlay-v2');await t.click('#caption-reader-mode-v2');assert.equal(node.textContent,pageBeforeClose,'Book resumes saved place');
-  const resumeTime=w.__readerTest.book().pages[w.__readerTest.book().index].time;
-  await t.click('#caption-reader-mode-v2');await wait();assert(!audio.paused);assert.equal(audio.currentTime,resumeTime,'Listening starts at the displayed page');
+  const resumeTime=audio.currentTime;
+  await t.click('#caption-reader-mode-v2');await wait();assert(!audio.paused);assert.equal(audio.currentTime,resumeTime,'Listening preserves the shared time after font changes and page reflow');
   pointer('pointerdown',450,350);await new Promise(r=>setTimeout(r,550));
   assert(audio.paused,'Playback pauses while center is held');assert(!$('#caption-reader-feedback-v2').hidden);
   pointer('pointerup',450,350);assert(!audio.paused,'Lifting the finger resumes the previously playing audio');

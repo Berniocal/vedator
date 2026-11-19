@@ -78,3 +78,12 @@ Sporné pasáže jsou doložené nezávislým rozpoznáním large-v3, kontrolou 
 Tlačítko **⛶ Celá obrazovka** pod videem roztahuje společný panel obsahující YouTube iframe i titulkovou vrstvu. Nativní tlačítko iframe je nahrazené tímto společným ovládáním, aby se titulky při zvětšení neztratily. Video se při vstupu ani návratu nepřesouvá a znovu nenačítá; zůstává čas, stav přehrávání a jazyk titulků. Panel zůstává zvětšený také při přechodu na další dostupné video. Přepnutí na MP3 nebo zavření přehrávače jej ukončí.
 
 Pokud prohlížeč Fullscreen API odmítne nebo nemá, panel pokryje dostupnou plochu aplikace. Zpět, Escape a tlačítko Zmenšit vracejí běžné zobrazení. V obou orientacích zůstává obraz v poměru 16:9 a titulky uvnitř jeho plochy. Testy ověřují zachování iframe, času a titulků, odmítnuté fullscreen oprávnění i návrat zpět; browser kontrola zahrnuje skutečné Fullscreen API v mobilní velikosti na výšku i na šířku.
+
+
+## Jednodušší ovládání, společný čas a velikost písma (19. 11. 2026)
+
+Pod přehrávačem je jediný řádek **Titulky · Čtečka · Celá obrazovka**. Jazyk titulků se vždy řídí jazykem aplikace; samostatný výběr je odstraněn a dříve uložená volba češtiny/slovenštiny se již nepoužívá. Zapnutí a vypnutí zůstává uložené. Ve fullscreen videu iframe vyplňuje celou plochu bez vyhrazené spodní lišty; návrat zajišťuje malé tlačítko přes obraz. Přirozený poměr stran videa se nemění.
+
+MP3, YouTube, průběžná čtečka i stránkované čtení sdílejí jednu pozici. Požadovaný čas MP3 je zachován i během čekání na metadata a při rychlém přepnutí zdroje; novější posun má přednost. Přepnutí zdroje zachovává pauzu. Listování stránkami aktualizuje společný čas, ale vstup do čtečky, změna písma a přepočet řádků jej neposouvají zpět na začátek stránky. Starší záložka čtení nepřebíjí novější pozici poslechu.
+
+Tlačítka **A− / A+** jsou dostupná v liště čtečky také při běžném poslechu s průběžnými titulky. Velikost průběžných titulků se pamatuje samostatně od velikosti stránkovaného čtení; větší titulky mohou použít více řádků. Změna písma nepřerušuje ani neposouvá přehrávání.
