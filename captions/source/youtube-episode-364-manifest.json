@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "status": "source-downloaded-awaiting-complete-editorial-and-acoustic-review",
+  "status": "editorially-reviewed-acoustically-aligned-registered",
   "episodes": [
     {
       "episode": 364,
@@ -9,7 +9,18 @@
       "upstreamRepository": "Berniocal/vedator-test",
       "upstreamPath": "titulky/vedatorsky-podcast-364-mileniove-problemy-4-hodgeova-hypoteza.srt",
       "captionType": "YouTube automatic Slovak ASR",
-      "archivedSha256": "e027be74ad5c5f77368fd2413fd8e1a6f4be79ac0927567391f4d6d7ab50ef86"
+      "archivedSha256": "e027be74ad5c5f77368fd2413fd8e1a6f4be79ac0927567391f4d6d7ab50ef86",
+      "captionFile": "captions/episode-364.json",
+      "cueCount": 692,
+      "explicitlyUnclearGroups": [
+        2,
+        6,
+        237,
+        326,
+        419,
+        436
+      ]
     }
-  ]
+  ],
+  "humanListeningVerified": false
 }

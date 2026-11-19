@@ -1,14 +1,25 @@
 {
   "episode": 364,
+  "ok": true,
   "cueCount": 692,
   "sourceGroupCount": 445,
-  "audioSha256": "0f1b946a2dd5c73fcc2a92652d634a5a0b2fcf0d261966b509b660b4fe0e6b72",
+  "recoveredSpeechPanels": 3,
   "lowScoreGroups": [
     39,
     174,
     237,
     384
   ],
-  "largeBoundaryConflicts": [],
-  "status": "assets-built-not-registered-needs-quality-gates"
+  "fastPanels": 45,
+  "explicitlyUnclearGroups": [
+    2,
+    6,
+    237,
+    326,
+    419,
+    436
+  ],
+  "issues": [],
+  "caution": "Structural, provenance and acoustic model checks; not a full independent human listening verification.",
+  "status": "editorially-reviewed-acoustically-aligned"
 }
