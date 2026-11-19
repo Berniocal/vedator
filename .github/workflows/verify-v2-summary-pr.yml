@@ -74,27 +74,37 @@ jobs:
         run: |
           npm install --no-save --no-package-lock --no-audit --no-fund jsdom@26 puppeteer-core@25.12.0
           ln -s index.html v2.html
-          node tools/test-app-v2.mjs
-          node tools/test-v2-ask.mjs
-          node tools/sync-ai-ask-engine.mjs --check
-          node tools/test-local-ai-browser.mjs
-          node tools/test-v2-question-experience.mjs
-          node tools/test-v2-episode-experience.mjs
-          node tools/test-v2-full-parity.mjs
-          node tools/test-v2-playlist-parity.mjs
-          node tools/test-v2-mobile-deep-polish.mjs
-          node tools/test-v2-card-player-polish.mjs
-          node tools/test-v2-legacy-visual-parity.mjs
-          node tools/test-v2-duplicate-142.mjs
-          node tools/test-v2-playback-identity.mjs
-          node tools/test-v2-youtube-player.mjs
-          node tools/test-v2-episode-context-order.mjs
-          node tools/test-v2-series-playback-order.mjs
-          node tools/test-v2-series-topics.mjs
-          node tools/test-v2-collection-filter.mjs
-          node tools/test-v2-mobile-browser.mjs
-          node tools/test-v2-mobile-browser-playlist.mjs
-          node tools/test-v2-real-readmore-browser.mjs
+          failures=0
+          run_checked() {
+            echo "::group::$*"
+            if "$@"; then echo "PASS $*"; else
+              echo "::error::V2 integration check failed: $*"
+              failures=$((failures+1))
+            fi
+            echo "::endgroup::"
+          }
+          run_checked node tools/test-app-v2.mjs
+          run_checked node tools/test-v2-ask.mjs
+          run_checked node tools/sync-ai-ask-engine.mjs --check
+          run_checked node tools/test-local-ai-browser.mjs
+          run_checked node tools/test-v2-question-experience.mjs
+          run_checked node tools/test-v2-episode-experience.mjs
+          run_checked node tools/test-v2-full-parity.mjs
+          run_checked node tools/test-v2-playlist-parity.mjs
+          run_checked node tools/test-v2-mobile-deep-polish.mjs
+          run_checked node tools/test-v2-card-player-polish.mjs
+          run_checked node tools/test-v2-legacy-visual-parity.mjs
+          run_checked node tools/test-v2-duplicate-142.mjs
+          run_checked node tools/test-v2-playback-identity.mjs
+          run_checked node tools/test-v2-youtube-player.mjs
+          run_checked node tools/test-v2-episode-context-order.mjs
+          run_checked node tools/test-v2-series-playback-order.mjs
+          run_checked node tools/test-v2-series-topics.mjs
+          run_checked node tools/test-v2-collection-filter.mjs
+          run_checked node tools/test-v2-mobile-browser.mjs
+          run_checked node tools/test-v2-mobile-browser-playlist.mjs
+          run_checked node tools/test-v2-real-readmore-browser.mjs
+          if [ "$failures" -ne 0 ]; then echo "::error::$failures V2 integration checks failed"; exit 1; fi
       - name: Verify MathJax in the browser
         run: |
           npm install --prefix "$RUNNER_TEMP/vedator-mathjax-test" --no-audit --no-fund mathjax-full@3.2.2 @sparticuz/chromium@153.0.0 puppeteer-core@25.12.0
