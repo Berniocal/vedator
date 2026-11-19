@@ -26,6 +26,8 @@ jobs:
       TOKENIZERS_PARALLELISM: 'false'
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
       - id: source
         run: |
           if test -f captions/source/episode-${{ matrix.episode }}-youtube-audio-resolutions.json; then echo 'present=true' >> "$GITHUB_OUTPUT"; fi
