@@ -43,7 +43,9 @@ next.click();await new Promise(resolve=>setTimeout(resolve,20));
 const ep347=data.episodes.find(episode=>Number(episode.number)===347);
 assert(window.document.querySelector('#player-title-v2').textContent===(ep347?.i18n?.sk?.title||ep347?.title||''),'Next from episode 346 must increase the episode number to 347');
 
-card346.querySelector('.actions .play').click();await new Promise(resolve=>setTimeout(resolve,20));
+const refreshedCard346=window.document.querySelector('#episodes-v2 .episode-card-v2[data-episode="346"]');
+assert(refreshedCard346,'Episode 346 disappeared after playing next track');
+refreshedCard346.querySelector('.actions .play').click();await new Promise(resolve=>setTimeout(resolve,20));
 prev.click();await new Promise(resolve=>setTimeout(resolve,20));
 const ep345=data.episodes.find(episode=>Number(episode.number)===345);
 assert(window.document.querySelector('#player-title-v2').textContent===(ep345?.i18n?.sk?.title||ep345?.title||''),'Previous from episode 346 must decrease the episode number to 345');
