@@ -816,7 +816,9 @@
       "textSk": "To by bolo [nezrozumiteľné].",
       "textCs": "To by bylo [nesrozumitelné].",
       "status": "resolved",
-      "evidencePassages": [],
+      "evidencePassages": [
+        57
+      ],
       "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
       "reason": "Both no-VAD recognizers and CTC fail to resolve the overlapping final noun reliably; preserve clear beginning and mark the rest explicitly unclear."
     },
