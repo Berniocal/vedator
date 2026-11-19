@@ -21,7 +21,7 @@ const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.json':'
 const server=http.createServer((request,response)=>{
   const url=new URL(request.url,'http://localhost');
   const file=path.resolve(root,'.'+(url.pathname==='/'?'/index.html':url.pathname));
-  if(!file.startsWith(root+path.sep)||!fs.existsSync(file)){response.writeHead(404);response.end();return}
+  if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){response.writeHead(404);response.end();return}
   response.writeHead(200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream'});fs.createReadStream(file).pipe(response);
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
