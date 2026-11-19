@@ -1,6 +1,6 @@
 {
   "episode": 364,
-  "cueCount": 691,
+  "cueCount": 692,
   "sourceGroupCount": 445,
   "audioSha256": "0f1b946a2dd5c73fcc2a92652d634a5a0b2fcf0d261966b509b660b4fe0e6b72",
   "lowScoreGroups": [
@@ -9,19 +9,6 @@
     237,
     384
   ],
-  "largeBoundaryConflicts": [
-    {
-      "previousGroup": 190,
-      "nextGroup": "recovered-1",
-      "overlap": 0.66,
-      "midpoint": 1347.005
-    },
-    {
-      "previousGroup": 293,
-      "nextGroup": "recovered-2",
-      "overlap": 0.482,
-      "midpoint": 2041.222
-    }
-  ],
+  "largeBoundaryConflicts": [],
   "status": "assets-built-not-registered-needs-quality-gates"
 }
