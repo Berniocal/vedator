@@ -18,6 +18,17 @@ const progressBefore=window.localStorage.getItem('vedatorPlaybackProgressV1');
 const playlistsBefore=window.localStorage.getItem('vedator-user-playlists-v1');
 
 window.fetch=async()=>({ok:true,status:200,json:async()=>data});
+// The catalog loader uses XMLHttpRequest for download progress, not fetch.
+// Serve the generated local fixture rather than making a request to example.test.
+window.XMLHttpRequest=class CatalogXHRMock{
+  open(_method,url){this.url=url}
+  send(){
+    this.status=this.url.includes('content-v2.json')?200:404;
+    this.responseText=this.status===200?JSON.stringify(data):'';
+    if(this.status===200)this.onprogress?.({lengthComputable:true,loaded:this.responseText.length,total:this.responseText.length});
+    window.setTimeout(()=>this.onload?.(),0);
+  }
+};
 window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};
 window.HTMLMediaElement.prototype.load=()=>{};
@@ -34,7 +45,7 @@ window.document.dispatchEvent(new window.Event('DOMContentLoaded',{bubbles:true}
 const detail=await ready;await new Promise(resolve=>setTimeout(resolve,30));
 
 const assert=(condition,message)=>{if(!condition)throw new Error(message)};
-const tabs=[...window.document.querySelectorAll('.tab-v2')];
+const tabs=[...window.document.querySelectorAll('.tab-v2[data-view]')];
 assert(tabs.length===9,`Expected 9 tabs, got ${tabs.length}`);
 assert(tabs.map(x=>x.dataset.view).join(',')==='episodes,series,questions,nonquestions,ask,sliby,playlists,feedback,data','Unexpected tab order');
 const feedback=tabs.find(tab=>tab.dataset.view==='feedback'),feedbackFrame=window.document.querySelector('#feedback-frame-v2');

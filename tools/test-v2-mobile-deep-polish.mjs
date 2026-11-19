@@ -48,6 +48,16 @@ window.HTMLAnchorElement.prototype.click=function(){if(this.download)downloads.p
 
 let audioFetches=0;
 const byteChunk=new Uint8Array([1,2,3,4,5,6]);
+window.XMLHttpRequest=class LocalV2CatalogXHR{
+  open(_method,url){this.url=url}
+  send(){
+    Promise.resolve(window.fetch(this.url)).then(response=>response.json()).then(catalog=>{
+      this.status=200;this.responseText=JSON.stringify(catalog);
+      this.onprogress?.({lengthComputable:true,loaded:this.responseText.length,total:this.responseText.length});
+      this.onload?.();
+    }).catch(error=>this.onerror?.(error));
+  }
+};
 window.fetch=async url=>{
   const value=String(url);
   if(value.includes('content-v2.json'))return {ok:true,status:200,json:async()=>data};
