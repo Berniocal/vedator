@@ -53,10 +53,15 @@ try{
     // all MP3 requests. Exercise the native fallback here; real MSE seeking,
     // timing and transitions are covered by test-main-continuous-browser.mjs.
     Object.defineProperty(window,'MediaSource',{value:undefined,configurable:true});
+    // Keep media state fully local: this test verifies chapter seek wiring,
+    // not MP3 decoding. Remote media requests are intentionally blocked.
+    Object.defineProperty(HTMLMediaElement.prototype,'src',{configurable:true,get(){return this.__testSrc||''},set(url){this.__testSrc=String(url)}});
+    Object.defineProperty(HTMLMediaElement.prototype,'currentSrc',{configurable:true,get(){return this.__testSrc||''}});
+    Object.defineProperty(HTMLMediaElement.prototype,'currentTime',{configurable:true,get(){return this.__testTime||0},set(value){this.__testTime=Number(value)||0}});
     HTMLMediaElement.prototype.play=()=>Promise.resolve();
     HTMLMediaElement.prototype.pause=()=>{};
-    HTMLMediaElement.prototype.load=function(){this.currentTime=0;queueMicrotask(()=>this.dispatchEvent(new Event('loadedmetadata')))};
-    Object.defineProperty(HTMLMediaElement.prototype,'duration',{get:()=>7200});
+    HTMLMediaElement.prototype.load=function(){queueMicrotask(()=>this.dispatchEvent(new Event('loadedmetadata')))};
+    Object.defineProperty(HTMLMediaElement.prototype,'duration',{configurable:true,get:()=>7200});
   });
   await page.goto(origin+'/#episode=153',{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>document.documentElement.dataset.vedatorV2Ready==='1');
