@@ -60,3 +60,14 @@ Finální česko-slovenské dvojice v `episode-8.edited.json` jsou rozděleny po
 **Rozsah ověření:** automatická akustická kontrola původního MP3 pomocí nezávislých modelů a redakční oprava textu není totéž co nezávislý lidský poslech každého slova. Při krátké nejasné vsuvce kolem 5:40 a neúplné otázce o teplotě kolem 11:07 může přetrvat nejistota; případná věta se nevymýšlela podle okolního kontextu. Přímé akustické porovnání YouTube audio stopy s RSS MP3 nebylo provedeno; samotné ID videa ani automatický browser test toto srovnání nenahrazují.
 
 Výsledek závěrečné redakční úpravy: **210 českých a slovenských titulků**, každý maximálně ve dvou řádcích a žádný s délkou řádku nad 48 znaků. Všech 2 365 rozpoznaných slov je přiřazeno bez mezer v návaznosti a původní akusticky obnovená pasáž je vložená zvlášť. Závěrečná CTC kontrola nehlásí žádný titulek se skóre pod 0,35. Souhrnný soubor `episode-8.review.json` má stav `editorially-reviewed-acoustically-aligned-needs-independent-listening`, nikoli potvrzení úplného lidského poslechu.
+
+
+## Díly 363, 362 a 361 – dávka podle YouTube (19. 11. 2026)
+
+Dávka zahrnuje Enrica Fermiho (363), dětské FAQ (362) a Opekáčkový speciál (361). Základem jsou archivované původní slovenské titulky YouTube; u rolovaných titulků 363 jsou odstraněna pouze překrývající se opakování. Následovala redakce celého slovenského textu a českého překladu. Obě verze používají stejná akustická časování a nejvýše dva řádky po 48 znacích.
+
+Časy vycházejí z původních RSS MP3 zarovnaných slovenským CTC modelem; anglická dětská otázka v 362 je obnovena ze zvuku, přeložena do obou jazyků a zarovnána anglickým CTC modelem. Sedm rozmístěných kontrolních oken každého dílu ověřuje shodu hodin MP3 a původních YouTube titulků. Přesné snímkové indexy MP3 se ukládají společně s titulky, bez jednotného ručního posunu.
+
+Sporné pasáže jsou doložené nezávislým rozpoznáním large-v3, kontrolou bez VAD a u významových rozdílů i porovnáním alternativ na stejném zvuku. Několik krátkých překřikovaných nebo špatně slyšitelných fragmentů v 361 a dětská nahrávka v 362 zůstávají výslovně označeny jako nesrozumitelné; nejsou doplněné podle následné odpovědi. Věcná tvrzení ani přeřeknutí mluvčích se nepřepisují na jiný význam. Nejde o úplný nezávislý lidský poslech všech tří nahrávek.
+
+`tools/validate-youtube-caption-batch.py` před registrací kontroluje původ zvuku, návaznost všech redigovaných slov v obou jazycích, totožnost SRT s JSON, akustické hranice, doložení nízkých skóre a přesný seek index. Zdrojové přepisy a kontrolní důkazy zůstávají v `captions/source/episode-36*-youtube-*`; aplikace načítá `captions/episode-36*.json` podle `episode-videos.json`. Nové titulky vstupují do verzované offline cache stejným způsobem jako starší díly.

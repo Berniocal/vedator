@@ -379,7 +379,7 @@ body.vedator-sliby-active main > .panel{position:sticky;top:0;z-index:350;box-sh
     <div class="controls"><div class="search-clear-wrap"><input id="search-v2" class="search" placeholder="Hledat v právě otevřené záložce…"><button id="search-clear-v2" class="search-clear-button" type="button" hidden aria-label="Smazat vyhledávání" title="Smazat vyhledávání">×</button></div><button id="ask-submit-v2" class="ask-submit-v2 hidden" type="button">Hledat</button></div>
     <div class="tabs" aria-label="Pohledy">
       <button class="tab-v2 active" data-view="episodes" type="button">Epizody</button>
-      <button class="tab-v2" data-view="series" type="button">Série</button>
+      <button class="tab-v2" data-view="series" type="button">Série a témata</button>
       <button class="tab-v2" data-view="questions" type="button">Otázky</button>
       <button class="tab-v2" data-view="nonquestions" type="button">Neotázky</button>
       <button class="tab-v2" data-view="ask" type="button">Zeptej se</button>
@@ -494,7 +494,75 @@ window.VedatorSetLoadingProgress=function(id,label,percent){
   }
 };
 </script>
-<script src="./app-v2.js" defer></script>
+<script src="./app-v2.js?v=cc24476c1964" defer></script>
+<script id="v2-summary-open-state">
+(()=>{
+  const root=document.getElementById('episodes-v2');
+  if(!root||!('MutationObserver' in window))return;
+  const selector='details.episode-summary-v2';
+  const openEpisodes=new Set();
+  const episodeOf=details=>details.closest('article[data-episode]')?.dataset.episode||'';
+  const remember=details=>{
+    if(!(details instanceof Element)||!details.matches(selector))return;
+    const episode=episodeOf(details);if(!episode)return;
+    if(details.open)openEpisodes.add(episode);else openEpisodes.delete(episode);
+  };
+  const restore=node=>{
+    if(!(node instanceof Element))return;
+    const summaries=[];
+    if(node.matches(selector))summaries.push(node);
+    summaries.push(...node.querySelectorAll(selector));
+    for(const details of summaries){const episode=episodeOf(details);if(episode&&openEpisodes.has(episode))details.open=true}
+  };
+  root.querySelectorAll(selector+'[open]').forEach(remember);
+  new MutationObserver(records=>{
+    for(const record of records){
+      if(record.type==='attributes'){remember(record.target);continue}
+      for(const node of record.addedNodes)restore(node);
+    }
+  }).observe(root,{childList:true,subtree:true,attributes:true,attributeFilter:['open']});
+})();
+</script>
+<script id="v2-series-open-state">
+(()=>{
+  const root=document.getElementById('series-v2');
+  if(!root||!('MutationObserver' in window))return;
+  const STORAGE_KEY='vedator-series-open-v1';
+  const selector='details.series[data-series-index]';
+  const readOpen=()=>{
+    try{
+      const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
+      return new Set(Array.isArray(value)?value.map(String):[]);
+    }catch{return new Set()}
+  };
+  const openSeries=readOpen();
+  const keyOf=details=>details.querySelector(':scope>summary .deep-share[data-kind="series"][data-value]')?.dataset.value||'';
+  const persist=()=>{
+    try{localStorage.setItem(STORAGE_KEY,JSON.stringify([...openSeries].sort()))}catch{}
+  };
+  const remember=details=>{
+    if(!(details instanceof Element)||!details.matches(selector))return;
+    const key=keyOf(details);if(!key)return;
+    const known=openSeries.has(key);
+    if(details.open&&!known){openSeries.add(key);persist()}
+    else if(!details.open&&known){openSeries.delete(key);persist()}
+  };
+  const restore=node=>{
+    if(!(node instanceof Element))return;
+    const cards=[];
+    if(node.matches(selector))cards.push(node);
+    cards.push(...node.querySelectorAll(selector));
+    for(const details of cards){const key=keyOf(details);if(key&&openSeries.has(key)&&!details.open)details.open=true}
+  };
+  restore(root);
+  new MutationObserver(records=>{
+    for(const record of records){
+      if(record.type==='attributes'){remember(record.target);continue}
+      for(const node of record.addedNodes)restore(node);
+    }
+  }).observe(root,{childList:true,subtree:true,attributes:true,attributeFilter:['open']});
+})();
+</script>
 <script id="v2-search-clear-script">
 (()=>{
   const search=document.getElementById('search-v2'),button=document.getElementById('search-clear-v2');
@@ -1087,8 +1155,30 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
 })();
 </script>
 
-<script>
-(()=>{if(!('serviceWorker' in navigator))return;window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js',{scope:'./'}).then(reg=>reg.update()).catch(err=>console.warn('SW registration failed',err));});})();
+<script id="v2-service-worker-bootstrap">
+(()=>{
+  if(!('serviceWorker' in navigator))return;
+  const CHECK_INTERVAL=30*60*1000;
+  const MIN_CHECK_GAP=60*1000;
+  window.addEventListener('load',async()=>{
+    try{
+      const reg=await navigator.serviceWorker.register('./sw.js',{scope:'./',updateViaCache:'none'});
+      const safeUpdate=()=>reg.update().catch(err=>console.warn('SW update check failed',err));
+      await safeUpdate();
+      let lastCheck=Date.now();
+      const check=()=>{
+        const now=Date.now();
+        if(now-lastCheck<MIN_CHECK_GAP)return;
+        lastCheck=now;
+        safeUpdate();
+      };
+      document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')check()});
+      window.addEventListener('online',check);
+      window.addEventListener('pageshow',check);
+      setInterval(safeUpdate,CHECK_INTERVAL);
+    }catch(err){console.warn('SW registration failed',err)}
+  });
+})();
 </script>
 </body>
 </html>

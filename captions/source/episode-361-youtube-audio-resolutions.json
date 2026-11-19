@@ -1,0 +1,891 @@
+{
+  "episode": 361,
+  "status": "all-audio-questions-resolved",
+  "audioSha256": "98877607b9b18ae9f000ddf5d8bb0f3b912204d828d4d50ff63703c0690569ca",
+  "independentReviewSha256": "3883255389139bd850359428d5d7d474276c10a4c533afb976300754020bbc15",
+  "humanListeningVerified": false,
+  "groups": {
+    "2": {
+      "textSk": "Od popola cez pahrebu až po špekáčiky. Veda nás obklopuje na každom kroku.",
+      "textCs": "Od popela přes žhavé uhlíky až po špekáčky. Věda nás obklopuje na každém kroku.",
+      "reason": "Špekáčiky vs špekáčikoch in deliberately changed introduction; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        0
+      ],
+      "status": "resolved"
+    },
+    "8": {
+      "textSk": "A čo takto niacínamid? Myslíš niacínamid? Áno, niacínamid.",
+      "textCs": "A co takhle niacinamid? Myslíš niacinamid? Ano, niacinamid.",
+      "reason": "Niacínamid intentionally mispronounced joke; retain spoken mistakes if intentional; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        1
+      ],
+      "status": "resolved"
+    },
+    "23": {
+      "textSk": "Krasňanoch pri horárni. Či horáreň priamo. A sme si niečo poopekali. Mohli ste tu byť, keby ste mali flexibilnejšiu pracovnú dobu a bývate v",
+      "textCs": "Krasňanech u hájovny. Nebo přímo v hájovně. Něco jsme si opekli. Mohli jste tu být, kdybyste měli pružnější pracovní dobu a bydlíte v",
+      "reason": "Krasňany place-name spelling; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        2
+      ],
+      "status": "resolved"
+    },
+    "30": {
+      "textSk": "Six seven.",
+      "textCs": "Six seven.",
+      "reason": "Six may be absent before seven; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        3
+      ],
+      "status": "resolved"
+    },
+    "35": {
+      "textSk": "postaviť do radu a zdvíhať ruky. Vieš, čo je smutné? Už začínam používať emotikony aj s klientmi. Proste šípočku, aby klient,",
+      "textCs": "stavět do řady a zvedat ruce. Víš, co je smutné? Už začínám používat emotikony i s klienty. Prostě šipku, aby klient,",
+      "reason": "Overlapping emoticon/client discussion; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        4
+      ],
+      "status": "resolved"
+    },
+    "36": {
+      "textSk": "podpis tu. Hej, inak to robí sekretárka u nás na katedre, lebo vieš, aby som to nezvládol ináč.",
+      "textCs": "podpis tady. Jo, jinak to dělá sekretářka u nás na katedře, protože víš, abych to nezvládl jinak.",
+      "reason": "Secretarial-work clause has possible missing negation; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        4
+      ],
+      "status": "resolved"
+    },
+    "41": {
+      "textSk": "V tom videu, čo si rozprával o vašom paperi o fuzzy sférach, si rozprával o metastabilných",
+      "textCs": "V tom videu, kde jsi mluvil o vašem článku o fuzzy sférách, jsi mluvil o metastabilních",
+      "reason": "Fuzzy sféry vs corrupted fázisféry; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        5
+      ],
+      "status": "resolved"
+    },
+    "45": {
+      "textSk": "Mal som to spomenúť v predošlej epizóde a zabudol som na to. Hej, ja som sa dosť čudoval, prečo si to nespomenul.",
+      "textCs": "Měl jsem to zmínit v předchozí epizodě a zapomněl jsem. Jo, docela jsem se divil, proč jsi to nezmínil.",
+      "reason": "Missing start Mal som to; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        6
+      ],
+      "status": "resolved"
+    },
+    "49": {
+      "textSk": "matematickom slova zmysle. Rozprávacia palička sa nám práve skrátila. Hej, Daisy.",
+      "textCs": "matematickém smyslu. Mluvící hůlka se nám právě zkrátila. Jo, Daisy.",
+      "reason": "Podcastov interruption and shortened talking stick; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        7
+      ],
+      "status": "resolved"
+    },
+    "53": {
+      "textSk": "takéto stopy chaosu. A zatiaľ sa mi ich tam nepodarilo nájsť, ale bolo by to mega zaujímavé, keby sa niečo takéto podarilo.",
+      "textCs": "takové stopy chaosu. Zatím se mi je tam nepodařilo najít, ale bylo by velmi zajímavé, kdyby se něco takového podařilo.",
+      "reason": "Stopy efekt vs stopy/efekty; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        8
+      ],
+      "status": "resolved"
+    },
+    "59": {
+      "textSk": "Ja sa Yumu snažím stále dokopať, aby sme nejaké veci…",
+      "textCs": "Snažím se Yumu pořád dokopat, abychom nějaké věci…",
+      "reason": "Incomplete cooperation remark; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        9
+      ],
+      "status": "resolved"
+    },
+    "71": {
+      "textSk": "Dobre, super. [nezrozumiteľné] cez ten oheň. Dám takú jednoduchšiu otázku, lebo tamto som nerozumel ani tej otázke.",
+      "textCs": "Dobře, super. [nesrozumitelné] přes ten oheň. Položím jednodušší otázku, protože tam jsem nerozuměl ani té otázce.",
+      "reason": "Listener introductory phrase garbled; compared archived wording with independent large-v3 evidence; retain only supported wording. The short opening aside is not reliably recovered by either no-VAD followup; retain an explicit unintelligible marker rather than invent words.",
+      "evidencePassages": [
+        10
+      ],
+      "status": "resolved"
+    },
+    "72": {
+      "textSk": "A pôvodne som chcel Bellove nerovnosti, ale nejdem ťa teraz trápiť. Som sa tak zamýšľal dávnejšie nad tým,",
+      "textCs": "Původně jsem chtěl Bellovy nerovnosti, ale nebudu tě teď trápit. Už dřív jsem se zamýšlel nad tím,",
+      "reason": "Nejdem vs neviem to trouble speaker; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        10
+      ],
+      "status": "resolved"
+    },
+    "80": {
+      "textSk": "Takže, či či si nad týmto premýšľal? Teda to asi nepotrebuješ.",
+      "textCs": "Takže, jestli jsi nad tím přemýšlel? Tedy to asi nepotřebuješ.",
+      "reason": "Nepotrebuješ vs nepredpokladáš wording; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        11
+      ],
+      "status": "resolved"
+    },
+    "87": {
+      "textSk": "Veľký mozog, ale… No ale áno, čo to naštartovalo.",
+      "textCs": "Velký mozek, ale… No ano, co to nastartovalo.",
+      "reason": "Unfinished what-started-brain remark; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        12
+      ],
+      "status": "resolved"
+    },
+    "89": {
+      "textSk": "evolúcii ľudstva. Ale ten oheň, aspoň si myslím… Hej, veľa o tomto rozmýšľam v poslednej dobe, lebo napríklad som si uvedomil, že vtáky sú tu strašne dlho,",
+      "textCs": "evoluci lidstva. Ale ten oheň, alespoň si myslím… Jo, v poslední době o tom hodně přemýšlím, protože jsem si například uvědomil, že ptáci jsou tu strašně dlouho,",
+      "reason": "Interrupted evolutionary-fire argument; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        13
+      ],
+      "status": "resolved"
+    },
+    "92": {
+      "textSk": "No hej, ale vieš… Jedného mám pred domom, čo čaká vždy na auto, si tam nechá oriešok.",
+      "textCs": "No jo, ale víš… Jednoho mám před domem, čeká vždy na auto a nechá si tam oříšek.",
+      "reason": "Crow/letter joke garbled; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: Independent large-v3 supports the crow waiting for a car and the nut; retain the supported version instead of the source odkaz substitution.",
+      "evidencePassages": [
+        14
+      ],
+      "status": "resolved"
+    },
+    "93": {
+      "textSk": "Že poď fajčiť. Nie, nie. [smiech] Že treba doplatiť, poprosím 10 € za toto. A potom si z toho kupuje veci.",
+      "textCs": "Že pojď kouřit. Ne, ne. [smích] Že je třeba doplatit, poprosím deset eur za tohle. A potom si z toho kupuje věci.",
+      "reason": "Overlapping crow scam joke; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        14
+      ],
+      "status": "resolved"
+    },
+    "95": {
+      "textSk": "v tom podmorskom ľade život a nájdeme tam nejaké chobotnice, ale nebudú inteligentné, len tam budú s nejakými nástrojmi šibrinkovať, že to by",
+      "textCs": "v tom podmořském ledu život a najdeme tam nějaké chobotnice. Nebudou inteligentní, jen si tam budou hrát s nástroji. To by",
+      "reason": "Podmorskom ľade vs podmorskom svete Europa; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        15
+      ],
+      "status": "resolved"
+    },
+    "100": {
+      "textSk": "Lebo šimpanzy nevedia založiť, alebo nerobia také, hej? A to kvázi sú už trocha alebo dosť…",
+      "textCs": "Protože šimpanzi ho neumějí založit, nebo takové věci nedělají, že? A to jsou už trochu nebo dost…",
+      "reason": "Missing subject possibly šimpanzy; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        16
+      ],
+      "status": "resolved"
+    },
+    "101": {
+      "textSk": "No jasné, áno. Ale ten pokrok až tým ohňom tak uzavreli. No my tu máme teraz…",
+      "textCs": "No jasně, ano. Ale ten pokrok tím ohněm tak uzavřeli. No my tady teď máme…",
+      "reason": "My tu máme vojnu joke; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: Neither independent no-VAD model supports vojnu. Remove the unsupported last noun and retain the interrupted transition.",
+      "evidencePassages": [
+        16
+      ],
+      "status": "resolved"
+    },
+    "110": {
+      "textSk": "sa to dá veľmi ľahko vidieť. Počkaj, [nezrozumiteľné] paličku. Počkaj, podcast.",
+      "textCs": "je to velmi snadno vidět. Počkej, [nesrozumitelné] hůlku. Počkej, podcast.",
+      "reason": "Interrupted listener exchange/restaurácia; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: Independent recordings preserve paličku and podcast, but conflict on the middle aside. Mark that short fragment explicitly rather than retaining the guessed stratím.",
+      "evidencePassages": [
+        17
+      ],
+      "status": "resolved"
+    },
+    "124": {
+      "textSk": "Australopithecus alebo Homo sapiens, Homo erectus, to asi nerozlúštime tuto. Ale určite je to zaujímavá otázka,",
+      "textCs": "Australopithecus nebo Homo sapiens, Homo erectus, to tady asi nerozlouskneme. Ale určitě je to zajímavá otázka,",
+      "reason": "Boh vs pause before species list; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        18
+      ],
+      "status": "resolved"
+    },
+    "126": {
+      "textSk": "sme mali veľký mozog a vymysleli sme spôsob, ako ho… Ja mám teda na toto takú nadväzujúcu kvantovo-duchovnú otázku.",
+      "textCs": "jsme měli velký mozek a vymysleli způsob, jak ho… Mám na to navazující kvantově duchovní otázku.",
+      "reason": "Unfinished question before next speaker; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        19
+      ],
+      "status": "resolved"
+    },
+    "141": {
+      "textSk": "už taký boh, ktorý zasahuje a pozoruje. Čiže tie najväčšie svetové kapacity sa nejako zhodujú na tom, že to vzniklo samo alebo niečo, alebo niekto to",
+      "textCs": "takový Bůh, který zasahuje a pozoruje. Takže se největší světové kapacity nějak shodují na tom, že to vzniklo samo, nebo to něco či někdo",
+      "reason": "Vyrušený fragment and divine-action statement; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        20
+      ],
+      "status": "resolved"
+    },
+    "149": {
+      "textSk": "zákony. Aha, ďakujem. [nezrozumiteľné]",
+      "textCs": "zákony. Aha, děkuji. [nesrozumitelné]",
+      "reason": "Greeting/questioner identity phrase; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: Both no-VAD models confirm zákony/ďakujem but fail on overlapping greetings. Preserve confirmed words and mark the short uncertain remainder; remove the invented Čau, ako patrí.",
+      "evidencePassages": [
+        21
+      ],
+      "status": "resolved"
+    },
+    "155": {
+      "textSk": "Každú jej otázku musíš pretvoriť na fyzikálnu. Snažím sa. Prekvapí ťa to možno, ešte k menšiemu počtu otázok o fyzike.",
+      "textCs": "Každou její otázku musíš přetvořit na fyzikální. Snažím se. Možná tě to překvapí, vede to k ještě menšímu počtu otázek o fyzice.",
+      "reason": "Wife-questions joke garbled clause; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        22
+      ],
+      "status": "resolved"
+    },
+    "159": {
+      "textSk": "Moje bunky potrebujú... Myslíš, táto páka, ktorú som tu... No tak otázka je taká, keď sme v byte na, povedzme, dvanástom poschodí a máme",
+      "textCs": "Moje buňky potřebují... Myslíš, tahle páka, kterou jsem tady... No tak otázka je taková, když jsme v bytě na, řekněme, dvanáctém patře a máme",
+      "reason": "Opening beer/cell lever joke unclear; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        23
+      ],
+      "status": "resolved"
+    },
+    "162": {
+      "textSk": "Ducháč.",
+      "textCs": "Ducháč.",
+      "reason": "One-word interruption Ducháč; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: The original captions and independent recognition agree on the brief surname-like interjection Ducháč; do not expand it to a full identity.",
+      "evidencePassages": [
+        24
+      ],
+      "status": "resolved"
+    },
+    "171": {
+      "textSk": "V tých… Áno, áno. Že nenašli koleso, ale dokonalý zvuk.",
+      "textCs": "V těch… Ano, ano. Že nenašli kolo, ale dokonalý zvuk.",
+      "reason": "Incomplete theatre remark; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: Independent large-v3 recovers the missing wheel/sound joke; retain its interrupted opening.",
+      "evidencePassages": [
+        25
+      ],
+      "status": "resolved"
+    },
+    "172": {
+      "textSk": "Tak, tak. Čiže bude to nejaká takáto forma. Alebo máte špionážny byt, vieš… Gorila, nie? Kde to bolo? Na Vazovovej?",
+      "textCs": "Tak, tak. Bude to tedy nějaká taková forma. Nebo máte špionážní byt, víš… Gorila, ne? Kde to bylo? Na Vazovově?",
+      "reason": "Spy-apartment/Gorila joke and missing verb; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: Independent large-v3 supports the Gorila/Vazovova aside. Keep the interrupted surveillance-flat joke without filling its lost fragment.",
+      "evidencePassages": [
+        25
+      ],
+      "status": "resolved"
+    },
+    "176": {
+      "textSk": "každú vlnovú dĺžku je tá geometria iná. A tipujem, keď tam dobre počuješ ľudský hlas, tak pre niečo iné to nemusí tak dobre ten zvuk prenášať.",
+      "textCs": "každou vlnovou délku je geometrie jiná. Tipuji, že když tam dobře slyšíš lidský hlas, pro něco jiného to nemusí zvuk přenášet tak dobře.",
+      "reason": "Vlnovú dĺžku vs corrupted novú nôžku; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        26
+      ],
+      "status": "resolved"
+    },
+    "183": {
+      "textSk": "Na toto sú ináč aj… Dobre.",
+      "textCs": "Na tohle jsou jinak i… Dobře.",
+      "reason": "Brief interrupted anechoic-room comment; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        27
+      ],
+      "status": "resolved"
+    },
+    "188": {
+      "textSk": "Ale keď urobíš tie všelijaké lomy, aby sa prakticky ten zvuk ešte pohlcoval,",
+      "textCs": "Ale když uděláš ty všelijaké lomy, aby se prakticky ten zvuk ještě pohlcoval,",
+      "reason": "Akustické lomy description; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        28
+      ],
+      "status": "resolved"
+    },
+    "203": {
+      "textSk": "Výrazný efekt toho dvanásteho poschodia, ak je to prípad blokovej ulice, keď je dolu hluk, tak on proste vyeskaluje až hore, poodráža",
+      "textCs": "Výrazný efekt toho dvanáctého patra, pokud je to případ blokové ulice, když je dole hluk, tak on prostě vyeskaluje až nahoru, poodráží",
+      "reason": "Vyeskaluje vs vyškáluje sound propagation; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        29
+      ],
+      "status": "resolved"
+    },
+    "205": {
+      "textSk": "je to taký zvukovod. Ide to smerom hore. Počkaj si na paličku.",
+      "textCs": "je to takový zvukovod. Jde to směrem nahoru. Počkej si na hůlku.",
+      "reason": "Počkaj si na kvalitu aside; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        30
+      ],
+      "status": "resolved"
+    },
+    "209": {
+      "textSk": "Že ako sa to dokáže, tieto rezonancie a zvuky… Že to buchne akurát v jednom byte.",
+      "textCs": "Jak to dokáže, ty rezonance a zvuky… Že to bouchne právě v jednom bytě.",
+      "reason": "Resonance verb corrupted vybuchnúť; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        31
+      ],
+      "status": "resolved"
+    },
+    "214": {
+      "textSk": "nejaké Lady alebo čo mali medzi 79,5 a 80 km/h, alebo čo, ísť pomaly skrutky povypadávať a potom sa to upokojilo.",
+      "textCs": "u nějaké Lady nebo čeho mezi 79,5 a 80 km/h skoro vypadávaly šrouby a potom se to uklidnilo.",
+      "reason": "Speed range numerals and šróby pronunciation; compared archived wording with independent large-v3 evidence; retain only supported wording. Independent ASR explicitly says sedemdesiatdeväť a pol; retain printed 79,5 while aligning its spoken form.",
+      "evidencePassages": [
+        32
+      ],
+      "status": "resolved",
+      "acousticOverrides": {
+        "6": "sedemdesiatdeväť a pol"
+      }
+    },
+    "215": {
+      "textSk": "Mhm, toto je veľmi výrazné. Ja mám letecký kurz, tak tam [nezrozumiteľné], tak tá vrtuľa aj s tým motorom je proste",
+      "textCs": "Tohle je velmi výrazné. Mám letecký kurz, tak tam [nesrozumitelné], tak ta vrtule i s tím motorem je prostě",
+      "reason": "Aircraft type and 20 km/h vs RPM; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: Neither no-VAD model nor raw CTC supports 20 km/h. Retain the independently supported aircraft/propeller clauses and explicitly mark the unclear middle, rather than guessing a speed or rotation rate.",
+      "evidencePassages": [
+        32
+      ],
+      "status": "resolved"
+    },
+    "216": {
+      "textSk": "v tom jednom smere",
+      "textCs": "v tom jednom směru",
+      "reason": "Aircraft vibration phrase end; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        32
+      ],
+      "status": "resolved"
+    },
+    "219": {
+      "textSk": "Ja som sa chcel opýtať, keď sa prekračuje rýchlosť zvuku, tak je ten sonický bum.",
+      "textCs": "Já jsem se chtěl zeptat, když se překračuje rychlost zvuku, tak je ten sonický bum.",
+      "reason": "Sonic-boom phrase spelling; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        33
+      ],
+      "status": "resolved"
+    },
+    "229": {
+      "textSk": "bolo dosť crazy, keby boli neutrína elektricky nabité.",
+      "textCs": "bylo dost šílené, kdyby byla neutrina elektricky nabitá.",
+      "reason": "Electrically charged neutrino clause; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        34
+      ],
+      "status": "resolved"
+    },
+    "231": {
+      "textSk": "Že vlastne častica, keď zrýchli, alebo teda má väčšiu rýchlosť, vtedy nastane ten jav, vtedy sa to nejak prejaví a vlastne prejde to tam.",
+      "textCs": "Že vlastně částice, když zrychlí nebo má větší rychlost, tehdy nastane ten jev, nějak se projeví a vlastně to tam přejde.",
+      "reason": "Interrupted neutrino collision question; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        35
+      ],
+      "status": "resolved"
+    },
+    "233": {
+      "textSk": "Áno. Ona sa pohne a pridá k tomu signálu ďalšie. Signál sa na nejakej takej ploche začne kumulovať a vytvorí to tam takúto silu. Je to",
+      "textCs": "Ano. Pohne se a přidá k tomu signálu další. Signál se začne na nějaké ploše kumulovat a vytvoří to tam takovou sílu. Je to",
+      "reason": "Silú vs vlnu accumulation; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        36
+      ],
+      "status": "resolved"
+    },
+    "236": {
+      "textSk": "Ale teda svetelný. Ale našťastie neutrína svietia.",
+      "textCs": "Ale tedy světelný. Ale naštěstí neutrina svítí.",
+      "reason": "Critical missing negation: neutrína nesvietia?; compared archived wording with independent large-v3 evidence; retain only supported wording. Final acoustic contrast review: The original captions and all independent recognitions lack the negation; the contrast weakly prefers svietia. Restore the spoken positive statement and do not insert nesvietia to repair its physics.",
+      "evidencePassages": [
+        37
+      ],
+      "status": "resolved",
+      "contrastEvidenceFile": "captions/source/episode-361-youtube-contrast-audio.json"
+    },
+    "244": {
+      "textSk": "najpresnejšie. Keď sa začne hýbať, je to zložité kvôli tým efektom, čo boli, Bože, ako sa to volá, v Hail Mary. Ináč ti plynie čas, keď sa pohybuješ",
+      "textCs": "nejpřesnější. Když se začne hýbat, je to složité kvůli efektům, které byly, bože, jak se to jmenuje, v Hail Mary. Jinak ti plyne čas, když se pohybuješ",
+      "reason": "Hail Mary vs corrupted Helmeri reference; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        38
+      ],
+      "status": "resolved"
+    },
+    "264": {
+      "textSk": "pozrie sa na vesmír, bude tam vidieť hviezdy? Keď všetky ujdu, ostane iba naša slnečná sústava, lebo tá drží. Galaxia naša.",
+      "textCs": "podívá se na vesmír, uvidí tam hvězdy? Když všechny utečou, zůstane jen naše sluneční soustava, protože ta drží. Naše galaxie.",
+      "reason": "Interrupted Solar System/galaxy distinction; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        39
+      ],
+      "status": "resolved"
+    },
+    "269": {
+      "textSk": "sa čierne diery. Keď si povieš 10 na 10 na 10, tak už len vyparujúce sa čierne diery. Keď by boli nejaké iné civilizácie, môžu sedieť v takých bublinkách.",
+      "textCs": "se černé díry. Když řekneš deset na deset na deset, tak už jen vypařující se černé díry. Kdyby byly nějaké jiné civilizace, mohou sedět v takových bublinkách.",
+      "reason": "Black holes and bubble civilizations interrupted; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        40
+      ],
+      "status": "resolved"
+    },
+    "281": {
+      "textSk": "Ja si… Päťka je, že už všetky vesmíry ovládaš. Ja som myslel šestka alebo tak, že by si temnú hmotu ovplyvňoval.",
+      "textCs": "Já… Pětka je, že už ovládáš všechny vesmíry. Myslel jsem šestku nebo tak, že bys ovlivňoval temnou hmotu.",
+      "reason": "Kardashev fifth/sixth-level reply garbled; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        41
+      ],
+      "status": "resolved"
+    },
+    "284": {
+      "textSk": "Čas sa má počítať od Newtona. Ja som mal takú peknú knihu, tam vysvetľovali, koľko vesmír trvá, a dávali to tam do hodiniek.",
+      "textCs": "Čas se má počítat od Newtona. Měl jsem takovou pěknou knihu, tam vysvětlovali, jak dlouho trvá vesmír, a převáděli to na hodiny.",
+      "reason": "Fluidy book title and hour scale; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: Independent large-v3 supports the Newton/time-scale/book passage. Omit the uncorroborated source book-title fragment Fluidy; do not invent a title.",
+      "evidencePassages": [
+        42
+      ],
+      "status": "resolved"
+    },
+    "286": {
+      "textSk": "myslím, že to nie je ani sekunda z 24 dní, koľko trvá vesmír. Ja mám takú stredoškolskú prezentáciu o tom, ako funguje čas, a tam mám presne:",
+      "textCs": "myslím, že to není ani sekunda z čtyřiadvaceti dní, jak dlouho trvá vesmír. Mám středoškolskou prezentaci o tom, jak funguje čas, a tam mám přesně:",
+      "reason": "24 hodín vs dní; school-presentation interruption; compared archived wording with independent large-v3 evidence; retain only supported wording. Independent original-audio ASR says 24 dní; keep the spoken unit even though the preceding analogy uses 24 hours.",
+      "evidencePassages": [
+        43
+      ],
+      "status": "resolved"
+    },
+    "288": {
+      "textSk": "Alebo pár pixelov, záleží, aká je tá obrazovka. Ja k tomuto vždy len dodám, ľudia si nevedia uvedomiť, že my sme bližšie k pyramíde... Takto: Kleopatra je",
+      "textCs": "Nebo pár pixelů, záleží, jaká je ta obrazovka. Já k tomu vždy jen dodám, lidé si neumějí uvědomit, že my jsme blíže k pyramidě... Takto: Kleopatra je",
+      "reason": "Kleopatra and pyramid self-correction; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        44
+      ],
+      "status": "resolved"
+    },
+    "300": {
+      "textSk": "zje a trošku potom fotosyntetizuje. Ale keby... Nechaj ho, veď možno na niečo zarába, vieš.",
+      "textCs": "sní a trošku pak fotosyntetizuje. Ale kdyby... nech ho, vždyť možná na něco vydělává, víš.",
+      "reason": "Photosynthetic slug joke; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        45
+      ],
+      "status": "resolved"
+    },
+    "301": {
+      "textSk": "Či chilluje na morskom, nie? [smiech] Asi odpoviem, že si viem predstaviť nejakú mimozemskú civilizáciu, ktorá sa veľmi efektívne",
+      "textCs": "Nebo si hoví na mořském dně, ne? [smích] Asi odpovím, že si umím představit nějakou mimozemskou civilizaci, která se velmi efektivně",
+      "reason": "Chilluje na morskom phrase broken; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: Independent large-v3 supports the chilluje na morskom fragment; retain the truncated noun phrase rather than adding a Slovak noun absent from the recording.",
+      "evidencePassages": [
+        45
+      ],
+      "status": "resolved"
+    },
+    "310": {
+      "textSk": "dilatóny a ešte niečo. Proste samé -óny ohľadne tmavej hmoty. A to sú, ony sú",
+      "textCs": "dilatony a ještě něco. Prostě samé -ony kolem temné hmoty. A to jsou, ony jsou",
+      "reason": "Dilatóny list; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        46
+      ],
+      "status": "resolved"
+    },
+    "332": {
+      "textSk": "Takže Počkaj pardon. Má tu niekto špekáčky? A supersymetrická ľahká častica by bola v súlade s mikroskopickými čiernymi dierami.",
+      "textCs": "Takže… Počkej, pardon, má tu někdo špekáčky? A supersymetrická lehká částice by byla v souladu s mikroskopickými černými dírami?",
+      "reason": "Špekáčky interruption and supersymmetric-particle question; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        47
+      ],
+      "status": "resolved"
+    },
+    "344": {
+      "textSk": "Tých 20 miliárd… [nezrozumiteľné] To je pravda, ale Carl Sagan to vo svojich knihách všetko prepočítaval, v jednej z tých,",
+      "textCs": "Těch dvacet miliard… [nesrozumitelné] To je pravda, ale Carl Sagan to ve svých knihách všechno přepočítával, v jedné z těch,",
+      "reason": "Budget joke nasrať vs other word; compared archived wording with independent large-v3 evidence; retain only supported wording. The overlapping budget aside remains unclear in both followups; preserve its intelligible numeral and mark the unclear fragment explicitly.",
+      "evidencePassages": [
+        48
+      ],
+      "status": "resolved"
+    },
+    "351": {
+      "textSk": "Majú zakázané cestovať. Nenarazia hneď, ony narazia raz za desať miliónov preletených rokov. Ale keď nájdeme nejakú, to som teraz číslo vymyslel, lebo to je v",
+      "textCs": "Mají zakázáno cestovat. Nenarazí hned, ale jednou za deset milionů proletěných let. Když najdeme nějaký… To číslo jsem si teď vymyslel, protože závisí na",
+      "reason": "Číslo vymyslel vs corrupted v spleti; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        49
+      ],
+      "status": "resolved"
+    },
+    "352": {
+      "textSk": "závislosti od ich energie, ale keď vidíme, niečo má nejakú veľkú energiu a doletelo sem cez miliardu svetelných rokov, tak vieme, že už",
+      "textCs": "jejich energii. Ale když vidíme, že něco má velkou energii a doletělo sem přes miliardu světelných let, víme, že už",
+      "reason": "Nejakú vs menej veľkú photon energy; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        49
+      ],
+      "status": "resolved"
+    },
+    "355": {
+      "textSk": "tejto interakcii s tým, čo je vo vesmíre. My si vesmír typicky predstavujeme ako veľmi prázdny, ale to mám v novej knihe Vesmírna kolíska. Nenápadná vsuvka.",
+      "textCs": "této interakci s tím, co je ve vesmíru. Vesmír si typicky představujeme jako velmi prázdný, ale to mám v nové knize Vesmírna kolíska. Nenápadná vsuvka.",
+      "reason": "Book name Vesmírna kolíska; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        50
+      ],
+      "status": "resolved"
+    },
+    "358": {
+      "textSk": "medzigalaktický prach a tak ďalej. Ten vesmír je prázdny na naše pomery, ale v skutočnosti je pomerne ďaleko od vákua, takže tam je veľa priestoru",
+      "textCs": "mezigalaktický prach a tak dále. Vesmír je prázdný na naše poměry, ale ve skutečnosti je od vakua poměrně daleko. Je tam tedy spousta prostoru",
+      "reason": "Medzigalaktický vs medzihviezdny spoken word; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        51
+      ],
+      "status": "resolved"
+    },
+    "365": {
+      "textSk": "Einsteina, že hovorili, že je na deväť desatinných miest potvrdený, ale kvantovka na jeden… Že tu máme úplne super",
+      "textCs": "Einsteina, říkali, že je potvrzený na devět desetinných míst, ale kvantovka na jeden… Že ji tady máme úplně skvěle",
+      "reason": "Both no-VAD recognizers and raw CTC retain na jeden/a before the next clause, but do not reliably establish a complete numeral. Keep the audible unfinished numeral; do not complete it to jedenásť from scientific expectations.",
+      "evidencePassages": [
+        52
+      ],
+      "status": "resolved"
+    },
+    "371": {
+      "textSk": "kde sú platné obe, a tie sa potom ťažko hľadajú. Teraz mi to napadlo. Vlastne tu sme sa hádali o ten determinizmus, Newtonova je deterministická",
+      "textCs": "kde platí obě, a ty se pak těžko hledají. Teď mě to napadlo. Vlastně jsme se hádali o determinismus. Newtonova teorie je deterministická",
+      "reason": "Listener interruption; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        53
+      ],
+      "status": "resolved"
+    },
+    "381": {
+      "textSk": "je to extrémne deterministické. Dokonca nejaký chlapík, čo dostal Nobelovu cenu, povedal, že kvantovka je deterministická. Ale kvantovka vie byť deterministická v takom",
+      "textCs": "je to extrémně deterministické. Dokonce nějaký člověk, který dostal Nobelovu cenu, řekl, že kvantovka je deterministická. Může být deterministická v takovém",
+      "reason": "Kvantové vs kvantovka deterministic formulation; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        54
+      ],
+      "status": "resolved"
+    },
+    "389": {
+      "textSk": "keď urobíme tento proces 56 miliárdkrát, tak 56 - 4 krát sa stane to a 4 krát sa stane niečo iné a presne to dopadne v rámci štatistických chýb podľa tejto, či to nie že",
+      "textCs": "když provedeme tento proces 56miliardkrát, tak 56 minus čtyřikrát se stane to a čtyřikrát něco jiného. Přesně to dopadne v rámci statistických chyb podle toho. Takže nebyla",
+      "reason": "56 miliárd minus four event counts; compared archived wording with independent large-v3 evidence; retain only supported wording. Independent ASR corroborates the spoken 56 miliárd and 56 mínus 4; no numerical repair is inferred.",
+      "evidencePassages": [
+        55
+      ],
+      "status": "resolved"
+    },
+    "399": {
+      "textSk": "No vedcov by som sa na toto nepýtal, lebo tam má každý iný názor. Aj ľudia, ktorí sa tomuto venujú, každý z nich má iný názor. Napríklad Musk tvrdí, už za desať rokov",
+      "textCs": "Na to bych se vědců neptal, protože každý má jiný názor. I lidé, kteří se tomu věnují, mají každý jiný názor. Třeba Musk tvrdí, že už za deset let",
+      "reason": "Vedcov vs veď čo; scope of reply; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        56
+      ],
+      "status": "resolved"
+    },
+    "411": {
+      "textSk": "Dali 20 miliárd… Budeme si žiť lepšie, len to pošleme na chvíľku von.",
+      "textCs": "Dali dvacet miliard… Budeme si žít lépe, jen to pošleme na chvilku ven.",
+      "reason": "Overlapping telescope/wealth joke; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        57
+      ],
+      "status": "resolved"
+    },
+    "413": {
+      "textSk": "Podľa mňa by som povedal, že toto je krásnym príkladom, že sa vieme zameriavať…",
+      "textCs": "Řekl bych, že je to krásný příklad toho, že se umíme zaměřovat…",
+      "reason": "Ty si kľud short aside; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        58
+      ],
+      "status": "resolved"
+    },
+    "415": {
+      "textSk": "väčšinou tiež nejakú intelektuálnu, ale musel si zarobiť na seba aj inak, alebo mal patróna,",
+      "textCs": "většinou také nějakou intelektuální, ale musel si vydělat na sebe i jinak, nebo měl patrona,",
+      "reason": "Patróna vs pastora; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        59
+      ],
+      "status": "resolved"
+    },
+    "416": {
+      "textSk": "proste kráľovi vykladal večer z kariet. Čiže ty si myslíš, bude vývoj, výskum, všetko pokračovať aj o päťsto, tisíc rokov?",
+      "textCs": "prostě večer vykládal králi z karet. Takže myslíš, že vývoj a výzkum bude pokračovat i za pět set nebo tisíc let?",
+      "reason": "500, tisíc vs 500 tisíc years; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        59
+      ],
+      "status": "resolved"
+    },
+    "419": {
+      "textSk": "nebudeš vedieť všetko. A stále môže pribúdať ľudí, ktorých životnou náplňou bude skúmať veci.",
+      "textCs": "nebudeš vědět všechno. Stále může přibývat lidí, jejichž životní náplní bude zkoumat věci.",
+      "reason": "Život napĺňa vs životom naplno; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        60
+      ],
+      "status": "resolved"
+    },
+    "422": {
+      "textSk": "proste milión. Aj keď sa to prepočíta na rast populácie. Mám tam takú jednotku, fyzik na hlavu: koľko fyzikov na hlavu máme",
+      "textCs": "prostě milion. I když to přepočítáme na růst populace. Mám tam jednotku fyzik na hlavu: kolik fyziků na hlavu máme",
+      "reason": "Growth adjusted for population sentence; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        61
+      ],
+      "status": "resolved"
+    },
+    "428": {
+      "textSk": "v tom ideálnom online svete? Nedá sa to vylúčiť. A kde nikoho nič nebude bolieť, všetci budú pekní, všetci budú mať ideálne BMI, o každého bude ideálny záujem.",
+      "textCs": "v tom ideálním online světě? Nedá se to vyloučit. Kde nikoho nic nebude bolet, všichni budou krásní, všichni budou mít ideální BMI, o každého bude ideální zájem.",
+      "reason": "Critical missing negation Nedá sa to vylúčiť; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        62
+      ],
+      "status": "resolved"
+    },
+    "434": {
+      "textSk": "Takže toto je dôvodná obava, že áno, môže sa stať takéto, ale… Tu máš mladých, ty sa opýtaj.",
+      "textCs": "Takže je to důvodná obava, ano, tohle se může stát, ale… Tady máš mladé, ty se zeptej.",
+      "reason": "Mladí/T-Mobile phrase garbled; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        63
+      ],
+      "status": "resolved"
+    },
+    "437": {
+      "textSk": "Na čo ťa má kto učiť sa? Danko, povedz, ty si chytrý. Matika, príde mi zaujímavá matika, tak ma baví sa učiť matematiku.",
+      "textCs": "Proč by tě měl někdo učit učit se? Danko, řekni, ty jsi chytrý. Matematika mi přijde zajímavá, tak mě baví se ji učit.",
+      "reason": "Child self-introduction and motivation; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: Original captions, raw CTC and independent ASR support the question to Danko and his interest in mathematics; retain the colloquial spoken construction.",
+      "evidencePassages": [
+        64
+      ],
+      "status": "resolved"
+    },
+    "438": {
+      "textSk": "Tak možno dôjdeme do takéhoto štádia, že… K tomuto hneď dodám: jeho zaujíma matematika, baví ho sa ju učiť, ale za 100, možno to nebude ani za",
+      "textCs": "Tak možná dojdeme do takového stadia, že… K tomu hned dodám: zajímá ho matematika, baví ho se ji učit, ale za sto, možná to nebude ani za",
+      "reason": "Bolo spomenúť vs môžeme dospieť wording; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        64
+      ],
+      "status": "resolved"
+    },
+    "445": {
+      "textSk": "by mala mať najviac, lebo tam to je najdôležitejšie. No, tam AI otvorila strašné dvere, čo sa týka skladania proteínov a tohto, takže",
+      "textCs": "by měla mít nejvíc, protože tam je to nejdůležitější. AI tam otevřela obrovské možnosti, co se týče skládání proteinů a podobně, takže",
+      "reason": "Biochemistry sentence may be truncated; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        65
+      ],
+      "status": "resolved"
+    },
+    "450": {
+      "textSk": "Je v poslednom štádiu, myslím si, ten liek. Že už je dostupný ten liek pre…",
+      "textCs": "Je v posledním stadiu, myslím, ten lék. Že už je dostupný pro…",
+      "reason": "Pancreatic-cancer drug sentence incomplete; preserve source rather than invent missing medical wording; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        66
+      ],
+      "status": "resolved"
+    },
+    "451": {
+      "textSk": "Testuje sa, to je nejaké neskoré štádium. Nejaké neskoré štádium, hej.",
+      "textCs": "Testuje se, je to nějaké pozdní stadium. Nějaké pozdní stadium, jo.",
+      "reason": "Drug testing-stage reply; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        66
+      ],
+      "status": "resolved"
+    },
+    "452": {
+      "textSk": "Áno, určite. Teda ak si môžem dovoliť, si vlastne ponúkol, že môžeme aj odpovedať. Mne vlastne vždy napadlo, keď sa",
+      "textCs": "Ano, určitě. Pokud si mohu dovolit, nabídl jsi, že můžeme i odpovídat. Vždy mě napadlo, když se",
+      "reason": "Permission-to-answer phrase; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        66
+      ],
+      "status": "resolved"
+    },
+    "453": {
+      "textSk": "bavím s AI-čkom a opýtam sa ho, prečo sa ma to pýta, veď mu to môže byť jedno. Vždy chce… Dáva mi aspoň také doplňujúce otázky: „A čo si",
+      "textCs": "bavím s AI-čkem a zeptám se ho, proč se mě to ptá, vždyť mu to může být jedno. Vždycky chce… Dává mi takové doplňující otázky: „A co si",
+      "reason": "AI follow-up-question clause; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        66
+      ],
+      "status": "resolved"
+    },
+    "457": {
+      "textSk": "A táto AI preto momentálne nikdy neovláda, lebo nemá telo. Nič ju nenúti niečo urobiť. Môžeš jej niečo naprogramovať, ale ona v podstate nemá",
+      "textCs": "A tahle AI proto momentálně nikdy neovládá, protože nemá tělo. Nic ji nenutí něco udělat. Můžeš jí něco naprogramovat, ale v podstatě nemá",
+      "reason": "Neovláda vs neovládne; AI embodiment claim; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        67
+      ],
+      "status": "resolved"
+    },
+    "464": {
+      "textSk": "už [nezrozumiteľné] s Matildou, takže dajme posledné dve otázky a potom sa ešte keď tak niekto dopýta, keď to vypneme.",
+      "textCs": "už [nesrozumitelné] s Matildou, takže dáme poslední dvě otázky. Kdyžtak se potom ještě někdo doptá, až to vypneme.",
+      "reason": "Matilda arrival phrase; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: The arrival/obligation phrase is not reliably recognized; preserve Matilda and the confirmed final-two-questions instruction without inventing who arrived.",
+      "evidencePassages": [
+        68
+      ],
+      "status": "resolved"
+    },
+    "467": {
+      "textSk": "No povedz koho. Ja som si prestal nejako idealizovať ľudí, lebo všetci máme nejaké veci, ale veľmi…",
+      "textCs": "Tak řekni koho. Přestal jsem si nějak idealizovat lidi, protože všichni máme nějaké věci, ale velmi…",
+      "reason": "Prestal vs predstavil idealizovať ľudí critical meaning; compared archived wording with independent large-v3 evidence; retain only supported wording. Final acoustic contrast review: Identical-window CTC supports prestal over predstavil by 14.80 log-score points; retain the supported verb.",
+      "evidencePassages": [
+        69
+      ],
+      "status": "resolved",
+      "contrastEvidenceFile": "captions/source/episode-361-youtube-contrast-audio.json"
+    },
+    "468": {
+      "textSk": "Veľmi sa mi páči, ale psí útok. Hej, Tlapková patrola došla.",
+      "textCs": "Velmi se mi líbí, ale psí útok. Jo, Tlapková patrola přišla.",
+      "reason": "Dog interruption and Paw Patrol joke; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        69
+      ],
+      "status": "resolved"
+    },
+    "475": {
+      "textSk": "Môžem rýpať, aby som nezabudol, už aj ženy vo vede. Napríklad Emmy Noether, úžasná vedkyňa, o ktorej sme tiež... Teraz zomrela tá výskumníčka alebo",
+      "textCs": "Můžu rýpnout, abych nezapomněl, i ženy ve vědě. Například Emmy Noetherová, úžasná vědkyně, o které jsme také… Teď zemřela ta výzkumnice nebo",
+      "reason": "Emmy Noether name; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        70
+      ],
+      "status": "resolved"
+    },
+    "476": {
+      "textSk": "programátorka, čo program pre Apollo programovala. Hamiltonová. Áno, v deväťdesiat… Alebo Jane Goodall.",
+      "textCs": "programátorka, která programovala program pro Apollo. Hamiltonová. Ano, v devadesáti… Nebo Jane Goodallová.",
+      "reason": "Apollo programmer reference and age fragment; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: Independent large-v3 and joint CTC support Hamiltonová and the interrupted age numeral; do not replace it with a factual biography correction.",
+      "evidencePassages": [
+        70
+      ],
+      "status": "resolved"
+    },
+    "482": {
+      "textSk": "Dobre, dajme ešte poslednú, finálnu. Maťo. Pred nami mladí.",
+      "textCs": "Dobře, dáme ještě poslední, úplně poslední. Maťo. Před námi mladí.",
+      "reason": "Final questioner greeting; compared archived wording with independent large-v3 evidence; retain only supported wording. Final review: The original transcript retains Maťo and the brief audience aside; independent recognition confirms the final-question transition. Keep the fragment without inventing a complete greeting.",
+      "evidencePassages": [
+        71
+      ],
+      "status": "resolved"
+    },
+    "487": {
+      "textSk": "Keď dosť rýchlo hýbeš, tak sa to bude hýbať… Tieto veci sa dajú okabátiť takýmto spôsobom. A podľa mňa rýchlosť tmy je,",
+      "textCs": "Když tím pohybuješ dost rychle, bude se to hýbat… Takhle se to dá obejít. Podle mě je rychlost tmy taková, že",
+      "reason": "Rýchlosť tmy vs rýchlosťami; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        72
+      ],
+      "status": "resolved"
+    },
+    "488": {
+      "textSk": "keď máš žiarovku pustenú, ide posledná vlna svetla a za ňou už tma. Takže mám pocit, že to ide úplne tou istou rýchlosťou. Ak",
+      "textCs": "když máš žárovku puštěnou, jde poslední vlna světla a za ní už tma. Mám pocit, že to jde úplně stejnou rychlostí. Pokud",
+      "reason": "Critical switched-off light bulb word vypnutú vs pustenú; compared archived wording with independent large-v3 evidence; retain only supported wording. Final acoustic contrast review: The original captions, both independent no-VAD models and raw CTC agree on pustenú. Its CTC path beats vypnutú by 70.06 log-score points; preserve the spoken wording rather than correcting the explanation.",
+      "evidencePassages": [
+        72
+      ],
+      "status": "resolved",
+      "contrastEvidenceFile": "captions/source/episode-361-youtube-contrast-audio.json"
+    },
+    "492": {
+      "textSk": "Vy môžete ľutovať, že ste tu neboli. A Daisy dávala na nás pozor celý podcast. Nájdete nás na všetkých dobrých a troška",
+      "textCs": "Vy můžete litovat, že jste tu nebyli. Daisy na nás dávala pozor celý podcast. Najdete nás na všech dobrých a trochu",
+      "reason": "Closing thanks to Andrej and Daisy garbled; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "evidencePassages": [
+        73
+      ],
+      "status": "resolved"
+    },
+    "194": {
+      "textSk": "Nič príjemné. Nie, neznie to moc príjemne. Hej, takže to je ešte také zaujímavé.",
+      "textCs": "Nic příjemného. Ne, nezní to moc příjemně. Jo, takže to je ještě tak zajímavé.",
+      "reason": "The original subtitle has neznie to moc príjemne and both independent no-VAD recognizers recover the unpleasantness/interesting transition with errors. Retain the supported negative statement.",
+      "status": "resolved",
+      "evidencePassages": [],
+      "followupEvidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    }
+  },
+  "gaps": {},
+  "recovered": [],
+  "followupReviewFile": "captions/source/episode-361-youtube-followup-audio.json",
+  "followupReviewSha256": "40932b4ecd3d0e95540b92298d522b7ba162ab2997f9b3a9dc4408f12bed7408",
+  "contrastReviewSha256": "e95f52749e01aafa58c0547f04e6b87d86f12b168fcb4f7e1a46210f3972d36b",
+  "lowScoreAcceptance": {
+    "63": {
+      "textSk": "Vzdialenosť je dosť problematická,",
+      "independentCtcDecode": "ta predu pomrne pomali a až dysviešti robymeňake svoje väsie tak žer se lám plnako za čo na ťauať ní ale noprc dvysdruky nale dostrumomaticku is do  rostro  tníske i ale tk zdenaj  ale riadita  ju mál ma tej soj lastne žiod juma i nač učí na niže učíl ale al hej ale nastupu tím  ci sárol potomok",
+      "reason": "The original YouTube source repeats Vzdialenosť je dosť problematická as a brief reply. Both no-VAD checks retain problematické, but the quiet overlapping beginning is poorly decoded. Preserve the source phrase and the measured span without inventing a different noun.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    },
+    "194": {
+      "textSk": "Nič príjemné. Nie, neznie to moc príjemne. Hej, takže to je ešte také zaujímavé.",
+      "independentCtcDecode": "nane ni inizde tovľap rializedliv ich ihehe r t to j  take z akvataužfmánoo voreo nevtých svojec knižkaužobovnakom takom tankum hnu  liže g alea teda ik dopojem k tomho že tepadľamňa césno znem noci to po češtych o pätych ľodi za aniso hluúčinej a zabe keďde faktichot",
+      "reason": "Original captions retain neznie to moc príjemne and the following interesting remark. Two no-VAD recognizers independently recover the overlapping pleasant/unpleasant reply with word errors; keep the reviewed source wording rather than changing the negation from noisy CTC.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    },
+    "199": {
+      "textSk": "Že fakt. No, neviem. Niekto dole ide, že \"Ó, čo sa rozprávajú?\"",
+      "independentCtcDecode": "tak tak tak máž to počuj ďale keď b tobol cezden takt prose fto m ruchu sa to podlorne starať tešetkomlepší pomer sí k melo o sumu hodborné pohvedám teke by som sal zaragovať na to to tak pocete aj vnoci jato ža j nepočiť to ča sa mi rozsprávame vyzbevon du fňa no chnehdô dzôlejudujú žo uč usí rostrue",
+      "reason": "The original captions and both independent no-VAD checks support the main Niekto dole ide / čo sa rozprávajú clause. The distant speaker and overlap depress the Slovak CTC score; retain the short original reply, without claiming a fully independent listening check.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    },
+    "202": {
+      "textSk": "Spravte si experiment, choď sa dole rozprávať. A potom nám dáš vedieť, že ako to dopadlo.",
+      "independentCtcDecode": "a agáno tak nhnáv napošed oj mrehla ic re žežedževáz potu vajú ľádzrši je k peri veľch cu dolor ôspracnovudo vľom vbež veduje žect bonu vyrazni efe ctohodo a nastéo poschodaže keťa aktera agje to prípad blokových blokovej uliceže keť je do uhluk takontoste vie ska u jažhore poodrá žas",
+      "reason": "Both independent no-VAD checks recover Spravte si experiment, choď sa dole rozprávať and the promise to report the outcome. The quiet overlapping response has low CTC confidence but corroborated wording.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    },
+    "360": {
+      "textSk": "Ale toto bude taká zvláštna otázka. Alebo chcem počuť tvoju odpoveď.",
+      "independentCtcDecode": "hoto tv toshlačnáu taska obo cem ť sho iho ttzaťa seja mysolím as me sa takhadaliska marátom že te dže d anšte naje t tk tak lasiká aje i nukom a podme takvántová teda okvantové je taka predstava kvantová mechanika že tovlasita náhodnosťt",
+      "reason": "Original captions and both independent no-VAD checks recover the unusual-question introduction. Preserve the source request for an answer; the distant microphone yields low phoneme confidence.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    },
+    "484": {
+      "textSk": "Ja som počul, vraj je rýchlejšia, ale neviem, nedáva mi zmysel, že si to myslím.",
+      "independentCtcDecode": "h s v bod uzedvzoglidz rýklisa lným metu nimovadz výsa liei tu viežide si u demožo pražeterý chrešše presa tiže svietižže svietíž  na mesiacveľmy slo va trku a hybežšním svetlom tato svetlo potom povruchu viei s nadsvetenou rýchlosťuk",
+      "reason": "The original YouTube captions supply the full short response about hearing that darkness is faster. Both independent no-VAD checks retain the hearing/rýchlejšia response but lose quiet words; preserve the source wording and its uncertainty instead of inventing another explanation.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    },
+    "497": {
+      "textSk": "Majte sa veľmi pekne. Majte.",
+      "independentCtcDecode": "ládzecovo víbe klajte f",
+      "reason": "Independent large-v3 without VAD recognizes Majte sa veľmi pekne; original captions also retain the short second Majte. Music/overlap and the very short signoff cause low CTC confidence.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    }
+  }
+}

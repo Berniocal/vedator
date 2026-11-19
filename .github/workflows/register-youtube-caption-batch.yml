@@ -1,0 +1,85 @@
+name: Register verified newest bilingual captions
+on:
+  push:
+    branches: [captions/finish-youtube-363-361-20261119]
+    paths: [.github/workflows/register-youtube-caption-batch.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Stop the redundant generation job after all three source gates passed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          status=$(gh api repos/Berniocal/vedator/actions/runs/44554613922 --jq .status)
+          if test "$status" != completed; then
+            gh api --method POST repos/Berniocal/vedator/actions/runs/44554613922/cancel
+            for attempt in $(seq 1 12); do
+              status=$(gh api repos/Berniocal/vedator/actions/runs/44554613922 --jq .status)
+              if test "$status" = completed; then break; fi
+              sleep 5
+            done
+            test "$status" = completed
+          fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify sources, word coverage, acoustic evidence and layout
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          python tools/test-youtube-caption-batch.py
+          python tools/test-youtube-caption-layout.py
+          node tools/build-content-v2.mjs
+          python tools/validate-youtube-caption-batch.py --register 363 362 361
+      - name: Build production data and verify caption bindings and offline shell
+        run: |
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          python tools/validate-youtube-caption-batch.py --registered 363 362 361
+          node tools/test-content-v2.mjs
+          node tools/test-video-catalog.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/test-v2-series-topics.mjs
+          node tools/sync-ai-ask-engine.mjs
+          node tools/prepare-production-index.mjs
+          node tools/build-production-sw.mjs
+          node tools/test-production-pwa.mjs
+      - name: Preserve the verified registrations and reports
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('captions/source/youtube-batch-363-361-manifest.json')
+          data=json.loads(p.read_text())
+          data['status']='editorially-reviewed-acoustically-aligned-registered'
+          data['humanListeningVerified']=False
+          for entry in data['episodes']:
+              n=entry['episode']
+              report=json.loads(Path(f'captions/episode-{n}.review.json').read_text())
+              entry['captionFile']=f'captions/episode-{n}.json'
+              entry['cueCount']=report['cueCount']
+              entry['explicitlyUnclearGroups']=report['explicitlyUnclearGroups']
+          p.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add episode-videos.json audio-seek-index.json content-v2.json index.html sw.js captions/episode-36*.review.json captions/source/youtube-batch-363-361-manifest.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Register verified captions for episodes 363, 362 and 361 with exact MP3 clocks'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
