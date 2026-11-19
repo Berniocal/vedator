@@ -158,7 +158,7 @@ try{
 
     await page.$eval('.language-v2 [data-lang="sk"]',button=>button.click());
     check(await page.$eval('#player-video-caption-v2',e=>e.textContent)===captions[n].cues[5].text.sk,'YouTube Slovak cue timing',{n});
-    if(n===1||n===363){
+    if(n===1||n===363||n===364){
       const frame=await page.$('#player-youtube-frame-v2');
       await page.click('#player-video-fullscreen-v2');
       await page.waitForFunction(()=>document.fullscreenElement?.id==='player-video-panel-v2');

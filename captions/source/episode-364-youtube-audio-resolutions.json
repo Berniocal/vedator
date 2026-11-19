@@ -5,13 +5,18 @@
   "independentReviewSha256": "adec870a5240621ec55e96cbd70d4adaa2e3498526afcaf1a76944e446dfd065",
   "groups": {
     "2": {
-      "textSk": "Od uzlov cez rovnice až po útvary. Veda nás obklopuje na každom kroku. Vitajte pri Vedátorskom podcaste, v ktorom sa budeme rozprávať o vede a prírode okolo nás.",
-      "textCs": "Od uzlů přes rovnice až po útvary. Věda nás obklopuje na každém kroku. Vítejte u Vedátorského podcastu, ve kterém si budeme povídat o vědě a přírodě kolem nás.",
-      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "textSk": "Od uzlov cez rovnice až po útvary. [nezrozumiteľné] nás obklopuje na každom kroku. Vitajte pri Vedátorskom podcaste, v ktorom sa budeme rozprávať o vede a prírode okolo nás.",
+      "textCs": "Od uzlů přes rovnice až po útvary. [nesrozumitelné] nás obklopuje na každém kroku. Vítejte u Vedátorského podcastu, ve kterém si budeme povídat o vědě a přírodě kolem nás.",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
       "evidencePassages": [
         0
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        0,
+        1
+      ]
     },
     "4": {
       "textSk": "Marí sa mi, že niečo s pokožkou. A koenzým Q10? Čo ja viem, nejaká vesmírna loď.",
@@ -23,13 +28,18 @@
       "status": "resolved"
     },
     "6": {
-      "textSk": "A čo takto niacínamid? Myslíš niacínamid? Áno, niacínamid.",
-      "textCs": "A co takhle niacinamid? Myslíš niacinamid? Ano, niacinamid.",
-      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "textSk": "A čo takto [nezrozumiteľné]? Myslíš niacínamid? Áno, niacínamid.",
+      "textCs": "A co takhle [nesrozumitelné]? Myslíš niacinamid? Ano, niacinamid.",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
       "evidencePassages": [
         1
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        2,
+        3
+      ]
     },
     "9": {
       "textSk": "No a presne preto je tu LucyLab, slovenská kozmetika, ktorú možno poznáš pod názvom Dulcia natural, dokonca z Rače. A od 20. októbra prichádzajú s",
@@ -164,7 +174,12 @@
       "evidencePassages": [
         8
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        4,
+        5
+      ]
     },
     "42": {
       "textSk": "Samkovu knižku. Je to úplne perfektná veľkosť. Ja ju tu nemám, ani Samko ju tam nemá, ty kokso.",
@@ -416,7 +431,12 @@
       "evidencePassages": [
         27
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        6,
+        7
+      ]
     },
     "119": {
       "textSk": "A ideš proste za nimi. On ti ju takto vytiahne z poličky, odfúkne a že... To, čo robíš vo fyzike, je, že napíšeš si nejakú sústavu rovníc, ktorá",
@@ -722,7 +742,12 @@
       "evidencePassages": [
         53
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        8,
+        9
+      ]
     },
     "223": {
       "textSk": "ďalšie epizódy teraz. Pochválim sa, že som Eda Wittena stretol, keď som bol na tej strunovej konferencii na... V tej Kanade, že? Áno, na Perimeter Institute. To je tam,",
@@ -821,7 +846,12 @@
       "evidencePassages": [
         60
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        10,
+        11
+      ]
     },
     "258": {
       "textSk": "z toho nespravíš obyčajný uzol bez toho, aby si to neprecvakol. Tak matematici si povedali, že poďme skúsiť vymyslieť spôsob, ako klasifikovať uzly,",
@@ -1103,13 +1133,18 @@
       "status": "resolved"
     },
     "326": {
-      "textSk": "tej hypotézy. Viem, viem, prepáč, snažíš sa veľmi... Pre mňa je to úplne to isté, že toto už je naozaj veľmi abstraktná matematika.",
-      "textCs": "té hypotézy. Vím, vím, promiň, velmi se snažíš... Pro mě je to úplně totéž, tohle už je opravdu velmi abstraktní matematika.",
-      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "textSk": "tej hypotézy. [nezrozumiteľné] Pre mňa je to úplne to isté, že toto už je naozaj veľmi abstraktná matematika.",
+      "textCs": "té hypotézy. [nesrozumitelné] Pro mě je to úplně totéž, tohle už je opravdu velmi abstraktní matematika.",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
       "evidencePassages": [
         81
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        12,
+        13
+      ]
     },
     "328": {
       "textSk": "je taký ten cez rovnice, algebraický. A Hodge to snaží spojiť dokopy v prípade nejakom veľmi zaujímavom,",
@@ -1172,7 +1207,12 @@
       "evidencePassages": [
         84
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        14,
+        15
+      ]
     },
     "339": {
       "textSk": "zaoberá tým, či nejaké špecifické priestory sa dajú dobre opísať svojimi podpriestormi, ale je to vyjadrené v takom jazyku, ktorý prepája dve",
@@ -1433,7 +1473,12 @@
       "evidencePassages": [
         95
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        16,
+        17
+      ]
     },
     "387": {
       "textSk": "a tak ďalej. A algebraickú geometriu, tak týmito vecami žiješ.",
@@ -1508,13 +1553,18 @@
       "status": "resolved"
     },
     "402": {
-      "textSk": "Ja sa snažím vo výskume používať AI-čko, ale nie tým štýlom, že napíšeš zadanie a skopíruješ výsledok, ale povieš, že budem s touto úlohou, mám pocit, že",
+      "textSk": "Ja sa snažím vo výskume používať AI-čko, ale nie tým štýlom, že napíšeš zadanie a skopíruješ výsledok, ale povieš, že bojujem s touto úlohou, mám pocit, že",
       "textCs": "Já se snažím ve výzkumu používat AI, ale ne stylem, že napíšeš zadání a zkopíruješ výsledek, ale řekneš: bojuji s touto úlohou, mám pocit, že",
-      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
       "evidencePassages": [
         99
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        18,
+        19
+      ]
     },
     "403": {
       "textSk": "treba ísť takýmto smerom. Skús dávať dokopy nejaké nápady, ktoré lietajú v rôznych oblastiach, lebo ako som povedal, ty sa odborne venuješ",
@@ -1607,13 +1657,18 @@
       "status": "resolved"
     },
     "419": {
-      "textSk": "Áno, áno. Pekne si to zhrnul. No, tak viacej to nebudem ani... Ale viem, že sú tam nejaké podmnožiny a tak ďalej, takže",
-      "textCs": "Ano, ano. Pěkně jsi to shrnul. No, tak víc už to nebudu ani... Ale vím, že tam jsou nějaké podmnožiny a tak dále, takže",
-      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "textSk": "Áno, áno. Pekne si to zhrnul. No, tak viacej to [nezrozumiteľné]. Ale viem, že sú tam nejaké podmnožiny a tak ďalej, takže",
+      "textCs": "Ano, ano. Pěkně jsi to shrnul. No, tak víc to [nesrozumitelné]. Ale vím, že tam jsou nějaké podmnožiny a tak dále, takže",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
       "evidencePassages": [
         103
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        22,
+        23
+      ]
     },
     "420": {
       "textSk": "Bodaj, možno raz Frica odchytím a budem ťahať rozumy, aby mi to viac vysvetlil.",
@@ -1634,13 +1689,18 @@
       "status": "resolved"
     },
     "422": {
-      "textSk": "Tak už len keby o tom niečo porozprával. Ale je to lepšie ako gravitácia.",
-      "textCs": "Tak už jen kdyby o tom něco povyprávěl. Ale je to lepší než gravitace.",
-      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "textSk": "Tak už len keby o tom niečo porozprával. O jedno lepšie ako gravitácia.",
+      "textCs": "Tak už jen kdyby o tom něco povyprávěl. O jedno lepší než gravitace.",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
       "evidencePassages": [
         103
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        24,
+        25
+      ]
     },
     "423": {
       "textSk": "Dobre, tak určite budeme sa tešiť, ako ich zavoláme. A Juraja by sme inak mohli znova zavolať, lebo viem, že sa páčilo jeho vysvetľovanie.",
@@ -1658,7 +1718,12 @@
       "evidencePassages": [
         104
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        26,
+        27
+      ]
     },
     "427": {
       "textSk": "sériu a ešte pár epizód k tomu. Bude to 7. decembra v KC Dunaj. KC-čku, áno, áno.",
@@ -1685,7 +1750,12 @@
       "evidencePassages": [
         105
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        28,
+        29
+      ]
     },
     "430": {
       "textSk": "tieto ty tam budeš podpisovať knižky a tak, takže nič. Samkova nová kniha Vesmírna",
@@ -1712,7 +1782,12 @@
       "evidencePassages": [
         106
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        30,
+        31
+      ]
     },
     "435": {
       "textSk": "že vy nás chcete počúvať stále a si to len predplatíte ďalej, takže takže tak. Majte sa pekne.",
@@ -1724,13 +1799,18 @@
       "status": "resolved"
     },
     "436": {
-      "textSk": "Nech dopadne. Majte sa.",
-      "textCs": "Ať to dopadne. Mějte se.",
-      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "textSk": "[nezrozumiteľné] Majte sa.",
+      "textCs": "[nesrozumitelné] Mějte se.",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
       "evidencePassages": [
         106
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        32,
+        33
+      ]
     },
     "438": {
       "textSk": "No a tu ešte na záver taká krátka ochutnávka z labáku. Vieš čo, jeden zámok som tak odomkol, že som si pozrel nejaké najpoužívanejšie sekvencie štvormiestne",
@@ -1739,7 +1819,12 @@
       "evidencePassages": [
         107
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        34,
+        35
+      ]
     },
     "439": {
       "textSk": "a jedna z tých bolo a ja som že odhalil som to. Ale čo je smiešne, necítil som sa dobre potom. Vieš, že ne neprišiel som na ten výsledok. Prvú vám pôjde",
