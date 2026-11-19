@@ -162,4 +162,5 @@ window.HTMLMediaElement.prototype.play=originalTestPlay;
 window.HTMLMediaElement.prototype.load=originalTestLoad;
 
 console.log(JSON.stringify({ok:true,mobileWidth:390,episodeHighlight:true,questionHighlight:true,darkTopicContrast:true,shareSingleRow:true,realMp3Download:true,episodeContext:true,autoAdvance:true,backgroundRecovery:true,synchronousSwitch:true,videoRemoved:true,downloaded:downloads[0]?.download||null},null,2));
+await new Promise(resolve=>setTimeout(resolve,120));
 window.close();
