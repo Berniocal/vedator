@@ -116,7 +116,7 @@ def translate(groups, output, provenance):
 def prepare(number):
     episode=next(e for e in read(ROOT/'content-v2.json')['episodes'] if e['number']==number)
     source=SOURCE/f'episode-{number}-youtube-original.sk.srt'
-    manifest=read(SOURCE/'youtube-batch-363-361-manifest.json')
+    manifest=read(SOURCE/os.environ.get('VEDATOR_YOUTUBE_MANIFEST','youtube-batch-363-361-manifest.json'))
     item=next(item for item in manifest['episodes'] if item['episode']==number)
     if episode['id']!=item['guid'] or episode['youtubeId']!=item['youtubeId']:raise ValueError('Video/RSS identity mismatch')
     if digest(source)!=item['archivedSha256']:raise ValueError('Changed archived YouTube source')
