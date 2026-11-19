@@ -11,6 +11,14 @@ spec=importlib.util.spec_from_file_location('finalize',Path(__file__).with_name(
 finalize=importlib.util.module_from_spec(spec);spec.loader.exec_module(finalize)
 
 class CaptionLayout(unittest.TestCase):
+    def test_recovered_speech_is_jointly_aligned_across_the_size_limit(self):
+        groups=[{'start':0,'end':10},{'start':10,'end':22},
+                {'start':21.5,'end':26},{'start':26,'end':31}]
+        chunks=finalize.alignment_chunks(groups)
+        self.assertEqual(chunks,[groups[:3],groups[3:]])
+        english={'start':25.5,'end':28,'sourceLanguage':'en'}
+        self.assertEqual(finalize.alignment_chunks(groups[:3]+[english]),[groups[:3],[english]])
+
     def test_two_balanced_lines_without_orphan(self):
         text='Společně se Snyderem zkoumali gravitační kolaps. Pokrok nebyl příliš rychlý.'
         wrapped=finalize.balanced(text)

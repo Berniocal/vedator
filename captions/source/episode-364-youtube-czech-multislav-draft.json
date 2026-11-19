@@ -1,0 +1,3564 @@
+{
+  "episode": 364,
+  "model": "allegro/p5-many2ces",
+  "modelAttribution": "Allegro MLR and Laniqo; CC BY 4.0",
+  "modelSource": "https://huggingface.co/allegro/p5-many2ces",
+  "sourceEditorialReviewSha256": "a91b78b24dd9dc32fd897bd15856c442ae62c412f3cbb405f1600e44d1d4cf5a",
+  "status": "unreviewed-czech-machine-draft-do-not-publish",
+  "totalGroups": 442,
+  "completedGroups": 442,
+  "cues": [
+    {
+      "group": 0,
+      "start": 1.309,
+      "end": 3.329,
+      "textSk": "[hudba]",
+      "draftCs": "[hudba]",
+      "reviewFlags": []
+    },
+    {
+      "group": 1,
+      "start": 8.515,
+      "end": 10.535,
+      "textSk": "[hudba]",
+      "draftCs": "[hudba]",
+      "reviewFlags": []
+    },
+    {
+      "group": 2,
+      "start": 12.8,
+      "end": 20.7,
+      "textSk": "Od uzlov cez rovnice až po útvary nás obklopuje na každom kroku. Vitajte pri vedeckom podcaste, v ktorom sa budeme rozprávať o vede a prírode okolo nás.",
+      "draftCs": "Od uzlů přes rovnice až po útvary nás obklopuje na každém kroku. Vítejte u vědeckého podcastu, ve kterém si budeme povídat o vědě a přírodě kolem nás.",
+      "reviewFlags": []
+    },
+    {
+      "group": 3,
+      "start": 20.7,
+      "end": 30.6,
+      "textSk": "Moje meno je Jozef a ja som Samo. Tento podcast vychádza v spolupráci so SME. Samko, vieš na čo je dobrá kyselina hyalurónová? Dúfam, že som to dobre povedal.",
+      "draftCs": "Jmenuji se Jozef a já jsem Samo. Tento podcast vychází ve spolupráci se SME. Samko, víš na co je dobrá kyselina hyaluronová? Doufám, že jsem to dobře řekl.",
+      "reviewFlags": []
+    },
+    {
+      "group": 4,
+      "start": 30.6,
+      "end": 36.68,
+      "textSk": "Máris mi, že niečo s pokožkou. A koenzým Q10? Čo ja viem, nejaká vesmírna loď.",
+      "draftCs": "Máris mi řekla, že něco s kůží a koenzymem Q10, co já vím, nějaká vesmírná loď.",
+      "reviewFlags": []
+    },
+    {
+      "group": 5,
+      "start": 36.68,
+      "end": 37.3,
+      "textSk": "[smiech]",
+      "draftCs": "[smích]",
+      "reviewFlags": []
+    },
+    {
+      "group": 6,
+      "start": 37.3,
+      "end": 43.8,
+      "textSk": "A čo takto niacínamid? Myslíš niacínamid? Eh Áno, niacínamid.",
+      "draftCs": "A co takhle niacinamid? Myslíš niacinamid? Eh Ano, niacinamid.",
+      "reviewFlags": []
+    },
+    {
+      "group": 7,
+      "start": 43.8,
+      "end": 49.7,
+      "textSk": "Tiež som to prečítal, ale znie to dosť vymyslene, nie? No a nebolo by super sa konečne v tom zorientovať?",
+      "draftCs": "Také jsem to četl, ale zní to dost vymyšleně, ne? No a nebylo by super se konečně v tom zorientovat?",
+      "reviewFlags": []
+    },
+    {
+      "group": 8,
+      "start": 49.7,
+      "end": 54.2,
+      "textSk": "Bolo, ale úprimne eh pri malom dieťati na to nemám úplne kapacitu.",
+      "draftCs": "Bylo, ale upřímně eh u malého dítěte na to nemám úplně kapacitu.",
+      "reviewFlags": []
+    },
+    {
+      "group": 9,
+      "start": 54.2,
+      "end": 63.6,
+      "textSk": "No a presne preto je tu LucyLab, slovenská kozmetika, ktorú možno poznáš pod názvom Dulcia natural, dokonca z Rače. A od 20. októbra prichádzajú s",
+      "draftCs": "No a přesně proto je tu LucyLab, slovenská kosmet kosmetika, kterou možná znáš pod názvem Dulcia natural natural, dokonce z Rače. A od 20. října přicházejí s",
+      "reviewFlags": []
+    },
+    {
+      "group": 10,
+      "start": 63.6,
+      "end": 67.8,
+      "textSk": "novým menom a úplne novým prístupom k starostlivosti o pleť.",
+      "draftCs": "novým jménem a zcela novým přístupem k péči o pleť.",
+      "reviewFlags": []
+    },
+    {
+      "group": 11,
+      "start": 67.8,
+      "end": 71.7,
+      "textSk": "Áno, áno, poznám. Párkrát som tam bol. A na tomto je teraz niečo špeciálne?",
+      "draftCs": "Ano, ano, vím, párkrát jsem tam byl a na tomhle je teď něco speciálního?",
+      "reviewFlags": []
+    },
+    {
+      "group": 12,
+      "start": 71.7,
+      "end": 80.0,
+      "textSk": "No pomôžu ti zistiť, čo tvoja pleť naozaj potrebuje. Majú hotové kvalitné produkty, odborné poradenstvo a pri vybraných produktoch, čo som ešte",
+      "draftCs": "No pomohou ti zjistit, co tvá pleť opravdu potřebuje. Mají hotové kvalitní produkty, odborné poradenství a u vybraných produktů, co jsem ještě",
+      "reviewFlags": []
+    },
+    {
+      "group": 13,
+      "start": 80.0,
+      "end": 86.8,
+      "textSk": "nezažil, aj možnosť personalizácie. Čiže niečo pre aj ľudí ako som ja, čo o kozmetike nevedia vôbec nič.",
+      "draftCs": "Nezažil, i možnost personalizace. Čili něco pro i lidi jako jsem já, co o kosmetice nevědí vůbec nic.",
+      "reviewFlags": []
+    },
+    {
+      "group": 14,
+      "start": 86.8,
+      "end": 91.9,
+      "textSk": "Presne tak. Či si úplný amatér alebo kozmetický profík, chceš predsa dobre vyzerať, nie?",
+      "draftCs": "Ať už jsi úplný amatér nebo kosmetický profík, chceš přece dobře vypadat, ne?",
+      "reviewFlags": []
+    },
+    {
+      "group": 15,
+      "start": 91.9,
+      "end": 93.666,
+      "textSk": "Akože áno, nezaškodí to.",
+      "draftCs": "Jakože ano, nezaškodí to.",
+      "reviewFlags": []
+    },
+    {
+      "group": 16,
+      "start": 93.666,
+      "end": 94.2,
+      "textSk": "[smiech]",
+      "draftCs": "[smích]",
+      "reviewFlags": []
+    },
+    {
+      "group": 17,
+      "start": 94.2,
+      "end": 100.4,
+      "textSk": "Áno, už keď robíme aj video podcast, tak nezaškodí to. Tak so všetkým týmto ti vedia pomôcť.",
+      "draftCs": "Ano, už když děláme i video podcast, tak nezaškodí to. Tak se vším tímto ti mohou pomoci.",
+      "reviewFlags": []
+    },
+    {
+      "group": 18,
+      "start": 100.4,
+      "end": 104.6,
+      "textSk": "Stačí, keď pôjdeš na lucylab.sk, pozri sa, čo všetko pre teba majú.",
+      "draftCs": "Stačí, když půjdeš na lucylab.sk, podívej se, co všechno pro tebe mají.",
+      "reviewFlags": []
+    },
+    {
+      "group": 19,
+      "start": 104.6,
+      "end": 112.4,
+      "textSk": "Pozriem. Dobre, super. A ešte niečo: pri prvej objednávke na lucylab.sk dostaneš ako darček kolagénové sérum.",
+      "draftCs": "Dobře, super. A ještě něco: při první objednávce na lucylab.cz dostaneš jako dárek kolagenové sérum.",
+      "reviewFlags": []
+    },
+    {
+      "group": 20,
+      "start": 112.4,
+      "end": 116.0,
+      "textSk": "To je napriek tomu, že stále neviem správne prečítať niacínamid.",
+      "draftCs": "To je přesto, že stále neumím správně přečíst niacinamid.",
+      "reviewFlags": []
+    },
+    {
+      "group": 21,
+      "start": 116.0,
+      "end": 121.392,
+      "textSk": "Ani ja ho stále neviem prečítať, ale pri objednávke ťa nebudú.",
+      "draftCs": "Ani já ho stále neumím přečíst, ale při objednávce tě nebudou.",
+      "reviewFlags": []
+    },
+    {
+      "group": 22,
+      "start": 121.392,
+      "end": 128.192,
+      "textSk": "A ešte dobrá správa. Počas Black Friday majú v LucyLabe zľavu 25 % na všetky produkty.",
+      "draftCs": "A ještě dobrá zpráva. Během Black Friday mají v LucyLabu slevu 25 % na všechny produkty.",
+      "reviewFlags": []
+    },
+    {
+      "group": 23,
+      "start": 128.192,
+      "end": 138.09199999999998,
+      "textSk": "OK, toto si idem otvoriť hneď v novom okne. Samko, eh ty si zvládol veľmi manipulačný úkon eh teraz večer, dať",
+      "draftCs": "Dobře, tohle si jdu otevřít hned v novém okně. Samko, eh ty jsi zvládl velmi manipulační úkon eh teď večer, dát",
+      "reviewFlags": []
+    },
+    {
+      "group": 24,
+      "start": 138.09199999999998,
+      "end": 144.101,
+      "textSk": "svoju malú dcéru spať. Eh gratulujem a môžeme nahrávať vďaka tomu, takže Matylda, ďakujeme.",
+      "draftCs": "Eh gratuluji a můžeme nahrávat díky tomu, takže Matylda, děkujeme.",
+      "reviewFlags": []
+    },
+    {
+      "group": 25,
+      "start": 144.101,
+      "end": 145.192,
+      "textSk": "[smiech]",
+      "draftCs": "[smích]",
+      "reviewFlags": []
+    },
+    {
+      "group": 26,
+      "start": 145.192,
+      "end": 153.892,
+      "textSk": "Eh ako sa máš inak? Dobre, dobre. Akurát už vidím, ako sa prehadzuje, ale vidím, že stále spí, takže [smiech] občas budem možno eh odbiehať, aj keď bude treba",
+      "draftCs": "Dobře, dobře, akorát už vidím, jak se prohazuje, ale vidím, že stále spí, takže [s smích] občas budu možná eh odcházet, i když bude třeba",
+      "reviewFlags": []
+    },
+    {
+      "group": 27,
+      "start": 153.892,
+      "end": 155.891,
+      "textSk": "bude aj nasekaný podcast.",
+      "draftCs": "bude i nasekaný podcast.",
+      "reviewFlags": []
+    },
+    {
+      "group": 28,
+      "start": 155.891,
+      "end": 156.392,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 29,
+      "start": 156.392,
+      "end": 166.492,
+      "textSk": "Eh mám sa dobre. Eh robím rôzne výskumné veci, kde teraz som v takom štádiu, že už je to takmer hotové, ale nie je to ešte úplne hotové a",
+      "draftCs": "Eh mám se dobře. Eh dělám různé výzkumné věci, kde teď jsem v takové fázi, že už je to téměř hotové, ale není to ještě úplně hotové a",
+      "reviewFlags": []
+    },
+    {
+      "group": 30,
+      "start": 166.492,
+      "end": 171.992,
+      "textSk": "Strašne by som potreboval si na to na dva dni sadnúť a mať pokoj. A milión iných vecí sa deje a dialo.",
+      "draftCs": "Strašně bych potřeboval na to dva dny sednout a mít klid a milion jiných věcí se děje a dělo.",
+      "reviewFlags": []
+    },
+    {
+      "group": 31,
+      "start": 171.992,
+      "end": 182.792,
+      "textSk": "Takže som z toho taký, ale zase na na čo som sa užívať mať tento stav nedrobenej práce, lebo to znamená, že vieš, nad čo si sadneš ďalší deň a môžeš to doroobiť.",
+      "draftCs": "Takže jsem z toho takový, ale zase na co jsem se užívat mít tento stav nedrobené práce, protože to znamená, že víš, nad co si sedneš další den a můžeš to doroobít.",
+      "reviewFlags": []
+    },
+    {
+      "group": 32,
+      "start": 182.792,
+      "end": 192.092,
+      "textSk": "Uhm. Takže a čo ty? Ja som tak nejako pracovne eh vyťažený a toto počasie ma troška začína zase dávať",
+      "draftCs": "Já jsem tak nějak pracovně eh vytížený a tohle počasí mě trochu začíná zase dávat",
+      "reviewFlags": []
+    },
+    {
+      "group": 33,
+      "start": 192.092,
+      "end": 196.502,
+      "textSk": "dole, ale dá sa to. to Nicole volá.",
+      "draftCs": "dolů, ale dá se to. to Nicole volá.",
+      "reviewFlags": []
+    },
+    {
+      "group": 34,
+      "start": 196.502,
+      "end": 197.09199999999998,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 35,
+      "start": 197.09199999999998,
+      "end": 206.792,
+      "textSk": "Je inak veľmi trefné to... Jaj, a zabudol som povedať: mal si úžasný krst knižky Vesmírna kolíska.",
+      "draftCs": "Je to jinak velmi trefné... a zapomněl jsem říct: měl jsi úžasný křest knížky Vesmírná kolébka.",
+      "reviewFlags": []
+    },
+    {
+      "group": 36,
+      "start": 206.792,
+      "end": 214.292,
+      "textSk": "Páčilo sa mi, ako to dopadlo na to, že to bolo, nechcem povedať, že od improvizované, ale ja sa snažím tieto veci robiť tak, aby to bolo skoro ako",
+      "draftCs": "Líilo se mi, jak to dopadlo na to, že to bylo, nechci říct, že od improvizované, ale já se snažím tyto věci dělat tak, aby to bylo skoro jako",
+      "reviewFlags": []
+    },
+    {
+      "group": 37,
+      "start": 214.292,
+      "end": 223.692,
+      "textSk": "Také kamarátske stretnutie, než ako nejaká profi zorganizovaná akcia. A vždy ma to poteší, že kopa ľudí tam dôjde a pokecáme aspoň trošku.",
+      "draftCs": "Takové kamarádské setkání, než jako nějaká profi zorganizovaná akce. A vždy mě to potěší, že spousta lidí tam dojde a pokecáme alespoň trošku.",
+      "reviewFlags": []
+    },
+    {
+      "group": 38,
+      "start": 223.692,
+      "end": 231.59199999999998,
+      "textSk": "Vieš čo, začíname sa tam už tak stretávať tak stále stále cez, že proste že eh plno kopa ľudí tam také, hej, že každý tam niekoho pozná a strašne sa mi to",
+      "draftCs": "Víš co, začínáme se tam už tak potkávat tak stále stále stále přes, že prostě že eh plno spousta lidí tam takové, hej, že každý tam někoho zná a strašně se mi to",
+      "reviewFlags": []
+    },
+    {
+      "group": 39,
+      "start": 231.59199999999998,
+      "end": 236.09199999999998,
+      "textSk": "ľúbi, keď ľudia proste pokecajú a a tak. [lapanie po dychu] Hej.",
+      "draftCs": "Miluje, když si lidi prostě povídají a tak. Jo.",
+      "reviewFlags": []
+    },
+    {
+      "group": 40,
+      "start": 236.09199999999998,
+      "end": 246.194,
+      "textSk": "A pozdravujem Zuzku Hanzelovú a tvoju pani manželku Nicole, eh ktorá bola krstná mama eh a povedala takú peknú vec, že eh vďaka tebe je mama a teraz je už aj",
+      "draftCs": "A zdravím Zuzku Hanzelovou a tvou paní manželku Nicole, eh která byla km mámou eh a řekla tak pěknou věc, že eh díky tobě je máma a teď je už i",
+      "reviewFlags": []
+    },
+    {
+      "group": 41,
+      "start": 246.194,
+      "end": 255.594,
+      "textSk": "krstná mama, takže tak, tak. No, tak. Taká pekná vec. Takže môžete všetci ľutovať, kto tam nebol, ale aby ste neľutovali úplne, môžete si zakúpiť",
+      "draftCs": "Tak, taková pěkná věc. Tak můžete všichni litovat, kdo tam nebyl, ale abyste nelitovali úplně úplně, můžete si zakoupit, můžete si koupit",
+      "reviewFlags": []
+    },
+    {
+      "group": 42,
+      "start": 255.594,
+      "end": 261.094,
+      "textSk": "Samkovu knižku. Je to úplne perfektná veľkosť. Ja ju tu nemám, ani Samko ju tam nemá, ty kokso.",
+      "draftCs": "Samkovu knížku, je to perfektní velikost, já ji tady nemám, ani Samko ji tam nemá, ty kokso.",
+      "reviewFlags": []
+    },
+    {
+      "group": 43,
+      "start": 261.094,
+      "end": 270.51800000000003,
+      "textSk": "Nikolas si ju zobrala do spálne, takže sme sa nejako, no tak lepšiu recenziu nebudete mať, vlastná žena číta jeho knihy, tak",
+      "draftCs": "Nikolas si ji vzala do ložnice, takže jsme se nějak, no tak lepší recenzi nebudete mít, vlastní žena čte jeho knihy, tak",
+      "reviewFlags": []
+    },
+    {
+      "group": 44,
+      "start": 270.51800000000003,
+      "end": 271.494,
+      "textSk": "[smiech][odkašľanie]",
+      "draftCs": "[smích][odkašlání]",
+      "reviewFlags": []
+    },
+    {
+      "group": 45,
+      "start": 271.494,
+      "end": 281.594,
+      "textSk": "Tak to je super. Dobre, tak dnes sa rozprávame o ďalšom miléniovom probléme. Hodgeova hypotéza, je to jeden z tých problémov, čo si povedal, že sa ti",
+      "draftCs": "Dobře, tak dnes mluvíme o dalším miléniovém problému, Hodgeova hypotéza, je to jeden z těch problémů, co jsi řekl, že se ti",
+      "reviewFlags": []
+    },
+    {
+      "group": 46,
+      "start": 281.594,
+      "end": 290.694,
+      "textSk": "nechce vysvetľovať? To je je prísam že najhorší. Fricovala Fricovala, ktorý je odchovanec Matfyzú, ktorý robí takú",
+      "draftCs": "Fricovala Fricovala Fricovala, který je odchovaný Matfyzzou, který dělá takovou",
+      "reviewFlags": []
+    },
+    {
+      "group": 47,
+      "start": 290.694,
+      "end": 299.594,
+      "textSk": "pomerne vysokú matematiku. Nám o tom rozpísal článok a ten článok tam niekde spomína, že často sa nehovorí, že ide o jeden z",
+      "draftCs": "Nám o tom rozepsal článek a ten článek tam někde někde píše, že často se neříká, že jde o jeden z",
+      "reviewFlags": []
+    },
+    {
+      "group": 48,
+      "start": 299.594,
+      "end": 309.594,
+      "textSk": "najťažších problémov na vysvetlenie. Takže je to je to úplne, že masaker, ale povedali sme si, že prejdeme cez všetky miléniové problémy a",
+      "draftCs": "Takže je to je to úplně, že masakr, ale řekli jsme si, že projdeme všemi problémy tisíciletí a",
+      "reviewFlags": []
+    },
+    {
+      "group": 49,
+      "start": 309.594,
+      "end": 317.678,
+      "textSk": "mal som taký mood, že poďme poďme strhnúť túto náplasť, poďme si to vytrpieť všetci kolektívne spolu s našimi poslucháčmi",
+      "draftCs": "měl jsem takový mood, že pojďme pojďme strhnout tuto náplast, pojďme si to vytrpět všichni kolektivně spolu s našimi posluchači",
+      "reviewFlags": []
+    },
+    {
+      "group": 50,
+      "start": 317.678,
+      "end": 319.094,
+      "textSk": "[smrkanie]",
+      "draftCs": "[smrkání]",
+      "reviewFlags": []
+    },
+    {
+      "group": 51,
+      "start": 319.094,
+      "end": 328.894,
+      "textSk": "a pôjdeme na ostatné. A jedna je ináč, že jedna z tých motivácií, prečo toto robiť, keď si spomínaš, mali sme epizódu o Navier-Stokesových rovniciach, lebo vyhlásili, že",
+      "draftCs": "A jedna z nich je jiná, že jedna z těch motivů, proč toto dělat, když si pamatuješ, měli jsme epizodu o Navier-Stokesových rovnicích, protože prohlásili, že",
+      "reviewFlags": []
+    },
+    {
+      "group": 52,
+      "start": 328.894,
+      "end": 337.694,
+      "textSk": "to vyriešili. Potom sa na to vrhli experti a zistili, že to nie je úplne vodotesné, že sú tam nejaké že to, čo je dokázané, je trochu iné ako",
+      "draftCs": "Pak se na to vrhli experti experti a zjistili, že to není úplně vodotěsné, že jsou tam nějaké že to, co je prokázáno, je trochu jiné než",
+      "reviewFlags": []
+    },
+    {
+      "group": 53,
+      "start": 337.694,
+      "end": 347.594,
+      "textSk": "to, čo je tvrdené, že je dokázané. Takže je to zaujímavé, ale teraz sa zisťuje, že či už je to vlastne na uznanie toho výsledku alebo nie a potom sa šepkalo, že sa podarilo",
+      "draftCs": "to, co je tvrzeno, že je prokázáno. Takže je to zajímavé, ale teď se zjišťuje, že ať už je to vlastně k uznání toho výsledku nebo ne a pak se šeptalo, že se podařilo",
+      "reviewFlags": []
+    },
+    {
+      "group": 54,
+      "start": 347.594,
+      "end": 357.594,
+      "textSk": "Vyriešiť ďalšiu. A šepkalo sa, že to je táto Hodgeova hypotéza, o ktorej, keď sme vtedy tak triedili tie problémy, tak sme ju dali do takého chlievika, že to je tá",
+      "draftCs": "A šeptalo se, že to je tato Hodgeova hypotéza, o které, když jsme tehdy tak třídili ty problémy, tak jsme ji dali do takového chlévi, že to je ta",
+      "reviewFlags": []
+    },
+    {
+      "group": 55,
+      "start": 357.594,
+      "end": 364.294,
+      "textSk": "najťažšia z nich alebo jedna z tých najťažších. A potom sa ukázalo, že vyhlásili, že tri iné vyriešili.",
+      "draftCs": "Nejtěžší z nich nebo jedna z těch nejtěžších. A pak se ukázalo, že prohlásili, že tři jiné vyřešili.",
+      "reviewFlags": []
+    },
+    {
+      "group": 56,
+      "start": 364.294,
+      "end": 368.769,
+      "textSk": "A nie že vyriešili, ale že urobili v nich významný progres. To je presnejšie povedané.",
+      "draftCs": "A ne že vyřešili, ale že udělali v nich významný pokrok. To je přesněji řečeno.",
+      "reviewFlags": []
+    },
+    {
+      "group": 57,
+      "start": 368.769,
+      "end": 369.495,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 58,
+      "start": 369.495,
+      "end": 375.295,
+      "textSk": "Jedna z nich je tá fyzikálna, o existencii vôbec fyzikálnych rovníc, ktoré opisujú časticovú fyziku.",
+      "draftCs": "Jedna z nich je ta fyzikální, o existenci vůbec fyzikálních rovnic, které popisují částicovou fyziku.",
+      "reviewFlags": []
+    },
+    {
+      "group": 59,
+      "start": 375.295,
+      "end": 383.595,
+      "textSk": "Druhá je tá informatická o P sa rovná NP probléme, ktorý okrem iného tak trošku súvisí aj so šifrovaním, takže to ľudí extrémne láka.",
+      "draftCs": "Druhá je ta informatická o P se rovná NP problému, který mimo jiné tak trošku souvisí i se šifrováním, takže to lidi extrémně láká.",
+      "reviewFlags": []
+    },
+    {
+      "group": 60,
+      "start": 383.595,
+      "end": 393.395,
+      "textSk": "A tretí som zabudol, čo bol. kvôli uplatneniu nie a asi Hej. Oni ináč potom mali také tu sme rozoberali už niekoľkokrát možno o tom môžeme spraviť aj dedikovanú",
+      "draftCs": "A třetí jsem zapomněl, co byl. kvůli uplatnění ne a asi Jo. Oni jinak pak měli takové tady jsme rozebírali už několikrát možná o tom můžeme udělat i dedikovanou",
+      "reviewFlags": []
+    },
+    {
+      "group": 61,
+      "start": 393.395,
+      "end": 403.295,
+      "textSk": "epizódu eh šifrovania a celkovo, že ako to funguje a a ešte k Riemannovej hypotéze urobili progres. Dokázali nejakú zjednodušenú verziu. A to je tiež celkom zaujímavé. O",
+      "draftCs": "epizodu eh šifrování a celkově, že jak to funguje a a ještě k Riemannově hypotéze učinili pokrok. Dokázali nějakou zjednoduš zjednodušenou verzi. A to je také docela zajímavé. O",
+      "reviewFlags": []
+    },
+    {
+      "group": 62,
+      "start": 403.295,
+      "end": 408.495,
+      "textSk": "tom máme aj epizódu podcastu, ak sa nemýlim. To sme tuším tým otvorili tieto miléniové problémy.",
+      "draftCs": "Tomu máme i epizodu podcastu, pokud se nemýlím. To jsme tuším tím otevřeli tyto miléniové problémy.",
+      "reviewFlags": []
+    },
+    {
+      "group": 63,
+      "start": 408.495,
+      "end": 417.895,
+      "textSk": "A a je to zaujímavé, že sa to hýbe dopredu, takže sa nakoniec ukázalo, že tá Hodgeova hypotéza nie je tá, ktorú s ktorou pohli.",
+      "draftCs": "A je to zajímavé, že se to hýbe kupředu, takže se nakonec ukázalo, že ta Hodgeova hypotéza není ta, se kterou pohnuli.",
+      "reviewFlags": []
+    },
+    {
+      "group": 64,
+      "start": 417.895,
+      "end": 425.895,
+      "textSk": "Eh takže takže len to tak zhrniem, že už sme mali tú Riemannovu hypotézu, už sme mali Navier-Stokesove rovnice a trošku sme sa vytrápili, ale zvládli sme, ak sa",
+      "draftCs": "Eh takže takže jen to tak shrnu, že už jsme měli tu Riemannovu hypotézu, už jsme měli Navier-Stokesovy rovnice a trošku jsme se vytrápili, ale zvládli jsme, pokud se",
+      "reviewFlags": []
+    },
+    {
+      "group": 65,
+      "start": 425.895,
+      "end": 435.595,
+      "textSk": "Nemýlim, aj Birchovu a Swinnerton-Dyerovu hypotézu. Inak ja ťa obdivujem, že tieto mená takto strúhaš, akože cool.",
+      "draftCs": "Nemýlím se, ani Birchovu a Swinnerton-Dyerovu hypotézu, jinak já tě obdivuji, že tato jména takto strouháš, jakože cool.",
+      "reviewFlags": []
+    },
+    {
+      "group": 66,
+      "start": 435.595,
+      "end": 441.295,
+      "textSk": "No však čítam teraz z poznámok a... Ja viem, ale akože aj tak, že super.",
+      "draftCs": "Ale teď čtu z poznámek a... já vím, ale i tak je to super.",
+      "reviewFlags": []
+    },
+    {
+      "group": 67,
+      "start": 441.295,
+      "end": 450.795,
+      "textSk": "A keď a to teraz len dávam motiváciu, že keď si vytrpíme túto Hodgeovu hypotézu, tak nám zostanú už len tie pekné eh tá fyzikálna o časticovej fyzike a P sa",
+      "draftCs": "A když a to teď jen dávám motivaci, že když si vytrpíme tuto Hodgeovu hypotézu, tak nám zůstanou už jen ty pěkné eh ta fyzikální o částicové fyzice a P se",
+      "reviewFlags": []
+    },
+    {
+      "group": 68,
+      "start": 450.795,
+      "end": 461.795,
+      "textSk": "Rovná NP alebo P versus NP problém. To je tá informatická. A potom tá Poincarého hypotéza, ktorá už je vyriešená. To je jediná, tú si môžeme nechať na záver.",
+      "draftCs": "Rovná NP nebo P versus NP problém. To je ta informatická. a pak ta Poincarého hypotéza, která už je vyřešená. to je jediná, tu si můžeme nechat na závěr.",
+      "reviewFlags": []
+    },
+    {
+      "group": 69,
+      "start": 461.795,
+      "end": 467.895,
+      "textSk": "To je zatiaľ človekom jediná vyriešená. A na Wikipédii už majú aktualizovaný zoznam tých vlastne ten Rus vyriešil vyriešenie.",
+      "draftCs": "To je zatím člověkem jediná vyřešená a na Wikipedii už mají aktualizovaný seznam těch vlastně ten Rus vyřešil vyřešení.",
+      "reviewFlags": []
+    },
+    {
+      "group": 70,
+      "start": 467.895,
+      "end": 475.595,
+      "textSk": "Áno, áno, a neprevzal si cenu. On povedal, že nie je opička, aby chodil sa takto handrkovať pred ľudí.",
+      "draftCs": "Ano, ano, a nepřevzal cenu. On řekl, že není opička, aby chodil se takto handrkovat před lidí.",
+      "reviewFlags": []
+    },
+    {
+      "group": 71,
+      "start": 475.595,
+      "end": 481.595,
+      "textSk": "Perelman. Hej, a odišiel zase na Sibír bývať s mamou do nejakej [smiech] nejakej chatrčky alebo čo.",
+      "draftCs": "Jo, a odjel zase na Sibiř bydlet s mámou do nějaké chatrče nebo co.",
+      "reviewFlags": []
+    },
+    {
+      "group": 72,
+      "start": 481.595,
+      "end": 485.36,
+      "textSk": "Ale ako že musí mu dať maštyl, ako že to áno, áno.",
+      "draftCs": "Ale jako že mu musí dát maštil, jako že to ano, ano.",
+      "reviewFlags": []
+    },
+    {
+      "group": 73,
+      "start": 485.36,
+      "end": 485.495,
+      "textSk": "[smrkanie]",
+      "draftCs": "[smrkání]",
+      "reviewFlags": []
+    },
+    {
+      "group": 74,
+      "start": 485.495,
+      "end": 489.29,
+      "textSk": "veľkú auru. Eh",
+      "draftCs": "velkou auru.",
+      "reviewFlags": []
+    },
+    {
+      "group": 75,
+      "start": 489.29,
+      "end": 490.697,
+      "textSk": "[smiech][lapanie po dychu]",
+      "draftCs": "[smích][lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 76,
+      "start": 490.697,
+      "end": 500.197,
+      "textSk": "To je v poriadku. Jo. Čiže eh poďme na túto eh Uhm. Diváci a poslucháči Čo je čo je znenie tej hypotézy? Dá sa",
+      "draftCs": "Diváci a posluchači diváci a posluchači co je co je co je znění té hypotézy?",
+      "reviewFlags": []
+    },
+    {
+      "group": 77,
+      "start": 500.197,
+      "end": 508.997,
+      "textSk": "nejako skrátiť, že povieme si, že toto je tá Áno. Lebo napríklad tie navrstvované rovnice si veľmi jednoducho vysvetlil, že ide o",
+      "draftCs": "zkrátit, že řekneme si, že toto je ta Ano. Protože například ty navrstvované rovnice si velmi jednoduše vysvětlil, že jde o",
+      "reviewFlags": []
+    },
+    {
+      "group": 78,
+      "start": 508.997,
+      "end": 515.297,
+      "textSk": "prúdenie kvapalín a plynov eh proste a výpočty s týmto spojené, nie?",
+      "draftCs": "proudění kapalin a plynů eh prostě a výpočty s tímto spojené, ne?",
+      "reviewFlags": []
+    },
+    {
+      "group": 79,
+      "start": 515.297,
+      "end": 523.897,
+      "textSk": "Eh tak ja ti poviem, že zjednodušenú verziu. Uhm. Hodgeova domnienka hovorí, že na priestoroch zadaných polynomiálnymi rovnicami sa dá z topológie rozoznať,",
+      "draftCs": "Hodgeova domněnka říká, že na prostorech zadaných polynomiálními rovnicemi se dá z topologie rozeznat,",
+      "reviewFlags": []
+    },
+    {
+      "group": 80,
+      "start": 523.897,
+      "end": 527.936,
+      "textSk": "ktoré cykly pochádzajú z algebraickej geometrie.",
+      "draftCs": "které cykly pocházejí z algebraické geometrie.",
+      "reviewFlags": []
+    },
+    {
+      "group": 81,
+      "start": 527.936,
+      "end": 528.897,
+      "textSk": "[lapanie po dychu][vzdychanie]",
+      "draftCs": "[lapání po dechu][vzdychání]",
+      "reviewFlags": []
+    },
+    {
+      "group": 82,
+      "start": 528.897,
+      "end": 538.897,
+      "textSk": "Rozumel som pár slov, ale [smiech] nie všetkému dokopy. A toto je toto je tá zjednodušená verzia, ktorá si odpustila také slová ako nesingulárne komplexné projektívne",
+      "draftCs": "Rozuměl jsem pár slov, ale [smích] ne všemu dohromady dohromady. A toto je ta zjednodušená verze, která si odpustila taková slova jako nesingulární komplexní projektivní",
+      "reviewFlags": []
+    },
+    {
+      "group": 83,
+      "start": 538.897,
+      "end": 549.097,
+      "textSk": "Variety, ktorých sa to týka. Takže toto na chvíľku necháme bokom. Zametieme pod koberec, tvárime sa, že to nikdy nezaznelo, a chvíľku sa budeme rozprávať",
+      "draftCs": "Takže tohle na chvilku necháme stranou, zameteme pod koberec, předstíráme, že to nikdy nezaznělo, a chvíli si budeme povídat, a zaméčíme pod koberec, předstíráme, že to nikdy nezaznělo, a chvíli si budeme povídat",
+      "reviewFlags": []
+    },
+    {
+      "group": 84,
+      "start": 549.097,
+      "end": 555.497,
+      "textSk": "o niečom inom a potom sa k tomuto vrátime a a budeme tomuto tvrdeniu rozumieť trochu lepšie.",
+      "draftCs": "o něčem jiném a pak se k tomu vrátíme a a budeme tomuto tvrzení rozumět trochu lépe.",
+      "reviewFlags": []
+    },
+    {
+      "group": 85,
+      "start": 555.497,
+      "end": 562.397,
+      "textSk": "Ja mám na teba otázku. Čo je podľa teba matematika? Ako by si definoval matematiku?",
+      "draftCs": "Mám na tebe otázku, co je podle tebe matematika, jak bys definoval matematiku?",
+      "reviewFlags": []
+    },
+    {
+      "group": 86,
+      "start": 563.297,
+      "end": 572.497,
+      "textSk": "Fúha, tak to si ma teraz dostal. Matematika a spoznávanie vesmíru okolo nás vďaka nejakým matematickým princípom, ktoré",
+      "draftCs": "Matematika a poznávání vesmíru kolem nás díky nějakým matematickým principům, které",
+      "reviewFlags": []
+    },
+    {
+      "group": 87,
+      "start": 572.497,
+      "end": 576.097,
+      "textSk": "sme si zadefinovali? To už by som povedal, že to, že fyzika.",
+      "draftCs": "To už bych řekl, že to, že fyzika.",
+      "reviewFlags": [
+        "length-mismatch"
+      ]
+    },
+    {
+      "group": 88,
+      "start": 576.097,
+      "end": 580.197,
+      "textSk": "Keďže keď už skúmaš vesmír pomocou matematiky, to už by som povedal, že je fyzika.",
+      "draftCs": "Protože když už zkoumáš vesmír pomocí matematiky, to už bych řekl, že je fyzika.",
+      "reviewFlags": []
+    },
+    {
+      "group": 89,
+      "start": 580.197,
+      "end": 589.897,
+      "textSk": "Ale nie fyzika len nadstavbou matematiky v tom, že tie úplne teoretické veci sa uhol pohľadu. Áno, áno, áno, že fyzika je vlastne nejaká podmnožina matematiky.",
+      "draftCs": "Ale ne fyzika jen nadstavbou matematiky v tom, že ty úplně teoretické věci se úhel pohledu. Ano, ano, ano, že fyzika je vlastně nějaká podmnožina matematiky.",
+      "reviewFlags": []
+    },
+    {
+      "group": 90,
+      "start": 589.897,
+      "end": 600.597,
+      "textSk": "Eh Ako lebo zamýšľam sa nad tým, že keď neexistovala mate lebo že z čoho vychádza všetko a asi zo všetky vedné disciplíny vychádzajú nejako z matematiky.",
+      "draftCs": "Eh Jako neboť zamýšlím se nad tím, že když neexistovala mate neboť že z čeho vychází všechno a asi ze všech vědní disciplín vycházejí nějak z matematiky.",
+      "reviewFlags": []
+    },
+    {
+      "group": 91,
+      "start": 600.597,
+      "end": 608.897,
+      "textSk": "Eh lebo ja to beriem tak, že z matematiky vychádza fyzika, z fyziky vychádza chémia, z chémie vychádza za",
+      "draftCs": "Eh protože já to beru tak, že z matematiky vychází fyzika, z fyziky vychází chemie, z chemie vychází za",
+      "reviewFlags": []
+    },
+    {
+      "group": 92,
+      "start": 608.897,
+      "end": 617.698,
+      "textSk": "a tak to to postupne. Ale asi je to aj zlý pohľad, ako neviem, ale To to toto v nejakom pohľade platí. Ja by som možno mal výhradu voči tej tvojej",
+      "draftCs": "a tak to to postupně. Ale asi je to i špatný pohled, jak nevím, ale To to v nějakém pohledu platí. Já bych možná měl výhradu vůči té tvé",
+      "reviewFlags": []
+    },
+    {
+      "group": 93,
+      "start": 617.698,
+      "end": 627.598,
+      "textSk": "definícii, že matematika dokáže popisovať aj veci mimo nášho vesmíru. Že že hypoteticky iné vesmíry a iné iné pravidlá, ktoré možno úplne dostal.",
+      "draftCs": "definici, že matematika dokáže popisovat i věci mimo náš vesmír, že hypoteticky jiné vesmíry a jiná jiná jiná pravidla, která možná úplně dostal.",
+      "reviewFlags": []
+    },
+    {
+      "group": 94,
+      "start": 627.598,
+      "end": 635.598,
+      "textSk": "Hej. uh matematika je sústava premýšľania nad vecami? By som potom možno povedal.",
+      "draftCs": "Hej. uh matematika je soustava přemýšlení nad věcmi? By jsem pak možná řekl.",
+      "reviewFlags": []
+    },
+    {
+      "group": 95,
+      "start": 635.598,
+      "end": 645.598,
+      "textSk": "To je To je celkom dobrá definícia. Uh Ja ja ja neviem, že áno, máš pravdu, veď iné dimenzie a tak ďalej si tam definuješ viacrozmerné a",
+      "draftCs": "To je celkem dobrá definice. Uh já já já já nevím, že ano, máš pravdu, vždy jiné dimenze a tak dál si tam definuješ vícerozměrné a",
+      "reviewFlags": []
+    },
+    {
+      "group": 96,
+      "start": 645.598,
+      "end": 650.898,
+      "textSk": "tak ďalej priestory, takže to Hej, to máš pravdu, že nie je to len o našom vesmíre.",
+      "draftCs": "tak dále prostory, takže to Hej, to máš pravdu, že není jen o našem vesmíru.",
+      "reviewFlags": []
+    },
+    {
+      "group": 97,
+      "start": 650.898,
+      "end": 661.698,
+      "textSk": "Skúsim dať do Googlu, aká je definícia, lebo podľa mňa neexistuje úplne... Toto je taká tá vec, že každý pod tým niečo rozumie, a keď to máš... Hej, hej, to my máme v práve: čo je to",
+      "draftCs": "Zkusím dát do Google, jaká je definice, protože podle mě neexistuje úplně... Toto je taková věc, že každý pod tím něco rozumí, a když to máš... Hej, hej, to my máme v právu: co je to",
+      "reviewFlags": []
+    },
+    {
+      "group": 98,
+      "start": 661.698,
+      "end": 670.598,
+      "textSk": "právo a každý, že veď to je úplne iná v podstate každý tomu rozumie, ale keď keď to máš presne zadefinovať, tak nenájdeš definíciu, ktorá by úplne presne na to sedela.",
+      "draftCs": "právo a každý, že vždyť to je úplně jiná v podstatě každý tomu rozumí, ale když to máš přesně zadefinovat, tak nenajdeš definici, která by úplně přesně na to seděla.",
+      "reviewFlags": []
+    },
+    {
+      "group": 99,
+      "start": 670.598,
+      "end": 681.598,
+      "textSk": "Etymologicky to je z gréckeho slova matematike, čo vlastne znamená uh vedieť alebo byť pripravený vedieť. A to sa mi celkom páči, že to ti vlastne dáva",
+      "draftCs": "Etymologicky to je z řeckého slova matematika, což vlastně znamená uh vědět nebo být připraven vědět, a to se mi docela líbí, že ti to vlastně dává",
+      "reviewFlags": []
+    },
+    {
+      "group": 100,
+      "start": 681.598,
+      "end": 688.898,
+      "textSk": "taký ten abstrakt, na ktorý potom presne vieš natiahnuť tú fyziku, tú biológiu, tú chémiu a tak ďalej.",
+      "draftCs": "takový ten abstrakt, na který pak přesně umíš natáhnout tu fyziku, tu biologii, tu chemii a tak dále.",
+      "reviewFlags": []
+    },
+    {
+      "group": 101,
+      "start": 689.498,
+      "end": 697.898,
+      "textSk": "Často si ľudia pod matematikou predstavujú prácu s číslami a to je úplne strašná definícia, lebo zistíš, že keď robíš naozaj matematický výskum, tak",
+      "draftCs": "Často si lidé pod matematikou představují práci s čísly a to je naprosto hrozná definice, protože zjistíš, že když děláš opravdu matematický výzkum, tak",
+      "reviewFlags": []
+    },
+    {
+      "group": 102,
+      "start": 697.898,
+      "end": 704.198,
+      "textSk": "čísla nenájdeš nikde. Dokonca keď robíš niečo, čo sa volá teória čísiel, tak typické čísla nevidíš.",
+      "draftCs": "Dokonce i když děláš něco, čemu se říká teorie čísel, tak typická čísla nevidíš.",
+      "reviewFlags": []
+    },
+    {
+      "group": 103,
+      "start": 704.198,
+      "end": 712.698,
+      "textSk": "Inak to je veľmi Hej, to je dosť Typicky vidíš čísla, že nula nula, jedna a dva. A keď vidíš iné číslo, tak to znamená, že si niekde spravil chybu.",
+      "draftCs": "Jinak to je velmi Ano, to je dost Typicky vidíš čísla, že nula nula, jedna a dvě. A když vidíš jiné číslo, tak to znamená, že jsi někde udělal chybu.",
+      "reviewFlags": []
+    },
+    {
+      "group": 104,
+      "start": 712.698,
+      "end": 723.598,
+      "textSk": "To sa aj na strednej hovorí, nie, že buďte radi, že ešte máte matematiku s číslami, lebo dôjde tretí alebo štvrtý ročník, keď už tu nebude matematika s číslami.",
+      "draftCs": "To se i na střední říká, ne, že buďte rádi, že ještě máte matematiku s čísly, protože dojde třetí nebo čtvrtý ročník, když už tu nebude matematika s čísly.",
+      "reviewFlags": []
+    },
+    {
+      "group": 105,
+      "start": 723.598,
+      "end": 734.099,
+      "textSk": "Ja by som matematiku opísal ako nejakú disciplínu, kde zo základných pravidiel rigoróznym spôsobom vyvodzuješ nové pravidlá.",
+      "draftCs": "Já bych matematiku popsal jako nějakou disciplínu, kde ze základních pravidel rigorózním způsobem vyvozuješ nová pravidla.",
+      "reviewFlags": []
+    },
+    {
+      "group": 106,
+      "start": 734.099,
+      "end": 744.599,
+      "textSk": "Že máš nejaké axiómy a spájaš ich dokopy. Uhm. A keď uznáš, že je to z nejakého dôvodu zaujímavé, tak sa tomu venuješ a keď na to natiahneš veľa ľudí, tak sa to stane",
+      "draftCs": "A když si uvědomíš, že je to z nějakého důvodu zajímavé, tak se tomu věnuješ, a když na to natáhneš hodně lidí, tak se to stane, a když se to stane, když se to z nějakého důvodu z nějakého důvodu zajímavé, tak se tomu věnuješ, a když na to natáhneš hodně lidí, tak se to stane",
+      "reviewFlags": [
+        "length-mismatch"
+      ]
+    },
+    {
+      "group": 107,
+      "start": 744.599,
+      "end": 751.399,
+      "textSk": "súčasťou matematiky. A bodka. Matematici si v istom bode povedali, že ideme to dáva zmysel, hej.",
+      "draftCs": "Matematici si v jistém bodě řekli, že jdeme to dává smysl, ano.",
+      "reviewFlags": []
+    },
+    {
+      "group": 108,
+      "start": 751.399,
+      "end": 757.299,
+      "textSk": "Áno, ale že matematici si v istom bode povedali, že ideme skúmať teóriu uzlov.",
+      "draftCs": "Ano, ale že matematici si v jistém bodě řekli, že jdeme zkoumat teorii uzlů.",
+      "reviewFlags": []
+    },
+    {
+      "group": 109,
+      "start": 757.299,
+      "end": 763.599,
+      "textSk": "A zrazu sa z toho stala matematická disciplína. Povieš tam nejaké základné pravidlá.",
+      "draftCs": "A najednou se z toho stala matematická disciplína.",
+      "reviewFlags": [
+        "length-mismatch"
+      ]
+    },
+    {
+      "group": 110,
+      "start": 763.599,
+      "end": 769.199,
+      "textSk": "z počítačovej vedy, nie? Stala vlastne to bola nejaká subkategória matematiky a presne.",
+      "draftCs": "Stala se vlastně to byla nějaká podkategorie matematiky a přesně.",
+      "reviewFlags": []
+    },
+    {
+      "group": 111,
+      "start": 769.199,
+      "end": 779.799,
+      "textSk": "Uhm. Čiže vlastne celou podstatou matematiky uh alebo že že kedy zistíš, že robíš matematiku a nerobíš fyziku, je presne, keď postupuješ tým spôsobom, že máš",
+      "draftCs": "Takže vlastně celá podstata matematiky, nebo že když zjistíš, že děláš matematiku a neděláš fyziku, je to přesně, když postupuješ tak, že máš",
+      "reviewFlags": []
+    },
+    {
+      "group": 112,
+      "start": 779.799,
+      "end": 788.499,
+      "textSk": "nejaké základné pravidlá. na fakulte matematiky a nie Ale môžeš mať, vieš, tam môžeš mať tenké steny a bratia sa občas dajú viacerí do jednej kancelárie a nám sa toto deje",
+      "draftCs": "na fakultě matematiky a ne na fakultě matematiky a ne Ale můžeš tam mít, víš, tam můžeš mít tenké stěny a bratři se občas dají více do jedné kanceláře a nám se tohle děje",
+      "reviewFlags": []
+    },
+    {
+      "group": 113,
+      "start": 788.499,
+      "end": 794.599,
+      "textSk": "často, lebo uh na teoretickej fyzike máme pododbor matematická fyzika.",
+      "draftCs": "často, protože na teoretické fyzice máme podobor matematická fyzika.",
+      "reviewFlags": []
+    },
+    {
+      "group": 114,
+      "start": 794.599,
+      "end": 804.199,
+      "textSk": "A potom vieš naopak robiť fyzikálnu matematiku a to už naozaj, že hranica veľmi urobíš dva kroky vedľa asi si zrazu niekde inde.",
+      "draftCs": "A pak víš naopak dělat fyzikální matematiku a to už opravdu, že hranice velmi uděláš dva kroky vedle asi si najednou někde jinde.",
+      "reviewFlags": []
+    },
+    {
+      "group": 115,
+      "start": 804.199,
+      "end": 812.199,
+      "textSk": "A ako sa to Ja viem, že toto nie je úplne k téme, ale ako si to potom riešite, že ideš za kolegom, že počúvaj, že ty si viacej podkutý v matematike, že",
+      "draftCs": "A jak se to Já vím, že tohle není úplně k tématu, ale jak si to potom řešíte, že jdeš za kolegou, že poslouchej, že ty jsi více podkuký v matematice, že",
+      "reviewFlags": []
+    },
+    {
+      "group": 116,
+      "start": 812.199,
+      "end": 821.399,
+      "textSk": "vedel by si mi s týmto pomôcť alebo že skúsiš to najprv sám a Vieš čo, že mi že na to, že sú tak blízke veci, my často potom postupujeme",
+      "draftCs": "věděl bys mi s tímhle pomoct nebo že zkusíš to nejdřív sám a víš co, že mi že na to, že jsou tak blízké věci, my často potom postupujeme",
+      "reviewFlags": []
+    },
+    {
+      "group": 117,
+      "start": 821.399,
+      "end": 829.899,
+      "textSk": "veľmi rozdielnymi spôsobmi. Ideš často za matematikmi vtedy, keď máš nejaký problém a",
+      "draftCs": "Jdeš často za matematikami tehdy, když máš nějaký problém a",
+      "reviewFlags": []
+    },
+    {
+      "group": 118,
+      "start": 830.099,
+      "end": 838.799,
+      "textSk": "a nevieš, či náhodou nejaký Rus alebo Soviet presnejšie nenapísal pred 70 rokmi o tomto učebnicu, o ktorej ktorú ani nevieš proste inde vyhľadať.",
+      "draftCs": "a nevíš, jestli náhodou nějaký Rus nebo Sovět přesněji nenapsal před 70 lety o tomto učebnici, o které ani nevíš prostě jinde vyhledat.",
+      "reviewFlags": []
+    },
+    {
+      "group": 119,
+      "start": 838.799,
+      "end": 849.199,
+      "textSk": "Uh a a ideš proste za nimi. Oni ti ju takto vytiahne z poličky, [smiech] odfúknu a že Že to to, čo robíš vo fyzike, je, že napíšeš si nejakú sústavu rovníc, ktorá",
+      "draftCs": "Oni ti ji takto vytáhne z poličky, [sm smích] odfouknou a že to, co děláš ve fyzice, je, že napíšeš si nějakou soustavu rovnic, která",
+      "reviewFlags": []
+    },
+    {
+      "group": 120,
+      "start": 849.199,
+      "end": 856.601,
+      "textSk": "ti niečo opisuje a vo väčšine prípadov pri najhoršom, čo vieš urobiť, je, že tie rovnice vyriešiš na počítači.",
+      "draftCs": "ti něco popisuje a ve většině případů při nejhorším, co můžeš udělat, je, že ty rovnice vyřešíš na počítači.",
+      "reviewFlags": []
+    },
+    {
+      "group": 121,
+      "start": 856.601,
+      "end": 865.101,
+      "textSk": "Proste povieš, že počítač, tu sú počiatočné podmienky, eh tu je rovnica, nájdi mi riešenie. A toto sa dá urobiť veľmi často. Nie vždy, ale že veľmi často.",
+      "draftCs": "Prostě řekneš, že počítač, tady jsou počáteční podmínky, eh tady je rovnice, najdi mi řešení. A toto se dá udělat velmi často. Ne vždy, ale že velmi často.",
+      "reviewFlags": []
+    },
+    {
+      "group": 122,
+      "start": 865.101,
+      "end": 874.501,
+      "textSk": "Problém je, že môžeš mať veľa počiatočných podmienok. Vieš, že môžeš mať kyvadlo spustené odtiaľto a z trochu väčšej výšky a z trochu väčšej výšky. A v princípe by si musel eh",
+      "draftCs": "Problém je, že můžeš mít spoustu počátečních podmínek, víš, že můžeš mít kyvadlo spuštěné odsud a z trochu větší výšky a z trochu větší výšky a v principu by jsi musel eh",
+      "reviewFlags": []
+    },
+    {
+      "group": 123,
+      "start": 874.501,
+      "end": 880.301,
+      "textSk": "vyriešiť milión rôznych počiatočných podmienok, aby si presne opísal ten systém vo všetkých možnostiach.",
+      "draftCs": "vyřešit milion různých počátečních podmínek, aby si přesně popsal ten systém ve všech možnostech.",
+      "reviewFlags": []
+    },
+    {
+      "group": 124,
+      "start": 880.301,
+      "end": 885.601,
+      "textSk": "To, čo vieš urobiť vďaka matematike, je, že nájdeš nejaké všeobecné pravidlo, ktorým to vlastne vybavíš naraz.",
+      "draftCs": "To, co můžeš udělat díky matematice, je, že najdeš nějaké obecné pravidlo, kterým to vlastně vyřídíš najednou.",
+      "reviewFlags": []
+    },
+    {
+      "group": 125,
+      "start": 885.601,
+      "end": 895.901,
+      "textSk": "Takže my chodíme my my chodíme pozerať matematické teórie a pýtať sa matematikov, keď potrebujeme dokázať nejakú univerzálnosť nejakého výsledku.",
+      "draftCs": "Takže my chodíme my my chodíme dívat matematické teorie a ptát se matematiků, když potřebujeme dokázat nějakou univerzálnost nějakého výsledku.",
+      "reviewFlags": []
+    },
+    {
+      "group": 126,
+      "start": 895.901,
+      "end": 904.201,
+      "textSk": "Vieš, že povieš, že skúsil som to 10-krát a vždy to dopadlo rovnako. Mám podozrenie, že je za tým nejaký univerzálny princíp, ktorý nepoznám.",
+      "draftCs": "Víš, že řekneš, že jsem to zkusil 10krát a vždycky to dopadlo stejně, mám podezření, že je za tím nějaký univerzální princip, který neznám.",
+      "reviewFlags": []
+    },
+    {
+      "group": 127,
+      "start": 904.201,
+      "end": 912.801,
+      "textSk": "A oni ti povedia, že hm, keď tento systém opíšeš takýmito pravidlami, tak máme dokázané, že to bude spĺňať presne túto vlastnosť.",
+      "draftCs": "A oni ti řeknou, že hm, když tento systém popíšeš takovými pravidly, tak máme dokázáno, že to bude splňovat přesně tuto vlastnost.",
+      "reviewFlags": []
+    },
+    {
+      "group": 128,
+      "start": 912.801,
+      "end": 922.801,
+      "textSk": "A toto sa naozaj párkrát stalo v histórii fyziky. Napríklad, keď sme začali konštruovať časticovú fyziku, tak tam máš takú srandu eh vlastne to,",
+      "draftCs": "A toto se opravdu párkrát stalo v historii fyziky, například když jsme začali konstruovat částicovou fyziku, tak tam máš takovou srandu eh vlastně to,",
+      "reviewFlags": []
+    },
+    {
+      "group": 129,
+      "start": 922.801,
+      "end": 931.401,
+      "textSk": "že kalibračné teórie. Toto znie, že nejaká úplne, že kuriozita, ale v skutočnosti, že kalibračné teórie je v podstate časticová fyzika.",
+      "draftCs": "že kalibrační teorie. Toto zní, že nějaká úplně, že kuriozita, ale ve skutečnosti, že kalibrační teorie je v podstatě částicová fyzika.",
+      "reviewFlags": []
+    },
+    {
+      "group": 130,
+      "start": 931.401,
+      "end": 938.501,
+      "textSk": "Predstav si takú srandu eh máš mapu a na mape máš sever, juh, východ, západ.",
+      "draftCs": "Představ si takovou srandu eh máš mapu a na mapě máš sever, jih, východ, západ.",
+      "reviewFlags": []
+    },
+    {
+      "group": 131,
+      "start": 938.501,
+      "end": 949.101,
+      "textSk": "A tú mapu používame v Bratislave. Teraz si predstav takú srandu, že Trnaváci si povedia, že my Bratislavčania sme mimo a oni si oni začnú používať iné smery.",
+      "draftCs": "A tu mapu používáme v Bratislavě. Teď si představ takovou srandu, že Trnaváci si řeknou, že my Bratislavčané jsme mimo a oni si oni začnou používat jiné směry.",
+      "reviewFlags": []
+    },
+    {
+      "group": 132,
+      "start": 949.101,
+      "end": 955.655,
+      "textSk": "Že oni zavedú, že trnavský sever, trnavský juh, trnavský východ a trnavský západ, ktorý bude ukazovať trochu iným smerom.",
+      "draftCs": "Že oni zavedou, že trnavský sever, trnavský jih, trnavský východ a trnavský západ, který bude ukazovat trochu jiným směrem.",
+      "reviewFlags": []
+    },
+    {
+      "group": 133,
+      "start": 955.655,
+      "end": 956.701,
+      "textSk": "[vzdychanie][lapanie po dychu]",
+      "draftCs": "[vzdychání][lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 134,
+      "start": 956.701,
+      "end": 965.501,
+      "textSk": "A v Pezinku si povedia, že to je cool nápad, že aj my chceme vlastné súradnice a vlastne každé mesto v Bratislave by si zaviedlo vlastné vlastnú orientáciu, že",
+      "draftCs": "A v Pezinku si řeknou, že to je cool nápad, že i my chceme vlastní souřadnice a vlastně každé město v Bratislavě by si zavedlo vlastní orientaci, že",
+      "reviewFlags": []
+    },
+    {
+      "group": 135,
+      "start": 965.501,
+      "end": 974.101,
+      "textSk": "Kde majú sever. A teraz si predstav ten bolehlav, keď máš navigáciu, kde cestuješ z Bratislavy do Košíc.",
+      "draftCs": "A teď si představ ten bolehlav, když máš navigaci, kde cestuješ z Bratislavy do Košic.",
+      "reviewFlags": []
+    },
+    {
+      "group": 136,
+      "start": 974.101,
+      "end": 982.202,
+      "textSk": "To by bolo. To by bolo. a a ty ideš a ideš zrazu okolo Hlohovca a navigácia hovorí odboč na západ a ty sa musíš zamyslieť, že ktorý západ to je",
+      "draftCs": "A ty jdeš a jdeš najednou kolem Hlohovce a navigace říká odboč na západ a ty se musíš zamyslet, který západ to je",
+      "reviewFlags": []
+    },
+    {
+      "group": 137,
+      "start": 982.202,
+      "end": 987.806,
+      "textSk": "teraz. A za pochodu proste musíš meniť tú svoju orientáciu. [lapanie po dychu]",
+      "draftCs": "A za pochodu prostě musíš měnit svou orientaci.",
+      "reviewFlags": []
+    },
+    {
+      "group": 138,
+      "start": 995.602,
+      "end": 1006.402,
+      "textSk": "Uhm. A čo to má spoločné s fyzikou? k tomuto sa venuje tá časť tej fyziky, že kalibruje fyzike máš keď máš napríklad kvantovú fyziku,",
+      "draftCs": "A co to má společného s fyzikou? k tomu se věnuje ta část fyziky, že kalibruje fyziku, když máte například kvantovou fyziku,",
+      "reviewFlags": []
+    },
+    {
+      "group": 139,
+      "start": 1006.402,
+      "end": 1012.641,
+      "textSk": "tak tam máš možnosť ako si vybrať jeden smer. Eh tomu sa hovorí, že fáza, ktorú má nejaká častica.",
+      "draftCs": "Tak tam máš možnost jak si vybrat jeden směr. Eh tomu se říká, že fáze, kterou má nějaká částice.",
+      "reviewFlags": []
+    },
+    {
+      "group": 140,
+      "start": 1012.641,
+      "end": 1013.502,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 141,
+      "start": 1013.502,
+      "end": 1019.002,
+      "textSk": "A v princípe nikdy nie je napísané, že tá fáza v každom bode priestoru nemôže byť trochu iná.",
+      "draftCs": "A v principu nikdy není napsáno, že ta fáze v každém bodě prostoru nemůže být trochu jiná.",
+      "reviewFlags": []
+    },
+    {
+      "group": 142,
+      "start": 1019.002,
+      "end": 1026.202,
+      "textSk": "Čiže v jednom bode máš tú fázu natočenú na sever, v druhom ju máš natočenú o pár stupňov vedľa a v ďalšom máš natočenú zase niekde inde.",
+      "draftCs": "Takže v jednom bodě máš tu fázi natočenou na sever, ve druhém ji máš natočenou o pár stupňů vedle a v dalším máš natočenou zase někde jinde.",
+      "reviewFlags": []
+    },
+    {
+      "group": 143,
+      "start": 1026.202,
+      "end": 1033.002,
+      "textSk": "A to, čo musíš napísať do rovníc, aby toto zohľadňovali, aby sa aby sa kalibrovali z bodu do bodu.",
+      "draftCs": "A to, co musíš napsat do rovnic, aby toto braly v úvahu, aby se kalibrovaly z bodu do bodu.",
+      "reviewFlags": []
+    },
+    {
+      "group": 144,
+      "start": 1033.002,
+      "end": 1043.902,
+      "textSk": "A toto sa robí v časticovej fyzike. Eh nielen, že tam máš nejakú fázu, že môžu tam byť zložitejšie veci, ale myšlienka je tá istá. Že máš nejakú",
+      "draftCs": "A toto se děje v částicové fyzice, nejen, že tam máš nějakou fázi, že tam mohou být složitější věci, ale myšlenka je stejná, že tam máš nějakou",
+      "reviewFlags": []
+    },
+    {
+      "group": 145,
+      "start": 1043.902,
+      "end": 1051.802,
+      "textSk": "väznú sústavu, ktorá sa od bodu k bodu môže meniť. A rovnice musíš napísať tak, aby to rešpektovali.",
+      "draftCs": "Vaznou soustavu, která se od bodu k bodu může měnit a rovnice musíš napsat tak, aby to respektovali.",
+      "reviewFlags": []
+    },
+    {
+      "group": 146,
+      "start": 1051.802,
+      "end": 1062.302,
+      "textSk": "A fun fact, podľa mňa sme to aj spomínali v epizóde o fotónoch, že vlastne fotóny sú častice, ktoré toto organizujú. [smrkanie] To sú to sú kalibračné častice sa tomu",
+      "draftCs": "A fun fact, podle mě jsme to také zmiňovali v epizodě o fotoonech, že vlastně fotoony jsou částice, které toto organizují. [smrkání] To jsou to kalibrační částice se tomu",
+      "reviewFlags": []
+    },
+    {
+      "group": 147,
+      "start": 1062.302,
+      "end": 1073.002,
+      "textSk": "hovorí. Že oni oni strážia túto túto fyziku. No a toto toto robili fyzici a robili to ako proste ako totálni sedláci. Eh",
+      "draftCs": "říká, že oni oni hlídají tuto tuto tuto fyziku. No a toto toto dělali fyzici a dělali to jako prostě jako totální sedládláci. Eh",
+      "reviewFlags": []
+    },
+    {
+      "group": 148,
+      "start": 1073.502,
+      "end": 1081.502,
+      "textSk": "My to proste lietame jedno cez druhé, eh povieme, že inšalá, je to v Božej rukách a budeme dúfať, že nám to na konci vyjde.",
+      "draftCs": "My to prostě lítáme jedno přes druhé, eh řekneme, že inšalá, je to v Božích rukou a budeme doufat, že nám to na konci vyjde.",
+      "reviewFlags": []
+    },
+    {
+      "group": 149,
+      "start": 1081.502,
+      "end": 1090.802,
+      "textSk": "Eh a sem-tam vyjde, sem-tam nevyjde. A zistilo sa, že počas toho, ako toto robili fyzici, tak matematici skúmali teóriu konexií.",
+      "draftCs": "Eh a sem-tam vyjde, sem-tam nevyjde. A zjistilo se, že během toho, jak toto dělali fyzici, tak matematici zkoumali teorii konexí.",
+      "reviewFlags": []
+    },
+    {
+      "group": 150,
+      "start": 1090.802,
+      "end": 1095.502,
+      "textSk": "A konexia je že niečo, čo ti prepája rôzne body priestoru presne s touto voľnosťou.",
+      "draftCs": "A konexie je že něco, co ti propojuje různé body prostoru přesně s touto volností.",
+      "reviewFlags": []
+    },
+    {
+      "group": 151,
+      "start": 1095.502,
+      "end": 1104.503,
+      "textSk": "Tak sa zrazu zistilo, že matematici to robia pekne rigorózne a zrazu sme od nich mohli začať odpisovať a využívať rôzne tvrdenia. Že keď už to",
+      "draftCs": "A tak se najednou ukázalo, že matematici to dělají pěkně rigorózně a najednou jsme od nich mohli začít odepisovat a využívat různá tvrzení.",
+      "reviewFlags": []
+    },
+    {
+      "group": 152,
+      "start": 1104.503,
+      "end": 1112.103,
+      "textSk": "máš robené pekne a rigorózne, tak vieš dokázať nejaké tvrdenie, že vždy, keď urobíš tú ako tú manipuláciu, tak sa stane to a to.",
+      "draftCs": "máš pěkně a rigorózně, tak umíš dokázat nějaké tvrzení, že vždy, když uděláš tu jako tu manipulaci, tak se stane to a to.",
+      "reviewFlags": []
+    },
+    {
+      "group": 153,
+      "start": 1112.103,
+      "end": 1121.503,
+      "textSk": "Takže vo fyzike často postupujeme ako sedláci a potom dôjdeme za matematikmi a povieme im: no počujte, tu máme takú zaujímavú vec a skúste nám pre ňu",
+      "draftCs": "Takže ve fyzice často postupujeme jako sedláci a pak dojdeme za matematiky a řekneme jim: no poslyšte, tady máme takovou zajímavou věc a zkuste nám pro ni",
+      "reviewFlags": []
+    },
+    {
+      "group": 154,
+      "start": 1121.503,
+      "end": 1130.403,
+      "textSk": "povedať nejaké univerzálne pravdy, univerzálne tvrdenia. A oni to dokážu vďaka tomu, ako ako si to všetko vyskladajú metódou veta dôkaz, veta dôkaz.",
+      "draftCs": "říct nějaké univerzální pravdy, univerzální tvrzení. A oni to dokážou díky tomu, jak si to všechno vyskládají metodou věta důkaz, věta důkaz.",
+      "reviewFlags": []
+    },
+    {
+      "group": 155,
+      "start": 1130.403,
+      "end": 1136.003,
+      "textSk": "To som chcel, že to je spojené s tými dôkazmi vlastne, čo teraz riešime pri tých miléniových problémoch.",
+      "draftCs": "To jsem chtěl, že to je spojeno s těmi důkazy vlastně, co nyní řešíme při těch tisíciletích problémů.",
+      "reviewFlags": []
+    },
+    {
+      "group": 156,
+      "start": 1136.003,
+      "end": 1146.903,
+      "textSk": "A toto je ten rozdiel, ktorý zistíš, že kedy si fyzik a kedy si matematik. Že keď začneš mať v článkoch tvrdenia a dôkazy a teorémy a lémy, čiže pomocné",
+      "draftCs": "A toto je ten rozdíl, který zjistíte, že kdy jste fyzik a kdy jste matematik, že když začnete mít v článcích tvrzení a důkazy a teorie a lémy, neboli pomocné",
+      "reviewFlags": []
+    },
+    {
+      "group": 157,
+      "start": 1146.903,
+      "end": 1157.103,
+      "textSk": "tvrdenia, tak vieš, že si sklzol do matematiky. A v žiadnom svojom článku som doteraz nemal takéto veci, ale teraz sme spolupracovali s takými dvoma",
+      "draftCs": "A v žádném svém článku jsem dosud neměl takové věci, ale teď jsme spolupracovali s takovými dvěma",
+      "reviewFlags": []
+    },
+    {
+      "group": 158,
+      "start": 1157.103,
+      "end": 1162.503,
+      "textSk": "výskumníkmi, ktorí vtedy obaja boli tuším na Perimeter Institute v Kanade.",
+      "draftCs": "výzkumníky, kteří tehdy oba byli tuším na Perimeter Institute v Kanadě.",
+      "reviewFlags": []
+    },
+    {
+      "group": 159,
+      "start": 1162.503,
+      "end": 1172.103,
+      "textSk": "A jeden z nich, ten profesor, je taký dosť matematicky ladený, takže sa mi žiaľ v nejakom článku objavia teraz teorémy a podobne, ale tak budem to musieť nejako",
+      "draftCs": "A jeden z nich, ten profesor, je takový dost matematicky laděný, takže se mi bohužel v nějakém článku objeví teorémy a podobně, ale tak budu to muset nějak",
+      "reviewFlags": []
+    },
+    {
+      "group": 160,
+      "start": 1172.103,
+      "end": 1177.8029999999999,
+      "textSk": "prežiť. Také také to skĺznutie, hej hej. Takú tú malú neveru s fyzikou mám.",
+      "draftCs": "Takovou malou nevěru s fyzikou mám. Takovou malou nevěru s fyzikou mám.",
+      "reviewFlags": []
+    },
+    {
+      "group": 161,
+      "start": 1177.8029999999999,
+      "end": 1188.003,
+      "textSk": "Že [smiech] že toto nie je fyzika, Samuel. Tak tak presne. No ale teda to som tým tým chcel povedať, že matematici to vystavujú krásne, rigorózne,",
+      "draftCs": "To [smích] že tohle není fyzika, Samueli, tak přesně, ale tím jsem chtěl říct, že matematici to vystavují krásně, rigorózně,",
+      "reviewFlags": []
+    },
+    {
+      "group": 162,
+      "start": 1188.003,
+      "end": 1197.503,
+      "textSk": "postupujú týmpádom pomalšie, ale vedia dávať strašne hlboký insight, ktorý vo fyzike tiež vieš niekedy získať, ale často je to také, že asi to",
+      "draftCs": "postupují tímpádem pomaleji, ale umí dávat strašně hluboký insight, který ve fyzice také umíš někdy získat, ale často je to takové, že asi to",
+      "reviewFlags": []
+    },
+    {
+      "group": 163,
+      "start": 1197.503,
+      "end": 1201.803,
+      "textSk": "bude fungovať takto. Overil som to na pár príkladoch a mám pocit, že by to malo sedieť.",
+      "draftCs": "Ověřil jsem to na pár příkladech a mám pocit, že by to mělo sedět.",
+      "reviewFlags": []
+    },
+    {
+      "group": 164,
+      "start": 1201.803,
+      "end": 1206.803,
+      "textSk": "Takže my si za nimi chodíme kvôli tejto rigoróznosti a kvôli tým zovšeobecneniam.",
+      "draftCs": "Takže my si za nimi chodíme kvůli této rigoróznosti a kvůli těm zevšeobecněním.",
+      "reviewFlags": []
+    },
+    {
+      "group": 165,
+      "start": 1206.803,
+      "end": 1215.103,
+      "textSk": "A treba povedať, že zase matematici chodia za fyzikmi, aby vyťahovali zaujímavé veci, ktoré majú zaujímavé vlastnosti. Že tou jolo metódou prostredne",
+      "draftCs": "A je třeba říci, že zase matematici chodí za fyzikami, aby vytahovali zajímavé věci, které mají zajímavé vlastnosti.",
+      "reviewFlags": []
+    },
+    {
+      "group": 166,
+      "start": 1215.103,
+      "end": 1224.905,
+      "textSk": "fyzici často nájdu zaujímavé teórie, ktoré sa potom dajú skúmať roky a roky a roky a objaviť v nich kopu zaujímavej matematiky. Takže takáto je tá symbióza medzi nami.",
+      "draftCs": "fyzici často najdou zajímavé teorie, které se pak dají zkoumat roky a roky a roky a objevit v nich kopu zajímavé matematiky.",
+      "reviewFlags": []
+    },
+    {
+      "group": 167,
+      "start": 1224.905,
+      "end": 1234.505,
+      "textSk": "No a tak ako sme sa rozprávali už množstvo rôznych fyzík, že fyzika elektromagnetizmu, môže sa živiť tým, že skúmaš elektromagnetizmus.",
+      "draftCs": "No a tak jak jsme se bavili už množství různých fysik, že fyzika elektromagnetismu, může se živit tím, že zkoumáš elektromagnetismus.",
+      "reviewFlags": []
+    },
+    {
+      "group": 168,
+      "start": 1234.505,
+      "end": 1240.305,
+      "textSk": "Môže sa živiť tým, že skúmaš gravitáciu a tak ďalej, tak aj matematika má veľmi veľa odvetví.",
+      "draftCs": "Může se živit tím, že zkoumáš gravitaci a tak dále, tak i matematika má velmi mnoho odvětví.",
+      "reviewFlags": []
+    },
+    {
+      "group": 169,
+      "start": 1240.305,
+      "end": 1245.305,
+      "textSk": "Dáme do popisu epizódy. Klikni si aj ty to máš v scenári, že mapa matematiky.",
+      "draftCs": "Dáme do popisu epizody. Klikni si i ty to máš ve scénáři, že mapa matematiky.",
+      "reviewFlags": []
+    },
+    {
+      "group": 170,
+      "start": 1245.305,
+      "end": 1250.805,
+      "textSk": "Áno, áno, ja som si to pozrel. Hej, hej. Je to super inak ako že milujem takéto infografiky.",
+      "draftCs": "Ano, ano, já jsem se na to podíval. Hej, hej. Je to super jinak než že miluji takové infografiky.",
+      "reviewFlags": []
+    },
+    {
+      "group": 171,
+      "start": 1250.805,
+      "end": 1257.205,
+      "textSk": "Tak a tam vidíš, že že to, čo si ľudia predstavujú pod matematikou, je taký ten antický základ.",
+      "draftCs": "Tak a tam vidíš, že to, co si lidé představují pod matematikou, je takový ten antický základ.",
+      "reviewFlags": []
+    },
+    {
+      "group": 172,
+      "start": 1257.205,
+      "end": 1263.405,
+      "textSk": "Že také počítanie, učebnicový základ by som povedal na základnej a na strednej škole.",
+      "draftCs": "Že takové počítání, učebnicový základ bych řekl na základní a na střední škole.",
+      "reviewFlags": []
+    },
+    {
+      "group": 173,
+      "start": 1263.405,
+      "end": 1267.705,
+      "textSk": "a nejaké náznaky geometrie. V podstate tie veci, čo ľudia potrebovali, aby počítali dane.",
+      "draftCs": "a nějaké náznaky geometrie. V podstatě ty věci, co lidé potřebovali, aby počítali daně.",
+      "reviewFlags": []
+    },
+    {
+      "group": 174,
+      "start": 1267.705,
+      "end": 1268.749,
+      "textSk": "Áno.",
+      "draftCs": "Jo, jasně.",
+      "reviewFlags": [
+        "length-mismatch"
+      ]
+    },
+    {
+      "group": 175,
+      "start": 1268.749,
+      "end": 1269.405,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 176,
+      "start": 1269.405,
+      "end": 1270.059,
+      "textSk": "Ale v podstate",
+      "draftCs": "Ale v podstatě",
+      "reviewFlags": []
+    },
+    {
+      "group": 177,
+      "start": 1270.059,
+      "end": 1272.079,
+      "textSk": "[smiech]",
+      "draftCs": "[smích]",
+      "reviewFlags": []
+    },
+    {
+      "group": 178,
+      "start": 1272.905,
+      "end": 1281.905,
+      "textSk": "Všetka tá moderná matematika sa potom vyvinula do takých abstraktnejších vecí, kde máš teóriu hier, komplexnú analýzu, chaotické systémy,",
+      "draftCs": "Všechna ta moderní matematika se pak vyvinula do abstraktnějších věcí, kde máš teorii her, komplexní analýzu, chaotické systémy,",
+      "reviewFlags": []
+    },
+    {
+      "group": 179,
+      "start": 1281.905,
+      "end": 1290.705,
+      "textSk": "aplikovanú matematiku. Napríklad na teóriu hier, o ktorej sme mali niekoľko epizód. Inžinierstvo, ekonómia alebo takú tú základnú matematiku. Matematická",
+      "draftCs": "aplikovanou matematiku. Například na teorii her, o které jsme měli několik epizod. Inženýrství, ekonomie nebo takovou tu základní matematiku. Matematická",
+      "reviewFlags": []
+    },
+    {
+      "group": 180,
+      "start": 1290.705,
+      "end": 1299.005,
+      "textSk": "logika, teória množín, teória kategórií. To je teda už celkom záhul. Kombinatorika, teória čísel.",
+      "draftCs": "logika, teorie množin, teorie kategorií. To je tedy už docela záhul. Kombinatorika, teorie čísel.",
+      "reviewFlags": []
+    },
+    {
+      "group": 181,
+      "start": 1299.005,
+      "end": 1303.705,
+      "textSk": "Že vzniklo strašne veľa oblastí. O tom som vôbec nevedel, že biomatematika existuje.",
+      "draftCs": "Že vzniklo strašně mnoho oblastí. O tom jsem vůbec nevěděl, že biomatematika existuje.",
+      "reviewFlags": []
+    },
+    {
+      "group": 182,
+      "start": 1303.705,
+      "end": 1310.015,
+      "textSk": "Mega cool. Ako ja som si to troška pozrel predtým ako extrémne zaujímavé.",
+      "draftCs": "Jako já jsem si to trochu podíval předtím jak extrémně zajímavé.",
+      "reviewFlags": []
+    },
+    {
+      "group": 183,
+      "start": 1310.015,
+      "end": 1310.605,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 184,
+      "start": 1310.605,
+      "end": 1316.405,
+      "textSk": "O tom by sme inak mohli niekedy. To je dobrý... Ja viem, že nemôžeme sľubovať, ale to je veľmi pekný nápad na epizódu, že biomatematika.",
+      "draftCs": "O tom bychom jinak mohli někdy. To je dobrý... Já vím, že nemůžeme slibovat, ale to je velmi pěkný nápad na epizodu, že biomatematika.",
+      "reviewFlags": []
+    },
+    {
+      "group": 185,
+      "start": 1316.405,
+      "end": 1319.185,
+      "textSk": "sľubovať, ale",
+      "draftCs": "slibovat,",
+      "reviewFlags": []
+    },
+    {
+      "group": 186,
+      "start": 1319.185,
+      "end": 1319.905,
+      "textSk": "[smiech]",
+      "draftCs": "[smích]",
+      "reviewFlags": []
+    },
+    {
+      "group": 187,
+      "start": 1319.905,
+      "end": 1327.405,
+      "textSk": "musíme si dávať na to pozor, lebo nám to vedia teraz obuchávať o hlavu všetci vďaka stránke od nášho poslucháča od Jána.",
+      "draftCs": "Musíme si na to dávat pozor, protože nám to umí teď bouchat o hlavu všichni díky stránce od našeho posluchače od Jana.",
+      "reviewFlags": []
+    },
+    {
+      "group": 188,
+      "start": 1327.405,
+      "end": 1336.005,
+      "textSk": "Áno. Ďakujeme Jánovi. Je to skvelé, ale preto si musíme dať pozor. Ináč je odbor bioinformatika, ktorý sa dá na Matfyze študovať. Veľmi obľúbený.",
+      "draftCs": "Ano. Děkujeme Janovi. Je to skvělé, ale proto si musíme dát pozor. Jinak je obor bioinformatika, který se dá na Matfyze studovat. Velmi oblíbený.",
+      "reviewFlags": []
+    },
+    {
+      "group": 189,
+      "start": 1336.005,
+      "end": 1341.905,
+      "textSk": "Kde máš napríklad také výzvy, že keď sa sekvenuje DNA, ona sa nakrája na malé kúsky.",
+      "draftCs": "Kde máš například takové výzvy, že když se sekvenuje DNA, ona se nakrájí na malé kousky.",
+      "reviewFlags": []
+    },
+    {
+      "group": 190,
+      "start": 1341.905,
+      "end": 1347.305,
+      "textSk": "A potom je otázka, že ako ju späť pospájať do celej DNA tak, aby si to urobil",
+      "draftCs": "A pak je otázka, jak ji zpět pospojovat do celé DNA DNA tak, abys to udělal",
+      "reviewFlags": []
+    },
+    {
+      "group": 191,
+      "start": 1355.306,
+      "end": 1366.206,
+      "textSk": "jednoznačný spôsob. to robí to robí bioinformatika. tak začnú pribúdať a vyžerú zajíce. Tak napríklad takéto populačné dynamiky môže skúmať biomatematika, správanie buniek,",
+      "draftCs": "jednoznačný způsob. to dělá to dělá to dělá bioinformatika. tak začnou přibývat a vyžírají zajíce. Tak například takové populační dynamiky může zkoumat biomatematika, chování buněk,",
+      "reviewFlags": []
+    },
+    {
+      "group": 192,
+      "start": 1366.206,
+      "end": 1372.895,
+      "textSk": "všeličo. To je to je pekná epizóda, to si dobre navrhol. [lapanie po dychu] No a to čo sa typicky ešte vieme.",
+      "draftCs": "To je to pěkná epizoda, to si dobře navrhl. [lapání po dechu] No a to co se typicky ještě víme.",
+      "reviewFlags": []
+    },
+    {
+      "group": 193,
+      "start": 1372.895,
+      "end": 1373.506,
+      "textSk": "[smiech]",
+      "draftCs": "[smích]",
+      "reviewFlags": []
+    },
+    {
+      "group": 194,
+      "start": 1373.506,
+      "end": 1381.806,
+      "textSk": "To čo sa typicky deje je, že kariérne si vyberieš jednu z týchto oblastí a v nej sa špecializuješ, prípadne máš tak presah medzi dvomi, tromi.",
+      "draftCs": "To co se typicky děje je, že kariérně si vybereš jednu z těchto oblastí a v ní se specializuješ, případně máš tak přesah mezi dvěma, třemi.",
+      "reviewFlags": []
+    },
+    {
+      "group": 195,
+      "start": 1381.806,
+      "end": 1391.106,
+      "textSk": "Ak nie si človek ako Terence Tao, ktorý má významné výsledky asi v deviatich oblastiach alebo v koľkých. Alebo minulé storočie takto pôsobil Paul",
+      "draftCs": "Pokud nejsi člověk jako Terence Tao, který má významné výsledky asi v devíti oblastech nebo v kolika. Nebo minulé století takto působil Paul",
+      "reviewFlags": []
+    },
+    {
+      "group": 196,
+      "start": 1391.106,
+      "end": 1400.206,
+      "textSk": "Erdős, maďarský matematik, ktorý strašne veľa výsledkov porobil, ale že typicky sa ľudia špecializujú na niečo a v tom sú potom špičky.",
+      "draftCs": "Erdľs, maďarský matematik, který strašně mnoho výsledků podělal, ale že typicky se lidé specializují na něco a v tom jsou pak špičky.",
+      "reviewFlags": []
+    },
+    {
+      "group": 197,
+      "start": 1400.206,
+      "end": 1408.306,
+      "textSk": "Uhm. No a tá sranda, ktorá sa ti občas stane v matematike",
+      "draftCs": "No a ta sranda, která se ti občas stane v matematic",
+      "reviewFlags": []
+    },
+    {
+      "group": 198,
+      "start": 1408.406,
+      "end": 1415.506,
+      "textSk": "je, že vyskladáš dve úplne iné oblasti z úplne iných základov, ktoré popisujú úplne rozdelené veci.",
+      "draftCs": "je, že vyskládáš dvě úplně jiné oblasti z úplně jiných základů, které popisují úplně rozdělené věci.",
+      "reviewFlags": []
+    },
+    {
+      "group": 199,
+      "start": 1415.506,
+      "end": 1424.406,
+      "textSk": "Uhm. A zrazu sa ti stane, že zistíš nie nutne, že popisujú jedno a to isté, ale že sa tam ukáže, že",
+      "draftCs": "A najednou se ti stane, že zjistíš ne nutně, že popisují jedno a to stejné, ale že se tam ukáže, že",
+      "reviewFlags": []
+    },
+    {
+      "group": 200,
+      "start": 1424.406,
+      "end": 1432.206,
+      "textSk": "nejaký veľmi hlboký výsledok jedného tak z neho vyplýva hlboký výsledok v tej druhej oblasti a naopak.",
+      "draftCs": "nějaký velmi hluboký výsledek jednoho tak z něj vyplývá hluboký výsledek v té druhé oblasti a naopak.",
+      "reviewFlags": []
+    },
+    {
+      "group": 201,
+      "start": 1432.206,
+      "end": 1442.106,
+      "textSk": "Týmto je zaujímavá napríklad Riemannova hypotéza. Ona zišla z funkcionálnej analýzy komplexných čísiel, ale zároveň je ekvivalentná nejakým",
+      "draftCs": "Tímto je zajímavá například Riemannova hypotéza. Ona sešla z funkcionální analýzy komplexních čísel, ale zároveň je ekvivalentní nějakému",
+      "reviewFlags": []
+    },
+    {
+      "group": 202,
+      "start": 1442.106,
+      "end": 1450.841,
+      "textSk": "tvrdeniam o prvočíslach, ktoré sú z teórie čísiel zase. Že občas sa stane takáto vzácnosť a je týpek",
+      "draftCs": "tvrzením o prvočíslech, které jsou z teorie čísel zase zase. Že občas se stane taková vzácnost a je týpek",
+      "reviewFlags": []
+    },
+    {
+      "group": 203,
+      "start": 1450.841,
+      "end": 1452.106,
+      "textSk": "[vzdychanie][lapanie po dychu]",
+      "draftCs": "[vzdychání][lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 204,
+      "start": 1452.106,
+      "end": 1461.321,
+      "textSk": "Už som ho spomínal párkrát v podcaste, Edward Witten, jeden z najznámejších fyzikov, ale zároveň dostal matematickú Nobelovku, Fieldsovu medailu.",
+      "draftCs": "Už jsem ho zmiňoval párkrát v podcastu, Edward Witten, jeden z nejznámějších fyziků, ale zároveň dostal matematickou Nobelovku, Fieldsovu medaili.",
+      "reviewFlags": []
+    },
+    {
+      "group": 205,
+      "start": 1461.321,
+      "end": 1462.106,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 206,
+      "start": 1462.106,
+      "end": 1466.806,
+      "textSk": "Skoro študoval právo, pôsobil v politike.",
+      "draftCs": "Téměř studoval právo, působil v politice.",
+      "reviewFlags": []
+    },
+    {
+      "group": 207,
+      "start": 1467.216,
+      "end": 1468.406,
+      "textSk": "[vzdychanie][lapanie po dychu]",
+      "draftCs": "[vzdychání][lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 208,
+      "start": 1468.406,
+      "end": 1477.908,
+      "textSk": "On je pôvodne vyštudoval históriu, dejepis. Jeho sestra eh vyštudovala právo, išla robiť do nejakej právnickej firmy, on",
+      "draftCs": "On je původně vystudoval historii, dějepis, jeho sestra vystudovala právo, šla dělat do nějaké právnické firmy, on",
+      "reviewFlags": []
+    },
+    {
+      "group": 209,
+      "start": 1477.908,
+      "end": 1487.607,
+      "textSk": "Išiel robiť do politiky. Robil v politickej kampani Georgea McGoverna, ktorý ale tuším nebol úspešný, takže sa nestal prezidentom,",
+      "draftCs": "Pracoval v politické kampani George McGoverna, který ale myslím nebyl úspěšný, takže se nestal prezidentem,",
+      "reviewFlags": []
+    },
+    {
+      "group": 210,
+      "start": 1487.607,
+      "end": 1496.507,
+      "textSk": "ale Witten pracoval na jeho na jeho kampani v roku 1972. 21-ročný",
+      "draftCs": "ale Witten pracoval na jeho na jeho kampani v roce 1972. 21-letý",
+      "reviewFlags": []
+    },
+    {
+      "group": 211,
+      "start": 1496.507,
+      "end": 1505.007,
+      "textSk": "a kampaň bola úspešná. Podľa mňa, že keby bola úspešná, tak on zostane robiť, vieš, ako nejaký jeho aide, nejakého nejakého asistent.",
+      "draftCs": "a kampaň byla úspěšná. Podle mě, že kdyby byla úspěšná, tak on zůstane dělat, víš, jako nějaký jeho asistent, nějakého nějakého nějakého asistenta.",
+      "reviewFlags": []
+    },
+    {
+      "group": 212,
+      "start": 1505.007,
+      "end": 1514.207,
+      "textSk": "Eh ale kampaň nebola úspešná, tak rozmýšľal, že čo ďalej so životom, tak sa vrátil do školy a išiel študovať aplikovanú matematiku",
+      "draftCs": "Eh ale kampaň nebyla úspěšná, tak přemýšlel, že co dál se životem, tak se vrátil do školy a šel studovat aplikovanou matematiku",
+      "reviewFlags": []
+    },
+    {
+      "group": 213,
+      "start": 1514.207,
+      "end": 1523.007,
+      "textSk": "a odtiaľ prestúpil na fyziku, kde bol jeho školiteľom eh nobelista David Gross.",
+      "draftCs": "odtud a přestoupil na fyziku, kde byl jeho školitelem eh nobelista David Gross.",
+      "reviewFlags": []
+    },
+    {
+      "group": 214,
+      "start": 1523.007,
+      "end": 1533.007,
+      "textSk": "A za to asi pomôže ten To je to pomôže. Eh zároveň eh David Gross je jeden zo zakladateľov a najvýznamnejších výskumníkov",
+      "draftCs": "A za to asi pomůže ten To je to pomůže. Eh zároveň eh eh David Gross je jeden ze zakladatelů a nejvýznamnějších výzkumníků",
+      "reviewFlags": []
+    },
+    {
+      "group": 215,
+      "start": 1533.007,
+      "end": 1543.408,
+      "textSk": "teórie strún, takže Edward Witten je týpek, ktorý vlastne zadefinoval M-teóriu. M-teória je tá teória, ktorá spája všetky teórie strún dokopy.",
+      "draftCs": "teorie strun, takže Edward Witten je týpek, který vlastně zadefinoval M-teorii. M-teorie je ta teorie, která spojuje všechny teorie strun dohromady.",
+      "reviewFlags": []
+    },
+    {
+      "group": 216,
+      "start": 1543.408,
+      "end": 1549.507,
+      "textSk": "Áno, to by mala byť tá alebo teória všetkého, nie? Že jedna z tých áno, áno, áno. Áno, áno, presne.",
+      "draftCs": "Ano, to by měla být ta nebo teorie všeho, ne? Že jedna z těch ano, ano, ano. Ano, ano, přesně.",
+      "reviewFlags": []
+    },
+    {
+      "group": 217,
+      "start": 1549.507,
+      "end": 1552.707,
+      "textSk": "Hypotetická teória všetkého, čiže on je úplne, že savage fyzikálny.",
+      "draftCs": "Hypotetická teorie všeho, čili on je úplně, že savage fyzikální.",
+      "reviewFlags": []
+    },
+    {
+      "group": 218,
+      "start": 1552.707,
+      "end": 1560.307,
+      "textSk": "o tom by sme mohli spraviť epizódu, strašne zaujímavý dokument som o tom videl, ako na to prišli, že boli vo vlaku eh niekde v Anglicku, cestovali na",
+      "draftCs": "o tom bychom mohli udělat epizodu, strašně zajímavý dokument jsem viděl, jak na to přišli, že byli ve vlaku eh někde v Anglii, cestovali na",
+      "reviewFlags": []
+    },
+    {
+      "group": 219,
+      "start": 1560.307,
+      "end": 1569.408,
+      "textSk": "nejakú konferenciu a sa o tom rozprávali. Už si nepamätám tie mená, ale asi Witten tam bol a že mali, myslím si, že Guinness v plechovke a že sa",
+      "draftCs": "už si nepamatuji ta jména, ale asi Witten tam byl a že měli, myslím si, že Guinness v plechovce a že se",
+      "reviewFlags": []
+    },
+    {
+      "group": 220,
+      "start": 1569.408,
+      "end": 1576.707,
+      "textSk": "rozprávali a niekto z nich niečo povedal, že a čo keď je to všetko nejak spojené alebo tak dačo, takže Hm, OK, cool. Pošli mi ten dokument, ak",
+      "draftCs": "vyprávěli a někdo z nich něco řekl, že a co když je to všechno nějak spojené nebo tak něco, takže Hm, OK, cool. Pošli mi ten dokument, pokud",
+      "reviewFlags": []
+    },
+    {
+      "group": 221,
+      "start": 1576.707,
+      "end": 1580.908,
+      "textSk": "ho niekde máš, to je dobrá epizóda. Počuj si to ako že 10 rokov a išli.",
+      "draftCs": "Poslouchej si to jako že že 10 let a šli.",
+      "reviewFlags": [
+        "length-mismatch"
+      ]
+    },
+    {
+      "group": 222,
+      "start": 1580.908,
+      "end": 1590.909,
+      "textSk": "kvôli tomu, aby sme škrtli zo zoznamu sľubovaných epizód a už sme dve ďalšie sľúbili. [smiech] Už sme ďalšie Dobre, už teraz embargo embargo na [smiech]",
+      "draftCs": "kvůli tomu, abychom škrtli ze seznamu slibovaných epizod a už jsme dvě další slíbili. [sm smích] Už jsme další Dobře, už teď embargo embargo embargo na [sm smích]",
+      "reviewFlags": []
+    },
+    {
+      "group": 223,
+      "start": 1590.909,
+      "end": 1601.909,
+      "textSk": "Ďalšie epizódy teraz. Pochválim sa, že som Eda Wittena stretol, keď som bol na tej strunovej konferencii na... Áno, na Perimeter Institute. To je tam,",
+      "draftCs": "Další epizody teď. Pochválím se, že jsem Eda Wittena potkal, když jsem byl na té strunové konferenci na... ano, na Perimeter Institute.",
+      "reviewFlags": []
+    },
+    {
+      "group": 224,
+      "start": 1601.909,
+      "end": 1606.009,
+      "textSk": "kde sme teraz vlastne s tými dvomi výskumníkmi robili článok.",
+      "draftCs": "kde jsme teď vlastně s těmi dvěma výzkumníky dělali článek.",
+      "reviewFlags": []
+    },
+    {
+      "group": 225,
+      "start": 1606.009,
+      "end": 1608.698,
+      "textSk": "Netrúfol som sa ho niečo opýtať,",
+      "draftCs": "Netroufnul jsem se ho na něco zeptat,",
+      "reviewFlags": []
+    },
+    {
+      "group": 226,
+      "start": 1608.698,
+      "end": 1609.309,
+      "textSk": "[smiech]",
+      "draftCs": "[smích]",
+      "reviewFlags": []
+    },
+    {
+      "group": 227,
+      "start": 1609.309,
+      "end": 1619.609,
+      "textSk": "Lebo som o ňom počul také historky, že týpek ho viezol z letiska na konferenciu a Ed Witten sa ho opýtal: na čom robíš vo výskume?",
+      "draftCs": "Protože jsem o něm slyšel takové historky, že týpek ho vezl z letiště na konferenci a Ed Witten se ho zeptal: na čem děláš ve výzkumu?",
+      "reviewFlags": []
+    },
+    {
+      "group": 228,
+      "start": 1619.609,
+      "end": 1625.709,
+      "textSk": "A on mu to povedal a on že a celú ďalšiu hodinu pozeral z okna.",
+      "draftCs": "A on mu to řekl a on že a celou další hodinu zíral z okna.",
+      "reviewFlags": []
+    },
+    {
+      "group": 229,
+      "start": 1627.609,
+      "end": 1634.909,
+      "textSk": "Takže som sa strašne bal, že mu niečo poviem a on povie, že otočí sa na päte a odíde a bude mať strašne zranené ego.",
+      "draftCs": "Takže jsem se strašně bál, že mu něco řeknu a on řekne, že otočí se na patě a odejde a bude mít strašně zraněné ego.",
+      "reviewFlags": []
+    },
+    {
+      "group": 230,
+      "start": 1634.909,
+      "end": 1638.173,
+      "textSk": "Hej, že videli ste toho Slováka, čo došiel?",
+      "draftCs": "Hej, že jste viděli toho Slováka, co došel?",
+      "reviewFlags": []
+    },
+    {
+      "group": 231,
+      "start": 1638.173,
+      "end": 1640.193,
+      "textSk": "[smrkanie]",
+      "draftCs": "[smrkání]",
+      "reviewFlags": []
+    },
+    {
+      "group": 232,
+      "start": 1640.309,
+      "end": 1651.009,
+      "textSk": "Ale našiel som na tej konferenčnú fotku a dal som to na našu na na na Discord našej výskumnej skupiny, kde tak zakrúžkovaný jeden iný takýto super významný a ja na úplne",
+      "draftCs": "Ale našel jsem na té konferenční fotku a dal jsem to na naši na na na Discord naší výzkumné skupiny, kde tak zakroužkovaný jeden jiný takový super významný a já na úplně",
+      "reviewFlags": []
+    },
+    {
+      "group": 233,
+      "start": 1651.009,
+      "end": 1660.609,
+      "textSk": "Opačnom konci, tak som dal, že máme spoločnú fotku s Maldacenom. To je druhý takýto, ktorý tiež robí teóriu. Ale teraz späť k Wittenovi. Witten dostal Nobelovku",
+      "draftCs": "Na opačném konci, tak jsem dal, že máme společnou fotku s Maldacenem. To je druhý takový, který také dělá teorii, ale teď zpátky k Wittenovi. Witten dostal Nobelovku",
+      "reviewFlags": []
+    },
+    {
+      "group": 234,
+      "start": 1660.609,
+      "end": 1665.029,
+      "textSk": "Matematickú, vlastne tú Fieldsovu medailu. On ju dostal za viacero významných zásluh.",
+      "draftCs": "Matematickou, vlastně tu Fieldsovu medaili, on ji dostal za několik významných zásluh.",
+      "reviewFlags": []
+    },
+    {
+      "group": 235,
+      "start": 1665.029,
+      "end": 1666.209,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 236,
+      "start": 1666.209,
+      "end": 1676.709,
+      "textSk": "a jedna z tých zásluh, za ktoré to dostal Ja len takú malú vložku Fields ako pole v angličtine nie Fields ako Hej, hej.",
+      "draftCs": "a jedna z těch zásluh, za které to dostal Já jen takovou malou vložku Fields jako pole v angličtině ne Fields jako Hej, hej.",
+      "reviewFlags": []
+    },
+    {
+      "group": 237,
+      "start": 1676.709,
+      "end": 1678.784,
+      "textSk": "To by bolo na medailu. že",
+      "draftCs": "To by bylo na medaili.",
+      "reviewFlags": []
+    },
+    {
+      "group": 238,
+      "start": 1678.784,
+      "end": 1680.804,
+      "textSk": "[smiech]",
+      "draftCs": "[smích]",
+      "reviewFlags": []
+    },
+    {
+      "group": 239,
+      "start": 1681.109,
+      "end": 1684.609,
+      "textSk": "Rozmýšľam, pokiaľ je to pomenované, lebo to nebude len že len že ako pole.",
+      "draftCs": "Přemýšlím, pokud je to pojmenované, protože to nebude jen že jen že jako pole.",
+      "reviewFlags": []
+    },
+    {
+      "group": 240,
+      "start": 1684.609,
+      "end": 1685.989,
+      "textSk": "Po nejakom poli.",
+      "draftCs": "Po nějakém poli.",
+      "reviewFlags": []
+    },
+    {
+      "group": 241,
+      "start": 1685.989,
+      "end": 1687.299,
+      "textSk": "[smiech]",
+      "draftCs": "[smích]",
+      "reviewFlags": []
+    },
+    {
+      "group": 242,
+      "start": 1687.299,
+      "end": 1687.709,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 243,
+      "start": 1687.709,
+      "end": 1693.609,
+      "textSk": "Hej, lebo keď robíš teóriu poľa... John Charles Fields, po ňom, matematikovi.",
+      "draftCs": "Jo, protože když děláš teorii pole... John Charles Fields, po něm, matematikovi.",
+      "reviewFlags": []
+    },
+    {
+      "group": 244,
+      "start": 1693.609,
+      "end": 1699.709,
+      "textSk": "Aha, OK. Ale naozaj, že ešte tá medaila vyzerá veľmi veľmi veľmi nobelovsky.",
+      "draftCs": "Ale opravdu, ta medaile vypadá velmi, velmi, velmi nobelovsky.",
+      "reviewFlags": []
+    },
+    {
+      "group": 245,
+      "start": 1699.709,
+      "end": 1704.984,
+      "textSk": "Jediný chyták je, že máš za to iba 15 000 odmenu dokonca kanadských dolárov.",
+      "draftCs": "Jediný chyták je, že máš za to jen 15 000 odměn dokonce kanadských dolarů.",
+      "reviewFlags": []
+    },
+    {
+      "group": 246,
+      "start": 1704.984,
+      "end": 1705.609,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 247,
+      "start": 1705.609,
+      "end": 1709.909,
+      "textSk": "Ale to je to je úplne fuk, že je to naozaj, že extrémne významné ocenenie.",
+      "draftCs": "Ale to je to je úplně fuk, že je to opravdu, že extrémně významné ocenění.",
+      "reviewFlags": []
+    },
+    {
+      "group": 248,
+      "start": 1709.909,
+      "end": 1713.509,
+      "textSk": "Oni majú dve takéto v matematike a jedno z nich je vekovo obmedzené.",
+      "draftCs": "Oni mají dvě takové v matematice a jedno z nich je věkově omezené.",
+      "reviewFlags": []
+    },
+    {
+      "group": 249,
+      "start": 1713.509,
+      "end": 1718.01,
+      "textSk": "Takže že jedna z nich je len pre mladých výskumníkov a druhé je také. No a to je fuk.",
+      "draftCs": "Takže jedna z nich je jen pro mladé výzkumníky a druhá je taková.",
+      "reviewFlags": []
+    },
+    {
+      "group": 250,
+      "start": 1718.01,
+      "end": 1727.71,
+      "textSk": "Uhm. Dostal to za to, eh, že ukázal, že nejaké invarianty v teórii uzlov",
+      "draftCs": "Dostal to za to, eh, že ukázal, že nějaké invarianty v teorii uzlů",
+      "reviewFlags": []
+    },
+    {
+      "group": 251,
+      "start": 1728.31,
+      "end": 1733.804,
+      "textSk": "sú interpretovateľné ako Feynmanove integrály v istej kvantovej teórii.",
+      "draftCs": "jsou interpretovatelné jako Feynmanovy integrály v jisté kvantové teorii.",
+      "reviewFlags": []
+    },
+    {
+      "group": 252,
+      "start": 1733.804,
+      "end": 1734.91,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 253,
+      "start": 1734.91,
+      "end": 1741.71,
+      "textSk": "Prepojil teóriu uzlov s topologickou kvantovou teóriou poľa.",
+      "draftCs": "Propojil teorii uzlů s topologickou kvantovou teorií pole.",
+      "reviewFlags": []
+    },
+    {
+      "group": 254,
+      "start": 1741.71,
+      "end": 1751.81,
+      "textSk": "Nech už je to čokoľvek, ale toto je to, čo som povedal, že sa občas stane v matematike, že máš dve oblasti, ktoré teória uzlov",
+      "draftCs": "Ať už je to cokoliv, ale toto je to, co jsem řekl, že se občas stane v matematice, že máte dvě oblasti, které teorie uzlů",
+      "reviewFlags": []
+    },
+    {
+      "group": 255,
+      "start": 1751.81,
+      "end": 1756.91,
+      "textSk": "začali skúmať ľudia kvôli tomu, aby pochopili, ktoré uzly sa dajú rozviazať a ktoré nie.",
+      "draftCs": "začali zkoumat lidé, aby pochopili, které uzly se dají rozvázat a které ne.",
+      "reviewFlags": []
+    },
+    {
+      "group": 256,
+      "start": 1756.91,
+      "end": 1765.91,
+      "textSk": "Uzol znamená, že máš šnúrku, ktorá je zliata na konci, čiže je to v podstate, že jedna slučka a buď tá slučka môže vyzerať ako písmeno O,",
+      "draftCs": "Uzel znamená, že máš šňůrku, která je slitá na konci, takže je to v podstatě jedna smyčka a buď ta smyčka může vypadat jako písmeno O,",
+      "reviewFlags": []
+    },
+    {
+      "group": 257,
+      "start": 1765.91,
+      "end": 1776.21,
+      "textSk": "to je jednoduchý triviálny uzol, alebo to môže byť taký ten trojuzol, vieš, taký ten anglický symbol, eh, vieš o čom hovorím? Taký taký trikrát. A",
+      "draftCs": "to je jednoduchý triviální uzel, nebo to může být takový ten trojuzol, víš, takový ten anglický symbol, eh, víš o čem mluvím? Takový takový třikrát.",
+      "reviewFlags": []
+    },
+    {
+      "group": 258,
+      "start": 1776.21,
+      "end": 1784.61,
+      "textSk": "z toho nespravíš obyčajný uzol bez toho, aby si to neprecvakol. Tak matematici si povedali, že poďme skúsiť vymyslieť spôsob, ako klasifikovať uzly,",
+      "draftCs": "z toho neuděláš obyčejný uzel bez toho, aniž by si to nepřecvakl. Tak matematici si řekli, že pojďme zkusit vymyslet způsob, jak klasifikovat uzly,",
+      "reviewFlags": []
+    },
+    {
+      "group": 259,
+      "start": 1784.61,
+      "end": 1791.445,
+      "textSk": "aby sme zistili, že ktorý sa dá previazať na ktorý bez toho, aby si aby si aby si to precvakol.",
+      "draftCs": "abychom zjistili, že který se dá provázat na který bez toho, aby sis to procvakl.",
+      "reviewFlags": []
+    },
+    {
+      "group": 260,
+      "start": 1791.445,
+      "end": 1800.01,
+      "textSk": "A on tam skúmal invarianty a invariant je kľúčové slovo, lebo to sa aj pri tej Hodgeovej hypotéze spomína, takže ho chcem teraz zadefinovať.",
+      "draftCs": "A on tam zkoumal invarianty a invariant je klíčové slovo, protože to se i při té Hodgeově hypotéze zmiňuje, takže ho chci teď zadefinovat.",
+      "reviewFlags": []
+    },
+    {
+      "group": 261,
+      "start": 1800.01,
+      "end": 1808.51,
+      "textSk": "Invariant je niečo, čo sa nemení. To je krásne, nie? Máme niečo, čo dáva zmysel jeho názov. Eh, príklad z fyziky,",
+      "draftCs": "Invariant je něco, co se nemění. To je krásné, ne? Máme něco, co dává smysl jeho název. Eh, příklad z fyziky,",
+      "reviewFlags": []
+    },
+    {
+      "group": 262,
+      "start": 1808.51,
+      "end": 1818.21,
+      "textSk": "energia je invariant, lebo máš proces, pri ktorom sa môže diať všeličo, ale celková energia sa zachováva, takže energia je invariant tohto procesu.",
+      "draftCs": "energie je invariant, protože máš proces, při kterém se může dít všelicos, ale celková energie se zachovává, takže energie je invariant tohoto procesu.",
+      "reviewFlags": []
+    },
+    {
+      "group": 263,
+      "start": 1818.21,
+      "end": 1828.81,
+      "textSk": "Keď máš 10 ľudí a ideš ich rozdeliť do štyroch áut, tak hocijak ich rozdelíš, stále tých ľudí bude dokopy 10, takže celkový počet ľudí je invariant nezávisle od",
+      "draftCs": "Když máš 10 lidí a jdeš je rozdělit do čtyř aut, tak jakkoliv je rozdělíš, stále těch lidí bude dohromady 10, takže celkový počet lidí je invariantní nezávisle na",
+      "reviewFlags": []
+    },
+    {
+      "group": 264,
+      "start": 1828.81,
+      "end": 1839.112,
+      "textSk": "toho, ako si ich rozdelil medzi štyri autá. A keď máš teóriu, kde niečo môžeš deformovať, tak stále tam môžeš mať nejaké invarianty. To sú veci, ktoré",
+      "draftCs": "jak jsi je rozdělil mezi čtyři auta. A když máš teorii, kde něco můžeš deformovat, tak tam stále můžeš mít nějaké invarianty. To jsou věci, které",
+      "reviewFlags": []
+    },
+    {
+      "group": 265,
+      "start": 1839.112,
+      "end": 1847.121,
+      "textSk": "Deformáciou nezmeníš. Príklad z topológie. Poznáš takéto tvrdenie, že hrnček je topologicky kobliha?",
+      "draftCs": "Deformací nezměníš. Příklad z topologie. Znáš takové tvrzení, že hrnek je topologicky kobliha?",
+      "reviewFlags": []
+    },
+    {
+      "group": 266,
+      "start": 1847.121,
+      "end": 1847.912,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 267,
+      "start": 1847.912,
+      "end": 1856.512,
+      "textSk": "Že keď máš hrnček Áno, áno. Eh ukážem na kameru pre tých, ktorí nás aj pozerajú, tak hrnček má uško, tak keby si si predstavil, že toto celé je z",
+      "draftCs": "Že když máš hrnek ano ano, ukážu na kameru pro ty, kteří nás i sledují, tak hrnek má ouško, tak kdyby sis představoval, že tohle celé je z",
+      "reviewFlags": []
+    },
+    {
+      "group": 268,
+      "start": 1856.512,
+      "end": 1866.812,
+      "textSk": "Takej veľmi tvárnej gumy alebo plastelíny, tak naozaj postupným tvarovaním z tohto spravíš tvar koblihy alebo plávacieho kolesa bez toho, aby si to cvakol. A to",
+      "draftCs": "Takové velmi tvárné gumy nebo plastelíny, tak opravdu postupným tvarováním z tohoto uděláte tvar koblihy nebo plovoucího kola bez cvaknutí.",
+      "reviewFlags": []
+    },
+    {
+      "group": 269,
+      "start": 1866.812,
+      "end": 1877.112,
+      "textSk": "cvaknutie je ten drastický proces, kedy kedy si niečo narušil. Ale keď povieš, že cvakanie je zakázané a môžem robiť len malé zmeny tvarovaním,",
+      "draftCs": "cvaknutí je ten drastický proces, kdy kdy jsi něco narušil, ale když řekneš, že cvakání je zakázáno a můžu dělat jen malé změny tvarováním,",
+      "reviewFlags": []
+    },
+    {
+      "group": 270,
+      "start": 1877.112,
+      "end": 1886.421,
+      "textSk": "tak počet dier je invariant. Lebo na to, aby táto diera zmizla, musíš precvaknúť uško napríklad alebo tam musíš urobiť ďalšiu dieru.",
+      "draftCs": "Protože k tomu, aby tato díra zmizela, musíš procvaknout ouško například nebo tam musíš udělat další díru.",
+      "reviewFlags": []
+    },
+    {
+      "group": 271,
+      "start": 1886.421,
+      "end": 1887.612,
+      "textSk": "[vzdychanie][lapanie po dychu]",
+      "draftCs": "[vzdychání][lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 272,
+      "start": 1887.612,
+      "end": 1896.312,
+      "textSk": "No a Witten ukázal, že nejaký typ invariantov v teórii uzlov sa dá interpretovať ako Feynmanove integrály, o ktorých sme mali epizódu,",
+      "draftCs": "No a Witten ukázal, že nějaký typ invariantů v teorii uzlů lze interpretovat jako Feynmanovy integrály, o kterých jsme měli epizodu,",
+      "reviewFlags": []
+    },
+    {
+      "group": 273,
+      "start": 1896.312,
+      "end": 1901.512,
+      "textSk": "Feynmanovskú, ktorú sme v Nitre nahrávali v Irish Times Pube.",
+      "draftCs": "Feynmanovskou, kterou jsme v Nitře nahrávali v Irish Times Pubu.",
+      "reviewFlags": []
+    },
+    {
+      "group": 274,
+      "start": 1901.512,
+      "end": 1910.412,
+      "textSk": "A v nejakej špecifickej teórii, že to vlastne spolu súvisí. A toto, keď sa podarí urobiť v matematike, tak je to veľká vec, kde ukážeš",
+      "draftCs": "A v nějaké konkrétní teorii, že to spolu vlastně spolu souvisí, a toto, když se to podaří udělat v matematice, tak je to velká věc, kde ukážete",
+      "reviewFlags": []
+    },
+    {
+      "group": 275,
+      "start": 1910.412,
+      "end": 1919.112,
+      "textSk": "Prepojíš dve totálne rozdielne oblasti. To ja predstavím, vysvetlím to v reči tvojho kmeňa.",
+      "draftCs": "Propojíš dvě totálně rozdílné oblasti. to já představím, vysvětlím to v řeči tvého kmene.",
+      "reviewFlags": []
+    },
+    {
+      "group": 276,
+      "start": 1919.112,
+      "end": 1929.312,
+      "textSk": "Predstav si, že máš eh napríklad že trestný zákonník Uhm. a potom by si mal eh čo ja viem, aký je správny poriadok.",
+      "draftCs": "Představ si, že máš eh například že trestní zákoník Uhm. a pak bys měl eh co já vím, jaký je správný pořádek.",
+      "reviewFlags": []
+    },
+    {
+      "group": 277,
+      "start": 1929.312,
+      "end": 1937.612,
+      "textSk": "Uhm. A zrazu by si ukázal, že nejaké ich paragrafy sú vlastne ekvivalentné, keď akurát zameníš nejaké slová, ale že ináč to bude proste jednak jednej.",
+      "draftCs": "A najednou by jsi ukázal, že některé jejich paragrafy jsou vlastně ekvivalentní, když akorát zaměníš nějaká slova, ale že jinak to bude prostě jednak jedné.",
+      "reviewFlags": []
+    },
+    {
+      "group": 278,
+      "start": 1937.612,
+      "end": 1945.012,
+      "textSk": "Uhm. A to by znamenalo, že sa stačí naučiť že stačí sa naučiť jedno a poznáš ten prekladový slovník a ten druhý už vlastne neobsahuje nič nové.",
+      "draftCs": "A to by znamenalo, že se stačí naučit že stačí se naučit jedno a znáš ten překladový slovník a ten druhý už vlastně neobsahuje nic nového.",
+      "reviewFlags": []
+    },
+    {
+      "group": 279,
+      "start": 1945.012,
+      "end": 1949.012,
+      "textSk": "aj v tej druhej situácii. Áno, áno, áno. A toto sa naozaj občas v matematike stane.",
+      "draftCs": "Ano, ano, ano, ano, a toto se opravdu občas v matematice stane.",
+      "reviewFlags": []
+    },
+    {
+      "group": 280,
+      "start": 1949.012,
+      "end": 1957.612,
+      "textSk": "toto mi dosť vysvetlilo, hej. Áno, a že všetci sú z toho A to je presne, že nemáš právo očakávať, že že prečo by toto malo byť, že to sú úplne iné veci,",
+      "draftCs": "Ano, a že všichni jsou z toho a to je přesně, že nemáš právo očekávat, že že že proč by tohle mělo být, že to jsou úplně jiné věci,",
+      "reviewFlags": []
+    },
+    {
+      "group": 281,
+      "start": 1957.612,
+      "end": 1963.313,
+      "textSk": "že trestný zákonník a správny poriadok sú úplne rozdelené právne nástroje alebo právne objekty.",
+      "draftCs": "že trestní zákoník a správní řád jsou zcela rozdělené právní nástroje nebo právní objekty.",
+      "reviewFlags": []
+    },
+    {
+      "group": 282,
+      "start": 1963.313,
+      "end": 1970.113,
+      "textSk": "Normy, hej. Normy a zrazu hľa, nejaké veci sú v nich úplne identické a všetci sú z toho obarení.",
+      "draftCs": "Normy, jo. Normy a najednou hle, nějaké věci jsou v nich úplně identické a všichni jsou z toho obarvení.",
+      "reviewFlags": []
+    },
+    {
+      "group": 283,
+      "start": 1970.113,
+      "end": 1979.713,
+      "textSk": "Takže toto dokázal Witten pre teóriu uzlov a topologickú kvantovú teóriu poľa, že vau, tu tieto veci sú si vlastne ekvivalentné.",
+      "draftCs": "Takže toto dokázal Witten pro teorii uzlů a topologickou kvantovou teorii pole, že wau, tady tyto věci jsou si vlastně ekvivalentní.",
+      "reviewFlags": []
+    },
+    {
+      "group": 284,
+      "start": 1979.713,
+      "end": 1982.052,
+      "textSk": "A všetci z toho boli, že vau.",
+      "draftCs": "A všichni z toho byli, že vau.",
+      "reviewFlags": []
+    },
+    {
+      "group": 285,
+      "start": 1982.052,
+      "end": 1982.713,
+      "textSk": "[vzdychanie]",
+      "draftCs": "[vzdychání]",
+      "reviewFlags": []
+    },
+    {
+      "group": 286,
+      "start": 1982.713,
+      "end": 1992.913,
+      "textSk": "No a dôvod, prečo je zaujímavá Hodgeova hypotéza, je, že ona prepája niekoľko rozdielnych matematických",
+      "draftCs": "No a důvod, proč je zajímavá Hodgeova hypotéza, je, že ona propojuje několik rozdílných matematických",
+      "reviewFlags": []
+    },
+    {
+      "group": 287,
+      "start": 1992.913,
+      "end": 2000.013,
+      "textSk": "oblastí dokopy. Jedným z nich je topológia. Topológia je geometria bez geometrie.",
+      "draftCs": "Jedním z nich je topologie. Topologie je geometrie bez geometrie.",
+      "reviewFlags": []
+    },
+    {
+      "group": 288,
+      "start": 2000.013,
+      "end": 2009.013,
+      "textSk": "Alebo inými slovami topológia je geometria plastelíny, kde môžeš veci meniť, ale nemôžeš ich prerezávať, nemôžeš ich krájať.",
+      "draftCs": "Nebo jinými slovy topologie je geometrie plastelíny, kde můžeš věci měnit, ale nemůžeš je prořezávat, nemůžeš je krájet.",
+      "reviewFlags": []
+    },
+    {
+      "group": 289,
+      "start": 2009.013,
+      "end": 2019.313,
+      "textSk": "Hm. Takže napríklad páska, nie? Napríklad. A máš tam také tvrdenia, že keď máš číslicu nula a číslicu osem, tak z",
+      "draftCs": "Takže například páska, ne? Například. A máš tam takové tvrzení, že když máš číslo nula a číslo osm, tak z",
+      "reviewFlags": []
+    },
+    {
+      "group": 290,
+      "start": 2019.313,
+      "end": 2024.813,
+      "textSk": "jednej z jednej nespravíš druhú bez toho, aby si to niekde precvakol.",
+      "draftCs": "jednu z jedné z jedné neuděláš druhou bez toho, aby si to někde procvakl.",
+      "reviewFlags": []
+    },
+    {
+      "group": 291,
+      "start": 2024.813,
+      "end": 2030.413,
+      "textSk": "Prečo? Lebo jedna má dve diery, druhá má jednu dieru a počet dier je invariant.",
+      "draftCs": "Protože jedna má dvě díry, druhá má jednu díru a počet děr je invariantní.",
+      "reviewFlags": []
+    },
+    {
+      "group": 292,
+      "start": 2030.413,
+      "end": 2033.513,
+      "textSk": "A toto skúma topológia.",
+      "draftCs": "A toto zkoumá topologie.",
+      "reviewFlags": []
+    },
+    {
+      "group": 293,
+      "start": 2034.313,
+      "end": 2041.313,
+      "textSk": "Vieš si to predstaviť zhruba, nie? Že keď máš osmičku, tak by si ju musel by si ju precvaknúť v strede, aby z toho zrazu bola",
+      "draftCs": "Umíš si to představit zhruba, ne? že když máš osmičku, tak bys ji musel procvaknout uprostřed, aby z toho najednou byla",
+      "reviewFlags": []
+    },
+    {
+      "group": 294,
+      "start": 2044.933,
+      "end": 2046.213,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 295,
+      "start": 2046.213,
+      "end": 2055.813,
+      "textSk": "Áno, zároveň vie topológia na svoj výskum používať krivky. Lebo ako zadefinuješ počet dier?",
+      "draftCs": "Ano, zároveň ví topologie na svůj výzkum používat křivky. Protože jak zadefinuješ počet děr?",
+      "reviewFlags": []
+    },
+    {
+      "group": 296,
+      "start": 2055.813,
+      "end": 2064.313,
+      "textSk": "Počet dier vieš zadefinovať napríklad tak, že predstavím si, že by som v tom priestore natiahol špagát a teraz sa ho pokúsim stiahnuť.",
+      "draftCs": "Počet děr můžeš definovat například tak, že si představím, že bych v tom prostoru natáhl provázek a teď se ho pokusím stáhnout.",
+      "reviewFlags": []
+    },
+    {
+      "group": 297,
+      "start": 2064.313,
+      "end": 2071.913,
+      "textSk": "A keď tam máš dieru, tak sa ti to nepodarí. Predstav si, že by si hodil špagát niekde na povrchu zeme, vždy ho vieš stiahnuť.",
+      "draftCs": "A když tam máš díru, tak se ti to nepodaří. Představ si, že bys hodil provázek někde na povrchu země, vždy ho umíš stáhnout.",
+      "reviewFlags": []
+    },
+    {
+      "group": 298,
+      "start": 2071.913,
+      "end": 2079.413,
+      "textSk": "Nemáš sa o čo nemáš sa o čo zachytiť. Natiahneš 5 000 km lano, hodíš ho až niekde do Portugalska ako také laso,",
+      "draftCs": "Natáhneš 5 000 km lano, hodíš ho až někam do Portugalska jako takové laso,",
+      "reviewFlags": []
+    },
+    {
+      "group": 299,
+      "start": 2079.413,
+      "end": 2088.214,
+      "textSk": "Stiahneš a to laso sa vždy zatvorí. Ale teraz si predstav, že by si toto isté urobil na povrchu tej koblihy",
+      "draftCs": "Stáhneš a to laso se vždy zavře, ale teď si představ, že bys udělal to samé na povrchu té koblihy",
+      "reviewFlags": []
+    },
+    {
+      "group": 300,
+      "start": 2088.214,
+      "end": 2096.714,
+      "textSk": "a lano by si naťahoval okolo kruhu. Okolo okolo toho úzkeho obvodu napríklad a zrazu ho už nevieš stiahnuť.",
+      "draftCs": "A lano bys natahoval kolem kruhu, kolem toho úzkého obvodu, například, a najednou ho už nemůžeš stáhnout.",
+      "reviewFlags": []
+    },
+    {
+      "group": 301,
+      "start": 2096.714,
+      "end": 2106.614,
+      "textSk": "Lebo už ide do kolieska a už je zaseknuté. A toto je topologický pohľad na to, prečo je sféra niečo iné ako kobliha.",
+      "draftCs": "Protože už jde do kolečka a už je zaseknuté a toto je topologický pohled na to, proč je sféra něco jiného než kobliha.",
+      "reviewFlags": []
+    },
+    {
+      "group": 302,
+      "start": 2106.614,
+      "end": 2111.414,
+      "textSk": "Na sfére dokážeš stiahnuť lano vždy? Na koblihe nedokážeš. Nie.",
+      "draftCs": "Na kouli dokážeš stáhnout lano vždy? Na koblize to nedokážeš.",
+      "reviewFlags": []
+    },
+    {
+      "group": 303,
+      "start": 2111.414,
+      "end": 2119.514,
+      "textSk": "Tak. Uhm. A čiže vlastne topológovia používajú takéto rozhadzovanie lán na to, aby skúmali priestory.",
+      "draftCs": "Takže topologové používají takovéto rozhazování lan k prozkoumání prostor.",
+      "reviewFlags": []
+    },
+    {
+      "group": 304,
+      "start": 2119.514,
+      "end": 2126.014,
+      "textSk": "Že keď máš nestiahnuteľnú slučku, tak vieš, že priestor, ktorý skúmaš, nemôže byť sféra.",
+      "draftCs": "Že když máš nestahovatelnou smyčku, tak víš, že prostor, který zkoumáš, nemůže být sféra.",
+      "reviewFlags": []
+    },
+    {
+      "group": 305,
+      "start": 2126.014,
+      "end": 2130.614,
+      "textSk": "Uhm. A ono je to také zvláštne, že však vidím, v akom priestore pracujem.",
+      "draftCs": "A ono je to tak zvláštní, že vidím, v jakém prostoru pracuji.",
+      "reviewFlags": []
+    },
+    {
+      "group": 306,
+      "start": 2130.614,
+      "end": 2141.114,
+      "textSk": "A odpoveď je, že nie nutne. Ty nemáš priestor často zakreslený tak, že máš jeho obrázok. Veľmi často máš priestor zadefinovaný nejakými rovnicami.",
+      "draftCs": "A odpověď je, že ne nutně. Ty nemáš prostor často zakreslený tak, že máš jeho obrázek. Velmi často máš prostor zadefinovaný nějakými rovnicemi.",
+      "reviewFlags": []
+    },
+    {
+      "group": 307,
+      "start": 2141.114,
+      "end": 2151.714,
+      "textSk": "Uhm. Napríklad kružnica je množina bodov s nejakou vzdialenosťou od počiatku, s rovnakou vzdialenosťou od počiatku. A toto je nejaká rovnica, že x na druhú",
+      "draftCs": "Například kružnice je množina bodů s nějakou vzdáleností od počátku, se stejnou vzdáleností od počátku, a tohle je nějaká rovnice, že x na druhou",
+      "reviewFlags": []
+    },
+    {
+      "group": 308,
+      "start": 2151.714,
+      "end": 2161.714,
+      "textSk": "plus y na druhú sa rovná jedna. A teraz hľadáš všetky body, čo to spĺňajú. Typicky riešiš oveľa grcnejšie rovnice a niekto ti povie, že všetky riešenia",
+      "draftCs": "A teď hledáš všechny body, které to splňují. typicky řešíš mnohem řečnější rovnice a někdo ti řekne, že všechna řešení",
+      "reviewFlags": []
+    },
+    {
+      "group": 309,
+      "start": 2161.714,
+      "end": 2167.514,
+      "textSk": "týchto rovníc tvoria nejaký priestor a začneš si klásť otázky, že aká je topológia tohto priestoru.",
+      "draftCs": "těchto rovnic tvoří nějaký prostor a začneš si klást otázky, že jaká je topologie tohoto prostoru.",
+      "reviewFlags": []
+    },
+    {
+      "group": 310,
+      "start": 2167.514,
+      "end": 2175.514,
+      "textSk": "Že je to topologicky guľa, je to topologicky koleso? Čo to vlastne je?",
+      "draftCs": "Že je to topologicky koule, je to topologicky kolo?",
+      "reviewFlags": []
+    },
+    {
+      "group": 311,
+      "start": 2175.514,
+      "end": 2183.914,
+      "textSk": "A týmto už sa blížime k tej Hodgeovej hypotéze. A Hodge sa zaoberal",
+      "draftCs": "A tímto už se blížíme k té Hodgeově hypotéze a Hodge se zabýval",
+      "reviewFlags": []
+    },
+    {
+      "group": 312,
+      "start": 2184.114,
+      "end": 2193.814,
+      "textSk": "nesingulárnymi komplexnými projektívnymi priestormi. Nech už to znamená čokoľvek, sú to nejaké všeobecné geometrie, do ktorých okrem iného spadá aj sféra, ale",
+      "draftCs": "nesingulárními komplexními projektivními prostory. Ať už to znamená cokoliv, jsou to nějaké obecné geometrie, do kterých mimo jiné spadá i sféra, ale",
+      "reviewFlags": []
+    },
+    {
+      "group": 313,
+      "start": 2193.814,
+      "end": 2198.814,
+      "textSk": "všelijaké iné zverstvá, ktoré sa objavia napríklad v teórii strún, ale aj všelikde inde.",
+      "draftCs": "všelijaké jiné zvěrstva, které se objeví například v teorii strun, ale i všelijaké jinde.",
+      "reviewFlags": []
+    },
+    {
+      "group": 314,
+      "start": 2198.814,
+      "end": 2207.116,
+      "textSk": "OK. A a v týchto v V priestoroch zadefinoval objekty, sa volajú Hodgeove diamanty. Hodgeove",
+      "draftCs": "A v těchto v prostorách definoval objekty, které se jmenují Hodgeovy diamanty. Hodgeovy",
+      "reviewFlags": []
+    },
+    {
+      "group": 315,
+      "start": 2207.116,
+      "end": 2217.516,
+      "textSk": "Diamanty sú také proste kôpky čísel. Ja len ukážem na jednom príklade, zdieľam to bez audia.",
+      "draftCs": "Diamanty jsou takové prostě hromádky čísel. Já jen ukážu na jednom příkladu, sdílím to bez audia.",
+      "reviewFlags": []
+    },
+    {
+      "group": 316,
+      "start": 2217.516,
+      "end": 2226.116,
+      "textSk": "Proste nejaké takéto diamantíky číselné. Uh pre tých, ktorí nás iba počúvajú, tak je to naozaj, že taká šikmá tabuľka 4 x 4, v ktorej sú",
+      "draftCs": "Uh pro ty, kteří nás pouze poslouchají, tak je to opravdu, že taková šikmá tabulka 4 x 4, ve které jsou",
+      "reviewFlags": []
+    },
+    {
+      "group": 317,
+      "start": 2226.116,
+      "end": 2235.216,
+      "textSk": "rôzne čísla typu 1 0 1 0 1 a podobne. A tieto Hodgeove diamanty",
+      "draftCs": "různá čísla typu 1 0 1 1 0 1 a podobně. A tyto Hodgeovy diamanty",
+      "reviewFlags": []
+    },
+    {
+      "group": 318,
+      "start": 2235.216,
+      "end": 2242.616,
+      "textSk": "tie opisujú nejakým spôsobom uh tie priestory, že koľko to tam má ušiek, koľko to tam má dier a tak ďalej.",
+      "draftCs": "ty popisují nějakým způsobem uh ty prostory, že kolik to tam má uší, kolik to tam má děr a tak dále.",
+      "reviewFlags": []
+    },
+    {
+      "group": 319,
+      "start": 2242.616,
+      "end": 2251.016,
+      "textSk": "A jeden konkrétny stĺpec týchto diamantov, ten stredný, ten najvyšší sa volá Hodgeov invariant.",
+      "draftCs": "A jeden konkrétní sloupec těchto diamantů, ten střední, ten nejvyšší se jmenuje Hodgeův invariant.",
+      "reviewFlags": []
+    },
+    {
+      "group": 320,
+      "start": 2251.016,
+      "end": 2259.816,
+      "textSk": "No a toto už človeku ide odpadnúť hlava, ale zatiaľ čo si treba zapamätať, že existujú nejaké číselká, ktoré vieš priradiť priestoru a ony ti o tom",
+      "draftCs": "No a toto už člověku jde odpadnout hlava hlava, ale zatímco si je třeba zapamatovat, že existují nějaká čísla, která můžeš přiřadit prostoru a ony ti o tom",
+      "reviewFlags": []
+    },
+    {
+      "group": 321,
+      "start": 2259.816,
+      "end": 2269.316,
+      "textSk": "priestore hovoria niečo, akú má štruktúru. Uh hm Druhé dôležité tvrdenie priestory môžu mať svoje podpriestory.",
+      "draftCs": "Druhé důležité tvrzení prostory mohou mít své podprostory.",
+      "reviewFlags": [
+        "length-mismatch"
+      ]
+    },
+    {
+      "group": 322,
+      "start": 2269.316,
+      "end": 2279.316,
+      "textSk": "Napríklad, keď si na povrchu zemegule, takže si na povrchu sféry, a podpriestor sféry je napríklad rovník, kružnica.",
+      "draftCs": "Například, když jsi na povrchu zeměkoule, takže jsi na povrchu sféry, a podprostor sféry je například rovník, kružnice.",
+      "reviewFlags": []
+    },
+    {
+      "group": 323,
+      "start": 2279.316,
+      "end": 2289.116,
+      "textSk": "Čiže kružnica je podpriestor celej sféry. No celé toto Hodgeovo tvrdenie je o súvislosti medzi invariantmi priestoru",
+      "draftCs": "Takže kružnice je podprostor celé sféry, ale celé toto Hodgeovo tvrzení je o souvislosti mezi invarianty prostoru",
+      "reviewFlags": []
+    },
+    {
+      "group": 324,
+      "start": 2289.116,
+      "end": 2296.916,
+      "textSk": "a invariantmi jeho podpriestorov. Inými slovami, že keď poznáš tie invarianty tých podpriestorov, či vieš",
+      "draftCs": "a invarianty jeho podprostorů, jinými slovy, že když znáš ty invarianty těch podprostorů, jestli víš",
+      "reviewFlags": []
+    },
+    {
+      "group": 325,
+      "start": 2296.916,
+      "end": 2307.116,
+      "textSk": "reprodukovať, do aké podpriestory ide. A OK A áno áno úplne úplne rozumiem. Snažíme sa len tak ako že navnímať ducha",
+      "draftCs": "reprodukovat, do jakého podprostoru jde. A OK A ano ano ano naprosto naprosto naprosto rozumím. Snažíme se jen tak jako že navjímat ducha",
+      "reviewFlags": []
+    },
+    {
+      "group": 326,
+      "start": 2307.116,
+      "end": 2313.316,
+      "textSk": "ducha tej hypotézy a sa veľmi o to je to Pre mňa je to úplne to isté, že toto už je naozaj veľmi abstraktná matematika.",
+      "draftCs": "ducha té hypotézy a se velmi o to je to Pro mě je to naprosto totéž, že toto už je opravdu velmi abstraktní matematika.",
+      "reviewFlags": []
+    },
+    {
+      "group": 327,
+      "start": 2313.316,
+      "end": 2323.016,
+      "textSk": "Uh hm Podstatné, že sa tam stretávajú rôzne matematické pohľady na geometriu. Jeden ten pohľad je tento topologický, druhý",
+      "draftCs": "Podstatné, že se tam setkávají různé matematické pohledy na geometrii, jeden ten pohled je tento topologický, druhý",
+      "reviewFlags": []
+    },
+    {
+      "group": 328,
+      "start": 2323.016,
+      "end": 2333.017,
+      "textSk": "je taký ten cez rovnice, algebraický. Uh hm A Hodge to snaží spojiť dokopy v prípade nejakom veľmi zaujímavom,",
+      "draftCs": "A Hodge se to snaží dát dohromady v případě velmi zajímavém,",
+      "reviewFlags": [
+        "length-mismatch"
+      ]
+    },
+    {
+      "group": 329,
+      "start": 2333.017,
+      "end": 2340.117,
+      "textSk": "pomerne všeobecnom, aj keď to nie je úplne všetko pokrýva. Pokrýva to len také tie pekné projektívne priestory, ktoré skúmal.",
+      "draftCs": "poměrně obecném, i když to není úplně všechno pokrývá. Pokrývá to jen takové ty pěkné projektivní prostory, které zkoumal.",
+      "reviewFlags": []
+    },
+    {
+      "group": 330,
+      "start": 2340.117,
+      "end": 2349.517,
+      "textSk": "Tá hypotéza... Prečítam tú Fricovu verziu. Hodgeova domnienka jednoducho vraví, že každá",
+      "draftCs": "Ta hypotéza... přečtu tu Fricovu verzi, Hodgeova domněnka jednoduše říká, že každá",
+      "reviewFlags": []
+    },
+    {
+      "group": 331,
+      "start": 2349.517,
+      "end": 2354.817,
+      "textSk": "Hodgeova trieda sa dá napísať ako súčet takých Hodgeových tried, ktoré zodpovedajú nejakým podčudám.",
+      "draftCs": "Hodgeova třída může být napsána jako součet takových Hodgeových tříd, které odpovídají nějakým podvodům.",
+      "reviewFlags": []
+    },
+    {
+      "group": 332,
+      "start": 2354.817,
+      "end": 2364.617,
+      "textSk": "Čudo je ten podpriestor a čudo je celý ten priestor. Čiže do akej miery pochopením základných stavebných dielikov vieš",
+      "draftCs": "Čudo je ten podprostor a zázrak je celý ten prostor, takže do jaké míry pochopením základních stavebních dílků víš",
+      "reviewFlags": []
+    },
+    {
+      "group": 333,
+      "start": 2364.617,
+      "end": 2373.017,
+      "textSk": "pochopiť celý ten priestor. Či keď poznáš tie podpriestory týmto špeciálnym spôsobom, tak poznáš aj celý",
+      "draftCs": "Jestli když poznáš ty podprostory tímto zvláštním způsobem, tak poznáš i celý",
+      "reviewFlags": []
+    },
+    {
+      "group": 334,
+      "start": 2373.017,
+      "end": 2379.017,
+      "textSk": "priestor alebo nie. A on tvrdí, že áno, v tomto je v tomto je ukryté všetko.",
+      "draftCs": "prostor nebo ne. A on tvrdí, že ano, v tomto je v tomto je ukryté všechno.",
+      "reviewFlags": []
+    },
+    {
+      "group": 335,
+      "start": 2379.017,
+      "end": 2387.517,
+      "textSk": "Ja ešte z Fricovho článku poviem len tú vetu, lebo mne to aspoň dosť, keď som si to čítal: dôkaz alebo vyvrátenie tejto domnienky by",
+      "draftCs": "Já ještě z Fricova článku řeknu jen tu větu, protože mně to alespoň dost, když jsem si to četl: důkaz nebo vyvrácení této domněnky by",
+      "reviewFlags": []
+    },
+    {
+      "group": 336,
+      "start": 2387.517,
+      "end": 2396.617,
+      "textSk": "predstavovalo veľký posun v našom porozumení komplexnej geometrie. Takže celé je to vlastne na porozumení nejakých veľmi zložitých geometrických",
+      "draftCs": "to byl velký posun v našem porozumění komplexní geometrie, takže celé je to vlastně na porozumění nějakých velmi složitých geometrických",
+      "reviewFlags": []
+    },
+    {
+      "group": 337,
+      "start": 2396.617,
+      "end": 2401.317,
+      "textSk": "tvarov alebo výpočtov, keď to môžem tak povedať. Tak áno, áno, áno.",
+      "draftCs": "tvarů nebo výpočtů, když to tak můžu říct. Tak ano, ano, ano.",
+      "reviewFlags": []
+    },
+    {
+      "group": 338,
+      "start": 2401.317,
+      "end": 2410.717,
+      "textSk": "Uhm. OK. Uhm. Áno, áno, áno, presne, presne. Dobre si to povedal. Čiže vlastně tá domnienka sa",
+      "draftCs": "Ano, ano, ano, ano, přesně, přesně, přesně, přesně, dobře jsi to řekl, takže vlastně ta domněnka se",
+      "reviewFlags": []
+    },
+    {
+      "group": 339,
+      "start": 2410.717,
+      "end": 2420.717,
+      "textSk": "zaoberá tým, či nejaké špecifické priestory sa dajú dobre opísať svojimi podpriestormi, ale je to vyjadrené v takom jazyku, ktorý prepája dve",
+      "draftCs": "zabývá tím, zda některé specifické prostory lze dobře popsat jejich podprostory, ale je to vyjádřeno takovým jazykem, který propojuje dvě",
+      "reviewFlags": []
+    },
+    {
+      "group": 340,
+      "start": 2420.717,
+      "end": 2427.417,
+      "textSk": "Dva veľmi rozdielne pohľady na geometriu. Jeden je ten algebraický cez rovnice a druhý je ten topologický.",
+      "draftCs": "Dva velmi rozdílné pohledy na geometrii, jeden je ten algebraický přes rovnice a druhý je ten topologický.",
+      "reviewFlags": []
+    },
+    {
+      "group": 341,
+      "start": 2427.417,
+      "end": 2434.717,
+      "textSk": "A ak by sa to podarilo dokázať, tak to podľa mňa že nemá že žiadne praktické aplikácie,",
+      "draftCs": "A pokud by se to podařilo dokázat, tak to podle mě že nemá žádné praktické aplikace,",
+      "reviewFlags": []
+    },
+    {
+      "group": 342,
+      "start": 2434.717,
+      "end": 2443.817,
+      "textSk": "ale zrazu to ukáže, že tie dve veľmi rozdielne oblasti matematiky sú niekde hlboko vo svojej podstate prepojené",
+      "draftCs": "ale najednou to ukáže, že tyto dvě velmi rozdílné oblasti matematiky jsou někde hluboko ve své podstatě propojeny",
+      "reviewFlags": []
+    },
+    {
+      "group": 343,
+      "start": 2443.817,
+      "end": 2449.117,
+      "textSk": "veľmi zaujímavým spôsobom. A preto to bolo označené za miléniový problém.",
+      "draftCs": "A proto to bylo označeno za problém tisíciletí.",
+      "reviewFlags": []
+    },
+    {
+      "group": 344,
+      "start": 2449.117,
+      "end": 2452.618,
+      "textSk": "Uhm. To by mohlo mať obrovský [smrkanie] vplyv nie na matematiku a tieto veci.",
+      "draftCs": "To by mohlo mít obrovský [smrkání] vliv ne na matematiku a tyto věci.",
+      "reviewFlags": []
+    },
+    {
+      "group": 345,
+      "start": 2452.618,
+      "end": 2461.218,
+      "textSk": "Takže nebudeš to teraz používať vo fabrikách alebo kde, nerozlúštiš pomocou toho kryptografiu, ale niečo zaujímavé sa dozvieš.",
+      "draftCs": "Takže nebudeš to teď používat ve fabrikách nebo kde, nerozluštíš pomocí toho kryptografii, ale něco zajímavého se dozvíš.",
+      "reviewFlags": []
+    },
+    {
+      "group": 346,
+      "start": 2461.218,
+      "end": 2472.018,
+      "textSk": "Takže toto je tá No a ako je tá AI pokročila v tomto? Lebo viem, že OpenAI",
+      "draftCs": "Takže toto je ta No a jak je ta AI pokročila v tomto? Protože vím, že OpenAI",
+      "reviewFlags": []
+    },
+    {
+      "group": 347,
+      "start": 2472.018,
+      "end": 2481.418,
+      "textSk": "vydali v septembri alebo kedy v októbri, že aj tu sa im podarilo niečo posunúť sa. Má to nejakú relevanciu vo",
+      "draftCs": "vydali v září nebo kdy v říjnu, že i zde se jim podařilo něco posunout. Má to nějakou relevanci ve",
+      "reviewFlags": []
+    },
+    {
+      "group": 348,
+      "start": 2481.418,
+      "end": 2486.018,
+      "textSk": "vede alebo zatiaľ sa len čaká, že ešte že čo sa s tým spraví?",
+      "draftCs": "vědě nebo zatím se jen čeká, že ještě že co se s tím udělá?",
+      "reviewFlags": []
+    },
+    {
+      "group": 349,
+      "start": 2486.018,
+      "end": 2496.018,
+      "textSk": "No bolo tvrdenie, že že niečo sa pre ňu dokázalo, nejaká špecifická verzia, takzvaná racionálna, ale racionálna znamená",
+      "draftCs": "No bylo tvrzení, že něco se pro ni dokázalo, nějaká specifická verze, takzvaná racionální, ale racionální znamená",
+      "reviewFlags": []
+    },
+    {
+      "group": 350,
+      "start": 2496.018,
+      "end": 2503.718,
+      "textSk": "zlomky. ako takáto verzia. Nie úplne tá všeobecná v nejakom",
+      "draftCs": "zlomky. jako taková verze. Ne úplně ta obecná v nějakém",
+      "reviewFlags": []
+    },
+    {
+      "group": 351,
+      "start": 2503.718,
+      "end": 2513.518,
+      "textSk": "v nejakom špecifickom tvare. Takže patrí to do toho že z niečím sa pohlo, ale nie je to",
+      "draftCs": "Takže patří to do toho že z něčím se pohnulo, ale není to",
+      "reviewFlags": []
+    },
+    {
+      "group": 352,
+      "start": 2513.518,
+      "end": 2523.318,
+      "textSk": "Úplne to, s čím sa malo pohnúť. A podobne ako pri tom, čo urobili s Riemannovou hypotézou, že vlastne nie je",
+      "draftCs": "A podobně jako u toho, co udělali s Riemannovou hypotézou, že ve skutečnosti není",
+      "reviewFlags": []
+    },
+    {
+      "group": 353,
+      "start": 2523.318,
+      "end": 2533.318,
+      "textSk": "jasné, že či ten čiastkový progres nejako smeruje k tomu celkovému progresu, že či to nie je len také, že že možno má nejakú odbočku alebo niečo také, že",
+      "draftCs": "jasné, že zda ten dílčí progres nějak směřuje k tomu celkovému progresu, že zda to není jen takové, že možná má nějakou odbočku nebo něco takového, že",
+      "reviewFlags": []
+    },
+    {
+      "group": 354,
+      "start": 2533.318,
+      "end": 2540.218,
+      "textSk": "áno presne presne, že je to zaujímavá odbočka, ale nevieme, že či nám to vlastne pomôže k tomu tomu celkovému výsledku.",
+      "draftCs": "Ano přesně přesně, že je to zajímavá odbočka, ale nevíme, jestli nám to vlastně pomůže k tomu tomu celkovému výsledku.",
+      "reviewFlags": []
+    },
+    {
+      "group": 355,
+      "start": 2540.218,
+      "end": 2547.018,
+      "textSk": "Ale aj to je zaujímavé, že aspoň aj keby že je to len odbočka, takže niečo takéto AI dokázalo spraviť.",
+      "draftCs": "Ale i to je zajímavé, že alespoň i kdyby že je to jen odbočka, takže něco takového AI dokázalo udělat.",
+      "reviewFlags": []
+    },
+    {
+      "group": 356,
+      "start": 2547.018,
+      "end": 2555.618,
+      "textSk": "Ale veľmi veľmi to šumelo vo vedeckej komunite a teraz keď som to len hodil do Googlu, tak naozaj je tam veľa článkov, kde že je to na spadnutie a neviem čo a",
+      "draftCs": "ale velmi velmi to šumelo ve vědecké komunitě a teď když jsem to jen hodil do Google, tak opravdu je tam mnoho článků, kde že je to na spadnutí a nevím co a",
+      "reviewFlags": []
+    },
+    {
+      "group": 357,
+      "start": 2555.618,
+      "end": 2559.769,
+      "textSk": "potom bolo ticho a zrazu oznámili významný progres v troch iných úlohách.",
+      "draftCs": "pak bylo ticho a najednou oznámili významný pokrok ve třech jiných úkolech.",
+      "reviewFlags": []
+    },
+    {
+      "group": 358,
+      "start": 2559.769,
+      "end": 2560.418,
+      "textSk": "[lapanie po dychu]",
+      "draftCs": "[lapání po dechu]",
+      "reviewFlags": []
+    },
+    {
+      "group": 359,
+      "start": 2560.418,
+      "end": 2570.518,
+      "textSk": "Rozmýšľam, či sa nestala taká vec že umelá inteligencia im vyplula niečo oni to zverejnili a potom zistili, že to",
+      "draftCs": "Zajímalo by mě, jestli se nestala taková věc že umělá inteligence jim vypl vypl vypl vypl vypl vypl vypl vyplula něco oni to zveřejnili a pak zjistili, že to",
+      "reviewFlags": []
+    },
+    {
+      "group": 360,
+      "start": 2570.518,
+      "end": 2579.92,
+      "textSk": "je zlé. A to teraz Že nevedeli to sami overiť, nie? Že To je moja hypotéza, hej, že že niekto na to upozornil, že je tam niečo niečo nesprávne.",
+      "draftCs": "A to teď že nevěděli to sami ověřit, ne? Že To je moje hypotéza, hej, že že někdo na to upozornil, že je tam něco něco špatně.",
+      "reviewFlags": []
+    },
+    {
+      "group": 361,
+      "start": 2579.92,
+      "end": 2589.52,
+      "textSk": "Hm. Veď teraz stalo, nie? Eh na to spravila nejaký blog. Viem, že eh Áno áno áno. Jeho jeho blog je skvelé čítať. Ako že on je",
+      "draftCs": "Hm. Vždyť teď stalo, ne? Eh na to udělala nějaký blog. Vím, že eh Ano ano ano ano. Jeho jeho blog je skvělé číst. Jako že on je",
+      "reviewFlags": []
+    },
+    {
+      "group": 362,
+      "start": 2589.52,
+      "end": 2598.52,
+      "textSk": "hm pravdepodobne najtalentovanejší matematik eh ktorý ktorý teraz žije, ale zároveň píše blogy, ktoré sú často zrozumiteľné. Ako že niektoré sú možno zrozumiteľné len",
+      "draftCs": "hm pravděpodobně nejtalentovanější matematik eh který nyní žije, ale zároveň píše blogy, které jsou často srozumitelné. Jako že některé jsou možná srozumitelné jen",
+      "reviewFlags": []
+    },
+    {
+      "group": 363,
+      "start": 2598.52,
+      "end": 2606.92,
+      "textSk": "pre študentov matematiky, ale niektoré naozaj už vie že ho sleduje široká verejnosť, takže často píše blogy, ktoré sú zrozumiteľné pre všetkých a",
+      "draftCs": "pro studenty matematiky, ale některé opravdu už ví že ho sleduje široká veřejnost, takže často píše blogy, které jsou srozumitelné pro všechny a",
+      "reviewFlags": []
+    },
+    {
+      "group": 364,
+      "start": 2606.92,
+      "end": 2612.42,
+      "textSk": "Ja by som to tak povedal, že o takých zložitých veciach ako píše sú veľmi zrozumiteľné tie blogy. Tak.",
+      "draftCs": "Já bych to tak řekl, že o takových složitých věcech jako píše jsou velmi srozumitelné ty blogy.",
+      "reviewFlags": []
+    },
+    {
+      "group": 365,
+      "start": 2612.42,
+      "end": 2616.02,
+      "textSk": "Ale to normálne, že ako keby si mohol teraz čítať, že Einsteinove blogy.",
+      "draftCs": "Ale to normální, že jako kdyby si mohl teď číst, že Einsteinovy blogy.",
+      "reviewFlags": []
+    },
+    {
+      "group": 366,
+      "start": 2616.02,
+      "end": 2620.52,
+      "textSk": "No cool by to bolo, nie? Tak tak v tomto prípade eh vlastne môžeš.",
+      "draftCs": "No cool by to bylo, ne? Tak tak v tomto případě eh vlastně můžeš.",
+      "reviewFlags": []
+    },
+    {
+      "group": 367,
+      "start": 2620.52,
+      "end": 2628.72,
+      "textSk": "že Einstein by mal nejaký blog alebo niečo, že to je to je úplne Eh takže nateraz to vyzerá tak, že OpenAI",
+      "draftCs": "že Einstein Einstein by měl nějaký blog nebo něco, že to je to je úplně Eh takže prozatím to vypadá tak, že OpenAI",
+      "reviewFlags": []
+    },
+    {
+      "group": 368,
+      "start": 2628.72,
+      "end": 2638.02,
+      "textSk": "túto domnienku nezlomilo. My môžeme byť radi, že sa nám ju podarilo zlomiť v tom, že ju môžeme odškrt Kokso, že keby sme teraz keby nám padlo nahrávanie, tak",
+      "draftCs": "My můžeme být rádi, že se nám ji podařilo zlomit v tom, že ji můžeme odškrt Kokso, že kdybychom teď kdyby nám padlo nahrávání, tak",
+      "reviewFlags": []
+    },
+    {
+      "group": 369,
+      "start": 2638.02,
+      "end": 2644.82,
+      "textSk": "by ma asi piclo. Strašne som rád, že máme toto že máme toto z obliga.",
+      "draftCs": "Jsem strašně rád, že máme tohle, že máme tohle z obliga.",
+      "reviewFlags": []
+    },
+    {
+      "group": 370,
+      "start": 2644.82,
+      "end": 2650.82,
+      "textSk": "Padlo padlo niečo, či? Nie nie nie nie. Na šťastie nepadlo. Už sa nám párkrát stalo, ale mám pocit, že keby sme nanovo mali nahrávať túto jeho",
+      "draftCs": "Padlo pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa pa? ne ne ne ne ne ne naštěstí ne ne ne naštěstí to ne ne. už se nám párkrát stalo, ale mám pocit, že kdybychom znovu měli nahrávat tuto jeho",
+      "reviewFlags": [
+        "length-mismatch"
+      ]
+    },
+    {
+      "group": 371,
+      "start": 2650.82,
+      "end": 2656.055,
+      "textSk": "Joeovu hypotézu. Dúfam, že to čo si ľudia z tejto Ja som sa zľakol, ako si to len",
+      "draftCs": "Doufám, že to co si lidé z této já jsem se lekl, jak si to jen",
+      "reviewFlags": []
+    },
+    {
+      "group": 372,
+      "start": 2656.055,
+      "end": 2656.92,
+      "textSk": "[smiech]",
+      "draftCs": "[smích]",
+      "reviewFlags": []
+    },
+    {
+      "group": 373,
+      "start": 2656.92,
+      "end": 2664.22,
+      "textSk": "Dúfam, že to čo si ľudia odnesú odnesú z tejto epizódy je hlavne to rozprávanie o matematike, že matematika po prvé nie je o číslach a pamätám si, že keď som začal",
+      "draftCs": "Doufám, že to co si lidé odnesou z této epizody odnesou z této epizody je hlavně to mluvení o matematice, že matematika za prvé není o číslech a pamatuji si, že když jsem začal",
+      "reviewFlags": []
+    },
+    {
+      "group": 374,
+      "start": 2664.22,
+      "end": 2671.32,
+      "textSk": "študovať na Matfyze a išli sme niekam na kofolu, tak vždy sa všetci pozerali na mňa, že ty rozpočítaj účet, lebo ty chodíš na Matfyz.",
+      "draftCs": "Studovali jsme na Matfyz, a šli jsme na kofol, tak že všickni všickni na mne se dívali, že ty počítáš účty; nebo ty chodíš na Matfyz.",
+      "reviewFlags": []
+    },
+    {
+      "group": 375,
+      "start": 2671.32,
+      "end": 2676.72,
+      "textSk": "A teraz už ľudia pochopia, že čísla... Ja som nevidel čísla od strednej školy.",
+      "draftCs": "A teď už lidé pochopí, že čísla... já jsem neviděl čísla od střední školy.",
+      "reviewFlags": []
+    },
+    {
+      "group": 376,
+      "start": 2676.72,
+      "end": 2685.62,
+      "textSk": "Podľa mňa keby ľudia videli, aké veci si hádžem do kalkulačky, tak štvrtina ľudí zruší našu podporu cez Herohero.",
+      "draftCs": "Podle mě kdyby lidé viděli, jaké věci si házím do kalkulačky, tak čtvrtina lidí zruší naši podporu přes Herohero.",
+      "reviewFlags": []
+    },
+    {
+      "group": 377,
+      "start": 2685.62,
+      "end": 2692.32,
+      "textSk": "Možno by sa viacej ľudí pridalo, vieš? Z ľútosti, hej? Alebo že už už tomu nerozumejú.",
+      "draftCs": "Možná by se víc lidí přidalo, víš? Z lítosti, jo? Nebo že už tomu nerozumí.",
+      "reviewFlags": []
+    },
+    {
+      "group": 378,
+      "start": 2692.32,
+      "end": 2701.721,
+      "textSk": "Hej, že že Eh dobre Samko, ja ti veľmi pekne ďakujem. Ja ti poviem, že troška si ma priviedol k tomu, takže podľa mňa obrovský úspech, že aby som",
+      "draftCs": "Jo, že Eh dobře Samko Samko, já ti velmi mnohokrát děkuji. Já ti řeknu, že trochu jsi mě přivedl k tomu, takže podle mě obrovský úspěch, že abych",
+      "reviewFlags": []
+    },
+    {
+      "group": 379,
+      "start": 2701.721,
+      "end": 2712.521,
+      "textSk": "Hodgeovu hypotézu troška viac... Poslednú otázku. Ja viem, že som hovoril, že nebudeme dávať námety, ale Hodge by bol dobrý námet na podcast?",
+      "draftCs": "Poslední otázka. Já vím, že jsem říkal, že nebudeme dávat náměty, ale Hodge by byl dobrý námět na podcast?",
+      "reviewFlags": []
+    },
+    {
+      "group": 380,
+      "start": 2712.521,
+      "end": 2721.421,
+      "textSk": "Vieš čo, podľa mňa Hodge ani nie, lebo on sa venoval len takýmto veciam a ruku na srdce, keby toto nebol miléniový",
+      "draftCs": "Víš co, podle mě Hodge ani ne, protože on se věnoval jen takovým věcem a ruku na srdce, kdyby tohle nebyl miléniový",
+      "reviewFlags": []
+    },
+    {
+      "group": 381,
+      "start": 2721.421,
+      "end": 2724.721,
+      "textSk": "problém, tak o tom epizódu nerobíme. Nalejem si čistého vína.",
+      "draftCs": "Problém, tak o tom epizodu neděláme. Naleju si čistého vína.",
+      "reviewFlags": []
+    },
+    {
+      "group": 382,
+      "start": 2724.721,
+      "end": 2727.621,
+      "textSk": "je to také, že",
+      "draftCs": "je to takové",
+      "reviewFlags": []
+    },
+    {
+      "group": 383,
+      "start": 2729.521,
+      "end": 2737.921,
+      "textSk": "Zachytil, vieš že nechcem byť blbý, ale že z pohľadu toho, čo sme k tomu vysvetlili, tak takýchto hypotéz je v matematike oveľa viacej a",
+      "draftCs": "Zachytil, víš že nechci být blbý, ale že z pohledu toho, co jsme k tomu vysvětlili, tak takových hypotéz je v matematice mnohem víc a",
+      "reviewFlags": []
+    },
+    {
+      "group": 384,
+      "start": 2737.921,
+      "end": 2741.921,
+      "textSk": "mnohé z nich by som povedal, že sú oveľa zaujímavejšie. Toto je brutálne zaujímavé.",
+      "draftCs": "mnohé z nich bych řekl, že jsou mnohem zajímavější. toto je brutálně zajímavé.",
+      "reviewFlags": []
+    },
+    {
+      "group": 385,
+      "start": 2741.921,
+      "end": 2751.921,
+      "textSk": "Navier Stokes podľa mňa celkom zaujímavý. Mali ten, že Francúz, ktorý začal potom ten Toto je, že podľa mňa, že pre širokú verejnosť",
+      "draftCs": "Navier Stokes podle mě docela zajímavý. Měli ten, že Francouz Francouz, který začal pak ten Toto je, že podle mě, že pro širokou veřejnost",
+      "reviewFlags": []
+    },
+    {
+      "group": 386,
+      "start": 2751.921,
+      "end": 2762.321,
+      "textSk": "jedna z tých najmenej zaujímavých Milenových úloh, ale keďže ideme cez všetky, museli sme cez ňu prejsť a je super zaujímavá prúd",
+      "draftCs": "jedna z těch nejméně zajímavých Milenových úkolů, ale protože jdeme přes všechny, museli jsme přes ní projít a je super zajímavá proud",
+      "reviewFlags": []
+    },
+    {
+      "group": 387,
+      "start": 2762.321,
+      "end": 2769.721,
+      "textSk": "a tak ďalej. A algebraickú geometriu, tak týmito vecami žiješ.",
+      "draftCs": "A algebraickou geometrii, tak těmito věcmi žiješ.",
+      "reviewFlags": []
+    },
+    {
+      "group": 388,
+      "start": 2769.721,
+      "end": 2779.221,
+      "textSk": "A ináč pozerám, akurát som to teraz rýchlo hodil. Naozaj to vyzerá tak, že moje podozrenie nebolo",
+      "draftCs": "A jinak se dívám, akorát jsem to teď rychle hodil. Opravdu to vypadá tak, že moje podezření nebylo",
+      "reviewFlags": []
+    },
+    {
+      "group": 389,
+      "start": 2779.221,
+      "end": 2787.221,
+      "textSk": "Nebolo mylné a publikovali niečo z interného modelu OpenAI.",
+      "draftCs": "Nebylo to mylné a publikovali něco z interního modelu OpenAI.",
+      "reviewFlags": []
+    },
+    {
+      "group": 390,
+      "start": 2787.221,
+      "end": 2792.521,
+      "textSk": "a stiahnutie troch prác bolo 7. októbra.",
+      "draftCs": "stažení tří prací bylo 7. října.",
+      "reviewFlags": []
+    },
+    {
+      "group": 391,
+      "start": 2794.521,
+      "end": 2801.721,
+      "textSk": "A niekto potom o dva týždne na to publikoval rozbor chýb, ktorý už je teraz publikovaný na arXive ako článok.",
+      "draftCs": "A někdo pak za dva týdny na to publikoval rozbor chyb, který již je nyní publikován na arXive jako článek.",
+      "reviewFlags": []
+    },
+    {
+      "group": 392,
+      "start": 2801.721,
+      "end": 2806.421,
+      "textSk": "No ale takto funguje vo vede. Nie je ani AI neomylná zatiaľ.",
+      "draftCs": "No ale takhle funguje ve vědě. Není ani AI neomylná zatím.",
+      "reviewFlags": []
+    },
+    {
+      "group": 393,
+      "start": 2806.421,
+      "end": 2811.292,
+      "textSk": "Toto je ináč strašne dôležité. Toto je vlastne možno najdôležitejšie ponaučenie celej epizódy.",
+      "draftCs": "Toto je vlastně možná nejdůležitější ponaučení celé epizody.",
+      "reviewFlags": []
+    },
+    {
+      "group": 394,
+      "start": 2811.292,
+      "end": 2812.221,
+      "textSk": "[smiech]",
+      "draftCs": "[smích]",
+      "reviewFlags": []
+    },
+    {
+      "group": 395,
+      "start": 2812.221,
+      "end": 2815.921,
+      "textSk": "Ono hrozí taká vec, že",
+      "draftCs": "Ono hrozí taková věc, že",
+      "reviewFlags": []
+    },
+    {
+      "group": 396,
+      "start": 2816.821,
+      "end": 2823.422,
+      "textSk": "Človek napíše niečo do AI-čka, ono mu vyprodukuje výsledok, ktorý vyzerá rozumne, ale je nesprávny.",
+      "draftCs": "Člověk napíše něco do AI-čka, ono mu vyprodukuje výsledek, který vypadá rozumně, ale je nesprávný.",
+      "reviewFlags": []
+    },
+    {
+      "group": 397,
+      "start": 2823.422,
+      "end": 2833.323,
+      "textSk": "Uhm. A v istom bode môže byť nad naše sily schopnosť overiť, ktoré z tých tvrdení sú správne, ktoré sú nesprávne. Oni naozaj, že oni vyprodukovali, neviem, či",
+      "draftCs": "A v určitém bodě může být nad naše síly schopnost ověřit, které z těch tvrzení jsou správné, které jsou nesprávné. Oni opravdu, že oni vyprodukovali, nevím, zda",
+      "reviewFlags": []
+    },
+    {
+      "group": 398,
+      "start": 2833.323,
+      "end": 2843.323,
+      "textSk": "to už dnes nebude, že stovky výsledkov matematických. Strašne to odradí hocikoho, aby sa tomu venoval, ale zároveň nemáš tú istotu, že to je správne, lebo tie dôkazy sú",
+      "draftCs": "to už dnes nebude, že stovky výsledků matematických. Strašně to odradí kohokoli, aby se tomu věnoval, ale zároveň nemáš tu jistotu, že to je správné, protože ty důkazy jsou",
+      "reviewFlags": []
+    },
+    {
+      "group": 399,
+      "start": 2843.323,
+      "end": 2849.723,
+      "textSk": "napísané škaredo, rozťahovalo. Sem-tam obsahujú chyby. A teraz čo s tým?",
+      "draftCs": "Napsané ošklivě, roztahovalo. Sem-tam obsahují chyby. A teď co s tím?",
+      "reviewFlags": []
+    },
+    {
+      "group": 400,
+      "start": 2849.723,
+      "end": 2859.823,
+      "textSk": "No nie ako človek tou mravenčou prácou tou matematickou, že by si asi overil, že postupne ide a tak ďalej. No veď len OpenAI pri tomto probléme 722",
+      "draftCs": "No ne jako člověk tou mravenčí prací tou matematickou, že by si asi ověřil, že postupně jde a tak dále. No vždy jen OpenAI při tomto problému 722",
+      "reviewFlags": []
+    },
+    {
+      "group": 401,
+      "start": 2859.823,
+      "end": 2869.223,
+      "textSk": "matematických dôkazov uverejnilo v októbri. No. A Už len to skontrolovať je podľa mňa, že neuveriteľná heraklovská úloha.",
+      "draftCs": "No. A Už jen to zkontrolovat je podle mě, že neuvěřitelná heraklovská úkol.",
+      "reviewFlags": []
+    },
+    {
+      "group": 402,
+      "start": 2869.223,
+      "end": 2879.023,
+      "textSk": "Ja sa snažím vo výskume používať AI-čko, ale nie tým štýlom, že napíšeš zadanie a skopíruješ výsledok, ale povieš, že budem s touto úlohou, mám pocit, že",
+      "draftCs": "Já se snažím ve výzkumu používat AI-čko, ale ne tím stylem, že napíšeš zadání a zkopíruješ výsledek, ale řekneš, že budu s tímto úkolem, mám pocit, že",
+      "reviewFlags": []
+    },
+    {
+      "group": 403,
+      "start": 2879.023,
+      "end": 2888.323,
+      "textSk": "treba ísť takýmto smerom. Skús pozapúšťať, dávať dokopy nejaké nápady, ktoré lietajú v rôznych oblastiach, lebo ako som povedal, ty sa odborne venuješ",
+      "draftCs": "Zkus zapomínat, dávat dohromady nějaké nápady, které létají v různých oblastech, protože jak jsem řekl, ty se odborně věnuješ",
+      "reviewFlags": []
+    },
+    {
+      "group": 404,
+      "start": 2888.323,
+      "end": 2893.223,
+      "textSk": "iným vedným oblastiam a ten zaujímavý nástroj, ktorý potrebuješ, sa nachádza o dvere vedľa.",
+      "draftCs": "jiným vědním oborům a ten zajímavý nástroj, který potřebuješ, se nachází o dveře vedle.",
+      "reviewFlags": []
+    },
+    {
+      "group": 405,
+      "start": 2893.223,
+      "end": 2900.223,
+      "textSk": "A AI je strašne dobrá na toto, na pozeranie do tých vedľajších dverí a že aha, však tu môžeš použiť takýto medzivýsledok.",
+      "draftCs": "A AI je strašně dobrá na tohle, na koukání do těch vedlejších dveří a že aha, však zde můžeš použít takový mezivýsledek.",
+      "reviewFlags": []
+    },
+    {
+      "group": 406,
+      "start": 2900.223,
+      "end": 2909.622,
+      "textSk": "A je potom na tebe, aby si overil, či je to naozaj tak a či to všetko sedí a tak ďalej, ale momentálne pre mňa AI-čko predstavuje takého",
+      "draftCs": "A je pak na tobě, aby si ověřil, zda je to opravdu tak a zda to všechno sedí a tak dál, ale momentálně pro mě AI-čko představuje takového",
+      "reviewFlags": []
+    },
+    {
+      "group": 407,
+      "start": 2909.622,
+      "end": 2919.622,
+      "textSk": "výskumného skauta. Hm. Že poviem, že Pošleš, ono ti to prebehne, ale ty potom pošleš tú svoju armádu, aby to urobila poriadne. A povieš, že tuto by to malo",
+      "draftCs": "výzkumného skauta. Hm. Že řeknu, že pošleš, ono ti to přeběhne, ale ty pak pošleš tu svou armádu, aby to udělala pořádně. A řekneš, že tady by to mělo",
+      "reviewFlags": []
+    },
+    {
+      "group": 408,
+      "start": 2919.622,
+      "end": 2930.323,
+      "textSk": "byť zhodné a ty to skúsiš. Toľkokrát mi napísalo počas toho, že napíšem, že toto sa mi nezdá. Jaj, hupsík, tam som spravil chybu, tam som spravil chybu, tam som spravil chybu.",
+      "draftCs": "být shodné a ty to zkusíš. Tolikrát mi napsalo během toho, že napíšu, že tohle se mi nezdá. Jaj, hupsíku, tam jsem udělal chybu, tam jsem udělal chybu, tam jsem udělal chybu.",
+      "reviewFlags": []
+    },
+    {
+      "group": 409,
+      "start": 2930.323,
+      "end": 2941.024,
+      "textSk": "ani nehovor Hej, jaj, že pozri mi prosím ťa tento text. Dal by som tam eh toto rozhodnutie? Ja pozerám, že veď neexistuje. Jaj, prepáč, asi som si to",
+      "draftCs": "ani neříkej Hej, vejce, že viz mi prosím tě tento text. Dal bych tam eh toto rozhodnutí? Já dívám, že vždy neexistuje. Jaj, promiň, asi jsem si to",
+      "reviewFlags": []
+    },
+    {
+      "group": 410,
+      "start": 2941.024,
+      "end": 2945.568,
+      "textSk": "nejako asi som si to nejako zle vyložil. A ja že čo si si zle vyložil.",
+      "draftCs": "Asi jsem si to nějak špatně vyložil a já si myslím, že co sis špatně vyložil.",
+      "reviewFlags": []
+    },
+    {
+      "group": 411,
+      "start": 2945.568,
+      "end": 2946.824,
+      "textSk": "[smrkanie]",
+      "draftCs": "[smrkání]",
+      "reviewFlags": []
+    },
+    {
+      "group": 412,
+      "start": 2946.824,
+      "end": 2956.703,
+      "textSk": "Takže [smiech] treba si dať pozor, aby sa nám toto nestalo a predtým to extrémne varuje Terence Tao, že aby sme proste že naším cieľom má byť na",
+      "draftCs": "Takže [sm smích] je třeba si dát pozor, aby se nám toto nestalo a předtím to extrémně varuje Terence Tao, že abychom prostě že naším cílem má být na",
+      "reviewFlags": []
+    },
+    {
+      "group": 413,
+      "start": 2956.703,
+      "end": 2957.524,
+      "textSk": "[vzdychanie]",
+      "draftCs": "[vzdychání]",
+      "reviewFlags": []
+    },
+    {
+      "group": 414,
+      "start": 2957.524,
+      "end": 2966.724,
+      "textSk": "že naším cieľom má byť efektívnosť a nie rýchlosť. A že je dobré, keď používaš AI na efektívnosť, že presne rýchlejšie preskautuješ rôzne možnosti, ale nemáš",
+      "draftCs": "že naším cílem má být efektivnost a ne rychlost. A že je dobré, když používáš AI na efektivnost, že přesně rychleji proskautuješ různé možnosti, ale nemáš",
+      "reviewFlags": []
+    },
+    {
+      "group": 415,
+      "start": 2966.724,
+      "end": 2973.924,
+      "textSk": "to používať na eh hrubú rýchlosť, eh lebo potom sa to proste začne zacyklovať do chýb.",
+      "draftCs": "to používat na eh hrubou rychlost, eh protože pak se to prostě začne zacyklovat do chyb.",
+      "reviewFlags": []
+    },
+    {
+      "group": 416,
+      "start": 2973.924,
+      "end": 2983.424,
+      "textSk": "Tak s týmto by som ja ukončil dnešnú epizódu. Pekne si to, myslím, s parafrázovaním Terencea Taa... Terence Tao sa volá? Áno,",
+      "draftCs": "Tak s tímto bych já ukončil dnešní epizodu. Pěkně si to, myslím, s parafrázováním Terence Taa... Terence Tao se jmenuje?",
+      "reviewFlags": []
+    },
+    {
+      "group": 417,
+      "start": 2983.424,
+      "end": 2993.384,
+      "textSk": "áno. Eh eh si ho odparafrázoval. Ďakujem ti veľmi pekne, Samko. Dneska sme sa rozprávali o Hodgeovej hypotéze, ktorá",
+      "draftCs": "Ano. Eh eh eh jsi ho odparaparafrázoval. Děkuji moc pěkně, Samko Samko. Dnes jsme mluvili o Hodgeově hypotéze, která",
+      "reviewFlags": []
+    },
+    {
+      "group": 418,
+      "start": 2993.384,
+      "end": 2999.924,
+      "textSk": "[smrkanie] jej vyriešenie by nám mohlo pomôcť v veľmi teoretickej geometrii, by som to tak povedal.",
+      "draftCs": "[smrkání] její vyřešení by nám mohlo pomoci ve velmi teoretické geometrii, bych to tak řekl.",
+      "reviewFlags": []
+    },
+    {
+      "group": 419,
+      "start": 2999.924,
+      "end": 3009.924,
+      "textSk": "Áno, áno. Pekne si to zhrnul. No, tak dvojacie to nebude ani Ale viem, že sú tam nejaké podmnožiny a tak ďalej, takže eh",
+      "draftCs": "No, tak dvojí to nebude ani, ale vím, že tam jsou nějaké podmnožiny a tak dále, takže eh",
+      "reviewFlags": []
+    },
+    {
+      "group": 420,
+      "start": 3009.924,
+      "end": 3015.524,
+      "textSk": "podaj možno raz Frica odchytím a bude ťahať rozoby, aby mi to viac vysvetlil.",
+      "draftCs": "možná jednou Frica odchytím a bude tahat rozoby, aby mi to víc vysvětlil.",
+      "reviewFlags": []
+    },
+    {
+      "group": 421,
+      "start": 3015.524,
+      "end": 3025.724,
+      "textSk": "Ja mám akože dlho už dohodnutého Lukáša Konečného, ktorý tiež píše na Vedátora občasne, a aj Frica už sme nejako tak... On sa venuje supergravitácii.",
+      "draftCs": "Já mám jakože dlouho už dohodnutého Lukáše Konečného, který také píše na Vedátora občasně, a i Frica už jsme nějak tak... On se věnuje supergravitaci.",
+      "reviewFlags": []
+    },
+    {
+      "group": 422,
+      "start": 3025.724,
+      "end": 3031.024,
+      "textSk": "Uh. Tak už on keby o tom niečo porozprával, ale je to, že ako gravitácia.",
+      "draftCs": "No, on by si o tom měl promluvit, ale je to jako gravitace.",
+      "reviewFlags": []
+    },
+    {
+      "group": 423,
+      "start": 3031.024,
+      "end": 3038.124,
+      "textSk": "Eh Dobre, tak určite budeme sa tešiť, ako ich zavoláme. A Juraja by sme inak mohli znova zavolať, lebo viem, že sa páčilo jeho vysvetľovanie.",
+      "draftCs": "Eh Dobře, tak určitě budeme se těšit, jak je zavoláme. A Juraje bychom jinak mohli znovu zavolat, protože vím, že se líbilo jeho vysvětlování.",
+      "reviewFlags": []
+    },
+    {
+      "group": 424,
+      "start": 3038.124,
+      "end": 3043.424,
+      "textSk": "skúsiť tak 2027, lebo by mal on pretrly, keby som mu teraz niečo navrhol.",
+      "draftCs": "zkusit tak 2027, neboť by měl on přetrpěly, kdybych mu teď něco navrhl.",
+      "reviewFlags": []
+    },
+    {
+      "group": 425,
+      "start": 3043.424,
+      "end": 3051.024,
+      "textSk": "Hej, hej, hej. To som rozprával som sa s ním [lapanie po dychu] Dobre. Ďakujem veľmi pekne, že nás počúvate. Nájdete nás na všetkých dobrých a troška horších",
+      "draftCs": "Hej, hej, hej. To jsem mluvil jsem se s ním [lapání po dechu] Dobře. Děkuji mnohokrát mnohokrát, že nás posloucháte. Najdete nás na všech dobrých a trochu horších",
+      "reviewFlags": []
+    },
+    {
+      "group": 426,
+      "start": 3051.024,
+      "end": 3059.924,
+      "textSk": "podcastových aplikáciách. Samko bude mať dve vynikajúce prednášky na tú istú tému, hľadanie mimozemského života. My máme o tom celú sériu alebo dokonca",
+      "draftCs": "podcastových aplikacích. Samko bude mít dvě vynikající přednášky na stejné téma, hledání mimozemského života. My máme o tom celou sérii nebo dokonce",
+      "reviewFlags": []
+    },
+    {
+      "group": 427,
+      "start": 3059.924,
+      "end": 3066.725,
+      "textSk": "sériu a ešte pár epizód k Bude to 7. decembra v v KC Dunaj. Káčko, áno, áno.",
+      "draftCs": "sérii a ještě pár epizod k Bude to 7. prosince v KC Dunaj. Káčko, ano, ano.",
+      "reviewFlags": []
+    },
+    {
+      "group": 428,
+      "start": 3066.725,
+      "end": 3075.525,
+      "textSk": "17. 19. Eh ja prídem na tú neskoršiu, takže keď budete chcieť aj pokecať o podcaste alebo tak, tak nás tam určite uvidíte so",
+      "draftCs": "17. 19. 19. Eh já přijdu na tu pozdější, takže když budete chtít i pokecat o podcastu nebo tak, tak nás tam určitě uvidíte se",
+      "reviewFlags": []
+    },
+    {
+      "group": 429,
+      "start": 3075.525,
+      "end": 3084.125,
+      "textSk": "Samkom a možno si aj sadneme na nejakú limonádu potom s vami alebo pokecať o budem dobre odpálený a tam ono ja čelo mám čelo mám",
+      "draftCs": "Sam samkem a možná si i sedneme na nějakou limonádu pak s vámi nebo pokecat o budu dobře odpálený a tam ono já čelo mám čelo mám",
+      "reviewFlags": []
+    },
+    {
+      "group": 430,
+      "start": 3084.125,
+      "end": 3093.525,
+      "textSk": "tieto ty tam budeš podpisovať eh knižky a tak, takže nič. Eh Samkova nová kniha eh Vesmírna",
+      "draftCs": "tyhle ty tam budeš podepisovat eh knížky a tak, takže nic. Eh Samkova nová kniha eh Vesmírná",
+      "reviewFlags": []
+    },
+    {
+      "group": 431,
+      "start": 3093.525,
+      "end": 3103.925,
+      "textSk": "kolíska. Viete si ju zakúpiť všade, je to perfektná a hlavne jej veľkosť je úplne dokonalá na cestu a takto, takže ja nemôžem ju viacej odporučiť. Už som",
+      "draftCs": "kolíště. Víte si ji zakoupit všude, je to perfektní a hlavně její velikost je naprosto dokonalá na cestu a takto, takže ji už nemohu doporučit. Už jsem",
+      "reviewFlags": []
+    },
+    {
+      "group": 432,
+      "start": 3103.925,
+      "end": 3114.725,
+      "textSk": "prečítal asi polku z nej, takže úplne super. to ma teší. hej, perfektné. A posledná vec, budeme mať dve alebo tri akcie ešte ako cez",
+      "draftCs": "přečetl asi půlku z ní, takže úplně super. to mě těší. hej, perfektní. A poslední věc, budeme mít dvě nebo tři akce ještě jako přes",
+      "reviewFlags": []
+    },
+    {
+      "group": 433,
+      "start": 3114.725,
+      "end": 3124.725,
+      "textSk": "Hero Hero. Bude jedno live nahrávanie, jedna špeciálna akcia a ešte jedna špeciálna akcia, o ktorých vám povieme a dozviete sa na tom najprv na Hero Hero.",
+      "draftCs": "Hero Hero. Bude jedno live nahrávání, jedna speciální akce a ještě jedna speciální akce, o kterých vám povíme a dozvíte se o tom nejprve na Hero Hero Hero.",
+      "reviewFlags": []
+    },
+    {
+      "group": 434,
+      "start": 3124.725,
+      "end": 3134.925,
+      "textSk": "Máme zadarmo Hero Hero prvé dva jeden týždeň. [smrkanie] Eh nájdete si to tam, takže počas varenia a pečenia koláčov a iných vecí a potom si môžete zrušiť",
+      "draftCs": "Máme zdarma Hero Hero Hero první dva jeden týden. [smrkání] Eh najdete si to tam, takže během vaření a pečení koláčů a jiných věcí a pak si můžete zrušit",
+      "reviewFlags": []
+    },
+    {
+      "group": 435,
+      "start": 3134.925,
+      "end": 3141.325,
+      "textSk": "že vy nás chcete počúvať stále a si to len predplatíte ďalej, takže takže tak. Majte sa pekne.",
+      "draftCs": "že vy nás chcete poslouchat stále a si to jen předplatíte dál, takže tak.",
+      "reviewFlags": []
+    },
+    {
+      "group": 436,
+      "start": 3141.325,
+      "end": 3145.325,
+      "textSk": "dopadne. Majte sa.",
+      "draftCs": "Dopadne, mějte se.",
+      "reviewFlags": []
+    },
+    {
+      "group": 437,
+      "start": 3146.001,
+      "end": 3148.021,
+      "textSk": "[hudba]",
+      "draftCs": "[hudba]",
+      "reviewFlags": []
+    },
+    {
+      "group": 438,
+      "start": 3149.525,
+      "end": 3160.425,
+      "textSk": "No a tu ešte na záver taká krátka ochutnávka z labáku. Vieš čo, jeden zámok som tak o o tom kolu, že som si pozrel nejaké tie že najpoužívanejšie sekvencie štvormiestne",
+      "draftCs": "No a tady ještě na závěr taková krátká ochutnávka z labáku. Víš co, jeden zámek jsem tak o tom kolu, že jsem si podíval nějaké ty že nejpoužívanější sekvence čtyřmístné",
+      "reviewFlags": []
+    },
+    {
+      "group": 439,
+      "start": 3160.425,
+      "end": 3170.325,
+      "textSk": "a jedna z tých bolo a ja som že odhalil som to. Ale čo je smiešne, necítil som sa dobre potom. Vieš, že ne neprišiel som na ten výsledok. Prvú vám pôjde",
+      "draftCs": "a jedna z těch byla a já jsem že odhalil jsem to. Ale co je směšné, necítil jsem se dobře potom. Víš, že ne nepřišel jsem na ten výsledek. První vám půjde",
+      "reviewFlags": []
+    },
+    {
+      "group": 440,
+      "start": 3170.325,
+      "end": 3180.325,
+      "textSk": "dlho, ale keď pôjdete na druhú, tretiu, štvrtú, piatu, už sa zlepšíte v tom a aj viete, že čo tak troška hľadať, ako riešiť niektoré. Aj toto nájdete v",
+      "draftCs": "dlouho, ale když půjdete na druhou, třetí, čtvrtou, pátou, už se zlepšíte v tom a i víte, že co tak trochu hledat, jak řešit některé. I toto najdete v",
+      "reviewFlags": []
+    },
+    {
+      "group": 441,
+      "start": 3180.325,
+      "end": 3184.725,
+      "textSk": "labáku v epizóde. Ďakujeme za vašu podporu.",
+      "draftCs": "laboratoři v epizodě. Děkujeme za vaši podporu.",
+      "reviewFlags": []
+    }
+  ]
+}

@@ -87,3 +87,14 @@ Pod přehrávačem je jediný řádek **Titulky · Čtečka · Celá obrazovka**
 MP3, YouTube, průběžná čtečka i stránkované čtení sdílejí jednu pozici. Požadovaný čas MP3 je zachován i během čekání na metadata a při rychlém přepnutí zdroje; novější posun má přednost. Přepnutí zdroje zachovává pauzu. Listování stránkami aktualizuje společný čas, ale vstup do čtečky, změna písma a přepočet řádků jej neposouvají zpět na začátek stránky. Starší záložka čtení nepřebíjí novější pozici poslechu.
 
 Tlačítka **A− / A+** jsou dostupná v liště čtečky také při běžném poslechu s průběžnými titulky. Velikost průběžných titulků se pamatuje samostatně od velikosti stránkovaného čtení; větší titulky mohou použít více řádků. Změna písma nepřerušuje ani neposouvá přehrávání.
+
+
+## Díl 364 – Miléniové problémy 4: Hodgeova hypotéza (19. 11. 2026)
+
+Celý archivovaný slovenský přepis YouTube I3IYM37Ko_Q (1 558 původních cue, 442 normalizovaných textových skupin) byl redakčně přečten a úplně přeložen do češtiny. Výsledkem je 692 dvojjazyčných titulků; obě SRT odpovídají JSON a mají nejvýše dva řádky po 48 znacích. Tři vynechané řečové pasáže byly doplněny podle původní RSS MP3; zahrnuté jsou i původně chybějící odpovědi v těchto pasážích.
+
+Časování vychází ze slovenského CTC modelu comodoro/wav2vec2-xls-r-300m-sk-cv8. Překrývající se zdrojová okna s obnovenou řečí zůstávají v jednom monotónním akustickém zarovnání i přes obvyklý limit délky bloku. Sedm rozmístěných kontrolních kotev potvrzuje stejnou časovou osu MP3 a YouTube; přesný MP3 index se registruje pro původní RSS URL. Devět veřejných výroků ve Slibech má čas začátku konkrétní citované věty podle slovních hranic MP3.
+
+Sporné úseky mají nezávislé rozpoznání large-v3, dodatečné kontroly oběma modely bez VAD a u vybraných slov akustické porovnání alternativ. 6 krátkých nesrozumitelných fragmentů zůstává výslovně označených; nepřepisují se odhadem. Nízká skóre zbývajících krátkých nebo překřikovaných úseků mají jednotlivě doložené redakční rozhodnutí. Nejde o úplný nezávislý lidský poslech nahrávky.
+
+Povinná validace je v .github/workflows/validate-episode364-captions.yml; browser kontrola původní MP3, videa, čtečky, jazyků, seeku a offline cache zahrnuje nově i díl 364. Produkční deploy porovnává skutečné živé JSON/SRT soubory podle SHA-256 a kontroluje i aktuální audit Slibů.

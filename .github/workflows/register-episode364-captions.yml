@@ -1,0 +1,93 @@
+name: Register fully verified episode 364 captions
+on:
+  push:
+    branches: [captions/episode-364-20261119]
+    paths: [.github/workflows/register-episode364-captions.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ github.ref_name }}'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Install audio fixture dependency
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+      - name: Require all text and original-MP3 acoustic gates before registering
+        run: |
+          python tools/test-youtube-caption-layout.py
+          node tools/build-content-v2.mjs
+          python tools/validate-youtube-caption-batch.py --register 364
+          python tools/finish-episode364-promises.py
+      - name: Rebuild catalog and check bindings, chapters, series and public promises
+        run: |
+          node tools/build-content-v2.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          python tools/validate-youtube-caption-batch.py --registered 364
+          node tools/test-content-v2.mjs
+          node tools/test-video-catalog.mjs
+          node tools/test-v2-faq-integrity.mjs
+          node tools/test-v2-series-topics.mjs
+          node tools/test-sliby-player.cjs
+          node tools/test-sliby-personal-state.cjs
+          node tools/test-sliby-content-scope.cjs
+          node tools/test-sliby-episode-scope.cjs
+          node tools/test-sliby-github-admin.cjs
+          node tools/test-sliby-embedded-sort.cjs
+          node tools/test-sliby-duplicate-batch.cjs
+          node tools/test-sliby-duplicate-third-batch.cjs
+          node tools/consolidate-sliby.cjs
+      - name: Check offline assets with the existing production builder
+        run: |
+          node tools/sync-ai-ask-engine.mjs --check
+          node tools/prepare-production-index.mjs
+          node tools/build-production-sw.mjs
+          node tools/test-production-pwa.mjs
+          git restore app-v2.js index.html sw.js
+      - name: Record completed source provenance and actual caption count
+        run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          root=Path('captions');report=json.loads((root/'episode-364.review.json').read_text())
+          p=root/'source/youtube-episode-364-manifest.json';data=json.loads(p.read_text())
+          data['status']='editorially-reviewed-acoustically-aligned-registered';data['humanListeningVerified']=False
+          data['episodes'][0].update(captionFile='captions/episode-364.json',cueCount=report['cueCount'],explicitlyUnclearGroups=report['explicitlyUnclearGroups'])
+          p.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+          readme=root/'README.md';text=readme.read_text();heading='## Díl 364 – Miléniové problémy 4: Hodgeova hypotéza (19. 11. 2026)'
+          section=f'''\n\n{heading}
+
+          Celý archivovaný slovenský přepis YouTube I3IYM37Ko_Q (1 558 původních cue, 442 normalizovaných textových skupin) byl redakčně přečten a úplně přeložen do češtiny. Výsledkem je {report['cueCount']} dvojjazyčných titulků; obě SRT odpovídají JSON a mají nejvýše dva řádky po 48 znacích. Tři vynechané řečové pasáže byly doplněny podle původní RSS MP3; zahrnuté jsou i původně chybějící odpovědi v těchto pasážích.
+
+          Časování vychází ze slovenského CTC modelu comodoro/wav2vec2-xls-r-300m-sk-cv8. Překrývající se zdrojová okna s obnovenou řečí zůstávají v jednom monotónním akustickém zarovnání i přes obvyklý limit délky bloku. Sedm rozmístěných kontrolních kotev potvrzuje stejnou časovou osu MP3 a YouTube; přesný MP3 index se registruje pro původní RSS URL. Devět veřejných výroků ve Slibech má čas začátku konkrétní citované věty podle slovních hranic MP3.
+
+          Sporné úseky mají nezávislé rozpoznání large-v3, dodatečné kontroly oběma modely bez VAD a u vybraných slov akustické porovnání alternativ. {len(report['explicitlyUnclearGroups'])} krátkých nesrozumitelných fragmentů zůstává výslovně označených; nepřepisují se odhadem. Nízká skóre zbývajících krátkých nebo překřikovaných úseků mají jednotlivě doložené redakční rozhodnutí. Nejde o úplný nezávislý lidský poslech nahrávky.
+
+          Povinná validace je v .github/workflows/validate-episode364-captions.yml; browser kontrola původní MP3, videa, čtečky, jazyků, seeku a offline cache zahrnuje nově i díl 364. Produkční deploy porovnává skutečné živé JSON/SRT soubory podle SHA-256 a kontroluje i aktuální audit Slibů.
+          '''
+          text=re.sub(r'\n\n'+re.escape(heading)+r'\n.*?(?=\n## |\Z)','',text,flags=re.S)
+          readme.write_text(text+section)
+          PY
+      - name: Commit verified registration without changing player sources
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add episode-videos.json audio-seek-index.json content-v2.json sliby/index.html captions/episode-364.review.json captions/source/youtube-episode-364-manifest.json captions/README.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Register complete episode 364 captions, exact MP3 seek index and word-aligned public promises'
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+# Regenerate catalog after merging the concurrent public resource-card update.

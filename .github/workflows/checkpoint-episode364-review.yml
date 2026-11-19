@@ -1,0 +1,20 @@
+name: Preserve completed episode 364 review evidence
+on:
+  push:
+    branches: [captions/episode-364-20261119]
+    paths: [.github/workflows/checkpoint-episode364-review.yml]
+permissions:
+  actions: write
+  contents: read
+jobs:
+  checkpoint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Preserve completed recognition before final parallel alignment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          status=$(gh api repos/Berniocal/vedator/actions/runs/44613524467 --jq .status)
+          if test "$status" != completed; then
+            gh api --method POST repos/Berniocal/vedator/actions/runs/44613524467/cancel
+          fi

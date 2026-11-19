@@ -76,4 +76,5 @@ jobs:
         run: |
           node tools/test-live-production-verifier.mjs
           DEPLOY_CHECKOUT_SHA="$(git rev-parse HEAD)" node tools/verify-live-production.mjs
+          if test -f captions/episode-364.json; then node tools/verify-episode364-production.mjs; fi
 

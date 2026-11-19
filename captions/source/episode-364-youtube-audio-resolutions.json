@@ -1,0 +1,1950 @@
+{
+  "episode": 364,
+  "status": "all-audio-questions-resolved",
+  "audioSha256": "0f1b946a2dd5c73fcc2a92652d634a5a0b2fcf0d261966b509b660b4fe0e6b72",
+  "independentReviewSha256": "adec870a5240621ec55e96cbd70d4adaa2e3498526afcaf1a76944e446dfd065",
+  "groups": {
+    "2": {
+      "textSk": "Od uzlov cez rovnice až po útvary. [nezrozumiteľné] nás obklopuje na každom kroku. Vitajte pri Vedátorskom podcaste, v ktorom sa budeme rozprávať o vede a prírode okolo nás.",
+      "textCs": "Od uzlů přes rovnice až po útvary. [nesrozumitelné] nás obklopuje na každém kroku. Vítejte u Vedátorského podcastu, ve kterém si budeme povídat o vědě a přírodě kolem nás.",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
+      "evidencePassages": [
+        0
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        0,
+        1
+      ]
+    },
+    "4": {
+      "textSk": "Marí sa mi, že niečo s pokožkou. A koenzým Q10? Čo ja viem, nejaká vesmírna loď.",
+      "textCs": "Zdá se mi, že něco s pokožkou. A koenzym Q10? Co já vím, nějaká vesmírná loď.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        1
+      ],
+      "status": "resolved"
+    },
+    "6": {
+      "textSk": "A čo takto [nezrozumiteľné]? Myslíš niacínamid? Áno, niacínamid.",
+      "textCs": "A co takhle [nesrozumitelné]? Myslíš niacinamid? Ano, niacinamid.",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
+      "evidencePassages": [
+        1
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        2,
+        3
+      ]
+    },
+    "9": {
+      "textSk": "No a presne preto je tu LucyLab, slovenská kozmetika, ktorú možno poznáš pod názvom Dulcia natural, dokonca z Rače. A od 20. októbra prichádzajú s",
+      "textCs": "No a přesně proto je tu LucyLab, slovenská kosmetika, kterou možná znáš pod názvem Dulcia natural, dokonce z Rače. A od 20. října přicházejí s",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        2
+      ],
+      "status": "resolved"
+    },
+    "11": {
+      "textSk": "Áno, áno, poznám. Párkrát som tam bol. A na tomto je teraz niečo špeciálne?",
+      "textCs": "Ano, ano, znám. Párkrát jsem tam byl. A na tomhle je teď něco speciálního?",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        3
+      ],
+      "status": "resolved"
+    },
+    "18": {
+      "textSk": "Stačí, keď pôjdeš na lucylab.sk, pozri sa, čo všetko pre teba majú.",
+      "textCs": "Stačí, když půjdeš na lucylab.sk, podívej se, co všechno pro tebe mají.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        4
+      ],
+      "status": "resolved"
+    },
+    "19": {
+      "textSk": "Pozriem. Dobre, super. A ešte niečo: pri prvej objednávke na lucylab.sk dostaneš ako darček kolagénové sérum.",
+      "textCs": "Podívám se. Dobře, super. A ještě něco: při první objednávce na lucylab.sk dostaneš jako dárek kolagenové sérum.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        4
+      ],
+      "status": "resolved"
+    },
+    "21": {
+      "textSk": "Ani ja ho stále neviem prečítať, ale pri objednávke ťa skúšať nebudú.",
+      "textCs": "Ani já ho stále neumím přečíst, ale při objednávce tě zkoušet nebudou.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        5
+      ],
+      "status": "resolved"
+    },
+    "22": {
+      "textSk": "A ešte dobrá správa. Počas Black Friday majú v LucyLabe zľavu 25 % na všetky produkty.",
+      "textCs": "A ještě dobrá zpráva. Během Black Friday mají v LucyLabu slevu 25 % na všechny produkty.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        5
+      ],
+      "status": "resolved"
+    },
+    "23": {
+      "textSk": "OK, toto si idem otvoriť hneď v novom okne. Samko, ty si zvládol veľmi manipulačný úkon teraz večer, dať",
+      "textCs": "OK, tohle si jdu otevřít hned v novém okně. Samko, ty jsi zvládl velmi manipulační úkon teď večer, dát",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        5
+      ],
+      "status": "resolved"
+    },
+    "24": {
+      "textSk": "svoju malú dcéru spať. Gratulujem a môžeme nahrávať vďaka tomu, takže Matilda, ďakujeme.",
+      "textCs": "svou malou dceru spát. Gratuluji a můžeme díky tomu nahrávat, takže Matildo, děkujeme.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        5
+      ],
+      "status": "resolved"
+    },
+    "26": {
+      "textSk": "Ako sa máš inak? Dobre, dobre. Akurát už vidím, ako sa prehadzuje, ale vidím, že stále spí, takže občas budem možno odbiehať, aj keď bude treba.",
+      "textCs": "Jak se máš jinak? Dobře, dobře. Akorát už vidím, jak se převaluje, ale vidím, že stále spí, takže občas budu možná odbíhat, když bude třeba.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        5
+      ],
+      "status": "resolved"
+    },
+    "30": {
+      "textSk": "Strašne by som potreboval si na to na dva dni sadnúť a mať pokoj. A milión iných vecí sa deje a dialo.",
+      "textCs": "Strašně bych potřeboval si k tomu na dva dny sednout a mít klid. A milion jiných věcí se děje a dělo.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        6
+      ],
+      "status": "resolved"
+    },
+    "31": {
+      "textSk": "Takže som z toho taký, ale zase naučil som sa užívať si tento stav nedorobenej práce, lebo to znamená, že vieš, nad čo si sadneš ďalší deň a môžeš to dorobiť.",
+      "textCs": "Takže jsem z toho takový, ale zase jsem se naučil užívat si tento stav nedodělané práce, protože to znamená, že víš, k čemu si sedneš další den a můžeš to dodělat.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        6
+      ],
+      "status": "resolved"
+    },
+    "33": {
+      "textSk": "dole. Dublinské to Nicole volá.",
+      "textCs": "dolů. Dublinské tomu Nicole říká.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        7
+      ],
+      "status": "resolved"
+    },
+    "35": {
+      "textSk": "Je inak veľmi trefné to... Jaj, a zabudol som povedať: mal si úžasný krst knižky Vesmírna kolíska.",
+      "textCs": "Je to jinak velmi trefné... a zapomněl jsem říct: měl jsi úžasný křest knížky Vesmírná kolébka.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        7
+      ],
+      "status": "resolved"
+    },
+    "37": {
+      "textSk": "Také kamarátske stretnutie, než ako nejaká profi zorganizovaná akcia. A vždy ma to poteší, že kopa ľudí tam dôjde a pokecáme aspoň trošku.",
+      "textCs": "Takové kamarádské setkání, než jako nějaká profi zorganizovaná akce. A vždy mě to potěší, že spousta lidí tam dojde a pokecáme alespoň trošku.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        8
+      ],
+      "status": "resolved"
+    },
+    "38": {
+      "textSk": "Vieš čo, začíname sa tam už tak stretávať, také stálice, že proste... Kopa ľudí tam tak, že každý tam niekoho pozná a strašne sa mi to",
+      "textCs": "Víš co, začínáme se tam už tak potkávat, takové stálice, že prostě... Spousta lidí tam tak, že každý tam někoho zná a strašně se mi to",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        8
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        4,
+        5
+      ]
+    },
+    "42": {
+      "textSk": "Samkovu knižku. Je to úplne perfektná veľkosť. Ja ju tu nemám, ani Samko ju tam nemá, ty kokso.",
+      "textCs": "Samkovu knížku, je to perfektní velikost, já ji tady nemám, ani Samko ji tam nemá, ty kokso.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        9
+      ],
+      "status": "resolved"
+    },
+    "43": {
+      "textSk": "Nicole si ju zobrala do spálne, takže sme sa nejako... No tak lepšiu recenziu nebudete mať, keď vlastná žena číta jeho knihy, tak",
+      "textCs": "Nicole si ji vzala do ložnice, takže jsme se nějak... No tak lepší recenzi nebudete mít, když vlastní žena čte jeho knihy, tak",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        9
+      ],
+      "status": "resolved"
+    },
+    "45": {
+      "textSk": "Tak to je super. Dobre, tak dnes sa rozprávame o ďalšom miléniovom probléme. Hodgeova hypotéza, je to jeden z tých problémov, čo si povedal, že sa ti",
+      "textCs": "Tak to je super. Dobře, tak dnes si povídáme o dalším miléniovém problému. Hodgeova hypotéza, je to jeden z těch problémů, o kterém jsi řekl, že se ti",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        9
+      ],
+      "status": "resolved"
+    },
+    "46": {
+      "textSk": "nechce vysvetľovať? To je, prisám, že najhorší. Frico Valach, ktorý je odchovanec Matfyzu, ktorý robí takú",
+      "textCs": "nechce vysvětlovat? To je, přísahám, nejhorší. Frico Valach, který je odchovancem Matfyzu, který dělá takovou",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        9
+      ],
+      "status": "resolved"
+    },
+    "47": {
+      "textSk": "pomerne vysokú matematiku, nám o tom raz písal článok a ten článok tam niekde spomína, že často sa nehovorí, že ide o jeden z",
+      "textCs": "poměrně vysokou matematiku, nám o tom jednou psal článek a v tom článku někde zmiňuje, že se často neříká, že jde o jeden z",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        10
+      ],
+      "status": "resolved"
+    },
+    "54": {
+      "textSk": "Vyriešiť ďalšiu. A šepkalo sa, že to je táto Hodgeova hypotéza, o ktorej, keď sme vtedy tak triedili tie problémy, tak sme ju dali do takého chlievika, že to je tá",
+      "textCs": "Vyřešit další. A šeptalo se, že je to tato Hodgeova hypotéza, kterou jsme tehdy při třídění problémů dali do takové přihrádky, že je ta",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        11
+      ],
+      "status": "resolved"
+    },
+    "58": {
+      "textSk": "Jedna z nich je tá fyzikálna, o existencii vôbec fyzikálnych rovníc, ktoré opisujú časticovú fyziku.",
+      "textCs": "Jedna z nich je ta fyzikální, o existenci vůbec fyzikálních rovnic, které popisují částicovou fyziku.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        12
+      ],
+      "status": "resolved"
+    },
+    "60": {
+      "textSk": "A tretí som zabudol, čo bol. Kvôli uplatneniu, nie? Asi. Hej. Tu sme rozoberali už niekoľkokrát, možno o tom môžeme spraviť aj dedikovanú",
+      "textCs": "A třetí jsem zapomněl, co byl. Kvůli uplatnění, ne? Asi. Jo. To jsme tu rozebírali už několikrát, možná o tom můžeme udělat i samostatnou",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        13
+      ],
+      "status": "resolved"
+    },
+    "61": {
+      "textSk": "epizódu, šifrovanie celkovo, že ako to funguje. A ešte k Riemannovej hypotéze urobili progres. Dokázali nejakú zjednodušenú verziu. A to je tiež celkom zaujímavé. O",
+      "textCs": "epizodu, šifrování celkově, jak to funguje. A ještě u Riemannovy hypotézy udělali pokrok. Dokázali nějakou zjednodušenou verzi. A to je také docela zajímavé. O",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        13
+      ],
+      "status": "resolved"
+    },
+    "65": {
+      "textSk": "Nemýlim, aj Birchovu a Swinnerton-Dyerovu hypotézu. Inak ja ťa obdivujem, že tieto mená takto strúhaš, akože cool.",
+      "textCs": "nemýlím, i Birchovu a Swinnerton-Dyerovu hypotézu. Jinak já tě obdivuji, že tato jména takhle sypeš, jakože cool.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        14
+      ],
+      "status": "resolved"
+    },
+    "66": {
+      "textSk": "No však čítam teraz z poznámok a... Ja viem, ale akože aj tak, že super.",
+      "textCs": "Ale teď čtu z poznámek a... já vím, ale i tak je to super.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        14
+      ],
+      "status": "resolved"
+    },
+    "68": {
+      "textSk": "Rovná NP alebo P versus NP problém. To je tá informatická. A potom tá Poincarého hypotéza, ktorá už je vyriešená. To je jediná, tú si môžeme nechať na záver.",
+      "textCs": "Rovná NP nebo P versus NP problém. To je ta informatická. a pak ta Poincarého hypotéza, která už je vyřešená. to je jediná, tu si můžeme nechat na závěr.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        15
+      ],
+      "status": "resolved"
+    },
+    "69": {
+      "textSk": "To je zatiaľ človekom jediná vyriešená. A na Wikipédii už majú aktualizovaný zoznam tých vyriešených. Áno, to vlastne ten Rus vyriešil.",
+      "textCs": "To je zatím člověkem jediná vyřešená. A na Wikipedii už mají aktualizovaný seznam těch vyřešených. Ano, to vlastně ten Rus vyřešil.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        15
+      ],
+      "status": "resolved"
+    },
+    "70": {
+      "textSk": "Áno, áno, a neprevzal si cenu. On povedal, že nie je opička, aby chodil sa takto handrkovať pred ľudí.",
+      "textCs": "Ano, ano, a nepřevzal si cenu. Řekl, že není opička, aby se takhle chodil handrkovat před lidi.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        15
+      ],
+      "status": "resolved"
+    },
+    "72": {
+      "textSk": "Ale akože musím uznať, má štýl. Áno, áno.",
+      "textCs": "Ale jako musím uznat, má styl. Ano, ano.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        16
+      ],
+      "status": "resolved"
+    },
+    "77": {
+      "textSk": "nejako skrátiť, že povieme si, že toto je tá... Áno. Lebo napríklad tie Navier-Stokesove rovnice si veľmi jednoducho vysvetlil, že ide o",
+      "textCs": "nějak zkrátit, že si řekneme, že toto je ta... Ano. Protože například ty Navier-Stokesovy rovnice jsi velmi jednoduše vysvětlil, že jde o",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        17
+      ],
+      "status": "resolved"
+    },
+    "79": {
+      "textSk": "tak ja ti poviem, že zjednodušenú verziu. m. Hodgeova domnienka hovorí, že na priestoroch zadaných polynomiálnymi rovnicami sa dá z topológie rozoznať,",
+      "textCs": "Tak já ti řeknu zjednodušenou verzi. Hodgeova domněnka říká, že na prostorech zadaných polynomiálními rovnicemi se dá z topologie rozeznat,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        18
+      ],
+      "status": "resolved"
+    },
+    "83": {
+      "textSk": "Variety, ktorých sa to týka. Takže toto na chvíľku necháme bokom. Zametieme pod koberec, tvárime sa, že to nikdy nezaznelo, a chvíľku sa budeme rozprávať",
+      "textCs": "variety, kterých se to týká. Takže tohle na chvilku necháme stranou. Zameteme pod koberec, tváříme se, že to nikdy nezaznělo, a chvíli si budeme povídat",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        19
+      ],
+      "status": "resolved"
+    },
+    "89": {
+      "textSk": "Ale nie je fyzika len nadstavbou matematiky v tom, že tie úplne teoretické veci sa... To je rozumný ol pohľadu. Áno, áno, že fyzika je vlastne nejaká podmnožina matematiky.",
+      "textCs": "Ale není fyzika jen nadstavbou matematiky v tom, že ty úplně teoretické věci se... To je rozumný úhel pohledu. Ano, ano, že fyzika je vlastně nějaká podmnožina matematiky.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        20
+      ],
+      "status": "resolved"
+    },
+    "91": {
+      "textSk": "Lebo ja to beriem tak, že z matematiky vychádza fyzika, z fyziky vychádza chémia, z chémie vychádza biológia",
+      "textCs": "Protože já to beru tak, že z matematiky vychází fyzika, z fyziky vychází chemie, z chemie vychází biologie",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        21
+      ],
+      "status": "resolved"
+    },
+    "92": {
+      "textSk": "a tak to to postupne. Ale asi je to aj zlý pohľad, ako neviem, ale To to toto v nejakom pohľade platí. Ja by som možno mal výhradu voči tej tvojej",
+      "textCs": "a tak to to postupně. Ale asi je to i špatný pohled, jak nevím, ale To to v nějakém pohledu platí. Já bych možná měl výhradu vůči té tvé",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        21
+      ],
+      "status": "resolved"
+    },
+    "93": {
+      "textSk": "definícii, že matematika dokáže popisovať aj veci mimo nášho vesmíru. Že hypotetické iné vesmíry a iné pravidlá, ktoré možno... To je pravda, to si ma úplne dostal.",
+      "textCs": "definici, že matematika dokáže popisovat i věci mimo náš vesmír. Hypotetické jiné vesmíry a jiná pravidla, která možná... To je pravda, teď jsi mě úplně dostal.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        21
+      ],
+      "status": "resolved"
+    },
+    "95": {
+      "textSk": "To je To je celkom dobrá definícia. Ja ja ja neviem, že áno, máš pravdu, veď iné dimenzie a tak ďalej si tam definuješ viacrozmerné a",
+      "textCs": "To je celkem dobrá definice. Já nevím... Ano, máš pravdu, jiné dimenze a tak dále si tam definuješ, vícerozměrné a",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        22
+      ],
+      "status": "resolved"
+    },
+    "97": {
+      "textSk": "Skúsim dať do Googlu, aká je definícia, lebo podľa mňa neexistuje úplne... Toto je taká tá vec, že každý pod tým niečo rozumie, a keď to máš... Hej, hej, to my máme v práve: čo je to",
+      "textCs": "Zkusím dát do Google, jaká je definice, protože podle mě neexistuje úplně... Toto je taková věc, že každý pod tím něco rozumí, a když to máš... Hej, hej, to my máme v právu: co je to",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        23
+      ],
+      "status": "resolved"
+    },
+    "103": {
+      "textSk": "Inak to je veľmi... Hej, to je dosť... Typicky vidíš čísla nula, jedna a dva. A keď vidíš iné číslo, tak to znamená, že si niekde spravil chybu.",
+      "textCs": "Jinak to je velmi... Jo, to je dost... Typicky vidíš čísla nula, jedna a dvě. A když vidíš jiné číslo, znamená to, že jsi někde udělal chybu.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        24
+      ],
+      "status": "resolved"
+    },
+    "107": {
+      "textSk": "súčasťou matematiky. A bodka. Matematici si v istom bode povedali, že ideme... To dáva zmysel, hej.",
+      "textCs": "součástí matematiky. A tečka. Matematici si v jistém bodě řekli, že jdeme... To dává smysl, jo.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        25
+      ],
+      "status": "resolved"
+    },
+    "110": {
+      "textSk": "Takto sa vlastne z počítačovej vedy, nie? Stala vlastne... To bola nejaká subkategória matematiky. Tak, presne.",
+      "textCs": "Takhle se vlastně z počítačové vědy, ne? Stala vlastně... To byla nějaká podkategorie matematiky. Tak, přesně.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        26
+      ],
+      "status": "resolved"
+    },
+    "112": {
+      "textSk": "nejaké základné pravidlá. Keď sedíš na fakulte matematiky a nie... Ale môžeš mať, vieš, tam môžeš mať tenké steny a občas vás dajú viacerých do jednej kancelárie a nám sa toto deje",
+      "textCs": "nějaká základní pravidla. Když sedíš na fakultě matematiky a ne... Ale můžeš mít, víš, tam můžeš mít tenké stěny a občas vás dají víc do jedné kanceláře a nám se tohle děje",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        27
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        6,
+        7
+      ]
+    },
+    "119": {
+      "textSk": "A ideš proste za nimi. On ti ju takto vytiahne z poličky, odfúkne a že... To, čo robíš vo fyzike, je, že napíšeš si nejakú sústavu rovníc, ktorá",
+      "textCs": "A jdeš prostě za nimi. On ti ji takhle vytáhne z poličky, odfoukne a... To, co děláš ve fyzice, je, že si napíšeš nějakou soustavu rovnic, která",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        28
+      ],
+      "status": "resolved"
+    },
+    "134": {
+      "textSk": "A v Pezinku si povedia, že to je cool nápad, že aj my chceme vlastné súradnice a vlastne každé mesto v Bratislave by si zaviedlo vlastné vlastnú orientáciu, že",
+      "textCs": "A v Pezinku si řeknou, že to je cool nápad, že i my chceme vlastní souřadnice a vlastně každé město v Bratislavě by si zavedlo vlastní orientaci, že",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        29
+      ],
+      "status": "resolved"
+    },
+    "135": {
+      "textSk": "Kde majú sever. A teraz si predstav ten bolehlav, keď máš navigáciu, kde cestuješ z Bratislavy do Košíc.",
+      "textCs": "kde mají sever. A teď si představ ten bolehlav, když máš navigaci, se kterou cestuješ z Bratislavy do Košic.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        29
+      ],
+      "status": "resolved"
+    },
+    "138": {
+      "textSk": "A čo to má spoločné s fyzikou? Tomuto sa venuje tá časť tej fyziky? Áno, lebo vo fyzike máš, keď máš napríklad kvantovú fyziku,",
+      "textCs": "A co to má společného s fyzikou? Tomu se věnuje ta část fyziky? Ano, protože ve fyzice máš, když máš například kvantovou fyziku,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        31
+      ],
+      "status": "resolved"
+    },
+    "145": {
+      "textSk": "vzťažnú sústavu, ktorá sa od bodu k bodu môže meniť. A rovnice musíš napísať tak, aby to rešpektovali.",
+      "textCs": "vztažnou soustavu, která se od bodu k bodu může měnit. A rovnice musíš napsat tak, aby to respektovaly.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        32
+      ],
+      "status": "resolved"
+    },
+    "148": {
+      "textSk": "My to proste látame jedno cez druhé, povieme, že inšalá, je to v Božích rukách a budeme dúfať, že nám to na konci vyjde.",
+      "textCs": "My to prostě látáme jedno přes druhé, řekneme, že inšalláh, je to v Božích rukou a budeme doufat, že nám to na konci vyjde.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        33
+      ],
+      "status": "resolved"
+    },
+    "151": {
+      "textSk": "Tak sa zrazu zistilo, že matematici to robia pekne rigorózne a zrazu sme od nich mohli začať odpisovať a využívať rôzne tvrdenia. Že keď už to",
+      "textCs": "Tak se najednou zjistilo, že matematici to dělají pěkně rigorózně, a najednou jsme od nich mohli začít opisovat a využívat různá tvrzení. Když už to",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        34
+      ],
+      "status": "resolved"
+    },
+    "153": {
+      "textSk": "Takže vo fyzike často postupujeme ako sedláci a potom dôjdeme za matematikmi a povieme im: no počujte, tu máme takú zaujímavú vec a skúste nám pre ňu",
+      "textCs": "Takže ve fyzice často postupujeme jako sedláci a pak dojdeme za matematiky a řekneme jim: no poslyšte, tady máme takovou zajímavou věc a zkuste nám pro ni",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        35
+      ],
+      "status": "resolved"
+    },
+    "155": {
+      "textSk": "To som chcel, že to je spojené s tými dôkazmi vlastne, čo teraz riešime pri tých miléniových problémoch.",
+      "textCs": "To jsem chtěl, že je to vlastně spojeno s těmi důkazy, co teď řešíme u těch miléniových problémů.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        36
+      ],
+      "status": "resolved"
+    },
+    "161": {
+      "textSk": "Že že toto nie je fyzika, Samuel. Tak tak presne. No ale teda to som tým tým chcel povedať, že matematici to vystavujú krásne, rigorózne,",
+      "textCs": "Že tohle není fyzika, Samueli. Tak, tak, přesně. No ale tím jsem chtěl říct, že matematici to vystavějí krásně, rigorózně,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        37
+      ],
+      "status": "resolved"
+    },
+    "165": {
+      "textSk": "A treba povedať, že zase matematici chodia za fyzikmi, aby vyťahovali zaujímavé veci, ktoré majú zaujímavé vlastnosti. Že tou YOLO metódou proste",
+      "textCs": "A je třeba říct, že zase matematici chodí za fyziky, aby vytahovali zajímavé věci, které mají zajímavé vlastnosti. Že tou metodou YOLO prostě",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        38
+      ],
+      "status": "resolved"
+    },
+    "167": {
+      "textSk": "No a tak ako sme sa rozprávali už o množstve rôznych fyzík, že fyzika elektromagnetizmu, môžeš sa živiť tým, že skúmaš elektromagnetizmus.",
+      "textCs": "No a tak jako jsme už mluvili o spoustě různých fyzik, fyzika elektromagnetismu, můžeš se živit tím, že zkoumáš elektromagnetismus.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        39
+      ],
+      "status": "resolved"
+    },
+    "168": {
+      "textSk": "Môžeš sa živiť tým, že skúmaš gravitáciu a tak ďalej, tak aj matematika má veľmi veľa odvetví.",
+      "textCs": "Můžeš se živit tím, že zkoumáš gravitaci a tak dále, tak i matematika má velmi mnoho odvětví.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        39
+      ],
+      "status": "resolved"
+    },
+    "172": {
+      "textSk": "Že také počítanie, učebnicový základ by som povedal na základnej a na strednej škole.",
+      "textCs": "Že takové počítání, učebnicový základ bych řekl na základní a na střední škole.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        40
+      ],
+      "status": "resolved"
+    },
+    "178": {
+      "textSk": "Všetka tá moderná matematika sa potom vyvinula do takých abstraktnejších vecí, kde máš teóriu mier, komplexnú analýzu, chaotické systémy,",
+      "textCs": "Všechna ta moderní matematika se pak vyvinula do abstraktnějších věcí, kde máš teorii míry, komplexní analýzu, chaotické systémy,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        41
+      ],
+      "status": "resolved"
+    },
+    "179": {
+      "textSk": "aplikovanú matematiku. Napríklad na teóriu hier, o ktorej sme mali niekoľko epizód. Inžinierstvo, ekonómia alebo takú tú základnú matematiku. Matematická",
+      "textCs": "aplikovanou matematiku. Například na teorii her, o které jsme měli několik epizod. Inženýrství, ekonomie nebo takovou tu základní matematiku. Matematická",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        41
+      ],
+      "status": "resolved"
+    },
+    "180": {
+      "textSk": "logika, teória množín, teória kategórií. To je teda už celkom záhul. Kombinatorika, teória čísel.",
+      "textCs": "logika, teorie množin, teorie kategorií. To je tedy už docela záhul. Kombinatorika, teorie čísel.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        41
+      ],
+      "status": "resolved"
+    },
+    "181": {
+      "textSk": "Že vzniklo strašne veľa oblastí. O tom som vôbec nevedel, že biomatematika existuje.",
+      "textCs": "Že vzniklo strašně mnoho oblastí. O tom jsem vůbec nevěděl, že biomatematika existuje.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        41
+      ],
+      "status": "resolved"
+    },
+    "184": {
+      "textSk": "O tom by sme inak mohli niekedy. To je dobrý... Ja viem, že nemôžeme sľubovať, ale to je veľmi pekný nápad na epizódu, že biomatematika.",
+      "textCs": "O tom bychom jinak mohli někdy. To je dobrý... Já vím, že nemůžeme slibovat, ale to je velmi pěkný nápad na epizodu, že biomatematika.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        42
+      ],
+      "status": "resolved"
+    },
+    "185": {
+      "textSk": "Môžeme sľubovať, ale",
+      "textCs": "Můžeme slibovat, ale",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        42
+      ],
+      "status": "resolved"
+    },
+    "188": {
+      "textSk": "Áno. Ďakujeme Jánovi. Je to skvelé, ale preto si musíme dať pozor. Ináč je odbor bioinformatika, ktorý sa dá na Matfyze študovať. Veľmi obľúbený.",
+      "textCs": "Ano. Děkujeme Janovi. Je to skvělé, ale proto si musíme dát pozor. Jinak je obor bioinformatika, který se dá na Matfyze studovat. Velmi oblíbený.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        43
+      ],
+      "status": "resolved"
+    },
+    "190": {
+      "textSk": "A potom je otázka, že ako ju späť pospájať do celej DNA tak, aby si to urobil jednoznačným spôsobom. A toto robí tá matematika, nie?",
+      "textCs": "A pak je otázka, jak ji zpět pospojovat do celé DNA tak, abys to udělal jednoznačným způsobem. A tohle dělá ta matematika, ne?",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        44
+      ],
+      "status": "resolved"
+    },
+    "191": {
+      "textSk": "Zajace a líšky. Keď pribúdajú zajace, tak líšky majú čo žerať, tak začnú pribúdať a vyžerú zajace. Tak napríklad takéto populačné dynamiky môže skúmať biomatematika, správanie buniek,",
+      "textCs": "Zajíci a lišky. Když přibývají zajíci, lišky mají co žrát, tak začnou přibývat a vyžerou zajíce. Tak například takové populační dynamiky může zkoumat biomatematika, chování buněk,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        46
+      ],
+      "status": "resolved"
+    },
+    "192": {
+      "textSk": "všeličo. To je pekná epizóda, to si dobre navrhol. No a to, čo sa typicky... Navrhovať ešte vieme.",
+      "textCs": "všelicos. To je pěkná epizoda, to jsi dobře navrhl. No a to, co se typicky... Navrhovat ještě umíme.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        46
+      ],
+      "status": "resolved"
+    },
+    "195": {
+      "textSk": "Ak nie si človek ako Terence Tao, ktorý má významné výsledky asi v deviatich oblastiach alebo v koľkých. Alebo minulé storočie takto pôsobil Paul",
+      "textCs": "Pokud nejsi člověk jako Terence Tao, který má významné výsledky asi v devíti oblastech nebo v kolika. Nebo minulé století takto působil Paul",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        47
+      ],
+      "status": "resolved"
+    },
+    "201": {
+      "textSk": "Týmto je zaujímavá napríklad Riemannova hypotéza. Ona vzišla z funkcionálnej analýzy komplexných čísel, ale zároveň je ekvivalentná nejakým",
+      "textCs": "Tímhle je zajímavá například Riemannova hypotéza. Vzešla z funkcionální analýzy komplexních čísel, ale zároveň je ekvivalentní nějakým",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        48
+      ],
+      "status": "resolved"
+    },
+    "204": {
+      "textSk": "Už som ho spomínal párkrát v podcaste, Edward Witten, jeden z najznámejších fyzikov, ale zároveň dostal matematickú Nobelovku, Fieldsovu medailu.",
+      "textCs": "Už jsem ho zmiňoval párkrát v podcastu, Edward Witten, jeden z nejznámějších fyziků, ale zároveň dostal matematickou Nobelovku, Fieldsovu medaili.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        49
+      ],
+      "status": "resolved"
+    },
+    "206": {
+      "textSk": "Skoro študoval právo, pôsobil v politike.",
+      "textCs": "Téměř studoval právo, působil v politice.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        49
+      ],
+      "status": "resolved"
+    },
+    "208": {
+      "textSk": "On je pôvodne vyštudoval históriu, dejepis. Jeho sestra vyštudovala právo, išla robiť do nejakej právnickej firmy, on",
+      "textCs": "On původně vystudoval historii, dějepis. Jeho sestra vystudovala právo, šla pracovat do nějaké právnické firmy, on",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        49
+      ],
+      "status": "resolved"
+    },
+    "209": {
+      "textSk": "Išiel robiť do politiky. Robil v politickej kampani Georgea McGoverna, ktorý ale tuším nebol úspešný, takže sa nestal prezidentom,",
+      "textCs": "šel pracovat do politiky. Pracoval v politické kampani George McGoverna, který ale tuším nebyl úspěšný, takže se nestal prezidentem,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        49
+      ],
+      "status": "resolved"
+    },
+    "211": {
+      "textSk": "a kampaň nebola úspešná. Podľa mňa, keby bola úspešná, tak on zostane robiť, vieš, ako nejaký jeho aide, nejaký jeho asistent.",
+      "textCs": "a kampaň nebyla úspěšná. Podle mě, kdyby byla úspěšná, tak tam zůstane pracovat, víš, jako nějaký jeho aide, nějaký jeho asistent.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        50
+      ],
+      "status": "resolved"
+    },
+    "214": {
+      "textSk": "To asi pomôže. To pomôže. Zároveň David Gross je jeden zo zakladateľov a najvýznamnejších výskumníkov",
+      "textCs": "To asi pomůže. To pomůže. Zároveň David Gross je jeden ze zakladatelů a nejvýznamnějších výzkumníků",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        51
+      ],
+      "status": "resolved"
+    },
+    "217": {
+      "textSk": "Hypotetická teória všetkého, čiže on je úplne, že savage fyzikálny.",
+      "textCs": "Hypotetická teorie všeho, čili on je úplně, že savage fyzikální.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        52
+      ],
+      "status": "resolved"
+    },
+    "221": {
+      "textSk": "ho niekde máš, to je dobrá epizóda. Túto epizódu robíme",
+      "textCs": "ho někde máš, to je dobrá epizoda. Tuhle epizodu děláme",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        53
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        8,
+        9
+      ]
+    },
+    "223": {
+      "textSk": "ďalšie epizódy teraz. Pochválim sa, že som Eda Wittena stretol, keď som bol na tej strunovej konferencii na... V tej Kanade, že? Áno, na Perimeter Institute. To je tam,",
+      "textCs": "další epizody teď. Pochlubím se, že jsem potkal Eda Wittena, když jsem byl na té strunové konferenci na... V té Kanadě, že? Ano, na Perimeter Institute. To je tam,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        54
+      ],
+      "status": "resolved"
+    },
+    "227": {
+      "textSk": "Lebo som o ňom počul také historky, že týpek ho viezol z letiska na konferenciu a Ed Witten sa ho opýtal: na čom robíš vo výskume?",
+      "textCs": "Protože jsem o něm slyšel takové historky, že týpek ho vezl z letiště na konferenci a Ed Witten se ho zeptal: na čem děláš ve výzkumu?",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        55
+      ],
+      "status": "resolved"
+    },
+    "229": {
+      "textSk": "Takže som sa strašne bál, že mu niečo poviem a on povie, že not interested, otočí sa na päte a odíde a ja budem mať strašne zranené ego.",
+      "textCs": "Takže jsem se strašně bál, že mu něco řeknu a on řekne not interested, otočí se na patě a odejde a já budu mít strašně zraněné ego.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        56
+      ],
+      "status": "resolved"
+    },
+    "232": {
+      "textSk": "Ale našiel som na tej konferenčnú fotku a dal som to na Discord našej výskumnej skupiny, kde je tak zakrúžkovaný jeden iný takýto super významný a ja na úplne",
+      "textCs": "Ale našel jsem z té konference fotku a dal jsem ji na Discord naší výzkumné skupiny, kde je zakroužkovaný jeden jiný takový super významný a já na úplně",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        57
+      ],
+      "status": "resolved"
+    },
+    "233": {
+      "textSk": "opačnom konci, tak som dal, že máme spoločnú fotku s Maldacenom. To je druhý takýto savage, ktorý tiež robí tú M-teóriu. Ale teraz späť k Wittenovi. Witten dostal Nobelovku",
+      "textCs": "opačném konci, tak jsem napsal, že máme společnou fotku s Maldacenem. To je druhý takový savage, který také dělá tu M-teorii. Ale teď zpátky k Wittenovi. Witten dostal Nobelovku",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        57
+      ],
+      "status": "resolved"
+    },
+    "234": {
+      "textSk": "Matematickú, vlastne tú Fieldsovu medailu. On ju dostal za viacero významných zásluh.",
+      "textCs": "Matematickou, vlastně tu Fieldsovu medaili, on ji dostal za několik významných zásluh.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        57
+      ],
+      "status": "resolved"
+    },
+    "236": {
+      "textSk": "a jedna z tých zásluh, za ktoré to dostal Ja len takú malú vložku Fields ako pole v angličtine nie Fields ako Hej, hej.",
+      "textCs": "a jedna z těch zásluh, za které to dostal Já jen takovou malou vložku Fields jako pole v angličtině ne Fields jako Hej, hej.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        57
+      ],
+      "status": "resolved"
+    },
+    "237": {
+      "textSk": "To by bolo [nezrozumiteľné].",
+      "textCs": "To by bylo [nesrozumitelné].",
+      "status": "resolved",
+      "evidencePassages": [
+        57
+      ],
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "reason": "Both no-VAD recognizers and CTC fail to resolve the overlapping final noun reliably; preserve clear beginning and mark the rest explicitly unclear."
+    },
+    "243": {
+      "textSk": "Hej, lebo keď robíš teóriu poľa... John Charles Fields, po ňom, matematikovi.",
+      "textCs": "Jo, protože když děláš teorii pole... John Charles Fields, po něm, matematikovi.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        58
+      ],
+      "status": "resolved"
+    },
+    "250": {
+      "textSk": "m. Dostal to za to, , že ukázal, že nejaké invarianty v teórii uzlov",
+      "textCs": "Dostal to za to, , že ukázal, že nějaké invarianty v teorii uzlů",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        59
+      ],
+      "status": "resolved"
+    },
+    "257": {
+      "textSk": "to je jednoduchý triviálny uzol, alebo to môže byť taký ten trojuzol, vieš, taký ten anglický symbol, trefoil knot. Vieš, o čom hovorím? Taký trikrát. A",
+      "textCs": "to je jednoduchý triviální uzel, nebo to může být takový ten trojlístkový uzel, víš, takový ten anglický symbol, trefoil knot. Víš, o čem mluvím? Takový třikrát. A",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        60
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        10,
+        11
+      ]
+    },
+    "258": {
+      "textSk": "z toho nespravíš obyčajný uzol bez toho, aby si to neprecvakol. Tak matematici si povedali, že poďme skúsiť vymyslieť spôsob, ako klasifikovať uzly,",
+      "textCs": "z toho neuděláš obyčejný uzel, aniž bys to přecvakl. Tak si matematici řekli, že zkusíme vymyslet způsob, jak klasifikovat uzly,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        60
+      ],
+      "status": "resolved"
+    },
+    "260": {
+      "textSk": "A on tam skúmal invarianty a invariant je kľúčové slovo, lebo to sa aj pri tej Hodgeovej hypotéze spomína, takže ho chcem teraz zadefinovať.",
+      "textCs": "A on tam zkoumal invarianty a invariant je klíčové slovo, protože to se i při té Hodgeově hypotéze zmiňuje, takže ho chci teď zadefinovat.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        61
+      ],
+      "status": "resolved"
+    },
+    "265": {
+      "textSk": "Deformáciou nezmeníš. Príklad z topológie. Poznáš takéto tvrdenie, že hrnček je topologicky kobliha?",
+      "textCs": "Deformací nezměníš. Příklad z topologie. Znáš takové tvrzení, že hrnek je topologicky kobliha?",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        62
+      ],
+      "status": "resolved"
+    },
+    "268": {
+      "textSk": "Takej veľmi tvárnej gumy alebo plastelíny, tak naozaj postupným tvarovaním z tohto spravíš tvar koblihy alebo plávacieho kolesa bez toho, aby si to cvakol. A to",
+      "textCs": "takové velmi tvárné gumy nebo plastelíny, tak opravdu postupným tvarováním z toho uděláš tvar koblihy nebo plavacího kola, aniž bys to přecvakl. A to",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        63
+      ],
+      "status": "resolved"
+    },
+    "272": {
+      "textSk": "No a Witten ukázal, že nejaký typ invariantov v teórii uzlov sa dá interpretovať ako Feynmanove integrály, o ktorých sme mali epizódu,",
+      "textCs": "No a Witten ukázal, že nějaký typ invariantů v teorii uzlů lze interpretovat jako Feynmanovy integrály, o kterých jsme měli epizodu,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        64
+      ],
+      "status": "resolved"
+    },
+    "273": {
+      "textSk": "Feynmanovskú, ktorú sme v Nitre nahrávali v Irish Times Pube.",
+      "textCs": "Feynmanovskou, kterou jsme v Nitře nahrávali v Irish Times Pubu.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        64
+      ],
+      "status": "resolved"
+    },
+    "275": {
+      "textSk": "Prepojíš dve totálne rozdielne oblasti. To ja predstavím, vysvetlím to v reči tvojho kmeňa.",
+      "textCs": "Propojíš dvě úplně rozdílné oblasti. Vysvětlím to v řeči tvého kmene.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        65
+      ],
+      "status": "resolved"
+    },
+    "276": {
+      "textSk": "Predstav si, že máš napríklad že trestný zákonník m. a potom by si mal čo ja viem, aký je správny poriadok.",
+      "textCs": "Představ si, že máš například trestní zákoník a pak bys měl, co já vím, nějaký správní řád.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        65
+      ],
+      "status": "resolved"
+    },
+    "277": {
+      "textSk": "A zrazu by si ukázal, že nejaké ich paragrafy sú vlastne ekvivalentné, keď akurát zameníš nejaké slová, ale že ináč to bude proste jedna k jednej.",
+      "textCs": "A najednou bys ukázal, že některé jejich paragrafy jsou vlastně ekvivalentní, když jen zaměníš nějaká slova, ale jinak to bude prostě jedna ku jedné.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        65
+      ],
+      "status": "resolved"
+    },
+    "279": {
+      "textSk": "Že vieš ho použiť aj v tej druhej situácii. Áno, áno, áno. A toto sa naozaj občas v matematike stane.",
+      "textCs": "Že ho můžeš použít i v té druhé situaci. Ano, ano, ano. A tohle se opravdu občas v matematice stane.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        66
+      ],
+      "status": "resolved"
+    },
+    "280": {
+      "textSk": "Ďakujem, toto mi dosť vysvetlilo. Hej. Áno, a že všetci sú z toho... A to je presne, že nemáš právo očakávať, že prečo by toto malo byť, že to sú úplne iné veci,",
+      "textCs": "Děkuji, tohle mi dost vysvětlilo. Jo. Ano, a všichni jsou z toho... A to je přesně ono, nemáš právo očekávat, proč by to tak mělo být, jsou to úplně jiné věci,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        66
+      ],
+      "status": "resolved"
+    },
+    "282": {
+      "textSk": "Normy, hej. Normy a zrazu hľa, nejaké veci sú v nich úplne identické a všetci sú z toho obarení.",
+      "textCs": "Normy, jo. Normy a najednou hle, některé věci jsou v nich úplně identické a všichni jsou z toho opaření.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        67
+      ],
+      "status": "resolved"
+    },
+    "286": {
+      "textSk": "No a dôvod, prečo je zaujímavá Hodgeova hypotéza, je, že ona prepája niekoľko rozdielnych matematických",
+      "textCs": "No a důvod, proč je zajímavá Hodgeova hypotéza, je, že ona propojuje několik rozdílných matematických",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        68
+      ],
+      "status": "resolved"
+    },
+    "289": {
+      "textSk": "Takže napríklad Möbiusova páska, nie? Napríklad. A máš tam také tvrdenia, že keď máš číslicu nula a číslicu osem, tak z",
+      "textCs": "Takže například Möbiova páska, ne? Například. A máš tam taková tvrzení, že když máš číslici nula a číslici osm, tak z",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        69
+      ],
+      "status": "resolved"
+    },
+    "293": {
+      "textSk": "Vieš si to predstaviť zhruba, nie? Že keď máš osmičku, tak by si ju musel precvaknúť v strede, aby z toho zrazu bolo",
+      "textCs": "Umíš si to zhruba představit, ne? Když máš osmičku, musel bys ji přecvaknout uprostřed, aby z toho najednou bylo",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        70
+      ],
+      "status": "resolved"
+    },
+    "295": {
+      "textSk": "Áno, zároveň vie topológia na svoj výskum používať krivky. Lebo ako zadefinuješ počet dier?",
+      "textCs": "Ano, zároveň umí topologie ke svému výzkumu používat křivky. Protože jak definuješ počet děr?",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        72
+      ],
+      "status": "resolved"
+    },
+    "299": {
+      "textSk": "Stiahneš a to laso sa vždy zatvorí. Ale teraz si predstav, že by si toto isté urobil na povrchu tej koblihy",
+      "textCs": "Stáhneš a to laso se vždy zavře, ale teď si představ, že bys udělal to samé na povrchu té koblihy",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        73
+      ],
+      "status": "resolved"
+    },
+    "301": {
+      "textSk": "Lebo už ide do kolieska a už je zaseknuté. A toto je topologický pohľad na to, prečo je sféra niečo iné ako kobliha.",
+      "textCs": "Protože už jde do kolečka a už je zaseknuté a toto je topologický pohled na to, proč je sféra něco jiného než kobliha.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        74
+      ],
+      "status": "resolved"
+    },
+    "302": {
+      "textSk": "Na sfére dokážeš stiahnuť lano vždy? Na koblihe nedokážeš. Nie.",
+      "textCs": "Na sféře dokážeš stáhnout lano vždy? Na koblize to nedokážeš. Ne.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        74
+      ],
+      "status": "resolved"
+    },
+    "304": {
+      "textSk": "Že keď máš nestiahnuteľnú slučku, tak vieš, že priestor, ktorý skúmaš, nemôže byť sféra.",
+      "textCs": "Že když máš nestahovatelnou smyčku, tak víš, že prostor, který zkoumáš, nemůže být sféra.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        75
+      ],
+      "status": "resolved"
+    },
+    "307": {
+      "textSk": "m. Napríklad kružnica je množina bodov s nejakou vzdialenosťou od počiatku, s rovnakou vzdialenosťou od počiatku. A toto je nejaká rovnica, že x na druhú",
+      "textCs": "Například kružnice je množina bodů s nějakou vzdáleností od počátku, se stejnou vzdáleností od počátku, a tohle je nějaká rovnice, že x na druhou",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        76
+      ],
+      "status": "resolved"
+    },
+    "308": {
+      "textSk": "plus y na druhú sa rovná jedna. A teraz hľadáš všetky body, čo to spĺňajú. Typicky riešiš oveľa grcnejšie rovnice a niekto ti povie, že všetky riešenia",
+      "textCs": "plus y na druhou se rovná jedna. A teď hledáš všechny body, které to splňují. Typicky řešíš mnohem ohavnější rovnice a někdo ti řekne, že všechna řešení",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        76
+      ],
+      "status": "resolved"
+    },
+    "311": {
+      "textSk": "A týmto už sa blížime k tej Hodgeovej hypotéze. A Hodge sa zaoberal",
+      "textCs": "A tímto už se blížíme k té Hodgeově hypotéze a Hodge se zabýval",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        77
+      ],
+      "status": "resolved"
+    },
+    "312": {
+      "textSk": "nesingulárnymi komplexnými projektívnymi priestormi. Nech už to znamená čokoľvek, sú to nejaké všeobecné geometrie, do ktorých okrem iného spadá aj sféra, ale",
+      "textCs": "nesingulárními komplexními projektivními prostory. Ať už to znamená cokoliv, jsou to nějaké obecné geometrie, do kterých mimo jiné spadá i sféra, ale",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        77
+      ],
+      "status": "resolved"
+    },
+    "314": {
+      "textSk": "OK. A a v týchto v V priestoroch zadefinoval objekty, sa volajú Hodgeove diamanty. Hodgeove",
+      "textCs": "A v těchto v prostorách definoval objekty, které se jmenují Hodgeovy diamanty. Hodgeovy",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        78
+      ],
+      "status": "resolved"
+    },
+    "315": {
+      "textSk": "Diamanty sú také proste kôpky čísel. Ja len ukážem na jednom príklade, zdieľam to bez audia.",
+      "textCs": "Diamanty jsou takové prostě hromádky čísel. Já jen ukážu na jednom příkladu, sdílím to bez audia.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        78
+      ],
+      "status": "resolved"
+    },
+    "319": {
+      "textSk": "A jeden konkrétny stĺpec týchto diamantov, ten stredný, ten najvyšší sa volá Hodgeov invariant.",
+      "textCs": "A jeden konkrétní sloupec těchto diamantů, ten střední, ten nejvyšší se jmenuje Hodgeův invariant.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        79
+      ],
+      "status": "resolved"
+    },
+    "320": {
+      "textSk": "No a toto už človeku ide odpadnúť hlava, ale zatiaľ čo si treba zapamätať, že existujú nejaké číselká, ktoré vieš priradiť priestoru a ony ti o tom",
+      "textCs": "No a teď už člověku jde odpadnout hlava, ale zatím si je třeba zapamatovat, že existují nějaká čísla, která můžeš přiřadit prostoru a ona ti o tom",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        79
+      ],
+      "status": "resolved"
+    },
+    "322": {
+      "textSk": "Napríklad, keď si na povrchu zemegule, takže si na povrchu sféry, a podpriestor sféry je napríklad rovník, kružnica.",
+      "textCs": "Například, když jsi na povrchu zeměkoule, takže jsi na povrchu sféry, a podprostor sféry je například rovník, kružnice.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        80
+      ],
+      "status": "resolved"
+    },
+    "323": {
+      "textSk": "Čiže kružnica je podpriestor celej sféry. No celé toto Hodgeovo tvrdenie je o súvislosti medzi invariantmi priestoru",
+      "textCs": "Takže kružnice je podprostor celé sféry, ale celé toto Hodgeovo tvrzení je o souvislosti mezi invarianty prostoru",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        80
+      ],
+      "status": "resolved"
+    },
+    "325": {
+      "textSk": "zreprodukovať, o aké podpriestory ide. A OK. Áno, áno, úplne rozumiem. Snažíme sa len tak navnímať ducha",
+      "textCs": "zrekonstruovat, o jaké podprostory jde. A OK. Ano, ano, úplně rozumím. Snažíme se jen tak vnímat ducha",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        81
+      ],
+      "status": "resolved"
+    },
+    "326": {
+      "textSk": "tej hypotézy. [nezrozumiteľné] Pre mňa je to úplne to isté, že toto už je naozaj veľmi abstraktná matematika.",
+      "textCs": "té hypotézy. [nesrozumitelné] Pro mě je to úplně totéž, tohle už je opravdu velmi abstraktní matematika.",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
+      "evidencePassages": [
+        81
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        12,
+        13
+      ]
+    },
+    "328": {
+      "textSk": "je taký ten cez rovnice, algebraický. A Hodge to snaží spojiť dokopy v prípade nejakom veľmi zaujímavom,",
+      "textCs": "je takový ten přes rovnice, algebraický. A Hodge se to snaží spojit dohromady v nějakém velmi zajímavém případě,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        82
+      ],
+      "status": "resolved"
+    },
+    "329": {
+      "textSk": "pomerne všeobecnom, aj keď to nie je úplne všetko pokrýva. Pokrýva to len také tie pekné projektívne priestory, ktoré skúmal.",
+      "textCs": "poměrně obecném, i když to úplně nepokrývá všechno. Pokrývá to jen takové ty pěkné projektivní prostory, které zkoumal.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        82
+      ],
+      "status": "resolved"
+    },
+    "330": {
+      "textSk": "Tá hypotéza... Prečítam tú Fricovu verziu. Hodgeova domnienka jednoducho vraví, že každá",
+      "textCs": "Ta hypotéza... přečtu tu Fricovu verzi, Hodgeova domněnka jednoduše říká, že každá",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        82
+      ],
+      "status": "resolved"
+    },
+    "331": {
+      "textSk": "Hodgeova trieda sa dá napísať ako súčet takých Hodgeových tried, ktoré zodpovedajú nejakým podčudám.",
+      "textCs": "Hodgeova třída se dá napsat jako součet takových Hodgeových tříd, které odpovídají nějakým podpotvorám.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        82
+      ],
+      "status": "resolved"
+    },
+    "332": {
+      "textSk": "Čudo je ten podpriestor a čudo je celý ten priestor. Čiže do akej miery pochopením základných stavebných dielikov vieš",
+      "textCs": "Potvora je ten podprostor a potvora je celý ten prostor. Čili do jaké míry můžeš pochopením základních stavebních dílků",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        82
+      ],
+      "status": "resolved"
+    },
+    "335": {
+      "textSk": "Ja ešte z Fricovho článku poviem len tú vetu, lebo mne to aspoň dosť, keď som si to čítal: dôkaz alebo vyvrátenie tejto domnienky by",
+      "textCs": "Já ještě z Fricova článku řeknu jen tu větu, protože mně to alespoň dost, když jsem si to četl: důkaz nebo vyvrácení této domněnky by",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        83
+      ],
+      "status": "resolved"
+    },
+    "338": {
+      "textSk": "V podstate chcete vedieť... Áno, áno, presne, presne. Dobre si to povedal. Čiže vlastne tá domnienka sa",
+      "textCs": "V podstatě chcete vědět... Ano, ano, přesně, přesně. Dobře jsi to řekl. Čili vlastně ta domněnka se",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        84
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        14,
+        15
+      ]
+    },
+    "339": {
+      "textSk": "zaoberá tým, či nejaké špecifické priestory sa dajú dobre opísať svojimi podpriestormi, ale je to vyjadrené v takom jazyku, ktorý prepája dve",
+      "textCs": "zabývá tím, zda se nějaké specifické prostory dají dobře popsat svými podprostory, ale je to vyjádřeno takovým jazykem, který propojuje",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        84
+      ],
+      "status": "resolved"
+    },
+    "340": {
+      "textSk": "Dva veľmi rozdielne pohľady na geometriu. Jeden je ten algebraický cez rovnice a druhý je ten topologický.",
+      "textCs": "Dva velmi rozdílné pohledy na geometrii, jeden je ten algebraický přes rovnice a druhý je ten topologický.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        84
+      ],
+      "status": "resolved"
+    },
+    "341": {
+      "textSk": "A ak by sa to podarilo dokázať, tak to podľa mňa že nemá že žiadne praktické aplikácie,",
+      "textCs": "A pokud by se to podařilo dokázat, tak to podle mě že nemá žádné praktické aplikace,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        84
+      ],
+      "status": "resolved"
+    },
+    "344": {
+      "textSk": "To by mohlo mať obrovský vplyv, nie, na matematiku a tieto veci.",
+      "textCs": "To by mohlo mít obrovský vliv, ne, na matematiku a tyto věci.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        85
+      ],
+      "status": "resolved"
+    },
+    "345": {
+      "textSk": "Takže nebudeš to teraz používať vo fabrikách alebo kde, nerozlúštiš pomocou toho kryptografiu, ale niečo zaujímavé sa dozvieš.",
+      "textCs": "Takže nebudeš to teď používat ve fabrikách nebo kde, nerozluštíš pomocí toho kryptografii, ale něco zajímavého se dozvíš.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        85
+      ],
+      "status": "resolved"
+    },
+    "346": {
+      "textSk": "Takže toto je tá No a ako je tá AI pokročila v tomto? Lebo viem, že OpenAI",
+      "textCs": "Takže toto je ta No a jak je ta AI pokročila v tomto? Protože vím, že OpenAI",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        85
+      ],
+      "status": "resolved"
+    },
+    "349": {
+      "textSk": "No bolo tvrdenie, že že niečo sa pre ňu dokázalo, nejaká špecifická verzia, takzvaná racionálna, ale racionálna znamená",
+      "textCs": "No bylo tvrzení, že něco se pro ni dokázalo, nějaká specifická verze, takzvaná racionální, ale racionální znamená",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        86
+      ],
+      "status": "resolved"
+    },
+    "350": {
+      "textSk": "zlomky. ako takáto verzia. Nie úplne tá všeobecná v nejakom",
+      "textCs": "zlomky. jako taková verze. Ne úplně ta obecná v nějakém",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        86
+      ],
+      "status": "resolved"
+    },
+    "351": {
+      "textSk": "v nejakom špecifickom tvare. Takže patrí to do toho že z niečím sa pohlo, ale nie je to",
+      "textCs": "v nějakém specifickém tvaru. Takže patří to do toho, že s něčím se pohnulo, ale není to",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        86
+      ],
+      "status": "resolved"
+    },
+    "352": {
+      "textSk": "Úplne to, s čím sa malo pohnúť. A podobne ako pri tom, čo urobili s Riemannovou hypotézou, že vlastne nie je",
+      "textCs": "úplně to, s čím se mělo pohnout. A podobně jako u toho, co udělali s Riemannovou hypotézou, vlastně není",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        86
+      ],
+      "status": "resolved"
+    },
+    "354": {
+      "textSk": "áno presne presne, že je to zaujímavá odbočka, ale nevieme, že či nám to vlastne pomôže k tomu tomu celkovému výsledku.",
+      "textCs": "Ano přesně přesně, že je to zajímavá odbočka, ale nevíme, jestli nám to vlastně pomůže k tomu tomu celkovému výsledku.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        87
+      ],
+      "status": "resolved"
+    },
+    "359": {
+      "textSk": "Rozmýšľam, či sa nestala taká vec že umelá inteligencia im vyplula niečo oni to zverejnili a potom zistili, že to",
+      "textCs": "Přemýšlím, jestli se nestalo, že jim umělá inteligence něco vyplivla, oni to zveřejnili a pak zjistili, že to",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        88
+      ],
+      "status": "resolved"
+    },
+    "360": {
+      "textSk": "je zlé. A to teraz Že nevedeli to sami overiť, nie? Že To je moja hypotéza, hej, že že niekto na to upozornil, že je tam niečo niečo nesprávne.",
+      "textCs": "je špatně. A to teď... Že si to sami neuměli ověřit, ne? To je moje hypotéza, že je někdo upozornil, že je tam něco nesprávně.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        88
+      ],
+      "status": "resolved"
+    },
+    "361": {
+      "textSk": "Veď Terence Tao, nie, na to spravil nejaký blog. Viem, že... Áno, áno. Jeho blog je skvelé čítať. On je",
+      "textCs": "Vždyť Terence Tao, ne, o tom napsal nějaký blog. Vím, že... Ano, ano. Jeho blog je skvělé číst. On je",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        88
+      ],
+      "status": "resolved"
+    },
+    "364": {
+      "textSk": "Ja by som to tak povedal, že o takých zložitých veciach ako píše sú veľmi zrozumiteľné tie blogy. Tak.",
+      "textCs": "Já bych to tak řekl, že o takových složitých věcech jako píše jsou velmi srozumitelné ty blogy.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        89
+      ],
+      "status": "resolved"
+    },
+    "367": {
+      "textSk": "že Einstein by mal nejaký blog alebo niečo, že to je to je úplne takže nateraz to vyzerá tak, že OpenAI",
+      "textCs": "že Einstein Einstein by měl nějaký blog nebo něco, že to je to je úplně takže prozatím to vypadá tak, že OpenAI",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        90
+      ],
+      "status": "resolved"
+    },
+    "368": {
+      "textSk": "túto domnienku nezlomilo. My môžeme byť radi, že sa nám ju podarilo zlomiť v tom, že ju môžeme odškrt Kokso, že keby sme teraz keby nám padlo nahrávanie, tak",
+      "textCs": "tuto domněnku neprolomilo. My můžeme být rádi, že se nám ji podařilo prolomit v tom, že si ji můžeme odškrtnout. Ty jo, kdyby nám teď spadlo nahrávání, tak",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        90
+      ],
+      "status": "resolved"
+    },
+    "370": {
+      "textSk": "Padlo niečo, či? Nie, nie, našťastie nepadlo. Už sa nám párkrát stalo, ale mám pocit, že keby sme nanovo mali nahrávať túto",
+      "textCs": "Spadlo něco, nebo? Ne, ne, naštěstí nespadlo. Už se nám to párkrát stalo, ale mám pocit, že kdybychom měli znovu nahrávat tuhle",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        91
+      ],
+      "status": "resolved"
+    },
+    "371": {
+      "textSk": "Hodgeovu hypotézu. Dúfam, že to, čo si ľudia z tejto... Ja som sa zľakol, ako si to len spomenul. Prepáč.",
+      "textCs": "Hodgeovu hypotézu. Doufám, že to, co si lidé z této... Já jsem se lekl, jak jsi to jen zmínil. Promiň.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        91
+      ],
+      "status": "resolved"
+    },
+    "375": {
+      "textSk": "A teraz už ľudia pochopia, že čísla... Ja som nevidel čísla od strednej školy.",
+      "textCs": "A teď už lidé pochopí, že čísla... já jsem neviděl čísla od střední školy.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        92
+      ],
+      "status": "resolved"
+    },
+    "376": {
+      "textSk": "Podľa mňa keby ľudia videli, aké veci si hádžem do kalkulačky, tak štvrtina ľudí zruší našu podporu cez Herohero.",
+      "textCs": "Podle mě kdyby lidé viděli, jaké věci si házím do kalkulačky, tak čtvrtina lidí zruší naši podporu přes Herohero.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        92
+      ],
+      "status": "resolved"
+    },
+    "378": {
+      "textSk": "Hej, že že dobre Samko, ja ti veľmi pekne ďakujem. Ja ti poviem, že troška si ma priviedol k tomu, takže podľa mňa obrovský úspech, že aby som",
+      "textCs": "Jo, že dobře Samko Samko, já ti velmi mnohokrát děkuji. Já ti řeknu, že trochu jsi mě přivedl k tomu, takže podle mě obrovský úspěch, že abych",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        93
+      ],
+      "status": "resolved"
+    },
+    "379": {
+      "textSk": "Hodgeovu hypotézu troška viac... Poslednú otázku. Ja viem, že som hovoril, že nebudeme dávať námety, ale Hodge by bol dobrý námet na podcast?",
+      "textCs": "Hodgeovu hypotézu trochu víc... Poslední otázku. Já vím, že jsem říkal, že nebudeme dávat náměty, ale byl by Hodge dobrý námět na podcast?",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        93
+      ],
+      "status": "resolved"
+    },
+    "380": {
+      "textSk": "Vieš čo, podľa mňa Hodge ani nie, lebo on sa venoval len takýmto veciam a ruku na srdce, keby toto nebol miléniový",
+      "textCs": "Víš co, podle mě Hodge ani ne, protože on se věnoval jen takovým věcem a ruku na srdce, kdyby tohle nebyl miléniový",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        93
+      ],
+      "status": "resolved"
+    },
+    "381": {
+      "textSk": "problém, tak o tom epizódu nerobíme. Nalejem si čistého vína.",
+      "textCs": "Problém, tak o tom epizodu neděláme. Naleju si čistého vína.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        93
+      ],
+      "status": "resolved"
+    },
+    "382": {
+      "textSk": "je to také, že",
+      "textCs": "je to takové",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        93
+      ],
+      "status": "resolved"
+    },
+    "383": {
+      "textSk": "Zachytil, vieš že nechcem byť blbý, ale že z pohľadu toho, čo sme k tomu vysvetlili, tak takýchto hypotéz je v matematike oveľa viacej a",
+      "textCs": "Zachytil, víš že nechci být blbý, ale že z pohledu toho, co jsme k tomu vysvětlili, tak takových hypotéz je v matematice mnohem víc a",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        94
+      ],
+      "status": "resolved"
+    },
+    "385": {
+      "textSk": "Navier Stokes podľa mňa celkom zaujímavý. Mali ten, že Francúz, ktorý začal potom ten Toto je, že podľa mňa, že pre širokú verejnosť",
+      "textCs": "Navier Stokes podle mě docela zajímavý. Měli ten, že Francouz Francouz, který začal pak ten Toto je, že podle mě, že pro širokou veřejnost",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        95
+      ],
+      "status": "resolved"
+    },
+    "386": {
+      "textSk": "jedna z tých najmenej zaujímavých miléniových úloh, ale keďže ideme cez všetky, museli sme cez ňu prejsť a je super zaujímavá pre ľudí, ktorí sa tomu venujú. Zase keď robíš algebraickú topológiu",
+      "textCs": "jedna z těch nejméně zajímavých miléniových úloh, ale protože procházíme všechny, museli jsme přes ni projít a je super zajímavá pro lidi, kteří se tomu věnují. Zase když děláš algebraickou topologii",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        95
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        16,
+        17
+      ]
+    },
+    "387": {
+      "textSk": "a tak ďalej. A algebraickú geometriu, tak týmito vecami žiješ.",
+      "textCs": "a tak dále, algebraickou geometrii, tak těmito věcmi žiješ.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        95
+      ],
+      "status": "resolved"
+    },
+    "389": {
+      "textSk": "Nebolo mylné a publikovali niečo z interného modelu OpenAI.",
+      "textCs": "Nebylo to mylné a publikovali něco z interního modelu OpenAI.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        96
+      ],
+      "status": "resolved"
+    },
+    "390": {
+      "textSk": "a stiahnutie troch prác bolo 7. októbra.",
+      "textCs": "stažení tří prací bylo 7. října.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        96
+      ],
+      "status": "resolved"
+    },
+    "391": {
+      "textSk": "A niekto potom o dva týždne na to publikoval rozbor chýb, ktorý už je teraz publikovaný na arXive ako článok.",
+      "textCs": "A někdo pak za dva týdny na to publikoval rozbor chyb, který již je nyní publikován na arXive jako článek.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        96
+      ],
+      "status": "resolved"
+    },
+    "392": {
+      "textSk": "No ale takto funguje vo vede. Nie je ani AI neomylná zatiaľ.",
+      "textCs": "No ale takhle funguje ve vědě. Není ani AI neomylná zatím.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        96
+      ],
+      "status": "resolved"
+    },
+    "396": {
+      "textSk": "Človek napíše niečo do AI-čka, ono mu vyprodukuje výsledok, ktorý vyzerá rozumne, ale je nesprávny.",
+      "textCs": "Člověk napíše něco do AI-čka, ono mu vyprodukuje výsledek, který vypadá rozumně, ale je nesprávný.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        97
+      ],
+      "status": "resolved"
+    },
+    "399": {
+      "textSk": "napísané škaredo, roztiahnuto. Sem-tam obsahujú chyby. A teraz čo s tým?",
+      "textCs": "napsané ošklivě, rozvláčně. Občas obsahují chyby. A teď co s tím?",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        98
+      ],
+      "status": "resolved"
+    },
+    "400": {
+      "textSk": "No nie ako človek tou mravenčou prácou tou matematickou, že by si asi overil, že postupne ide a tak ďalej. No veď len OpenAI pri tomto probléme 722",
+      "textCs": "No ne jako člověk tou mravenčí prací tou matematickou, že by si asi ověřil, že postupně jde a tak dále. No vždy jen OpenAI při tomto problému 722",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        98
+      ],
+      "status": "resolved"
+    },
+    "402": {
+      "textSk": "Ja sa snažím vo výskume používať AI-čko, ale nie tým štýlom, že napíšeš zadanie a skopíruješ výsledok, ale povieš, že bojujem s touto úlohou, mám pocit, že",
+      "textCs": "Já se snažím ve výzkumu používat AI, ale ne stylem, že napíšeš zadání a zkopíruješ výsledek, ale řekneš: bojuji s touto úlohou, mám pocit, že",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
+      "evidencePassages": [
+        99
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        18,
+        19
+      ]
+    },
+    "403": {
+      "textSk": "treba ísť takýmto smerom. Skús dávať dokopy nejaké nápady, ktoré lietajú v rôznych oblastiach, lebo ako som povedal, ty sa odborne venuješ",
+      "textCs": "je třeba jít tímhle směrem. Zkus dát dohromady nějaké nápady, které létají v různých oblastech, protože jak jsem řekl, ty se odborně věnuješ",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        99
+      ],
+      "status": "resolved"
+    },
+    "406": {
+      "textSk": "A je potom na tebe, aby si overil, či je to naozaj tak a či to všetko sedí a tak ďalej, ale momentálne pre mňa AI-čko predstavuje takého",
+      "textCs": "A je pak na tobě, aby si ověřil, zda je to opravdu tak a zda to všechno sedí a tak dál, ale momentálně pro mě AI-čko představuje takového",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        100
+      ],
+      "status": "resolved"
+    },
+    "407": {
+      "textSk": "výskumného skauta. Že poviem, že Pošleš, ono ti to prebehne, ale ty potom pošleš tú svoju armádu, aby to urobila poriadne. A povieš, že tuto by to malo",
+      "textCs": "výzkumného skauta. Že řeknu, že pošleš, ono ti to přeběhne, ale ty pak pošleš tu svou armádu, aby to udělala pořádně. A řekneš, že tady by to mělo",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        100
+      ],
+      "status": "resolved"
+    },
+    "408": {
+      "textSk": "byť schodné a ty to skúsiš. Toľkokrát mi napísalo počas toho, že napíšem, že toto sa mi nezdá. Jaj, hupsík, tam som spravil chybu, tam som spravil chybu, tam som spravil chybu.",
+      "textCs": "být schůdné a ty to zkusíš. Tolikrát mi během toho napsalo, když napíšu, že tohle se mi nezdá: Jé, ups, tam jsem udělal chybu, tam jsem udělal chybu, tam jsem udělal chybu.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        100
+      ],
+      "status": "resolved"
+    },
+    "409": {
+      "textSk": "Áno, to mi ani nehovor. Hej, ja iba, že pozri mi prosím ťa tento text. Dal by som tam toto rozhodnutie. Ja pozerám, že veď neexistuje. Jaj, prepáč, asi som si to",
+      "textCs": "Ano, to mi ani neříkej. Jo, já jen: podívej se mi prosím na tento text. Dal bych tam toto rozhodnutí. Já se dívám, že přece neexistuje. Jé, promiň, asi jsem si to",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        100
+      ],
+      "status": "resolved"
+    },
+    "410": {
+      "textSk": "nejako asi som si to nejako zle vyložil. A ja že čo si si zle vyložil.",
+      "textCs": "nějak, asi jsem si to nějak špatně vyložil. A já: co sis špatně vyložil?",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        101
+      ],
+      "status": "resolved"
+    },
+    "412": {
+      "textSk": "Takže treba si dať pozor, aby sa nám toto nestalo a pred týmto extrémne varuje Terence Tao, že aby sme proste... Naším cieľom má byť...",
+      "textCs": "Takže je třeba dát si pozor, aby se nám tohle nestalo, a před tímhle důrazně varuje Terence Tao, abychom prostě... Naším cílem má být...",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        101
+      ],
+      "status": "resolved"
+    },
+    "414": {
+      "textSk": "že naším cieľom má byť efektívnosť a nie rýchlosť. A že je dobré, keď používaš AI na efektívnosť, že presne rýchlejšie preskautuješ rôzne možnosti, ale nemáš",
+      "textCs": "že naším cílem má být efektivnost a ne rychlost. A že je dobré, když používáš AI na efektivnost, že přesně rychleji proskautuješ různé možnosti, ale nemáš",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        101
+      ],
+      "status": "resolved"
+    },
+    "416": {
+      "textSk": "Tak s týmto by som ja ukončil dnešnú epizódu. Pekne si to, myslím, s parafrázovaním Terencea Taa... Terence Tao sa volá? Áno,",
+      "textCs": "Tak tímhle bych já ukončil dnešní epizodu. Pěkně jsi to, myslím, s parafrázováním Terence Taa... Terence Tao se jmenuje? Ano,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        102
+      ],
+      "status": "resolved"
+    },
+    "417": {
+      "textSk": "áno. si ho odparafrázoval. Ďakujem ti veľmi pekne, Samko. Dneska sme sa rozprávali o Hodgeovej hypotéze, ktorá",
+      "textCs": "ano. Jsi ho parafrázoval. Děkuji ti moc, Samko. Dnes jsme si povídali o Hodgeově hypotéze, která,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        102
+      ],
+      "status": "resolved"
+    },
+    "419": {
+      "textSk": "Áno, áno. Pekne si to zhrnul. No, tak viacej to [nezrozumiteľné]. Ale viem, že sú tam nejaké podmnožiny a tak ďalej, takže",
+      "textCs": "Ano, ano. Pěkně jsi to shrnul. No, tak víc to [nesrozumitelné]. Ale vím, že tam jsou nějaké podmnožiny a tak dále, takže",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
+      "evidencePassages": [
+        103
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        22,
+        23
+      ]
+    },
+    "420": {
+      "textSk": "Bodaj, možno raz Frica odchytím a budem ťahať rozumy, aby mi to viac vysvetlil.",
+      "textCs": "Třeba jednou Frica odchytím a budu tahat rozumy, aby mi to víc vysvětlil.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        103
+      ],
+      "status": "resolved"
+    },
+    "421": {
+      "textSk": "Ja mám akože dlho už dohodnutého Lukáša Konečného, ktorý tiež píše na Vedátora občasne, a aj Frica už sme nejako tak... On sa venuje supergravitácii.",
+      "textCs": "Já mám jakože dlouho už dohodnutého Lukáše Konečného, který také píše na Vedátora občasně, a i Frica už jsme nějak tak... On se věnuje supergravitaci.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        103
+      ],
+      "status": "resolved"
+    },
+    "422": {
+      "textSk": "Tak už len keby o tom niečo porozprával. O jedno lepšie ako gravitácia.",
+      "textCs": "Tak už jen kdyby o tom něco povyprávěl. O jedno lepší než gravitace.",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
+      "evidencePassages": [
+        103
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        24,
+        25
+      ]
+    },
+    "423": {
+      "textSk": "Dobre, tak určite budeme sa tešiť, ako ich zavoláme. A Juraja by sme inak mohli znova zavolať, lebo viem, že sa páčilo jeho vysvetľovanie.",
+      "textCs": "Dobře, tak určitě budeme se těšit, jak je zavoláme. A Juraje bychom jinak mohli znovu zavolat, protože vím, že se líbilo jeho vysvětlování.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        103
+      ],
+      "status": "resolved"
+    },
+    "424": {
+      "textSk": "To môžeme skúsiť tak v 2027, lebo by ma on pretrhol, keby som mu teraz niečo navrhol.",
+      "textCs": "To můžeme zkusit tak v roce 2027, protože by mě přetrhl, kdybych mu teď něco navrhl.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        104
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        26,
+        27
+      ]
+    },
+    "427": {
+      "textSk": "sériu a ešte pár epizód k tomu. Bude to 7. decembra v KC Dunaj. KC-čku, áno, áno.",
+      "textCs": "sérii a ještě pár epizod k tomu. Bude to 7. prosince v KC Dunaj. V KC, ano, ano.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        105
+      ],
+      "status": "resolved"
+    },
+    "428": {
+      "textSk": "17. 19. ja prídem na tú neskoršiu, takže keď budete chcieť aj pokecať o podcaste alebo tak, tak nás tam určite uvidíte so",
+      "textCs": "V 17 a v 19. Já přijdu na tu pozdější, takže když si budete chtít popovídat i o podcastu nebo tak, určitě nás tam uvidíte se",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        105
+      ],
+      "status": "resolved"
+    },
+    "429": {
+      "textSk": "Samkom a možno si aj sadneme na nejakú limonádu potom s vami alebo pokecáme. Ja tam budem dobre odpálený. No, ty tam budeš vlastne podpisovať",
+      "textCs": "Samkem a možná si pak s vámi i sedneme na nějakou limonádu nebo si popovídáme. Já tam budu pěkně vyřízený. No, ty tam budeš vlastně podepisovat",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        105
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        28,
+        29
+      ]
+    },
+    "430": {
+      "textSk": "tieto ty tam budeš podpisovať knižky a tak, takže nič. Samkova nová kniha Vesmírna",
+      "textCs": "tyhle ty tam budeš podepisovat knížky a tak, takže nic. Samkova nová kniha Vesmírná",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        105
+      ],
+      "status": "resolved"
+    },
+    "433": {
+      "textSk": "Hero Hero. Bude jedno live nahrávanie, jedna špeciálna akcia a ešte jedna špeciálna akcia, o ktorých vám povieme a dozviete sa na tom najprv na Hero Hero.",
+      "textCs": "Hero Hero. Bude jedno live nahrávání, jedna speciální akce a ještě jedna speciální akce, o kterých vám povíme a dozvíte se o tom nejprve na Hero Hero Hero.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        106
+      ],
+      "status": "resolved"
+    },
+    "434": {
+      "textSk": "Máme zadarmo Herohero prvé dva... jeden týždeň. Nájdete si to tam, takže počas varenia a pečenia koláčov a iných vecí. A potom vlastne zistíte,",
+      "textCs": "Máme Herohero zdarma první dva... jeden týden. Najdete si to tam, takže během vaření a pečení koláčů a jiných věcí. A pak vlastně zjistíte,",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        106
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        30,
+        31
+      ]
+    },
+    "435": {
+      "textSk": "že vy nás chcete počúvať stále a si to len predplatíte ďalej, takže takže tak. Majte sa pekne.",
+      "textCs": "že nás chcete poslouchat pořád a jen si to předplatíte dál, takže tak. Mějte se pěkně.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        106
+      ],
+      "status": "resolved"
+    },
+    "436": {
+      "textSk": "[nezrozumiteľné] Majte sa.",
+      "textCs": "[nesrozumitelné] Mějte se.",
+      "reason": "Compared source, independent large-v3, both no-VAD recognizers and joint CTC decode. Persistently unclear fragments explicitly marked rather than guessed.",
+      "evidencePassages": [
+        106
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        32,
+        33
+      ]
+    },
+    "438": {
+      "textSk": "No a tu ešte na záver taká krátka ochutnávka z labáku. Vieš čo, jeden zámok som tak odomkol, že som si pozrel nejaké najpoužívanejšie sekvencie štvormiestne",
+      "textCs": "No a tady ještě na závěr krátká ochutnávka z labáku. Víš co, jeden zámek jsem tak odemkl, že jsem se podíval na nějaké nejpoužívanější čtyřmístné sekvence",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        107
+      ],
+      "status": "resolved",
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "followupPassages": [
+        34,
+        35
+      ]
+    },
+    "439": {
+      "textSk": "a jedna z tých bolo a ja som že odhalil som to. Ale čo je smiešne, necítil som sa dobre potom. Vieš, že ne neprišiel som na ten výsledok. Prvú vám pôjde",
+      "textCs": "a jedna z těch byla a já jsem že odhalil jsem to. Ale co je směšné, necítil jsem se dobře potom. Víš, že ne nepřišel jsem na ten výsledek. První vám půjde",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        107
+      ],
+      "status": "resolved"
+    },
+    "440": {
+      "textSk": "dlho, ale keď pôjdete na druhú, tretiu, štvrtú, piatu, už sa zlepšíte v tom a aj viete, že čo tak troška hľadať, ako riešiť niektoré. Aj toto nájdete v",
+      "textCs": "dlouho, ale když půjdete na druhou, třetí, čtvrtou, pátou, už se zlepšíte v tom a i víte, že co tak trochu hledat, jak řešit některé. I toto najdete v",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        107
+      ],
+      "status": "resolved"
+    },
+    "441": {
+      "textSk": "labáku v epizóde. Ďakujeme za vašu podporu.",
+      "textCs": "labákové epizodě. Děkujeme za vaši podporu.",
+      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
+      "evidencePassages": [
+        107
+      ],
+      "status": "resolved"
+    }
+  },
+  "gaps": {
+    "30": {
+      "status": "speech-recovered",
+      "reason": "Original MP3 contains speech omitted by YouTube; recovered using independent ASR and surrounding context.",
+      "recoveredGroups": [
+        0
+      ]
+    },
+    "45": {
+      "status": "speech-recovered",
+      "reason": "Original MP3 contains speech omitted by YouTube; recovered using independent ASR and surrounding context.",
+      "recoveredGroups": [
+        1
+      ]
+    },
+    "71": {
+      "status": "speech-recovered",
+      "reason": "Original MP3 contains speech omitted by YouTube; recovered using independent ASR and surrounding context.",
+      "recoveredGroups": [
+        2
+      ]
+    }
+  },
+  "recovered": [
+    {
+      "start": 987.336,
+      "end": 995.0,
+      "originalSpeech": "Ten proces, ktorý by si robil za pochodu, sa volá kalibrácia. V podstate kalibruješ za pochodu tie podmienky, ako sa pohybuješ.",
+      "text": {
+        "sk": "Ten proces, ktorý by si robil za pochodu, sa volá kalibrácia. V podstate kalibruješ za pochodu tie podmienky, ako sa pohybuješ.",
+        "cs": "Ten proces, který bys dělal za pochodu, se nazývá kalibrace. V podstatě za pochodu kalibruješ podmínky, jak se pohybuješ."
+      },
+      "evidencePassages": [
+        30
+      ]
+    },
+    {
+      "start": 1346.805,
+      "end": 1354.8,
+      "originalSpeech": "A to robí bioinformatika. A biomatematika, to sú také veci, kde skúmaš napríklad dynamiku populácií.",
+      "text": {
+        "sk": "A to robí bioinformatika. A biomatematika, to sú také veci, kde skúmaš napríklad dynamiku populácií.",
+        "cs": "A to dělá bioinformatika. A biomatematika, to jsou takové věci, kde zkoumáš například dynamiku populací."
+      },
+      "evidencePassages": [
+        44,
+        45
+      ]
+    },
+    {
+      "start": 2039.2,
+      "end": 2044.4,
+      "originalSpeech": "Áno, presne, hej, hej. A buď z toho tým precvaknutím vytvoríš dve nulky alebo jednu takú väčšiu nulku.",
+      "text": {
+        "sk": "Áno, presne, hej, hej. A buď z toho tým precvaknutím vytvoríš dve nulky alebo jednu takú väčšiu nulku.",
+        "cs": "Ano, přesně, jo, jo. A buď z toho tím přecvaknutím vytvoříš dvě nuly, nebo jednu takovou větší nulu."
+      },
+      "evidencePassages": [
+        70,
+        71
+      ]
+    }
+  ],
+  "lowScoreAcceptance": {
+    "39": {
+      "textSk": "ľúbi, keď ľudia proste pokecajú a tak. Hej.",
+      "independentCtcDecode": "roko taka kamaracske stretnutene žokoniaka profyzorganizoamá akcia aždy me to potočiže k poude tam doidea poca m spontružku vyšu sočším mnme so tomu v tak streta aiť v takej staui  stauice žubru suže b ži fnko molode na plretežej iže každetam nekou pozná a streže sa mi truju by vilej udohjú a tak",
+      "evidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "reason": "Original and both independent no-VAD recognizers support the short closing clause; overlapping speakers reduce CTC confidence. Retain the sourced wording without expanding it."
+    },
+    "174": {
+      "textSk": "Áno.",
+      "independentCtcDecode": "žnón pže rokiž liúčebnicoližákad vy sobovedou  nazakladmnenostrné počítanie aneake náznaky geometrie v poseteteveci člu de potrbovoliaby počítali danehonalo v iratej u",
+      "evidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "reason": "Brief affirmative acknowledgment in the source; joint CTC decode contains the sound at this boundary. Both no-VAD recognizers omit the brief acknowledgment; preserve the original short token without adding speech."
+    },
+    "237": {
+      "textSk": "To by bolo [nezrozumiteľné].",
+      "independentCtcDecode": "hmatematickuvla sto frucova medeela on go sože so viaceru významný zá sluch aj jedna stych zal sluch za ktoré to do sta o jalem tako mal vlžku pýolcu ako pole v v angvyši ajinea violciľackuťa ehhi by  laj maj vže",
+      "evidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "reason": "Overlapping unclear ending is explicitly marked. Only the recoverable beginning is retained; both no-VAD recognizers and the CTC decode were inspected."
+    },
+    "384": {
+      "textSk": "mnohé z nich by som povedal, že sú oveľa zaujímavejšie. Toto je brutálne zaujímavé.",
+      "independentCtcDecode": "zachitu ieže nech cem biť broby ale že s pohľadu toho čozmek tomu vysvetluj li tak takých tohy potezuju matematike vila viacie a mázi by soplozolo zamavajššie  toto j m rábir s tok s podnomňaj ceľkom zaemavý maui tem ža á no úvrutalnej izačiali potom tom toto je že pomeže pre širokoverenosť j",
+      "evidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "reason": "Original source and both independent no-VAD recognizers support the comparison and closing remark; fast overlapping speech lowers CTC confidence. Preserve the spoken statements without factual reinterpretation."
+    }
+  },
+  "humanListeningVerified": false,
+  "followupReviewSha256": "530e519b3fea188413a00a3ae88355fe4c58ed6c91dba933efc5056c24587240",
+  "contrastReviewSha256": "61db0bdec4bedeafac0e1f7fef72d83ba6094396e62e40f462044e8355575735"
+}

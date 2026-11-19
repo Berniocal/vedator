@@ -9,13 +9,17 @@ spec=importlib.util.spec_from_file_location('review',Path(__file__).with_name('r
 review=importlib.util.module_from_spec(spec);spec.loader.exec_module(review)
 batch=review.batch
 
-def run(number):
+def run(number, shard_index=None, shard_count=1):
     import torch
     from faster_whisper import WhisperModel
     torch.set_num_threads(4)
     proof,wave=review.source_audio(number)
     request=batch.read(batch.SOURCE/f'episode-{number}-youtube-followup-requests.json')
     output=batch.SOURCE/f'episode-{number}-youtube-followup-audio.json'
+    if shard_index is not None:
+        assert 0<=shard_index<shard_count
+        request['windows']=[w for i,w in enumerate(request['windows']) if i%shard_count==shard_index]
+        output=batch.SOURCE/f'episode-{number}-youtube-followup-audio-shard-{shard_index}.json'
     prior=batch.read(output) if output.exists() else {}
     cache={(p['model'],p['start'],p['end'],p['language']):p for p in prior.get('passages',[])} if prior.get('audioSha256')==proof['audioSha256'] else {}
     result={'episode':number,'audioSha256':proof['audioSha256'],'status':'independent-ASR-evidence-requires-editorial-decision','passages':[]}
@@ -33,4 +37,6 @@ def run(number):
         del model;gc.collect()
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('episode',type=int);run(parser.parse_args().episode)
+    parser=argparse.ArgumentParser();parser.add_argument('episode',type=int)
+    parser.add_argument('--shard-index',type=int);parser.add_argument('--shard-count',type=int,default=1)
+    args=parser.parse_args();run(args.episode,args.shard_index,args.shard_count)
