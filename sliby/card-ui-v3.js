@@ -127,6 +127,8 @@
       details.append(actions);
 
       if(r.vysvetleni)details.append(hitNode('p',r.vysvetleni,'explanation'));
+      const promisedLinks=globalThis.VedatorSlibyLinks?.render(document,r);
+      if(promisedLinks)details.append(promisedLinks);
       // Only the episodes where this exact promise/idea was voiced.
       // Do not mix in target/fulfilment episodes or audit uncertainty boxes.
       const mentions=promiseMentions(r);
