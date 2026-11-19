@@ -43,7 +43,7 @@ try{
       const relative=request.url().slice(prefix.length).split('?')[0];
       if(relative==='tex-chtml.js')mathScriptRequests++;
       const file=path.resolve(mathRoot,'es5',relative);
-      if(fs.existsSync(file))return request.respond({status:200,contentType:mime[path.extname(file)]||'application/octet-stream',body:fs.readFileSync(file)});
+      if(fs.existsSync(file)&&fs.statSync(file).isFile())return request.respond({status:200,contentType:mime[path.extname(file)]||'application/octet-stream',body:fs.readFileSync(file)});
     }
     return request.abort();
   });
