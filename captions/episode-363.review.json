@@ -1,11 +1,15 @@
 {
   "episode": 363,
+  "ok": true,
   "cueCount": 807,
   "sourceGroupCount": 473,
-  "audioSha256": "18e43c6f02ea6a38fe0452baf8846d9cadf8e25da5498c2b686160f70a24fa46",
+  "recoveredSpeechPanels": 0,
   "lowScoreGroups": [
     183
   ],
-  "largeBoundaryConflicts": [],
-  "status": "assets-built-not-registered-needs-quality-gates"
+  "fastPanels": 41,
+  "explicitlyUnclearGroups": [],
+  "issues": [],
+  "caution": "Structural, provenance and acoustic model checks; not a full independent human listening verification.",
+  "status": "editorially-reviewed-acoustically-aligned"
 }
