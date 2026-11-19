@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import {JSDOM} from 'jsdom';
 
-const html=fs.readFileSync('index.html','utf8').replace('<script src="./app-v2.js" defer></script>','');
+const html=fs.readFileSync('index.html','utf8').replace(/<script\s+src="\.\/app-v2\.js(?:\?[^\"]*)?"\s+defer><\/script>/,'');
 const app=fs.readFileSync('app-v2.js','utf8');
 const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const seriesConfig=JSON.parse(fs.readFileSync('series.json','utf8'));
