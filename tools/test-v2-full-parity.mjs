@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import {JSDOM} from 'jsdom';
 
-const html=fs.readFileSync('index.html','utf8').replace('<script src="./app-v2.js" defer></script>','');
+const html=fs.readFileSync('index.html','utf8').replace(/<script\s+src="\.\/app-v2\.js(?:\?[^\"]*)?"\s+defer><\/script>/,'');
 const app=fs.readFileSync('app-v2.js','utf8');
 const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const seriesConfig=JSON.parse(fs.readFileSync('series.json','utf8'));
@@ -21,6 +21,16 @@ const dom=new JSDOM(html,{url:'https://example.test/v2.html',runScripts:'outside
 const {window}=dom;
 Object.defineProperty(window.navigator,'mediaSession',{value:{setActionHandler:(name,fn)=>{mediaHandlers[name]=fn},setPositionState:()=>{},metadata:null},configurable:true});
 window.MediaMetadata=function(value){Object.assign(this,value)};
+window.XMLHttpRequest=class LocalV2CatalogXHR{
+  open(_method,url){this.url=url}
+  send(){
+    Promise.resolve(window.fetch(this.url)).then(response=>response.json()).then(catalog=>{
+      this.status=200;this.responseText=JSON.stringify(catalog);
+      this.onprogress?.({lengthComputable:true,loaded:this.responseText.length,total:this.responseText.length});
+      this.onload?.();
+    }).catch(error=>this.onerror?.(error));
+  }
+};
 window.fetch=async()=>({ok:true,status:200,json:async()=>data});
 window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};

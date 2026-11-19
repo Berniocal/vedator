@@ -21,6 +21,16 @@ const {window}=dom;
 window.localStorage.setItem('vedator-ui-language-v1','cz');
 window.localStorage.setItem('vedator-user-playlists-v1',JSON.stringify([playlist]));
 window.localStorage.setItem('vedatorCollectionProgressV1',JSON.stringify(collection));
+window.XMLHttpRequest=class LocalV2CatalogXHR{
+  open(_method,url){this.url=url}
+  send(){
+    Promise.resolve(window.fetch(this.url)).then(response=>response.json()).then(catalog=>{
+      this.status=200;this.responseText=JSON.stringify(catalog);
+      this.onprogress?.({lengthComputable:true,loaded:this.responseText.length,total:this.responseText.length});
+      this.onload?.();
+    }).catch(error=>this.onerror?.(error));
+  }
+};
 window.fetch=async()=>({ok:true,status:200,json:async()=>data});
 window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};
