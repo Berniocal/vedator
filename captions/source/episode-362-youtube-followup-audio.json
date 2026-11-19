@@ -859,6 +859,2102 @@
       ]
     },
     {
+      "start": 1123.1,
+      "end": 1131.9,
+      "language": "sk",
+      "groups": [
+        155,
+        156
+      ],
+      "model": "large-v3-turbo",
+      "segments": [
+        {
+          "start": 1123.1,
+          "end": 1130.2,
+          "text": "Kámo, ďakko, ďalejko zvierny a to milma a má pešlo.",
+          "avgLogprob": -0.8044474932455248,
+          "words": [
+            {
+              "start": 1123.1,
+              "end": 1123.8,
+              "text": " Kámo,",
+              "probability": 0.5415946220358213
+            },
+            {
+              "start": 1124.08,
+              "end": 1124.9,
+              "text": " ďakko,",
+              "probability": 0.4885074235498905
+            },
+            {
+              "start": 1125.26,
+              "end": 1125.9,
+              "text": " ďalejko",
+              "probability": 0.7133693695068359
+            },
+            {
+              "start": 1125.9,
+              "end": 1127.08,
+              "text": " zvierny",
+              "probability": 0.39577797427773476
+            },
+            {
+              "start": 1127.08,
+              "end": 1127.52,
+              "text": " a",
+              "probability": 0.7477717399597168
+            },
+            {
+              "start": 1127.52,
+              "end": 1127.78,
+              "text": " to",
+              "probability": 0.2114318162202835
+            },
+            {
+              "start": 1127.78,
+              "end": 1128.64,
+              "text": " milma",
+              "probability": 0.32904572039842606
+            },
+            {
+              "start": 1128.64,
+              "end": 1128.92,
+              "text": " a",
+              "probability": 0.8809983134269714
+            },
+            {
+              "start": 1128.92,
+              "end": 1129.44,
+              "text": " má",
+              "probability": 0.7325440049171448
+            },
+            {
+              "start": 1129.44,
+              "end": 1130.2,
+              "text": " pešlo.",
+              "probability": 0.49508965015411377
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 1123.1,
+      "end": 1131.9,
+      "language": "en",
+      "groups": [
+        155,
+        156
+      ],
+      "model": "large-v3-turbo",
+      "segments": [
+        {
+          "start": 1123.1,
+          "end": 1131.88,
+          "text": "There's a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like me and I have a lot of people like",
+          "avgLogprob": -0.37414563496907555,
+          "words": [
+            {
+              "start": 1123.1,
+              "end": 1123.84,
+              "text": " There's",
+              "probability": 0.11875545419752598
+            },
+            {
+              "start": 1123.84,
+              "end": 1123.84,
+              "text": " a",
+              "probability": 0.41076934337615967
+            },
+            {
+              "start": 1123.84,
+              "end": 1123.84,
+              "text": " lot",
+              "probability": 0.20939046144485474
+            },
+            {
+              "start": 1123.84,
+              "end": 1124.2,
+              "text": " of",
+              "probability": 0.7067409753799438
+            },
+            {
+              "start": 1124.2,
+              "end": 1124.34,
+              "text": " people",
+              "probability": 0.13653899729251862
+            },
+            {
+              "start": 1124.34,
+              "end": 1124.34,
+              "text": " like",
+              "probability": 0.06635134667158127
+            },
+            {
+              "start": 1124.34,
+              "end": 1126.8,
+              "text": " me",
+              "probability": 0.16200542449951172
+            },
+            {
+              "start": 1126.8,
+              "end": 1127.48,
+              "text": " and",
+              "probability": 0.3547142744064331
+            },
+            {
+              "start": 1127.48,
+              "end": 1128.7,
+              "text": " I",
+              "probability": 0.26494893431663513
+            },
+            {
+              "start": 1128.7,
+              "end": 1129.62,
+              "text": " have",
+              "probability": 0.14547112584114075
+            },
+            {
+              "start": 1129.62,
+              "end": 1129.74,
+              "text": " a",
+              "probability": 0.3317173421382904
+            },
+            {
+              "start": 1129.74,
+              "end": 1130.02,
+              "text": " lot",
+              "probability": 0.3432547152042389
+            },
+            {
+              "start": 1130.02,
+              "end": 1130.02,
+              "text": " of",
+              "probability": 0.9038684368133545
+            },
+            {
+              "start": 1130.02,
+              "end": 1130.18,
+              "text": " people",
+              "probability": 0.3205814063549042
+            },
+            {
+              "start": 1130.18,
+              "end": 1130.4,
+              "text": " like",
+              "probability": 0.2771117389202118
+            },
+            {
+              "start": 1130.4,
+              "end": 1130.4,
+              "text": " me",
+              "probability": 0.45064398646354675
+            },
+            {
+              "start": 1130.4,
+              "end": 1130.4,
+              "text": " and",
+              "probability": 0.10605425387620926
+            },
+            {
+              "start": 1130.4,
+              "end": 1130.4,
+              "text": " I",
+              "probability": 0.4536501467227936
+            },
+            {
+              "start": 1130.4,
+              "end": 1130.4,
+              "text": " have",
+              "probability": 0.39010894298553467
+            },
+            {
+              "start": 1130.4,
+              "end": 1130.4,
+              "text": " a",
+              "probability": 0.4649646282196045
+            },
+            {
+              "start": 1130.4,
+              "end": 1130.4,
+              "text": " lot",
+              "probability": 0.7369041442871094
+            },
+            {
+              "start": 1130.4,
+              "end": 1130.72,
+              "text": " of",
+              "probability": 0.9402763843536377
+            },
+            {
+              "start": 1130.72,
+              "end": 1130.78,
+              "text": " people",
+              "probability": 0.7568874359130859
+            },
+            {
+              "start": 1130.78,
+              "end": 1131.12,
+              "text": " like",
+              "probability": 0.585701584815979
+            },
+            {
+              "start": 1131.12,
+              "end": 1131.12,
+              "text": " me",
+              "probability": 0.5446840524673462
+            },
+            {
+              "start": 1131.12,
+              "end": 1131.12,
+              "text": " and",
+              "probability": 0.18360847234725952
+            },
+            {
+              "start": 1131.12,
+              "end": 1131.12,
+              "text": " I",
+              "probability": 0.5759892463684082
+            },
+            {
+              "start": 1131.12,
+              "end": 1131.12,
+              "text": " have",
+              "probability": 0.5617731809616089
+            },
+            {
+              "start": 1131.12,
+              "end": 1131.12,
+              "text": " a",
+              "probability": 0.49774879217147827
+            },
+            {
+              "start": 1131.12,
+              "end": 1131.12,
+              "text": " lot",
+              "probability": 0.8344646692276001
+            },
+            {
+              "start": 1131.12,
+              "end": 1131.12,
+              "text": " of",
+              "probability": 0.9747817516326904
+            },
+            {
+              "start": 1131.12,
+              "end": 1131.12,
+              "text": " people",
+              "probability": 0.8561260104179382
+            },
+            {
+              "start": 1131.12,
+              "end": 1131.28,
+              "text": " like",
+              "probability": 0.7051820158958435
+            },
+            {
+              "start": 1131.28,
+              "end": 1131.28,
+              "text": " me",
+              "probability": 0.6719247102737427
+            },
+            {
+              "start": 1131.28,
+              "end": 1131.28,
+              "text": " and",
+              "probability": 0.3947203457355499
+            },
+            {
+              "start": 1131.28,
+              "end": 1131.28,
+              "text": " I",
+              "probability": 0.6945151090621948
+            },
+            {
+              "start": 1131.28,
+              "end": 1131.28,
+              "text": " have",
+              "probability": 0.5978220701217651
+            },
+            {
+              "start": 1131.28,
+              "end": 1131.28,
+              "text": " a",
+              "probability": 0.5310829877853394
+            },
+            {
+              "start": 1131.28,
+              "end": 1131.28,
+              "text": " lot",
+              "probability": 0.8588182926177979
+            },
+            {
+              "start": 1131.28,
+              "end": 1131.28,
+              "text": " of",
+              "probability": 0.9765027761459351
+            },
+            {
+              "start": 1131.28,
+              "end": 1131.28,
+              "text": " people",
+              "probability": 0.8920625448226929
+            },
+            {
+              "start": 1131.28,
+              "end": 1131.3,
+              "text": " like",
+              "probability": 0.7897371649742126
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " me",
+              "probability": 0.7509145140647888
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " and",
+              "probability": 0.46318191289901733
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " I",
+              "probability": 0.7206030488014221
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " have",
+              "probability": 0.6220589876174927
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " a",
+              "probability": 0.5733271837234497
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " lot",
+              "probability": 0.9090369939804077
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " of",
+              "probability": 0.9818543195724487
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " people",
+              "probability": 0.915324866771698
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " like",
+              "probability": 0.8120275139808655
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " me",
+              "probability": 0.8333759903907776
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " and",
+              "probability": 0.47319090366363525
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " I",
+              "probability": 0.720769464969635
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " have",
+              "probability": 0.6759706139564514
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " a",
+              "probability": 0.6203578114509583
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " lot",
+              "probability": 0.9303701519966125
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " of",
+              "probability": 0.975141167640686
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " people",
+              "probability": 0.870128870010376
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " like",
+              "probability": 0.8248220086097717
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " me",
+              "probability": 0.8283846974372864
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " and",
+              "probability": 0.5205362439155579
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " I",
+              "probability": 0.7666115164756775
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " have",
+              "probability": 0.7010774612426758
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " a",
+              "probability": 0.6311282515525818
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " lot",
+              "probability": 0.9496662616729736
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " of",
+              "probability": 0.9828039407730103
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " people",
+              "probability": 0.9250208735466003
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " like",
+              "probability": 0.8479008674621582
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " me",
+              "probability": 0.8480532169342041
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " and",
+              "probability": 0.5772882103919983
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " I",
+              "probability": 0.7881625294685364
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " have",
+              "probability": 0.7335670590400696
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " a",
+              "probability": 0.6410722732543945
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " lot",
+              "probability": 0.9566085934638977
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " of",
+              "probability": 0.9801619052886963
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " people",
+              "probability": 0.9271795749664307
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " like",
+              "probability": 0.8633876442909241
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " me",
+              "probability": 0.8495247960090637
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " and",
+              "probability": 0.5938048958778381
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " I",
+              "probability": 0.7823089361190796
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " have",
+              "probability": 0.743884801864624
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " a",
+              "probability": 0.6080538630485535
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " lot",
+              "probability": 0.9748784899711609
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " of",
+              "probability": 0.9890261292457581
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " people",
+              "probability": 0.9613907337188721
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " like",
+              "probability": 0.8935684561729431
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " me",
+              "probability": 0.8193273544311523
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " and",
+              "probability": 0.6960625648498535
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " I",
+              "probability": 0.8694478273391724
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " have",
+              "probability": 0.7988375425338745
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " a",
+              "probability": 0.6416564583778381
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " lot",
+              "probability": 0.9755730032920837
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " of",
+              "probability": 0.9862529635429382
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " people",
+              "probability": 0.9521753787994385
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " like",
+              "probability": 0.8936353921890259
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " me",
+              "probability": 0.8467239141464233
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " and",
+              "probability": 0.6587299704551697
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " I",
+              "probability": 0.8121930360794067
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " have",
+              "probability": 0.8020840287208557
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " a",
+              "probability": 0.7050315141677856
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " lot",
+              "probability": 0.9691016674041748
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " of",
+              "probability": 0.9896509647369385
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.3,
+              "text": " people",
+              "probability": 0.9443676471710205
+            },
+            {
+              "start": 1131.3,
+              "end": 1131.34,
+              "text": " like",
+              "probability": 0.8961679339408875
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " me",
+              "probability": 0.8369534015655518
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " and",
+              "probability": 0.6979492902755737
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " I",
+              "probability": 0.8814986944198608
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " have",
+              "probability": 0.8269838094711304
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " a",
+              "probability": 0.6853781938552856
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " lot",
+              "probability": 0.9739701151847839
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " of",
+              "probability": 0.9870506525039673
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " people",
+              "probability": 0.9524763822555542
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " like",
+              "probability": 0.9110562801361084
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " me",
+              "probability": 0.8119835257530212
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " and",
+              "probability": 0.6621080040931702
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " I",
+              "probability": 0.8483117818832397
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " have",
+              "probability": 0.7992786765098572
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " a",
+              "probability": 0.6831431984901428
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " lot",
+              "probability": 0.9717188477516174
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " of",
+              "probability": 0.981314480304718
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " people",
+              "probability": 0.9318811893463135
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.34,
+              "text": " like",
+              "probability": 0.890827476978302
+            },
+            {
+              "start": 1131.34,
+              "end": 1131.38,
+              "text": " me",
+              "probability": 0.7218533754348755
+            },
+            {
+              "start": 1131.38,
+              "end": 1131.38,
+              "text": " and",
+              "probability": 0.7036009430885315
+            },
+            {
+              "start": 1131.38,
+              "end": 1131.38,
+              "text": " I",
+              "probability": 0.8997828364372253
+            },
+            {
+              "start": 1131.38,
+              "end": 1131.38,
+              "text": " have",
+              "probability": 0.7941316366195679
+            },
+            {
+              "start": 1131.38,
+              "end": 1131.38,
+              "text": " a",
+              "probability": 0.687119722366333
+            },
+            {
+              "start": 1131.38,
+              "end": 1131.38,
+              "text": " lot",
+              "probability": 0.9725243449211121
+            },
+            {
+              "start": 1131.38,
+              "end": 1131.38,
+              "text": " of",
+              "probability": 0.9858616590499878
+            },
+            {
+              "start": 1131.38,
+              "end": 1131.38,
+              "text": " people",
+              "probability": 0.9461662769317627
+            },
+            {
+              "start": 1131.38,
+              "end": 1131.5,
+              "text": " like",
+              "probability": 0.9137064218521118
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " me",
+              "probability": 0.7808431386947632
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " and",
+              "probability": 0.711902379989624
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " I",
+              "probability": 0.8870288729667664
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " have",
+              "probability": 0.8142113089561462
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " a",
+              "probability": 0.6956168413162231
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " lot",
+              "probability": 0.9800509810447693
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " of",
+              "probability": 0.983025312423706
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " people",
+              "probability": 0.9483392834663391
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " like",
+              "probability": 0.9102808833122253
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " me",
+              "probability": 0.7491176724433899
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " and",
+              "probability": 0.7124574780464172
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " I",
+              "probability": 0.8892803192138672
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " have",
+              "probability": 0.8174065947532654
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " a",
+              "probability": 0.6952112913131714
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " lot",
+              "probability": 0.9821726679801941
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " of",
+              "probability": 0.9816311001777649
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " people",
+              "probability": 0.9424964785575867
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " like",
+              "probability": 0.9135156869888306
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " me",
+              "probability": 0.7219176888465881
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " and",
+              "probability": 0.7282936573028564
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " I",
+              "probability": 0.8745138645172119
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " have",
+              "probability": 0.8042697310447693
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " a",
+              "probability": 0.6968495845794678
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.5,
+              "text": " lot",
+              "probability": 0.9776036739349365
+            },
+            {
+              "start": 1131.5,
+              "end": 1131.84,
+              "text": " of",
+              "probability": 0.977905809879303
+            },
+            {
+              "start": 1131.84,
+              "end": 1131.84,
+              "text": " people",
+              "probability": 0.9415731430053711
+            },
+            {
+              "start": 1131.84,
+              "end": 1131.84,
+              "text": " like",
+              "probability": 0.910942018032074
+            },
+            {
+              "start": 1131.84,
+              "end": 1131.84,
+              "text": " me",
+              "probability": 0.6181557178497314
+            },
+            {
+              "start": 1131.84,
+              "end": 1131.86,
+              "text": " and",
+              "probability": 0.7393690943717957
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " I",
+              "probability": 0.8939735293388367
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " have",
+              "probability": 0.8017861247062683
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " a",
+              "probability": 0.6535671949386597
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " lot",
+              "probability": 0.9823890328407288
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " of",
+              "probability": 0.9759842157363892
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " people",
+              "probability": 0.9459487199783325
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " like",
+              "probability": 0.9166967868804932
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " me",
+              "probability": 0.5979382991790771
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " and",
+              "probability": 0.7455251216888428
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " I",
+              "probability": 0.8852645754814148
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " have",
+              "probability": 0.8258489966392517
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " a",
+              "probability": 0.6768724918365479
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " lot",
+              "probability": 0.9832707047462463
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " of",
+              "probability": 0.9765510559082031
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " people",
+              "probability": 0.9308144450187683
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " like",
+              "probability": 0.9161310195922852
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " me",
+              "probability": 0.6748772263526917
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " and",
+              "probability": 0.7380353808403015
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " I",
+              "probability": 0.878426194190979
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " have",
+              "probability": 0.8029690980911255
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " a",
+              "probability": 0.7004697918891907
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " lot",
+              "probability": 0.9839023947715759
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " of",
+              "probability": 0.9734891057014465
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " people",
+              "probability": 0.9517993927001953
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " like",
+              "probability": 0.9135180711746216
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " me",
+              "probability": 0.5793594717979431
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " and",
+              "probability": 0.7382856011390686
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " I",
+              "probability": 0.865065336227417
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " have",
+              "probability": 0.7947412729263306
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " a",
+              "probability": 0.7066411375999451
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " lot",
+              "probability": 0.9722883105278015
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " of",
+              "probability": 0.9697490930557251
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " people",
+              "probability": 0.9348106980323792
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " like",
+              "probability": 0.9126980900764465
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " me",
+              "probability": 0.4895027279853821
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " and",
+              "probability": 0.7338511347770691
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " I",
+              "probability": 0.8739025592803955
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " have",
+              "probability": 0.8014681935310364
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " a",
+              "probability": 0.6296791434288025
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " lot",
+              "probability": 0.974658727645874
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " of",
+              "probability": 0.9641262292861938
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " people",
+              "probability": 0.9521763324737549
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " like",
+              "probability": 0.9073401093482971
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " me",
+              "probability": 0.4497910141944885
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " and",
+              "probability": 0.7178501486778259
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " I",
+              "probability": 0.8541194796562195
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " have",
+              "probability": 0.8107861876487732
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " a",
+              "probability": 0.6334680318832397
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " lot",
+              "probability": 0.9819884896278381
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " of",
+              "probability": 0.9599720239639282
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " people",
+              "probability": 0.9193581342697144
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " like",
+              "probability": 0.9075519442558289
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " me",
+              "probability": 0.3540372848510742
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.88,
+              "text": " and",
+              "probability": 0.7424886226654053
+            },
+            {
+              "start": 1131.88,
+              "end": 1131.88,
+              "text": " I",
+              "probability": 0.8804043531417847
+            },
+            {
+              "start": 1131.88,
+              "end": 1131.88,
+              "text": " have",
+              "probability": 0.8101934790611267
+            },
+            {
+              "start": 1131.88,
+              "end": 1131.88,
+              "text": " a",
+              "probability": 0.6783822774887085
+            },
+            {
+              "start": 1131.88,
+              "end": 1131.88,
+              "text": " lot",
+              "probability": 0.9687564969062805
+            },
+            {
+              "start": 1131.88,
+              "end": 1131.88,
+              "text": " of",
+              "probability": 0.9614968299865723
+            },
+            {
+              "start": 1131.88,
+              "end": 1131.88,
+              "text": " people",
+              "probability": 0.9309378266334534
+            },
+            {
+              "start": 1131.88,
+              "end": 1131.88,
+              "text": " like",
+              "probability": 0.9009021520614624
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 1123.1,
+      "end": 1131.9,
+      "language": null,
+      "groups": [
+        155,
+        156
+      ],
+      "model": "large-v3-turbo",
+      "segments": [
+        {
+          "start": 1123.1,
+          "end": 1131.86,
+          "text": "Kámo někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo, někdo,",
+          "avgLogprob": -0.1953695954216851,
+          "words": [
+            {
+              "start": 1123.1,
+              "end": 1123.78,
+              "text": " Kámo",
+              "probability": 0.5901033232609431
+            },
+            {
+              "start": 1123.78,
+              "end": 1124.9,
+              "text": " někdo,",
+              "probability": 0.4697299400965373
+            },
+            {
+              "start": 1125.2,
+              "end": 1125.6,
+              "text": " někdo,",
+              "probability": 0.7937405109405518
+            },
+            {
+              "start": 1125.6,
+              "end": 1126.0,
+              "text": " někdo,",
+              "probability": 0.9128947456677755
+            },
+            {
+              "start": 1126.18,
+              "end": 1126.34,
+              "text": " někdo,",
+              "probability": 0.8048659563064575
+            },
+            {
+              "start": 1126.58,
+              "end": 1126.58,
+              "text": " někdo,",
+              "probability": 0.8066773315270742
+            },
+            {
+              "start": 1126.72,
+              "end": 1127.08,
+              "text": " někdo,",
+              "probability": 0.8537738720575968
+            },
+            {
+              "start": 1127.08,
+              "end": 1127.1,
+              "text": " někdo,",
+              "probability": 0.8847140669822693
+            },
+            {
+              "start": 1127.1,
+              "end": 1127.6,
+              "text": " někdo,",
+              "probability": 0.8842209776242574
+            },
+            {
+              "start": 1127.6,
+              "end": 1127.82,
+              "text": " někdo,",
+              "probability": 0.8933504422505697
+            },
+            {
+              "start": 1127.82,
+              "end": 1128.04,
+              "text": " někdo,",
+              "probability": 0.88734104235967
+            },
+            {
+              "start": 1128.04,
+              "end": 1128.04,
+              "text": " někdo,",
+              "probability": 0.8943454623222351
+            },
+            {
+              "start": 1128.14,
+              "end": 1128.16,
+              "text": " někdo,",
+              "probability": 0.9049187699953715
+            },
+            {
+              "start": 1128.16,
+              "end": 1128.5,
+              "text": " někdo,",
+              "probability": 0.9177006880442301
+            },
+            {
+              "start": 1128.5,
+              "end": 1128.68,
+              "text": " někdo,",
+              "probability": 0.9292682607968649
+            },
+            {
+              "start": 1128.84,
+              "end": 1128.84,
+              "text": " někdo,",
+              "probability": 0.9408632119496664
+            },
+            {
+              "start": 1128.84,
+              "end": 1128.84,
+              "text": " někdo,",
+              "probability": 0.9413856267929077
+            },
+            {
+              "start": 1128.84,
+              "end": 1128.92,
+              "text": " někdo,",
+              "probability": 0.9460084040959676
+            },
+            {
+              "start": 1128.92,
+              "end": 1128.92,
+              "text": " někdo,",
+              "probability": 0.9424870014190674
+            },
+            {
+              "start": 1128.92,
+              "end": 1130.12,
+              "text": " někdo,",
+              "probability": 0.9434927105903625
+            },
+            {
+              "start": 1130.14,
+              "end": 1130.14,
+              "text": " někdo,",
+              "probability": 0.9470814267794291
+            },
+            {
+              "start": 1130.52,
+              "end": 1130.72,
+              "text": " někdo,",
+              "probability": 0.947203536828359
+            },
+            {
+              "start": 1130.72,
+              "end": 1131.0,
+              "text": " někdo,",
+              "probability": 0.9481179714202881
+            },
+            {
+              "start": 1131.0,
+              "end": 1131.04,
+              "text": " někdo,",
+              "probability": 0.9459874629974365
+            },
+            {
+              "start": 1131.36,
+              "end": 1131.76,
+              "text": " někdo,",
+              "probability": 0.9565437833468119
+            },
+            {
+              "start": 1131.78,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9528822898864746
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9541183710098267
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9515860478083292
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9545038541158041
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9541762073834738
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9599646727244059
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9574084083239237
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9585327307383219
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9595832228660583
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9604909817377726
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9616078734397888
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9621867140134176
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9580395817756653
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9645550648371378
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9631545146306356
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9644176959991455
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.963336447874705
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9636233448982239
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9656667510668436
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9684063394864401
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9656127293904623
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.967922031879425
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9653084874153137
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9650374452273051
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9667145808537801
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9667791525522867
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9656587839126587
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9658737778663635
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9691009918848673
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9653579195340475
+            },
+            {
+              "start": 1131.86,
+              "end": 1131.86,
+              "text": " někdo,",
+              "probability": 0.9698526263237
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 516.097,
+      "end": 524.337,
+      "language": "sk",
+      "groups": [
+        75
+      ],
+      "model": "large-v3-turbo",
+      "segments": [
+        {
+          "start": 516.097,
+          "end": 517.437,
+          "text": "Máme ešte veľmi veľa časov.",
+          "avgLogprob": -0.2527928019563357,
+          "words": [
+            {
+              "start": 516.097,
+              "end": 516.397,
+              "text": " Máme",
+              "probability": 0.9553817709287008
+            },
+            {
+              "start": 516.397,
+              "end": 516.677,
+              "text": " ešte",
+              "probability": 0.8295399149258932
+            },
+            {
+              "start": 516.677,
+              "end": 517.017,
+              "text": " veľmi",
+              "probability": 0.9810212453206381
+            },
+            {
+              "start": 517.017,
+              "end": 517.257,
+              "text": " veľa",
+              "probability": 0.9990187287330627
+            },
+            {
+              "start": 517.257,
+              "end": 517.437,
+              "text": " časov.",
+              "probability": 0.6987724800904592
+            }
+          ]
+        },
+        {
+          "start": 517.597,
+          "end": 519.317,
+          "text": "Máme ho veľa, áno, áno, áno.",
+          "avgLogprob": -0.2527928019563357,
+          "words": [
+            {
+              "start": 517.597,
+              "end": 517.837,
+              "text": " Máme",
+              "probability": 0.9173144102096558
+            },
+            {
+              "start": 517.837,
+              "end": 518.037,
+              "text": " ho",
+              "probability": 0.9972319006919861
+            },
+            {
+              "start": 518.037,
+              "end": 518.477,
+              "text": " veľa,",
+              "probability": 0.9977735280990601
+            },
+            {
+              "start": 518.477,
+              "end": 518.797,
+              "text": " áno,",
+              "probability": 0.9977833330631256
+            },
+            {
+              "start": 518.897,
+              "end": 519.117,
+              "text": " áno,",
+              "probability": 0.9996705055236816
+            },
+            {
+              "start": 519.117,
+              "end": 519.317,
+              "text": " áno.",
+              "probability": 0.9991370737552643
+            }
+          ]
+        },
+        {
+          "start": 520.077,
+          "end": 521.837,
+          "text": "Netreba sa bať.",
+          "avgLogprob": -0.2527928019563357,
+          "words": [
+            {
+              "start": 520.077,
+              "end": 520.557,
+              "text": " Netreba",
+              "probability": 0.7771695256233215
+            },
+            {
+              "start": 520.557,
+              "end": 520.757,
+              "text": " sa",
+              "probability": 0.9809462428092957
+            },
+            {
+              "start": 520.757,
+              "end": 521.837,
+              "text": " bať.",
+              "probability": 0.9886125326156616
+            }
+          ]
+        },
+        {
+          "start": 523.157,
+          "end": 524.317,
+          "text": "Dobre, ďakujem vám.",
+          "avgLogprob": -0.2527928019563357,
+          "words": [
+            {
+              "start": 523.157,
+              "end": 523.637,
+              "text": " Dobre,",
+              "probability": 0.9815374612808228
+            },
+            {
+              "start": 523.817,
+              "end": 524.157,
+              "text": " ďakujem",
+              "probability": 0.9918794155120849
+            },
+            {
+              "start": 524.157,
+              "end": 524.317,
+              "text": " vám.",
+              "probability": 0.9553175568580627
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 632.978,
+      "end": 639.458,
+      "language": "sk",
+      "groups": [
+        93
+      ],
+      "model": "large-v3-turbo",
+      "segments": [
+        {
+          "start": 632.978,
+          "end": 634.098,
+          "text": "celú zeme glúdokopyť.",
+          "avgLogprob": -0.37050464336688704,
+          "words": [
+            {
+              "start": 632.978,
+              "end": 633.258,
+              "text": " celú",
+              "probability": 0.8226499557495117
+            },
+            {
+              "start": 633.258,
+              "end": 633.478,
+              "text": " zeme",
+              "probability": 0.7289833128452301
+            },
+            {
+              "start": 633.478,
+              "end": 634.098,
+              "text": " glúdokopyť.",
+              "probability": 0.6668657759825388
+            }
+          ]
+        },
+        {
+          "start": 634.118,
+          "end": 636.278,
+          "text": "Aha, keby som povedal, že odnosť niečo menšie,",
+          "avgLogprob": -0.37050464336688704,
+          "words": [
+            {
+              "start": 634.118,
+              "end": 634.218,
+              "text": " Aha,",
+              "probability": 0.10318547487258911
+            },
+            {
+              "start": 634.238,
+              "end": 634.678,
+              "text": " keby",
+              "probability": 0.7540275156497955
+            },
+            {
+              "start": 634.678,
+              "end": 634.838,
+              "text": " som",
+              "probability": 0.9096133708953857
+            },
+            {
+              "start": 634.838,
+              "end": 635.178,
+              "text": " povedal,",
+              "probability": 0.971256673336029
+            },
+            {
+              "start": 635.178,
+              "end": 635.298,
+              "text": " že",
+              "probability": 0.959077000617981
+            },
+            {
+              "start": 635.298,
+              "end": 635.678,
+              "text": " odnosť",
+              "probability": 0.570929820338885
+            },
+            {
+              "start": 635.678,
+              "end": 635.958,
+              "text": " niečo",
+              "probability": 0.960076908270518
+            },
+            {
+              "start": 635.958,
+              "end": 636.278,
+              "text": " menšie,",
+              "probability": 0.9666904012362162
+            }
+          ]
+        },
+        {
+          "start": 636.338,
+          "end": 638.078,
+          "text": "že napríklad čučerietka, alebo takže.",
+          "avgLogprob": -0.37050464336688704,
+          "words": [
+            {
+              "start": 636.338,
+              "end": 636.398,
+              "text": " že",
+              "probability": 0.9445204138755798
+            },
+            {
+              "start": 636.398,
+              "end": 636.818,
+              "text": " napríklad",
+              "probability": 0.9742240905761719
+            },
+            {
+              "start": 636.818,
+              "end": 637.478,
+              "text": " čučerietka,",
+              "probability": 0.8451153536637624
+            },
+            {
+              "start": 637.598,
+              "end": 637.758,
+              "text": " alebo",
+              "probability": 0.8402745723724365
+            },
+            {
+              "start": 637.758,
+              "end": 638.078,
+              "text": " takže.",
+              "probability": 0.7451449930667877
+            }
+          ]
+        },
+        {
+          "start": 638.278,
+          "end": 639.438,
+          "text": "Nie, nie, že melón.",
+          "avgLogprob": -0.37050464336688704,
+          "words": [
+            {
+              "start": 638.278,
+              "end": 638.698,
+              "text": " Nie,",
+              "probability": 0.5309549570083618
+            },
+            {
+              "start": 638.818,
+              "end": 638.818,
+              "text": " nie,",
+              "probability": 0.42985615134239197
+            },
+            {
+              "start": 638.898,
+              "end": 638.978,
+              "text": " že",
+              "probability": 0.9569047689437866
+            },
+            {
+              "start": 638.978,
+              "end": 639.438,
+              "text": " melón.",
+              "probability": 0.6437821686267853
+            }
+          ]
+        }
+      ]
+    },
+    {
       "start": 1119.433,
       "end": 1129.013,
       "language": "sk",
@@ -1752,6 +3848,572 @@
               "end": 724.688,
               "text": " idiot.",
               "probability": 0.9378933310508728
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 1123.1,
+      "end": 1131.9,
+      "language": "sk",
+      "groups": [
+        155,
+        156
+      ],
+      "model": "large-v3",
+      "segments": [
+        {
+          "start": 1123.1,
+          "end": 1129.26,
+          "text": "Tamo, nechom, nechom, nechom, nechom, nechom, nechom, nechom, nechom, nechom, nechom.",
+          "avgLogprob": -0.4656519222518672,
+          "words": [
+            {
+              "start": 1123.1,
+              "end": 1123.74,
+              "text": " Tamo,",
+              "probability": 0.22950400412082672
+            },
+            {
+              "start": 1123.74,
+              "end": 1124.78,
+              "text": " nechom,",
+              "probability": 0.25873373448848724
+            },
+            {
+              "start": 1124.84,
+              "end": 1125.74,
+              "text": " nechom,",
+              "probability": 0.6309982438882192
+            },
+            {
+              "start": 1125.9,
+              "end": 1126.18,
+              "text": " nechom,",
+              "probability": 0.7977803548177084
+            },
+            {
+              "start": 1126.24,
+              "end": 1126.3,
+              "text": " nechom,",
+              "probability": 0.8374947905540466
+            },
+            {
+              "start": 1126.56,
+              "end": 1127.08,
+              "text": " nechom,",
+              "probability": 0.883445123831431
+            },
+            {
+              "start": 1127.08,
+              "end": 1127.34,
+              "text": " nechom,",
+              "probability": 0.9104171196619669
+            },
+            {
+              "start": 1127.38,
+              "end": 1127.62,
+              "text": " nechom,",
+              "probability": 0.9454186757405599
+            },
+            {
+              "start": 1127.8,
+              "end": 1127.8,
+              "text": " nechom,",
+              "probability": 0.9681535164515177
+            },
+            {
+              "start": 1127.8,
+              "end": 1128.56,
+              "text": " nechom,",
+              "probability": 0.9754259983698527
+            },
+            {
+              "start": 1128.56,
+              "end": 1129.26,
+              "text": " nechom.",
+              "probability": 0.9802458087603251
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 1123.1,
+      "end": 1131.9,
+      "language": "en",
+      "groups": [
+        155,
+        156
+      ],
+      "model": "large-v3",
+      "segments": [
+        {
+          "start": 1123.1,
+          "end": 1129.92,
+          "text": "Thank you for watching and see you in the next video!",
+          "avgLogprob": -1.04975266456604,
+          "words": [
+            {
+              "start": 1123.1,
+              "end": 1123.3,
+              "text": " Thank",
+              "probability": 0.027106493711471558
+            },
+            {
+              "start": 1123.3,
+              "end": 1123.76,
+              "text": " you",
+              "probability": 0.9793518781661987
+            },
+            {
+              "start": 1123.76,
+              "end": 1124.62,
+              "text": " for",
+              "probability": 0.3500819206237793
+            },
+            {
+              "start": 1124.62,
+              "end": 1125.92,
+              "text": " watching",
+              "probability": 0.7038965225219727
+            },
+            {
+              "start": 1125.92,
+              "end": 1127.26,
+              "text": " and",
+              "probability": 0.15763667225837708
+            },
+            {
+              "start": 1127.26,
+              "end": 1127.7,
+              "text": " see",
+              "probability": 0.19447240233421326
+            },
+            {
+              "start": 1127.7,
+              "end": 1128.18,
+              "text": " you",
+              "probability": 0.9729209542274475
+            },
+            {
+              "start": 1128.18,
+              "end": 1128.76,
+              "text": " in",
+              "probability": 0.18448884785175323
+            },
+            {
+              "start": 1128.76,
+              "end": 1128.94,
+              "text": " the",
+              "probability": 0.7956397533416748
+            },
+            {
+              "start": 1128.94,
+              "end": 1129.7,
+              "text": " next",
+              "probability": 0.9753208756446838
+            },
+            {
+              "start": 1129.7,
+              "end": 1129.92,
+              "text": " video!",
+              "probability": 0.7171640992164612
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 1123.1,
+      "end": 1131.9,
+      "language": null,
+      "groups": [
+        155,
+        156
+      ],
+      "model": "large-v3",
+      "segments": [
+        {
+          "start": 1123.1,
+          "end": 1130.44,
+          "text": "Tamo, niawko, niały kółko zmienny, a komiuma, a mam przyroką.",
+          "avgLogprob": -0.9135786164551973,
+          "words": [
+            {
+              "start": 1123.1,
+              "end": 1123.74,
+              "text": " Tamo,",
+              "probability": 0.07532446831464767
+            },
+            {
+              "start": 1123.74,
+              "end": 1124.54,
+              "text": " niawko,",
+              "probability": 0.364552803337574
+            },
+            {
+              "start": 1124.8,
+              "end": 1125.46,
+              "text": " niały",
+              "probability": 0.5735776871442795
+            },
+            {
+              "start": 1125.46,
+              "end": 1126.3,
+              "text": " kółko",
+              "probability": 0.5463015933831533
+            },
+            {
+              "start": 1126.3,
+              "end": 1127.06,
+              "text": " zmienny,",
+              "probability": 0.4358376090725263
+            },
+            {
+              "start": 1127.06,
+              "end": 1127.38,
+              "text": " a",
+              "probability": 0.7068474292755127
+            },
+            {
+              "start": 1127.38,
+              "end": 1128.62,
+              "text": " komiuma,",
+              "probability": 0.5069735397895178
+            },
+            {
+              "start": 1128.62,
+              "end": 1128.78,
+              "text": " a",
+              "probability": 0.7604042887687683
+            },
+            {
+              "start": 1128.78,
+              "end": 1129.28,
+              "text": " mam",
+              "probability": 0.7605430483818054
+            },
+            {
+              "start": 1129.28,
+              "end": 1130.44,
+              "text": " przyroką.",
+              "probability": 0.3892666846513748
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 516.097,
+      "end": 524.337,
+      "language": "sk",
+      "groups": [
+        75
+      ],
+      "model": "large-v3",
+      "segments": [
+        {
+          "start": 516.097,
+          "end": 517.437,
+          "text": "Máme ešte veľmi veľa času.",
+          "avgLogprob": -0.25889529818195406,
+          "words": [
+            {
+              "start": 516.097,
+              "end": 516.297,
+              "text": " Máme",
+              "probability": 0.9664335052172343
+            },
+            {
+              "start": 516.297,
+              "end": 516.657,
+              "text": " ešte",
+              "probability": 0.7818721433480581
+            },
+            {
+              "start": 516.657,
+              "end": 516.897,
+              "text": " veľmi",
+              "probability": 0.9997579654057821
+            },
+            {
+              "start": 516.897,
+              "end": 517.137,
+              "text": " veľa",
+              "probability": 0.9990195035934448
+            },
+            {
+              "start": 517.137,
+              "end": 517.437,
+              "text": " času.",
+              "probability": 0.9568058848381042
+            }
+          ]
+        },
+        {
+          "start": 517.437,
+          "end": 519.277,
+          "text": "Máme ho veľa, áno, áno, áno.",
+          "avgLogprob": -0.25889529818195406,
+          "words": [
+            {
+              "start": 517.437,
+              "end": 517.717,
+              "text": " Máme",
+              "probability": 0.8557442625363668
+            },
+            {
+              "start": 517.717,
+              "end": 517.857,
+              "text": " ho",
+              "probability": 0.995574951171875
+            },
+            {
+              "start": 517.857,
+              "end": 518.577,
+              "text": " veľa,",
+              "probability": 0.999163548151652
+            },
+            {
+              "start": 518.597,
+              "end": 518.797,
+              "text": " áno,",
+              "probability": 0.9989359676837921
+            },
+            {
+              "start": 518.797,
+              "end": 518.977,
+              "text": " áno,",
+              "probability": 0.9984088242053986
+            },
+            {
+              "start": 518.977,
+              "end": 519.277,
+              "text": " áno.",
+              "probability": 0.9889412522315979
+            }
+          ]
+        },
+        {
+          "start": 520.037,
+          "end": 521.757,
+          "text": "Netreba sa bať.",
+          "avgLogprob": -0.25889529818195406,
+          "words": [
+            {
+              "start": 520.037,
+              "end": 520.517,
+              "text": " Netreba",
+              "probability": 0.9513831933339437
+            },
+            {
+              "start": 520.517,
+              "end": 520.577,
+              "text": " sa",
+              "probability": 0.9981980919837952
+            },
+            {
+              "start": 520.577,
+              "end": 521.757,
+              "text": " bať.",
+              "probability": 0.971440464258194
+            }
+          ]
+        },
+        {
+          "start": 523.137,
+          "end": 524.217,
+          "text": "Dobre, ďakujem vám.",
+          "avgLogprob": -0.25889529818195406,
+          "words": [
+            {
+              "start": 523.137,
+              "end": 523.617,
+              "text": " Dobre,",
+              "probability": 0.9932370781898499
+            },
+            {
+              "start": 523.617,
+              "end": 524.077,
+              "text": " ďakujem",
+              "probability": 0.9976865887641907
+            },
+            {
+              "start": 524.077,
+              "end": 524.217,
+              "text": " vám.",
+              "probability": 0.7721907496452332
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 632.978,
+      "end": 639.458,
+      "language": "sk",
+      "groups": [
+        93
+      ],
+      "model": "large-v3",
+      "segments": [
+        {
+          "start": 632.978,
+          "end": 633.978,
+          "text": "aby celú zemľu dokopiť.",
+          "avgLogprob": -0.3169723188699181,
+          "words": [
+            {
+              "start": 632.978,
+              "end": 632.998,
+              "text": " aby",
+              "probability": 0.2168901562690735
+            },
+            {
+              "start": 632.998,
+              "end": 633.218,
+              "text": " celú",
+              "probability": 0.9353846311569214
+            },
+            {
+              "start": 633.218,
+              "end": 633.558,
+              "text": " zemľu",
+              "probability": 0.6720628924667835
+            },
+            {
+              "start": 633.558,
+              "end": 633.978,
+              "text": " dokopiť.",
+              "probability": 0.8134192526340485
+            }
+          ]
+        },
+        {
+          "start": 634.038,
+          "end": 636.258,
+          "text": "Ahoj, keby som povedal, že odosť niečo menšie,",
+          "avgLogprob": -0.3169723188699181,
+          "words": [
+            {
+              "start": 634.038,
+              "end": 634.278,
+              "text": " Ahoj,",
+              "probability": 0.6837145288785299
+            },
+            {
+              "start": 634.418,
+              "end": 634.478,
+              "text": " keby",
+              "probability": 0.7026838660240173
+            },
+            {
+              "start": 634.478,
+              "end": 634.738,
+              "text": " som",
+              "probability": 0.6887854337692261
+            },
+            {
+              "start": 634.738,
+              "end": 635.158,
+              "text": " povedal,",
+              "probability": 0.9923864603042603
+            },
+            {
+              "start": 635.158,
+              "end": 635.298,
+              "text": " že",
+              "probability": 0.9920831918716431
+            },
+            {
+              "start": 635.298,
+              "end": 635.558,
+              "text": " odosť",
+              "probability": 0.5862248639265696
+            },
+            {
+              "start": 635.558,
+              "end": 635.898,
+              "text": " niečo",
+              "probability": 0.9959667921066284
+            },
+            {
+              "start": 635.898,
+              "end": 636.258,
+              "text": " menšie,",
+              "probability": 0.9808883269627889
+            }
+          ]
+        },
+        {
+          "start": 636.258,
+          "end": 637.978,
+          "text": "že napríklad čučeritka alebo takže.",
+          "avgLogprob": -0.3169723188699181,
+          "words": [
+            {
+              "start": 636.258,
+              "end": 636.358,
+              "text": " že",
+              "probability": 0.9007388353347778
+            },
+            {
+              "start": 636.358,
+              "end": 636.778,
+              "text": " napríklad",
+              "probability": 0.9970803260803223
+            },
+            {
+              "start": 636.778,
+              "end": 637.438,
+              "text": " čučeritka",
+              "probability": 0.7993754943211874
+            },
+            {
+              "start": 637.438,
+              "end": 637.638,
+              "text": " alebo",
+              "probability": 0.7775459885597229
+            },
+            {
+              "start": 637.638,
+              "end": 637.978,
+              "text": " takže.",
+              "probability": 0.785753071308136
+            }
+          ]
+        },
+        {
+          "start": 638.218,
+          "end": 639.438,
+          "text": "Nie, nie, že melón.",
+          "avgLogprob": -0.3169723188699181,
+          "words": [
+            {
+              "start": 638.218,
+              "end": 638.718,
+              "text": " Nie,",
+              "probability": 0.7291573882102966
+            },
+            {
+              "start": 638.718,
+              "end": 638.818,
+              "text": " nie,",
+              "probability": 0.5490081310272217
+            },
+            {
+              "start": 638.818,
+              "end": 638.918,
+              "text": " že",
+              "probability": 0.9684877395629883
+            },
+            {
+              "start": 638.918,
+              "end": 639.438,
+              "text": " melón.",
+              "probability": 0.6684482991695404
             }
           ]
         }
