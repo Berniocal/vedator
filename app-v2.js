@@ -2294,7 +2294,7 @@
       if(kind==='question'||kind==='nonquestion'){
         const view=kind==='question'?'questions':'nonquestions';let episode=0,order=-1,secondsValue=-1;const direct=String(value).match(/^(\d+):(\d+)$/),legacy=String(value).match(/^(.+)@(\d+)$/);
         if(direct){episode=Number(direct[1]);order=Number(direct[2])}else if(legacy){episode=Number(String(legacy[1]).split('-')[0]);secondsValue=Number(legacy[2])}else return;
-        setView(view);state.query='';$('#search-v2').value='';if(view==='questions')questionUi.qTopic='all';else questionUi.nTopic='all';filterActive();
+        setView(view);state.query='';$('#search-v2').value='';if(view==='questions')questionUi.qTopic='all';else questionUi.nTopic='all';readyTabLists.delete(view);filterActive();
         let item;if(view==='questions')item=state.data.questions.find(x=>Number(x.episode)===episode&&(order>=0?Number(x.order)===order:Number(x.seconds)===secondsValue));else item=flattenNonQuestions(state.data).find(x=>Number(x.episode)===episode&&(order>=0?Number(x.order)===order:Number(x.seconds)===secondsValue));
         if(item)markDeepTarget($("[data-item='"+itemId(item,view==='questions'?'q':'n')+"']"));return;
       }
