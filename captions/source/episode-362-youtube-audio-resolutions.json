@@ -1,6 +1,6 @@
 {
   "episode": 362,
-  "status": "editorial-candidates-pending-acoustic-followup",
+  "status": "all-audio-questions-resolved",
   "audioSha256": "5490eaa4886dd65515bb8f83f1751bad199fefff3254d305f5a35b0b31d1528b",
   "independentReviewSha256": "34050fedb88bc862ca4ed8655310ba44a24b175edb9ae3a9144f66fabe59a4b5",
   "humanListeningVerified": false,
@@ -48,38 +48,38 @@
       "evidencePassages": [
         4
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "41": {
       "textSk": "zachytávať signál, lebo my sme zvyknutí, že komunikujeme… Tie družice, či…",
       "textCs": "zachytávat signál, protože jsme zvyklí, že komunikujeme… Ty družice, nebo…",
-      "reason": "Preposition in satellite communication remark; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Preposition in satellite communication remark; compared archived Slovak wording and independent large-v3 evidence. Final review: The signál/komunikujeme clause is independently recognized. The original caption retains the interrupted družice question, so it stays incomplete.",
       "evidencePassages": [
         5
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "46": {
       "textSk": "Vysielačky rovno pošlú signál do všetkých smerov a keď si dosť blízko, dokážeš ho zachytiť. Robia to, čo telefón vlastne nerobí, že majú",
       "textCs": "Vysílačky pošlou signál přímo do všech směrů, a když jsi dost blízko, zachytíš ho. Dělají to, co telefon vlastně nedělá, že mají",
-      "reason": "Phone direct-communication overlap; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Phone direct-communication overlap; compared archived Slovak wording and independent large-v3 evidence. Final review: Independent large-v3 confirms every substantive clause about vysielačky and the telephone comparison.",
       "evidencePassages": [
         6
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "47": {
       "textSk": "aj tú prijímaciu a vysielaciu časť, že sa vedia pripojiť na seba. Áno.",
       "textCs": "i přijímací a vysílací část, že se dokážou propojit mezi sebou. Ano.",
-      "reason": "Phone receiver negation/claim; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Phone receiver negation/claim; compared archived Slovak wording and independent large-v3 evidence. Final review: Independent large-v3 supports the receiving/transmitting distinction and connection between radios; normalize the broken ending without changing its meaning.",
       "evidencePassages": [
         6
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "50": {
-      "textSk": "Ale keď nie ste od seba dosť ďaleko, tak môžete používať obyčajné vysielačky. A to to je v podstate ako hlasné kričanie, ale hlasné kričanie v",
-      "textCs": "Ale když nejste od sebe dost daleko, tak můžete používat obyčejné vysílačky. A to to je v podstatě jako hlasité křik, ale hlasité křik v",
+      "textSk": "Ale keď nie ste od seba dosť ďaleko, môžete používať obyčajné vysielačky. To je v podstate ako hlasné kričanie, ale hlasné kričanie v",
+      "textCs": "Ale když nejste od sebe příliš daleko, můžete používat obyčejné vysílačky. Je to vlastně jako hlasité křičení, ale hlasité křičení v",
       "reason": "Distance negation formulation; compared archived Slovak wording and independent large-v3 evidence.",
       "evidencePassages": [
         7
@@ -111,7 +111,7 @@
       "evidencePassages": [
         10
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "71": {
       "textSk": "Áno, bude to také jemné dožitie. No, pre nás nebude jemné.",
@@ -134,11 +134,11 @@
     "76": {
       "textSk": "Dobre, ďakujeme veľmi pekne za otázku. Timi, sedemročná, sa pýta: Koľko je hviezd vo vesmíre?",
       "textCs": "Dobře, moc děkujeme za otázku. Sedmiletá Timi se ptá: Kolik je hvězd ve vesmíru?",
-      "reason": "Child questioner name Timi/Timea; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Child questioner name Timi/Timea; compared archived Slovak wording and independent large-v3 evidence. Timi is also addressed by name in the subsequent thank-you, group 96.",
       "evidencePassages": [
         12
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "82": {
       "textSk": "A ten odhad ti dá číslo. Ešte aj cez hmotu, nie? Keď sa spočíta hmota vo vesmíre… To už je potom, keď chceš dopočítať celkové",
@@ -156,16 +156,16 @@
       "evidencePassages": [
         14
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "104": {
       "textSk": "Ja to mám podobne teraz, keď počúvam Červenákovho kapitána Báthoryho. Tiež tam občas niečo také zaznie, že sa zamyslíš nad tým, kedy vznikol tento",
       "textCs": "Podobně to mám teď, když poslouchám Červenákova kapitána Báthoryho. Také tam občas něco takového zazní, že se zamyslíš, kdy vznikl tento",
-      "reason": "Červený kapitán/Báthory title or author; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Červený kapitán/Báthory title or author; compared archived Slovak wording and independent large-v3 evidence. Both no-VAD followups confirm Červenák and kapitán Báthory, rather than Červený kapitán.",
       "evidencePassages": [
         15
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "110": {
       "textSk": "A toto sa mení výrazne. Ale rozumieš pod ňou vodnú paru?",
@@ -179,15 +179,15 @@
     "141": {
       "textSk": "Tiež sme to riešili na našich nedávnych Fakt dobrých otázkach. Tým len teda navnadíme Alexa, že je pred ním veľa zaujímavého počúvania.",
       "textCs": "Také jsme to řešili na našich nedávných Fakt dobrých otázkách. Tím jen navnadíme Alexe, že ho čeká spousta zajímavého poslechu.",
-      "reason": "Naberáme/nabádame wording about Alex; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Naberáme/nabádame wording about Alex; compared archived Slovak wording and independent large-v3 evidence. Final review: The original caption and large-v3 agree on Fakt dobré otázky and inviting Alex to listen. Correct the malformed invitation verb.",
       "evidencePassages": [
         17
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "147": {
       "textSk": "v zime ochladí a cítiš tam, ako proste raz fúka jedným smerom a potom fúka opačným smerom. Takže vo všeobecnosti platí, že",
-      "textCs": "v zimě ochladí v zimě a cítíte tam, jak prostě jednou fou v jednom směru a pak fou v opačným směrem. Takže obecně platí, že",
+      "textCs": "v zimě ochladí a cítíš tam, jak jednou fouká jedním směrem a potom opačným. Takže obecně platí, že",
       "reason": "V zime vs v noci: preserve spoken contrast; compared archived Slovak wording and independent large-v3 evidence.",
       "evidencePassages": [
         18
@@ -215,11 +215,11 @@
     "155": {
       "textSk": "Ďakujeme za otázku, Alex. Vilma, päťročná, sa pýta: [nezrozumiteľné]",
       "textCs": "Děkujeme za otázku, Alexi. Pětiletá Vilma se ptá: [nesrozumitelné]",
-      "reason": "Child Vilma question is garbled; must recover from original audio; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Child Vilma question is garbled; must recover from original audio; compared archived Slovak wording and independent large-v3 evidence. Final review: Six no-VAD language/model attempts do not recover the child recording reliably. Retain the explicit unintelligible marker; do not invent the likely question from the answer about the Sun.",
       "evidencePassages": [
         20
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "165": {
       "textSk": "To neviem, či by aj ľudstvo stihlo. Čo to je, 160… Za sto rokov prejdeš osem minút a koľko je",
@@ -228,7 +228,7 @@
       "evidencePassages": [
         21
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "169": {
       "textSk": "250 000 generácií.",
@@ -240,8 +240,8 @@
       "status": "resolved"
     },
     "175": {
-      "textSk": "Uhm. A ináč ešte ako si prešiel vlastne ten hurikán na tej Antarktíde.",
-      "textCs": "A jinak ještě jak si prošel vlastně ten hurikán na té Antarktidě.",
+      "textSk": "A inak ešte, ako si povedal, ten hurikán na Antarktíde.",
+      "textCs": "A jinak ještě, jak jsi zmínil ten hurikán na Antarktidě.",
       "reason": "Antarktída vs Atlantik in hurricane discussion; compared archived Slovak wording and independent large-v3 evidence.",
       "evidencePassages": [
         23
@@ -259,12 +259,13 @@
     },
     "188": {
       "textSk": "pardon, kozmonauti. Astronauti chodia normálne, lebo oni sú na zemi, ale kozmonauti v beztiažovom stave",
-      "textCs": "pardon, kosmonauti. Astronauti chodí normálně normálně, protože oni jsou na zemi, ale kosmonauti v beztížném stavu",
-      "reason": "Astronauti vs astronómovia joke; compared archived Slovak wording and independent large-v3 evidence.",
+      "textCs": "pardon, kosmonauti. Astronauti chodí normálně, protože jsou na Zemi, ale kosmonauti v beztížném stavu",
+      "reason": "Astronauti vs astronómovia joke; compared archived Slovak wording and independent large-v3 evidence. Final acoustic contrast review: Both independent no-VAD models and identical-window CTC prefer Astronauti by 18.21 log-score points over Astronómi. Preserve the speaker’s terminology, without scientific rewriting.",
       "evidencePassages": [
         25
       ],
-      "status": "needs-followup"
+      "status": "resolved",
+      "contrastEvidenceFile": "captions/source/episode-362-youtube-contrast-audio.json"
     },
     "190": {
       "textSk": "majú tie záchody, čo vedia robiť podtlak, okrem iného. Inak odporúčam znova našu epizódu ISS.",
@@ -278,20 +279,20 @@
     "208": {
       "textSk": "Tak, dobre, Teo sa pýta: Čo sa stalo, keď sa bábätko narodilo vo vesmíre?",
       "textCs": "Dobře, Teo se ptá: Co se stalo, když se ve vesmíru narodilo miminko?",
-      "reason": "Mačiatko vs bábätko in child question; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Mačiatko vs bábätko in child question; compared archived Slovak wording and independent large-v3 evidence. Final review: Original caption and both no-VAD recognizers support the child-birth question; retain the question despite pronunciation errors in the recording.",
       "evidencePassages": [
         26
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "210": {
-      "textSk": "Odpoveď je, že sa to v lietadle osvedčilo. Nie, nie, nikdy sa to nestalo.",
-      "textCs": "Odpověď je, že se to v letadle osvědčilo. Ne, ne, nikdy se to nestalo.",
-      "reason": "Garbled short answer and plane reference; compared archived Slovak wording and independent large-v3 evidence.",
+      "textSk": "Odpoveď je, že sa to… Nie, nie, nikdy sa to nestalo.",
+      "textCs": "Odpověď je, že se to… Ne, ne, nikdy se to nestalo.",
+      "reason": "Garbled short answer and plane reference; compared archived Slovak wording and independent large-v3 evidence. Final review: All three independent recognitions stop after sa to. Remove the unsupported lietadle osvedčilo clause rather than guessing the abandoned sentence.",
       "evidencePassages": [
         26
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "228": {
       "textSk": "človek má nejakú jasnú os. Ale to sa nejde… Či náhodou bábätko by nebolo nejak pomýlené alebo ten reflex by",
@@ -312,13 +313,13 @@
       "status": "resolved"
     },
     "233": {
-      "textSk": "Tak mu sa takto narodiť, takže… Áno, bude to potrebovať. Leo sa pýta:",
-      "textCs": "Takhle se narodit, takže… Ano, bude to potřebovat. Leo se ptá:",
-      "reason": "Interrupted farewell to hypothetical baby; compared archived Slovak wording and independent large-v3 evidence.",
+      "textSk": "Tak môcť sa takto narodiť, takže… Áno, bude to potrebovať. Leo sa pýta:",
+      "textCs": "Tak moct se takhle narodit, takže… Ano, bude to potřebovat. Leo se ptá:",
+      "reason": "Interrupted farewell to hypothetical baby; compared archived Slovak wording and independent large-v3 evidence. Final review: Restore the infinitive in the broken source phrase using independent large-v3; preserve the interrupted joke and the transition to Leo.",
       "evidencePassages": [
         28
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "241": {
       "textSk": "zvuku, ktorý potom počuješ ako sa šíri ďalej. Ale vždy je to naozaj o tom, že buď máš médium, ktoré rozvibruješ alebo rozvibruješ priamo vzduch, ako",
@@ -372,16 +373,16 @@
       "evidencePassages": [
         34
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "285": {
       "textSk": "Aha, ja ti poviem, akú gumičku. Zoberieš kancelársku gumičku a natiahneš ju okolo Zeme. A táto otázka mi robila najväčšiu bolesť hlavy.",
       "textCs": "Aha, řeknu ti, jakou gumičku. Vezmeš kancelářskou gumičku a natáhneš ji kolem Země. Z téhle otázky mě nejvíc bolela hlava.",
-      "reason": "Mám tri roky vs mám tri odpovede; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Mám tri roky vs mám tri odpovede; compared archived Slovak wording and independent large-v3 evidence. Final review: Original captions and two no-VAD models support the rubber-band scenario. The isolated mám tri roky is not corroborated and is not added to the adult explanation.",
       "evidencePassages": [
         35
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "296": {
       "textSk": "sa zmení na energiu tej gumičky, ktorá by bola zároveň veľmi, veľmi ľahká,",
@@ -394,30 +395,31 @@
     },
     "304": {
       "textSk": "svetla a podobne, tak odhad je taký, že by to mohlo trvať až niekoľko dní. A dosahovala by rýchlosti niekoľko stoviek metrov a",
-      "textCs": "světla a podobně, takže odhad je takový, že by to mohlo trvat až několik dní. A dosahovala by rychlosti několik set metrů a",
-      "reason": "Speed unit incomplete; compared archived Slovak wording and independent large-v3 evidence.",
+      "textCs": "světla a podobně, odhad je takový, že by to mohlo trvat až několik dní. Dosahovala by rychlosti několika stovek metrů a",
+      "reason": "Speed unit incomplete; compared archived Slovak wording and independent large-v3 evidence. The speaker leaves the first speed unit incomplete, then states 300 m/s in the following group. Preserve this spoken handoff rather than inventing a missing unit.",
       "evidencePassages": [
         37
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "308": {
       "textSk": "To je škoda, že nie. Dobre, tak Leovi ďakujeme. Oskar sa pýta.",
       "textCs": "To je škoda, že ne. Dobře, Leovi děkujeme. Oskar se ptá:",
-      "reason": "To je škoda vs škoda že nie / jokes; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "To je škoda vs škoda že nie / jokes; compared archived Slovak wording and independent large-v3 evidence. Final review: Keep the original brief comment and the independently recognized transition to Oskar.",
       "evidencePassages": [
         38
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "319": {
-      "textSk": "No, máš? Čo si!",
-      "textCs": "No, je tam? Ale prosím tě!",
-      "reason": "Brown-on-rainbow negation; compared archived Slovak wording and independent large-v3 evidence.",
+      "textSk": "No a čo?",
+      "textCs": "No a co?",
+      "reason": "Brown-on-rainbow negation; compared archived Slovak wording and independent large-v3 evidence. Final acoustic contrast review: The initial independent ASR, both no-VAD models and the raw CTC no a šo support No a čo. Its CTC path beats the earlier guessed No máš, čo si by 18.17 log-score points.",
       "evidencePassages": [
         39
       ],
-      "status": "needs-followup"
+      "status": "resolved",
+      "contrastEvidenceFile": "captions/source/episode-362-youtube-contrast-audio.json"
     },
     "325": {
       "textSk": "A absencia farby je čierna, takže preto je vesmír čierny. A máme viac absencie svetla, ako hviezdičiek vidíme.",
@@ -431,11 +433,11 @@
     "338": {
       "textSk": "Aj nenápadne, dokonca je tam vo viacerých kapitolách, ale jedna kapitola je vlastne venovaná tomu, ako funguje Slnko.",
       "textCs": "I nenápadně, dokonce je tam ve více kapitolách, ale jedna kapitola je vlastně věnovaná tomu, jak funguje Slunce.",
-      "reason": "Book title overlap; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Book title overlap; compared archived Slovak wording and independent large-v3 evidence. Final review: Independent large-v3 confirms multiple chapters and the chapter about how the Sun works.",
       "evidencePassages": [
         43
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "342": {
       "textSk": "trošku iné parametre sa môžu pomeniť, ale fyzika za tým je tá istá.",
@@ -449,20 +451,20 @@
     "361": {
       "textSk": "v ruke. No a televízor. Veď aj ľudia, keď si nejako vzdialený, tak vidíš len bodky, že sú ľudia. Proste sa ti to tak začne… Vzdialené zdroje vyzerajú, hovorí sa",
       "textCs": "v ruce. A televize. I lidi, když jsi daleko, vidíš jen jako tečky, že to jsou lidé. Prostě se ti to tak začne… Vzdálené zdroje vypadají, říká se",
-      "reason": "Garbled example about distant people and TV; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Garbled example about distant people and TV; compared archived Slovak wording and independent large-v3 evidence. Final review: Original captions and large-v3 support the phone/television/people examples. Keep the unfinished transition into point sources.",
       "evidencePassages": [
         45
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "366": {
       "textSk": "je jednoznačne Jupiter, Saturn, Mars, Venuša, aj keď tá tu nie je až tak dobre…",
       "textCs": "je jednoznačně Jupiter, Saturn, Mars, Venuše, i když ta tady není tak dobře…",
-      "reason": "Interrupted Venus description; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Interrupted Venus description; compared archived Slovak wording and independent large-v3 evidence. Final review: Independent large-v3 confirms the named planets and the unfinished aside about Venus; do not supply its missing predicate.",
       "evidencePassages": [
         46
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "367": {
       "textSk": "Ale choďte do planetária. Naozaj tam mávajú aj nejaké zábery, môžete si pozrieť. Takže je vlastne cool, že keď Galileo a podobne prvýkrát chytili do",
@@ -472,6 +474,22 @@
         46
       ],
       "status": "resolved"
+    },
+    "75": {
+      "textSk": "Veľa času. Máme ho veľa, áno. Tak, netreba sa báť.",
+      "textCs": "Hodně času. Máme ho hodně, ano. Tak, není třeba se bát.",
+      "status": "resolved",
+      "reason": "Both no-VAD models agree with the original máme ho veľa; restore the original word order instead of the earlier paraphrase.",
+      "evidencePassages": [],
+      "followupEvidenceFile": "captions/source/episode-362-youtube-followup-audio.json"
+    },
+    "93": {
+      "textSk": "Áno, keby sme povedali niečo o dosť menšie, napríklad čučoriedka alebo tak.",
+      "textCs": "Ano, kdybychom řekli něco o dost menšího, například borůvka nebo tak.",
+      "status": "resolved",
+      "reason": "Both independent no-VAD models say čučerietka and the independent CTC says čučrie. Restore čučoriedka rather than retaining the unsupported šošovica guess.",
+      "evidencePassages": [],
+      "followupEvidenceFile": "captions/source/episode-362-youtube-followup-audio.json"
     }
   },
   "gaps": {
@@ -559,5 +577,8 @@
         42
       ]
     }
-  ]
+  ],
+  "followupReviewFile": "captions/source/episode-362-youtube-followup-audio.json",
+  "followupReviewSha256": "f57a9f3a774ad358f50767880141d3c642cfb5ec9c1426c6961ce47831e6a2bd",
+  "contrastReviewSha256": "3c36f25b0eb1524ab52dfba57c7eca22c579c8bb29fcc4e2f2b08e141679b31f"
 }

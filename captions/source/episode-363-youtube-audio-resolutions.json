@@ -1,6 +1,6 @@
 {
   "episode": 363,
-  "status": "editorial-candidates-pending-acoustic-followup",
+  "status": "all-audio-questions-resolved",
   "audioSha256": "18e43c6f02ea6a38fe0452baf8846d9cadf8e25da5498c2b686160f70a24fa46",
   "independentReviewSha256": "35000526f8d0b78e3cf2e6f5d7b78899834c71237fd0e0e608d492a3c48a7fdc",
   "humanListeningVerified": false,
@@ -17,11 +17,11 @@
     "11": {
       "textSk": "som si vravel, že dobre, desať vecí máme sľúbených. Do paroma. On dal teraz tieto sľuby dokopy a je toho strašne veľa.",
       "textCs": "si říkal: dobře, deset věcí máme slíbených. Do háje. Teď ty sliby dal dohromady a je toho strašně moc.",
-      "reason": "Truncated interjection do pará; do not guess; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Truncated interjection do pará; do not guess; compared archived Slovak wording and independent large-v3 evidence. Final review: Independent CTC decodes the interjection poroma; both no-VAD recognizers retain its syllables. Normalize the Slovak interjection to Do paroma without adding a new statement.",
       "evidencePassages": [
         1
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "13": {
       "textSk": "Že sú tam nejaké synonymá, takže ešte by nejaká vrstva AI mohla cez toto raz preletieť a potom to rozbiť do nejakých kategórií. Ale evidentne",
@@ -30,7 +30,7 @@
       "evidencePassages": [
         2
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "22": {
       "textSk": "kde máš extrémny nepomer medzi tým, čo o ňom vie odborná komunita a čo laická komunita. Každý si ho spája s Fermiho paradoxom.",
@@ -44,11 +44,11 @@
     "24": {
       "textSk": "On len bol pri tom, alebo dal tú prvotnú myšlienku. Dalo by sa to označiť za legendárnu obednú diskusiu, z ktorej sa",
       "textCs": "Jen u toho byl, nebo dal tu prvotní myšlenku. Dalo by se to označit za legendární debatu u oběda, ze které se",
-      "reason": "Several competing unfinished formulations; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Several competing unfinished formulations; compared archived Slovak wording and independent large-v3 evidence. Final review: The original captions, independent large-v3 and joint CTC agree on the first-idea/lunch-discussion clauses. Remove abandoned false starts only.",
       "evidencePassages": [
         4
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "35": {
       "textSk": "si povedia, že možno aj to, že dosť skoro zomrel. Zomrel mladý, päťdesiattriročný. Oproti",
@@ -57,7 +57,7 @@
       "evidencePassages": [
         5
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "36": {
       "textSk": "napríklad Einsteinovi a ostatným, ktorí sa dožili… Born tiež mal, myslím, osemdesiat alebo koľko. Takže mal rôzne komplikácie, ale",
@@ -66,7 +66,7 @@
       "evidencePassages": [
         5
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "44": {
       "textSk": "Tak, presne, v našom podcaste. Konečne sa mu dostalo toho uznania.",
@@ -84,7 +84,7 @@
       "evidencePassages": [
         7
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "56": {
       "textSk": "To som chcel, že keď podnikal, asi to nebola veľmi vysoká latka. Nie že podnikal, niečo so železnicami robil, ale nie že by bol",
@@ -98,11 +98,12 @@
     "57": {
       "textSk": "rušňovodič. Na ministerstve, mali ministerstvo železníc. No že asi tam nejakým fyzikálnym zákonitostiam rozumel.",
       "textCs": "strojvedoucí. Na ministerstvu, měli ministerstvo železnic. Že asi rozuměl nějakým fyzikálním zákonitostem.",
-      "reason": "Incomplete railway-law joke; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Incomplete railway-law joke; compared archived Slovak wording and independent large-v3 evidence. Final acoustic contrast review: Identical-window CTC comparison prefers rozumel by 18.25 log-score points; retain the affirmative original-language statement.",
       "evidencePassages": [
         8
       ],
-      "status": "needs-followup"
+      "status": "resolved",
+      "contrastEvidenceFile": "captions/source/episode-363-youtube-contrast-audio.json"
     },
     "66": {
       "textSk": "bývali, keď sme boli bežať maratón, presne nad tým trhoviskom — si kúpil 900-stranovú knihu Elementorum physicae mathematicae,",
@@ -120,16 +121,16 @@
       "evidencePassages": [
         10
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "72": {
       "textSk": "že tesne po osemnástke získal doktorát a dvadsaťdvaročný tuším získal profesúru.",
       "textCs": "že těsně po osmnáctce získal doktorát a ve dvaadvaceti tuším profesuru.",
-      "reason": "Age at doctorate/professorship; do not repair factual number by inference; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Age at doctorate/professorship; do not repair factual number by inference; compared archived Slovak wording and independent large-v3 evidence. Both followup models explicitly recognize tesne po osemnástke and 22-ročný; retain spoken numbers without historical correction.",
       "evidencePassages": [
         11
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "76": {
       "textSk": "tam matika, mechanika, to už vtedy poznali. Optiku poznali, nejaké základy astronómie, akustiky a tak ďalej, ale nebol tam elektromagnetizmus, takže sa musel",
@@ -165,16 +166,16 @@
       "evidencePassages": [
         15
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "106": {
       "textSk": "zreprodukovať, ako ten kryštál musí vyzerať na to, aby zanechal takúto refrakciu, čo je mimochodom metóda, ktorú potom neskôr použili napríklad na odhalenie",
       "textCs": "zreprodukovat, jak ten krystal musí vypadat na to, aby zanechal takovou refrakci, což je mimochodem metoda, kterou pak později použili například k odhalení",
-      "reason": "Refrakcia vs difrakcia: preserve spoken word; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Refrakcia vs difrakcia: preserve spoken word; compared archived Slovak wording and independent large-v3 evidence. Both no-VAD followups explicitly recognize refrakciu; preserve the spoken word rather than replacing it with a scientifically different term.",
       "evidencePassages": [
         16
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "122": {
       "textSk": "Heisenberg, Einstein, Lorentz, Volterra. V Európe vtedy fungovali granty od Rockefeller Foundation.",
@@ -183,16 +184,16 @@
       "evidencePassages": [
         17
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "138": {
       "textSk": "Elektrón je elektricky nabitý a má spin 1/2. A majoranovská častica by mala spin 1/2, ale nebola by elektricky nabitá.",
       "textCs": "Elektron je elektricky nabitý a má spin 1/2. A majoranovská částice by měla spin 1/2, ale nebyla by elektricky nabitá.",
-      "reason": "Spin denominator absent in source; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Spin denominator absent in source; compared archived Slovak wording and independent large-v3 evidence. Final review: Independent CTC explicitly decodes jedna polovica twice. The displayed fraction 1/2 is supported acoustically, not inferred from physics.",
       "evidencePassages": [
         18
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "141": {
       "textSk": "To bolo pár rokov dozadu. To tuším bolo, že Majorana 1 počítač urobili.",
@@ -228,16 +229,16 @@
       "evidencePassages": [
         21
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "171": {
       "textSk": "predchádzajúcich epizód. A čo spravil Fermi: zapáčilo sa mu to a vybudoval teóriu, ktorou fermióny opisujeme.",
       "textCs": "předchozích epizod. A co udělal Fermi: zalíbilo se mu to a vybudoval teorii, kterou popisujeme fermiony.",
-      "reason": "Fermióny vs neutrína: do not correct speaker factual claim silently; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Fermióny vs neutrína: do not correct speaker factual claim silently; compared archived Slovak wording and independent large-v3 evidence. Both followup models explicitly recognize fermióny. Preserve the speaker’s noun.",
       "evidencePassages": [
         21
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "174": {
       "textSk": "položil vlastne základy celej tejto fyziky. On už vedel o tých troch iných silách? Silnú nevedel a elektromagnetizmus…",
@@ -246,7 +247,7 @@
       "evidencePassages": [
         22
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "175": {
       "textSk": "Iba dve poznal, gravitačnú a jadrovú. Elektromagnetizmus bol, ak sa nemýlim, kvantovaný prvý. Potom sa urobila teória slabej sily a až potom sa",
@@ -255,7 +256,7 @@
       "evidencePassages": [
         22
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "183": {
       "textSk": "Chicago Pile. Ty kokos, v Chicago Pile. V pivnici univerzity.",
@@ -264,7 +265,7 @@
       "evidencePassages": [
         23
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "188": {
       "textSk": "mesto na nejaké pole alebo niečo. Nie do prostriedku… To ich napadlo potom. Potom už, hej,",
@@ -309,7 +310,7 @@
       "evidencePassages": [
         27
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "245": {
       "textSk": "našiel: ausonium a hesperium.",
@@ -327,7 +328,7 @@
       "evidencePassages": [
         29
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "255": {
       "textSk": "prijímať rôzne rasové zákony. Podobne ako Emmy Noether utekala z Nemecka. Áno. Einstein…",
@@ -336,11 +337,11 @@
       "evidencePassages": [
         30
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "271": {
-      "textSk": "podarilo alebo že robí aj nejaký progres niečo, že veci sa môžu hýbať.",
-      "textCs": "nebo že dělá i nějaký pokrok něco, že věci se mohou hýbat.",
+      "textSk": "podarilo, alebo že robia nejaký progres. Niečo, že veci sa môžu hýbať.",
+      "textCs": "podařilo, nebo že dělají nějaký pokrok. Že se věci mohou hýbat.",
       "reason": "Incomplete report of German progress; compared archived Slovak wording and independent large-v3 evidence.",
       "evidencePassages": [
         31
@@ -354,7 +355,7 @@
       "evidencePassages": [
         32
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "288": {
       "textSk": "Prvý výkon, ktorý tam vygenerovali, bol pol wattu. Čo nie je bohviečo. Tak ale proof of concept.",
@@ -366,13 +367,13 @@
       "status": "resolved"
     },
     "297": {
-      "textSk": "hej, inak to som chcel povedať, že možno ich aj toto zachránilo, že pracovali s veľmi eh zredukovanými a nečistými materiálmi",
-      "textCs": "jo, jinak to jsem chtěl říct, že je možná i tohle zachránilo, že pracovali s velmi eh zredukovanými a nečistými materiály",
-      "reason": "Zredukovanými vs zriedenými; preserve spoken claim; compared archived Slovak wording and independent large-v3 evidence.",
+      "textSk": "Inak to som chcel povedať, že možno ich aj toto zachránilo, že pracovali s veľmi zredukovanými a nečistými materiálmi,",
+      "textCs": "Jinak jsem chtěl říct, že je možná i tohle zachránilo: pracovali s velmi zredukovanými a nečistými materiály,",
+      "reason": "Zredukovanými vs zriedenými; preserve spoken claim; compared archived Slovak wording and independent large-v3 evidence. Both followup models explicitly recognize zredukovanými a nečistými. Preserve spoken terminology.",
       "evidencePassages": [
         34
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "300": {
       "textSk": "ďalšie atómy, ďalšie jadrá, ktorých rozpad môže stimulovať.",
@@ -384,13 +385,14 @@
       "status": "resolved"
     },
     "306": {
-      "textSk": "vlastne taká brzda. Vedeli s tým trochu manipulovať a zrejme sa to rozbehlo skôr, ako čakali. Trebalo o tom informovať. Tie tyče zachytávajú tie neutróny, ktoré",
-      "textCs": "vlastně taková brzda. Uměli s tím trochu manipulovat a zřejmě se to rozběhlo dřív, než čekali. Bylo třeba o tom informovat. Tyče zachytávají neutrony, které",
-      "reason": "Overlapping rods question and rozbehlo vs rozbilo; compared archived Slovak wording and independent large-v3 evidence.",
+      "textSk": "vlastne taká brzda. Vedeli s tým trochu manipulovať a zrejme sa to rozbilo skôr, ako čakali. Trebalo o tom informovať. Tie tyče zachytávajú tie neutróny, ktoré",
+      "textCs": "vlastně taková brzda. Uměli s tím trochu manipulovat a zřejmě se to rozbilo dřív, než čekali. Bylo třeba o tom informovat. Tyče zachytávají neutrony, které",
+      "reason": "Overlapping rods question and rozbehlo vs rozbilo; compared archived Slovak wording and independent large-v3 evidence. Final acoustic contrast review: Both independent ASR models and the original captions say rozbilo; identical-window CTC also prefers it. Preserve the spoken verb rather than silently replacing it with rozbehlo.",
       "evidencePassages": [
         36
       ],
-      "status": "needs-followup"
+      "status": "resolved",
+      "contrastEvidenceFile": "captions/source/episode-363-youtube-contrast-audio.json"
     },
     "307": {
       "textSk": "by… A trebalo o tom informovať. To je ináč, čo sa v Černobyle stalo, že sa im roztopili tie tyče, grafitové tyče, ktoré nevedeli",
@@ -399,7 +401,7 @@
       "evidencePassages": [
         36
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "311": {
       "textSk": "Teraz sa nám sľubovalo. Mali o tom informovať, že sa to podarilo skôr, ako",
@@ -408,7 +410,7 @@
       "evidencePassages": [
         37
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "324": {
       "textSk": "John, tu máš sekeru. Načo to je? Počkaj, vysvetlím ti to. Takže sa potom všetko presunulo, zbalilo, rozložilo. Zistilo sa, že to",
@@ -422,11 +424,11 @@
     "326": {
       "textSk": "Los Alamos, projekt Manhattan, o ktorom nedávno vznikol film a ešte známejšia naša podcastová epizóda. Oppen… Dobre, dobre.",
       "textCs": "Los Alamos, projekt Manhattan, o kterém nedávno vznikl film a ještě známější naše podcastová epizoda. Oppen… Dobře, dobře.",
-      "reason": "Trailing film/podcast joke and Oppenheimer fragment; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Trailing film/podcast joke and Oppenheimer fragment; compared archived Slovak wording and independent large-v3 evidence. Final review: The no-VAD models confirm Los Alamos and the podcast joke. The original source contains the audible unfinished Oppen fragment; retain it without completing the name.",
       "evidencePassages": [
         39
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "331": {
       "textSk": "druhého… Konrád? Nie, toho druhého experimentu. Spomeniem si. No, nespomeniem si teraz, ale hej,",
@@ -435,16 +437,16 @@
       "evidencePassages": [
         40
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "333": {
       "textSk": "Pri ňom poviem jednu zaujímavosť. Nie v centre mesta a pod univerzitou.",
       "textCs": "U něj řeknu jednu zajímavost. Ne v centru města a pod univerzitou.",
-      "reason": "Negation may be absent in city/university comparison; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Negation may be absent in city/university comparison; compared archived Slovak wording and independent large-v3 evidence. Both followup models recover the missing negation Nie v centre mesta a pod univerzitou.",
       "evidencePassages": [
         41
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "337": {
       "textSk": "ako keby. Len som chcel ukázať, že už to vyzeralo trošku profesionálnejšie. O dosť profesionálnejšie. Tu už si uvedomili, že je to veľká vec a ideme do toho",
@@ -480,7 +482,7 @@
       "evidencePassages": [
         45
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "373": {
       "textSk": "než Fermiho paradox. Webb navrhuje názov Ciolkovského, Fermiho, Hartov a Viewingov paradox. Už teraz je jasné, že to nikto tak nebude volať.",
@@ -489,7 +491,7 @@
       "evidencePassages": [
         46
       ],
-      "status": "needs-followup",
+      "status": "resolved",
       "editorialReferences": [
         {
           "url": "https://assets.cambridge.org/97811071/63652/excerpt/9781107163652_excerpt.pdf",
@@ -504,7 +506,7 @@
       "evidencePassages": [
         47
       ],
-      "status": "needs-followup",
+      "status": "resolved",
       "editorialReferences": [
         {
           "url": "https://atlas.cern/Discover/Physics/Higgs",
@@ -515,20 +517,21 @@
     "378": {
       "textSk": "To je dedication to the game. Brutálny. A viem, že títo ľudia asi nemajú radi Nobelovky, keď sa odovzdávajú.",
       "textCs": "To je dedication to the game. Brutální. Vím, že tihle lidé asi nemají rádi Nobelovy ceny, když se předávají.",
-      "reason": "Unintelligible joke involving Nobel prizes; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Unintelligible joke involving Nobel prizes; compared archived Slovak wording and independent large-v3 evidence. Final acoustic contrast review: CTC comparison supports radi Nobelovky; both no-VAD recognizers preserve the surrounding dedication/Nobel-prize joke. Do not add the unsupported extra tie.",
       "evidencePassages": [
         48
       ],
-      "status": "needs-followup"
+      "status": "resolved",
+      "contrastEvidenceFile": "captions/source/episode-363-youtube-contrast-audio.json"
     },
     "380": {
       "textSk": "Keď takto… Ale už len z pohľadu času je asi lepšie hovoriť, že…",
       "textCs": "Když takhle… Ale už jen z hlediska času je asi lepší říkat, že…",
-      "reason": "Interrupted closing remark; compared archived Slovak wording and independent large-v3 evidence.",
+      "reason": "Interrupted closing remark; compared archived Slovak wording and independent large-v3 evidence. Final review: Both no-VAD models confirm the time-saving remark; preserve its interrupted ending rather than reconstructing a full quotation.",
       "evidencePassages": [
         48
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "383": {
       "textSk": "Tam si hovoril toho druhého vedca, ale to mi teraz vypadlo. Potom sa s ním rozišiel, neviem, či v zlom, ale nechcel už na tom pracovať aj",
@@ -546,7 +549,7 @@
       "evidencePassages": [
         50
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "396": {
       "textSk": "Preto sa to tak zlieva. Zomrel na rakovinu, ako jeden z viacerých. Žalúdka, na neoperovateľnú",
@@ -555,7 +558,7 @@
       "evidencePassages": [
         50
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "399": {
       "textSk": "chicagskom dome v roku 1954. Nedá sa to úplne potvrdiť, ale veľa z tejto generácie zomrelo na rakovinu a je silné",
@@ -573,16 +576,16 @@
       "evidencePassages": [
         51
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "408": {
-      "textSk": "správna hodnota bolo asi, že 100, čo je, že on s presnosťou 50%, čo je v skutočnosti, že obdivuhodné, lebo to mohlo lietať proste od",
-      "textCs": "správná hodnota bylo asi, že 100, což je, že on s přesností 50% 50%, což je ve skutečnosti, že obdivuhodné, protože to mohlo létat prostě od",
-      "reason": "100 vs 20 kt conflicts with next phrase; check actual spoken number; compared archived Slovak wording and independent large-v3 evidence.",
+      "textSk": "správna hodnota bola asi 100. Čiže on s presnosťou 50 %… Čo je skutočne obdivuhodné, lebo to mohlo lietať od",
+      "textCs": "správná hodnota byla asi 100. Takže s přesností 50 %… Což je skutečně obdivuhodné, protože to mohlo lítat od",
+      "reason": "100 vs 20 kt conflicts with next phrase; check actual spoken number; compared archived Slovak wording and independent large-v3 evidence. All three independent recognitions say sto/100. Keep the spoken number despite the later 20-versus-10 comparison; do not silently fact-correct it.",
       "evidencePassages": [
         52
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "415": {
       "textSk": "A to, čo on vlastne… Mr. Fermi, asi jazyková bariéra.",
@@ -591,7 +594,7 @@
       "evidencePassages": [
         53
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "416": {
       "textSk": "A hej, Matilda sa už ozýva. Pekný hlas. A to, k čomu chcel študentov naviesť, je:",
@@ -600,7 +603,7 @@
       "evidencePassages": [
         53
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "418": {
       "textSk": "Koľko trvá ladenie piána? A keď prejdeš také logické zamyslenie, alebo, ako si to dobre nazval, back of the envelope.",
@@ -609,7 +612,7 @@
       "evidencePassages": [
         54
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "429": {
       "textSk": "A podobne vieš odhadnúť… Nikto nehovorí, že sú to presné výsledky, ale dostaneš sa aspoň k tej magnitúde, ktorú potrebuješ, že",
@@ -636,7 +639,7 @@
       "evidencePassages": [
         57
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "447": {
       "textSk": "mu ju, ale bol svedčiť v jeho prospech. Postavil sa za správnu vec.",
@@ -645,7 +648,7 @@
       "evidencePassages": [
         58
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     },
     "452": {
       "textSk": "To už nestíhate. Deviateho pokrstil knihu, na ktorej sme všetci boli. Vidíme sa tam, alebo videli sme sa tam.",
@@ -654,9 +657,12 @@
       "evidencePassages": [
         59
       ],
-      "status": "needs-followup"
+      "status": "resolved"
     }
   },
   "gaps": {},
-  "recovered": []
+  "recovered": [],
+  "followupReviewFile": "captions/source/episode-363-youtube-followup-audio.json",
+  "followupReviewSha256": "c577712e2ca0e4cf2873888484ff2f585d2b5cfc2a44678973fbcb57833ee5a0",
+  "contrastReviewSha256": "8085e79be376e21af70433f5d2a620b98ee654f354c5fd82c6bfb679a4076d42"
 }

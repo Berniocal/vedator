@@ -162,6 +162,18 @@ def srt_time(value):
     return f'{h:02}:{m:02}:{s:02},{ms:03}'
 
 
+def save_seek_index(number,proof,audio_path):
+    """Preserve a per-episode index without dirtying a matrix job's base tree."""
+    shared_index=ROOT/'audio-seek-index.json'
+    original_index=shared_index.read_bytes()
+    try:
+        subprocess.run(['node',str(ROOT/'tools/build-mp3-seek-index.mjs'),str(audio_path),proof['audio']],cwd=ROOT,check=True)
+        index=batch.read(shared_index)['entries'][proof['audio']]
+        batch.write(SOURCE/f'episode-{number}-youtube-seek-index.json',{'audio':proof['audio'],'audioSha256':proof['audioSha256'],'index':index})
+    finally:
+        shared_index.write_bytes(original_index)
+
+
 def align(number):
     import numpy as np
     import torch
@@ -207,16 +219,19 @@ def align(number):
             if ids:ids.append(vocab[delimiter]);chunk_owners.append(-1);word_owners.append(-1)
             ids.extend(local_ids);chunk_owners.extend([ri]*len(local_ids));word_owners.extend(owners)
             details.append((g,sk,printed,spoken))
+        a=max(0,chunk[0]['start']-.15);b=min(len(wave)/16000,chunk[-1]['end']+.15)
+        following=next((g for g in speech_groups if g['start']>chunk[-1]['start']),None)
+        if following and following.get('sourceLanguage','sk')!=language:
+            b=min(b,following['start'])
         key=hashlib.sha256(json.dumps({'groups':chunk,'tokenIds':ids,'model':name,'algorithm':'joint-neighbors-v1'},ensure_ascii=False,sort_keys=True).encode()).hexdigest()
         reusable=True
         for ri,(g,sk,printed,spoken) in enumerate(details):
             prior=cache.get(str(g['group']),{})
             expected=[token for token,owner in zip(ids,chunk_owners) if owner==ri]
-            reusable=reusable and prior.get('chunkKey') in (key,legacy_key) and [c['token'] for c in prior.get('characters',[])]==expected
+            reusable=reusable and prior.get('chunkWindow')==[round(a,3),round(b,3)] and prior.get('chunkKey') in (key,legacy_key) and [c['token'] for c in prior.get('characters',[])]==expected
         if reusable:
             for g in chunk:aligned[str(g['group'])]={**cache[str(g['group'])],'chunkKey':key}
         else:
-            a=max(0,chunk[0]['start']-.15);b=min(len(wave)/16000,chunk[-1]['end']+.15)
             inputs=processor(wave[int(a*16000):int(b*16000)],sampling_rate=16000,return_tensors='pt',padding=True)
             with torch.inference_mode():logits=model(**inputs).logits.log_softmax(-1)
             independent_decode=processor.batch_decode(logits.argmax(-1))[0]
@@ -300,14 +315,7 @@ def align(number):
     batch.write(CAP/f'episode-{number}.review.json',report)
     # Save the exact index per episode, avoiding matrix writes to a shared file.
     audio_path=Path(__import__('os').environ.get('VEDATOR_BATCH_AUDIO','/tmp/vedator-youtube-batch-audio'))/f'episode-{number}.mp3'
-    shared_index=ROOT/'audio-seek-index.json'
-    original_index=shared_index.read_bytes()
-    try:
-        subprocess.run(['node',str(ROOT/'tools/build-mp3-seek-index.mjs'),str(audio_path),proof['audio']],cwd=ROOT,check=True)
-        index=batch.read(shared_index)['entries'][proof['audio']]
-        batch.write(SOURCE/f'episode-{number}-youtube-seek-index.json',{'audio':proof['audio'],'audioSha256':proof['audioSha256'],'index':index})
-    finally:
-        shared_index.write_bytes(original_index)
+    save_seek_index(number,proof,audio_path)
     print(json.dumps(report,ensure_ascii=False),flush=True)
 
 

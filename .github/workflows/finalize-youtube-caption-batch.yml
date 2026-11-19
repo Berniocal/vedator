@@ -1,7 +1,7 @@
 name: Align reviewed bilingual YouTube caption batch
 on:
   push:
-    branches: [captions/youtube-batch-363-361-20261119]
+    branches: [captions/finish-youtube-363-361-20261119]
     paths:
       - tools/finalize-youtube-caption-batch.py
       - .github/workflows/finalize-youtube-caption-batch.yml
