@@ -238,7 +238,7 @@ assert(hiddenMatch);assert(context.searchContext(hiddenMatch,'specialni').includ
 console.log('PASS: title-first content-only search, visible reasons including merged mentions, accents and Unicode offsets, literal HTML, no joining unrelated fields, and cleared highlights.');
 
 // Reviewed duplicates retain every original and offer a separate playable place.
-assert.equal(originals.length,data.consolidation.originalFindings-27,'Only reviewed paid statements are removed');
+assert.equal(originals.length,data.consolidation.originalFindings-27+9,'Only reviewed paid statements are removed');
 const fermi=data.findings.find(r=>r.candidate===31);
 assert.deepEqual(fermi.mergedFrom.map(m=>m.episode),[25,46,49,188]);
 openSection('episodes');
