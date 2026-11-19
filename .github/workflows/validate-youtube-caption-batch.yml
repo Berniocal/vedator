@@ -1,0 +1,43 @@
+name: Validate newest bilingual caption batch
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'captions/episode-36*.json'
+      - 'captions/episode-36*.srt'
+      - 'captions/source/episode-36*-youtube-*.json'
+      - episode-videos.json
+      - audio-seek-index.json
+      - tools/finalize-youtube-caption-batch.py
+      - tools/validate-youtube-caption-batch.py
+      - tools/test-youtube-caption-layout.py
+      - .github/workflows/validate-youtube-caption-batch.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - 'captions/episode-36*.*'
+      - 'captions/source/episode-36*-youtube-*.json'
+      - 'tools/*youtube-caption*.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  captions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify source deduplication and bilingual two-line layout
+        run: |
+          python tools/test-youtube-caption-batch.py
+          python tools/test-youtube-caption-layout.py
+      - name: Verify publication gates and every spoken group
+        run: |
+          node tools/build-content-v2.mjs
+          python tools/validate-youtube-caption-batch.py --registered 363 362 361

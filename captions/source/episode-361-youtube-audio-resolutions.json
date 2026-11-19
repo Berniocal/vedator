@@ -341,11 +341,14 @@
     "214": {
       "textSk": "nejaké Lady alebo čo mali medzi 79,5 a 80 km/h, alebo čo, ísť pomaly skrutky povypadávať a potom sa to upokojilo.",
       "textCs": "u nějaké Lady nebo čeho mezi 79,5 a 80 km/h skoro vypadávaly šrouby a potom se to uklidnilo.",
-      "reason": "Speed range numerals and šróby pronunciation; compared archived wording with independent large-v3 evidence; retain only supported wording.",
+      "reason": "Speed range numerals and šróby pronunciation; compared archived wording with independent large-v3 evidence; retain only supported wording. Independent ASR explicitly says sedemdesiatdeväť a pol; retain printed 79,5 while aligning its spoken form.",
       "evidencePassages": [
         32
       ],
-      "status": "resolved"
+      "status": "resolved",
+      "acousticOverrides": {
+        "6": "sedemdesiatdeväť a pol"
+      }
     },
     "215": {
       "textSk": "Mhm, toto je veľmi výrazné. Ja mám letecký kurz, tak tam je jedna taká rota, čo presne keď prejde 20 km/h, tak tá vrtuľa aj s tým motorom je proste",

@@ -232,8 +232,8 @@ def align(number):
         sk=' '.join(g['text']['sk'].split());cs=' '.join(g['text']['cs'].split())
         assert sk and cs and '\ufffd' not in sk+cs
         if re.fullmatch(r'(?:\[[^\]]+\]\s*)+',sk):
-            # Only isolated music cards are useful. Other annotations remain in
-            # the source audit, without flashing breathing/coughing overlays.
+            # Non-speech annotations remain in the source audit, without
+            # flashing breathing/coughing overlays in the reading text.
             omitted.append({'group':g['group'],'text':g['text'],'start':g['start'],'end':g['end'],'reason':'non-speech annotation'})
             continue
         language=g.get('sourceLanguage','sk')
@@ -265,7 +265,6 @@ def align(number):
         for a,b,c,d,sk_part,cs_part in parts:
             cues.append({'start':times[a]['start'],'end':times[b-1]['end'],'kind':'speech','text':{'sk':sk_part,'cs':cs_part},'sourceGroup':g['group'],'sourceWordRange':[a,b],'translationWordRange':[c,d]})
         if gi%20==0 or gi+1==len(groups):
-            batch.write(final_path,audit)
             print(f'FINAL ALIGN {number}: {gi+1}/{len(groups)}, score={entry["meanCharacterScore"]}',flush=True)
     audit['omittedNonSpeech']=omitted
     audit['boundaryAdjustments']=[]
