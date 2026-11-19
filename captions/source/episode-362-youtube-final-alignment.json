@@ -1,0 +1,7132 @@
+{
+  "episode": 362,
+  "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+  "audioSha256": "5490eaa4886dd65515bb8f83f1751bad199fefff3254d305f5a35b0b31d1528b",
+  "groups": [
+    {
+      "group": 2,
+      "textSk": "Od otázok cez obkecávanie až po odpovede. Veda nás obklopuje na každom kroku. Vitajte pri Vedátorskom podcaste, v ktorom sa budeme rozprávať o vede a",
+      "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+      "chunkKey": "0dbddfff960bbe2fbecd519e5adae36a03d0b2a37677bc059a608a167e8f27a0",
+      "independentCtcDecode": "od otázokce s obkecavania až po od povede berala s obkupuje i una kažom korokovidaci pri vedátovskom potkasteptorom so vuedo na do spravdo vede a priroduovkom  sulémňujú s n som sa m tento podka s vychadzavvo spolu proci so smon samkou ako so mážo nobra dobraohom velé toho ba všetkých hromtochv výk výchadz ati sa chruku knihan",
+      "chunkWindow": [
+        12.53,
+        35.91
+      ],
+      "alignmentText": "Od otázok cez obkecávanie až po odpovede. Veda nás obklopuje na každom kroku. Vitajte pri Vedátorskom podcaste, v ktorom sa budeme rozprávať o vede a",
+      "start": 12.79,
+      "end": 20.497,
+      "meanCharacterScore": 0.7315,
+      "characters": [
+        {
+          "token": 15,
+          "start": 12.79,
+          "end": 12.83,
+          "score": 0.8269
+        },
+        {
+          "token": 4,
+          "start": 12.89,
+          "end": 12.91,
+          "score": 0.9999
+        },
+        {
+          "token": 0,
+          "start": 12.91,
+          "end": 12.95,
+          "score": 0.8595
+        },
+        {
+          "token": 15,
+          "start": 13.01,
+          "end": 13.03,
+          "score": 1.0
+        },
+        {
+          "token": 20,
+          "start": 13.11,
+          "end": 13.131,
+          "score": 1.0
+        },
+        {
+          "token": 27,
+          "start": 13.151,
+          "end": 13.191,
+          "score": 0.9716
+        },
+        {
+          "token": 26,
+          "start": 13.231,
+          "end": 13.291,
+          "score": 0.7571
+        },
+        {
+          "token": 15,
+          "start": 13.351,
+          "end": 13.371,
+          "score": 0.998
+        },
+        {
+          "token": 11,
+          "start": 13.431,
+          "end": 13.451,
+          "score": 0.7104
+        },
+        {
+          "token": 0,
+          "start": 13.451,
+          "end": 13.471,
+          "score": 0.0
+        },
+        {
+          "token": 3,
+          "start": 13.491,
+          "end": 13.511,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 13.571,
+          "end": 13.591,
+          "score": 1.0
+        },
+        {
+          "token": 26,
+          "start": 13.631,
+          "end": 13.651,
+          "score": 0.0001
+        },
+        {
+          "token": 0,
+          "start": 13.671,
+          "end": 13.731,
+          "score": 0.9875
+        },
+        {
+          "token": 15,
+          "start": 13.791,
+          "end": 13.811,
+          "score": 0.9997
+        },
+        {
+          "token": 2,
+          "start": 13.871,
+          "end": 13.891,
+          "score": 0.9842
+        },
+        {
+          "token": 11,
+          "start": 13.931,
+          "end": 13.951,
+          "score": 0.9984
+        },
+        {
+          "token": 5,
+          "start": 13.971,
+          "end": 13.991,
+          "score": 0.9986
+        },
+        {
+          "token": 3,
+          "start": 14.071,
+          "end": 14.091,
+          "score": 0.9044
+        },
+        {
+          "token": 27,
+          "start": 14.151,
+          "end": 14.171,
+          "score": 0.0
+        },
+        {
+          "token": 22,
+          "start": 14.231,
+          "end": 14.251,
+          "score": 1.0
+        },
+        {
+          "token": 1,
+          "start": 14.271,
+          "end": 14.292,
+          "score": 0.9995
+        },
+        {
+          "token": 14,
+          "start": 14.372,
+          "end": 14.392,
+          "score": 0.9999
+        },
+        {
+          "token": 9,
+          "start": 14.392,
+          "end": 14.412,
+          "score": 0.9998
+        },
+        {
+          "token": 5,
+          "start": 14.412,
+          "end": 14.432,
+          "score": 0.0039
+        },
+        {
+          "token": 0,
+          "start": 14.452,
+          "end": 14.492,
+          "score": 0.9701
+        },
+        {
+          "token": 1,
+          "start": 14.492,
+          "end": 14.512,
+          "score": 1.0
+        },
+        {
+          "token": 43,
+          "start": 14.532,
+          "end": 14.572,
+          "score": 0.7668
+        },
+        {
+          "token": 0,
+          "start": 14.592,
+          "end": 14.632,
+          "score": 0.9136
+        },
+        {
+          "token": 16,
+          "start": 14.652,
+          "end": 14.672,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 14.692,
+          "end": 14.712,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 14.772,
+          "end": 14.792,
+          "score": 0.901
+        },
+        {
+          "token": 15,
+          "start": 14.792,
+          "end": 14.812,
+          "score": 0.9926
+        },
+        {
+          "token": 4,
+          "start": 14.852,
+          "end": 14.872,
+          "score": 0.9995
+        },
+        {
+          "token": 16,
+          "start": 14.932,
+          "end": 14.952,
+          "score": 0.8308
+        },
+        {
+          "token": 15,
+          "start": 14.952,
+          "end": 14.992,
+          "score": 0.9997
+        },
+        {
+          "token": 22,
+          "start": 15.012,
+          "end": 15.052,
+          "score": 0.9054
+        },
+        {
+          "token": 5,
+          "start": 15.072,
+          "end": 15.092,
+          "score": 1.0
+        },
+        {
+          "token": 4,
+          "start": 15.132,
+          "end": 15.152,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 15.172,
+          "end": 15.192,
+          "score": 0.8667
+        },
+        {
+          "token": 0,
+          "start": 15.212,
+          "end": 15.252,
+          "score": 0.9972
+        },
+        {
+          "token": 22,
+          "start": 15.352,
+          "end": 15.372,
+          "score": 0.0639
+        },
+        {
+          "token": 5,
+          "start": 15.392,
+          "end": 15.432,
+          "score": 0.8824
+        },
+        {
+          "token": 4,
+          "start": 15.473,
+          "end": 15.493,
+          "score": 0.0044
+        },
+        {
+          "token": 1,
+          "start": 15.513,
+          "end": 15.533,
+          "score": 0.984
+        },
+        {
+          "token": 0,
+          "start": 15.533,
+          "end": 15.553,
+          "score": 0.0001
+        },
+        {
+          "token": 14,
+          "start": 15.593,
+          "end": 15.613,
+          "score": 0.0
+        },
+        {
+          "token": 27,
+          "start": 15.633,
+          "end": 15.653,
+          "score": 0.0064
+        },
+        {
+          "token": 19,
+          "start": 15.693,
+          "end": 15.713,
+          "score": 0.9996
+        },
+        {
+          "token": 0,
+          "start": 15.753,
+          "end": 15.793,
+          "score": 0.9618
+        },
+        {
+          "token": 15,
+          "start": 15.853,
+          "end": 15.873,
+          "score": 0.9963
+        },
+        {
+          "token": 2,
+          "start": 15.933,
+          "end": 15.953,
+          "score": 0.9689
+        },
+        {
+          "token": 11,
+          "start": 16.013,
+          "end": 16.033,
+          "score": 0.9994
+        },
+        {
+          "token": 12,
+          "start": 16.033,
+          "end": 16.053,
+          "score": 0.0
+        },
+        {
+          "token": 15,
+          "start": 16.053,
+          "end": 16.073,
+          "score": 0.0
+        },
+        {
+          "token": 16,
+          "start": 16.153,
+          "end": 16.173,
+          "score": 0.9999
+        },
+        {
+          "token": 21,
+          "start": 16.213,
+          "end": 16.233,
+          "score": 1.0
+        },
+        {
+          "token": 10,
+          "start": 16.233,
+          "end": 16.273,
+          "score": 0.7884
+        },
+        {
+          "token": 5,
+          "start": 16.273,
+          "end": 16.313,
+          "score": 0.9969
+        },
+        {
+          "token": 0,
+          "start": 16.313,
+          "end": 16.353,
+          "score": 0.8389
+        },
+        {
+          "token": 14,
+          "start": 16.513,
+          "end": 16.533,
+          "score": 0.9997
+        },
+        {
+          "token": 1,
+          "start": 16.533,
+          "end": 16.573,
+          "score": 0.9877
+        },
+        {
+          "token": 0,
+          "start": 16.573,
+          "end": 16.613,
+          "score": 0.8235
+        },
+        {
+          "token": 11,
+          "start": 16.634,
+          "end": 16.654,
+          "score": 0.9999
+        },
+        {
+          "token": 1,
+          "start": 16.694,
+          "end": 16.714,
+          "score": 0.7476
+        },
+        {
+          "token": 43,
+          "start": 16.754,
+          "end": 16.774,
+          "score": 1.0
+        },
+        {
+          "token": 4,
+          "start": 16.794,
+          "end": 16.814,
+          "score": 0.0
+        },
+        {
+          "token": 15,
+          "start": 16.814,
+          "end": 16.854,
+          "score": 0.7662
+        },
+        {
+          "token": 13,
+          "start": 16.874,
+          "end": 16.894,
+          "score": 0.9994
+        },
+        {
+          "token": 0,
+          "start": 16.894,
+          "end": 16.934,
+          "score": 0.9941
+        },
+        {
+          "token": 11,
+          "start": 16.954,
+          "end": 16.974,
+          "score": 0.999
+        },
+        {
+          "token": 18,
+          "start": 17.014,
+          "end": 17.034,
+          "score": 0.9781
+        },
+        {
+          "token": 15,
+          "start": 17.034,
+          "end": 17.074,
+          "score": 0.7552
+        },
+        {
+          "token": 11,
+          "start": 17.114,
+          "end": 17.134,
+          "score": 0.9999
+        },
+        {
+          "token": 21,
+          "start": 17.154,
+          "end": 17.174,
+          "score": 0.002
+        },
+        {
+          "token": 0,
+          "start": 17.174,
+          "end": 17.194,
+          "score": 0.0001
+        },
+        {
+          "token": 22,
+          "start": 17.214,
+          "end": 17.254,
+          "score": 0.9544
+        },
+        {
+          "token": 9,
+          "start": 17.274,
+          "end": 17.294,
+          "score": 0.9962
+        },
+        {
+          "token": 20,
+          "start": 17.354,
+          "end": 17.374,
+          "score": 0.0127
+        },
+        {
+          "token": 1,
+          "start": 17.394,
+          "end": 17.414,
+          "score": 1.0
+        },
+        {
+          "token": 10,
+          "start": 17.454,
+          "end": 17.474,
+          "score": 0.0
+        },
+        {
+          "token": 20,
+          "start": 17.474,
+          "end": 17.494,
+          "score": 0.0011
+        },
+        {
+          "token": 5,
+          "start": 17.534,
+          "end": 17.554,
+          "score": 0.1019
+        },
+        {
+          "token": 0,
+          "start": 17.554,
+          "end": 17.594,
+          "score": 0.9602
+        },
+        {
+          "token": 16,
+          "start": 17.634,
+          "end": 17.654,
+          "score": 1.0
+        },
+        {
+          "token": 18,
+          "start": 17.674,
+          "end": 17.714,
+          "score": 0.7522
+        },
+        {
+          "token": 9,
+          "start": 17.714,
+          "end": 17.754,
+          "score": 0.9423
+        },
+        {
+          "token": 0,
+          "start": 17.754,
+          "end": 17.795,
+          "score": 0.9339
+        },
+        {
+          "token": 22,
+          "start": 17.795,
+          "end": 17.815,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 17.835,
+          "end": 17.855,
+          "score": 0.9993
+        },
+        {
+          "token": 4,
+          "start": 17.895,
+          "end": 17.915,
+          "score": 0.959
+        },
+        {
+          "token": 27,
+          "start": 17.955,
+          "end": 17.975,
+          "score": 0.8519
+        },
+        {
+          "token": 20,
+          "start": 18.055,
+          "end": 18.075,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 18.095,
+          "end": 18.115,
+          "score": 0.9997
+        },
+        {
+          "token": 18,
+          "start": 18.135,
+          "end": 18.155,
+          "score": 0.0161
+        },
+        {
+          "token": 19,
+          "start": 18.175,
+          "end": 18.195,
+          "score": 0.9959
+        },
+        {
+          "token": 11,
+          "start": 18.235,
+          "end": 18.255,
+          "score": 0.997
+        },
+        {
+          "token": 15,
+          "start": 18.275,
+          "end": 18.295,
+          "score": 0.9999
+        },
+        {
+          "token": 13,
+          "start": 18.315,
+          "end": 18.335,
+          "score": 0.9994
+        },
+        {
+          "token": 0,
+          "start": 18.335,
+          "end": 18.375,
+          "score": 0.9294
+        },
+        {
+          "token": 16,
+          "start": 18.415,
+          "end": 18.435,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 18.435,
+          "end": 18.475,
+          "score": 0.9303
+        },
+        {
+          "token": 4,
+          "start": 18.535,
+          "end": 18.555,
+          "score": 0.0934
+        },
+        {
+          "token": 3,
+          "start": 18.595,
+          "end": 18.615,
+          "score": 0.0
+        },
+        {
+          "token": 1,
+          "start": 18.635,
+          "end": 18.655,
+          "score": 0.9998
+        },
+        {
+          "token": 19,
+          "start": 18.695,
+          "end": 18.715,
+          "score": 0.9995
+        },
+        {
+          "token": 20,
+          "start": 18.775,
+          "end": 18.795,
+          "score": 0.8938
+        },
+        {
+          "token": 5,
+          "start": 18.815,
+          "end": 18.835,
+          "score": 0.8893
+        },
+        {
+          "token": 0,
+          "start": 18.855,
+          "end": 18.875,
+          "score": 0.0033
+        },
+        {
+          "token": 22,
+          "start": 18.875,
+          "end": 18.895,
+          "score": 0.0002
+        },
+        {
+          "token": 0,
+          "start": 18.895,
+          "end": 18.915,
+          "score": 0.0001
+        },
+        {
+          "token": 11,
+          "start": 18.915,
+          "end": 18.935,
+          "score": 0.1581
+        },
+        {
+          "token": 20,
+          "start": 18.976,
+          "end": 18.996,
+          "score": 0.9989
+        },
+        {
+          "token": 15,
+          "start": 19.016,
+          "end": 19.036,
+          "score": 0.9997
+        },
+        {
+          "token": 18,
+          "start": 19.076,
+          "end": 19.096,
+          "score": 0.9999
+        },
+        {
+          "token": 15,
+          "start": 19.096,
+          "end": 19.136,
+          "score": 0.8238
+        },
+        {
+          "token": 13,
+          "start": 19.136,
+          "end": 19.156,
+          "score": 0.9005
+        },
+        {
+          "token": 0,
+          "start": 19.156,
+          "end": 19.176,
+          "score": 0.9864
+        },
+        {
+          "token": 19,
+          "start": 19.176,
+          "end": 19.196,
+          "score": 0.9999
+        },
+        {
+          "token": 1,
+          "start": 19.256,
+          "end": 19.276,
+          "score": 0.2277
+        },
+        {
+          "token": 0,
+          "start": 19.276,
+          "end": 19.316,
+          "score": 0.6017
+        },
+        {
+          "token": 2,
+          "start": 19.316,
+          "end": 19.336,
+          "score": 0.0148
+        },
+        {
+          "token": 21,
+          "start": 19.356,
+          "end": 19.376,
+          "score": 0.981
+        },
+        {
+          "token": 4,
+          "start": 19.416,
+          "end": 19.436,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 19.456,
+          "end": 19.476,
+          "score": 0.0017
+        },
+        {
+          "token": 13,
+          "start": 19.516,
+          "end": 19.536,
+          "score": 0.054
+        },
+        {
+          "token": 5,
+          "start": 19.576,
+          "end": 19.596,
+          "score": 0.0061
+        },
+        {
+          "token": 0,
+          "start": 19.616,
+          "end": 19.636,
+          "score": 0.5773
+        },
+        {
+          "token": 18,
+          "start": 19.636,
+          "end": 19.656,
+          "score": 0.3061
+        },
+        {
+          "token": 15,
+          "start": 19.676,
+          "end": 19.716,
+          "score": 0.9886
+        },
+        {
+          "token": 26,
+          "start": 19.736,
+          "end": 19.756,
+          "score": 0.0014
+        },
+        {
+          "token": 16,
+          "start": 19.816,
+          "end": 19.836,
+          "score": 0.9998
+        },
+        {
+          "token": 18,
+          "start": 19.856,
+          "end": 19.896,
+          "score": 0.9995
+        },
+        {
+          "token": 27,
+          "start": 19.916,
+          "end": 19.936,
+          "score": 0.0006
+        },
+        {
+          "token": 22,
+          "start": 19.956,
+          "end": 19.976,
+          "score": 0.9959
+        },
+        {
+          "token": 1,
+          "start": 19.996,
+          "end": 20.016,
+          "score": 0.0324
+        },
+        {
+          "token": 42,
+          "start": 20.036,
+          "end": 20.056,
+          "score": 0.0011
+        },
+        {
+          "token": 0,
+          "start": 20.056,
+          "end": 20.076,
+          "score": 0.0
+        },
+        {
+          "token": 15,
+          "start": 20.076,
+          "end": 20.096,
+          "score": 0.9261
+        },
+        {
+          "token": 0,
+          "start": 20.116,
+          "end": 20.157,
+          "score": 0.8934
+        },
+        {
+          "token": 22,
+          "start": 20.157,
+          "end": 20.177,
+          "score": 0.9999
+        },
+        {
+          "token": 5,
+          "start": 20.197,
+          "end": 20.217,
+          "score": 0.9998
+        },
+        {
+          "token": 4,
+          "start": 20.257,
+          "end": 20.297,
+          "score": 0.9985
+        },
+        {
+          "token": 5,
+          "start": 20.317,
+          "end": 20.337,
+          "score": 0.9996
+        },
+        {
+          "token": 0,
+          "start": 20.357,
+          "end": 20.417,
+          "score": 0.7357
+        },
+        {
+          "token": 1,
+          "start": 20.477,
+          "end": 20.497,
+          "score": 1.0
+        }
+      ],
+      "wordOwners": [
+        0,
+        0,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        2,
+        2,
+        2,
+        -1,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        -1,
+        4,
+        4,
+        -1,
+        5,
+        5,
+        -1,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        -1,
+        7,
+        7,
+        7,
+        7,
+        -1,
+        8,
+        8,
+        8,
+        -1,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        -1,
+        10,
+        10,
+        -1,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        -1,
+        12,
+        12,
+        12,
+        12,
+        12,
+        -1,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        -1,
+        14,
+        14,
+        14,
+        -1,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        -1,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        -1,
+        17,
+        -1,
+        18,
+        18,
+        18,
+        18,
+        18,
+        18,
+        -1,
+        19,
+        19,
+        -1,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        -1,
+        21,
+        21,
+        21,
+        21,
+        21,
+        21,
+        21,
+        21,
+        21,
+        -1,
+        22,
+        -1,
+        23,
+        23,
+        23,
+        23,
+        -1,
+        24
+      ]
+    },
+    {
+      "group": 3,
+      "textSk": "prírode okolo nás. Moje meno je Jozef. A ja som Samuel. Tento podcast vychádza v spolupráci so SME. Samko, ako sa máš?",
+      "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+      "chunkKey": "0dbddfff960bbe2fbecd519e5adae36a03d0b2a37677bc059a608a167e8f27a0",
+      "independentCtcDecode": "od otázokce s obkecavania až po od povede berala s obkupuje i una kažom korokovidaci pri vedátovskom potkasteptorom so vuedo na do spravdo vede a priroduovkom  sulémňujú s n som sa m tento podka s vychadzavvo spolu proci so smon samkou ako so mážo nobra dobraohom velé toho ba všetkých hromtochv výk výchadz ati sa chruku knihan",
+      "chunkWindow": [
+        12.53,
+        35.91
+      ],
+      "alignmentText": "prírode okolo nás. Moje meno je Jozef. A ja som Samuel. Tento podcast vychádza v spolupráci so SME. Samko, ako sa máš?",
+      "start": 20.557,
+      "end": 27.223,
+      "meanCharacterScore": 0.6038,
+      "characters": [
+        {
+          "token": 16,
+          "start": 20.557,
+          "end": 20.597,
+          "score": 0.9446
+        },
+        {
+          "token": 18,
+          "start": 20.617,
+          "end": 20.657,
+          "score": 0.8282
+        },
+        {
+          "token": 30,
+          "start": 20.657,
+          "end": 20.677,
+          "score": 0.0053
+        },
+        {
+          "token": 18,
+          "start": 20.737,
+          "end": 20.757,
+          "score": 0.9924
+        },
+        {
+          "token": 15,
+          "start": 20.777,
+          "end": 20.797,
+          "score": 0.797
+        },
+        {
+          "token": 4,
+          "start": 20.857,
+          "end": 20.877,
+          "score": 0.934
+        },
+        {
+          "token": 5,
+          "start": 20.877,
+          "end": 20.897,
+          "score": 0.001
+        },
+        {
+          "token": 0,
+          "start": 20.897,
+          "end": 20.917,
+          "score": 0.0
+        },
+        {
+          "token": 15,
+          "start": 20.917,
+          "end": 20.937,
+          "score": 0.9906
+        },
+        {
+          "token": 11,
+          "start": 21.037,
+          "end": 21.057,
+          "score": 0.9999
+        },
+        {
+          "token": 15,
+          "start": 21.077,
+          "end": 21.117,
+          "score": 0.8872
+        },
+        {
+          "token": 12,
+          "start": 21.157,
+          "end": 21.177,
+          "score": 0.0005
+        },
+        {
+          "token": 15,
+          "start": 21.177,
+          "end": 21.197,
+          "score": 0.0001
+        },
+        {
+          "token": 0,
+          "start": 21.197,
+          "end": 21.217,
+          "score": 0.6446
+        },
+        {
+          "token": 14,
+          "start": 21.257,
+          "end": 21.277,
+          "score": 0.0009
+        },
+        {
+          "token": 27,
+          "start": 21.297,
+          "end": 21.318,
+          "score": 0.0
+        },
+        {
+          "token": 19,
+          "start": 21.338,
+          "end": 21.358,
+          "score": 0.6437
+        },
+        {
+          "token": 0,
+          "start": 21.398,
+          "end": 21.418,
+          "score": 0.0135
+        },
+        {
+          "token": 13,
+          "start": 21.438,
+          "end": 21.458,
+          "score": 0.0792
+        },
+        {
+          "token": 15,
+          "start": 21.498,
+          "end": 21.518,
+          "score": 0.0
+        },
+        {
+          "token": 10,
+          "start": 21.538,
+          "end": 21.558,
+          "score": 0.0
+        },
+        {
+          "token": 5,
+          "start": 21.558,
+          "end": 21.578,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 21.578,
+          "end": 21.598,
+          "score": 0.0
+        },
+        {
+          "token": 13,
+          "start": 21.638,
+          "end": 21.658,
+          "score": 0.485
+        },
+        {
+          "token": 5,
+          "start": 21.658,
+          "end": 21.678,
+          "score": 0.0001
+        },
+        {
+          "token": 14,
+          "start": 21.678,
+          "end": 21.698,
+          "score": 0.0001
+        },
+        {
+          "token": 15,
+          "start": 21.698,
+          "end": 21.718,
+          "score": 0.0033
+        },
+        {
+          "token": 0,
+          "start": 21.738,
+          "end": 21.758,
+          "score": 0.1065
+        },
+        {
+          "token": 10,
+          "start": 21.778,
+          "end": 21.798,
+          "score": 0.0042
+        },
+        {
+          "token": 5,
+          "start": 21.818,
+          "end": 21.838,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 21.858,
+          "end": 21.878,
+          "score": 0.0003
+        },
+        {
+          "token": 10,
+          "start": 21.878,
+          "end": 21.898,
+          "score": 0.9998
+        },
+        {
+          "token": 15,
+          "start": 21.978,
+          "end": 21.998,
+          "score": 0.0006
+        },
+        {
+          "token": 26,
+          "start": 22.038,
+          "end": 22.058,
+          "score": 0.3471
+        },
+        {
+          "token": 5,
+          "start": 22.118,
+          "end": 22.138,
+          "score": 0.0
+        },
+        {
+          "token": 6,
+          "start": 22.158,
+          "end": 22.178,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 22.178,
+          "end": 22.198,
+          "score": 0.2818
+        },
+        {
+          "token": 1,
+          "start": 22.198,
+          "end": 22.218,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 22.218,
+          "end": 22.238,
+          "score": 0.1969
+        },
+        {
+          "token": 10,
+          "start": 22.599,
+          "end": 22.619,
+          "score": 0.0
+        },
+        {
+          "token": 1,
+          "start": 22.639,
+          "end": 22.659,
+          "score": 0.0133
+        },
+        {
+          "token": 0,
+          "start": 22.699,
+          "end": 22.719,
+          "score": 0.9996
+        },
+        {
+          "token": 19,
+          "start": 22.739,
+          "end": 22.759,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 22.799,
+          "end": 22.839,
+          "score": 0.9237
+        },
+        {
+          "token": 13,
+          "start": 22.859,
+          "end": 22.879,
+          "score": 0.9999
+        },
+        {
+          "token": 0,
+          "start": 22.879,
+          "end": 22.899,
+          "score": 1.0
+        },
+        {
+          "token": 19,
+          "start": 22.899,
+          "end": 22.939,
+          "score": 0.9969
+        },
+        {
+          "token": 1,
+          "start": 22.979,
+          "end": 22.999,
+          "score": 0.9451
+        },
+        {
+          "token": 13,
+          "start": 23.039,
+          "end": 23.059,
+          "score": 0.7101
+        },
+        {
+          "token": 21,
+          "start": 23.059,
+          "end": 23.079,
+          "score": 0.0
+        },
+        {
+          "token": 5,
+          "start": 23.119,
+          "end": 23.139,
+          "score": 0.0
+        },
+        {
+          "token": 12,
+          "start": 23.139,
+          "end": 23.159,
+          "score": 0.0955
+        },
+        {
+          "token": 0,
+          "start": 23.279,
+          "end": 23.319,
+          "score": 0.9978
+        },
+        {
+          "token": 20,
+          "start": 23.96,
+          "end": 23.98,
+          "score": 0.9999
+        },
+        {
+          "token": 5,
+          "start": 24.0,
+          "end": 24.04,
+          "score": 1.0
+        },
+        {
+          "token": 14,
+          "start": 24.04,
+          "end": 24.08,
+          "score": 0.9884
+        },
+        {
+          "token": 20,
+          "start": 24.12,
+          "end": 24.14,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 24.16,
+          "end": 24.18,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 24.18,
+          "end": 24.22,
+          "score": 0.9942
+        },
+        {
+          "token": 16,
+          "start": 24.26,
+          "end": 24.28,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 24.3,
+          "end": 24.32,
+          "score": 1.0
+        },
+        {
+          "token": 4,
+          "start": 24.38,
+          "end": 24.4,
+          "score": 0.7082
+        },
+        {
+          "token": 3,
+          "start": 24.46,
+          "end": 24.48,
+          "score": 0.0
+        },
+        {
+          "token": 1,
+          "start": 24.5,
+          "end": 24.52,
+          "score": 0.9975
+        },
+        {
+          "token": 19,
+          "start": 24.56,
+          "end": 24.58,
+          "score": 0.0
+        },
+        {
+          "token": 20,
+          "start": 24.58,
+          "end": 24.6,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 24.62,
+          "end": 24.66,
+          "score": 0.9929
+        },
+        {
+          "token": 22,
+          "start": 24.66,
+          "end": 24.68,
+          "score": 1.0
+        },
+        {
+          "token": 25,
+          "start": 24.68,
+          "end": 24.72,
+          "score": 0.9624
+        },
+        {
+          "token": 3,
+          "start": 24.74,
+          "end": 24.78,
+          "score": 0.9997
+        },
+        {
+          "token": 8,
+          "start": 24.78,
+          "end": 24.8,
+          "score": 1.0
+        },
+        {
+          "token": 27,
+          "start": 24.841,
+          "end": 24.861,
+          "score": 0.0058
+        },
+        {
+          "token": 4,
+          "start": 24.881,
+          "end": 24.901,
+          "score": 0.7561
+        },
+        {
+          "token": 26,
+          "start": 24.901,
+          "end": 24.941,
+          "score": 0.9966
+        },
+        {
+          "token": 1,
+          "start": 24.981,
+          "end": 25.001,
+          "score": 0.9551
+        },
+        {
+          "token": 0,
+          "start": 25.041,
+          "end": 25.061,
+          "score": 0.4115
+        },
+        {
+          "token": 22,
+          "start": 25.061,
+          "end": 25.081,
+          "score": 0.9118
+        },
+        {
+          "token": 0,
+          "start": 25.181,
+          "end": 25.201,
+          "score": 0.9549
+        },
+        {
+          "token": 19,
+          "start": 25.201,
+          "end": 25.241,
+          "score": 0.9986
+        },
+        {
+          "token": 16,
+          "start": 25.321,
+          "end": 25.341,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 25.361,
+          "end": 25.381,
+          "score": 1.0
+        },
+        {
+          "token": 12,
+          "start": 25.421,
+          "end": 25.441,
+          "score": 0.9966
+        },
+        {
+          "token": 21,
+          "start": 25.441,
+          "end": 25.481,
+          "score": 0.8479
+        },
+        {
+          "token": 16,
+          "start": 25.541,
+          "end": 25.561,
+          "score": 0.9999
+        },
+        {
+          "token": 18,
+          "start": 25.581,
+          "end": 25.621,
+          "score": 0.9993
+        },
+        {
+          "token": 27,
+          "start": 25.641,
+          "end": 25.661,
+          "score": 0.0
+        },
+        {
+          "token": 3,
+          "start": 25.721,
+          "end": 25.741,
+          "score": 0.9999
+        },
+        {
+          "token": 9,
+          "start": 25.781,
+          "end": 25.801,
+          "score": 0.9958
+        },
+        {
+          "token": 0,
+          "start": 25.821,
+          "end": 25.861,
+          "score": 0.9969
+        },
+        {
+          "token": 19,
+          "start": 25.861,
+          "end": 25.881,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 25.921,
+          "end": 25.941,
+          "score": 0.9999
+        },
+        {
+          "token": 0,
+          "start": 25.941,
+          "end": 25.982,
+          "score": 0.9991
+        },
+        {
+          "token": 19,
+          "start": 25.982,
+          "end": 26.002,
+          "score": 1.0
+        },
+        {
+          "token": 13,
+          "start": 26.082,
+          "end": 26.122,
+          "score": 0.7747
+        },
+        {
+          "token": 5,
+          "start": 26.182,
+          "end": 26.202,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 26.202,
+          "end": 26.242,
+          "score": 0.9995
+        },
+        {
+          "token": 19,
+          "start": 26.262,
+          "end": 26.282,
+          "score": 1.0
+        },
+        {
+          "token": 1,
+          "start": 26.402,
+          "end": 26.422,
+          "score": 0.5414
+        },
+        {
+          "token": 13,
+          "start": 26.442,
+          "end": 26.462,
+          "score": 0.9957
+        },
+        {
+          "token": 11,
+          "start": 26.542,
+          "end": 26.562,
+          "score": 0.9997
+        },
+        {
+          "token": 15,
+          "start": 26.582,
+          "end": 26.622,
+          "score": 0.9591
+        },
+        {
+          "token": 0,
+          "start": 26.662,
+          "end": 26.702,
+          "score": 1.0
+        },
+        {
+          "token": 1,
+          "start": 26.762,
+          "end": 26.782,
+          "score": 1.0
+        },
+        {
+          "token": 11,
+          "start": 26.862,
+          "end": 26.882,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 26.882,
+          "end": 26.922,
+          "score": 0.9772
+        },
+        {
+          "token": 0,
+          "start": 26.922,
+          "end": 26.942,
+          "score": 1.0
+        },
+        {
+          "token": 19,
+          "start": 26.942,
+          "end": 26.962,
+          "score": 1.0
+        },
+        {
+          "token": 1,
+          "start": 27.002,
+          "end": 27.022,
+          "score": 0.0629
+        },
+        {
+          "token": 0,
+          "start": 27.042,
+          "end": 27.062,
+          "score": 0.8155
+        },
+        {
+          "token": 13,
+          "start": 27.062,
+          "end": 27.102,
+          "score": 0.9501
+        },
+        {
+          "token": 27,
+          "start": 27.142,
+          "end": 27.163,
+          "score": 0.9338
+        },
+        {
+          "token": 41,
+          "start": 27.203,
+          "end": 27.223,
+          "score": 0.0001
+        }
+      ],
+      "wordOwners": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        2,
+        2,
+        2,
+        -1,
+        3,
+        3,
+        3,
+        3,
+        -1,
+        4,
+        4,
+        4,
+        4,
+        -1,
+        5,
+        5,
+        -1,
+        6,
+        6,
+        6,
+        6,
+        6,
+        -1,
+        7,
+        -1,
+        8,
+        8,
+        -1,
+        9,
+        9,
+        9,
+        -1,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        -1,
+        11,
+        11,
+        11,
+        11,
+        11,
+        -1,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        -1,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        -1,
+        14,
+        -1,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        -1,
+        16,
+        16,
+        -1,
+        17,
+        17,
+        17,
+        -1,
+        18,
+        18,
+        18,
+        18,
+        18,
+        -1,
+        19,
+        19,
+        19,
+        -1,
+        20,
+        20,
+        -1,
+        21,
+        21,
+        21
+      ]
+    },
+    {
+      "group": 4,
+      "textSk": "Dobre, veľa je toho na všetkých frontoch. No tak ti vychádza za chvíľku kniha.",
+      "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+      "chunkKey": "0dbddfff960bbe2fbecd519e5adae36a03d0b2a37677bc059a608a167e8f27a0",
+      "independentCtcDecode": "od otázokce s obkecavania až po od povede berala s obkupuje i una kažom korokovidaci pri vedátovskom potkasteptorom so vuedo na do spravdo vede a priroduovkom  sulémňujú s n som sa m tento podka s vychadzavvo spolu proci so smon samkou ako so mážo nobra dobraohom velé toho ba všetkých hromtochv výk výchadz ati sa chruku knihan",
+      "chunkWindow": [
+        12.53,
+        35.91
+      ],
+      "alignmentText": "Dobre, veľa je toho na všetkých frontoch. No tak ti vychádza za chvíľku kniha.",
+      "start": 28.243,
+      "end": 35.49,
+      "meanCharacterScore": 0.6514,
+      "characters": [
+        {
+          "token": 4,
+          "start": 28.243,
+          "end": 28.263,
+          "score": 0.34
+        },
+        {
+          "token": 15,
+          "start": 28.283,
+          "end": 28.303,
+          "score": 0.9998
+        },
+        {
+          "token": 2,
+          "start": 28.324,
+          "end": 28.364,
+          "score": 0.9878
+        },
+        {
+          "token": 18,
+          "start": 28.384,
+          "end": 28.404,
+          "score": 0.9999
+        },
+        {
+          "token": 5,
+          "start": 28.404,
+          "end": 28.424,
+          "score": 0.0006
+        },
+        {
+          "token": 0,
+          "start": 28.444,
+          "end": 28.504,
+          "score": 0.9947
+        },
+        {
+          "token": 22,
+          "start": 28.684,
+          "end": 28.704,
+          "score": 0.0
+        },
+        {
+          "token": 5,
+          "start": 28.704,
+          "end": 28.724,
+          "score": 0.0
+        },
+        {
+          "token": 38,
+          "start": 28.824,
+          "end": 28.844,
+          "score": 0.0
+        },
+        {
+          "token": 1,
+          "start": 28.864,
+          "end": 28.884,
+          "score": 0.9718
+        },
+        {
+          "token": 0,
+          "start": 29.424,
+          "end": 29.464,
+          "score": 0.9959
+        },
+        {
+          "token": 10,
+          "start": 30.065,
+          "end": 30.085,
+          "score": 0.0
+        },
+        {
+          "token": 5,
+          "start": 30.105,
+          "end": 30.145,
+          "score": 0.9999
+        },
+        {
+          "token": 0,
+          "start": 30.265,
+          "end": 30.325,
+          "score": 0.9974
+        },
+        {
+          "token": 20,
+          "start": 30.365,
+          "end": 30.385,
+          "score": 0.9999
+        },
+        {
+          "token": 15,
+          "start": 30.405,
+          "end": 30.425,
+          "score": 0.9998
+        },
+        {
+          "token": 8,
+          "start": 30.445,
+          "end": 30.465,
+          "score": 0.9999
+        },
+        {
+          "token": 15,
+          "start": 30.465,
+          "end": 30.505,
+          "score": 0.8527
+        },
+        {
+          "token": 0,
+          "start": 30.886,
+          "end": 30.906,
+          "score": 0.6082
+        },
+        {
+          "token": 14,
+          "start": 31.046,
+          "end": 31.066,
+          "score": 0.0
+        },
+        {
+          "token": 1,
+          "start": 31.066,
+          "end": 31.106,
+          "score": 0.898
+        },
+        {
+          "token": 0,
+          "start": 31.106,
+          "end": 31.126,
+          "score": 0.925
+        },
+        {
+          "token": 22,
+          "start": 31.126,
+          "end": 31.166,
+          "score": 0.8916
+        },
+        {
+          "token": 41,
+          "start": 31.186,
+          "end": 31.206,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 31.246,
+          "end": 31.266,
+          "score": 1.0
+        },
+        {
+          "token": 20,
+          "start": 31.326,
+          "end": 31.346,
+          "score": 0.9999
+        },
+        {
+          "token": 11,
+          "start": 31.386,
+          "end": 31.406,
+          "score": 1.0
+        },
+        {
+          "token": 34,
+          "start": 31.426,
+          "end": 31.446,
+          "score": 0.9998
+        },
+        {
+          "token": 3,
+          "start": 31.446,
+          "end": 31.486,
+          "score": 0.9998
+        },
+        {
+          "token": 8,
+          "start": 31.486,
+          "end": 31.506,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 31.506,
+          "end": 31.546,
+          "score": 0.6767
+        },
+        {
+          "token": 6,
+          "start": 31.546,
+          "end": 31.566,
+          "score": 0.0
+        },
+        {
+          "token": 18,
+          "start": 31.606,
+          "end": 31.626,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 31.646,
+          "end": 31.666,
+          "score": 1.0
+        },
+        {
+          "token": 14,
+          "start": 31.706,
+          "end": 31.726,
+          "score": 0.0125
+        },
+        {
+          "token": 20,
+          "start": 31.786,
+          "end": 31.806,
+          "score": 0.9999
+        },
+        {
+          "token": 15,
+          "start": 31.827,
+          "end": 31.847,
+          "score": 1.0
+        },
+        {
+          "token": 3,
+          "start": 31.887,
+          "end": 31.927,
+          "score": 0.9081
+        },
+        {
+          "token": 8,
+          "start": 31.927,
+          "end": 31.987,
+          "score": 0.9997
+        },
+        {
+          "token": 0,
+          "start": 33.088,
+          "end": 33.108,
+          "score": 0.0003
+        },
+        {
+          "token": 14,
+          "start": 33.108,
+          "end": 33.128,
+          "score": 0.0
+        },
+        {
+          "token": 15,
+          "start": 33.348,
+          "end": 33.368,
+          "score": 0.1967
+        },
+        {
+          "token": 0,
+          "start": 33.408,
+          "end": 33.428,
+          "score": 0.4869
+        },
+        {
+          "token": 20,
+          "start": 33.528,
+          "end": 33.548,
+          "score": 0.0004
+        },
+        {
+          "token": 1,
+          "start": 33.548,
+          "end": 33.568,
+          "score": 0.1678
+        },
+        {
+          "token": 11,
+          "start": 33.608,
+          "end": 33.628,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 33.648,
+          "end": 33.668,
+          "score": 0.7792
+        },
+        {
+          "token": 20,
+          "start": 33.668,
+          "end": 33.688,
+          "score": 0.0
+        },
+        {
+          "token": 9,
+          "start": 33.728,
+          "end": 33.748,
+          "score": 0.0001
+        },
+        {
+          "token": 0,
+          "start": 33.948,
+          "end": 33.968,
+          "score": 0.999
+        },
+        {
+          "token": 22,
+          "start": 34.008,
+          "end": 34.028,
+          "score": 1.0
+        },
+        {
+          "token": 25,
+          "start": 34.048,
+          "end": 34.068,
+          "score": 0.0004
+        },
+        {
+          "token": 3,
+          "start": 34.108,
+          "end": 34.148,
+          "score": 1.0
+        },
+        {
+          "token": 8,
+          "start": 34.148,
+          "end": 34.189,
+          "score": 0.9749
+        },
+        {
+          "token": 27,
+          "start": 34.229,
+          "end": 34.249,
+          "score": 0.0002
+        },
+        {
+          "token": 4,
+          "start": 34.289,
+          "end": 34.309,
+          "score": 0.9989
+        },
+        {
+          "token": 26,
+          "start": 34.309,
+          "end": 34.329,
+          "score": 0.9964
+        },
+        {
+          "token": 1,
+          "start": 34.369,
+          "end": 34.389,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 34.509,
+          "end": 34.569,
+          "score": 0.6642
+        },
+        {
+          "token": 26,
+          "start": 34.569,
+          "end": 34.589,
+          "score": 0.3718
+        },
+        {
+          "token": 1,
+          "start": 34.649,
+          "end": 34.669,
+          "score": 0.9785
+        },
+        {
+          "token": 0,
+          "start": 34.689,
+          "end": 34.709,
+          "score": 0.9998
+        },
+        {
+          "token": 3,
+          "start": 34.709,
+          "end": 34.769,
+          "score": 0.8523
+        },
+        {
+          "token": 8,
+          "start": 34.769,
+          "end": 34.789,
+          "score": 0.9998
+        },
+        {
+          "token": 22,
+          "start": 34.829,
+          "end": 34.849,
+          "score": 0.0
+        },
+        {
+          "token": 30,
+          "start": 34.849,
+          "end": 34.869,
+          "score": 0.0
+        },
+        {
+          "token": 38,
+          "start": 34.929,
+          "end": 34.949,
+          "score": 0.0
+        },
+        {
+          "token": 11,
+          "start": 34.969,
+          "end": 34.989,
+          "score": 0.9998
+        },
+        {
+          "token": 21,
+          "start": 35.009,
+          "end": 35.029,
+          "score": 0.9996
+        },
+        {
+          "token": 0,
+          "start": 35.049,
+          "end": 35.109,
+          "score": 0.9863
+        },
+        {
+          "token": 11,
+          "start": 35.149,
+          "end": 35.169,
+          "score": 1.0
+        },
+        {
+          "token": 14,
+          "start": 35.249,
+          "end": 35.289,
+          "score": 0.9999
+        },
+        {
+          "token": 9,
+          "start": 35.309,
+          "end": 35.33,
+          "score": 1.0
+        },
+        {
+          "token": 8,
+          "start": 35.37,
+          "end": 35.43,
+          "score": 0.9884
+        },
+        {
+          "token": 1,
+          "start": 35.47,
+          "end": 35.49,
+          "score": 0.9996
+        }
+      ],
+      "wordOwners": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        2,
+        2,
+        -1,
+        3,
+        3,
+        3,
+        3,
+        -1,
+        4,
+        4,
+        -1,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        -1,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        -1,
+        7,
+        7,
+        -1,
+        8,
+        8,
+        8,
+        -1,
+        9,
+        9,
+        -1,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        -1,
+        11,
+        11,
+        -1,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        -1,
+        13,
+        13,
+        13,
+        13,
+        13
+      ]
+    },
+    {
+      "group": 5,
+      "textSk": "Už vyšla, pozri.",
+      "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+      "chunkKey": "d6e2ebfef29811778498c5a3560c688748be96bf21a634b643bca3f96675947a",
+      "independentCtcDecode": "už vyšle pozry a o k i do liajker s bude pardon pardrsbude amáno  v podelom bolskočikom h prenu smtilduu zmrišli tak to žieže preni kručik voľvá  i urevižuje a i ke napišečniu dosenž dvaťseť utorsky výtlečku a tté našťaste menšia tžo som prosihodul dvadcať oľo dokočika alebs",
+      "chunkWindow": [
+        35.61,
+        57.27
+      ],
+      "alignmentText": "Už vyšla, pozri.",
+      "start": 35.87,
+      "end": 36.531,
+      "meanCharacterScore": 0.7914,
+      "characters": [
+        {
+          "token": 21,
+          "start": 35.87,
+          "end": 35.91,
+          "score": 0.9725
+        },
+        {
+          "token": 43,
+          "start": 35.93,
+          "end": 35.95,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 35.97,
+          "end": 36.01,
+          "score": 0.8236
+        },
+        {
+          "token": 22,
+          "start": 36.01,
+          "end": 36.03,
+          "score": 0.9998
+        },
+        {
+          "token": 25,
+          "start": 36.03,
+          "end": 36.05,
+          "score": 0.9315
+        },
+        {
+          "token": 41,
+          "start": 36.09,
+          "end": 36.11,
+          "score": 0.7959
+        },
+        {
+          "token": 12,
+          "start": 36.191,
+          "end": 36.211,
+          "score": 0.9998
+        },
+        {
+          "token": 1,
+          "start": 36.211,
+          "end": 36.231,
+          "score": 0.0001
+        },
+        {
+          "token": 0,
+          "start": 36.251,
+          "end": 36.271,
+          "score": 0.9997
+        },
+        {
+          "token": 16,
+          "start": 36.311,
+          "end": 36.331,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 36.331,
+          "end": 36.371,
+          "score": 0.7977
+        },
+        {
+          "token": 26,
+          "start": 36.391,
+          "end": 36.411,
+          "score": 0.9999
+        },
+        {
+          "token": 18,
+          "start": 36.471,
+          "end": 36.491,
+          "score": 0.9993
+        },
+        {
+          "token": 9,
+          "start": 36.511,
+          "end": 36.531,
+          "score": 0.0
+        }
+      ],
+      "wordOwners": [
+        0,
+        0,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "group": 7,
+      "textSk": "OK, krst bude, pardon. Krst bude, áno. V pondelok som bol s kočíkom pre ňu, s Matildou sme išli.",
+      "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+      "chunkKey": "d6e2ebfef29811778498c5a3560c688748be96bf21a634b643bca3f96675947a",
+      "independentCtcDecode": "už vyšle pozry a o k i do liajker s bude pardon pardrsbude amáno  v podelom bolskočikom h prenu smtilduu zmrišli tak to žieže preni kručik voľvá  i urevižuje a i ke napišečniu dosenž dvaťseť utorsky výtlečku a tté našťaste menšia tžo som prosihodul dvadcať oľo dokočika alebs",
+      "chunkWindow": [
+        35.61,
+        57.27
+      ],
+      "alignmentText": "OK, krst bude, pardon. Krst bude, áno. V pondelok som bol s kočíkom pre ňu, s Matildou sme išli.",
+      "start": 38.953,
+      "end": 46.06,
+      "meanCharacterScore": 0.8058,
+      "characters": [
+        {
+          "token": 15,
+          "start": 38.953,
+          "end": 38.973,
+          "score": 0.9938
+        },
+        {
+          "token": 11,
+          "start": 39.073,
+          "end": 39.093,
+          "score": 0.9888
+        },
+        {
+          "token": 0,
+          "start": 39.474,
+          "end": 39.514,
+          "score": 0.9913
+        },
+        {
+          "token": 11,
+          "start": 39.734,
+          "end": 39.754,
+          "score": 0.9941
+        },
+        {
+          "token": 18,
+          "start": 39.814,
+          "end": 39.834,
+          "score": 0.9772
+        },
+        {
+          "token": 19,
+          "start": 39.874,
+          "end": 39.894,
+          "score": 0.9935
+        },
+        {
+          "token": 20,
+          "start": 39.914,
+          "end": 39.934,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 39.934,
+          "end": 39.954,
+          "score": 0.9928
+        },
+        {
+          "token": 2,
+          "start": 39.974,
+          "end": 39.994,
+          "score": 1.0
+        },
+        {
+          "token": 21,
+          "start": 40.014,
+          "end": 40.034,
+          "score": 0.9998
+        },
+        {
+          "token": 4,
+          "start": 40.074,
+          "end": 40.114,
+          "score": 0.9998
+        },
+        {
+          "token": 5,
+          "start": 40.134,
+          "end": 40.154,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 40.154,
+          "end": 40.194,
+          "score": 0.9988
+        },
+        {
+          "token": 16,
+          "start": 40.234,
+          "end": 40.254,
+          "score": 1.0
+        },
+        {
+          "token": 1,
+          "start": 40.274,
+          "end": 40.314,
+          "score": 0.752
+        },
+        {
+          "token": 18,
+          "start": 40.334,
+          "end": 40.354,
+          "score": 1.0
+        },
+        {
+          "token": 4,
+          "start": 40.414,
+          "end": 40.434,
+          "score": 0.9999
+        },
+        {
+          "token": 15,
+          "start": 40.454,
+          "end": 40.474,
+          "score": 0.9997
+        },
+        {
+          "token": 14,
+          "start": 40.535,
+          "end": 40.555,
+          "score": 0.9979
+        },
+        {
+          "token": 0,
+          "start": 40.575,
+          "end": 40.615,
+          "score": 0.9965
+        },
+        {
+          "token": 11,
+          "start": 40.855,
+          "end": 40.875,
+          "score": 0.1419
+        },
+        {
+          "token": 18,
+          "start": 41.015,
+          "end": 41.035,
+          "score": 0.9498
+        },
+        {
+          "token": 19,
+          "start": 41.075,
+          "end": 41.095,
+          "score": 0.6143
+        },
+        {
+          "token": 20,
+          "start": 41.095,
+          "end": 41.115,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 41.135,
+          "end": 41.155,
+          "score": 0.0268
+        },
+        {
+          "token": 2,
+          "start": 41.175,
+          "end": 41.195,
+          "score": 1.0
+        },
+        {
+          "token": 21,
+          "start": 41.215,
+          "end": 41.235,
+          "score": 0.9996
+        },
+        {
+          "token": 4,
+          "start": 41.275,
+          "end": 41.315,
+          "score": 0.9998
+        },
+        {
+          "token": 5,
+          "start": 41.335,
+          "end": 41.355,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 41.355,
+          "end": 41.395,
+          "score": 0.9997
+        },
+        {
+          "token": 27,
+          "start": 41.576,
+          "end": 41.596,
+          "score": 0.9801
+        },
+        {
+          "token": 14,
+          "start": 41.736,
+          "end": 41.756,
+          "score": 0.997
+        },
+        {
+          "token": 15,
+          "start": 41.756,
+          "end": 41.796,
+          "score": 0.9072
+        },
+        {
+          "token": 0,
+          "start": 42.196,
+          "end": 42.236,
+          "score": 0.9988
+        },
+        {
+          "token": 22,
+          "start": 42.236,
+          "end": 42.256,
+          "score": 0.999
+        },
+        {
+          "token": 0,
+          "start": 42.276,
+          "end": 42.316,
+          "score": 0.9936
+        },
+        {
+          "token": 16,
+          "start": 42.336,
+          "end": 42.376,
+          "score": 0.9048
+        },
+        {
+          "token": 15,
+          "start": 42.376,
+          "end": 42.396,
+          "score": 0.9998
+        },
+        {
+          "token": 14,
+          "start": 42.396,
+          "end": 42.416,
+          "score": 0.0191
+        },
+        {
+          "token": 4,
+          "start": 42.456,
+          "end": 42.476,
+          "score": 0.9989
+        },
+        {
+          "token": 5,
+          "start": 42.496,
+          "end": 42.516,
+          "score": 0.9849
+        },
+        {
+          "token": 12,
+          "start": 42.536,
+          "end": 42.556,
+          "score": 0.9993
+        },
+        {
+          "token": 15,
+          "start": 42.556,
+          "end": 42.576,
+          "score": 0.0
+        },
+        {
+          "token": 11,
+          "start": 42.636,
+          "end": 42.657,
+          "score": 0.0027
+        },
+        {
+          "token": 0,
+          "start": 42.657,
+          "end": 42.677,
+          "score": 0.3046
+        },
+        {
+          "token": 19,
+          "start": 42.677,
+          "end": 42.697,
+          "score": 0.2485
+        },
+        {
+          "token": 15,
+          "start": 42.717,
+          "end": 42.757,
+          "score": 0.9984
+        },
+        {
+          "token": 13,
+          "start": 42.777,
+          "end": 42.797,
+          "score": 0.9998
+        },
+        {
+          "token": 0,
+          "start": 42.797,
+          "end": 42.817,
+          "score": 0.9997
+        },
+        {
+          "token": 2,
+          "start": 42.837,
+          "end": 42.857,
+          "score": 0.9994
+        },
+        {
+          "token": 15,
+          "start": 42.877,
+          "end": 42.897,
+          "score": 0.9953
+        },
+        {
+          "token": 12,
+          "start": 42.917,
+          "end": 42.937,
+          "score": 0.9963
+        },
+        {
+          "token": 0,
+          "start": 42.957,
+          "end": 42.977,
+          "score": 0.0021
+        },
+        {
+          "token": 19,
+          "start": 42.977,
+          "end": 42.997,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 43.037,
+          "end": 43.057,
+          "score": 0.0001
+        },
+        {
+          "token": 11,
+          "start": 43.077,
+          "end": 43.117,
+          "score": 0.9983
+        },
+        {
+          "token": 15,
+          "start": 43.117,
+          "end": 43.137,
+          "score": 1.0
+        },
+        {
+          "token": 35,
+          "start": 43.217,
+          "end": 43.237,
+          "score": 0.9998
+        },
+        {
+          "token": 30,
+          "start": 43.277,
+          "end": 43.297,
+          "score": 0.0
+        },
+        {
+          "token": 11,
+          "start": 43.397,
+          "end": 43.417,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 43.437,
+          "end": 43.477,
+          "score": 0.9012
+        },
+        {
+          "token": 13,
+          "start": 43.537,
+          "end": 43.557,
+          "score": 0.9996
+        },
+        {
+          "token": 0,
+          "start": 43.617,
+          "end": 43.677,
+          "score": 0.9371
+        },
+        {
+          "token": 16,
+          "start": 44.338,
+          "end": 44.378,
+          "score": 0.9786
+        },
+        {
+          "token": 18,
+          "start": 44.398,
+          "end": 44.418,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 44.438,
+          "end": 44.458,
+          "score": 0.9999
+        },
+        {
+          "token": 0,
+          "start": 44.478,
+          "end": 44.498,
+          "score": 0.0006
+        },
+        {
+          "token": 39,
+          "start": 44.518,
+          "end": 44.538,
+          "score": 0.1962
+        },
+        {
+          "token": 21,
+          "start": 44.578,
+          "end": 44.618,
+          "score": 0.9858
+        },
+        {
+          "token": 0,
+          "start": 44.618,
+          "end": 44.678,
+          "score": 0.8724
+        },
+        {
+          "token": 19,
+          "start": 44.778,
+          "end": 44.798,
+          "score": 0.8202
+        },
+        {
+          "token": 0,
+          "start": 44.819,
+          "end": 44.839,
+          "score": 0.2872
+        },
+        {
+          "token": 13,
+          "start": 44.859,
+          "end": 44.879,
+          "score": 0.9985
+        },
+        {
+          "token": 1,
+          "start": 44.879,
+          "end": 44.899,
+          "score": 0.0157
+        },
+        {
+          "token": 20,
+          "start": 44.999,
+          "end": 45.019,
+          "score": 0.8558
+        },
+        {
+          "token": 9,
+          "start": 45.039,
+          "end": 45.059,
+          "score": 0.9972
+        },
+        {
+          "token": 12,
+          "start": 45.119,
+          "end": 45.139,
+          "score": 0.9952
+        },
+        {
+          "token": 4,
+          "start": 45.179,
+          "end": 45.199,
+          "score": 0.9845
+        },
+        {
+          "token": 15,
+          "start": 45.219,
+          "end": 45.239,
+          "score": 0.4167
+        },
+        {
+          "token": 21,
+          "start": 45.279,
+          "end": 45.299,
+          "score": 0.5609
+        },
+        {
+          "token": 0,
+          "start": 45.299,
+          "end": 45.339,
+          "score": 0.9922
+        },
+        {
+          "token": 19,
+          "start": 45.639,
+          "end": 45.659,
+          "score": 0.0022
+        },
+        {
+          "token": 13,
+          "start": 45.719,
+          "end": 45.739,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 45.759,
+          "end": 45.779,
+          "score": 0.1381
+        },
+        {
+          "token": 0,
+          "start": 45.779,
+          "end": 45.799,
+          "score": 0.0
+        },
+        {
+          "token": 9,
+          "start": 45.819,
+          "end": 45.839,
+          "score": 0.9656
+        },
+        {
+          "token": 41,
+          "start": 45.879,
+          "end": 45.9,
+          "score": 0.9866
+        },
+        {
+          "token": 12,
+          "start": 46.0,
+          "end": 46.02,
+          "score": 1.0
+        },
+        {
+          "token": 9,
+          "start": 46.04,
+          "end": 46.06,
+          "score": 0.9833
+        }
+      ],
+      "wordOwners": [
+        0,
+        0,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        2,
+        2,
+        2,
+        2,
+        -1,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        -1,
+        4,
+        4,
+        4,
+        4,
+        -1,
+        5,
+        5,
+        5,
+        5,
+        -1,
+        6,
+        6,
+        6,
+        -1,
+        7,
+        -1,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        -1,
+        9,
+        9,
+        9,
+        -1,
+        10,
+        10,
+        10,
+        -1,
+        11,
+        -1,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        -1,
+        13,
+        13,
+        13,
+        -1,
+        14,
+        14,
+        -1,
+        15,
+        -1,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        -1,
+        17,
+        17,
+        17,
+        -1,
+        18,
+        18,
+        18,
+        18
+      ]
+    },
+    {
+      "group": 8,
+      "textSk": "Takže kočík bol na predaji knihy. Keď napíšeš knihu, dostaneš 20 autorských výtlačkov, ale táto je našťastie menšia, takže som proste hodil 20 dole do kočíka, ale",
+      "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+      "chunkKey": "d6e2ebfef29811778498c5a3560c688748be96bf21a634b643bca3f96675947a",
+      "independentCtcDecode": "už vyšle pozry a o k i do liajker s bude pardon pardrsbude amáno  v podelom bolskočikom h prenu smtilduu zmrišli tak to žieže preni kručik voľvá  i urevižuje a i ke napišečniu dosenž dvaťseť utorsky výtlečku a tté našťaste menšia tžo som prosihodul dvadcať oľo dokočika alebs",
+      "chunkWindow": [
+        35.61,
+        57.27
+      ],
+      "alignmentText": "Takže kočík bol na predaji knihy. Keď napíšeš knihu, dostaneš dvadsať autorských výtlačkov, ale táto je našťastie menšia, takže som proste hodil dvadsať dole do kočíka, ale",
+      "start": 46.76,
+      "end": 56.369,
+      "meanCharacterScore": 0.602,
+      "characters": [
+        {
+          "token": 20,
+          "start": 46.76,
+          "end": 46.78,
+          "score": 0.9802
+        },
+        {
+          "token": 1,
+          "start": 46.78,
+          "end": 46.8,
+          "score": 0.5384
+        },
+        {
+          "token": 11,
+          "start": 46.86,
+          "end": 46.9,
+          "score": 0.9883
+        },
+        {
+          "token": 43,
+          "start": 47.321,
+          "end": 47.341,
+          "score": 0.9992
+        },
+        {
+          "token": 5,
+          "start": 47.381,
+          "end": 47.401,
+          "score": 0.8988
+        },
+        {
+          "token": 0,
+          "start": 47.401,
+          "end": 47.421,
+          "score": 0.9777
+        },
+        {
+          "token": 11,
+          "start": 47.701,
+          "end": 47.721,
+          "score": 0.5034
+        },
+        {
+          "token": 15,
+          "start": 47.761,
+          "end": 47.781,
+          "score": 0.0151
+        },
+        {
+          "token": 35,
+          "start": 47.841,
+          "end": 47.861,
+          "score": 0.999
+        },
+        {
+          "token": 30,
+          "start": 47.901,
+          "end": 47.921,
+          "score": 0.0002
+        },
+        {
+          "token": 11,
+          "start": 47.961,
+          "end": 47.981,
+          "score": 0.9999
+        },
+        {
+          "token": 0,
+          "start": 47.981,
+          "end": 48.001,
+          "score": 0.9675
+        },
+        {
+          "token": 2,
+          "start": 48.021,
+          "end": 48.041,
+          "score": 0.0001
+        },
+        {
+          "token": 15,
+          "start": 48.082,
+          "end": 48.102,
+          "score": 0.8834
+        },
+        {
+          "token": 12,
+          "start": 48.142,
+          "end": 48.162,
+          "score": 0.1985
+        },
+        {
+          "token": 0,
+          "start": 48.162,
+          "end": 48.182,
+          "score": 0.001
+        },
+        {
+          "token": 14,
+          "start": 48.222,
+          "end": 48.242,
+          "score": 0.0137
+        },
+        {
+          "token": 1,
+          "start": 48.282,
+          "end": 48.302,
+          "score": 0.0137
+        },
+        {
+          "token": 0,
+          "start": 49.163,
+          "end": 49.183,
+          "score": 0.9411
+        },
+        {
+          "token": 16,
+          "start": 49.323,
+          "end": 49.343,
+          "score": 0.0
+        },
+        {
+          "token": 18,
+          "start": 49.363,
+          "end": 49.383,
+          "score": 0.9959
+        },
+        {
+          "token": 5,
+          "start": 49.403,
+          "end": 49.423,
+          "score": 0.9414
+        },
+        {
+          "token": 4,
+          "start": 49.623,
+          "end": 49.643,
+          "score": 0.0462
+        },
+        {
+          "token": 1,
+          "start": 49.683,
+          "end": 49.703,
+          "score": 0.0
+        },
+        {
+          "token": 10,
+          "start": 49.723,
+          "end": 49.763,
+          "score": 0.9655
+        },
+        {
+          "token": 9,
+          "start": 49.783,
+          "end": 49.803,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 49.803,
+          "end": 49.843,
+          "score": 0.9632
+        },
+        {
+          "token": 11,
+          "start": 50.163,
+          "end": 50.183,
+          "score": 0.0
+        },
+        {
+          "token": 14,
+          "start": 50.203,
+          "end": 50.223,
+          "score": 0.0001
+        },
+        {
+          "token": 9,
+          "start": 50.223,
+          "end": 50.244,
+          "score": 0.0031
+        },
+        {
+          "token": 8,
+          "start": 50.244,
+          "end": 50.264,
+          "score": 0.0
+        },
+        {
+          "token": 25,
+          "start": 50.284,
+          "end": 50.304,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 50.304,
+          "end": 50.324,
+          "score": 0.6228
+        },
+        {
+          "token": 11,
+          "start": 50.384,
+          "end": 50.404,
+          "score": 0.9125
+        },
+        {
+          "token": 5,
+          "start": 50.424,
+          "end": 50.444,
+          "score": 0.9999
+        },
+        {
+          "token": 36,
+          "start": 50.444,
+          "end": 50.464,
+          "score": 0.0006
+        },
+        {
+          "token": 0,
+          "start": 50.464,
+          "end": 50.484,
+          "score": 0.9958
+        },
+        {
+          "token": 14,
+          "start": 50.504,
+          "end": 50.524,
+          "score": 0.9926
+        },
+        {
+          "token": 1,
+          "start": 50.544,
+          "end": 50.564,
+          "score": 1.0
+        },
+        {
+          "token": 16,
+          "start": 50.624,
+          "end": 50.644,
+          "score": 0.9998
+        },
+        {
+          "token": 30,
+          "start": 50.644,
+          "end": 50.664,
+          "score": 0.0002
+        },
+        {
+          "token": 41,
+          "start": 50.684,
+          "end": 50.704,
+          "score": 0.9087
+        },
+        {
+          "token": 5,
+          "start": 50.744,
+          "end": 50.764,
+          "score": 1.0
+        },
+        {
+          "token": 41,
+          "start": 50.804,
+          "end": 50.824,
+          "score": 0.1907
+        },
+        {
+          "token": 0,
+          "start": 50.864,
+          "end": 50.884,
+          "score": 0.0
+        },
+        {
+          "token": 11,
+          "start": 50.884,
+          "end": 50.904,
+          "score": 0.0005
+        },
+        {
+          "token": 14,
+          "start": 50.904,
+          "end": 50.924,
+          "score": 0.9976
+        },
+        {
+          "token": 9,
+          "start": 50.924,
+          "end": 50.944,
+          "score": 0.8055
+        },
+        {
+          "token": 8,
+          "start": 50.944,
+          "end": 50.964,
+          "score": 0.0003
+        },
+        {
+          "token": 21,
+          "start": 50.964,
+          "end": 50.984,
+          "score": 0.9281
+        },
+        {
+          "token": 0,
+          "start": 50.984,
+          "end": 51.004,
+          "score": 0.9995
+        },
+        {
+          "token": 4,
+          "start": 51.024,
+          "end": 51.044,
+          "score": 0.9999
+        },
+        {
+          "token": 15,
+          "start": 51.044,
+          "end": 51.064,
+          "score": 1.0
+        },
+        {
+          "token": 19,
+          "start": 51.084,
+          "end": 51.124,
+          "score": 0.9836
+        },
+        {
+          "token": 20,
+          "start": 51.144,
+          "end": 51.164,
+          "score": 0.4899
+        },
+        {
+          "token": 1,
+          "start": 51.184,
+          "end": 51.204,
+          "score": 0.0185
+        },
+        {
+          "token": 14,
+          "start": 51.204,
+          "end": 51.224,
+          "score": 0.0136
+        },
+        {
+          "token": 5,
+          "start": 51.224,
+          "end": 51.244,
+          "score": 0.2899
+        },
+        {
+          "token": 41,
+          "start": 51.264,
+          "end": 51.284,
+          "score": 0.2187
+        },
+        {
+          "token": 0,
+          "start": 51.284,
+          "end": 51.304,
+          "score": 0.9848
+        },
+        {
+          "token": 4,
+          "start": 51.304,
+          "end": 51.325,
+          "score": 0.995
+        },
+        {
+          "token": 22,
+          "start": 51.345,
+          "end": 51.365,
+          "score": 0.8636
+        },
+        {
+          "token": 1,
+          "start": 51.365,
+          "end": 51.385,
+          "score": 0.5724
+        },
+        {
+          "token": 4,
+          "start": 51.405,
+          "end": 51.425,
+          "score": 0.0116
+        },
+        {
+          "token": 19,
+          "start": 51.425,
+          "end": 51.465,
+          "score": 0.9973
+        },
+        {
+          "token": 1,
+          "start": 51.505,
+          "end": 51.525,
+          "score": 0.0837
+        },
+        {
+          "token": 42,
+          "start": 51.545,
+          "end": 51.585,
+          "score": 0.9356
+        },
+        {
+          "token": 0,
+          "start": 51.585,
+          "end": 51.625,
+          "score": 0.9929
+        },
+        {
+          "token": 1,
+          "start": 51.625,
+          "end": 51.645,
+          "score": 0.0004
+        },
+        {
+          "token": 21,
+          "start": 51.645,
+          "end": 51.665,
+          "score": 0.9983
+        },
+        {
+          "token": 20,
+          "start": 51.705,
+          "end": 51.725,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 51.745,
+          "end": 51.765,
+          "score": 1.0
+        },
+        {
+          "token": 18,
+          "start": 51.785,
+          "end": 51.805,
+          "score": 0.9863
+        },
+        {
+          "token": 19,
+          "start": 51.805,
+          "end": 51.845,
+          "score": 0.7779
+        },
+        {
+          "token": 11,
+          "start": 51.905,
+          "end": 51.925,
+          "score": 0.9972
+        },
+        {
+          "token": 34,
+          "start": 51.965,
+          "end": 51.985,
+          "score": 0.0004
+        },
+        {
+          "token": 3,
+          "start": 51.985,
+          "end": 52.005,
+          "score": 0.0035
+        },
+        {
+          "token": 8,
+          "start": 52.005,
+          "end": 52.025,
+          "score": 0.2457
+        },
+        {
+          "token": 0,
+          "start": 52.025,
+          "end": 52.045,
+          "score": 0.9956
+        },
+        {
+          "token": 22,
+          "start": 52.045,
+          "end": 52.065,
+          "score": 0.7077
+        },
+        {
+          "token": 34,
+          "start": 52.085,
+          "end": 52.105,
+          "score": 0.4083
+        },
+        {
+          "token": 20,
+          "start": 52.165,
+          "end": 52.185,
+          "score": 0.5203
+        },
+        {
+          "token": 12,
+          "start": 52.205,
+          "end": 52.225,
+          "score": 0.9982
+        },
+        {
+          "token": 1,
+          "start": 52.245,
+          "end": 52.265,
+          "score": 0.0001
+        },
+        {
+          "token": 35,
+          "start": 52.345,
+          "end": 52.365,
+          "score": 0.9987
+        },
+        {
+          "token": 11,
+          "start": 52.426,
+          "end": 52.466,
+          "score": 0.9618
+        },
+        {
+          "token": 15,
+          "start": 52.466,
+          "end": 52.486,
+          "score": 0.0761
+        },
+        {
+          "token": 22,
+          "start": 52.486,
+          "end": 52.506,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 52.506,
+          "end": 52.526,
+          "score": 0.9954
+        },
+        {
+          "token": 1,
+          "start": 52.526,
+          "end": 52.546,
+          "score": 0.984
+        },
+        {
+          "token": 12,
+          "start": 52.546,
+          "end": 52.566,
+          "score": 0.0001
+        },
+        {
+          "token": 5,
+          "start": 52.566,
+          "end": 52.586,
+          "score": 0.0001
+        },
+        {
+          "token": 0,
+          "start": 52.586,
+          "end": 52.606,
+          "score": 0.9659
+        },
+        {
+          "token": 20,
+          "start": 52.646,
+          "end": 52.666,
+          "score": 0.9994
+        },
+        {
+          "token": 27,
+          "start": 52.686,
+          "end": 52.706,
+          "score": 0.0001
+        },
+        {
+          "token": 20,
+          "start": 52.766,
+          "end": 52.786,
+          "score": 0.9998
+        },
+        {
+          "token": 15,
+          "start": 52.806,
+          "end": 52.826,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 52.826,
+          "end": 52.846,
+          "score": 0.0001
+        },
+        {
+          "token": 10,
+          "start": 52.846,
+          "end": 52.866,
+          "score": 0.0042
+        },
+        {
+          "token": 5,
+          "start": 52.866,
+          "end": 52.886,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 52.886,
+          "end": 52.906,
+          "score": 0.8431
+        },
+        {
+          "token": 14,
+          "start": 52.906,
+          "end": 52.926,
+          "score": 0.9999
+        },
+        {
+          "token": 1,
+          "start": 52.926,
+          "end": 52.946,
+          "score": 1.0
+        },
+        {
+          "token": 41,
+          "start": 52.986,
+          "end": 53.006,
+          "score": 1.0
+        },
+        {
+          "token": 42,
+          "start": 53.046,
+          "end": 53.066,
+          "score": 0.9218
+        },
+        {
+          "token": 1,
+          "start": 53.086,
+          "end": 53.106,
+          "score": 0.9907
+        },
+        {
+          "token": 19,
+          "start": 53.126,
+          "end": 53.166,
+          "score": 0.8318
+        },
+        {
+          "token": 20,
+          "start": 53.226,
+          "end": 53.246,
+          "score": 1.0
+        },
+        {
+          "token": 9,
+          "start": 53.246,
+          "end": 53.266,
+          "score": 0.0544
+        },
+        {
+          "token": 5,
+          "start": 53.266,
+          "end": 53.286,
+          "score": 0.9074
+        },
+        {
+          "token": 0,
+          "start": 53.286,
+          "end": 53.326,
+          "score": 0.7578
+        },
+        {
+          "token": 13,
+          "start": 53.326,
+          "end": 53.366,
+          "score": 0.7024
+        },
+        {
+          "token": 5,
+          "start": 53.386,
+          "end": 53.406,
+          "score": 0.9997
+        },
+        {
+          "token": 14,
+          "start": 53.426,
+          "end": 53.466,
+          "score": 0.9278
+        },
+        {
+          "token": 41,
+          "start": 53.507,
+          "end": 53.567,
+          "score": 0.9833
+        },
+        {
+          "token": 9,
+          "start": 53.567,
+          "end": 53.607,
+          "score": 0.9078
+        },
+        {
+          "token": 1,
+          "start": 53.627,
+          "end": 53.647,
+          "score": 0.9988
+        },
+        {
+          "token": 0,
+          "start": 53.647,
+          "end": 53.687,
+          "score": 0.8577
+        },
+        {
+          "token": 20,
+          "start": 53.707,
+          "end": 53.727,
+          "score": 0.9999
+        },
+        {
+          "token": 1,
+          "start": 53.747,
+          "end": 53.767,
+          "score": 0.0058
+        },
+        {
+          "token": 11,
+          "start": 53.787,
+          "end": 53.807,
+          "score": 0.0691
+        },
+        {
+          "token": 43,
+          "start": 53.867,
+          "end": 53.907,
+          "score": 0.9269
+        },
+        {
+          "token": 5,
+          "start": 53.947,
+          "end": 53.967,
+          "score": 0.357
+        },
+        {
+          "token": 0,
+          "start": 54.087,
+          "end": 54.147,
+          "score": 0.8686
+        },
+        {
+          "token": 19,
+          "start": 54.187,
+          "end": 54.207,
+          "score": 0.9998
+        },
+        {
+          "token": 15,
+          "start": 54.267,
+          "end": 54.287,
+          "score": 1.0
+        },
+        {
+          "token": 13,
+          "start": 54.307,
+          "end": 54.347,
+          "score": 0.7693
+        },
+        {
+          "token": 0,
+          "start": 54.347,
+          "end": 54.407,
+          "score": 0.9873
+        },
+        {
+          "token": 16,
+          "start": 54.447,
+          "end": 54.467,
+          "score": 0.9998
+        },
+        {
+          "token": 18,
+          "start": 54.487,
+          "end": 54.527,
+          "score": 0.9684
+        },
+        {
+          "token": 15,
+          "start": 54.527,
+          "end": 54.547,
+          "score": 1.0
+        },
+        {
+          "token": 19,
+          "start": 54.588,
+          "end": 54.608,
+          "score": 0.9999
+        },
+        {
+          "token": 20,
+          "start": 54.688,
+          "end": 54.708,
+          "score": 0.0009
+        },
+        {
+          "token": 5,
+          "start": 54.708,
+          "end": 54.728,
+          "score": 0.033
+        },
+        {
+          "token": 0,
+          "start": 54.728,
+          "end": 54.748,
+          "score": 0.0004
+        },
+        {
+          "token": 8,
+          "start": 54.748,
+          "end": 54.788,
+          "score": 0.971
+        },
+        {
+          "token": 15,
+          "start": 54.788,
+          "end": 54.808,
+          "score": 0.9945
+        },
+        {
+          "token": 4,
+          "start": 54.848,
+          "end": 54.868,
+          "score": 0.995
+        },
+        {
+          "token": 9,
+          "start": 54.908,
+          "end": 54.928,
+          "score": 0.0012
+        },
+        {
+          "token": 12,
+          "start": 54.948,
+          "end": 54.968,
+          "score": 0.3463
+        },
+        {
+          "token": 0,
+          "start": 54.988,
+          "end": 55.028,
+          "score": 0.7616
+        },
+        {
+          "token": 4,
+          "start": 55.048,
+          "end": 55.068,
+          "score": 0.9721
+        },
+        {
+          "token": 22,
+          "start": 55.068,
+          "end": 55.108,
+          "score": 0.8412
+        },
+        {
+          "token": 1,
+          "start": 55.108,
+          "end": 55.128,
+          "score": 0.9997
+        },
+        {
+          "token": 4,
+          "start": 55.148,
+          "end": 55.188,
+          "score": 0.7934
+        },
+        {
+          "token": 19,
+          "start": 55.208,
+          "end": 55.228,
+          "score": 0.0766
+        },
+        {
+          "token": 1,
+          "start": 55.268,
+          "end": 55.288,
+          "score": 0.9383
+        },
+        {
+          "token": 42,
+          "start": 55.288,
+          "end": 55.328,
+          "score": 0.7764
+        },
+        {
+          "token": 0,
+          "start": 55.328,
+          "end": 55.348,
+          "score": 0.928
+        },
+        {
+          "token": 4,
+          "start": 55.348,
+          "end": 55.368,
+          "score": 0.2724
+        },
+        {
+          "token": 15,
+          "start": 55.388,
+          "end": 55.408,
+          "score": 0.5304
+        },
+        {
+          "token": 12,
+          "start": 55.448,
+          "end": 55.468,
+          "score": 0.0293
+        },
+        {
+          "token": 5,
+          "start": 55.488,
+          "end": 55.508,
+          "score": 0.4099
+        },
+        {
+          "token": 0,
+          "start": 55.508,
+          "end": 55.548,
+          "score": 0.7473
+        },
+        {
+          "token": 4,
+          "start": 55.548,
+          "end": 55.588,
+          "score": 0.9984
+        },
+        {
+          "token": 15,
+          "start": 55.588,
+          "end": 55.628,
+          "score": 0.9961
+        },
+        {
+          "token": 0,
+          "start": 55.628,
+          "end": 55.649,
+          "score": 0.0153
+        },
+        {
+          "token": 11,
+          "start": 55.689,
+          "end": 55.709,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 55.729,
+          "end": 55.749,
+          "score": 1.0
+        },
+        {
+          "token": 35,
+          "start": 55.809,
+          "end": 55.829,
+          "score": 0.9999
+        },
+        {
+          "token": 30,
+          "start": 55.869,
+          "end": 55.889,
+          "score": 0.0034
+        },
+        {
+          "token": 11,
+          "start": 55.989,
+          "end": 56.009,
+          "score": 0.9995
+        },
+        {
+          "token": 1,
+          "start": 56.049,
+          "end": 56.069,
+          "score": 0.9994
+        },
+        {
+          "token": 0,
+          "start": 56.089,
+          "end": 56.129,
+          "score": 1.0
+        },
+        {
+          "token": 1,
+          "start": 56.189,
+          "end": 56.209,
+          "score": 0.9397
+        },
+        {
+          "token": 12,
+          "start": 56.289,
+          "end": 56.309,
+          "score": 0.9998
+        },
+        {
+          "token": 5,
+          "start": 56.329,
+          "end": 56.369,
+          "score": 0.7803
+        }
+      ],
+      "wordOwners": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        2,
+        2,
+        2,
+        -1,
+        3,
+        3,
+        -1,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        -1,
+        5,
+        5,
+        5,
+        5,
+        5,
+        -1,
+        6,
+        6,
+        6,
+        -1,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        -1,
+        8,
+        8,
+        8,
+        8,
+        8,
+        -1,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        -1,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        -1,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        -1,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        -1,
+        13,
+        13,
+        13,
+        -1,
+        14,
+        14,
+        14,
+        14,
+        -1,
+        15,
+        15,
+        -1,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        -1,
+        17,
+        17,
+        17,
+        17,
+        17,
+        17,
+        -1,
+        18,
+        18,
+        18,
+        18,
+        18,
+        -1,
+        19,
+        19,
+        19,
+        -1,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        -1,
+        21,
+        21,
+        21,
+        21,
+        21,
+        -1,
+        22,
+        22,
+        22,
+        22,
+        22,
+        22,
+        22,
+        -1,
+        23,
+        23,
+        23,
+        23,
+        -1,
+        24,
+        24,
+        -1,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        -1,
+        26,
+        26,
+        26
+      ]
+    },
+    {
+      "group": 9,
+      "textSk": "strašne pekne vyzerá naživo. Môžem konečne vymeniť túto vytlačenú za",
+      "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+      "chunkKey": "822d1faecd8f4331860afe64ac9e36a3d1c627a1d705d0837f745793657dd8a2",
+      "independentCtcDecode": "b strašne pekťňouj zronaživ može muzom koneši vymeni tu to vytle če nú zaza za poriadnu a vi sela takdisto akže vzádu ná tr kneži si osu loži bi vna amhuznižom rozlišením p a i na tu lren pekže de viatojhov bude krstromto",
+      "chunkWindow": [
+        56.97,
+        73.23
+      ],
+      "alignmentText": "strašne pekne vyzerá naživo. Môžem konečne vymeniť túto vytlačenú za",
+      "start": 57.17,
+      "end": 60.635,
+      "meanCharacterScore": 0.713,
+      "characters": [
+        {
+          "token": 19,
+          "start": 57.17,
+          "end": 57.19,
+          "score": 1.0
+        },
+        {
+          "token": 20,
+          "start": 57.25,
+          "end": 57.27,
+          "score": 1.0
+        },
+        {
+          "token": 18,
+          "start": 57.29,
+          "end": 57.31,
+          "score": 0.9999
+        },
+        {
+          "token": 1,
+          "start": 57.31,
+          "end": 57.35,
+          "score": 0.9993
+        },
+        {
+          "token": 41,
+          "start": 57.37,
+          "end": 57.391,
+          "score": 0.9988
+        },
+        {
+          "token": 14,
+          "start": 57.431,
+          "end": 57.471,
+          "score": 0.9155
+        },
+        {
+          "token": 5,
+          "start": 57.471,
+          "end": 57.491,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 57.491,
+          "end": 57.511,
+          "score": 0.8722
+        },
+        {
+          "token": 16,
+          "start": 57.551,
+          "end": 57.571,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 57.591,
+          "end": 57.611,
+          "score": 0.9992
+        },
+        {
+          "token": 11,
+          "start": 57.651,
+          "end": 57.671,
+          "score": 0.9849
+        },
+        {
+          "token": 14,
+          "start": 57.711,
+          "end": 57.731,
+          "score": 0.0002
+        },
+        {
+          "token": 5,
+          "start": 57.751,
+          "end": 57.771,
+          "score": 0.0007
+        },
+        {
+          "token": 0,
+          "start": 57.771,
+          "end": 57.791,
+          "score": 0.0011
+        },
+        {
+          "token": 22,
+          "start": 57.791,
+          "end": 57.811,
+          "score": 0.0
+        },
+        {
+          "token": 25,
+          "start": 57.811,
+          "end": 57.831,
+          "score": 0.0007
+        },
+        {
+          "token": 26,
+          "start": 57.851,
+          "end": 57.871,
+          "score": 0.9796
+        },
+        {
+          "token": 5,
+          "start": 57.911,
+          "end": 57.931,
+          "score": 0.0003
+        },
+        {
+          "token": 18,
+          "start": 57.931,
+          "end": 57.991,
+          "score": 0.8644
+        },
+        {
+          "token": 27,
+          "start": 57.991,
+          "end": 58.011,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 58.031,
+          "end": 58.051,
+          "score": 0.0003
+        },
+        {
+          "token": 14,
+          "start": 58.071,
+          "end": 58.091,
+          "score": 0.9999
+        },
+        {
+          "token": 1,
+          "start": 58.111,
+          "end": 58.131,
+          "score": 1.0
+        },
+        {
+          "token": 43,
+          "start": 58.171,
+          "end": 58.192,
+          "score": 0.9997
+        },
+        {
+          "token": 9,
+          "start": 58.232,
+          "end": 58.252,
+          "score": 0.999
+        },
+        {
+          "token": 22,
+          "start": 58.292,
+          "end": 58.312,
+          "score": 0.6257
+        },
+        {
+          "token": 15,
+          "start": 58.312,
+          "end": 58.332,
+          "score": 0.0003
+        },
+        {
+          "token": 0,
+          "start": 58.332,
+          "end": 58.372,
+          "score": 0.984
+        },
+        {
+          "token": 13,
+          "start": 58.412,
+          "end": 58.432,
+          "score": 0.9993
+        },
+        {
+          "token": 32,
+          "start": 58.452,
+          "end": 58.472,
+          "score": 0.3177
+        },
+        {
+          "token": 43,
+          "start": 58.532,
+          "end": 58.552,
+          "score": 0.9999
+        },
+        {
+          "token": 5,
+          "start": 58.572,
+          "end": 58.592,
+          "score": 0.5118
+        },
+        {
+          "token": 13,
+          "start": 58.972,
+          "end": 58.992,
+          "score": 0.9995
+        },
+        {
+          "token": 0,
+          "start": 58.992,
+          "end": 59.033,
+          "score": 0.9973
+        },
+        {
+          "token": 11,
+          "start": 59.053,
+          "end": 59.073,
+          "score": 0.9994
+        },
+        {
+          "token": 15,
+          "start": 59.093,
+          "end": 59.113,
+          "score": 0.9553
+        },
+        {
+          "token": 14,
+          "start": 59.133,
+          "end": 59.153,
+          "score": 0.9221
+        },
+        {
+          "token": 5,
+          "start": 59.153,
+          "end": 59.173,
+          "score": 0.4377
+        },
+        {
+          "token": 35,
+          "start": 59.213,
+          "end": 59.233,
+          "score": 0.0
+        },
+        {
+          "token": 14,
+          "start": 59.313,
+          "end": 59.333,
+          "score": 0.0003
+        },
+        {
+          "token": 5,
+          "start": 59.333,
+          "end": 59.353,
+          "score": 0.0015
+        },
+        {
+          "token": 0,
+          "start": 59.353,
+          "end": 59.373,
+          "score": 0.997
+        },
+        {
+          "token": 22,
+          "start": 59.373,
+          "end": 59.393,
+          "score": 0.9997
+        },
+        {
+          "token": 25,
+          "start": 59.413,
+          "end": 59.433,
+          "score": 0.9939
+        },
+        {
+          "token": 13,
+          "start": 59.493,
+          "end": 59.533,
+          "score": 0.8219
+        },
+        {
+          "token": 5,
+          "start": 59.533,
+          "end": 59.553,
+          "score": 0.9978
+        },
+        {
+          "token": 14,
+          "start": 59.593,
+          "end": 59.613,
+          "score": 0.9997
+        },
+        {
+          "token": 9,
+          "start": 59.633,
+          "end": 59.653,
+          "score": 0.9982
+        },
+        {
+          "token": 42,
+          "start": 59.653,
+          "end": 59.673,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 59.673,
+          "end": 59.693,
+          "score": 0.998
+        },
+        {
+          "token": 20,
+          "start": 59.733,
+          "end": 59.753,
+          "score": 1.0
+        },
+        {
+          "token": 33,
+          "start": 59.753,
+          "end": 59.773,
+          "score": 0.0001
+        },
+        {
+          "token": 20,
+          "start": 59.834,
+          "end": 59.874,
+          "score": 0.7918
+        },
+        {
+          "token": 15,
+          "start": 59.874,
+          "end": 59.894,
+          "score": 0.9997
+        },
+        {
+          "token": 0,
+          "start": 59.894,
+          "end": 59.934,
+          "score": 0.9739
+        },
+        {
+          "token": 22,
+          "start": 59.934,
+          "end": 59.954,
+          "score": 0.9987
+        },
+        {
+          "token": 25,
+          "start": 59.974,
+          "end": 59.994,
+          "score": 0.6305
+        },
+        {
+          "token": 20,
+          "start": 60.074,
+          "end": 60.094,
+          "score": 0.9479
+        },
+        {
+          "token": 12,
+          "start": 60.114,
+          "end": 60.134,
+          "score": 1.0
+        },
+        {
+          "token": 1,
+          "start": 60.154,
+          "end": 60.174,
+          "score": 0.0021
+        },
+        {
+          "token": 35,
+          "start": 60.254,
+          "end": 60.274,
+          "score": 0.702
+        },
+        {
+          "token": 5,
+          "start": 60.314,
+          "end": 60.334,
+          "score": 0.9998
+        },
+        {
+          "token": 14,
+          "start": 60.414,
+          "end": 60.434,
+          "score": 1.0
+        },
+        {
+          "token": 33,
+          "start": 60.454,
+          "end": 60.474,
+          "score": 0.9588
+        },
+        {
+          "token": 0,
+          "start": 60.494,
+          "end": 60.514,
+          "score": 0.8135
+        },
+        {
+          "token": 26,
+          "start": 60.534,
+          "end": 60.554,
+          "score": 0.9984
+        },
+        {
+          "token": 1,
+          "start": 60.594,
+          "end": 60.635,
+          "score": 0.9977
+        }
+      ],
+      "wordOwners": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        -1,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        -1,
+        4,
+        4,
+        4,
+        4,
+        4,
+        -1,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        -1,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        -1,
+        7,
+        7,
+        7,
+        7,
+        -1,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        -1,
+        9,
+        9
+      ]
+    },
+    {
+      "group": 11,
+      "textSk": "za poriadnu. A vyzerá tak isto, vzadu na tej knihe si vlastne môžeš dať hento.",
+      "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+      "chunkKey": "822d1faecd8f4331860afe64ac9e36a3d1c627a1d705d0837f745793657dd8a2",
+      "independentCtcDecode": "b strašne pekťňouj zronaživ može muzom koneši vymeni tu to vytle če nú zaza za poriadnu a vi sela takdisto akže vzádu ná tr kneži si osu loži bi vna amhuznižom rozlišením p a i na tu lren pekže de viatojhov bude krstromto",
+      "chunkWindow": [
+        56.97,
+        73.23
+      ],
+      "alignmentText": "za poriadnu. A vyzerá tak isto, vzadu na tej knihe si vlastne môžeš dať hento.",
+      "start": 62.277,
+      "end": 67.183,
+      "meanCharacterScore": 0.5451,
+      "characters": [
+        {
+          "token": 26,
+          "start": 62.277,
+          "end": 62.297,
+          "score": 0.999
+        },
+        {
+          "token": 1,
+          "start": 62.337,
+          "end": 62.357,
+          "score": 0.9999
+        },
+        {
+          "token": 0,
+          "start": 62.377,
+          "end": 62.417,
+          "score": 0.8275
+        },
+        {
+          "token": 16,
+          "start": 62.457,
+          "end": 62.477,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 62.497,
+          "end": 62.517,
+          "score": 0.9999
+        },
+        {
+          "token": 18,
+          "start": 62.557,
+          "end": 62.577,
+          "score": 0.9874
+        },
+        {
+          "token": 9,
+          "start": 62.597,
+          "end": 62.637,
+          "score": 0.8256
+        },
+        {
+          "token": 1,
+          "start": 62.677,
+          "end": 62.697,
+          "score": 0.9469
+        },
+        {
+          "token": 4,
+          "start": 62.757,
+          "end": 62.777,
+          "score": 1.0
+        },
+        {
+          "token": 14,
+          "start": 62.797,
+          "end": 62.817,
+          "score": 0.9954
+        },
+        {
+          "token": 21,
+          "start": 62.817,
+          "end": 62.837,
+          "score": 0.9998
+        },
+        {
+          "token": 0,
+          "start": 62.857,
+          "end": 62.897,
+          "score": 0.9993
+        },
+        {
+          "token": 1,
+          "start": 63.198,
+          "end": 63.218,
+          "score": 0.8412
+        },
+        {
+          "token": 0,
+          "start": 63.238,
+          "end": 63.258,
+          "score": 0.7483
+        },
+        {
+          "token": 22,
+          "start": 63.258,
+          "end": 63.298,
+          "score": 0.9677
+        },
+        {
+          "token": 25,
+          "start": 63.318,
+          "end": 63.338,
+          "score": 0.4211
+        },
+        {
+          "token": 26,
+          "start": 63.378,
+          "end": 63.398,
+          "score": 0.1896
+        },
+        {
+          "token": 5,
+          "start": 63.458,
+          "end": 63.478,
+          "score": 0.5037
+        },
+        {
+          "token": 18,
+          "start": 63.518,
+          "end": 63.538,
+          "score": 0.0772
+        },
+        {
+          "token": 27,
+          "start": 63.558,
+          "end": 63.578,
+          "score": 0.008
+        },
+        {
+          "token": 0,
+          "start": 63.598,
+          "end": 63.618,
+          "score": 0.9861
+        },
+        {
+          "token": 20,
+          "start": 63.638,
+          "end": 63.658,
+          "score": 0.9974
+        },
+        {
+          "token": 1,
+          "start": 63.698,
+          "end": 63.718,
+          "score": 1.0
+        },
+        {
+          "token": 11,
+          "start": 63.738,
+          "end": 63.758,
+          "score": 0.9592
+        },
+        {
+          "token": 0,
+          "start": 63.798,
+          "end": 63.818,
+          "score": 0.368
+        },
+        {
+          "token": 9,
+          "start": 63.838,
+          "end": 63.858,
+          "score": 0.9999
+        },
+        {
+          "token": 19,
+          "start": 63.899,
+          "end": 63.919,
+          "score": 1.0
+        },
+        {
+          "token": 20,
+          "start": 63.979,
+          "end": 63.999,
+          "score": 0.9996
+        },
+        {
+          "token": 15,
+          "start": 64.019,
+          "end": 64.039,
+          "score": 0.9994
+        },
+        {
+          "token": 0,
+          "start": 64.339,
+          "end": 64.379,
+          "score": 0.9991
+        },
+        {
+          "token": 22,
+          "start": 64.379,
+          "end": 64.399,
+          "score": 1.0
+        },
+        {
+          "token": 26,
+          "start": 64.439,
+          "end": 64.459,
+          "score": 0.9999
+        },
+        {
+          "token": 1,
+          "start": 64.519,
+          "end": 64.539,
+          "score": 0.3295
+        },
+        {
+          "token": 4,
+          "start": 64.639,
+          "end": 64.659,
+          "score": 0.9999
+        },
+        {
+          "token": 21,
+          "start": 64.679,
+          "end": 64.7,
+          "score": 0.9662
+        },
+        {
+          "token": 0,
+          "start": 64.74,
+          "end": 64.78,
+          "score": 0.7555
+        },
+        {
+          "token": 14,
+          "start": 64.78,
+          "end": 64.8,
+          "score": 0.9984
+        },
+        {
+          "token": 1,
+          "start": 64.86,
+          "end": 64.88,
+          "score": 0.1075
+        },
+        {
+          "token": 0,
+          "start": 65.42,
+          "end": 65.46,
+          "score": 0.8596
+        },
+        {
+          "token": 20,
+          "start": 65.5,
+          "end": 65.521,
+          "score": 0.9968
+        },
+        {
+          "token": 5,
+          "start": 65.541,
+          "end": 65.561,
+          "score": 0.0015
+        },
+        {
+          "token": 10,
+          "start": 65.561,
+          "end": 65.581,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 65.581,
+          "end": 65.601,
+          "score": 0.5067
+        },
+        {
+          "token": 11,
+          "start": 65.641,
+          "end": 65.661,
+          "score": 0.9986
+        },
+        {
+          "token": 14,
+          "start": 65.701,
+          "end": 65.721,
+          "score": 0.9989
+        },
+        {
+          "token": 9,
+          "start": 65.741,
+          "end": 65.761,
+          "score": 0.355
+        },
+        {
+          "token": 8,
+          "start": 65.781,
+          "end": 65.801,
+          "score": 0.0124
+        },
+        {
+          "token": 5,
+          "start": 65.901,
+          "end": 65.921,
+          "score": 0.0065
+        },
+        {
+          "token": 0,
+          "start": 65.941,
+          "end": 65.961,
+          "score": 0.6788
+        },
+        {
+          "token": 19,
+          "start": 65.981,
+          "end": 66.001,
+          "score": 0.6692
+        },
+        {
+          "token": 9,
+          "start": 66.081,
+          "end": 66.101,
+          "score": 0.6733
+        },
+        {
+          "token": 0,
+          "start": 66.141,
+          "end": 66.181,
+          "score": 0.6836
+        },
+        {
+          "token": 22,
+          "start": 66.181,
+          "end": 66.201,
+          "score": 0.0002
+        },
+        {
+          "token": 12,
+          "start": 66.201,
+          "end": 66.221,
+          "score": 0.0001
+        },
+        {
+          "token": 1,
+          "start": 66.221,
+          "end": 66.241,
+          "score": 0.003
+        },
+        {
+          "token": 19,
+          "start": 66.261,
+          "end": 66.281,
+          "score": 0.946
+        },
+        {
+          "token": 20,
+          "start": 66.281,
+          "end": 66.301,
+          "score": 0.0001
+        },
+        {
+          "token": 14,
+          "start": 66.362,
+          "end": 66.382,
+          "score": 0.0
+        },
+        {
+          "token": 5,
+          "start": 66.382,
+          "end": 66.402,
+          "score": 0.0002
+        },
+        {
+          "token": 0,
+          "start": 66.402,
+          "end": 66.422,
+          "score": 0.8523
+        },
+        {
+          "token": 13,
+          "start": 66.442,
+          "end": 66.462,
+          "score": 0.0004
+        },
+        {
+          "token": 32,
+          "start": 66.482,
+          "end": 66.502,
+          "score": 0.0094
+        },
+        {
+          "token": 43,
+          "start": 66.542,
+          "end": 66.562,
+          "score": 0.9999
+        },
+        {
+          "token": 5,
+          "start": 66.622,
+          "end": 66.642,
+          "score": 0.0024
+        },
+        {
+          "token": 41,
+          "start": 66.662,
+          "end": 66.682,
+          "score": 0.0003
+        },
+        {
+          "token": 0,
+          "start": 66.682,
+          "end": 66.722,
+          "score": 0.7645
+        },
+        {
+          "token": 4,
+          "start": 66.762,
+          "end": 66.782,
+          "score": 0.0031
+        },
+        {
+          "token": 1,
+          "start": 66.802,
+          "end": 66.822,
+          "score": 0.0039
+        },
+        {
+          "token": 42,
+          "start": 66.842,
+          "end": 66.862,
+          "score": 0.0123
+        },
+        {
+          "token": 0,
+          "start": 66.862,
+          "end": 66.902,
+          "score": 0.9789
+        },
+        {
+          "token": 8,
+          "start": 66.902,
+          "end": 66.922,
+          "score": 0.0001
+        },
+        {
+          "token": 5,
+          "start": 66.942,
+          "end": 66.962,
+          "score": 0.4299
+        },
+        {
+          "token": 14,
+          "start": 66.982,
+          "end": 67.002,
+          "score": 0.9895
+        },
+        {
+          "token": 20,
+          "start": 67.042,
+          "end": 67.062,
+          "score": 0.0
+        },
+        {
+          "token": 15,
+          "start": 67.163,
+          "end": 67.183,
+          "score": 0.018
+        }
+      ],
+      "wordOwners": [
+        0,
+        0,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        2,
+        -1,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        -1,
+        4,
+        4,
+        4,
+        -1,
+        5,
+        5,
+        5,
+        5,
+        -1,
+        6,
+        6,
+        6,
+        6,
+        6,
+        -1,
+        7,
+        7,
+        -1,
+        8,
+        8,
+        8,
+        -1,
+        9,
+        9,
+        9,
+        9,
+        9,
+        -1,
+        10,
+        10,
+        -1,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        -1,
+        12,
+        12,
+        12,
+        12,
+        12,
+        -1,
+        13,
+        13,
+        13,
+        -1,
+        14,
+        14,
+        14,
+        14,
+        14
+      ]
+    },
+    {
+      "group": 12,
+      "textSk": "Áno, v nižšom rozlíšení. Ináč dobre, takže deviateho bude krst teda.",
+      "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+      "chunkKey": "822d1faecd8f4331860afe64ac9e36a3d1c627a1d705d0837f745793657dd8a2",
+      "independentCtcDecode": "b strašne pekťňouj zronaživ može muzom koneši vymeni tu to vytle če nú zaza za poriadnu a vi sela takdisto akže vzádu ná tr kneži si osu loži bi vna amhuznižom rozlišením p a i na tu lren pekže de viatojhov bude krstromto",
+      "chunkWindow": [
+        56.97,
+        73.23
+      ],
+      "alignmentText": "Áno, v nižšom rozlíšení. Ináč dobre, takže deviateho bude krst teda.",
+      "start": 67.223,
+      "end": 73.23,
+      "meanCharacterScore": 0.6184,
+      "characters": [
+        {
+          "token": 27,
+          "start": 67.223,
+          "end": 67.243,
+          "score": 0.0081
+        },
+        {
+          "token": 14,
+          "start": 67.243,
+          "end": 67.263,
+          "score": 0.0001
+        },
+        {
+          "token": 15,
+          "start": 67.263,
+          "end": 67.283,
+          "score": 0.0007
+        },
+        {
+          "token": 0,
+          "start": 67.283,
+          "end": 67.303,
+          "score": 0.0121
+        },
+        {
+          "token": 22,
+          "start": 67.343,
+          "end": 67.363,
+          "score": 0.0009
+        },
+        {
+          "token": 0,
+          "start": 68.064,
+          "end": 68.084,
+          "score": 0.0
+        },
+        {
+          "token": 14,
+          "start": 68.124,
+          "end": 68.144,
+          "score": 1.0
+        },
+        {
+          "token": 9,
+          "start": 68.144,
+          "end": 68.184,
+          "score": 0.9807
+        },
+        {
+          "token": 43,
+          "start": 68.204,
+          "end": 68.224,
+          "score": 0.8299
+        },
+        {
+          "token": 41,
+          "start": 68.224,
+          "end": 68.244,
+          "score": 0.0002
+        },
+        {
+          "token": 15,
+          "start": 68.324,
+          "end": 68.344,
+          "score": 0.9564
+        },
+        {
+          "token": 13,
+          "start": 68.364,
+          "end": 68.404,
+          "score": 0.7682
+        },
+        {
+          "token": 0,
+          "start": 68.404,
+          "end": 68.444,
+          "score": 0.9999
+        },
+        {
+          "token": 18,
+          "start": 68.444,
+          "end": 68.484,
+          "score": 0.9244
+        },
+        {
+          "token": 15,
+          "start": 68.484,
+          "end": 68.524,
+          "score": 0.9998
+        },
+        {
+          "token": 26,
+          "start": 68.544,
+          "end": 68.584,
+          "score": 0.7983
+        },
+        {
+          "token": 12,
+          "start": 68.624,
+          "end": 68.644,
+          "score": 1.0
+        },
+        {
+          "token": 30,
+          "start": 68.664,
+          "end": 68.684,
+          "score": 0.0
+        },
+        {
+          "token": 41,
+          "start": 68.704,
+          "end": 68.724,
+          "score": 0.9993
+        },
+        {
+          "token": 5,
+          "start": 68.805,
+          "end": 68.825,
+          "score": 1.0
+        },
+        {
+          "token": 14,
+          "start": 68.885,
+          "end": 68.925,
+          "score": 0.731
+        },
+        {
+          "token": 30,
+          "start": 68.925,
+          "end": 68.945,
+          "score": 0.9995
+        },
+        {
+          "token": 0,
+          "start": 70.326,
+          "end": 70.387,
+          "score": 0.9979
+        },
+        {
+          "token": 9,
+          "start": 70.407,
+          "end": 70.427,
+          "score": 1.0
+        },
+        {
+          "token": 14,
+          "start": 70.467,
+          "end": 70.487,
+          "score": 0.9996
+        },
+        {
+          "token": 27,
+          "start": 70.487,
+          "end": 70.507,
+          "score": 0.0004
+        },
+        {
+          "token": 35,
+          "start": 70.527,
+          "end": 70.547,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 70.547,
+          "end": 70.567,
+          "score": 0.1042
+        },
+        {
+          "token": 4,
+          "start": 70.567,
+          "end": 70.587,
+          "score": 0.3237
+        },
+        {
+          "token": 15,
+          "start": 70.607,
+          "end": 70.627,
+          "score": 0.3226
+        },
+        {
+          "token": 2,
+          "start": 70.667,
+          "end": 70.687,
+          "score": 0.0025
+        },
+        {
+          "token": 18,
+          "start": 70.727,
+          "end": 70.747,
+          "score": 0.4551
+        },
+        {
+          "token": 5,
+          "start": 70.767,
+          "end": 70.787,
+          "score": 0.9929
+        },
+        {
+          "token": 0,
+          "start": 70.847,
+          "end": 70.887,
+          "score": 0.9837
+        },
+        {
+          "token": 20,
+          "start": 70.887,
+          "end": 70.907,
+          "score": 0.0064
+        },
+        {
+          "token": 1,
+          "start": 70.927,
+          "end": 70.947,
+          "score": 0.0314
+        },
+        {
+          "token": 11,
+          "start": 70.967,
+          "end": 70.987,
+          "score": 0.3663
+        },
+        {
+          "token": 43,
+          "start": 71.027,
+          "end": 71.067,
+          "score": 0.9767
+        },
+        {
+          "token": 5,
+          "start": 71.087,
+          "end": 71.127,
+          "score": 0.9926
+        },
+        {
+          "token": 0,
+          "start": 71.127,
+          "end": 71.147,
+          "score": 0.9794
+        },
+        {
+          "token": 4,
+          "start": 71.167,
+          "end": 71.208,
+          "score": 0.9832
+        },
+        {
+          "token": 5,
+          "start": 71.228,
+          "end": 71.248,
+          "score": 0.9998
+        },
+        {
+          "token": 22,
+          "start": 71.288,
+          "end": 71.308,
+          "score": 0.9994
+        },
+        {
+          "token": 9,
+          "start": 71.328,
+          "end": 71.368,
+          "score": 0.9401
+        },
+        {
+          "token": 1,
+          "start": 71.388,
+          "end": 71.408,
+          "score": 0.9999
+        },
+        {
+          "token": 20,
+          "start": 71.488,
+          "end": 71.528,
+          "score": 0.7634
+        },
+        {
+          "token": 5,
+          "start": 71.548,
+          "end": 71.568,
+          "score": 0.0035
+        },
+        {
+          "token": 8,
+          "start": 71.628,
+          "end": 71.668,
+          "score": 0.8447
+        },
+        {
+          "token": 15,
+          "start": 71.688,
+          "end": 71.708,
+          "score": 0.9999
+        },
+        {
+          "token": 0,
+          "start": 71.768,
+          "end": 71.828,
+          "score": 0.6756
+        },
+        {
+          "token": 2,
+          "start": 71.868,
+          "end": 71.888,
+          "score": 1.0
+        },
+        {
+          "token": 21,
+          "start": 71.908,
+          "end": 71.928,
+          "score": 1.0
+        },
+        {
+          "token": 4,
+          "start": 71.968,
+          "end": 72.008,
+          "score": 0.8943
+        },
+        {
+          "token": 5,
+          "start": 72.029,
+          "end": 72.049,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 72.069,
+          "end": 72.129,
+          "score": 0.8432
+        },
+        {
+          "token": 11,
+          "start": 72.149,
+          "end": 72.189,
+          "score": 0.9937
+        },
+        {
+          "token": 18,
+          "start": 72.209,
+          "end": 72.249,
+          "score": 0.6853
+        },
+        {
+          "token": 19,
+          "start": 72.289,
+          "end": 72.329,
+          "score": 0.8378
+        },
+        {
+          "token": 20,
+          "start": 72.409,
+          "end": 72.449,
+          "score": 0.9792
+        },
+        {
+          "token": 0,
+          "start": 72.509,
+          "end": 72.529,
+          "score": 0.0
+        },
+        {
+          "token": 20,
+          "start": 72.549,
+          "end": 72.569,
+          "score": 0.0
+        },
+        {
+          "token": 5,
+          "start": 72.629,
+          "end": 72.649,
+          "score": 0.0
+        },
+        {
+          "token": 4,
+          "start": 73.17,
+          "end": 73.19,
+          "score": 0.0006
+        },
+        {
+          "token": 1,
+          "start": 73.21,
+          "end": 73.23,
+          "score": 0.0036
+        }
+      ],
+      "wordOwners": [
+        0,
+        0,
+        0,
+        -1,
+        1,
+        -1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        -1,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        -1,
+        4,
+        4,
+        4,
+        4,
+        -1,
+        5,
+        5,
+        5,
+        5,
+        5,
+        -1,
+        6,
+        6,
+        6,
+        6,
+        6,
+        -1,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        -1,
+        8,
+        8,
+        8,
+        8,
+        -1,
+        9,
+        9,
+        9,
+        9,
+        -1,
+        10,
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "group": 13,
+      "textSk": "Tak, budeme krstiť. A ináč je to fajn. Veľa výskumu sa nám rozbehlo rôznymi smermi. Za posledné dva dni som mal",
+      "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+      "chunkKey": "e895d172cb038800e3138abdfb26d811ae4b488b517969ac9654b7a874e7337f",
+      "independentCtcDecode": "tak tak ta budeme krstiť a restnina žia rufiíme vela vela výskumu sa nam rozbelu rôznemi smermi žza posolen dvadní somal  col z spolupracovní kom ktoruje bežne z viedne ale trazy na tajvn",
+      "chunkWindow": [
+        72.93,
+        91.63
+      ],
+      "alignmentText": "Tak, budeme krstiť. A ináč je to fajn. Veľa výskumu sa nám rozbehlo rôznymi smermi. Za posledné dva dni som mal",
+      "start": 73.15,
+      "end": 83.061,
+      "meanCharacterScore": 0.7698,
+      "characters": [
+        {
+          "token": 20,
+          "start": 73.15,
+          "end": 73.17,
+          "score": 0.9998
+        },
+        {
+          "token": 1,
+          "start": 73.19,
+          "end": 73.21,
+          "score": 0.9996
+        },
+        {
+          "token": 11,
+          "start": 73.25,
+          "end": 73.29,
+          "score": 0.8934
+        },
+        {
+          "token": 0,
+          "start": 73.29,
+          "end": 73.31,
+          "score": 0.9993
+        },
+        {
+          "token": 2,
+          "start": 73.671,
+          "end": 73.711,
+          "score": 0.9867
+        },
+        {
+          "token": 21,
+          "start": 73.711,
+          "end": 73.731,
+          "score": 0.9998
+        },
+        {
+          "token": 4,
+          "start": 73.771,
+          "end": 73.791,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 73.811,
+          "end": 73.831,
+          "score": 0.9999
+        },
+        {
+          "token": 13,
+          "start": 73.871,
+          "end": 73.891,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 73.891,
+          "end": 73.911,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 73.911,
+          "end": 73.971,
+          "score": 0.949
+        },
+        {
+          "token": 11,
+          "start": 74.011,
+          "end": 74.031,
+          "score": 0.9999
+        },
+        {
+          "token": 18,
+          "start": 74.071,
+          "end": 74.091,
+          "score": 0.9998
+        },
+        {
+          "token": 19,
+          "start": 74.131,
+          "end": 74.151,
+          "score": 1.0
+        },
+        {
+          "token": 20,
+          "start": 74.211,
+          "end": 74.251,
+          "score": 0.7939
+        },
+        {
+          "token": 9,
+          "start": 74.271,
+          "end": 74.291,
+          "score": 1.0
+        },
+        {
+          "token": 42,
+          "start": 74.372,
+          "end": 74.392,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 74.412,
+          "end": 74.452,
+          "score": 1.0
+        },
+        {
+          "token": 1,
+          "start": 74.552,
+          "end": 74.572,
+          "score": 0.9493
+        },
+        {
+          "token": 0,
+          "start": 74.952,
+          "end": 75.012,
+          "score": 0.6957
+        },
+        {
+          "token": 9,
+          "start": 75.693,
+          "end": 75.713,
+          "score": 0.997
+        },
+        {
+          "token": 14,
+          "start": 75.733,
+          "end": 75.753,
+          "score": 0.987
+        },
+        {
+          "token": 27,
+          "start": 75.773,
+          "end": 75.793,
+          "score": 0.0402
+        },
+        {
+          "token": 35,
+          "start": 75.793,
+          "end": 75.813,
+          "score": 0.0002
+        },
+        {
+          "token": 0,
+          "start": 75.813,
+          "end": 75.833,
+          "score": 0.5042
+        },
+        {
+          "token": 10,
+          "start": 75.833,
+          "end": 75.853,
+          "score": 0.0
+        },
+        {
+          "token": 5,
+          "start": 75.893,
+          "end": 75.913,
+          "score": 0.2938
+        },
+        {
+          "token": 0,
+          "start": 75.913,
+          "end": 75.973,
+          "score": 0.6811
+        },
+        {
+          "token": 20,
+          "start": 75.993,
+          "end": 76.013,
+          "score": 0.0
+        },
+        {
+          "token": 15,
+          "start": 76.013,
+          "end": 76.033,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 76.073,
+          "end": 76.093,
+          "score": 0.0007
+        },
+        {
+          "token": 6,
+          "start": 76.093,
+          "end": 76.113,
+          "score": 0.1133
+        },
+        {
+          "token": 1,
+          "start": 76.173,
+          "end": 76.193,
+          "score": 0.0026
+        },
+        {
+          "token": 10,
+          "start": 76.234,
+          "end": 76.254,
+          "score": 0.0587
+        },
+        {
+          "token": 14,
+          "start": 76.314,
+          "end": 76.334,
+          "score": 0.0077
+        },
+        {
+          "token": 0,
+          "start": 76.374,
+          "end": 76.414,
+          "score": 0.9968
+        },
+        {
+          "token": 22,
+          "start": 76.494,
+          "end": 76.514,
+          "score": 0.9309
+        },
+        {
+          "token": 5,
+          "start": 76.554,
+          "end": 76.594,
+          "score": 0.9989
+        },
+        {
+          "token": 38,
+          "start": 76.654,
+          "end": 76.674,
+          "score": 0.0005
+        },
+        {
+          "token": 1,
+          "start": 76.714,
+          "end": 76.734,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 76.774,
+          "end": 76.814,
+          "score": 0.9999
+        },
+        {
+          "token": 22,
+          "start": 77.155,
+          "end": 77.175,
+          "score": 1.0
+        },
+        {
+          "token": 34,
+          "start": 77.195,
+          "end": 77.215,
+          "score": 1.0
+        },
+        {
+          "token": 19,
+          "start": 77.255,
+          "end": 77.295,
+          "score": 0.9999
+        },
+        {
+          "token": 11,
+          "start": 77.375,
+          "end": 77.395,
+          "score": 1.0
+        },
+        {
+          "token": 21,
+          "start": 77.395,
+          "end": 77.435,
+          "score": 0.9977
+        },
+        {
+          "token": 13,
+          "start": 77.475,
+          "end": 77.495,
+          "score": 1.0
+        },
+        {
+          "token": 21,
+          "start": 77.515,
+          "end": 77.535,
+          "score": 0.9994
+        },
+        {
+          "token": 0,
+          "start": 77.535,
+          "end": 77.575,
+          "score": 0.7912
+        },
+        {
+          "token": 19,
+          "start": 77.575,
+          "end": 77.595,
+          "score": 1.0
+        },
+        {
+          "token": 1,
+          "start": 77.635,
+          "end": 77.675,
+          "score": 0.9999
+        },
+        {
+          "token": 0,
+          "start": 77.675,
+          "end": 77.695,
+          "score": 1.0
+        },
+        {
+          "token": 14,
+          "start": 77.695,
+          "end": 77.715,
+          "score": 0.9984
+        },
+        {
+          "token": 27,
+          "start": 77.715,
+          "end": 77.735,
+          "score": 0.0003
+        },
+        {
+          "token": 13,
+          "start": 77.795,
+          "end": 77.815,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 77.815,
+          "end": 77.835,
+          "score": 1.0
+        },
+        {
+          "token": 18,
+          "start": 77.855,
+          "end": 77.895,
+          "score": 0.9905
+        },
+        {
+          "token": 15,
+          "start": 77.895,
+          "end": 77.915,
+          "score": 1.0
+        },
+        {
+          "token": 26,
+          "start": 77.935,
+          "end": 77.975,
+          "score": 0.9998
+        },
+        {
+          "token": 2,
+          "start": 78.055,
+          "end": 78.076,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 78.096,
+          "end": 78.116,
+          "score": 0.9991
+        },
+        {
+          "token": 8,
+          "start": 78.136,
+          "end": 78.156,
+          "score": 0.023
+        },
+        {
+          "token": 12,
+          "start": 78.216,
+          "end": 78.236,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 78.256,
+          "end": 78.276,
+          "score": 0.1383
+        },
+        {
+          "token": 0,
+          "start": 78.316,
+          "end": 78.376,
+          "score": 0.9998
+        },
+        {
+          "token": 18,
+          "start": 78.476,
+          "end": 78.496,
+          "score": 1.0
+        },
+        {
+          "token": 32,
+          "start": 78.536,
+          "end": 78.556,
+          "score": 0.999
+        },
+        {
+          "token": 26,
+          "start": 78.636,
+          "end": 78.656,
+          "score": 1.0
+        },
+        {
+          "token": 14,
+          "start": 78.696,
+          "end": 78.736,
+          "score": 0.9997
+        },
+        {
+          "token": 25,
+          "start": 78.736,
+          "end": 78.756,
+          "score": 0.3111
+        },
+        {
+          "token": 13,
+          "start": 78.796,
+          "end": 78.816,
+          "score": 0.9998
+        },
+        {
+          "token": 9,
+          "start": 78.816,
+          "end": 78.836,
+          "score": 0.998
+        },
+        {
+          "token": 0,
+          "start": 78.836,
+          "end": 78.876,
+          "score": 0.9997
+        },
+        {
+          "token": 19,
+          "start": 78.876,
+          "end": 78.896,
+          "score": 1.0
+        },
+        {
+          "token": 13,
+          "start": 78.996,
+          "end": 79.017,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 79.037,
+          "end": 79.057,
+          "score": 1.0
+        },
+        {
+          "token": 18,
+          "start": 79.097,
+          "end": 79.137,
+          "score": 0.9947
+        },
+        {
+          "token": 13,
+          "start": 79.177,
+          "end": 79.217,
+          "score": 0.9593
+        },
+        {
+          "token": 9,
+          "start": 79.237,
+          "end": 79.257,
+          "score": 0.99
+        },
+        {
+          "token": 0,
+          "start": 79.357,
+          "end": 79.397,
+          "score": 1.0
+        },
+        {
+          "token": 26,
+          "start": 81.139,
+          "end": 81.159,
+          "score": 0.9619
+        },
+        {
+          "token": 1,
+          "start": 81.179,
+          "end": 81.199,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 81.219,
+          "end": 81.259,
+          "score": 0.9999
+        },
+        {
+          "token": 16,
+          "start": 81.319,
+          "end": 81.339,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 81.359,
+          "end": 81.379,
+          "score": 1.0
+        },
+        {
+          "token": 19,
+          "start": 81.399,
+          "end": 81.439,
+          "score": 0.9989
+        },
+        {
+          "token": 12,
+          "start": 81.539,
+          "end": 81.579,
+          "score": 0.9962
+        },
+        {
+          "token": 5,
+          "start": 81.599,
+          "end": 81.619,
+          "score": 0.9951
+        },
+        {
+          "token": 4,
+          "start": 81.619,
+          "end": 81.639,
+          "score": 0.0
+        },
+        {
+          "token": 14,
+          "start": 81.639,
+          "end": 81.659,
+          "score": 0.0049
+        },
+        {
+          "token": 29,
+          "start": 81.659,
+          "end": 81.679,
+          "score": 0.0002
+        },
+        {
+          "token": 0,
+          "start": 81.679,
+          "end": 81.719,
+          "score": 0.9993
+        },
+        {
+          "token": 4,
+          "start": 81.739,
+          "end": 81.759,
+          "score": 1.0
+        },
+        {
+          "token": 22,
+          "start": 81.799,
+          "end": 81.82,
+          "score": 0.9999
+        },
+        {
+          "token": 1,
+          "start": 81.84,
+          "end": 81.88,
+          "score": 0.9998
+        },
+        {
+          "token": 0,
+          "start": 81.88,
+          "end": 81.9,
+          "score": 0.0
+        },
+        {
+          "token": 4,
+          "start": 81.96,
+          "end": 82.0,
+          "score": 0.993
+        },
+        {
+          "token": 14,
+          "start": 82.02,
+          "end": 82.06,
+          "score": 0.927
+        },
+        {
+          "token": 9,
+          "start": 82.06,
+          "end": 82.08,
+          "score": 0.0109
+        },
+        {
+          "token": 0,
+          "start": 82.18,
+          "end": 82.24,
+          "score": 0.8767
+        },
+        {
+          "token": 19,
+          "start": 82.36,
+          "end": 82.38,
+          "score": 0.9998
+        },
+        {
+          "token": 15,
+          "start": 82.68,
+          "end": 82.7,
+          "score": 0.7753
+        },
+        {
+          "token": 13,
+          "start": 82.7,
+          "end": 82.72,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 82.72,
+          "end": 82.74,
+          "score": 0.0001
+        },
+        {
+          "token": 13,
+          "start": 82.781,
+          "end": 82.821,
+          "score": 0.9455
+        },
+        {
+          "token": 1,
+          "start": 82.861,
+          "end": 82.881,
+          "score": 1.0
+        },
+        {
+          "token": 12,
+          "start": 83.021,
+          "end": 83.061,
+          "score": 0.9163
+        }
+      ],
+      "wordOwners": [
+        0,
+        0,
+        0,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        -1,
+        3,
+        -1,
+        4,
+        4,
+        4,
+        4,
+        -1,
+        5,
+        5,
+        -1,
+        6,
+        6,
+        -1,
+        7,
+        7,
+        7,
+        7,
+        -1,
+        8,
+        8,
+        8,
+        8,
+        -1,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        -1,
+        10,
+        10,
+        -1,
+        11,
+        11,
+        11,
+        -1,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        -1,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        -1,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        -1,
+        15,
+        15,
+        -1,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        -1,
+        17,
+        17,
+        17,
+        -1,
+        18,
+        18,
+        18,
+        -1,
+        19,
+        19,
+        19,
+        -1,
+        20,
+        20,
+        20
+      ]
+    },
+    {
+      "group": 14,
+      "textSk": "call so spolupracovníkom, ktorý je bežne z Viedne, ale teraz je na Taiwane.",
+      "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+      "chunkKey": "e895d172cb038800e3138abdfb26d811ae4b488b517969ac9654b7a874e7337f",
+      "independentCtcDecode": "tak tak ta budeme krstiť a restnina žia rufiíme vela vela výskumu sa nam rozbelu rôznemi smermi žza posolen dvadní somal  col z spolupracovní kom ktoruje bežne z viedne ale trazy na tajvn",
+      "chunkWindow": [
+        72.93,
+        91.63
+      ],
+      "alignmentText": "call so spolupracovníkom, ktorý je bežne z Viedne, ale teraz je na Taiwane.",
+      "start": 84.763,
+      "end": 90.309,
+      "meanCharacterScore": 0.7933,
+      "characters": [
+        {
+          "token": 3,
+          "start": 84.763,
+          "end": 84.803,
+          "score": 0.998
+        },
+        {
+          "token": 1,
+          "start": 84.823,
+          "end": 84.843,
+          "score": 0.0008
+        },
+        {
+          "token": 12,
+          "start": 84.843,
+          "end": 84.863,
+          "score": 0.0001
+        },
+        {
+          "token": 12,
+          "start": 85.083,
+          "end": 85.123,
+          "score": 0.8922
+        },
+        {
+          "token": 0,
+          "start": 85.163,
+          "end": 85.223,
+          "score": 0.9093
+        },
+        {
+          "token": 19,
+          "start": 86.264,
+          "end": 86.284,
+          "score": 0.0
+        },
+        {
+          "token": 15,
+          "start": 86.364,
+          "end": 86.384,
+          "score": 0.0011
+        },
+        {
+          "token": 0,
+          "start": 86.565,
+          "end": 86.625,
+          "score": 0.9905
+        },
+        {
+          "token": 19,
+          "start": 86.985,
+          "end": 87.005,
+          "score": 1.0
+        },
+        {
+          "token": 16,
+          "start": 87.125,
+          "end": 87.145,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 87.165,
+          "end": 87.185,
+          "score": 1.0
+        },
+        {
+          "token": 12,
+          "start": 87.225,
+          "end": 87.245,
+          "score": 1.0
+        },
+        {
+          "token": 21,
+          "start": 87.265,
+          "end": 87.285,
+          "score": 1.0
+        },
+        {
+          "token": 16,
+          "start": 87.365,
+          "end": 87.385,
+          "score": 1.0
+        },
+        {
+          "token": 18,
+          "start": 87.405,
+          "end": 87.446,
+          "score": 0.936
+        },
+        {
+          "token": 1,
+          "start": 87.446,
+          "end": 87.466,
+          "score": 1.0
+        },
+        {
+          "token": 3,
+          "start": 87.546,
+          "end": 87.566,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 87.606,
+          "end": 87.626,
+          "score": 1.0
+        },
+        {
+          "token": 22,
+          "start": 87.646,
+          "end": 87.666,
+          "score": 1.0
+        },
+        {
+          "token": 14,
+          "start": 87.726,
+          "end": 87.746,
+          "score": 0.9999
+        },
+        {
+          "token": 30,
+          "start": 87.746,
+          "end": 87.766,
+          "score": 0.8289
+        },
+        {
+          "token": 11,
+          "start": 87.846,
+          "end": 87.866,
+          "score": 1.0
+        },
+        {
+          "token": 15,
+          "start": 87.886,
+          "end": 87.906,
+          "score": 1.0
+        },
+        {
+          "token": 13,
+          "start": 87.946,
+          "end": 87.966,
+          "score": 0.9997
+        },
+        {
+          "token": 0,
+          "start": 87.966,
+          "end": 87.986,
+          "score": 0.9992
+        },
+        {
+          "token": 11,
+          "start": 87.986,
+          "end": 88.026,
+          "score": 0.6788
+        },
+        {
+          "token": 20,
+          "start": 88.046,
+          "end": 88.086,
+          "score": 0.9474
+        },
+        {
+          "token": 15,
+          "start": 88.106,
+          "end": 88.126,
+          "score": 0.9842
+        },
+        {
+          "token": 18,
+          "start": 88.146,
+          "end": 88.186,
+          "score": 0.9222
+        },
+        {
+          "token": 34,
+          "start": 88.206,
+          "end": 88.226,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 88.226,
+          "end": 88.246,
+          "score": 0.0012
+        },
+        {
+          "token": 10,
+          "start": 88.246,
+          "end": 88.266,
+          "score": 0.8756
+        },
+        {
+          "token": 5,
+          "start": 88.326,
+          "end": 88.346,
+          "score": 0.9994
+        },
+        {
+          "token": 0,
+          "start": 88.407,
+          "end": 88.447,
+          "score": 1.0
+        },
+        {
+          "token": 2,
+          "start": 88.627,
+          "end": 88.647,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 88.667,
+          "end": 88.687,
+          "score": 1.0
+        },
+        {
+          "token": 43,
+          "start": 88.727,
+          "end": 88.747,
+          "score": 1.0
+        },
+        {
+          "token": 14,
+          "start": 88.787,
+          "end": 88.807,
+          "score": 0.9999
+        },
+        {
+          "token": 5,
+          "start": 88.827,
+          "end": 88.847,
+          "score": 0.9999
+        },
+        {
+          "token": 0,
+          "start": 88.867,
+          "end": 88.887,
+          "score": 1.0
+        },
+        {
+          "token": 26,
+          "start": 88.887,
+          "end": 88.907,
+          "score": 0.8505
+        },
+        {
+          "token": 0,
+          "start": 88.947,
+          "end": 88.967,
+          "score": 0.983
+        },
+        {
+          "token": 22,
+          "start": 88.967,
+          "end": 89.007,
+          "score": 0.8735
+        },
+        {
+          "token": 9,
+          "start": 89.007,
+          "end": 89.027,
+          "score": 0.9999
+        },
+        {
+          "token": 5,
+          "start": 89.067,
+          "end": 89.087,
+          "score": 0.9999
+        },
+        {
+          "token": 4,
+          "start": 89.147,
+          "end": 89.167,
+          "score": 1.0
+        },
+        {
+          "token": 14,
+          "start": 89.187,
+          "end": 89.207,
+          "score": 0.9993
+        },
+        {
+          "token": 5,
+          "start": 89.227,
+          "end": 89.247,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 89.267,
+          "end": 89.287,
+          "score": 1.0
+        },
+        {
+          "token": 1,
+          "start": 89.287,
+          "end": 89.328,
+          "score": 0.9956
+        },
+        {
+          "token": 12,
+          "start": 89.348,
+          "end": 89.368,
+          "score": 1.0
+        },
+        {
+          "token": 5,
+          "start": 89.368,
+          "end": 89.408,
+          "score": 0.9976
+        },
+        {
+          "token": 0,
+          "start": 89.408,
+          "end": 89.428,
+          "score": 1.0
+        },
+        {
+          "token": 20,
+          "start": 89.488,
+          "end": 89.508,
+          "score": 0.9999
+        },
+        {
+          "token": 5,
+          "start": 89.508,
+          "end": 89.528,
+          "score": 0.4313
+        },
+        {
+          "token": 18,
+          "start": 89.548,
+          "end": 89.568,
+          "score": 0.9996
+        },
+        {
+          "token": 1,
+          "start": 89.588,
+          "end": 89.608,
+          "score": 0.9995
+        },
+        {
+          "token": 26,
+          "start": 89.648,
+          "end": 89.668,
+          "score": 0.9997
+        },
+        {
+          "token": 0,
+          "start": 89.668,
+          "end": 89.688,
+          "score": 0.0
+        },
+        {
+          "token": 10,
+          "start": 89.708,
+          "end": 89.728,
+          "score": 0.0
+        },
+        {
+          "token": 5,
+          "start": 89.728,
+          "end": 89.748,
+          "score": 0.0
+        },
+        {
+          "token": 0,
+          "start": 89.748,
+          "end": 89.768,
+          "score": 0.9999
+        },
+        {
+          "token": 14,
+          "start": 89.768,
+          "end": 89.788,
+          "score": 1.0
+        },
+        {
+          "token": 1,
+          "start": 89.808,
+          "end": 89.828,
+          "score": 1.0
+        },
+        {
+          "token": 0,
+          "start": 89.828,
+          "end": 89.868,
+          "score": 0.9994
+        },
+        {
+          "token": 20,
+          "start": 89.908,
+          "end": 89.928,
+          "score": 1.0
+        },
+        {
+          "token": 1,
+          "start": 89.968,
+          "end": 89.988,
+          "score": 0.9994
+        },
+        {
+          "token": 9,
+          "start": 90.008,
+          "end": 90.028,
+          "score": 0.0
+        },
+        {
+          "token": 23,
+          "start": 90.088,
+          "end": 90.108,
+          "score": 0.0
+        },
+        {
+          "token": 1,
+          "start": 90.128,
+          "end": 90.148,
+          "score": 0.0003
+        },
+        {
+          "token": 14,
+          "start": 90.249,
+          "end": 90.269,
+          "score": 0.9915
+        },
+        {
+          "token": 5,
+          "start": 90.289,
+          "end": 90.309,
+          "score": 0.3939
+        }
+      ],
+      "wordOwners": [
+        0,
+        0,
+        0,
+        0,
+        -1,
+        1,
+        1,
+        -1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        -1,
+        3,
+        3,
+        3,
+        3,
+        3,
+        -1,
+        4,
+        4,
+        -1,
+        5,
+        5,
+        5,
+        5,
+        5,
+        -1,
+        6,
+        -1,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        -1,
+        8,
+        8,
+        8,
+        -1,
+        9,
+        9,
+        9,
+        9,
+        9,
+        -1,
+        10,
+        10,
+        -1,
+        11,
+        11,
+        -1,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ]
+    }
+  ]
+}
