@@ -1,6 +1,6 @@
 {
   "episode": 364,
-  "status": "editorial-candidates-pending-acoustic-followup",
+  "status": "all-audio-questions-resolved",
   "audioSha256": "0f1b946a2dd5c73fcc2a92652d634a5a0b2fcf0d261966b509b660b4fe0e6b72",
   "independentReviewSha256": "adec870a5240621ec55e96cbd70d4adaa2e3498526afcaf1a76944e446dfd065",
   "groups": {
@@ -813,13 +813,12 @@
       "status": "resolved"
     },
     "237": {
-      "textSk": "To by bolo na medailu. že",
-      "textCs": "To by bylo na medaili.",
-      "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
-      "evidencePassages": [
-        57
-      ],
-      "status": "resolved"
+      "textSk": "To by bolo [nezrozumiteľné].",
+      "textCs": "To by bylo [nesrozumitelné].",
+      "status": "resolved",
+      "evidencePassages": [],
+      "followupEvidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "reason": "Both no-VAD recognizers and CTC fail to resolve the overlapping final noun reliably; preserve clear beginning and mark the rest explicitly unclear."
     },
     "243": {
       "textSk": "Hej, lebo keď robíš teóriu poľa... John Charles Fields, po ňom, matematikovi.",
@@ -980,8 +979,8 @@
       "status": "resolved"
     },
     "293": {
-      "textSk": "Vieš si to predstaviť zhruba, nie? Že keď máš osmičku, tak by si ju musel by si ju precvaknúť v strede, aby z toho zrazu bola",
-      "textCs": "Umíš si to představit zhruba, ne? že když máš osmičku, tak bys ji musel procvaknout uprostřed, aby z toho najednou byla",
+      "textSk": "Vieš si to predstaviť zhruba, nie? Že keď máš osmičku, tak by si ju musel precvaknúť v strede, aby z toho zrazu bolo",
+      "textCs": "Umíš si to zhruba představit, ne? Když máš osmičku, musel bys ji přecvaknout uprostřed, aby z toho najednou bylo",
       "reason": "Compared complete source context with independent original-MP3 recognition; bilingual wording reviewed. Additional difficult fragments are separately queued for no-VAD followup.",
       "evidencePassages": [
         70
@@ -1904,18 +1903,21 @@
       ]
     },
     {
-      "start": 2040.65,
+      "start": 2039.2,
       "end": 2044.4,
-      "originalSpeech": "A buď z toho tým precvaknutím vytvoríš dve nulky alebo jednu takú väčšiu nulku.",
+      "originalSpeech": "Áno, presne, hej, hej. A buď z toho tým precvaknutím vytvoríš dve nulky alebo jednu takú väčšiu nulku.",
       "text": {
-        "sk": "A buď z toho tým precvaknutím vytvoríš dve nulky alebo jednu takú väčšiu nulku.",
-        "cs": "A buď z toho tím přecvaknutím vytvoříš dvě nuly, nebo jednu takovou větší nulu."
+        "sk": "Áno, presne, hej, hej. A buď z toho tým precvaknutím vytvoríš dve nulky alebo jednu takú väčšiu nulku.",
+        "cs": "Ano, přesně, jo, jo. A buď z toho tím přecvaknutím vytvoříš dvě nuly, nebo jednu takovou větší nulu."
       },
       "evidencePassages": [
+        70,
         71
       ]
     }
   ],
   "lowScoreAcceptance": {},
-  "humanListeningVerified": false
+  "humanListeningVerified": false,
+  "followupReviewSha256": "530e519b3fea188413a00a3ae88355fe4c58ed6c91dba933efc5056c24587240",
+  "contrastReviewSha256": "61db0bdec4bedeafac0e1f7fef72d83ba6094396e62e40f462044e8355575735"
 }

@@ -174,6 +174,22 @@ def save_seek_index(number,proof,audio_path):
         shared_index.write_bytes(original_index)
 
 
+def alignment_chunks(groups):
+    chunks=[]
+    for g in groups:
+        if not chunks:
+            chunks.append([])
+        else:
+            previous=chunks[-1][-1]
+            # A recovered clause may overlap its neighboring YouTube window.
+            # Keep both in one monotonic path even at the usual size limit.
+            overlaps=g['start']<previous['end']
+            if g.get('sourceLanguage','sk')!=previous.get('sourceLanguage','sk') or (g['end']-chunks[-1][0]['start']>24 and not overlaps) or g['start']-previous['end']>1.5:
+                chunks.append([])
+        chunks[-1].append(g)
+    return chunks
+
+
 def align(number, shard_index=None, shard_count=1, assemble_shards=0):
     import numpy as np
     import torch
@@ -213,11 +229,7 @@ def align(number, shard_index=None, shard_count=1, assemble_shards=0):
     # first/last character onto a neighboring utterance even at a good average
     # confidence. One joint monotonic path prevents those artificial overlaps.
     speech_groups=[g for g in groups if not re.fullmatch(r'(?:\[[^\]]+\]\s*)+',g['text']['sk'])]
-    chunks=[]
-    for g in speech_groups:
-        if not chunks or g.get('sourceLanguage','sk')!=chunks[-1][-1].get('sourceLanguage','sk') or g['end']-chunks[-1][0]['start']>24 or g['start']-chunks[-1][-1]['end']>1.5:
-            chunks.append([])
-        chunks[-1].append(g)
+    chunks=alignment_chunks(speech_groups)
     aligned={}
     audit={'episode':number,'model':audio.ALIGN_MODEL,'audioSha256':proof['audioSha256'],'groups':[]}
     if shard_index is not None:
