@@ -219704,18 +219704,18 @@
     },
     {
       "group": 271,
-      "textSk": "podarilo alebo že robí aj nejaký progres niečo, že veci sa môžu hýbať.",
+      "textSk": "podarilo, alebo že robia nejaký progres. Niečo, že veci sa môžu hýbať.",
       "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
-      "chunkKey": "ce1b790a0ac1290fb21216740f458fbe9f90ececcb0158fc9f67023411b5db39",
+      "chunkKey": "e1dcde9288b12f9230ce59513c6a8edb86ce12002c17d56a5dc6c6d9a6385105",
       "independentCtcDecode": "si podorilll alb že robie niaki progresunečo ľ beci sa môžu hybať mto si podač rk dembudeme zahlaďd skusime toajmi rozbehnuť bo slova a ako si povedal a čitajgun ur",
       "chunkWindow": [
         2210.73,
         2230.38
       ],
-      "alignmentText": "podarilo alebo že robí aj nejaký progres niečo, že veci sa môžu hýbať.",
+      "alignmentText": "podarilo, alebo že robia nejaký progres. Niečo, že veci sa môžu hýbať.",
       "start": 2210.89,
       "end": 2217.934,
-      "meanCharacterScore": 0.7201,
+      "meanCharacterScore": 0.7446,
       "characters": [
         {
           "token": 16,
@@ -219844,16 +219844,10 @@
           "score": 1.0
         },
         {
-          "token": 30,
+          "token": 9,
           "start": 2212.791,
           "end": 2212.811,
-          "score": 0.0004
-        },
-        {
-          "token": 0,
-          "start": 2212.811,
-          "end": 2212.831,
-          "score": 0.0011
+          "score": 0.6286
         },
         {
           "token": 1,
@@ -219862,16 +219856,10 @@
           "score": 0.0001
         },
         {
-          "token": 10,
-          "start": 2212.851,
-          "end": 2212.871,
-          "score": 0.0
-        },
-        {
           "token": 0,
-          "start": 2212.871,
+          "start": 2212.851,
           "end": 2212.891,
-          "score": 0.9698
+          "score": 0.9706
         },
         {
           "token": 14,
@@ -220149,7 +220137,12 @@
         3,
         3,
         3,
+        3,
         -1,
+        4,
+        4,
+        4,
+        4,
         4,
         4,
         -1,
@@ -220159,29 +220152,27 @@
         5,
         5,
         5,
+        5,
         -1,
         6,
         6,
         6,
         6,
         6,
-        6,
-        6,
         -1,
-        7,
-        7,
-        7,
         7,
         7,
         -1,
         8,
         8,
+        8,
+        8,
         -1,
         9,
         9,
-        9,
-        9,
         -1,
+        10,
+        10,
         10,
         10,
         -1,
@@ -220189,14 +220180,9 @@
         11,
         11,
         11,
-        -1,
-        12,
-        12,
-        12,
-        12,
-        12
+        11
       ],
-      "textCs": "nebo že dělá i nějaký pokrok něco, že věci se mohou hýbat.",
+      "textCs": "podařilo, nebo že dělají nějaký pokrok. Že se věci mohou hýbat.",
       "wordTimes": [
         {
           "start": 2210.89,
@@ -220212,11 +220198,7 @@
         },
         {
           "start": 2212.631,
-          "end": 2212.811
-        },
-        {
-          "start": 2212.831,
-          "end": 2212.871
+          "end": 2212.851
         },
         {
           "start": 2212.891,
@@ -220256,7 +220238,7 @@
       "group": 272,
       "textSk": "tak si povedal, že nebudeme zaháľať. Skúsime to aj my rozbehnúť, doslova. A ako si povedal, v Chicagu",
       "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
-      "chunkKey": "ce1b790a0ac1290fb21216740f458fbe9f90ececcb0158fc9f67023411b5db39",
+      "chunkKey": "e1dcde9288b12f9230ce59513c6a8edb86ce12002c17d56a5dc6c6d9a6385105",
       "independentCtcDecode": "si podorilll alb že robie niaki progresunečo ľ beci sa môžu hybať mto si podač rk dembudeme zahlaďd skusime toajmi rozbehnuť bo slova a ako si povedal a čitajgun ur",
       "chunkWindow": [
         2210.73,
@@ -238830,43 +238812,19 @@
     },
     {
       "group": 297,
-      "textSk": "hej, inak to som chcel povedať, že možno ich aj toto zachránilo, že pracovali s veľmi eh zredukovanými a nečistými materiálmi",
+      "textSk": "Inak to som chcel povedať, že možno ich aj toto zachránilo, že pracovali s veľmi zredukovanými a nečistými materiálmi,",
       "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
-      "chunkKey": "e916d5c67fa89c37c92e2e6905c2a0948ad71d7de27c9a32d923458a689b2380",
+      "chunkKey": "ccd06a95d679157d00fea5fbfd9f221c0bcff9aa6453e9cbe44f6481ba0b2973",
       "independentCtcDecode": "into som sa u povedeže možno ich ať toto zakraňou že pracovalí z velľní uzrene truva menuli a nečistými mat realby b rosj lebo o nita muse li prosti uplne že balansovať koľkor neutronu sa tistohovi tvorých b",
       "chunkWindow": [
         2424.05,
         2444.18
       ],
-      "alignmentText": "hej, inak to som chcel povedať, že možno ich aj toto zachránilo, že pracovali s veľmi eh zredukovanými a nečistými materiálmi",
-      "start": 2424.07,
+      "alignmentText": "Inak to som chcel povedať, že možno ich aj toto zachránilo, že pracovali s veľmi zredukovanými a nečistými materiálmi,",
+      "start": 2424.31,
       "end": 2433.435,
-      "meanCharacterScore": 0.5994,
+      "meanCharacterScore": 0.6303,
       "characters": [
-        {
-          "token": 8,
-          "start": 2424.07,
-          "end": 2424.09,
-          "score": 0.0
-        },
-        {
-          "token": 5,
-          "start": 2424.09,
-          "end": 2424.11,
-          "score": 0.0
-        },
-        {
-          "token": 10,
-          "start": 2424.17,
-          "end": 2424.19,
-          "score": 0.0
-        },
-        {
-          "token": 0,
-          "start": 2424.19,
-          "end": 2424.21,
-          "score": 0.9433
-        },
         {
           "token": 9,
           "start": 2424.31,
@@ -239338,26 +239296,8 @@
         {
           "token": 0,
           "start": 2429.213,
-          "end": 2429.233,
-          "score": 0.6664
-        },
-        {
-          "token": 5,
-          "start": 2429.233,
-          "end": 2429.253,
-          "score": 0.0
-        },
-        {
-          "token": 8,
-          "start": 2429.253,
           "end": 2429.273,
-          "score": 0.0
-        },
-        {
-          "token": 0,
-          "start": 2430.673,
-          "end": 2430.693,
-          "score": 0.0005
+          "score": 0.8739
         },
         {
           "token": 26,
@@ -239580,46 +239520,47 @@
         0,
         0,
         0,
+        0,
         -1,
-        1,
-        1,
         1,
         1,
         -1,
         2,
         2,
+        2,
         -1,
         3,
         3,
         3,
+        3,
+        3,
         -1,
         4,
         4,
         4,
         4,
         4,
+        4,
+        4,
         -1,
-        5,
-        5,
-        5,
-        5,
-        5,
         5,
         5,
         -1,
         6,
         6,
+        6,
+        6,
+        6,
         -1,
-        7,
-        7,
         7,
         7,
         7,
         -1,
         8,
         8,
-        8,
         -1,
+        9,
+        9,
         9,
         9,
         -1,
@@ -239627,31 +239568,32 @@
         10,
         10,
         10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
         -1,
-        11,
-        11,
-        11,
-        11,
-        11,
-        11,
-        11,
-        11,
         11,
         11,
         -1,
         12,
         12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
         -1,
         13,
-        13,
-        13,
-        13,
-        13,
-        13,
-        13,
-        13,
-        13,
         -1,
+        14,
+        14,
+        14,
+        14,
         14,
         -1,
         15,
@@ -239659,14 +239601,17 @@
         15,
         15,
         15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
         -1,
         16,
-        16,
         -1,
-        17,
-        17,
-        17,
-        17,
         17,
         17,
         17,
@@ -239678,34 +239623,18 @@
         17,
         -1,
         18,
-        -1,
-        19,
-        19,
-        19,
-        19,
-        19,
-        19,
-        19,
-        19,
-        19,
-        -1,
-        20,
-        20,
-        20,
-        20,
-        20,
-        20,
-        20,
-        20,
-        20,
-        20
+        18,
+        18,
+        18,
+        18,
+        18,
+        18,
+        18,
+        18,
+        18
       ],
-      "textCs": "jo, jinak to jsem chtěl říct, že je možná i tohle zachránilo, že pracovali s velmi eh zredukovanými a nečistými materiály",
+      "textCs": "Jinak jsem chtěl říct, že je možná i tohle zachránilo: pracovali s velmi zredukovanými a nečistými materiály,",
       "wordTimes": [
-        {
-          "start": 2424.07,
-          "end": 2424.19
-        },
         {
           "start": 2424.31,
           "end": 2424.49
@@ -239767,10 +239696,6 @@
           "end": 2428.992
         },
         {
-          "start": 2429.233,
-          "end": 2429.273
-        },
-        {
           "start": 2430.733,
           "end": 2431.594
         },
@@ -239792,7 +239717,7 @@
       "group": 298,
       "textSk": "Proste hej, lebo oni tam museli úplne balancovať, koľko neutrónov sa ti z toho vytvorí",
       "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
-      "chunkKey": "e916d5c67fa89c37c92e2e6905c2a0948ad71d7de27c9a32d923458a689b2380",
+      "chunkKey": "ccd06a95d679157d00fea5fbfd9f221c0bcff9aa6453e9cbe44f6481ba0b2973",
       "independentCtcDecode": "into som sa u povedeže možno ich ať toto zakraňou že pracovalí z velľní uzrene truva menuli a nečistými mat realby b rosj lebo o nita muse li prosti uplne že balansovať koľkor neutronu sa tistohovi tvorých b",
       "chunkWindow": [
         2424.05,
@@ -244963,7 +244888,7 @@
       "group": 304,
       "textSk": "to trochu skôr, ako čakali. Tie výpočty nesedeli, mali odhad, koľko tam toho musíme pridávať, aby to už fungovalo, a boli tam rôzne tie tyče, ktoré sa dali zasúvať a",
       "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
-      "chunkKey": "10c8967a65ef083d2831f3ae96d21876e4cb4c3ea34de7c19e0240b6bc1c3290",
+      "chunkKey": "bd610a0712c240854ecc580f8a7e684b041138d66e732f79e154fdb189ec078a",
       "independentCtcDecode": "som o trochu sku roko čakali te vypočti ne se ďali a mali oza že koľko tam tohomusme pridávať aby to uiž fungovalo a boli tom roznete tyčšo k toré se dali zasúvť aa vež to na prkoa zasve tyčšo kktorej ti zachi tavajtenutrony tažei vieže keťich vytiahne š takto pode viaci a kech tom zasúne štaktoj vase takabroz da taže vedeli stným trožku manipulovaťaťc roza t rozbolosku roko čakali trebolo to mi vlo s mol variše zachitavajú ne tuje j   norvy",
       "chunkWindow": [
         2483.969,
@@ -245338,7 +245263,7 @@
           "token": 38,
           "start": 2487.15,
           "end": 2487.191,
-          "score": 0.8687
+          "score": 0.8686
         },
         {
           "token": 11,
@@ -246211,7 +246136,7 @@
       "group": 305,
       "textSk": "vieš tam napríklad zasúvať tyče, ktoré ti zachytávajú tie neutróny. Takže vieš, keď ich vytiahneš, tak to pôjde viacej, keď ich tam zasunieš, tak to je",
       "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
-      "chunkKey": "10c8967a65ef083d2831f3ae96d21876e4cb4c3ea34de7c19e0240b6bc1c3290",
+      "chunkKey": "bd610a0712c240854ecc580f8a7e684b041138d66e732f79e154fdb189ec078a",
       "independentCtcDecode": "som o trochu sku roko čakali te vypočti ne se ďali a mali oza že koľko tam tohomusme pridávať aby to uiž fungovalo a boli tom roznete tyčšo k toré se dali zasúvť aa vež to na prkoa zasve tyčšo kktorej ti zachi tavajtenutrony tažei vieže keťich vytiahne š takto pode viaci a kech tom zasúne štaktoj vase takabroz da taže vedeli stným trožku manipulovaťaťc roza t rozbolosku roko čakali trebolo to mi vlo s mol variše zachitavajú ne tuje j   norvy",
       "chunkWindow": [
         2483.969,
@@ -246364,7 +246289,7 @@
           "token": 22,
           "start": 2493.794,
           "end": 2493.814,
-          "score": 0.9422
+          "score": 0.9423
         },
         {
           "token": 1,
@@ -247350,18 +247275,18 @@
     },
     {
       "group": 306,
-      "textSk": "vlastne taká brzda. Vedeli s tým trochu manipulovať a zrejme sa to rozbehlo skôr, ako čakali. Trebalo o tom informovať. Tie tyče zachytávajú tie neutróny, ktoré",
+      "textSk": "vlastne taká brzda. Vedeli s tým trochu manipulovať a zrejme sa to rozbilo skôr, ako čakali. Trebalo o tom informovať. Tie tyče zachytávajú tie neutróny, ktoré",
       "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
-      "chunkKey": "10c8967a65ef083d2831f3ae96d21876e4cb4c3ea34de7c19e0240b6bc1c3290",
+      "chunkKey": "bd610a0712c240854ecc580f8a7e684b041138d66e732f79e154fdb189ec078a",
       "independentCtcDecode": "som o trochu sku roko čakali te vypočti ne se ďali a mali oza že koľko tam tohomusme pridávať aby to uiž fungovalo a boli tom roznete tyčšo k toré se dali zasúvť aa vež to na prkoa zasve tyčšo kktorej ti zachi tavajtenutrony tažei vieže keťich vytiahne š takto pode viaci a kech tom zasúne štaktoj vase takabroz da taže vedeli stným trožku manipulovaťaťc roza t rozbolosku roko čakali trebolo to mi vlo s mol variše zachitavajú ne tuje j   norvy",
       "chunkWindow": [
         2483.969,
         2507.54
       ],
-      "alignmentText": "vlastne taká brzda. Vedeli s tým trochu manipulovať a zrejme sa to rozbehlo skôr, ako čakali. Trebalo o tom informovať. Tie tyče zachytávajú tie neutróny, ktoré",
+      "alignmentText": "vlastne taká brzda. Vedeli s tým trochu manipulovať a zrejme sa to rozbilo skôr, ako čakali. Trebalo o tom informovať. Tie tyče zachytávajú tie neutróny, ktoré",
       "start": 2499.356,
       "end": 2507.44,
-      "meanCharacterScore": 0.6247,
+      "meanCharacterScore": 0.6295,
       "characters": [
         {
           "token": 22,
@@ -247784,15 +247709,9 @@
           "score": 0.9959
         },
         {
-          "token": 5,
+          "token": 9,
           "start": 2502.338,
           "end": 2502.358,
-          "score": 0.0103
-        },
-        {
-          "token": 8,
-          "start": 2502.358,
-          "end": 2502.378,
           "score": 0.0
         },
         {
@@ -248368,7 +248287,6 @@
         12,
         12,
         12,
-        12,
         -1,
         13,
         13,
@@ -248451,7 +248369,7 @@
         25,
         25
       ],
-      "textCs": "vlastně taková brzda. Uměli s tím trochu manipulovat a zřejmě se to rozběhlo dřív, než čekali. Bylo třeba o tom informovat. Tyče zachytávají neutrony, které",
+      "textCs": "vlastně taková brzda. Uměli s tím trochu manipulovat a zřejmě se to rozbilo dřív, než čekali. Bylo třeba o tom informovat. Tyče zachytávají neutrony, které",
       "wordTimes": [
         {
           "start": 2499.356,
@@ -330294,18 +330212,18 @@
     },
     {
       "group": 408,
-      "textSk": "správna hodnota bolo asi, že 100, čo je, že on s presnosťou 50%, čo je v skutočnosti, že obdivuhodné, lebo to mohlo lietať proste od",
+      "textSk": "správna hodnota bola asi 100. Čiže on s presnosťou 50 %… Čo je skutočne obdivuhodné, lebo to mohlo lietať od",
       "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
-      "chunkKey": "0d37d24915e60ebfe84781b44945485e83e676655b2bb28f4189bb258ddb99ae",
+      "chunkKey": "faa2e3484565796e6c70e5541430229be191d85570f0ec607bb27b5c6e959197",
       "independentCtcDecode": "spravna hodnota bolo a si žestoč žon sprestnosťou päťdesiat percem čo žk to ž si ž obdivu hodnélebo to mohlolie tať proste d  stovie któm a ž po nevem čo stati síce ontrže extrhemul presnetra fil že namie sto  dvadsať povedal desať l",
       "chunkWindow": [
         3315.49,
         3336.02
       ],
-      "alignmentText": "správna hodnota bolo asi, že sto, čo je, že on s presnosťou päťdesiat percent, čo je v skutočnosti, že obdivuhodné, lebo to mohlo lietať proste od",
+      "alignmentText": "správna hodnota bola asi sto. Čiže on s presnosťou päťdesiat percent… Čo je skutočne obdivuhodné, lebo to mohlo lietať od",
       "start": 3315.55,
       "end": 3324.454,
-      "meanCharacterScore": 0.8267,
+      "meanCharacterScore": 0.8531,
       "characters": [
         {
           "token": 19,
@@ -330422,10 +330340,10 @@
           "score": 0.9999
         },
         {
-          "token": 15,
+          "token": 1,
           "start": 3316.611,
           "end": 3316.631,
-          "score": 1.0
+          "score": 0.0
         },
         {
           "token": 0,
@@ -330458,24 +330376,6 @@
           "score": 0.9923
         },
         {
-          "token": 43,
-          "start": 3316.891,
-          "end": 3316.911,
-          "score": 0.9999
-        },
-        {
-          "token": 5,
-          "start": 3316.951,
-          "end": 3316.971,
-          "score": 0.9999
-        },
-        {
-          "token": 0,
-          "start": 3316.991,
-          "end": 3317.011,
-          "score": 0.0164
-        },
-        {
           "token": 19,
           "start": 3317.011,
           "end": 3317.051,
@@ -330506,34 +330406,10 @@
           "score": 0.9999
         },
         {
-          "token": 15,
-          "start": 3318.411,
-          "end": 3318.431,
-          "score": 0.2304
-        },
-        {
-          "token": 0,
-          "start": 3318.451,
-          "end": 3318.471,
-          "score": 0.0321
-        },
-        {
-          "token": 10,
-          "start": 3318.471,
-          "end": 3318.491,
-          "score": 0.0
-        },
-        {
-          "token": 5,
-          "start": 3318.531,
-          "end": 3318.551,
-          "score": 0.0
-        },
-        {
-          "token": 0,
+          "token": 9,
           "start": 3318.551,
           "end": 3318.572,
-          "score": 0.9854
+          "score": 0.0
         },
         {
           "token": 43,
@@ -330794,40 +330670,28 @@
           "score": 0.0001
         },
         {
-          "token": 22,
+          "token": 19,
           "start": 3321.633,
           "end": 3321.653,
           "score": 0.0
         },
         {
-          "token": 0,
+          "token": 11,
           "start": 3321.653,
           "end": 3321.673,
-          "score": 0.0001
-        },
-        {
-          "token": 19,
-          "start": 3321.673,
-          "end": 3321.693,
-          "score": 0.0
-        },
-        {
-          "token": 11,
-          "start": 3321.693,
-          "end": 3321.713,
-          "score": 0.0
+          "score": 0.9699
         },
         {
           "token": 21,
-          "start": 3321.713,
-          "end": 3321.733,
-          "score": 0.0
+          "start": 3321.673,
+          "end": 3321.693,
+          "score": 0.0001
         },
         {
           "token": 20,
-          "start": 3321.733,
+          "start": 3321.713,
           "end": 3321.753,
-          "score": 0.9999
+          "score": 0.9912
         },
         {
           "token": 15,
@@ -330843,50 +330707,14 @@
         },
         {
           "token": 14,
-          "start": 3321.913,
-          "end": 3321.933,
-          "score": 0.0
-        },
-        {
-          "token": 15,
-          "start": 3321.933,
-          "end": 3321.953,
-          "score": 0.0001
-        },
-        {
-          "token": 19,
           "start": 3321.973,
           "end": 3321.993,
-          "score": 1.0
-        },
-        {
-          "token": 20,
-          "start": 3322.033,
-          "end": 3322.053,
           "score": 0.0
-        },
-        {
-          "token": 9,
-          "start": 3322.053,
-          "end": 3322.093,
-          "score": 0.9877
-        },
-        {
-          "token": 0,
-          "start": 3322.093,
-          "end": 3322.113,
-          "score": 0.8186
-        },
-        {
-          "token": 43,
-          "start": 3322.133,
-          "end": 3322.153,
-          "score": 0.9999
         },
         {
           "token": 5,
-          "start": 3322.193,
-          "end": 3322.213,
+          "start": 3322.073,
+          "end": 3322.093,
           "score": 0.0
         },
         {
@@ -331094,52 +330922,10 @@
           "score": 0.9888
         },
         {
-          "token": 16,
-          "start": 3323.734,
-          "end": 3323.774,
-          "score": 0.9416
-        },
-        {
-          "token": 18,
-          "start": 3323.774,
-          "end": 3323.814,
-          "score": 0.9745
-        },
-        {
           "token": 15,
           "start": 3323.814,
           "end": 3323.834,
           "score": 0.9982
-        },
-        {
-          "token": 19,
-          "start": 3323.854,
-          "end": 3323.894,
-          "score": 0.9993
-        },
-        {
-          "token": 20,
-          "start": 3323.974,
-          "end": 3324.014,
-          "score": 0.9995
-        },
-        {
-          "token": 5,
-          "start": 3324.054,
-          "end": 3324.074,
-          "score": 0.9998
-        },
-        {
-          "token": 0,
-          "start": 3324.114,
-          "end": 3324.154,
-          "score": 0.8965
-        },
-        {
-          "token": 15,
-          "start": 3324.194,
-          "end": 3324.214,
-          "score": 0.4489
         },
         {
           "token": 4,
@@ -331176,7 +330962,9 @@
         -1,
         4,
         4,
+        4,
         -1,
+        5,
         5,
         5,
         5,
@@ -331185,65 +330973,74 @@
         6,
         -1,
         7,
-        7,
         -1,
         8,
         8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
         -1,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
         9,
         9,
         -1,
         10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
         -1,
         11,
         11,
-        11,
-        11,
-        11,
-        11,
-        11,
-        11,
-        11,
-        11,
         -1,
-        12,
-        12,
-        12,
-        12,
-        12,
-        12,
-        12,
-        12,
-        12,
-        -1,
-        12,
-        12,
-        12,
-        12,
-        12,
         12,
         12,
         -1,
         13,
         13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
         -1,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
         14,
         14,
         -1,
         15,
+        15,
+        15,
+        15,
         -1,
         16,
         16,
-        16,
-        16,
-        16,
-        16,
-        16,
-        16,
-        16,
-        16,
-        16,
         -1,
+        17,
+        17,
+        17,
         17,
         17,
         -1,
@@ -331253,44 +331050,11 @@
         18,
         18,
         18,
-        18,
-        18,
-        18,
-        18,
-        18,
         -1,
         19,
-        19,
-        19,
-        19,
-        -1,
-        20,
-        20,
-        -1,
-        21,
-        21,
-        21,
-        21,
-        21,
-        -1,
-        22,
-        22,
-        22,
-        22,
-        22,
-        22,
-        -1,
-        23,
-        23,
-        23,
-        23,
-        23,
-        23,
-        -1,
-        24,
-        24
+        19
       ],
-      "textCs": "správná hodnota bylo asi, že 100, což je, že on s přesností 50% 50%, což je ve skutečnosti, že obdivuhodné, protože to mohlo létat prostě od",
+      "textCs": "správná hodnota byla asi 100. Takže s přesností 50 %… Což je skutečně obdivuhodné, protože to mohlo lítat od",
       "wordTimes": [
         {
           "start": 3315.55,
@@ -331309,23 +331073,11 @@
           "end": 3316.851
         },
         {
-          "start": 3316.891,
-          "end": 3316.971
-        },
-        {
           "start": 3317.011,
           "end": 3317.231
         },
         {
           "start": 3318.331,
-          "end": 3318.431
-        },
-        {
-          "start": 3318.471,
-          "end": 3318.551
-        },
-        {
-          "start": 3318.612,
           "end": 3318.712
         },
         {
@@ -331342,6 +331094,10 @@
         },
         {
           "start": 3320.673,
+          "end": 3321.033
+        },
+        {
+          "start": 3321.093,
           "end": 3321.413
         },
         {
@@ -331354,15 +331110,7 @@
         },
         {
           "start": 3321.633,
-          "end": 3321.653
-        },
-        {
-          "start": 3321.673,
           "end": 3322.093
-        },
-        {
-          "start": 3322.133,
-          "end": 3322.213
         },
         {
           "start": 3322.273,
@@ -331385,11 +331133,7 @@
           "end": 3323.674
         },
         {
-          "start": 3323.734,
-          "end": 3324.074
-        },
-        {
-          "start": 3324.194,
+          "start": 3323.814,
           "end": 3324.454
         }
       ]
@@ -331398,7 +331142,7 @@
       "group": 409,
       "textSk": "stoviek ton až po neviem čo, státisíce. A on to extrémne presne trafil, že namiesto 20 povedal 10.",
       "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
-      "chunkKey": "0d37d24915e60ebfe84781b44945485e83e676655b2bb28f4189bb258ddb99ae",
+      "chunkKey": "faa2e3484565796e6c70e5541430229be191d85570f0ec607bb27b5c6e959197",
       "independentCtcDecode": "spravna hodnota bolo a si žestoč žon sprestnosťou päťdesiat percem čo žk to ž si ž obdivu hodnélebo to mohlolie tať proste d  stovie któm a ž po nevem čo stati síce ontrže extrhemul presnetra fil že namie sto  dvadsať povedal desať l",
       "chunkWindow": [
         3315.49,
@@ -331707,7 +331451,7 @@
           "token": 18,
           "start": 3331.038,
           "end": 3331.058,
-          "score": 0.9384
+          "score": 0.9383
         },
         {
           "token": 29,
