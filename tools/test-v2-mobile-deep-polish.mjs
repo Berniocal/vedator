@@ -17,11 +17,11 @@ assert(app.includes("const tabs=$$('.tab-v2').filter"),'Swipe collection fix mis
 assert(app.includes('async function downloadCurrentMp3()'),'Real MP3 downloader missing');
 assert(app.includes('link.download=mobileSafeMp3Filename'),'MP3 Blob download filename missing');
 assert(app.includes("type:'episodes'"),'Episode playback context missing');
-assert(app.includes("$('#audio-v2')?.addEventListener('ended',()=>{if(continuousActive()){playbackAutoplayWanted=false;return}if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else playbackAutoplayWanted=false})"),'Native fallback playback handler missing');
+assert(app.includes("$('#audio-v2')?.addEventListener('ended',()=>{if(youtubeActive())return;if(continuousActive()){playbackAutoplayWanted=false;return}if(state.context&&state.context.index<state.context.items.length-1)navigateContext(1);else playbackAutoplayWanted=false})"),'Native fallback playback handler missing');
 assert(!app.includes('vedator-playback-keepalive')&&!app.includes('startPlaybackKeepAlive'),'Failed video keepalive was not completely removed');
 assert(!html.includes('player-mse-v2')&&!app.includes('MSE_BETA_KEY'),'Failed experimental continuous-stream UI/code remains');
 assert(!app.includes('falsesaveProgress'),'Pause must not call a nonexistent function');
-assert(app.includes('let source=episode.enclosure;'),'Synchronous online MP3 source switch is missing');
+assert(app.includes('let source=episodeAudioSource(episode);'),'Synchronous online MP3 source switch is missing');
 assert(app.includes('if(cachedOfflineUrl)source=cachedOfflineUrl;'),'Cached offline MP3 should also be switchable synchronously');
 assert(!app.includes("setTimeout(()=>navigateContext(1),0)"),'Ended auto-advance still depends on a background-throttled timer');
 
@@ -48,6 +48,16 @@ window.HTMLAnchorElement.prototype.click=function(){if(this.download)downloads.p
 
 let audioFetches=0;
 const byteChunk=new Uint8Array([1,2,3,4,5,6]);
+window.XMLHttpRequest=class LocalV2CatalogXHR{
+  open(_method,url){this.url=url}
+  send(){
+    Promise.resolve(window.fetch(this.url)).then(response=>response.json()).then(catalog=>{
+      this.status=200;this.responseText=JSON.stringify(catalog);
+      this.onprogress?.({lengthComputable:true,loaded:this.responseText.length,total:this.responseText.length});
+      this.onload?.();
+    }).catch(error=>this.onerror?.(error));
+  }
+};
 window.fetch=async url=>{
   const value=String(url);
   if(value.includes('content-v2.json'))return {ok:true,status:200,json:async()=>data};
@@ -152,4 +162,5 @@ window.HTMLMediaElement.prototype.play=originalTestPlay;
 window.HTMLMediaElement.prototype.load=originalTestLoad;
 
 console.log(JSON.stringify({ok:true,mobileWidth:390,episodeHighlight:true,questionHighlight:true,darkTopicContrast:true,shareSingleRow:true,realMp3Download:true,episodeContext:true,autoAdvance:true,backgroundRecovery:true,synchronousSwitch:true,videoRemoved:true,downloaded:downloads[0]?.download||null},null,2));
+await new Promise(resolve=>setTimeout(resolve,120));
 window.close();

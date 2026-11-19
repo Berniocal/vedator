@@ -198,9 +198,9 @@ assert.deepEqual(nonPromisesInTopicBatch,[],'Topic batch must omit these reviewe
 console.log('PASS: '+assignments.length+' documented episode-promise assignments across '+topicApi.topics.length+' broad groups, no ideas or other-section promises.');
 const episodeIdeas=actual.findings.filter(row=>row.section==='episodes'&&row.kategorie==='Návrhy / nápady');
 const movedIdeas=scopedCorrection.entries.filter(entry=>actual.findings.some(row=>row.candidate===entry.candidate&&row.tema===entry.tema&&row.kategorie==='Návrhy / nápady')).length;
-assert.equal(episodeIdeas.length,203-movedIdeas,'Editorial episode scope must not change idea status');
+assert.equal(episodeIdeas.length,205-movedIdeas,'Editorial episode scope must not change idea status');
 const visibleAssignedIdeas=allIdeaAssignments.filter(item=>actual.findings.some(row=>row.candidate===item.candidate&&(row.displayTema||row.compactTitle||row.tema)===item.title&&row.section==='episodes')).length;
-assert.equal(episodeIdeas.length-visibleAssignedIdeas,32-(movedIdeas-(allIdeaAssignments.length-visibleAssignedIdeas)),'Remaining genuinely unclassified episode ideas preserved');
+assert.equal(episodeIdeas.length-visibleAssignedIdeas,34-(movedIdeas-(allIdeaAssignments.length-visibleAssignedIdeas)),'Remaining genuinely unclassified episode ideas preserved');
 
 assert(appHtml.includes('html body .summary,html body .summary+.personal-help{display:none!important}'),'Old big status summary must be hidden');
 assert(appHtml.includes("['fulfilled','Splněné'],['unfulfilled','Nesplněné'],['future','Budoucí sliby']"),'Only three combined status group choices are offered');

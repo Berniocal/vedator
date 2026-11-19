@@ -18,7 +18,17 @@ async function setup(language,saved){
   const w=dom.window;
   w.localStorage.setItem('vedator-ui-language-v1',language);
   for(const [key,value] of Object.entries(saved||{}))w.localStorage.setItem(key,value);
-  w.fetch=async()=>({ok:true,status:200,json:async()=>data});
+  w.XMLHttpRequest=class LocalV2CatalogXHR{
+  open(_method,url){this.url=url}
+  send(){
+    Promise.resolve(w.fetch(this.url)).then(response=>response.json()).then(catalog=>{
+      this.status=200;this.responseText=JSON.stringify(catalog);
+      this.onprogress?.({lengthComputable:true,loaded:this.responseText.length,total:this.responseText.length});
+      this.onload?.();
+    }).catch(error=>this.onerror?.(error));
+  }
+};
+w.fetch=async()=>({ok:true,status:200,json:async()=>data});
   w.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}});
   w.IntersectionObserver=class{observe(){}disconnect(){}};
   w.HTMLElement.prototype.scrollIntoView=()=>{};w.scrollTo=()=>{};

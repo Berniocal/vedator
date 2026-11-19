@@ -20,6 +20,16 @@ window.localStorage.setItem('vedatorPlaybackProgressV1',JSON.stringify({
 window.localStorage.setItem('vedatorCollectionProgressV1',JSON.stringify({
   [`series:${norm(faqSeries.name)}`]:{type:'series',label:faqSeries.name,lastItemId:'episode:340',updatedAt:1,items:{'episode:340':{currentTime:600,duration:3600,percent:17,completed:false},['episode:'+completedEpisode]:{currentTime:3600,duration:3600,percent:100,completed:true}}}
 }));
+window.XMLHttpRequest=class LocalV2CatalogXHR{
+  open(_method,url){this.url=url}
+  send(){
+    Promise.resolve(window.fetch(this.url)).then(response=>response.json()).then(catalog=>{
+      this.status=200;this.responseText=JSON.stringify(catalog);
+      this.onprogress?.({lengthComputable:true,loaded:this.responseText.length,total:this.responseText.length});
+      this.onload?.();
+    }).catch(error=>this.onerror?.(error));
+  }
+};
 window.fetch=async()=>({ok:true,status:200,json:async()=>data});
 window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};

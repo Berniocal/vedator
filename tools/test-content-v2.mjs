@@ -95,3 +95,15 @@ for(const n of [157,159,160,161,162,163,164,165,166]){
 }
 
 console.log(`content-v2 OK: ${data.episodes.length} episodes, ${data.questions.length} questions, ${Object.keys(non).length} summarized episodes.`);
+
+// Episode 364: bind the video to its RSS identity and preserve bilingual chapters.
+{
+ const ep=data.episodes.find(e=>e.number===364);
+ if(ep?.id!=='vedatorskypodcast.podbean.com/edc94318-fe40-3f29-b7c6-9c0d375387c2'||ep.youtubeId!=='I3IYM37Ko_Q')fail('Episode 364 video/RSS identity mismatch');
+ const chapters=non['364'];
+ if(chapters?.cs?.length!==21||chapters?.sk?.length!==21)fail('Episode 364 needs 21 CZ/SK chapters');
+ for(let i=0;i<21;i++){
+  const a=chapters.cs[i],b=chapters.sk[i];
+  if(a.time!==b.time||a.seconds!==b.seconds||!a.title.endsWith('?')||!b.title.endsWith('?')||a.points.length!==3||b.points.length!==3)fail('Episode 364 bilingual chapter mismatch');
+ }
+}

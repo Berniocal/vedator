@@ -7,6 +7,16 @@ const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const assert=(condition,message)=>{if(!condition)throw new Error(message)};
 const dom=new JSDOM(html,{url:'https://example.test/v2.html',runScripts:'outside-only',pretendToBeVisual:true});
 const {window}=dom;
+window.XMLHttpRequest=class LocalV2CatalogXHR{
+  open(_method,url){this.url=url}
+  send(){
+    Promise.resolve(window.fetch(this.url)).then(response=>response.json()).then(catalog=>{
+      this.status=200;this.responseText=JSON.stringify(catalog);
+      this.onprogress?.({lengthComputable:true,loaded:this.responseText.length,total:this.responseText.length});
+      this.onload?.();
+    }).catch(error=>this.onerror?.(error));
+  }
+};
 window.fetch=async()=>({ok:true,status:200,json:async()=>data});
 window.IntersectionObserver=class{observe(){}disconnect(){}};
 window.matchMedia=()=>({matches:false,addEventListener:()=>{},removeEventListener:()=>{}});
@@ -33,7 +43,9 @@ next.click();await new Promise(resolve=>setTimeout(resolve,20));
 const ep347=data.episodes.find(episode=>Number(episode.number)===347);
 assert(window.document.querySelector('#player-title-v2').textContent===(ep347?.i18n?.sk?.title||ep347?.title||''),'Next from episode 346 must increase the episode number to 347');
 
-card346.querySelector('.actions .play').click();await new Promise(resolve=>setTimeout(resolve,20));
+const refreshedCard346=window.document.querySelector('#episodes-v2 .episode-card-v2[data-episode="346"]');
+assert(refreshedCard346,'Episode 346 disappeared after playing next track');
+refreshedCard346.querySelector('.actions .play').click();await new Promise(resolve=>setTimeout(resolve,20));
 prev.click();await new Promise(resolve=>setTimeout(resolve,20));
 const ep345=data.episodes.find(episode=>Number(episode.number)===345);
 assert(window.document.querySelector('#player-title-v2').textContent===(ep345?.i18n?.sk?.title||ep345?.title||''),'Previous from episode 346 must decrease the episode number to 345');

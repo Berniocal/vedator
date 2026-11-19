@@ -21,7 +21,7 @@ const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.json':'
 const server=http.createServer((request,response)=>{
   const url=new URL(request.url,'http://localhost');
   const file=path.resolve(root,'.'+(url.pathname==='/'?'/index.html':url.pathname));
-  if(!file.startsWith(root+path.sep)||!fs.existsSync(file)){response.writeHead(404);response.end();return}
+  if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){response.writeHead(404);response.end();return}
   response.writeHead(200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream'});fs.createReadStream(file).pipe(response);
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
@@ -43,7 +43,7 @@ try{
       const relative=request.url().slice(prefix.length).split('?')[0];
       if(relative==='tex-chtml.js')mathScriptRequests++;
       const file=path.resolve(mathRoot,'es5',relative);
-      if(fs.existsSync(file))return request.respond({status:200,contentType:mime[path.extname(file)]||'application/octet-stream',body:fs.readFileSync(file)});
+      if(fs.existsSync(file)&&fs.statSync(file).isFile())return request.respond({status:200,contentType:mime[path.extname(file)]||'application/octet-stream',body:fs.readFileSync(file)});
     }
     return request.abort();
   });
@@ -53,10 +53,16 @@ try{
     // all MP3 requests. Exercise the native fallback here; real MSE seeking,
     // timing and transitions are covered by test-main-continuous-browser.mjs.
     Object.defineProperty(window,'MediaSource',{value:undefined,configurable:true});
+    // Keep media state fully local: this test verifies chapter seek wiring,
+    // not MP3 decoding. Remote media requests are intentionally blocked.
+    Object.defineProperty(HTMLMediaElement.prototype,'src',{configurable:true,get(){return this.__testSrc||''},set(url){this.__testSrc=String(url)}});
+    Object.defineProperty(HTMLMediaElement.prototype,'currentSrc',{configurable:true,get(){return this.__testSrc||''}});
+    Object.defineProperty(HTMLMediaElement.prototype,'currentTime',{configurable:true,get(){return this.__testTime||0},set(value){this.__testTime=Number(value)||0}});
     HTMLMediaElement.prototype.play=()=>Promise.resolve();
     HTMLMediaElement.prototype.pause=()=>{};
-    HTMLMediaElement.prototype.load=function(){this.currentTime=0;queueMicrotask(()=>this.dispatchEvent(new Event('loadedmetadata')))};
-    Object.defineProperty(HTMLMediaElement.prototype,'duration',{get:()=>7200});
+    HTMLMediaElement.prototype.load=function(){queueMicrotask(()=>this.dispatchEvent(new Event('loadedmetadata')))};
+    Object.defineProperty(HTMLMediaElement.prototype,'duration',{configurable:true,get:()=>7200});
+    Object.defineProperty(HTMLMediaElement.prototype,'readyState',{configurable:true,get:()=>4});
   });
   await page.goto(origin+'/#episode=153',{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>document.documentElement.dataset.vedatorV2Ready==='1');
