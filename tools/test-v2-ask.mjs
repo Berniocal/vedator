@@ -19,7 +19,7 @@ let requests=0;w.XMLHttpRequest=class LocalV2CatalogXHR{
     }).catch(error=>this.onerror?.(error));
   }
 };
-w.fetch=async()=>{requests++;return{ok:true,json:async()=>data}};
+w.fetch=async url=>{if(String(url).includes('content-v2.json'))requests++;return{ok:true,json:async()=>data}};
 w.HTMLMediaElement.prototype.play=()=>Promise.resolve();w.HTMLMediaElement.prototype.pause=()=>{};w.HTMLMediaElement.prototype.load=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{};
 const ready=new Promise(resolve=>w.addEventListener('vedator-v2-ready',resolve,{once:true}));
 w.eval(fs.readFileSync('app-v2.js','utf8'));d.dispatchEvent(new w.Event('DOMContentLoaded'));await ready;
