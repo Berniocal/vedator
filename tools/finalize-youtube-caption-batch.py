@@ -52,6 +52,7 @@ def acoustic_atoms(words, overrides=None):
             result.append(overrides[str(i)])
         else:
             word = re.sub(r'(?<=\d)[ \u00a0](?=\d{3}(?:\D|$))', '', word)
+            word = re.sub(r'(?<=\d)(?=(?:%|km/h|m/s|kg|km|cm|kt|g|W)(?:\W|$))', ' ', word)
             result.append(audio.acoustic_text(word))
     return result
 
@@ -192,7 +193,7 @@ def align(number):
     aligned={}
     audit={'episode':number,'model':audio.ALIGN_MODEL,'audioSha256':proof['audioSha256'],'groups':[]}
     for ci,chunk in enumerate(chunks):
-        key=hashlib.sha256(json.dumps(chunk,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
+        legacy_key=hashlib.sha256(json.dumps(chunk,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
         language=chunk[0].get('sourceLanguage','sk')
         name,processor,model=model_for(language)
         vocab=processor.tokenizer.get_vocab();blank=processor.tokenizer.pad_token_id
@@ -206,8 +207,14 @@ def align(number):
             if ids:ids.append(vocab[delimiter]);chunk_owners.append(-1);word_owners.append(-1)
             ids.extend(local_ids);chunk_owners.extend([ri]*len(local_ids));word_owners.extend(owners)
             details.append((g,sk,printed,spoken))
-        if all(cache.get(str(g['group']),{}).get('chunkKey')==key for g in chunk):
-            for g in chunk:aligned[str(g['group'])]=cache[str(g['group'])]
+        key=hashlib.sha256(json.dumps({'groups':chunk,'tokenIds':ids,'model':name,'algorithm':'joint-neighbors-v1'},ensure_ascii=False,sort_keys=True).encode()).hexdigest()
+        reusable=True
+        for ri,(g,sk,printed,spoken) in enumerate(details):
+            prior=cache.get(str(g['group']),{})
+            expected=[token for token,owner in zip(ids,chunk_owners) if owner==ri]
+            reusable=reusable and prior.get('chunkKey') in (key,legacy_key) and [c['token'] for c in prior.get('characters',[])]==expected
+        if reusable:
+            for g in chunk:aligned[str(g['group'])]={**cache[str(g['group'])],'chunkKey':key}
         else:
             a=max(0,chunk[0]['start']-.15);b=min(len(wave)/16000,chunk[-1]['end']+.15)
             inputs=processor(wave[int(a*16000):int(b*16000)],sampling_rate=16000,return_tensors='pt',padding=True)
