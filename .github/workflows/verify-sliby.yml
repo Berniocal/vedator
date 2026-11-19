@@ -53,6 +53,8 @@ jobs:
         run: node tools/test-sliby-github-admin.cjs
       - name: Check public promise scope
         run: node tools/test-sliby-content-scope.cjs
+      - name: Check promised links and description evidence
+        run: node tools/test-sliby-links.cjs
       - name: Check report data and time links
         run: |
           node --input-type=module <<'JS'
