@@ -81,7 +81,8 @@ await page.evaluateOnNewDocument(()=>{
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 try{
   await page.goto(base+'/index.html',{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>document.documentElement.dataset.vedatorV2Ready==='1');
-  await page.evaluate(()=>{localStorage.setItem('vedator-ui-language-v1','cz');const select=document.getElementById('player-caption-language-v2');select.value='cs';select.dispatchEvent(new Event('change'))});
+  await page.$eval('.language-v2 [data-lang="cz"]',button=>button.click());
+  check(!await page.$('#player-caption-language-v2'),'Caption language follows the application without a selector');
   const results=[];
   for(const n of numbers){
     const episode=source.episodes.find(e=>e.number===n),c=captions[n];
@@ -106,6 +107,15 @@ try{
     const readerLayout=await page.evaluate(()=>{const node=document.getElementById('player-caption-reader-text-v2');return {lines:node.querySelectorAll('.caption-reader-line-v2').length,fits:node.scrollWidth<=node.clientWidth+1}});
     check(readerLayout.lines<=2&&readerLayout.fits,'Fullscreen captions fit at most two complete lines',{n,readerLayout});
     check(reader.videoParent==='player-caption-reader-overlay-v2','Wake video must enter fullscreen subtree',{n,reader});
+    if(n===1){
+      await page.evaluate(()=>document.getElementById('audio-v2').pause());
+      const before=await page.evaluate(()=>({time:window.__captionTest.clock().time,font:parseFloat(document.getElementById('player-caption-reader-text-v2').style.fontSize)}));
+      await page.click('#player-caption-reader-text-v2');await page.waitForFunction(()=>!document.getElementById('caption-reader-controls-v2').hidden);await page.click('#caption-book-larger-v2');
+      const after=await page.evaluate(()=>({time:window.__captionTest.clock().time,font:parseFloat(document.getElementById('player-caption-reader-text-v2').style.fontSize),fits:document.getElementById('player-caption-reader-text-v2').scrollWidth<=document.getElementById('player-caption-reader-text-v2').clientWidth+1}));
+      check(after.font>before.font&&after.fits&&Math.abs(after.time-before.time)<.001,'Live reader font enlargement preserves the shared paused position',{before,after});
+      await page.click('#caption-book-smaller-v2');
+    }
+
     await page.evaluate(()=>window.__captionTest.exitReader());await wait(100);
     const desired=Math.floor(c.cues.at(-1).start*.75);
     const speechSample=c.cues.find(q=>q.start>=desired&&q.end-q.start>=4);
@@ -134,7 +144,19 @@ try{
     const vt=captions[n].cues[5].start+.1;
     await page.evaluate(t=>{window.__yt.time=t;window.__captionTest.sync()},vt);
     check(await page.$eval('#player-video-caption-v2',e=>e.textContent)===captions[n].cues[5].text.cs,'YouTube Czech cue timing',{n});
-    await page.select('#player-caption-language-v2','sk');
+    if(n===1){
+      for(const width of [320,390]){
+        await page.setViewport({width,height:844,isMobile:true,hasTouch:true});
+        const row=await page.evaluate(()=>{
+          const ids=['player-caption-toggle-v2','player-caption-reader-button-v2','player-video-fullscreen-v2'];
+          const rects=ids.map(id=>{const r=document.getElementById(id).getBoundingClientRect();return {x:r.left,y:r.top,right:r.right,height:r.height}});
+          return {rects,viewport:innerWidth};
+        });
+        check(row.rects.every(r=>Math.abs(r.y-row.rects[0].y)<2&&r.x>=0&&r.right<=row.viewport+1),'Three subtitle/video buttons fit on one mobile row',{width,row});
+      }
+    }
+
+    await page.$eval('.language-v2 [data-lang="sk"]',button=>button.click());
     check(await page.$eval('#player-video-caption-v2',e=>e.textContent)===captions[n].cues[5].text.sk,'YouTube Slovak cue timing',{n});
     if(n===1||n===363){
       const frame=await page.$('#player-youtube-frame-v2');
@@ -144,18 +166,20 @@ try{
         await page.setViewport(viewport);await wait(100);
         const layout=await page.evaluate(()=>{
           const panel=document.fullscreenElement,host=document.getElementById('player-video-host-v2'),caption=document.getElementById('player-video-caption-v2');
-          const h=host.getBoundingClientRect(),c=caption.getBoundingClientRect(),b=document.getElementById('player-video-fullscreen-v2').getBoundingClientRect();
-          return {contains:panel.contains(host)&&panel.contains(caption),ratio:h.width/h.height,captionFits:c.left>=h.left-1&&c.right<=h.right+1&&c.top>=h.top-1&&c.bottom<=h.bottom+1,buttonFits:b.bottom<=innerHeight+1,text:caption.textContent};
+          const h=host.getBoundingClientRect(),c=caption.getBoundingClientRect(),b=document.getElementById('player-video-fullscreen-close-v2').getBoundingClientRect();
+          const pictureWidth=Math.min(h.width,h.height*16/9),pictureHeight=Math.min(h.height,h.width*9/16);
+          const left=h.left+(h.width-pictureWidth)/2,top=h.top+(h.height-pictureHeight)/2;
+          return {contains:panel.contains(host)&&panel.contains(caption),fillsViewport:h.left<=1&&h.top<=1&&h.width>=innerWidth-1&&h.height>=innerHeight-1,captionFits:c.left>=left-1&&c.right<=left+pictureWidth+1&&c.top>=top-1&&c.bottom<=top+pictureHeight+1,buttonFits:b.left>=left-1&&b.right<=left+pictureWidth+1&&b.top>=top-1&&b.bottom<=top+pictureHeight+1,text:caption.textContent};
         });
-        check(layout.contains&&layout.captionFits&&layout.buttonFits&&Math.abs(layout.ratio-16/9)<.02,'Fullscreen video retains overlay captions inside the rendered video in both orientations',{n,viewport,layout});
+        check(layout.contains&&layout.fillsViewport&&layout.captionFits&&layout.buttonFits,'Fullscreen video retains overlay captions inside the rendered video in both orientations',{n,viewport,layout});
         check(layout.text===captions[n].cues[5].text.sk,'Fullscreen retains the current caption language',{n,layout});
       }
       check(await page.evaluate(node=>node===document.getElementById('player-youtube-frame-v2'),frame),'Fullscreen never reloads or moves the iframe',{n});
-      await page.click('#player-video-fullscreen-v2');
+      await page.click('#player-video-fullscreen-close-v2');
       await page.waitForFunction(()=>!document.fullscreenElement&&!document.body.classList.contains('vedator-video-fullscreen'));
       await page.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
     }
-    await page.select('#player-caption-language-v2','cs');
+    await page.$eval('.language-v2 [data-lang="cz"]',button=>button.click());
   }
   // A cached caption promise can settle while its MP3 session is hidden by
   // YouTube. Returning to that same session must display captions immediately.
