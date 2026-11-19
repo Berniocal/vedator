@@ -1642,6 +1642,52 @@
       node.append(' ',link);
     }
   }
+  let videoFullscreenActive=false,videoFullscreenNative=false,videoFullscreenHistory=false,videoFullscreenRequest=0;
+  function syncVideoFullscreenButton(){
+    const button=$('#player-video-fullscreen-v2');if(!button)return;
+    button.textContent=videoFullscreenActive?text('⤡ Zmenšit','⤡ Zmenšiť'):text('⛶ Celá obrazovka','⛶ Celá obrazovka');
+    button.setAttribute('aria-pressed',String(videoFullscreenActive));
+    button.setAttribute('aria-label',videoFullscreenActive?text('Zmenšit video','Zmenšiť video'):text('Video s titulky přes celou obrazovku','Video s titulkami na celú obrazovku'));
+  }
+  function addVideoFullscreenHistory(request){
+    if(!videoFullscreenActive||request!==videoFullscreenRequest||videoFullscreenHistory)return;
+    history.pushState({...history.state,vedatorVideoFullscreen:true},'');videoFullscreenHistory=true;
+  }
+  function exitVideoFullscreen(fromHistory=false){
+    if(!videoFullscreenActive)return;
+    videoFullscreenActive=false;videoFullscreenNative=false;++videoFullscreenRequest;
+    const panel=$('#player-video-panel-v2');
+    panel?.classList.remove('video-fullscreen-v2');document.body.classList.remove('vedator-video-fullscreen');
+    if(document.fullscreenElement===panel)document.exitFullscreen?.().catch(()=>{});
+    if(videoFullscreenHistory){videoFullscreenHistory=false;if(!fromHistory&&history.state?.vedatorVideoFullscreen)history.back()}
+    syncVideoFullscreenButton();$('#player-video-fullscreen-v2')?.focus({preventScroll:true});
+  }
+  function toggleVideoFullscreen(){
+    if(videoFullscreenActive){exitVideoFullscreen();return}
+    const panel=$('#player-video-panel-v2');if(!panel||!youtubeActive())return;
+    const request=++videoFullscreenRequest;videoFullscreenActive=true;videoFullscreenNative=false;
+    panel.classList.add('video-fullscreen-v2');document.body.classList.add('vedator-video-fullscreen');
+    syncVideoFullscreenButton();
+    // Fullscreen the persistent parent, not the cross-origin iframe. Its caption
+    // sibling stays visible and the iframe is never moved or reloaded.
+    try{
+      if(panel.requestFullscreen){
+        Promise.resolve(panel.requestFullscreen({navigationUI:'hide'})).then(()=>{
+          if(request!==videoFullscreenRequest){if(document.fullscreenElement===panel)document.exitFullscreen?.().catch(()=>{});return}
+          videoFullscreenNative=document.fullscreenElement===panel;
+          if(!videoFullscreenNative)addVideoFullscreenHistory(request);
+        },()=>addVideoFullscreenHistory(request));
+      }else addVideoFullscreenHistory(request);
+    }catch(_){addVideoFullscreenHistory(request)}
+  }
+  document.addEventListener('fullscreenchange',()=>{
+    if(document.fullscreenElement===$('#player-video-panel-v2'))videoFullscreenNative=true;
+    else if(videoFullscreenNative)exitVideoFullscreen();
+  });
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape'&&videoFullscreenActive){event.preventDefault();exitVideoFullscreen()}
+  });
+  window.addEventListener('popstate',()=>{if(videoFullscreenActive&&videoFullscreenHistory)exitVideoFullscreen(true)});
   function loadYoutubeApi(){
     if(window.YT?.Player)return Promise.resolve(window.YT);
     if(youtubeApiPromise)return youtubeApiPromise;
@@ -1659,12 +1705,13 @@
     });
     return youtubeApiPromise;
   }
-  function stopYoutubePlayback(){
+  function stopYoutubePlayback(preserveFullscreen=false){
+    if(!preserveFullscreen)exitVideoFullscreen();
     const session=youtubeSession;if(!session)return;
     // Invalidate callbacks before destroy() can emit a final pause/ended event.
     youtubeSession=null;clearInterval(session.timer);clearInterval(session.captionTimer);clearTimeout(session.readyTimer);
     try{session.player?.destroy()}catch{}
-    $('#player-video-host-v2')?.replaceChildren();$('#player-video-panel-v2')?.classList.add('hidden');
+    $('#player-video-host-v2')?.replaceChildren();if(!preserveFullscreen)$('#player-video-panel-v2')?.classList.add('hidden');
     youtubeStatus();
     syncYoutubeCaptions();
   }
@@ -1674,6 +1721,7 @@
     else if(continuousActive())continuousPlayer.pause();else playerNodes().audio.pause();
   }
   function syncYoutubeButton(){
+    syncVideoFullscreenButton();
     const button=$('#player-video-v2');if(!button)return;
     button.disabled=!episodeYoutubeId(state.current?.episode);button.setAttribute('aria-pressed',String(youtubeActive()));
     button.title=button.disabled?text('YouTube video zatím není přiřazené','YouTube video zatiaľ nie je priradené'):youtubeActive()?text('Skrýt video a přepnout na MP3','Skryť video a prepnúť na MP3'):text('Pustit YouTube video od aktuálního času','Pustiť YouTube video od aktuálneho času');
@@ -1688,9 +1736,9 @@
     const alive=()=>youtubeSession===session&&playbackSequence===sequence;
     const panel=$('#player-video-panel-v2'),host=$('#player-video-host-v2'),frame=document.createElement('iframe');
     frame.id='player-youtube-frame-v2';frame.title=episodeCopy(episode).title;
-    frame.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';frame.allowFullscreen=true;frame.referrerPolicy='strict-origin-when-cross-origin';
+    frame.allow="autoplay; encrypted-media; picture-in-picture; fullscreen 'none'";frame.referrerPolicy='strict-origin-when-cross-origin';
     const url=new URL('https://www.youtube.com/embed/'+videoId);
-    url.search=new URLSearchParams({enablejsapi:'1',origin:location.origin,playsinline:'1',autoplay:autoplay?'1':'0',start:String(Math.floor(session.time)),rel:'0'}).toString();
+    url.search=new URLSearchParams({enablejsapi:'1',origin:location.origin,playsinline:'1',autoplay:autoplay?'1':'0',start:String(Math.floor(session.time)),rel:'0',fs:'0'}).toString();
     frame.src=url.href;
     const captionLayer=document.createElement('div');
     captionLayer.id='player-video-caption-v2';
@@ -1895,7 +1943,7 @@
     if(!episode?.enclosure)return;
     const sequence=++playbackSequence;
     saveProgress(true,false);
-    stopYoutubePlayback();
+    stopYoutubePlayback(videoFullscreenActive&&youtubeEnabled&&!videoBackgroundSuspended&&Boolean(episodeYoutubeId(episode)));
     stopContinuousPlayback();
     const n=playerNodes(),audio=n.audio,key=episodeKey(episode.number),record=state.progress[key]||{};
     let target=start;
@@ -3063,6 +3111,7 @@
   },true);
   $('#player-download-v2')?.addEventListener('click',event=>{event.preventDefault();downloadCurrentMp3()});
   $('#player-video-v2')?.addEventListener('click',toggleYoutubePlayback);
+  $('#player-video-fullscreen-v2')?.addEventListener('click',toggleVideoFullscreen);
   $('#player-caption-language-v2')?.addEventListener('change',changeYoutubeCaptionLanguage);
   $('#player-caption-toggle-v2')?.addEventListener('click',toggleCaptions);
   $('#player-caption-reader-button-v2')?.addEventListener('click',enterCaptionReader);
