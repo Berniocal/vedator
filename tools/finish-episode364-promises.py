@@ -39,6 +39,9 @@ for container in [data,data['archive']]:
                 resolved[candidate]={'time':row['time'],'sec':seconds,'start':row['line'],'end':row['line']+2}
             if row.get('mergedFrom'):walk(row['mergedFrom'])
     walk(container['findings'])
+    witten=next(row for row in container['findings'] if row['id']=='583')
+    witten['outcomeNote']='Zkontrolován i celý díl 364: od 24:12 představuje Wittena a od 28:38 jeho propojení teorie uzlů s teorií pole. Jde o úvodní vysvětlení v rámci Hodgeovy hypotézy; podmíněný hlubší samostatný díl tím není doložen.'
+    witten['fulfillmentChecks']=[check for check in witten.get('fulfillmentChecks',[]) if check.get('episode')!=364]+[{'episode':364,'result':'introductory-return-not-complete-dedicated-episode','captionFile':'captions/episode-364.json','playURL':'https://bernio.cz/vedator/#episode=364'}]
     for entry in container['candidateIndex']:
         if int(entry['id']) in resolved:entry.update(resolved[int(entry['id'])])
     progress=container['readingProgress'];entry=next(v for v in progress['files'] if v['episode']==364)

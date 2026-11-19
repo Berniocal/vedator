@@ -1918,7 +1918,32 @@
       ]
     }
   ],
-  "lowScoreAcceptance": {},
+  "lowScoreAcceptance": {
+    "39": {
+      "textSk": "ľúbi, keď ľudia proste pokecajú a tak. Hej.",
+      "independentCtcDecode": "roko taka kamaracske stretnutene žokoniaka profyzorganizoamá akcia aždy me to potočiže k poude tam doidea poca m spontružku vyšu sočším mnme so tomu v tak streta aiť v takej staui  stauice žubru suže b ži fnko molode na plretežej iže každetam nekou pozná a streže sa mi truju by vilej udohjú a tak",
+      "evidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "reason": "Original and both independent no-VAD recognizers support the short closing clause; overlapping speakers reduce CTC confidence. Retain the sourced wording without expanding it."
+    },
+    "174": {
+      "textSk": "Áno.",
+      "independentCtcDecode": "žnón pže rokiž liúčebnicoližákad vy sobovedou  nazakladmnenostrné počítanie aneake náznaky geometrie v poseteteveci člu de potrbovoliaby počítali danehonalo v iratej u",
+      "evidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "reason": "Brief affirmative acknowledgment in the source; joint CTC decode contains the sound at this boundary. Both no-VAD recognizers omit the brief acknowledgment; preserve the original short token without adding speech."
+    },
+    "237": {
+      "textSk": "To by bolo [nezrozumiteľné].",
+      "independentCtcDecode": "hmatematickuvla sto frucova medeela on go sože so viaceru významný zá sluch aj jedna stych zal sluch za ktoré to do sta o jalem tako mal vlžku pýolcu ako pole v v angvyši ajinea violciľackuťa ehhi by  laj maj vže",
+      "evidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "reason": "Overlapping unclear ending is explicitly marked. Only the recoverable beginning is retained; both no-VAD recognizers and the CTC decode were inspected."
+    },
+    "384": {
+      "textSk": "mnohé z nich by som povedal, že sú oveľa zaujímavejšie. Toto je brutálne zaujímavé.",
+      "independentCtcDecode": "zachitu ieže nech cem biť broby ale že s pohľadu toho čozmek tomu vysvetluj li tak takých tohy potezuju matematike vila viacie a mázi by soplozolo zamavajššie  toto j m rábir s tok s podnomňaj ceľkom zaemavý maui tem ža á no úvrutalnej izačiali potom tom toto je že pomeže pre širokoverenosť j",
+      "evidenceFile": "captions/source/episode-364-youtube-followup-audio.json",
+      "reason": "Original source and both independent no-VAD recognizers support the comparison and closing remark; fast overlapping speech lowers CTC confidence. Preserve the spoken statements without factual reinterpretation."
+    }
+  },
   "humanListeningVerified": false,
   "followupReviewSha256": "530e519b3fea188413a00a3ae88355fe4c58ed6c91dba933efc5056c24587240",
   "contrastReviewSha256": "61db0bdec4bedeafac0e1f7fef72d83ba6094396e62e40f462044e8355575735"
