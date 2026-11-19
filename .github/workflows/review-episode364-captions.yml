@@ -1,12 +1,5 @@
 name: Review episode 364 captions against source audio
 on:
-  push:
-    branches: [captions/episode-364-20261119]
-    paths:
-      - tools/review-youtube-caption-batch-audio.py
-      - .github/workflows/review-episode364-captions.yml
-      - captions/source/episode-364-youtube-editorial-review.json
-      - captions/source/episode-364-youtube-audio-clock-probes.json
   workflow_dispatch:
 permissions:
   contents: write

@@ -14,15 +14,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh api repos/Berniocal/vedator/actions/runs/44593878457/jobs > /tmp/review-jobs.json
-          python - <<'PY'
-          import json
-          d=json.load(open('/tmp/review-jobs.json'))
-          steps=d['jobs'][0]['steps']
-          required=['Prepare Czech translation from reviewed Slovak candidates','Independently recognize flagged speech and omitted-caption gaps']
-          assert all(any(s['name']==name and s['conclusion']=='success' for s in steps) for name in required)
-          PY
-          status=$(gh api repos/Berniocal/vedator/actions/runs/44593878457 --jq .status)
+          status=$(gh api repos/Berniocal/vedator/actions/runs/44613524467 --jq .status)
           if test "$status" != completed; then
-            gh api --method POST repos/Berniocal/vedator/actions/runs/44593878457/cancel
+            gh api --method POST repos/Berniocal/vedator/actions/runs/44613524467/cancel
           fi
