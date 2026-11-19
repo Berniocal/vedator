@@ -24,6 +24,13 @@ def validate(number, registered=False):
     def check(test,message):
         if not test:errors.append(message)
     check(resolutions['status']=='all-audio-questions-resolved','Audio review not complete')
+    for suffix, hash_key in [('followup-audio','followupReviewSha256'),('contrast-audio','contrastReviewSha256')]:
+        evidence=SOURCE/f'episode-{number}-youtube-{suffix}.json'
+        check(evidence.exists() and resolutions.get(hash_key)==batch.digest(evidence),f'Stale {suffix} review evidence')
+    followup=batch.read(SOURCE/f'episode-{number}-youtube-followup-audio.json')
+    for key,item in resolutions['groups'].items():
+        if not item.get('evidencePassages'):
+            check(item.get('followupEvidenceFile')==f'captions/source/episode-{number}-youtube-followup-audio.json' and any(int(key) in p['groups'] for p in followup['passages']),f'Missing independent followup for group {key}')
     for key,item in resolutions['groups'].items():
         check(item.get('status')=='resolved',f'Unresolved audio group {key}')
     check(edited['groups']==groups,'Generated text no longer matches current reviewed edits')
@@ -38,6 +45,10 @@ def validate(number, registered=False):
         if g['meanCharacterScore']<.35:
             item=resolutions.get('lowScoreAcceptance',{}).get(str(g['group']),{})
             check(item.get('textSk')==g['textSk'] and item.get('reason') and item.get('independentCtcDecode')==g['independentCtcDecode'],f'Unreviewed low CTC confidence in group {g["group"]}')
+            evidence_name=item.get('evidenceFile','')
+            allowed={f'captions/source/episode-{number}-youtube-independent-audio-review.json',f'captions/source/episode-{number}-youtube-followup-audio.json'}
+            evidence=batch.read(ROOT/evidence_name) if evidence_name in allowed else {'passages':[]}
+            check(evidence_name in allowed and any(g['group'] in p['groups'] for p in evidence['passages']),f'Low-score group {g["group"]} lacks independent recognition evidence')
         check(bool(g.get('characters')) and bool(g.get('independentCtcDecode')),'Missing acoustic evidence')
         check(bool(g.get('chunkKey')),'Alignment must use joint neighboring-utterance path')
     check(not alignment.get('largeBoundaryConflicts'),'Acoustic boundaries overlap by more than 0.3 seconds')
@@ -79,7 +90,7 @@ def validate(number, registered=False):
         check(mapping.get('captionFile')==f'captions/episode-{number}.json','Caption mapping not registered')
         saved=batch.read(ROOT/'audio-seek-index.json')['entries'].get(proof['audio'])
         check(saved==index['index'],'Registered MP3 index differs from reviewed source')
-    report={'episode':number,'ok':not errors,'cueCount':len(final['cues']),'sourceGroupCount':len(groups),'recoveredSpeechPanels':len(resolutions.get('recovered',[])),'lowScoreGroups':alignment['lowScoreGroups'],'fastPanels':len(fast),'issues':errors,'caution':'Structural, provenance and acoustic model checks; not a full independent human listening verification.'}
+    report={'episode':number,'ok':not errors,'cueCount':len(final['cues']),'sourceGroupCount':len(groups),'recoveredSpeechPanels':len(resolutions.get('recovered',[])),'lowScoreGroups':alignment['lowScoreGroups'],'fastPanels':len(fast),'explicitlyUnclearGroups':[g['group'] for g in groups if '[nezrozumiteľné]' in g['text']['sk']],'issues':errors,'caution':'Structural, provenance and acoustic model checks; not a full independent human listening verification.'}
     return report
 
 

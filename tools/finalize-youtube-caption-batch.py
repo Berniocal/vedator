@@ -41,7 +41,7 @@ def balanced(text):
 def atoms(text):
     # Keep numerals, formulas and annotations together when deriving acoustic
     # word boundaries. Printed digits are never silently dropped by the model.
-    pattern = r'\[[^\]]*\]|E\s*=\s*mc²\S*|H₂O\S*|\d{1,3}(?:[ \u00a0]\d{3})+(?:[,.]\d+)?[^\s]*|Artemis II\S*|typ I\S*|\S+'
+    pattern = r'\[[^\]]*\][^\s]*|E\s*=\s*mc²\S*|H₂O\S*|\d{1,3}(?:[ \u00a0]\d{3})+(?:[,.]\d+)?[^\s]*|Artemis II\S*|typ I\S*|\S+'
     return re.findall(pattern, text)
 
 
@@ -228,7 +228,8 @@ def align(number):
         for ri,(g,sk,printed,spoken) in enumerate(details):
             prior=cache.get(str(g['group']),{})
             expected=[token for token,owner in zip(ids,chunk_owners) if owner==ri]
-            reusable=reusable and prior.get('chunkWindow')==[round(a,3),round(b,3)] and prior.get('chunkKey') in (key,legacy_key) and [c['token'] for c in prior.get('characters',[])]==expected
+            expected_owners=[w for w,owner in zip(word_owners,chunk_owners) if owner==ri]
+            reusable=reusable and prior.get('chunkWindow')==[round(a,3),round(b,3)] and prior.get('chunkKey') in (key,legacy_key) and [c['token'] for c in prior.get('characters',[])]==expected and prior.get('wordOwners')==expected_owners
         if reusable:
             for g in chunk:aligned[str(g['group'])]={**cache[str(g['group'])],'chunkKey':key}
         else:

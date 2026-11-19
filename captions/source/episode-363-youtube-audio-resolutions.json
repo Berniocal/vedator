@@ -664,5 +664,16 @@
   "recovered": [],
   "followupReviewFile": "captions/source/episode-363-youtube-followup-audio.json",
   "followupReviewSha256": "c577712e2ca0e4cf2873888484ff2f585d2b5cfc2a44678973fbcb57833ee5a0",
-  "contrastReviewSha256": "8085e79be376e21af70433f5d2a620b98ee654f354c5fd82c6bfb679a4076d42"
+  "contrastReviewSha256": "8085e79be376e21af70433f5d2a620b98ee654f354c5fd82c6bfb679a4076d42",
+  "lowScoreAcceptance": {
+    "183": {
+      "textSk": "Chicago Pile. Ty kokos, v Chicago Pile. V pivnici univerzity.",
+      "independentCtcDecode": "rneju ju peu tick  či cek vyvajo vpyvnici  vžiližni vize ozu rozprávame jaže toejšiale veže vuďa so žičica le je to ežšie horšiak komysliže o ita malinake mali tam kadmium alebo čoh na zablokovane re akcie ktoro bolo priprovené ho rena ke katbiove ti če priviazenéná lana a typetam čak zo sekeru vše fire jižne li akožej odsedeue",
+      "reason": "Independent large-v3 passage 23 independently repeats Chicago Pile / Ty kokos / V pivnici univerzity. The low Slovak CTC score is concentrated in repeated English place/reactor names and overlapping speech; keep the independently supported wording and recorded acoustic span.",
+      "evidenceFile": "captions/source/episode-363-youtube-independent-audio-review.json",
+      "evidencePassages": [
+        23
+      ]
+    }
+  }
 }

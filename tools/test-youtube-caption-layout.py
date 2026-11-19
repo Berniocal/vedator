@@ -42,6 +42,8 @@ class CaptionLayout(unittest.TestCase):
         self.assertIn('E = mc²',words)
         self.assertIn('Artemis II',words)
         self.assertEqual(' '.join(words),text)
+        annotation='tak tam [nezrozumiteľné], tak tá vrtuľa'
+        self.assertEqual(' '.join(finalize.atoms(annotation)),annotation)
 
     def test_building_exact_index_does_not_dirty_shared_matrix_input(self):
         with tempfile.TemporaryDirectory() as name:

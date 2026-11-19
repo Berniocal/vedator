@@ -843,5 +843,49 @@
   "recovered": [],
   "followupReviewFile": "captions/source/episode-361-youtube-followup-audio.json",
   "followupReviewSha256": "40932b4ecd3d0e95540b92298d522b7ba162ab2997f9b3a9dc4408f12bed7408",
-  "contrastReviewSha256": "e95f52749e01aafa58c0547f04e6b87d86f12b168fcb4f7e1a46210f3972d36b"
+  "contrastReviewSha256": "e95f52749e01aafa58c0547f04e6b87d86f12b168fcb4f7e1a46210f3972d36b",
+  "lowScoreAcceptance": {
+    "63": {
+      "textSk": "Vzdialenosť je dosť problematická,",
+      "independentCtcDecode": "ta predu pomrne pomali a až dysviešti robymeňake svoje väsie tak žer se lám plnako za čo na ťauať ní ale noprc dvysdruky nale dostrumomaticku is do  rostro  tníske i ale tk zdenaj  ale riadita  ju mál ma tej soj lastne žiod juma i nač učí na niže učíl ale al hej ale nastupu tím  ci sárol potomok",
+      "reason": "The original YouTube source repeats Vzdialenosť je dosť problematická as a brief reply. Both no-VAD checks retain problematické, but the quiet overlapping beginning is poorly decoded. Preserve the source phrase and the measured span without inventing a different noun.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    },
+    "194": {
+      "textSk": "Nič príjemné. Nie, neznie to moc príjemne. Hej, takže to je ešte také zaujímavé.",
+      "independentCtcDecode": "nane ni inizde tovľap rializedliv ich ihehe r t to j  take z akvataužfmánoo voreo nevtých svojec knižkaužobovnakom takom tankum hnu  liže g alea teda ik dopojem k tomho že tepadľamňa césno znem noci to po češtych o pätych ľodi za aniso hluúčinej a zabe keďde faktichot",
+      "reason": "Original captions retain neznie to moc príjemne and the following interesting remark. Two no-VAD recognizers independently recover the overlapping pleasant/unpleasant reply with word errors; keep the reviewed source wording rather than changing the negation from noisy CTC.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    },
+    "199": {
+      "textSk": "Že fakt. No, neviem. Niekto dole ide, že \"Ó, čo sa rozprávajú?\"",
+      "independentCtcDecode": "tak tak tak máž to počuj ďale keď b tobol cezden takt prose fto m ruchu sa to podlorne starať tešetkomlepší pomer sí k melo o sumu hodborné pohvedám teke by som sal zaragovať na to to tak pocete aj vnoci jato ža j nepočiť to ča sa mi rozsprávame vyzbevon du fňa no chnehdô dzôlejudujú žo uč usí rostrue",
+      "reason": "The original captions and both independent no-VAD checks support the main Niekto dole ide / čo sa rozprávajú clause. The distant speaker and overlap depress the Slovak CTC score; retain the short original reply, without claiming a fully independent listening check.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    },
+    "202": {
+      "textSk": "Spravte si experiment, choď sa dole rozprávať. A potom nám dáš vedieť, že ako to dopadlo.",
+      "independentCtcDecode": "a agáno tak nhnáv napošed oj mrehla ic re žežedževáz potu vajú ľádzrši je k peri veľch cu dolor ôspracnovudo vľom vbež veduje žect bonu vyrazni efe ctohodo a nastéo poschodaže keťa aktera agje to prípad blokových blokovej uliceže keť je do uhluk takontoste vie ska u jažhore poodrá žas",
+      "reason": "Both independent no-VAD checks recover Spravte si experiment, choď sa dole rozprávať and the promise to report the outcome. The quiet overlapping response has low CTC confidence but corroborated wording.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    },
+    "360": {
+      "textSk": "Ale toto bude taká zvláštna otázka. Alebo chcem počuť tvoju odpoveď.",
+      "independentCtcDecode": "hoto tv toshlačnáu taska obo cem ť sho iho ttzaťa seja mysolím as me sa takhadaliska marátom že te dže d anšte naje t tk tak lasiká aje i nukom a podme takvántová teda okvantové je taka predstava kvantová mechanika že tovlasita náhodnosťt",
+      "reason": "Original captions and both independent no-VAD checks recover the unusual-question introduction. Preserve the source request for an answer; the distant microphone yields low phoneme confidence.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    },
+    "484": {
+      "textSk": "Ja som počul, vraj je rýchlejšia, ale neviem, nedáva mi zmysel, že si to myslím.",
+      "independentCtcDecode": "h s v bod uzedvzoglidz rýklisa lným metu nimovadz výsa liei tu viežide si u demožo pražeterý chrešše presa tiže svietižže svietíž  na mesiacveľmy slo va trku a hybežšním svetlom tato svetlo potom povruchu viei s nadsvetenou rýchlosťuk",
+      "reason": "The original YouTube captions supply the full short response about hearing that darkness is faster. Both independent no-VAD checks retain the hearing/rýchlejšia response but lose quiet words; preserve the source wording and its uncertainty instead of inventing another explanation.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    },
+    "497": {
+      "textSk": "Majte sa veľmi pekne. Majte.",
+      "independentCtcDecode": "ládzecovo víbe klajte f",
+      "reason": "Independent large-v3 without VAD recognizes Majte sa veľmi pekne; original captions also retain the short second Majte. Music/overlap and the very short signoff cause low CTC confidence.",
+      "evidenceFile": "captions/source/episode-361-youtube-followup-audio.json"
+    }
+  }
 }
