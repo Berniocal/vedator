@@ -7,7 +7,7 @@ const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const assert=(condition,message)=>{if(!condition)throw new Error(message)};
 
 assert(app.includes('V2_CARD_PLAYER_POLISH_V1'),'Card/player polish marker missing');
-assert(app.includes("audio.paused?'▶':'Ⅱ'"),'Pause icon is not two vertical lines');
+assert(app.includes("const playSymbol=playing?'❚❚':'▶'"),'Pause icon is not two vertical lines');
 assert(app.includes("text('Pokračovat','Pokračovať')"),'Simple continue label missing');
 assert(app.includes("text('Číst více','Čítať viac')"),'Episode read-more label missing');
 assert(app.includes('cardPolishCutDescription'),'SME search/display cutoff helper missing');
@@ -60,7 +60,7 @@ assert(updated.querySelector('.desc-v2').textContent.length>before,'Expanded des
 assert(updated.querySelector('.episode-summary-slot-v2').compareDocumentPosition(updated.querySelector('.actions'))&window.Node.DOCUMENT_POSITION_FOLLOWING,'Expanded summary moved below actions');
 
 const play=window.document.querySelector('#episodes-v2 .episode-card-v2 .play');play.click();await new Promise(resolve=>setTimeout(resolve,30));
-assert(window.document.querySelector('#player-play-v2').textContent==='Ⅱ','Playing player should show two vertical pause lines');
+assert(window.document.querySelector('#player-play-v2').textContent==='❚❚','Playing player should show two vertical pause lines');
 
 const style=window.document.querySelector('style[data-v2-card-player-polish]');
 assert(style?.textContent.includes('.player-shell')&&style.textContent.includes('color-mix'),'Slight purple player background style missing');
