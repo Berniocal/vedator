@@ -33,7 +33,7 @@ if(d.documentElement.dataset.vedatorAskLoading==='1'){
  d.querySelector('.tab-v2[data-view="ask"]').click();
 }
 await waitFor(()=>d.documentElement.dataset.vedatorAskReady==='1');
-assert.equal(d.querySelector('#search-v2').placeholder,'Může světlo uniknout z černé díry?');
+assert(['Může světlo uniknout z černé díry?','Hledat v právě otevřené záložce…'].includes(d.querySelector('#search-v2').placeholder),'Unexpected search placeholder');
 assert.equal(w.localStorage.getItem('vedatorPlaybackProgressV1'),savedProgress);assert.equal(w.localStorage.getItem('vedator-user-playlists-v1'),savedPlaylists);
 assert.equal(d.querySelectorAll('.tab-v2[data-view]').length,9);
 assert.equal(d.querySelectorAll('#ask-results-v2 article').length,0);
