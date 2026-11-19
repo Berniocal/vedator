@@ -60,6 +60,7 @@ assert(patched.includes('VedatorSlibyLinks.apply(D,'));
 assert(patched.indexOf('src="link-promises.js')<patched.indexOf('VedatorSlibyLinks.apply(D,'));
 assert(patched.includes("section.id==='links'?'Odkazy'"));
 assert(patched.includes("r.linkReview?.resources||[]"),'Search includes promised resource names');
+assert(patched.includes("addEventListener(id==='q'?'input':'change',()=>render())"),'Search and status changes must use the current renderer');
 new vm.Script(patched.match(/<script>([\s\S]*?)<\/script>/)[1]);
 assert.equal(patchReport(patched),patched);
 const manual={};vm.runInNewContext(fs.readFileSync('sliby/admin-status.js','utf8'),manual);

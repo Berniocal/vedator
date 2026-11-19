@@ -26,6 +26,10 @@ function patchReport(html) {
       "section.id==='episodes'?'Epizody':section.id==='links'?'Odkazy':'Ostatní'");
   one(" const fields=[['Téma',findingTitle(r),0,r]",
       " const fields=[...(r.linkReview?.resources||[]).map(resource=>['Odkaz',resource.label+' '+resource.url,1,r]),['Téma',findingTitle(r),0,r]");
+  // Resolve the current renderer at event time. Passing the initial function
+  // directly brought back legacy cards after searching or changing status.
+  one("for(const id of ['q','status'])el(id).addEventListener(id==='q'?'input':'change',render);",
+      "for(const id of ['q','status'])el(id).addEventListener(id==='q'?'input':'change',()=>render());");
   one("  if(r.mergeNote)details.append(hitNode('p',r.mergeNote,'personal-note'));",
       "  if(r.mergeNote)details.append(hitNode('p',r.mergeNote,'personal-note'));\n"+
       "  if(r.adminNote)details.append(hitNode('p','Ruční ověření: '+r.adminNote,'personal-note'));");
