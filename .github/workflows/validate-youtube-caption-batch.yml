@@ -35,6 +35,8 @@ jobs:
           node-version: '24'
       - name: Verify source deduplication and bilingual two-line layout
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
           python tools/test-youtube-caption-batch.py
           python tools/test-youtube-caption-layout.py
       - name: Verify publication gates and every spoken group

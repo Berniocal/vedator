@@ -1,11 +1,6 @@
 name: Compare disputed caption wordings acoustically
 on:
-  push:
-    branches: [captions/finish-youtube-363-361-20261119]
-    paths:
-      - tools/check-youtube-caption-contrasts.py
-      - .github/workflows/check-youtube-caption-contrasts.yml
-      - captions/source/episode-36*-youtube-contrast-requests.json
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:

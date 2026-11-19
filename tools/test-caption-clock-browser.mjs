@@ -45,8 +45,9 @@ const server=http.createServer((req,res)=>{
     assert(code.includes(marker));
     code=code.replace(marker,String.raw`  window.__captionTest={
       open:(number,start=0,continuous=false)=>{
-        const episode=state.data.episodes.find(e=>e.number===number);
-        const items=[number,number===Math.max(...state.data.episodes.map(e=>e.number))?1:number+1].map(n=>({episode:state.data.episodes.find(e=>e.number===n),ref:epRef(n)}));
+        const available=[...state.data.episodes].sort((a,b)=>a.number-b.number);
+        const index=available.findIndex(e=>e.number===number),episode=available[index];
+        const items=[episode,available[(index+1)%available.length]].map(e=>({episode:e,ref:epRef(e.number)}));
         youtubeEnabled=false;
         return openPlayback(episode,{start,autoplay:true,context:continuous?{type:'episodes',label:'Test',index:0,items}:null});
       },
