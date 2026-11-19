@@ -62,6 +62,7 @@ try{
     HTMLMediaElement.prototype.pause=()=>{};
     HTMLMediaElement.prototype.load=function(){queueMicrotask(()=>this.dispatchEvent(new Event('loadedmetadata')))};
     Object.defineProperty(HTMLMediaElement.prototype,'duration',{configurable:true,get:()=>7200});
+    Object.defineProperty(HTMLMediaElement.prototype,'readyState',{configurable:true,get:()=>4});
   });
   await page.goto(origin+'/#episode=153',{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>document.documentElement.dataset.vedatorV2Ready==='1');
