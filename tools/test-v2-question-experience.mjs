@@ -6,6 +6,16 @@ const app=fs.readFileSync('app-v2.js','utf8');
 const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const dom=new JSDOM(html,{url:'https://example.test/v2.html',runScripts:'outside-only',pretendToBeVisual:true});
 const {window}=dom;
+window.XMLHttpRequest=class LocalV2CatalogXHR{
+  open(_method,url){this.url=url}
+  send(){
+    Promise.resolve(window.fetch(this.url)).then(response=>response.json()).then(catalog=>{
+      this.status=200;this.responseText=JSON.stringify(catalog);
+      this.onprogress?.({lengthComputable:true,loaded:this.responseText.length,total:this.responseText.length});
+      this.onload?.();
+    }).catch(error=>this.onerror?.(error));
+  }
+};
 window.fetch=async()=>({ok:true,status:200,json:async()=>data});
 window.HTMLMediaElement.prototype.play=()=>Promise.resolve();
 window.HTMLMediaElement.prototype.pause=()=>{};

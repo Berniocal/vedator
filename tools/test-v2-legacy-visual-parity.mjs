@@ -35,6 +35,16 @@ window.HTMLMediaElement.prototype.play=function(){Object.defineProperty(this,'pa
 window.HTMLMediaElement.prototype.pause=function(){Object.defineProperty(this,'paused',{value:true,configurable:true});this.dispatchEvent(new window.Event('pause'))};
 Object.defineProperty(window.navigator,'mediaSession',{value:{setActionHandler:()=>{},setPositionState:()=>{},metadata:null},configurable:true});
 window.MediaMetadata=function(value){Object.assign(this,value)};
+window.XMLHttpRequest=class LocalV2CatalogXHR{
+  open(_method,url){this.url=url}
+  send(){
+    Promise.resolve(window.fetch(this.url)).then(response=>response.json()).then(catalog=>{
+      this.status=200;this.responseText=JSON.stringify(catalog);
+      this.onprogress?.({lengthComputable:true,loaded:this.responseText.length,total:this.responseText.length});
+      this.onload?.();
+    }).catch(error=>this.onerror?.(error));
+  }
+};
 window.fetch=async url=>String(url).includes('content-v2.json')?{ok:true,status:200,json:async()=>data}:{ok:false,status:404};
 
 const ready=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('ready timeout')),5000);window.addEventListener('vedator-v2-ready',()=>{clearTimeout(timer);resolve()},{once:true})});
