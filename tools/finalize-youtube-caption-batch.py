@@ -300,9 +300,14 @@ def align(number):
     batch.write(CAP/f'episode-{number}.review.json',report)
     # Save the exact index per episode, avoiding matrix writes to a shared file.
     audio_path=Path(__import__('os').environ.get('VEDATOR_BATCH_AUDIO','/tmp/vedator-youtube-batch-audio'))/f'episode-{number}.mp3'
-    subprocess.run(['node',str(ROOT/'tools/build-mp3-seek-index.mjs'),str(audio_path),proof['audio']],cwd=ROOT,check=True)
-    index=batch.read(ROOT/'audio-seek-index.json')['entries'][proof['audio']]
-    batch.write(SOURCE/f'episode-{number}-youtube-seek-index.json',{'audio':proof['audio'],'audioSha256':proof['audioSha256'],'index':index})
+    shared_index=ROOT/'audio-seek-index.json'
+    original_index=shared_index.read_bytes()
+    try:
+        subprocess.run(['node',str(ROOT/'tools/build-mp3-seek-index.mjs'),str(audio_path),proof['audio']],cwd=ROOT,check=True)
+        index=batch.read(shared_index)['entries'][proof['audio']]
+        batch.write(SOURCE/f'episode-{number}-youtube-seek-index.json',{'audio':proof['audio'],'audioSha256':proof['audioSha256'],'index':index})
+    finally:
+        shared_index.write_bytes(original_index)
     print(json.dumps(report,ensure_ascii=False),flush=True)
 
 

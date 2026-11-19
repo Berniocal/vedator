@@ -1,0 +1,15 @@
+name: Stop obsolete caption alignment attempt
+on:
+  push:
+    branches: [captions/youtube-batch-363-361-20261119]
+    paths: [.github/workflows/stop-obsolete-caption-align.yml]
+permissions:
+  actions: write
+jobs:
+  stop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stop only the superseded attempt with the corrected saving step
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST repos/Berniocal/vedator/actions/runs/44475358671/cancel || true
