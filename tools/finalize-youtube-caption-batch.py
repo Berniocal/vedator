@@ -174,7 +174,7 @@ def save_seek_index(number,proof,audio_path):
         shared_index.write_bytes(original_index)
 
 
-def align(number):
+def align(number, shard_index=None, shard_count=1, assemble_shards=0):
     import numpy as np
     import torch
     import torchaudio
@@ -183,6 +183,22 @@ def align(number):
     groups, resolutions = reviewed_groups(number)
     proof, wave = audio.source_audio(number)
     final_path=SOURCE/f'episode-{number}-youtube-final-alignment.json'
+    if assemble_shards:
+        collected={}
+        for index in range(assemble_shards):
+            part=batch.read(SOURCE/f'episode-{number}-youtube-final-alignment-shard-{index}.json')
+            assert part['audioSha256']==proof['audioSha256']
+            assert part['shardIndex']==index and part['shardCount']==assemble_shards
+            for entry in part['groups']:
+                key=str(entry['group'])
+                assert key not in collected, ('Duplicate shard group', key)
+                collected[key]=entry
+        expected={str(g['group']) for g in groups if not re.fullmatch(r'(?:\[[^\]]+\]\s*)+',g['text']['sk'])}
+        assert set(collected)==expected, 'Incomplete acoustic shards'
+        batch.write(final_path,{'episode':number,'audioSha256':proof['audioSha256'],'groups':list(collected.values())})
+    if shard_index is not None:
+        assert 0<=shard_index<shard_count
+        final_path=SOURCE/f'episode-{number}-youtube-final-alignment-shard-{shard_index}.json'
     previous=batch.read(final_path) if final_path.exists() else {}
     cache={str(g['group']):g for g in previous.get('groups',[])} if previous.get('audioSha256')==proof['audioSha256'] else {}
     models={}
@@ -204,7 +220,11 @@ def align(number):
         chunks[-1].append(g)
     aligned={}
     audit={'episode':number,'model':audio.ALIGN_MODEL,'audioSha256':proof['audioSha256'],'groups':[]}
+    if shard_index is not None:
+        audit.update(shardIndex=shard_index,shardCount=shard_count)
     for ci,chunk in enumerate(chunks):
+        if shard_index is not None and ci%shard_count!=shard_index:
+            continue
         legacy_key=hashlib.sha256(json.dumps(chunk,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
         language=chunk[0].get('sourceLanguage','sk')
         name,processor,model=model_for(language)
@@ -246,9 +266,11 @@ def align(number):
                 owners=[w for w,owner in zip(word_owners,chunk_owners) if owner==ri]
                 speech=[c for c in chars if c['token']!=vocab[delimiter]]
                 aligned[str(g['group'])]={'group':g['group'],'textSk':sk,'model':name,'chunkKey':key,'independentCtcDecode':independent_decode,'chunkWindow':[round(a,3),round(b,3)],'alignmentText':' '.join(spoken),'start':speech[0]['start'],'end':speech[-1]['end'],'meanCharacterScore':round(float(np.mean([c['score'] for c in speech])),4),'characters':chars,'wordOwners':owners}
-        audit['groups']=[aligned[str(g['group'])] for chunk_done in chunks[:ci+1] for g in chunk_done]
+        audit['groups']=list(aligned.values())
         batch.write(final_path,audit)
         print(f'JOINT ALIGN {number}: {ci+1}/{len(chunks)}',flush=True)
+    if shard_index is not None:
+        return
     cues=[];omitted=[]
     audit['groups']=[]
     for gi,g in enumerate(groups):
@@ -322,4 +344,7 @@ def align(number):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('episode',type=int)
-    align(parser.parse_args().episode)
+    parser.add_argument('--shard-index',type=int)
+    parser.add_argument('--shard-count',type=int,default=1)
+    parser.add_argument('--assemble-shards',type=int,default=0)
+    args=parser.parse_args();align(args.episode,args.shard_index,args.shard_count,args.assemble_shards)
