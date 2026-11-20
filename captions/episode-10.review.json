@@ -1,0 +1,31 @@
+{
+  "episode": 10,
+  "cueCount": 296,
+  "asrWordCount": 3072,
+  "audioSha256": "b4d944a41aa46e581453305f60bde676fd920e5a1bf5262999e2ec417f162c7e",
+  "lowScoreCues": [
+    {
+      "cue": 14,
+      "start": 72.24,
+      "end": 72.442,
+      "meanCharacterScore": 0.2668,
+      "asrStart": 72.01,
+      "asrEnd": 72.53,
+      "alignmentText": "Fúha."
+    },
+    {
+      "cue": 85,
+      "start": 383.809,
+      "end": 384.114,
+      "meanCharacterScore": 0.3271,
+      "asrStart": 383.78,
+      "asrEnd": 384.0,
+      "alignmentText": "Áno."
+    }
+  ],
+  "maxBoundaryChange": 2.9909999999999854,
+  "status": "editorially-reviewed-acoustically-aligned-with-documented-short-utterance-exceptions",
+  "editorialReviewFile": "captions/source/episode-10-final-editorial-review.json",
+  "humanListeningVerified": false,
+  "youtubeAudioCompared": false
+}

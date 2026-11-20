@@ -1,0 +1,71 @@
+name: Validate episode 10 captions before release
+on:
+  push:
+    branches: [captions/episode-10-precise-20261118]
+    paths:
+      - 'captions/episode-10.json'
+      - 'captions/episode-10.cs.srt'
+      - 'captions/episode-10.sk.srt'
+      - 'captions/episode-10.review.json'
+      - 'captions/source/episode-10-alignment.json'
+      - 'audio-seek-index.json'
+      - 'episode-videos.json'
+      - tools/validate-episode10-captions.py
+      - .github/workflows/validate-episode10-captions.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - 'captions/episode-10*'
+      - 'captions/source/episode-10*'
+      - tools/validate-episode10-captions.py
+      - episode-videos.json
+      - audio-seek-index.json
+      - .github/workflows/validate-episode10-captions.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Ensure reviewed bilingual subtitle files exist
+        run: |
+          test -s captions/episode-10.json
+          test -s captions/episode-10.edited.json
+          test -s captions/episode-10.cs.srt
+          test -s captions/episode-10.sk.srt
+          test -s captions/episode-10.review.json
+          test -s captions/source/episode-10-draft.sk.json
+          test -s captions/source/episode-10-alignment.json
+          test -s captions/source/episode-10-low-ctc-raw-decode.json
+          test -s captions/source/episode-10-reviewed-low-score.json
+          test -s captions/source/episode-10-cs-editorial-patches.json
+      - name: Download and authenticate original episode 10 MP3
+        run: |
+          mkdir -p "$RUNNER_TEMP/caption-ep10-audio"
+          python - <<'PY'
+          import json, subprocess, os
+          src = json.load(open('captions/episode-10.json'))['source']
+          subprocess.run(['curl','--fail','--location','--retry','3','--max-time','180',
+                          src['audio'],'-o',os.environ['RUNNER_TEMP']+'/caption-ep10-audio/episode-10.mp3'], check=True)
+          PY
+      - name: Verify all source hashes, words, timings, CTC scores, SRTs and seek index
+        run: python tools/validate-episode10-captions.py --audio "$RUNNER_TEMP/caption-ep10-audio/episode-10.mp3"
+      - name: Rebuild content and check application scripts
+        run: |
+          node tools/build-content-v2.mjs
+          node --check app-v2.js
+      - name: Verify production cache build
+        run: |
+          node tools/prepare-production-index.mjs
+          node tools/build-production-sw.mjs
+          node --check sw.js
+          node tools/test-production-pwa.mjs

@@ -1,0 +1,26 @@
+{
+  "episode": 10,
+  "audioSha256": "b4d944a41aa46e581453305f60bde676fd920e5a1bf5262999e2ec417f162c7e",
+  "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+  "method": "raw-argmax-decoding-without-forced-expected-text",
+  "passages": [
+    {
+      "start": 71.1,
+      "end": 73.15,
+      "expected": "Fúha",
+      "ctcGreedyText": "lnihek fuá"
+    },
+    {
+      "start": 382.6,
+      "end": 385.0,
+      "expected": "Áno",
+      "ctcGreedyText": "ltopyť anak žéň"
+    },
+    {
+      "start": 1234.2,
+      "end": 1239.3,
+      "expected": "ďalej",
+      "ctcGreedyText": "ktor na ktoru by mulizačať pracvoď omohúdrímže súdení za ľady ale dufalbuforgufoli na"
+    }
+  ]
+}

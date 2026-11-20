@@ -3,6 +3,8 @@ on:
   push:
     branches: [main, fix/captions-mp3-clock-20261116, captions/episode-5-precise-20261116, fix/episode-5-mp3-source-20261117, captions/episode-6-precise-20261117, captions/episode-7-precise-20261117, captions/episode-7-finish-20261117, captions/episode-8-precise-20261117]
     paths:
+      - tools/download-caption-reference.py
+      - tools/test-download-caption-reference.py
       - app-v2.js
       - episode-videos.json
       - 'captions/episode-*.json'
@@ -14,6 +16,8 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - tools/download-caption-reference.py
+      - tools/test-download-caption-reference.py
       - app-v2.js
       - episode-videos.json
       - 'captions/**'
@@ -37,6 +41,8 @@ jobs:
         run: |
           node tools/build-content-v2.mjs
           node --check app-v2.js
+      - name: Verify authenticated range downloader
+        run: python3 tools/test-download-caption-reference.py
       - name: Download original caption source MP3s
         run: |
           mkdir -p "$RUNNER_TEMP/caption-audio"
@@ -48,6 +54,7 @@ jobs:
             const e=data.episodes.find(e=>e.number===n);
             console.log(JSON.stringify({episode:n,enclosure:e.enclosure,captionFile:e.captionFile}));
             if(e.audioFile){fs.copyFileSync(e.audioFile,process.env.RUNNER_TEMP+'/caption-audio/episode-'+n+'.mp3');continue}
+            if(n===9){execFileSync('python3',['tools/download-caption-reference.py','--episode','9','--output',process.env.RUNNER_TEMP+'/caption-audio/episode-9.mp3'],{stdio:'inherit'});continue}
             execFileSync('curl',['--fail','--location','--retry','3','--max-time','120',e.enclosure,'-o',process.env.RUNNER_TEMP+'/caption-audio/episode-'+n+'.mp3'],{stdio:'inherit'});
           }
           JS

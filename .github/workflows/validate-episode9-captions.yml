@@ -3,6 +3,8 @@ on:
   push:
     branches: [captions/episode-9-precise-20261117]
     paths:
+      - tools/download-caption-reference.py
+      - tools/test-download-caption-reference.py
       - 'captions/episode-9.json'
       - 'captions/episode-9.cs.srt'
       - 'captions/episode-9.sk.srt'
@@ -13,6 +15,8 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - tools/download-caption-reference.py
+      - tools/test-download-caption-reference.py
       - 'captions/episode-9*'
       - 'captions/source/episode-9*'
       - tools/validate-episode9-captions.py
@@ -46,12 +50,7 @@ jobs:
       - name: Download and authenticate original episode 9 MP3
         run: |
           mkdir -p "$RUNNER_TEMP/caption-ep9-audio"
-          python - <<'PY'
-          import json, subprocess, os
-          src = json.load(open('captions/episode-9.json'))['source']
-          subprocess.run(['curl','--fail','--location','--retry','3','--max-time','180',
-                          src['audio'],'-o',os.environ['RUNNER_TEMP']+'/caption-ep9-audio/episode-9.mp3'], check=True)
-          PY
+          python3 tools/download-caption-reference.py --episode 9 --output "$RUNNER_TEMP/caption-ep9-audio/episode-9.mp3"
       - name: Verify all source hashes, words, timings, CTC scores, SRTs and seek index
         run: python tools/validate-episode9-captions.py --audio "$RUNNER_TEMP/caption-ep9-audio/episode-9.mp3"
       - name: Rebuild content and check application scripts

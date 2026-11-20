@@ -1,0 +1,2949 @@
+{
+  "episode": 10,
+  "sourceAudioSha256": "b4d944a41aa46e581453305f60bde676fd920e5a1bf5262999e2ec417f162c7e",
+  "model": "facebook/nllb-200-distilled-600M",
+  "status": "unreviewed-machine-translation-draft-do-not-publish",
+  "warning": "Input is UNEDITED ASR. The Czech output may be wrong or missing text. Must be corrected against editorial Slovak transcription and source audio, then independently aligned.",
+  "cues": [
+    {
+      "start": 11.57,
+      "end": 16.97,
+      "asrWordRange": [
+        0,
+        12
+      ],
+      "originalSk": "Od hibernácie cez Hamiltonian až po hyperboli. Veda nás obklopuje na každom",
+      "draftCs": "Od hibernace přes Hamiltonian až po hyperbol. Věda nás obklopuje o každém."
+    },
+    {
+      "start": 16.97,
+      "end": 22.25,
+      "asrWordRange": [
+        12,
+        25
+      ],
+      "originalSk": "kroku. Vítajte pri Vedatorskom podcaste, v ktorom budeme diskutovať o vede a prírode",
+      "draftCs": "Vítejte na podcastu Vedator, kde budeme diskutovat o vědě a přírodě."
+    },
+    {
+      "start": 22.25,
+      "end": 25.35,
+      "asrWordRange": [
+        25,
+        34
+      ],
+      "originalSk": "okolo nás. Moje meno je Jozef. Ja som Samuel.",
+      "draftCs": "Jmenuji se Josef. Jmenuji se Samuel."
+    },
+    {
+      "start": 26.78,
+      "end": 31.42,
+      "asrWordRange": [
+        34,
+        41
+      ],
+      "originalSk": "Ahoj Samuel, dnes máme výročný podcast, 10.",
+      "draftCs": "Ahoj, Samuele, dnes máme výroční podcast, 10."
+    },
+    {
+      "start": 32.88,
+      "end": 38.02,
+      "asrWordRange": [
+        41,
+        50
+      ],
+      "originalSk": "výdanie. 10. výročie, hej. 10. výročie výdávania nášho podcastu.",
+      "draftCs": "vydání. 10. výročí, ano. 10. výročí vydání našeho podcastu."
+    },
+    {
+      "start": 39.2,
+      "end": 42.28,
+      "asrWordRange": [
+        50,
+        57
+      ],
+      "originalSk": "Ale nesrandujem, je to náš 10. podcast.",
+      "draftCs": "Ale ne, to je náš 10. podcast."
+    },
+    {
+      "start": 45.32,
+      "end": 50.6,
+      "asrWordRange": [
+        57,
+        67
+      ],
+      "originalSk": "Gratulujem, všetko najlepšie Vedatorsky podcast. A sme už v dvojčíselných",
+      "draftCs": "Gratuluji vám, velmi dobré Vedatorské podcasty. A už jsme ve dvou číselných číslech."
+    },
+    {
+      "start": 50.6,
+      "end": 55.98,
+      "asrWordRange": [
+        67,
+        75
+      ],
+      "originalSk": "číslach, ale teraz dôležitejšia vec. Dali sme na",
+      "draftCs": "Čísla, ale teď důležitější věc."
+    },
+    {
+      "start": 55.98,
+      "end": 61.04,
+      "asrWordRange": [
+        75,
+        85
+      ],
+      "originalSk": "Facebooku ľuďom možno zahlasovať alebo návrhnuť tému nášho 10. podcastu.",
+      "draftCs": "Lidé na Facebooku mohou hlasovat nebo navrhovat téma našeho 10. podcastu."
+    },
+    {
+      "start": 61.04,
+      "end": 66.46,
+      "asrWordRange": [
+        85,
+        98
+      ],
+      "originalSk": "a vybrali nám Hyksov bozon. Veľmi veľa ľudí to zaujímalo a ideme sa",
+      "draftCs": "Velmi mnoho lidí se zajímalo o to a my jdeme."
+    },
+    {
+      "start": 66.46,
+      "end": 67.9,
+      "asrWordRange": [
+        98,
+        104
+      ],
+      "originalSk": "dneska o ňom rozprávať. Češí sa?",
+      "draftCs": "Dneska o něm mluvíme."
+    },
+    {
+      "start": 69.47,
+      "end": 69.75,
+      "asrWordRange": [
+        104,
+        105
+      ],
+      "originalSk": "Nie.",
+      "draftCs": "Ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne, ne"
+    },
+    {
+      "start": 70.87,
+      "end": 71.35,
+      "asrWordRange": [
+        105,
+        106
+      ],
+      "originalSk": "Nie?",
+      "draftCs": "Ne, ne? Ne, ne, ne."
+    },
+    {
+      "start": 72.01,
+      "end": 72.53,
+      "asrWordRange": [
+        106,
+        107
+      ],
+      "originalSk": "Fúha.",
+      "draftCs": "Vypouští se."
+    },
+    {
+      "start": 73.53,
+      "end": 78.53,
+      "asrWordRange": [
+        107,
+        121
+      ],
+      "originalSk": "Tak už nedávame o ľuďom nikdy hlasovať. Mne totiž táto téma napadla už dávno,",
+      "draftCs": "Takže už nikdy nehlasujeme o lidech."
+    },
+    {
+      "start": 78.67,
+      "end": 83.98,
+      "asrWordRange": [
+        121,
+        132
+      ],
+      "originalSk": "lebo bola za to Nobelová cena, úplne to preletilo všetkými médiami.",
+      "draftCs": "Protože za to získala Nobelovu cenu, to se úplně rozeslalo ve všech médiích."
+    },
+    {
+      "start": 84.52,
+      "end": 89.94,
+      "asrWordRange": [
+        132,
+        145
+      ],
+      "originalSk": "Úplne, že boli roky, kedy všetci poznali slovné spojenie Hyksov bozon a nikto",
+      "draftCs": "Bylo to celé roky, kdy všichni znali slovo Hyksův boson a nikdo"
+    },
+    {
+      "start": 89.94,
+      "end": 94.86,
+      "asrWordRange": [
+        145,
+        160
+      ],
+      "originalSk": "absolútne netušil, čo to znamená. A dovolť na to je taký, že pomerne ťažko sa",
+      "draftCs": "Neměl vůbec ponětí, co to znamená."
+    },
+    {
+      "start": 94.86,
+      "end": 99.34,
+      "asrWordRange": [
+        160,
+        176
+      ],
+      "originalSk": "vysvetľuje, čo to vlastne je. Preto som sa do toho moc nechcel púšťať v podcaste, ale",
+      "draftCs": "To je důvod, proč jsem se do toho nechtěl příliš zapojit."
+    },
+    {
+      "start": 99.34,
+      "end": 102.76,
+      "asrWordRange": [
+        176,
+        188
+      ],
+      "originalSk": "keď nás posluchači presvedčili, že ich to zaujíma, tak sa teda pokúsime.",
+      "draftCs": "Když nás naši posluchači přesvědčí, že se o to zajímá, tak to zkusíme."
+    },
+    {
+      "start": 103.86,
+      "end": 109.24,
+      "asrWordRange": [
+        188,
+        200
+      ],
+      "originalSk": "Pokúsime, áno. Tak začneme úplne tou najzakladnejšou vecou, čo je to Hyksov",
+      "draftCs": "Začněme tím nejzákladnějším, což je Hyksov."
+    },
+    {
+      "start": 109.24,
+      "end": 112.88,
+      "asrWordRange": [
+        200,
+        211
+      ],
+      "originalSk": "bozon. Keď si to tak nechcel vysvetľovať, tak skús to teraz.",
+      "draftCs": "Jestli jsi to nechtěl vysvětlit, tak to zkus teď."
+    },
+    {
+      "start": 113.93,
+      "end": 118.81,
+      "asrWordRange": [
+        211,
+        221
+      ],
+      "originalSk": "Takže Hyksov bozon je elementárna častica, ktorá je súčasťou tzv.",
+      "draftCs": "Takže Hyksův boson je elementární částice, která je součástí tzv."
+    },
+    {
+      "start": 119.67,
+      "end": 124.45,
+      "asrWordRange": [
+        221,
+        231
+      ],
+      "originalSk": "štandardného modelu časticovej fyziky, ktorá opisuje zloženie hmoty okolo nás.",
+      "draftCs": "Standardní model částicové fyziky, který popisuje složení hmoty kolem nás."
+    },
+    {
+      "start": 125.58,
+      "end": 130.12,
+      "asrWordRange": [
+        231,
+        249
+      ],
+      "originalSk": "To nebolo také zle, nie? To sa ešte dalo rozumieť. To sa dalo, to som tomu myslím, že",
+      "draftCs": "To nebylo tak špatné, že? To bylo pochopitelné."
+    },
+    {
+      "start": 130.12,
+      "end": 131.2,
+      "asrWordRange": [
+        249,
+        252
+      ],
+      "originalSk": "až moc rozumel.",
+      "draftCs": "až příliš pochopil."
+    },
+    {
+      "start": 132.84,
+      "end": 135.16,
+      "asrWordRange": [
+        252,
+        261
+      ],
+      "originalSk": "To sa budem snažiť, aby si rozumel menej teda.",
+      "draftCs": "Tak to se snažím méně pochopit."
+    },
+    {
+      "start": 136.62,
+      "end": 141.34,
+      "asrWordRange": [
+        261,
+        277
+      ],
+      "originalSk": "Nie, nie, musíme, aby tomu každý rozumel, a keď tomu ja rozumiem, tak ja verím, že",
+      "draftCs": "Ne, ne, každý to musí pochopit, a když to chápu já, věřím, že"
+    },
+    {
+      "start": 141.34,
+      "end": 142.44,
+      "asrWordRange": [
+        277,
+        281
+      ],
+      "originalSk": "každý tomu bude rozumieť.",
+      "draftCs": "Každý to pochopí."
+    },
+    {
+      "start": 143.36,
+      "end": 148.26,
+      "asrWordRange": [
+        281,
+        294
+      ],
+      "originalSk": "Povedzme si, použil si také spojenie, že elementárna častica. Môžem si pod tým",
+      "draftCs": "Řekněme, že jste použili spojení, které je elementární částice."
+    },
+    {
+      "start": 148.26,
+      "end": 152.08,
+      "asrWordRange": [
+        294,
+        303
+      ],
+      "originalSk": "predstavovať atom, elektrón, proton. Čo je to elementárna častica?",
+      "draftCs": "Je to atom, elektron, proton. Co je to elementární částice?"
+    },
+    {
+      "start": 154.05,
+      "end": 156.33,
+      "asrWordRange": [
+        303,
+        309
+      ],
+      "originalSk": "Takže spomenul som, že štandardný model.",
+      "draftCs": "Takže jsem zmínil, že standardní model."
+    },
+    {
+      "start": 157.09,
+      "end": 160.39,
+      "asrWordRange": [
+        309,
+        318
+      ],
+      "originalSk": "Štandardný model je v prvom rade strašne hlúpe označenie.",
+      "draftCs": "Standardní model je v první řadě strašně hloupá označení."
+    },
+    {
+      "start": 161.22,
+      "end": 166.56,
+      "asrWordRange": [
+        318,
+        331
+      ],
+      "originalSk": "Je o súbor častíc a ich interakcií. Teda častíc, ktoré tvoria hmotu a",
+      "draftCs": "Je to soubor částic a jejich interakce, tedy částice, které tvoří hmotu a"
+    },
+    {
+      "start": 166.56,
+      "end": 168.38,
+      "asrWordRange": [
+        331,
+        336
+      ],
+      "originalSk": "interakcie, ktoré medzi nimi prebiehajú.",
+      "draftCs": "interakce, které mezi nimi probíhají."
+    },
+    {
+      "start": 169.14,
+      "end": 173.42,
+      "asrWordRange": [
+        336,
+        349
+      ],
+      "originalSk": "Štandardný model je taký divný názov, ktorý podľa mňa nič nehovorí, lebo štandardný",
+      "draftCs": "Standardní model je tak zvláštní název, že se mi zdá, že nic neříká, protože standardní model"
+    },
+    {
+      "start": 173.42,
+      "end": 175.1,
+      "asrWordRange": [
+        349,
+        355
+      ],
+      "originalSk": "model môžeš použiť na úplne hocičo.",
+      "draftCs": "model můžete použít na cokoliv."
+    },
+    {
+      "start": 176.64,
+      "end": 179.92,
+      "asrWordRange": [
+        355,
+        367
+      ],
+      "originalSk": "Najnešťastie je v časticovej fyzike presne takýto trend, že všetky veci dostávajú",
+      "draftCs": "Naštěstí je v částicové fyzikě právě taková tendence, že všechny věci dostanou"
+    },
+    {
+      "start": 179.92,
+      "end": 182.52,
+      "asrWordRange": [
+        367,
+        377
+      ],
+      "originalSk": "strašne zlé názvy a potom je v tom úplný myšung.",
+      "draftCs": "Příšerně špatné názvy a pak je v tom plná myšlenka."
+    },
+    {
+      "start": 183.53,
+      "end": 189.06,
+      "asrWordRange": [
+        377,
+        387
+      ],
+      "originalSk": "Takže štandardný model je proste najlepšia teória časticovej fyziky, akú",
+      "draftCs": "Takže standardní model je prostě nejlepší teorie částicové fyziky,"
+    },
+    {
+      "start": 189.06,
+      "end": 192.48,
+      "asrWordRange": [
+        387,
+        395
+      ],
+      "originalSk": "momentálne máme. A Hyksov Bozon je jej súčasťou.",
+      "draftCs": "A Hyksův boson je její součástí."
+    },
+    {
+      "start": 193.92,
+      "end": 198.54,
+      "asrWordRange": [
+        395,
+        409
+      ],
+      "originalSk": "Elementárne častice sú častice, ktoré sa už nedajú deliť ďalej. Čiže vieme, že hmota",
+      "draftCs": "Elementární částice jsou částice, které nemohou být rozděleny dál."
+    },
+    {
+      "start": 198.54,
+      "end": 200.06,
+      "asrWordRange": [
+        409,
+        415
+      ],
+      "originalSk": "okol nás sa sklada z molekúl,",
+      "draftCs": "Obklopuje nás molekuly,"
+    },
+    {
+      "start": 201.0,
+      "end": 202.8,
+      "asrWordRange": [
+        415,
+        420
+      ],
+      "originalSk": "molekúly sa skladajú z atomov,",
+      "draftCs": "molekuly se skládají z atomů,"
+    },
+    {
+      "start": 203.48,
+      "end": 206.44,
+      "asrWordRange": [
+        420,
+        429
+      ],
+      "originalSk": "atomy sa skladajú z elektronového obalu a z jadier.",
+      "draftCs": "Atomy se skládají z elektronického obalu a jádra."
+    },
+    {
+      "start": 207.7,
+      "end": 211.6,
+      "asrWordRange": [
+        429,
+        442
+      ],
+      "originalSk": "Tam to ale nekončí, lebo jadra sa dajú rozdeliť na protóny a neutróny.",
+      "draftCs": "Ale to se tam nekončí, protože jádro je možné rozdělit na protony a neutrony."
+    },
+    {
+      "start": 212.63,
+      "end": 217.59,
+      "asrWordRange": [
+        442,
+        460
+      ],
+      "originalSk": "A ak sa veľmi snažíš, tak aj protóny a neutróny sa dajú rozbiť na drobné, a to drobné",
+      "draftCs": "A pokud se hodně snažíte, protony a neutrony mohou být rozděleny na drobné věci."
+    },
+    {
+      "start": 217.59,
+      "end": 218.39,
+      "asrWordRange": [
+        460,
+        464
+      ],
+      "originalSk": "sa volá, že kvark.",
+      "draftCs": "Říká se tomu kvark."
+    },
+    {
+      "start": 219.32,
+      "end": 224.78,
+      "asrWordRange": [
+        464,
+        477
+      ],
+      "originalSk": "Čiže hmota okol nás je tvorená s kvarkou a s elektrónou. A teda",
+      "draftCs": "Takže hmotnost kolem nás je tvořena kvarkem a elektronem."
+    },
+    {
+      "start": 224.78,
+      "end": 228.44,
+      "asrWordRange": [
+        477,
+        485
+      ],
+      "originalSk": "hovoríme, že kvarky a elektróny sú elementárne častice,",
+      "draftCs": "Říkáme, že kvarky a elektrony jsou elementární částice."
+    },
+    {
+      "start": 229.18,
+      "end": 232.22,
+      "asrWordRange": [
+        485,
+        495
+      ],
+      "originalSk": "lebo podľa nášho aktuálneho vedomia sa už nedajú deliť ďalej.",
+      "draftCs": "Protože podle našeho současného vědomí už se nemohou rozdělit."
+    },
+    {
+      "start": 233.53,
+      "end": 238.85,
+      "asrWordRange": [
+        495,
+        506
+      ],
+      "originalSk": "Aha, podľa našich vedeckých poznatkov už sme došli na ten najnižší",
+      "draftCs": "Podle našich vědeckých poznatků jsme už přišli k nejnižšímu."
+    },
+    {
+      "start": 239.36,
+      "end": 244.76,
+      "asrWordRange": [
+        506,
+        511
+      ],
+      "originalSk": "časticu. V podstate ono sa",
+      "draftCs": "částice. V podstatě se to děje."
+    },
+    {
+      "start": 244.76,
+      "end": 249.92,
+      "asrWordRange": [
+        511,
+        524
+      ],
+      "originalSk": "verí, že ešte je niečo za tým, ale pritom v rámci štandardného modelu",
+      "draftCs": "Věří, že je ještě něco za tím, ale v rámci standardního modelu."
+    },
+    {
+      "start": 250.52,
+      "end": 255.97,
+      "asrWordRange": [
+        524,
+        538
+      ],
+      "originalSk": "tej súčasnej predstavy už nič menšie nie je. Možno ho niekedy taká teória nahradí.",
+      "draftCs": "V dnešní době to není nic menšího. Možná, že to někdy nahradí taková teorie."
+    },
+    {
+      "start": 256.29,
+      "end": 258.53,
+      "asrWordRange": [
+        538,
+        544
+      ],
+      "originalSk": "A táto teória je strašne úspešná.",
+      "draftCs": "A tato teorie je velmi úspěšná."
+    },
+    {
+      "start": 259.25,
+      "end": 263.79,
+      "asrWordRange": [
+        544,
+        556
+      ],
+      "originalSk": "Matematicky, keď spravíš také predpovedie a potom ich overíš v časticovom urychlovači",
+      "draftCs": "Mathematicky, když uděláte takové předpovědi a pak je ověříte v částicovém akcelerátoru."
+    },
+    {
+      "start": 263.79,
+      "end": 267.93,
+      "asrWordRange": [
+        556,
+        567
+      ],
+      "originalSk": "v Cerne, tak niektoré z nich sedie na 12 desatinných miest.",
+      "draftCs": "v Černě, takže některé z nich sedí na 12 desetinových místech."
+    },
+    {
+      "start": 269.33,
+      "end": 274.15,
+      "asrWordRange": [
+        567,
+        579
+      ],
+      "originalSk": "12 desatinných miest? To je akože zmerať vzdialenosť medzi Bratislavou a Košicami",
+      "draftCs": "Je to jako měřit vzdálenost od Bratislavy do Košice."
+    },
+    {
+      "start": 274.15,
+      "end": 279.71,
+      "asrWordRange": [
+        579,
+        588
+      ],
+      "originalSk": "na miliontinu metra. S takou presnosťou. Wow. Tak niektoré",
+      "draftCs": "na milion metrů. S takovou přesností."
+    },
+    {
+      "start": 279.71,
+      "end": 284.25,
+      "asrWordRange": [
+        588,
+        600
+      ],
+      "originalSk": "vlastnosti častic, takýže anomálny magnetický moment, miónu sa to volá, proste také",
+      "draftCs": "Vlastnosti částic, jako je anomální magnetický moment, mion."
+    },
+    {
+      "start": 284.25,
+      "end": 289.41,
+      "asrWordRange": [
+        600,
+        615
+      ],
+      "originalSk": "čudo -judo, tak úplne, že brutálne presne to vieš spočítať a brutálne presne to vieš",
+      "draftCs": "Čudo-Juda, tak naprosto, že jsi brutálně přesný na výpočet a brutálně přesný na výpočet."
+    },
+    {
+      "start": 289.41,
+      "end": 294.41,
+      "asrWordRange": [
+        615,
+        631
+      ],
+      "originalSk": "odmerať a sedí to. A čo asi pri takých malých časticiach je veľmi potrebné, aby to",
+      "draftCs": "A co je v takových malých částicích velmi důležité, aby to bylo"
+    },
+    {
+      "start": 294.41,
+      "end": 295.91,
+      "asrWordRange": [
+        631,
+        634
+      ],
+      "originalSk": "bolo čo najpresnejšie?",
+      "draftCs": "Bylo to co nejpřesnější?"
+    },
+    {
+      "start": 297.6,
+      "end": 302.58,
+      "asrWordRange": [
+        634,
+        650
+      ],
+      "originalSk": "V podstate ako kedy, ale hej, áno. No, samozrejme, že čím presne, že tým lepší, ale",
+      "draftCs": "V podstatě jako kdykoliv, ale ano, ano."
+    },
+    {
+      "start": 302.58,
+      "end": 305.92,
+      "asrWordRange": [
+        650,
+        668
+      ],
+      "originalSk": "niekedy je to už zase také, že posúvame to len, aby sme mohli machrovať, že je to 12",
+      "draftCs": "Někdy je to tak, že to posunujeme jen tak, abychom zjistili, že je 12."
+    },
+    {
+      "start": 305.92,
+      "end": 308.28,
+      "asrWordRange": [
+        668,
+        676
+      ],
+      "originalSk": "desatinných miest. Ja, ja, až takto je to?",
+      "draftCs": "Já, já, je to tak?"
+    },
+    {
+      "start": 309.3,
+      "end": 313.04,
+      "asrWordRange": [
+        676,
+        691
+      ],
+      "originalSk": "Sú miesta, kde sú tie desatinné miesta strašne rozhodujúce a sú miesta, kde až tak",
+      "draftCs": "Některé místa jsou velmi rozhodující a některé místa jsou velmi rozhodující."
+    },
+    {
+      "start": 313.04,
+      "end": 315.62,
+      "asrWordRange": [
+        691,
+        700
+      ],
+      "originalSk": "nie. No ale dober, to je teraz úplne nepodstatné.",
+      "draftCs": "Ale dobře, to je teď úplně nepodstatné."
+    },
+    {
+      "start": 316.32,
+      "end": 321.72,
+      "asrWordRange": [
+        700,
+        709
+      ],
+      "originalSk": "Mhm, jasný. Čiže elementárne častice sú najmenšie dieliky hmoty",
+      "draftCs": "Takže prvotní částice jsou nejmenší částice hmoty."
+    },
+    {
+      "start": 321.72,
+      "end": 322.52,
+      "asrWordRange": [
+        709,
+        711
+      ],
+      "originalSk": "okolo nás.",
+      "draftCs": "kolem nás."
+    },
+    {
+      "start": 323.76,
+      "end": 329.0,
+      "asrWordRange": [
+        711,
+        721
+      ],
+      "originalSk": "Zatiaľ sme spomínali kvárky a elektróny, tie tvoria dokopy atómy.",
+      "draftCs": "Předtím jsme mluvili o kvarcích a elektronech, které tvoří atomy."
+    },
+    {
+      "start": 329.44,
+      "end": 334.12,
+      "asrWordRange": [
+        721,
+        730
+      ],
+      "originalSk": "potom ľudia poznajú ešte fotóny, to sú častice svetla",
+      "draftCs": "Pak lidé ještě poznávají fotony, které jsou částice světla."
+    },
+    {
+      "start": 335.84,
+      "end": 341.2,
+      "asrWordRange": [
+        730,
+        743
+      ],
+      "originalSk": "a také známe, neviem, či veľmi alebo nie, sú neutrína. To sú také",
+      "draftCs": "a jsou tak známé, nevím, zda moc, nebo ne, jsou neutrální."
+    },
+    {
+      "start": 341.2,
+      "end": 344.34,
+      "asrWordRange": [
+        743,
+        748
+      ],
+      "originalSk": "malé guličky, ktoré prakticky neinteragujú.",
+      "draftCs": "malé kulky, které prakticky neinteragují."
+    },
+    {
+      "start": 345.22,
+      "end": 350.3,
+      "asrWordRange": [
+        748,
+        765
+      ],
+      "originalSk": "A tento zoznam ešte nie je úplný, patrie k nim ešte za pár ďalších častíc, ale keby",
+      "draftCs": "A tento seznam není ještě úplný, patří k nim ještě pár dalších částic, ale pokud"
+    },
+    {
+      "start": 350.78,
+      "end": 355.64,
+      "asrWordRange": [
+        765,
+        780
+      ],
+      "originalSk": "som to len takto všetko vychrl, tak by podľa mňa v tom poslucháčom vznikol úplný",
+      "draftCs": "Takhle jsem to všechno zničila, takže jsem si myslela, že by se v tom posluchači vytvořilo úplné"
+    },
+    {
+      "start": 355.64,
+      "end": 356.02,
+      "asrWordRange": [
+        780,
+        781
+      ],
+      "originalSk": "chaos.",
+      "draftCs": "Chaos."
+    },
+    {
+      "start": 357.16,
+      "end": 360.74,
+      "asrWordRange": [
+        781,
+        794
+      ],
+      "originalSk": "Súhlasím. by to len také, že bez hľadu a skladu proste sypanie názvou.",
+      "draftCs": "Souhlasím. Bylo by to jen tak, že bez pohledu a skladování jen šlapání název."
+    },
+    {
+      "start": 361.78,
+      "end": 365.76,
+      "asrWordRange": [
+        794,
+        807
+      ],
+      "originalSk": "A druhá nepríjemný aspekt tejto oblasti, že všetky tieto veci dostanú nové názvy,",
+      "draftCs": "A druhou nepříjemnou stránkou této oblasti je, že všechny tyto věci dostanou nové názvy,"
+    },
+    {
+      "start": 367.05,
+      "end": 370.35,
+      "asrWordRange": [
+        807,
+        818
+      ],
+      "originalSk": "ktoré ľudia nepoznajú a potom sa v tom strašne rýchlo zamotajú.",
+      "draftCs": "které lidé nevědí, a pak se z toho dostanou hrozně rychle."
+    },
+    {
+      "start": 371.16,
+      "end": 375.96,
+      "asrWordRange": [
+        818,
+        832
+      ],
+      "originalSk": "Čo myslíš, že dostanú nové názvy? Máme, že toto sú hadrónové častice, toto sú",
+      "draftCs": "Co si myslíte, že dostanou nové názvy?"
+    },
+    {
+      "start": 375.96,
+      "end": 380.32,
+      "asrWordRange": [
+        832,
+        841
+      ],
+      "originalSk": "mezónové, toto sú barióny, leptóny, strašne veľa klasifikácie. a",
+      "draftCs": "Mezonové, to jsou bariony, leptony, spousta klasifikací."
+    },
+    {
+      "start": 380.32,
+      "end": 383.0,
+      "asrWordRange": [
+        841,
+        848
+      ],
+      "originalSk": "začne sa som to proste človek topiť.",
+      "draftCs": "Začínám být prostě člověk, který se roztopí."
+    },
+    {
+      "start": 383.78,
+      "end": 384.0,
+      "asrWordRange": [
+        848,
+        849
+      ],
+      "originalSk": "Áno.",
+      "draftCs": "- Ano, to je pravda."
+    },
+    {
+      "start": 385.36,
+      "end": 389.1,
+      "asrWordRange": [
+        849,
+        857
+      ],
+      "originalSk": "Takže urobme takú dohodu, že nepovieme úplne všetko,",
+      "draftCs": "Takže se dohodneme, že neřekneme úplně všechno,"
+    },
+    {
+      "start": 390.02,
+      "end": 394.22,
+      "asrWordRange": [
+        857,
+        874
+      ],
+      "originalSk": "lebo by toho bolo strašne moc a začalo by to byť zložité, že budeme sa sústrediť len",
+      "draftCs": "Protože by to bylo hrozně moc a bylo by obtížné se soustředit jen na"
+    },
+    {
+      "start": 394.22,
+      "end": 396.94,
+      "asrWordRange": [
+        874,
+        886
+      ],
+      "originalSk": "na tie veci, aby sme vedeli vysvetliť, čo je to Hyksov bozon.",
+      "draftCs": "Na tyto věci, abychom mohli vysvětlit, co je to Hyksův boson."
+    },
+    {
+      "start": 397.68,
+      "end": 402.68,
+      "asrWordRange": [
+        886,
+        900
+      ],
+      "originalSk": "Dobre, tak poďme sa len sústrediť na tie veci. Toto nebude úplný prehľad časticovej",
+      "draftCs": "Dobře, tak se soustřeďme na tyto věci. Tohle nebude úplný přehled částic."
+    },
+    {
+      "start": 402.68,
+      "end": 407.42,
+      "asrWordRange": [
+        900,
+        911
+      ],
+      "originalSk": "fyziky, len najprejmejšia cesta k Hyksovomu bozonu, aký sa len dá.",
+      "draftCs": "fyziky, jen první cesta k Hyksovu bosonu, co se dá."
+    },
+    {
+      "start": 408.14,
+      "end": 413.54,
+      "asrWordRange": [
+        911,
+        922
+      ],
+      "originalSk": "Dobre, a čo potrebujeme poznať, aby sme vedeli definovať ten Hyksov",
+      "draftCs": "Dobře, a co potřebujeme vědět, abychom mohli definovat toho Hyksova?"
+    },
+    {
+      "start": 413.54,
+      "end": 417.68,
+      "asrWordRange": [
+        922,
+        932
+      ],
+      "originalSk": "bozon, alebo aby nám dával zmysel v tom štandardnom modele?",
+      "draftCs": "nebo aby nám dal smysl ve standardním modelu?"
+    },
+    {
+      "start": 418.48,
+      "end": 423.52,
+      "asrWordRange": [
+        932,
+        945
+      ],
+      "originalSk": "Tak kľúčové bude vedieť, čo znamená slovo bozon. To je jedna klasifikácia, ktorú",
+      "draftCs": "Takže klíčové bude vědět, co znamená slovo boson."
+    },
+    {
+      "start": 423.52,
+      "end": 428.92,
+      "asrWordRange": [
+        945,
+        961
+      ],
+      "originalSk": "potrebujeme si povedať, a to je, že častice sa delia na fermióny. To meno je po",
+      "draftCs": "Potřebujeme si říci, že částice se dělí na fermiony."
+    },
+    {
+      "start": 428.92,
+      "end": 434.48,
+      "asrWordRange": [
+        961,
+        971
+      ],
+      "originalSk": "Enricovi fermim, čiže fermióni a bozóny. To je zase po",
+      "draftCs": "Enricovi farmy, což jsou fermiony a bosony."
+    },
+    {
+      "start": 434.48,
+      "end": 435.66,
+      "asrWordRange": [
+        971,
+        973
+      ],
+      "originalSk": "bozem pomenované.",
+      "draftCs": "Je to jméno boha."
+    },
+    {
+      "start": 437.52,
+      "end": 442.02,
+      "asrWordRange": [
+        973,
+        988
+      ],
+      "originalSk": "Ja som dlho na toto vymýšľal takú analogiu, cez ktorú by sa to dalo vysvetliť.",
+      "draftCs": "Dlouho jsem na to vymýšlel analogii, které by to vysvětlovaly."
+    },
+    {
+      "start": 442.76,
+      "end": 444.52,
+      "asrWordRange": [
+        988,
+        993
+      ],
+      "originalSk": "To by bolo pomerne úžitočné.",
+      "draftCs": "To by bylo užitečné."
+    },
+    {
+      "start": 445.44,
+      "end": 450.92,
+      "asrWordRange": [
+        993,
+        1006
+      ],
+      "originalSk": "A keď pečieme koláč, tak v recepte máme dva druhy veci. Jedna časť",
+      "draftCs": "A když pečíme dort, máme ve receptu dva druhy věcí."
+    },
+    {
+      "start": 450.92,
+      "end": 452.74,
+      "asrWordRange": [
+        1006,
+        1015
+      ],
+      "originalSk": "veci je, že aby ten koláč držal po kope.",
+      "draftCs": "Jde o to, aby ten koláč držel na kopci."
+    },
+    {
+      "start": 453.68,
+      "end": 458.96,
+      "asrWordRange": [
+        1015,
+        1028
+      ],
+      "originalSk": "Múka, vajčka, mlieko. A potom tam máme veci, ktoré ten koláč obzvlášňujú, že",
+      "draftCs": "Mléko, vajíčko, mléko. A pak máme věci, které se v tom koláčku vyznačují tím, že"
+    },
+    {
+      "start": 458.96,
+      "end": 460.14,
+      "asrWordRange": [
+        1028,
+        1032
+      ],
+      "originalSk": "dodávajú mu také chute,",
+      "draftCs": "Přinášejí mu takový chuť,"
+    },
+    {
+      "start": 461.24,
+      "end": 462.94,
+      "asrWordRange": [
+        1032,
+        1036
+      ],
+      "originalSk": "hrozienka, čokoláda a podobne.",
+      "draftCs": "hrozny, čokoláda a tak dále."
+    },
+    {
+      "start": 464.6,
+      "end": 470.17,
+      "asrWordRange": [
+        1036,
+        1049
+      ],
+      "originalSk": "A teraz fermióny sú častice, ktoré tvorí ako keby podstatu hmoty. To sú",
+      "draftCs": "A teď fermiony jsou částice, které tvoří jako by tvořily podstatu hmoty."
+    },
+    {
+      "start": 470.17,
+      "end": 472.53,
+      "asrWordRange": [
+        1049,
+        1054
+      ],
+      "originalSk": "tie elektróny, kvarky a podobne.",
+      "draftCs": "elektrony, kvarky a tak dále."
+    },
+    {
+      "start": 473.36,
+      "end": 478.46,
+      "asrWordRange": [
+        1054,
+        1071
+      ],
+      "originalSk": "A bozóny sú tie veci, čo to všetko držia po kope. Ako taká tá múka, mlieko, vajčka.",
+      "draftCs": "A bosony jsou to, co to všechno drží v sobě, jako je to mléko, vejce, mléko."
+    },
+    {
+      "start": 479.65,
+      "end": 485.03,
+      "asrWordRange": [
+        1071,
+        1083
+      ],
+      "originalSk": "Čiže fermióny sú v odzolkách tá esencia, a bozóny sú ten leb,",
+      "draftCs": "Takže fermiony jsou esenci v odrazích, a bosony jsou lebka,"
+    },
+    {
+      "start": 485.27,
+      "end": 486.15,
+      "asrWordRange": [
+        1083,
+        1088
+      ],
+      "originalSk": "čo ich drží po kope.",
+      "draftCs": "co je drží po kopce."
+    },
+    {
+      "start": 487.14,
+      "end": 489.86,
+      "asrWordRange": [
+        1088,
+        1095
+      ],
+      "originalSk": "Tá forma. Tá forma, ako keby áno.",
+      "draftCs": "Taková forma, jako by byla."
+    },
+    {
+      "start": 490.68,
+      "end": 494.82,
+      "asrWordRange": [
+        1095,
+        1108
+      ],
+      "originalSk": "Niekedy sa tomu hovorí, že mediátorové bozóny, lebo presnejšie toto delenie pochádza z",
+      "draftCs": "Někdy se tomu říká mediátorské bosony, protože přesněji toto rozdělení pochází z"
+    },
+    {
+      "start": 494.82,
+      "end": 499.46,
+      "asrWordRange": [
+        1108,
+        1121
+      ],
+      "originalSk": "niečoho iného, ale celkom dobre to môžeme použiť takto v tomto približení, akom",
+      "draftCs": "Něco jiného, ale můžeme to docela dobře použít v tomto přístupu, jako"
+    },
+    {
+      "start": 499.46,
+      "end": 500.06,
+      "asrWordRange": [
+        1121,
+        1122
+      ],
+      "originalSk": "potrebujeme.",
+      "draftCs": "Potřebujeme to."
+    },
+    {
+      "start": 500.76,
+      "end": 505.4,
+      "asrWordRange": [
+        1122,
+        1140
+      ],
+      "originalSk": "Nie je to úplne presné, takže keď už teraz niekto v Ženeve žhaví e -maily, tak môže sa",
+      "draftCs": "Není to úplně přesné, takže když už někdo v Ženevě spaluje e-maily, může"
+    },
+    {
+      "start": 505.4,
+      "end": 510.84,
+      "asrWordRange": [
+        1140,
+        1151
+      ],
+      "originalSk": "ozvať, ale... Budeme radi. Takéto základné, na základnú predstavu, aký je",
+      "draftCs": "Tak základní, na základní představu, jaká je"
+    },
+    {
+      "start": 510.84,
+      "end": 514.86,
+      "asrWordRange": [
+        1151,
+        1165
+      ],
+      "originalSk": "rozdiel medzi fermiónmi a bozónmi, to, čo potrebujeme, je takýto, že fermióny sú tá",
+      "draftCs": "Rozdíl mezi fermiony a bosony, co potřebujeme je, že fermiony jsou"
+    },
+    {
+      "start": 514.86,
+      "end": 517.68,
+      "asrWordRange": [
+        1165,
+        1174
+      ],
+      "originalSk": "hmota a bozóny sú to, čo drží po kope.",
+      "draftCs": "hmotnost a bosony jsou to, co je drží po kopce."
+    },
+    {
+      "start": 518.7,
+      "end": 523.96,
+      "asrWordRange": [
+        1174,
+        1185
+      ],
+      "originalSk": "Dobre, tak tu máme toto rozdelenie, fermióny a bozóny. A čo",
+      "draftCs": "Dobře, tady máme rozdělení, fermiony a bosony."
+    },
+    {
+      "start": 523.96,
+      "end": 525.86,
+      "asrWordRange": [
+        1185,
+        1189
+      ],
+      "originalSk": "je to ten bozón?",
+      "draftCs": "Je to ten bozon?"
+    },
+    {
+      "start": 526.56,
+      "end": 528.78,
+      "asrWordRange": [
+        1189,
+        1197
+      ],
+      "originalSk": "Čiže otázka je vlastne, že ako tie bozóny",
+      "draftCs": "Takže otázka je, že jako ty bosony"
+    },
+    {
+      "start": 530.36,
+      "end": 534.4,
+      "asrWordRange": [
+        1197,
+        1208
+      ],
+      "originalSk": "sprostredkúvajú interakcie medzi časticami. Tým, že tá interakcia môže byť niekedy",
+      "draftCs": "Jsou prostřednictvím interakce mezi částicemi. Tím, že tato interakce může být někdy"
+    },
+    {
+      "start": 534.4,
+      "end": 536.32,
+      "asrWordRange": [
+        1208,
+        1213
+      ],
+      "originalSk": "príťažlivá sila a niekedy odpudíva.",
+      "draftCs": "Přitažlivá síla a někdy odmítá."
+    },
+    {
+      "start": 537.61,
+      "end": 543.17,
+      "asrWordRange": [
+        1213,
+        1231
+      ],
+      "originalSk": "A tu je čas na ďalšiu analogiu. A to je, že predstav si, že napríklad my dvaja sme",
+      "draftCs": "A teď je čas na další analogii. A to je, že si představte, že jsme my dva"
+    },
+    {
+      "start": 543.17,
+      "end": 547.11,
+      "asrWordRange": [
+        1231,
+        1240
+      ],
+      "originalSk": "na Lade, na Korčuliach a ideme si hádzať medicímbal.",
+      "draftCs": "Na Lodě, na Korčulách a na medicíně."
+    },
+    {
+      "start": 548.34,
+      "end": 553.0,
+      "asrWordRange": [
+        1240,
+        1256
+      ],
+      "originalSk": "Tak je, áno, veľmi hlúpy nápad a nemali by sme mať asi právo robiť vedatorský podcast,",
+      "draftCs": "Takže, ano, je to velmi hloupý nápad a asi bychom neměli mít právo dělat podcast,"
+    },
+    {
+      "start": 553.06,
+      "end": 558.42,
+      "asrWordRange": [
+        1256,
+        1267
+      ],
+      "originalSk": "tak si hádžeme medicímbal na Korčuliach, ale ako myšlenkový experiment aspoň.",
+      "draftCs": "Tak jsme si hodili medicínu na Korčuli, ale jako myšlenkový experiment."
+    },
+    {
+      "start": 559.5,
+      "end": 562.84,
+      "asrWordRange": [
+        1267,
+        1283
+      ],
+      "originalSk": "Čiže najprv sa, ja ti hodím medicímbal, taj najprv sa sústredíme, že čo sa stane so",
+      "draftCs": "Takže první, já vám hodím medicínu, ten první se zaměříme na to, co se stane s"
+    },
+    {
+      "start": 562.84,
+      "end": 563.06,
+      "asrWordRange": [
+        1283,
+        1284
+      ],
+      "originalSk": "mňou.",
+      "draftCs": "Mě."
+    },
+    {
+      "start": 564.14,
+      "end": 568.86,
+      "asrWordRange": [
+        1284,
+        1299
+      ],
+      "originalSk": "Keď hodím ten medicímbal, tak mňa to zároveň odrazí dozadu na tých Korčuliach. Hej, že",
+      "draftCs": "Když hodím ten lék, tak mě to odrazí zpátky na těch Korčulách."
+    },
+    {
+      "start": 568.86,
+      "end": 572.44,
+      "asrWordRange": [
+        1299,
+        1313
+      ],
+      "originalSk": "ja ho hádžem pred seba a taký zákon zachovania hybnosti mňa tlačí dozadu. Čiže...",
+      "draftCs": "Když ho hodím před sebe, tak mě ten zákon udržování pohybu tlačí dozadu."
+    },
+    {
+      "start": 572.44,
+      "end": 574.92,
+      "asrWordRange": [
+        1313,
+        1322
+      ],
+      "originalSk": "Začne sa kolzať dozadu. Áno, stal som na mieste",
+      "draftCs": "- Začíná se sklouznout dozadu."
+    },
+    {
+      "start": 575.67,
+      "end": 581.07,
+      "asrWordRange": [
+        1322,
+        1339
+      ],
+      "originalSk": "a zrazu hodím medicímbal a hybnem sa dozadu. No a teraz ty zase stojíš na mieste. No,",
+      "draftCs": "A najednou jsem hodil medicínu a posunul se dozadu. A teď jsi zase na místě."
+    },
+    {
+      "start": 581.25,
+      "end": 582.01,
+      "asrWordRange": [
+        1339,
+        1342
+      ],
+      "originalSk": "teraz ja chytám.",
+      "draftCs": "Teď já chytím."
+    },
+    {
+      "start": 582.77,
+      "end": 586.65,
+      "asrWordRange": [
+        1342,
+        1355
+      ],
+      "originalSk": "Chytíš ten medicímbal a jak ho zachytíš, tak ten medicímbal teba začne tlačiť",
+      "draftCs": "Chytíš ten lék a když ho chytíš, lék začne tlačit na tebe."
+    },
+    {
+      "start": 593.09,
+      "end": 598.52,
+      "asrWordRange": [
+        1355,
+        1369
+      ],
+      "originalSk": "takto si prehádzujeme medicímbal a efektívne sa od seba vzdialujeme. Lebo ja keď ho",
+      "draftCs": "Tímto způsobem přehodnocujeme své léky a efektivně se od sebe oddělujeme."
+    },
+    {
+      "start": 598.52,
+      "end": 602.78,
+      "asrWordRange": [
+        1369,
+        1384
+      ],
+      "originalSk": "hodím a ty keď ho chytíš, tak vždy nás to posunie od seba trošku ďalej.",
+      "draftCs": "Já ho hodím a ty ho chytíš. Vždycky nás to od sebe trochu odkloní."
+    },
+    {
+      "start": 604.35,
+      "end": 605.49,
+      "asrWordRange": [
+        1384,
+        1388
+      ],
+      "originalSk": "Takže z tohto pohľadu",
+      "draftCs": "Takže z tohoto pohledu"
+    },
+    {
+      "start": 606.33,
+      "end": 611.63,
+      "asrWordRange": [
+        1388,
+        1401
+      ],
+      "originalSk": "medicímbal funguje ako mediátorový bozón. Že je to častica, pomocou ktorej si my",
+      "draftCs": "Lékařský materiál funguje jako mediátorový boson. Je to částice, které nám pomáhá"
+    },
+    {
+      "start": 611.63,
+      "end": 612.83,
+      "asrWordRange": [
+        1401,
+        1403
+      ],
+      "originalSk": "vymieniamy interakciu.",
+      "draftCs": "vyměňujeme interakci."
+    },
+    {
+      "start": 613.52,
+      "end": 618.74,
+      "asrWordRange": [
+        1403,
+        1415
+      ],
+      "originalSk": "V časticovej fyzike napríklad takto sa opisuje interakcia medzi elektrónmi. Že ide",
+      "draftCs": "Například v částicové fyzikě je to taková interakce mezi elektrony."
+    },
+    {
+      "start": 618.74,
+      "end": 623.72,
+      "asrWordRange": [
+        1415,
+        1431
+      ],
+      "originalSk": "jeden elektrón, približí sa k nemu druhý a začnú si medzi sobou preházovať fotón. a on",
+      "draftCs": "Jeden elektrón se k němu přiblíží, druhý se k němu přiblíží a začne se foton přemáhat mezi sebou."
+    },
+    {
+      "start": 623.72,
+      "end": 627.62,
+      "asrWordRange": [
+        1431,
+        1446
+      ],
+      "originalSk": "vždy, keď ten jeden fotón vypustí, tak sa vzdiali trošku, keď ten druhý ho zachytí,",
+      "draftCs": "Vždycky, když jeden foton vypustí, tak se trochu vzdávají, když ho druhý zachytí."
+    },
+    {
+      "start": 627.72,
+      "end": 632.56,
+      "asrWordRange": [
+        1446,
+        1462
+      ],
+      "originalSk": "tak sa zase vzdiali a takto si medzi sobou prehádzajú fontóny a efektívne sa od seba",
+      "draftCs": "Tak se zase rozloučili a tak mezi sebou vyměnili fontány a efektivně se od sebe oddělili."
+    },
+    {
+      "start": 632.56,
+      "end": 633.44,
+      "asrWordRange": [
+        1462,
+        1465
+      ],
+      "originalSk": "ako keby odrazia.",
+      "draftCs": "Jako by se odrážely."
+    },
+    {
+      "start": 634.6,
+      "end": 638.5,
+      "asrWordRange": [
+        1465,
+        1478
+      ],
+      "originalSk": "Elektróny od seba sa odrazia. A elektróny sa odrazia, lebo si vymieňajú fotóny.",
+      "draftCs": "Elektrony od sebe odrážejí a elektrony odrážejí, protože si vyměňují fotony."
+    },
+    {
+      "start": 640.04,
+      "end": 645.06,
+      "asrWordRange": [
+        1478,
+        1490
+      ],
+      "originalSk": "Elektróny sú tie fermiony, čiže tá esencia a bozóny sprostredkovali tú interakciu",
+      "draftCs": "Elektrony jsou fermiony, což jsou esence a bosony, které prostřednictvím této interakce"
+    },
+    {
+      "start": 645.06,
+      "end": 645.52,
+      "asrWordRange": [
+        1490,
+        1492
+      ],
+      "originalSk": "medzi nimi.",
+      "draftCs": "mezi nimi."
+    },
+    {
+      "start": 646.87,
+      "end": 649.11,
+      "asrWordRange": [
+        1492,
+        1500
+      ],
+      "originalSk": "Aha, takže tu sa k tomu dostávame. OK.",
+      "draftCs": "Jo, takže to je přesně to, co jsme si řekli."
+    },
+    {
+      "start": 651.05,
+      "end": 655.13,
+      "asrWordRange": [
+        1500,
+        1513
+      ],
+      "originalSk": "Čiže mám pocit, že už je celkom dobré rozumieť, čo robí tie bozóny.",
+      "draftCs": "Takže mám pocit, že je už dost dobré pochopit, co tyto bosony dělají."
+    },
+    {
+      "start": 656.92,
+      "end": 662.4,
+      "asrWordRange": [
+        1513,
+        1526
+      ],
+      "originalSk": "A z tých bozónov je ich asi viacej, predpokladám. Je ich viacej, čiže",
+      "draftCs": "A z těch bohů je jich asi víc, předpokládám."
+    },
+    {
+      "start": 662.4,
+      "end": 665.66,
+      "asrWordRange": [
+        1526,
+        1535
+      ],
+      "originalSk": "spomnali sme fotón. Fotón si medzi sobou prehádzajú elektróny.",
+      "draftCs": "Zmínil jsem foton. Foton přeměňuje elektrony mezi dveřmi."
+    },
+    {
+      "start": 666.6,
+      "end": 671.96,
+      "asrWordRange": [
+        1535,
+        1552
+      ],
+      "originalSk": "Potom je gluón. Glu je od slova lepidlo po anglicky, čiže to je zase taký, ktorý lepí",
+      "draftCs": "Glu je od slova lepidlo v angličtině, což znamená, že je to, co lepí."
+    },
+    {
+      "start": 671.96,
+      "end": 675.58,
+      "asrWordRange": [
+        1552,
+        1567
+      ],
+      "originalSk": "do kopy kvárky. Tá interakcia vie fungovať aj trošku ným spôsobom, že tie veci vie",
+      "draftCs": "Tato interakce může fungovat i trochu způsobem, který tyto věci vědí."
+    },
+    {
+      "start": 675.58,
+      "end": 676.26,
+      "asrWordRange": [
+        1567,
+        1569
+      ],
+      "originalSk": "držať pokope.",
+      "draftCs": "držet se v klidu."
+    },
+    {
+      "start": 677.66,
+      "end": 680.0,
+      "asrWordRange": [
+        1569,
+        1575
+      ],
+      "originalSk": "Takže kvárky si zase vymýňajú gluóny.",
+      "draftCs": "Takže kvarky si zase vyměňují gluony."
+    },
+    {
+      "start": 681.07,
+      "end": 686.55,
+      "asrWordRange": [
+        1575,
+        1592
+      ],
+      "originalSk": "No a potom sú dva bozóny, ktoré nikto sa im neobťažoval do také veľmi pekné meno, tak",
+      "draftCs": "No a pak jsou tu dva bosony, které nikdo neobtěžoval tak krásným jménem, takže"
+    },
+    {
+      "start": 686.55,
+      "end": 687.95,
+      "asrWordRange": [
+        1592,
+        1599
+      ],
+      "originalSk": "sa volajú, že dvojte V a Z.",
+      "draftCs": "Říká se jim dvojka V a Z."
+    },
+    {
+      "start": 689.56,
+      "end": 690.6,
+      "asrWordRange": [
+        1599,
+        1601
+      ],
+      "originalSk": "WNZ bozóny.",
+      "draftCs": "WNZ bosony."
+    },
+    {
+      "start": 691.72,
+      "end": 697.16,
+      "asrWordRange": [
+        1601,
+        1614
+      ],
+      "originalSk": "No a tieto spôsobovali vrázky časticovým fyzikom. A kvôli čom? A to z",
+      "draftCs": "A to způsobilo zázraky částicové fyziky."
+    },
+    {
+      "start": 697.16,
+      "end": 702.58,
+      "asrWordRange": [
+        1614,
+        1624
+      ],
+      "originalSk": "takého dôvodu, že v jednej časti teórie bola nutná požiadavka,",
+      "draftCs": "z toho důvodu, že v jedné části teorie byl požadavek nutný,"
+    },
+    {
+      "start": 702.84,
+      "end": 704.38,
+      "asrWordRange": [
+        1624,
+        1630
+      ],
+      "originalSk": "že aby tá teórie dávala zmysel,",
+      "draftCs": "aby tato teorie dala smysl,"
+    },
+    {
+      "start": 705.22,
+      "end": 710.74,
+      "asrWordRange": [
+        1630,
+        1647
+      ],
+      "originalSk": "tak V a Z bozóny musia byť nehmotné. Podobne ako fotón má nulovú hmotnosť a gluóny má",
+      "draftCs": "Takže bosony V a Z musí být nehmotné, stejně jako foton má nulovou hmotnost a gluony mají nulovou hmotnost."
+    },
+    {
+      "start": 710.74,
+      "end": 713.84,
+      "asrWordRange": [
+        1647,
+        1655
+      ],
+      "originalSk": "nulovú hmotnosť, tak povedali, že tieto dva bozóny,",
+      "draftCs": "0 hmotnost, takže říkali, že tyto dvě bosony,"
+    },
+    {
+      "start": 714.66,
+      "end": 716.32,
+      "asrWordRange": [
+        1655,
+        1662
+      ],
+      "originalSk": "dvojte V a Z, musia byť nehmotné.",
+      "draftCs": "dvojnásobné V a Z, musí být nehmotné."
+    },
+    {
+      "start": 717.46,
+      "end": 721.98,
+      "asrWordRange": [
+        1662,
+        1675
+      ],
+      "originalSk": "V inej časti teórie sa objavilo, že tieto bozóny musia byť strašne ťažké.",
+      "draftCs": "Další část teorie ukázala, že tyto bosony musí být strašně těžké."
+    },
+    {
+      "start": 723.2,
+      "end": 728.02,
+      "asrWordRange": [
+        1675,
+        1690
+      ],
+      "originalSk": "Obe tieto podmienky boli nutné k tomu, aby tá teória dávala zmysel, ale zároveň sa",
+      "draftCs": "Obě tyto podmínky byly nezbytné k tomu, aby tato teorie měla smysl, ale zároveň"
+    },
+    {
+      "start": 728.02,
+      "end": 728.72,
+      "asrWordRange": [
+        1690,
+        1691
+      ],
+      "originalSk": "vylúčovali.",
+      "draftCs": "vyloučili."
+    },
+    {
+      "start": 729.6,
+      "end": 734.98,
+      "asrWordRange": [
+        1691,
+        1703
+      ],
+      "originalSk": "Vylúčovalo sa kvôli tomu, že museli byť zároveň nehmotné aj hmotné zároveň?",
+      "draftCs": "Byla vyloučena tím, že musela být zároveň nehmotná a zároveň hmotná?"
+    },
+    {
+      "start": 736.0,
+      "end": 740.24,
+      "asrWordRange": [
+        1703,
+        1715
+      ],
+      "originalSk": "Vylúčovali sa kvôli tomu, že museli byť hmotné aj nehmotné zároveň? Áno.",
+      "draftCs": "Vyloučili se, protože museli být zároveň hmotní i nehmotné?"
+    },
+    {
+      "start": 741.38,
+      "end": 745.88,
+      "asrWordRange": [
+        1715,
+        1734
+      ],
+      "originalSk": "A ako sa s tým vysporiadali? To je ako keby si proste mali zhráť do filmu a režisér ti",
+      "draftCs": "A jak se s tím vyrovnali? Je to jako byste měli hrát ve filmu a režisér vám řekl:"
+    },
+    {
+      "start": 745.88,
+      "end": 750.14,
+      "asrWordRange": [
+        1734,
+        1749
+      ],
+      "originalSk": "povie, že potrebujem, aby si strašne schudol a zároveň bol strašne tučný. A ty teraz",
+      "draftCs": "Řekne, že potřebuju, abys byl hrozně hubený a zároveň hrozně tlustý."
+    },
+    {
+      "start": 750.14,
+      "end": 753.38,
+      "asrWordRange": [
+        1749,
+        1762
+      ],
+      "originalSk": "nevieš, čo máš vlastne urobiť, lebo keď splníš jednu požiadavku, druhú nesplníš a",
+      "draftCs": "Nevíte, co vlastně dělat, protože když splníte jednu žádost, nesplníte druhou."
+    },
+    {
+      "start": 753.38,
+      "end": 758.72,
+      "asrWordRange": [
+        1762,
+        1773
+      ],
+      "originalSk": "naopak. Samozrejme. Tak teoretici mali na V a Z bozony presne",
+      "draftCs": "Naopak. Samozřejmě. Takže teoretici měli na V a Z bosony přesně"
+    },
+    {
+      "start": 758.72,
+      "end": 763.5,
+      "asrWordRange": [
+        1773,
+        1785
+      ],
+      "originalSk": "takéto protichodné požiadavky. Aby teória dávala zmysel, museli byť nehmotné a veľmi",
+      "draftCs": "Aby teorie měla smysl, musely být nehmotné a velmi"
+    },
+    {
+      "start": 763.5,
+      "end": 764.16,
+      "asrWordRange": [
+        1785,
+        1787
+      ],
+      "originalSk": "ťažké naraz.",
+      "draftCs": "Je to těžké."
+    },
+    {
+      "start": 764.95,
+      "end": 770.31,
+      "asrWordRange": [
+        1787,
+        1800
+      ],
+      "originalSk": "A ako sa tento podaril výrieš? No, tu do hry vstupuje Hyxov bozon.",
+      "draftCs": "A jak se to podařilo vyřešit? No, tady vstupuje Hyxův boson do hry."
+    },
+    {
+      "start": 771.03,
+      "end": 774.99,
+      "asrWordRange": [
+        1800,
+        1810
+      ],
+      "originalSk": "A Hyxov bozon sa objevil v trošku nejčastejma fyziky pôvodne,",
+      "draftCs": "A Hyxův boson se objevil v nejčastější části fyziky původně,"
+    },
+    {
+      "start": 776.01,
+      "end": 781.27,
+      "asrWordRange": [
+        1810,
+        1824
+      ],
+      "originalSk": "ale niekoľko ľudí došlo na to, že vlastne mohol by pomôcť vysvetliť tento problém.",
+      "draftCs": "Ale několik lidí zjistilo, že by to mohlo pomoci vysvětlit tento problém."
+    },
+    {
+      "start": 782.43,
+      "end": 787.83,
+      "asrWordRange": [
+        1824,
+        1836
+      ],
+      "originalSk": "Nobelovú cenu za tento nápad si odnesol Peter Higgs a François Englert.",
+      "draftCs": "Nobelovu cenu za tento nápad dostali Peter Higgs a François Englert."
+    },
+    {
+      "start": 789.15,
+      "end": 790.87,
+      "asrWordRange": [
+        1836,
+        1841
+      ],
+      "originalSk": "2013 Nobelová cena za fyziku.",
+      "draftCs": "2013 Nobelova cena za fyziku."
+    },
+    {
+      "start": 791.92,
+      "end": 794.64,
+      "asrWordRange": [
+        1841,
+        1854
+      ],
+      "originalSk": "A ten ich nápad bol taký, že čo keď je taká ďalšia častica,",
+      "draftCs": "A jejich nápad byl, že co když je taková další částice,"
+    },
+    {
+      "start": 795.58,
+      "end": 800.96,
+      "asrWordRange": [
+        1854,
+        1865
+      ],
+      "originalSk": "ktorá má takú zvláštnu schopnosť, že nachádza sa všade v priestore.",
+      "draftCs": "která má tak zvláštní schopnost, že se nachází všude v prostoru."
+    },
+    {
+      "start": 801.36,
+      "end": 805.72,
+      "asrWordRange": [
+        1865,
+        1883
+      ],
+      "originalSk": "To je prvá vlastnosť. A druhá vlastnosť je, že sa veľmi dobre lepí na tie dvojtevé a Z",
+      "draftCs": "To je první vlastnost. A druhou vlastností je, že se velmi dobře líbí k těm dvojnásobným a Z"
+    },
+    {
+      "start": 805.72,
+      "end": 811.2,
+      "asrWordRange": [
+        1883,
+        1899
+      ],
+      "originalSk": "bozony. A keď vznikne jeden z týchto bozonov, tak sa na ňo Hyxov bozon hned nalepí",
+      "draftCs": "A když se objeví jeden z těchto bosonů, Hyxův boson se k němu přilepí."
+    },
+    {
+      "start": 811.2,
+      "end": 816.44,
+      "asrWordRange": [
+        1899,
+        1911
+      ],
+      "originalSk": "a efektívne mu ako keby pridá svoju hmotnosť. Takže splňa tú podmienku?",
+      "draftCs": "Takže splňuje tu podmínku?"
+    },
+    {
+      "start": 816.74,
+      "end": 818.98,
+      "asrWordRange": [
+        1911,
+        1917
+      ],
+      "originalSk": "Čiže splňa zrazu obe podmienky, áno.",
+      "draftCs": "Takže najednou splňuje obě podmínky, ano."
+    },
+    {
+      "start": 819.96,
+      "end": 825.3,
+      "asrWordRange": [
+        1917,
+        1928
+      ],
+      "originalSk": "A vďaka Hyxového bozónu. Áno. Čiže je nehmotný. VAZ bozony sú",
+      "draftCs": "A díky Hyxovu bosonu. Ano. To znamená, že je nehmotný."
+    },
+    {
+      "start": 825.3,
+      "end": 830.22,
+      "asrWordRange": [
+        1928,
+        1944
+      ],
+      "originalSk": "nehmotné. Ale ten Hyxov bozon je ako keby taká umelá hmotnosť, ktorá sa na nich hned",
+      "draftCs": "Ale Hyxův boson je jako umělá hmotnost, která se na nich rozkládá."
+    },
+    {
+      "start": 830.22,
+      "end": 830.68,
+      "asrWordRange": [
+        1944,
+        1945
+      ],
+      "originalSk": "nalepí.",
+      "draftCs": "Přilepí."
+    },
+    {
+      "start": 831.44,
+      "end": 835.19,
+      "asrWordRange": [
+        1945,
+        1951
+      ],
+      "originalSk": "Veľká zvláštnosť tohto Hyxov bozonu je,",
+      "draftCs": "Velkou zvláštností tohoto Hyxova bosonu je,"
+    },
+    {
+      "start": 835.9,
+      "end": 840.43,
+      "asrWordRange": [
+        1951,
+        1966
+      ],
+      "originalSk": "že on vlastne vyplňa ako keby celý priestor. Keď zoberieš krabicu a všetko z nej",
+      "draftCs": "Když vezmete krabici a všechno z ní,"
+    },
+    {
+      "start": 840.43,
+      "end": 842.13,
+      "asrWordRange": [
+        1966,
+        1971
+      ],
+      "originalSk": "povýhadzuješ, tak je tam prázdno.",
+      "draftCs": "Když se o tom bavíš, tak je to prázdné."
+    },
+    {
+      "start": 845.21,
+      "end": 850.75,
+      "asrWordRange": [
+        1971,
+        1985
+      ],
+      "originalSk": "Je tam nulové elektronové pole, nulové fotónové pole, nulové kvárkové pole, ale je tam",
+      "draftCs": "Je tu nulové elektronské pole, nulové fotonové pole, nulové kvarkové pole, ale je tam"
+    },
+    {
+      "start": 850.75,
+      "end": 856.07,
+      "asrWordRange": [
+        1985,
+        1998
+      ],
+      "originalSk": "nenulové Hyxové pole. Zvláštnosť tohto pola je, že jeho najmenšia energia nie je",
+      "draftCs": "Zvláštností tohoto pole je, že jeho nejmenší energie není"
+    },
+    {
+      "start": 856.07,
+      "end": 861.51,
+      "asrWordRange": [
+        1998,
+        2011
+      ],
+      "originalSk": "vtedy, keď je nulový, ale keď je nenulový. Aha. Čiže taká veľmi zvláštna",
+      "draftCs": "Když je nulová, ale když není nulová."
+    },
+    {
+      "start": 861.51,
+      "end": 866.55,
+      "asrWordRange": [
+        2011,
+        2025
+      ],
+      "originalSk": "vlastnosť, ktorá teda spôsobuje, že je pripravený všade hneď, aby na tie VAZ bozony",
+      "draftCs": "Vlastnost, která způsobuje, že je připravený všude hned, aby na tyto vozy bosony"
+    },
+    {
+      "start": 866.55,
+      "end": 871.77,
+      "asrWordRange": [
+        2025,
+        2034
+      ],
+      "originalSk": "ponaskakoval a efektívne im pridal svoju hmotnosť. Čiže taký",
+      "draftCs": "a efektivně jim přidala svou hmotnost."
+    },
+    {
+      "start": 871.77,
+      "end": 876.83,
+      "asrWordRange": [
+        2034,
+        2048
+      ],
+      "originalSk": "šikovný nástroj, ako z nehmotných vecí robí hmotné. Ale to sa mi zdá skorej,",
+      "draftCs": "Je to chytrý nástroj, který umí materiální věci udělat hmotnými. Ale zdá se mi to rychlé,"
+    },
+    {
+      "start": 877.45,
+      "end": 879.47,
+      "asrWordRange": [
+        2048,
+        2055
+      ],
+      "originalSk": "aké by si vyriešili len nejakú vec,",
+      "draftCs": "Jako by se jim podařilo vyřešit jen jednu věc,"
+    },
+    {
+      "start": 881.75,
+      "end": 887.25,
+      "asrWordRange": [
+        2055,
+        2065
+      ],
+      "originalSk": "nejakým teoretickým len konštatovaním, ale to sa zmenilo tým, že",
+      "draftCs": "Nějaké teoretické tvrzení, ale to se změnilo tím, že"
+    },
+    {
+      "start": 887.25,
+      "end": 892.57,
+      "asrWordRange": [
+        2065,
+        2078
+      ],
+      "originalSk": "ho aj dokázali prakticky. Áno, áno. Samozrejme, že takto to zatiaľ bola iba",
+      "draftCs": "Dokázali to prakticky. Ano, ano. Samozřejmě, že to bylo až do té doby."
+    },
+    {
+      "start": 892.57,
+      "end": 897.39,
+      "asrWordRange": [
+        2078,
+        2096
+      ],
+      "originalSk": "teória, ale vlastne, že ak by mali pravdu, tak oni tým vysvetlili, prečo sú tie DV a Z",
+      "draftCs": "teorie, ale ve skutečnosti, že pokud by měli pravdu, vysvětlili by tím, proč jsou DV a Z."
+    },
+    {
+      "start": 897.39,
+      "end": 902.29,
+      "asrWordRange": [
+        2096,
+        2110
+      ],
+      "originalSk": "bozony také ťažké. Ale samozrejme, veľkou výzvou pre CERN bolo X -ov bozon priamo",
+      "draftCs": "Ale samozřejmě, velkou výzvou pro CERN byl boson X přímo"
+    },
+    {
+      "start": 902.29,
+      "end": 902.91,
+      "asrWordRange": [
+        2110,
+        2111
+      ],
+      "originalSk": "pozorovať.",
+      "draftCs": "pozorovat."
+    },
+    {
+      "start": 904.1,
+      "end": 909.64,
+      "asrWordRange": [
+        2111,
+        2126
+      ],
+      "originalSk": "Čo je strašne zložité, lebo ako som povedal, že toto nie je časica hmoty v",
+      "draftCs": "Což je strašně složitý, protože jak jsem řekl, že to není čas hmoty v"
+    },
+    {
+      "start": 909.64,
+      "end": 914.28,
+      "asrWordRange": [
+        2126,
+        2141
+      ],
+      "originalSk": "tom bezžinom slova zmysle, že by tvorila také atomy, alebo čo. Ona len tako vzniká",
+      "draftCs": "Je to bezživotné slovo, které znamená, že tvoří atomy nebo tak něco."
+    },
+    {
+      "start": 914.28,
+      "end": 919.66,
+      "asrWordRange": [
+        2141,
+        2154
+      ],
+      "originalSk": "počas interakcií, kde prenáša také, ako keby nie sily, ale také interakcie medzi",
+      "draftCs": "během interakcí, kde přenáší takové, jako by nebyly síly, ale takové interakce mezi"
+    },
+    {
+      "start": 919.66,
+      "end": 920.2,
+      "asrWordRange": [
+        2154,
+        2155
+      ],
+      "originalSk": "častícami.",
+      "draftCs": "s částicemi."
+    },
+    {
+      "start": 921.75,
+      "end": 925.13,
+      "asrWordRange": [
+        2155,
+        2170
+      ],
+      "originalSk": "No a to, čo vlastne v CERN museli robiť, že CERN funguje takým zvláštnym spôsobom.",
+      "draftCs": "Co vlastně CERN musel udělat, je, že CERN funguje tak zvláštním způsobem."
+    },
+    {
+      "start": 925.13,
+      "end": 929.33,
+      "asrWordRange": [
+        2170,
+        2180
+      ],
+      "originalSk": "Robí pomerne nepresné veci, ale robí ich strašne veľa krát,",
+      "draftCs": "Dělá poměrně nepřesné věci, ale dělají je strašně často,"
+    },
+    {
+      "start": 930.2,
+      "end": 933.68,
+      "asrWordRange": [
+        2180,
+        2188
+      ],
+      "originalSk": "až sa z toho dostane veľmi presné výsledky.",
+      "draftCs": "až se dostanou velmi přesné výsledky."
+    },
+    {
+      "start": 934.5,
+      "end": 939.6,
+      "asrWordRange": [
+        2188,
+        2196
+      ],
+      "originalSk": "Lebo v CERN skúmajú zrážky elementárnych častíc. Tie",
+      "draftCs": "Protože CERN zkoumá srážky elementárních částic."
+    },
+    {
+      "start": 939.6,
+      "end": 943.7,
+      "asrWordRange": [
+        2196,
+        2206
+      ],
+      "originalSk": "zrážky elementárnych častíc podliehajú takým náhodným procesom, ktoré sa stanú",
+      "draftCs": "srážky elementárních částic podléhají náhodnému procesu, který se stane"
+    },
+    {
+      "start": 943.7,
+      "end": 945.56,
+      "asrWordRange": [
+        2206,
+        2211
+      ],
+      "originalSk": "napríklad raz za miliardu zrážok.",
+      "draftCs": "například jednou za miliardu příhod."
+    },
+    {
+      "start": 946.5,
+      "end": 950.6,
+      "asrWordRange": [
+        2211,
+        2223
+      ],
+      "originalSk": "Takže keby ich urobili sto alebo tisíc, tak si nič zájomenej všimnú.",
+      "draftCs": "Takže kdyby jich bylo stovky nebo tisíce, nevšimli by si to."
+    },
+    {
+      "start": 951.45,
+      "end": 955.35,
+      "asrWordRange": [
+        2223,
+        2239
+      ],
+      "originalSk": "To, čo oni spravia v CERN je, že tie zrážky opakujú miliardu krát za sekundu, niekoľko",
+      "draftCs": "Co oni v CERN udělají je, že tyto střely se opakují miliardkrát za sekundu, několik"
+    },
+    {
+      "start": 955.35,
+      "end": 959.39,
+      "asrWordRange": [
+        2239,
+        2253
+      ],
+      "originalSk": "rokov v kuse, a potom si všimajú, ako sa tie veci menia štatisticky, že",
+      "draftCs": "a pak si všimnou, jak se věci statisticky mění, že"
+    },
+    {
+      "start": 959.68,
+      "end": 965.22,
+      "asrWordRange": [
+        2253,
+        2268
+      ],
+      "originalSk": "každú milión tú zrážku sme videli niečo takéto zvláštne, a každú 5 milión tú niečo",
+      "draftCs": "Každé miliony srážek jsme viděli něco tak zvláštního, a každých pět milionů srážek jsme viděli něco takového."
+    },
+    {
+      "start": 965.22,
+      "end": 970.22,
+      "asrWordRange": [
+        2268,
+        2281
+      ],
+      "originalSk": "iné. No a vlastne Higgsov bozon bol objavený ako taká štatistická anomália vlastne.",
+      "draftCs": "A vlastně Higgsův boson byl objeven jako taková statistická anomálie."
+    },
+    {
+      "start": 971.42,
+      "end": 976.4,
+      "asrWordRange": [
+        2281,
+        2292
+      ],
+      "originalSk": "Pri týchto zrážkach. Áno, že oni museli robiť strašne veľa zrážok,",
+      "draftCs": "Ano, museli udělat strašně mnoho srážek,"
+    },
+    {
+      "start": 976.86,
+      "end": 980.68,
+      "asrWordRange": [
+        2292,
+        2305
+      ],
+      "originalSk": "aby z nich vedeli vybrať také veľmi špeciálne, ktoré bez Higgsa by nedokázali",
+      "draftCs": "aby z nich mohli vybrat ty velmi speciální, které by bez Higgs nemohli."
+    },
+    {
+      "start": 980.68,
+      "end": 985.3,
+      "asrWordRange": [
+        2305,
+        2318
+      ],
+      "originalSk": "vysvetliť, prečo nastávajú tak často, ako nastávajú. Ale teda samozrejme tým, že oni",
+      "draftCs": "vysvětlit, proč se to děje tak často, jak se to děje. Ale samozřejmě tím, že"
+    },
+    {
+      "start": 985.3,
+      "end": 990.44,
+      "asrWordRange": [
+        2318,
+        2330
+      ],
+      "originalSk": "tam majú úplne desiatky rôznych detektorov, tak vedeli späťne zreprodukovať, aká ťažká",
+      "draftCs": "Jsou tam celá desítka různých detektorů, takže dokázali zpětně reprodukovat, jak těžký je."
+    },
+    {
+      "start": 990.44,
+      "end": 992.84,
+      "asrWordRange": [
+        2330,
+        2337
+      ],
+      "originalSk": "je tá častica, aké má elektrické vlastnosti,",
+      "draftCs": "je to částice, které má elektrické vlastnosti,"
+    },
+    {
+      "start": 994.04,
+      "end": 999.24,
+      "asrWordRange": [
+        2337,
+        2349
+      ],
+      "originalSk": "akú má priestorovú orientáciu. A všetky tieto veci presne odpovedali tej teoretickej",
+      "draftCs": "Všechny tyto věci přesně odpovídaly tomu teoretickému"
+    },
+    {
+      "start": 999.24,
+      "end": 999.82,
+      "asrWordRange": [
+        2349,
+        2350
+      ],
+      "originalSk": "predpovedi.",
+      "draftCs": "Předpovědi."
+    },
+    {
+      "start": 1000.82,
+      "end": 1004.84,
+      "asrWordRange": [
+        2350,
+        2365
+      ],
+      "originalSk": "Tá teoretická predpovedň teda nebola len, že Higgs existuje, ale aj pekne zo znám jeho",
+      "draftCs": "Tyto teoretické předpovědi tedy nejen, že Higgs existuje, ale také velmi dobře známé z jeho"
+    },
+    {
+      "start": 1004.84,
+      "end": 1005.5,
+      "asrWordRange": [
+        2365,
+        2366
+      ],
+      "originalSk": "vlastností,",
+      "draftCs": "vlastnosti,"
+    },
+    {
+      "start": 1006.26,
+      "end": 1011.78,
+      "asrWordRange": [
+        2366,
+        2377
+      ],
+      "originalSk": "ktoré potom z veľkú dávku trpezlivosti získali v CERNE z experimentálnych",
+      "draftCs": "které pak z velké dávky trpělivosti získaly v CERNE z experimentálních"
+    },
+    {
+      "start": 1011.78,
+      "end": 1016.44,
+      "asrWordRange": [
+        2377,
+        2386
+      ],
+      "originalSk": "dát, z obrovského množstva experimentálnych dát. Tam v CERNE",
+      "draftCs": "data z obrovského množství experimentálních dat."
+    },
+    {
+      "start": 1016.44,
+      "end": 1019.26,
+      "asrWordRange": [
+        2386,
+        2390
+      ],
+      "originalSk": "prevláda kvantita nad kvalitou.",
+      "draftCs": "kvantita převažuje nad kvalitou."
+    },
+    {
+      "start": 1020.22,
+      "end": 1025.0,
+      "asrWordRange": [
+        2390,
+        2404
+      ],
+      "originalSk": "Ja by som to nazval taká zvláštna kombinácia kvality a kvantita. Nie, to bolo",
+      "draftCs": "Já bych to nazval tak zvláštní kombinací kvality a kvantity."
+    },
+    {
+      "start": 1025.0,
+      "end": 1030.28,
+      "asrWordRange": [
+        2404,
+        2416
+      ],
+      "originalSk": "samozrejme odľahčené. Samo ja mám takú otázku. Dosť veľakrát sa také slovné",
+      "draftCs": "Samozřejmě, že je to lehké."
+    },
+    {
+      "start": 1030.28,
+      "end": 1033.88,
+      "asrWordRange": [
+        2416,
+        2423
+      ],
+      "originalSk": "spojenie spojuje s Hyksovým bozonom. Boská častica.",
+      "draftCs": "Je to spojení s Hyksovým bosonem, božskou částicí."
+    },
+    {
+      "start": 1035.62,
+      "end": 1038.6,
+      "asrWordRange": [
+        2423,
+        2432
+      ],
+      "originalSk": "Prečo tomu dávajú? Lebo keď si to teraz vysvetlil,",
+      "draftCs": "Proč to dělají? Protože teď, když to vysvětluješ,"
+    },
+    {
+      "start": 1039.91,
+      "end": 1044.97,
+      "asrWordRange": [
+        2432,
+        2444
+      ],
+      "originalSk": "akože je veľmi zaujímavá tá častica, ale že by bola boská, neviem,",
+      "draftCs": "jako by byla velmi zajímavá, ale jestli by byla božská, nevím,"
+    },
+    {
+      "start": 1045.37,
+      "end": 1050.87,
+      "asrWordRange": [
+        2444,
+        2457
+      ],
+      "originalSk": "neviem, mne nepríde boská. Áno, akože je unikátna v tom tým, to sú",
+      "draftCs": "Ano, protože je jedinečná v tom, že jsou"
+    },
+    {
+      "start": 1050.87,
+      "end": 1055.41,
+      "asrWordRange": [
+        2457,
+        2471
+      ],
+      "originalSk": "v úzokách všade prítomnosťou, že všade v prístore sa nachádza, alebo má teda odborne",
+      "draftCs": "v úzkých oblastech přítomnost všude, že se nachází všude v přístroji, nebo má tedy odborné znalosti"
+    },
+    {
+      "start": 1055.41,
+      "end": 1057.63,
+      "asrWordRange": [
+        2471,
+        2475
+      ],
+      "originalSk": "povedané nenulovú vákuovú hodnotu.",
+      "draftCs": "tzv. nulová vákuová hodnota."
+    },
+    {
+      "start": 1058.81,
+      "end": 1063.71,
+      "asrWordRange": [
+        2475,
+        2492
+      ],
+      "originalSk": "Ale toto je marketing, ten názor, ktorý si použil z veľkej časti. Áno. Ja som s toho",
+      "draftCs": "Ale tohle je marketing, ten názor, který jste většinou používal."
+    },
+    {
+      "start": 1063.71,
+      "end": 1067.33,
+      "asrWordRange": [
+        2492,
+        2507
+      ],
+      "originalSk": "chcel obviniť CERN, ale nenašiel som to na ich stránke. Neviem, či to dali preč.",
+      "draftCs": "Chtěl obviňovat CERN, ale nenašel jsem to na jejich stránce."
+    },
+    {
+      "start": 1068.21,
+      "end": 1072.37,
+      "asrWordRange": [
+        2507,
+        2523
+      ],
+      "originalSk": "Ale toto sa novináli strašne chytili, že aha, že ešte, ak to je vlastne častica, ktorá",
+      "draftCs": "Ale tohle novináři strašně zachytili, že ah, že ještě, pokud je to vlastně částice, které"
+    },
+    {
+      "start": 1072.37,
+      "end": 1073.03,
+      "asrWordRange": [
+        2523,
+        2525
+      ],
+      "originalSk": "dáva vznik",
+      "draftCs": "dává vznik"
+    },
+    {
+      "start": 1074.03,
+      "end": 1078.21,
+      "asrWordRange": [
+        2525,
+        2540
+      ],
+      "originalSk": "hmote, tak to je vlastne častica, ktorá tvorí všetko okolo nás a preto ju nazvime",
+      "draftCs": "V podstatě je to částice, které tvoří vše kolem nás, a proto ji nazýváme"
+    },
+    {
+      "start": 1078.21,
+      "end": 1083.55,
+      "asrWordRange": [
+        2540,
+        2552
+      ],
+      "originalSk": "Božská a to sa chytilo. ale to je úplný nezmysel, lebo ona",
+      "draftCs": "Je to božské, a to je jasné. Ale to je naprostý smysl, protože ona"
+    },
+    {
+      "start": 1083.55,
+      "end": 1087.05,
+      "asrWordRange": [
+        2552,
+        2562
+      ],
+      "originalSk": "tvorí len veľmi malú časť hmoty a hmotnosti okolo nás.",
+      "draftCs": "tvoří jen velmi malou část hmoty a hmotnosti kolem nás."
+    },
+    {
+      "start": 1088.09,
+      "end": 1093.41,
+      "asrWordRange": [
+        2562,
+        2576
+      ],
+      "originalSk": "Áno, si to veľmi dobre vysvetlil, čo robí, takže... Hej. Veľká časť tej hmoty",
+      "draftCs": "Ano, velmi dobře jste vysvětlil, co dělá, takže..."
+    },
+    {
+      "start": 1093.41,
+      "end": 1098.71,
+      "asrWordRange": [
+        2576,
+        2589
+      ],
+      "originalSk": "vzniká úplne iným spôsobom a ten Higgs je unikátny, krásny teoretický mechanizmus, ako",
+      "draftCs": "vzniká úplně jiným způsobem a Higgs je jedinečný, krásný teoretický mechanismus jako"
+    },
+    {
+      "start": 1098.71,
+      "end": 1103.69,
+      "asrWordRange": [
+        2589,
+        2601
+      ],
+      "originalSk": "to funguje, ako sa to podarilo, ale Božská častica je strašné novinárske",
+      "draftCs": "To funguje, jak se to stalo, ale Boží díl je hrozný novinářský."
+    },
+    {
+      "start": 1103.69,
+      "end": 1104.37,
+      "asrWordRange": [
+        2601,
+        2602
+      ],
+      "originalSk": "preháňanie.",
+      "draftCs": "Přehnanost."
+    },
+    {
+      "start": 1106.07,
+      "end": 1110.41,
+      "asrWordRange": [
+        2602,
+        2618
+      ],
+      "originalSk": "Akože teraz asi nechcem... Podľa mňa je zase super, že sa o tom v médiách toľko",
+      "draftCs": "Myslím, že je skvělé, že se o tom tolik mluví v médiích."
+    },
+    {
+      "start": 1110.41,
+      "end": 1114.59,
+      "asrWordRange": [
+        2618,
+        2634
+      ],
+      "originalSk": "hovorilo a písalo a aj trochu rozumiem, že je to proste strašne chytlavý názov a aj",
+      "draftCs": "Řekla a psala, a taky trochu chápu, že je to prostě strašně chytlé jméno."
+    },
+    {
+      "start": 1114.59,
+      "end": 1116.37,
+      "asrWordRange": [
+        2634,
+        2641
+      ],
+      "originalSk": "vďaka tomu sa o tom toľko rozprávalo.",
+      "draftCs": "A to je důvod, proč se o tom tolik mluví."
+    },
+    {
+      "start": 1117.09,
+      "end": 1120.47,
+      "asrWordRange": [
+        2641,
+        2650
+      ],
+      "originalSk": "Len je to proste nešťastný názov. Je to, samozrejme.",
+      "draftCs": "Je to jen nešťastné jméno."
+    },
+    {
+      "start": 1121.59,
+      "end": 1125.31,
+      "asrWordRange": [
+        2650,
+        2663
+      ],
+      "originalSk": "Viem, že aj v CERN bolo troška aj smuto, keď sa vlastne dokázala",
+      "draftCs": "Vím, že i v CERN bylo trochu smutné, když se vlastně podařilo."
+    },
+    {
+      "start": 1127.07,
+      "end": 1130.49,
+      "asrWordRange": [
+        2663,
+        2673
+      ],
+      "originalSk": "láta častica, ten Higgs obozom, kvôli tomu, že CERN bol",
+      "draftCs": "Částice, Higgsův obor, protože CERN byl"
+    },
+    {
+      "start": 1132.17,
+      "end": 1133.97,
+      "asrWordRange": [
+        2673,
+        2679
+      ],
+      "originalSk": "vlastne zameraný na jej hľadanie, nie?",
+      "draftCs": "Vlastně se zaměřuje na její hledání, že?"
+    },
+    {
+      "start": 1134.71,
+      "end": 1138.01,
+      "asrWordRange": [
+        2679,
+        2689
+      ],
+      "originalSk": "Áno, presne. Toto bola jedna z hlavných motivácií CERNu, že...",
+      "draftCs": "To je jeden z hlavních důvodů, proč CERN..."
+    },
+    {
+      "start": 1139.02,
+      "end": 1140.52,
+      "asrWordRange": [
+        2689,
+        2695
+      ],
+      "originalSk": "A že našli ju veľmi rýchlo.",
+      "draftCs": "A že ji našli velmi rychle."
+    },
+    {
+      "start": 1141.18,
+      "end": 1141.94,
+      "asrWordRange": [
+        2695,
+        2699
+      ],
+      "originalSk": "To by som nepodol.",
+      "draftCs": "To bych neudělal."
+    },
+    {
+      "start": 1142.84,
+      "end": 1146.84,
+      "asrWordRange": [
+        2699,
+        2712
+      ],
+      "originalSk": "Som čítal nejakého fyzika, že bolo aj sklamaný, že ako rýchlo ju... No,",
+      "draftCs": "Četl jsem nějaký fyzik, který byl zklamaný tím, jak rychle..."
+    },
+    {
+      "start": 1147.7,
+      "end": 1151.08,
+      "asrWordRange": [
+        2712,
+        2726
+      ],
+      "originalSk": "nie, že sklamaný, ale že... To už je také prehánenie, potom sa to podarilo.",
+      "draftCs": "Ne, že jsem zklamaný, ale... že už je to taková pronásledování, pak to fungovalo."
+    },
+    {
+      "start": 1152.52,
+      "end": 1153.0,
+      "asrWordRange": [
+        2726,
+        2727
+      ],
+      "originalSk": "Totiž,",
+      "draftCs": "A to je..."
+    },
+    {
+      "start": 1153.72,
+      "end": 1158.98,
+      "asrWordRange": [
+        2727,
+        2743
+      ],
+      "originalSk": "ja mám známeho, ktorý v CERN ne pôsobí a on uzatváral stavky s rôznymi ľuďmi, lebo",
+      "draftCs": "Mám známého, který není v CERN, a on uzavřel smlouvy s různými lidmi, protože"
+    },
+    {
+      "start": 1158.98,
+      "end": 1163.66,
+      "asrWordRange": [
+        2743,
+        2759
+      ],
+      "originalSk": "takmer nikto už neverol, že sa im to vlastne podarí nájsť. Takže on na záver vyhrál",
+      "draftCs": "Skoro nikdo nevěřil, že to dokáží najít. Takže v závěru vyhrál."
+    },
+    {
+      "start": 1163.66,
+      "end": 1168.64,
+      "asrWordRange": [
+        2759,
+        2774
+      ],
+      "originalSk": "takých 20 poroci zmrzliny alebo koľko, lebo on tvrdil, že sa to podarí. A všetci",
+      "draftCs": "takových 20 porcí zmrzliny, nebo kolik, protože tvrdil, že to zvládne."
+    },
+    {
+      "start": 1168.64,
+      "end": 1173.4,
+      "asrWordRange": [
+        2774,
+        2790
+      ],
+      "originalSk": "hovorí, že už to asi nedokážeme. On má také svoje limity, akú presnosť dokážu z toho",
+      "draftCs": "Říká, že to už asi nemůžeme. Má takovou přesnost, jakou dokáží."
+    },
+    {
+      "start": 1173.4,
+      "end": 1175.18,
+      "asrWordRange": [
+        2790,
+        2795
+      ],
+      "originalSk": "vytrieskať, aké energie a podobne.",
+      "draftCs": "vytrhnout energii a tak dále."
+    },
+    {
+      "start": 1175.86,
+      "end": 1178.86,
+      "asrWordRange": [
+        2795,
+        2807
+      ],
+      "originalSk": "A dlho tam nebolo nič, takže už začali byť trošku ľudia skepticky.",
+      "draftCs": "A dlouho tam nebylo nic, takže lidé začali být trochu skeptičtí."
+    },
+    {
+      "start": 1179.76,
+      "end": 1185.26,
+      "asrWordRange": [
+        2807,
+        2823
+      ],
+      "originalSk": "Aha, takže asi išlo od človeka k človeku. A ja to aj zobral tú informáciu. Čo",
+      "draftCs": "Takže to šlo od člověka k člověku, a já jsem si vzal ty informace."
+    },
+    {
+      "start": 1185.26,
+      "end": 1190.48,
+      "asrWordRange": [
+        2823,
+        2834
+      ],
+      "originalSk": "som vlastne nepovedal je, že Hyksov bozón bol posledný dielik skladačky,",
+      "draftCs": "Vlastně jsem jim neřekl, že Hyksův boson byl poslední kus skládačky,"
+    },
+    {
+      "start": 1190.98,
+      "end": 1194.78,
+      "asrWordRange": [
+        2834,
+        2845
+      ],
+      "originalSk": "ktorú voláme štandardný model. Že všetky tie ostatné veci pasovali dokopy.",
+      "draftCs": "Říkáme tomu standardní model. Všechny ostatní věci se shodují."
+    },
+    {
+      "start": 1195.66,
+      "end": 1196.1,
+      "asrWordRange": [
+        2845,
+        2848
+      ],
+      "originalSk": "A chýbal tam,",
+      "draftCs": "A chyběl tam,"
+    },
+    {
+      "start": 1196.82,
+      "end": 1201.44,
+      "asrWordRange": [
+        2848,
+        2861
+      ],
+      "originalSk": "túto poslednú vec tam trebalo rozlúštiť. Akože rozdiel tých hmotností, že nehmotné a",
+      "draftCs": "Jako rozdíl mezi tělesnými hmotnostmi, které jsou nehmotné a"
+    },
+    {
+      "start": 1201.44,
+      "end": 1204.14,
+      "asrWordRange": [
+        2861,
+        2869
+      ],
+      "originalSk": "nehmotné. On to vyriešil a týmto je uzavreté.",
+      "draftCs": "On to vyřešil a to je to, co je uzavřeno."
+    },
+    {
+      "start": 1205.26,
+      "end": 1208.02,
+      "asrWordRange": [
+        2869,
+        2876
+      ],
+      "originalSk": "Takže štandardný model sa považuje za uzavretý,",
+      "draftCs": "Takže standardní model je považován za uzavřený,"
+    },
+    {
+      "start": 1208.84,
+      "end": 1213.74,
+      "asrWordRange": [
+        2876,
+        2893
+      ],
+      "originalSk": "čo neznamená, že sme s ním úplne spokojní a sú ďalšie otázky, ktoré máme, ale už sa",
+      "draftCs": "Což neznamená, že jsme s ním naprosto spokojeni a další otázky, které máme, ale už jsme"
+    },
+    {
+      "start": 1213.74,
+      "end": 1216.42,
+      "asrWordRange": [
+        2893,
+        2901
+      ],
+      "originalSk": "verí, že toto vyrieši fyzika za štandardným modelom.",
+      "draftCs": "věří, že to vyřeší fyziku podle standardního modelu."
+    },
+    {
+      "start": 1217.31,
+      "end": 1218.55,
+      "asrWordRange": [
+        2901,
+        2905
+      ],
+      "originalSk": "Ktorá sa teraz hľada,",
+      "draftCs": "Který teď hledá,"
+    },
+    {
+      "start": 1219.25,
+      "end": 1224.52,
+      "asrWordRange": [
+        2905,
+        2920
+      ],
+      "originalSk": "veľmi vcerne dúfali, že sa im niečo podarí nájsť, ale zatiaľ to vyzerá, takže zatiaľ",
+      "draftCs": "Velmi doufali, že něco najdou, ale zatím to vypadá, takže zatím"
+    },
+    {
+      "start": 1224.52,
+      "end": 1224.74,
+      "asrWordRange": [
+        2920,
+        2921
+      ],
+      "originalSk": "nič.",
+      "draftCs": "Ne, nic."
+    },
+    {
+      "start": 1225.58,
+      "end": 1230.76,
+      "asrWordRange": [
+        2921,
+        2935
+      ],
+      "originalSk": "Zatiaľ je to všetko podľa predpovedí, čo je super, že tie predpovedie sú správne,",
+      "draftCs": "Zatím je to všechno podle předpovědí, což je skvělé, že tyto předpovědi jsou správné,"
+    },
+    {
+      "start": 1230.98,
+      "end": 1236.06,
+      "asrWordRange": [
+        2935,
+        2948
+      ],
+      "originalSk": "ale fyzikou by veľmi potešil taký nesúlad, na ktorom by mohli začať pracovať.",
+      "draftCs": "ale fyzikou by se velmi líbilo, kdyby tam byly nějaké nesoulady, na které by mohli začít pracovat."
+    },
+    {
+      "start": 1236.62,
+      "end": 1237.94,
+      "asrWordRange": [
+        2948,
+        2954
+      ],
+      "originalSk": "A mohli by sa posunúť ďalšie.",
+      "draftCs": "A mohli by se přestěhovat další."
+    },
+    {
+      "start": 1238.62,
+      "end": 1242.08,
+      "asrWordRange": [
+        2954,
+        2966
+      ],
+      "originalSk": "Samozrejme, napríklad v objavu supersymetrii, o ktorej si môžeme niekedy v budúcnosti",
+      "draftCs": "Samozřejmě, například v objevení supersymetrie, o které se někdy v budoucnu budeme bavit."
+    },
+    {
+      "start": 1242.08,
+      "end": 1246.22,
+      "asrWordRange": [
+        2966,
+        2977
+      ],
+      "originalSk": "spraviť podcast tiež. To je výborná téma. Samko, máš ešte niečo?",
+      "draftCs": "To je skvělá téma. Holčičko, máš ještě něco?"
+    },
+    {
+      "start": 1246.94,
+      "end": 1247.8,
+      "asrWordRange": [
+        2977,
+        2982
+      ],
+      "originalSk": "A myslím si, že nie.",
+      "draftCs": "A myslím, že ne."
+    },
+    {
+      "start": 1249.23,
+      "end": 1254.49,
+      "asrWordRange": [
+        2982,
+        2995
+      ],
+      "originalSk": "Dúfam, že sme sa nezamotali, takže... Ja ti veľmi pekne ďakujem za vysvetlenie",
+      "draftCs": "Doufám, že jsme se nevymysleli, takže... moc vám děkuji za vysvětlení."
+    },
+    {
+      "start": 1254.49,
+      "end": 1258.65,
+      "asrWordRange": [
+        2995,
+        3006
+      ],
+      "originalSk": "Hygsovou bozonu. Ja som veľmi porozumel. Dúfam, že aj naši posluchači,",
+      "draftCs": "Hodně jsem to pochopil. Doufám, že naši posluchači"
+    },
+    {
+      "start": 1259.39,
+      "end": 1264.01,
+      "asrWordRange": [
+        3006,
+        3022
+      ],
+      "originalSk": "keby vám nie je niečo jasné, píšte nám e -maily na Facebooku a tak ďalej. Ďakujeme",
+      "draftCs": "Pokud něco nechápete, napište nám e-maily na Facebooku a tak dále. Děkuji."
+    },
+    {
+      "start": 1264.01,
+      "end": 1269.33,
+      "asrWordRange": [
+        3022,
+        3037
+      ],
+      "originalSk": "veľmi pekne za počúvanie. Samko, ja ti veľmi pekne ďakujem. Ahoj. Ahojte, majte sa. A",
+      "draftCs": "Moc vám děkuji. Ahoj. Ahoj, děkuji."
+    },
+    {
+      "start": 1269.33,
+      "end": 1273.17,
+      "asrWordRange": [
+        3037,
+        3045
+      ],
+      "originalSk": "naši posluchači môžete nás nájsť na YouTube, Spotify,",
+      "draftCs": "Naši posluchači nás najdou na YouTube, Spotify,"
+    },
+    {
+      "start": 1273.99,
+      "end": 1279.59,
+      "asrWordRange": [
+        3045,
+        3057
+      ],
+      "originalSk": "na všade, kde nájdete svoje obľúbené podcasty, na Apple podcastoch samozrejme. A",
+      "draftCs": "kdekoliv najdete své oblíbené podcasty, na Apple podcastech, samozřejmě."
+    },
+    {
+      "start": 1279.59,
+      "end": 1284.87,
+      "asrWordRange": [
+        3057,
+        3066
+      ],
+      "originalSk": "ďakujeme vám za počúvanie a ďakujeme, že si nás",
+      "draftCs": "Děkujeme za to, že jste nás poslouchali a děkujeme, že jste nás přijali."
+    },
+    {
+      "start": 1284.87,
+      "end": 1287.87,
+      "asrWordRange": [
+        3066,
+        3072
+      ],
+      "originalSk": "ťahujete už desiatýkrát. Dovidenia. Majte sa.",
+      "draftCs": "Už desetkrát si to vytáhnete."
+    }
+  ]
+}

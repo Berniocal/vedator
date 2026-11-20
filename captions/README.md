@@ -98,3 +98,12 @@ Celý archivovaný slovenský přepis YouTube I3IYM37Ko_Q (1 558 původních cue
 Sporné úseky mají nezávislé rozpoznání large-v3, dodatečné kontroly oběma modely bez VAD a u vybraných slov akustické porovnání alternativ. 6 krátkých nesrozumitelných fragmentů zůstává výslovně označených; nepřepisují se odhadem. Nízká skóre zbývajících krátkých nebo překřikovaných úseků mají jednotlivě doložené redakční rozhodnutí. Nejde o úplný nezávislý lidský poslech nahrávky.
 
 Povinná validace je v .github/workflows/validate-episode364-captions.yml; browser kontrola původní MP3, videa, čtečky, jazyků, seeku a offline cache zahrnuje nově i díl 364. Produkční deploy porovnává skutečné živé JSON/SRT soubory podle SHA-256 a kontroluje i aktuální audit Slibů.
+
+
+## Díl 10 – Higgsův boson (20. 11. 2026)
+
+Dokončený původní přepis RSS MP3 má 3 072 slov a je rozdělený do 296 úplných českých a slovenských titulků. Celé znění obou jazyků prošlo redakční kontrolou; poslední česká oprava odstraňuje i chyby skloňování Higgsova jména. Dvě pasáže původně vynechané ASR kolem 9:46–9:53 jsou obnovené podle nezávislých rozpoznání původní MP3. Původní formulace a negace mluvčích zůstávají zachované.
+
+Slovenské znění je akusticky zarovnané modelem comodoro/wav2vec2-xls-r-300m-sk-cv8; česká verze sdílí stejné časy. Obě SRT odpovídají JSON, nejvýše dva řádky po 48 znacích. Původní MP3 má SHA-256 b4d944a41aa46e581453305f60bde676fd920e5a1bf5262999e2ec417f162c7e a přesný snímkový seek index. Dvě velmi krátké reakce „Fúha“ a „Áno“ mají jednotlivě doložené výjimky pro nízké CTC skóre, nikoli tvrzení o jistotě nebo úplném lidském poslechu. 31 krátkých rychle mluvených titulků přesahuje 25 znaků/s; časování se kvůli tomu neposouvá přes další řeč. Přímé akustické porovnání zvuku YouTube s MP3 nebylo provedeno.
+
+Validator kontroluje návaznost všech slov, zdrojový hash, znakové akustické důkazy, konkrétní výjimky, SRT/JSON a seek index. Stávající browser test automaticky zahrnuje každý registrovaný titulkový díl, tedy i díl 10: původní MP3, seek, video, čtečku, jazyky a offline cache. Produkční kontrola navíc porovnává skutečné nasazené JSON a oba SRT podle hashů.
