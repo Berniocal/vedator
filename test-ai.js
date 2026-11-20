@@ -234,7 +234,8 @@ async function loadExtractor(allowDownload){
   state.remoteDownload=Boolean(allowDownload);
   try{
     const create=()=>lib.pipeline("feature-extraction",MODEL,{
-      dtype:"q8",device:"wasm",local_files_only:!allowDownload,
+      // Cached files are reused; missing files may be recovered on subsequent launches.
+      dtype:"q8",device:"wasm",local_files_only:false,
       progress_callback: p=>{
         if(!allowDownload)return;
         const progress=$("download-progress");
