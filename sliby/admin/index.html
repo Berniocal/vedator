@@ -62,6 +62,7 @@ textarea{resize:vertical;min-height:58px}label{display:block;margin:10px 0 5px}i
 </main>
 <script src="../admin-status.js"></script>
 <script src="../link-promises.js"></script>
+<script src="../guest-promises.js"></script>
 <script>
 'use strict';
 const lib=window.VedatorSlibyAdminStatus;
@@ -109,6 +110,9 @@ async function readReport(){
   const reviewResponse=await fetch('../link-review.json',{cache:'no-store'});
   if(!reviewResponse.ok)throw Error('Nepodařilo se načíst kategorii Odkazy.');
   VedatorSlibyLinks.apply(data,await reviewResponse.json());
+  const guestResponse=await fetch('../guest-review.json',{cache:'no-store'});
+  if(!guestResponse.ok)throw Error('Nepodařilo se načíst kategorii Hosté.');
+  VedatorSlibyGuests.apply(data,await guestResponse.json());
   return data.findings;
 }
 function saved(row){return lib.resolve(row,remote?.doc)}
@@ -147,7 +151,7 @@ function show(){
     const k=lib.key(row),selected=mode(row),card=node('article',undefined,'item'+(pending.has(k)?' pending':''));
     card.append(node('h3',row.displayTema||row.tema));
     const meta=node('div',undefined,'row');
-    meta.append(node('span',row.section==='episodes'?'Epizody':row.section==='links'?'Odkazy':'Ostatní','tag'),node('span',row.kategorie,'tag'));
+    meta.append(node('span',row.section==='episodes'?'Epizody':row.section==='links'?'Odkazy':row.section==='guests'?'Hosté':'Ostatní','tag'),node('span',row.kategorie,'tag'));
     const count=new Set([row,...(row.mergedFrom||[])].map(m=>JSON.stringify([m.sourceRecording?.audioURL||m.file,m.seconds]))).size;
     if(count>1)meta.append(node('span',count+'× slíbeno','tag'));
     if(saved(row))meta.append(node('span','Ručně upraveno','tag'));

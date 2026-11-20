@@ -15,6 +15,8 @@ on:
       - 'tools/test-sliby-duplicate-third-batch.cjs'
       - 'tools/patch-sliby-admin-runtime.cjs'
       - 'tools/test-sliby-github-admin.cjs'
+      - 'tools/test-sliby-links.cjs'
+      - 'tools/test-sliby-guests.cjs'
       - 'sliby/admin-status.js'
       - 'sliby/admin-overrides.json'
       - 'sliby/admin/**'
@@ -33,6 +35,8 @@ on:
       - 'tools/test-sliby-duplicate-third-batch.cjs'
       - 'tools/patch-sliby-admin-runtime.cjs'
       - 'tools/test-sliby-github-admin.cjs'
+      - 'tools/test-sliby-links.cjs'
+      - 'tools/test-sliby-guests.cjs'
       - 'sliby/admin-status.js'
       - 'sliby/admin-overrides.json'
       - 'sliby/admin/**'
@@ -55,6 +59,8 @@ jobs:
         run: node tools/test-sliby-content-scope.cjs
       - name: Check promised links and description evidence
         run: node tools/test-sliby-links.cjs
+      - name: Check reviewed guest invitations and repeated visits
+        run: node tools/test-sliby-guests.cjs
       - name: Check report data and time links
         run: |
           node --input-type=module <<'JS'

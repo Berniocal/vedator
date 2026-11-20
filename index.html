@@ -892,6 +892,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       if(selected==='all'||!episodeTopicsEnabled())return records;
       return records.filter(record=>{
         if(record.section==='links')return true;
+        if(record.section==='guests')return true;
         if(record.section!=='episodes'||(record.kategorie!=='Sliby'&&record.kategorie!=='Návrhy / nápady'))return false;
         const matched=catalog.topicsFor(record);
         return selected==='unclassified'?!matched.length:matched.includes(selected);

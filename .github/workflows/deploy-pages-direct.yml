@@ -59,6 +59,7 @@ jobs:
           node tools/test-sliby-content-scope.cjs
           node tools/test-sliby-github-admin.cjs
           node tools/test-sliby-links.cjs
+          node tools/test-sliby-guests.cjs
           node tools/patch-sliby-admin-runtime.cjs
 
       - name: Nahrát statické soubory

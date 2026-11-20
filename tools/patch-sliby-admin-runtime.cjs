@@ -19,11 +19,14 @@ function patchReport(html) {
       '<script type="application/json" id="link-review-data">'+
       JSON.stringify(JSON.parse(fs.readFileSync(path.join(__dirname,'..','sliby/link-review.json'),'utf8'))).replace(/</g,'\\u003c')+
       '</script>\n<script src="link-promises.js?v='+assetHash('link-promises.js')+'"></script>\n'+
+      '<script type="application/json" id="guest-review-data">'+
+      JSON.stringify(JSON.parse(fs.readFileSync(path.join(__dirname,'..','sliby/guest-review.json'),'utf8'))).replace(/</g,'\\u003c')+
+      '</script>\n<script src="guest-promises.js?v='+assetHash('guest-promises.js')+'"></script>\n'+
       '<script>\n\'use strict\';\nconst D=JSON.parse(document.getElementById(\'audit-data\').textContent)');
   one("el=id=>document.getElementById(id);",
-      "el=id=>document.getElementById(id);\nVedatorSlibyLinks.apply(D,JSON.parse(el('link-review-data').textContent));");
+      "el=id=>document.getElementById(id);\nVedatorSlibyLinks.apply(D,JSON.parse(el('link-review-data').textContent));\nVedatorSlibyGuests.apply(D,JSON.parse(el('guest-review-data').textContent));");
   one("section.id==='episodes'?'Epizody':'Ostatní'",
-      "section.id==='episodes'?'Epizody':section.id==='links'?'Odkazy':'Ostatní'");
+      "section.id==='episodes'?'Epizody':section.id==='links'?'Odkazy':section.id==='guests'?'Hosté':'Ostatní'");
   one(" const fields=[['Téma',findingTitle(r),0,r]",
       " const fields=[...(r.linkReview?.resources||[]).map(resource=>['Odkaz',resource.label+' '+resource.url,1,r]),['Téma',findingTitle(r),0,r]");
   // Resolve the current renderer at event time. Passing the initial function
