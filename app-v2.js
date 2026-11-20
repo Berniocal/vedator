@@ -4430,7 +4430,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
   const ASK_AI_RERANK_LIMIT=30;
   const ASK_AI_ENABLED_KEY='vedator-ask-ai-enabled-v1';
   const ASK_AI_CACHE_NAMES=['transformers-cache','vedator-ai-model-v1'];
-  const askAi={enabled:false,installed:false,busy:false,extractor:null,library:null,loading:null,sequence:0,dialog:null,progress:0,checked:false};
+  const askAi={enabled:false,installed:false,busy:false,extractor:null,library:null,loading:null,sequence:0,dialog:null,progress:0,checked:false,lastError:''};
   function askAiModelFile(request){
     let url=String(request?.url||request||'').toLowerCase();
     try{url=decodeURIComponent(url)}catch{}
@@ -4519,7 +4519,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     try{
       askAi.installed=await askAiCached();askAi.checked=true;
       if(!askAi.installed&&askAi.enabled)askAiSaveEnabled(false);
-      askAiDialogMessage(askAi.installed?text('Model je uložený v tomto prohlížeči.','Model je uložený v tomto prehliadači.'):text('Model zatím není stažený.','Model ešte nie je stiahnutý.'));
+      askAiDialogMessage(askAi.lastError?text('Poslední chyba AI: ','Posledná chyba AI: ')+askAi.lastError:(askAi.installed?text('Model je uložený v tomto prohlížeči.','Model je uložený v tomto prehliadači.'):text('Model zatím není stažený.','Model ešte nie je stiahnutý.')));
     }catch(e){askAiDialogMessage(String(e?.message||e))}
     if(overlay.classList.contains('hidden'))return;
     const cancel=askAiDialogAction(text('Zrušit','Zrušiť'),askAiCloseDialog);
@@ -4534,6 +4534,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
         }
         askAiCloseDialog();
       },'primary'));
+      if(askAi.lastError&&askUi.query&&askUi.ready)actions.append(askAiDialogAction(text('Zkusit hledání znovu','Skúsiť hľadanie znova'),()=>{askAiCloseDialog();askAiBaseResults();void askAiRerank()},'primary'));
       actions.append(askAiDialogAction(text('Smazat model','Zmazať model'),()=>{void askAiDelete()},'danger'));
     }
   }
@@ -4550,7 +4551,10 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
     askAi.loading=(async()=>{
       const lib=await askAiLibrary();
       const create=()=>lib.pipeline('feature-extraction',ASK_AI_MODEL,{
-        dtype:'q8',device:'wasm',local_files_only:!download,
+        // Browser Cache Storage remains the first source. When reopening a cached
+        // model, allow remote resolution of a missing asset instead of failing
+        // the entire search on local_files_only (especially in Android WebView).
+        dtype:'q8',device:'wasm',local_files_only:false,
         progress_callback:p=>{
           if(!download||!askAi.dialog||askAi.dialog.classList.contains('hidden'))return;
           if(p.status==='progress'&&Number.isFinite(p.progress)){
@@ -4584,7 +4588,7 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
       await askAiExtractor(true);
       askAi.installed=await askAiCached();
       if(!askAi.installed)throw Error(text('Model se načetl, ale nepodařilo se ověřit jeho uložení.','Model sa načítal, ale nepodarilo sa overiť jeho uloženie.'));
-      askAiSaveEnabled(true);
+      askAiSaveEnabled(true);askAi.lastError='';
       askAiDialogMessage(text('AI je stažená a zapnutá.','AI je stiahnutá a zapnutá.'));
       if(askUi.query&&askUi.ready&&state.view==='ask'){askAiBaseResults();void askAiRerank()}
     }catch(error){
@@ -4684,14 +4688,15 @@ return {load(data){state.items=flattenData(data);state.index=buildIndex(state.it
         await new Promise(resolve=>setTimeout(resolve,0));
       }
       if(token!==askAi.sequence||!askAi.enabled||askUi.query!==query||askUi.filter!==filter||state.view!=='ask')return;
-      askUi.ranked=askAiApplyFirst30Only(original,ranks);
+      askUi.ranked=askAiApplyFirst30Only(original,ranks);askAi.lastError='';
       renderAskResults();
       askAiStatus(text('Hotovo – AI seřadila ','Hotovo – AI zoradila ')+sample.length+'/'+sample.length+text(' výsledků z původního vyhledávání (nejvýše 30).',' výsledkov z pôvodného vyhľadávania (najviac 30).'),sample.length,sample.length);
     }catch(error){
       console.warn('Ask AI search failed; original results preserved',error);
       if(token===askAi.sequence){
+        askAi.lastError=String(error?.message||error).replace(/\s+/g,' ').slice(0,180);
         askUi.ranked=original;renderAskResults();
-        askAiStatus(text('AI nyní není dostupná. Zobrazuji původní výsledky.','AI teraz nie je dostupná. Zobrazujem pôvodné výsledky.'));
+        askAiStatus(text('AI selhala: ','AI zlyhala: ')+askAi.lastError+text('. Původní výsledky zůstávají. Pro opakování otevři ✦ AI.','. Pôvodné výsledky zostávajú. Pre zopakovanie otvor ✦ AI.'));
       }
     }
   }
