@@ -1,0 +1,4892 @@
+{
+  "episode": 362,
+  "guid": "vedatorskypodcast.podbean.com/d8ed2abc-dc52-3cd2-83a8-70017908a96b",
+  "youtubeId": "MOSvLNuq0gE",
+  "youtubeSource": {
+    "episode": 362,
+    "guid": "vedatorskypodcast.podbean.com/d8ed2abc-dc52-3cd2-83a8-70017908a96b",
+    "youtubeId": "MOSvLNuq0gE",
+    "upstreamRepository": "Berniocal/vedator-test",
+    "upstreamPath": "titulky/vedatorsky-podcast-362-faq-detske-otazky.srt",
+    "upstreamGitBlobSha": "cd5507e848c746536cbafae0124f47ee7502b17a",
+    "archiveNormalization": "Line endings normalized to LF; terminal newline.",
+    "archivedSha256": "778292cc830d48b965d6b3ccc07962fbef59c57cbe5aa5b8912da7b7460126a7"
+  },
+  "sourceSrt": "captions/source/episode-362-youtube-original.sk.srt",
+  "sourceSha256": "778292cc830d48b965d6b3ccc07962fbef59c57cbe5aa5b8912da7b7460126a7",
+  "translationModel": "facebook/nllb-200-distilled-600M",
+  "status": "unreviewed-machine-draft-do-not-publish",
+  "completedGroups": 384,
+  "totalGroups": 384,
+  "cues": [
+    {
+      "start": 1.309,
+      "end": 3.329,
+      "sourceCues": [
+        1
+      ],
+      "originalSk": "[hudba]",
+      "draftCs": "[Hudba]",
+      "reviewFlags": []
+    },
+    {
+      "start": 8.515,
+      "end": 10.535,
+      "sourceCues": [
+        2
+      ],
+      "originalSk": "[hudba]",
+      "draftCs": "[Hudba]",
+      "reviewFlags": []
+    },
+    {
+      "start": 12.68,
+      "end": 20.48,
+      "sourceCues": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "originalSk": "Od otázok cez obkecávanie až po odpovede. Veda nás obklopuje na každom kroku. Vitajte pri Vedátorskom podcaste, v ktorom sa budeme rozprávať o vede a",
+      "draftCs": "Od otázek až po otázek až po odpovědi. Věda nás obklopuje na každém kroku. Vítejte v Vedátorském podcastu, kde se budeme bavit o vědě a",
+      "reviewFlags": []
+    },
+    {
+      "start": 20.48,
+      "end": 28.16,
+      "sourceCues": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "originalSk": "prírode okolo nás. Moje meno je Jozef. A ja som Samuel. Tento podcast vychádza v spolupráci so Sme s Hankou. Ako sa máš?",
+      "draftCs": "Jmenuji se Josef a já jsem Samuel. Podcast je ve spolupráci s Hankou. Jak se máte?",
+      "reviewFlags": []
+    },
+    {
+      "start": 28.16,
+      "end": 35.76,
+      "sourceCues": [
+        11,
+        12,
+        13
+      ],
+      "originalSk": "Dobre, dobre. Eh. Veľa je toho na všetkých frontoch. No tak ti vychádza ti za chvíľku kniha.",
+      "draftCs": "Dobře, dobře, je tu spousta věcí na všech frontech, ale ty budeš mít knihu za chvilku.",
+      "reviewFlags": []
+    },
+    {
+      "start": 35.76,
+      "end": 37.99,
+      "sourceCues": [
+        14
+      ],
+      "originalSk": "Už vyšla, pozri.",
+      "draftCs": "Už je venku, podívej.",
+      "reviewFlags": []
+    },
+    {
+      "start": 37.99,
+      "end": 38.84,
+      "sourceCues": [
+        15
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 38.84,
+      "end": 46.68,
+      "sourceCues": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "originalSk": "OK. Ja krst bude, pardon. Krst bude, áno, áno. V pondelok som bol s kočíkom pre ňu, s Matildou sme išli.",
+      "draftCs": "OK, já budu křestní, omlouvám se, křestní bude, ano, ano, v pondělí jsem byl s kočárem pro ni, Matilda a já jsme šli.",
+      "reviewFlags": []
+    },
+    {
+      "start": 46.68,
+      "end": 57.12,
+      "sourceCues": [
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "originalSk": "Takže kočík bol na na predaji knihy. Keď napíšeš knihu, dostaneš 20 autorských výtlačkov, ale táto je našťastie menšia, takže som proste hodil 20 dole do kočíka, ale",
+      "draftCs": "Takže ten kočár byl na prodeji knížek. Když napíšete knihu, dostanete 20 autorských otisků, ale tohle je naštěstí menší, takže jsem dal 20 dolů do kočáru.",
+      "reviewFlags": []
+    },
+    {
+      "start": 57.12,
+      "end": 61.57,
+      "sourceCues": [
+        26,
+        27
+      ],
+      "originalSk": "strašne pekne vyzerá naživo. Môžeš Môžem konečne vymeniť túto vytlačenú za",
+      "draftCs": "Je to úžasné, že to vypadá naživu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 61.57,
+      "end": 61.96,
+      "sourceCues": [
+        28
+      ],
+      "originalSk": "[vzdychanie][lapanie po dychu]",
+      "draftCs": "[výdech] [výdech]",
+      "reviewFlags": []
+    },
+    {
+      "start": 61.96,
+      "end": 67.0,
+      "sourceCues": [
+        29,
+        30,
+        31
+      ],
+      "originalSk": "za za poriadnu. A vyzerá tak isto, akože vzadu na tej knihe si vlastne môžeš dať hento.",
+      "draftCs": "A vypadá to stejně, jako by se na zadní straně knihy mohl dát hento.",
+      "reviewFlags": []
+    },
+    {
+      "start": 67.0,
+      "end": 73.08,
+      "sourceCues": [
+        32,
+        33,
+        34
+      ],
+      "originalSk": "Áno, áno, v nižšom rozlíšení. Ja a ináč Dobre, takže 9. bude krst, teda.",
+      "draftCs": "Ano, ano, v nižším rozlišení.",
+      "reviewFlags": [
+        "translation-length",
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 73.08,
+      "end": 83.92,
+      "sourceCues": [
+        35,
+        36,
+        37,
+        38
+      ],
+      "originalSk": "Tak, tak, tak, budeme krstiť a Ináč je to fajn. Veľa Veľa výskumu sa nám rozbehlo rôznymi smermi, že za posledné dva dni som mal",
+      "draftCs": "Dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře, dobře.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 83.92,
+      "end": 91.48,
+      "sourceCues": [
+        39,
+        40,
+        41
+      ],
+      "originalSk": "eh call s spolupracovníkom, ktorý je bežne z Viedne, ale teraz je na Taiwane.",
+      "draftCs": "Uh, telefonát s spolupracovníkem, který je běžně z Vídně, ale teď je v Taiwánu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 91.48,
+      "end": 98.906,
+      "sourceCues": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "originalSk": "A dneska som mal s jedným tímom z Chile a potom s Denžom a Yumom, čiže Japonsko a Írsko.",
+      "draftCs": "A dnes jsem měl s týmem z Chile a potom s Dengem a Yumem, což je Japonsko a Irsko.",
+      "reviewFlags": []
+    },
+    {
+      "start": 98.906,
+      "end": 99.44,
+      "sourceCues": [
+        46
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 99.44,
+      "end": 108.32,
+      "sourceCues": [
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "originalSk": "Uhm. A začína to byť proste, keď sa ti to všetko nahromadí do dvoch dní a musíš preskakovať mentálne medzi všetkými tými vecami, tak je to celkom že bežne to je",
+      "draftCs": "A začíná to být jednoduché, když se to všechno hromadí do dvou dnů a musíte přeskočit mentálně mezi všechny ty věci, tak je to normální.",
+      "reviewFlags": []
+    },
+    {
+      "start": 108.32,
+      "end": 112.661,
+      "sourceCues": [
+        52,
+        53
+      ],
+      "originalSk": "nejako rozladené, že to nie je naraz, ale teraz to vyšlo že všetko naraz a",
+      "draftCs": "Nějak rozmazlený, že to není najednou, ale teď se to ukázalo, že všechno najednou a",
+      "reviewFlags": []
+    },
+    {
+      "start": 112.661,
+      "end": 113.24000000000001,
+      "sourceCues": [
+        54
+      ],
+      "originalSk": "[vzdychanie][lapanie po dychu]",
+      "draftCs": "[výdech] [výdech]",
+      "reviewFlags": []
+    },
+    {
+      "start": 113.24000000000001,
+      "end": 123.092,
+      "sourceCues": [
+        55,
+        56,
+        57,
+        58
+      ],
+      "originalSk": "A tak a ty sa máš ako, okrem toho, že si bol na turistike? Veľa toho je, bol som na mojej každoročnej turistike, ktorá sa už stáva",
+      "draftCs": "A jak se máte, kromě toho, že jste byl na turné?",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 123.092,
+      "end": 132.852,
+      "sourceCues": [
+        59,
+        60,
+        61,
+        62
+      ],
+      "originalSk": "klasickým klasickou súčasťou môjho bytia. Ale mám to tak rád a neviem, tak pomaličky, veľa toho je, pomaly veľa.",
+      "draftCs": "Ale já to mám tak rád a nevím, tak pomalu, je toho hodně, pomalu hodně.",
+      "reviewFlags": []
+    },
+    {
+      "start": 132.852,
+      "end": 137.372,
+      "sourceCues": [
+        63,
+        64,
+        65
+      ],
+      "originalSk": "Vyberali sme detské otázky. je halloweenske predvianočné, takže teším sa.",
+      "draftCs": "Vybrali jsme dětské otázky. Je Halloween před Vánocemi, takže se těším.",
+      "reviewFlags": []
+    },
+    {
+      "start": 137.372,
+      "end": 146.692,
+      "sourceCues": [
+        66,
+        67,
+        68,
+        69
+      ],
+      "originalSk": "Hej, máš rád takéto, ako sa zosychravelo konečne? Vieš čo, dneska bol taký úplne zase extrémny deň, že som to podľa mňa",
+      "draftCs": "Víš co, dneska byl zase tak extrémní den, že jsem si myslel, že je to tak extrémní den.",
+      "reviewFlags": []
+    },
+    {
+      "start": 146.692,
+      "end": 154.492,
+      "sourceCues": [
+        70,
+        71,
+        72
+      ],
+      "originalSk": "dosahovalo až 40-ky, ale no dobre, asi toľko nie, povedzme, že 20 alebo koľko na slniečku bolo.",
+      "draftCs": "dosáhlo 40 let, ale dobře, asi ne tolik, řekněme, 20 let nebo tolik, kolik bylo ve slunci.",
+      "reviewFlags": []
+    },
+    {
+      "start": 154.492,
+      "end": 164.172,
+      "sourceCues": [
+        73,
+        74,
+        75,
+        76
+      ],
+      "originalSk": "Ja som bol v krátkom tričku zase vonku, neviem ako ty. A asi tak hovorím, že koncom októbra asi to nie je úplne najprirodzenejšie počasie, ale tak",
+      "draftCs": "Byl jsem venku v krátkém tričku, nevím jak ty, a myslím, že na konci října to není úplně přirozené počasí, ale tak.",
+      "reviewFlags": []
+    },
+    {
+      "start": 164.172,
+      "end": 167.68099999999998,
+      "sourceCues": [
+        77,
+        78
+      ],
+      "originalSk": "treba si to užívať až do pekla, nie tak sa hovorí?",
+      "draftCs": "To by se mělo užít až do pekla, že ano?",
+      "reviewFlags": []
+    },
+    {
+      "start": 167.68099999999998,
+      "end": 168.372,
+      "sourceCues": [
+        79
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 168.372,
+      "end": 178.09199999999998,
+      "sourceCues": [
+        80,
+        81,
+        82,
+        83,
+        84
+      ],
+      "originalSk": "Tú cestu, takže asi tak to beriem, ale nie, dá sa super behať a tak, ja som spokojný, takže ja mám toto počasie veľmi rád.",
+      "draftCs": "Ta cesta, takže si myslím, že tak to bude, ale ne, je to super běh a tak, jsem spokojený, takže jsem velmi rád tento počasí.",
+      "reviewFlags": []
+    },
+    {
+      "start": 178.09199999999998,
+      "end": 182.252,
+      "sourceCues": [
+        85,
+        86,
+        87
+      ],
+      "originalSk": "No hej. A plus boli komunálne voľby cez víkend, takže ešte to som troška sledoval a tak.",
+      "draftCs": "A navíc to byly místní volby na víkend, takže jsem to ještě trochu sledoval a tak dále.",
+      "reviewFlags": []
+    },
+    {
+      "start": 182.252,
+      "end": 193.132,
+      "sourceCues": [
+        88,
+        89,
+        90,
+        91,
+        92
+      ],
+      "originalSk": "ty si si to tak veľmi odmakal, že si si posunul aj turistiku o deň a potom si sa otočil po občiansky, takže ďakujeme ti za túto za ti ďakujeme ti za túto službu vlasti.",
+      "draftCs": "Ty jsi to tak odvrátil, že jsi odklonil cestovní lístek na den a pak ses otočil po občanství, takže děkujeme ti za tohle. Děkujeme ti za službu tvé vlasti.",
+      "reviewFlags": []
+    },
+    {
+      "start": 193.132,
+      "end": 203.852,
+      "sourceCues": [
+        93,
+        94,
+        95,
+        96,
+        97
+      ],
+      "originalSk": "Som zabudol a potom som si spomenul na môjho učiteľa ústavného práva, ktorý povedal, že takú že takú taký luxus ako nevoliť si nemôžem dovoliť,",
+      "draftCs": "Zapomněl jsem, a pak jsem si vzpomněl na mého učitele ústavního práva, který řekl, že takovou luxus, jako je volání, si nemůžu dovolit,",
+      "reviewFlags": []
+    },
+    {
+      "start": 203.852,
+      "end": 214.452,
+      "sourceCues": [
+        98,
+        99,
+        100,
+        101,
+        102
+      ],
+      "originalSk": "to sa so mnou tiahne od mojich študentských čias až doteraz, myslím si, že vynechal som len jedny kvôli kvôli nejakému zdravotnému, takže som rád, že som to stihol.",
+      "draftCs": "To je to, co se mnou probíhá od doby, kdy jsem byla studentka, až do dnešního dne. Myslím, že jsem si vynechal jen jeden kvůli nějaké zdravotní situaci, takže jsem rád, že jsem to udělal.",
+      "reviewFlags": []
+    },
+    {
+      "start": 214.452,
+      "end": 225.252,
+      "sourceCues": [
+        103,
+        104,
+        105,
+        106,
+        107
+      ],
+      "originalSk": "Dobre, ale od politiky ideme až po moju druhú [odkašľanie] najobľúbenejšiu sériu a to je detské otázky, ktoré zase nám prišli neúrekom.",
+      "draftCs": "Dobře, ale od politiky až po moji druhou oblíbenou sérii, a to jsou otázek dětí, které nám zase přicházejí zbytečně.",
+      "reviewFlags": []
+    },
+    {
+      "start": 225.252,
+      "end": 233.132,
+      "sourceCues": [
+        108,
+        109,
+        110
+      ],
+      "originalSk": "A tak všetky prišli audio už, máme ten máme ten speakpipe, dáte do Googlu, že speakpipe vedátor a detské",
+      "draftCs": "A tak přišli všichni audio už, máme tu máme tu řečníku, můžete googlovat, že řečníka vedoucí a dětské",
+      "reviewFlags": []
+    },
+    {
+      "start": 233.132,
+      "end": 243.294,
+      "sourceCues": [
+        111,
+        112,
+        113,
+        114
+      ],
+      "originalSk": "otázky tam môžete posielať a z 15 otázok došlo ak počítam teraz rýchlo správne 13 audio. Povedzme, že tie, čo budú audio, tak všetky zaradíme.",
+      "draftCs": "Můžete tam poslat otázky a z 15 otázek se stalo, že když teď rychle počítám správně 13 zvuků, řekněme, že ty, které budou zvukové, se dostaneme do řady.",
+      "reviewFlags": []
+    },
+    {
+      "start": 243.294,
+      "end": 251.614,
+      "sourceCues": [
+        115,
+        116,
+        117,
+        118
+      ],
+      "originalSk": "A 12 došlo, sorry audio. Tak tak tak takže ďakujeme za to. Raz jednému jedinému som musel napísať rodičovi, lebo som to nevedel dekódovať,",
+      "draftCs": "A dvanáct se stalo, omlouvám se, audio. Tak to je tak, takže děkuji za to. Jednou jsem musel napsat jedinému rodičovi, protože jsem to nemohl dešifrovat.",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 251.614,
+      "end": 257.334,
+      "sourceCues": [
+        119,
+        120
+      ],
+      "originalSk": "ale ináč no sú to super otázky, takže ďakujeme všetkým a ďakujeme veľmi pekne.",
+      "draftCs": "Ale jinak jsou to skvělé otázky, takže vám všem děkujeme a děkujeme velmi moc.",
+      "reviewFlags": []
+    },
+    {
+      "start": 257.334,
+      "end": 268.294,
+      "sourceCues": [
+        121,
+        122,
+        123,
+        124
+      ],
+      "originalSk": "Za otázky. Tak ideme rovno na to. Zuzka osemročná sa pýta. Volám sa Zuzka, mám osem rokov a chcem sa spýtať, ako mohli kozmonauti volať",
+      "draftCs": "Zuzka se ptá. Jmenuji se Zuzka, mám osm let a chci se zeptat, jak cosmonauti mohli volat",
+      "reviewFlags": []
+    },
+    {
+      "start": 268.294,
+      "end": 276.574,
+      "sourceCues": [
+        125,
+        126,
+        127
+      ],
+      "originalSk": "eh z rakety, keď keď domov, keď keď nemali tam signál? No, aha. To je dobrá To je dobrá otázka,",
+      "draftCs": "Když jsme se vrátili domů, když tam nebyl signál?",
+      "reviewFlags": []
+    },
+    {
+      "start": 276.574,
+      "end": 285.93399999999997,
+      "sourceCues": [
+        128,
+        129,
+        130,
+        131,
+        132
+      ],
+      "originalSk": "lebo nejaký drát nám nejde do vesmíru, ktorý by nás spájal. Rovnako je to aj nemáš tam taký bežný signál, že keby si si zobral do rakety iPhone, tak pravdepodobne nebude",
+      "draftCs": "Protože žádný kabel, který by nás mohl spojit, není ve vesmíru. Stejně tak to není tak obyčejný signál, že když si vezmete iPhone do rakety, pravděpodobně nebude.",
+      "reviewFlags": []
+    },
+    {
+      "start": 285.93399999999997,
+      "end": 291.478,
+      "sourceCues": [
+        133,
+        134,
+        135
+      ],
+      "originalSk": "zachytávať signál, lebo my sme zvyknutí, že komunikujeme tých družiciach, či",
+      "draftCs": "zachytit signál, protože jsme zvyklí komunikovat s těmito družicemi, nebo",
+      "reviewFlags": []
+    },
+    {
+      "start": 291.478,
+      "end": 292.494,
+      "sourceCues": [
+        136
+      ],
+      "originalSk": "[smiech][lapanie po dychu]",
+      "draftCs": "[smích]",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 292.494,
+      "end": 302.054,
+      "sourceCues": [
+        137,
+        138,
+        139,
+        140,
+        141
+      ],
+      "originalSk": "Ináč aj no. Ale my vlastne často komunikujeme cez vysielacie veže. Čiže ty keď si keď si mi ideme zavolať, tak ja zavolám tebe, ale ten signál ide z môjho telefónu do",
+      "draftCs": "Ale ve skutečnosti často komunikujeme přes vysílací věže, takže když jsi ty, když zavoláme, já zavolám tobě, ale ten signál jde z mého telefonu do",
+      "reviewFlags": []
+    },
+    {
+      "start": 302.054,
+      "end": 311.214,
+      "sourceCues": [
+        142,
+        143,
+        144,
+        145
+      ],
+      "originalSk": "najbližšej antény, ktorá môže byť pár desiatok stoviek metrov odo mňa a odtiaľ sa to potom posúva ďalej až k tebe a od teba to ide do k tebe to ide zase od tej",
+      "draftCs": "Nejbližší anténa, která může být několik desítek stovek metrů ode mě a odtud se posune dál až k vám a od vás to jde k vám to jde zase od toho",
+      "reviewFlags": []
+    },
+    {
+      "start": 311.214,
+      "end": 320.014,
+      "sourceCues": [
+        146,
+        147,
+        148,
+        149,
+        150
+      ],
+      "originalSk": "najbližšej antény. A ale to nie je jediný spôsob, ako môžeš komunikovať. My by sme v princípe vedeli komunikovať aj na priamo, keby sme si kúpili vysielačky.",
+      "draftCs": "A to není jediný způsob, jak komunikovat. My bychom mohli komunikovat přímo, kdybychom si koupili vysílače.",
+      "reviewFlags": []
+    },
+    {
+      "start": 320.014,
+      "end": 329.414,
+      "sourceCues": [
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "originalSk": "Vysielačky rovno pošlú signál do všetkých smerov a keď si dosť blízko, tak ho dokážeš zachytiť. Takže by sme normálne mohli mať doma čo telefón vlastne nerobí, že oni nemajú",
+      "draftCs": "Vysílače vysílají signál ve všech směrech, a když jste dostatečně blízko, můžete ho zachytit. Takže normálně bychom mohli mít doma něco, co telefon vlastně nedělá, co oni nemají.",
+      "reviewFlags": []
+    },
+    {
+      "start": 329.414,
+      "end": 333.974,
+      "sourceCues": [
+        156,
+        157
+      ],
+      "originalSk": "aj tú prijímaciu časť vysielača, nie, že že sa vedia pripojiť na seba, tak tak.",
+      "draftCs": "i přijímací část vysílače, ne že by se mohli spojit, tak nějak.",
+      "reviewFlags": []
+    },
+    {
+      "start": 333.974,
+      "end": 342.454,
+      "sourceCues": [
+        158,
+        159,
+        160,
+        161
+      ],
+      "originalSk": "Áno áno áno. Ale v podstate, že ty ty ty vyšleš signál do všetkých smerov a budeš dúfať, že že ten druhý je v dosahu. Keď niekomu telefonuješ, tak",
+      "draftCs": "Ano, ano, ale ve skutečnosti ty vysíláš signál ve všech směrech a doufáš, že ten druhý je v dosahu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 342.454,
+      "end": 348.494,
+      "sourceCues": [
+        162,
+        163,
+        164
+      ],
+      "originalSk": "ten človek môže byť aj na druhom konci zeme a ten celý systém je urobený tak, aby si sa mu dovolal.",
+      "draftCs": "Ten člověk může být na druhém konci světa, a celý systém je navržen tak, aby se mu dovolilo.",
+      "reviewFlags": []
+    },
+    {
+      "start": 348.494,
+      "end": 355.614,
+      "sourceCues": [
+        165,
+        166,
+        167,
+        168
+      ],
+      "originalSk": "Ale keď nie ste od seba dosť ďaleko, tak môžete používať obyčajné vysielačky. A to to je v podstate ako hlasné kričanie, ale hlasné kričanie v",
+      "draftCs": "Ale pokud nejste dostatečně daleko od sebe, můžete použít běžné vysílačky. A to je v podstatě jako hlasitý křik, ale hlasitý křik v",
+      "reviewFlags": []
+    },
+    {
+      "start": 355.614,
+      "end": 366.055,
+      "sourceCues": [
+        169,
+        170,
+        171,
+        172,
+        173
+      ],
+      "originalSk": "elektromagnetických vlnách rádiových. Uhm. A jediné, čo robia potom rakety je, že v nich máš silné rádiové vysielače a prípadne ich vieš smerovať správnym",
+      "draftCs": "A jediné, co rakety dělají, je, že v nich máte silné rádiové vysílače, které můžete přesměrovat správným směrem.",
+      "reviewFlags": []
+    },
+    {
+      "start": 366.055,
+      "end": 374.775,
+      "sourceCues": [
+        174,
+        175,
+        176,
+        177,
+        178
+      ],
+      "originalSk": "smerom. Takže napríklad sonda Voyager, keď nám posiela správy z opačného konca slnečnej sústavy, tak je to kvôli tomu, že vie, kde sa nachádzame a kričí tými rádiovými",
+      "draftCs": "Takže když nám sonda Voyager vysílá zprávy z opačného konce sluneční soustavy, je to proto, že ví, kde jsme a vysílá rádiové výrazy.",
+      "reviewFlags": []
+    },
+    {
+      "start": 374.775,
+      "end": 383.455,
+      "sourceCues": [
+        179,
+        180,
+        181,
+        182
+      ],
+      "originalSk": "vlnami presne na nás. Takže signál sa šíri vzduchom v podobe rádiových vĺn, ktoré sú neviditeľné, a toto sa dá robiť aj vo vesmíre.",
+      "draftCs": "Takže signál se šíří do vzduchu ve formě rádiových vln, které jsou neviditelné, a to se dá dělat i ve vesmíru.",
+      "reviewFlags": []
+    },
+    {
+      "start": 383.455,
+      "end": 389.935,
+      "sourceCues": [
+        183,
+        184,
+        185,
+        186
+      ],
+      "originalSk": "Nepotrebuje to vzduch, nepotrebuje to káble, nepotrebuje to dokonca ani také tie vysielacie veže, cez ktoré komunikujeme my.",
+      "draftCs": "Nepotřebuje vzduch, nepotřebuje kabely, ani vysílací věže, přes které komunikujeme.",
+      "reviewFlags": []
+    },
+    {
+      "start": 389.935,
+      "end": 394.314,
+      "sourceCues": [
+        187,
+        188,
+        189
+      ],
+      "originalSk": "Áno. Nepotrebuje to satelit. Nič moc.",
+      "draftCs": "Nepotřebuje žádný satelit.",
+      "reviewFlags": []
+    },
+    {
+      "start": 394.314,
+      "end": 394.975,
+      "sourceCues": [
+        190
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 394.975,
+      "end": 400.095,
+      "sourceCues": [
+        191,
+        192,
+        193
+      ],
+      "originalSk": "Ja by som len pripomenul, že o tomto máme epizódu, ktorú sme s Outom nahrávali, myslím.",
+      "draftCs": "Jen bych vám chtěl připomenout, že tohle je jedna z epizod, kterou jsme natočili s Outem, myslím.",
+      "reviewFlags": []
+    },
+    {
+      "start": 400.095,
+      "end": 410.415,
+      "sourceCues": [
+        194,
+        195,
+        196,
+        197,
+        198
+      ],
+      "originalSk": "Tak, Zuzka, pre koho to nahrávame? No, presne tak. Takže môžeš si pozrieť, je to jeden zo špeciálov a je tam, myslím si, že presne toto vysvetlené, že ako fungujú telefóny",
+      "draftCs": "Takže, Zuzko, pro koho to nahráváme? No, přesně tak. Takže se můžete podívat, je to jeden z speciálních a je tam, myslím, přesně to vysvětluje, jak telefony fungují.",
+      "reviewFlags": []
+    },
+    {
+      "start": 410.415,
+      "end": 418.775,
+      "sourceCues": [
+        199,
+        200,
+        201,
+        202,
+        203,
+        204
+      ],
+      "originalSk": "a ako sa to líši od Ale ináč je to, že že že táto technológia, že funguje úplne fascinujúco. Vieš, že keď si zoberieš celú históriu ľudskej civilizácie, Uhm.",
+      "draftCs": "A jak se to liší od toho, ale rozdíl je v tom, že tato technologie, že funguje naprosto fascinující. Víte, když vezmete celou historii lidské civilizace, uhm.",
+      "reviewFlags": []
+    },
+    {
+      "start": 418.775,
+      "end": 429.015,
+      "sourceCues": [
+        205,
+        206,
+        207,
+        208
+      ],
+      "originalSk": "si musel poslať nejaký koč a dúfať, že ho neprepadnú banditi a neviem čo, a my teraz naozaj, že máš ten luxus, že zavoláš na opačný koniec planéty a",
+      "draftCs": "Musel jsi poslat nějaký kočár a doufat, že ho banditi nezapadnou a já nevím co, a my teď opravdu, že máš ten luxus, že voláš na opačný konec planety a",
+      "reviewFlags": []
+    },
+    {
+      "start": 429.015,
+      "end": 439.375,
+      "sourceCues": [
+        209,
+        210,
+        211,
+        212,
+        213
+      ],
+      "originalSk": "máš úplne, že okamžité spojenie. bolo nepredstaviteľné mať informácie rýchlo, proste. Veď maratón nie je na čom vznikol, nie, že Keby mali vtedy telefón, tak nemusíme",
+      "draftCs": "Je to naprosto neuvěřitelné mít informace rychle, prostě. Maraton není to, na čem byl založen. Ne, kdyby měli telefon, nemusíme.",
+      "reviewFlags": []
+    },
+    {
+      "start": 439.375,
+      "end": 441.475,
+      "sourceCues": [
+        214
+      ],
+      "originalSk": "bežať maratón. To by nebolo úplne zlé.",
+      "draftCs": "To by nebylo úplně špatné.",
+      "reviewFlags": []
+    },
+    {
+      "start": 441.475,
+      "end": 442.935,
+      "sourceCues": [
+        215
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 442.935,
+      "end": 449.495,
+      "sourceCues": [
+        216,
+        217,
+        218
+      ],
+      "originalSk": "Presne. To by bolo len zlé. Dobre. Ďalšiu otázku nám tvoj menovec položil, Samko.",
+      "draftCs": "Dobře, další otázka, kterou nám položil tvůj jmenovatel, Samko.",
+      "reviewFlags": []
+    },
+    {
+      "start": 449.495,
+      "end": 455.695,
+      "sourceCues": [
+        219,
+        220,
+        221
+      ],
+      "originalSk": "Ahoj, ja som Samko. Zasne niekedy naše Slnko? No, povedz, Jojo.",
+      "draftCs": "Ahoj, já jsem Samko, zaspí někdy naše Slunce?",
+      "reviewFlags": []
+    },
+    {
+      "start": 455.695,
+      "end": 461.415,
+      "sourceCues": [
+        222,
+        223,
+        224,
+        225
+      ],
+      "originalSk": "Čo skoro maturant z fyziky? miliárd rokov vie odhodiť svoj plášť a Tak.",
+      "draftCs": "Co skoro absolvent fyziky?",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 461.415,
+      "end": 464.175,
+      "sourceCues": [
+        226,
+        227
+      ],
+      "originalSk": "bude z neho len biely trpaslík, myslím, či červený trpaslík?",
+      "draftCs": "Bude to jen bílý trpaslík, myslím, červený trpaslík?",
+      "reviewFlags": []
+    },
+    {
+      "start": 464.175,
+      "end": 472.055,
+      "sourceCues": [
+        228,
+        229,
+        230,
+        231
+      ],
+      "originalSk": "Asi to tak dopadne. Keď najprv sa nafúkne na takého červeného obra a potom odvrhne tie horné vrstvy a zostane len biely trpaslík, chladnúce jadro. Červený",
+      "draftCs": "Když se nejprve zvedne na takového červeného obřího, a pak se vyvrátí horní vrstvy, zůstane jen bílý trpaslík, chladný jádro.",
+      "reviewFlags": []
+    },
+    {
+      "start": 472.055,
+      "end": 482.615,
+      "sourceCues": [
+        232,
+        233,
+        234,
+        235
+      ],
+      "originalSk": "trpaslík by bola malinká hviezda, ktorá už akože tlie, horí, ale ale neprodukuje neprodukuje Nemá v sebe fúziu Má fúziu, ale slabučkú. Tak. A Samko",
+      "draftCs": "Krokodil by byl malou hvězdou, která se rozpala, ale nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí, nevyrábí.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 482.615,
+      "end": 489.377,
+      "sourceCues": [
+        236,
+        237,
+        238
+      ],
+      "originalSk": "som sa, že veľmi veľa ľudí si to mýli, toto odhodenie plášťov s výbuchom supernovy, inak.",
+      "draftCs": "Věřím, že mnoho lidí se mýlí, že je to tak, jak se hodí do kabátů s výbuchem supernovy, jinak.",
+      "reviewFlags": []
+    },
+    {
+      "start": 489.377,
+      "end": 495.577,
+      "sourceCues": [
+        239,
+        240,
+        241
+      ],
+      "originalSk": "Áno, neviem, bude to bude to také jemné dožitie. Máloktorá ale máloktorá nás nebude jemné.",
+      "draftCs": "Jo, nevím, bude to tak jemný zážitek.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 495.577,
+      "end": 503.257,
+      "sourceCues": [
+        242,
+        243,
+        244,
+        245
+      ],
+      "originalSk": "Pre nás ešte nevieme, ale máloktoré hviezdy končia supernovou. Na to na supernovou na to na Zemi musíš mať vhodné podmienky. Je to veľmi drastické,",
+      "draftCs": "My zatím nevíme, ale jen málo hvězd skončí supernovou.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 503.257,
+      "end": 509.257,
+      "sourceCues": [
+        246,
+        247,
+        248
+      ],
+      "originalSk": "preto sú supernovy pomerne vzácne. My ich pozorujeme len kvôli tomu, že ten vesmír je proste tak sakramentsky plný.",
+      "draftCs": "Proto jsou supernovy poměrně vzácné. My je pozorujeme jen proto, že vesmír je tak sakramentálně plný.",
+      "reviewFlags": []
+    },
+    {
+      "start": 509.257,
+      "end": 517.097,
+      "sourceCues": [
+        249,
+        250,
+        251,
+        252
+      ],
+      "originalSk": "Takže áno, naše Slnko zhasne. Je tak na pol ceste. A treba si ho užívať, ale máme ho ešte veľmi veľa času.",
+      "draftCs": "Takže ano, naše Slunce vyhasne, je tak napůl cesty, a měli bychom si ho užít, ale máme ještě hodně času.",
+      "reviewFlags": []
+    },
+    {
+      "start": 517.097,
+      "end": 523.337,
+      "sourceCues": [
+        253,
+        254,
+        255,
+        256
+      ],
+      "originalSk": "veľa času. Máme ho veľa, áno, áno, áno. Tak. Netreba sa báť.",
+      "draftCs": "Máme spoustu času, ano, ano, ano, ano, tak se nebojte.",
+      "reviewFlags": []
+    },
+    {
+      "start": 523.337,
+      "end": 529.897,
+      "sourceCues": [
+        257,
+        258,
+        259
+      ],
+      "originalSk": "Dobre, ďakujeme veľmi pekne za otázku. Tým je sedemročná sa pýtam, koľko je hviezd vo vesmíre?",
+      "draftCs": "Dobře, díky moc za otázku. Takže jsem sedmletý a říkám, kolik je hvězd ve vesmíru?",
+      "reviewFlags": []
+    },
+    {
+      "start": 529.897,
+      "end": 537.377,
+      "sourceCues": [
+        260,
+        261,
+        262
+      ],
+      "originalSk": "Ja by som to tak prirovnával, prirovnávacky povedal, že predstav si, že si na pláži alebo na pieskovisku.",
+      "draftCs": "Já bych to tak srovnal, srovnatelně řekl, že si představte, že jste na pláži nebo na písečné ploše.",
+      "reviewFlags": []
+    },
+    {
+      "start": 537.377,
+      "end": 546.857,
+      "sourceCues": [
+        263,
+        264,
+        265,
+        266,
+        267,
+        268
+      ],
+      "originalSk": "Uhm. Tak všetky pieskoviská na celom svete si predstav a to je dosť to je menej ako hviezd, čo je vo vesmíre. Čo je pre mňa neuveriteľné, že Uhm.",
+      "draftCs": "Takže všechny písky na celém světě si představte a to je dost, to je méně než hvězdy ve vesmíru, což je pro mě neuvěřitelné.",
+      "reviewFlags": []
+    },
+    {
+      "start": 546.857,
+      "end": 555.897,
+      "sourceCues": [
+        269,
+        270,
+        271,
+        272,
+        273,
+        274
+      ],
+      "originalSk": "Uhm. Pravda je ináč úplne taká, že my v skutočnosti, že my to nemáme spočítané. To, čo máme spočítané je, že vieš, koľko svieti zhruba jedna hviezda, vidíš nejakú",
+      "draftCs": "Pravda je naprosto jiná, že my, ve skutečnosti, že to nemáme počítáno. Co máme počítáno je, že víte, kolik světla asi jedna hvězda, vidíte nějakou hvězdu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 555.897,
+      "end": 564.616,
+      "sourceCues": [
+        275,
+        276,
+        277,
+        278,
+        279
+      ],
+      "originalSk": "galaxiu, pozrieš sa, ako svietia, povieš, že tak toto vyzerá byť taká galaxia s miliardou hviezd a toto je 10 miliardová galaxia a potom to nejako tak odhadom pospočítavaš.",
+      "draftCs": "galaxie, když se na ni podíváte, jak svítí, řeknete, že tohle vypadá jako galaxie s miliardami hvězd a tohle je 10 miliard galaxií a pak to nějak odhadnete.",
+      "reviewFlags": []
+    },
+    {
+      "start": 564.616,
+      "end": 565.017,
+      "sourceCues": [
+        280
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 565.017,
+      "end": 573.657,
+      "sourceCues": [
+        281,
+        282,
+        283,
+        284,
+        285
+      ],
+      "originalSk": "A ten odhad ti dá číslo. hmotu, nie? Že keď sa spočíta hmota vo vesmíre, tak To už je potom, keď chceš keď chceš dopočítať, hej, že celkové",
+      "draftCs": "A ten odhad vám dá číslo hmoty, že když se hmoty ve vesmíru spojí, tak je to až potom, když chcete, když chcete počítat, ano, že celkové",
+      "reviewFlags": []
+    },
+    {
+      "start": 573.657,
+      "end": 582.017,
+      "sourceCues": [
+        286,
+        287,
+        288,
+        289
+      ],
+      "originalSk": "vplyvy gravitácie a tak ďalej, ale ale že tie hviezdy vieme nejako odhaliť tým jasom, aj keď samozrejme nevieš, koľko ti cloní nejaký prach a podobne.",
+      "draftCs": "gravitativní působení a tak dále, ale že tyto hvězdy můžeme nějak odhalit tím světlem, i když samozřejmě nevíte, kolik prachu je na vás obklopeno a tak dále.",
+      "reviewFlags": []
+    },
+    {
+      "start": 582.017,
+      "end": 589.497,
+      "sourceCues": [
+        290,
+        291,
+        292
+      ],
+      "originalSk": "A to číslo, keby si Tymi chcela napísať na papier, tak ono zhruba vyzerá tak, že jednotka a za ňou 22 núl.",
+      "draftCs": "A toto číslo, pokud chcete Tymi napsat na papír, vypadá zhruba tak, že jednotka a za ní 22 nuly.",
+      "reviewFlags": []
+    },
+    {
+      "start": 589.497,
+      "end": 596.937,
+      "sourceCues": [
+        293,
+        294,
+        295
+      ],
+      "originalSk": "22, 23, podľa toho, aký odhad zoberieš. Obrovské číslo. To je, že milióny, milióny, milióny, miliónov rádovo.",
+      "draftCs": "22, 23, podle toho, jakým odhadem, obrovský počet. To je, že miliony, miliony, miliony, miliony, řádně.",
+      "reviewFlags": []
+    },
+    {
+      "start": 596.937,
+      "end": 602.606,
+      "sourceCues": [
+        296,
+        297,
+        298
+      ],
+      "originalSk": "Toľko. Proste, že veľa. A hľadal som k tomu nejaké prirovnanie, ktoré by si človek trošku mohol predstaviť.",
+      "draftCs": "A hledal jsem nějaké srovnání, které si člověk může představit.",
+      "reviewFlags": []
+    },
+    {
+      "start": 602.606,
+      "end": 603.217,
+      "sourceCues": [
+        299
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 603.217,
+      "end": 611.058,
+      "sourceCues": [
+        300,
+        301,
+        302,
+        303
+      ],
+      "originalSk": "A skúsil som spočítať takú vec, že z akého veľkého ovocia by sa musela skladať zemeguľa, aby to odpovedalo",
+      "draftCs": "A snažil jsem se vypočítat, z jakého velikého ovoce by měl být skládán globus, aby to odpovídalo.",
+      "reviewFlags": []
+    },
+    {
+      "start": 611.058,
+      "end": 616.658,
+      "sourceCues": [
+        304,
+        305
+      ],
+      "originalSk": "počtu hviezd vo viditeľnom vesmíre. A vychádza to zhruba na melóny.",
+      "draftCs": "počet hvězd ve viditelném vesmíru. A to se zhruba týká melonů.",
+      "reviewFlags": []
+    },
+    {
+      "start": 616.658,
+      "end": 620.738,
+      "sourceCues": [
+        306,
+        307
+      ],
+      "originalSk": "Predstav si, že celá zemeguľa by bola obrovská kopa melónov.",
+      "draftCs": "Představte si, že by celá země byla obrovská hromada melonů.",
+      "reviewFlags": []
+    },
+    {
+      "start": 620.738,
+      "end": 628.698,
+      "sourceCues": [
+        308,
+        309,
+        310,
+        311,
+        312
+      ],
+      "originalSk": "Uhm. Melón, melón, melón, melón na nich toľko vedľa seba, aby to urobilo celú zemeguľu, tak zhruba toľko hviezd je vo vesmíre.",
+      "draftCs": "Melón, melón, melón, melón, melón na nich, tak vedle sebe, aby to dělalo celou zemskou planetu, tak asi tolik hvězd je ve vesmíru.",
+      "reviewFlags": []
+    },
+    {
+      "start": 628.698,
+      "end": 633.978,
+      "sourceCues": [
+        313,
+        314,
+        315,
+        316
+      ],
+      "originalSk": "Koľko je hviezd? Áno, áno, to je to, to ako ty si povedal a áno, melónov, ktoré by vyskladali celú zemeguľu dokopy.",
+      "draftCs": "Ano, ano, to je přesně to, co jsi řekl, a ano, melouny, které by rozložily celou zemskou planetu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 633.978,
+      "end": 638.458,
+      "sourceCues": [
+        317,
+        318
+      ],
+      "originalSk": "Áno, keby sme povedali že o dosť niečo menšie, že napríklad šošovica alebo tak.",
+      "draftCs": "Ano, kdybychom říkali, že je to něco menšího, jako jsou čočky nebo tak něco.",
+      "reviewFlags": []
+    },
+    {
+      "start": 638.458,
+      "end": 646.138,
+      "sourceCues": [
+        319,
+        320,
+        321,
+        322
+      ],
+      "originalSk": "Nie, nie, že že melón, ale ale to je podobné. Ty si povedal tie zrnká piesku, oni sú zase veľmi malé. Takže keď si zoberieš že každé to zrnko piesku sa",
+      "draftCs": "Ne, ne, to je meloun, ale je to podobné. Řekl jsi, že ty pískové zrnky, jsou zase velmi malé. Takže když si vezmete, že každé pískové zrnko",
+      "reviewFlags": []
+    },
+    {
+      "start": 646.138,
+      "end": 657.058,
+      "sourceCues": [
+        323,
+        324,
+        325,
+        326,
+        327,
+        328
+      ],
+      "originalSk": "nafúkne na melón, tak to ti naozaj dáva potom tú zemeguľu približne, takže zemeguľa by vyzerala ako nedá nedá toľko ako je zem, takže hej, to dávalo zmysel.",
+      "draftCs": "Vypíchne na meloun, takže vám to opravdu dává tu zemskou kouli přibližně, takže zemskou kouli by se zdálo, že nedává tolik, co zem, takže ano, to dává smysl.",
+      "reviewFlags": []
+    },
+    {
+      "start": 657.058,
+      "end": 664.832,
+      "sourceCues": [
+        329,
+        330,
+        331
+      ],
+      "originalSk": "No, tak zaujímavé. Tými, tak dúfam že ti to niečo povedalo a o väčších číslach sa opýtaj rodičov a svojho učiteľa v škole,",
+      "draftCs": "Tak to je zajímavé. S tím, doufám, že vám to něco řekne, a o větších číslech se zeptejte svých rodičů a učitele ve škole,",
+      "reviewFlags": []
+    },
+    {
+      "start": 664.832,
+      "end": 664.938,
+      "sourceCues": [
+        332
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 664.938,
+      "end": 673.178,
+      "sourceCues": [
+        333,
+        334,
+        335,
+        336
+      ],
+      "originalSk": "že čo sú to milióny. Eh, inak v tejto úplnej odbočke, vieš čo ma strašne hnevá v poslednej dobe, keď v nejakej [odkašľanie] historickej alebo",
+      "draftCs": "Víte, co mě v poslední době strašně naštvalo, když jsem v nějakém historickém nebo",
+      "reviewFlags": []
+    },
+    {
+      "start": 673.178,
+      "end": 682.778,
+      "sourceCues": [
+        337,
+        338,
+        339,
+        340
+      ],
+      "originalSk": "fantasy sérii povedia nejaký modern niečo moderné, ale tak nenápadne moderné a som pozeral teraz scénu z Game of Thrones, lebo som si pozrel niektoré",
+      "draftCs": "Fantasy série řeknou nějaké moderní něco moderní, ale tak nenápadně moderní a já jsem se díval na scénu z hry na trůny, protože jsem se díval na některé",
+      "reviewFlags": []
+    },
+    {
+      "start": 682.778,
+      "end": 693.098,
+      "sourceCues": [
+        341,
+        342,
+        343,
+        344
+      ],
+      "originalSk": "časti, ktoré sa mi páčili a bol tam Jamie Lannister, a ktorý povedal že sa ho jeden ten ten mních pýtal že koľko ste ľudí zabil, že nespočetne veľa a že",
+      "draftCs": "A který řekl, že jeden z těch mnichů se zeptal, kolik lidí jste zabil, že nespočetné množství a že",
+      "reviewFlags": []
+    },
+    {
+      "start": 693.098,
+      "end": 702.018,
+      "sourceCues": [
+        345,
+        346,
+        347,
+        348,
+        349
+      ],
+      "originalSk": "koľko ste zachránil a on iba že pol milióna. A mňa to tak vytrhlo z tej scény, proste ja iba že on tie milióny úplne vie, že to je",
+      "draftCs": "A mě to tak vytáhlo z té scény, jenže já jen, že on ty miliony úplně ví, že to je",
+      "reviewFlags": []
+    },
+    {
+      "start": 702.018,
+      "end": 712.178,
+      "sourceCues": [
+        350,
+        351,
+        352,
+        353
+      ],
+      "originalSk": "moderná jednotka, podľa mňa to nemali žia- teda nesledoval som nepozrel som si to, ale chcel som sa ťa na to opýtať, že veď to je taký francúzsky výmysel z 19.",
+      "draftCs": "Moderní jednotka, myslím, že by to neměly být živé-- takže jsem to neviděl, neviděl jsem to, ale chtěl jsem se tě zeptat, že to je taková francouzská myšlenka z 19. století.",
+      "reviewFlags": []
+    },
+    {
+      "start": 712.178,
+      "end": 717.258,
+      "sourceCues": [
+        354,
+        355,
+        356
+      ],
+      "originalSk": "storočia, vieš že to asi nemali presne, ale no, tak som chcel len takúto poznámku.",
+      "draftCs": "Ve staletích, asi to nebylo přesně, ale chtěl jsem jen takovou poznámku.",
+      "reviewFlags": []
+    },
+    {
+      "start": 717.258,
+      "end": 724.498,
+      "sourceCues": [
+        357,
+        358,
+        359,
+        360
+      ],
+      "originalSk": "Ja ja ja mám to to podobne teraz, keď počúvam Červeného kapitána Bátoryho, tak tiež tam občas niečo také zaznie, že sa zamyslíš nad tým, že kedy vznikol tento",
+      "draftCs": "Já, já, já, já mám to stejné teď, když poslouchám Červený kapitán Batory, takže také tam někdy něco takového zvoní, že si pomyslíte, kdy vznikl tento",
+      "reviewFlags": []
+    },
+    {
+      "start": 724.498,
+      "end": 735.139,
+      "sourceCues": [
+        361,
+        362,
+        363,
+        364
+      ],
+      "originalSk": "idióm, či je to naozaj také. Ale to zas treba brať tak, vieš že eh Píšu to naši súčasníci, a to podľa toho beriem, akože hej, ale",
+      "draftCs": "Ale je třeba to brát tak, jak to píše naši současníci, a podle toho to chápu jako ano, ale...",
+      "reviewFlags": []
+    },
+    {
+      "start": 735.139,
+      "end": 746.019,
+      "sourceCues": [
+        365,
+        366,
+        367,
+        368,
+        369
+      ],
+      "originalSk": "Ale ale Ale to má to tak ja, že milión vedel by čo vedel by rytier, čo je milión proste, že proste, že asi asi nie. Dobre, eh syn sa pýta, eh teda pardon, Marek",
+      "draftCs": "Ale je to tak, že milión by věděl, co by knight věděl, co je milión jen, že jen, že asi ne.",
+      "reviewFlags": []
+    },
+    {
+      "start": 746.019,
+      "end": 753.299,
+      "sourceCues": [
+        370,
+        371,
+        372
+      ],
+      "originalSk": "osemročný. Mení sa na planéte Zem množstvo vody? Marek, osem rokov.",
+      "draftCs": "Jak se mění množství vody na planetě Země?",
+      "reviewFlags": []
+    },
+    {
+      "start": 753.299,
+      "end": 762.299,
+      "sourceCues": [
+        373,
+        374,
+        375,
+        376,
+        377
+      ],
+      "originalSk": "Určite. Áno, ale zas nie sú to obrovské zmeny, že by sme tu mali o 10 rokov polovicu vody. Eh A ešte je to, že čo rozumieš pod pojmom",
+      "draftCs": "Ano, ale není to tak velká změna, že bychom tu měli za 10 let polovinu vody.",
+      "reviewFlags": []
+    },
+    {
+      "start": 762.299,
+      "end": 768.699,
+      "sourceCues": [
+        378,
+        379,
+        380
+      ],
+      "originalSk": "voda, lebo viem, že ty pod pojmom voda primárne rozumieš tekutú vodu, ja pod ňou rozumiem aj ľad.",
+      "draftCs": "voda, protože vím, že když myslíš vodu, rozumíš především tekutou vodu, já rozumím i led.",
+      "reviewFlags": []
+    },
+    {
+      "start": 768.699,
+      "end": 772.979,
+      "sourceCues": [
+        381,
+        382
+      ],
+      "originalSk": "A toto sa mení výrazne, že ľad sa rozumieš pod ňou vodnú paru?",
+      "draftCs": "A to se výrazně mění, že led se rozumí pod vodní parou?",
+      "reviewFlags": []
+    },
+    {
+      "start": 772.979,
+      "end": 783.099,
+      "sourceCues": [
+        383,
+        384,
+        385,
+        386,
+        387
+      ],
+      "originalSk": "Áno, jasné. Dobre, dobre, dobre, potom sa nehádam, keď Eh a a toto sa výrazne mení, eh skupenstvá, eh ľadovce sa topia,",
+      "draftCs": "Dobře, dobře, dobře, dobře, pak se nebudu hádat, když eh a a to se výrazně mění, eh, výdaje, eh, zmrzliny se topí,",
+      "reviewFlags": []
+    },
+    {
+      "start": 783.099,
+      "end": 792.699,
+      "sourceCues": [
+        388,
+        389,
+        390,
+        391
+      ],
+      "originalSk": "oceány sa vyparujú, máme teraz El Niňo, takže tieto veci El Niňo, eh tieto veci sa menia, eh ale to je akože prelievaš vodu z ľadu medzi tromi",
+      "draftCs": "Oceány se vypařují, teď máme El Niño, takže tyto věci El Niño, uh, tyto věci se mění, uh, ale je to jako by jsi proléval vodu z ledu mezi třemi.",
+      "reviewFlags": []
+    },
+    {
+      "start": 792.699,
+      "end": 800.979,
+      "sourceCues": [
+        392,
+        393,
+        394,
+        395
+      ],
+      "originalSk": "rôznymi skupenstvami, takže to je vlastne celkový rovnaký počet. Potom vie občas voda zreagovať, napríklad, keď dýchaš, tak vydychuješ H2O.",
+      "draftCs": "Pak může voda občas reagovat, například když dýcháte, vydechujete H2O.",
+      "reviewFlags": []
+    },
+    {
+      "start": 800.979,
+      "end": 806.939,
+      "sourceCues": [
+        396,
+        397,
+        398,
+        399
+      ],
+      "originalSk": "A naopak, keď máš fotosyntézu, tak sa voda zachytáva a tvoria sa z nej iné molekuly, takže dochádza k nejakým chemickým zmenám.",
+      "draftCs": "Naopak, když se fotosyntéza provádí, voda se zachytí a tvoří se z ní jiné molekuly, takže dochází k chemickým změnám.",
+      "reviewFlags": []
+    },
+    {
+      "start": 806.939,
+      "end": 812.059,
+      "sourceCues": [
+        400,
+        401
+      ],
+      "originalSk": "To znamená, že niečo, čo bolo vodou, začne byť niečím iným a naopak.",
+      "draftCs": "To znamená, že něco, co bylo vodou, se stane něčím jiným a naopak.",
+      "reviewFlags": []
+    },
+    {
+      "start": 812.059,
+      "end": 819.059,
+      "sourceCues": [
+        402,
+        403
+      ],
+      "originalSk": "A trochu nám odfukuje vodík, a ten vodík môže pochádzať aj eh z vody.",
+      "draftCs": "A trochu se nám vypouští vodík, a ten vodík může pocházet i z vody.",
+      "reviewFlags": []
+    },
+    {
+      "start": 819.059,
+      "end": 829.219,
+      "sourceCues": [
+        404,
+        405,
+        406,
+        407,
+        408
+      ],
+      "originalSk": "Vodík je taký ten najmenší najmenší atóm, aj keď bežne sa nachádza teda vo forme molekuly dvoch vodíkov, a Zem stráca asi 3 kg vodíka za sekundu.",
+      "draftCs": "Vodík je ten nejmenší atom, i když se obvykle nachází ve formě molekul dvou vodíků a Země ztrácí asi 3 kg vodíku za sekundu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 829.219,
+      "end": 833.779,
+      "sourceCues": [
+        409,
+        410,
+        411
+      ],
+      "originalSk": "Tým, že nám ho odfukáva z horných vrstiev atmosféry, podobne ako to hélium, ktoré sme spomínali.",
+      "draftCs": "Tím, že nám ho vypouští z horních vrstev atmosféry, stejně jako ten helium, o kterém jsme mluvili.",
+      "reviewFlags": []
+    },
+    {
+      "start": 833.779,
+      "end": 842.579,
+      "sourceCues": [
+        412,
+        413,
+        414,
+        415
+      ],
+      "originalSk": "Uhm. Takže keď ho vypustíš balónikom, tak ono nastúpa, lebo je to veľmi ľahký plyn a je postupne odfúknuté, takže Asi všetky tieto tie ľahké prvky nemajú",
+      "draftCs": "Takže když ho pustíte do vzduchu balónem, tak to vystoupí, protože je to velmi lehký plyn, který se postupně odpuští, takže asi všechny tyto lehké prvky nemají.",
+      "reviewFlags": []
+    },
+    {
+      "start": 842.579,
+      "end": 851.779,
+      "sourceCues": [
+        416,
+        417,
+        418,
+        419,
+        420,
+        421
+      ],
+      "originalSk": "s týmto problém, že asi sa dostanú v nejakej výške. Áno, áno, presne, čím ľahší, tak tým vyššie vystúpa v nezanebateľnom množstve a je potom odfukovaný.",
+      "draftCs": "Ano, ano, přesně to, čím lehčí, tím vyšší je výstup v nesmírném množství, a pak je odkopán.",
+      "reviewFlags": []
+    },
+    {
+      "start": 851.779,
+      "end": 860.421,
+      "sourceCues": [
+        422,
+        423,
+        424,
+        425
+      ],
+      "originalSk": "Ale tiež som to počul o nejakom, neviem, či nie freóne alebo niečo iné, čo. Akože ten je zlý síce ale je pomerne ťažký ale hej v tých horných",
+      "draftCs": "Ale taky jsem o něčem slyšel, nevím, jestli je to freon, nebo něco jiného.",
+      "reviewFlags": []
+    },
+    {
+      "start": 860.421,
+      "end": 869.6610000000001,
+      "sourceCues": [
+        426,
+        427,
+        428,
+        429,
+        430
+      ],
+      "originalSk": "vrstvách atmosféry ale nie zase v tých úplne najvyšších. Eh Alebo asi nie freón alebo nejaký taký tiež vzácny plyn a",
+      "draftCs": "Ale ne v těch nejvyšších vrstvách atmosféry.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 869.6610000000001,
+      "end": 874.141,
+      "sourceCues": [
+        431,
+        432
+      ],
+      "originalSk": "Ale teda odpoveď Marekovi je že Množstvo vody sa mení ale veľmi jemne.",
+      "draftCs": "Ale Marekovi odpověď je, že množství vody se mění velmi jemně.",
+      "reviewFlags": []
+    },
+    {
+      "start": 874.141,
+      "end": 878.621,
+      "sourceCues": [
+        433,
+        434,
+        435
+      ],
+      "originalSk": "Nie je to tak že by si všimol. A to čo vidíme skôr je že napríklad že menej prší.",
+      "draftCs": "Není to tak, že byste si všimli. A co vidíme dříve je, že například méně prší.",
+      "reviewFlags": []
+    },
+    {
+      "start": 878.621,
+      "end": 884.381,
+      "sourceCues": [
+        436,
+        437
+      ],
+      "originalSk": "Máme dlhé suché obdobia ale to nie je že tá voda tu nie je. Ona akurát nenaprší.",
+      "draftCs": "Máme dlouhé suché období, ale není to tak, že tu není voda.",
+      "reviewFlags": []
+    },
+    {
+      "start": 884.381,
+      "end": 890.061,
+      "sourceCues": [
+        438,
+        439,
+        440
+      ],
+      "originalSk": "Niekde zostala. Ona je inde. Je áno presne tak. Niekde inde.",
+      "draftCs": "Je někde jinde, přesně tak, někde jinde.",
+      "reviewFlags": []
+    },
+    {
+      "start": 890.061,
+      "end": 900.581,
+      "sourceCues": [
+        441,
+        442,
+        443,
+        444,
+        445
+      ],
+      "originalSk": "Dobre. Ďakujeme Marekovi za otázku. Syn sa pýta. Nevieme ktorý ale nejaký. Ako je možné že bublinky v sodovke sa v tej vode udržia a nevylietia a neprasknú",
+      "draftCs": "Dobře, děkujeme Marekovi za otázku. Syn se ptá. Nevíme, který, ale nějaký. Jak je možné, že bubliny v sodě zůstávají v té vodě a nevyletí a nepomíjejí?",
+      "reviewFlags": []
+    },
+    {
+      "start": 900.581,
+      "end": 903.101,
+      "sourceCues": [
+        446
+      ],
+      "originalSk": "hneď?",
+      "draftCs": "Teď?",
+      "reviewFlags": []
+    },
+    {
+      "start": 903.255,
+      "end": 903.861,
+      "sourceCues": [
+        447
+      ],
+      "originalSk": "[vzdychanie][lapanie po dychu]",
+      "draftCs": "[výdech] [výdech]",
+      "reviewFlags": []
+    },
+    {
+      "start": 903.861,
+      "end": 914.341,
+      "sourceCues": [
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454
+      ],
+      "originalSk": "Hm. Lebo Je nasýtený v tej vode? Pomalinky sa vypúšťa? Áno toto je v podstate opačnom garde že ty nasýtiš tú vodu oxidom uhličitým a potom zrazu vytvoríš podmienky kedy ten",
+      "draftCs": "Ano, to je v podstatě opačná cesta, že naplníte vodu oxidem uhličitým a pak najednou vytvoříte podmínky, kdy je to",
+      "reviewFlags": []
+    },
+    {
+      "start": 914.341,
+      "end": 924.981,
+      "sourceCues": [
+        455,
+        456,
+        457,
+        458,
+        459
+      ],
+      "originalSk": "oxid uhličitý už nechce byť rozpustený vo vode a chce byť znova v plynnom skupenstve takže ti začnú vznikať Začnú ti vznikať",
+      "draftCs": "Uhlíkový oxid už nechce být rozpuštěn ve vodě a chce být znovu v plynu, takže se začnou vytvářet, začnou se vytvářet.",
+      "reviewFlags": []
+    },
+    {
+      "start": 924.981,
+      "end": 933.221,
+      "sourceCues": [
+        460,
+        461,
+        462,
+        463,
+        464
+      ],
+      "originalSk": "bublinky. Ale ono to chvíľku trvá. Čiže ty keď máš niečo vo výhodnejšom stave tak to ešte nie je nikde napísané že sa to musí udiať hneď. To len znamená že sa to",
+      "draftCs": "Takže když něco máte v výhodnější situaci, není tam napsáno, že to musí být okamžitě.",
+      "reviewFlags": []
+    },
+    {
+      "start": 933.221,
+      "end": 939.5409999999999,
+      "sourceCues": [
+        465,
+        466,
+        467
+      ],
+      "originalSk": "postupne hýbe tým smerom. Dokonalý príklad je že keď máš kocku ľadu v lete na stole.",
+      "draftCs": "Dokonalým příkladem je, když máte na stole ledovou kočku v létě.",
+      "reviewFlags": []
+    },
+    {
+      "start": 939.5409999999999,
+      "end": 946.941,
+      "sourceCues": [
+        468,
+        469,
+        470,
+        471,
+        472
+      ],
+      "originalSk": "Tak keď si spočítaš tak v akých podmienkach by to bolo ideálne tak tiež to bude chvíľku trvať kým sa to postupne ohreje a celé roztopí.",
+      "draftCs": "Takže pokud si počítáte, za jakých podmínek by to bylo ideální, tak to bude trvat chvíli, než se to bude postupně ohřát a celé se rozpustí.",
+      "reviewFlags": []
+    },
+    {
+      "start": 946.941,
+      "end": 957.141,
+      "sourceCues": [
+        473,
+        474,
+        475,
+        476,
+        477
+      ],
+      "originalSk": "Tak toto je tiež proces ktorý proste prebieha postupne. Je tam istý prvok náhody. Musia vzniknúť nejaké vhodné podmienky aby sa v konkrétnom malom mieste",
+      "draftCs": "Takže to je také proces, který probíhá postupně. Je tam určitý prvek náhody. Musí se vytvořit nějaké vhodné podmínky, aby se v konkrétním malém místě",
+      "reviewFlags": []
+    },
+    {
+      "start": 957.141,
+      "end": 967.941,
+      "sourceCues": [
+        478,
+        479,
+        480,
+        481,
+        482
+      ],
+      "originalSk": "vytvorila malá bublinka a začala sa nafukovať. Takže je tam nejaký prvok náhodnosti ktorý spôsobuje že to prebieha postupne a pomaly. A pomalšie ako kedy teda.",
+      "draftCs": "Vytvořila si malou bublinu a začala se zvětšovat. Takže je tam nějaký element náhody, který způsobuje, že se to děje postupně a pomalu. A pomalu než kdy předtím.",
+      "reviewFlags": []
+    },
+    {
+      "start": 968.141,
+      "end": 977.181,
+      "sourceCues": [
+        483,
+        484,
+        485
+      ],
+      "originalSk": "Super. Alex sa pýta. Ahojte. Ja som Alex. Chcel by som sa chcel opýtať prečo vzniká vietor a",
+      "draftCs": "Super. Alex se ptá. Ahoj. Já jsem Alex. Chtěl bych se zeptat, proč vzniká vítr a",
+      "reviewFlags": []
+    },
+    {
+      "start": 977.181,
+      "end": 984.782,
+      "sourceCues": [
+        486,
+        487
+      ],
+      "originalSk": "a prečo je niekedy silný ako hurikán a a niekedy slabý ako vánok?",
+      "draftCs": "a proč je někdy silný jako hurikán a někdy slabý jako vítr?",
+      "reviewFlags": []
+    },
+    {
+      "start": 984.782,
+      "end": 993.102,
+      "sourceCues": [
+        488,
+        489,
+        490,
+        491,
+        492
+      ],
+      "originalSk": "Strašne pekne Alex položil túto otázku. To eh vlastne ľudia nebudú počuť, ako to ty čítaš, lebo to potom Veronika prestrihne, aby aby tam boli tie detské",
+      "draftCs": "Alex se na to velmi pěkně zeptal, takže lidi to nebudou slyšet, protože Veronika se pak přeruší, aby tam byly děti.",
+      "reviewFlags": []
+    },
+    {
+      "start": 993.102,
+      "end": 1001.182,
+      "sourceCues": [
+        493,
+        494,
+        495,
+        496
+      ],
+      "originalSk": "nahrávky. Eh takže vlastne nemusím komentovať, ako to Alex prečítal, lebo všetci všetci to alebo ako to povedal, všetci to teraz počuli.",
+      "draftCs": "Takže vlastně nemusím komentovat, jak to Alex četl, protože to všichni slyšeli.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1001.182,
+      "end": 1010.102,
+      "sourceCues": [
+        497,
+        498,
+        499,
+        500,
+        501
+      ],
+      "originalSk": "Eh tiež sme to riešili na našich nedávnych fakt dobrých otázkach. Tým len teda naberáme Alexa, že je pred ním veľa veľa zaujímavého počúvania.",
+      "draftCs": "Také jsme to řešili v našich nedávných velmi dobrých otázkách, a tím jsme získali alexu, který má před sebou spoustu zajímavého naslouchání.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1010.102,
+      "end": 1017.542,
+      "sourceCues": [
+        502,
+        503,
+        504
+      ],
+      "originalSk": "A keď sa vzduch zohreje, tak sa rozťahuje a keď sa ochladí, tak sa stiahne.",
+      "draftCs": "A když se vzduch zahřeje, táhne se a když se ochladí, stahuje se.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1017.542,
+      "end": 1024.182,
+      "sourceCues": [
+        505,
+        506,
+        507,
+        508
+      ],
+      "originalSk": "Inými slovami, keď ne keď zohreješ plyn, tak mu stúpne tlak a naopak, keď sa ochladí, tak klesne tlak. Dá sa s tým urobiť pekný pokus.",
+      "draftCs": "Jinými slovy, pokud ne, když vytápíte plyn, tlak vzrůstá a oproti tomu, když se ochladí, tlak klesá.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1024.182,
+      "end": 1030.422,
+      "sourceCues": [
+        509,
+        510,
+        511
+      ],
+      "originalSk": "Môžeš zobrať napríklad balón a keď ho vychladíš, dáš ho v zime von, tak uvidíš, ako splasne.",
+      "draftCs": "Vezměte si balón a když ho ochladíte, dáte ho ven v zimě, uvidíte, jak se hodí.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1030.422,
+      "end": 1040.302,
+      "sourceCues": [
+        512,
+        513,
+        514,
+        515,
+        516
+      ],
+      "originalSk": "Hej. A a pomerne rýchlo. No a to, čo sa vlastne deje na zemi, je, že začne svietiť a niektoré časti zeme vzduch sa začne ohrievať, rozťahovať",
+      "draftCs": "A co se vlastně děje na zemi je, že se začíná svítit a v některých částech země se začíná oteplovat vzduch.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1040.302,
+      "end": 1049.942,
+      "sourceCues": [
+        517,
+        518,
+        519,
+        520
+      ],
+      "originalSk": "a začne sa tlačiť niekam inam. A najlepšie to cítiť pri mori, kde more má počas dňa aj počas noci veľmi podobnú teplotu, ale pevnina sa cez deň ohrieva,",
+      "draftCs": "A nejlépe je to cítit u moře, kde je moře ve velmi podobném teplotě během dne i v noci, ale pevnině se během dne oteplí.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1049.942,
+      "end": 1058.982,
+      "sourceCues": [
+        521,
+        522,
+        523,
+        524
+      ],
+      "originalSk": "v zime ochladí a cítiš tam, ako proste raz fúka jedným smerom a potom fúka opačným smerom. Takže vo všeobecnosti platí, že",
+      "draftCs": "V zimě je to chladné a cítíte, že to jen jednou fúká jedním směrem a pak v opačném směru. Takže obecně platí, že",
+      "reviewFlags": []
+    },
+    {
+      "start": 1058.982,
+      "end": 1068.622,
+      "sourceCues": [
+        525,
+        526,
+        527,
+        528
+      ],
+      "originalSk": "vietor fúka alebo slnko ohrieva zem, ale robí to nerovnomerne a to teraz spôsobí, že niekde sa plyn rozpína, vytvára väčší tlak ako inde a potom väčší tlak",
+      "draftCs": "Vítr nebo slunce ohřívá zem, ale dělá to nerovnoměrně, a to teď způsobuje, že se někde plyn rozšiřuje, vytváří větší tlak než kdekoli jinde, a pak větší tlak.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1068.622,
+      "end": 1076.222,
+      "sourceCues": [
+        529,
+        530,
+        531,
+        532
+      ],
+      "originalSk": "pretláča slabší. No a niekedy sú tie rozdiely obrovské a niekedy sú veľmi malinké. Preto máme niekedy iba slabučký vánok.",
+      "draftCs": "Někdy jsou rozdíly velké a někdy velmi malé, takže někdy máme jen slabý vánek.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1076.222,
+      "end": 1084.542,
+      "sourceCues": [
+        533,
+        534,
+        535,
+        536
+      ],
+      "originalSk": "Typické hurikány vznikajú na miestach, kde sa vzduch dokáže extrémne zohriať a dokonca prípadne ešte aj nasýtiť vodnými parami, z ktorých potom dokáže ďalej",
+      "draftCs": "Typické hurikány vznikají v místech, kde se vzduch může extrémně zahřát, a možná dokonce nasyťovat vodními pary, z nichž se pak může dále vytápit.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1084.542,
+      "end": 1095.302,
+      "sourceCues": [
+        537,
+        538,
+        539,
+        540,
+        541
+      ],
+      "originalSk": "čerpať energiu a to sa deje nad oceánmi. Takže preto potom hurikán udiera často na pobrežiach, ale nemáme takéto veci bežne napríklad na Slovensku.",
+      "draftCs": "Takže to je důvod, proč hurikány často přicházejí na pobřeží, ale takové věci nemáme obvykle, například ve Slovinsku.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1095.302,
+      "end": 1102.342,
+      "sourceCues": [
+        542,
+        543,
+        544,
+        545,
+        546
+      ],
+      "originalSk": "eh častiach sveta častejšie sú hurikány a tak to asi Tak tak tak. Kvôli tomu rozdielu v teplote, hej.",
+      "draftCs": "V některých částech světa jsou hurikány častější a tak dále.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1102.342,
+      "end": 1112.583,
+      "sourceCues": [
+        547,
+        548,
+        549,
+        550,
+        551,
+        552,
+        553
+      ],
+      "originalSk": "Inak takých Hm. Inak toto je dobrý námet do nejakého fantasy alebo čo, vieš, taký, presne ako si spomenul Game of Thrones, tak tam vlastne boli také ľadové",
+      "draftCs": "Jiné takové hm. Jiné je to dobrý nápad na nějakou fantazii nebo co, víte, takové, přesně jak jste zmínil Game of Thrones, byly tam vlastně takové ledové.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1112.583,
+      "end": 1119.783,
+      "sourceCues": [
+        554,
+        555,
+        556,
+        557
+      ],
+      "originalSk": "ľadové tornádo alebo niečo také, hej? Ja by som nechcel to až ma začalo ziabať, keď som si to predstavil.",
+      "draftCs": "Nechtěl bych, aby se mi to začalo líbit, když jsem si to představoval.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1119.783,
+      "end": 1128.663,
+      "sourceCues": [
+        558,
+        559,
+        560
+      ],
+      "originalSk": "Ďakujeme za otázku, Alex. Vilma, päťročná sa pýta. Kámo, ja ho ďaleko od Zeme a on miluje",
+      "draftCs": "Díky za otázku, Alexi, Vilma, pětiletá se ptá. Kámo, já jsem daleko od Země a on ho miluje.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1128.663,
+      "end": 1138.423,
+      "sourceCues": [
+        561,
+        562,
+        563,
+        564
+      ],
+      "originalSk": "ma a mám teplo. Jednu máme osem minút od nás. Rýchlosť svetla. [smiech] Áno, áno, áno, pravda, slnko je hviezda.",
+      "draftCs": "Je to osm minut od nás. Rychlost světla. (Smích) Ano, ano, ano, ano, ano, pravda, slunce je hvězda.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1138.423,
+      "end": 1143.703,
+      "sourceCues": [
+        565,
+        566,
+        567
+      ],
+      "originalSk": "Takže osem svetelných minút, to je asi 150 miliónov kilometrov, je najbližšia hviezda.",
+      "draftCs": "Takže osm světelných minut, což je asi 150 milionů kilometrů, je nejbližší hvězda.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1143.703,
+      "end": 1154.303,
+      "sourceCues": [
+        568,
+        569,
+        570,
+        571,
+        572
+      ],
+      "originalSk": "A urobím si drobnú reklamu na knihu, lebo toto práve spomínam vo Vesmírnej kolíske, že ako sa to proste nedá predstaviť. Mám mám tam taký príklad.",
+      "draftCs": "Udělám si malou reklamu pro knihu, protože jsem si to právě připomněla ve vesmírném košíku, což je naprosto nepředstavitelné.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1154.303,
+      "end": 1160.823,
+      "sourceCues": [
+        573,
+        574,
+        575,
+        576
+      ],
+      "originalSk": "Hej. Predstav si, že by si išiel vlakom 160-kou dva mesiace v kuse.",
+      "draftCs": "Představte si, že byste dva měsíce v řadě jel vlakem 160.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1160.823,
+      "end": 1166.423,
+      "sourceCues": [
+        577,
+        578,
+        579
+      ],
+      "originalSk": "Až ťa musí zadok bolieť z tej predstavy. Hm. Doletel by si zhruba na mesiac.",
+      "draftCs": "Až tě to bude bolestit v zadku.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 1166.423,
+      "end": 1175.3029999999999,
+      "sourceCues": [
+        580,
+        581,
+        582
+      ],
+      "originalSk": "Mesiac je jednu svetelnú sekundu. Keby si celý život strávil vo vlaku, tak by si došiel zhruba na slnko.",
+      "draftCs": "Měsíc je jen jedna světlová sekunda, takže pokud byste strávili celý svůj život na vlaku, dosáhnete zhruba slunce.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1175.3029999999999,
+      "end": 1182.863,
+      "sourceCues": [
+        583,
+        584,
+        585
+      ],
+      "originalSk": "160-kou bez hocijakej zastávky, spomalenia, hocičo. 100 rokov vo vlaku ťa dovezie zhruba k slnku.",
+      "draftCs": "Šedesát let vlaku vás přivede zhruba k slunci.",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 1182.863,
+      "end": 1190.863,
+      "sourceCues": [
+        586,
+        587,
+        588,
+        589
+      ],
+      "originalSk": "Hm. A slnko je vzdialené osem svetelných minút. Najbližšia hviezda, ďalšia, sú štyri svetelné roky.",
+      "draftCs": "Slunce je vzdáleno osm světelných minut, a nejbližší hvězda je čtyři světelné roky.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1190.863,
+      "end": 1197.063,
+      "sourceCues": [
+        590,
+        591,
+        592
+      ],
+      "originalSk": "Takže to si predstav, že koľko generácií by muselo stráviť 160-kou vo vlaku, aby ste sa dostali k najbližšej hviezde.",
+      "draftCs": "Představte si, kolik generací by bylo třeba strávit 160 let na vlaku, abyste se dostali k nejbližší hvězdě.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1197.063,
+      "end": 1206.903,
+      "sourceCues": [
+        593,
+        594,
+        595,
+        596,
+        597
+      ],
+      "originalSk": "To si ani neviem pre, to neviem, či aj ľudstvo by stihlo. Čo to je 160 minút 100 rokov prejdeš osem minút a koľko je",
+      "draftCs": "To nevím, protože nevím, jestli by lidstvo dosáhlo toho, co je 160 minut za 100 let.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1206.903,
+      "end": 1217.103,
+      "sourceCues": [
+        598,
+        599,
+        600,
+        601
+      ],
+      "originalSk": "minút vo svetelnom roku, pane bože? No, tu tu tu máme, že hodil som to rýchlo, že štyri roky sú zhruba dva milióny minút.",
+      "draftCs": "Minuty v světelném roce, můj bože? No, tady je to, že jsem to rychle hodil, že čtyři roky jsou asi dva miliony minut.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1217.103,
+      "end": 1222.863,
+      "sourceCues": [
+        602,
+        603,
+        604,
+        605
+      ],
+      "originalSk": "Dva milióny minút Dva milióny minút. Hm. Takže delené osem, to je koľko storočí?",
+      "draftCs": "Dva miliony minut Dva miliony minut. Takže rozdělené osm, kolik je století?",
+      "reviewFlags": []
+    },
+    {
+      "start": 1222.863,
+      "end": 1232.145,
+      "sourceCues": [
+        606,
+        607,
+        608,
+        609
+      ],
+      "originalSk": "Eh, to by sme mohli vedieť aj z hlavy, ale nebudeme sa stráp- alebo budeme sa strápňovať a hodím to do kalkulačky. 1 2 3, 1 2 3 / 8.",
+      "draftCs": "Mohli bychom to vědět z hlavy, ale nebudeme se stydět, nebo se budeme stydět a hodím to do kalkulace. 1 2 3 1 2 3 / 8.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1232.145,
+      "end": 1234.689,
+      "sourceCues": [
+        610
+      ],
+      "originalSk": "250 000 generácií.",
+      "draftCs": "250 000 generací.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1234.689,
+      "end": 1235.865,
+      "sourceCues": [
+        611
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 1235.865,
+      "end": 1243.025,
+      "sourceCues": [
+        612,
+        613,
+        614,
+        615
+      ],
+      "originalSk": "Ja, pardon, 250 000 ľudských životov. Generácií by to bolo ešte tak rádovo štyrikrát viacej. Milión generácií, aké pekné okrúhle číslo.",
+      "draftCs": "Já, omlouvám se, 250 000 lidských životů, generace, to by bylo čtyřikrát víc. Milión generací, to je pěkné okruhové číslo.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1243.025,
+      "end": 1247.789,
+      "sourceCues": [
+        616,
+        617
+      ],
+      "originalSk": "Milión generácií by muselo ísť vo vlaku rýchlosťou 160 km/h.",
+      "draftCs": "Milión generací by muselo jet vlaku rychlostí 160 km/h.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1247.789,
+      "end": 1248.345,
+      "sourceCues": [
+        618
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 1248.345,
+      "end": 1256.545,
+      "sourceCues": [
+        619,
+        620,
+        621,
+        622,
+        623
+      ],
+      "originalSk": "Áno, aby aby sme aby sme dospeli k najbližšej hviezde. Wow. Eh, takže dosť nereálne takýmito rýchlosťami sa hýbať.",
+      "draftCs": "Jo, abychom se dostali k nejbližší hvězdě.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 1256.545,
+      "end": 1260.905,
+      "sourceCues": [
+        624,
+        625,
+        626
+      ],
+      "originalSk": "Uhm. A ináč ešte ako si prešiel vlastne ten hurikán na tej Antarktíde.",
+      "draftCs": "A ještě něco o tom, jak jsi přežil ten hurikán v Antarktidě.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1260.905,
+      "end": 1268.945,
+      "sourceCues": [
+        627,
+        628,
+        629,
+        630
+      ],
+      "originalSk": "Eh, tie hurikány, čo idú, a dúfam, že teraz hovorím správne, k Amerike, oni sa občas točia, začnú sa vracať späť.",
+      "draftCs": "Uh, ty hurikány, které jdou, a doufám, že to říkám správně, do Ameriky, se občas obracejí, začnou se vracet.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1268.945,
+      "end": 1274.145,
+      "sourceCues": [
+        631,
+        632,
+        633,
+        634
+      ],
+      "originalSk": "Uhm. A občas napríklad narazia do Britských ostrovov. A raz sme boli v Írsku, keď sa toto stalo.",
+      "draftCs": "Někdy se střetávají do Britských ostrovů a my jsme byli jednou v Irsku, když se to stalo.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1274.145,
+      "end": 1281.345,
+      "sourceCues": [
+        635,
+        636,
+        637,
+        638
+      ],
+      "originalSk": "On už je taký oslabený, lebo už je v tých chladnejších vodách ďaleko od rovníka, ale stále to spôsobí napríklad Tam aj Golfský prúd, myslím si, že im",
+      "draftCs": "Je už tak oslabený, protože je už v těch chladnějších vodách daleko od rovnice, ale stále to způsobí například tam i Golfský proud, myslím, že jim",
+      "reviewFlags": []
+    },
+    {
+      "start": 1281.345,
+      "end": 1291.025,
+      "sourceCues": [
+        639,
+        640,
+        641,
+        642
+      ],
+      "originalSk": "zoberie troška energie, že vieš. š- akože šak čo sa zložité deje a ale keď to potom hitlo v decembri alebo v januári Dublin,",
+      "draftCs": "Vezměte si trochu energie, že víte. Š- jako šach, co se děje složitě, a když to pak spěchalo v prosinci nebo lednu v Dublinu,",
+      "reviewFlags": []
+    },
+    {
+      "start": 1291.025,
+      "end": 1293.639,
+      "sourceCues": [
+        643
+      ],
+      "originalSk": "tak bol normálne, že snežná kalamita.",
+      "draftCs": "Tak to bylo normální, že sněhová kalamita.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1293.639,
+      "end": 1294.265,
+      "sourceCues": [
+        644
+      ],
+      "originalSk": "[vzdychanie]",
+      "draftCs": "[výdech]",
+      "reviewFlags": []
+    },
+    {
+      "start": 1294.265,
+      "end": 1301.705,
+      "sourceCues": [
+        645,
+        646,
+        647,
+        648,
+        649
+      ],
+      "originalSk": "Eh, Verím, verím, ale tak zase u nich kalamita aj centimeter snehu, takže Ale vieš čo, toto bolo, že 10 a v- a v meste, kde nikto nemal lopatu na sneh a",
+      "draftCs": "Uh, věřím, věřím, ale tak zase mají kalamity a centimetr sněhu, takže ale víte co, tohle bylo, že 10 a v- a v městě, kde nikdo neměl špalku na sněhu a",
+      "reviewFlags": []
+    },
+    {
+      "start": 1301.705,
+      "end": 1308.185,
+      "sourceCues": [
+        650,
+        651,
+        652,
+        653,
+        654
+      ],
+      "originalSk": "nebodaj snežné gumy, je to pomerne problém. hej. Zrazu zistíš, že každé prevýšenie je veľká prekážka.",
+      "draftCs": "Nezapomeň na sněhové gumy, je to poměrně problém.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1308.185,
+      "end": 1314.6,
+      "sourceCues": [
+        655,
+        656,
+        657
+      ],
+      "originalSk": "Áno, áno, áno, áno, áno. Eh, a potom zistíš, že Crocsy nie sú do- eh, na celý rok, takže",
+      "draftCs": "Ano, ano, ano, ano, ano, ano, a pak zjistíš, že Crocsy nejsou do-uh, na celý rok, takže...",
+      "reviewFlags": []
+    },
+    {
+      "start": 1314.6,
+      "end": 1315.785,
+      "sourceCues": [
+        658
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 1315.785,
+      "end": 1323.985,
+      "sourceCues": [
+        659,
+        660,
+        661
+      ],
+      "originalSk": "Dobre, eh, ďakujeme pekne Vilme za otázku. Žiak sa pýta, eh, najviac ich sa samozrejme zaujímalo, ako presne",
+      "draftCs": "Dobře, díky Vilmu za otázku.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 1323.985,
+      "end": 1334.905,
+      "sourceCues": [
+        662,
+        663,
+        664,
+        665,
+        666
+      ],
+      "originalSk": "vykonávajú kozmonauti potrebu na toalete bez gravitácie. Tak to nám niekto niekto tlmočil otázku od svojich žiakov z hodiny teraz, že ako chodia cikať a kakať astronauti, eh,",
+      "draftCs": "Takže někdo nám vysvětlil otázku svých studentů z hodiny, že když se astronauti chystají a chystají,",
+      "reviewFlags": []
+    },
+    {
+      "start": 1334.905,
+      "end": 1340.145,
+      "sourceCues": [
+        667,
+        668,
+        669
+      ],
+      "originalSk": "pardon, kozmonauti. Astronauti chodia normálne, lebo oni sú na zemi, ale kozmonauti v beztiažovom stave",
+      "draftCs": "Promiňte, astronauti. Astronauti chodí normálně, protože jsou na Zemi.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1340.145,
+      "end": 1340.785,
+      "sourceCues": [
+        670
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 1340.785,
+      "end": 1350.906,
+      "sourceCues": [
+        671,
+        672,
+        673
+      ],
+      "originalSk": "eh, majú tie záchody, čo vedia robiť pod tlak, okrem iného. A keď si s tým okrem zase znova eh, našu epizódu ISS.",
+      "draftCs": "Uh, mají ty záchody, které umí dělat pod tlakem, mimo jiné.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1350.906,
+      "end": 1356.026,
+      "sourceCues": [
+        674,
+        675,
+        676
+      ],
+      "originalSk": "Uhm. International Space Station a tam sa venujeme aj týmto veciam.",
+      "draftCs": "Na Mezinárodní vesmírnou stanici, kde se také věnujeme těmto věcem.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1356.026,
+      "end": 1364.626,
+      "sourceCues": [
+        677,
+        678,
+        679,
+        680
+      ],
+      "originalSk": "Tak chcel som povedať, že veľmi pozemským a prízemným, ale práve naopak, veľmi vesmírnym. A teraz sa to aj riešilo kvôli tomu, že Artemis 2 s tým",
+      "draftCs": "Takže jsem chtěl říct, že velmi pozemní a pozemní, ale naopak, velmi vesmírné.",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 1364.626,
+      "end": 1374.026,
+      "sourceCues": [
+        681,
+        682,
+        683,
+        684,
+        685
+      ],
+      "originalSk": "mal problém. Že celá misia Artemis 2 prebiehala hladko, až na dva problémy so záchodom a jeden z nich bol taký, že zamrzlo im tam niečo a to je To je problém.",
+      "draftCs": "Celá mise Artemis 2 probíhala hladce, kromě dvou problémů s záchodem, a jeden z nich byl takový, že tam něco zmrzlo, a to je ten problém.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1374.026,
+      "end": 1383.786,
+      "sourceCues": [
+        686,
+        687,
+        688,
+        689
+      ],
+      "originalSk": "veľký problém. Tak ale teda normálne, že máš máš máš máš záchod, ktorý robí nejaký podtlak, ktorý ti nahrádza tú gravitáciu.",
+      "draftCs": "Takže normálně máte záchod, který vytváří nějaký tlak, který nahradí gravitaci.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1383.786,
+      "end": 1389.786,
+      "sourceCues": [
+        690,
+        691,
+        692
+      ],
+      "originalSk": "Hej. A plus, čo som čítal, je tam aj taký malý vysávačik.",
+      "draftCs": "A podle toho, co jsem četl, je tam také taková malá sušička.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1389.925,
+      "end": 1389.986,
+      "sourceCues": [
+        693
+      ],
+      "originalSk": "[smrkanie]",
+      "draftCs": "[smíchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 1389.986,
+      "end": 1393.856,
+      "sourceCues": [
+        694,
+        695,
+        696
+      ],
+      "originalSk": "A ne- nechám všetko už na ďalších. Dobre. Na fantáziu.",
+      "draftCs": "A já to nechám na další lidi.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1393.856,
+      "end": 1394.786,
+      "sourceCues": [
+        697
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 1394.786,
+      "end": 1404.746,
+      "sourceCues": [
+        698,
+        699,
+        700,
+        701
+      ],
+      "originalSk": "Ďakujeme za otázky žiakom. Nevieme kam, mohli ste napísať, že aspoň Gabovi posielame pozdrav. Jonáš, trojročný. Ú, to je rekordman, máš asi. A čo všetko",
+      "draftCs": "Děkujeme za otázky studentům. Nevíme, kam, mohli byste napsat, že bychom aspoň Gabovi poslali pozdrav. Jonáš, tříletý.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1404.746,
+      "end": 1413.146,
+      "sourceCues": [
+        702,
+        703,
+        704
+      ],
+      "originalSk": "je, existuje kvôli gravitácii? Keďže je jedna zo základných síl vesmíru, tak asi skoro asi všetko, nie?",
+      "draftCs": "Protože je jedním z základních sil vesmíru, tak asi všechno, že?",
+      "reviewFlags": []
+    },
+    {
+      "start": 1413.146,
+      "end": 1423.386,
+      "sourceCues": [
+        705,
+        706,
+        707,
+        708
+      ],
+      "originalSk": "No áno. No bez gravitácie by nefungovali hviezdy. Pš. Bez hviezd by sme nemali chémiu zložitejšiu ako vodík a hélium, takže žiadnu.",
+      "draftCs": "Ale bez gravitace by žádné hvězdy fungovaly. Bez hvězd bychom neměli chemiku složitější než vodík a helium, takže žádnou.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1423.386,
+      "end": 1428.986,
+      "sourceCues": [
+        709,
+        710
+      ],
+      "originalSk": "Nemali by sme zdroje koncentrovanej energie, koncentrovaného tepla.",
+      "draftCs": "Neměli bychom žádné zdroje koncentrované energie, koncentrované teplo.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1428.986,
+      "end": 1439.066,
+      "sourceCues": [
+        711,
+        712,
+        713,
+        714,
+        715
+      ],
+      "originalSk": "Proste nič. Neexistoval Život by neexistoval. Vesmír bol strašne nudné miesto, plus eh ve- veci by sa nezačali stláčať, eh",
+      "draftCs": "Jenom nic, život by neexistoval, vesmír by byl strašně nudné místo, plus, uh- věci by se nezačaly stlačovat, ehm.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1439.066,
+      "end": 1447.226,
+      "sourceCues": [
+        716,
+        717,
+        718,
+        719
+      ],
+      "originalSk": "nezačali by tvoriť štruktúry. Na začiatku to bolo všetko taký proste pomerne rovnomerne rozložený plyn a nebyť gravitácie, tak nezačnú proste",
+      "draftCs": "Nezačali by vytvářet struktury. Zpočátku bylo to jen poměrně rovnoměrně rozložený plyn a neměla by gravitaci.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1447.226,
+      "end": 1457.986,
+      "sourceCues": [
+        720,
+        721,
+        722,
+        723,
+        724
+      ],
+      "originalSk": "vznikať štruktúry. Takže naozaj, že bez gravitácie by nebolo prakticky nič. Asi ani náš vesmír dokonca, lebo samotný akt vzniku vesmíru spadá pod teóriu gravitácie, takže",
+      "draftCs": "Takže opravdu, bez gravitace by nebylo prakticky nic. Pravděpodobně ani náš vesmír, protože samotný akt vzniku vesmíru spadá pod gravitační teorii.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1457.986,
+      "end": 1463.286,
+      "sourceCues": [
+        725,
+        726,
+        727,
+        728
+      ],
+      "originalSk": "takže tak. Uhm. Takže nič by neexistovalo v svojej podstate.",
+      "draftCs": "Takže nic by v podstatě neexistovalo.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1463.286,
+      "end": 1463.586,
+      "sourceCues": [
+        729
+      ],
+      "originalSk": "[odkašľanie]",
+      "draftCs": "[Odmítnutí]",
+      "reviewFlags": []
+    },
+    {
+      "start": 1463.586,
+      "end": 1470.491,
+      "sourceCues": [
+        730,
+        731,
+        732,
+        733
+      ],
+      "originalSk": "Tak. Eh dobre, Teo sa pýta. Čo sa stalo, keď mačiatko sa narodilo vo vesmíre?",
+      "draftCs": "Takže, Theo se ptá, co se stalo, když se v vesmíru narodilo kočičko?",
+      "reviewFlags": []
+    },
+    {
+      "start": 1470.491,
+      "end": 1470.666,
+      "sourceCues": [
+        734
+      ],
+      "originalSk": "[vzdychanie]",
+      "draftCs": "[výdech]",
+      "reviewFlags": []
+    },
+    {
+      "start": 1470.666,
+      "end": 1475.427,
+      "sourceCues": [
+        735,
+        736,
+        737,
+        738
+      ],
+      "originalSk": "Eh Odpoveď je, že sa to v lietadle osvedčilo. Nie, nie, nie, nikdy sa to nestalo.",
+      "draftCs": "Odpověď je, že to bylo provedeno na letadle.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1475.427,
+      "end": 1484.028,
+      "sourceCues": [
+        739,
+        740,
+        741,
+        742,
+        743
+      ],
+      "originalSk": "A uf. Aj keď možno viem, že aj to je jedna z perikvéz, že nesmú byť tehotné astronautky.",
+      "draftCs": "I když možná vím, že je to taky jedna z věcí, že těhotné astronauty nesmějí být.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1484.028,
+      "end": 1493.427,
+      "sourceCues": [
+        744,
+        745,
+        746,
+        747,
+        748
+      ],
+      "originalSk": "Áno, áno. Z pochopiteľných dôvodov. Inak ďalšia perikvéza, si vedel, že eh musia mať vybratý slepák?",
+      "draftCs": "Ano, ano, z pochopitelných důvodů, jinak další perviz, víte, že musí mít vybraného slepce?",
+      "reviewFlags": []
+    },
+    {
+      "start": 1493.427,
+      "end": 1504.427,
+      "sourceCues": [
+        749,
+        750,
+        751,
+        752,
+        753,
+        754,
+        755
+      ],
+      "originalSk": "Áno, áno. Dnes to platí stále. je to podobne pri antarktických staniciach, hej? Že keby si zrazu apendicitídu dostal, tak nebol by si asi najšťastnejší človek, ktorý",
+      "draftCs": "To platí i dnes, je to stejné jako na stanicích v Antarktidě, že kdyby ses najednou dostal apendicitem, nebyl bys asi ten nejšťastnější člověk,",
+      "reviewFlags": []
+    },
+    {
+      "start": 1504.427,
+      "end": 1514.307,
+      "sourceCues": [
+        756,
+        757,
+        758,
+        759,
+        760
+      ],
+      "originalSk": "zrazu dostáva. Ale veď je ten legendárny prípad, nie toho, myslím si, že ruského alebo nejakého výskumníka, ktorý si sám vyoperoval apendix na nejakej takejto polárnej misii.",
+      "draftCs": "Ale je to ten legendární případ, ne ten, který si myslím, že byl Ruskem nebo nějakým výzkumným pracovníkem, který sám vytvořil přílohu pro takovou polární misi.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1514.307,
+      "end": 1519.427,
+      "sourceCues": [
+        761,
+        762
+      ],
+      "originalSk": "A to som sa pýtal, že asi Asi to nechcú znova robiť takéto niečo.",
+      "draftCs": "A tak jsem se zeptal, že asi nechtějí něco takového dělat znovu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1519.427,
+      "end": 1528.867,
+      "sourceCues": [
+        763,
+        764,
+        765,
+        766,
+        767
+      ],
+      "originalSk": "A každopádne žiadne bábätko sa nenarodilo vo vesmíre. Nemyslíme si, že sa to stane v dohľadnej dobe, ak nás nebudú čakať na nejaké cesty k tej najbližšej hviezde.",
+      "draftCs": "A v každém případě se v vesmíru nenarodilo žádné dítě a nemyslíme, že se to stane v blízké době, pokud nebudeme čekat na nějaké cesty k nejbližší hvězdě.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1528.867,
+      "end": 1532.717,
+      "sourceCues": [
+        768,
+        769
+      ],
+      "originalSk": "Čo, ako sme si vysvetlili, to bude teda beh na veľmi dlhú trať. A",
+      "draftCs": "Což, jak jsme si vyjádřili, bude to velmi dlouhý závod.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1532.717,
+      "end": 1533.707,
+      "sourceCues": [
+        770
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 1533.707,
+      "end": 1539.307,
+      "sourceCues": [
+        771,
+        772
+      ],
+      "originalSk": "máme pocit, že by to v niektorých ohľadoch mohlo byť problémové.",
+      "draftCs": "Máme pocit, že v některých ohledech by to mohlo být problematické.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1539.307,
+      "end": 1542.867,
+      "sourceCues": [
+        773,
+        774
+      ],
+      "originalSk": "A to kvôli tomu, že boli iné boli experimenty so zvieratami.",
+      "draftCs": "A to proto, že experimenty na zvířatech byly jiné.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1542.867,
+      "end": 1553.788,
+      "sourceCues": [
+        775,
+        776,
+        777,
+        778,
+        779
+      ],
+      "originalSk": "Napríklad, že sa vyliahli mláďatá japonskej prepelice alebo niečo takého a na Mire a neprežili. Nevedeli sa orientovať v priestore, nevedeli sa kŕmiť a a",
+      "draftCs": "Například, že se děti vycházely z japonských kořistů nebo tak něco a na Mírě a nezůstaly naživu. Nemohly se orientovat v prostoru, nemohly se krmit a a",
+      "reviewFlags": []
+    },
+    {
+      "start": 1553.788,
+      "end": 1564.747,
+      "sourceCues": [
+        780,
+        781,
+        782,
+        783,
+        784
+      ],
+      "originalSk": "pomreli. Boli potom nejaké zmysel, lebo to musí byť pre to malé zviera alebo pre ten malý život strašne mätúce byť v beztiažovom stave.",
+      "draftCs": "Bylo to smysluplné, protože to musí být pro malé zvíře nebo pro malý život, který je hrozně zmatený, být v bezvážném stavu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1564.747,
+      "end": 1574.187,
+      "sourceCues": [
+        785,
+        786,
+        787,
+        788
+      ],
+      "originalSk": "No, jasné. Eh že chýbajú tam tieto veci. Eh robili sa pokusy s potkanmi, eh aby sa spárili a neprinieslo to graviditu, čiže",
+      "draftCs": "No, jasně. Vynechali jsme tyhle věci. Udělali jsme pokusy s potkany, aby se spárily a nenapadlo těhotenství.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1574.187,
+      "end": 1581.587,
+      "sourceCues": [
+        789,
+        790,
+        791
+      ],
+      "originalSk": "neotehotneli, ale potom sa to robili s rybičkami a rybičky eh sa spárili a vyliahli sa dokonca mláďatá, takže",
+      "draftCs": "Neměly těhotenství, ale pak to dělají s rybami a rybky, uh, se spárují, a dokonce se vyřezují děti, takže...",
+      "reviewFlags": []
+    },
+    {
+      "start": 1581.587,
+      "end": 1592.149,
+      "sourceCues": [
+        792,
+        793,
+        794,
+        795
+      ],
+      "originalSk": "eh je to zložité. Je to zložité a tá gravitácia poskytuje nejakú jasnú štruktúru, že tu máš smer dole, tu máš smer hore.",
+      "draftCs": "Je to složité a gravitace nám dává jasnou strukturu, že je to směrem dolů, je to směrem nahoře.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1592.149,
+      "end": 1601.229,
+      "sourceCues": [
+        796,
+        797,
+        798,
+        799
+      ],
+      "originalSk": "A ty potrebuješ v nejakých ohľadoch narušiť symetriu, že o tomto by sa sa patrilo niekedy urobiť epizódu, museli by sme si niekoho prizvať asi, o tom, že",
+      "draftCs": "A ty potřebuješ v některých ohledech narušit symetrii, že by se to mělo někdy udělat epizodou, že bychom si měli někoho zavolat, že",
+      "reviewFlags": []
+    },
+    {
+      "start": 1601.229,
+      "end": 1609.389,
+      "sourceCues": [
+        800,
+        801,
+        802,
+        803,
+        804
+      ],
+      "originalSk": "ako vlastne prebieha celá tá embryogenéza, lebo ty máš niečo, čo je napríklad sfericky symetrické a potrebuješ tam v nejakých bodoch povedať, že a teraz to má rásť, vieš,",
+      "draftCs": "Jak vlastně celé embryogenéze probíhá, protože máte něco, co je například sférickě symetrické a potřebujete v některých místech říct, že a teď to musí růst, víte,",
+      "reviewFlags": []
+    },
+    {
+      "start": 1609.389,
+      "end": 1619.189,
+      "sourceCues": [
+        805,
+        806,
+        807,
+        808
+      ],
+      "originalSk": "človek má nejakú jasnú jasnú os. A ale to sa nejde pomocou že či náhodou bábätko by nemalo nejak nebolo pomýlené alebo ten reflex by",
+      "draftCs": "Člověk má jasnou jasnou os. A to se nedá říci tím, že by dítě nemělo být nějak mylné, nebo by to reflex mohlo být",
+      "reviewFlags": []
+    },
+    {
+      "start": 1619.189,
+      "end": 1627.109,
+      "sourceCues": [
+        809,
+        810,
+        811,
+        812,
+        813,
+        814
+      ],
+      "originalSk": "nemalo, že by sa neotočilo, vieš, že pri pôrode. No, bolo by to Ale aj A keď už by sa narodilo, tak by malo Hm.",
+      "draftCs": "Nemělo by to být tak, že by se nemělo otočit, když se narodí.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1627.109,
+      "end": 1636.509,
+      "sourceCues": [
+        815,
+        816,
+        817,
+        818,
+        819
+      ],
+      "originalSk": "problémy s tým, že kosti by nerástli dobre, vieš, keby tam strávil niekoľko rokov od narodenia, takže buďme radi, že to je zatiaľ hypotetická",
+      "draftCs": "Problémy s tím, že kosti nebudou růst dobře, víte, kdyby tam strávil několik let od narození, tak se radujme, že je to zatím hypotetické.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1636.509,
+      "end": 1643.109,
+      "sourceCues": [
+        820,
+        821,
+        822
+      ],
+      "originalSk": "otázka a s veľkými obavami sa to asi niekedy stane prvýkrát.",
+      "draftCs": "A s velkým obavem, že se to někdy stane poprvé.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1643.109,
+      "end": 1649.029,
+      "sourceCues": [
+        823,
+        824,
+        825
+      ],
+      "originalSk": "Ale myslím si, že vo veľmi vzdialenej budúcnosti. Hej a prajem mu všetko dobré.",
+      "draftCs": "Ale myslím, že v velmi vzdálené budoucnosti.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1649.029,
+      "end": 1654.829,
+      "sourceCues": [
+        826,
+        827,
+        828
+      ],
+      "originalSk": "Tak mu sa takto narodiť, takže Áno, bude to potrebovať. Leo sa pýtam.",
+      "draftCs": "Takhle se narodil, takže ano, bude to potřebovat.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1654.829,
+      "end": 1663.069,
+      "sourceCues": [
+        829,
+        830,
+        831
+      ],
+      "originalSk": "Prečo keď vidličkou buchnem o tanier, tak ten zvuk je počuť aj na druhej strane vidličky?",
+      "draftCs": "Jak to, že když si na talíři dělám kladivo, je ten zvuk slyšet i na druhé straně kladiva?",
+      "reviewFlags": []
+    },
+    {
+      "start": 1663.069,
+      "end": 1669.429,
+      "sourceCues": [
+        832,
+        833,
+        834
+      ],
+      "originalSk": "Asi ten rozkmitaný zvuk. Najprv som si myslel, že ten zvuk o ten tanier, ale asi ten rozkmitaný, nie?",
+      "draftCs": "Zpočátku jsem si myslel, že je to ten zvuk na talíři, ale myslím, že je to ten zvuk na talíři, že?",
+      "reviewFlags": []
+    },
+    {
+      "start": 1669.429,
+      "end": 1676.469,
+      "sourceCues": [
+        835,
+        836,
+        837
+      ],
+      "originalSk": "Ťažko povedať, nebolo to úplne jasné, žiaľ náš odkazovač funguje jednosmerne, takže nevieme dávať doplňujúce otázky.",
+      "draftCs": "Těžko říct, že nebylo úplně jasné, že náš odkaz funguje jednosměrně, takže nemůžeme klást další otázky.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1676.469,
+      "end": 1685.629,
+      "sourceCues": [
+        838,
+        839,
+        840,
+        841
+      ],
+      "originalSk": "Asi tam ide o to, že ty keď vlastne cinkneš eh hocičím o hocičom vlastne, tak vzniknú vibrácie a tie vibrácie vzniknú vo",
+      "draftCs": "Myslím si, že když se o něčem bavíš, tak vzniknou vibrace, a tyto vibrace vzniknou v těle člověka.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1685.629,
+      "end": 1693.029,
+      "sourceCues": [
+        842,
+        843,
+        844,
+        845
+      ],
+      "originalSk": "všetkých telesách, niekedy vzniknú také vibrácie, že sa veľmi dobre šíria priestorom ďalej, napríklad na tom tanieri, ale aj tá vidlička celkom",
+      "draftCs": "Někdy vzniknou vibrace, které se velmi dobře šíří dál, například na talíři, ale i na vidličce.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1693.029,
+      "end": 1703.589,
+      "sourceCues": [
+        846,
+        847,
+        848,
+        849
+      ],
+      "originalSk": "cinkne cinkne a stane sa zdrojom zvuku. V podstate, že každý hudobný nástroj funguje na tomto princípe, že môže niečo, čo sa vie roztriasť",
+      "draftCs": "Základně každý hudební nástroj funguje na tom principu, že může být něco, co se může třást.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1703.589,
+      "end": 1712.869,
+      "sourceCues": [
+        850,
+        851,
+        852,
+        853
+      ],
+      "originalSk": "a tie vibrácie sa prenášajú do vzduchu. Takže napríklad na gitare sa trasie struna a drevo vnútri to spôsobí rozkmitanie",
+      "draftCs": "A tyto vibrace se přenášejí do vzduchu. Takže například na kytaru se třese smyčkou a dřevo uvnitř se rozptýlí.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1712.869,
+      "end": 1723.47,
+      "sourceCues": [
+        854,
+        855,
+        856,
+        857
+      ],
+      "originalSk": "zvuku, ktorý potom počuješ ako sa šíri ďalej. Ale vždy je to naozaj o tom, že buď máš médium, ktoré rozvibruješ alebo rozvibruješ priamo vzduch, ako",
+      "draftCs": "ale vždy se jedná o to, jestli máte médium, které vyzvoní nebo vyzvoní přímo vzduch, jako",
+      "reviewFlags": []
+    },
+    {
+      "start": 1723.47,
+      "end": 1732.43,
+      "sourceCues": [
+        858,
+        859,
+        860,
+        861,
+        862
+      ],
+      "originalSk": "napríklad na flaute a vytvoríš podmienky, aby tam nejaké nejaké konkrétne tóny, aby sa im tam dobre žilo vo vnútri tej flauty alebo nie úplne vo vnútri, ale",
+      "draftCs": "Například na flétnu a vytvoříte podmínky, aby tam byly nějaké konkrétní tony, aby tam dobře žili uvnitř flétny nebo ne úplně uvnitř, ale",
+      "reviewFlags": []
+    },
+    {
+      "start": 1732.43,
+      "end": 1739.87,
+      "sourceCues": [
+        863,
+        864,
+        865,
+        866
+      ],
+      "originalSk": "aby sa dobre šírili. Tak, tak, tak. Čiže všetky všetky zvuky sú o vibráciách a teraz samozrejme, keď niečím treskneš o niečo, tak to potom",
+      "draftCs": "Takže všechny zvuky jsou o vibracích, a teď samozřejmě, když něco přeháníte, pak to uděláte.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1739.87,
+      "end": 1747.75,
+      "sourceCues": [
+        867,
+        868,
+        869,
+        870
+      ],
+      "originalSk": "vydá zvuk. A všetko vydá zvuk, len často nepočuješ. Môžu byť infrazvuky, môžu byť ultrazvuky.",
+      "draftCs": "Může to být infrazvuk, může to být ultrazvuk.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1747.75,
+      "end": 1757.95,
+      "sourceCues": [
+        871,
+        872,
+        873,
+        874
+      ],
+      "originalSk": "Máme veľmi dobre, nie veľmi, ale máme pomerne limitovaný rozsah frekvencií, ktorý ktoré dokážeme počuť. Ale naozaj, že vydávanie zvuku je úplne najbežnejším",
+      "draftCs": "Máme velmi dobrý, ne velmi dobrý, ale máme poměrně omezený rozsah frekvencí, které můžeme slyšet.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1757.95,
+      "end": 1763.51,
+      "sourceCues": [
+        875,
+        876,
+        877
+      ],
+      "originalSk": "prejavom hocijakého kontaktu, len je to občas veľmi slabé alebo je to na iných frekvenciách, ako dokážeme počuť.",
+      "draftCs": "Je to vyjádření jakéhokoliv kontaktu, jenže někdy je to velmi slabé, nebo je to na jiných frekvencích, než jsme schopni slyšet.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1763.51,
+      "end": 1769.175,
+      "sourceCues": [
+        878,
+        879,
+        880
+      ],
+      "originalSk": "Ale jo, keď [smrkanie] sa ti toto páči, tak popros rodičov, nech ti kúpia mechanickú ladičku.",
+      "draftCs": "Ale jo, když se ti to líbí, řekni rodičům, ať ti koupí mechanickou krabici.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1769.175,
+      "end": 1770.03,
+      "sourceCues": [
+        881
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 1770.03,
+      "end": 1773.75,
+      "sourceCues": [
+        882,
+        883
+      ],
+      "originalSk": "To to budeš môcť si búchať a rôzne tóny iné budeš počúvať cez to.",
+      "draftCs": "Budeš mít možnost si to poplatit a přes to poslouchat různé tóny.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1773.75,
+      "end": 1784.31,
+      "sourceCues": [
+        884,
+        885,
+        886,
+        887,
+        888
+      ],
+      "originalSk": "A ináč toto je super, mnohé mobily umožňujú aplikácie, ktoré ti ukazujú zvuk a to frekvenčné zloženie. A keď si dosť nerd, tak sa tým vieš zabaviť.",
+      "draftCs": "A to je skvělé, protože spousta mobilních zařízení nabízí aplikace, které vám ukazují zvuk a frekvenční složení.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1784.31,
+      "end": 1793.43,
+      "sourceCues": [
+        889,
+        890,
+        891,
+        892
+      ],
+      "originalSk": "A okrem toho som ešte minule robil aj eh rozširoval povedomie o tej apke na identifikáciu vtákov, čo urobili",
+      "draftCs": "A kromě toho, že jsem v minulém týdnu také rozšířil povědomí o tom, že tato aplikace pro identifikaci ptáků",
+      "reviewFlags": []
+    },
+    {
+      "start": 1793.43,
+      "end": 1800.67,
+      "sourceCues": [
+        893,
+        894,
+        895,
+        896
+      ],
+      "originalSk": "na Zabudol som teraz. Áno, áno. V nejakom v nejakom výskumnom labáku, zabudol som teraz na ktorú univerzitu, to celé zadarmo a skúšal",
+      "draftCs": "V nějakém výzkumném laboratoři jsem zapomněl, na kterou univerzitě, a zkusil jsem to zadarmo.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1800.67,
+      "end": 1810.83,
+      "sourceCues": [
+        897,
+        898,
+        899,
+        900
+      ],
+      "originalSk": "som, či to viem oklamať, lebo viem robiť kukučku. Eh nie kukučku, teraz mi vypadlo to meno.",
+      "draftCs": "Já vím, jestli to umím dělat, protože umím dělat sušenku.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1810.83,
+      "end": 1820.95,
+      "sourceCues": [
+        901,
+        902,
+        903
+      ],
+      "originalSk": "Ja si spomeniem. Eh Čo robí kuku, kuku? A to som oklamal. Nie, nie, nie. Eh úplne úplne teraz mi",
+      "draftCs": "Já si vzpomínám, co dělá kuku, kuku? A to jsem podváděl. Ne, ne, ne.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1820.95,
+      "end": 1824.03,
+      "sourceCues": [
+        904,
+        905
+      ],
+      "originalSk": "to blenklo. Počkaj, pozriem sa alebo to napodobním až znova.",
+      "draftCs": "Počkejte, uvidím, nebo to napodobím znovu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1824.03,
+      "end": 1833.07,
+      "sourceCues": [
+        906,
+        907,
+        908,
+        909
+      ],
+      "originalSk": "Eh znova to presvedčím. Takže sa mi to prvýkrát podarilo oklamať mojím vlastným zvukom, takže to len dávam ako taký tip, keď máte decká, ktoré sa chcú hrať s",
+      "draftCs": "Takže poprvé jsem to dokázala podvádět svým vlastním zvukem, takže to mám jako tip, když máte děti, které se chtějí hrát.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1833.07,
+      "end": 1842.512,
+      "sourceCues": [
+        910,
+        911,
+        912,
+        913
+      ],
+      "originalSk": "rôznymi zvukmi, v mobiloch sú zadarmo dobré aplikácie, často robia rôzne univerzity na analyzovanie zvuku, na vizualizáciu a s tým sa naozaj dá",
+      "draftCs": "V mobilu jsou bezplatné dobré aplikace, často dělají různé univerzity pro analýzu zvuku, vizualizaci a to se opravdu dá.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1842.512,
+      "end": 1848.392,
+      "sourceCues": [
+        914,
+        915,
+        916
+      ],
+      "originalSk": "eh veľmi pekne. Tak, tak, tak. Takže. Dobre, super, ďakujeme Leo za otázku.",
+      "draftCs": "Dobře, super, díky Leo za otázku.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 1848.392,
+      "end": 1856.872,
+      "sourceCues": [
+        917,
+        918,
+        919
+      ],
+      "originalSk": "Alžbetka sa sa pýta. Ahoj, prečo eh niekedy rátame Pluto medzi planéty a niekedy nie?",
+      "draftCs": "Alžběta se ptá: \"Proč jsme někdy hodili Plutu mezi planety a někdy ne?\"",
+      "reviewFlags": []
+    },
+    {
+      "start": 1856.872,
+      "end": 1866.992,
+      "sourceCues": [
+        920,
+        921,
+        922,
+        923
+      ],
+      "originalSk": "Alžbetka, neviem, čo ti kto povedal, ale už Pluto nerátame medzi planéty už veľmi dlho. Kde Neviem, či nie, už 20 rokov to je, nie?",
+      "draftCs": "Alžběte, nevím, co ti někdo řekl, ale Pluto už není mezi planety dlouho.",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 1866.992,
+      "end": 1872.192,
+      "sourceCues": [
+        924,
+        925
+      ],
+      "originalSk": "Hrdlička sa to volá, teraz mi to konečne cinklo. Jáj, jáj, hrku.",
+      "draftCs": "Jmenuje se krk, teď už to konečně začíná.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1872.192,
+      "end": 1880.912,
+      "sourceCues": [
+        926,
+        927,
+        928,
+        929,
+        930
+      ],
+      "originalSk": "Hrku, hrku, hej, hej. Jáj, ja som počul, že Áno. No, dobre. Eh čiže s tým potom",
+      "draftCs": "Hej, já jsem slyšel, že ano.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 1880.912,
+      "end": 1889.152,
+      "sourceCues": [
+        931,
+        932,
+        933
+      ],
+      "originalSk": "Pluto nerátame medzi planéty, pretože eh nie je vlastne planétou podľa nejakých definícií, ktoré máme. Planéta má",
+      "draftCs": "Pluto nespočítáme mezi planety, protože není vlastně planetou podle některých definicí, které máme.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1889.152,
+      "end": 1896.512,
+      "sourceCues": [
+        934,
+        935,
+        936
+      ],
+      "originalSk": "obrovský mesiac, ktorý eh ktorý je skoro taký istý veľký ako Pluto, je veľmi ďaleko.",
+      "draftCs": "obrovský měsíc, který je skoro stejně velký jako Pluto, je velmi daleko.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1896.512,
+      "end": 1906.752,
+      "sourceCues": [
+        937,
+        938,
+        939,
+        940,
+        941
+      ],
+      "originalSk": "Eh a tak ďalej a skoro spĺňa definíciu. To by sme mu to odpustili, ale Pluto je ešte veľmi malinké. Áno, áno, ale akože aj ten pomer medzi tým mesiacom a eh",
+      "draftCs": "A tak dále, a téměř splňuje definici. To bychom mu odpustili, ale Pluto je ještě velmi malé. Ano, ano, ale stejně jako poměr mezi tímto měsícem a eh",
+      "reviewFlags": []
+    },
+    {
+      "start": 1906.752,
+      "end": 1910.632,
+      "sourceCues": [
+        942,
+        943
+      ],
+      "originalSk": "Áno, Pluto je veľmi náš napríklad mesiac je väčší ako Pluto.",
+      "draftCs": "Ano, Pluto je velmi naše. Například měsíc je větší než Pluto.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1910.632,
+      "end": 1917.112,
+      "sourceCues": [
+        944,
+        945,
+        946,
+        947
+      ],
+      "originalSk": "Tak, a vyrástla už pomaly generácia ľudí, ktorí nevedeli, že niekedy Pluto bolo planétou, takže sa to bude ľahšie vysvetľovať. My sme ešte z tej",
+      "draftCs": "Takže už pomalu vyrostla generace lidí, kteří nevěděli, že kdysi Pluto byl planetou, takže to bude jednodušší vysvětlit.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1917.112,
+      "end": 1925.032,
+      "sourceCues": [
+        948,
+        949,
+        950,
+        951
+      ],
+      "originalSk": "generácie, čo si pamätajú a s tým Plutom je to taká smiešna história, že výpočty ukázali, že by mala existovať ďalšia planéta, keď ho nepoznali a čakali, že",
+      "draftCs": "generace, které si pamatují a s Pluto je to tak směšný příběh, že výpočty ukázaly, že by měla existovat další planeta, když ji nevěděli a čekali, že",
+      "reviewFlags": []
+    },
+    {
+      "start": 1925.032,
+      "end": 1932.152,
+      "sourceCues": [
+        952,
+        953,
+        954,
+        955
+      ],
+      "originalSk": "to bude veľká planéta na istom mieste na oblohe. A tú planétu tam našli, len to bol taký prďous.",
+      "draftCs": "Je to velká planeta někde v obloze. A ta planeta, kterou tam našli, byla jen tak špinavá.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1932.152,
+      "end": 1943.112,
+      "sourceCues": [
+        956,
+        957,
+        958,
+        959,
+        960
+      ],
+      "originalSk": "Uhm. Malé Pluto a potom sme začali ten Oortov oblak alebo Eh nie, nie, ten je, ten je až ďalej. Eh Proste, že výpočty ukázali, že malo by",
+      "draftCs": "Malý Pluto a pak jsme začali s tím Oortovým oblakem, nebo ne, ne, to je, to je ještě dál.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1943.112,
+      "end": 1947.032,
+      "sourceCues": [
+        961,
+        962,
+        963
+      ],
+      "originalSk": "tam byť niečo ťažké, čo tuším, že narúša dráhu Neptúnu. Uhm.",
+      "draftCs": "Je tam něco těžkého, co by narušilo dráhu Neptuna.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1947.032,
+      "end": 1953.752,
+      "sourceCues": [
+        964,
+        965,
+        966,
+        967
+      ],
+      "originalSk": "A úplne na, že to to vyzeralo, že by že našťastie, že akurát tam, kam pozreli, našli tam Pluto a čakali, že to bude veľká vec a keď sa zlepšovali",
+      "draftCs": "A úplně na to, že to vypadalo, že by to bylo, že naštěstí právě tam, kde se podívali, našli Pluto a očekávali, že to bude velká věc a když se zlepšili",
+      "reviewFlags": []
+    },
+    {
+      "start": 1953.752,
+      "end": 1964.313,
+      "sourceCues": [
+        968,
+        969,
+        970,
+        971,
+        972
+      ],
+      "originalSk": "pozorovania, zistili, že je malé. Eh máme z neho krásne fotky, pozrite si na nete, eh, lebo sme tam poslali sondu, ktorá ho obletela, ak sa nemýlim, New Horizons sa volala.",
+      "draftCs": "Máme krásné fotky z něj, podívejte se na internet, protože jsme tam poslali sondou, která ho obklopila, pokud se nemýlím, New Horizons.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1964.313,
+      "end": 1969.313,
+      "sourceCues": [
+        973,
+        974,
+        975
+      ],
+      "originalSk": "A naozaj, že sú to nádherné fotky. No, ale sme potom presne dali si ho na seba.",
+      "draftCs": "No, ale pak jsme to přesně na sebe dali.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1969.313,
+      "end": 1978.193,
+      "sourceCues": [
+        976,
+        977,
+        978,
+        979
+      ],
+      "originalSk": "Áno, áno, presne. Eh, začali sme ale postupne objavovať kopu ďalších objektov, ktoré sú veľmi podobnej veľkosti a ak by sme boli féroví, tak by",
+      "draftCs": "Ale postupně jsme začali objevovat spoustu jiných objektů, které jsou velmi podobné velikostem, a kdybychom byli spravedliví,",
+      "reviewFlags": []
+    },
+    {
+      "start": 1978.193,
+      "end": 1986.233,
+      "sourceCues": [
+        980,
+        981,
+        982,
+        983
+      ],
+      "originalSk": "sme museli pridať kopu ďalších objektov. Takže buď bola otázka, nebola otázka, že či mať deväť planét, ale bolo, že či osem alebo 25.",
+      "draftCs": "Takže buď byla otázka, nebyla otázka, jestli máme devět planet, ale jestli máme osm nebo 25.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1986.233,
+      "end": 1993.633,
+      "sourceCues": [
+        984,
+        985,
+        986,
+        987
+      ],
+      "originalSk": "A férovejšie bolo jednu škrtnúť ako ako kopu. A to 25 som strelil od pása, ale to je tá logika za tým, že prečo sme Pluto vyhodili.",
+      "draftCs": "A bylo spravedlivější, když jsem jednu z nich vytrhnul jako kopu, a já jsem to 25 střílel z pásu, ale to je ta logika, proč jsme vyhodili Pluto.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1993.633,
+      "end": 2003.393,
+      "sourceCues": [
+        988,
+        989,
+        990,
+        991
+      ],
+      "originalSk": "Tak, takže Pluto už nie je planéta. A planéta je také ľudské ľudské označenie, to my sme si vybrali, že niečo voláme mesiace, niečo",
+      "draftCs": "Takže Pluto už není planetou. A planeta je taková lidská lidská označení, že jsme si vybrali něco nazývat měsíce, něco",
+      "reviewFlags": []
+    },
+    {
+      "start": 2003.393,
+      "end": 2008.593,
+      "sourceCues": [
+        992,
+        993,
+        994
+      ],
+      "originalSk": "voláme planéty. Kedy mysleli sme preto nejaké kritériá, nejaké pravidlá.",
+      "draftCs": "Když jsme přemýšleli o nějakých kritériích, o nějakých pravidlech.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2008.593,
+      "end": 2017.633,
+      "sourceCues": [
+        995,
+        996,
+        997,
+        998,
+        999
+      ],
+      "originalSk": "Hej, ale stále je to tak, že nie je planéta, verte mi. Tak áno, ale kopa vecí je v astronómii, kde proste povieš, že do tejto veľkosti sa to volá tak a od tej veľkosti sa to",
+      "draftCs": "Ano, ale v astronomii je spousta věcí, kde se říká, že do této velikosti se to jmenuje a z této velikosti se to jmenuje",
+      "reviewFlags": []
+    },
+    {
+      "start": 2017.633,
+      "end": 2023.633,
+      "sourceCues": [
+        1000,
+        1001,
+        1002
+      ],
+      "originalSk": "volá inak. A kde je tá hranica, to sme si proste vybrali, aby sa nám ľahšie fungovalo.",
+      "draftCs": "A kde je to hranice, tak jsme si to vybrali jen tak, aby nám to bylo jednodušší.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2023.633,
+      "end": 2028.833,
+      "sourceCues": [
+        1003,
+        1004
+      ],
+      "originalSk": "Áno, my ľudia sme si určili, takže tak. Dobre, ďakujeme za otázku.",
+      "draftCs": "Ano, my lidé jsme se rozhodli, takže tak.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2028.833,
+      "end": 2037.713,
+      "sourceCues": [
+        1005,
+        1006,
+        1007,
+        1008
+      ],
+      "originalSk": "Eh, Leo sa pýta ďalší alebo možno ten istý. Keby som natiahol gumičku okolo celej zemegule, potom ju rozstrihol,",
+      "draftCs": "Leo se zeptá dalšího, nebo možná toho samého.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 2037.713,
+      "end": 2045.993,
+      "sourceCues": [
+        1009,
+        1010
+      ],
+      "originalSk": "koľko by trvalo, kým by sa tie dva konce zrazili a aká by to bola rýchlosť?",
+      "draftCs": "Jak dlouho by to trvalo, než se objevily dva konce a jaká by to byla rychlost?",
+      "reviewFlags": []
+    },
+    {
+      "start": 2045.993,
+      "end": 2054.393,
+      "sourceCues": [
+        1011,
+        1012,
+        1013,
+        1014,
+        1015
+      ],
+      "originalSk": "Aha, ja ti poviem, akú gumičku. Uhm. Zoberieš kancelársku gumičku a natiahneš ju okolo zeme. A táto otázka mi robila najväčšiu bolesť hlavy a mám tri roky.",
+      "draftCs": "Vezměte si kancelářskou gumku a natáhněte ji kolem země a ta otázka mi udělala největší bolest hlavy, a já mám tři roky.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2054.393,
+      "end": 2057.378,
+      "sourceCues": [
+        1016
+      ],
+      "originalSk": "no, že ako rýchlo sa šíri gumička.",
+      "draftCs": "Jak rychle se to šíří.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2057.378,
+      "end": 2058.393,
+      "sourceCues": [
+        1017
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 2058.393,
+      "end": 2067.993,
+      "sourceCues": [
+        1018,
+        1019,
+        1020,
+        1021,
+        1022
+      ],
+      "originalSk": "Sú k tomu rôzne odpovede. Eh, jedna odpoveď je taká, že ten, že Leo vymyslel blbý príklad, lebo to nebude fungovať alebo sa gumička roztrhne. Eh, Uhm.",
+      "draftCs": "Jedna odpověď je, že Leo vymyslel blbej příklad, protože to nebude fungovat, nebo se roztrhne gumka.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2067.993,
+      "end": 2076.313,
+      "sourceCues": [
+        1023,
+        1024,
+        1025,
+        1026,
+        1027
+      ],
+      "originalSk": "No. Hej, že by nevydržala to napätie ako. Tak áno, áno, áno, presne, že každá gumička má pomerne rýchlo svoju medzu a ona sa správa ako gumička len krátku",
+      "draftCs": "Jo, že by to nevydržela. Takže ano, ano, ano, přesně tak, že každá gumka má poměrně rychlý limit, a ona se chová jako gumka jen krátce.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2076.313,
+      "end": 2084.954,
+      "sourceCues": [
+        1028,
+        1029,
+        1030,
+        1031,
+        1032
+      ],
+      "originalSk": "chvíľku. A to všetci poznáme, že ona sa roztrhne napríklad alebo máš pružinku, rozoberieš pero a to podľa mňa kto sa nudil v škole, urobil, že roztiahol pružinku",
+      "draftCs": "Všichni víme, že se roztrhne, například když máte pružinu, roztrháte pero a myslím si, že ten, kdo se v škole nudil, udělal to, že roztrhnul pružinu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2084.954,
+      "end": 2089.754,
+      "sourceCues": [
+        1033,
+        1034,
+        1035
+      ],
+      "originalSk": "a keď to prehneš, tak tá pružinka sa už nevráti späť. Proste prekročil si istú hranicu.",
+      "draftCs": "A když to překročíš, ten pramen se už nevrátí.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2089.754,
+      "end": 2099.954,
+      "sourceCues": [
+        1036,
+        1037,
+        1038,
+        1039,
+        1040
+      ],
+      "originalSk": "A bežná gumička sa jednoducho roztrhne a nevymyslíš takú gumičku, aby to vydržala. To je prvá odpoveď. Keby si ale prižmúril oči a povedal, že mám nezničiteľnú gumičku,",
+      "draftCs": "A obyčejná gumka se prostě roztrhne, a ty neumíš vymyslet takovou gumku, aby to vydrželo. To je první odpověď. Ale kdyby ses zamlčel do očí a řekl, že mám nezničitelnou gumku,",
+      "reviewFlags": []
+    },
+    {
+      "start": 2099.954,
+      "end": 2100.609,
+      "sourceCues": [
+        1041
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 2100.609,
+      "end": 2100.874,
+      "sourceCues": [
+        1042
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 2100.874,
+      "end": 2109.314,
+      "sourceCues": [
+        1043,
+        1044,
+        1045,
+        1046
+      ],
+      "originalSk": "tak dá sa napísať taký jednoduchý vzorec, že koľko energie dáš do tej gumičky, kým ju natiahneš, a keď predpokladáš, že potom celá tá energia",
+      "draftCs": "Takže můžete napsat jednoduchý vzorec, jak moc energie dáte do gumy, dokud ji vytáhnete, a když předpokládáte, že pak veškerá tato energie",
+      "reviewFlags": []
+    },
+    {
+      "start": 2109.314,
+      "end": 2114.594,
+      "sourceCues": [
+        1047,
+        1048
+      ],
+      "originalSk": "sa zmení na tej gumičke, ktorá by bola zároveň veľmi, veľmi ľahká,",
+      "draftCs": "bude se měnit v ten gumový gum, který by byl velmi, velmi lehký,",
+      "reviewFlags": []
+    },
+    {
+      "start": 2115.594,
+      "end": 2120.514,
+      "sourceCues": [
+        1049,
+        1050
+      ],
+      "originalSk": "tak za istých predpokladov ti tam vie vyjsť až nadsvetelná rýchlosť.",
+      "draftCs": "V některých případech je možné dosáhnout nadměrné rychlosti.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2120.514,
+      "end": 2131.034,
+      "sourceCues": [
+        1051,
+        1052,
+        1053,
+        1054,
+        1055
+      ],
+      "originalSk": "OK. Čo asi? Že ten vzorec v podstate hovorí, že že o koľko metrov to natiahneš, tak takú rýchlosť to bude mať metrov za sekundu.",
+      "draftCs": "OK. Co myslíš? Tento vzorec v podstatě říká, že podle toho, kolik metrů to přetáhneš, bude to taková rychlost metrů za sekundu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2131.034,
+      "end": 2139.514,
+      "sourceCues": [
+        1056,
+        1057,
+        1058,
+        1059
+      ],
+      "originalSk": "A keď to natiahneš na 40 miliónov metrov, tak to bude mať rádovo 40 miliónov metrov za sekundu. A teraz tam je ešte nejaký faktor, ktorý závisí od",
+      "draftCs": "A když to vytáhnete na 40 milionů metrů, bude to mít asi 40 milionů metrů za sekundu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2139.514,
+      "end": 2146.354,
+      "sourceCues": [
+        1060,
+        1061,
+        1062,
+        1063
+      ],
+      "originalSk": "tuhosti pružiny a ktorý závisí od jej hmotnosti. A tie dva faktory, keď vyberieš nejakým vhodným spôsobom, tak vieš prekročiť rýchlosť svetla. Takže",
+      "draftCs": "A tyto dva faktory, když si je vyberete vhodným způsobem, můžete překročit rychlost světla.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2146.354,
+      "end": 2153.754,
+      "sourceCues": [
+        1064,
+        1065,
+        1066,
+        1067
+      ],
+      "originalSk": "prvá odpoveď je, že to nebude fungovať, lebo sa roztrhne. Keby si urobil zázračnú netrhaciu gumičku, tak by mohla narážať na rýchlosť svetla.",
+      "draftCs": "První odpověď je, že to nebude fungovat, protože se roztrhne. Pokud uděláte zázračné nerozdělení gumy, může to narazit na rychlost světla.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2153.754,
+      "end": 2163.954,
+      "sourceCues": [
+        1068,
+        1069,
+        1070,
+        1071
+      ],
+      "originalSk": "A ale keby si len zobral takú bežnú intuíciu, že ako rýchlo sa bežne sťahuje gumička, tak ono je to porovnateľné s rýchlosťou vlnenia",
+      "draftCs": "Ale pokud si vezmete běžnou intuicí, že jak rychle se gumka běžně stáhne, je to srovnatelné s rychlostí vlny.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2163.954,
+      "end": 2174.354,
+      "sourceCues": [
+        1072,
+        1073,
+        1074,
+        1075,
+        1076,
+        1077
+      ],
+      "originalSk": "v danej gumičke. A takáto hypotetická gumička, keby si zobral všetky tieto obmedzenia a mala by sa len správať podľa úplne bežnej logiky, ignorujúc všetky rýchlosti",
+      "draftCs": "A hypotetická gumka, pokud vezmete všechna tato omezení, by se měla chovat podle naprosto běžné logiky a ignorovat veškeré rychlosti.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2174.354,
+      "end": 2183.434,
+      "sourceCues": [
+        1078,
+        1079,
+        1080,
+        1081
+      ],
+      "originalSk": "svetla a podobne, tak odhad je taký, že by to mohlo trvať až niekoľko dní. A že by dosahovala rýchlosti niekoľko stoviek metrov a",
+      "draftCs": "světlo a podobně, takže odhadem je, že to může trvat několik dní. A že by dosáhla rychlosti několika stovek metrů a",
+      "reviewFlags": []
+    },
+    {
+      "start": 2183.434,
+      "end": 2188.834,
+      "sourceCues": [
+        1082,
+        1083
+      ],
+      "originalSk": "300 m/s je rýchlosť zvuku. Takže zvuku to trvá niekoľko hodín, kým obletí Zem.",
+      "draftCs": "300 m/s je rychlost zvuku, takže zvuku trvá několik hodin objíždět Zemi.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2188.834,
+      "end": 2199.034,
+      "sourceCues": [
+        1084,
+        1085,
+        1086,
+        1087
+      ],
+      "originalSk": "To sa stane, keď rupne nejaká sopka, tak normálne počuješ, ako buchla, a potom počuješ znova, ako buchla, a znova o niekoľko hodín. A takže to by potom",
+      "draftCs": "To je to, co se stane, když se vulkán vytrhne, normálně slyšíte jako houba, a pak znovu, jako houba, a znovu o několik hodin později.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2199.034,
+      "end": 2205.876,
+      "sourceCues": [
+        1088,
+        1089,
+        1090
+      ],
+      "originalSk": "trvalo rádovo deň, keď keď si všetky komplikácie odmyslíme. Ale Takže toto bola najťažšia otázka.",
+      "draftCs": "Trvalo nám pěkný den, než jsme se zbavili všech těch komplikací. Ale tohle byla ta nejtěžší otázka.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2205.876,
+      "end": 2210.716,
+      "sourceCues": [
+        1091,
+        1092,
+        1093
+      ],
+      "originalSk": "To je škoda, že nie. Dobre, tak Levovi ďakujeme. Oskar sa pýtam.",
+      "draftCs": "Dobře, tak díky Levovi.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 2210.716,
+      "end": 2220.476,
+      "sourceCues": [
+        1094,
+        1095,
+        1096,
+        1097
+      ],
+      "originalSk": "Dobrý deň, tu je Oskar z Galanty a mám otázku. Prečo je vesmír čierny? Prečo nie je napríklad modrý?",
+      "draftCs": "Dobrý den, tady je Oscar z Galanty a mám otázku, proč je vesmír černý? Proč není modrý?",
+      "reviewFlags": []
+    },
+    {
+      "start": 2220.476,
+      "end": 2228.196,
+      "sourceCues": [
+        1098,
+        1099,
+        1100
+      ],
+      "originalSk": "Ďakujem, dovidenia. Zaujímavá otázka, ale to je asi len nedostatok svetla, lebo on nie je",
+      "draftCs": "Zajímavá otázka, ale asi je to jen nedostatek světla, protože není.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2228.196,
+      "end": 2237.396,
+      "sourceCues": [
+        1101,
+        1102,
+        1103,
+        1104
+      ],
+      "originalSk": "nafarbený čiernou, ale Čierna nie je farba. máme aj možno iné oči, tak ináč ho vnímame. Ešte možno aj tak.",
+      "draftCs": "Černá je barva, ale černá není barva. Možná máme jiné oči, ale můžeme ji vnímat jinak.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2237.396,
+      "end": 2245.036,
+      "sourceCues": [
+        1105,
+        1106,
+        1107,
+        1108
+      ],
+      "originalSk": "A áno, presne, že keby si mal oči, ktoré vedia vnímať mikrovlnné žiarenie, tak vlastne vidíš vesmír ako veľmi farebný, lebo mikrovlnné žiarenie k tam prichádza",
+      "draftCs": "A ano, přesně tak, že pokud máte oči schopné vnímat mikrovlnné záření, vidíte vesmír jako velmi barevný, protože mikrovlnné záření přichází tam.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2245.036,
+      "end": 2255.876,
+      "sourceCues": [
+        1109,
+        1110,
+        1111,
+        1112,
+        1113,
+        1114
+      ],
+      "originalSk": "zo všetkých smerov. A keby si bol veľmi citlivý, tak by si aj videl, že a tu je to trošku teplejšie, tu je to trošku studenšie.",
+      "draftCs": "A pokud byste byli velmi citliví, viděli byste, že tady je trochu horší, tady je trochu chladnější.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2255.876,
+      "end": 2263.236,
+      "sourceCues": [
+        1115,
+        1116,
+        1117
+      ],
+      "originalSk": "A ale správne si povedal, že že to je vlastne absencia svetla. A my používame farbu dvomi rôznymi spôsobmi.",
+      "draftCs": "Ale správně jste řekl, že je to absence světla. A my používáme barvu dvěma různými způsoby.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2263.236,
+      "end": 2272.916,
+      "sourceCues": [
+        1118,
+        1119,
+        1120,
+        1121,
+        1122
+      ],
+      "originalSk": "Jedna je, že ako farbu používajú ľudia bežní, Uhm. ako farbu oblečenia, farbu látky, farbu na stene.",
+      "draftCs": "První je, že běžní lidé používají barvu jako barvu oblečení, barvu látky, barvu na zdi.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2272.916,
+      "end": 2282.796,
+      "sourceCues": [
+        1123,
+        1124,
+        1125,
+        1126
+      ],
+      "originalSk": "A potom je farba ako fyzikálny pojem. A farba ako fyzikálny pojem závisí od dvoch vecí. Po prvé od vlnovej dĺžky a to ti vytvára všetky farby dúhy.",
+      "draftCs": "A potom je barva jako fyzický pojem. A barva jako fyzický pojem závisí na dvou věcech.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2282.796,
+      "end": 2290.916,
+      "sourceCues": [
+        1127,
+        1128
+      ],
+      "originalSk": "Červená, žltá, zelená, modrá, fialová. A potom závisí od intenzity.",
+      "draftCs": "Červená, žlutá, zelená, modrá, fialová a potom závisí na intenzitě.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2290.916,
+      "end": 2296.396,
+      "sourceCues": [
+        1129,
+        1130,
+        1131
+      ],
+      "originalSk": "Uhm. tak na dúhe nemáš všetky farby. Napríklad tam nemáš hnedú.",
+      "draftCs": "No, tak na té džíce nemáš všechny barvy, například na té hnědé.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2296.396,
+      "end": 2297.766,
+      "sourceCues": [
+        1132
+      ],
+      "originalSk": "No, máš čo si.",
+      "draftCs": "No, máš to, co jsi.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2297.766,
+      "end": 2298.956,
+      "sourceCues": [
+        1133
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 2298.956,
+      "end": 2304.676,
+      "sourceCues": [
+        1134,
+        1135,
+        1136,
+        1137
+      ],
+      "originalSk": "Lebo hnedá je vlastne je tam hnedá. Áno, lebo hnedá je vlastne stmavená oranžová.",
+      "draftCs": "Protože hnedá je vlastně hnedá. Jo, protože hnedá je vlastně tmavě oranžová.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2304.676,
+      "end": 2313.316,
+      "sourceCues": [
+        1138,
+        1139,
+        1140,
+        1141,
+        1142
+      ],
+      "originalSk": "Uhm. A keď nejakú farbu zoberieš a stmavíš ju úplne, tak dostaneš čiernu. Dokonca hocijakú farbu zoberieš a stmavíš ju úplne, tak dostaneš čiernu. Čiže čierna",
+      "draftCs": "A když si vezmeš nějakou barvu a úplně ji ztlumíš, dostaneš černou barvu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2313.316,
+      "end": 2318.676,
+      "sourceCues": [
+        1143,
+        1144,
+        1145
+      ],
+      "originalSk": "nie je farba v takom tom fyzikálnom zmysle. Čierna je absencia farby, absencia svetla.",
+      "draftCs": "Černá je absence barev, absence světla.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2318.676,
+      "end": 2323.996,
+      "sourceCues": [
+        1146,
+        1147,
+        1148
+      ],
+      "originalSk": "A keď sa pozrieš na náhodné miesto vo vesmíre, kde tam práve nie je hviezdička, tak sa pozeráš na nič.",
+      "draftCs": "A když se podíváte na náhodné místo ve vesmíru, kde zrovna žádná hvězda není, tak se podíváte na nic.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2323.996,
+      "end": 2334.517,
+      "sourceCues": [
+        1149,
+        1150,
+        1151,
+        1152,
+        1153
+      ],
+      "originalSk": "A absencia farby je čierna, takže preto vesmír čierny. Na to, aby bol modrý absencie eh svetla ako hviezdičiek vidíme, no.",
+      "draftCs": "A absence barev je černá, takže vesmír je černý.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 2334.517,
+      "end": 2344.837,
+      "sourceCues": [
+        1154,
+        1155,
+        1156,
+        1157
+      ],
+      "originalSk": "Inak že toto ľudí strašne divilo, lebo si hovoril, tak keď je vesmír nekonečne starý a nekonečne veľký, Presne. Že keby bol vesmír nekonečný aj",
+      "draftCs": "Protože jsi říkal, že když je vesmír nekonečně starý a nekonečně velký, že je nekonečně velký, že kdyby byl nekonečný,",
+      "reviewFlags": []
+    },
+    {
+      "start": 2344.837,
+      "end": 2352.877,
+      "sourceCues": [
+        1158,
+        1159,
+        1160,
+        1161
+      ],
+      "originalSk": "v čase, aj v priestore a plný hviezd, tak ako je v našom okolí, tak by nočná obloha musela byť celá",
+      "draftCs": "V čase, v prostoru a plném hvězd, stejně jako v našem okolí, noční obloha by musela být celá.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2352.877,
+      "end": 2359.197,
+      "sourceCues": [
+        1162,
+        1163,
+        1164
+      ],
+      "originalSk": "osvetlená s svetlom hviezd. Takže buďme radi, že je tmavý, lebo by sa nedalo spať.",
+      "draftCs": "Tak se radujme, že je tma, protože bychom nemohli spát.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2359.197,
+      "end": 2363.237,
+      "sourceCues": [
+        1165,
+        1166
+      ],
+      "originalSk": "Alebo by sme inakšie riešili spánok. Hej, hej, ale bolo by to inak.",
+      "draftCs": "- Jo, jo, ale bylo by to jinak.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2363.237,
+      "end": 2372.477,
+      "sourceCues": [
+        1167,
+        1168,
+        1169
+      ],
+      "originalSk": "Bola by iná noc. Hej. Je noc, svieti, svietia hviezdy. Ďakujeme za otázku.",
+      "draftCs": "Je to noc, světla, hvězdy, díky za otázku.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2372.477,
+      "end": 2375.077,
+      "sourceCues": [
+        1170
+      ],
+      "originalSk": "A Anna",
+      "draftCs": "A Anna.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2396.757,
+      "end": 2402.437,
+      "sourceCues": [
+        1171,
+        1172,
+        1173
+      ],
+      "originalSk": "Ako sa narodili hviezdy na nebi, čo sa s nimi deje potom a prečo vyzerajú ako planéty.",
+      "draftCs": "Jak se v nebi narodily hvězdy, co se s nimi děje a proč vypadají jako planety.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2402.437,
+      "end": 2410.237,
+      "sourceCues": [
+        1174,
+        1175,
+        1176,
+        1177
+      ],
+      "originalSk": "Neuveriteľne zložitá otázka. A to ty nevieš, ale ľudia, ktorí počúvajú ono tak ju ešte položila v angličtine.",
+      "draftCs": "To je neuvěřitelně složitá otázka, a vy to nevíte, ale lidé, kteří ji poslouchají, ji ještě položili v angličtině.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2410.237,
+      "end": 2416.322,
+      "sourceCues": [
+        1178,
+        1179,
+        1180,
+        1181
+      ],
+      "originalSk": "Ó. Odpovedať budeme po slovensky, nech sa vytrápia aj iní rodičia.",
+      "draftCs": "Odpovíme slovensky, ať se budou trápit i ostatní rodiče.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2416.322,
+      "end": 2416.717,
+      "sourceCues": [
+        1182
+      ],
+      "originalSk": "[vzdychanie][lapanie po dychu]",
+      "draftCs": "[výdech] [výdech]",
+      "reviewFlags": []
+    },
+    {
+      "start": 2416.717,
+      "end": 2423.797,
+      "sourceCues": [
+        1183,
+        1184,
+        1185,
+        1186
+      ],
+      "originalSk": "Eh super otázka a na každú z tých častí je trochu iná odpoveď.",
+      "draftCs": "To je skvělá otázka a na každou z těch částí je trochu jiná odpověď.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2423.797,
+      "end": 2433.877,
+      "sourceCues": [
+        1187,
+        1188,
+        1189,
+        1190,
+        1191
+      ],
+      "originalSk": "O hviezdach sme už rozprávali párkrát v podcaste, znova si urobíme taký nenápadný, nenápadnú reklamu. Hm, párkrát, hej. Ale v podstate hviezdy v svojej novej knihe.",
+      "draftCs": "Už jsme o hvězdách párkrát mluvili v podcastu, a pak si znovu uděláme takovou nenápadnou, nenápadnou reklamu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2433.877,
+      "end": 2440.997,
+      "sourceCues": [
+        1192,
+        1193,
+        1194,
+        1195,
+        1196
+      ],
+      "originalSk": "Aj nenápadne, dokonca je tam Kolíske. [smrkanie] vo viacerých kapitolách, ale jedna kapitola je vlastne venovaná tomu, ako funguje Slnko.",
+      "draftCs": "Je tam dokonce i Količka. V několika kapitolách, ale jedna kapitola je vlastně věnována tomu, jak slunce funguje.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2440.997,
+      "end": 2447.677,
+      "sourceCues": [
+        1197,
+        1198,
+        1199
+      ],
+      "originalSk": "A ten Toto je strašne cool na vesmíre, že vlastne všetky hviezdy fungujú rovnako.",
+      "draftCs": "A to je úžasné, že ve vesmíru všechny hvězdy fungují stejně.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2447.677,
+      "end": 2457.238,
+      "sourceCues": [
+        1200,
+        1201,
+        1202,
+        1203,
+        1204,
+        1205
+      ],
+      "originalSk": "Eh Áno, že prídeš do úplne inej časti vesmíru a stále tá hviezda to spoznáš proste, že Tak, tak presne, že keď sa pozrieš na hviezdu, ktorá je k nám najbližšie,",
+      "draftCs": "Eh ano, že se dostanete do úplně jiné části vesmíru a stále to je hvězda, jen si uvědomíte, že jo, přesně tak, že když se podíváte na hvězdu, která je nejbližší k nám,",
+      "reviewFlags": []
+    },
+    {
+      "start": 2457.238,
+      "end": 2466.558,
+      "sourceCues": [
+        1206,
+        1207,
+        1208,
+        1209
+      ],
+      "originalSk": "slnko a pozrieš sa na hviezdu, ktorá je k najvzdialenejšej, akú len poznáme, tak je to v podstate že to isté, len iné chemické zloženie, iná veľkosť, občas",
+      "draftCs": "Slunce, a když se podíváte na hvězdu, která je nejvzdálenější, jakou známe, tak je to v podstatě stejné, jen jiné chemické složení, jiné velikosti, občas",
+      "reviewFlags": []
+    },
+    {
+      "start": 2466.558,
+      "end": 2471.238,
+      "sourceCues": [
+        1210,
+        1211
+      ],
+      "originalSk": "trošku iné parametre sa môžu pomýliť, ale že tá fyzika je za tým tá istá.",
+      "draftCs": "Trochu jiné parametry se mohou mýlit, ale fyzika je za nimi stejná.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2471.238,
+      "end": 2480.358,
+      "sourceCues": [
+        1212,
+        1213,
+        1214
+      ],
+      "originalSk": "Nejaké detaily môžu byť odlišné, ale logika je, že máš veľký mrak plynu, ktorý sa gravitáciou stlačí.",
+      "draftCs": "Některé detaily se mohou lišit, ale logikou je, že máte velkou mrakou plynu, která je tlačena gravitací.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2480.358,
+      "end": 2487.838,
+      "sourceCues": [
+        1215,
+        1216,
+        1217,
+        1218
+      ],
+      "originalSk": "Keď sa stláča, tak sa zohreje a keď sa zohreje dostatočne, tak sa tam naštartuje jadrová fúzia, čo je proces, ktorý uvoľňuje ďalšiu energiu, ktorý",
+      "draftCs": "Když se stlačí, zahřeje se a když se dostatečně zahřeje, začne se atomová fúze, což je proces, který uvolňuje další energii,",
+      "reviewFlags": []
+    },
+    {
+      "start": 2487.838,
+      "end": 2496.078,
+      "sourceCues": [
+        1219,
+        1220,
+        1221,
+        1222,
+        1223
+      ],
+      "originalSk": "potom hviezdu zohreje natoľko, že svieti. A toto funguje úplne všade vo vesmíre, ten istý princíp. A keď ľudia pochopili začiatkom minulého",
+      "draftCs": "pak se hvězda natolik oteplí, že svítí. A to funguje úplně všude ve vesmíru, stejný princip. A když lidé pochopili začátek minulého věku,",
+      "reviewFlags": []
+    },
+    {
+      "start": 2496.078,
+      "end": 2501.718,
+      "sourceCues": [
+        1224,
+        1225,
+        1226
+      ],
+      "originalSk": "storočia, že toto sa deje v našom slnku, tak vlastne zrazu pochopili celý vesmír, to je na tom super.",
+      "draftCs": "že se to děje v našem slunci, takže najednou pochopili celou vesmír, to je skvělé.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2501.718,
+      "end": 2512.038,
+      "sourceCues": [
+        1227,
+        1228,
+        1229,
+        1230,
+        1231
+      ],
+      "originalSk": "A po druhé je to testom toho, že či na opačnom konci vesmíru, kam dovidíme, platí tá istá fyzika ako u nás a máme pocit, že vieš, že nikde nie je napísané, že tam,",
+      "draftCs": "Za druhé, je to test, zda na opačném konci vesmíru, kam jdeme, platí stejná fyzika jako u nás, a máme pocit, že víte, že nikde není napsáno, že tam",
+      "reviewFlags": []
+    },
+    {
+      "start": 2512.038,
+      "end": 2517.638,
+      "sourceCues": [
+        1232,
+        1233
+      ],
+      "originalSk": "že prečo v jednom kúte vesmíru nebude že ťažší vodík napríklad, vieš, že o 50 %.",
+      "draftCs": "Proč v jednom koutě vesmíru nebude těžší vodík, například, víte, o 50 procent.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2517.638,
+      "end": 2521.838,
+      "sourceCues": [
+        1234,
+        1235
+      ],
+      "originalSk": "A my vieme, že nemôže byť, lebo tie hviezdy by tam nefungovali rovnako.",
+      "draftCs": "A my víme, že to nemůže být, protože ty hvězdy tam nefungují stejně.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2521.838,
+      "end": 2525.558,
+      "sourceCues": [
+        1236,
+        1237
+      ],
+      "originalSk": "A zároveň vieme, že to je taký lakmusový papierik na celý vesmír.",
+      "draftCs": "A zároveň víme, že je to lakmusový papír pro celý vesmír.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2525.558,
+      "end": 2534.078,
+      "sourceCues": [
+        1238,
+        1239,
+        1240,
+        1241
+      ],
+      "originalSk": "Presne, presne. A rovnako vieme povedať, že 10 miliárd rokov dozadu platila tá istá fyzika ako dnes, lebo fungujú hviezdy. Že hviezdy sú strašne citlivé",
+      "draftCs": "Přesně tak. A můžeme také říct, že před 10 miliardami let platí stejná fyzika jako dnes, protože hvězdy fungují. Že hvězdy jsou velmi citlivé.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2534.078,
+      "end": 2539.558,
+      "sourceCues": [
+        1242,
+        1243
+      ],
+      "originalSk": "na hmotnosti vecí, na povahu fyzikálnych zákonov a tak ďalej.",
+      "draftCs": "hmotnost věcí, povahu fyzikálních zákonů a tak dále.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2539.558,
+      "end": 2549.638,
+      "sourceCues": [
+        1244,
+        1245,
+        1246,
+        1247
+      ],
+      "originalSk": "A zároveň ich je vidno krížom cez celý vesmír. Takže oni sú našou sondou, ktorá nám hovorí, že fyzika a zloženie vesmíru je proste vo ves- je všelikde v",
+      "draftCs": "Takže jsou to naše sondy, které nám říkají, že fyzika a složení vesmíru je prostě ve vesmíru.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2549.638,
+      "end": 2556.878,
+      "sourceCues": [
+        1248,
+        1249,
+        1250
+      ],
+      "originalSk": "priestore a v čase veľmi podobné. A čo sa deje s hviezdami, tak to si ty vlastne zodpovedal pri prvej otázke.",
+      "draftCs": "A co se děje se hvězdami, vlastně jsi odpověděl na první otázku.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2556.878,
+      "end": 2565.558,
+      "sourceCues": [
+        1251,
+        1252,
+        1253,
+        1254,
+        1255,
+        1256
+      ],
+      "originalSk": "Áno, môžu vybuchnúť, ale môžu sa nafúknuť. Tak, tak, tak. Áno. A keď sú dostatočne ťažké, tak sa z nich stane čierna diera.",
+      "draftCs": "Ano, mohou vybuchnout, ale mohou se zvětšit, tak, tak, tak. Ano. A když jsou dostatečně těžká, stane se z nich černá díra.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2565.558,
+      "end": 2572.318,
+      "sourceCues": [
+        1257,
+        1258,
+        1259,
+        1260
+      ],
+      "originalSk": "Čierna diera. Zakázal som otázky o čiernych dierach a rešpektujem, že to všetci všetci dodržali.",
+      "draftCs": "Zastavil jsem otázky o černé díře a respektuji, že to všichni dodržovali.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2572.318,
+      "end": 2579.04,
+      "sourceCues": [
+        1261,
+        1262,
+        1263
+      ],
+      "originalSk": "No a prečo vyzerajú ako planéty? Možno to myslí, že prečo sú tiež okrúhle?",
+      "draftCs": "Proč vypadají jako planety? Možná to znamená, proč jsou také okruhové?",
+      "reviewFlags": []
+    },
+    {
+      "start": 2579.04,
+      "end": 2587.64,
+      "sourceCues": [
+        1264,
+        1265,
+        1266,
+        1267
+      ],
+      "originalSk": "No to je to, že áno, oni sú, že všetko je guľaté, lebo gravitácia stláča veci do optimálneho tvaru a ten je z pohľadu gravitácie guľa, ale ty keď niečo vidíš",
+      "draftCs": "No, je to, že ano, oni jsou, že všechno je kulaté, protože gravitace tlačí věci do optimálního tvaru a to je z hlediska gravitace kulaté, ale ty když něco vidíš",
+      "reviewFlags": []
+    },
+    {
+      "start": 2587.64,
+      "end": 2596.8,
+      "sourceCues": [
+        1268,
+        1269,
+        1270,
+        1271,
+        1272
+      ],
+      "originalSk": "na oblohe, ty v podstate nevidíš ten tvar. Že keby boli hviezdy kockaté, tak ich tiež vidíš iba ako bodky. Lebo hocičo dostatočne vzdialené vyzerá ako bodka.",
+      "draftCs": "Když vidíte hvězdy na obloze, nemůžete vidět jejich tvar, protože pokud jsou kostky, vidíte je pouze jako body, protože všechno, co je dostatečně vzdálené, vypadá jako bod.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2596.8,
+      "end": 2606.24,
+      "sourceCues": [
+        1273,
+        1274,
+        1275,
+        1276
+      ],
+      "originalSk": "A nevieš čo to je a sú to hviezdy, hej? Áno, že zober si mobilný telefón veľmi ďaleko, s ním odbehni a zrazu to bude vyzerať ako taká malá bodka, ktorú držíš",
+      "draftCs": "Ano, vezměte si mobil daleko, běžte s ním, a najednou to bude vypadat jako ta malá bodka, kterou držíte.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2606.24,
+      "end": 2616.16,
+      "sourceCues": [
+        1277,
+        1278,
+        1279,
+        1280,
+        1281,
+        1282
+      ],
+      "originalSk": "v ruke. No a televízor ľudia, keď si nejako vzdialený, tak vidíš len bodky, že sú ľudia proste sa sa ti to tak začne, hej? Ale proste že vzdialené zdroje vyzerajú, hovorí sa",
+      "draftCs": "Když jste na dálce, vidíte jen body, že jsou lidé, tak to prostě začíná vypadat, že?",
+      "reviewFlags": []
+    },
+    {
+      "start": 2616.16,
+      "end": 2626.92,
+      "sourceCues": [
+        1283,
+        1284,
+        1285,
+        1286,
+        1287
+      ],
+      "originalSk": "tomu, že vyzerajú ako bodovo a že nevieš rozlíšiť ich štruktúru, že sa tam niečo nachádza. Preto je taký veľký flex, keď sa nám to pri niektorých blízkych hviezdach podarí. Že",
+      "draftCs": "že vypadají jako body, a že nemůžete rozlišit jejich strukturu, že je tam něco. Proto je to tak velká flexibilita, když se nám podaří to udělat u některých blízkých hvězd.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2626.92,
+      "end": 2636.08,
+      "sourceCues": [
+        1288,
+        1289,
+        1290,
+        1291
+      ],
+      "originalSk": "Betelgeuse napríklad máme takto zmapované, že má má nejaké nerovnosti vo svojom tvare, ale že to veľmi, veľmi ťažké vidieť hviezdu inak ako bodku.",
+      "draftCs": "Například Betelgeuse máme tak zmapováno, že má nějaké nerovnosti ve tvaru, ale že je velmi, velmi těžké vidět hvězdu jinak než jako bod.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2636.08,
+      "end": 2645.0,
+      "sourceCues": [
+        1292,
+        1293,
+        1294,
+        1295
+      ],
+      "originalSk": "Pri planétach to nie je také ťažké. Dobrý dobrý ďalekohľad alebo teleskop ti už umožní vidieť, že planéty nie sú",
+      "draftCs": "V případě planet není to tak těžké. Dobrý dalekohled nebo dalekohled vám umožní vidět, že planety nejsou",
+      "reviewFlags": []
+    },
+    {
+      "start": 2645.0,
+      "end": 2653.76,
+      "sourceCues": [
+        1296,
+        1297,
+        1298
+      ],
+      "originalSk": "bodky, že majú nejakú štruktúru. A teda Pluto zo záhrady neuvidíš, ale Jupiter si môžeš pozrieť a vidíš, že to",
+      "draftCs": "Takže z zahrady nemůžete vidět Plutu, ale můžete se podívat na Jupiteru a můžete vidět, že",
+      "reviewFlags": []
+    },
+    {
+      "start": 2653.76,
+      "end": 2662.36,
+      "sourceCues": [
+        1299,
+        1300,
+        1301,
+        1302
+      ],
+      "originalSk": "je jednoznačne Jupiter, Saturn, Mars, Venušu, aj keď teda tá je v takých eh tu nie je až tak dobre",
+      "draftCs": "Je to jasně Jupiter, Saturn, Mars, Venus, i když je to v takových případech.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2662.36,
+      "end": 2672.88,
+      "sourceCues": [
+        1303,
+        1304,
+        1305,
+        1306,
+        1307
+      ],
+      "originalSk": "do planetária. Naozaj sú tam mávajú tam veľakrát aj nejaké zábery, môžete si pozrieť, takže Takže to je vlastne cool na tom, že keď Galileo a podobne prvýkrát chytili do",
+      "draftCs": "Takže to je vlastně cool na tom, že když Galileo a podobně poprvé zachytili",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 2672.88,
+      "end": 2680.12,
+      "sourceCues": [
+        1308,
+        1309,
+        1310,
+        1311
+      ],
+      "originalSk": "ruky ďalekohľad riadne, tak videli, že niektoré tie bodky sú naozaj niečo veľmi iné a už vtedy sa vedelo, že oni sú iné tým, že sa výrazne pohybujú po oblohe,",
+      "draftCs": "Ruce dalekohledu jsou v pořádku, takže jsme viděli, že některé z těchto bodů jsou opravdu něco velmi odlišného, a už tehdy jsme věděli, že jsou odlišné tím, že se značně pohybují po obloze,",
+      "reviewFlags": []
+    },
+    {
+      "start": 2680.12,
+      "end": 2689.68,
+      "sourceCues": [
+        1312,
+        1313,
+        1314,
+        1315
+      ],
+      "originalSk": "to sú vlastne planéta znamená pútnik. Takže títo pútnici sú zároveň iné veci ako hviezdy, stálice.",
+      "draftCs": "Takže tito poutníci jsou zároveň jinými věcmi než hvězdy, stanice.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2689.68,
+      "end": 2699.961,
+      "sourceCues": [
+        1316,
+        1317,
+        1318,
+        1319
+      ],
+      "originalSk": "Takže takže tak. Ďakujeme za super otázku. Fakt cool. Pekné názvy. Dobre. Anna, ďakujeme ti za otázku a rodičom držíme palce v",
+      "draftCs": "Takže tak. Děkuji za skvělou otázku. Opravdu skvělé. Krásné názvy. Dobře.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2699.961,
+      "end": 2704.161,
+      "sourceCues": [
+        1320,
+        1321
+      ],
+      "originalSk": "prekladaní našich odpovedí. Ďakujem veľmi pekne, že nás počúvate.",
+      "draftCs": "Děkujeme, že nás posloucháte.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 2704.161,
+      "end": 2714.641,
+      "sourceCues": [
+        1322,
+        1323,
+        1324,
+        1325,
+        1326
+      ],
+      "originalSk": "Nájdete nás na všetkých dobrých a troška horších podcastových aplikáciách. Samko má pár eventov. Deviateho má krstenie knihy, 7. decembra má hľadanie",
+      "draftCs": "Najdete nás na všech dobrých a poněkud horších podcastových aplikacích. Samce má pár událostí. Devátý má křestní knihu, sedmý prosinec má hledání.",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 2714.641,
+      "end": 2723.281,
+      "sourceCues": [
+        1327,
+        1328,
+        1329
+      ],
+      "originalSk": "mimozemského života, ktoré bude v KCčku. Tam sa určite vidíme všetci a čo ešte máš také Samko má? Máme tam ešte niečo.",
+      "draftCs": "A co jiného máš ty samce? Máme tam ještě něco.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 2723.281,
+      "end": 2730.321,
+      "sourceCues": [
+        1330,
+        1331,
+        1332
+      ],
+      "originalSk": "Budeme mať určite jednu akciu ešte. A do konca roka ešte jednu stíhame.",
+      "draftCs": "Určitě budeme mít ještě jednu akci a další do konce roku.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2730.321,
+      "end": 2740.201,
+      "sourceCues": [
+        1333,
+        1334,
+        1335,
+        1336
+      ],
+      "originalSk": "Radi vás tam uvidíme a Ďakujeme za všetky detské otázky. Ďakujeme za všetky otázky, že ste Ďakujeme deti za vaše super otázky.",
+      "draftCs": "Ráda vás tam uvidíme a děkuji za všechny otázky dětí. Děkuji za všechny otázky, že jste Děkuji děti za vaše super otázky.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2740.201,
+      "end": 2748.561,
+      "sourceCues": [
+        1337,
+        1338,
+        1339,
+        1340
+      ],
+      "originalSk": "Ďakujeme rodičom, že ste to celé zorganizovali tú logistiku a nájdete nás na všetkých dobrých a troška horších podcastových aplikáciách. Môžete",
+      "draftCs": "Děkujeme rodičům za to, že jste vytvořili logistiku a najdete nás na všech dobrých a poněkud horších podcastových aplikacích.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2748.561,
+      "end": 2756.521,
+      "sourceCues": [
+        1341,
+        1342,
+        1343
+      ],
+      "originalSk": "nás podporiť priamo cez Hero Hero, čo najviac podporuje tento podcast. Majte sa veľmi pekne. Ahojte. Majte sa.",
+      "draftCs": "a podpořit nás přímo prostřednictvím Hero Hero, který podporuje tento podcast nejvíce. Mějte se dobře. Ahoj. Mějte se dobře.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2762.041,
+      "end": 2771.561,
+      "sourceCues": [
+        1344,
+        1345,
+        1346,
+        1347
+      ],
+      "originalSk": "No a tu ešte na záver taká krátka ochutnávka z Labáku. Urobili progres v troch veľkých oblastiach matematiky, informatiky a fyzike. V informatike",
+      "draftCs": "A na závěr jsme měli takovou krátkou zkušenost z laboratoře, kde se dosáhli pokroků ve třech hlavních oblastech matematiky, informatiky a fyziky.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2771.561,
+      "end": 2781.481,
+      "sourceCues": [
+        1348,
+        1349,
+        1350,
+        1351
+      ],
+      "originalSk": "existovala otvorená otázka o zložitosti riešenia istého typu úloh a Open AI tvrdí, že ich umelá inteligencia zistila, že nie.",
+      "draftCs": "existovala otevřená otázka složitosti řešení určitého typu úkolů, a Open AI tvrdí, že jejich umělá inteligence zjistila, že ne.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2781.481,
+      "end": 2790.361,
+      "sourceCues": [
+        1352,
+        1353,
+        1354,
+        1355,
+        1356
+      ],
+      "originalSk": "Že existoval lepší spôsob. Teraz povedali, že sa spoja s komunitou a nechajú komunitu navrhnúť, že ako to najlepšie vlastne teraz urobiť.",
+      "draftCs": "Nyní řekli, že se spojí s komunitou a nechávají ji navrhnout, jak to nejlepší udělat.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2790.361,
+      "end": 2797.521,
+      "sourceCues": [
+        1357,
+        1358,
+        1359
+      ],
+      "originalSk": "A urobilo sa to tak, že tú matematickú to matematické tvrdenie rovno celé zverejnili verejnosti.",
+      "draftCs": "A stalo se tak, že tato matematická tvrzení byla publikována.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2797.521,
+      "end": 2801.361,
+      "sourceCues": [
+        1360,
+        1361
+      ],
+      "originalSk": "A povedali, že skúste to preverovať. Aj toto nájdete v Labáku v epizóde.",
+      "draftCs": "A oni říkali, že to zkusíte prověřit.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2801.361,
+      "end": 2804.721,
+      "sourceCues": [
+        1362
+      ],
+      "originalSk": "Ďakujeme za vašu podporu.",
+      "draftCs": "Děkujeme za vaši podporu.",
+      "reviewFlags": []
+    }
+  ]
+}

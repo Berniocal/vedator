@@ -1,0 +1,88 @@
+name: Align reviewed bilingual YouTube caption batch
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: youtube-caption-final-alignment-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  align:
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    strategy:
+      fail-fast: false
+      matrix:
+        episode: [363, 362, 361]
+    env:
+      VEDATOR_BATCH_AUDIO: /tmp/vedator-youtube-batch-audio
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - id: source
+        run: |
+          if test -f captions/source/episode-${{ matrix.episode }}-youtube-audio-resolutions.json; then echo 'present=true' >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/setup-python@v5
+        if: steps.source.outputs.present == 'true'
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        if: steps.source.outputs.present == 'true'
+        with:
+          node-version: '24'
+      - uses: actions/cache@v4
+        if: steps.source.outputs.present == 'true'
+        with:
+          path: ~/.cache/huggingface
+          key: vedator-youtube-caption-final-models-v1
+          restore-keys: |
+            vedator-youtube-caption-audio-models-v1
+      - uses: actions/cache@v4
+        if: steps.source.outputs.present == 'true'
+        with:
+          path: /tmp/vedator-youtube-batch-audio
+          key: vedator-caption-batch-audio-${{ matrix.episode }}-v1
+      - name: Install acoustic alignment dependencies
+        if: steps.source.outputs.present == 'true'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          python -m pip install --disable-pip-version-check --index-url https://download.pytorch.org/whl/cpu torch==2.5.1 torchaudio==2.5.1
+          python -m pip install --disable-pip-version-check transformers==4.45.2 sentencepiece 'numpy<2' num2words==0.5.14
+      - name: Jointly align reviewed neighboring utterances and split readable panels
+        if: steps.source.outputs.present == 'true'
+        run: python tools/finalize-youtube-caption-batch.py ${{ matrix.episode }}
+      - name: Back up generated acoustic evidence before committing
+        if: always() && steps.source.outputs.present == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: caption-alignment-${{ matrix.episode }}-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            captions/episode-${{ matrix.episode }}.*
+            captions/source/episode-${{ matrix.episode }}-youtube-final-alignment.json
+            captions/source/episode-${{ matrix.episode }}-youtube-seek-index.json
+      - name: Preserve assets for final gates without publishing mappings
+        if: always() && steps.source.outputs.present == 'true'
+        env:
+          EPISODE: ${{ matrix.episode }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git restore -- audio-seek-index.json
+          git add captions/source/episode-${EPISODE}-youtube-final-alignment.json
+          for path in captions/source/episode-${EPISODE}-youtube-seek-index.json captions/episode-${EPISODE}.json captions/episode-${EPISODE}.edited.json captions/episode-${EPISODE}.review.json captions/episode-${EPISODE}.cs.srt captions/episode-${EPISODE}.sk.srt; do
+            if test -f "$path"; then git add "$path"; fi
+          done
+          if ! git diff --cached --quiet; then
+            git commit -m "Align episode ${EPISODE} bilingual caption assets for final quality review"
+            for attempt in 1 2 3 4; do
+              git pull --rebase origin "${GITHUB_REF_NAME}"
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then exit 0; fi
+            done
+            exit 1
+          fi

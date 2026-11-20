@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
+import {collectPromisedDescriptionLinks,missingPromisedDescriptionLinks,appendPromisedDescriptionLinks} from './promised-description-links.mjs';
 
 const ROOT=process.cwd();
 const read=name=>fs.readFileSync(path.join(ROOT,name),'utf8');
@@ -129,6 +130,12 @@ const sourceEpisodes=Array.isArray(feed)?feed:(feed.episodes||[]);
 const rawById=new Map(sourceEpisodes.map(episode=>[String(episode.id||''),episode]).filter(([id])=>id));
 const rawByNumber=new Map(sourceEpisodes.filter(episode=>Number(episode.number)>0).map(episode=>[Number(episode.number),episode]));
 const data=JSON.parse(read('content-v2.json'));
+const audit=JSON.parse(read('sliby/index.html').match(/id="audit-data">([\s\S]*?)<\/script>/)[1]);
+const manualScope={};
+vm.runInNewContext(read('sliby/admin-status.js'),manualScope);
+manualScope.VedatorSlibyAdminStatus.apply(audit,JSON.parse(read('sliby/admin-overrides.json')));
+const promisedLinks=collectPromisedDescriptionLinks(JSON.parse(read('sliby/link-review.json')),audit.findings);
+let aiLinkEpisodeCount=0,aiLinkCount=0;
 let fullDescriptionCount=0,richDescriptionCount=0,translatedFullDescriptionCount=0,translatedRichDescriptionCount=0;
 for(const episode of data.episodes||[]){
   const raw=rawById.get(String(episode.id||''))||rawByNumber.get(Number(episode.number)||0);if(!raw)continue;
@@ -144,11 +151,25 @@ for(const episode of data.episodes||[]){
     if(translated&&translated!==compact(full))translatedFullDescriptionCount++;
     if(translatedRich&&translatedRich!==rich)translatedRichDescriptionCount++;
   }
+  const additions=missingPromisedDescriptionLinks(episode,promisedLinks.get(episode.link)||[]);
+  // Rebuild from the original RSS every time, so repeated daily builds cannot
+  // duplicate additions or keep links from a newly fulfilled/deleted promise.
+  delete episode.aiPromisedLinks;
+  if(additions.length){
+    Object.assign(episode,appendPromisedDescriptionLinks(episode,additions,'sk'));
+    for(const language of ['cs','sk'])if(episode.i18n?.[language]){
+      episode.i18n[language]=appendPromisedDescriptionLinks(episode.i18n[language],additions,language);
+    }
+    episode.aiPromisedLinks=additions;
+    aiLinkEpisodeCount++;aiLinkCount+=additions.length;
+  }
 }
 data.source=data.source||{};
 data.source.fullDescriptionCount=fullDescriptionCount;
 data.source.richDescriptionCount=richDescriptionCount;
 data.source.translatedFullDescriptionCount=translatedFullDescriptionCount;
 data.source.translatedRichDescriptionCount=translatedRichDescriptionCount;
+data.source.aiPromisedLinkEpisodeCount=aiLinkEpisodeCount;
+data.source.aiPromisedLinkCount=aiLinkCount;
 fs.writeFileSync('content-v2.json',JSON.stringify(data));
-console.log(JSON.stringify({fullDescriptionCount,richDescriptionCount,translatedFullDescriptionCount,translatedRichDescriptionCount},null,2));
+console.log(JSON.stringify({fullDescriptionCount,richDescriptionCount,translatedFullDescriptionCount,translatedRichDescriptionCount,aiLinkEpisodeCount,aiLinkCount},null,2));

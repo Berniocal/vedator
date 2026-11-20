@@ -155,10 +155,8 @@ def main():
               f"Cue {i}: independent raw CTC evidence not found")
     if low_alignment:
         warnings.append(f"{len(low_alignment)} short interjections have documented low CTC confidence; exact independent human listening remains outstanding")
-    if long_lines:
-        warnings.append(f"{len(long_lines)} lines exceed 48 characters")
-    if three_lines:
-        warnings.append(f"{len(three_lines)} cues exceed two lines")
+    check(not long_lines, f"Lines exceed 48 characters: {long_lines}")
+    check(not three_lines, f"Cues exceed two lines: {three_lines}")
     if fast:
         warnings.append(f"{len(fast)} cues exceed 25 characters per second")
 

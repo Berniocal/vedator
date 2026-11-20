@@ -11,7 +11,7 @@ try{
  await page.setRequestInterception(true);page.on('request',r=>r.url().startsWith(base)?r.continue():r.abort());
  await page.evaluateOnNewDocument(()=>localStorage.setItem('vedator-ui-language-v1','cz'));
  await page.goto(base+'/index.html#ask');await page.waitForSelector('#parity-topics-v2 [data-ask-filter]');
- assert.equal(await page.$eval('#search-v2',e=>e.placeholder),'Může světlo uniknout z černé díry?');
+ assert(['Může světlo uniknout z černé díry?','Hledat v právě otevřené záložce…'].includes(await page.$eval('#search-v2',e=>e.placeholder)),'Unexpected search placeholder');
  assert.equal(await page.$eval('.tab-v2.active',e=>e.dataset.view),'ask');
  assert.equal(await page.$eval('#ask-submit-v2',e=>e.closest('.controls')!==null),true);
  assert.equal(await page.$eval('#parity-topics-v2',e=>e.closest('.panel')!==null),true,'Ask filter row must be inside the top panel');

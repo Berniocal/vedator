@@ -43,3 +43,11 @@ html[data-theme="dark"] .promise-compact-status.is-fulfilled{background:#173b2b;
 html[data-theme="dark"] .promise-compact-status.is-unfulfilled{background:#48351e;border-color:#73562a;color:#fcd34d}
 html[data-theme="dark"] .promise-compact-status.is-future{background:#29355b;border-color:#405584;color:#c7d6ff}
 @media(max-width:480px){.promise-settings-menu{max-width:84vw}.finding.compact h3{gap:8px}.promise-compact-status{font-size:11px;padding:4px 6px}}
+/* Referenced resources remain readable on narrow screens and in both themes. */
+.promise-links{margin:12px 0;padding:12px 0;border-block:1px solid var(--line,#d4d8e2);font-size:1rem}
+.promise-link-state{margin:0 0 8px;font-weight:600}
+.promise-link-list{margin:0;padding-left:20px}
+.promise-link-list li{margin:0 0 12px;overflow-wrap:anywhere}
+.promise-link-list a{font-weight:600}
+.promise-link-origin{display:block;margin-top:3px;font-size:.875rem;color:var(--ink,#444)}
+.promise-link-note{margin:5px 0 9px;font-size:.875rem;line-height:1.5}

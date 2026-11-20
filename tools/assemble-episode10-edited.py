@@ -34,9 +34,9 @@ def normalize_cs(s):
         ("Hiksův", "Higgsův"), ("Hyksova", "Higgsova"), ("Hyksový", "Higgsův"),
         ("Higgsovy Bozon", "Higgsův boson"), ("Higgsův Bozon", "Higgsův boson"),
         ("bozon", "boson"), ("Bozon", "boson"), ("bozony", "bosony"),
-        ("Cerne", "CERNu"), ("Higgsov", "Higgsův")):
+        ("Cerne", "CERNu")):
         s=s.replace(old,new)
-    return s
+    return re.sub(r"\bHiggsov\b", "Higgsův", s)
 
 def for_ctc(text):
     # Numerals and abbreviations are expanded for the acoustic recognizer

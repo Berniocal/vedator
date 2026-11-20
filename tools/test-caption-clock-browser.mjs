@@ -45,8 +45,9 @@ const server=http.createServer((req,res)=>{
     assert(code.includes(marker));
     code=code.replace(marker,String.raw`  window.__captionTest={
       open:(number,start=0,continuous=false)=>{
-        const episode=state.data.episodes.find(e=>e.number===number);
-        const items=[number,number===Math.max(...state.data.episodes.map(e=>e.number))?1:number+1].map(n=>({episode:state.data.episodes.find(e=>e.number===n),ref:epRef(n)}));
+        const available=[...state.data.episodes].sort((a,b)=>a.number-b.number);
+        const index=available.findIndex(e=>e.number===number),episode=available[index];
+        const items=[episode,available[(index+1)%available.length]].map(e=>({episode:e,ref:epRef(e.number)}));
         youtubeEnabled=false;
         return openPlayback(episode,{start,autoplay:true,context:continuous?{type:'episodes',label:'Test',index:0,items}:null});
       },
@@ -80,7 +81,8 @@ await page.evaluateOnNewDocument(()=>{
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 try{
   await page.goto(base+'/index.html',{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>document.documentElement.dataset.vedatorV2Ready==='1');
-  await page.evaluate(()=>{localStorage.setItem('vedator-ui-language-v1','cz');const select=document.getElementById('player-caption-language-v2');select.value='cs';select.dispatchEvent(new Event('change'))});
+  await page.$eval('.language-v2 [data-lang="cz"]',button=>button.click());
+  check(!await page.$('#player-caption-language-v2'),'Caption language follows the application without a selector');
   const results=[];
   for(const n of numbers){
     const episode=source.episodes.find(e=>e.number===n),c=captions[n];
@@ -105,6 +107,15 @@ try{
     const readerLayout=await page.evaluate(()=>{const node=document.getElementById('player-caption-reader-text-v2');return {lines:node.querySelectorAll('.caption-reader-line-v2').length,fits:node.scrollWidth<=node.clientWidth+1}});
     check(readerLayout.lines<=2&&readerLayout.fits,'Fullscreen captions fit at most two complete lines',{n,readerLayout});
     check(reader.videoParent==='player-caption-reader-overlay-v2','Wake video must enter fullscreen subtree',{n,reader});
+    if(n===1){
+      await page.evaluate(()=>document.getElementById('audio-v2').pause());
+      const before=await page.evaluate(()=>({time:window.__captionTest.clock().time,font:parseFloat(document.getElementById('player-caption-reader-text-v2').style.fontSize)}));
+      await page.click('#player-caption-reader-text-v2');await page.waitForFunction(()=>!document.getElementById('caption-reader-controls-v2').hidden);await page.click('#caption-book-larger-v2');
+      const after=await page.evaluate(()=>({time:window.__captionTest.clock().time,font:parseFloat(document.getElementById('player-caption-reader-text-v2').style.fontSize),fits:document.getElementById('player-caption-reader-text-v2').scrollWidth<=document.getElementById('player-caption-reader-text-v2').clientWidth+1}));
+      check(after.font>before.font&&after.fits&&Math.abs(after.time-before.time)<.001,'Live reader font enlargement preserves the shared paused position',{before,after});
+      await page.click('#caption-book-smaller-v2');
+    }
+
     await page.evaluate(()=>window.__captionTest.exitReader());await wait(100);
     const desired=Math.floor(c.cues.at(-1).start*.75);
     const speechSample=c.cues.find(q=>q.start>=desired&&q.end-q.start>=4);
@@ -133,9 +144,42 @@ try{
     const vt=captions[n].cues[5].start+.1;
     await page.evaluate(t=>{window.__yt.time=t;window.__captionTest.sync()},vt);
     check(await page.$eval('#player-video-caption-v2',e=>e.textContent)===captions[n].cues[5].text.cs,'YouTube Czech cue timing',{n});
-    await page.select('#player-caption-language-v2','sk');
+    if(n===1){
+      for(const width of [320,390]){
+        await page.setViewport({width,height:844,isMobile:true,hasTouch:true});
+        const row=await page.evaluate(()=>{
+          const ids=['player-caption-toggle-v2','player-caption-reader-button-v2','player-video-fullscreen-v2'];
+          const rects=ids.map(id=>{const r=document.getElementById(id).getBoundingClientRect();return {x:r.left,y:r.top,right:r.right,height:r.height}});
+          return {rects,viewport:innerWidth};
+        });
+        check(row.rects.every(r=>Math.abs(r.y-row.rects[0].y)<2&&r.x>=0&&r.right<=row.viewport+1),'Three subtitle/video buttons fit on one mobile row',{width,row});
+      }
+    }
+
+    await page.$eval('.language-v2 [data-lang="sk"]',button=>button.click());
     check(await page.$eval('#player-video-caption-v2',e=>e.textContent)===captions[n].cues[5].text.sk,'YouTube Slovak cue timing',{n});
-    await page.select('#player-caption-language-v2','cs');
+    if(n===1||n===363||n===364){
+      const frame=await page.$('#player-youtube-frame-v2');
+      await page.click('#player-video-fullscreen-v2');
+      await page.waitForFunction(()=>document.fullscreenElement?.id==='player-video-panel-v2');
+      for(const viewport of [{width:390,height:844,isMobile:true,hasTouch:true},{width:844,height:390,isMobile:true,hasTouch:true}]){
+        await page.setViewport(viewport);await wait(100);
+        const layout=await page.evaluate(()=>{
+          const panel=document.fullscreenElement,host=document.getElementById('player-video-host-v2'),caption=document.getElementById('player-video-caption-v2');
+          const h=host.getBoundingClientRect(),c=caption.getBoundingClientRect(),b=document.getElementById('player-video-fullscreen-close-v2').getBoundingClientRect();
+          const pictureWidth=Math.min(h.width,h.height*16/9),pictureHeight=Math.min(h.height,h.width*9/16);
+          const left=h.left+(h.width-pictureWidth)/2,top=h.top+(h.height-pictureHeight)/2;
+          return {contains:panel.contains(host)&&panel.contains(caption),fillsViewport:h.left<=1&&h.top<=1&&h.width>=innerWidth-1&&h.height>=innerHeight-1,captionFits:c.left>=left-1&&c.right<=left+pictureWidth+1&&c.top>=top-1&&c.bottom<=top+pictureHeight+1,buttonFits:b.left>=left-1&&b.right<=left+pictureWidth+1&&b.top>=top-1&&b.bottom<=top+pictureHeight+1,text:caption.textContent};
+        });
+        check(layout.contains&&layout.fillsViewport&&layout.captionFits&&layout.buttonFits,'Fullscreen video retains overlay captions inside the rendered video in both orientations',{n,viewport,layout});
+        check(layout.text===captions[n].cues[5].text.sk,'Fullscreen retains the current caption language',{n,layout});
+      }
+      check(await page.evaluate(node=>node===document.getElementById('player-youtube-frame-v2'),frame),'Fullscreen never reloads or moves the iframe',{n});
+      await page.click('#player-video-fullscreen-close-v2');
+      await page.waitForFunction(()=>!document.fullscreenElement&&!document.body.classList.contains('vedator-video-fullscreen'));
+      await page.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
+    }
+    await page.$eval('.language-v2 [data-lang="cz"]',button=>button.click());
   }
   // A cached caption promise can settle while its MP3 session is hidden by
   // YouTube. Returning to that same session must display captions immediately.
@@ -173,16 +217,32 @@ try{
   await page.evaluate(()=>window.__captionTest.reader());
   await page.keyboard.press('Enter');await page.click('#caption-reader-mode-v2');
   const bookLayout=await page.evaluate(()=>{
-    const node=document.getElementById('player-caption-reader-text-v2'),rect=node.getBoundingClientRect(),overlay=document.getElementById('player-caption-reader-overlay-v2');
-    return {paused:document.getElementById('audio-v2').paused,lines:node.querySelectorAll('.caption-book-line-v2').length,font:parseFloat(getComputedStyle(node).fontSize),fits:node.scrollWidth<=node.clientWidth+1&&rect.top>=0&&rect.bottom<=overlay.clientHeight,page:document.getElementById('caption-book-progress-v2').textContent};
+    const node=document.getElementById('player-caption-reader-text-v2'),rect=node.getBoundingClientRect(),lines=node.querySelectorAll('.caption-book-line-v2'),bar=document.getElementById('caption-reader-controls-v2'),footer=document.getElementById('caption-book-progress-v2');
+    return {paused:document.getElementById('audio-v2').paused,lines:lines.length,font:parseFloat(getComputedStyle(node).fontSize),fits:node.scrollWidth<=node.clientWidth+1&&rect.top>=bar.getBoundingClientRect().bottom+15&&lines[lines.length-1].getBoundingClientRect().bottom<=footer.getBoundingClientRect().top-15,page:footer.textContent,height:node.clientHeight,text:node.textContent};
   });
-  check(bookLayout.paused&&bookLayout.lines>=3&&bookLayout.lines<=6&&bookLayout.font<26&&bookLayout.fits,'Mobile book mode fits a readable multi-line page and pauses audio',bookLayout);
-  await page.click('#caption-reader-forward-v2');
-  check(await page.$eval('#caption-book-progress-v2',e=>e.textContent)!==bookLayout.page,'Mobile book next-page control advances');
+  check(bookLayout.paused&&bookLayout.lines>8&&bookLayout.font<26&&bookLayout.fits,'Mobile book mode fits a readable multi-line page and pauses audio',bookLayout);
+  for(const fraction of [.8,.2]){
+    const point=await page.$eval('#player-caption-reader-text-v2',(e,f)=>{const r=e.getBoundingClientRect();return {x:r.left+r.width*f,y:r.top+r.height/2}},fraction);
+    await page.mouse.click(point.x,point.y);await wait(370);
+    const tapped=await page.evaluate(()=>({page:document.getElementById('caption-book-progress-v2').textContent,text:document.getElementById('player-caption-reader-text-v2').textContent,height:document.getElementById('player-caption-reader-text-v2').clientHeight,hidden:document.getElementById('caption-reader-controls-v2').hidden}));
+    check(tapped.page===bookLayout.page&&tapped.text===bookLayout.text&&tapped.height===bookLayout.height&&tapped.hidden===(fraction===.8),'Text taps toggle toolbar without changing book page or geometry',tapped);
+  }
+  await page.evaluate(()=>{
+    const overlay=document.getElementById('player-caption-reader-overlay-v2'),r=overlay.getBoundingClientRect(),y=r.height/2;
+    for(const [type,x] of [['pointerdown',r.width*.8],['pointermove',r.width*.2],['pointerup',r.width*.2]])overlay.dispatchEvent(new PointerEvent(type,{pointerId:10,isPrimary:true,clientX:x,clientY:y,bubbles:true}));
+  });
+  check(await page.$eval('#caption-book-progress-v2',e=>e.textContent)!==bookLayout.page,'Mobile book swipe advances');
   await page.click('#caption-book-larger-v2');
   check(await page.$eval('#player-caption-reader-text-v2',e=>e.scrollWidth<=e.clientWidth+1),'Larger book text stays within the mobile screen');
   await page.click('#caption-reader-mode-v2');
   await page.waitForFunction(()=>!document.getElementById('audio-v2').paused&&document.getElementById('audio-v2').readyState>=2,{timeout:15000});
+  const holdPoint=await page.$eval('#player-caption-reader-overlay-v2',e=>{const r=e.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2}});
+  await page.mouse.move(holdPoint.x,holdPoint.y);await page.mouse.down();await wait(650);
+  const heldTime=await page.$eval('#audio-v2',e=>({paused:e.paused,time:e.currentTime}));
+  check(heldTime.paused,'Center hold pauses actual MP3 while the finger is down',heldTime);
+  await wait(300);
+  check(Math.abs(await page.$eval('#audio-v2',e=>e.currentTime)-heldTime.time)<.08,'Reading hold freezes the source clock');
+  await page.mouse.up();await page.waitForFunction(()=>!document.getElementById('audio-v2').paused,{timeout:5000});
   await page.evaluate(()=>window.__captionTest.exitReader());
   // Keep-alive playback must be decodable and advance, both inline and fullscreen.
   const wake=await page.evaluate(()=>{const v=document.querySelector('.vedator-caption-wake-video');return {exists:!!v,time:v?.currentTime,error:v?.error?.code,paused:v?.paused,requests:window.__wakeRequests,locks:window.__wakeLocks.filter(x=>!x.released).length}});

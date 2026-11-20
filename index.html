@@ -114,19 +114,31 @@ audio#audio-v2{display:none}
 .player-video-host-v2 iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .player-video-caption-v2{position:absolute;z-index:3;bottom:8%;left:4%;right:4%;width:max-content;max-width:92%;box-sizing:border-box;margin:0 auto;padding:6px 12px;background:rgba(0,0,0,.82);color:#fff;border-radius:7px;text-shadow:0 1px 3px #000;text-align:center;white-space:pre-line;overflow-wrap:anywhere;font-weight:750;font-size:clamp(.85rem,2.5vw,1.22rem);line-height:1.35;pointer-events:none}
 .player-video-caption-v2:empty,.player-video-caption-v2.hidden{display:none!important}
+body.vedator-video-fullscreen{overflow:hidden}
+body.vedator-video-fullscreen .player-shell{backdrop-filter:none;overflow:visible!important;max-height:none!important}
+.player-video-fullscreen-close-v2{display:none;position:absolute;z-index:4;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:5px;border:1px solid rgba(255,255,255,.5);border-radius:10px;background:rgba(0,0,0,.6);color:#fff;font:750 1.4rem system-ui;cursor:pointer}
+.player-video-fullscreen-close-v2:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.player-video-panel-v2.video-fullscreen-v2,.player-video-panel-v2:fullscreen{position:fixed;inset:0;z-index:15000;width:100%;height:100dvh;max-width:none;box-sizing:border-box;background:#000;color:#fff}
+.player-video-panel-v2.video-fullscreen-v2 .player-video-host-v2,.player-video-panel-v2:fullscreen .player-video-host-v2{position:absolute;inset:0;width:100%;height:100%;min-height:0;aspect-ratio:auto;border-radius:0;margin:0}
+.player-video-panel-v2.video-fullscreen-v2 .player-video-fullscreen-close-v2,.player-video-panel-v2:fullscreen .player-video-fullscreen-close-v2{display:inline-flex;top:calc((100dvh - min(100dvh,56.25vw))/2 + max(10px,env(safe-area-inset-top)));right:calc((100vw - min(100vw,177.7778dvh))/2 + max(10px,env(safe-area-inset-right)))}
+.player-video-panel-v2.video-fullscreen-v2 .player-video-status-v2,.player-video-panel-v2:fullscreen .player-video-status-v2{display:none}
+.player-video-panel-v2.video-fullscreen-v2 .player-video-caption-v2,.player-video-panel-v2:fullscreen .player-video-caption-v2{left:0;right:0;max-width:min(92vw,163.5556dvh);bottom:calc((100dvh - min(100dvh,56.25vw))/2 + min(10dvh,5.625vw));font-size:clamp(.9rem,min(3.4vw,5.5vh),2.25rem)}
+.player-video-status-v2{display:none}
+.player-video-panel-v2.video-fullscreen-v2 .player-video-caption-v2,.player-video-panel-v2:fullscreen .player-video-caption-v2{font-size:clamp(.9rem,min(3.4vw,5.5vh),2.25rem)}
 .player-video-status-v2{font-size:.76rem;color:var(--muted);margin:5px 0 0;line-height:1.3}
 .player-video-status-v2:empty{display:none}
 .player-video-status-v2 a{color:var(--accent)}
 .player-captions-v2{grid-column:1/-1;min-width:0;width:min(560px,100%);justify-self:center;margin-top:8px}
-#player-caption-label-v2{display:none}
-#player-caption-toggle-v2{min-height:34px;padding:5px 10px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:750;cursor:pointer}
+#player-caption-toggle-v2{min-height:38px;padding:5px 10px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:750;cursor:pointer}
 #player-caption-toggle-v2[aria-pressed="true"]{color:var(--accent);border-color:var(--accent)}
 #player-caption-toggle-v2:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
-.player-caption-controls-v2{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.8rem}
-.player-caption-controls-v2 select{min-width:0;max-width:100%;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+.player-caption-controls-v2{grid-column:1/-1;width:min(560px,100%);justify-self:center;display:flex;gap:6px;align-items:center;flex-wrap:nowrap;font-size:clamp(.72rem,2.9vw,.86rem)}
+.player-caption-controls-v2 button{min-width:0;min-height:38px;white-space:nowrap;flex-shrink:1}
+#player-video-fullscreen-v2{margin-left:auto;padding:5px 8px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);font:inherit;font-weight:750;cursor:pointer}
+#player-video-fullscreen-v2:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .player-caption-text-v2{min-height:4.1em;box-sizing:border-box;margin:7px 0 0;padding:9px 12px;border-radius:8px;background:#111;color:#fff;text-align:center;font-size:clamp(1rem,2.4vw,1.15rem);font-weight:750;line-height:1.45;white-space:pre-line;overflow-wrap:anywhere;display:flex;align-items:center;justify-content:center}
 .player-caption-note-v2{margin:4px 0 0;font-size:.7rem;color:var(--muted)}
-#player-caption-reader-button-v2{min-height:34px;padding:5px 10px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:750;cursor:pointer}
+#player-caption-reader-button-v2{min-height:38px;padding:5px 10px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:750;cursor:pointer}
 #player-caption-reader-button-v2:disabled{opacity:.45;cursor:not-allowed}
 #player-caption-reader-overlay-v2{position:fixed;inset:0;width:100%;height:100%;height:100dvh;z-index:2147483000;display:flex;align-items:center;justify-content:center;box-sizing:border-box;padding:max(80px,env(safe-area-inset-top)) max(22px,env(safe-area-inset-right)) max(80px,env(safe-area-inset-bottom)) max(22px,env(safe-area-inset-left));background:#000!important;color:#fff!important;cursor:pointer;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 #player-caption-reader-overlay-v2,#player-caption-reader-overlay-v2 *{-webkit-tap-highlight-color:transparent}
@@ -140,8 +152,12 @@ audio#audio-v2{display:none}
 #caption-reader-controls-v2 button[hidden]{display:none!important}
 #caption-reader-controls-v2 button:disabled{opacity:.4;cursor:default}
 #caption-reader-close-v2{margin-left:4px}
-#player-caption-reader-overlay-v2.caption-book-mode-v2{padding-top:max(112px,env(safe-area-inset-top));padding-bottom:max(60px,env(safe-area-inset-bottom))}
-#player-caption-reader-overlay-v2.caption-book-mode-v2 #player-caption-reader-text-v2{max-width:900px;font-weight:450;line-height:1.6;text-align:left;white-space:normal;letter-spacing:normal}
+#player-caption-reader-overlay-v2.caption-book-mode-v2{display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:16px;padding:max(16px,env(safe-area-inset-top)) max(22px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(22px,env(safe-area-inset-left));align-items:stretch;justify-content:normal}
+#player-caption-reader-overlay-v2.caption-book-mode-v2 #caption-reader-controls-v2{position:static;justify-self:center;padding:0}
+#player-caption-reader-overlay-v2.caption-book-mode-v2 #caption-reader-controls-v2[hidden]{display:flex!important;visibility:hidden;pointer-events:none}
+#player-caption-reader-overlay-v2.caption-book-mode-v2 #caption-reader-controls-v2 button{min-width:44px;padding:6px 10px}
+#player-caption-reader-overlay-v2.caption-book-mode-v2 #caption-book-progress-v2{position:static}
+#player-caption-reader-overlay-v2.caption-book-mode-v2 #player-caption-reader-text-v2{max-width:900px;min-height:0;height:100%;justify-self:center;font-weight:450;line-height:1.6;text-align:left;white-space:normal;letter-spacing:normal}
 .caption-book-line-v2{display:block;white-space:pre}
 #caption-book-progress-v2{position:absolute;left:22px;right:22px;bottom:max(20px,env(safe-area-inset-bottom));margin:0;text-align:center;color:#aaa;font:400 .85rem/1.4 system-ui,sans-serif;pointer-events:none}
 #caption-reader-feedback-v2{position:absolute;bottom:max(56px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);padding:8px 14px;background:#272727;border-radius:12px;color:white;font:500 1rem/1.4 system-ui,sans-serif;pointer-events:none}
@@ -375,7 +391,7 @@ body.vedator-sliby-active main > .panel{position:sticky;top:0;z-index:350;box-sh
     <div class="controls"><div class="search-clear-wrap"><input id="search-v2" class="search" placeholder="Hledat v právě otevřené záložce…"><button id="search-clear-v2" class="search-clear-button" type="button" hidden aria-label="Smazat vyhledávání" title="Smazat vyhledávání">×</button></div><button id="ask-submit-v2" class="ask-submit-v2 hidden" type="button">Hledat</button></div>
     <div class="tabs" aria-label="Pohledy">
       <button class="tab-v2 active" data-view="episodes" type="button">Epizody</button>
-      <button class="tab-v2" data-view="series" type="button">Série</button>
+      <button class="tab-v2" data-view="series" type="button">Série a témata</button>
       <button class="tab-v2" data-view="questions" type="button">Otázky</button>
       <button class="tab-v2" data-view="nonquestions" type="button">Neotázky</button>
       <button class="tab-v2" data-view="ask" type="button">Zeptej se</button>
@@ -430,10 +446,11 @@ body.vedator-sliby-active main > .panel{position:sticky;top:0;z-index:350;box-sh
     </div>
     <div id="player-video-panel-v2" class="player-video-panel-v2 hidden">
       <div id="player-video-host-v2" class="player-video-host-v2"></div>
+      <button id="player-video-fullscreen-close-v2" class="player-video-fullscreen-close-v2" type="button" aria-label="Zmenšit video" title="Zmenšit video">⤡</button>
       <p id="player-video-status-v2" class="player-video-status-v2" aria-live="polite"></p>
     </div>
+    <div id="player-media-controls-v2" class="player-caption-controls-v2 hidden"><button id="player-caption-toggle-v2" type="button" aria-pressed="true" aria-controls="player-caption-text-v2">✓ Titulky</button><button id="player-caption-reader-button-v2" type="button" aria-controls="player-caption-reader-overlay-v2">▣ Čtečka</button><button id="player-video-fullscreen-v2" type="button" aria-pressed="false" aria-controls="player-video-panel-v2" hidden>⛶ Celá obrazovka</button></div>
     <div id="player-captions-v2" class="player-captions-v2 hidden">
-        <div class="player-caption-controls-v2"><button id="player-caption-toggle-v2" type="button" aria-pressed="true" aria-controls="player-caption-text-v2">✓ Titulky</button><label id="player-caption-label-v2" for="player-caption-language-v2">Titulky</label><select id="player-caption-language-v2" aria-label="Jazyk titulků"><option value="auto">Podle jazyka aplikace</option><option value="cs">Čeština</option><option value="sk">Slovenština</option><option value="off">Vypnuto</option></select><button id="player-caption-reader-button-v2" type="button" aria-controls="player-caption-reader-overlay-v2">▣ Čtečka</button></div>
         <p id="player-caption-text-v2" class="player-caption-text-v2" role="region" aria-label="Titulky" aria-live="off"></p>
         <p id="player-caption-note-v2" class="player-caption-note-v2"></p>
       </div>
@@ -490,7 +507,75 @@ window.VedatorSetLoadingProgress=function(id,label,percent){
   }
 };
 </script>
-<script src="./app-v2.js" defer></script>
+<script src="./app-v2.js?v=cc24476c1964" defer></script>
+<script id="v2-summary-open-state">
+(()=>{
+  const root=document.getElementById('episodes-v2');
+  if(!root||!('MutationObserver' in window))return;
+  const selector='details.episode-summary-v2';
+  const openEpisodes=new Set();
+  const episodeOf=details=>details.closest('article[data-episode]')?.dataset.episode||'';
+  const remember=details=>{
+    if(!(details instanceof Element)||!details.matches(selector))return;
+    const episode=episodeOf(details);if(!episode)return;
+    if(details.open)openEpisodes.add(episode);else openEpisodes.delete(episode);
+  };
+  const restore=node=>{
+    if(!(node instanceof Element))return;
+    const summaries=[];
+    if(node.matches(selector))summaries.push(node);
+    summaries.push(...node.querySelectorAll(selector));
+    for(const details of summaries){const episode=episodeOf(details);if(episode&&openEpisodes.has(episode))details.open=true}
+  };
+  root.querySelectorAll(selector+'[open]').forEach(remember);
+  new MutationObserver(records=>{
+    for(const record of records){
+      if(record.type==='attributes'){remember(record.target);continue}
+      for(const node of record.addedNodes)restore(node);
+    }
+  }).observe(root,{childList:true,subtree:true,attributes:true,attributeFilter:['open']});
+})();
+</script>
+<script id="v2-series-open-state">
+(()=>{
+  const root=document.getElementById('series-v2');
+  if(!root||!('MutationObserver' in window))return;
+  const STORAGE_KEY='vedator-series-open-v1';
+  const selector='details.series[data-series-index]';
+  const readOpen=()=>{
+    try{
+      const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
+      return new Set(Array.isArray(value)?value.map(String):[]);
+    }catch{return new Set()}
+  };
+  const openSeries=readOpen();
+  const keyOf=details=>details.querySelector(':scope>summary .deep-share[data-kind="series"][data-value]')?.dataset.value||'';
+  const persist=()=>{
+    try{localStorage.setItem(STORAGE_KEY,JSON.stringify([...openSeries].sort()))}catch{}
+  };
+  const remember=details=>{
+    if(!(details instanceof Element)||!details.matches(selector))return;
+    const key=keyOf(details);if(!key)return;
+    const known=openSeries.has(key);
+    if(details.open&&!known){openSeries.add(key);persist()}
+    else if(!details.open&&known){openSeries.delete(key);persist()}
+  };
+  const restore=node=>{
+    if(!(node instanceof Element))return;
+    const cards=[];
+    if(node.matches(selector))cards.push(node);
+    cards.push(...node.querySelectorAll(selector));
+    for(const details of cards){const key=keyOf(details);if(key&&openSeries.has(key)&&!details.open)details.open=true}
+  };
+  restore(root);
+  new MutationObserver(records=>{
+    for(const record of records){
+      if(record.type==='attributes'){remember(record.target);continue}
+      for(const node of record.addedNodes)restore(node);
+    }
+  }).observe(root,{childList:true,subtree:true,attributes:true,attributeFilter:['open']});
+})();
+</script>
 <script id="v2-search-clear-script">
 (()=>{
   const search=document.getElementById('search-v2'),button=document.getElementById('search-clear-v2');
@@ -806,6 +891,7 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
       const records=originalSectionRows();
       if(selected==='all'||!episodeTopicsEnabled())return records;
       return records.filter(record=>{
+        if(record.section==='links')return true;
         if(record.section!=='episodes'||(record.kategorie!=='Sliby'&&record.kategorie!=='Návrhy / nápady'))return false;
         const matched=catalog.topicsFor(record);
         return selected==='unclassified'?!matched.length:matched.includes(selected);
@@ -1083,8 +1169,30 @@ html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] select:focus
 })();
 </script>
 
-<script>
-(()=>{if(!('serviceWorker' in navigator))return;window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js',{scope:'./'}).then(reg=>reg.update()).catch(err=>console.warn('SW registration failed',err));});})();
+<script id="v2-service-worker-bootstrap">
+(()=>{
+  if(!('serviceWorker' in navigator))return;
+  const CHECK_INTERVAL=30*60*1000;
+  const MIN_CHECK_GAP=60*1000;
+  window.addEventListener('load',async()=>{
+    try{
+      const reg=await navigator.serviceWorker.register('./sw.js',{scope:'./',updateViaCache:'none'});
+      const safeUpdate=()=>reg.update().catch(err=>console.warn('SW update check failed',err));
+      await safeUpdate();
+      let lastCheck=Date.now();
+      const check=()=>{
+        const now=Date.now();
+        if(now-lastCheck<MIN_CHECK_GAP)return;
+        lastCheck=now;
+        safeUpdate();
+      };
+      document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')check()});
+      window.addEventListener('online',check);
+      window.addEventListener('pageshow',check);
+      setInterval(safeUpdate,CHECK_INTERVAL);
+    }catch(err){console.warn('SW registration failed',err)}
+  });
+})();
 </script>
 </body>
 </html>

@@ -15,7 +15,21 @@ function patchReport(html) {
     html=html.replace(before,after);
   }
   one("<script>\n'use strict';\nconst D=JSON.parse(document.getElementById('audit-data').textContent)",
-      '<!-- sliby-admin-runtime -->\n<script src="admin-status.js"></script>\n<script>\n\'use strict\';\nconst D=JSON.parse(document.getElementById(\'audit-data\').textContent)');
+      '<!-- sliby-admin-runtime -->\n<script src="admin-status.js"></script>\n'+
+      '<script type="application/json" id="link-review-data">'+
+      JSON.stringify(JSON.parse(fs.readFileSync(path.join(__dirname,'..','sliby/link-review.json'),'utf8'))).replace(/</g,'\\u003c')+
+      '</script>\n<script src="link-promises.js?v='+assetHash('link-promises.js')+'"></script>\n'+
+      '<script>\n\'use strict\';\nconst D=JSON.parse(document.getElementById(\'audit-data\').textContent)');
+  one("el=id=>document.getElementById(id);",
+      "el=id=>document.getElementById(id);\nVedatorSlibyLinks.apply(D,JSON.parse(el('link-review-data').textContent));");
+  one("section.id==='episodes'?'Epizody':'Ostatní'",
+      "section.id==='episodes'?'Epizody':section.id==='links'?'Odkazy':'Ostatní'");
+  one(" const fields=[['Téma',findingTitle(r),0,r]",
+      " const fields=[...(r.linkReview?.resources||[]).map(resource=>['Odkaz',resource.label+' '+resource.url,1,r]),['Téma',findingTitle(r),0,r]");
+  // Resolve the current renderer at event time. Passing the initial function
+  // directly brought back legacy cards after searching or changing status.
+  one("for(const id of ['q','status'])el(id).addEventListener(id==='q'?'input':'change',render);",
+      "for(const id of ['q','status'])el(id).addEventListener(id==='q'?'input':'change',()=>render());");
   one("  if(r.mergeNote)details.append(hitNode('p',r.mergeNote,'personal-note'));",
       "  if(r.mergeNote)details.append(hitNode('p',r.mergeNote,'personal-note'));\n"+
       "  if(r.adminNote)details.append(hitNode('p','Ruční ověření: '+r.adminNote,'personal-note'));");

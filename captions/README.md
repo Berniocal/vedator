@@ -60,3 +60,50 @@ Finální česko-slovenské dvojice v `episode-8.edited.json` jsou rozděleny po
 **Rozsah ověření:** automatická akustická kontrola původního MP3 pomocí nezávislých modelů a redakční oprava textu není totéž co nezávislý lidský poslech každého slova. Při krátké nejasné vsuvce kolem 5:40 a neúplné otázce o teplotě kolem 11:07 může přetrvat nejistota; případná věta se nevymýšlela podle okolního kontextu. Přímé akustické porovnání YouTube audio stopy s RSS MP3 nebylo provedeno; samotné ID videa ani automatický browser test toto srovnání nenahrazují.
 
 Výsledek závěrečné redakční úpravy: **210 českých a slovenských titulků**, každý maximálně ve dvou řádcích a žádný s délkou řádku nad 48 znaků. Všech 2 365 rozpoznaných slov je přiřazeno bez mezer v návaznosti a původní akusticky obnovená pasáž je vložená zvlášť. Závěrečná CTC kontrola nehlásí žádný titulek se skóre pod 0,35. Souhrnný soubor `episode-8.review.json` má stav `editorially-reviewed-acoustically-aligned-needs-independent-listening`, nikoli potvrzení úplného lidského poslechu.
+
+
+## Díly 363, 362 a 361 – dávka podle YouTube (19. 11. 2026)
+
+Dávka zahrnuje Enrica Fermiho (363), dětské FAQ (362) a Opekáčkový speciál (361). Základem jsou archivované původní slovenské titulky YouTube; u rolovaných titulků 363 jsou odstraněna pouze překrývající se opakování. Následovala redakce celého slovenského textu a českého překladu. Obě verze používají stejná akustická časování a nejvýše dva řádky po 48 znacích.
+
+Časy vycházejí z původních RSS MP3 zarovnaných slovenským CTC modelem; anglická dětská otázka v 362 je obnovena ze zvuku, přeložena do obou jazyků a zarovnána anglickým CTC modelem. Sedm rozmístěných kontrolních oken každého dílu ověřuje shodu hodin MP3 a původních YouTube titulků. Přesné snímkové indexy MP3 se ukládají společně s titulky, bez jednotného ručního posunu.
+
+Sporné pasáže jsou doložené nezávislým rozpoznáním large-v3, kontrolou bez VAD a u významových rozdílů i porovnáním alternativ na stejném zvuku. Několik krátkých překřikovaných nebo špatně slyšitelných fragmentů v 361 a dětská nahrávka v 362 zůstávají výslovně označeny jako nesrozumitelné; nejsou doplněné podle následné odpovědi. Věcná tvrzení ani přeřeknutí mluvčích se nepřepisují na jiný význam. Nejde o úplný nezávislý lidský poslech všech tří nahrávek.
+
+`tools/validate-youtube-caption-batch.py` před registrací kontroluje původ zvuku, návaznost všech redigovaných slov v obou jazycích, totožnost SRT s JSON, akustické hranice, doložení nízkých skóre a přesný seek index. Zdrojové přepisy a kontrolní důkazy zůstávají v `captions/source/episode-36*-youtube-*`; aplikace načítá `captions/episode-36*.json` podle `episode-videos.json`. Nové titulky vstupují do verzované offline cache stejným způsobem jako starší díly.
+
+
+## Video a vlastní titulky přes celou obrazovku (19. 11. 2026)
+
+Tlačítko **⛶ Celá obrazovka** pod videem roztahuje společný panel obsahující YouTube iframe i titulkovou vrstvu. Nativní tlačítko iframe je nahrazené tímto společným ovládáním, aby se titulky při zvětšení neztratily. Video se při vstupu ani návratu nepřesouvá a znovu nenačítá; zůstává čas, stav přehrávání a jazyk titulků. Panel zůstává zvětšený také při přechodu na další dostupné video. Přepnutí na MP3 nebo zavření přehrávače jej ukončí.
+
+Pokud prohlížeč Fullscreen API odmítne nebo nemá, panel pokryje dostupnou plochu aplikace. Zpět, Escape a tlačítko Zmenšit vracejí běžné zobrazení. V obou orientacích zůstává obraz v poměru 16:9 a titulky uvnitř jeho plochy. Testy ověřují zachování iframe, času a titulků, odmítnuté fullscreen oprávnění i návrat zpět; browser kontrola zahrnuje skutečné Fullscreen API v mobilní velikosti na výšku i na šířku.
+
+
+## Jednodušší ovládání, společný čas a velikost písma (19. 11. 2026)
+
+Pod přehrávačem je jediný řádek **Titulky · Čtečka · Celá obrazovka**. Jazyk titulků se vždy řídí jazykem aplikace; samostatný výběr je odstraněn a dříve uložená volba češtiny/slovenštiny se již nepoužívá. Zapnutí a vypnutí zůstává uložené. Ve fullscreen videu iframe vyplňuje celou plochu bez vyhrazené spodní lišty; návrat zajišťuje malé tlačítko přes obraz. Přirozený poměr stran videa se nemění.
+
+MP3, YouTube, průběžná čtečka i stránkované čtení sdílejí jednu pozici. Požadovaný čas MP3 je zachován i během čekání na metadata a při rychlém přepnutí zdroje; novější posun má přednost. Přepnutí zdroje zachovává pauzu. Listování stránkami aktualizuje společný čas, ale vstup do čtečky, změna písma a přepočet řádků jej neposouvají zpět na začátek stránky. Starší záložka čtení nepřebíjí novější pozici poslechu.
+
+Tlačítka **A− / A+** jsou dostupná v liště čtečky také při běžném poslechu s průběžnými titulky. Velikost průběžných titulků se pamatuje samostatně od velikosti stránkovaného čtení; větší titulky mohou použít více řádků. Změna písma nepřerušuje ani neposouvá přehrávání.
+
+
+## Díl 364 – Miléniové problémy 4: Hodgeova hypotéza (19. 11. 2026)
+
+Celý archivovaný slovenský přepis YouTube I3IYM37Ko_Q (1 558 původních cue, 442 normalizovaných textových skupin) byl redakčně přečten a úplně přeložen do češtiny. Výsledkem je 692 dvojjazyčných titulků; obě SRT odpovídají JSON a mají nejvýše dva řádky po 48 znacích. Tři vynechané řečové pasáže byly doplněny podle původní RSS MP3; zahrnuté jsou i původně chybějící odpovědi v těchto pasážích.
+
+Časování vychází ze slovenského CTC modelu comodoro/wav2vec2-xls-r-300m-sk-cv8. Překrývající se zdrojová okna s obnovenou řečí zůstávají v jednom monotónním akustickém zarovnání i přes obvyklý limit délky bloku. Sedm rozmístěných kontrolních kotev potvrzuje stejnou časovou osu MP3 a YouTube; přesný MP3 index se registruje pro původní RSS URL. Devět veřejných výroků ve Slibech má čas začátku konkrétní citované věty podle slovních hranic MP3.
+
+Sporné úseky mají nezávislé rozpoznání large-v3, dodatečné kontroly oběma modely bez VAD a u vybraných slov akustické porovnání alternativ. 6 krátkých nesrozumitelných fragmentů zůstává výslovně označených; nepřepisují se odhadem. Nízká skóre zbývajících krátkých nebo překřikovaných úseků mají jednotlivě doložené redakční rozhodnutí. Nejde o úplný nezávislý lidský poslech nahrávky.
+
+Povinná validace je v .github/workflows/validate-episode364-captions.yml; browser kontrola původní MP3, videa, čtečky, jazyků, seeku a offline cache zahrnuje nově i díl 364. Produkční deploy porovnává skutečné živé JSON/SRT soubory podle SHA-256 a kontroluje i aktuální audit Slibů.
+
+
+## Díl 10 – Higgsův boson (20. 11. 2026)
+
+Dokončený původní přepis RSS MP3 má 3 072 slov a je rozdělený do 296 úplných českých a slovenských titulků. Celé znění obou jazyků prošlo redakční kontrolou; poslední česká oprava odstraňuje i chyby skloňování Higgsova jména. Dvě pasáže původně vynechané ASR kolem 9:46–9:53 jsou obnovené podle nezávislých rozpoznání původní MP3. Původní formulace a negace mluvčích zůstávají zachované.
+
+Slovenské znění je akusticky zarovnané modelem comodoro/wav2vec2-xls-r-300m-sk-cv8; česká verze sdílí stejné časy. Obě SRT odpovídají JSON, nejvýše dva řádky po 48 znacích. Původní MP3 má SHA-256 b4d944a41aa46e581453305f60bde676fd920e5a1bf5262999e2ec417f162c7e a přesný snímkový seek index. Dvě velmi krátké reakce „Fúha“ a „Áno“ mají jednotlivě doložené výjimky pro nízké CTC skóre, nikoli tvrzení o jistotě nebo úplném lidském poslechu. 31 krátkých rychle mluvených titulků přesahuje 25 znaků/s; časování se kvůli tomu neposouvá přes další řeč. Přímé akustické porovnání zvuku YouTube s MP3 nebylo provedeno.
+
+Validator kontroluje návaznost všech slov, zdrojový hash, znakové akustické důkazy, konkrétní výjimky, SRT/JSON a seek index. Stávající browser test automaticky zahrnuje každý registrovaný titulkový díl, tedy i díl 10: původní MP3, seek, video, čtečku, jazyky a offline cache. Produkční kontrola navíc porovnává skutečné nasazené JSON a oba SRT podle hashů.

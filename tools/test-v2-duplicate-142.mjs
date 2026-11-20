@@ -7,12 +7,14 @@ const app=fs.readFileSync('app-v2.js','utf8');
 const data=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const nuclear=data.episodes.find(e=>e.number===142);
 const webb=data.episodes.find(e=>e.number===1642);
+const testData={...data,episodes:[nuclear,webb],questions:[],series:[]};
 const wait=()=>new Promise(resolve=>setTimeout(resolve,40));
 
 async function setup(hash=''){
   const dom=new JSDOM(html,{url:'https://example.test/v2.html'+hash,runScripts:'outside-only',pretendToBeVisual:true});
   const w=dom.window;
-  w.fetch=async()=>({ok:true,status:200,json:async()=>data});
+  w.fetch=async()=>({ok:true,status:200,json:async()=>testData});
+  w.XMLHttpRequest=class{open(){}send(){queueMicrotask(()=>{this.status=200;this.responseText=JSON.stringify(testData);this.onload()})}};
   w.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}});
   w.IntersectionObserver=class{observe(){}disconnect(){}};
   w.HTMLElement.prototype.scrollIntoView=()=>{};
@@ -27,7 +29,7 @@ async function setup(hash=''){
   // An existing offline nuclear recording must never be reused for Webb.
   w.localStorage.setItem('vedatorOfflineAudioIndexV1',JSON.stringify({'episode-142':{key:'episode-142',cacheUrl:nuclear.enclosure}}));
   const hits=[];
-  w.caches={open:async()=>({match:async url=>{hits.push(url);return null}})};
+  w.caches={keys:async()=>[],open:async()=>({match:async url=>{hits.push(url);return null}})};
   const ready=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('ready timeout')),5000);w.addEventListener('vedator-v2-ready',()=>{clearTimeout(timer);resolve()},{once:true})});
   w.eval(app);w.document.dispatchEvent(new w.Event('DOMContentLoaded',{bubbles:true}));
   await ready;await wait();

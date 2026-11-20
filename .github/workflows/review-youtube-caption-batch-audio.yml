@@ -1,0 +1,69 @@
+name: Review newest YouTube caption batch against source audio
+on:
+  push:
+    branches: [captions/youtube-batch-363-361-20261119]
+    paths:
+      - tools/review-youtube-caption-batch-audio.py
+      - .github/workflows/review-youtube-caption-batch-audio.yml
+      - captions/source/episode-36*-youtube-editorial-review.json
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: youtube-caption-audio-review-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 160
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        episode: [363, 362, 361]
+    env:
+      VEDATOR_BATCH_AUDIO: /tmp/vedator-youtube-batch-audio
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: vedator-youtube-caption-audio-models-v1
+          restore-keys: |
+            vedator-youtube-caption-draft-models-v1
+            vedator-asr-turbo-and-slovak-ctc-v2
+      - uses: actions/cache@v4
+        with:
+          path: /tmp/vedator-youtube-batch-audio
+          key: vedator-caption-batch-audio-${{ matrix.episode }}-v1
+      - name: Install acoustic review dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          python -m pip install --disable-pip-version-check --index-url https://download.pytorch.org/whl/cpu torch==2.5.1 torchaudio==2.5.1
+          python -m pip install --disable-pip-version-check faster-whisper==1.2.1 transformers==4.45.2 sentencepiece 'numpy<2' num2words==0.5.14
+      - name: Independently recognize flagged speech and omitted-caption gaps
+        run: python tools/review-youtube-caption-batch-audio.py ${{ matrix.episode }} check
+      - name: Acoustically align every reviewed Slovak draft group
+        run: python tools/review-youtube-caption-batch-audio.py ${{ matrix.episode }} align
+      - name: Preserve source evidence on preparation branch
+        if: always()
+        env:
+          EPISODE: ${{ matrix.episode }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add captions/source/episode-${EPISODE}-youtube-*.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Review episode ${EPISODE} disputed speech and acoustic caption alignment"
+            for attempt in 1 2 3 4; do
+              git pull --rebase origin "${GITHUB_REF_NAME}"
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then exit 0; fi
+            done
+            exit 1
+          fi
