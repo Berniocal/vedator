@@ -3,6 +3,8 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - tools/download-caption-reference.py
+      - tools/test-download-caption-reference.py
       - 'continuous-audio.mjs'
       - 'app-v2.js'
       - 'tools/sync-continuous-player.mjs'
@@ -41,7 +43,7 @@ jobs:
       - name: Test integrated main playback, progress, mixed playlists and offline audio
         run: VEDATOR_TEST_DEPS="$RUNNER_TEMP/continuous-audio-test" node tools/test-main-continuous-browser.mjs
       - name: Download the exact reported episode for a long-seek regression
-        run: curl --fail --location --retry 2 --max-time 120 'https://mcdn.podbean.com/mf/web/4mbanm/podcast_ep9.mp3' -o "$RUNNER_TEMP/vedator-episode-9.mp3"
+        run: python3 tools/download-caption-reference.py --episode 9 --output "$RUNNER_TEMP/vedator-episode-9.mp3"
       - name: Verify episode 9 at 26:22 and continuous handoff after seeking
         run: VEDATOR_REAL_EP9_FILE="$RUNNER_TEMP/vedator-episode-9.mp3" VEDATOR_TEST_DEPS="$RUNNER_TEMP/continuous-audio-test" node tools/test-continuous-audio-browser.mjs
       - name: Test actual long seek in the main application
