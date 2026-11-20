@@ -1,4 +1,4 @@
-const APP_CACHE="vedator-v3-app-9653ded83650c543";
+const APP_CACHE="vedator-v3-app-20261120-ai-cache-recovery";
 const APP_CACHE_PREFIX="vedator-v3-app-";
 const LEGACY_APP_CACHE_PREFIX="vedator-v2-app-";
 const DATA_CACHE="vedator-v3-data-v1";
