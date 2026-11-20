@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 
@@ -39,6 +40,7 @@ jobs:
       - name: Zkontrolovat aplikaci a data
         run: |
           node --check app-v2.js
+          node --test tools/test-deploy-pages-from-artifact.cjs
           node tools/test-content-v2.mjs
           node tools/test-video-catalog.mjs
           node tools/test-v2-faq-integrity.mjs
@@ -60,16 +62,24 @@ jobs:
           node tools/patch-sliby-admin-runtime.cjs
 
       - name: Nahrát statické soubory
+        id: upload
         uses: actions/upload-pages-artifact@v4
         with:
           path: '.'
 
       - name: Nasadit GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        timeout-minutes: 13
+        uses: actions/github-script@v7
+        env:
+          PAGES_ARTIFACT_ID: ${{ steps.upload.outputs.artifact_id }}
         with:
-          timeout: 600000
-          reporting_interval: 10000
+          script: |
+            const {execFileSync} = require('node:child_process');
+            const deploy = require('./tools/deploy-pages-from-artifact.cjs');
+            await deploy({github, context, core,
+              artifactId: process.env.PAGES_ARTIFACT_ID,
+              buildVersion: execFileSync('git', ['rev-parse', 'HEAD'], {encoding: 'utf8'}).trim()});
 
       - name: Ověřit živá produkční data
         timeout-minutes: 10
