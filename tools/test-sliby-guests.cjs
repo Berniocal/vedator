@@ -8,8 +8,8 @@ for(const file of ['link-promises.js','guest-promises.js','admin-status.js'])vm.
 const data=structuredClone(original);
 scope.VedatorSlibyLinks.apply(data,links);
 scope.VedatorSlibyGuests.apply(data,review);
-assert.equal(review.entries.length,34);
-assert.equal(new Set(review.entries.map(key)).size,34);
+assert.equal(review.entries.length,38);
+assert.equal(new Set(review.entries.map(key)).size,38);
 for(const entry of review.entries){
  const source=original.findings.filter(row=>key(row)===key(entry));
  assert.equal(source.length,1,'Guest classification must match exactly one reviewed record');
@@ -21,7 +21,7 @@ for(const entry of review.entries){
 }
 for(const catalog of [data,data.archive]){
  assert.equal(catalog.findings.length,original.findings.length-1);
- assert.equal(catalog.findings.filter(row=>row.section==='guests').length,33);
+ assert.equal(catalog.findings.filter(row=>row.section==='guests').length,37);
  assert.deepEqual(Array.from(catalog.sections.options,row=>row.id),['episodes','links','guests','other']);
  assert.deepEqual(Array.from(catalog.sections.options,row=>row.label),['Epizody','Odkazy','Hosté','Ostatní']);
  assert.equal(catalog.sections.options.reduce((sum,row)=>sum+row.count,0),catalog.findings.length);
@@ -39,6 +39,9 @@ const combined=data.findings.find(row=>row.candidate===519);
 assert.deepEqual(Array.from(combined.mergedFrom,row=>row.candidate),[519,1506]);
 assert(combined.vysvetleni.includes(original.findings.find(row=>row.candidate===1506).vysvetleni));
 const serialized=JSON.stringify(data);scope.VedatorSlibyGuests.apply(data,review);assert.equal(JSON.stringify(data),serialized,'Guest overlay is idempotent');
+scope.VedatorSlibyAdminStatus.apply(data,require('../sliby/admin-overrides.json'));
+assert.equal(data.findings.find(row=>row.candidate===959).stav,'Budoucí slib','Danica’s distant return remains a future promise');
+assert.equal(data.findings.find(row=>row.candidate===1478).stav,'Budoucí slib','Brian Greene’s conditional return remains a future promise');
 const legacy=original.findings.find(row=>row.candidate===1506);
 const override={schema:1,items:{[key(legacy)]:{stav:'Splněno později',note:'Ruční kontrola',updatedAt:'2026-11-20T08:00:00Z'}}};
 scope.VedatorSlibyAdminStatus.apply(data,override);assert.equal(combined.stav,'Splněno později','Admin ratings against a former duplicate survive');
@@ -70,7 +73,7 @@ vm.runInContext(fs.readFileSync('sliby/card-ui-v3.js','utf8'),context);
 assert.deepEqual(elements.sections.children.map(element=>element.textContent),['Epizody','Odkazy','Hosté','Ostatní']);
 for(const element of elements.sections.children){const input=element.children[0],checked=element.dataset.section==='guests';if(input.checked!==checked){input.checked=checked;input.listeners.change()}}
 const cards=()=>elements.cards.children.filter(element=>element.tag==='article');
-assert.equal(cards().length,33);
+assert.equal(cards().length,37);
 assert.equal(vm.runInContext('fulfilled(D.findings.find(row=>row.candidate===519))',context),true,'Personal ratings against the merged member survive');
 for(const id of [753,1742,1755,519]){
  const card=cards().find(element=>Number(element.dataset.candidate)===id);
@@ -82,6 +85,6 @@ elements.status.value='Nesplněno';elements.status.listeners.change();assert.equ
 elements.status.value='Splněno později';elements.status.listeners.change();assert.equal(cards().length,0);
 elements.q.value='';elements.q.listeners.input();elements.status.value='';elements.status.listeners.change();
 elements['export-json'].onclick();assert.equal(blobs.length,1);
-blobs[0].text().then(text=>{const snapshot=JSON.parse(text);assert.equal(snapshot.findings.filter(row=>row.section==='guests').length,33);assert.deepEqual(snapshot.sections.options.map(row=>row.id),['episodes','links','guests','other']);console.log('PASS: 34 reviewed invitations in 33 guest cards; ordered sections, exact identities, repeated visits, search/status controls, legacy personal/admin ratings, archive and export.');}).catch(error=>{console.error(error);process.exitCode=1});
+blobs[0].text().then(text=>{const snapshot=JSON.parse(text);assert.equal(snapshot.findings.filter(row=>row.section==='guests').length,37);assert.deepEqual(snapshot.sections.options.map(row=>row.id),['episodes','links','guests','other']);console.log('PASS: 38 reviewed invitations in 37 guest cards; ordered sections, exact identities, repeated visits, search/status controls, legacy personal/admin ratings, archive and export.');}).catch(error=>{console.error(error);process.exitCode=1});
 const admin=fs.readFileSync('sliby/admin/index.html','utf8');assert(admin.includes('VedatorSlibyGuests.apply(data,'));assert(admin.includes("row.section==='guests'?'Hosté'"));
 assert(fs.readFileSync('index.html','utf8').includes("if(record.section==='guests')return true;"),'Episode topic filters never hide selected guest invitations');
