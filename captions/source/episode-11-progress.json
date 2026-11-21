@@ -22,5 +22,25 @@
     "Verify full official YouTube video identity and separate time mapping, explicitly retain limits on unavailable acoustic comparison.",
     "Register only after complete review; extend validator CI, run caption clock and relevant V2/PWA tests on exact head SHA.",
     "Merge with expected SHA only after green checks; verify Pages deploy and live JSON and both SRT hashes before marking finished."
-  ]
+  ],
+  "audioSha256": "894ace9292a9bec7a0c8d5f1acc9904e9fd04fe8da2d39bb89a5bb49a1f6f428",
+  "audioBytes": 32933316,
+  "duration": 1005.244082,
+  "sourceWorkflowRun": "https://github.com/Berniocal/vedator/actions/runs/44859205322",
+  "sourceWorkflowStatus": "in-progress",
+  "repositoryInstructions": {
+    "AGENTS.md": "absent in current main tree",
+    "V2-MAINTENANCE.md": "read",
+    "captions/README.md": "read"
+  },
+  "baselineValidation": {
+    "episodes": [
+      8,
+      9,
+      10
+    ],
+    "structuralValidatorsPassed": true,
+    "previousEpisodesRewritten": false,
+    "productionFilesVerifiedBySha256": 19
+  }
 }
