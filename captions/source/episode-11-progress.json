@@ -1,0 +1,26 @@
+{
+  "episode": 11,
+  "title": "Vedátorský podcast 11 – Valentínsky monopól",
+  "guid": "vedatorskypodcast.podbean.com/1ae3bbad-cb34-5516-b8e1-0b468beede0f",
+  "audio": "https://mcdn.podbean.com/mf/web/5s3dyc/podcast_ep11.mp3",
+  "youtubeId": "po2qYjYHEEE",
+  "baseMainSha": "d510a79ed0fbf2d46f8d50a65868f7dddb478b38",
+  "status": "source-preparation-not-publishable",
+  "registered": false,
+  "published": false,
+  "editorialReviewComplete": false,
+  "humanListeningVerified": false,
+  "youtubeAudioCompared": false,
+  "mobileLayoutVerified": false,
+  "nextSteps": [
+    "Read the completed source ASR and all independent large-v3 gap, low-confidence and timeline checks.",
+    "Editorially read all Slovak words and translate the complete content to Czech; preserve contiguous asrWordRange coverage and document recovered speech.",
+    "Resolve editorial uncertainties from original audio with large-v3 and no VAD; do not guess missing speech.",
+    "Create episode-11.edited.json, align Slovak with comodoro/wav2vec2-xls-r-300m-sk-cv8 and share utterance boundaries with Czech.",
+    "Balance natural blocks and lines in both languages (two lines, 48 characters); inspect actual 360–390px player, video and reader with larger font, then recheck acoustic boundaries.",
+    "Validate every source word, hashes, low CTC scores, gaps, anchors, final JSON and both SRT; build exact MP3 frame index for original RSS URL.",
+    "Verify full official YouTube video identity and separate time mapping, explicitly retain limits on unavailable acoustic comparison.",
+    "Register only after complete review; extend validator CI, run caption clock and relevant V2/PWA tests on exact head SHA.",
+    "Merge with expected SHA only after green checks; verify Pages deploy and live JSON and both SRT hashes before marking finished."
+  ]
+}
