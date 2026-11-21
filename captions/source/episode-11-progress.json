@@ -13,6 +13,7 @@
   "youtubeAudioCompared": false,
   "mobileLayoutVerified": false,
   "nextSteps": [
+    "Finish or inspect existing source run 44859205322 and translation run 44859596798 before starting any new ASR. Do not process episode 12.",
     "Read the completed source ASR and all independent large-v3 gap, low-confidence and timeline checks.",
     "Editorially read all Slovak words and translate the complete content to Czech; preserve contiguous asrWordRange coverage and document recovered speech.",
     "Resolve editorial uncertainties from original audio with large-v3 and no VAD; do not guess missing speech.",
@@ -21,13 +22,14 @@
     "Validate every source word, hashes, low CTC scores, gaps, anchors, final JSON and both SRT; build exact MP3 frame index for original RSS URL.",
     "Verify full official YouTube video identity and separate time mapping, explicitly retain limits on unavailable acoustic comparison.",
     "Register only after complete review; extend validator CI, run caption clock and relevant V2/PWA tests on exact head SHA.",
-    "Merge with expected SHA only after green checks; verify Pages deploy and live JSON and both SRT hashes before marking finished."
+    "Merge with expected SHA only after green checks; verify Pages deploy and live JSON and both SRT hashes before marking finished.",
+    "Investigate test-local-ai-browser.mjs CI failure without changing unrelated application UI; never merge while relevant required checks fail."
   ],
   "audioSha256": "894ace9292a9bec7a0c8d5f1acc9904e9fd04fe8da2d39bb89a5bb49a1f6f428",
   "audioBytes": 32933316,
   "duration": 1005.244082,
   "sourceWorkflowRun": "https://github.com/Berniocal/vedator/actions/runs/44859205322",
-  "sourceWorkflowStatus": "in-progress",
+  "sourceWorkflowStatus": "complete-source-ASR-independent-large-v3-running",
   "repositoryInstructions": {
     "AGENTS.md": "absent in current main tree",
     "V2-MAINTENANCE.md": "read",
@@ -42,5 +44,37 @@
     "structuralValidatorsPassed": true,
     "previousEpisodesRewritten": false,
     "productionFilesVerifiedBySha256": 19
+  },
+  "originalRssVerified": true,
+  "rssPublishedDate": "Tue, 11 Feb 2020 04:00:00 +0100",
+  "rssSource": "https://feed.podbean.com/vedatorskypodcast/feed.xml",
+  "finalCueCount": {
+    "cs": 0,
+    "sk": 0
+  },
+  "translationWorkflowRun": "https://github.com/Berniocal/vedator/actions/runs/44859596798",
+  "ciAtCheckpoint": {
+    "captionClock": {
+      "run": "https://github.com/Berniocal/vedator/actions/runs/44859224747",
+      "conclusion": "success",
+      "scope": "existing registered episodes only; episode 11 is not registered"
+    },
+    "v2": {
+      "run": "https://github.com/Berniocal/vedator/actions/runs/44859224738",
+      "conclusion": "failure",
+      "test": "tools/test-local-ai-browser.mjs",
+      "location": "36:387",
+      "details": "AssertionError: expected truthy value; all other V2 integration tests in that job passed",
+      "resolved": false
+    }
+  },
+  "youtubeMetadataVerification": {
+    "title": "Vedátorský podcast 11 – Velentínsky monopól",
+    "author": "Vedátor SK",
+    "authorUrl": "https://www.youtube.com/@vedator_sk",
+    "method": "YouTube oEmbed",
+    "videoId": "po2qYjYHEEE",
+    "fullVideoIdentityVerified": false,
+    "acousticComparisonPerformed": false
   }
 }
