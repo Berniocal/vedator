@@ -13,6 +13,7 @@
   "youtubeAudioCompared": false,
   "mobileLayoutVerified": false,
   "nextSteps": [
+    "Read episode-11-followup-checks.sk.json from 19 wider editorial windows, especially disputed negations and 1972/1982; complete SK/CZ editorial corrections before alignment.",
     "Finish or inspect existing source run 44859205322 and translation run 44859596798 before starting any new ASR. Do not process episode 12.",
     "Read the completed source ASR and all independent large-v3 gap, low-confidence and timeline checks.",
     "Editorially read all Slovak words and translate the complete content to Czech; preserve contiguous asrWordRange coverage and document recovered speech.",
@@ -29,7 +30,7 @@
   "audioBytes": 32933316,
   "duration": 1005.244082,
   "sourceWorkflowRun": "https://github.com/Berniocal/vedator/actions/runs/44859205322",
-  "sourceWorkflowStatus": "complete-source-ASR-independent-large-v3-running",
+  "sourceWorkflowStatus": "source-ASR-and-19-independent-windows-committed",
   "repositoryInstructions": {
     "AGENTS.md": "absent in current main tree",
     "V2-MAINTENANCE.md": "read",
@@ -76,5 +77,10 @@
     "videoId": "po2qYjYHEEE",
     "fullVideoIdentityVerified": false,
     "acousticComparisonPerformed": false
-  }
+  },
+  "asrWords": 2231,
+  "sourceCueCount": 225,
+  "completeSlovakDraftRead": true,
+  "finalEditorialApproval": false,
+  "additionalEditorialWindowsRequested": 19
 }
