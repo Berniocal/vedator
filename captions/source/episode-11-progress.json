@@ -1,0 +1,121 @@
+{
+  "episode": 11,
+  "title": "Vedátorský podcast 11 – Valentínsky monopól",
+  "guid": "vedatorskypodcast.podbean.com/1ae3bbad-cb34-5516-b8e1-0b468beede0f",
+  "audio": "https://mcdn.podbean.com/mf/web/5s3dyc/podcast_ep11.mp3",
+  "youtubeId": "po2qYjYHEEE",
+  "baseMainSha": "8edb68224cce3fb4804e1a1ffb2cdd2a84d100ba",
+  "status": "release-candidate-reviewed-and-mobile-verified-pending-final-head-ci-and-production",
+  "registered": true,
+  "editorialReviewComplete": true,
+  "humanListeningVerified": false,
+  "youtubeAudioCompared": false,
+  "mobileLayoutVerified": true,
+  "nextSteps": [
+    "Require successful relevant CI at final PR head SHA.",
+    "Merge using the exact expected head SHA.",
+    "Verify Pages deployment and actual live JSON / both SRT SHA-256 values."
+  ],
+  "audioSha256": "894ace9292a9bec7a0c8d5f1acc9904e9fd04fe8da2d39bb89a5bb49a1f6f428",
+  "audioBytes": 32933316,
+  "duration": 1005.244082,
+  "sourceWorkflowRun": "https://github.com/Berniocal/vedator/actions/runs/44859205322",
+  "sourceWorkflowStatus": "complete-source-and-independent-followup-evidence-reviewed",
+  "repositoryInstructions": {
+    "AGENTS.md": "absent in current main tree",
+    "V2-MAINTENANCE.md": "read",
+    "captions/README.md": "read"
+  },
+  "baselineValidation": {
+    "episodes": [
+      8,
+      9,
+      10
+    ],
+    "structuralValidatorsPassed": true,
+    "previousEpisodesRewritten": false,
+    "productionFilesVerifiedBySha256": 19
+  },
+  "originalRssVerified": true,
+  "rssPublishedDate": "Tue, 11 Feb 2020 04:00:00 +0100",
+  "rssSource": "https://feed.podbean.com/vedatorskypodcast/feed.xml",
+  "finalCueCount": {
+    "cs": 212,
+    "sk": 212
+  },
+  "translationWorkflowRun": "https://github.com/Berniocal/vedator/actions/runs/44859596798",
+  "ciAtCheckpoint": {
+    "captionClock": {
+      "run": "https://github.com/Berniocal/vedator/actions/runs/44859224747",
+      "conclusion": "success",
+      "scope": "existing registered episodes only; episode 11 is not registered"
+    },
+    "v2": {
+      "run": "https://github.com/Berniocal/vedator/actions/runs/44859224738",
+      "conclusion": "failure",
+      "test": "tools/test-local-ai-browser.mjs",
+      "location": "36:387",
+      "details": "AssertionError: expected truthy value; all other V2 integration tests in that job passed",
+      "resolved": true,
+      "resolution": "Mock transient failure now occurs only on a missing-file download, not on a cache hit. Full local AI browser regression passed."
+    }
+  },
+  "youtubeMetadataVerification": {
+    "title": "Vedátorský podcast 11 – Velentínsky monopól",
+    "author": "Vedátor SK",
+    "authorUrl": "https://www.youtube.com/@vedator_sk",
+    "method": "YouTube oEmbed",
+    "videoId": "po2qYjYHEEE",
+    "fullVideoIdentityVerified": false,
+    "acousticComparisonPerformed": false
+  },
+  "asrWords": 2231,
+  "sourceCueCount": 225,
+  "completeSlovakDraftRead": true,
+  "finalEditorialApproval": true,
+  "additionalEditorialWindowsRequested": 19,
+  "recoveredSpeechPassages": 2,
+  "acousticAlignmentPerformed": true,
+  "lowCtcScoreCount": 0,
+  "completeCzechEditorialReview": true,
+  "limitations": [
+    "No complete independent human listening verification.",
+    "YouTube oEmbed identifies the official video; full watch-page retrieval returned HTTP 429. No direct YouTube/MP3 acoustic comparison was performed.",
+    "A few short fast utterances retain their spoken timing rather than overlapping later speech."
+  ],
+  "editorialSources": [
+    "captions/source/episode-11-editorial-bilingual.tsv",
+    "captions/source/episode-11-extra-checks.sk.json",
+    "captions/source/episode-11-followup-checks.sk.json",
+    "captions/source/episode-11-ctc-checks.sk.json"
+  ],
+  "localValidation": {
+    "originalAudioSha256Verified": true,
+    "all2231SourceWordsCovered": true,
+    "jsonAndBothSrtsMatch": true,
+    "maxLines": 2,
+    "maxLineCharacters": 48,
+    "captionClockBrowser": "passed-all-registered-episodes-including-11",
+    "mobileReaderFontWidths": [
+      360,
+      390
+    ],
+    "v2RequiredTests": "passed",
+    "localAiBrowser": "passed",
+    "previousSubtitleFilesUnchanged": 18,
+    "productionPwa": "passed"
+  },
+  "releaseFollowup": {
+    "date": "2026-11-22",
+    "editorialBilingualTextReadAgain": true,
+    "originalAudioHashAndStructuralValidator": "passed",
+    "localBrowserRerun": "blocked: Chromium socket() Operation not permitted; use GitHub Actions for current-head browser checks",
+    "completePublication": false,
+    "lineEndingEditorialFixes": 9,
+    "fullMobileLayout": "passed-all-212-CZ-and-SK-cues-360-390-px-100-130-percent-all-surfaces",
+    "mobileTriageRun": "https://github.com/Berniocal/vedator/actions/runs/44980154987",
+    "layoutVariantsSelected": 241,
+    "wholeTextAndAllAcousticBoundariesUnchanged": true,
+    "finalMobileEvidence": "https://github.com/Berniocal/vedator/actions/runs/44981030356"
+  }
+}

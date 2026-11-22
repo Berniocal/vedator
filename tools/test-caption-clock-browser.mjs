@@ -107,13 +107,15 @@ try{
     const readerLayout=await page.evaluate(()=>{const node=document.getElementById('player-caption-reader-text-v2');return {lines:node.querySelectorAll('.caption-reader-line-v2').length,fits:node.scrollWidth<=node.clientWidth+1}});
     check(readerLayout.lines<=2&&readerLayout.fits,'Fullscreen captions fit at most two complete lines',{n,readerLayout});
     check(reader.videoParent==='player-caption-reader-overlay-v2','Wake video must enter fullscreen subtree',{n,reader});
-    if(n===1){
+    if(n===1||n===11){
+      if(n===11)await page.setViewport({width:360,height:800,isMobile:true,hasTouch:true});
       await page.evaluate(()=>document.getElementById('audio-v2').pause());
       const before=await page.evaluate(()=>({time:window.__captionTest.clock().time,font:parseFloat(document.getElementById('player-caption-reader-text-v2').style.fontSize)}));
       await page.click('#player-caption-reader-text-v2');await page.waitForFunction(()=>!document.getElementById('caption-reader-controls-v2').hidden);await page.click('#caption-book-larger-v2');
       const after=await page.evaluate(()=>({time:window.__captionTest.clock().time,font:parseFloat(document.getElementById('player-caption-reader-text-v2').style.fontSize),fits:document.getElementById('player-caption-reader-text-v2').scrollWidth<=document.getElementById('player-caption-reader-text-v2').clientWidth+1}));
       check(after.font>before.font&&after.fits&&Math.abs(after.time-before.time)<.001,'Live reader font enlargement preserves the shared paused position',{before,after});
       await page.click('#caption-book-smaller-v2');
+      if(n===11)await page.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
     }
 
     await page.evaluate(()=>window.__captionTest.exitReader());await wait(100);

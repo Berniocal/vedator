@@ -1,0 +1,922 @@
+{
+  "episode": 11,
+  "status": "review-evidence-only-not-subtitles",
+  "audioSha256": "894ace9292a9bec7a0c8d5f1acc9904e9fd04fe8da2d39bb89a5bb49a1f6f428",
+  "duration": 1005.218,
+  "draftCueCount": 225,
+  "asrWords": 2231,
+  "lowConfidenceWords": [
+    {
+      "start": 57.0,
+      "end": 57.16,
+      "text": "aj",
+      "confidence": 0.3768
+    },
+    {
+      "start": 64.3,
+      "end": 64.42,
+      "text": "je,",
+      "confidence": 0.2865
+    },
+    {
+      "start": 128.77,
+      "end": 128.89,
+      "text": "že",
+      "confidence": 0.3054
+    },
+    {
+      "start": 200.44,
+      "end": 201.18,
+      "text": "Na",
+      "confidence": 0.1371
+    },
+    {
+      "start": 259.42,
+      "end": 259.74,
+      "text": "A",
+      "confidence": 0.1744
+    },
+    {
+      "start": 326.92,
+      "end": 327.04,
+      "text": "nie",
+      "confidence": 0.3879
+    },
+    {
+      "start": 340.55,
+      "end": 340.67,
+      "text": "A",
+      "confidence": 0.1873
+    },
+    {
+      "start": 344.19,
+      "end": 344.77,
+      "text": "A",
+      "confidence": 0.256
+    },
+    {
+      "start": 398.69,
+      "end": 398.81,
+      "text": "a",
+      "confidence": 0.2701
+    },
+    {
+      "start": 417.97,
+      "end": 418.35,
+      "text": "že",
+      "confidence": 0.3882
+    },
+    {
+      "start": 427.77,
+      "end": 427.77,
+      "text": "je",
+      "confidence": 0.37
+    },
+    {
+      "start": 435.79,
+      "end": 435.99,
+      "text": "u",
+      "confidence": 0.3682
+    },
+    {
+      "start": 440.57,
+      "end": 440.79,
+      "text": "Tá",
+      "confidence": 0.0825
+    },
+    {
+      "start": 471.05,
+      "end": 471.15,
+      "text": "od",
+      "confidence": 0.306
+    },
+    {
+      "start": 531.57,
+      "end": 532.55,
+      "text": "priestore?",
+      "confidence": 0.0218
+    },
+    {
+      "start": 653.83,
+      "end": 653.97,
+      "text": "ani",
+      "confidence": 0.3708
+    },
+    {
+      "start": 658.21,
+      "end": 658.39,
+      "text": "tak.",
+      "confidence": 0.3281
+    },
+    {
+      "start": 669.02,
+      "end": 669.6,
+      "text": "a",
+      "confidence": 0.2899
+    },
+    {
+      "start": 719.01,
+      "end": 719.95,
+      "text": "ale",
+      "confidence": 0.0954
+    },
+    {
+      "start": 738.38,
+      "end": 738.82,
+      "text": "na",
+      "confidence": 0.0089
+    },
+    {
+      "start": 772.74,
+      "end": 772.9,
+      "text": "Aha,",
+      "confidence": 0.0006
+    },
+    {
+      "start": 865.3,
+      "end": 865.54,
+      "text": "že",
+      "confidence": 0.1995
+    },
+    {
+      "start": 897.37,
+      "end": 897.99,
+      "text": "a",
+      "confidence": 0.1643
+    },
+    {
+      "start": 904.08,
+      "end": 904.2,
+      "text": "sa",
+      "confidence": 0.3938
+    },
+    {
+      "start": 950.52,
+      "end": 950.68,
+      "text": "to",
+      "confidence": 0.3477
+    },
+    {
+      "start": 950.94,
+      "end": 951.14,
+      "text": "se",
+      "confidence": 0.1289
+    }
+  ],
+  "asrGaps": [
+    {
+      "start": 12.9,
+      "end": 14.74,
+      "seconds": 1.84
+    },
+    {
+      "start": 75.5,
+      "end": 77.08,
+      "seconds": 1.58
+    },
+    {
+      "start": 86.78,
+      "end": 89.34,
+      "seconds": 2.56
+    },
+    {
+      "start": 150.99,
+      "end": 152.75,
+      "seconds": 1.76
+    },
+    {
+      "start": 176.72,
+      "end": 179.31,
+      "seconds": 2.59
+    },
+    {
+      "start": 206.54,
+      "end": 208.37,
+      "seconds": 1.83
+    },
+    {
+      "start": 243.52,
+      "end": 245.77,
+      "seconds": 2.25
+    },
+    {
+      "start": 262.16,
+      "end": 263.78,
+      "seconds": 1.62
+    },
+    {
+      "start": 294.55,
+      "end": 296.03,
+      "seconds": 1.48
+    },
+    {
+      "start": 346.63,
+      "end": 348.41,
+      "seconds": 1.78
+    },
+    {
+      "start": 387.32,
+      "end": 388.75,
+      "seconds": 1.43
+    },
+    {
+      "start": 402.47,
+      "end": 404.32,
+      "seconds": 1.85
+    },
+    {
+      "start": 412.78,
+      "end": 415.35,
+      "seconds": 2.57
+    },
+    {
+      "start": 436.57,
+      "end": 438.17,
+      "seconds": 1.6
+    },
+    {
+      "start": 565.87,
+      "end": 567.62,
+      "seconds": 1.75
+    },
+    {
+      "start": 570.96,
+      "end": 573.15,
+      "seconds": 2.19
+    },
+    {
+      "start": 573.67,
+      "end": 576.04,
+      "seconds": 2.37
+    },
+    {
+      "start": 579.62,
+      "end": 581.48,
+      "seconds": 1.86
+    },
+    {
+      "start": 595.73,
+      "end": 597.15,
+      "seconds": 1.42
+    },
+    {
+      "start": 608.33,
+      "end": 610.06,
+      "seconds": 1.73
+    },
+    {
+      "start": 623.12,
+      "end": 624.69,
+      "seconds": 1.57
+    },
+    {
+      "start": 641.26,
+      "end": 642.75,
+      "seconds": 1.49
+    },
+    {
+      "start": 664.53,
+      "end": 666.25,
+      "seconds": 1.72
+    },
+    {
+      "start": 667.29,
+      "end": 669.02,
+      "seconds": 1.73
+    },
+    {
+      "start": 707.72,
+      "end": 709.19,
+      "seconds": 1.47
+    },
+    {
+      "start": 757.06,
+      "end": 758.48,
+      "seconds": 1.42
+    },
+    {
+      "start": 831.94,
+      "end": 833.38,
+      "seconds": 1.44
+    },
+    {
+      "start": 841.03,
+      "end": 842.5,
+      "seconds": 1.47
+    },
+    {
+      "start": 875.74,
+      "end": 877.59,
+      "seconds": 1.85
+    },
+    {
+      "start": 900.13,
+      "end": 901.6,
+      "seconds": 1.47
+    },
+    {
+      "start": 913.1,
+      "end": 914.66,
+      "seconds": 1.56
+    },
+    {
+      "start": 960.25,
+      "end": 961.72,
+      "seconds": 1.47
+    },
+    {
+      "start": 995.08,
+      "end": 1001.9,
+      "seconds": 6.82
+    }
+  ],
+  "translationLengthFlags": [
+    {
+      "cue": 6,
+      "at": 34.71,
+      "sk": "volá sa Valentínsky monopól. Budeme sa rozprávať o tom, ako veľké",
+      "draftCs": "Říká se tomu Valentýnský monopol.",
+      "ratio": 0.527
+    },
+    {
+      "cue": 29,
+      "at": 137.63,
+      "sk": "No, máme k tomu nepriame dôkazy. Pri súde by možno takýto počet",
+      "draftCs": "Máme nepřímý důkaz.",
+      "ratio": 0.327
+    },
+    {
+      "cue": 40,
+      "at": 190.39,
+      "sk": "že ľavé strany tých rovnic sa na seba strašne podobajú. Úplne, že ako by jedna",
+      "draftCs": "že levé strany těchto rovnic se hrozně podobají.",
+      "ratio": 0.641
+    },
+    {
+      "cue": 50,
+      "at": 232.84,
+      "sk": "hovorí, že neexistujú magnetické monopory. Čiže tá vlastnosť, ktorú sme hovorili, že",
+      "draftCs": "Říká, že magnetické monopoly neexistují.",
+      "ratio": 0.493
+    },
+    {
+      "cue": 62,
+      "at": 287.45,
+      "sk": "storočím plus minus. Akože opakuje sa to asi každých 10 -20 rokov taká vlna",
+      "draftCs": "Jako by se to opakovalo asi každých 10 až 20 let.",
+      "ratio": 0.629
+    },
+    {
+      "cue": 64,
+      "at": 296.03,
+      "sk": "O tieto monopóli. O tieto monopóli, áno. Ale teda úplne prapovodne to",
+      "draftCs": "Tyto monopoly. Tyto monopoly, ano.",
+      "ratio": 0.517
+    },
+    {
+      "cue": 66,
+      "at": 306.89,
+      "sk": "keby existovali aj polovičky magnetu. A pre časť teoretických fyzikov je toto",
+      "draftCs": "A pro některé teoretické fyziky je to",
+      "ratio": 0.47
+    },
+    {
+      "cue": 68,
+      "at": 316.92,
+      "sk": "Takže by sa upravili tie aj rovnice Maxwellove. Áno, mali by proste symetrickejší",
+      "draftCs": "Takže ty Maxwellovy rovnice by se měly upravit.",
+      "ratio": 0.58
+    },
+    {
+      "cue": 88,
+      "at": 407.58,
+      "sk": "oni vlastne asi predsa len existujú,",
+      "draftCs": "Asi existují.",
+      "ratio": 0.387
+    },
+    {
+      "cue": 95,
+      "at": 438.17,
+      "sk": "Kvôli tej svojej hmotnosti. Áno. Tá hmotnosť to nedovoluje. E sa rovná mc na druhu,",
+      "draftCs": "Ano, ta hmotnost to nedovolí. E se rovná mc na druh,",
+      "ratio": 0.609
+    },
+    {
+      "cue": 113,
+      "at": 521.93,
+      "sk": "Takže tá hustota ich je o to znižšia. Hustota úplne klesla niekam",
+      "draftCs": "Takže tato hustota je o něco nižší.",
+      "ratio": 0.537
+    },
+    {
+      "cue": 115,
+      "at": 530.17,
+      "sk": "Kvôli expanzei asi priestore? Kvôli rozpínaniu vesmíru, áno, presne.",
+      "draftCs": "Kvůli rozšiřování vesmíru, ano, přesně.",
+      "ratio": 0.583
+    },
+    {
+      "cue": 116,
+      "at": 535.99,
+      "sk": "Čiže",
+      "draftCs": "To znamená, že",
+      "ratio": 3.0
+    },
+    {
+      "cue": 118,
+      "at": 542.79,
+      "sk": "rieši to rôzne problémy, ktoré máme, teda veci, ktorým",
+      "draftCs": "Řeší různé problémy, které máme.",
+      "ratio": 0.609
+    },
+    {
+      "cue": 123,
+      "at": 565.49,
+      "sk": "náhodou.",
+      "draftCs": "To se stalo náhodou.",
+      "ratio": 2.125
+    },
+    {
+      "cue": 125,
+      "at": 573.15,
+      "sk": "Áno.",
+      "draftCs": "- Ano, to je pravda.",
+      "ratio": 4.0
+    },
+    {
+      "cue": 133,
+      "at": 610.06,
+      "sk": "No a teraz v podstate, ako chytiť magnetický monopól je to strašne jednoduché. Urobiš",
+      "draftCs": "Jak chytit magnetický monopol je naprosto jednoduché.",
+      "ratio": 0.653
+    },
+    {
+      "cue": 141,
+      "at": 648.23,
+      "sk": "ostane to tam trčať.",
+      "draftCs": "Zůstane tam.",
+      "ratio": 0.647
+    },
+    {
+      "cue": 149,
+      "at": 682.6,
+      "sk": "Wow.",
+      "draftCs": "Wow, to je skvělé.",
+      "ratio": 3.75
+    },
+    {
+      "cue": 150,
+      "at": 683.72,
+      "sk": "Toto bolo ale predtým, ako ľudia vedeli, čo to je. Od vtedy sa to nepodarilo",
+      "draftCs": "Ale tohle bylo dříve, než lidé věděli, co to je.",
+      "ratio": 0.629
+    },
+    {
+      "cue": 155,
+      "at": 704.88,
+      "sk": "tak zistili, že tá šance je úplne zanedbateľná, malá. Akože,",
+      "draftCs": "a zjistili, že je to jen malá šance.",
+      "ratio": 0.569
+    },
+    {
+      "cue": 158,
+      "at": 717.65,
+      "sk": "preletí magnetický monopól. ale nebolo by to nemožné, že by im tam preletiel. Len",
+      "draftCs": "Ale nebylo by nemožné, aby se jim to podařilo.",
+      "ratio": 0.559
+    },
+    {
+      "cue": 181,
+      "at": 800.3,
+      "sk": "raz,",
+      "draftCs": "Jednou,",
+      "ratio": 1.75
+    },
+    {
+      "cue": 185,
+      "at": 813.1,
+      "sk": "hovorí, že už máme potvrdený ten dôkaz. Tak, presne tak. Čiže keby náhodou niekto si",
+      "draftCs": "Říká, že je to již potvrzeno.",
+      "ratio": 0.343
+    },
+    {
+      "cue": 195,
+      "at": 860.4,
+      "sk": "raz podarilo.",
+      "draftCs": "Jednou se to podařilo.",
+      "ratio": 1.583
+    },
+    {
+      "cue": 196,
+      "at": 862.2,
+      "sk": "Čo? Až takto negatívne? Až takto negatívne, že radšej sa skúsi... To tu mal byť",
+      "draftCs": "Takhle negativní, že by se raději snažila...",
+      "ratio": 0.585
+    },
+    {
+      "cue": 198,
+      "at": 870.26,
+      "sk": "Áno. Ľudia sa tešia, budú mať pekný víkend a tak ďalej. Nemôžeš takto negatívne.",
+      "draftCs": "Lidé se těší, mají pěkný víkend a tak dále.",
+      "ratio": 0.522
+    },
+    {
+      "cue": 200,
+      "at": 883.19,
+      "sk": "Áno, môžete sa rozprávať o valentínskom monopólu. Dobre, aby sme boli pozitívni, aj",
+      "draftCs": "Ano, můžete mluvit o valentinském monopolu.",
+      "ratio": 0.535
+    },
+    {
+      "cue": 213,
+      "at": 941.78,
+      "sk": "Dobre, Samko, máš ešte niečo k Valentínu? Nie, nie. Toto bol... K Valentínu možno áno,",
+      "draftCs": "Dobře, Samko, máš ještě něco na Valentýn?",
+      "ratio": 0.486
+    },
+    {
+      "cue": 223,
+      "at": 989.2,
+      "sk": "novinky zo sveta vedy, prírody a technológií. Pekný deň vám prajem.",
+      "draftCs": "Zpráva z vědy, přírody a technologie.",
+      "ratio": 0.561
+    },
+    {
+      "cue": 224,
+      "at": 994.6,
+      "sk": "Najte sa.",
+      "draftCs": "Jděte se najíst.",
+      "ratio": 1.75
+    }
+  ],
+  "asrLexicalFlags": [],
+  "independentWindows": [
+    {
+      "start": 15.10436,
+      "end": 27.10436,
+      "reason": "timeline-sample",
+      "priority": 0.8,
+      "segments": [
+        {
+          "start": 15.104,
+          "end": 17.264,
+          "text": "mikrobov cez mimikry až po monopóly."
+        },
+        {
+          "start": 17.504,
+          "end": 18.924,
+          "text": "Veda nás obklopuje"
+        },
+        {
+          "start": 18.924,
+          "end": 20.744,
+          "text": "na každom kroku. Vítajte pri"
+        },
+        {
+          "start": 20.744,
+          "end": 22.704,
+          "text": "Vedatorskom podcaste, v ktorom budeme"
+        },
+        {
+          "start": 22.704,
+          "end": 25.104,
+          "text": "diskutovať o vede a prírode okolo nás."
+        },
+        {
+          "start": 25.164,
+          "end": 26.264,
+          "text": "Moje meno je Jozef."
+        }
+      ]
+    },
+    {
+      "start": 175.72,
+      "end": 180.31,
+      "reason": "speech-in-ASR-gap",
+      "priority": 0.7839999999999918,
+      "segments": [
+        {
+          "start": 175.72,
+          "end": 176.7,
+          "text": "aj tak valentínsky."
+        }
+      ]
+    },
+    {
+      "start": 198.44,
+      "end": 203.18,
+      "reason": "low-ASR-confidence",
+      "priority": 0.8629,
+      "segments": [
+        {
+          "start": 198.44,
+          "end": 200.72,
+          "text": "strany rovnic sa na seba úplne nepodobajú."
+        },
+        {
+          "start": 200.76,
+          "end": 202.44,
+          "text": "Na jednej strane je nula"
+        },
+        {
+          "start": 202.44,
+          "end": 203.02,
+          "text": "a"
+        }
+      ]
+    },
+    {
+      "start": 246.3045,
+      "end": 261.74,
+      "reason": "timeline-sample;low-ASR-confidence",
+      "priority": 0.8,
+      "segments": [
+        {
+          "start": 246.304,
+          "end": 252.984,
+          "text": "Na jednej strane sa tie rovnici na seba podobajú a na druhej strane je tam takýto úplne brutálny rozdiel medzi nimi,"
+        },
+        {
+          "start": 253.004,
+          "end": 261.664,
+          "text": "že čo sa týka elektrického náboja, tak sa dá rozdeliť na plusky a minusky a magnetický náboj sa nedá rozdeliť na sebe."
+        }
+      ]
+    },
+    {
+      "start": 338.55,
+      "end": 346.77,
+      "reason": "low-ASR-confidence;low-ASR-confidence",
+      "priority": 0.8127,
+      "segments": [
+        {
+          "start": 340.29,
+          "end": 346.57,
+          "text": "Tato teória sa bude už asi 100 ročie a zistilo sa niekoľko zaujímavých vecí."
+        }
+      ]
+    },
+    {
+      "start": 438.57,
+      "end": 442.79,
+      "reason": "low-ASR-confidence",
+      "priority": 0.9175,
+      "segments": [
+        {
+          "start": 438.57,
+          "end": 439.97,
+          "text": "Politej svojej hmotnosti. Áno."
+        },
+        {
+          "start": 440.61,
+          "end": 441.69,
+          "text": "Tá hmotnosť to nedovoluje."
+        }
+      ]
+    },
+    {
+      "start": 497.609,
+      "end": 509.609,
+      "reason": "timeline-sample",
+      "priority": 0.8,
+      "segments": [
+        {
+          "start": 497.609,
+          "end": 501.009,
+          "text": "mal vysokú energiu, teda veľa energie bolo k dispozícii"
+        },
+        {
+          "start": 501.009,
+          "end": 504.569,
+          "text": "a časť tej energie mohla prispieť na to, aby vznikol magnetický monopól."
+        },
+        {
+          "start": 505.649,
+          "end": 509.449,
+          "text": "Ale potom sa vesmír rozpínal, čo..."
+        }
+      ]
+    },
+    {
+      "start": 529.57,
+      "end": 534.55,
+      "reason": "low-ASR-confidence",
+      "priority": 0.9782,
+      "segments": [
+        {
+          "start": 529.57,
+          "end": 534.35,
+          "text": "Kolí rozpinaniu vesmíru, áno."
+        }
+      ]
+    },
+    {
+      "start": 572.67,
+      "end": 577.04,
+      "reason": "speech-in-ASR-gap",
+      "priority": 1.1140000000000327,
+      "segments": [
+        {
+          "start": 572.67,
+          "end": 573.57,
+          "text": "Áno."
+        }
+      ]
+    },
+    {
+      "start": 594.73,
+      "end": 598.15,
+      "reason": "speech-in-ASR-gap",
+      "priority": 1.419999999999959,
+      "segments": [
+        {
+          "start": 596.65,
+          "end": 598.13,
+          "text": "elektrogenerátorov a elektromotorov."
+        }
+      ]
+    },
+    {
+      "start": 717.01,
+      "end": 721.95,
+      "reason": "low-ASR-confidence",
+      "priority": 0.9046,
+      "segments": [
+        {
+          "start": 717.81,
+          "end": 718.99,
+          "text": "preletí magnetický monopól."
+        },
+        {
+          "start": 719.59,
+          "end": 721.11,
+          "text": "Ale nebolo by to nemožné,"
+        },
+        {
+          "start": 721.13,
+          "end": 721.93,
+          "text": "že by im to preletilo."
+        }
+      ]
+    },
+    {
+      "start": 736.38,
+      "end": 740.82,
+      "reason": "low-ASR-confidence",
+      "priority": 0.9911,
+      "segments": [
+        {
+          "start": 736.38,
+          "end": 740.1,
+          "text": "že nám proste na toho Valentína v roku 1980..."
+        }
+      ]
+    },
+    {
+      "start": 748.9135,
+      "end": 760.9135,
+      "reason": "timeline-sample",
+      "priority": 0.8,
+      "segments": [
+        {
+          "start": 748.914,
+          "end": 750.914,
+          "text": "niečo sa tam zachytilo a zrazu sa vypustilo."
+        },
+        {
+          "start": 751.474,
+          "end": 753.074,
+          "text": "Alebo možno chýba nejaká."
+        },
+        {
+          "start": 753.994,
+          "end": 755.314,
+          "text": "A odpovede je taká,"
+        },
+        {
+          "start": 755.394,
+          "end": 757.014,
+          "text": "že sa to pravdepodobne nikdy nedozvieme."
+        },
+        {
+          "start": 757.954,
+          "end": 759.014,
+          "text": "Nie, dám to."
+        },
+        {
+          "start": 759.254,
+          "end": 760.894,
+          "text": "To nie je dobrá odpovede."
+        }
+      ]
+    },
+    {
+      "start": 770.74,
+      "end": 774.9,
+      "reason": "low-ASR-confidence",
+      "priority": 0.9994,
+      "segments": [
+        {
+          "start": 772.24,
+          "end": 772.8,
+          "text": "monopólov, lebo..."
+        },
+        {
+          "start": 772.8,
+          "end": 774.8,
+          "text": "Aha, ja som si myslel, že presný opak nastane."
+        }
+      ]
+    },
+    {
+      "start": 863.3,
+      "end": 867.54,
+      "reason": "low-ASR-confidence",
+      "priority": 0.8005,
+      "segments": [
+        {
+          "start": 863.3,
+          "end": 865.24,
+          "text": "negatívne? Až takto negatívne,"
+        },
+        {
+          "start": 865.24,
+          "end": 867.02,
+          "text": "že radšej sa skúsim..."
+        }
+      ]
+    },
+    {
+      "start": 874.74,
+      "end": 878.59,
+      "reason": "speech-in-ASR-gap",
+      "priority": 0.98599999999999,
+      "segments": [
+        {
+          "start": 874.74,
+          "end": 875.64,
+          "text": "štáknu negatídu."
+        }
+      ]
+    },
+    {
+      "start": 895.37,
+      "end": 899.99,
+      "reason": "low-ASR-confidence",
+      "priority": 0.8357,
+      "segments": [
+        {
+          "start": 895.37,
+          "end": 897.35,
+          "text": "naše laso preletiel magnetický monopól,"
+        },
+        {
+          "start": 897.95,
+          "end": 899.87,
+          "text": "jedna z najzaujímavejších častíc vo vesmi."
+        }
+      ]
+    },
+    {
+      "start": 948.94,
+      "end": 953.14,
+      "reason": "low-ASR-confidence",
+      "priority": 0.8711,
+      "segments": [
+        {
+          "start": 948.94,
+          "end": 950.84,
+          "text": "ne. Tak to dobre"
+        },
+        {
+          "start": 950.84,
+          "end": 953.04,
+          "text": "si myslel. Samko, ja ti veľmi pekne"
+        }
+      ]
+    },
+    {
+      "start": 980.1136399999999,
+      "end": 992.1136399999999,
+      "reason": "timeline-sample",
+      "priority": 0.8,
+      "segments": [
+        {
+          "start": 980.114,
+          "end": 984.494,
+          "text": "Máme www stránku a nájdete nás aj na Facebooku,"
+        },
+        {
+          "start": 984.494,
+          "end": 989.514,
+          "text": "kde denne a pokonca aj viacejkrát aj za deň sa dozviete vedatorské novinky"
+        },
+        {
+          "start": 989.514,
+          "end": 992.094,
+          "text": "zo sveta vedy, prírody a..."
+        }
+      ]
+    }
+  ]
+}

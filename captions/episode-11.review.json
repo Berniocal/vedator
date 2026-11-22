@@ -1,0 +1,45 @@
+{
+  "episode": 11,
+  "cueCount": 212,
+  "asrWordCount": 2231,
+  "audioSha256": "894ace9292a9bec7a0c8d5f1acc9904e9fd04fe8da2d39bb89a5bb49a1f6f428",
+  "lowScoreCues": [],
+  "maxBoundaryChange": 3.391999999999939,
+  "status": "editorially-reviewed-acoustically-aligned-needs-independent-listening",
+  "editorialReviewComplete": true,
+  "humanListeningVerified": false,
+  "youtubeAudioCompared": false,
+  "checks": {
+    "sourceWords": 2231,
+    "sourceCues": 225,
+    "czechAndSlovakCues": 212,
+    "recoveredSpeech": 2,
+    "asrCheckWindows": 38,
+    "unforcedCtcCheckWindows": 10,
+    "maxLines": 2,
+    "maxLineCharacters": 48,
+    "exactMp3FrameAnchors": 963,
+    "mp3ClockVideoReaderAndWakeBrowserTest": "passed",
+    "mobileWidths": [
+      360,
+      390
+    ],
+    "avoidableSingleLetterHardBreaks": 0,
+    "fullMobileLayout": "passed-all-212-cues-both-languages-all-surfaces-at-360-390-px-and-100-130-percent-font"
+  },
+  "assets": {
+    "episode-11.json": "b9c910b09ccca43914dd91688e748c5d170b2daf71569dd2633255121f0f11df",
+    "episode-11.cs.srt": "826ac3905d6a637dbfc7474c62aaacc17b0706154e78079f2da0a0ce084794ec",
+    "episode-11.sk.srt": "5dd0fcb698f41752685d03e4ea3a5d06bbfef5c6fd9fe975ed16bf8ebb991ffb"
+  },
+  "layoutReview": {
+    "selectedVariants": 241,
+    "rebalancedAfterCandidateReview": 46,
+    "preservedWordsAndAcousticBoundaries": true,
+    "triageRun": "https://github.com/Berniocal/vedator/actions/runs/44980154987",
+    "finalThreeVariants": "https://github.com/Berniocal/vedator/actions/runs/44980567036",
+    "finalValidation": "https://github.com/Berniocal/vedator/actions/runs/44981030356",
+    "finalValidationFile": "captions/source/episode-11-mobile-layout-validation.json",
+    "findings": 0
+  }
+}

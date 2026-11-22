@@ -1,0 +1,67 @@
+name: Validate episode 11 captions before release
+on:
+  push:
+    branches: [captions/episode-11-precise-20261121, captions/episode-11-finish-20261121]
+    paths:
+      - 'captions/episode-11.json'
+      - 'captions/episode-11.cs.srt'
+      - 'captions/episode-11.sk.srt'
+      - 'captions/episode-11.review.json'
+      - 'captions/source/episode-11-alignment.json'
+      - 'audio-seek-index.json'
+      - 'episode-videos.json'
+      - tools/validate-episode11-captions.py
+      - .github/workflows/validate-episode11-captions.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - 'captions/episode-11*'
+      - 'captions/source/episode-11*'
+      - tools/validate-episode11-captions.py
+      - episode-videos.json
+      - audio-seek-index.json
+      - .github/workflows/validate-episode11-captions.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Ensure reviewed bilingual subtitle files exist
+        run: |
+          test -s captions/episode-11.json
+          test -s captions/episode-11.edited.json
+          test -s captions/episode-11.cs.srt
+          test -s captions/episode-11.sk.srt
+          test -s captions/episode-11.review.json
+          test -s captions/source/episode-11-draft.sk.json
+          test -s captions/source/episode-11-alignment.json
+      - name: Download and authenticate original episode 11 MP3
+        run: |
+          mkdir -p "$RUNNER_TEMP/caption-ep11-audio"
+          python tools/download-caption-reference.py --episode 11 --output "$RUNNER_TEMP/caption-ep11-audio/episode-11.mp3"
+      - name: Verify all source hashes, words, timings, CTC scores, SRTs and seek index
+        run: python tools/validate-episode11-captions.py --audio "$RUNNER_TEMP/caption-ep11-audio/episode-11.mp3"
+      - name: Rebuild content and check application scripts
+        run: |
+          node tools/build-content-v2.mjs
+          node --check app-v2.js
+      - name: Verify production cache build
+        run: |
+          node tools/prepare-production-index.mjs
+          node tools/build-production-sw.mjs
+          node --check sw.js
+          node tools/test-production-pwa.mjs
+      - name: Install mobile layout test dependencies
+        run: npm install --prefix "$RUNNER_TEMP/caption-deps" --no-audit --no-fund puppeteer-core@25.12.0 @sparticuz/chromium@153.0.0
+      - name: Verify every episode 11 cue in CZ/SK at 360/390 px and enlarged font
+        run: VEDATOR_CAPTION_AUDIO="$RUNNER_TEMP/caption-ep11-audio" VEDATOR_TEST_DEPS="$RUNNER_TEMP/caption-deps" node tools/test-episode11-mobile-layout-browser.mjs

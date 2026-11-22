@@ -1,0 +1,3482 @@
+{
+  "episode": 11,
+  "source": {
+    "audio": "https://mcdn.podbean.com/mf/web/5s3dyc/podcast_ep11.mp3",
+    "audioSha256": "894ace9292a9bec7a0c8d5f1acc9904e9fd04fe8da2d39bb89a5bb49a1f6f428",
+    "audioBytes": 32933316,
+    "model": "large-v3-turbo",
+    "language": "sk",
+    "wordTimestamps": true,
+    "vadFilter": true,
+    "beamSize": 5,
+    "computeType": "int8",
+    "duration": 1005.218
+  },
+  "review": {
+    "status": "complete-model-assisted-bilingual-editorial-review-needs-independent-listening",
+    "note": "All Slovak and Czech text read and edited. Independent large-v3 checks resolve targeted passages. No claim of complete human listening or direct YouTube audio comparison."
+  },
+  "checkWindows": [
+    [
+      40,
+      50
+    ],
+    [
+      191,
+      198
+    ],
+    [
+      335,
+      347
+    ],
+    [
+      649,
+      660
+    ],
+    [
+      666,
+      676
+    ],
+    [
+      734,
+      744
+    ],
+    [
+      754,
+      762
+    ],
+    [
+      824,
+      829
+    ],
+    [
+      949,
+      953
+    ],
+    [
+      994,
+      1005.218
+    ]
+  ],
+  "cues": [
+    {
+      "start": 11.34,
+      "end": 12.9,
+      "asrWordRange": [
+        0,
+        4
+      ],
+      "sourceCues": [
+        1
+      ],
+      "text": {
+        "sk": "Dobre, ideme na to.",
+        "cs": "Dobře, jdeme na to."
+      },
+      "alignmentText": "Dobre, ideme na to."
+    },
+    {
+      "start": 14.74,
+      "end": 19.88,
+      "asrWordRange": [
+        4,
+        17
+      ],
+      "sourceCues": [
+        2
+      ],
+      "text": {
+        "sk": "Od mikróbov cez mimikry až po monopóly. Veda nás obklopuje na každom kroku.",
+        "cs": "Od mikrobů přes mimikry až po monopóly. Věda nás obklopuje na každém kroku."
+      },
+      "alignmentText": "Od mikróbov cez mimikry až po monopóly. Veda nás obklopuje na každom kroku."
+    },
+    {
+      "start": 20.24,
+      "end": 24.88,
+      "asrWordRange": [
+        17,
+        30
+      ],
+      "sourceCues": [
+        3
+      ],
+      "text": {
+        "sk": "Vitajte pri Vedátorskom podcaste, v ktorom budeme diskutovať o vede a prírode okolo",
+        "cs": "Vítejte u Vedátorského podcastu, ve kterém budeme diskutovat o vědě a přírodě kolem"
+      },
+      "alignmentText": "Vitajte pri Vedátorskom podcaste, v ktorom budeme diskutovať o vede a prírode okolo"
+    },
+    {
+      "start": 24.88,
+      "end": 27.66,
+      "asrWordRange": [
+        30,
+        39
+      ],
+      "sourceCues": [
+        4
+      ],
+      "text": {
+        "sk": "nás. Moje meno je Jozef. A ja som Samuel.",
+        "cs": "nás. Jmenuji se Jozef. A já jsem Samuel."
+      },
+      "alignmentText": "nás. Moje meno je Jozef. A ja som Samuel."
+    },
+    {
+      "start": 28.83,
+      "end": 34.27,
+      "asrWordRange": [
+        39,
+        47
+      ],
+      "sourceCues": [
+        5
+      ],
+      "text": {
+        "sk": "Ahoj, Samuel. Dnes máme taký krásny názov podcastu,",
+        "cs": "Ahoj, Samuele. Dnes máme takový krásný název podcastu,"
+      },
+      "alignmentText": "Ahoj, Samuel. Dnes máme taký krásny názov podcastu,"
+    },
+    {
+      "start": 34.71,
+      "end": 39.74,
+      "asrWordRange": [
+        47,
+        58
+      ],
+      "sourceCues": [
+        6
+      ],
+      "text": {
+        "sk": "volá sa Valentínsky monopól. Budeme sa rozprávať o tom, ako veľké",
+        "cs": "jmenuje se Valentýnský monopól. Budeme si povídat o tom, jak velké"
+      },
+      "alignmentText": "volá sa Valentínsky monopól. Budeme sa rozprávať o tom, ako veľké"
+    },
+    {
+      "start": 39.74,
+      "end": 44.66,
+      "asrWordRange": [
+        58,
+        66
+      ],
+      "sourceCues": [
+        7
+      ],
+      "text": {
+        "sk": "korporácie využívajú valentínsky sviatok na presadzovanie svojich záujmov?",
+        "cs": "korporace využívají svátek svatého Valentýna k prosazování svých zájmů?"
+      },
+      "alignmentText": "korporácie využívajú valentínsky sviatok na presadzovanie svojich záujmov?"
+    },
+    {
+      "start": 45.4,
+      "end": 48.84,
+      "asrWordRange": [
+        66,
+        73
+      ],
+      "sourceCues": [
+        8
+      ],
+      "text": {
+        "sk": "Nie, je to monopól, čiže fyzikálna častica.",
+        "cs": "Ne, je to monopól, tedy fyzikální částice."
+      },
+      "alignmentText": "Nie, je to monopól, čiže fyzikálna častica."
+    },
+    {
+      "start": 49.74,
+      "end": 54.56,
+      "asrWordRange": [
+        73,
+        84
+      ],
+      "sourceCues": [
+        9
+      ],
+      "text": {
+        "sk": "Dobre, tak poďme sa baviť o fyzikálnom monopóle. Čo je to",
+        "cs": "Dobře, tak se pojďme bavit o fyzikálním monopólu. Co je to"
+      },
+      "alignmentText": "Dobre, tak poďme sa baviť o fyzikálnom monopóle. Čo je to"
+    },
+    {
+      "start": 54.56,
+      "end": 59.36,
+      "asrWordRange": [
+        84,
+        91
+      ],
+      "sourceCues": [
+        10
+      ],
+      "text": {
+        "sk": "monopól a asi aj pre ozrejmenie magnetický monopól?",
+        "cs": "monopól, a asi i pro upřesnění magnetický monopól?"
+      },
+      "alignmentText": "monopól a asi aj pre ozrejmenie magnetický monopól?"
+    },
+    {
+      "start": 60.08,
+      "end": 66.7,
+      "asrWordRange": [
+        91,
+        105
+      ],
+      "sourceCues": [
+        11,
+        12
+      ],
+      "text": {
+        "sk": "Takže monopól, úplne len tak doslovné vysvetlenie je, že častica len s jedným pólom.",
+        "cs": "Takže monopól, úplně jen tak doslovné vysvětlení je, že částice jen s jedním pólem."
+      },
+      "alignmentText": "Takže monopól, úplne len tak doslovné vysvetlenie je, že častica len s jedným pólom."
+    },
+    {
+      "start": 67.99,
+      "end": 69.75,
+      "asrWordRange": [
+        105,
+        109
+      ],
+      "sourceCues": [
+        13
+      ],
+      "text": {
+        "sk": "Ináč povedané, polovica magnetu.",
+        "cs": "Jinak řečeno, polovina magnetu."
+      },
+      "alignmentText": "Ináč povedané, polovica magnetu."
+    },
+    {
+      "start": 70.7,
+      "end": 75.5,
+      "asrWordRange": [
+        109,
+        122
+      ],
+      "sourceCues": [
+        14
+      ],
+      "text": {
+        "sk": "V podstate vždy, keď máme magnet, tak magnet má severnú a južnú stranu.",
+        "cs": "V podstatě vždy, když máme magnet, má severní a jižní stranu."
+      },
+      "alignmentText": "V podstate vždy, keď máme magnet, tak magnet má severnú a južnú stranu."
+    },
+    {
+      "start": 77.08,
+      "end": 81.08,
+      "asrWordRange": [
+        122,
+        138
+      ],
+      "sourceCues": [
+        15
+      ],
+      "text": {
+        "sk": "Severná je priťahovaná k južnej, takže keď spojíš dva magnety, tak sa k sebe tými",
+        "cs": "Severní je přitahována k jižní, takže když spojíš dva magnety, tak se k sobě těmi"
+      },
+      "alignmentText": "Severná je priťahovaná k južnej, takže keď spojíš dva magnety, tak sa k sebe tými"
+    },
+    {
+      "start": 81.08,
+      "end": 84.72,
+      "asrWordRange": [
+        138,
+        145
+      ],
+      "sourceCues": [
+        16
+      ],
+      "text": {
+        "sk": "opačnými koncami pricucnú k sebe alebo prisajú.",
+        "cs": "opačnými konci přicucnou nebo přisají."
+      },
+      "alignmentText": "opačnými koncami pricucnú k sebe alebo prisajú."
+    },
+    {
+      "start": 85.58,
+      "end": 86.78,
+      "asrWordRange": [
+        145,
+        147
+      ],
+      "sourceCues": [
+        17
+      ],
+      "text": {
+        "sk": "Veľmi valentínske.",
+        "cs": "Velmi valentýnské."
+      },
+      "alignmentText": "Veľmi valentínske."
+    },
+    {
+      "start": 89.34,
+      "end": 92.62,
+      "asrWordRange": [
+        147,
+        158
+      ],
+      "sourceCues": [
+        18
+      ],
+      "text": {
+        "sk": "Teda vlastnosť magnetu je, že keď ho rozdelíš na dve polovice,",
+        "cs": "Vlastností magnetu je, že když ho rozdělíš na dvě poloviny,"
+      },
+      "alignmentText": "Teda vlastnosť magnetu je, že keď ho rozdelíš na dve polovice,"
+    },
+    {
+      "start": 93.3,
+      "end": 98.62,
+      "asrWordRange": [
+        158,
+        175
+      ],
+      "sourceCues": [
+        19
+      ],
+      "text": {
+        "sk": "čiže máš sever a juh, presne v strede ho rozpíliš, tak každá z jeho polovíc bude mať",
+        "cs": "tedy máš sever a jih, přesně uprostřed ho rozřízneš, tak každá z jeho polovin bude mít"
+      },
+      "alignmentText": "čiže máš sever a juh, presne v strede ho rozpíliš, tak každá z jeho polovíc bude mať"
+    },
+    {
+      "start": 98.62,
+      "end": 103.52,
+      "asrWordRange": [
+        175,
+        191
+      ],
+      "sourceCues": [
+        20
+      ],
+      "text": {
+        "sk": "znova sever a juh. Čiže nerozdelíš ho na severnú časť magnetu a na južnú časť magnetu,",
+        "cs": "znovu sever a jih. Tedy nerozdělíš ho na severní část magnetu a na jižní část magnetu,"
+      },
+      "alignmentText": "znova sever a juh. Čiže nerozdelíš ho na severnú časť magnetu a na južnú časť magnetu,"
+    },
+    {
+      "start": 104.22,
+      "end": 106.2,
+      "asrWordRange": [
+        191,
+        197
+      ],
+      "sourceCues": [
+        21
+      ],
+      "text": {
+        "sk": "obe budú mať znova oba konce.",
+        "cs": "obě budou mít znovu oba konce."
+      },
+      "alignmentText": "obe budú mať znova oba konce."
+    },
+    {
+      "start": 107.52,
+      "end": 109.52,
+      "asrWordRange": [
+        197,
+        208
+      ],
+      "sourceCues": [
+        22
+      ],
+      "text": {
+        "sk": "Čiže tomu by som povedal, že… Áno, takže to je problém.",
+        "cs": "Takže tomu bych řekl, že… Ano, takže to je problém."
+      },
+      "alignmentText": "Čiže tomu by som povedal, že… Áno, takže to je problém."
+    },
+    {
+      "start": 110.7,
+      "end": 115.66,
+      "asrWordRange": [
+        208,
+        221
+      ],
+      "sourceCues": [
+        23
+      ],
+      "text": {
+        "sk": "Doma si nespravím asi monopól. Doma si nespravíš a otázka, či vôbec",
+        "cs": "Doma si asi nevyrobím monopól. Doma si ho nevyrobíš a otázka je, jestli vůbec"
+      },
+      "alignmentText": "Doma si nespravím asi monopól. Doma si nespravíš a otázka, či vôbec"
+    },
+    {
+      "start": 115.66,
+      "end": 121.02,
+      "asrWordRange": [
+        221,
+        233
+      ],
+      "sourceCues": [
+        24
+      ],
+      "text": {
+        "sk": "magnetické monopóly existujú. A teda magnetický monopól by bol magnet, ktorý by mal",
+        "cs": "magnetické monopóly existují. Magnetický monopól by tedy byl magnet, který by měl"
+      },
+      "alignmentText": "magnetické monopóly existujú. A teda magnetický monopól by bol magnet, ktorý by mal"
+    },
+    {
+      "start": 121.02,
+      "end": 123.62,
+      "asrWordRange": [
+        233,
+        239
+      ],
+      "sourceCues": [
+        25
+      ],
+      "text": {
+        "sk": "iba sever napríklad alebo iba juh.",
+        "cs": "třeba jen sever, nebo jen jih."
+      },
+      "alignmentText": "iba sever napríklad alebo iba juh."
+    },
+    {
+      "start": 124.63,
+      "end": 130.23,
+      "asrWordRange": [
+        239,
+        252
+      ],
+      "sourceCues": [
+        26
+      ],
+      "text": {
+        "sk": "A kde takéto magnety môžu existovať? Alebo že prečo si myslíme, že by",
+        "cs": "A kde takové magnety mohou existovat? Nebo proč si myslíme, že by"
+      },
+      "alignmentText": "A kde takéto magnety môžu existovať? Alebo že prečo si myslíme, že by"
+    },
+    {
+      "start": 130.23,
+      "end": 136.81,
+      "asrWordRange": [
+        252,
+        266
+      ],
+      "sourceCues": [
+        27,
+        28
+      ],
+      "text": {
+        "sk": "magnet, ktorý má len buď sever, alebo juh, alebo plus, alebo mínus, môže existovať?",
+        "cs": "magnet, který má jen buď sever, nebo jih, nebo plus, nebo minus, mohl existovat?"
+      },
+      "alignmentText": "magnet, ktorý má len buď sever, alebo juh, alebo plus, alebo mínus, môže existovať?"
+    },
+    {
+      "start": 137.63,
+      "end": 143.09,
+      "asrWordRange": [
+        266,
+        278
+      ],
+      "sourceCues": [
+        29
+      ],
+      "text": {
+        "sk": "No, máme k tomu nepriame dôkazy. Pri súde by možno takýto počet",
+        "cs": "Máme pro to nepřímé důkazy. U soudu by možná takový počet"
+      },
+      "alignmentText": "No, máme k tomu nepriame dôkazy. Pri súde by možno takýto počet"
+    },
+    {
+      "start": 143.09,
+      "end": 148.25,
+      "asrWordRange": [
+        278,
+        292
+      ],
+      "sourceCues": [
+        30
+      ],
+      "text": {
+        "sk": "nepriamych dôkazov obstál a nahradil by jeden priamy dôkaz, ale tak teda poviem, aké",
+        "cs": "nepřímých důkazů obstál a nahradil by jeden přímý důkaz, ale tedy povím, jaké"
+      },
+      "alignmentText": "nepriamych dôkazov obstál a nahradil by jeden priamy dôkaz, ale tak teda poviem, aké"
+    },
+    {
+      "start": 148.25,
+      "end": 150.99,
+      "asrWordRange": [
+        292,
+        301
+      ],
+      "sourceCues": [
+        31
+      ],
+      "text": {
+        "sk": "máme tie nepriame dôkazy, a nechám teda na posúdenie.",
+        "cs": "máme nepřímé důkazy, a nechám to na posouzení."
+      },
+      "alignmentText": "máme tie nepriame dôkazy, a nechám teda na posúdenie."
+    },
+    {
+      "start": 152.75,
+      "end": 156.07,
+      "asrWordRange": [
+        301,
+        307
+      ],
+      "sourceCues": [
+        32
+      ],
+      "text": {
+        "sk": "Prvou indíciou sú Maxwellove rovnice.",
+        "cs": "První indicií jsou Maxwellovy rovnice."
+      },
+      "alignmentText": "Prvou indíciou sú Maxwellove rovnice."
+    },
+    {
+      "start": 156.89,
+      "end": 161.83,
+      "asrWordRange": [
+        307,
+        320
+      ],
+      "sourceCues": [
+        33
+      ],
+      "text": {
+        "sk": "Maxwellove rovnice sú jeden z najväčších objavov fyziky alebo možno aj ľudstva vôbec.",
+        "cs": "Maxwellovy rovnice jsou jedním z největších objevů fyziky, nebo možná i lidstva vůbec."
+      },
+      "alignmentText": "Maxwellove rovnice sú jeden z najväčších objavov fyziky alebo možno aj ľudstva vôbec."
+    },
+    {
+      "start": 162.62,
+      "end": 167.5,
+      "asrWordRange": [
+        320,
+        330
+      ],
+      "sourceCues": [
+        34
+      ],
+      "text": {
+        "sk": "Sú to rovnice, ktoré opisujú, ako funguje elektrina, magnetizmus, optika,",
+        "cs": "Jsou to rovnice, které popisují, jak funguje elektřina, magnetismus, optika,"
+      },
+      "alignmentText": "Sú to rovnice, ktoré opisujú, ako funguje elektrina, magnetizmus, optika,"
+    },
+    {
+      "start": 168.08,
+      "end": 170.4,
+      "asrWordRange": [
+        330,
+        338
+      ],
+      "sourceCues": [
+        35
+      ],
+      "text": {
+        "sk": "všetky tieto veci krásne spojené v jeden celok.",
+        "cs": "všechny tyto věci krásně spojené v jeden celek."
+      },
+      "alignmentText": "všetky tieto veci krásne spojené v jeden celok."
+    },
+    {
+      "start": 171.54,
+      "end": 173.12,
+      "asrWordRange": [
+        338,
+        343
+      ],
+      "sourceCues": [
+        36
+      ],
+      "text": {
+        "sk": "A tie rovnice sú štyri,",
+        "cs": "A ty rovnice jsou čtyři,"
+      },
+      "alignmentText": "A tie rovnice sú štyri,"
+    },
+    {
+      "start": 173.88,
+      "end": 176.72,
+      "asrWordRange": [
+        343,
+        352
+      ],
+      "sourceCues": [
+        37
+      ],
+      "text": {
+        "sk": "tvoria dva páry. Znovu, aby sme zneli tak valentínsky.",
+        "cs": "tvoří dva páry. Znovu, abychom zněli tak valentýnsky."
+      },
+      "alignmentText": "tvoria dva páry. Znovu, aby sme zneli tak valentínsky."
+    },
+    {
+      "start": 179.31,
+      "end": 184.87,
+      "asrWordRange": [
+        352,
+        366
+      ],
+      "sourceCues": [
+        38
+      ],
+      "text": {
+        "sk": "No a na týchto rovniciach je takáto vec veľmi zvláštna, že rovnica má ľavú",
+        "cs": "A na těchto rovnicích je velmi zvláštní taková věc, že rovnice má levou"
+      },
+      "alignmentText": "No a na týchto rovniciach je takáto vec veľmi zvláštna, že rovnica má ľavú"
+    },
+    {
+      "start": 184.87,
+      "end": 190.27,
+      "asrWordRange": [
+        366,
+        383
+      ],
+      "sourceCues": [
+        39
+      ],
+      "text": {
+        "sk": "stranu a pravú stranu. A medzi nimi je rovná sa, preto sa to volá rovnica. A teraz,",
+        "cs": "stranu a pravou stranu. A mezi nimi je rovná se, proto se tomu říká rovnice. A teď,"
+      },
+      "alignmentText": "stranu a pravú stranu. A medzi nimi je rovná sa, preto sa to volá rovnica. A teraz,"
+    },
+    {
+      "start": 190.39,
+      "end": 196.47,
+      "asrWordRange": [
+        383,
+        400
+      ],
+      "sourceCues": [
+        40,
+        41
+      ],
+      "text": {
+        "sk": "že ľavé strany tých rovníc sa na seba strašne podobajú. Úplne, že akoby ich jedna mať mala.",
+        "cs": "levé strany těch rovnic se sobě strašně podobají. Úplně, jako by je jedna matka měla."
+      },
+      "alignmentText": "že ľavé strany tých rovníc sa na seba strašne podobajú. Úplne, že akoby ich jedna mať mala."
+    },
+    {
+      "start": 197.84,
+      "end": 203.26,
+      "asrWordRange": [
+        400,
+        414
+      ],
+      "sourceCues": [
+        42
+      ],
+      "text": {
+        "sk": "Pravé strany rovníc sa na seba úplne nepodobajú. Na jednej strane je nula,",
+        "cs": "Pravé strany rovnic se sobě úplně nepodobají. Na jedné straně je nula,"
+      },
+      "alignmentText": "Pravé strany rovníc sa na seba úplne nepodobajú. Na jednej strane je nula,"
+    },
+    {
+      "start": 203.26,
+      "end": 206.54,
+      "asrWordRange": [
+        414,
+        426
+      ],
+      "sourceCues": [
+        43
+      ],
+      "text": {
+        "sk": "v jednej rovnici je nula a v druhej je niečo iné nenulové.",
+        "cs": "v jedné rovnici je nula a v druhé je něco jiného, nenulového."
+      },
+      "alignmentText": "v jednej rovnici je nula a v druhej je niečo iné nenulové."
+    },
+    {
+      "start": 208.37,
+      "end": 212.47,
+      "asrWordRange": [
+        426,
+        439
+      ],
+      "sourceCues": [
+        44
+      ],
+      "text": {
+        "sk": "Tá nenulová časť vlastne zodpovedá tomu, že existujú elektrické náboje, ktoré sú buď",
+        "cs": "Ta nenulová část vlastně odpovídá tomu, že existují elektrické náboje, které jsou buď"
+      },
+      "alignmentText": "Tá nenulová časť vlastne zodpovedá tomu, že existujú elektrické náboje, ktoré sú buď"
+    },
+    {
+      "start": 212.47,
+      "end": 218.39,
+      "asrWordRange": [
+        439,
+        450
+      ],
+      "sourceCues": [
+        45,
+        46
+      ],
+      "text": {
+        "sk": "kladné, alebo záporné. V prírode máme záporné elektróny, máme kladné protóny.",
+        "cs": "kladné, nebo záporné. V přírodě máme záporné elektrony, máme kladné protony."
+      },
+      "alignmentText": "kladné, alebo záporné. V prírode máme záporné elektróny, máme kladné protóny."
+    },
+    {
+      "start": 219.15,
+      "end": 223.43,
+      "asrWordRange": [
+        450,
+        462
+      ],
+      "sourceCues": [
+        47
+      ],
+      "text": {
+        "sk": "A hmota môže existovať s ľubovoľným elektrickým nábojom. Vieme ten náboj odtrhnúť,",
+        "cs": "A hmota může existovat s libovolným elektrickým nábojem. Umíme ten náboj odtrhnout,"
+      },
+      "alignmentText": "A hmota môže existovať s ľubovoľným elektrickým nábojom. Vieme ten náboj odtrhnúť,"
+    },
+    {
+      "start": 223.55,
+      "end": 226.83,
+      "asrWordRange": [
+        462,
+        468
+      ],
+      "sourceCues": [
+        48
+      ],
+      "text": {
+        "sk": "zahodiť, zobrať, rozdeliť bez problémov, hocičo.",
+        "cs": "zahodit, vzít, rozdělit bez problémů, cokoli."
+      },
+      "alignmentText": "zahodiť, zobrať, rozdeliť bez problémov, hocičo."
+    },
+    {
+      "start": 227.92,
+      "end": 232.1,
+      "asrWordRange": [
+        468,
+        477
+      ],
+      "sourceCues": [
+        49
+      ],
+      "text": {
+        "sk": "Tá nula v druhej polovici rovníc na pravej strane",
+        "cs": "Ta nula v druhé polovině rovnic na pravé straně"
+      },
+      "alignmentText": "Tá nula v druhej polovici rovníc na pravej strane"
+    },
+    {
+      "start": 232.84,
+      "end": 237.7,
+      "asrWordRange": [
+        477,
+        489
+      ],
+      "sourceCues": [
+        50
+      ],
+      "text": {
+        "sk": "hovorí, že neexistujú magnetické monopóly. Čiže tá vlastnosť, ktorú sme hovorili, že",
+        "cs": "říká, že neexistují magnetické monopóly. Tedy ta vlastnost, o které jsme mluvili, že"
+      },
+      "alignmentText": "hovorí, že neexistujú magnetické monopóly. Čiže tá vlastnosť, ktorú sme hovorili, že"
+    },
+    {
+      "start": 237.7,
+      "end": 239.48,
+      "asrWordRange": [
+        489,
+        496
+      ],
+      "sourceCues": [
+        51
+      ],
+      "text": {
+        "sk": "magnet sa nedá rozdeliť na dve časti.",
+        "cs": "magnet nejde rozdělit na dvě části."
+      },
+      "alignmentText": "magnet sa nedá rozdeliť na dve časti."
+    },
+    {
+      "start": 240.32,
+      "end": 243.52,
+      "asrWordRange": [
+        496,
+        504
+      ],
+      "sourceCues": [
+        52
+      ],
+      "text": {
+        "sk": "Nemôžeš odtrhnúť severnú časť od južnej a naopak.",
+        "cs": "Nemůžeš odtrhnout severní část od jižní a naopak."
+      },
+      "alignmentText": "Nemôžeš odtrhnúť severnú časť od južnej a naopak."
+    },
+    {
+      "start": 245.77,
+      "end": 251.1,
+      "asrWordRange": [
+        504,
+        521
+      ],
+      "sourceCues": [
+        53
+      ],
+      "text": {
+        "sk": "A teda na jednej strane sa tie rovnice na seba podobajú a na druhej strane je tam",
+        "cs": "A tedy na jedné straně se ty rovnice sobě podobají a na druhé straně je tam"
+      },
+      "alignmentText": "A teda na jednej strane sa tie rovnice na seba podobajú a na druhej strane je tam"
+    },
+    {
+      "start": 251.1,
+      "end": 256.22,
+      "asrWordRange": [
+        521,
+        536
+      ],
+      "sourceCues": [
+        54
+      ],
+      "text": {
+        "sk": "takýto úplne brutálny rozdiel medzi nimi, že čo sa týka elektrického náboja, tak sa dá",
+        "cs": "takový úplně brutální rozdíl mezi nimi, že pokud jde o elektrický náboj, tak jde"
+      },
+      "alignmentText": "takýto úplne brutálny rozdiel medzi nimi, že čo sa týka elektrického náboja, tak sa dá"
+    },
+    {
+      "start": 256.22,
+      "end": 262.16,
+      "asrWordRange": [
+        536,
+        551
+      ],
+      "sourceCues": [
+        55,
+        56
+      ],
+      "text": {
+        "sk": "rozdeliť na plusky a mínusky. A magnetický náboj sa nedá rozdeliť na sever a juh.",
+        "cs": "rozdělit na plusy a minusy. A magnetický náboj nejde rozdělit na sever a jih."
+      },
+      "alignmentText": "rozdeliť na plusky a mínusky. A magnetický náboj sa nedá rozdeliť na sever a juh."
+    },
+    {
+      "start": 263.78,
+      "end": 269.32,
+      "asrWordRange": [
+        551,
+        568
+      ],
+      "sourceCues": [
+        57
+      ],
+      "text": {
+        "sk": "Tak niekto pomerne prirodzene povedal, že tak čo keď sa to dá, len my to nedokážeme. Čo",
+        "cs": "Tak někdo docela přirozeně řekl, že co když to jde, jen my to nedokážeme. Co"
+      },
+      "alignmentText": "Tak niekto pomerne prirodzene povedal, že tak čo keď sa to dá, len my to nedokážeme. Čo"
+    },
+    {
+      "start": 269.32,
+      "end": 271.3,
+      "asrWordRange": [
+        568,
+        573
+      ],
+      "sourceCues": [
+        58
+      ],
+      "text": {
+        "sk": "keď naozaj existujú polovice magnetov,",
+        "cs": "když opravdu existují poloviny magnetů,"
+      },
+      "alignmentText": "keď naozaj existujú polovice magnetov,"
+    },
+    {
+      "start": 272.05,
+      "end": 276.29,
+      "asrWordRange": [
+        573,
+        589
+      ],
+      "sourceCues": [
+        59
+      ],
+      "text": {
+        "sk": "a tie rovnice vďaka tomu sú také symetrické, ako sa javia aj na tej druhej strane,",
+        "cs": "a ty rovnice jsou díky tomu tak symetrické, jak se jeví i na té druhé straně,"
+      },
+      "alignmentText": "a tie rovnice vďaka tomu sú také symetrické, ako sa javia aj na tej druhej strane,"
+    },
+    {
+      "start": 277.24,
+      "end": 281.86,
+      "asrWordRange": [
+        589,
+        596
+      ],
+      "sourceCues": [
+        60
+      ],
+      "text": {
+        "sk": "ale len sme taký polomagnet nedokázali vyrobiť.",
+        "cs": "ale jen jsme takový polomagnet nedokázali vyrobit."
+      },
+      "alignmentText": "ale len sme taký polomagnet nedokázali vyrobiť."
+    },
+    {
+      "start": 282.34,
+      "end": 287.45,
+      "asrWordRange": [
+        596,
+        606
+      ],
+      "sourceCues": [
+        61
+      ],
+      "text": {
+        "sk": "A toto je taký nápad, ktorý teda prišiel zhruba pred",
+        "cs": "A tohle je takový nápad, který tedy přišel zhruba před"
+      },
+      "alignmentText": "A toto je taký nápad, ktorý teda prišiel zhruba pred"
+    },
+    {
+      "start": 287.45,
+      "end": 292.85,
+      "asrWordRange": [
+        606,
+        620
+      ],
+      "sourceCues": [
+        62
+      ],
+      "text": {
+        "sk": "storočím, plus-mínus. Opakuje sa to asi každých 10–20 rokov, taká vlna",
+        "cs": "stoletím, plus minus. Opakuje se to asi každých 10–20 let, taková vlna"
+      },
+      "alignmentText": "storočím, plus-mínus. Opakuje sa to asi každých desať dvadsať rokov, taká vlna"
+    },
+    {
+      "start": 292.85,
+      "end": 294.55,
+      "asrWordRange": [
+        620,
+        624
+      ],
+      "sourceCues": [
+        63
+      ],
+      "text": {
+        "sk": "záujmu o tieto polomagnety.",
+        "cs": "zájmu o tyto polomagnety."
+      },
+      "alignmentText": "záujmu o tieto polomagnety."
+    },
+    {
+      "start": 296.03,
+      "end": 301.29,
+      "asrWordRange": [
+        624,
+        636
+      ],
+      "sourceCues": [
+        64
+      ],
+      "text": {
+        "sk": "O tieto monopóly. O tieto monopóly, áno. Ale teda úplne prapôvodne to",
+        "cs": "O tyto monopóly. O tyto monopóly, ano. Ale úplně původně to"
+      },
+      "alignmentText": "O tieto monopóly. O tieto monopóly, áno. Ale teda úplne prapôvodne to"
+    },
+    {
+      "start": 301.29,
+      "end": 306.67,
+      "asrWordRange": [
+        636,
+        648
+      ],
+      "sourceCues": [
+        65
+      ],
+      "text": {
+        "sk": "vychádza z Maxwellových rovníc a teda z toho, že boli by symetrickejšie,",
+        "cs": "vychází z Maxwellových rovnic a tedy z toho, že by byly symetričtější,"
+      },
+      "alignmentText": "vychádza z Maxwellových rovníc a teda z toho, že boli by symetrickejšie,"
+    },
+    {
+      "start": 306.89,
+      "end": 311.58,
+      "asrWordRange": [
+        648,
+        660
+      ],
+      "sourceCues": [
+        66
+      ],
+      "text": {
+        "sk": "keby existovali aj polovičky magnetu. A pre časť teoretických fyzikov je toto",
+        "cs": "kdyby existovaly i poloviny magnetu. A pro část teoretických fyziků je tohle"
+      },
+      "alignmentText": "keby existovali aj polovičky magnetu. A pre časť teoretických fyzikov je toto"
+    },
+    {
+      "start": 311.58,
+      "end": 315.72,
+      "asrWordRange": [
+        660,
+        672
+      ],
+      "sourceCues": [
+        67
+      ],
+      "text": {
+        "sk": "dostatočne silná motivácia, aby sa im venovali ďalej. Ale iba na papieri.",
+        "cs": "dostatečně silná motivace, aby se jim věnovali dál. Ale jen na papíře."
+      },
+      "alignmentText": "dostatočne silná motivácia, aby sa im venovali ďalej. Ale iba na papieri."
+    },
+    {
+      "start": 316.92,
+      "end": 322.48,
+      "asrWordRange": [
+        672,
+        685
+      ],
+      "sourceCues": [
+        68
+      ],
+      "text": {
+        "sk": "Takže by sa upravili aj tie rovnice Maxwellove. Áno, mali by proste symetrickejší",
+        "cs": "Takže by se upravily i ty Maxwellovy rovnice. Ano, měly by prostě symetričtější"
+      },
+      "alignmentText": "Takže by sa upravili aj tie rovnice Maxwellove. Áno, mali by proste symetrickejší"
+    },
+    {
+      "start": 322.48,
+      "end": 327.14,
+      "asrWordRange": [
+        685,
+        701
+      ],
+      "sourceCues": [
+        69
+      ],
+      "text": {
+        "sk": "tvar, čo je úplne zlý argument, lebo zase však keď neexistujú, tak to proste nie je",
+        "cs": "tvar, což je úplně špatný argument, protože když neexistují, tak to prostě není"
+      },
+      "alignmentText": "tvar, čo je úplne zlý argument, lebo zase však keď neexistujú, tak to proste nie je"
+    },
+    {
+      "start": 327.14,
+      "end": 331.56,
+      "asrWordRange": [
+        701,
+        713
+      ],
+      "sourceCues": [
+        70
+      ],
+      "text": {
+        "sk": "chyba prírody, ale teda naštartovalo to fyzikov, že poďme rozmýšľať, že keby",
+        "cs": "chyba přírody, ale nastartovalo to fyziky, že pojďme přemýšlet, že kdyby"
+      },
+      "alignmentText": "chyba prírody, ale teda naštartovalo to fyzikov, že poďme rozmýšľať, že keby"
+    },
+    {
+      "start": 331.56,
+      "end": 334.68,
+      "asrWordRange": [
+        713,
+        723
+      ],
+      "sourceCues": [
+        71
+      ],
+      "text": {
+        "sk": "existovali, ako by sme ich dokázali a ako by sa prejavili.",
+        "cs": "existovaly, jak bychom je dokázali a jak by se projevily."
+      },
+      "alignmentText": "existovali, ako by sme ich dokázali a ako by sa prejavili."
+    },
+    {
+      "start": 335.47,
+      "end": 339.21,
+      "asrWordRange": [
+        723,
+        730
+      ],
+      "sourceCues": [
+        72
+      ],
+      "text": {
+        "sk": "Aké by boli dôsledky existencie magnetických monopólov.",
+        "cs": "Jaké by byly důsledky existence magnetických monopólů."
+      },
+      "alignmentText": "Aké by boli dôsledky existencie magnetických monopólov."
+    },
+    {
+      "start": 340.55,
+      "end": 343.23,
+      "asrWordRange": [
+        730,
+        738
+      ],
+      "sourceCues": [
+        73
+      ],
+      "text": {
+        "sk": "A táto teória sa buduje už asi storočie.",
+        "cs": "A tato teorie se buduje už asi století."
+      },
+      "alignmentText": "A táto teória sa buduje už asi storočie."
+    },
+    {
+      "start": 344.19,
+      "end": 346.63,
+      "asrWordRange": [
+        738,
+        744
+      ],
+      "sourceCues": [
+        74
+      ],
+      "text": {
+        "sk": "A zistilo sa niekoľko zaujímavých vecí.",
+        "cs": "A zjistilo se několik zajímavých věcí."
+      },
+      "alignmentText": "A zistilo sa niekoľko zaujímavých vecí."
+    },
+    {
+      "start": 348.41,
+      "end": 353.53,
+      "asrWordRange": [
+        744,
+        755
+      ],
+      "sourceCues": [
+        75
+      ],
+      "text": {
+        "sk": "Prvá a pre mňa osobne najzaujímavejšia vec je, že ak by",
+        "cs": "První a pro mě osobně nejzajímavější věc je, že kdyby"
+      },
+      "alignmentText": "Prvá a pre mňa osobne najzaujímavejšia vec je, že ak by"
+    },
+    {
+      "start": 353.53,
+      "end": 356.71,
+      "asrWordRange": [
+        755,
+        764
+      ],
+      "sourceCues": [
+        76
+      ],
+      "text": {
+        "sk": "existoval aspoň jeden magnetický monopól hocikde vo vesmíre,",
+        "cs": "existoval aspoň jeden magnetický monopól kdekoli ve vesmíru,"
+      },
+      "alignmentText": "existoval aspoň jeden magnetický monopól hocikde vo vesmíre,"
+    },
+    {
+      "start": 357.97,
+      "end": 362.21,
+      "asrWordRange": [
+        764,
+        778
+      ],
+      "sourceCues": [
+        77
+      ],
+      "text": {
+        "sk": "tak by sme rozumeli tomu, prečo sa elektrický náboj nachádza len v takých násobkoch.",
+        "cs": "tak bychom rozuměli tomu, proč se elektrický náboj nachází jen v takových násobcích."
+      },
+      "alignmentText": "tak by sme rozumeli tomu, prečo sa elektrický náboj nachádza len v takých násobkoch."
+    },
+    {
+      "start": 363.01,
+      "end": 367.31,
+      "asrWordRange": [
+        778,
+        791
+      ],
+      "sourceCues": [
+        78
+      ],
+      "text": {
+        "sk": "Môžeš mať jeden elektrón, ale nemôžeš mať, alebo teda môžeš mať náboj jedného",
+        "cs": "Můžeš mít jeden elektron, ale nemůžeš mít, nebo tedy můžeš mít náboj jednoho"
+      },
+      "alignmentText": "Môžeš mať jeden elektrón, ale nemôžeš mať, alebo teda môžeš mať náboj jedného"
+    },
+    {
+      "start": 367.31,
+      "end": 369.71,
+      "asrWordRange": [
+        791,
+        800
+      ],
+      "sourceCues": [
+        79
+      ],
+      "text": {
+        "sk": "elektrónu, ale nemôžeš mať jeden a pol toho náboja.",
+        "cs": "elektronu, ale nemůžeš mít jeden a půl toho náboje."
+      },
+      "alignmentText": "elektrónu, ale nemôžeš mať jeden a pol toho náboja."
+    },
+    {
+      "start": 370.66,
+      "end": 374.92,
+      "asrWordRange": [
+        800,
+        813
+      ],
+      "sourceCues": [
+        80
+      ],
+      "text": {
+        "sk": "Je to len po celých číslach. Jednonásobok, dvojnásobok, trojnásobok a nič medzi tým.",
+        "cs": "Je to jen po celých číslech. Jednonásobek, dvojnásobek, trojnásobek a nic mezi tím."
+      },
+      "alignmentText": "Je to len po celých číslach. Jednonásobok, dvojnásobok, trojnásobok a nič medzi tým."
+    },
+    {
+      "start": 376.1,
+      "end": 381.38,
+      "asrWordRange": [
+        813,
+        825
+      ],
+      "sourceCues": [
+        81
+      ],
+      "text": {
+        "sk": "Čo je taká zvláštna vlastnosť elektrického náboja, ktorej nerozumieme. Ale ak by",
+        "cs": "Což je taková zvláštní vlastnost elektrického náboje, které nerozumíme. Ale kdyby"
+      },
+      "alignmentText": "Čo je taká zvláštna vlastnosť elektrického náboja, ktorej nerozumieme. Ale ak by"
+    },
+    {
+      "start": 381.38,
+      "end": 386.64,
+      "asrWordRange": [
+        825,
+        839
+      ],
+      "sourceCues": [
+        82
+      ],
+      "text": {
+        "sk": "existoval aspoň jeden magnetický monopól, tak ten by bol dostačujúci na to, aby sme",
+        "cs": "existoval aspoň jeden magnetický monopól, tak by stačil k tomu, abychom"
+      },
+      "alignmentText": "existoval aspoň jeden magnetický monopól, tak ten by bol dostačujúci na to, aby sme"
+    },
+    {
+      "start": 386.64,
+      "end": 387.32,
+      "asrWordRange": [
+        839,
+        841
+      ],
+      "sourceCues": [
+        83
+      ],
+      "text": {
+        "sk": "tomu rozumeli.",
+        "cs": "tomu rozuměli."
+      },
+      "alignmentText": "tomu rozumeli."
+    },
+    {
+      "start": 388.75,
+      "end": 393.35,
+      "asrWordRange": [
+        841,
+        856
+      ],
+      "sourceCues": [
+        84
+      ],
+      "text": {
+        "sk": "A potom začali fyzici viacej pracovať na tejto teórii, lebo toto sa im zrazu strašne",
+        "cs": "A potom začali fyzici více pracovat na této teorii, protože tohle se jim najednou strašně"
+      },
+      "alignmentText": "A potom začali fyzici viacej pracovať na tejto teórii, lebo toto sa im zrazu strašne"
+    },
+    {
+      "start": 393.35,
+      "end": 398.81,
+      "asrWordRange": [
+        856,
+        868
+      ],
+      "sourceCues": [
+        85
+      ],
+      "text": {
+        "sk": "páčilo, že ak by existovali magnetické monopóly, tak rozumieme lepšie vlastnostiam",
+        "cs": "líbilo, že kdyby existovaly magnetické monopóly, tak lépe rozumíme vlastnostem"
+      },
+      "alignmentText": "páčilo, že ak by existovali magnetické monopóly, tak rozumieme lepšie vlastnostiam"
+    },
+    {
+      "start": 398.81,
+      "end": 402.47,
+      "asrWordRange": [
+        868,
+        878
+      ],
+      "sourceCues": [
+        86
+      ],
+      "text": {
+        "sk": "elektromagnetizmu, že prečo sa náboj vyskytuje iba v takých násobkoch.",
+        "cs": "elektromagnetismu, proč se náboj vyskytuje jen v takových násobcích."
+      },
+      "alignmentText": "elektromagnetizmu, že prečo sa náboj vyskytuje iba v takých násobkoch."
+    },
+    {
+      "start": 404.32,
+      "end": 406.72,
+      "asrWordRange": [
+        878,
+        887
+      ],
+      "sourceCues": [
+        87
+      ],
+      "text": {
+        "sk": "No a potom vlastne fyzici vypátrali takú vec, že",
+        "cs": "A potom vlastně fyzici vypátrali takovou věc, že"
+      },
+      "alignmentText": "No a potom vlastne fyzici vypátrali takú vec, že"
+    },
+    {
+      "start": 407.58,
+      "end": 410.4,
+      "asrWordRange": [
+        887,
+        893
+      ],
+      "sourceCues": [
+        88
+      ],
+      "text": {
+        "sk": "oni vlastne asi predsa len existujú,",
+        "cs": "vlastně asi přece jen existují,"
+      },
+      "alignmentText": "oni vlastne asi predsa len existujú,"
+    },
+    {
+      "start": 411.14,
+      "end": 412.78,
+      "asrWordRange": [
+        893,
+        897
+      ],
+      "sourceCues": [
+        89
+      ],
+      "text": {
+        "sk": "ale sú nesmierne ťažké.",
+        "cs": "ale jsou nesmírně těžké."
+      },
+      "alignmentText": "ale sú nesmierne ťažké."
+    },
+    {
+      "start": 415.35,
+      "end": 420.17,
+      "asrWordRange": [
+        897,
+        907
+      ],
+      "sourceCues": [
+        90
+      ],
+      "text": {
+        "sk": "Ono, tá skutočná hmotnosť je taký zlomok gramu napríklad,",
+        "cs": "Ta skutečná hmotnost je třeba takový zlomek gramu,"
+      },
+      "alignmentText": "Ono, tá skutočná hmotnosť je taký zlomok gramu napríklad,"
+    },
+    {
+      "start": 421.05,
+      "end": 425.79,
+      "asrWordRange": [
+        907,
+        919
+      ],
+      "sourceCues": [
+        91
+      ],
+      "text": {
+        "sk": "čo z nášho pohľadu je strašne málo, ale je to",
+        "cs": "což je z našeho pohledu strašně málo, ale je to"
+      },
+      "alignmentText": "čo z nášho pohľadu je strašne málo, ale je to"
+    },
+    {
+      "start": 425.79,
+      "end": 428.81,
+      "asrWordRange": [
+        919,
+        928
+      ],
+      "sourceCues": [
+        92
+      ],
+      "text": {
+        "sk": "miliardukrát viac než hociaká elementárna častica.",
+        "cs": "miliardkrát víc než jakákoli elementární částice."
+      },
+      "alignmentText": "miliardukrát viac než hociaká elementárna častica."
+    },
+    {
+      "start": 430.15,
+      "end": 435.25,
+      "asrWordRange": [
+        928,
+        942
+      ],
+      "sourceCues": [
+        93
+      ],
+      "text": {
+        "sk": "Čiže ako elementárna častica sú strašne ťažké a teda nedokážeme ich vyrobiť v CERNe",
+        "cs": "Takže jako elementární částice jsou strašně těžké a nedokážeme je vyrobit v CERNu"
+      },
+      "alignmentText": "Čiže ako elementárna častica sú strašne ťažké a teda nedokážeme ich vyrobiť v cerne"
+    },
+    {
+      "start": 435.25,
+      "end": 436.57,
+      "asrWordRange": [
+        942,
+        947
+      ],
+      "sourceCues": [
+        94
+      ],
+      "text": {
+        "sk": "ani v inom urýchľovači.",
+        "cs": "ani v jiném urychlovači."
+      },
+      "alignmentText": "ani v inom urýchľovači."
+    },
+    {
+      "start": 438.17,
+      "end": 443.09,
+      "asrWordRange": [
+        947,
+        962
+      ],
+      "sourceCues": [
+        95
+      ],
+      "text": {
+        "sk": "Kvôli tej svojej hmotnosti. Áno. Tá hmotnosť to nedovoľuje. E sa rovná mc na druhú,",
+        "cs": "Kvůli té své hmotnosti. Ano. Ta hmotnost to nedovoluje. E se rovná mc na druhou,"
+      },
+      "alignmentText": "Kvôli tej svojej hmotnosti. Áno. Tá hmotnosť to nedovoľuje. E sa rovná mc na druhú,"
+    },
+    {
+      "start": 443.21,
+      "end": 448.25,
+      "asrWordRange": [
+        962,
+        976
+      ],
+      "sourceCues": [
+        96
+      ],
+      "text": {
+        "sk": "čiže vysoká hmotnosť znamená vysoká energia a CERN nemá dostatočnú energiu na to, aby",
+        "cs": "tedy vysoká hmotnost znamená vysokou energii a CERN nemá dostatečnou energii, aby"
+      },
+      "alignmentText": "čiže vysoká hmotnosť znamená vysoká energia a cern nemá dostatočnú energiu na to, aby"
+    },
+    {
+      "start": 448.25,
+      "end": 449.55,
+      "asrWordRange": [
+        976,
+        979
+      ],
+      "sourceCues": [
+        97
+      ],
+      "text": {
+        "sk": "vyrobil polovicu magnetu.",
+        "cs": "vyrobil polovinu magnetu."
+      },
+      "alignmentText": "vyrobil polovicu magnetu."
+    },
+    {
+      "start": 450.85,
+      "end": 455.22,
+      "asrWordRange": [
+        979,
+        993
+      ],
+      "sourceCues": [
+        98
+      ],
+      "text": {
+        "sk": "Čo bolo v niečom také uspokojivé, že zrazu rozumieme vlastne, prečo tie polomagnety",
+        "cs": "Což bylo v něčem tak uspokojivé, že najednou vlastně rozumíme, proč ty polomagnety"
+      },
+      "alignmentText": "Čo bolo v niečom také uspokojivé, že zrazu rozumieme vlastne, prečo tie polomagnety"
+    },
+    {
+      "start": 455.22,
+      "end": 460.4,
+      "asrWordRange": [
+        993,
+        1004
+      ],
+      "sourceCues": [
+        99
+      ],
+      "text": {
+        "sk": "nevidíme. Že ak aj existujú, tak sú mimo dosahu našich experimentov",
+        "cs": "nevidíme. Že i když existují, tak jsou mimo dosah našich experimentů"
+      },
+      "alignmentText": "nevidíme. Že ak aj existujú, tak sú mimo dosahu našich experimentov"
+    },
+    {
+      "start": 460.4,
+      "end": 463.34,
+      "asrWordRange": [
+        1004,
+        1012
+      ],
+      "sourceCues": [
+        100
+      ],
+      "text": {
+        "sk": "aj bežných procesov, ktoré sa dejú v prírode.",
+        "cs": "i běžných procesů, které se dějí v přírodě."
+      },
+      "alignmentText": "aj bežných procesov, ktoré sa dejú v prírode."
+    },
+    {
+      "start": 464.22,
+      "end": 468.82,
+      "asrWordRange": [
+        1012,
+        1023
+      ],
+      "sourceCues": [
+        101
+      ],
+      "text": {
+        "sk": "Kvôli tej svojej veľkej hmotnosti. Kvôli svojej strašne vysokej hmotnosti, áno.",
+        "cs": "Kvůli té své velké hmotnosti. Kvůli své strašně vysoké hmotnosti, ano."
+      },
+      "alignmentText": "Kvôli tej svojej veľkej hmotnosti. Kvôli svojej strašne vysokej hmotnosti, áno."
+    },
+    {
+      "start": 470.19,
+      "end": 474.89,
+      "asrWordRange": [
+        1023,
+        1036
+      ],
+      "sourceCues": [
+        102
+      ],
+      "text": {
+        "sk": "Na rozdiel od takých napríklad elektrónov, ktoré sú veľmi ľahučké a vznikajú kade-tade.",
+        "cs": "Na rozdíl třeba od elektronů, které jsou velmi lehounké a vznikají všude možně."
+      },
+      "alignmentText": "Na rozdiel od takých napríklad elektrónov, ktoré sú veľmi ľahučké a vznikajú kade-tade."
+    },
+    {
+      "start": 475.29,
+      "end": 480.76,
+      "asrWordRange": [
+        1036,
+        1050
+      ],
+      "sourceCues": [
+        103
+      ],
+      "text": {
+        "sk": "Teda v rôznych reakciách. A to je prvý krok. A druhý krok je, že",
+        "cs": "Tedy v různých reakcích. A to je první krok. A druhý krok je, že"
+      },
+      "alignmentText": "Teda v rôznych reakciách. A to je prvý krok. A druhý krok je, že"
+    },
+    {
+      "start": 480.76,
+      "end": 485.8,
+      "asrWordRange": [
+        1050,
+        1060
+      ],
+      "sourceCues": [
+        104
+      ],
+      "text": {
+        "sk": "časť fyzikov výpočtami prišla na to, že tieto magnetické monopóly",
+        "cs": "část fyziků výpočty přišla na to, že tyto magnetické monopóly"
+      },
+      "alignmentText": "časť fyzikov výpočtami prišla na to, že tieto magnetické monopóly"
+    },
+    {
+      "start": 486.94,
+      "end": 491.76,
+      "asrWordRange": [
+        1060,
+        1071
+      ],
+      "sourceCues": [
+        105
+      ],
+      "text": {
+        "sk": "pravdepodobne vznikali tesne po veľkom tresku. Teda ak niekedy, tak vtedy.",
+        "cs": "pravděpodobně vznikaly těsně po velkém třesku. Tedy jestli někdy, tak tehdy."
+      },
+      "alignmentText": "pravdepodobne vznikali tesne po veľkom tresku. Teda ak niekedy, tak vtedy."
+    },
+    {
+      "start": 492.62,
+      "end": 495.58,
+      "asrWordRange": [
+        1071,
+        1081
+      ],
+      "sourceCues": [
+        106
+      ],
+      "text": {
+        "sk": "Okrem iného aj preto, že vesmír bol vtedy strašne horúci.",
+        "cs": "Mimo jiné i proto, že vesmír byl tehdy strašně horký."
+      },
+      "alignmentText": "Okrem iného aj preto, že vesmír bol vtedy strašne horúci."
+    },
+    {
+      "start": 496.72,
+      "end": 502.2,
+      "asrWordRange": [
+        1081,
+        1096
+      ],
+      "sourceCues": [
+        107
+      ],
+      "text": {
+        "sk": "Bol horúci, mal vysokú energiu, teda veľa energie bolo k dispozícii a časť tej energie",
+        "cs": "Byl horký, měl vysokou energii, tedy bylo k dispozici hodně energie a část té energie"
+      },
+      "alignmentText": "Bol horúci, mal vysokú energiu, teda veľa energie bolo k dispozícii a časť tej energie"
+    },
+    {
+      "start": 502.2,
+      "end": 508.18,
+      "asrWordRange": [
+        1096,
+        1109
+      ],
+      "sourceCues": [
+        108,
+        109
+      ],
+      "text": {
+        "sk": "mohla prispieť na to, aby vznikol magnetický monopól. Ale potom sa vesmír rozpínal,",
+        "cs": "mohla přispět k tomu, aby vznikl magnetický monopól. Ale potom se vesmír rozpínal,"
+      },
+      "alignmentText": "mohla prispieť na to, aby vznikol magnetický monopól. Ale potom sa vesmír rozpínal,"
+    },
+    {
+      "start": 509.24,
+      "end": 513.56,
+      "asrWordRange": [
+        1109,
+        1117
+      ],
+      "sourceCues": [
+        110
+      ],
+      "text": {
+        "sk": "čo tieto magnetické monopóly strašne rozriedilo v priestore.",
+        "cs": "což tyto magnetické monopóly strašně zředilo v prostoru."
+      },
+      "alignmentText": "čo tieto magnetické monopóly strašne rozriedilo v priestore."
+    },
+    {
+      "start": 514.2,
+      "end": 519.62,
+      "asrWordRange": [
+        1117,
+        1132
+      ],
+      "sourceCues": [
+        111
+      ],
+      "text": {
+        "sk": "Vtedy si mal jeden na každý, ja neviem, kilometer a teraz máš jeden na niekoľko",
+        "cs": "Tehdy jsi měl jeden na každý, já nevím, kilometr a teď máš jeden na několik"
+      },
+      "alignmentText": "Vtedy si mal jeden na každý, ja neviem, kilometer a teraz máš jeden na niekoľko"
+    },
+    {
+      "start": 519.62,
+      "end": 520.62,
+      "asrWordRange": [
+        1132,
+        1134
+      ],
+      "sourceCues": [
+        112
+      ],
+      "text": {
+        "sk": "miliárd kilometrov.",
+        "cs": "miliard kilometrů."
+      },
+      "alignmentText": "miliárd kilometrov."
+    },
+    {
+      "start": 521.93,
+      "end": 528.89,
+      "asrWordRange": [
+        1134,
+        1148
+      ],
+      "sourceCues": [
+        113,
+        114
+      ],
+      "text": {
+        "sk": "Takže tá hustota ich je o to nižšia. Hustota úplne klesla niekam strašne nízko.",
+        "cs": "Takže jejich hustota je o to nižší. Hustota úplně klesla někam strašně nízko."
+      },
+      "alignmentText": "Takže tá hustota ich je o to nižšia. Hustota úplne klesla niekam strašne nízko."
+    },
+    {
+      "start": 530.17,
+      "end": 534.75,
+      "asrWordRange": [
+        1148,
+        1157
+      ],
+      "sourceCues": [
+        115
+      ],
+      "text": {
+        "sk": "Kvôli expanzii asi priestoru? Kvôli rozpínaniu vesmíru, áno, presne.",
+        "cs": "Kvůli expanzi asi prostoru? Kvůli rozpínání vesmíru, ano, přesně."
+      },
+      "alignmentText": "Kvôli expanzii asi priestoru? Kvôli rozpínaniu vesmíru, áno, presne."
+    },
+    {
+      "start": 535.99,
+      "end": 542.79,
+      "asrWordRange": [
+        1157,
+        1171
+      ],
+      "sourceCues": [
+        116,
+        117
+      ],
+      "text": {
+        "sk": "Čiže teraz je to taký problém, že máme nápad, ktorý vyzerá strašne dobre, že",
+        "cs": "Takže teď je to takový problém, že máme nápad, který vypadá strašně dobře, že"
+      },
+      "alignmentText": "Čiže teraz je to taký problém, že máme nápad, ktorý vyzerá strašne dobre, že"
+    },
+    {
+      "start": 542.79,
+      "end": 548.19,
+      "asrWordRange": [
+        1171,
+        1180
+      ],
+      "sourceCues": [
+        118
+      ],
+      "text": {
+        "sk": "rieši to rôzne problémy, ktoré máme, teda veci, ktorým",
+        "cs": "řeší různé problémy, které máme, tedy věci, kterým"
+      },
+      "alignmentText": "rieši to rôzne problémy, ktoré máme, teda veci, ktorým"
+    },
+    {
+      "start": 548.19,
+      "end": 549.93,
+      "asrWordRange": [
+        1180,
+        1183
+      ],
+      "sourceCues": [
+        119
+      ],
+      "text": {
+        "sk": "nerozumieme o elektromagnetizme.",
+        "cs": "nerozumíme v elektromagnetismu."
+      },
+      "alignmentText": "nerozumieme o elektromagnetizme."
+    },
+    {
+      "start": 550.82,
+      "end": 556.1,
+      "asrWordRange": [
+        1183,
+        1198
+      ],
+      "sourceCues": [
+        120
+      ],
+      "text": {
+        "sk": "Aj tušíme, ako by tie monopóly mohli vznikať, ale proste nedokážeme",
+        "cs": "I tušíme, jak by ty monopóly mohly vznikat, ale prostě je nedokážeme"
+      },
+      "alignmentText": "Aj tušíme, ako by tie monopóly mohli vznikať, ale proste nedokážeme"
+    },
+    {
+      "start": 556.1,
+      "end": 561.37,
+      "asrWordRange": [
+        1198,
+        1209
+      ],
+      "sourceCues": [
+        121
+      ],
+      "text": {
+        "sk": "ich vyrobiť, lebo sú strašne hmotné, respektíve strašne energetické. Jedinou našou",
+        "cs": "vyrobit, protože jsou strašně hmotné, respektive strašně energetické. Naší jedinou"
+      },
+      "alignmentText": "ich vyrobiť, lebo sú strašne hmotné, respektíve strašne energetické. Jedinou našou"
+    },
+    {
+      "start": 561.37,
+      "end": 565.87,
+      "asrWordRange": [
+        1209,
+        1222
+      ],
+      "sourceCues": [
+        122,
+        123
+      ],
+      "text": {
+        "sk": "šancou by bolo teda spoľahnúť sa, či nedokážeme nejaký magnetický monopól objaviť náhodou.",
+        "cs": "šancí by bylo tedy spolehnout se, zda nedokážeme nějaký magnetický monopól objevit náhodou."
+      },
+      "alignmentText": "šancou by bolo teda spoľahnúť sa, či nedokážeme nejaký magnetický monopól objaviť náhodou."
+    },
+    {
+      "start": 567.62,
+      "end": 570.96,
+      "asrWordRange": [
+        1222,
+        1233
+      ],
+      "sourceCues": [
+        124
+      ],
+      "text": {
+        "sk": "No a tu sa konečne dostávame k Valentínovi.",
+        "cs": "A tady se konečně dostáváme k Valentýnovi."
+      },
+      "alignmentText": "No a tu sa konečne dostávame k Valentínovi."
+    },
+    {
+      "start": 573.15,
+      "end": 573.67,
+      "asrWordRange": [
+        1233,
+        1234
+      ],
+      "sourceCues": [
+        125
+      ],
+      "text": {
+        "sk": "Áno.",
+        "cs": "Ano."
+      },
+      "alignmentText": "Áno."
+    },
+    {
+      "start": 576.04,
+      "end": 579.62,
+      "asrWordRange": [
+        1234,
+        1243
+      ],
+      "sourceCues": [
+        126
+      ],
+      "text": {
+        "sk": "Čiže vlastne otázka je, že ako polapiť magnetický monopól.",
+        "cs": "Takže otázka vlastně je, jak polapit magnetický monopól."
+      },
+      "alignmentText": "Čiže vlastne otázka je, že ako polapiť magnetický monopól."
+    },
+    {
+      "start": 581.48,
+      "end": 585.24,
+      "asrWordRange": [
+        1243,
+        1255
+      ],
+      "sourceCues": [
+        127
+      ],
+      "text": {
+        "sk": "Áno, to je asi také najdôležitejšie. Keďže ich nedokážeme vyrobiť na Zemi,",
+        "cs": "Ano, to je asi to nejdůležitější. Protože je nedokážeme vyrobit na Zemi,"
+      },
+      "alignmentText": "Áno, to je asi také najdôležitejšie. Keďže ich nedokážeme vyrobiť na Zemi,"
+    },
+    {
+      "start": 586.24,
+      "end": 591.49,
+      "asrWordRange": [
+        1255,
+        1265
+      ],
+      "sourceCues": [
+        128
+      ],
+      "text": {
+        "sk": "alebo našimi prostriedkami zatiaľ, tak asi ich potrebujeme nejako polapiť.",
+        "cs": "nebo našimi prostředky zatím, tak je asi potřebujeme nějak polapit."
+      },
+      "alignmentText": "alebo našimi prostriedkami zatiaľ, tak asi ich potrebujeme nejako polapiť."
+    },
+    {
+      "start": 591.93,
+      "end": 595.73,
+      "asrWordRange": [
+        1265,
+        1269
+      ],
+      "sourceCues": [
+        129
+      ],
+      "text": {
+        "sk": "Áno. Základ fungovania elektrogenerátorov",
+        "cs": "Ano. Základ fungování elektrických generátorů"
+      },
+      "alignmentText": "Áno. Základ fungovania elektrogenerátorov"
+    },
+    {
+      "start": 597.15,
+      "end": 602.53,
+      "asrWordRange": [
+        1269,
+        1281
+      ],
+      "sourceCues": [
+        130
+      ],
+      "text": {
+        "sk": "a elektromotorov je taký, že máš taký elektrický obvod alebo takú slučku",
+        "cs": "a elektromotorů je takový, že máš takový elektrický obvod nebo takovou smyčku"
+      },
+      "alignmentText": "a elektromotorov je taký, že máš taký elektrický obvod alebo takú slučku"
+    },
+    {
+      "start": 602.53,
+      "end": 604.61,
+      "asrWordRange": [
+        1281,
+        1286
+      ],
+      "sourceCues": [
+        131
+      ],
+      "text": {
+        "sk": "elektrickú, cez ktorú prechádzaš magnetom.",
+        "cs": "elektrickou, kterou procházíš magnetem."
+      },
+      "alignmentText": "elektrickú, cez ktorú prechádzaš magnetom."
+    },
+    {
+      "start": 605.43,
+      "end": 608.33,
+      "asrWordRange": [
+        1286,
+        1293
+      ],
+      "sourceCues": [
+        132
+      ],
+      "text": {
+        "sk": "A ten magnet ti generuje elektrické napätie.",
+        "cs": "A ten magnet ti generuje elektrické napětí."
+      },
+      "alignmentText": "A ten magnet ti generuje elektrické napätie."
+    },
+    {
+      "start": 610.06,
+      "end": 615.04,
+      "asrWordRange": [
+        1293,
+        1307
+      ],
+      "sourceCues": [
+        133
+      ],
+      "text": {
+        "sk": "No a teraz v podstate, ako chytiť magnetický monopól, je to strašne jednoduché. Urobíš",
+        "cs": "A teď v podstatě, jak chytit magnetický monopól, je to strašně jednoduché. Uděláš"
+      },
+      "alignmentText": "No a teraz v podstate, ako chytiť magnetický monopól, je to strašne jednoduché. Urobíš"
+    },
+    {
+      "start": 615.04,
+      "end": 620.52,
+      "asrWordRange": [
+        1307,
+        1323
+      ],
+      "sourceCues": [
+        134
+      ],
+      "text": {
+        "sk": "si také veľké laso z elektrického obvodu a pozeráš sa, či ti na ňom niečo vzniklo,",
+        "cs": "si takové velké laso z elektrického obvodu a díváš se, jestli ti na něm něco vzniklo,"
+      },
+      "alignmentText": "si také veľké laso z elektrického obvodu a pozeráš sa, či ti na ňom niečo vzniklo,"
+    },
+    {
+      "start": 620.58,
+      "end": 623.12,
+      "asrWordRange": [
+        1323,
+        1330
+      ],
+      "sourceCues": [
+        135
+      ],
+      "text": {
+        "sk": "také elektrické napätie alebo taký elektrický prúd.",
+        "cs": "takové elektrické napětí nebo takový elektrický proud."
+      },
+      "alignmentText": "také elektrické napätie alebo taký elektrický prúd."
+    },
+    {
+      "start": 624.69,
+      "end": 629.91,
+      "asrWordRange": [
+        1330,
+        1345
+      ],
+      "sourceCues": [
+        136
+      ],
+      "text": {
+        "sk": "Keď cez takúto slučku hodíš normálny magnet, ktorý má sever a juh, tak to napätie",
+        "cs": "Když takovou smyčkou hodíš normální magnet, který má sever a jih, tak to napětí"
+      },
+      "alignmentText": "Keď cez takúto slučku hodíš normálny magnet, ktorý má sever a juh, tak to napätie"
+    },
+    {
+      "start": 629.91,
+      "end": 632.43,
+      "asrWordRange": [
+        1345,
+        1355
+      ],
+      "sourceCues": [
+        137
+      ],
+      "text": {
+        "sk": "najprv vyskočí hore a potom padne dole zase na nulu.",
+        "cs": "nejprve vyskočí nahoru a potom spadne dolů zase na nulu."
+      },
+      "alignmentText": "najprv vyskočí hore a potom padne dole zase na nulu."
+    },
+    {
+      "start": 633.26,
+      "end": 638.14,
+      "asrWordRange": [
+        1355,
+        1368
+      ],
+      "sourceCues": [
+        138
+      ],
+      "text": {
+        "sk": "Lebo najprv preletel sever, zdvihol to, juh, kleslo to. Alebo ten magnet letel",
+        "cs": "Protože nejprve proletěl sever, zvedl to, jih, kleslo to. Nebo ten magnet letěl"
+      },
+      "alignmentText": "Lebo najprv preletel sever, zdvihol to, juh, kleslo to. Alebo ten magnet letel"
+    },
+    {
+      "start": 638.14,
+      "end": 641.26,
+      "asrWordRange": [
+        1368,
+        1376
+      ],
+      "sourceCues": [
+        139
+      ],
+      "text": {
+        "sk": "naopak, kde najprv juh, klesne to, sever, stúpne to.",
+        "cs": "naopak, kdy nejprve jih, klesne to, sever, stoupne to."
+      },
+      "alignmentText": "naopak, kde najprv juh, klesne to, sever, stúpne to."
+    },
+    {
+      "start": 642.75,
+      "end": 648.23,
+      "asrWordRange": [
+        1376,
+        1390
+      ],
+      "sourceCues": [
+        140
+      ],
+      "text": {
+        "sk": "A ak by preletel cez takúto slučku magnetický monopól, tak to vyskočí hore a",
+        "cs": "A kdyby takovou smyčkou proletěl magnetický monopól, tak to vyskočí nahoru a"
+      },
+      "alignmentText": "A ak by preletel cez takúto slučku magnetický monopól, tak to vyskočí hore a"
+    },
+    {
+      "start": 648.23,
+      "end": 649.29,
+      "asrWordRange": [
+        1390,
+        1394
+      ],
+      "sourceCues": [
+        141
+      ],
+      "text": {
+        "sk": "ostane to tam trčať.",
+        "cs": "zůstane to tam trčet."
+      },
+      "alignmentText": "ostane to tam trčať."
+    },
+    {
+      "start": 650.23,
+      "end": 654.63,
+      "asrWordRange": [
+        1394,
+        1409
+      ],
+      "sourceCues": [
+        142
+      ],
+      "text": {
+        "sk": "Lebo neprešla tá druhá polka, ktorá by to zrazila dole. Prešla len jedna polka. Aha,",
+        "cs": "Protože neprošla ta druhá půlka, která by to srazila dolů. Prošla jen jedna půlka. Aha,"
+      },
+      "alignmentText": "Lebo neprešla tá druhá polka, ktorá by to zrazila dole. Prešla len jedna polka. Aha,"
+    },
+    {
+      "start": 654.81,
+      "end": 658.39,
+      "asrWordRange": [
+        1409,
+        1421
+      ],
+      "sourceCues": [
+        143
+      ],
+      "text": {
+        "sk": "že stále by to ostalo hore alebo dole by to bolo tak.",
+        "cs": "že by to pořád zůstalo nahoře nebo dole, bylo by to tak."
+      },
+      "alignmentText": "že stále by to ostalo hore alebo dole by to bolo tak."
+    },
+    {
+      "start": 659.47,
+      "end": 664.53,
+      "asrWordRange": [
+        1421,
+        1432
+      ],
+      "sourceCues": [
+        144
+      ],
+      "text": {
+        "sk": "Áno, áno, presne tak. No a teda takýto experiment ľudia postavili,",
+        "cs": "Ano, ano, přesně tak. A tedy takový experiment lidé postavili,"
+      },
+      "alignmentText": "Áno, áno, presne tak. No a teda takýto experiment ľudia postavili,"
+    },
+    {
+      "start": 666.25,
+      "end": 667.29,
+      "asrWordRange": [
+        1432,
+        1434
+      ],
+      "sourceCues": [
+        145
+      ],
+      "text": {
+        "sk": "začali čakať,",
+        "cs": "začali čekat,"
+      },
+      "alignmentText": "začali čakať,"
+    },
+    {
+      "start": 669.02,
+      "end": 675.89,
+      "asrWordRange": [
+        1434,
+        1443
+      ],
+      "sourceCues": [
+        146,
+        147
+      ],
+      "text": {
+        "sk": "a 14. 2. 1972 preletel monopól cez tento obvod.",
+        "cs": "a 14. 2. 1972 proletěl monopól tímto obvodem."
+      },
+      "alignmentText": "a štrnásteho druhý tisíc deväťsto sedemdesiatdva preletel monopól cez tento obvod."
+    },
+    {
+      "start": 676.68,
+      "end": 681.94,
+      "asrWordRange": [
+        1443,
+        1457
+      ],
+      "sourceCues": [
+        148
+      ],
+      "text": {
+        "sk": "Teda nevideli letieť monopól, ale všimli si, že to napätie vyskočilo a nepadlo dole.",
+        "cs": "Tedy neviděli letět monopól, ale všimli si, že to napětí vyskočilo a nespadlo dolů."
+      },
+      "alignmentText": "Teda nevideli letieť monopól, ale všimli si, že to napätie vyskočilo a nepadlo dole."
+    },
+    {
+      "start": 682.6,
+      "end": 682.82,
+      "asrWordRange": [
+        1457,
+        1458
+      ],
+      "sourceCues": [
+        149
+      ],
+      "text": {
+        "sk": "Wow.",
+        "cs": "Wow."
+      },
+      "alignmentText": "Wow."
+    },
+    {
+      "start": 683.72,
+      "end": 689.3,
+      "asrWordRange": [
+        1458,
+        1473
+      ],
+      "sourceCues": [
+        150
+      ],
+      "text": {
+        "sk": "Toto bolo ale predtým, ako ľudia vedeli, čo to je. Odvtedy sa to nepodarilo",
+        "cs": "Tohle bylo ale předtím, než lidé věděli, co to je. Od té doby se to nepodařilo"
+      },
+      "alignmentText": "Toto bolo ale predtým, ako ľudia vedeli, čo to je. Odvtedy sa to nepodarilo"
+    },
+    {
+      "start": 689.3,
+      "end": 694.66,
+      "asrWordRange": [
+        1473,
+        1486
+      ],
+      "sourceCues": [
+        151
+      ],
+      "text": {
+        "sk": "ani raz a vtedy ľudia teda vedeli, že je to magnetický monopól, ale",
+        "cs": "ani jednou a tehdy lidé tedy věděli, že je to magnetický monopól, ale"
+      },
+      "alignmentText": "ani raz a vtedy ľudia teda vedeli, že je to magnetický monopól, ale"
+    },
+    {
+      "start": 694.66,
+      "end": 696.58,
+      "asrWordRange": [
+        1486,
+        1494
+      ],
+      "sourceCues": [
+        152
+      ],
+      "text": {
+        "sk": "nemali spočítané, koľko by ich malo byť.",
+        "cs": "neměli spočítáno, kolik by jich mělo být."
+      },
+      "alignmentText": "nemali spočítané, koľko by ich malo byť."
+    },
+    {
+      "start": 697.46,
+      "end": 702.2,
+      "asrWordRange": [
+        1494,
+        1512
+      ],
+      "sourceCues": [
+        153
+      ],
+      "text": {
+        "sk": "A potom, keď si to spočítali, aká je vôbec šanca, že by mali takéto šťastie, že cez tú",
+        "cs": "A potom, když si spočítali, jaká je vůbec šance, že by měli takové štěstí, že tou"
+      },
+      "alignmentText": "A potom, keď si to spočítali, aká je vôbec šanca, že by mali takéto šťastie, že cez tú"
+    },
+    {
+      "start": 702.2,
+      "end": 704.12,
+      "asrWordRange": [
+        1512,
+        1518
+      ],
+      "sourceCues": [
+        154
+      ],
+      "text": {
+        "sk": "ich slučku preletí ten magnetický monopól,",
+        "cs": "jejich smyčkou proletí ten magnetický monopól,"
+      },
+      "alignmentText": "ich slučku preletí ten magnetický monopól,"
+    },
+    {
+      "start": 704.88,
+      "end": 707.72,
+      "asrWordRange": [
+        1518,
+        1528
+      ],
+      "sourceCues": [
+        155
+      ],
+      "text": {
+        "sk": "tak zistili, že tá šanca je úplne zanedbateľná, malá. Akože,",
+        "cs": "tak zjistili, že ta šance je úplně zanedbatelná, malá. Jako,"
+      },
+      "alignmentText": "tak zistili, že tá šanca je úplne zanedbateľná, malá. Akože,"
+    },
+    {
+      "start": 709.19,
+      "end": 714.15,
+      "asrWordRange": [
+        1528,
+        1542
+      ],
+      "sourceCues": [
+        156
+      ],
+      "text": {
+        "sk": "nespomeniem si teraz to presné číslo, ale menšie ako miliarda k jednej. Za ten čas,",
+        "cs": "teď si nevzpomenu na to přesné číslo, ale menší než miliarda ku jedné. Za tu dobu,"
+      },
+      "alignmentText": "nespomeniem si teraz to presné číslo, ale menšie ako miliarda k jednej. Za ten čas,"
+    },
+    {
+      "start": 714.21,
+      "end": 716.83,
+      "asrWordRange": [
+        1542,
+        1550
+      ],
+      "sourceCues": [
+        157
+      ],
+      "text": {
+        "sk": "čo oni pozorovali, cez slučku, akú mali postavenú,",
+        "cs": "co pozorovali, smyčkou, jakou měli postavenou,"
+      },
+      "alignmentText": "čo oni pozorovali, cez slučku, akú mali postavenú,"
+    },
+    {
+      "start": 717.65,
+      "end": 722.83,
+      "asrWordRange": [
+        1550,
+        1564
+      ],
+      "sourceCues": [
+        158
+      ],
+      "text": {
+        "sk": "preletí magnetický monopól. Ale nebolo by to nemožné, že by im tam preletel. Len",
+        "cs": "proletí magnetický monopól. Ale nebylo by nemožné, aby jim tam proletěl. Jen"
+      },
+      "alignmentText": "preletí magnetický monopól. Ale nebolo by to nemožné, že by im tam preletel. Len"
+    },
+    {
+      "start": 722.83,
+      "end": 725.73,
+      "asrWordRange": [
+        1564,
+        1570
+      ],
+      "sourceCues": [
+        159
+      ],
+      "text": {
+        "sk": "tá štatistická možnosť by bola nízka.",
+        "cs": "ta statistická možnost by byla nízká."
+      },
+      "alignmentText": "tá štatistická možnosť by bola nízka."
+    },
+    {
+      "start": 726.47,
+      "end": 729.05,
+      "asrWordRange": [
+        1570,
+        1579
+      ],
+      "sourceCues": [
+        160
+      ],
+      "text": {
+        "sk": "Áno, a toto je presne ďalšia svinská situácia, že",
+        "cs": "Ano, a tohle je přesně další svinská situace, že"
+      },
+      "alignmentText": "Áno, a toto je presne ďalšia svinská situácia, že"
+    },
+    {
+      "start": 730.08,
+      "end": 735.62,
+      "asrWordRange": [
+        1579,
+        1593
+      ],
+      "sourceCues": [
+        161
+      ],
+      "text": {
+        "sk": "nepodarilo sa to pozorovať už ani raz a teraz vlastne nevedia, mali sme",
+        "cs": "už se to nepodařilo pozorovat ani jednou a teď vlastně nevědí, měli jsme"
+      },
+      "alignmentText": "nepodarilo sa to pozorovať už ani raz a teraz vlastne nevedia, mali sme"
+    },
+    {
+      "start": 735.62,
+      "end": 740.7,
+      "asrWordRange": [
+        1593,
+        1608
+      ],
+      "sourceCues": [
+        162
+      ],
+      "text": {
+        "sk": "len také veľké šťastie, že nám proste na toho Valentína v roku 1982",
+        "cs": "jen tak velké štěstí, že nám prostě na toho Valentýna v roce 1982"
+      },
+      "alignmentText": "len také veľké šťastie, že nám proste na toho Valentína v roku tisíc deväťsto osemdesiatdva"
+    },
+    {
+      "start": 740.7,
+      "end": 742.86,
+      "asrWordRange": [
+        1608,
+        1614
+      ],
+      "sourceCues": [
+        163
+      ],
+      "text": {
+        "sk": "preletel monopól cez ten náš obvod,",
+        "cs": "proletěl monopól tím naším obvodem,"
+      },
+      "alignmentText": "preletel monopól cez ten náš obvod,"
+    },
+    {
+      "start": 744.04,
+      "end": 749.44,
+      "asrWordRange": [
+        1614,
+        1630
+      ],
+      "sourceCues": [
+        164
+      ],
+      "text": {
+        "sk": "alebo to bol iba taký iný signál, taký šum v obvode, alebo niečo sa tam",
+        "cs": "nebo to byl jen takový jiný signál, takový šum v obvodu, nebo se tam něco"
+      },
+      "alignmentText": "alebo to bol iba taký iný signál, taký šum v obvode, alebo niečo sa tam"
+    },
+    {
+      "start": 749.44,
+      "end": 751.0,
+      "asrWordRange": [
+        1630,
+        1635
+      ],
+      "sourceCues": [
+        165
+      ],
+      "text": {
+        "sk": "zachytilo a zrazu sa vypustilo.",
+        "cs": "zachytilo a najednou se to uvolnilo."
+      },
+      "alignmentText": "zachytilo a zrazu sa vypustilo."
+    },
+    {
+      "start": 751.68,
+      "end": 753.14,
+      "asrWordRange": [
+        1635,
+        1639
+      ],
+      "sourceCues": [
+        166
+      ],
+      "text": {
+        "sk": "Alebo možno chyba nejaká.",
+        "cs": "Nebo možná nějaká chyba."
+      },
+      "alignmentText": "Alebo možno chyba nejaká."
+    },
+    {
+      "start": 754.3,
+      "end": 757.06,
+      "asrWordRange": [
+        1639,
+        1649
+      ],
+      "sourceCues": [
+        167
+      ],
+      "text": {
+        "sk": "A odpoveď je taká, že sa to pravdepodobne nikdy nedozvieme.",
+        "cs": "A odpověď je taková, že se to pravděpodobně nikdy nedozvíme."
+      },
+      "alignmentText": "A odpoveď je taká, že sa to pravdepodobne nikdy nedozvieme."
+    },
+    {
+      "start": 758.48,
+      "end": 761.04,
+      "asrWordRange": [
+        1649,
+        1655
+      ],
+      "sourceCues": [
+        168
+      ],
+      "text": {
+        "sk": "Nie, to nie je dobrá odpoveď.",
+        "cs": "Ne, to není dobrá odpověď."
+      },
+      "alignmentText": "Nie, to nie je dobrá odpoveď."
+    },
+    {
+      "start": 761.8,
+      "end": 763.84,
+      "asrWordRange": [
+        1655,
+        1662
+      ],
+      "sourceCues": [
+        169
+      ],
+      "text": {
+        "sk": "Čiže komunita to teraz berie tak, že",
+        "cs": "Takže komunita to teď bere tak, že"
+      },
+      "alignmentText": "Čiže komunita to teraz berie tak, že"
+    },
+    {
+      "start": 764.67,
+      "end": 766.59,
+      "asrWordRange": [
+        1662,
+        1671
+      ],
+      "sourceCues": [
+        170
+      ],
+      "text": {
+        "sk": "v úvodzovkách, tvárme sa, že sa to nestalo.",
+        "cs": "v uvozovkách, tvařme se, že se to nestalo."
+      },
+      "alignmentText": "v úvodzovkách, tvárme sa, že sa to nestalo."
+    },
+    {
+      "start": 767.31,
+      "end": 771.51,
+      "asrWordRange": [
+        1671,
+        1680
+      ],
+      "sourceCues": [
+        171
+      ],
+      "text": {
+        "sk": "Teda že neberme to ako dôkaz existencie magnetických monopólov,",
+        "cs": "Tedy neberme to jako důkaz existence magnetických monopólů,"
+      },
+      "alignmentText": "Teda že neberme to ako dôkaz existencie magnetických monopólov,"
+    },
+    {
+      "start": 772.48,
+      "end": 775.86,
+      "asrWordRange": [
+        1680,
+        1694
+      ],
+      "sourceCues": [
+        172
+      ],
+      "text": {
+        "sk": "lebo… Aha, ja som si myslel, že presný opak nastane, že sa toho chytia.",
+        "cs": "protože… Aha, já jsem si myslel, že nastane přesný opak, že se toho chytnou."
+      },
+      "alignmentText": "lebo… Aha, ja som si myslel, že presný opak nastane, že sa toho chytia."
+    },
+    {
+      "start": 776.98,
+      "end": 777.62,
+      "asrWordRange": [
+        1694,
+        1697
+      ],
+      "sourceCues": [
+        173
+      ],
+      "text": {
+        "sk": "No práveže",
+        "cs": "No právěže"
+      },
+      "alignmentText": "No práveže"
+    },
+    {
+      "start": 778.64,
+      "end": 782.96,
+      "asrWordRange": [
+        1697,
+        1713
+      ],
+      "sourceCues": [
+        174
+      ],
+      "text": {
+        "sk": "fyzici majú pocit, že bolo by to trošku nefér, lebo tým, že ten experiment v úvodzovkách",
+        "cs": "fyzici mají pocit, že by to bylo trochu nefér, protože tím, že ten experiment v uvozovkách"
+      },
+      "alignmentText": "fyzici majú pocit, že bolo by to trošku nefér, lebo tým, že ten experiment v úvodzovkách"
+    },
+    {
+      "start": 782.96,
+      "end": 784.44,
+      "asrWordRange": [
+        1713,
+        1717
+      ],
+      "sourceCues": [
+        175
+      ],
+      "text": {
+        "sk": "úspešne prebehol iba raz,",
+        "cs": "úspěšně proběhl jen jednou,"
+      },
+      "alignmentText": "úspešne prebehol iba raz,"
+    },
+    {
+      "start": 785.2,
+      "end": 787.16,
+      "asrWordRange": [
+        1717,
+        1722
+      ],
+      "sourceCues": [
+        176
+      ],
+      "text": {
+        "sk": "tak nemáme takú spätnú kontrolu.",
+        "cs": "tak nemáme takovou zpětnou kontrolu."
+      },
+      "alignmentText": "tak nemáme takú spätnú kontrolu."
+    },
+    {
+      "start": 787.82,
+      "end": 792.38,
+      "asrWordRange": [
+        1722,
+        1737
+      ],
+      "sourceCues": [
+        177
+      ],
+      "text": {
+        "sk": "Keby sa to odvtedy udialo desaťkrát ako taký záchyt gravitačných vĺn, tak už by sme to",
+        "cs": "Kdyby se to od té doby stalo desetkrát jako takový záchyt gravitačních vln, už bychom to"
+      },
+      "alignmentText": "Keby sa to odvtedy udialo desaťkrát ako taký záchyt gravitačných vĺn, tak už by sme to"
+    },
+    {
+      "start": 792.38,
+      "end": 795.2,
+      "asrWordRange": [
+        1737,
+        1743
+      ],
+      "sourceCues": [
+        178,
+        179
+      ],
+      "text": {
+        "sk": "brali, že OK, opakovane potvrdený experiment.",
+        "cs": "brali, že OK, opakovaně potvrzený experiment."
+      },
+      "alignmentText": "brali, že OK, opakovane potvrdený experiment."
+    },
+    {
+      "start": 795.94,
+      "end": 800.56,
+      "asrWordRange": [
+        1743,
+        1760
+      ],
+      "sourceCues": [
+        180,
+        181
+      ],
+      "text": {
+        "sk": "Tá istá situácia ako s gravitačnými vlnami, keď sme sa rozprávali, že keď to bolo len raz,",
+        "cs": "Stejná situace jako s gravitačními vlnami, když jsme si povídali, že když to bylo jen jednou,"
+      },
+      "alignmentText": "Tá istá situácia ako s gravitačnými vlnami, keď sme sa rozprávali, že keď to bolo len raz,"
+    },
+    {
+      "start": 801.54,
+      "end": 807.84,
+      "asrWordRange": [
+        1760,
+        1776
+      ],
+      "sourceCues": [
+        182,
+        183
+      ],
+      "text": {
+        "sk": "tak sa ešte nehovorilo, že sa dokázali, ale keď sa to už niekoľkokrát potvrdilo, aj tie",
+        "cs": "tak se ještě neříkalo, že se dokázaly, ale když se to už několikrát potvrdilo, i ta"
+      },
+      "alignmentText": "tak sa ešte nehovorilo, že sa dokázali, ale keď sa to už niekoľkokrát potvrdilo, aj tie"
+    },
+    {
+      "start": 807.84,
+      "end": 813.1,
+      "asrWordRange": [
+        1776,
+        1783
+      ],
+      "sourceCues": [
+        184
+      ],
+      "text": {
+        "sk": "merania sa podarili zopakovať, tak už sa",
+        "cs": "měření se podařilo zopakovat, tak už se"
+      },
+      "alignmentText": "merania sa podarili zopakovať, tak už sa"
+    },
+    {
+      "start": 813.1,
+      "end": 818.04,
+      "asrWordRange": [
+        1783,
+        1798
+      ],
+      "sourceCues": [
+        185
+      ],
+      "text": {
+        "sk": "hovorí, že už máme potvrdený ten dôkaz. Tak, presne tak. Čiže keby náhodou niekto si",
+        "cs": "říká, že už máme potvrzený ten důkaz. Tak, přesně tak. Takže kdyby si náhodou někdo"
+      },
+      "alignmentText": "hovorí, že už máme potvrdený ten dôkaz. Tak, presne tak. Čiže keby náhodou niekto si"
+    },
+    {
+      "start": 818.04,
+      "end": 822.48,
+      "asrWordRange": [
+        1798,
+        1813
+      ],
+      "sourceCues": [
+        186
+      ],
+      "text": {
+        "sk": "postavil inú slučku a preletí tých monopólov päť za rok, tak povieme, že wow, super,",
+        "cs": "postavil jinou smyčku a proletí těch monopólů pět za rok, tak řekneme, že wow, super,"
+      },
+      "alignmentText": "postavil inú slučku a preletí tých monopólov päť za rok, tak povieme, že wow, super,"
+    },
+    {
+      "start": 822.96,
+      "end": 828.36,
+      "asrWordRange": [
+        1813,
+        1826
+      ],
+      "sourceCues": [
+        187
+      ],
+      "text": {
+        "sk": "funguje to, máme to potvrdené, ale jedna… Ešteže dva, už by sme boli spokojní.",
+        "cs": "funguje to, máme to potvrzené, ale jedna… Ještě tak dva, už bychom byli spokojení."
+      },
+      "alignmentText": "funguje to, máme to potvrdené, ale jedna… Ešteže dva, už by sme boli spokojní."
+    },
+    {
+      "start": 829.62,
+      "end": 831.94,
+      "asrWordRange": [
+        1826,
+        1830
+      ],
+      "sourceCues": [
+        188
+      ],
+      "text": {
+        "sk": "Ale jedna je proste…",
+        "cs": "Ale jedna je prostě…"
+      },
+      "alignmentText": "Ale jedna je proste…"
+    },
+    {
+      "start": 833.38,
+      "end": 838.87,
+      "asrWordRange": [
+        1830,
+        1847
+      ],
+      "sourceCues": [
+        189
+      ],
+      "text": {
+        "sk": "Je to teraz nepríjemné v tom, že tvárime sa, že sa to nestalo, ale všetci vieme, že",
+        "cs": "Teď je to nepříjemné v tom, že se tváříme, že se to nestalo, ale všichni víme, že"
+      },
+      "alignmentText": "Je to teraz nepríjemné v tom, že tvárime sa, že sa to nestalo, ale všetci vieme, že"
+    },
+    {
+      "start": 838.87,
+      "end": 841.03,
+      "asrWordRange": [
+        1847,
+        1856
+      ],
+      "sourceCues": [
+        190
+      ],
+      "text": {
+        "sk": "sa to stalo, takže nám to vŕta v hlave",
+        "cs": "se to stalo, takže nám to vrtá hlavou"
+      },
+      "alignmentText": "sa to stalo, takže nám to vŕta v hlave"
+    },
+    {
+      "start": 842.5,
+      "end": 847.78,
+      "asrWordRange": [
+        1856,
+        1873
+      ],
+      "sourceCues": [
+        191
+      ],
+      "text": {
+        "sk": "a rozmýšľame, či to bola náhoda, či to nebola náhoda, či sa dá urobiť taký lepší",
+        "cs": "a přemýšlíme, jestli to byla náhoda, jestli to nebyla náhoda, zda lze udělat takový lepší"
+      },
+      "alignmentText": "a rozmýšľame, či to bola náhoda, či to nebola náhoda, či sa dá urobiť taký lepší"
+    },
+    {
+      "start": 847.78,
+      "end": 849.78,
+      "asrWordRange": [
+        1873,
+        1879
+      ],
+      "sourceCues": [
+        192
+      ],
+      "text": {
+        "sk": "experiment, ktorý by ich zachytil viacej.",
+        "cs": "experiment, který by jich zachytil víc."
+      },
+      "alignmentText": "experiment, ktorý by ich zachytil viacej."
+    },
+    {
+      "start": 850.84,
+      "end": 854.6,
+      "asrWordRange": [
+        1879,
+        1894
+      ],
+      "sourceCues": [
+        193
+      ],
+      "text": {
+        "sk": "Ale teda vzhľadom na to, že už máme také teoretické odhady, ako veľa ich existuje",
+        "cs": "Ale vzhledem k tomu, že už máme takové teoretické odhady, kolik jich existuje"
+      },
+      "alignmentText": "Ale teda vzhľadom na to, že už máme také teoretické odhady, ako veľa ich existuje"
+    },
+    {
+      "start": 855.26,
+      "end": 860.4,
+      "asrWordRange": [
+        1894,
+        1910
+      ],
+      "sourceCues": [
+        194
+      ],
+      "text": {
+        "sk": "vo vesmíre, ak vôbec existujú, tak to vyzerá pomerne beznádejne, že by sa nám to ešte",
+        "cs": "ve vesmíru, pokud vůbec existují, to vypadá poměrně beznadějně, že by se nám to ještě"
+      },
+      "alignmentText": "vo vesmíre, ak vôbec existujú, tak to vyzerá pomerne beznádejne, že by sa nám to ešte"
+    },
+    {
+      "start": 860.4,
+      "end": 860.98,
+      "asrWordRange": [
+        1910,
+        1912
+      ],
+      "sourceCues": [
+        195
+      ],
+      "text": {
+        "sk": "raz podarilo.",
+        "cs": "jednou podařilo."
+      },
+      "alignmentText": "raz podarilo."
+    },
+    {
+      "start": 862.2,
+      "end": 867.6,
+      "asrWordRange": [
+        1912,
+        1927
+      ],
+      "sourceCues": [
+        196
+      ],
+      "text": {
+        "sk": "Čo? Až takto negatívne? Až takto negatívne, že radšej sa skúsi… Toto mal byť,",
+        "cs": "Cože? Až takhle negativně? Až takhle negativně, že raději se zkusí… Tohle měl být,"
+      },
+      "alignmentText": "Čo? Až takto negatívne? Až takto negatívne, že radšej sa skúsi… Toto mal byť,"
+    },
+    {
+      "start": 867.6,
+      "end": 869.16,
+      "asrWordRange": [
+        1927,
+        1930
+      ],
+      "sourceCues": [
+        197
+      ],
+      "text": {
+        "sk": "Samo, valentínsky podcast.",
+        "cs": "Samo, valentýnský podcast."
+      },
+      "alignmentText": "Samo, valentínsky podcast."
+    },
+    {
+      "start": 870.26,
+      "end": 875.74,
+      "asrWordRange": [
+        1930,
+        1944
+      ],
+      "sourceCues": [
+        198
+      ],
+      "text": {
+        "sk": "Áno. Ľudia sa tešia, budú mať pekný víkend a tak ďalej. Nemôžeš takto negatívne.",
+        "cs": "Ano. Lidé se těší, budou mít pěkný víkend a tak dál. Nemůžeš takhle negativně."
+      },
+      "alignmentText": "Áno. Ľudia sa tešia, budú mať pekný víkend a tak ďalej. Nemôžeš takto negatívne."
+    },
+    {
+      "start": 877.59,
+      "end": 881.89,
+      "asrWordRange": [
+        1944,
+        1953
+      ],
+      "sourceCues": [
+        199
+      ],
+      "text": {
+        "sk": "No, tak majú aspoň námet na rozhovor pri valentínskej večeri.",
+        "cs": "Tak mají aspoň námět na rozhovor při valentýnské večeři."
+      },
+      "alignmentText": "No, tak majú aspoň námet na rozhovor pri valentínskej večeri."
+    },
+    {
+      "start": 883.19,
+      "end": 888.09,
+      "asrWordRange": [
+        1953,
+        1966
+      ],
+      "sourceCues": [
+        200
+      ],
+      "text": {
+        "sk": "Áno, môžete sa rozprávať o valentínskom monopóle. Dobre, aby sme boli pozitívni, aj",
+        "cs": "Ano, můžete si povídat o valentýnském monopólu. Dobře, abychom byli pozitivní, i"
+      },
+      "alignmentText": "Áno, môžete sa rozprávať o valentínskom monopóle. Dobre, aby sme boli pozitívni, aj"
+    },
+    {
+      "start": 888.09,
+      "end": 891.89,
+      "asrWordRange": [
+        1966,
+        1982
+      ],
+      "sourceCues": [
+        201
+      ],
+      "text": {
+        "sk": "keď fyzici sú teda skeptickí, či sa to podarilo, tak to neznamená, že sa to",
+        "cs": "když jsou tedy fyzici skeptičtí, zda se to podařilo, tak to neznamená, že se to"
+      },
+      "alignmentText": "keď fyzici sú teda skeptickí, či sa to podarilo, tak to neznamená, že sa to"
+    },
+    {
+      "start": 891.89,
+      "end": 897.37,
+      "asrWordRange": [
+        1982,
+        1994
+      ],
+      "sourceCues": [
+        202
+      ],
+      "text": {
+        "sk": "nepodarilo. A možno nám naozaj cez to naše laso preletel magnetický monopól,",
+        "cs": "nepodařilo. A možná nám opravdu tím naším lasem proletěl magnetický monopól,"
+      },
+      "alignmentText": "nepodarilo. A možno nám naozaj cez to naše laso preletel magnetický monopól,"
+    },
+    {
+      "start": 897.37,
+      "end": 900.13,
+      "asrWordRange": [
+        1994,
+        2001
+      ],
+      "sourceCues": [
+        203
+      ],
+      "text": {
+        "sk": "jedna z najzaujímavejších častíc vo vesmíre.",
+        "cs": "jedna z nejzajímavějších částic ve vesmíru."
+      },
+      "alignmentText": "jedna z najzaujímavejších častíc vo vesmíre."
+    },
+    {
+      "start": 901.6,
+      "end": 902.6,
+      "asrWordRange": [
+        2001,
+        2005
+      ],
+      "sourceCues": [
+        204
+      ],
+      "text": {
+        "sk": "Tak, to je úžasné.",
+        "cs": "Tak, to je úžasné."
+      },
+      "alignmentText": "Tak, to je úžasné."
+    },
+    {
+      "start": 903.26,
+      "end": 908.66,
+      "asrWordRange": [
+        2005,
+        2021
+      ],
+      "sourceCues": [
+        205
+      ],
+      "text": {
+        "sk": "A už som sa mimochodom rozpamätal na to číslo, že momentálny odhad je taký, že jeden",
+        "cs": "A už jsem si mimochodem vzpomněl na to číslo, že současný odhad je takový, že jeden"
+      },
+      "alignmentText": "A už som sa mimochodom rozpamätal na to číslo, že momentálny odhad je taký, že jeden"
+    },
+    {
+      "start": 908.66,
+      "end": 913.1,
+      "asrWordRange": [
+        2021,
+        2030
+      ],
+      "sourceCues": [
+        206
+      ],
+      "text": {
+        "sk": "magnetický monopól v kocke s hranou 11 miliárd kilometrov.",
+        "cs": "magnetický monopól v krychli s hranou 11 miliard kilometrů."
+      },
+      "alignmentText": "magnetický monopól v kocke s hranou jedenásť miliárd kilometrov."
+    },
+    {
+      "start": 914.66,
+      "end": 920.0,
+      "asrWordRange": [
+        2030,
+        2045
+      ],
+      "sourceCues": [
+        207
+      ],
+      "text": {
+        "sk": "S hranou. S hranou, čiže 11 miliárd kilometrov. Nie s objemom, ale s hranou. Áno,",
+        "cs": "S hranou. S hranou, tedy 11 miliard kilometrů. Ne s objemem, ale s hranou. Ano,"
+      },
+      "alignmentText": "S hranou. S hranou, čiže jedenásť miliárd kilometrov. Nie s objemom, ale s hranou. Áno,"
+    },
+    {
+      "start": 920.24,
+      "end": 925.2,
+      "asrWordRange": [
+        2045,
+        2059
+      ],
+      "sourceCues": [
+        208
+      ],
+      "text": {
+        "sk": "s hranou. Čiže 11 miliárd každým smerom a v priemere máš v takomto objeme jeden",
+        "cs": "s hranou. Tedy 11 miliard každým směrem a v průměru máš v takovém objemu jeden"
+      },
+      "alignmentText": "s hranou. Čiže jedenásť miliárd každým smerom a v priemere máš v takomto objeme jeden"
+    },
+    {
+      "start": 925.2,
+      "end": 929.76,
+      "asrWordRange": [
+        2059,
+        2073
+      ],
+      "sourceCues": [
+        209
+      ],
+      "text": {
+        "sk": "magnetický monopól. Takže keď urobíš pármetrovú… To keď sme našli ten jeden, tak to",
+        "cs": "magnetický monopól. Takže když uděláš pármetrovou… Když jsme našli ten jeden, tak to"
+      },
+      "alignmentText": "magnetický monopól. Takže keď urobíš pármetrovú… To keď sme našli ten jeden, tak to"
+    },
+    {
+      "start": 929.76,
+      "end": 935.12,
+      "asrWordRange": [
+        2073,
+        2087
+      ],
+      "sourceCues": [
+        210,
+        211
+      ],
+      "text": {
+        "sk": "bolo naozaj šťastie. Takže keď máš pármetrovú slučku a preletí ti cez ňu monopól, tak…",
+        "cs": "bylo opravdu štěstí. Takže když máš pármetrovou smyčku a proletí ti jí monopól, tak…"
+      },
+      "alignmentText": "bolo naozaj šťastie. Takže keď máš pármetrovú slučku a preletí ti cez ňu monopól, tak…"
+    },
+    {
+      "start": 936.12,
+      "end": 941.0,
+      "asrWordRange": [
+        2087,
+        2101
+      ],
+      "sourceCues": [
+        212
+      ],
+      "text": {
+        "sk": "To by si zaslúžili aspoň fľašu alebo niečo také, keď sa to potvrdí.",
+        "cs": "To by si zasloužili aspoň láhev nebo něco takového, když se to potvrdí."
+      },
+      "alignmentText": "To by si zaslúžili aspoň fľašu alebo niečo také, keď sa to potvrdí."
+    },
+    {
+      "start": 941.78,
+      "end": 947.28,
+      "asrWordRange": [
+        2101,
+        2116
+      ],
+      "sourceCues": [
+        213
+      ],
+      "text": {
+        "sk": "Dobre, Samko, máš ešte niečo k Valentínu? Nie, nie. Toto bol… K Valentínu možno áno,",
+        "cs": "Dobře, Samko, máš ještě něco k Valentýnovi? Ne, ne. Tohle byl… K Valentýnovi možná ano,"
+      },
+      "alignmentText": "Dobre, Samko, máš ešte niečo k Valentínu? Nie, nie. Toto bol… K Valentínu možno áno,"
+    },
+    {
+      "start": 947.38,
+      "end": 949.14,
+      "asrWordRange": [
+        2116,
+        2122
+      ],
+      "sourceCues": [
+        214
+      ],
+      "text": {
+        "sk": "ale k valentínskemu monopólu už nie.",
+        "cs": "ale k valentýnskému monopólu už ne."
+      },
+      "alignmentText": "ale k valentínskemu monopólu už nie."
+    },
+    {
+      "start": 950.1,
+      "end": 954.82,
+      "asrWordRange": [
+        2122,
+        2141
+      ],
+      "sourceCues": [
+        215
+      ],
+      "text": {
+        "sk": "Tak to dobre si myslel. Samko, ja ti veľmi pekne ďakujem, že si si našiel čas a že sme",
+        "cs": "Tak to jsi myslel dobře. Samko, moc ti děkuji, že sis našel čas a že jsme"
+      },
+      "alignmentText": "Tak to dobre si myslel. Samko, ja ti veľmi pekne ďakujem, že si si našiel čas a že sme"
+    },
+    {
+      "start": 954.82,
+      "end": 956.6,
+      "asrWordRange": [
+        2141,
+        2148
+      ],
+      "sourceCues": [
+        216
+      ],
+      "text": {
+        "sk": "sa mohli rozprávať o tejto téme dneska.",
+        "cs": "si dnes mohli povídat o tomto tématu."
+      },
+      "alignmentText": "sa mohli rozprávať o tejto téme dneska."
+    },
+    {
+      "start": 957.61,
+      "end": 960.25,
+      "asrWordRange": [
+        2148,
+        2155
+      ],
+      "sourceCues": [
+        217
+      ],
+      "text": {
+        "sk": "Ďakujem za počúvanie všetkým, čo nás počúvate.",
+        "cs": "Děkuji za poslech všem, kteří nás posloucháte."
+      },
+      "alignmentText": "Ďakujem za počúvanie všetkým, čo nás počúvate."
+    },
+    {
+      "start": 961.72,
+      "end": 966.54,
+      "asrWordRange": [
+        2155,
+        2163
+      ],
+      "sourceCues": [
+        218
+      ],
+      "text": {
+        "sk": "My vám z Vedátorského podcastu prajeme pekného Valentína.",
+        "cs": "My vám z Vedátorského podcastu přejeme pěkného Valentýna."
+      },
+      "alignmentText": "My vám z Vedátorského podcastu prajeme pekného Valentína."
+    },
+    {
+      "start": 967.82,
+      "end": 972.96,
+      "asrWordRange": [
+        2163,
+        2178
+      ],
+      "sourceCues": [
+        219
+      ],
+      "text": {
+        "sk": "Prosíme vás, aby ste nás naďalej počúvali, a ďakujeme, že nás počúvate. Nájdete nás na",
+        "cs": "Prosíme vás, abyste nás dál poslouchali, a děkujeme, že nás posloucháte. Najdete nás na"
+      },
+      "alignmentText": "Prosíme vás, aby ste nás naďalej počúvali, a ďakujeme, že nás počúvate. Nájdete nás na"
+    },
+    {
+      "start": 972.96,
+      "end": 978.24,
+      "asrWordRange": [
+        2178,
+        2190
+      ],
+      "sourceCues": [
+        220
+      ],
+      "text": {
+        "sk": "YouTube, Spotify, Apple Podcasts a všade, kde nájdete svoje podcasty. Zároveň sme",
+        "cs": "YouTube, Spotify, Apple Podcasts a všude, kde najdete své podcasty. Zároveň jsme"
+      },
+      "alignmentText": "jutúb, spotifaj, epl podkaste a všade, kde nájdete svoje podcasty. Zároveň sme"
+    },
+    {
+      "start": 978.24,
+      "end": 983.7,
+      "asrWordRange": [
+        2190,
+        2200
+      ],
+      "sourceCues": [
+        221
+      ],
+      "text": {
+        "sk": "aj na vedator.space, máme webovú stránku a nájdete nás",
+        "cs": "i na vedator.space, máme webovou stránku a najdete nás"
+      },
+      "alignmentText": "aj na vedátor spejs, máme vé vé vé stránku a nájdete nás"
+    },
+    {
+      "start": 983.7,
+      "end": 989.2,
+      "asrWordRange": [
+        2200,
+        2215
+      ],
+      "sourceCues": [
+        222
+      ],
+      "text": {
+        "sk": "aj na Facebooku, kde denne, a dokonca aj viackrát za deň sa dozviete vedátorské",
+        "cs": "i na Facebooku, kde se denně, a dokonce i vícekrát za den dozvíte vedátorské"
+      },
+      "alignmentText": "aj na fejsbúku, kde denne, a dokonca aj viackrát za deň sa dozviete vedátorské"
+    },
+    {
+      "start": 989.2,
+      "end": 994.1,
+      "asrWordRange": [
+        2215,
+        2226
+      ],
+      "sourceCues": [
+        223
+      ],
+      "text": {
+        "sk": "novinky zo sveta vedy, prírody a technológií. Pekný deň vám prajem.",
+        "cs": "novinky ze světa vědy, přírody a technologií. Přeji vám pěkný den."
+      },
+      "alignmentText": "novinky zo sveta vedy, prírody a technológií. Pekný deň vám prajem."
+    },
+    {
+      "start": 994.6,
+      "end": 995.08,
+      "asrWordRange": [
+        2226,
+        2228
+      ],
+      "sourceCues": [
+        224
+      ],
+      "text": {
+        "sk": "Majte sa.",
+        "cs": "Mějte se."
+      },
+      "alignmentText": "Majte sa."
+    },
+    {
+      "start": 997.34,
+      "end": 999.34,
+      "asrWordRange": [
+        2228,
+        2228
+      ],
+      "recoveredSpeech": {
+        "evidence": "captions/source/episode-11-followup-checks.sk.json",
+        "window": [
+          991,
+          1005.22
+        ],
+        "reason": "Original ASR omitted postscript"
+      },
+      "text": {
+        "sk": "Dobre. Toto bolo fajn.",
+        "cs": "Dobře. Tohle bylo fajn."
+      },
+      "alignmentText": "Dobre. Toto bolo fajn."
+    },
+    {
+      "start": 1001.08,
+      "end": 1003.12,
+      "asrWordRange": [
+        2228,
+        2231
+      ],
+      "sourceCues": [
+        225
+      ],
+      "text": {
+        "sk": "To bolo rýchlo a pekne.",
+        "cs": "To bylo rychle a pěkně."
+      },
+      "recoveredSpeech": {
+        "evidence": "captions/source/episode-11-followup-checks.sk.json",
+        "window": [
+          991,
+          1005.22
+        ],
+        "reason": "Restore To bolo before final ASR words"
+      },
+      "alignmentText": "To bolo rýchlo a pekne."
+    }
+  ]
+}

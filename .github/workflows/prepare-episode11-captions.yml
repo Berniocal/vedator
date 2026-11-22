@@ -1,0 +1,64 @@
+name: Prepare episode 11 source and acoustic review evidence
+on:
+  push:
+    branches: [captions/episode-11-precise-20261121]
+    paths:
+      - tools/prepare-episode11-source.py
+      - tools/verify-episode11-passages.py
+      - .github/workflows/prepare-episode11-captions.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: vedator-episode11-source
+  cancel-in-progress: false
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      VEDATOR_EP11_AUDIO: /tmp/vedator-ep11-audio
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/cache@v4
+        with:
+          path: /tmp/vedator-ep11-audio
+          key: vedator-original-episode-11-audio-v1
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: vedator-asr-turbo-and-large-v3-episode11-v1
+      - name: Install source transcription dependencies
+        run: python -m pip install --disable-pip-version-check faster-whisper==1.2.1
+      - name: Transcribe complete original RSS MP3 with word timing
+        run: |
+          if ! test -s captions/source/episode-11-draft.sk.json; then
+            python tools/prepare-episode11-source.py
+          fi
+      - name: Independently recognize gaps, low confidence and timeline anchors
+        run: |
+          if ! test -s captions/source/episode-11-extra-checks.sk.json; then
+            python tools/verify-episode11-passages.py
+          fi
+      - name: Preserve source evidence even if later checks fail
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add captions/source/episode-11-*.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Preserve episode 11 full source ASR and independent acoustic checks"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: episode-11-source-evidence
+          path: captions/source/episode-11-*.json
+          if-no-files-found: warn
