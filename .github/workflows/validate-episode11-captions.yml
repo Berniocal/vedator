@@ -1,0 +1,68 @@
+name: Validate episode 11 captions before release
+on:
+  push:
+    branches: [captions/episode-11-precise-20261121, captions/episode-11-finish-20261121]
+    paths:
+      - 'captions/episode-11.json'
+      - 'captions/episode-11.cs.srt'
+      - 'captions/episode-11.sk.srt'
+      - 'captions/episode-11.review.json'
+      - 'captions/source/episode-11-alignment.json'
+      - 'audio-seek-index.json'
+      - 'episode-videos.json'
+      - tools/validate-episode11-captions.py
+      - .github/workflows/validate-episode11-captions.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - 'captions/episode-11*'
+      - 'captions/source/episode-11*'
+      - tools/validate-episode11-captions.py
+      - episode-videos.json
+      - audio-seek-index.json
+      - .github/workflows/validate-episode11-captions.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Ensure reviewed bilingual subtitle files exist
+        run: |
+          test -s captions/episode-11.json
+          test -s captions/episode-11.edited.json
+          test -s captions/episode-11.cs.srt
+          test -s captions/episode-11.sk.srt
+          test -s captions/episode-11.review.json
+          test -s captions/source/episode-11-draft.sk.json
+          test -s captions/source/episode-11-alignment.json
+      - name: Download and authenticate original episode 11 MP3
+        run: |
+          mkdir -p "$RUNNER_TEMP/caption-ep11-audio"
+          python - <<'PY'
+          import json, subprocess, os
+          src = json.load(open('captions/episode-11.json'))['source']
+          subprocess.run(['curl','--fail','--location','--retry','3','--max-time','180',
+                          src['audio'],'-o',os.environ['RUNNER_TEMP']+'/caption-ep11-audio/episode-11.mp3'], check=True)
+          PY
+      - name: Verify all source hashes, words, timings, CTC scores, SRTs and seek index
+        run: python tools/validate-episode11-captions.py --audio "$RUNNER_TEMP/caption-ep11-audio/episode-11.mp3"
+      - name: Rebuild content and check application scripts
+        run: |
+          node tools/build-content-v2.mjs
+          node --check app-v2.js
+      - name: Verify production cache build
+        run: |
+          node tools/prepare-production-index.mjs
+          node tools/build-production-sw.mjs
+          node --check sw.js
+          node tools/test-production-pwa.mjs

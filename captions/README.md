@@ -107,3 +107,15 @@ Dokončený původní přepis RSS MP3 má 3 072 slov a je rozdělený do 296 úp
 Slovenské znění je akusticky zarovnané modelem comodoro/wav2vec2-xls-r-300m-sk-cv8; česká verze sdílí stejné časy. Obě SRT odpovídají JSON, nejvýše dva řádky po 48 znacích. Původní MP3 má SHA-256 b4d944a41aa46e581453305f60bde676fd920e5a1bf5262999e2ec417f162c7e a přesný snímkový seek index. Dvě velmi krátké reakce „Fúha“ a „Áno“ mají jednotlivě doložené výjimky pro nízké CTC skóre, nikoli tvrzení o jistotě nebo úplném lidském poslechu. 31 krátkých rychle mluvených titulků přesahuje 25 znaků/s; časování se kvůli tomu neposouvá přes další řeč. Přímé akustické porovnání zvuku YouTube s MP3 nebylo provedeno.
 
 Validator kontroluje návaznost všech slov, zdrojový hash, znakové akustické důkazy, konkrétní výjimky, SRT/JSON a seek index. Stávající browser test automaticky zahrnuje každý registrovaný titulkový díl, tedy i díl 10: původní MP3, seek, video, čtečku, jazyky a offline cache. Produkční kontrola navíc porovnává skutečné nasazené JSON a oba SRT podle hashů.
+
+## Díl 11 – Valentýnský monopól (21. 11. 2026)
+
+Úplný přepis původní RSS MP3 (1 005,218 s; SHA-256 `894ace9292a9bec7a0c8d5f1acc9904e9fd04fe8da2d39bb89a5bb49a1f6f428`) obsahuje 2 231 slov. Celé slovenské znění i úplný český překlad prošly redakční kontrolou. Původní pracovní překlad nebyl převzat bez úprav; schválené dvojice jsou v `source/episode-11-editorial-bilingual.tsv`. Nezávislé rozpoznání large-v3 kontroluje 19 původních a 19 dodatečných oken. Z dodatečné kontroly závěru je doplněno vynechané „Dobre. Toto bolo fajn.“ i začátek poslední věty.
+
+Výsledných **212 dvojjazyčných titulků** je akusticky zarovnaných slovenským CTC modelem `comodoro/wav2vec2-xls-r-300m-sk-cv8`; čeština sdílí shodné hranice odpovídajících výpovědí. Žádný blok nemá průměrné CTC skóre pod 0,35. Každá verze má nejvýše dva vyvážené řádky po 48 znacích. JSON a obě SRT mají totožné časování a text. Přesný MP3 index obsahuje 963 snímkových kotev pro původní RSS URL. Krátké rychle vyslovené repliky se neposouvají přes následující řeč.
+
+Původní formulace, negace, hmotnostní odhady, popis indukce a historická přeřeknutí zůstávají zachované; první vyslovené datum obsahuje rok 1972 a pozdější zopakování 1982. Tento rozpor potvrzuje nezávislé rozpoznání a není přepsán podle historických údajů. Kontrolní volné CTC přepisy jsou archivované vedle znakového zarovnání.
+
+Validátor kontroluje zdrojový hash, všechna ASR slova, doložení obnovené řeči, znakové akustické hranice, shodu upraveného a finálního textu, obě SRT, registraci a přesný MP3 index. Browser kontrola zahrnuje MP3, vzdálený seek, rychlost, pauzu, oba jazyky, video a čtečku; u dílu 11 navíc zvětšení písma při šířce 360 px. Produkční nasazení porovnává živé JSON a oba SRT podle SHA-256.
+
+Rozsah ověření: nejde o úplný nezávislý lidský poslech celé nahrávky. Oficiální video `po2qYjYHEEE` je identifikováno metadaty oEmbed; přímá stránka YouTube při ověřování vrátila HTTP 429. Zvuk YouTube nebyl přímo akusticky porovnán s MP3. Browser test s řízeným YouTube přehrávačem ověřuje zobrazení a použití časové osy, nikoli shodu obou skutečných zvukových stop.

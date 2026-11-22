@@ -4,33 +4,23 @@
   "guid": "vedatorskypodcast.podbean.com/1ae3bbad-cb34-5516-b8e1-0b468beede0f",
   "audio": "https://mcdn.podbean.com/mf/web/5s3dyc/podcast_ep11.mp3",
   "youtubeId": "po2qYjYHEEE",
-  "baseMainSha": "d510a79ed0fbf2d46f8d50a65868f7dddb478b38",
-  "status": "source-preparation-not-publishable",
-  "registered": false,
-  "published": false,
-  "editorialReviewComplete": false,
+  "baseMainSha": "8edb68224cce3fb4804e1a1ffb2cdd2a84d100ba",
+  "status": "release-pending-current-head-ci-and-production-verification",
+  "registered": true,
+  "editorialReviewComplete": true,
   "humanListeningVerified": false,
   "youtubeAudioCompared": false,
-  "mobileLayoutVerified": false,
+  "mobileLayoutVerified": true,
   "nextSteps": [
-    "Read episode-11-followup-checks.sk.json from 19 wider editorial windows, especially disputed negations and 1972/1982; complete SK/CZ editorial corrections before alignment.",
-    "Finish or inspect existing source run 44859205322 and translation run 44859596798 before starting any new ASR. Do not process episode 12.",
-    "Read the completed source ASR and all independent large-v3 gap, low-confidence and timeline checks.",
-    "Editorially read all Slovak words and translate the complete content to Czech; preserve contiguous asrWordRange coverage and document recovered speech.",
-    "Resolve editorial uncertainties from original audio with large-v3 and no VAD; do not guess missing speech.",
-    "Create episode-11.edited.json, align Slovak with comodoro/wav2vec2-xls-r-300m-sk-cv8 and share utterance boundaries with Czech.",
-    "Balance natural blocks and lines in both languages (two lines, 48 characters); inspect actual 360–390px player, video and reader with larger font, then recheck acoustic boundaries.",
-    "Validate every source word, hashes, low CTC scores, gaps, anchors, final JSON and both SRT; build exact MP3 frame index for original RSS URL.",
-    "Verify full official YouTube video identity and separate time mapping, explicitly retain limits on unavailable acoustic comparison.",
-    "Register only after complete review; extend validator CI, run caption clock and relevant V2/PWA tests on exact head SHA.",
-    "Merge with expected SHA only after green checks; verify Pages deploy and live JSON and both SRT hashes before marking finished.",
-    "Investigate test-local-ai-browser.mjs CI failure without changing unrelated application UI; never merge while relevant required checks fail."
+    "Pass required CI at exact PR head including exhaustive mobile cue layout test.",
+    "Merge with expected head SHA only after relevant checks succeed.",
+    "Verify Pages build and live JSON / both SRT hashes."
   ],
   "audioSha256": "894ace9292a9bec7a0c8d5f1acc9904e9fd04fe8da2d39bb89a5bb49a1f6f428",
   "audioBytes": 32933316,
   "duration": 1005.244082,
   "sourceWorkflowRun": "https://github.com/Berniocal/vedator/actions/runs/44859205322",
-  "sourceWorkflowStatus": "source-ASR-and-19-independent-windows-committed",
+  "sourceWorkflowStatus": "complete-source-and-independent-followup-evidence-reviewed",
   "repositoryInstructions": {
     "AGENTS.md": "absent in current main tree",
     "V2-MAINTENANCE.md": "read",
@@ -50,8 +40,8 @@
   "rssPublishedDate": "Tue, 11 Feb 2020 04:00:00 +0100",
   "rssSource": "https://feed.podbean.com/vedatorskypodcast/feed.xml",
   "finalCueCount": {
-    "cs": 0,
-    "sk": 0
+    "cs": 212,
+    "sk": 212
   },
   "translationWorkflowRun": "https://github.com/Berniocal/vedator/actions/runs/44859596798",
   "ciAtCheckpoint": {
@@ -66,7 +56,8 @@
       "test": "tools/test-local-ai-browser.mjs",
       "location": "36:387",
       "details": "AssertionError: expected truthy value; all other V2 integration tests in that job passed",
-      "resolved": false
+      "resolved": true,
+      "resolution": "Mock transient failure now occurs only on a missing-file download, not on a cache hit. Full local AI browser regression passed."
     }
   },
   "youtubeMetadataVerification": {
@@ -81,6 +72,44 @@
   "asrWords": 2231,
   "sourceCueCount": 225,
   "completeSlovakDraftRead": true,
-  "finalEditorialApproval": false,
-  "additionalEditorialWindowsRequested": 19
+  "finalEditorialApproval": true,
+  "additionalEditorialWindowsRequested": 19,
+  "recoveredSpeechPassages": 2,
+  "acousticAlignmentPerformed": true,
+  "lowCtcScoreCount": 0,
+  "completeCzechEditorialReview": true,
+  "limitations": [
+    "No complete independent human listening verification.",
+    "YouTube oEmbed identifies the official video; full watch-page retrieval returned HTTP 429. No direct YouTube/MP3 acoustic comparison was performed.",
+    "A few short fast utterances retain their spoken timing rather than overlapping later speech."
+  ],
+  "editorialSources": [
+    "captions/source/episode-11-editorial-bilingual.tsv",
+    "captions/source/episode-11-extra-checks.sk.json",
+    "captions/source/episode-11-followup-checks.sk.json",
+    "captions/source/episode-11-ctc-checks.sk.json"
+  ],
+  "localValidation": {
+    "originalAudioSha256Verified": true,
+    "all2231SourceWordsCovered": true,
+    "jsonAndBothSrtsMatch": true,
+    "maxLines": 2,
+    "maxLineCharacters": 48,
+    "captionClockBrowser": "passed-all-registered-episodes-including-11",
+    "mobileReaderFontWidths": [
+      360,
+      390
+    ],
+    "v2RequiredTests": "passed",
+    "localAiBrowser": "passed",
+    "previousSubtitleFilesUnchanged": 18,
+    "productionPwa": "passed"
+  },
+  "releaseFollowup": {
+    "date": "2026-11-22",
+    "editorialBilingualTextReadAgain": true,
+    "originalAudioHashAndStructuralValidator": "passed",
+    "localBrowserRerun": "blocked: Chromium socket() Operation not permitted; use GitHub Actions for current-head browser checks",
+    "completePublication": false
+  }
 }

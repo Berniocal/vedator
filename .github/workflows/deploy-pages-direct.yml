@@ -90,3 +90,5 @@ jobs:
           if test -f captions/episode-364.json; then node tools/verify-episode364-production.mjs; fi
 
           if test -f captions/episode-10.json; then node tools/verify-caption-production.mjs 10; fi
+
+          if test -f captions/episode-11.json; then node tools/verify-caption-production.mjs 11; fi

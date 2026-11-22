@@ -1,0 +1,33 @@
+{
+  "episode": 11,
+  "cueCount": 212,
+  "asrWordCount": 2231,
+  "audioSha256": "894ace9292a9bec7a0c8d5f1acc9904e9fd04fe8da2d39bb89a5bb49a1f6f428",
+  "lowScoreCues": [],
+  "maxBoundaryChange": 3.391999999999939,
+  "status": "editorially-reviewed-acoustically-aligned-needs-independent-listening",
+  "editorialReviewComplete": true,
+  "humanListeningVerified": false,
+  "youtubeAudioCompared": false,
+  "checks": {
+    "sourceWords": 2231,
+    "sourceCues": 225,
+    "czechAndSlovakCues": 212,
+    "recoveredSpeech": 2,
+    "asrCheckWindows": 38,
+    "unforcedCtcCheckWindows": 10,
+    "maxLines": 2,
+    "maxLineCharacters": 48,
+    "exactMp3FrameAnchors": 963,
+    "mp3ClockVideoReaderAndWakeBrowserTest": "passed",
+    "mobileWidths": [
+      360,
+      390
+    ]
+  },
+  "assets": {
+    "episode-11.json": "e7860b9eaa82b54c9b660ef12b63f1db8c0e00ba4bff8ce435bfc6a2c41cce51",
+    "episode-11.cs.srt": "18a13a5b1b8f1e79ae1a5c28309fc6f92732241c3436eb76598835020dde8e24",
+    "episode-11.sk.srt": "9713d60abbe9092dc1616510648605fd35b666d5e60bc52f15b1f620e88ed77d"
+  }
+}
