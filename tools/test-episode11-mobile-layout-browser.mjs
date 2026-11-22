@@ -96,6 +96,7 @@ try{
    const rows=await page.evaluate(({cues,mode})=>{
     const node=document.getElementById(mode==='mp3'?'player-caption-text-v2':mode==='video'?'player-video-caption-v2':'player-caption-reader-text-v2');
     function lines(){const words=[];const walker=document.createTreeWalker(node,NodeFilter.SHOW_TEXT);let child;while(child=walker.nextNode()){const re=/\S+/g;let m;while(m=re.exec(child.textContent)){const r=document.createRange();r.setStart(child,m.index);r.setEnd(child,m.index+m[0].length);const b=r.getBoundingClientRect();words.push({text:m[0],y:Math.round(b.top)})}}const groups=[];for(const w of words){let g=groups.find(g=>Math.abs(g.y-w.y)<3);if(!g)groups.push(g={y:w.y,words:[]});g.words.push(w.text)}return groups.map(g=>g.words)}
+    if(node.clientWidth<20||!node.getBoundingClientRect().height)return [{kind:'caption-surface-not-visible'}];
     const result=[];const base=parseFloat(getComputedStyle(node).fontSize);
     for(const lang of ['cs','sk'])for(const scale of [1,1.3])for(let i=0;i<cues.length;i++){
      const value=cues[i].text[lang];

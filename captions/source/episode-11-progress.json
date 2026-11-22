@@ -10,7 +10,7 @@
   "editorialReviewComplete": true,
   "humanListeningVerified": false,
   "youtubeAudioCompared": false,
-  "mobileLayoutVerified": true,
+  "mobileLayoutVerified": false,
   "nextSteps": [
     "Pass required CI at exact PR head including exhaustive mobile cue layout test.",
     "Merge with expected head SHA only after relevant checks succeed.",
@@ -110,6 +110,8 @@
     "editorialBilingualTextReadAgain": true,
     "originalAudioHashAndStructuralValidator": "passed",
     "localBrowserRerun": "blocked: Chromium socket() Operation not permitted; use GitHub Actions for current-head browser checks",
-    "completePublication": false
+    "completePublication": false,
+    "lineEndingEditorialFixes": 9,
+    "fullMobileLayout": "pending-current-head-CI"
   }
 }

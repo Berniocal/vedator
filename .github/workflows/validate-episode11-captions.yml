@@ -48,12 +48,7 @@ jobs:
       - name: Download and authenticate original episode 11 MP3
         run: |
           mkdir -p "$RUNNER_TEMP/caption-ep11-audio"
-          python - <<'PY'
-          import json, subprocess, os
-          src = json.load(open('captions/episode-11.json'))['source']
-          subprocess.run(['curl','--fail','--location','--retry','3','--max-time','180',
-                          src['audio'],'-o',os.environ['RUNNER_TEMP']+'/caption-ep11-audio/episode-11.mp3'], check=True)
-          PY
+          python tools/download-caption-reference.py --episode 11 --output "$RUNNER_TEMP/caption-ep11-audio/episode-11.mp3"
       - name: Verify all source hashes, words, timings, CTC scores, SRTs and seek index
         run: python tools/validate-episode11-captions.py --audio "$RUNNER_TEMP/caption-ep11-audio/episode-11.mp3"
       - name: Rebuild content and check application scripts

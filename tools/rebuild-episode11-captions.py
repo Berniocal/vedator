@@ -29,7 +29,8 @@ def wrap(text):
     choices = [i for i, ch in enumerate(text) if ch == ' ' and i <= 48 and len(text)-i-1 <= 48]
     if not choices:
         return None
-    i = min(choices, key=lambda i: abs(i-(len(text)-1)/2))
+    preferred = [i for i in choices if not re.search(r'(?:^| )[aikosuvz]$', text[:i], re.I) and len(text[:i].split()) > 1 and len(text[i+1:].split()) > 1]
+    i = min(preferred or choices, key=lambda i: abs(i-(len(text)-1)/2))
     return text[:i]+'\n'+text[i+1:]
 
 def srt_time(t):

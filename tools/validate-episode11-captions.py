@@ -123,6 +123,8 @@ def main():
             check(cue["text"][language].replace("\n", " ") == edited["cues"][i - 1]["text"][language],
                   f"Cue {i}: final {language} text differs from reviewed text")
             lines = cue["text"][language].split("\n")
+            check(not any(re.search(r"(?:^| )[aikosuvz]$", line, re.I) for line in lines[:-1]),
+                  f"Cue {i}: avoidable single-letter word at a fixed line ending in {language}")
             if len(lines) > 2:
                 three_lines.append((i, language, len(lines)))
             if max(map(len, lines)) > 48:
