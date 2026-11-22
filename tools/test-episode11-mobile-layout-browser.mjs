@@ -8,7 +8,7 @@ import {pathToFileURL} from 'node:url';
 const root=process.cwd(),require=createRequire(path.join(process.env.VEDATOR_TEST_DEPS||root,'package.json'));
 const puppeteer=require('puppeteer-core'),{default:chromium}=await import(pathToFileURL(require.resolve('@sparticuz/chromium')));
 const source=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
-const numbers=JSON.parse(fs.readFileSync('episode-videos.json','utf8')).filter(e=>e.captionFile).map(e=>e.episode);
+const numbers=[11];
 const captions=Object.fromEntries(numbers.map(n=>[n,JSON.parse(fs.readFileSync('captions/episode-'+n+'.json','utf8'))]));
 const audio=Object.fromEntries(numbers.map(n=>[n,fs.readFileSync(path.join(process.env.VEDATOR_CAPTION_AUDIO,'episode-'+n+'.mp3'))]));
 const diagnostics=process.env.VEDATOR_CAPTION_DIAGNOSTIC==='1';
@@ -84,7 +84,7 @@ try{
  await page.evaluate(()=>window.__captionTest.open(11));
  await page.waitForFunction(()=>document.getElementById('audio-v2').readyState>=2);
  await page.evaluate(()=>document.getElementById('audio-v2').pause());
- const findings=[];
+ const findings=[],candidateChecks=[];
  for(const width of [360,390]){
   await page.setViewport({width,height:844,isMobile:true,hasTouch:true});
   await page.evaluate(()=>window.__captionTest.open(11));
@@ -96,8 +96,22 @@ try{
    const rows=await page.evaluate(({cues,mode})=>{
     const node=document.getElementById(mode==='mp3'?'player-caption-text-v2':mode==='video'?'player-video-caption-v2':'player-caption-reader-text-v2');
     function lines(){const words=[];const walker=document.createTreeWalker(node,NodeFilter.SHOW_TEXT);let child;while(child=walker.nextNode()){const re=/\S+/g;let m;while(m=re.exec(child.textContent)){const r=document.createRange();r.setStart(child,m.index);r.setEnd(child,m.index+m[0].length);const b=r.getBoundingClientRect();words.push({text:m[0],y:Math.round(b.top)})}}const groups=[];for(const w of words){let g=groups.find(g=>Math.abs(g.y-w.y)<3);if(!g)groups.push(g={y:w.y,words:[]});g.words.push(w.text)}return groups.map(g=>g.words)}
+    if(mode==='reader')window.__captionTest.renderReader('Kontrola mobilního vykreslení titulků.',1);else node.textContent='Kontrola mobilního vykreslení titulků.';
     if(node.clientWidth<20||!node.getBoundingClientRect().height)return [{kind:'caption-surface-not-visible'}];
-    const result=[];const base=parseFloat(getComputedStyle(node).fontSize);
+    const result=[],candidates=[];
+    function options(value){
+     const flat=value.replace(/\s+/g,' '),choices=[value],words=flat.split(' ');
+     if(flat.length<=48)choices.push(flat);
+     for(let j=1;j<words.length;j++){
+      const a=words.slice(0,j).join(' '),b=words.slice(j).join(' ');
+      if(a.length>48||b.length>48||j<2||words.length-j<2||/(?:^| )[aikosuvz]$/i.test(a))continue;
+      choices.push(a+'\n'+b);
+      const bind=(line,k)=>{const w=line.split(' ');if(w.length<k+1||w.slice(-k).join(' ').length>24)return line;return w.slice(0,-k).join(' ')+' '+w.slice(-k).join('\u00a0')};
+      for(const k of [2,3])choices.push(bind(a,k)+'\n'+bind(b,k));
+     }
+     return [...new Set(choices)];
+    }
+    const base=parseFloat(getComputedStyle(node).fontSize);
     for(const lang of ['cs','sk'])for(const scale of [1,1.3])for(let i=0;i<cues.length;i++){
      const value=cues[i].text[lang];
      if(mode==='reader')window.__captionTest.renderReader(value,scale);else{node.style.fontSize=(base*scale)+'px';node.textContent=value}
@@ -107,12 +121,23 @@ try{
      }
      if(node.scrollWidth>node.clientWidth+1)result.push({cue:i+1,lang,scale,kind:'horizontal-overflow'});
     }
-    node.style.fontSize='';return result;
+    if(mode!=='reader')for(const lang of ['cs','sk'])for(const scale of [1,1.3])for(let i=0;i<cues.length;i++){
+     const value=cues[i].text[lang],flat=value.replace(/\s+/g,' ');node.style.fontSize=(base*scale)+'px';node.textContent=flat;
+     const naturalOrphan=lines().some(l=>l.length===1);
+     for(const candidate of options(value)){
+      node.textContent=candidate;const rendered=lines();
+      candidates.push({cue:i+1,lang,text:candidate,fail:(node.scrollWidth>node.clientWidth+1||(!naturalOrphan&&rendered.length>1&&rendered.some(l=>l.length===1)))?1:0});
+     }
+    }
+    node.style.fontSize='';return {result,candidates};
    },{cues:captions[11].cues,mode});
-   findings.push(...rows.map(row=>({width,mode,...row})));
+   if(Array.isArray(rows))findings.push(...rows.map(row=>({width,mode,...row})));else{findings.push(...rows.result.map(row=>({width,mode,...row})));candidateChecks.push(...rows.candidates)}
    if(mode==='reader')await page.evaluate(()=>window.__captionTest.exitReader());
   }
  }
- console.log(JSON.stringify({episode:11,checkedCues:212,widths:[360,390],languages:['cs','sk'],scales:[1,1.3],modes:['mp3','video','reader'],findings},null,2));
+ const totals=new Map();for(const c of candidateChecks){const key=c.cue+':'+c.lang+':'+c.text,old=totals.get(key)||{...c,fail:0};old.fail+=c.fail;totals.set(key,old)}
+ const keys=[...new Set(findings.filter(f=>f.cue).map(f=>f.cue+':'+f.lang))];
+ const proposals=keys.map(key=>{const list=[...totals.values()].filter(c=>c.cue+':'+c.lang===key).sort((a,b)=>a.fail-b.fail||((a.text.match(/\u00a0/g)||[]).length-(b.text.match(/\u00a0/g)||[]).length)||Math.abs(a.text.split('\n')[0].length-(a.text.split('\n')[1]?.length||0))-Math.abs(b.text.split('\n')[0].length-(b.text.split('\n')[1]?.length||0)));return list[0]});
+ await new Promise(resolve=>process.stdout.write(JSON.stringify({episode:11,checkedCues:212,widths:[360,390],languages:['cs','sk'],scales:[1,1.3],modes:['mp3','video','reader'],findings,proposals},null,2)+'\n',resolve));
 assert.equal(findings.length,0,'Mobile caption overflow or avoidable fixed-break orphan');
 }finally{await browser.close();server.close()}

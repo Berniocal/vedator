@@ -77,9 +77,6 @@ jobs:
         run: git diff --exit-code -- audio-seek-index.json
       - name: Verify actual MP3 captions, reader, video and wake lifecycle
         run: VEDATOR_CAPTION_AUDIO="$RUNNER_TEMP/caption-audio" VEDATOR_TEST_DEPS="$RUNNER_TEMP/caption-deps" node tools/test-caption-clock-browser.mjs
-      - name: Verify every episode 11 mobile cue in both languages and all player surfaces
-        if: hashFiles('captions/episode-11.json') != ''
-        run: VEDATOR_CAPTION_AUDIO="$RUNNER_TEMP/caption-audio" VEDATOR_TEST_DEPS="$RUNNER_TEMP/caption-deps" node tools/test-episode11-mobile-layout-browser.mjs
       - name: Verify production offline cache
         run: |
           node tools/prepare-production-index.mjs

@@ -61,3 +61,7 @@ jobs:
           node tools/build-production-sw.mjs
           node --check sw.js
           node tools/test-production-pwa.mjs
+      - name: Install mobile layout test dependencies
+        run: npm install --prefix "$RUNNER_TEMP/caption-deps" --no-audit --no-fund puppeteer-core@25.12.0 @sparticuz/chromium@153.0.0
+      - name: Verify every episode 11 cue in CZ/SK at 360/390 px and enlarged font
+        run: VEDATOR_CAPTION_AUDIO="$RUNNER_TEMP/caption-ep11-audio" VEDATOR_TEST_DEPS="$RUNNER_TEMP/caption-deps" node tools/test-episode11-mobile-layout-browser.mjs
