@@ -93,7 +93,7 @@ try{
   for(const mode of ['mp3','video','reader']){
    if(mode==='video'){await page.evaluate(()=>window.__captionTest.video());await page.waitForFunction(()=>window.__yt)}
    if(mode==='reader'){await page.evaluate(()=>window.__captionTest.reader());await wait(100)}
-   const rows=await page.evaluate(({cues,mode})=>{
+   const rows=await page.evaluate(({cues,mode,propose})=>{
     const node=document.getElementById(mode==='mp3'?'player-caption-text-v2':mode==='video'?'player-video-caption-v2':'player-caption-reader-text-v2');
     function lines(){const words=[];const walker=document.createTreeWalker(node,NodeFilter.SHOW_TEXT);let child;while(child=walker.nextNode()){const re=/\S+/g;let m;while(m=re.exec(child.textContent)){const r=document.createRange();r.setStart(child,m.index);r.setEnd(child,m.index+m[0].length);const b=r.getBoundingClientRect();words.push({text:m[0],y:Math.round(b.top)})}}const groups=[];for(const w of words){let g=groups.find(g=>Math.abs(g.y-w.y)<3);if(!g)groups.push(g={y:w.y,words:[]});g.words.push(w.text)}return groups.map(g=>g.words)}
     if(mode==='reader')window.__captionTest.renderReader('Kontrola mobilního vykreslení titulků.',1);else node.textContent='Kontrola mobilního vykreslení titulků.';
@@ -121,7 +121,7 @@ try{
      }
      if(node.scrollWidth>node.clientWidth+1)result.push({cue:i+1,lang,scale,kind:'horizontal-overflow'});
     }
-    if(mode!=='reader')for(const lang of ['cs','sk'])for(const scale of [1,1.3])for(let i=0;i<cues.length;i++){
+    if(propose&&mode!=='reader')for(const lang of ['cs','sk'])for(const scale of [1,1.3])for(let i=0;i<cues.length;i++){
      const value=cues[i].text[lang],flat=value.replace(/\s+/g,' ');node.style.fontSize=(base*scale)+'px';node.textContent=flat;
      const naturalOrphan=lines().some(l=>l.length===1);
      for(const candidate of options(value)){
@@ -130,7 +130,7 @@ try{
      }
     }
     node.style.fontSize='';return {result,candidates};
-   },{cues:captions[11].cues,mode});
+   },{cues:captions[11].cues,mode,propose:process.env.VEDATOR_LAYOUT_PROPOSE==='1'});
    if(Array.isArray(rows))findings.push(...rows.map(row=>({width,mode,...row})));else{findings.push(...rows.result.map(row=>({width,mode,...row})));candidateChecks.push(...rows.candidates)}
    if(mode==='reader')await page.evaluate(()=>window.__captionTest.exitReader());
   }
