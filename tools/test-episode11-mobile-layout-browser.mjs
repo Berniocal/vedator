@@ -137,7 +137,8 @@ try{
  }
  const totals=new Map();for(const c of candidateChecks){const key=c.cue+':'+c.lang+':'+c.text,old=totals.get(key)||{...c,fail:0};old.fail+=c.fail;totals.set(key,old)}
  const keys=[...new Set(findings.filter(f=>f.cue).map(f=>f.cue+':'+f.lang))];
- const proposals=keys.map(key=>{const list=[...totals.values()].filter(c=>c.cue+':'+c.lang===key).sort((a,b)=>a.fail-b.fail||((a.text.match(/\u00a0/g)||[]).length-(b.text.match(/\u00a0/g)||[]).length)||Math.abs(a.text.split('\n')[0].length-(a.text.split('\n')[1]?.length||0))-Math.abs(b.text.split('\n')[0].length-(b.text.split('\n')[1]?.length||0)));return list[0]});
+ const layoutCost=c=>{const rows=c.text.split('\n');return Math.abs(rows[0].length-(rows[1]?.length||0))+2*(c.text.match(/\u00a0/g)||[]).length};
+ const proposals=keys.map(key=>[...totals.values()].filter(c=>c.cue+':'+c.lang===key).sort((a,b)=>a.fail-b.fail||layoutCost(a)-layoutCost(b))[0]);
  await new Promise(resolve=>process.stdout.write(JSON.stringify({episode:11,checkedCues:212,widths:[360,390],languages:['cs','sk'],scales:[1,1.3],modes:['mp3','video','reader'],findings,proposals},null,2)+'\n',resolve));
 assert.equal(findings.length,0,'Mobile caption overflow or avoidable fixed-break orphan');
 }finally{await browser.close();server.close()}

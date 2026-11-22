@@ -25,11 +25,17 @@
       390
     ],
     "avoidableSingleLetterHardBreaks": 0,
-    "fullMobileLayout": "pending-current-head-CI"
+    "fullMobileLayout": "pending-final-layout-validation"
   },
   "assets": {
-    "episode-11.json": "4176c811b5a99c2a1b217449e2408e8e1aeda632a4db3559341be303376f3faa",
-    "episode-11.cs.srt": "67690b02fc946bea8da6af53a0ae8aff88c3de7f911b87a7797df506856aa651",
-    "episode-11.sk.srt": "9d04322e528b1fd27e4ffd421c39660dbfd9cd9b54ee2e30cadfa2f838e2571d"
+    "episode-11.json": "3d859257324a49578587921f84e05a9387a0e0e7e4c1a18c1dbfd946648bb6e1",
+    "episode-11.cs.srt": "50af5cf9861a9f24c170aa2541020c2a5be02c897d078261f583ca67e8c1dd87",
+    "episode-11.sk.srt": "d8736c70ae60fba59c51133209b8178a2a93152448011d0af2a31451010352ca"
+  },
+  "layoutReview": {
+    "selectedVariants": 241,
+    "rebalancedAfterCandidateReview": 46,
+    "preservedWordsAndAcousticBoundaries": true,
+    "triageRun": "https://github.com/Berniocal/vedator/actions/runs/44980154987"
   }
 }

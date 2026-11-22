@@ -24,6 +24,13 @@ def source():
     digest=hashlib.sha256(AUDIO.read_bytes()).hexdigest()
     return e,{"audio":e["enclosure"],"audioSha256":digest,"audioBytes":AUDIO.stat().st_size}
 def wrap(text):
+    layout_path = SOURCE / "episode-11-layout-overrides.json"
+    if layout_path.exists():
+        flat = re.sub(r"\s+", " ", text)
+        for choice in read(layout_path)["overrides"]:
+            if choice["flatText"] == flat:
+                assert re.sub(r"\s+", " ", choice["text"]) == flat
+                return choice["text"]
     if len(text) <= 48:
         return text
     choices = [i for i, ch in enumerate(text) if ch == ' ' and i <= 48 and len(text)-i-1 <= 48]

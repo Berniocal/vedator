@@ -88,6 +88,12 @@ def main():
     check(final["source"].get("alignmentModel") == "comodoro/wav2vec2-xls-r-300m-sk-cv8",
           "Unexpected acoustic alignment model")
 
+    layout = load(CAP / "source" / "episode-11-layout-overrides.json")
+    for choice in layout["overrides"]:
+        cue = cues[choice["cue"] - 1]
+        check(cue["text"][choice["language"]] == choice["text"], "Final caption differs from selected mobile layout")
+        check(re.sub(r"\s+", " ", choice["text"]) == choice["flatText"], "Mobile layout changed spoken words")
+
     last_end, word_end = 0, 0
     duration = float(draft["source"]["duration"])
     scores, long_lines, three_lines, fast = [], [], [], []
