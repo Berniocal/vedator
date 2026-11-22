@@ -5,16 +5,16 @@
   "audio": "https://mcdn.podbean.com/mf/web/5s3dyc/podcast_ep11.mp3",
   "youtubeId": "po2qYjYHEEE",
   "baseMainSha": "8edb68224cce3fb4804e1a1ffb2cdd2a84d100ba",
-  "status": "release-pending-current-head-ci-and-production-verification",
+  "status": "release-candidate-reviewed-and-mobile-verified-pending-final-head-ci-and-production",
   "registered": true,
   "editorialReviewComplete": true,
   "humanListeningVerified": false,
   "youtubeAudioCompared": false,
-  "mobileLayoutVerified": false,
+  "mobileLayoutVerified": true,
   "nextSteps": [
-    "Pass required CI at exact PR head including exhaustive mobile cue layout test.",
-    "Merge with expected head SHA only after relevant checks succeed.",
-    "Verify Pages build and live JSON / both SRT hashes."
+    "Require successful relevant CI at final PR head SHA.",
+    "Merge using the exact expected head SHA.",
+    "Verify Pages deployment and actual live JSON / both SRT SHA-256 values."
   ],
   "audioSha256": "894ace9292a9bec7a0c8d5f1acc9904e9fd04fe8da2d39bb89a5bb49a1f6f428",
   "audioBytes": 32933316,
@@ -112,9 +112,10 @@
     "localBrowserRerun": "blocked: Chromium socket() Operation not permitted; use GitHub Actions for current-head browser checks",
     "completePublication": false,
     "lineEndingEditorialFixes": 9,
-    "fullMobileLayout": "pending-current-head-CI",
+    "fullMobileLayout": "passed-all-212-CZ-and-SK-cues-360-390-px-100-130-percent-all-surfaces",
     "mobileTriageRun": "https://github.com/Berniocal/vedator/actions/runs/44980154987",
     "layoutVariantsSelected": 241,
-    "wholeTextAndAllAcousticBoundariesUnchanged": true
+    "wholeTextAndAllAcousticBoundariesUnchanged": true,
+    "finalMobileEvidence": "https://github.com/Berniocal/vedator/actions/runs/44981030356"
   }
 }

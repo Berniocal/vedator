@@ -25,7 +25,7 @@
       390
     ],
     "avoidableSingleLetterHardBreaks": 0,
-    "fullMobileLayout": "pending-final-layout-validation"
+    "fullMobileLayout": "passed-all-212-cues-both-languages-all-surfaces-at-360-390-px-and-100-130-percent-font"
   },
   "assets": {
     "episode-11.json": "b9c910b09ccca43914dd91688e748c5d170b2daf71569dd2633255121f0f11df",
@@ -37,6 +37,9 @@
     "rebalancedAfterCandidateReview": 46,
     "preservedWordsAndAcousticBoundaries": true,
     "triageRun": "https://github.com/Berniocal/vedator/actions/runs/44980154987",
-    "finalThreeVariants": "https://github.com/Berniocal/vedator/actions/runs/44980567036"
+    "finalThreeVariants": "https://github.com/Berniocal/vedator/actions/runs/44980567036",
+    "finalValidation": "https://github.com/Berniocal/vedator/actions/runs/44981030356",
+    "finalValidationFile": "captions/source/episode-11-mobile-layout-validation.json",
+    "findings": 0
   }
 }

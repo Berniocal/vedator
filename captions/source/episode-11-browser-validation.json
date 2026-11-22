@@ -1,57 +1,98 @@
 {
   "ok": true,
   "episode": 11,
-  "test": "tools/test-caption-clock-browser.mjs",
-  "testSha256": "a15c29047e624d386fd34905b4ec55a4e72fdd8f8579d7b1d4500f27ca4c37a6",
-  "captionJsonSha256": "e7860b9eaa82b54c9b660ef12b63f1db8c0e00ba4bff8ce435bfc6a2c41cce51",
-  "testedEpisodes": [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    361,
-    362,
-    363,
-    364
-  ],
-  "episodeResult": {
-    "n": 11,
-    "times": [
-      19.728,
-      495.468,
-      993.9680000000001
+  "captionJsonSha256": "b9c910b09ccca43914dd91688e748c5d170b2daf71569dd2633255121f0f11df",
+  "fullMobileLayout": {
+    "episode": 11,
+    "checkedCues": 212,
+    "widths": [
+      360,
+      390
     ],
-    "target": 767.482,
-    "mse": {
-      "clock": {
-        "time": 767.482,
-        "duration": 1005.244082,
-        "available": 773.87755,
-        "ready": true,
-        "pending": false
-      },
-      "approximate": false,
-      "partStart": -765.910204
-    },
-    "running": {
-      "clock": 770.048,
-      "text": "Tedy neberme to jako důkaz\nexistence magnetických monopólů,"
-    }
+    "languages": [
+      "cs",
+      "sk"
+    ],
+    "scales": [
+      1,
+      1.3
+    ],
+    "modes": [
+      "mp3",
+      "video",
+      "reader"
+    ],
+    "findings": [],
+    "proposals": [],
+    "ok": true,
+    "headSha": "e953404e38d3d769485147f3d47df97b6f3ad735",
+    "workflowRun": "https://github.com/Berniocal/vedator/actions/runs/44981030356",
+    "workflowJob": "https://github.com/Berniocal/vedator/actions/runs/44981030356/job/137081338653",
+    "captionJsonSha256": "b9c910b09ccca43914dd91688e748c5d170b2daf71569dd2633255121f0f11df",
+    "testSha256": "02e9654d3495fdd2f48cf611f0a970c3cb81f333fadee16762dea9ff031fc6b6",
+    "method": "Actual Chromium application nodes; word Range bounding rectangles, overflow checks and comparison against natural wrapping. Every cue in both languages, all three surfaces and both sizes.",
+    "humanListeningVerified": false,
+    "youtubeAudioCompared": false
   },
-  "failures": [],
-  "errors": [],
-  "mobileReaderWidths": [
-    360,
-    390
-  ],
-  "videoPlayer": "controlled YouTube API fixture; not direct audio comparison",
+  "captionClockTestSha256": "a15c29047e624d386fd34905b4ec55a4e72fdd8f8579d7b1d4500f27ca4c37a6",
+  "captionClockStatus": "Required at final head by verify-caption-clock workflow; earlier authenticated original-audio runs succeeded.",
   "humanListeningVerified": false,
-  "scope": "Historical successful browser run for the exact captionJsonSha256 above. Line-break-only edits made on 2026-11-22 require a new mobile layout run; this report does not certify the new caption file."
+  "youtubeAudioCompared": false,
+  "previousBrowserReport": {
+    "ok": true,
+    "episode": 11,
+    "test": "tools/test-caption-clock-browser.mjs",
+    "testSha256": "a15c29047e624d386fd34905b4ec55a4e72fdd8f8579d7b1d4500f27ca4c37a6",
+    "captionJsonSha256": "e7860b9eaa82b54c9b660ef12b63f1db8c0e00ba4bff8ce435bfc6a2c41cce51",
+    "testedEpisodes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      361,
+      362,
+      363,
+      364
+    ],
+    "episodeResult": {
+      "n": 11,
+      "times": [
+        19.728,
+        495.468,
+        993.9680000000001
+      ],
+      "target": 767.482,
+      "mse": {
+        "clock": {
+          "time": 767.482,
+          "duration": 1005.244082,
+          "available": 773.87755,
+          "ready": true,
+          "pending": false
+        },
+        "approximate": false,
+        "partStart": -765.910204
+      },
+      "running": {
+        "clock": 770.048,
+        "text": "Tedy neberme to jako důkaz\nexistence magnetických monopólů,"
+      }
+    },
+    "failures": [],
+    "errors": [],
+    "mobileReaderWidths": [
+      360,
+      390
+    ],
+    "videoPlayer": "controlled YouTube API fixture; not direct audio comparison",
+    "humanListeningVerified": false,
+    "scope": "Historical successful browser run for the exact captionJsonSha256 above. Line-break-only edits made on 2026-11-22 require a new mobile layout run; this report does not certify the new caption file."
+  }
 }

@@ -1,6 +1,6 @@
 {
   "episode": 11,
-  "status": "editorially-selected-typography-needs-final-browser-validation",
+  "status": "editorially-selected-and-browser-validated",
   "note": "Only whitespace and line breaks differ. Nonbreaking word pairs keep trailing words together when a fixed subtitle line reflows. Audio boundaries, alignment text and all spoken words are unchanged.",
   "overrides": [
     {
@@ -1449,5 +1449,6 @@
       "flatText": "nepodarilo sa to pozorovať už ani raz a teraz vlastne nevedia, mali sme",
       "text": "nepodarilo sa to pozorovať už ani\nraz a teraz vlastne nevedia, mali sme"
     }
-  ]
+  ],
+  "validationFile": "captions/source/episode-11-mobile-layout-validation.json"
 }
