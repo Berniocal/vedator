@@ -26,11 +26,13 @@ replacements={
 }
 # Only lexical orthography here. Disputed utterances and all numeric values remain untouched.
 replacements={k:v for k,v in replacements.items() if k!=v}
+manual=json.loads((S/'episode-12-working-cue-edits.sk.json').read_text())
 changes=[];cues=[]
 for i,c in enumerate(draft['cues'],1):
     text=c['text']
     for a,b in replacements.items():text=re.sub(r'(?<!\w)'+re.escape(a)+r'(?!\w)',b,text)
     text=text.replace('20 -ciferné','20-ciferné').replace('17 ,5','17,5').replace('1 ,2','1,2').replace('SARS -om','SARS-om').replace('SARS -e','SARS-e').replace('e -maily','e-maily').replace('e -mail','e-mail').replace('vedator .space','vedator.space')
+    text=manual.get(str(i),text)
     if text!=c['text']:changes.append({'cue':i,'before':c['text'],'after':text,'reason':'Preliminary lexical/orthographic transcription cleanup; numeric values and unresolved speech retained.'})
     cues.append({**c,'originalSk':c['text'],'workingSk':text,'editorialApproval':False})
 (S/'episode-12-working-language.sk.json').write_text(json.dumps({'episode':12,'status':'working-orthographic-pass-not-approved-not-captions','audioSha256':draft['source']['audioSha256'],'sourceTranscriptSha256':hashlib.sha256(source.read_bytes()).hexdigest(),'completeSourceRead':True,'finalEditorialApproval':False,'cues':cues},ensure_ascii=False,indent=2)+'\n')
