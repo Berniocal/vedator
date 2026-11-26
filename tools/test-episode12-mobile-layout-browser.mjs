@@ -9,7 +9,15 @@ const root=process.cwd(),require=createRequire(path.join(process.env.VEDATOR_TES
 const puppeteer=require('puppeteer-core'),{default:chromium}=await import(pathToFileURL(require.resolve('@sparticuz/chromium')));
 const source=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const numbers=[12];
-const captions=Object.fromEntries(numbers.map(n=>[n,JSON.parse(fs.readFileSync('captions/episode-'+n+'.json','utf8'))]));
+const workingDraft=process.env.VEDATOR_LAYOUT_WORKING_DRAFT==='1';
+function workingWrap(text){
+ if(text.length<=48)return text;
+ const choices=[...text.matchAll(/ /g)].map(m=>m.index).filter(i=>i<=48&&text.length-i-1<=48&&!/(?:^| )[aikosuvz]$/i.test(text.slice(0,i))&&text.slice(0,i).split(' ').length>1&&text.slice(i+1).split(' ').length>1);
+ if(!choices.length)return text;
+ choices.sort((a,b)=>Math.abs(a-(text.length-1)/2)-Math.abs(b-(text.length-1)/2));
+ return text.slice(0,choices[0])+'\n'+text.slice(choices[0]+1);
+}
+const captions=Object.fromEntries(numbers.map(n=>[n,workingDraft?{version:1,episode:n,guid:source.episodes.find(e=>e.number===n).id,youtubeId:source.episodes.find(e=>e.number===n).youtubeId,cues:JSON.parse(fs.readFileSync('captions/source/episode-'+n+'-manual-bilingual-draft.json','utf8')).cues.map(c=>({start:c.sourceStart,end:c.sourceEnd,text:Object.fromEntries(Object.entries(c.text).map(([lang,text])=>[lang,workingWrap(text)]))}))}:JSON.parse(fs.readFileSync('captions/episode-'+n+'.json','utf8'))]));
 const audio=Object.fromEntries(numbers.map(n=>[n,fs.readFileSync(path.join(process.env.VEDATOR_CAPTION_AUDIO,'episode-'+n+'.mp3'))]));
 const diagnostics=process.env.VEDATOR_CAPTION_DIAGNOSTIC==='1';
 let base;
@@ -18,8 +26,11 @@ const check=(condition,label,detail)=>{if(!condition){failures.push({label,detai
 const server=http.createServer((req,res)=>{
   const url=new URL(req.url,'http://localhost'),name=url.pathname;
   if(name==='/sw.js'){res.setHeader('Content-Type','text/javascript');res.end('');return}
+  if(workingDraft&&name==='/captions/episode-12.json'){
+    res.setHeader('Content-Type','application/json');res.end(JSON.stringify(captions[12]));return;
+  }
   if(name==='/content-v2.json'){
-    const data={...source,episodes:source.episodes.filter(e=>numbers.includes(e.number)).map(e=>({...e,enclosure:base+'/episode-'+e.number+'.mp3'})),series:[],questions:[]};
+    const data={...source,episodes:source.episodes.filter(e=>numbers.includes(e.number)).map(e=>({...e,enclosure:base+'/episode-'+e.number+'.mp3',...(workingDraft?{captionFile:'captions/episode-'+e.number+'.json'}:{})})),series:[],questions:[]};
     res.setHeader('Content-Type','application/json');res.end(JSON.stringify(data));return;
   }
   if(name==='/audio-seek-index.json'){
@@ -51,7 +62,7 @@ const server=http.createServer((req,res)=>{
         youtubeEnabled=false;
         return openPlayback(episode,{start,autoplay:true,context:continuous?{type:'episodes',label:'Test',index:0,items}:null});
       },
-      clock:playbackClock,sync:syncYoutubeCaptions,seek:seekPlayback,
+      clock:playbackClock,sync:syncYoutubeCaptions,seek:seekPlayback,language:setLanguage,
       part:()=>continuousPlayer?.part(),engine:()=>continuousPlayer,
       video:toggleYoutubePlayback,
       reader:enterCaptionReader,exitReader:exitCaptionReader,renderReader:(value,scale)=>{captionReaderScale=scale;captionReaderValue=value;layoutCaptionReader()}
@@ -113,11 +124,13 @@ try{
     }
     const base=parseFloat(getComputedStyle(node).fontSize);
     for(const lang of ['cs','sk'])for(const scale of [1,1.3])for(let i=0;i<cues.length;i++){
+     window.__captionTest.language(lang);node.lang=lang;
      const value=cues[i].text[lang];
      if(mode==='reader')window.__captionTest.renderReader(value,scale);else{node.style.fontSize=(base*scale)+'px';node.textContent=value}
      const wrapped=lines();
      if(wrapped.length>1&&wrapped.some(l=>l.length===1)){
-      if(mode!=='reader'){node.textContent=value.replace(/\s+/g,' ');const natural=lines();if(!natural.some(l=>l.length===1))result.push({cue:i+1,lang,scale,wrapped,natural,kind:'fixed-break-orphan'})}
+      if(mode==='reader')window.__captionTest.renderReader(value.replace(/\s+/g,' '),scale);else node.textContent=value.replace(/\s+/g,' ');
+      const natural=lines();if(!natural.some(l=>l.length===1))result.push({cue:i+1,lang,scale,wrapped,natural,kind:'fixed-break-orphan'});
      }
      if(node.scrollWidth>node.clientWidth+1)result.push({cue:i+1,lang,scale,kind:'horizontal-overflow'});
     }
@@ -132,6 +145,17 @@ try{
     node.style.fontSize='';return {result,candidates};
    },{cues:captions[12].cues,mode,propose:process.env.VEDATOR_LAYOUT_PROPOSE==='1'});
    if(Array.isArray(rows))findings.push(...rows.map(row=>({width,mode,...row})));else{findings.push(...rows.result.map(row=>({width,mode,...row})));candidateChecks.push(...rows.candidates)}
+   if(process.env.VEDATOR_LAYOUT_SCREENSHOTS&&width===360){
+    for(const lang of ['cs','sk']){
+     await page.evaluate(({value,mode,lang,time})=>{
+      window.__captionTest.language(lang);window.__captionTest.seek(time);if(window.__yt)window.__yt.time=time;
+      if(mode==='reader')window.__captionTest.renderReader(value,1.3);
+      else document.getElementById(mode==='mp3'?'player-caption-text-v2':'player-video-caption-v2').textContent=value;
+     },{value:captions[12].cues[2].text[lang],mode,lang,time:captions[12].cues[2].start+.15});
+     await wait(100);
+     await page.screenshot({path:path.join(process.env.VEDATOR_LAYOUT_SCREENSHOTS,'episode-12-working-'+mode+'-'+lang+'.png')});
+    }
+   }
    if(mode==='reader')await page.evaluate(()=>window.__captionTest.exitReader());
   }
  }
@@ -139,6 +163,8 @@ try{
  const keys=[...new Set(findings.filter(f=>f.cue).map(f=>f.cue+':'+f.lang))];
  const layoutCost=c=>{const rows=c.text.split('\n');return Math.abs(rows[0].length-(rows[1]?.length||0))+2*(c.text.match(/\u00a0/g)||[]).length};
  const proposals=keys.map(key=>[...totals.values()].filter(c=>c.cue+':'+c.lang===key).sort((a,b)=>a.fail-b.fail||layoutCost(a)-layoutCost(b))[0]);
- await new Promise(resolve=>process.stdout.write(JSON.stringify({episode:12,checkedCues:captions[12].cues.length,widths:[360,390],languages:['cs','sk'],scales:[1,1.3],modes:['mp3','video','reader'],findings,proposals},null,2)+'\n',resolve));
+ const font=await page.evaluate(()=>getComputedStyle(document.getElementById('player-caption-text-v2')).fontFamily);
+ const browserVersion=await browser.version();
+ await new Promise(resolve=>process.stdout.write(JSON.stringify({episode:12,status:workingDraft?'working-source-groups-not-final-caption-layout':'final-caption-layout',browser:browserVersion,font,checkedCues:captions[12].cues.length,widths:[360,390],languages:['cs','sk'],scales:[1,1.3],modes:['mp3','video','reader'],findings,proposals},null,2)+'\n',resolve));
 assert.equal(findings.length,0,'Mobile caption overflow or avoidable fixed-break orphan');
 }finally{await browser.close();server.close()}

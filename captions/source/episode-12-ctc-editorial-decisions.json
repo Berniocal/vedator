@@ -1,0 +1,363 @@
+{
+  "episode": 12,
+  "audioSha256": "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
+  "status": "working-editorial-decisions-with-explicit-uncertainty-not-release-approval",
+  "humanListeningVerified": false,
+  "warning": "Scores compare unequal candidates and windows containing surrounding speech. Highest score alone does not prove a wording. Some choices remain provisional and all final cue boundaries require reviewed alignment.",
+  "windows": [
+    {
+      "group": "literature",
+      "start": 412,
+      "end": 421,
+      "independentCtcDecode": "predpokladom či  a je a ich roziul a ja predpokladam ale toto by bolo trebal asiovriť vakehodborný literatúra aho jaslen žetuje osib",
+      "topPathAdvantage": 0.96899,
+      "alternatives": [
+        {
+          "label": "candidate-1",
+          "textSk": "asi hovoriť v takej odbornej literatúre",
+          "frameLogScore": -1246.77124,
+          "meanCharacterScore": 0.67092
+        },
+        {
+          "label": "candidate-2",
+          "textSk": "asi overiť v takej odbornej literatúre",
+          "frameLogScore": -1247.74023,
+          "meanCharacterScore": 0.69947
+        }
+      ],
+      "decision": "Score margin below 1 cannot resolve wording. Neutral CTC 'asiovriť' supports the working spelling 'asi overiť'; retain for further whole-text/acoustic review, not a final approval."
+    },
+    {
+      "group": "mask-prefix",
+      "start": 551,
+      "end": 558,
+      "independentCtcDecode": "by som plože neprestaviteľne male veci stopli e také ponočenež naprd rúžka im vôbeznezabraňa",
+      "topPathAdvantage": 15.56836,
+      "alternatives": [
+        {
+          "label": "candidate-1",
+          "textSk": "z toho plynie také ponaučenie",
+          "frameLogScore": -863.31531,
+          "meanCharacterScore": 0.63113
+        },
+        {
+          "label": "candidate-3",
+          "textSk": "z toho je také ponaučenie",
+          "frameLogScore": -878.88367,
+          "meanCharacterScore": 0.66584
+        },
+        {
+          "label": "candidate-2",
+          "textSk": "sú úplne také ponaučenie",
+          "frameLogScore": -879.54144,
+          "meanCharacterScore": 0.7232
+        }
+      ],
+      "decision": "All decoders disagree on the short connector. Keep an explicit working unintelligibility marker; retain the complete audible historical mask claim without modern medical corrections."
+    },
+    {
+      "group": "snake-negation",
+      "start": 829,
+      "end": 836,
+      "independentCtcDecode": "k likd nekdne prohovrože novičinský koronavyru spochádzale z hadou čo všetkých prekvapiloebo ha",
+      "topPathAdvantage": 37.04163,
+      "alternatives": [
+        {
+          "label": "candidate-2",
+          "textSk": "niekto neprohovoril že nový čínsky koronavírus pochádzal z hadov",
+          "frameLogScore": -615.69818,
+          "meanCharacterScore": 0.80302
+        },
+        {
+          "label": "candidate-1",
+          "textSk": "niekto najprv hovoril že nový čínsky koronavírus pochádzal z hadov",
+          "frameLogScore": -652.73981,
+          "meanCharacterScore": 0.75385
+        }
+      ],
+      "decision": "All ASRs yield a malformed 'neprohovoril' and CTC does not establish 'najprv'. Mark the uncertain prefix, retain hovoril and the full claim; do not invent a negation or silently insert najprv."
+    },
+    {
+      "group": "light",
+      "start": 866,
+      "end": 873,
+      "independentCtcDecode": "lejčoj skurej takém taklaicke prej ľudiy abín",
+      "topPathAdvantage": 20.8056,
+      "alternatives": [
+        {
+          "label": "candidate-2",
+          "textSk": "a teraz začneme také je tu taká historka",
+          "frameLogScore": -494.77179,
+          "meanCharacterScore": 0.36311
+        },
+        {
+          "label": "candidate-1",
+          "textSk": "a teraz začneme také lajt je tu taká historka",
+          "frameLogScore": -515.57739,
+          "meanCharacterScore": 0.21591
+        }
+      ],
+      "decision": "Narrow earlier large-v3 alone suggested English light. Broad large-v3 and neutral CTC do not confirm it. Remove that speculative Czech insertion, retain original také fragment and actual gap for timing review."
+    },
+    {
+      "group": "grains-number",
+      "start": 919,
+      "end": 925,
+      "independentCtcDecode": "čiže stá miliardy miliard zrdečok riže polpo",
+      "topPathAdvantage": 4.87506,
+      "alternatives": [
+        {
+          "label": "candidate-2",
+          "textSk": "vo výsledku mu musel dať sto miliardy zrniek",
+          "frameLogScore": -548.47162,
+          "meanCharacterScore": 0.39889
+        },
+        {
+          "label": "candidate-3",
+          "textSk": "vo výsledku mu musel dať stamiliardy zrniek",
+          "frameLogScore": -553.34668,
+          "meanCharacterScore": 0.37649
+        },
+        {
+          "label": "candidate-1",
+          "textSk": "vo výsledku mu musel dať stamiliardy miliárd zrniek",
+          "frameLogScore": -568.93573,
+          "meanCharacterScore": 0.45067
+        }
+      ],
+      "decision": "Neutral CTC preserves 'stá miliardy miliard'. Working transcription stamiliardy miliárd retains the speaker's stated order of magnitude and repetition; do not replace it with mathematically correct chessboard total. Full timing still pending."
+    },
+    {
+      "group": "pandemic-aside",
+      "start": 1118,
+      "end": 1125,
+      "independentCtcDecode": "a ameriketousolryo pandemi aj keď to nemojú možnhoji nieej torske stallo cely sod najej ale weteros",
+      "topPathAdvantage": 16.58056,
+      "alternatives": [
+        {
+          "label": "candidate-2",
+          "textSk": "aj keď to nemajú možno nie je to stále celý svet",
+          "frameLogScore": -520.98218,
+          "meanCharacterScore": 0.81037
+        },
+        {
+          "label": "candidate-1",
+          "textSk": "aj keď to nemajú možnosť nie je to stále celý svet",
+          "frameLogScore": -537.56274,
+          "meanCharacterScore": 0.77155
+        }
+      ],
+      "decision": "The interrupted phrase remains unclear across both ASRs and neutral CTC. Preserve aj keď to nemajú and mark the rest rather than invent a completed sentence."
+    },
+    {
+      "group": "reason",
+      "start": 1220,
+      "end": 1228,
+      "independentCtcDecode": "vlastne jedendôsť prečo plane veľmi dobreže sa takaž zmiernou histeriu bo je proti tomu novému ko",
+      "topPathAdvantage": 97.70209,
+      "alternatives": [
+        {
+          "label": "candidate-2",
+          "textSk": "a vlastne jeden dôvod prečo pláňa veľmi dobre že sa tak",
+          "frameLogScore": -817.39752,
+          "meanCharacterScore": 0.78856
+        },
+        {
+          "label": "candidate-1",
+          "textSk": "a vlastne jeden dôvod prečo podľa mňa je veľmi dobre že sa tak",
+          "frameLogScore": -915.09961,
+          "meanCharacterScore": 0.52939
+        }
+      ],
+      "decision": "CTC favors the same malformed pláňa over the editorial hypothesis podľa mňa. Mark that short bit and retain the rest, do not claim the hypothesis was verified."
+    },
+    {
+      "group": "pandemic-overlap",
+      "start": 1241,
+      "end": 1248,
+      "independentCtcDecode": "kmenavždy akxsa rozšírnah etežrná rucuje salae andre noho úra dôstane anoplus",
+      "topPathAdvantage": 3.22974,
+      "alternatives": [
+        {
+          "label": "candidate-2",
+          "textSk": "ak sa rozšíri na celý svet tak už tu potom ostane",
+          "frameLogScore": -521.45361,
+          "meanCharacterScore": 0.49506
+        },
+        {
+          "label": "candidate-3",
+          "textSk": "takže toto je tá snaha úradov áno",
+          "frameLogScore": -524.68335,
+          "meanCharacterScore": 0.50747
+        },
+        {
+          "label": "candidate-1",
+          "textSk": "ak sa rozšíri na celú sa toho pandémiu tak potom ostane",
+          "frameLogScore": -534.14716,
+          "meanCharacterScore": 0.45534
+        }
+      ],
+      "decision": "Low-margin contradictory readings and overlapping speakers; retain Ak sa rozšíri and mark the overlap. Discard hallucinated Ďakujem za pozornosť from wide ASR. Final interval must include all real speech."
+    },
+    {
+      "group": "vis-major",
+      "start": 1364,
+      "end": 1373,
+      "independentCtcDecode": "nál smrď alože to spojen že to nie je ne čo spojen sbohomi s výs majo ratkdolej pričlnu ah potom v akože v tery v teri sa tom ú",
+      "topPathAdvantage": 1.32141,
+      "alternatives": [
+        {
+          "label": "candidate-1",
+          "textSk": "Bohom vis major alebo nejakou vyššou mocou",
+          "frameLogScore": -1070.06458,
+          "meanCharacterScore": 0.50593
+        },
+        {
+          "label": "candidate-2",
+          "textSk": "Bohmi zlými z majora alebo nejakou vyššou mocou",
+          "frameLogScore": -1071.38599,
+          "meanCharacterScore": 0.41275
+        }
+      ],
+      "decision": "Neutral CTC 'sbohomi s výs majo' supports the spoken Latin term vis maior; use standard spelling, retain the subsequent unfinished clause. Never expand it into a newly composed explanation."
+    },
+    {
+      "group": "best-estimate",
+      "start": 1513,
+      "end": 1519,
+      "independentCtcDecode": "imeli  toto bo terazateľ najlepší o nizatonemožerilo urobiť nanu",
+      "topPathAdvantage": 100.63195,
+      "alternatives": [
+        {
+          "label": "candidate-3",
+          "textSk": "toto bol teda zatiaľ najlepší my za to nemôžeme urobiť áno",
+          "frameLogScore": -300.20911,
+          "meanCharacterScore": 0.7523
+        },
+        {
+          "label": "candidate-1",
+          "textSk": "toto bol teda zatiaľ najlepší odhad ktorý sme vedeli urobiť áno",
+          "frameLogScore": -400.84106,
+          "meanCharacterScore": 0.64264
+        },
+        {
+          "label": "candidate-2",
+          "textSk": "toto bol teda zatiaľ najlepší odhad ktorý sme chceli urobiť áno",
+          "frameLogScore": -411.94601,
+          "meanCharacterScore": 0.62463
+        }
+      ],
+      "decision": "Alternative with My za to nemôžeme scores much better, but neutral CTC and two independent windows still disagree on remainder. Keep working explicit marker after najlepší odhad and the independently recognized Áno; final recovered interval must extend through 1518 s."
+    },
+    {
+      "group": "reaction",
+      "start": 1636,
+      "end": 1641,
+      "independentCtcDecode": "lche čítusu a dobre",
+      "topPathAdvantage": 0.53704,
+      "alternatives": [
+        {
+          "label": "candidate-2",
+          "textSk": "či tu šu",
+          "frameLogScore": -173.92773,
+          "meanCharacterScore": 0.50026
+        },
+        {
+          "label": "candidate-1",
+          "textSk": "či tu sú",
+          "frameLogScore": -174.46477,
+          "meanCharacterScore": 0.50026
+        }
+      ],
+      "decision": "Both ASRs/CTC give či tu sú/čí tu šu, with tiny score margin. Keep a short unintelligible-reaction marker, do not label percussion or invent a meaningful question."
+    },
+    {
+      "group": "romes",
+      "start": 1908,
+      "end": 1916,
+      "independentCtcDecode": "žnať najm tešte pár navrcherýmou bym seli postaviťaž celevýzobiať kaď že tubulo a obruska",
+      "topPathAdvantage": 9.15991,
+      "alternatives": [
+        {
+          "label": "candidate-1",
+          "textSk": "aby si založil niekoľko pár nových rímov",
+          "frameLogScore": -837.41864,
+          "meanCharacterScore": 0.17614
+        },
+        {
+          "label": "candidate-2",
+          "textSk": "aby si založil niekoľko pár návrch rímov",
+          "frameLogScore": -846.57855,
+          "meanCharacterScore": 0.21982
+        }
+      ],
+      "decision": "Two independent ASR readings and neutral CTC consistently contain navrch. This is a normal Slovak expression for extra; working spelling pár navrch Rímov, Czech pár Římů navíc, without changing the number."
+    },
+    {
+      "group": "spanish-branding",
+      "start": 2199,
+      "end": 2209,
+      "independentCtcDecode": "ty to chrípkejo len špano skenovinikecysprámo spôlak presne takčiže tentom marketink uplne neoprávnene dostaly aunotne galziažem a začala",
+      "topPathAdvantage": 20.75695,
+      "alternatives": [
+        {
+          "label": "candidate-1",
+          "textSk": "čiže tento marketing úplne neoprávnene dostali",
+          "frameLogScore": -925.47974,
+          "meanCharacterScore": 0.9371
+        },
+        {
+          "label": "candidate-2",
+          "textSk": "čiže tento marketing úplne neoprávne nedostali",
+          "frameLogScore": -946.23669,
+          "meanCharacterScore": 0.9371
+        }
+      ],
+      "decision": "Neutral CTC clearly yields neoprávnene dostali; resolves the false negation created by turbo tokenization. Preserve the speaker's affirmative statement."
+    },
+    {
+      "group": "hobby",
+      "start": 2824,
+      "end": 2833,
+      "independentCtcDecode": "da tifoľafiľacyaciapaď paď bbojejú rozábaukeoi odzvodil keľob",
+      "topPathAdvantage": 4.20806,
+      "alternatives": [
+        {
+          "label": "candidate-2",
+          "textSk": "tak no mojej zábavke odzvonilo samozrejme si robím srandu",
+          "frameLogScore": -534.12177,
+          "meanCharacterScore": 0.31865
+        },
+        {
+          "label": "candidate-1",
+          "textSk": "tak tak tak tak tak no mojej zábavke odzvonilo samozrejme si robím srandu",
+          "frameLogScore": -538.32983,
+          "meanCharacterScore": 0.3134
+        }
+      ],
+      "decision": "Neutral CTC does not establish additional tak repetitions or the comparison candidate's invented 'samozrejme si robím srandu'. Keep only source tak… and the independently recognized joke Mojej zábavke odzvonilo."
+    },
+    {
+      "group": "underestimate",
+      "start": 2849,
+      "end": 2858,
+      "independentCtcDecode": "keď ma chrýpku tak poto može nakaziť piatých desiatých ďalších kolegov  to to podlom ňa ľudo veľmi pocenuv samujoliati veľmi pektnuť akujem",
+      "topPathAdvantage": 21.3252,
+      "alternatives": [
+        {
+          "label": "candidate-2",
+          "textSk": "toto podľa mňa ľudia veľmi pocenia aj v takom bežnom živote",
+          "frameLogScore": -1295.18359,
+          "meanCharacterScore": 0.58395
+        },
+        {
+          "label": "candidate-1",
+          "textSk": "toto podľa mňa ľudia veľmi podceňujú aj v takom bežnom živote",
+          "frameLogScore": -1316.50879,
+          "meanCharacterScore": 0.55374
+        }
+      ],
+      "decision": "Phonetic pocenuv/pocení/pocenujú supports working standard spelling podceňujú in context; do not turn it into an opposite precenujú. Whole-cue timing pending."
+    }
+  ]
+}
