@@ -4,7 +4,7 @@
   "guid": "vedatorskypodcast.podbean.com/60169ece-e211-5ce3-8308-2ee114cd585b",
   "audio": "https://mcdn.podbean.com/mf/web/ks6p8t/podcast_ep12.mp3",
   "baseMainSha": "9cd596066246d385cf63c078a44e39d24ae99aa5",
-  "status": "source-ASR-running-editorial-not-started",
+  "status": "complete-source-ASR-computed-independent-checks-running-not-editorially-reviewed",
   "registered": false,
   "editorialReviewComplete": false,
   "completeCzechEditorialReview": false,
@@ -42,5 +42,7 @@
     "referenceNotRewritten": true,
     "followupForEpisode12": "Require both local and CI mobile layout checks; preserve completed episode 11."
   },
-  "localDataAndFaqChecks": "passed-current-base"
+  "localDataAndFaqChecks": "passed-current-base",
+  "sourceTranscriptionPhase": "complete per source workflow step; source file pending workflow evidence commit",
+  "environmentRecovery": "Local ephemeral environment was lost; restored working copy from preparation branch. No final captions were registered or deployed."
 }
