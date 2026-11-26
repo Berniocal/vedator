@@ -3,6 +3,8 @@ on:
   push:
     branches: [captions/episode-12-precise-20261126]
     paths:
+      - tools/audit-episode12-working-alignment.py
+      - captions/source/episode-12-working-alignment-input.json
       - tools/check-episode12-editorial-contrasts.py
       - captions/source/episode-12-editorial-contrast-requests.json
       - tools/check-episode12-ctc-endpoints.py
@@ -48,6 +50,8 @@ jobs:
         run: python tools/check-episode12-ctc-endpoints.py
       - name: Compare explicitly disputed wordings against original audio
         run: python tools/check-episode12-editorial-contrasts.py
+      - name: Audit working source groups without generating release captions
+        run: python tools/audit-episode12-working-alignment.py
       - name: Align only a completely reviewed bilingual text
         run: |
           if test -s captions/episode-12.edited.json; then

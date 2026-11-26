@@ -9,7 +9,7 @@
   "completeCzechEditorialReview": false,
   "finalEditorialApproval": false,
   "humanListeningVerified": false,
-  "note": "Vlastní český pracovní překlad všech 658 zdrojových úseků, vytvořený přímo ze slovenštiny a dostupných doplňujících ASR. Značky nesrozumitelnosti jsou pracovní a čekají na vyhodnocení akustických kontrastů. Nejde o hotové zarovnané titulky, nezaregistrovat. Samostatné krátké fragmenty a pevné zlomy se vyřeší společnou segmentací po opravě SK. Bez nezávislého lidského poslechu.",
+  "note": "Vlastní český pracovní překlad všech 658 zdrojových úseků, vytvořený přímo ze slovenštiny a dostupných doplňujících ASR. Značky nesrozumitelnosti jsou pracovní a čekají na vyhodnocení akustických kontrastů. Nejde o hotové zarovnané titulky, nezaregistrovat. Samostatné krátké fragmenty a pevné zlomy se vyřeší společnou segmentací po opravě SK. Bez nezávislého lidského poslechu. Po dalších 88 SK opravách a vyhodnocení 15 CTC kontrastů zbývá devět explicitně označených sporných míst; všech 658 úseků je stále pracovní text bez finální segmentace a časování.",
   "cues": [
     {
       "sourceCue": 1,
@@ -20,7 +20,7 @@
       "sourceStart": 11.7,
       "sourceEnd": 13.28,
       "text": {
-        "sk": "3 -4 bozovika.",
+        "sk": "3, 4. [Nezrozumiteľné.]",
         "cs": "3, 4. [Nesrozumitelné.]"
       },
       "needsAudioReview": true,
@@ -80,10 +80,10 @@
       "sourceStart": 29.77,
       "sourceEnd": 35.35,
       "text": {
-        "sk": "Ahoj Samuel. Pri vydaní nášho podcastu v ďalšom. Ako sa",
-        "cs": "Ahoj, Samuele, u dalšího vydání našeho podcastu. Jak se"
+        "sk": "Ahoj, Samuel, pri vydaní nášho podcastu v ďalšom. Ako sa",
+        "cs": "Ahoj, Samuele, u vydání našeho podcastu, u dalšího. Jak se"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -320,7 +320,7 @@
       "sourceStart": 107.45,
       "sourceEnd": 112.95,
       "text": {
-        "sk": "porovnaní napríklad aj s bežnou sezónnou chrípkou, ktorá si ročne nakazí viací ľudí a",
+        "sk": "porovnaní napríklad aj s bežnou sezónnou chrípkou, ktorá si ročne nakazí viacej ľudí a",
         "cs": "srovnání třeba i s běžnou sezonní chřipkou, která ročně nakazí víc lidí a"
       },
       "needsAudioReview": true,
@@ -455,10 +455,10 @@
       "sourceStart": 150.3,
       "sourceEnd": 155.82,
       "text": {
-        "sk": "Poznám len tú skratku, že 2019 N. Cov. Áno, to je presne",
+        "sk": "Poznám len tú skratku, že 2019-nCoV. Áno, to je presne",
         "cs": "Znám jen tu zkratku 2019-nCoV. Ano, to je přesně"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -500,7 +500,7 @@
       "sourceStart": 162.04,
       "sourceEnd": 167.58,
       "text": {
-        "sk": "A ja začnem, že je to zoonysiský vírus, to znamená, že prešiel",
+        "sk": "A ja začnem, že je to zoonotický vírus, to znamená, že prešiel",
         "cs": "A já začnu tím, že je to zoonotický virus, to znamená, že přešel"
       },
       "needsAudioReview": true,
@@ -515,10 +515,10 @@
       "sourceStart": 167.58,
       "sourceEnd": 172.16,
       "text": {
-        "sk": "zo zvierad na človeka a asi prešiel z netopierou na ľudí.",
+        "sk": "zo zvierat na človeka a asi prešiel z netopierov na ľudí.",
         "cs": "ze zvířat na člověka a asi přešel z netopýrů na lidi."
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -560,10 +560,10 @@
       "sourceStart": 180.81,
       "sourceEnd": 182.11,
       "text": {
-        "sk": "zo zvierad?",
+        "sk": "zo zvierat?",
         "cs": "ze zvířat?"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -1460,7 +1460,7 @@
       "sourceStart": 417.16,
       "sourceEnd": 422.36,
       "text": {
-        "sk": "asi hovoriť v také odborné literatúre. Aha, jasné, že to je asi... Lebo, vieš,",
+        "sk": "asi overiť v takej odbornej literatúre. Aha, jasné, že to je asi… Lebo, vieš,",
         "cs": "asi ověřit v takové odborné literatuře. Aha, jasně, že to je asi... Protože, víš,"
       },
       "needsAudioReview": true,
@@ -1520,10 +1520,10 @@
       "sourceStart": 436.88,
       "sourceEnd": 442.12,
       "text": {
-        "sk": "všetky stavebné časy. Keď si spomínam,",
+        "sk": "všetky stavebné časti. Keď si správne spomínam,",
         "cs": "všechny stavební části. Pokud si správně vzpomínám,"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -1955,8 +1955,8 @@
       "sourceStart": 553.38,
       "sourceEnd": 557.44,
       "text": {
-        "sk": "stovne je také ponaučenie, že napríklad rúška im vôbec nezabrania.",
-        "cs": "Z toho plyne takové ponaučení, že je například roušky vůbec nezastaví."
+        "sk": "[Nezrozumiteľné.] Také ponaučenie, že napríklad rúška im vôbec nezabránia.",
+        "cs": "[Nesrozumitelné.] Takové ponaučení, že je například roušky vůbec nezastaví."
       },
       "needsAudioReview": true,
       "editorialApproval": false
@@ -1985,8 +1985,8 @@
       "sourceStart": 562.36,
       "sourceEnd": 567.29,
       "text": {
-        "sk": "proti koronavírusu a lekárničkom povedal, že už sú všetky vypredané. Čiže vznikla",
-        "cs": "proti koronaviru a v lékárně mu řekli, že už jsou všechny vyprodané. Tedy vznikla"
+        "sk": "proti koronavírusu a lekárnička mu povedala, že už sú všetky vypredané. Čiže vznikla",
+        "cs": "proti koronaviru a lékárnice mu řekla, že už jsou všechny vyprodané. Čili vznikla"
       },
       "needsAudioReview": true,
       "editorialApproval": false
@@ -2000,10 +2000,10 @@
       "sourceStart": 567.29,
       "sourceEnd": 571.85,
       "text": {
-        "sk": "teraz taká svetová panika a všetci si kúpujú rúška, aj keď vlastne v podstate im nejak",
+        "sk": "teraz taká svetová panika a všetci si kupujú rúška, aj keď vlastne v podstate im nejak",
         "cs": "teď taková světová panika a všichni si kupují roušky, i když jim v podstatě nějak"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -2210,7 +2210,7 @@
       "sourceStart": 630.03,
       "sourceEnd": 635.31,
       "text": {
-        "sk": "sa tak rozširil, že vo výťahu. Áno. Výťahu. Potom aj dostaťme neskôr, že vo",
+        "sk": "sa tak rozšíril, že vo výťahu. Áno. Výťahu. Potom aj dostaneme neskôr, že vo",
         "cs": "se takhle rozšířil ve výtahu. Ano. Ve výtahu. K tomu se později dostaneme, že ve"
       },
       "needsAudioReview": true,
@@ -2450,10 +2450,10 @@
       "sourceStart": 705.07,
       "sourceEnd": 706.65,
       "text": {
-        "sk": "podobne ako slniečná koruna napríklad.",
+        "sk": "podobne ako slnečná koruna napríklad.",
         "cs": "podobně jako třeba sluneční koruna."
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -2483,7 +2483,7 @@
         "sk": "Úlohou tých chápadielok je, že prisať sa na také receptory, ktoré sú na povrchu bunky,",
         "cs": "Úlohou těch chapadélek je přisát se na takové receptory, které jsou na povrchu buňky,"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -2885,8 +2885,8 @@
       "sourceStart": 830.2,
       "sourceEnd": 835.12,
       "text": {
-        "sk": "Niekto neprohovoril, že nový čínsky koronavírus pochádzal s hadou, čo všetkých",
-        "cs": "Někdo nejprve říkal, že nový čínský koronavirus pocházel z hadů, což všechny"
+        "sk": "Niekto [nezrozumiteľné] hovoril, že nový čínsky koronavírus pochádzal z hadov, čo všetkých",
+        "cs": "Někdo [nesrozumitelné] říkal, že nový čínský koronavirus pocházel z hadů, což všechny"
       },
       "needsAudioReview": true,
       "editorialApproval": false
@@ -2930,10 +2930,10 @@
       "sourceStart": 843.78,
       "sourceEnd": 849,
       "text": {
-        "sk": "Jasné. Takže okamovo brítvo sme to vylúčili. A samozrejme nejakým dedeským.",
+        "sk": "Jasné. Takže Occamovou britvou sme to vylúčili. A samozrejme nejakým vedeckým…",
         "cs": "Jasně. Takže jsme to vyloučili Occamovou břitvou. A samozřejmě nějakým vědeckým..."
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -3006,7 +3006,7 @@
       "sourceEnd": 867.88,
       "text": {
         "sk": "ďalej, čo je skorej také",
-        "cs": "dále, což je spíš takové light."
+        "cs": "dále, což je spíš takové"
       },
       "needsAudioReview": true,
       "editorialApproval": false
@@ -3065,7 +3065,7 @@
       "sourceStart": 887.15,
       "sourceEnd": 892.45,
       "text": {
-        "sk": "na druhé dve, na tretie dvakrát dvakrát dvakrát dva, čiže dva na treťiu, na",
+        "sk": "na druhé dve, na tretie dvakrát dvakrát dva, čiže dva na tretiu, na",
         "cs": "na druhé dvě, na třetí dvakrát dvakrát dva, tedy dva na třetí, na"
       },
       "needsAudioReview": true,
@@ -3080,7 +3080,7 @@
       "sourceStart": 892.45,
       "sourceEnd": 895.43,
       "text": {
-        "sk": "štvrté poličko dvakrát dvakrát dvakrát dvakrát dvakrát dvakrát dvakrát dvakrát dvakrát",
+        "sk": "štvrté políčko dvakrát dvakrát dvakrát dva, čiže dva na štvrtú.",
         "cs": "čtvrté políčko dvakrát dvakrát dvakrát dva, tedy dva na čtvrtou."
       },
       "needsAudioReview": true,
@@ -3095,7 +3095,7 @@
       "sourceStart": 895.43,
       "sourceEnd": 902.19,
       "text": {
-        "sk": "dvakrát.",
+        "sk": "Až na posledné políčko pôjde dvakrát dva, 64-krát vynásobená dvojka sama so sebou.",
         "cs": "Až na poslední políčko půjde dvakrát dva, 64krát vynásobená dvojka sama sebou."
       },
       "needsAudioReview": true,
@@ -3125,10 +3125,10 @@
       "sourceStart": 907.68,
       "sourceEnd": 912.28,
       "text": {
-        "sk": "zrniečok, že ani ich neexistuje na celého planete Zem. To viem. Presne tak, že to",
+        "sk": "zrniečok, že ani ich neexistuje na celej planéte Zem. To viem. Presne tak, že to",
         "cs": "zrníček, že jich tolik ani na celé planetě Zemi není. To vím. Přesně tak, že to"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -3170,8 +3170,8 @@
       "sourceStart": 919.27,
       "sourceEnd": 923.25,
       "text": {
-        "sk": "Čiže stá miliardy miliard zrniečok ryže",
-        "cs": "stamiliardy miliard zrníček rýže"
+        "sk": "Čiže stamiliardy miliárd zrniečok ryže",
+        "cs": "Čili stamiliardy miliard zrníček rýže"
       },
       "needsAudioReview": true,
       "editorialApproval": false
@@ -3230,10 +3230,10 @@
       "sourceStart": 939.52,
       "sourceEnd": 943.4,
       "text": {
-        "sk": "Napríklad, vy si týmto napríklade baktérií, ale podobne to platí aj pre vírusy alebo",
+        "sk": "Napríklad, vysvetlím to na príklade baktérií, ale podobne to platí aj pre vírusy alebo",
         "cs": "Například, vysvětlím to na příkladu bakterií, ale podobně to platí i pro viry nebo"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -3380,10 +3380,10 @@
       "sourceStart": 981.36,
       "sourceEnd": 986.82,
       "text": {
-        "sk": "tisíckach a zarovnaký časový intervál to naberalo obrovské tempo.",
+        "sk": "tisíckach a za rovnaký časový interval to naberalo obrovské tempo.",
         "cs": "tisících a za stejný časový interval to nabíralo obrovské tempo."
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -3410,7 +3410,7 @@
       "sourceStart": 994.33,
       "sourceEnd": 999.85,
       "text": {
-        "sk": "možnosťam, tak to je obrovské číslo záchylkovať pri desiatom krát, ja to myslím,",
+        "sk": "možnostiam, tak to je obrovské číslo za chvíľku, veď pri desiatom krát, ja to myslím,",
         "cs": "možnostem, tak je to obrovské číslo za chvilku, vždyť při desátém násobení, myslím,"
       },
       "needsAudioReview": true,
@@ -3800,8 +3800,8 @@
       "sourceStart": 1119.34,
       "sourceEnd": 1123.26,
       "text": {
-        "sk": "pandémii, aj keď to nemajú možnosť. Nie je to stále celý svet.",
-        "cs": "pandemii, i když… [Nesrozumitelné.] Není to pořád celý svět."
+        "sk": "pandémii, aj keď to nemajú… [Nezrozumiteľné.] Nie je to stále celý svet.",
+        "cs": "pandemii, i když to nemají… [Nesrozumitelné.] Není to pořád celý svět."
       },
       "needsAudioReview": true,
       "editorialApproval": false
@@ -3830,8 +3830,8 @@
       "sourceStart": 1129.98,
       "sourceEnd": 1134.98,
       "text": {
-        "sk": "ale to epicentrum je, o ktorých sa samozrejme viem, výborná poznámka, výborná",
-        "cs": "ale to epicentrum je… O kterých samozřejmě víme. Výborná poznámka, výborná."
+        "sk": "ale to epicentrum je… O ktorých sa samozrejme vie. Výborná poznámka, výborná.",
+        "cs": "ale to epicentrum je… O kterých se samozřejmě ví. Výborná poznámka, výborná."
       },
       "needsAudioReview": true,
       "editorialApproval": false
@@ -3995,10 +3995,10 @@
       "sourceStart": 1174.21,
       "sourceEnd": 1179.32,
       "text": {
-        "sk": "Teda vlastne, že povedomali sme epidémiu a pandémiu a ešte jedno slovo,",
+        "sk": "Teda vlastne, že povedali sme epidémiu a pandémiu a ešte jedno slovo,",
         "cs": "Tedy vlastně, že jsme řekli epidemie a pandemie a ještě jedno"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -4025,10 +4025,10 @@
       "sourceStart": 1182.46,
       "sourceEnd": 1187.2,
       "text": {
-        "sk": "A vlastne, keď sa vírus rozširí po celom svete, čiže prebehne tá pandémia, tak aj keď",
+        "sk": "A vlastne, keď sa vírus rozšíri po celom svete, čiže prebehne tá pandémia, tak aj keď",
         "cs": "A vlastně, když se virus rozšíří po celém světě, čili proběhne ta pandemie, tak i když"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -4145,8 +4145,8 @@
       "sourceStart": 1220.34,
       "sourceEnd": 1222.8,
       "text": {
-        "sk": "A vlastne jeden dôvod, prečo pláňa veľmi dobre, že sa tak",
-        "cs": "A vlastně jeden důvod, proč… [Nesrozumitelné.] …že se tak"
+        "sk": "A vlastne jeden dôvod, prečo [nezrozumiteľné] veľmi dobre, že sa tak",
+        "cs": "A vlastně jeden důvod, proč [nesrozumitelné] velmi dobře, že se tak"
       },
       "needsAudioReview": true,
       "editorialApproval": false
@@ -4160,10 +4160,10 @@
       "sourceStart": 1224.28,
       "sourceEnd": 1225.24,
       "text": {
-        "sk": "až zmiernou",
+        "sk": "až s miernou",
         "cs": "až s mírnou"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -4175,10 +4175,10 @@
       "sourceStart": 1226.14,
       "sourceEnd": 1230.8,
       "text": {
-        "sk": "hysteriou boje proti tomu novému koronavírusu, že sa teraz ľudia snažia, aby sa",
+        "sk": "hystériou bojuje proti tomu novému koronavírusu, že sa teraz ľudia snažia, aby sa",
         "cs": "hysterií bojuje proti tomu novému koronaviru, že se teď lidé snaží, aby se"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -4235,7 +4235,7 @@
       "sourceStart": 1242.07,
       "sourceEnd": 1246.07,
       "text": {
-        "sk": "Ak sa rozšíri na celú sa toho pandémiu tak potom postane.",
+        "sk": "Ak sa rozšíri… [Nezrozumiteľné.]",
         "cs": "Pokud se rozšíří… [Nesrozumitelné.]"
       },
       "needsAudioReview": true,
@@ -4250,10 +4250,10 @@
       "sourceStart": 1247.34,
       "sourceEnd": 1252.44,
       "text": {
-        "sk": "Plus každé ďalšie množenie niekto by mohol povedať, že však nechajme nechť ten vírus",
+        "sk": "Plus každé ďalšie množenie… Niekto by mohol povedať, že však nechajme, nech ten vírus",
         "cs": "Navíc každé další množení… Někdo by mohl říct: Vždyť ať ten virus"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -4325,7 +4325,7 @@
       "sourceStart": 1272.08,
       "sourceEnd": 1276.58,
       "text": {
-        "sk": "Ktoré nechceme, aby sa stalo. A vlastne pásom, že ešte poviem jednu vec, ale vlastne",
+        "sk": "Ktoré nechceme, aby sa stalo. A vlastne povedal som, že ešte poviem jednu vec, ale vlastne",
         "cs": "Které nechceme, aby nastaly. A vlastně jsem říkal, že ještě povím jednu věc, ale vlastně"
       },
       "needsAudioReview": true,
@@ -4535,7 +4535,7 @@
       "sourceStart": 1328.2,
       "sourceEnd": 1332.8,
       "text": {
-        "sk": "epidémii. A vlastne John Ground v Londýne",
+        "sk": "epidémií. A vlastne John Graunt v Londýne",
         "cs": "epidemií. A vlastně John Graunt v Londýně"
       },
       "needsAudioReview": true,
@@ -4670,8 +4670,8 @@
       "sourceStart": 1362.89,
       "sourceEnd": 1368.07,
       "text": {
-        "sk": "Že je to príroda, smrť. Že to nie je niečo spojené s Bohmi, zvý,",
-        "cs": "Že je to příroda, smrt. Že to není něco spojeného s bohy, [nesrozumitelné],"
+        "sk": "Že je to príroda, smrť. Že to nie je niečo spojené s bohmi, s vis",
+        "cs": "Že je to příroda, smrt. Že to není něco spojeného s bohy, s vis"
       },
       "needsAudioReview": true,
       "editorialApproval": false
@@ -4685,8 +4685,8 @@
       "sourceStart": 1368.17,
       "sourceEnd": 1372.43,
       "text": {
-        "sk": "zmajora a tak ďalej príčinový. A potom, akože vtedy sa",
-        "cs": "a tak dále, příčinou. A potom, jako tehdy se"
+        "sk": "maior a tak ďalej príčinami. A potom, akože vtedy sa",
+        "cs": "maior a tak dále příčinami. A potom, jako tehdy se"
       },
       "needsAudioReview": true,
       "editorialApproval": false
@@ -4760,7 +4760,7 @@
       "sourceStart": 1389.33,
       "sourceEnd": 1391.99,
       "text": {
-        "sk": "ktorý sa zaoberal k jahňami.",
+        "sk": "ktorý sa zaoberal kiahňami.",
         "cs": "který se zabýval neštovicemi."
       },
       "needsAudioReview": true,
@@ -4895,7 +4895,7 @@
       "sourceStart": 1426.2,
       "sourceEnd": 1429.14,
       "text": {
-        "sk": "Kermakov, McKendrickov epidemický model,",
+        "sk": "Kermackov–McKendrickov epidemický model,",
         "cs": "Kermackův–McKendrickův epidemický model,"
       },
       "needsAudioReview": true,
@@ -5195,10 +5195,10 @@
       "sourceStart": 1505,
       "sourceEnd": 1508.62,
       "text": {
-        "sk": "vysvetliť a potom z tých model vybrať je najsprávnejšie. To sa zatiaľ ešte neudiaľo,",
+        "sk": "vysvetliť a potom z tých modelov vybrať tie najsprávnejšie. To sa zatiaľ ešte neudialo,",
         "cs": "vysvětlit a potom z těch modelů vybrat ty nejsprávnější. To se zatím ještě nestalo,"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -5240,8 +5240,8 @@
       "sourceStart": 1514.32,
       "sourceEnd": 1516.02,
       "text": {
-        "sk": "Toto bol teda zatiaľ najlepší odná,",
-        "cs": "Tohle byl tedy zatím nejlepší odhad. [Nesrozumitelné.]"
+        "sk": "Toto bol teda zatiaľ najlepší odhad. [Nezrozumiteľné.] Áno.",
+        "cs": "Tohle byl tedy zatím nejlepší odhad. [Nesrozumitelné.] Ano."
       },
       "needsAudioReview": true,
       "editorialApproval": false
@@ -5345,10 +5345,10 @@
       "sourceStart": 1549.39,
       "sourceEnd": 1553.51,
       "text": {
-        "sk": "exponenciálne širlo, lebo najprv to majú traja, potom 9, potom 20 siedmy.",
+        "sk": "exponenciálne šírilo, lebo najprv to majú traja, potom 9, potom 27.",
         "cs": "exponenciálně šířilo, protože nejdřív to mají tři, potom 9, potom 27."
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -5645,7 +5645,7 @@
       "sourceStart": 1638.1,
       "sourceEnd": 1639.06,
       "text": {
-        "sk": "Či tu sú?",
+        "sk": "[Nezrozumiteľná krátka reakcia.]",
         "cs": "[Nesrozumitelná krátká reakce.]"
       },
       "needsAudioReview": true,
@@ -5780,7 +5780,7 @@
       "sourceStart": 1675.14,
       "sourceEnd": 1679.88,
       "text": {
-        "sk": "hneď písal a komentoval, že prečo sme ich nespomenuli. Aby sme písali, že to bol",
+        "sk": "hneď písal a komentoval, že prečo sme ich nespomenuli. A my by sme písali, že to bol",
         "cs": "hned psal a komentoval, proč jsme je nezmínili. A my bychom psali, že to byl"
       },
       "needsAudioReview": true,
@@ -5810,10 +5810,10 @@
       "sourceStart": 1682.86,
       "sourceEnd": 1687.34,
       "text": {
-        "sk": "Áno. Ale ináč sa nehnevame, keď píšete. Nie, nie. Nehnevame sa, len, že aby sme ju",
+        "sk": "Áno. Ale ináč sa nehneváme, keď píšete. Nie, nie. Nehneváme sa, len, že aby sme",
         "cs": "Ano. Ale jinak se nezlobíme, když píšete. Ne, ne. Nezlobíme se, jen abychom"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -5915,7 +5915,7 @@
       "sourceStart": 1708.24,
       "sourceEnd": 1711.2,
       "text": {
-        "sk": "Ja to určite preštám zle, ale je to Jersinia pestis.",
+        "sk": "Ja to určite prečítam zle, ale je to Yersinia pestis.",
         "cs": "Já to určitě přečtu špatně, ale je to Yersinia pestis."
       },
       "needsAudioReview": true,
@@ -5930,7 +5930,7 @@
       "sourceStart": 1712.12,
       "sourceEnd": 1715.08,
       "text": {
-        "sk": "Niekto nám napíšte naňovaný e-mail, ak to bolo nesprávne.",
+        "sk": "Niekto nám napíšte nahnevaný e-mail, ak to bolo nesprávne.",
         "cs": "Někdo nám napište naštvaný e-mail, pokud to bylo nesprávně."
       },
       "needsAudioReview": true,
@@ -6590,8 +6590,8 @@
       "sourceStart": 1909.32,
       "sourceEnd": 1914.66,
       "text": {
-        "sk": "Ešte pár návrh Rímov by museli postaviť a celé vyzabíjať. Takže to",
-        "cs": "Ještě pár [nesrozumitelné] Římů by museli postavit a celé je vyzabíjet. Takže to"
+        "sk": "Ešte pár navrch Rímov by museli postaviť a celé vyzabíjať. Takže to",
+        "cs": "Ještě pár Římů navíc by museli postavit a celé je vyzabíjet. Takže to"
       },
       "needsAudioReview": true,
       "editorialApproval": false
@@ -6620,7 +6620,7 @@
       "sourceStart": 1919.42,
       "sourceEnd": 1924.88,
       "text": {
-        "sk": "a pre Rímskú ríšu, cez ktorá. A hlavne aj tam pomáhalo určite to,",
+        "sk": "a pre Rímsku ríšu, [nezrozumiteľné]. A hlavne aj tam pomáhalo určite to,",
         "cs": "a pro Římskou říši, [nesrozumitelné]. A hlavně tomu určitě pomáhalo i to,"
       },
       "needsAudioReview": true,
@@ -6635,10 +6635,10 @@
       "sourceStart": 1924.96,
       "sourceEnd": 1929.9,
       "text": {
-        "sk": "že Rímska ríša bola popreviazaná, čo sa týkal obchodu a cestovania",
+        "sk": "že Rímska ríša bola popreviazaná, čo sa týkalo obchodu a cestovania",
         "cs": "že Římská říše byla propojená, co se týče obchodu a cestování,"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -6650,10 +6650,10 @@
       "sourceStart": 1929.9,
       "sourceEnd": 1935.38,
       "text": {
-        "sk": "a šírala sa tá epidémia rýchlejšie ako kedykoľvek predtým.",
+        "sk": "a šírila sa tá epidémia rýchlejšie ako kedykoľvek predtým.",
         "cs": "a ta epidemie se šířila rychleji než kdykoli předtím."
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -6695,10 +6695,10 @@
       "sourceStart": 1944.21,
       "sourceEnd": 1949.25,
       "text": {
-        "sk": "ako by som to povedal, spoločný znak mnohých epidémie, že vyžadujú také prehustené",
+        "sk": "ako by som to povedal, spoločný znak mnohých epidémií, že vyžadujú také prehustené",
         "cs": "jak bych to řekl, společný znak mnoha epidemií, že vyžadují takové přelidněné"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -6740,10 +6740,10 @@
       "sourceStart": 1958.03,
       "sourceEnd": 1961.67,
       "text": {
-        "sk": "koľko vlastne mal k dispozícii ďalších hostiteľov.",
+        "sk": "koľko vlastne má k dispozícii ďalších hostiteľov.",
         "cs": "kolik vlastně má k dispozici dalších hostitelů."
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -6878,7 +6878,7 @@
         "sk": "tohto nášho rebríčka a on spôsoboval niečo, čo sa teraz označuje, že anglické potenie",
         "cs": "tohoto našeho žebříčku. Způsoboval něco, čemu se teď říká anglický pot"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -7175,10 +7175,10 @@
       "sourceStart": 2094.42,
       "sourceEnd": 2096.5,
       "text": {
-        "sk": "kontraproduktívna z pohľadu toho víru.",
+        "sk": "kontraproduktívna z pohľadu toho vírusu.",
         "cs": "z pohledu toho viru kontraproduktivní."
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -7445,10 +7445,10 @@
       "sourceStart": 2182.36,
       "sourceEnd": 2187.46,
       "text": {
-        "sk": "že si, že na noviny. a na správy, ktoré vydávali a",
+        "sk": "že si, že na noviny a na správy, ktoré vydávali a",
         "cs": "si, na noviny a zprávy, které vydávali, a"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -7490,10 +7490,10 @@
       "sourceStart": 2198.02,
       "sourceEnd": 2202.6,
       "text": {
-        "sk": "nehovoril o tejto chrípke, len španielské noviny, keď si správno spomínal. Tak, presne",
+        "sk": "nehovoril o tejto chrípke, len španielske noviny, keď si správne spomínam. Tak, presne",
         "cs": "o téhle chřipce nemluvil, jen španělské noviny, pokud si správně vzpomínám. Tak, přesně"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -7505,7 +7505,7 @@
       "sourceStart": 2202.6,
       "sourceEnd": 2205.72,
       "text": {
-        "sk": "tak. Čiže tento marketing úplne neoprávne nedostali?",
+        "sk": "tak. Čiže tento marketing úplne neoprávnene dostali.",
         "cs": "tak. Čili tenhle marketing dostali úplně neoprávněně."
       },
       "needsAudioReview": true,
@@ -7520,10 +7520,10 @@
       "sourceStart": 2206.76,
       "sourceEnd": 2211.96,
       "text": {
-        "sk": "Áno. negatívne marketing. A začala, začala viem, že úplne niekde inde, že nemá",
-        "cs": "Ano, negativní marketing. A začala, vím, úplně někde jinde, že nemá"
+        "sk": "Áno, negatívny marketing. A začala, začala viem, že úplne niekde inde, že nemá",
+        "cs": "Ano, negativní marketing. A začala, začala vím, úplně někde jinde, že nemá"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -7610,10 +7610,10 @@
       "sourceStart": 2230.06,
       "sourceEnd": 2234.96,
       "text": {
-        "sk": "lebo nedostatok potravín, zle hygienické podmienky,",
+        "sk": "lebo nedostatok potravín, zlé hygienické podmienky,",
         "cs": "protože nedostatek potravin, špatné hygienické podmínky,"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -7625,7 +7625,7 @@
       "sourceStart": 2235.52,
       "sourceEnd": 2240.06,
       "text": {
-        "sk": "prehustenie v niektorých častiach. To sú presne veci, ktoré... Aj veľká migrácia môžu",
+        "sk": "prehustenie v niektorých častiach. To sú presne veci, ktoré… A aj veľká migrácia,",
         "cs": "přelidnění v některých částech. To jsou přesně věci, které… A taky velká migrace,"
       },
       "needsAudioReview": true,
@@ -7910,10 +7910,10 @@
       "sourceStart": 2327.98,
       "sourceEnd": 2332.44,
       "text": {
-        "sk": "tým a tak ďalej. Asi pandémia je možno správnejšie slov, keďže je to celosvetovo",
+        "sk": "tým a tak ďalej. Asi pandémia je možno správnejšie slovo, keďže je to celosvetovo",
         "cs": "ním a tak dále. Asi pandemie je možná správnější slovo, protože je to celosvětově"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -8108,7 +8108,7 @@
         "sk": "V nej potrebuje zhodiť svoj obal a potom ju potrebuje preprogramovať,",
         "cs": "V ní potřebuje shodit svůj obal a potom ji potřebuje přeprogramovat,"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -8120,7 +8120,7 @@
       "sourceStart": 2392.32,
       "sourceEnd": 2392.78,
       "text": {
-        "sk": "ho množila.",
+        "sk": "aby ho množila.",
         "cs": "aby ho množila."
       },
       "needsAudioReview": true,
@@ -8240,7 +8240,7 @@
       "sourceStart": 2416.38,
       "sourceEnd": 2421.8,
       "text": {
-        "sk": "Ochádza zo SIV a S je simean, ako neviem,",
+        "sk": "Pochádza zo SIV a S je simian, ako neviem,",
         "cs": "Pochází ze SIV a S je simian, jako nevím,"
       },
       "needsAudioReview": true,
@@ -8255,7 +8255,7 @@
       "sourceStart": 2421.94,
       "sourceEnd": 2427.18,
       "text": {
-        "sk": "či opica, alebo ludob, aké je správne označenie. Myslím si, že ľudov.",
+        "sk": "či opica, alebo ľudoop, aké je správne označenie. Myslím si, že ľudoop.",
         "cs": "jestli opice, nebo lidoop, jaké je správné označení. Myslím si, že lidoop."
       },
       "needsAudioReview": true,
@@ -8270,7 +8270,7 @@
       "sourceStart": 2428.28,
       "sourceEnd": 2433.78,
       "text": {
-        "sk": "Pochádzajú z opic. A podarilo sa vystupovať, že zhruba podkiaľ a pochádza",
+        "sk": "Pochádza z opíc. A podarilo sa vystopovať, že zhruba odkiaľ, a pochádza",
         "cs": "Pochází z opic. A podařilo se vystopovat zhruba odkud, a pochází"
       },
       "needsAudioReview": true,
@@ -8435,7 +8435,7 @@
       "sourceStart": 2479.57,
       "sourceEnd": 2483.19,
       "text": {
-        "sk": "ako ju poznáme dodnes alebo teda dákata úplne z prvotných verzií.",
+        "sk": "ako ju poznáme dodnes alebo teda dáka tá úplne z prvotných verzií.",
         "cs": "jak ho známe dodnes, nebo tedy nějaká ta úplně prvotní verze."
       },
       "needsAudioReview": true,
@@ -8600,7 +8600,7 @@
       "sourceStart": 2529,
       "sourceEnd": 2534.44,
       "text": {
-        "sk": "bude platiť aj na ostatných, lebo kvôli tomu ešte ten vírus rýchlo mutuje. Presne toto",
+        "sk": "bude platiť aj na ostatných, lebo kvôli tomu, že ten vírus rýchlo mutuje. Presne toto",
         "cs": "bude platit i pro ostatní, protože ten virus rychle mutuje. Přesně tohle"
       },
       "needsAudioReview": true,
@@ -8615,10 +8615,10 @@
       "sourceStart": 2534.44,
       "sourceEnd": 2539.32,
       "text": {
-        "sk": "som chcel povedať, že dokonca ani lekári, ktoré ho ošetrovali, nerozumeli tomu, prečo",
+        "sk": "som chcel povedať, že dokonca ani lekári, ktorí ho ošetrovali, nerozumeli tomu, prečo",
         "cs": "jsem chtěl říct, že dokonce ani lékaři, kteří ho ošetřovali, nerozuměli tomu, proč"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -8630,7 +8630,7 @@
       "sourceStart": 2539.32,
       "sourceEnd": 2544.88,
       "text": {
-        "sk": "sa vyliečil. Ale len je vyliečený, nemá v sebe už tú nákazlivú",
+        "sk": "sa vyliečil. Ale je vyliečený, nemá v sebe už tú nákazlivú",
         "cs": "se vyléčil. Ale je vyléčený, už v sobě nemá tu nakažlivou"
       },
       "needsAudioReview": true,
@@ -8795,10 +8795,10 @@
       "sourceStart": 2590.31,
       "sourceEnd": 2594.31,
       "text": {
-        "sk": "gigant. a môžeme byť rádi, že sa s tým podarilo Dako vysporiadať.",
+        "sk": "gigant. A môžeme byť radi, že sa s tým podarilo dáko vysporiadať.",
         "cs": "gigant. A můžeme být rádi, že se s tím podařilo nějak vypořádat."
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -8855,7 +8855,7 @@
       "sourceStart": 2609.42,
       "sourceEnd": 2613.56,
       "text": {
-        "sk": "číslo a presne ako hovorí sám 100 tisíce úmrtí.",
+        "sk": "číslo a presne ako hovorí Samo, státisíce úmrtí.",
         "cs": "číslo, a přesně jak říká Samo, statisíce úmrtí."
       },
       "needsAudioReview": true,
@@ -9038,7 +9038,7 @@
         "sk": "Čo tam následne vznikla osýpková epidémia, pričom osýpky sú už očkovateľná choroba.",
         "cs": "Tam potom vznikla spalničková epidemie, přičemž spalničky už jsou nemoc, proti které lze očkovat."
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -9050,10 +9050,10 @@
       "sourceStart": 2662.82,
       "sourceEnd": 2667.96,
       "text": {
-        "sk": "Aj napriek tomu sa tam teda rozšírala epidémia. Tisícky nakazených ľudí 81",
+        "sk": "Aj napriek tomu sa tam teda rozšírila epidémia. Tisícky nakazených ľudí, 81",
         "cs": "Přesto se tam tedy rozšířila epidemie. Tisíce nakažených lidí, 81"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -9065,10 +9065,10 @@
       "sourceStart": 2669.86,
       "sourceEnd": 2672.28,
       "text": {
-        "sk": "zomrelo na nešťastie prevažne detí.",
+        "sk": "zomrelo, nanešťastie prevažne detí.",
         "cs": "zemřelo, bohužel převážně dětí."
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -9365,7 +9365,7 @@
       "sourceStart": 2756.95,
       "sourceEnd": 2761.75,
       "text": {
-        "sk": "epidémiách a tak ďalej. Čo proti vírusom môžeme robiť? Samozaj nám nejaké rady také,",
+        "sk": "epidémiách a tak ďalej. Čo proti vírusom môžeme robiť? Samo, daj nám nejaké rady také,",
         "cs": "epidemiemi a tak dále. Co můžeme proti virům dělat? Samo, dej nám nějaké takové rady"
       },
       "needsAudioReview": true,
@@ -9380,7 +9380,7 @@
       "sourceStart": 2762.39,
       "sourceEnd": 2764.65,
       "text": {
-        "sk": "alebo čo môžu veci robiť proti vírusom?",
+        "sk": "alebo čo môžu vedci robiť proti vírusom?",
         "cs": "nebo co mohou proti virům dělat vědci?"
       },
       "needsAudioReview": true,
@@ -9395,7 +9395,7 @@
       "sourceStart": 2765.39,
       "sourceEnd": 2770.27,
       "text": {
-        "sk": "No veci sa snažia minimálne v prípade čínskeho koronavírusu vyvinúť vakcínu a vyvinúť",
+        "sk": "No vedci sa snažia minimálne v prípade čínskeho koronavírusu vyvinúť vakcínu a vyvinúť",
         "cs": "No vědci se minimálně v případě čínského koronaviru snaží vyvinout vakcínu a vyvinout"
       },
       "needsAudioReview": true,
@@ -9560,10 +9560,10 @@
       "sourceStart": 2807.65,
       "sourceEnd": 2812.23,
       "text": {
-        "sk": "že ako často sa človek podvedome chytí za tvár a zistili, že v priemere 20 krát za",
+        "sk": "že ako často sa človek podvedome chytí za tvár a zistili, že v priemere 20-krát za",
         "cs": "jak často se člověk podvědomě dotkne obličeje, a zjistili, že se v průměru dvacetkrát za"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -9635,7 +9635,7 @@
       "sourceStart": 2829.16,
       "sourceEnd": 2831.24,
       "text": {
-        "sk": "Mojej zábavke odzvodil.",
+        "sk": "Mojej zábavke odzvonilo.",
         "cs": "Mému koníčku odzvonilo."
       },
       "needsAudioReview": true,
@@ -9710,7 +9710,7 @@
       "sourceStart": 2850.82,
       "sourceEnd": 2855.32,
       "text": {
-        "sk": "nakaziť 5 -10 ďalších kolegov. Toto podľa mňa ľudia veľmi pocenujú.",
+        "sk": "nakaziť 5–10 ďalších kolegov. Toto podľa mňa ľudia veľmi podceňujú.",
         "cs": "nakazit 5 až 10 dalších kolegů. Tohle podle mě lidé velmi podceňují."
       },
       "needsAudioReview": true,
@@ -9755,10 +9755,10 @@
       "sourceStart": 2866.01,
       "sourceEnd": 2871.21,
       "text": {
-        "sk": "Áno, bolo to veľmi aktuálne, takže ten výber bolo jednoduchý. Ja vám, naši",
+        "sk": "Áno, bolo to veľmi aktuálne, takže ten výber bol jednoduchý. Ja vám, naši",
         "cs": "Ano, bylo to velmi aktuální, takže ten výběr byl jednoduchý. Já vám, naši"
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -9800,10 +9800,10 @@
       "sourceStart": 2879.69,
       "sourceEnd": 2885.17,
       "text": {
-        "sk": "YouTube, Spotify, Apple podcaste a všade, kde nájdete dobré podcasty.",
+        "sk": "YouTube, Spotify, Apple Podcasts a všade, kde nájdete dobré podcasty.",
         "cs": "YouTube, Spotify, Apple Podcasts a všude, kde najdete dobré podcasty."
       },
-      "needsAudioReview": false,
+      "needsAudioReview": true,
       "editorialApproval": false
     },
     {
@@ -9875,7 +9875,7 @@
       "sourceStart": 2905.46,
       "sourceEnd": 2910.68,
       "text": {
-        "sk": "Toto je taká téma, že môžeš robiť podľa mňa dlho aj celý podcast len o výroch.",
+        "sk": "Toto je taká téma, že môžeš robiť podľa mňa dlho aj celý podcast len o vírusoch.",
         "cs": "Tohle je takové téma, že bys mohl podle mě dlouho dělat i celý podcast jen o virech."
       },
       "needsAudioReview": true,
