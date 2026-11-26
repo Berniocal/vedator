@@ -4,7 +4,7 @@
   "guid": "vedatorskypodcast.podbean.com/60169ece-e211-5ce3-8308-2ee114cd585b",
   "audio": "https://mcdn.podbean.com/mf/web/ks6p8t/podcast_ep12.mp3",
   "baseMainSha": "9cd596066246d385cf63c078a44e39d24ae99aa5",
-  "status": "complete-source-ASR-running-not-registered",
+  "status": "source-ASR-running-editorial-not-started",
   "registered": false,
   "editorialReviewComplete": false,
   "completeCzechEditorialReview": false,
@@ -33,5 +33,14 @@
     "CTC-align final Slovak text and preserve all source words; match Czech boundaries and SRTs.",
     "Resolve full mobile layout findings in both languages at 360/390 px and enlarged font.",
     "Register only completed captions; run exact-head CI, merge using expected SHA and verify live production hashes."
-  ]
+  ],
+  "fullVideoIdentityVerified": true,
+  "localReferenceBrowser": {
+    "episode": 11,
+    "fontEnvironment": "serverless Chromium 153",
+    "findings": 27,
+    "referenceNotRewritten": true,
+    "followupForEpisode12": "Require both local and CI mobile layout checks; preserve completed episode 11."
+  },
+  "localDataAndFaqChecks": "passed-current-base"
 }

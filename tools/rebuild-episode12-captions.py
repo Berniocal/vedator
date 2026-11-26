@@ -16,7 +16,7 @@ def source():
     e=next(e for e in read(ROOT/"content-v2.json")["episodes"] if e["number"]==12)
     assert e["id"] == "vedatorskypodcast.podbean.com/60169ece-e211-5ce3-8308-2ee114cd585b"
     assert e["enclosure"] == "https://mcdn.podbean.com/mf/web/ks6p8t/podcast_ep12.mp3"
-    assert e["title"] == "Vedátorský podcast 11 – Ľudstvo vs. epidémie"
+    assert e["title"] == "Vedátorský podcast 12 – Ľudstvo vs. epidémie"
     AUDIO.parent.mkdir(parents=True,exist_ok=True)
     if not AUDIO.exists():
         subprocess.run(["curl","--fail","--location","--retry","3","--max-time","180",e["enclosure"],"-o",str(AUDIO)],check=True)
