@@ -4,7 +4,7 @@
   "guid": "vedatorskypodcast.podbean.com/60169ece-e211-5ce3-8308-2ee114cd585b",
   "audio": "https://mcdn.podbean.com/mf/web/ks6p8t/podcast_ep12.mp3",
   "baseMainSha": "9cd596066246d385cf63c078a44e39d24ae99aa5",
-  "status": "complete-source-ASR-computed-independent-checks-running-not-editorially-reviewed",
+  "status": "full-source-verified-working-language-pass-not-published",
   "registered": false,
   "editorialReviewComplete": false,
   "completeCzechEditorialReview": false,
@@ -27,12 +27,11 @@
     "11": "live JSON and both SRT verified again by SHA256 on 2026-11-26"
   },
   "nextSteps": [
-    "Retrieve full source ASR and independent large-v3 windows from source workflow.",
-    "Read and edit the entire Slovak text and translate every utterance into Czech.",
-    "Independently recheck uncertain passages, gaps, names, numbers and negations.",
-    "CTC-align final Slovak text and preserve all source words; match Czech boundaries and SRTs.",
-    "Resolve full mobile layout findings in both languages at 360/390 px and enlarged font.",
-    "Register only completed captions; run exact-head CI, merge using expected SHA and verify live production hashes."
+    "Read focused large-v3 followups and resolve all uncertain Slovak words, numeric sequences, scientific names and missing speech.",
+    "Read and revise the complete Czech translation draft against the fully edited Slovak text.",
+    "Produce final bilingual segmentation and acoustic CTC alignment, preserving all 6790 source ASR words.",
+    "Resolve mobile layout for every CZ/SK cue at 360/390 px and enlarged fonts in local and CI font environments.",
+    "Register only completed captions; require successful exact-head CI before expected-SHA merge and verify deployed JSON / both SRT hashes."
   ],
   "fullVideoIdentityVerified": true,
   "localReferenceBrowser": {
@@ -43,6 +42,13 @@
     "followupForEpisode12": "Require both local and CI mobile layout checks; preserve completed episode 11."
   },
   "localDataAndFaqChecks": "passed-current-base",
-  "sourceTranscriptionPhase": "complete per source workflow step; source file pending workflow evidence commit",
-  "environmentRecovery": "Local ephemeral environment was lost; restored working copy from preparation branch. No final captions were registered or deployed."
+  "sourceTranscriptionPhase": "complete; complete source and 26 initial independent windows committed by successful original source workflow",
+  "environmentRecovery": "Local ephemeral environment was lost; restored working copy from preparation branch. No final captions were registered or deployed.",
+  "completeSlovakDraftRead": true,
+  "asrWords": 6790,
+  "sourceCueCount": 658,
+  "initialIndependentWindows": 26,
+  "followupWindowsRequested": 24,
+  "sourceTranscriptSha256": "0c1dbd2210c07a2edec585f18d2aadcae677ee2ed97d817be0887e9ddffc6d13",
+  "allSourceWordsContiguouslyCovered": true
 }
