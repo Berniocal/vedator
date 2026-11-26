@@ -3,6 +3,8 @@ on:
   push:
     branches: [captions/episode-12-precise-20261126]
     paths:
+      - tools/check-episode12-editorial-contrasts.py
+      - captions/source/episode-12-editorial-contrast-requests.json
       - tools/check-episode12-ctc-endpoints.py
       - tools/rebuild-episode12-captions.py
       - captions/episode-12.edited.json
@@ -44,6 +46,8 @@ jobs:
           python -m pip install --disable-pip-version-check transformers==4.45.2 'numpy<2'
       - name: Preserve unforced CTC beginning and ending evidence
         run: python tools/check-episode12-ctc-endpoints.py
+      - name: Compare explicitly disputed wordings against original audio
+        run: python tools/check-episode12-editorial-contrasts.py
       - name: Align only a completely reviewed bilingual text
         run: |
           if test -s captions/episode-12.edited.json; then
