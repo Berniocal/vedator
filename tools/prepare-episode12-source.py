@@ -27,9 +27,12 @@ def source():
     assert item.find("enclosure").get("url")==e["enclosure"]
     write(SOURCE/"episode-12-rss-identity.json",{"episode":12,"guid":e["id"],"title":e["title"],"audio":e["enclosure"],"rss":feed_url,"pubDate":item.findtext("pubDate")})
     AUDIO.parent.mkdir(parents=True,exist_ok=True)
-    if not AUDIO.exists():
-        subprocess.run(["curl","--fail","--location","--retry","3","--max-time","180",e["enclosure"],"-o",str(AUDIO)],check=True)
-    assert AUDIO.stat().st_size>1_000_000
+    # Authenticate the complete original before ASR, also after interrupted downloads.
+    import importlib.util
+    spec=importlib.util.spec_from_file_location("caption_reference",ROOT/"tools/download-caption-reference.py")
+    reference=importlib.util.module_from_spec(spec);spec.loader.exec_module(reference)
+    reference.download(e["enclosure"],AUDIO,95916894,
+                       "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5")
     digest=hashlib.sha256(AUDIO.read_bytes()).hexdigest()
     return e,{"audio":e["enclosure"],"audioSha256":digest,"audioBytes":AUDIO.stat().st_size}
 def draft():

@@ -40,6 +40,16 @@ jobs:
           if ! test -s captions/source/episode-12-draft.sk.json; then
             python tools/prepare-episode12-source.py
           fi
+      - name: Checkpoint complete source before independent recognizer
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add captions/source/episode-12-draft.sk.json captions/source/episode-12-rss-identity.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Preserve complete authenticated episode 12 source ASR before acoustic followups"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
       - name: Independently recognize gaps, low confidence and timeline anchors
         run: |
           if ! test -s captions/source/episode-12-extra-checks.sk.json; then

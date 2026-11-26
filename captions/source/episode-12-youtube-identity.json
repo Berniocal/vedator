@@ -94,5 +94,10 @@
   ],
   "fullVideoIdentityVerified": true,
   "durationMatchesWithinOneSecond": true,
-  "note": "Full official video metadata and duration verified. Equal duration alone does not prove audio identity or absence of edits."
+  "note": "Full official video metadata and duration verified. Equal duration alone does not prove audio identity or absence of edits.",
+  "directAudioAccess": {
+    "audioFormatsFound": 2,
+    "directAudioUrls": 0,
+    "note": "Both listed adaptive audio formats require signature deciphering; no YouTube audio bytes were downloaded or compared."
+  }
 }
