@@ -1,15 +1,15 @@
 {
   "episode": 12,
-  "status": "partial-manual-Czech-draft-not-publishable",
+  "status": "complete-manual-Czech-draft-pending-acoustic-resolution-and-full-bilingual-review",
   "audioSha256": "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
   "sourceTranscriptSha256": "0c1dbd2210c07a2edec585f18d2aadcae677ee2ed97d817be0887e9ddffc6d13",
   "sourceCueCount": 658,
-  "manualCzechCueCount": 440,
-  "nextSourceCue": 441,
+  "manualCzechCueCount": 658,
+  "nextSourceCue": null,
   "completeCzechEditorialReview": false,
   "finalEditorialApproval": false,
   "humanListeningVerified": false,
-  "note": "New Czech rendering written directly from the complete Slovak source and independent acoustic evidence. Not the NLLB draft. Segmentation, unresolved audio words and final bilingual alignment remain pending.",
+  "note": "Vlastní český pracovní překlad všech 658 zdrojových úseků, vytvořený přímo ze slovenštiny a dostupných doplňujících ASR. Značky nesrozumitelnosti jsou pracovní a čekají na vyhodnocení akustických kontrastů. Nejde o hotové zarovnané titulky, nezaregistrovat. Samostatné krátké fragmenty a pevné zlomy se vyřeší společnou segmentací po opravě SK. Bez nezávislého lidského poslechu.",
   "cues": [
     {
       "sourceCue": 1,
@@ -6609,6 +6609,3276 @@
         "cs": "byla obrovská katastrofa vlastně pro to druhé století"
       },
       "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 441,
+      "asrWordRange": [
+        4590,
+        4603
+      ],
+      "sourceStart": 1919.42,
+      "sourceEnd": 1924.88,
+      "text": {
+        "sk": "a pre Rímskú ríšu, cez ktorá. A hlavne aj tam pomáhalo určite to,",
+        "cs": "a pro Římskou říši, [nesrozumitelné]. A hlavně tomu určitě pomáhalo i to,"
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 442,
+      "asrWordRange": [
+        4603,
+        4614
+      ],
+      "sourceStart": 1924.96,
+      "sourceEnd": 1929.9,
+      "text": {
+        "sk": "že Rímska ríša bola popreviazaná, čo sa týkal obchodu a cestovania",
+        "cs": "že Římská říše byla propojená, co se týče obchodu a cestování,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 443,
+      "asrWordRange": [
+        4614,
+        4623
+      ],
+      "sourceStart": 1929.9,
+      "sourceEnd": 1935.38,
+      "text": {
+        "sk": "a šírala sa tá epidémia rýchlejšie ako kedykoľvek predtým.",
+        "cs": "a ta epidemie se šířila rychleji než kdykoli předtím."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 444,
+      "asrWordRange": [
+        4623,
+        4640
+      ],
+      "sourceStart": 1936.56,
+      "sourceEnd": 1941.46,
+      "text": {
+        "sk": "A tu si mal dobrú poznámku vlastne, že ten Rím bol preľudnený a to je vlastne úplne,",
+        "cs": "A tady jsi měl dobrou poznámku, že Řím byl přelidněný, a to je vlastně úplně,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 445,
+      "asrWordRange": [
+        4640,
+        4642
+      ],
+      "sourceStart": 1941.7,
+      "sourceEnd": 1942.94,
+      "text": {
+        "sk": "že neviem,",
+        "cs": "nevím,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 446,
+      "asrWordRange": [
+        4642,
+        4655
+      ],
+      "sourceStart": 1944.21,
+      "sourceEnd": 1949.25,
+      "text": {
+        "sk": "ako by som to povedal, spoločný znak mnohých epidémie, že vyžadujú také prehustené",
+        "cs": "jak bych to řekl, společný znak mnoha epidemií, že vyžadují takové přelidněné"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 447,
+      "asrWordRange": [
+        4655,
+        4663
+      ],
+      "sourceStart": 1949.25,
+      "sourceEnd": 1951.85,
+      "text": {
+        "sk": "oblasti, preto aj tak často pochádzajú z Ázie,",
+        "cs": "oblasti, proto taky tak často pocházejí z Asie,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 448,
+      "asrWordRange": [
+        4663,
+        4680
+      ],
+      "sourceStart": 1952.75,
+      "sourceEnd": 1958.03,
+      "text": {
+        "sk": "z Číny alebo z Indie. A to k tomu, že ten reprodukčný faktor vírusu závisí od toho, že",
+        "cs": "z Číny nebo z Indie. A to kvůli tomu, že reprodukční faktor viru závisí na tom,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 449,
+      "asrWordRange": [
+        4680,
+        4687
+      ],
+      "sourceStart": 1958.03,
+      "sourceEnd": 1961.67,
+      "text": {
+        "sk": "koľko vlastne mal k dispozícii ďalších hostiteľov.",
+        "cs": "kolik vlastně má k dispozici dalších hostitelů."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 450,
+      "asrWordRange": [
+        4687,
+        4702
+      ],
+      "sourceStart": 1962.42,
+      "sourceEnd": 1967.98,
+      "text": {
+        "sk": "No veď samozrejme, kebyže si sám na ostrove a máš koronavírus, tak to necháš pre",
+        "cs": "No samozřejmě, kdybys byl sám na ostrově a měl koronavirus, tak si ho necháš pro"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 451,
+      "asrWordRange": [
+        4702,
+        4718
+      ],
+      "sourceStart": 1967.98,
+      "sourceEnd": 1973.58,
+      "text": {
+        "sk": "seba. Možno naň zomrieš, ale nikto... Áno, presne, nechá si to pre seba. Takže to",
+        "cs": "sebe. Možná na něj zemřeš, ale nikdo… Ano, přesně, nechá si to pro sebe. Takže to"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 452,
+      "asrWordRange": [
+        4718,
+        4733
+      ],
+      "sourceStart": 1973.58,
+      "sourceEnd": 1978.58,
+      "text": {
+        "sk": "je taká logika, keď máš prístup k viacerým ľuďom ako ten doktor v tom hoteli",
+        "cs": "je taková logika. Když máš přístup k více lidem jako ten doktor v tom"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 453,
+      "asrWordRange": [
+        4733,
+        4746
+      ],
+      "sourceStart": 1978.58,
+      "sourceEnd": 1983.94,
+      "text": {
+        "sk": "medzinárodnom, tak je to väčší problém, ako keď bývaš sám na samote v",
+        "cs": "mezinárodním hotelu, tak je to větší problém, než když bydlíš sám na samotě v"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 454,
+      "asrWordRange": [
+        4746,
+        4757
+      ],
+      "sourceStart": 1983.94,
+      "sourceEnd": 1989.16,
+      "text": {
+        "sk": "Mongolsku a máš nejakú epidémiu alebo nejaký vírus, ktorý môže spôsobiť",
+        "cs": "Mongolsku a máš nějakou epidemii nebo nějaký virus, který může způsobit"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 455,
+      "asrWordRange": [
+        4757,
+        4767
+      ],
+      "sourceStart": 1989.16,
+      "sourceEnd": 1994.44,
+      "text": {
+        "sk": "epidémiu. Tak. Dobre, poďme na ďalšiu epidémiu v našej histórii.",
+        "cs": "epidemii. Tak. Dobře, pojďme na další epidemii v naší historii."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 456,
+      "asrWordRange": [
+        4767,
+        4778
+      ],
+      "sourceStart": 1994.66,
+      "sourceEnd": 2000.02,
+      "text": {
+        "sk": "V 15. storočí bol hantavírus, ktorý nemal až tak veľa obetí,",
+        "cs": "V 15. století to byl hantavirus, který neměl až tak moc obětí,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 457,
+      "asrWordRange": [
+        4778,
+        4794
+      ],
+      "sourceStart": 2000.26,
+      "sourceEnd": 2005.16,
+      "text": {
+        "sk": "ale choroba, ktorú spôsoboval a ktorú zabíjal je tak zvláštna, že sa to dostalo aj do",
+        "cs": "ale nemoc, kterou způsoboval a kterou zabíjel, je tak zvláštní, že se dostala i do"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 458,
+      "asrWordRange": [
+        4794,
+        4808
+      ],
+      "sourceStart": 2005.16,
+      "sourceEnd": 2010.24,
+      "text": {
+        "sk": "tohto nášho rebríčka a on spôsoboval niečo, čo sa teraz označuje, že anglické potenie",
+        "cs": "tohoto našeho žebříčku. Způsoboval něco, čemu se teď říká anglický pot"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 459,
+      "asrWordRange": [
+        4808,
+        4817
+      ],
+      "sourceStart": 2010.24,
+      "sourceEnd": 2015.64,
+      "text": {
+        "sk": "alebo taký doslovný preklad z sweating sickness alebo English",
+        "cs": "nebo takový doslovný překlad ze sweating sickness nebo English"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 460,
+      "asrWordRange": [
+        4817,
+        4827
+      ],
+      "sourceStart": 2015.64,
+      "sourceEnd": 2020.76,
+      "text": {
+        "sk": "sweating sickness a vlastne táto choroba sa prejavovala strašne prudký",
+        "cs": "sweating sickness. A vlastně tahle nemoc se projevovala strašně prudkým"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 461,
+      "asrWordRange": [
+        4827,
+        4841
+      ],
+      "sourceStart": 2020.76,
+      "sourceEnd": 2025.2,
+      "text": {
+        "sk": "nástup symptómov bol. A jeden z tých symptómov bolo úplne brutálne potenie a pomerne",
+        "cs": "nástupem příznaků. A jedním z těch příznaků bylo úplně brutální pocení a poměrně"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 462,
+      "asrWordRange": [
+        4841,
+        4846
+      ],
+      "sourceStart": 2025.2,
+      "sourceEnd": 2026.52,
+      "text": {
+        "sk": "rýchlo po ňom nastala smrť.",
+        "cs": "rychle po něm nastala smrt."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 463,
+      "asrWordRange": [
+        4846,
+        4861
+      ],
+      "sourceStart": 2027.2,
+      "sourceEnd": 2031.86,
+      "text": {
+        "sk": "Bola tá smrť z dehydratácie? To si nie som istý. Aj neviem, či existujú také úplne",
+        "cs": "Byla ta smrt z dehydratace? Tím si nejsem jistý. Ani nevím, jestli existují takové úplně"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 464,
+      "asrWordRange": [
+        4861,
+        4865
+      ],
+      "sourceStart": 2031.86,
+      "sourceEnd": 2033.04,
+      "text": {
+        "sk": "presné záznamy o tomto.",
+        "cs": "přesné záznamy o tom."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 465,
+      "asrWordRange": [
+        4865,
+        4869
+      ],
+      "sourceStart": 2034.37,
+      "sourceEnd": 2036.25,
+      "text": {
+        "sk": "A nakoľko sa jednalo",
+        "cs": "A protože šlo"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 466,
+      "asrWordRange": [
+        4869,
+        4885
+      ],
+      "sourceStart": 2036.94,
+      "sourceEnd": 2042.54,
+      "text": {
+        "sk": "o obdobie pred 500 rokmi? Z toho, čo som čítal, mám aspoň taký pocit, že tá choroba",
+        "cs": "o období před 500 lety? Z toho, co jsem četl, mám aspoň takový pocit, že ta nemoc"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 467,
+      "asrWordRange": [
+        4885,
+        4894
+      ],
+      "sourceStart": 2042.54,
+      "sourceEnd": 2044.84,
+      "text": {
+        "sk": "mala problém, že bola tak smrteľná, že strašne rýchlo",
+        "cs": "měla problém v tom, že byla tak smrtelná, že strašně rychle"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 468,
+      "asrWordRange": [
+        4894,
+        4904
+      ],
+      "sourceStart": 2046.08,
+      "sourceEnd": 2051.44,
+      "text": {
+        "sk": "potenciálnych hostiteľov vyhubila, že pomerne rýchlo zanikla. Keď si predstavíš",
+        "cs": "vyhubila potenciální hostitele, že poměrně rychle zanikla. Když si představíš"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 469,
+      "asrWordRange": [
+        4904,
+        4916
+      ],
+      "sourceStart": 2051.44,
+      "sourceEnd": 2056.4,
+      "text": {
+        "sk": "infekciu, ktorá by okamžite zabila svojho hostiteľa, tak ona nemá na koho ďalej",
+        "cs": "infekci, která by okamžitě zabila svého hostitele, tak nemá na koho dál"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 470,
+      "asrWordRange": [
+        4916,
+        4927
+      ],
+      "sourceStart": 2056.4,
+      "sourceEnd": 2061.08,
+      "text": {
+        "sk": "preskočiť, lebo hneď proste vyhubí, čo sa dá a tam skončí.",
+        "cs": "přeskočit, protože hned prostě vyhubí, co se dá, a tam skončí."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 471,
+      "asrWordRange": [
+        4927,
+        4936
+      ],
+      "sourceStart": 2061.82,
+      "sourceEnd": 2066.86,
+      "text": {
+        "sk": "Takže infekcia musí mať takú tú vyváženosť medzi svojou",
+        "cs": "Takže infekce musí mít takovou tu vyváženost mezi svou"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 472,
+      "asrWordRange": [
+        4936,
+        4945
+      ],
+      "sourceStart": 2066.86,
+      "sourceEnd": 2072.04,
+      "text": {
+        "sk": "smrteľnosťou a tým, ako... koľko vie ďalších ľudí znovu",
+        "cs": "smrtelností a tím, jak… kolik dalších lidí dokáže znovu"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 473,
+      "asrWordRange": [
+        4945,
+        4946
+      ],
+      "sourceStart": 2072.04,
+      "sourceEnd": 2072.68,
+      "text": {
+        "sk": "nakaziť.",
+        "cs": "nakazit."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 474,
+      "asrWordRange": [
+        4946,
+        4957
+      ],
+      "sourceStart": 2073.82,
+      "sourceEnd": 2079.2,
+      "text": {
+        "sk": "Úplne najspokojnejšia je choroba, ktorá nezabije svojho hostiteľa, len ho prinúti",
+        "cs": "Úplně nejspokojenější je nemoc, která svého hostitele nezabije, jen ho přinutí"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 475,
+      "asrWordRange": [
+        4957,
+        4967
+      ],
+      "sourceStart": 2079.2,
+      "sourceEnd": 2082.84,
+      "text": {
+        "sk": "šíriť ďalej. A takto fungujú rôzne toxoplazmózy a podobne, parazity,",
+        "cs": "šířit ji dál. A takhle fungují různé toxoplazmózy a podobně, paraziti,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 476,
+      "asrWordRange": [
+        4967,
+        4982
+      ],
+      "sourceStart": 2083.82,
+      "sourceEnd": 2089.42,
+      "text": {
+        "sk": "ktoré ťa napadnú a spôsobí len, že ho šíriš ďalej, ale sám nezahynieš. Čiže",
+        "cs": "kteří tě napadnou a způsobí jen to, že je šíříš dál, ale sám nezahyneš. Čili"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 477,
+      "asrWordRange": [
+        4982,
+        4995
+      ],
+      "sourceStart": 2089.42,
+      "sourceEnd": 2094.42,
+      "text": {
+        "sk": "toto je z pohľadu šírenia úplne najideálnejšia možnosť a veľká smrteľnosť je teda",
+        "cs": "z hlediska šíření je tohle úplně nejideálnější možnost a velká smrtelnost je tedy"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 478,
+      "asrWordRange": [
+        4995,
+        5000
+      ],
+      "sourceStart": 2094.42,
+      "sourceEnd": 2096.5,
+      "text": {
+        "sk": "kontraproduktívna z pohľadu toho víru.",
+        "cs": "z pohledu toho viru kontraproduktivní."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 479,
+      "asrWordRange": [
+        5000,
+        5015
+      ],
+      "sourceStart": 2097.72,
+      "sourceEnd": 2103.3,
+      "text": {
+        "sk": "No okej, čo máš ďalej? Ja mám ďalej 19. storočie a tým je cholera, ktorá",
+        "cs": "No dobře, co máš dál? Já mám dál 19. století a tím je cholera, která"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 480,
+      "asrWordRange": [
+        5015,
+        5021
+      ],
+      "sourceStart": 2103.3,
+      "sourceEnd": 2106.56,
+      "text": {
+        "sk": "zabila v Rusku 1 milión ľudí.",
+        "cs": "zabila v Rusku 1 milion lidí."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 481,
+      "asrWordRange": [
+        5021,
+        5032
+      ],
+      "sourceStart": 2107.3,
+      "sourceEnd": 2112.86,
+      "text": {
+        "sk": "V tom istom storočí... Cholera je bakteriologické ochorenie a potom bola",
+        "cs": "V tomtéž století… Cholera je bakteriální onemocnění a potom byla"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 482,
+      "asrWordRange": [
+        5032,
+        5046
+      ],
+      "sourceStart": 2112.86,
+      "sourceEnd": 2118.4,
+      "text": {
+        "sk": "aj celosvetová chrípka, pandémia a tam bol tiež 1 milión obetí. A to už",
+        "cs": "i celosvětová chřipka, pandemie, a tam byl také 1 milion obětí. A to už"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 483,
+      "asrWordRange": [
+        5046,
+        5059
+      ],
+      "sourceStart": 2118.4,
+      "sourceEnd": 2123.8,
+      "text": {
+        "sk": "je vírusové ochorenie. A to je vírusové. Takže vlastne sa spojili dve epidémie,",
+        "cs": "je virové onemocnění. A to je virové. Takže se vlastně spojily dvě epidemie,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 484,
+      "asrWordRange": [
+        5059,
+        5065
+      ],
+      "sourceStart": 2125.22,
+      "sourceEnd": 2129.45,
+      "text": {
+        "sk": "ktoré mali výsledok 2 miliónov obetí.",
+        "cs": "které měly za výsledek 2 miliony obětí."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 485,
+      "asrWordRange": [
+        5065,
+        5082
+      ],
+      "sourceStart": 2130.44,
+      "sourceEnd": 2135.3,
+      "text": {
+        "sk": "Áno a skočili sme z 15. na 19. storočie. Nie kvôli tomu, že medzi 15. a 19.",
+        "cs": "Ano a skočili jsme z 15. do 19. století. Ne proto, že by mezi 15. a 19."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 486,
+      "asrWordRange": [
+        5082,
+        5096
+      ],
+      "sourceStart": 2135.58,
+      "sourceEnd": 2140.82,
+      "text": {
+        "sk": "storočím by nebola žiadna epidémia, ale v porovnaní s tou čiernou smrťou zo 14.",
+        "cs": "stoletím nebyla žádná epidemie, ale ve srovnání s černou smrtí ze 14."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 487,
+      "asrWordRange": [
+        5096,
+        5107
+      ],
+      "sourceStart": 2141.08,
+      "sourceEnd": 2145.62,
+      "text": {
+        "sk": "storočia je to tak, že tak bledne to v porovnaní trošku.",
+        "cs": "století to tak trochu bledne."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 488,
+      "asrWordRange": [
+        5107,
+        5121
+      ],
+      "sourceStart": 2146.48,
+      "sourceEnd": 2151.42,
+      "text": {
+        "sk": "Áno. A nejdeme chronologicky, to ste si už mohli všimnúť asi poslucháči, takže... Áno.",
+        "cs": "Ano. A nejdeme chronologicky, toho jste si už asi mohli všimnout, posluchači, takže… Ano."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 489,
+      "asrWordRange": [
+        5121,
+        5135
+      ],
+      "sourceStart": 2151.58,
+      "sourceEnd": 2155.54,
+      "text": {
+        "sk": "Dobre, čo máme ďalšie? Myslím si, že toto je taká buď najznámejšia alebo druhá",
+        "cs": "Dobře, co máme dalšího? Myslím si, že tohle je buď nejznámější, nebo druhá"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 490,
+      "asrWordRange": [
+        5135,
+        5137
+      ],
+      "sourceStart": 2155.54,
+      "sourceEnd": 2156.74,
+      "text": {
+        "sk": "najznámejšia epidémia.",
+        "cs": "nejznámější epidemie."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 491,
+      "asrWordRange": [
+        5137,
+        5151
+      ],
+      "sourceStart": 2157.93,
+      "sourceEnd": 2163.25,
+      "text": {
+        "sk": "Určite je, že v top trojke a to je španielska chrípka, ktorá v období",
+        "cs": "Určitě je v první trojce, a to je španělská chřipka, která v období"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 492,
+      "asrWordRange": [
+        5151,
+        5159
+      ],
+      "sourceStart": 2163.25,
+      "sourceEnd": 2167.63,
+      "text": {
+        "sk": "Prvej svetovej vojny zabila až 100 miliónov obetí.",
+        "cs": "první světové války zabila až 100 milionů obětí."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 493,
+      "asrWordRange": [
+        5159,
+        5163
+      ],
+      "sourceStart": 2168.39,
+      "sourceEnd": 2170.59,
+      "text": {
+        "sk": "Podľa odhadov. 100 miliónov.",
+        "cs": "Podle odhadů. 100 milionů."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 494,
+      "asrWordRange": [
+        5163,
+        5175
+      ],
+      "sourceStart": 2171.44,
+      "sourceEnd": 2176.74,
+      "text": {
+        "sk": "Vieš, prečo sa španielska chrípka volá španielska? Kvôli tomu, že Španielsko bola",
+        "cs": "Víš, proč se španělská chřipka jmenuje španělská? Protože Španělsko bylo"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 495,
+      "asrWordRange": [
+        5175,
+        5186
+      ],
+      "sourceStart": 2176.74,
+      "sourceEnd": 2182.28,
+      "text": {
+        "sk": "neutrálna krajina počas Prvej svetovej vojny a nemali jediní cenzúru, myslím,",
+        "cs": "za první světové války neutrální zemí a jako jediné nemělo cenzuru, myslím"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 496,
+      "asrWordRange": [
+        5186,
+        5197
+      ],
+      "sourceStart": 2182.36,
+      "sourceEnd": 2187.46,
+      "text": {
+        "sk": "že si, že na noviny. a na správy, ktoré vydávali a",
+        "cs": "si, na noviny a zprávy, které vydávali, a"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 497,
+      "asrWordRange": [
+        5197,
+        5207
+      ],
+      "sourceStart": 2187.46,
+      "sourceEnd": 2192.94,
+      "text": {
+        "sk": "krajiny, ktoré bojovali v Prvej svetovej vojne, nechceli strašiť ľudí,",
+        "cs": "země, které bojovaly v první světové válce, nechtěly strašit lidi,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 498,
+      "asrWordRange": [
+        5207,
+        5215
+      ],
+      "sourceStart": 2192.94,
+      "sourceEnd": 2198.02,
+      "text": {
+        "sk": "že je nejaká pandémia alebo epidémia, tak nikto",
+        "cs": "že je nějaká pandemie nebo epidemie, tak nikdo"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 499,
+      "asrWordRange": [
+        5215,
+        5228
+      ],
+      "sourceStart": 2198.02,
+      "sourceEnd": 2202.6,
+      "text": {
+        "sk": "nehovoril o tejto chrípke, len španielské noviny, keď si správno spomínal. Tak, presne",
+        "cs": "o téhle chřipce nemluvil, jen španělské noviny, pokud si správně vzpomínám. Tak, přesně"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 500,
+      "asrWordRange": [
+        5228,
+        5235
+      ],
+      "sourceStart": 2202.6,
+      "sourceEnd": 2205.72,
+      "text": {
+        "sk": "tak. Čiže tento marketing úplne neoprávne nedostali?",
+        "cs": "tak. Čili tenhle marketing dostali úplně neoprávněně."
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 501,
+      "asrWordRange": [
+        5235,
+        5248
+      ],
+      "sourceStart": 2206.76,
+      "sourceEnd": 2211.96,
+      "text": {
+        "sk": "Áno. negatívne marketing. A začala, začala viem, že úplne niekde inde, že nemá",
+        "cs": "Ano, negativní marketing. A začala, vím, úplně někde jinde, že nemá"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 502,
+      "asrWordRange": [
+        5248,
+        5250
+      ],
+      "sourceStart": 2211.96,
+      "sourceEnd": 2213.5,
+      "text": {
+        "sk": "pôvod v Španielsku.",
+        "cs": "původ ve Španělsku."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 503,
+      "asrWordRange": [
+        5250,
+        5257
+      ],
+      "sourceStart": 2214.36,
+      "sourceEnd": 2216.3,
+      "text": {
+        "sk": "Ja som o nej čítal rôzne teórie.",
+        "cs": "Četl jsem o ní různé teorie."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 504,
+      "asrWordRange": [
+        5257,
+        5274
+      ],
+      "sourceStart": 2217.1,
+      "sourceEnd": 2221.42,
+      "text": {
+        "sk": "Jedna bola zase, že začala niekde v Ázii, ale potom som aj niečo o Francúzsku a ako",
+        "cs": "Jedna zase byla, že začala někde v Asii, ale potom jsem četl i něco o Francii a jak"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 505,
+      "asrWordRange": [
+        5274,
+        5286
+      ],
+      "sourceStart": 2221.42,
+      "sourceEnd": 2225.56,
+      "text": {
+        "sk": "chodila dopredu, dozadu po svete, veľakrát mutovala, až kým dostala toto smrteľné",
+        "cs": "chodila dopředu, dozadu po světě, mnohokrát mutovala, až dostala toto smrtelné"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 506,
+      "asrWordRange": [
+        5286,
+        5297
+      ],
+      "sourceStart": 2225.56,
+      "sourceEnd": 2228.88,
+      "text": {
+        "sk": "štádium. Ale pravdepodobne tomu vo veľkom pomohla aj tá Prvá svetová vojna,",
+        "cs": "stadium. Ale pravděpodobně tomu hodně pomohla i ta první světová válka,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 507,
+      "asrWordRange": [
+        5297,
+        5303
+      ],
+      "sourceStart": 2230.06,
+      "sourceEnd": 2234.96,
+      "text": {
+        "sk": "lebo nedostatok potravín, zle hygienické podmienky,",
+        "cs": "protože nedostatek potravin, špatné hygienické podmínky,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 508,
+      "asrWordRange": [
+        5303,
+        5316
+      ],
+      "sourceStart": 2235.52,
+      "sourceEnd": 2240.06,
+      "text": {
+        "sk": "prehustenie v niektorých častiach. To sú presne veci, ktoré... Aj veľká migrácia môžu",
+        "cs": "přelidnění v některých částech. To jsou přesně věci, které… A taky velká migrace,"
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 509,
+      "asrWordRange": [
+        5316,
+        5326
+      ],
+      "sourceStart": 2240.06,
+      "sourceEnd": 2243.8,
+      "text": {
+        "sk": "prekresľovanie hraníc. To je proste voda na mlyn pre epidémie.",
+        "cs": "překreslování hranic. To je prostě voda na mlýn epidemiím."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 510,
+      "asrWordRange": [
+        5326,
+        5341
+      ],
+      "sourceStart": 2244.66,
+      "sourceEnd": 2249.8,
+      "text": {
+        "sk": "Ale toto je asi, že najpesimistickejší odhad, že až 100 miliónov obetí. Možno to bolo",
+        "cs": "Ale tohle je asi ten nejpesimističtější odhad, až 100 milionů obětí. Možná jich bylo"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 511,
+      "asrWordRange": [
+        5341,
+        5357
+      ],
+      "sourceStart": 2249.8,
+      "sourceEnd": 2254.72,
+      "text": {
+        "sk": "trošku menej, ale stále sú to proste, že desiatky miliónov obetí. Ja som videl, že ten",
+        "cs": "trochu méně, ale pořád jsou to prostě desítky milionů obětí. Já jsem viděl ten"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 512,
+      "asrWordRange": [
+        5357,
+        5362
+      ],
+      "sourceStart": 2254.72,
+      "sourceEnd": 2257.62,
+      "text": {
+        "sk": "najkonzervatívnejší odhad na 30 miliónoch.",
+        "cs": "nejkonzervativnější odhad na 30 milionech."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 513,
+      "asrWordRange": [
+        5362,
+        5377
+      ],
+      "sourceStart": 2258.53,
+      "sourceEnd": 2262.63,
+      "text": {
+        "sk": "Čo, ak sa nemýlime, stále o veľa viac ako počet obetí Prvej svetovej vojny, nie?",
+        "cs": "Což je, pokud se nemýlíme, pořád mnohem víc než počet obětí první světové války, ne?"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 514,
+      "asrWordRange": [
+        5377,
+        5393
+      ],
+      "sourceStart": 2263.63,
+      "sourceEnd": 2269.13,
+      "text": {
+        "sk": "Áno, myslím si, že aj. Čiže... To stále o mnoho viacej. Ale treba aj pozerať na",
+        "cs": "Ano, myslím si, že taky. Čili… To je pořád mnohem víc. Ale je třeba se dívat i na"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 515,
+      "asrWordRange": [
+        5393,
+        5404
+      ],
+      "sourceStart": 2269.13,
+      "sourceEnd": 2274.39,
+      "text": {
+        "sk": "to, že na začiatku 20. storočia bola populácia, myslím, že len",
+        "cs": "to, že na začátku 20. století byla populace myslím jen"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 516,
+      "asrWordRange": [
+        5404,
+        5413
+      ],
+      "sourceStart": 2274.39,
+      "sourceEnd": 2278.07,
+      "text": {
+        "sk": "miliarda alebo miliarda a pol ľudí, takže zomrelo naozaj.",
+        "cs": "miliarda nebo miliarda a půl lidí, takže zemřelo opravdu…"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 517,
+      "asrWordRange": [
+        5413,
+        5421
+      ],
+      "sourceStart": 2279.15,
+      "sourceEnd": 2282.45,
+      "text": {
+        "sk": "Obrovská časť populácie zomrlo. Asi každý poznal niekoho,",
+        "cs": "Obrovská část populace zemřela. Asi každý znal někoho,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 518,
+      "asrWordRange": [
+        5421,
+        5436
+      ],
+      "sourceStart": 2283.19,
+      "sourceEnd": 2288.07,
+      "text": {
+        "sk": "kto zomrel na španielskú chrípku. Ja by som si typu... Určite, určite. To si viem",
+        "cs": "kdo zemřel na španělskou chřipku. Tipoval bych si… Určitě, určitě. To si umím"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 519,
+      "asrWordRange": [
+        5436,
+        5444
+      ],
+      "sourceStart": 2288.07,
+      "sourceEnd": 2293.47,
+      "text": {
+        "sk": "predstaviť. Samozrejme, mohli byť nejaké odľahlejšie časti sveta,",
+        "cs": "představit. Samozřejmě mohly být nějaké odlehlejší části světa,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 520,
+      "asrWordRange": [
+        5444,
+        5450
+      ],
+      "sourceStart": 2293.63,
+      "sourceEnd": 2295.99,
+      "text": {
+        "sk": "ktoré neboli zasiahnuté alebo boli menej.",
+        "cs": "které nebyly zasažené nebo byly zasažené méně."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 521,
+      "asrWordRange": [
+        5450,
+        5459
+      ],
+      "sourceStart": 2298.78,
+      "sourceEnd": 2304.34,
+      "text": {
+        "sk": "Dobre. Ďalšia epidémia, to je taká veľmi moderná epidémia.",
+        "cs": "Dobře. Další epidemie, to je taková velmi moderní epidemie."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 522,
+      "asrWordRange": [
+        5459,
+        5464
+      ],
+      "sourceStart": 2304.56,
+      "sourceEnd": 2306.56,
+      "text": {
+        "sk": "Je to epidémia vírusu HIV.",
+        "cs": "Je to epidemie viru HIV."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 523,
+      "asrWordRange": [
+        5464,
+        5474
+      ],
+      "sourceStart": 2309.05,
+      "sourceEnd": 2314.35,
+      "text": {
+        "sk": "Tá začala až v 20. storočí a vyžiadala si 30",
+        "cs": "Začala až ve 20. století a vyžádala si 30"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 524,
+      "asrWordRange": [
+        5474,
+        5479
+      ],
+      "sourceStart": 2314.35,
+      "sourceEnd": 2316.47,
+      "text": {
+        "sk": "miliónov obetí od jej vypuknutia.",
+        "cs": "milionů obětí od svého vypuknutí."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 525,
+      "asrWordRange": [
+        5479,
+        5488
+      ],
+      "sourceStart": 2317.23,
+      "sourceEnd": 2322.47,
+      "text": {
+        "sk": "Ale samozrejme, je správne hovoriť o epidémii? Nakolko to",
+        "cs": "Ale samozřejmě, je správné mluvit o epidemii? Protože to"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 526,
+      "asrWordRange": [
+        5488,
+        5509
+      ],
+      "sourceStart": 2322.5,
+      "sourceEnd": 2327.98,
+      "text": {
+        "sk": "strašne dlhý čas už trvá a už sa mi zdá, aké by si ľudia zvykli na to HIV a žiť s",
+        "cs": "už trvá strašně dlouho a už se mi zdá, jako by si lidé zvykli na to HIV a žít s"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 527,
+      "asrWordRange": [
+        5509,
+        5523
+      ],
+      "sourceStart": 2327.98,
+      "sourceEnd": 2332.44,
+      "text": {
+        "sk": "tým a tak ďalej. Asi pandémia je možno správnejšie slov, keďže je to celosvetovo",
+        "cs": "ním a tak dále. Asi pandemie je možná správnější slovo, protože je to celosvětově"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 528,
+      "asrWordRange": [
+        5523,
+        5532
+      ],
+      "sourceStart": 2332.44,
+      "sourceEnd": 2335.98,
+      "text": {
+        "sk": "rozšírené. Asi je to stále správne s tým, že",
+        "cs": "rozšířené. Asi je to pořád správně s tím, že"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 529,
+      "asrWordRange": [
+        5532,
+        5544
+      ],
+      "sourceStart": 2337.17,
+      "sourceEnd": 2342.52,
+      "text": {
+        "sk": "akože nepodarilo sa nám ju potlačiť. A táto choroba je zákerná z",
+        "cs": "se nám ji nepodařilo potlačit. A tahle nemoc je zákeřná z"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 530,
+      "asrWordRange": [
+        5544,
+        5554
+      ],
+      "sourceStart": 2342.52,
+      "sourceEnd": 2347.72,
+      "text": {
+        "sk": "niekoľkých dôvodov. Za prvé je asymptomatická. To znamená, že sa",
+        "cs": "několika důvodů. Zaprvé je asymptomatická. To znamená, že se"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 531,
+      "asrWordRange": [
+        5554,
+        5566
+      ],
+      "sourceStart": 2347.72,
+      "sourceEnd": 2352.9,
+      "text": {
+        "sk": "šíri aj keď nevidíš symptómy. Keď dostaneš chrípku a vidíš, že máš",
+        "cs": "šíří, i když nevidíš příznaky. Když dostaneš chřipku a vidíš, že máš"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 532,
+      "asrWordRange": [
+        5566,
+        5579
+      ],
+      "sourceStart": 2352.9,
+      "sourceEnd": 2358.22,
+      "text": {
+        "sk": "soplík a teplotu, tak ostaneš doma a si v pohode. Keď dostaneš HIV,",
+        "cs": "rýmu a teplotu, tak zůstaneš doma a jsi v pohodě. Když dostaneš HIV,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 533,
+      "asrWordRange": [
+        5579,
+        5593
+      ],
+      "sourceStart": 2358.66,
+      "sourceEnd": 2363.38,
+      "text": {
+        "sk": "tak o tom dlho nevieš a môžeš to šíriť ďalej. Takže prvý veľký problém.",
+        "cs": "tak o tom dlouho nevíš a můžeš to šířit dál. Takže první velký problém."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 534,
+      "asrWordRange": [
+        5593,
+        5603
+      ],
+      "sourceStart": 2363.92,
+      "sourceEnd": 2368.94,
+      "text": {
+        "sk": "Druhý veľký problém je, že HIV má strašne jednoduchú genetickú",
+        "cs": "Druhý velký problém je, že HIV má strašně jednoduchou genetickou"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 535,
+      "asrWordRange": [
+        5603,
+        5608
+      ],
+      "sourceStart": 2368.94,
+      "sourceEnd": 2371.46,
+      "text": {
+        "sk": "informáciu a veľmi prudko mutuje.",
+        "cs": "informaci a velmi prudce mutuje."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 536,
+      "asrWordRange": [
+        5608,
+        5625
+      ],
+      "sourceStart": 2373.09,
+      "sourceEnd": 2377.17,
+      "text": {
+        "sk": "Čítal som v jednom článku, že toto je práve jeden z hlavných dôvodov, prečo sa na ňu",
+        "cs": "Četl jsem v jednom článku, že tohle je právě jeden z hlavních důvodů, proč se na něj"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 537,
+      "asrWordRange": [
+        5625,
+        5629
+      ],
+      "sourceStart": 2377.17,
+      "sourceEnd": 2379.25,
+      "text": {
+        "sk": "nedarí vyvinúť dobrý liek.",
+        "cs": "nedaří vyvinout dobrý lék."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 538,
+      "asrWordRange": [
+        5629,
+        5644
+      ],
+      "sourceStart": 2380.12,
+      "sourceEnd": 2384.26,
+      "text": {
+        "sk": "V podstate ty tie lieky robíš tak, že ten vírus má niekoľko krokov, ako funguje,",
+        "cs": "V podstatě děláš ty léky tak, že ten virus má několik kroků, jak funguje,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 539,
+      "asrWordRange": [
+        5644,
+        5653
+      ],
+      "sourceStart": 2384.34,
+      "sourceEnd": 2387.84,
+      "text": {
+        "sk": "potrebuje identifikovať bunku, ktorú napadne, potrebuje do nej preniknúť.",
+        "cs": "potřebuje identifikovat buňku, kterou napadne, potřebuje do ní proniknout."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 540,
+      "asrWordRange": [
+        5653,
+        5664
+      ],
+      "sourceStart": 2388.5,
+      "sourceEnd": 2391.61,
+      "text": {
+        "sk": "V nej potrebuje zhodiť svoj obal a potom ju potrebuje preprogramovať,",
+        "cs": "V ní potřebuje shodit svůj obal a potom ji potřebuje přeprogramovat,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 541,
+      "asrWordRange": [
+        5664,
+        5666
+      ],
+      "sourceStart": 2392.32,
+      "sourceEnd": 2392.78,
+      "text": {
+        "sk": "ho množila.",
+        "cs": "aby ho množila."
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 542,
+      "asrWordRange": [
+        5666,
+        5682
+      ],
+      "sourceStart": 2393.57,
+      "sourceEnd": 2397.17,
+      "text": {
+        "sk": "To je proste veľa krokov a ty chceš urobiť taký liek, ktorý presne jeden z týchto",
+        "cs": "To je prostě hodně kroků a ty chceš vytvořit takový lék, který přesně jeden z těchto"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 543,
+      "asrWordRange": [
+        5682,
+        5700
+      ],
+      "sourceStart": 2397.17,
+      "sourceEnd": 2402.53,
+      "text": {
+        "sk": "krokov napadne. Ale HIV mutuje tak rýchlo, že niečo vymyslíš a on už je zase trošku",
+        "cs": "kroků napadne. Ale HIV mutuje tak rychle, že něco vymyslíš a on už je zase trochu"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 544,
+      "asrWordRange": [
+        5700,
+        5707
+      ],
+      "sourceStart": 2402.53,
+      "sourceEnd": 2404.15,
+      "text": {
+        "sk": "iný a zase ten tvoj liek nefunguje.",
+        "cs": "jiný a zase ten tvůj lék nefunguje."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 545,
+      "asrWordRange": [
+        5707,
+        5709
+      ],
+      "sourceStart": 2406.57,
+      "sourceEnd": 2407.45,
+      "text": {
+        "sk": "A HIV,",
+        "cs": "A HIV,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 546,
+      "asrWordRange": [
+        5709,
+        5715
+      ],
+      "sourceStart": 2408.32,
+      "sourceEnd": 2410.62,
+      "text": {
+        "sk": "háčko v tom znamená, že human.",
+        "cs": "to háčko znamená human."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 547,
+      "asrWordRange": [
+        5715,
+        5721
+      ],
+      "sourceStart": 2411.58,
+      "sourceEnd": 2412.9,
+      "text": {
+        "sk": "Myslím si, že to je human,",
+        "cs": "Myslím si, že je to human,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 548,
+      "asrWordRange": [
+        5721,
+        5724
+      ],
+      "sourceStart": 2414.1,
+      "sourceEnd": 2415.56,
+      "text": {
+        "sk": "ľudský imunodeficitný vírus.",
+        "cs": "lidský imunodeficitní virus."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 549,
+      "asrWordRange": [
+        5724,
+        5733
+      ],
+      "sourceStart": 2416.38,
+      "sourceEnd": 2421.8,
+      "text": {
+        "sk": "Ochádza zo SIV a S je simean, ako neviem,",
+        "cs": "Pochází ze SIV a S je simian, jako nevím,"
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 550,
+      "asrWordRange": [
+        5733,
+        5745
+      ],
+      "sourceStart": 2421.94,
+      "sourceEnd": 2427.18,
+      "text": {
+        "sk": "či opica, alebo ludob, aké je správne označenie. Myslím si, že ľudov.",
+        "cs": "jestli opice, nebo lidoop, jaké je správné označení. Myslím si, že lidoop."
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 551,
+      "asrWordRange": [
+        5745,
+        5757
+      ],
+      "sourceStart": 2428.28,
+      "sourceEnd": 2433.78,
+      "text": {
+        "sk": "Pochádzajú z opic. A podarilo sa vystupovať, že zhruba podkiaľ a pochádza",
+        "cs": "Pochází z opic. A podařilo se vystopovat zhruba odkud, a pochází"
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 552,
+      "asrWordRange": [
+        5757,
+        5760
+      ],
+      "sourceStart": 2433.78,
+      "sourceEnd": 2434.46,
+      "text": {
+        "sk": "to z Konga.",
+        "cs": "to z Konga."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 553,
+      "asrWordRange": [
+        5760,
+        5776
+      ],
+      "sourceStart": 2435.77,
+      "sourceEnd": 2441.33,
+      "text": {
+        "sk": "A prelína sa to s obdobím, kedy bolo Kongo kolonizované. A nie je to náhoda, lebo",
+        "cs": "A překrývá se to s obdobím, kdy bylo Kongo kolonizováno. A není to náhoda, protože"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 554,
+      "asrWordRange": [
+        5776,
+        5777
+      ],
+      "sourceStart": 2441.72,
+      "sourceEnd": 2442.96,
+      "text": {
+        "sk": "vlastne",
+        "cs": "vlastně"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 555,
+      "asrWordRange": [
+        5777,
+        5790
+      ],
+      "sourceStart": 2444.83,
+      "sourceEnd": 2449.07,
+      "text": {
+        "sk": "teória je taká, že ten vírus na ľudí preskočil už veľakrát z opic.",
+        "cs": "ta teorie je taková, že ten virus přeskočil z opic na lidi už mnohokrát,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 556,
+      "asrWordRange": [
+        5790,
+        5803
+      ],
+      "sourceStart": 2450.09,
+      "sourceEnd": 2455.69,
+      "text": {
+        "sk": "kvôli tomu, že tam ľudia opice lovia, pravdepodobne jedia, sem tam ťa pri",
+        "cs": "protože tam lidé opice loví, pravděpodobně jedí, sem tam tě při"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 557,
+      "asrWordRange": [
+        5803,
+        5820
+      ],
+      "sourceStart": 2455.69,
+      "sourceEnd": 2460.51,
+      "text": {
+        "sk": "love škrabne tá opica alebo sa ti proste, tak sa ten vírus preniesie z opice na teba.",
+        "cs": "lovu ta opice škrábne nebo se ti prostě… Tak se ten virus přenesl z opice na tebe."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 558,
+      "asrWordRange": [
+        5820,
+        5825
+      ],
+      "sourceStart": 2461.33,
+      "sourceEnd": 2463.59,
+      "text": {
+        "sk": "Ale väčšinou sa nešíri ďalej.",
+        "cs": "Ale většinou se dál nešíří."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 559,
+      "asrWordRange": [
+        5825,
+        5838
+      ],
+      "sourceStart": 2465.03,
+      "sourceEnd": 2469.35,
+      "text": {
+        "sk": "Ale zmenou životného štýlu, tým, že ľudia sa nahromadili v mestách a žili",
+        "cs": "Ale změnou životního stylu, tím, že se lidé nahromadili ve městech a žili"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 560,
+      "asrWordRange": [
+        5838,
+        5850
+      ],
+      "sourceStart": 2469.35,
+      "sourceEnd": 2474.07,
+      "text": {
+        "sk": "promiskuitnejšie, tak ten vírus preskakoval z hostiteľa na hostiteľa a zrazu mal veľa",
+        "cs": "promiskuitněji, tak ten virus přeskakoval z hostitele na hostitele a najednou měl spoustu"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 561,
+      "asrWordRange": [
+        5850,
+        5861
+      ],
+      "sourceStart": 2474.07,
+      "sourceEnd": 2479.45,
+      "text": {
+        "sk": "príležitostí zmutovať. až z toho SIV zmutoval na formu HIV tak,",
+        "cs": "příležitostí zmutovat. Až z toho SIV zmutoval do podoby HIV tak,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 562,
+      "asrWordRange": [
+        5861,
+        5872
+      ],
+      "sourceStart": 2479.57,
+      "sourceEnd": 2483.19,
+      "text": {
+        "sk": "ako ju poznáme dodnes alebo teda dákata úplne z prvotných verzií.",
+        "cs": "jak ho známe dodnes, nebo tedy nějaká ta úplně prvotní verze."
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 563,
+      "asrWordRange": [
+        5872,
+        5880
+      ],
+      "sourceStart": 2484.14,
+      "sourceEnd": 2489.46,
+      "text": {
+        "sk": "Čiže v podstate HIV bolo nepriamo vyvolané kolonizáciou",
+        "cs": "Čili v podstatě bylo HIV nepřímo vyvoláno kolonizací"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 564,
+      "asrWordRange": [
+        5880,
+        5881
+      ],
+      "sourceStart": 2489.46,
+      "sourceEnd": 2489.9,
+      "text": {
+        "sk": "Afriky.",
+        "cs": "Afriky."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 565,
+      "asrWordRange": [
+        5881,
+        5889
+      ],
+      "sourceStart": 2491.37,
+      "sourceEnd": 2495.73,
+      "text": {
+        "sk": "Ďalšia zlá vec, čo spôsobila kolonizácia Afriky. Neuveriteľné.",
+        "cs": "Další špatná věc, kterou způsobila kolonizace Afriky. Neuvěřitelné."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 566,
+      "asrWordRange": [
+        5889,
+        5894
+      ],
+      "sourceStart": 2497.09,
+      "sourceEnd": 2501.53,
+      "text": {
+        "sk": "Počet HIV vo svete klesá,",
+        "cs": "Počet HIV ve světě klesá,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 567,
+      "asrWordRange": [
+        5894,
+        5899
+      ],
+      "sourceStart": 2502.33,
+      "sourceEnd": 2504.19,
+      "text": {
+        "sk": "avšak v Afrike stále rastie,",
+        "cs": "avšak v Africe stále roste,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 568,
+      "asrWordRange": [
+        5899,
+        5913
+      ],
+      "sourceStart": 2505.49,
+      "sourceEnd": 2510.67,
+      "text": {
+        "sk": "čo je presne ako ty hovoríš, že môžeme stále možno hovoriť o tej epidémii",
+        "cs": "což je přesně, jak říkáš, že můžeme pořád možná mluvit o té epidemii"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 569,
+      "asrWordRange": [
+        5913,
+        5915
+      ],
+      "sourceStart": 2510.67,
+      "sourceEnd": 2512.63,
+      "text": {
+        "sk": "alebo pandémii.",
+        "cs": "nebo pandemii."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 570,
+      "asrWordRange": [
+        5915,
+        5917
+      ],
+      "sourceStart": 2514.89,
+      "sourceEnd": 2515.63,
+      "text": {
+        "sk": "Čítal som",
+        "cs": "Četl jsem"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 571,
+      "asrWordRange": [
+        5917,
+        5929
+      ],
+      "sourceStart": 2516.53,
+      "sourceEnd": 2521.25,
+      "text": {
+        "sk": "jednu správu, že sa dokonca jeden človek na svete vyliečil z HIV.",
+        "cs": "jednu zprávu, že se dokonce jeden člověk na světě z HIV vyléčil."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 572,
+      "asrWordRange": [
+        5929,
+        5945
+      ],
+      "sourceStart": 2524.24,
+      "sourceEnd": 2529,
+      "text": {
+        "sk": "Asi je to možné, ale ak ten liek zafungoval na jedného človeka, tak neznamená, že to",
+        "cs": "Asi je to možné, ale pokud ten lék zafungoval na jednoho člověka, tak to neznamená, že to"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 573,
+      "asrWordRange": [
+        5945,
+        5960
+      ],
+      "sourceStart": 2529,
+      "sourceEnd": 2534.44,
+      "text": {
+        "sk": "bude platiť aj na ostatných, lebo kvôli tomu ešte ten vírus rýchlo mutuje. Presne toto",
+        "cs": "bude platit i pro ostatní, protože ten virus rychle mutuje. Přesně tohle"
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 574,
+      "asrWordRange": [
+        5960,
+        5973
+      ],
+      "sourceStart": 2534.44,
+      "sourceEnd": 2539.32,
+      "text": {
+        "sk": "som chcel povedať, že dokonca ani lekári, ktoré ho ošetrovali, nerozumeli tomu, prečo",
+        "cs": "jsem chtěl říct, že dokonce ani lékaři, kteří ho ošetřovali, nerozuměli tomu, proč"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 575,
+      "asrWordRange": [
+        5973,
+        5985
+      ],
+      "sourceStart": 2539.32,
+      "sourceEnd": 2544.88,
+      "text": {
+        "sk": "sa vyliečil. Ale len je vyliečený, nemá v sebe už tú nákazlivú",
+        "cs": "se vyléčil. Ale je vyléčený, už v sobě nemá tu nakažlivou"
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 576,
+      "asrWordRange": [
+        5985,
+        5994
+      ],
+      "sourceStart": 2544.88,
+      "sourceEnd": 2549.98,
+      "text": {
+        "sk": "zložku a tak ďalej. Takže budeme držať palce, aby",
+        "cs": "složku a tak dále. Takže budeme držet palce, aby"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 577,
+      "asrWordRange": [
+        5994,
+        5997
+      ],
+      "sourceStart": 2549.98,
+      "sourceEnd": 2551.92,
+      "text": {
+        "sk": "sa podarilo toto",
+        "cs": "se to podařilo"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 578,
+      "asrWordRange": [
+        5997,
+        6006
+      ],
+      "sourceStart": 2553.06,
+      "sourceEnd": 2558.34,
+      "text": {
+        "sk": "vyliečiť tento vírus. Dobre, ideme na ďalšie. Rok 2009,",
+        "cs": "vyléčit, tento virus. Dobře, jdeme na další. Rok 2009,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 579,
+      "asrWordRange": [
+        6006,
+        6017
+      ],
+      "sourceStart": 2558.92,
+      "sourceEnd": 2564.52,
+      "text": {
+        "sk": "prasacia chrípka. Vírus H1N1, to je tiež veľmi podľa mňa známe.",
+        "cs": "prasečí chřipka. Virus H1N1, to je podle mě také velmi známé."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 580,
+      "asrWordRange": [
+        6017,
+        6026
+      ],
+      "sourceStart": 2565.22,
+      "sourceEnd": 2568.66,
+      "text": {
+        "sk": "to už sa dostávame do tých novinárskych čias, keď",
+        "cs": "To už se dostáváme do těch novinářských časů, kdy"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 581,
+      "asrWordRange": [
+        6026,
+        6029
+      ],
+      "sourceStart": 2569.64,
+      "sourceEnd": 2571.3,
+      "text": {
+        "sk": "sme boli bombardovaní",
+        "cs": "jsme byli bombardovaní"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 582,
+      "asrWordRange": [
+        6029,
+        6035
+      ],
+      "sourceStart": 2572,
+      "sourceEnd": 2573.94,
+      "text": {
+        "sk": "H1N1, to si veľmi dobre pamätám.",
+        "cs": "H1N1, to si velmi dobře pamatuji."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 583,
+      "asrWordRange": [
+        6035,
+        6044
+      ],
+      "sourceStart": 2576.3,
+      "sourceEnd": 2581.88,
+      "text": {
+        "sk": "A bolo to oprávnené, akože napadlo to podľa odhadov",
+        "cs": "A bylo to oprávněné, jako napadlo to podle odhadů"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 584,
+      "asrWordRange": [
+        6044,
+        6054
+      ],
+      "sourceStart": 2581.88,
+      "sourceEnd": 2585.6,
+      "text": {
+        "sk": "10 až 20 % svetovej populácie, pričom zomreli státisíce.",
+        "cs": "10 až 20 % světové populace, přičemž zemřely statisíce."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 585,
+      "asrWordRange": [
+        6054,
+        6068
+      ],
+      "sourceStart": 2586.25,
+      "sourceEnd": 2590.31,
+      "text": {
+        "sk": "Čiže v porovnaní s tým, čo zatiaľ predvádza čínsky koronavírus, to je úplne, že",
+        "cs": "Čili ve srovnání s tím, co zatím předvádí čínský koronavirus, je to úplný"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 586,
+      "asrWordRange": [
+        6068,
+        6080
+      ],
+      "sourceStart": 2590.31,
+      "sourceEnd": 2594.31,
+      "text": {
+        "sk": "gigant. a môžeme byť rádi, že sa s tým podarilo Dako vysporiadať.",
+        "cs": "gigant. A můžeme být rádi, že se s tím podařilo nějak vypořádat."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 587,
+      "asrWordRange": [
+        6080,
+        6094
+      ],
+      "sourceStart": 2596.54,
+      "sourceEnd": 2601.96,
+      "text": {
+        "sk": "10 až 20 % populácie v 2009 myslím, že 6 miliard bolo ľudí, takže",
+        "cs": "10 až 20 % populace, v roce 2009 myslím bylo 6 miliard lidí, takže"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 588,
+      "asrWordRange": [
+        6094,
+        6105
+      ],
+      "sourceStart": 2601.96,
+      "sourceEnd": 2607.52,
+      "text": {
+        "sk": "sa bavíme o buď 600 miliónoch alebo 1,2 miliarde ľudí,",
+        "cs": "se bavíme buď o 600 milionech, nebo o 1,2 miliardy lidí,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 589,
+      "asrWordRange": [
+        6105,
+        6108
+      ],
+      "sourceStart": 2607.62,
+      "sourceEnd": 2608.36,
+      "text": {
+        "sk": "čo je obrovské",
+        "cs": "což je obrovské"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 590,
+      "asrWordRange": [
+        6108,
+        6117
+      ],
+      "sourceStart": 2609.42,
+      "sourceEnd": 2613.56,
+      "text": {
+        "sk": "číslo a presne ako hovorí sám 100 tisíce úmrtí.",
+        "cs": "číslo, a přesně jak říká Samo, statisíce úmrtí."
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 591,
+      "asrWordRange": [
+        6117,
+        6131
+      ],
+      "sourceStart": 2614.9,
+      "sourceEnd": 2619.68,
+      "text": {
+        "sk": "No a ešte kým prišiel čínsky koronavírus, tak minulý rok bola veľmi populárna jedna",
+        "cs": "No a ještě než přišel čínský koronavirus, tak loni byla velmi populární jedna"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 592,
+      "asrWordRange": [
+        6131,
+        6132
+      ],
+      "sourceStart": 2619.68,
+      "sourceEnd": 2620.28,
+      "text": {
+        "sk": "epidémia.",
+        "cs": "epidemie."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 593,
+      "asrWordRange": [
+        6132,
+        6139
+      ],
+      "sourceStart": 2621.12,
+      "sourceEnd": 2623.56,
+      "text": {
+        "sk": "populárna v médiách minimálne a to je",
+        "cs": "Populární minimálně v médiích, a to je"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 594,
+      "asrWordRange": [
+        6139,
+        6144
+      ],
+      "sourceStart": 2624.3,
+      "sourceEnd": 2626.56,
+      "text": {
+        "sk": "osýpková epidémia na ostrove Samoa.",
+        "cs": "spalničková epidemie na ostrově Samoa."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 595,
+      "asrWordRange": [
+        6144,
+        6148
+      ],
+      "sourceStart": 2627.25,
+      "sourceEnd": 2629.19,
+      "text": {
+        "sk": "Aj zvláštnosťou je, že",
+        "cs": "A zvláštností je, že"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 596,
+      "asrWordRange": [
+        6148,
+        6162
+      ],
+      "sourceStart": 2630.62,
+      "sourceEnd": 2633.92,
+      "text": {
+        "sk": "nechcem povedať, že nepriamo, ale mám pocit, že pomerne priamo je za ňu zodpovedná",
+        "cs": "nechci říct nepřímo, ale mám pocit, že poměrně přímo je za ni zodpovědná"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 597,
+      "asrWordRange": [
+        6162,
+        6165
+      ],
+      "sourceStart": 2633.92,
+      "sourceEnd": 2635.88,
+      "text": {
+        "sk": "antivaxerská komunita, ktorá",
+        "cs": "antivaxerská komunita, která"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 598,
+      "asrWordRange": [
+        6165,
+        6170
+      ],
+      "sourceStart": 2637.38,
+      "sourceEnd": 2640.08,
+      "text": {
+        "sk": "bušila do obyvateľov ostrova Samoa,",
+        "cs": "hučela do obyvatel ostrova Samoa,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 599,
+      "asrWordRange": [
+        6170,
+        6181
+      ],
+      "sourceStart": 2640.77,
+      "sourceEnd": 2645.96,
+      "text": {
+        "sk": "aby neočkovali svoje deti. Až zaočkovanosť klesla pod také úplne pod",
+        "cs": "aby neočkovali své děti. Až proočkovanost klesla úplně pod"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 600,
+      "asrWordRange": [
+        6181,
+        6194
+      ],
+      "sourceStart": 2645.96,
+      "sourceEnd": 2651.04,
+      "text": {
+        "sk": "kritickú hranicu, tuším bola niekde dokonca okolo 30 % novorodencov bolo zaočkovaných",
+        "cs": "kritickou hranici, tuším byla dokonce někde kolem 30 % očkovaných novorozenců"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 601,
+      "asrWordRange": [
+        6194,
+        6206
+      ],
+      "sourceStart": 2651.04,
+      "sourceEnd": 2655.6,
+      "text": {
+        "sk": "v priebehu prvých pár rokov života. Čo je strašne málo pri očkovaniu.",
+        "cs": "v průběhu prvních pár let života. Což je při očkování strašně málo."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 602,
+      "asrWordRange": [
+        6206,
+        6218
+      ],
+      "sourceStart": 2656.42,
+      "sourceEnd": 2661.88,
+      "text": {
+        "sk": "Čo tam následne vznikla osýpková epidémia, pričom osýpky sú už očkovateľná choroba.",
+        "cs": "Tam potom vznikla spalničková epidemie, přičemž spalničky už jsou nemoc, proti které lze očkovat."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 603,
+      "asrWordRange": [
+        6218,
+        6230
+      ],
+      "sourceStart": 2662.82,
+      "sourceEnd": 2667.96,
+      "text": {
+        "sk": "Aj napriek tomu sa tam teda rozšírala epidémia. Tisícky nakazených ľudí 81",
+        "cs": "Přesto se tam tedy rozšířila epidemie. Tisíce nakažených lidí, 81"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 604,
+      "asrWordRange": [
+        6230,
+        6235
+      ],
+      "sourceStart": 2669.86,
+      "sourceEnd": 2672.28,
+      "text": {
+        "sk": "zomrelo na nešťastie prevažne detí.",
+        "cs": "zemřelo, bohužel převážně dětí."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 605,
+      "asrWordRange": [
+        6235,
+        6245
+      ],
+      "sourceStart": 2673.56,
+      "sourceEnd": 2679.1,
+      "text": {
+        "sk": "Áno, toto je veľmi smutná realita a moc nezaujala noviny,",
+        "cs": "Ano, tohle je velmi smutná realita a moc nezaujala noviny,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 606,
+      "asrWordRange": [
+        6245,
+        6255
+      ],
+      "sourceStart": 2679.38,
+      "sourceEnd": 2683.92,
+      "text": {
+        "sk": "ale jedinú správu, čo som zachytil, čo bola celkom pozitívna,",
+        "cs": "ale jediná zpráva, kterou jsem zachytil a která byla docela pozitivní:"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 607,
+      "asrWordRange": [
+        6255,
+        6262
+      ],
+      "sourceStart": 2685.32,
+      "sourceEnd": 2690.86,
+      "text": {
+        "sk": "toho nejakého hlavného tých antivaxerov, viem, že",
+        "cs": "toho nějakého hlavního z těch antivaxerů, vím, že"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 608,
+      "asrWordRange": [
+        6262,
+        6273
+      ],
+      "sourceStart": 2690.86,
+      "sourceEnd": 2696.38,
+      "text": {
+        "sk": "zavreli a idú súdiť za verejné ohrozenie alebo nejaký taký podobný",
+        "cs": "zavřeli a budou ho soudit za veřejné ohrožení nebo nějaký takový podobný"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 609,
+      "asrWordRange": [
+        6273,
+        6275
+      ],
+      "sourceStart": 2696.38,
+      "sourceEnd": 2696.96,
+      "text": {
+        "sk": "trestný čin.",
+        "cs": "trestný čin."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 610,
+      "asrWordRange": [
+        6275,
+        6289
+      ],
+      "sourceStart": 2697.68,
+      "sourceEnd": 2702.88,
+      "text": {
+        "sk": "A ľudia, že vraj začali znova očkovať svoje deti. Áno, akože samozrejme, že tam",
+        "cs": "A lidé prý začali znovu očkovat své děti. Ano, samozřejmě tam"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 611,
+      "asrWordRange": [
+        6289,
+        6303
+      ],
+      "sourceStart": 2702.88,
+      "sourceEnd": 2707.9,
+      "text": {
+        "sk": "konečne ľudia povedali, na ostrove Samoa sa hneď ľudia spamätali a začali vo veľkom",
+        "cs": "konečně lidé řekli… Na ostrově Samoa se lidé hned vzpamatovali a začali ve velkém"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 612,
+      "asrWordRange": [
+        6303,
+        6320
+      ],
+      "sourceStart": 2707.9,
+      "sourceEnd": 2712.6,
+      "text": {
+        "sk": "očkovať a teraz je tam tá epidémia znova potlačená a už to viac menej pod kontrolou a",
+        "cs": "očkovat a teď je tam ta epidemie znovu potlačená a už je to víceméně pod kontrolou a"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 613,
+      "asrWordRange": [
+        6320,
+        6335
+      ],
+      "sourceStart": 2712.6,
+      "sourceEnd": 2717.38,
+      "text": {
+        "sk": "na dennej báze tam už nezomiera, myslím, že nikto, možno ešte také úplne malé dozvuky",
+        "cs": "denně tam už neumírá myslím nikdo, možná jsou tam ještě takové úplně malé dozvuky"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 614,
+      "asrWordRange": [
+        6335,
+        6339
+      ],
+      "sourceStart": 2717.38,
+      "sourceEnd": 2718.26,
+      "text": {
+        "sk": "tej choroby tam sú.",
+        "cs": "té nemoci."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 615,
+      "asrWordRange": [
+        6339,
+        6356
+      ],
+      "sourceStart": 2719.35,
+      "sourceEnd": 2724.41,
+      "text": {
+        "sk": "Ale je to smutné, že 81 detí muselo zomrieť kvôli tomu. Ale v zahraničí, ja som si",
+        "cs": "Ale je smutné, že kvůli tomu muselo zemřít 81 dětí. Ale v zahraničí, já jsem se"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 616,
+      "asrWordRange": [
+        6356,
+        6370
+      ],
+      "sourceStart": 2724.41,
+      "sourceEnd": 2728.43,
+      "text": {
+        "sk": "pozrel napríklad u nás, čo na toto hovorí antivaxerská komunita, či sa postupne s",
+        "cs": "například u nás podíval, co na to říká antivaxerská komunita, jestli se postupně s"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 617,
+      "asrWordRange": [
+        6370,
+        6384
+      ],
+      "sourceStart": 2728.43,
+      "sourceEnd": 2733.85,
+      "text": {
+        "sk": "hanbou išli niekam schovať, tak nie. Oni začali tvrdiť, že tam vlastne v skutočnosti",
+        "cs": "hanbou šli někam schovat, tak ne. Začali tvrdit, že tam ve skutečnosti"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 618,
+      "asrWordRange": [
+        6384,
+        6397
+      ],
+      "sourceStart": 2733.85,
+      "sourceEnd": 2739.21,
+      "text": {
+        "sk": "niekto naschvál rozšíril tú epidémiu a že tú epidémiu vyvolali vakcíny, ako úplne",
+        "cs": "někdo schválně rozšířil tu epidemii a že ji vyvolaly vakcíny, jako úplné"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 619,
+      "asrWordRange": [
+        6397,
+        6398
+      ],
+      "sourceStart": 2739.21,
+      "sourceEnd": 2739.73,
+      "text": {
+        "sk": "nezmysly.",
+        "cs": "nesmysly."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 620,
+      "asrWordRange": [
+        6398,
+        6404
+      ],
+      "sourceStart": 2740.81,
+      "sourceEnd": 2743.47,
+      "text": {
+        "sk": "Dobre, nemusíme asi toto komentovať ani.",
+        "cs": "Dobře, tohle asi ani nemusíme komentovat."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 621,
+      "asrWordRange": [
+        6404,
+        6414
+      ],
+      "sourceStart": 2744.47,
+      "sourceEnd": 2748.31,
+      "text": {
+        "sk": "Je to, myslím si, že na každom rozhodnutí, ale určite",
+        "cs": "Myslím si, že je to na rozhodnutí každého, ale určitě"
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 622,
+      "asrWordRange": [
+        6414,
+        6418
+      ],
+      "sourceStart": 2749.11,
+      "sourceEnd": 2750.63,
+      "text": {
+        "sk": "očkujte každého, kto môžete.",
+        "cs": "očkujte každého, koho můžete."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 623,
+      "asrWordRange": [
+        6418,
+        6432
+      ],
+      "sourceStart": 2751.37,
+      "sourceEnd": 2756.95,
+      "text": {
+        "sk": "Dobre, a aby sme to uzavreli nejakou lepšou notou, nielen v smrtiach a v",
+        "cs": "Dobře, a abychom to uzavřeli nějakou lepší notou, nejen úmrtími a"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 624,
+      "asrWordRange": [
+        6432,
+        6446
+      ],
+      "sourceStart": 2756.95,
+      "sourceEnd": 2761.75,
+      "text": {
+        "sk": "epidémiách a tak ďalej. Čo proti vírusom môžeme robiť? Samozaj nám nejaké rady také,",
+        "cs": "epidemiemi a tak dále. Co můžeme proti virům dělat? Samo, dej nám nějaké takové rady"
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 625,
+      "asrWordRange": [
+        6446,
+        6453
+      ],
+      "sourceStart": 2762.39,
+      "sourceEnd": 2764.65,
+      "text": {
+        "sk": "alebo čo môžu veci robiť proti vírusom?",
+        "cs": "nebo co mohou proti virům dělat vědci?"
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 626,
+      "asrWordRange": [
+        6453,
+        6466
+      ],
+      "sourceStart": 2765.39,
+      "sourceEnd": 2770.27,
+      "text": {
+        "sk": "No veci sa snažia minimálne v prípade čínskeho koronavírusu vyvinúť vakcínu a vyvinúť",
+        "cs": "No vědci se minimálně v případě čínského koronaviru snaží vyvinout vakcínu a vyvinout"
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 627,
+      "asrWordRange": [
+        6466,
+        6467
+      ],
+      "sourceStart": 2770.27,
+      "sourceEnd": 2770.63,
+      "text": {
+        "sk": "liek.",
+        "cs": "lék."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 628,
+      "asrWordRange": [
+        6467,
+        6483
+      ],
+      "sourceStart": 2771.46,
+      "sourceEnd": 2776.54,
+      "text": {
+        "sk": "Nie na všetky vírusy existujú vakcíny a lieky, na niektoré ale áno a tie, na ktoré",
+        "cs": "Proti všem virům neexistují vakcíny a léky, proti některým ale ano, a proti těm, proti kterým"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 629,
+      "asrWordRange": [
+        6483,
+        6490
+      ],
+      "sourceStart": 2776.54,
+      "sourceEnd": 2778.64,
+      "text": {
+        "sk": "existujú vakcíny by sme sa mali vakcinovať.",
+        "cs": "existují vakcíny, bychom se měli očkovat."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 630,
+      "asrWordRange": [
+        6490,
+        6504
+      ],
+      "sourceStart": 2779.62,
+      "sourceEnd": 2784.86,
+      "text": {
+        "sk": "Prvá dôležitá vec a druhá dôležitá vec je, že veľa týchto chorôb sa prenáša",
+        "cs": "První důležitá věc. A druhá důležitá věc je, že spousta těchto nemocí se přenáší"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 631,
+      "asrWordRange": [
+        6504,
+        6511
+      ],
+      "sourceStart": 2785.56,
+      "sourceEnd": 2789.2,
+      "text": {
+        "sk": "kvôli, nechcem povedať, že nedostatočným hygienickým návykom,",
+        "cs": "kvůli, nechci říct nedostatečným hygienickým návykům,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 632,
+      "asrWordRange": [
+        6511,
+        6525
+      ],
+      "sourceStart": 2790.2,
+      "sourceEnd": 2795.32,
+      "text": {
+        "sk": "ale také veci... Tak dobre, tak kvôli tomu, že ľuďom niekedy chýbajú bežné hygienické",
+        "cs": "ale takové věci… Tak dobře, tak kvůli tomu, že lidem někdy chybějí běžné hygienické"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 633,
+      "asrWordRange": [
+        6525,
+        6526
+      ],
+      "sourceStart": 2795.32,
+      "sourceEnd": 2795.74,
+      "text": {
+        "sk": "návyky,",
+        "cs": "návyky,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 634,
+      "asrWordRange": [
+        6526,
+        6527
+      ],
+      "sourceStart": 2796.52,
+      "sourceEnd": 2797.08,
+      "text": {
+        "sk": "ako,",
+        "cs": "jako,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 635,
+      "asrWordRange": [
+        6527,
+        6543
+      ],
+      "sourceStart": 2797.82,
+      "sourceEnd": 2803.1,
+      "text": {
+        "sk": "ja neviem, zakrývať si ústa pri kýchaní, keď je človek chorý alebo keď je v jeho okolí",
+        "cs": "já nevím, zakrývat si ústa při kýchání. Když je člověk nemocný nebo když je v jeho okolí"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 636,
+      "asrWordRange": [
+        6543,
+        6559
+      ],
+      "sourceStart": 2803.1,
+      "sourceEnd": 2807.65,
+      "text": {
+        "sk": "niekto chorý, tak si treba aj desaťkrát za deň umyť ruky, lebo robila sa taká štúdia,",
+        "cs": "někdo nemocný, tak je třeba si i desetkrát za den umýt ruce, protože se dělala taková studie,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 637,
+      "asrWordRange": [
+        6559,
+        6576
+      ],
+      "sourceStart": 2807.65,
+      "sourceEnd": 2812.23,
+      "text": {
+        "sk": "že ako často sa človek podvedome chytí za tvár a zistili, že v priemere 20 krát za",
+        "cs": "jak často se člověk podvědomě dotkne obličeje, a zjistili, že se v průměru dvacetkrát za"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 638,
+      "asrWordRange": [
+        6576,
+        6585
+      ],
+      "sourceStart": 2812.23,
+      "sourceEnd": 2814.37,
+      "text": {
+        "sk": "hodinu sa chytíš za tvár ani si to neuvedomíš.",
+        "cs": "hodinu dotkneš obličeje, ani si to neuvědomíš."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 639,
+      "asrWordRange": [
+        6585,
+        6600
+      ],
+      "sourceStart": 2815.1,
+      "sourceEnd": 2819.82,
+      "text": {
+        "sk": "Takže ak si tie ruky neumývaš pravidelne, chytíš kľučku, chytíš sa úst a ten vírus,",
+        "cs": "Takže pokud si pravidelně nemyješ ruce, sáhneš na kliku, dotkneš se úst, a ten virus,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 640,
+      "asrWordRange": [
+        6600,
+        6612
+      ],
+      "sourceStart": 2819.96,
+      "sourceEnd": 2823.62,
+      "text": {
+        "sk": "ktorý by tam ináč nemal šancu sa dostať, ak teda neoblizuješ kľučky,",
+        "cs": "který by tam jinak neměl šanci se dostat, pokud tedy neolizuješ kliky,"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 641,
+      "asrWordRange": [
+        6612,
+        6613
+      ],
+      "sourceStart": 2824.52,
+      "sourceEnd": 2825.08,
+      "text": {
+        "sk": "tak...",
+        "cs": "tak…"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 642,
+      "asrWordRange": [
+        6613,
+        6616
+      ],
+      "sourceStart": 2829.16,
+      "sourceEnd": 2831.24,
+      "text": {
+        "sk": "Mojej zábavke odzvodil.",
+        "cs": "Mému koníčku odzvonilo."
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 643,
+      "asrWordRange": [
+        6616,
+        6625
+      ],
+      "sourceStart": 2832.28,
+      "sourceEnd": 2835.06,
+      "text": {
+        "sk": "Keď oblizuješ kľučky, tak ti nepomôže umývať si ruky.",
+        "cs": "Když olizuješ kliky, tak ti mytí rukou nepomůže."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 644,
+      "asrWordRange": [
+        6625,
+        6641
+      ],
+      "sourceStart": 2836.54,
+      "sourceEnd": 2841.78,
+      "text": {
+        "sk": "A zároveň, keď je niekto chorý, tak myslí na to, že on tú chorobu šíri ďalej.",
+        "cs": "A zároveň, když je někdo nemocný, tak myslí na to, že tu nemoc šíří dál."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 645,
+      "asrWordRange": [
+        6641,
+        6652
+      ],
+      "sourceStart": 2841.9,
+      "sourceEnd": 2845.94,
+      "text": {
+        "sk": "Čiže necestovať, keď nemusí, radšej sa vypýtať, neísť do práce, lebo",
+        "cs": "Čili necestovat, když nemusí, raději se omluvit a nejít do práce, protože"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 646,
+      "asrWordRange": [
+        6652,
+        6669
+      ],
+      "sourceStart": 2846.6,
+      "sourceEnd": 2850.82,
+      "text": {
+        "sk": "kvôli tomu, že človek robí hrdinu a ide do práce, aj keď má chrípku, tak potom môže",
+        "cs": "kvůli tomu, že si člověk hraje na hrdinu a jde do práce, i když má chřipku, tak potom může"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 647,
+      "asrWordRange": [
+        6669,
+        6680
+      ],
+      "sourceStart": 2850.82,
+      "sourceEnd": 2855.32,
+      "text": {
+        "sk": "nakaziť 5 -10 ďalších kolegov. Toto podľa mňa ľudia veľmi pocenujú.",
+        "cs": "nakazit 5 až 10 dalších kolegů. Tohle podle mě lidé velmi podceňují."
+      },
+      "needsAudioReview": true,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 648,
+      "asrWordRange": [
+        6680,
+        6693
+      ],
+      "sourceStart": 2856.04,
+      "sourceEnd": 2861.5,
+      "text": {
+        "sk": "Samuel, ja ti veľmi pekne ďakujem za dnešný podcast, že si si našiel",
+        "cs": "Samueli, já ti moc děkuji za dnešní podcast, že sis našel"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 649,
+      "asrWordRange": [
+        6693,
+        6702
+      ],
+      "sourceStart": 2861.5,
+      "sourceEnd": 2864.92,
+      "text": {
+        "sk": "čas. Ja ďakujem za pozvanie a za tento výber témy.",
+        "cs": "čas. Já děkuji za pozvání a za tento výběr tématu."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 650,
+      "asrWordRange": [
+        6702,
+        6715
+      ],
+      "sourceStart": 2866.01,
+      "sourceEnd": 2871.21,
+      "text": {
+        "sk": "Áno, bolo to veľmi aktuálne, takže ten výber bolo jednoduchý. Ja vám, naši",
+        "cs": "Ano, bylo to velmi aktuální, takže ten výběr byl jednoduchý. Já vám, naši"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 651,
+      "asrWordRange": [
+        6715,
+        6721
+      ],
+      "sourceStart": 2871.21,
+      "sourceEnd": 2873.33,
+      "text": {
+        "sk": "poslucháči, veľmi pekne ďakujem za počúvanie.",
+        "cs": "posluchači, moc děkuji za poslech."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 652,
+      "asrWordRange": [
+        6721,
+        6734
+      ],
+      "sourceStart": 2874.39,
+      "sourceEnd": 2879.69,
+      "text": {
+        "sk": "Vidíme sa, alebo počujeme sa pri ďalšom vydaní Vedátorského podcastu. Nájdete nás na",
+        "cs": "Uvidíme se nebo uslyšíme se u dalšího vydání Vedátorského podcastu. Najdete nás na"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 653,
+      "asrWordRange": [
+        6734,
+        6744
+      ],
+      "sourceStart": 2879.69,
+      "sourceEnd": 2885.17,
+      "text": {
+        "sk": "YouTube, Spotify, Apple podcaste a všade, kde nájdete dobré podcasty.",
+        "cs": "YouTube, Spotify, Apple Podcasts a všude, kde najdete dobré podcasty."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 654,
+      "asrWordRange": [
+        6744,
+        6752
+      ],
+      "sourceStart": 2886.65,
+      "sourceEnd": 2891.93,
+      "text": {
+        "sk": "Pozerajte náš web vedator.space alebo našu facebookovú",
+        "cs": "Dívejte se na náš web vedator.space nebo na naši facebookovou"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 655,
+      "asrWordRange": [
+        6752,
+        6765
+      ],
+      "sourceStart": 2891.93,
+      "sourceEnd": 2897.49,
+      "text": {
+        "sk": "skupinu. A budeme radi, keď nás aj podporíte cez Patreon. Pekný deň. Majte",
+        "cs": "skupinu. A budeme rádi, když nás podpoříte i přes Patreon. Hezký den. Mějte"
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 656,
+      "asrWordRange": [
+        6765,
+        6766
+      ],
+      "sourceStart": 2897.49,
+      "sourceEnd": 2897.65,
+      "text": {
+        "sk": "sa.",
+        "cs": "se."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 657,
+      "asrWordRange": [
+        6766,
+        6774
+      ],
+      "sourceStart": 2900.92,
+      "sourceEnd": 2903.32,
+      "text": {
+        "sk": "Hej, hej, ale dobre to bolo podľa mňa.",
+        "cs": "Jo, jo, ale bylo to podle mě dobré."
+      },
+      "needsAudioReview": false,
+      "editorialApproval": false
+    },
+    {
+      "sourceCue": 658,
+      "asrWordRange": [
+        6774,
+        6790
+      ],
+      "sourceStart": 2905.46,
+      "sourceEnd": 2910.68,
+      "text": {
+        "sk": "Toto je taká téma, že môžeš robiť podľa mňa dlho aj celý podcast len o výroch.",
+        "cs": "Tohle je takové téma, že bys mohl podle mě dlouho dělat i celý podcast jen o virech."
+      },
+      "needsAudioReview": true,
       "editorialApproval": false
     }
   ]
