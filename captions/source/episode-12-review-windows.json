@@ -1,272 +1,145 @@
 {
   "episode": 12,
+  "status": "focused-second-editorial-review-request",
   "audioSha256": "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
   "windows": [
     [
-      10,
-      30
+      101,
+      128
     ],
     [
-      143,
-      174
+      558,
+      575
     ],
     [
-      408,
-      424
+      829,
+      842
     ],
     [
-      432,
-      447
+      1271,
+      1290
     ],
     [
-      548,
-      560
+      2194,
+      2215
     ],
     [
-      628,
-      642
+      2228,
+      2245
     ],
     [
-      839,
-      855
+      2383,
+      2405
     ],
     [
-      864,
-      877
+      2522,
+      2553
     ],
     [
-      880,
-      922
+      2580,
+      2614
     ],
     [
-      937,
-      959
+      2740,
+      2753
     ],
     [
-      988,
-      1008
-    ],
-    [
-      1101,
-      1137
-    ],
-    [
-      1218,
-      1249
-    ],
-    [
-      1318,
-      1348
-    ],
-    [
-      1355,
-      1377
-    ],
-    [
-      1388,
-      1434
-    ],
-    [
-      1508,
-      1526
-    ],
-    [
-      1634,
-      1643
-    ],
-    [
-      1695,
-      1717
-    ],
-    [
-      1908,
-      1926
-    ],
-    [
-      1993,
-      2018
-    ],
-    [
-      2406,
-      2435
-    ],
-    [
-      2752,
-      2776
-    ],
-    [
-      2821,
-      2836
+      2843,
+      2856
     ]
   ],
+  "reasons": [
+    "Unclear influenza-sentence connector; preserve uncertainty and mortality comparison.",
+    "Pharmacist sentence, gender and exact statement; do not infer from grammar.",
+    "Potential neprohovoril versus najprv hovoril; verify negation.",
+    "Unclear spoken self-correction before saying one versus two further things.",
+    "Boundary between neoprávnene and nedostali affects negation.",
+    "Unclear migration noun or aside during World War I explanation.",
+    "Potential missing aby and exact steps in virus life cycle.",
+    "Exact cure-of-one-person dialogue and pronouns; preserve the historical claim.",
+    "H1N1 percentages, death count and Samo reference; preserve stated numbers.",
+    "Unclear voluntary-decision wording before vaccination statement.",
+    "Potential podceňujú word affects meaning; verify rather than guessing."
+  ],
+  "firstPassEvidence": "captions/source/episode-12-followup-1-checks.sk.json",
+  "reviewPass": 2,
   "editorialReasons": [
     {
       "window": [
-        10,
-        30
+        101,
+        128
       ],
-      "reason": "Off-script count and introductory words; avoid treating no-VAD music hallucination as speech."
+      "reason": "Unclear influenza-sentence connector; preserve uncertainty and mortality comparison."
     },
     {
       "window": [
-        143,
-        174
+        558,
+        575
       ],
-      "reason": "2019-nCoV spoken abbreviation and zoonotic term."
+      "reason": "Pharmacist sentence, gender and exact statement; do not infer from grammar."
     },
     {
       "window": [
-        408,
-        424
+        829,
+        842
       ],
-      "reason": "Hesitation and claim about mutation; retain uncertainty."
+      "reason": "Potential neprohovoril versus najprv hovoril; verify negation."
     },
     {
       "window": [
-        432,
-        447
+        1271,
+        1290
       ],
-      "reason": "Incomplete sentence about bacterial components and nucleus; retain spoken claim."
+      "reason": "Unclear spoken self-correction before saying one versus two further things."
     },
     {
       "window": [
-        548,
-        560
+        2194,
+        2215
       ],
-      "reason": "Incomplete phrase introducing masks; preserve historical statements."
+      "reason": "Boundary between neoprávnene and nedostali affects negation."
     },
     {
       "window": [
-        628,
-        642
+        2228,
+        2245
       ],
-      "reason": "Repeated elevator aside and unfinished conversational turn."
+      "reason": "Unclear migration noun or aside during World War I explanation."
     },
     {
       "window": [
-        839,
-        855
+        2383,
+        2405
       ],
-      "reason": "Occam razor and unfinished qualification."
+      "reason": "Potential missing aby and exact steps in virus life cycle."
     },
     {
       "window": [
-        864,
-        877
+        2522,
+        2553
       ],
-      "reason": "Recover the independently detected light in the source gap."
+      "reason": "Exact cure-of-one-person dialogue and pronouns; preserve the historical claim."
     },
     {
       "window": [
-        880,
-        922
+        2580,
+        2614
       ],
-      "reason": "Repeated multiplication in chessboard example may be an ASR loop; verify every spoken number."
+      "reason": "H1N1 percentages, death count and Samo reference; preserve stated numbers."
     },
     {
       "window": [
-        937,
-        959
+        2740,
+        2753
       ],
-      "reason": "Verify whether the speaker actually says eight after forty minutes; do not fix mathematics by assumption."
+      "reason": "Unclear voluntary-decision wording before vaccination statement."
     },
     {
       "window": [
-        988,
-        1008
+        2843,
+        2856
       ],
-      "reason": "Garbled exponential-growth aside."
-    },
-    {
-      "window": [
-        1101,
-        1137
-      ],
-      "reason": "Pandemic definition, unfinished aside and speaker correction."
-    },
-    {
-      "window": [
-        1218,
-        1249
-      ],
-      "reason": "Garbled endemic-stage dialogue; compare existing conflicting independent window."
-    },
-    {
-      "window": [
-        1318,
-        1348
-      ],
-      "reason": "John Graunt and 1662."
-    },
-    {
-      "window": [
-        1355,
-        1377
-      ],
-      "reason": "Garbled phrase about gods and vis maior or a different phrase; do not invent."
-    },
-    {
-      "window": [
-        1388,
-        1434
-      ],
-      "reason": "Smallpox, 1766 and Kermack-McKendrick names."
-    },
-    {
-      "window": [
-        1508,
-        1526
-      ],
-      "reason": "Restore omitted joke about not being responsible for model predictions."
-    },
-    {
-      "window": [
-        1634,
-        1643
-      ],
-      "reason": "Short unclear reaction after elevator joke."
-    },
-    {
-      "window": [
-        1695,
-        1717
-      ],
-      "reason": "Yersinia pestis and request for angry email."
-    },
-    {
-      "window": [
-        1908,
-        1926
-      ],
-      "reason": "Unclear phrase about several new Romes."
-    },
-    {
-      "window": [
-        1993,
-        2018
-      ],
-      "reason": "Hantavirus and English sweating-sickness terminology; preserve historical assertion."
-    },
-    {
-      "window": [
-        2406,
-        2435
-      ],
-      "reason": "HIV/SIV, human, simian and ludoop."
-    },
-    {
-      "window": [
-        2752,
-        2776
-      ],
-      "reason": "Question to Samo and scientists; ASR misrecognizes vedci."
-    },
-    {
-      "window": [
-        2821,
-        2836
-      ],
-      "reason": "Door-handle joke and short missing interjections."
+      "reason": "Potential podceňujú word affects meaning; verify rather than guessing."
     }
   ]
 }
