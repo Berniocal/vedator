@@ -1,0 +1,37 @@
+{
+  "episode": 12,
+  "title": "Vedátorský podcast 12 – Ľudstvo vs. epidémie",
+  "guid": "vedatorskypodcast.podbean.com/60169ece-e211-5ce3-8308-2ee114cd585b",
+  "audio": "https://mcdn.podbean.com/mf/web/ks6p8t/podcast_ep12.mp3",
+  "baseMainSha": "9cd596066246d385cf63c078a44e39d24ae99aa5",
+  "status": "complete-source-ASR-running-not-registered",
+  "registered": false,
+  "editorialReviewComplete": false,
+  "completeCzechEditorialReview": false,
+  "acousticAlignmentPerformed": false,
+  "mobileLayoutVerified": false,
+  "humanListeningVerified": false,
+  "youtubeAudioCompared": false,
+  "audioSha256": "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
+  "audioBytes": 95916894,
+  "duration": 2911.555918,
+  "exactMp3FrameAnchors": 2787,
+  "sourceWorkflowRun": "https://github.com/Berniocal/vedator/actions/runs/45746494844",
+  "repositoryInstructions": {
+    "AGENTS.md": "absent in current main and ancestor directories",
+    "V2-MAINTENANCE.md": "read",
+    "captions/README.md": "read"
+  },
+  "priorEpisodes": {
+    "5to10": "caption schemas, examples, acoustic review reports and current tools inspected; left unchanged",
+    "11": "live JSON and both SRT verified again by SHA256 on 2026-11-26"
+  },
+  "nextSteps": [
+    "Retrieve full source ASR and independent large-v3 windows from source workflow.",
+    "Read and edit the entire Slovak text and translate every utterance into Czech.",
+    "Independently recheck uncertain passages, gaps, names, numbers and negations.",
+    "CTC-align final Slovak text and preserve all source words; match Czech boundaries and SRTs.",
+    "Resolve full mobile layout findings in both languages at 360/390 px and enlarged font.",
+    "Register only completed captions; run exact-head CI, merge using expected SHA and verify live production hashes."
+  ]
+}
