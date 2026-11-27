@@ -1,0 +1,112 @@
+name: Align episode 365 reviewed bilingual captions
+on:
+  push:
+    branches: [content/episode-365-20261127]
+    paths: [.github/workflows/finalize-episode365-captions.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: finish-episode365-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  acoustic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [align-0, align-1, align-2, align-3, align-4, align-5]
+    env:
+      VEDATOR_BATCH_AUDIO: /tmp/vedator-youtube-batch-audio
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      PART: ${{ matrix.part }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: vedator-365-final-models-v1
+          restore-keys: |
+            vedator-youtube-caption-audio-models-v1
+            vedator-youtube-caption-final-models-v1
+            vedator-youtube-caption-draft-models-v1
+      - uses: actions/cache@v4
+        with:
+          path: /tmp/vedator-youtube-batch-audio
+          key: vedator-caption-batch-audio-365-v1
+      - name: Install acoustic dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          python -m pip install --disable-pip-version-check --index-url https://download.pytorch.org/whl/cpu torch==2.5.1 torchaudio==2.5.1
+          python -m pip install --disable-pip-version-check faster-whisper==1.2.1 transformers==4.45.2 sentencepiece 'numpy<2' num2words==0.5.14
+      - name: Align disjoint complete utterance blocks or inspect disputed speech
+        run: |
+          index=${PART##*-}
+          python tools/finalize-youtube-caption-batch.py 365 --shard-index "$index" --shard-count 6
+      - name: Preserve every acoustic checkpoint
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: episode365-${{ matrix.part }}
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            captions/source/episode-365-youtube-final-alignment-shard-*.json
+            captions/source/episode-365-youtube-followup-audio-shard-*.json
+            captions/source/episode-365-youtube-contrast-audio.json
+  collect:
+    needs: acoustic
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ github.ref_name }}'}
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: episode365-*
+          path: captions/source
+          merge-multiple: true
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: vedator-365-final-models-v1
+          restore-keys: |
+            vedator-youtube-caption-final-models-v1
+            vedator-youtube-caption-audio-models-v1
+      - uses: actions/cache@v4
+        with:
+          path: /tmp/vedator-youtube-batch-audio
+          key: vedator-caption-batch-audio-365-v1
+      - name: Install assembly dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          python -m pip install --disable-pip-version-check --index-url https://download.pytorch.org/whl/cpu torch==2.5.1 torchaudio==2.5.1
+          python -m pip install --disable-pip-version-check transformers==4.45.2 sentencepiece 'numpy<2' num2words==0.5.14
+      - name: Assemble all reviewed words into bilingual panels
+        env:
+          VEDATOR_BATCH_AUDIO: /tmp/vedator-youtube-batch-audio
+        run: python tools/finalize-youtube-caption-batch.py 365 --assemble-shards 6
+      - name: Preserve assets for final publication gates
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add captions/source/episode-365-youtube-final-alignment*.json
+          for path in captions/source/episode-365-youtube-seek-index.json captions/episode-365.*; do
+            if test -f "$path"; then git add "$path"; fi
+          done
+          git commit -m 'Preserve episode 365 complete acoustic alignment and bilingual caption assets'
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

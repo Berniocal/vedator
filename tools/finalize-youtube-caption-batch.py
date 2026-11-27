@@ -146,7 +146,7 @@ def reviewed_groups(number):
     result=[]
     for i,g in enumerate(groups):
         fixed = resolutions['groups'].get(str(i), {})
-        result.append({**g,'group':i,'text':{
+        result.append({**g,'start':fixed.get('start',g['start']),'end':fixed.get('end',g['end']),'group':i,'text':{
             'sk':fixed.get('textSk', review['corrections'].get(str(i),g['originalSk'])),
             'cs':fixed.get('textCs', cs['corrections'].get(str(i), draft['cues'][i]['draftCs']))},
             'acousticOverrides':fixed.get('acousticOverrides',{})})
