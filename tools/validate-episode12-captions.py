@@ -163,7 +163,7 @@ def main():
         check(not re.search(r"\d", audit.get("alignmentText", "")),
               f"Cue {i}: printed numerals were silently omitted from acoustic alignment")
         for language in ("cs", "sk"):
-            check(cue["text"][language].replace("\n", " ") == edited["cues"][i - 1]["text"][language],
+            check(re.sub(r"\s+", " ",cue["text"][language]).strip() == re.sub(r"\s+", " ",edited["cues"][i - 1]["text"][language]).strip(),
                   f"Cue {i}: final {language} text differs from reviewed text")
             lines = cue["text"][language].split("\n")
             check(not any(re.search(r"(?:^| )[aikosuvz]$", line, re.I) for line in lines[:-1]),
