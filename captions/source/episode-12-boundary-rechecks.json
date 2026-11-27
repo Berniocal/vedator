@@ -345,6 +345,9 @@
     },
     {
       "cues": [
+        276,
+        277,
+        278,
         279,
         280,
         281,
@@ -353,10 +356,22 @@
         284
       ],
       "window": [
-        640.429,
+        633.3629999999999,
         651.548
       ],
       "previousBoundaries": [
+        [
+          633.713,
+          635.695
+        ],
+        [
+          635.815,
+          637.577
+        ],
+        [
+          637.637,
+          640.699
+        ],
         [
           640.779,
           643.802
@@ -384,31 +399,43 @@
       ],
       "newBoundaries": [
         [
-          640.77,
-          643.815
+          633.703,
+          635.704
         ],
         [
-          643.895,
-          645.197
+          635.804,
+          637.584
         ],
         [
-          645.778,
-          646.78
+          637.644,
+          640.705
         ],
         [
-          646.86,
-          647.701
+          640.765,
+          643.806
         ],
         [
-          648.162,
-          649.765
+          643.886,
+          645.186
         ],
         [
-          649.845,
-          651.207
+          645.766,
+          646.787
+        ],
+        [
+          646.847,
+          647.707
+        ],
+        [
+          648.147,
+          649.748
+        ],
+        [
+          649.828,
+          651.188
         ]
       ],
-      "independentCtcDecode": "iežo takám pre uditakám vedz čoin polomňovo pomaha a v tomkažo denuživo te a presomaku holôryž keťmáž stúržku naatvari taxytom hviež dasty prstyj aj kb",
+      "independentCtcDecode": "ohs poto maj dú sa leť meneskôorhežovoviťahu au do stali anánom ulen tohovorimžem m podlomňa potoje tieža takám pre uditakáma vedzčojim polomňovov pomaha lo v tom kažodenú živo te apresemaku hovoríš keťmáž túržku naatvari taxstam hvieš dati prsty aj k b",
       "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
     },
     {
@@ -418,11 +445,14 @@
         548,
         549,
         550,
-        551
+        551,
+        552,
+        553,
+        554
       ],
       "window": [
         1230.1860000000001,
-        1246.435
+        1253.385
       ],
       "previousBoundaries": [
         [
@@ -448,39 +478,134 @@
         [
           1242.44,
           1246.085
+        ],
+        [
+          1247.507,
+          1249.97
+        ],
+        [
+          1250.651,
+          1251.272
+        ],
+        [
+          1251.292,
+          1253.035
         ]
       ],
       "newBoundaries": [
         [
           1230.446,
-          1232.687
+          1232.688
         ],
         [
-          1233.768,
-          1236.469
+          1233.769,
+          1236.471
         ],
         [
-          1237.57,
-          1238.831
+          1237.572,
+          1238.833
         ],
         [
-          1238.851,
-          1239.931
+          1238.853,
+          1239.934
         ],
         [
-          1239.991,
-          1241.432
+          1239.994,
+          1241.435
         ],
         [
-          1242.433,
-          1246.095
+          1242.436,
+          1246.099
+        ],
+        [
+          1247.5,
+          1249.962
+        ],
+        [
+          1250.663,
+          1251.263
+        ],
+        [
+          1251.283,
+          1253.045
         ]
       ],
-      "independentCtcDecode": "znažia aby sa nedostal do stouhto endemickeu štádiažak sa np od akxsopodariterazakolo pekne údržať na dako malom priestorá tam sa podari vyliečiť tak je možno že sa zbavymenavždy ak sa rozšírnaho tkže nal rucuje saú an rnaho úradostrane ano",
+      "independentCtcDecode": "znažia aby sa nedostal do stohto endemickeu štádiažak sa np od ahx sopodaritera sakoo pekne údržať na dako malom priestorá tam sa podarí vyliečiť tak je možno že sa zbavyme navždy ak sa rozšírnaho tž na rucuj saú an dnohoúradostrane ano plu s každá akaždeďalším množeni ždy nekdo jomel preže však nechajmej nehtem vyruzostanú všecitoumr",
       "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
     },
     {
       "cues": [
+        880,
+        881,
+        882,
+        883,
+        884,
+        885
+      ],
+      "window": [
+        1987.776,
+        2002.705
+      ],
+      "previousBoundaries": [
+        [
+          1988.126,
+          1989.627
+        ],
+        [
+          1990.067,
+          1993.65
+        ],
+        [
+          1993.71,
+          1994.49
+        ],
+        [
+          1995.15,
+          1998.252
+        ],
+        [
+          1998.372,
+          1999.973
+        ],
+        [
+          2000.234,
+          2002.355
+        ]
+      ],
+      "newBoundaries": [
+        [
+          1988.136,
+          1989.637
+        ],
+        [
+          1990.077,
+          1993.66
+        ],
+        [
+          1993.7,
+          1994.5
+        ],
+        [
+          1995.16,
+          1998.242
+        ],
+        [
+          1998.382,
+          1999.963
+        ],
+        [
+          2000.224,
+          2002.365
+        ]
+      ],
+      "independentCtcDecode": "výru s ktorým hôže spôsobiť ebidomu tokdobre pudme mnďalšu epidomiovnošej hýcstory  v prtna som storoči bol bo l hantavýru s ktorí nemal aš tat vela obetí ale choroba ktoru spôsoboval ktorou s",
+      "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
+    },
+    {
+      "cues": [
+        950,
+        951,
+        952,
         953,
         954,
         955,
@@ -489,10 +614,22 @@
         958
       ],
       "window": [
-        2151.199,
+        2146.175,
         2161.475
       ],
       "previousBoundaries": [
+        [
+          2146.525,
+          2148.227
+        ],
+        [
+          2148.307,
+          2150.308
+        ],
+        [
+          2150.368,
+          2151.469
+        ],
         [
           2151.549,
           2152.57
@@ -520,31 +657,206 @@
       ],
       "newBoundaries": [
         [
-          2151.54,
-          2152.561
+          2146.515,
+          2148.218
         ],
         [
-          2152.621,
-          2154.124
+          2148.318,
+          2150.32
         ],
         [
-          2154.304,
-          2155.025
+          2150.38,
+          2151.462
         ],
         [
-          2155.045,
-          2156.688
+          2151.542,
+          2152.583
         ],
         [
-          2158.17,
-          2159.612
+          2152.623,
+          2154.125
+        ],
+        [
+          2154.306,
+          2155.067
+        ],
+        [
+          2155.087,
+          2156.709
+        ],
+        [
+          2158.171,
+          2159.613
         ],
         [
           2159.873,
-          2161.114
+          2161.135
         ]
       ],
-      "independentCtcDecode": "an dobre k čo ma meďalše mysl siže to to j taká bud na jznamejšialebo druha najznomejšiaj pidemiomkje uršti určte že v toptrojke a toj špaňolska chrípka",
+      "independentCtcDecode": "ano pa nejdeme chronovo gickyj to so si už mohli všimmi ma silo súchati a na dobre čo ma meďalše mysl siže totoj taká bud na jznamejšia lebodruha naj znomejšiaje pidemiam je uršti určte že v toptrojke a to špaňolska chrípka",
+      "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
+    },
+    {
+      "cues": [
+        1159,
+        1160,
+        1161,
+        1162,
+        1163,
+        1164
+      ],
+      "window": [
+        2645.478,
+        2659.6279999999997
+      ],
+      "previousBoundaries": [
+        [
+          2645.828,
+          2646.809
+        ],
+        [
+          2646.869,
+          2649.171
+        ],
+        [
+          2649.591,
+          2651.072
+        ],
+        [
+          2651.092,
+          2652.553
+        ],
+        [
+          2653.554,
+          2655.655
+        ],
+        [
+          2656.456,
+          2659.278
+        ]
+      ],
+      "newBoundaries": [
+        [
+          2645.518,
+          2646.799
+        ],
+        [
+          2646.879,
+          2649.181
+        ],
+        [
+          2649.581,
+          2651.062
+        ],
+        [
+          2651.082,
+          2652.543
+        ],
+        [
+          2653.544,
+          2655.645
+        ],
+        [
+          2656.446,
+          2659.288
+        ]
+      ],
+      "independentCtcDecode": "plnej pod kritickú hranis točnom bonikde dokonco okolo tridsatých percent novorodemcov bolo zaočkolaných prie bou prých p a roku života čo straše malo če srijeumalko vane pčo tam nasledne tan teda znikla osípková epidemia",
+      "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
+    },
+    {
+      "cues": [
+        276,
+        277,
+        278,
+        279,
+        280,
+        281,
+        282,
+        283,
+        284
+      ],
+      "window": [
+        633.353,
+        651.538
+      ],
+      "previousBoundaries": [
+        [
+          633.703,
+          635.704
+        ],
+        [
+          635.804,
+          637.584
+        ],
+        [
+          637.644,
+          640.705
+        ],
+        [
+          640.765,
+          643.806
+        ],
+        [
+          643.886,
+          645.186
+        ],
+        [
+          645.766,
+          646.787
+        ],
+        [
+          646.847,
+          647.707
+        ],
+        [
+          648.147,
+          649.748
+        ],
+        [
+          649.828,
+          651.188
+        ]
+      ],
+      "newBoundaries": [
+        [
+          633.693,
+          635.694
+        ],
+        [
+          635.814,
+          637.574
+        ],
+        [
+          637.634,
+          640.695
+        ],
+        [
+          640.775,
+          643.796
+        ],
+        [
+          643.896,
+          645.176
+        ],
+        [
+          645.756,
+          646.777
+        ],
+        [
+          646.857,
+          647.697
+        ],
+        [
+          648.137,
+          649.758
+        ],
+        [
+          649.838,
+          651.198
+        ]
+      ],
+      "independentCtcDecode": "hs poto mť o saleľ meneskpôrhežovoviťahu au do stali anánom ulentoho vorimžem  podlomne potoje tieža takám preuditakáma ved čoin podlomňovom pomaha ale v tom kažo denuživo te apresynaku hovoríč keťmáž túrúžku naatvari taxytom hviež dáci prsti aj k b",
       "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
     },
     {
@@ -554,11 +866,17 @@
         545,
         546,
         547,
-        548
+        548,
+        549,
+        550,
+        551,
+        552,
+        553,
+        554
       ],
       "window": [
         1222.0140000000001,
-        1239.1809999999998
+        1253.395
       ],
       "previousBoundaries": [
         [
@@ -575,112 +893,445 @@
         ],
         [
           1230.446,
-          1232.687
+          1232.688
         ],
         [
-          1233.768,
-          1236.469
+          1233.769,
+          1236.471
         ],
         [
-          1237.57,
-          1238.831
+          1237.572,
+          1238.833
+        ],
+        [
+          1238.853,
+          1239.934
+        ],
+        [
+          1239.994,
+          1241.435
+        ],
+        [
+          1242.436,
+          1246.099
+        ],
+        [
+          1247.5,
+          1249.962
+        ],
+        [
+          1250.663,
+          1251.263
+        ],
+        [
+          1251.283,
+          1253.045
         ]
       ],
       "newBoundaries": [
         [
           1222.354,
-          1226.896
+          1226.897
         ],
         [
-          1226.976,
-          1228.637
+          1226.977,
+          1228.638
         ],
         [
-          1229.457,
-          1230.477
+          1229.459,
+          1230.48
         ],
         [
-          1230.517,
-          1232.698
+          1230.52,
+          1232.701
         ],
         [
-          1233.779,
-          1236.46
+          1233.782,
+          1236.464
         ],
         [
-          1237.58,
-          1238.881
+          1237.584,
+          1238.885
+        ],
+        [
+          1238.905,
+          1239.926
+        ],
+        [
+          1240.006,
+          1241.427
+        ],
+        [
+          1242.448,
+          1246.09
+        ],
+        [
+          1247.511,
+          1249.973
+        ],
+        [
+          1250.653,
+          1251.274
+        ],
+        [
+          1251.294,
+          1253.055
         ]
       ],
-      "independentCtcDecode": "mi dobreže sa tak až zmiernou histeriu bo je proti tomu lovému ko ronavýrusu že sa tra s ľuda snažia aby sa nedostali do stohto endemickoho štádia žak sa ln p  akxopodaritera sakoo pekňe údržať na  dako malom priestorá tam sa",
+      "independentCtcDecode": "mi dobreže sa takaž zmiernou histeriu bo je proti tomulovému ko ronavý rusu že sa tra s uda snažia aby sa nedostali bo stosto endemickouo štádiažak sa m p  aksopodaritera sakoo pekne údržať na  ako malom priestorá tam sa podari vyliečiť tak je možnože sa zbavymenavždy ak sa rozšírnahtkž nalruj sa an nahoúradostrane anu plus každá akaždeďalším množenie ždy nekdo jemel preže šak nechajmej nech tem vyru zostanú šecitom r",
       "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
     },
     {
       "cues": [
-        546,
-        547,
-        548,
-        549,
-        550,
-        551
+        880,
+        881,
+        882,
+        883,
+        884,
+        885
       ],
       "window": [
-        1230.1670000000001,
-        1246.445
+        1987.786,
+        2002.715
       ],
       "previousBoundaries": [
         [
-          1230.517,
-          1232.698
+          1988.136,
+          1989.637
         ],
         [
-          1233.779,
-          1236.46
+          1990.077,
+          1993.66
         ],
         [
-          1237.58,
-          1238.881
+          1993.7,
+          1994.5
         ],
         [
-          1238.851,
-          1239.931
+          1995.16,
+          1998.242
         ],
         [
-          1239.991,
-          1241.432
+          1998.382,
+          1999.963
         ],
         [
-          1242.433,
-          1246.095
+          2000.224,
+          2002.365
         ]
       ],
       "newBoundaries": [
         [
-          1230.447,
-          1232.69
+          1988.126,
+          1989.627
         ],
         [
-          1233.771,
-          1236.474
+          1990.067,
+          1993.65
         ],
         [
-          1237.575,
-          1238.837
+          1993.71,
+          1994.49
         ],
         [
-          1238.857,
-          1239.938
+          1995.15,
+          1998.252
         ],
         [
-          1239.998,
-          1241.439
+          1998.372,
+          1999.973
         ],
         [
-          1242.441,
-          1246.105
+          2000.234,
+          2002.375
         ]
       ],
-      "independentCtcDecode": "snažia aby sa nedostal do stohto endemickeu štádiažak a onp od axsopodaritera zakolo pekne údržať na dako malom priestorá tam sa podari vyliečiť tak je možnože sa zbavymenavždy ak sa rozšír mahlo tkže nal rucuje saú an dnáho úradostrane ano",
+      "independentCtcDecode": "výrus ktorýom hôže spôsobiť epidomu tokdobre pudme m nďalšu epidomňovnošej hý hstory  v ptna som storoči bol bol hantavýru s ktorí nemal aš tať vela obetí ale choroba ktoru spôsoboval kktorou s",
+      "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
+    },
+    {
+      "cues": [
+        950,
+        951,
+        952,
+        953,
+        954,
+        955,
+        956,
+        957,
+        958
+      ],
+      "window": [
+        2146.165,
+        2161.485
+      ],
+      "previousBoundaries": [
+        [
+          2146.515,
+          2148.218
+        ],
+        [
+          2148.318,
+          2150.32
+        ],
+        [
+          2150.38,
+          2151.462
+        ],
+        [
+          2151.542,
+          2152.583
+        ],
+        [
+          2152.623,
+          2154.125
+        ],
+        [
+          2154.306,
+          2155.067
+        ],
+        [
+          2155.087,
+          2156.709
+        ],
+        [
+          2158.171,
+          2159.613
+        ],
+        [
+          2159.873,
+          2161.135
+        ]
+      ],
+      "newBoundaries": [
+        [
+          2146.525,
+          2148.228
+        ],
+        [
+          2148.308,
+          2150.31
+        ],
+        [
+          2150.37,
+          2151.472
+        ],
+        [
+          2151.552,
+          2152.573
+        ],
+        [
+          2152.633,
+          2154.135
+        ],
+        [
+          2154.316,
+          2155.057
+        ],
+        [
+          2155.077,
+          2156.699
+        ],
+        [
+          2158.181,
+          2159.623
+        ],
+        [
+          2159.863,
+          2161.125
+        ]
+      ],
+      "independentCtcDecode": "ano a nejdeme chronovogicky to so si u ž mohli všiina sylo súcha ti ana dobre k čo ma medďalše mysl siže totoej taká bud na jznamejšialebo druha najznomejšiaj pideniam jed uršti urte že v toptrojke a toj špaňolrska chrípka",
+      "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
+    },
+    {
+      "cues": [
+        1156,
+        1157,
+        1158,
+        1159,
+        1160,
+        1161,
+        1162,
+        1163,
+        1164
+      ],
+      "window": [
+        2634.943,
+        2659.638
+      ],
+      "previousBoundaries": [
+        [
+          2635.293,
+          2640.876
+        ],
+        [
+          2641.316,
+          2642.536
+        ],
+        [
+          2643.657,
+          2645.718
+        ],
+        [
+          2645.518,
+          2646.799
+        ],
+        [
+          2646.879,
+          2649.181
+        ],
+        [
+          2649.581,
+          2651.062
+        ],
+        [
+          2651.082,
+          2652.543
+        ],
+        [
+          2653.544,
+          2655.645
+        ],
+        [
+          2656.446,
+          2659.288
+        ]
+      ],
+      "newBoundaries": [
+        [
+          2635.303,
+          2640.046
+        ],
+        [
+          2640.827,
+          2642.548
+        ],
+        [
+          2643.668,
+          2645.71
+        ],
+        [
+          2645.83,
+          2646.81
+        ],
+        [
+          2646.89,
+          2649.192
+        ],
+        [
+          2649.592,
+          2651.073
+        ],
+        [
+          2651.093,
+          2652.554
+        ],
+        [
+          2653.554,
+          2655.656
+        ],
+        [
+          2656.456,
+          2659.278
+        ]
+      ],
+      "independentCtcDecode": "ita ktora bušila do obyvateľou ostrova samoula aby i aby noočkovalih svojej deti aj za očkovano skrvesla podakeu plne pod kritickú ranico točom ble nýde dokoncokolo tridsaťtých percent novorodomco bolo zaočkovaných prie bou prých pa roku žilota čo straše malo česrrijumalovne čo tam nasledne tan teda vznikla usípkováa epidémiapr",
+      "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
+    },
+    {
+      "cues": [
+        276,
+        277,
+        278,
+        279,
+        280,
+        281,
+        282,
+        283,
+        284
+      ],
+      "window": [
+        633.343,
+        651.548
+      ],
+      "previousBoundaries": [
+        [
+          633.693,
+          635.694
+        ],
+        [
+          635.814,
+          637.574
+        ],
+        [
+          637.634,
+          640.695
+        ],
+        [
+          640.775,
+          643.796
+        ],
+        [
+          643.896,
+          645.176
+        ],
+        [
+          645.756,
+          646.777
+        ],
+        [
+          646.857,
+          647.697
+        ],
+        [
+          648.137,
+          649.758
+        ],
+        [
+          649.838,
+          651.198
+        ]
+      ],
+      "newBoundaries": [
+        [
+          633.703,
+          635.704
+        ],
+        [
+          635.804,
+          637.584
+        ],
+        [
+          637.644,
+          640.705
+        ],
+        [
+          640.765,
+          643.806
+        ],
+        [
+          643.886,
+          645.186
+        ],
+        [
+          645.766,
+          646.787
+        ],
+        [
+          646.847,
+          647.707
+        ],
+        [
+          648.147,
+          649.748
+        ],
+        [
+          649.828,
+          651.188
+        ]
+      ],
+      "independentCtcDecode": "tohs poto maj dú sa leť meneskôorhežovoviťahu au do stali anánom ulen tohovorimžem m podlomňa potoje tieža takám pre uditakáma vedzčojim polomňovov pomaha lo v tom kažodenú živo te apresemaku hovoríš keťmáž túržku naatvari taxstam hvieš dati prsty aj k b",
       "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
     },
     {
@@ -690,65 +1341,404 @@
         545,
         546,
         547,
-        548
+        548,
+        549,
+        550,
+        551,
+        552,
+        553,
+        554
       ],
       "window": [
         1222.0040000000001,
-        1239.187
+        1253.405
       ],
       "previousBoundaries": [
         [
           1222.354,
-          1226.896
+          1226.897
         ],
         [
-          1226.976,
-          1228.637
+          1226.977,
+          1228.638
         ],
         [
-          1229.457,
-          1230.477
+          1229.459,
+          1230.48
         ],
         [
-          1230.447,
-          1232.69
+          1230.52,
+          1232.701
         ],
         [
-          1233.771,
-          1236.474
+          1233.782,
+          1236.464
         ],
         [
-          1237.575,
-          1238.837
+          1237.584,
+          1238.885
+        ],
+        [
+          1238.905,
+          1239.926
+        ],
+        [
+          1240.006,
+          1241.427
+        ],
+        [
+          1242.448,
+          1246.09
+        ],
+        [
+          1247.511,
+          1249.973
+        ],
+        [
+          1250.653,
+          1251.274
+        ],
+        [
+          1251.294,
+          1253.055
         ]
       ],
       "newBoundaries": [
         [
           1222.364,
-          1226.891
+          1226.907
         ],
         [
-          1226.991,
-          1228.633
+          1226.967,
+          1228.628
         ],
         [
-          1229.474,
-          1230.475
+          1229.469,
+          1230.47
         ],
         [
-          1230.535,
-          1232.698
+          1230.53,
+          1232.691
         ],
         [
-          1233.78,
-          1236.483
+          1233.772,
+          1236.474
         ],
         [
-          1237.585,
-          1238.887
+          1237.574,
+          1238.875
+        ],
+        [
+          1238.915,
+          1239.936
+        ],
+        [
+          1239.996,
+          1241.437
+        ],
+        [
+          1242.438,
+          1246.1
+        ],
+        [
+          1247.501,
+          1249.963
+        ],
+        [
+          1250.663,
+          1251.264
+        ],
+        [
+          1251.284,
+          1253.045
         ]
       ],
-      "independentCtcDecode": "mi dobreže sa takaž zmiernou histériu bo je proti tomulovému ko ronavýrusu že sa tera s ľudďa snažia aby sa nedostali bo v tohto endemicko štádia žak sa lnp o axsopodaritera szakoou pekňe údržať na  dako malom priestorá tam so",
+      "independentCtcDecode": "mi dobreže sa takaž zmiernou histeriu bo je proti tomulovému ko ronavýrusu že sa tra s ľudďa snažia aby sa nedostal bo tohto endemickeu štádia žak sa mp o ahk sopodaritera szakoo pekne údržať na  dako malom priestorá tam sa podari vyliečiť tak je možno že sa zbavyme navždy ak sa rozšírnaa tž narucj saú an dnohaúradostrane anu plu s každá akaždeďalšiem množene ždy nekdo jemel preže však nechajmej nech tem vyru zostanú všecitoum r",
+      "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
+    },
+    {
+      "cues": [
+        880,
+        881,
+        882,
+        883,
+        884,
+        885,
+        886,
+        887,
+        888
+      ],
+      "window": [
+        1987.776,
+        2008.539
+      ],
+      "previousBoundaries": [
+        [
+          1988.126,
+          1989.627
+        ],
+        [
+          1990.067,
+          1993.65
+        ],
+        [
+          1993.71,
+          1994.49
+        ],
+        [
+          1995.15,
+          1998.252
+        ],
+        [
+          1998.372,
+          1999.973
+        ],
+        [
+          2000.234,
+          2002.375
+        ],
+        [
+          2002.365,
+          2003.666
+        ],
+        [
+          2003.726,
+          2006.608
+        ],
+        [
+          2007.308,
+          2008.189
+        ]
+      ],
+      "newBoundaries": [
+        [
+          1988.136,
+          1989.638
+        ],
+        [
+          1990.079,
+          1993.663
+        ],
+        [
+          1993.703,
+          1994.503
+        ],
+        [
+          1995.164,
+          1998.248
+        ],
+        [
+          1998.388,
+          1999.97
+        ],
+        [
+          2000.23,
+          2002.372
+        ],
+        [
+          2002.412,
+          2003.674
+        ],
+        [
+          2003.754,
+          2006.637
+        ],
+        [
+          2007.318,
+          2008.199
+        ]
+      ],
+      "independentCtcDecode": "výru s ktorým hôže spôsobiť ebidonutokdobre pudme n nďalšu epidomiov noašej hých story  v ptne som storočí bol bo l hantavýru s ktorí nemal aš tat vela obetí ale choroba ktoru spôsobovala ktorou zabialij tazlačtneže sa to dostalojek to to tohto nažo rebríčka al spôsobolneč v sa",
+      "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
+    },
+    {
+      "cues": [
+        950,
+        951,
+        952,
+        953,
+        954,
+        955,
+        956,
+        957,
+        958
+      ],
+      "window": [
+        2146.175,
+        2161.475
+      ],
+      "previousBoundaries": [
+        [
+          2146.525,
+          2148.228
+        ],
+        [
+          2148.308,
+          2150.31
+        ],
+        [
+          2150.37,
+          2151.472
+        ],
+        [
+          2151.552,
+          2152.573
+        ],
+        [
+          2152.633,
+          2154.135
+        ],
+        [
+          2154.316,
+          2155.057
+        ],
+        [
+          2155.077,
+          2156.699
+        ],
+        [
+          2158.181,
+          2159.623
+        ],
+        [
+          2159.863,
+          2161.125
+        ]
+      ],
+      "newBoundaries": [
+        [
+          2146.515,
+          2148.218
+        ],
+        [
+          2148.318,
+          2150.32
+        ],
+        [
+          2150.38,
+          2151.462
+        ],
+        [
+          2151.542,
+          2152.583
+        ],
+        [
+          2152.623,
+          2154.125
+        ],
+        [
+          2154.306,
+          2155.067
+        ],
+        [
+          2155.087,
+          2156.709
+        ],
+        [
+          2158.171,
+          2159.613
+        ],
+        [
+          2159.873,
+          2161.135
+        ]
+      ],
+      "independentCtcDecode": "ano pa nejdeme chronovo gickyj to so si už mohli všimmi ma silo súchati a na dobre čo ma meďalše mysl siže totoj taká bud na jznamejšia lebodruha naj znomejšiaje pidemiam je uršti určte že v toptrojke a to špaňolska chrípka",
+      "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
+    },
+    {
+      "cues": [
+        1156,
+        1157,
+        1158,
+        1159,
+        1160,
+        1161,
+        1162,
+        1163,
+        1164
+      ],
+      "window": [
+        2634.953,
+        2659.6279999999997
+      ],
+      "previousBoundaries": [
+        [
+          2635.303,
+          2640.046
+        ],
+        [
+          2640.827,
+          2642.548
+        ],
+        [
+          2643.668,
+          2645.71
+        ],
+        [
+          2645.83,
+          2646.81
+        ],
+        [
+          2646.89,
+          2649.192
+        ],
+        [
+          2649.592,
+          2651.073
+        ],
+        [
+          2651.093,
+          2652.554
+        ],
+        [
+          2653.554,
+          2655.656
+        ],
+        [
+          2656.456,
+          2659.278
+        ]
+      ],
+      "newBoundaries": [
+        [
+          2635.293,
+          2640.877
+        ],
+        [
+          2641.317,
+          2642.538
+        ],
+        [
+          2643.658,
+          2645.72
+        ],
+        [
+          2645.84,
+          2646.82
+        ],
+        [
+          2646.88,
+          2649.182
+        ],
+        [
+          2649.602,
+          2651.063
+        ],
+        [
+          2651.083,
+          2652.544
+        ],
+        [
+          2653.564,
+          2655.646
+        ],
+        [
+          2656.466,
+          2659.288
+        ]
+      ],
+      "independentCtcDecode": "ita ktora bušila do obyvateľou ostrova samula aby i aby noočkovali svjej deti až zaočkovanosťkrvesla poddakeu plnej pod kritickú hraniso točom boe nide dokonco okolo tridsatých percent novorojomcou blo zaočkonaných prie dou prvýich pa roko žilota čoj straše malo če strijumalo vne čo tam nasledne tam teda vzniklo osípková epidemiapr",
       "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
     }
   ]
