@@ -1740,6 +1740,33 @@
       ],
       "independentCtcDecode": "ita ktora bušila do obyvateľou ostrova samula aby i aby noočkovali svjej deti až zaočkovanosťkrvesla poddakeu plnej pod kritickú hraniso točom boe nide dokonco okolo tridsatých percent novorojomcou blo zaočkonaných prie dou prvýich pa roko žilota čoj straše malo če strijumalo vne čo tam nasledne tam teda vzniklo osípková epidemiapr",
       "reason": "Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift."
+    },
+    {
+      "cues": [
+        728
+      ],
+      "window": [
+        1635.1,
+        1636.1
+      ],
+      "previousBoundaries": [
+        [
+          1634.369,
+          1636.052
+        ]
+      ],
+      "newBoundaries": [
+        [
+          1635.773,
+          1635.998
+        ]
+      ],
+      "independentCtcDecode": "ilau",
+      "evidence": [
+        "captions/source/episode-12-extra-checks.sk.json",
+        "captions/source/episode-12-followup-1-checks.sk.json"
+      ],
+      "reason": "Two independent large-v3 windows confirm isolated Wow around 1635.34–1635.78; a new CTC path is calculated on the original audio, without clamping or an inferred global shift."
     }
   ]
 }
