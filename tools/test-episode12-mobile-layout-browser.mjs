@@ -117,11 +117,14 @@ try{
     function options(value){
      const flat=value.replace(/\s+/g,' '),choices=[value],words=flat.split(' ');
      if(flat.length<=48)choices.push(flat);
+     const bindFlat=(line,k,first=false)=>{const w=line.split(' ');if(w.length<k)return line;const group=(first?w.slice(0,k):w.slice(-k));if(group.join(' ').length>32)return line;return first?group.join('\u00a0')+(w.length>k?' '+w.slice(k).join(' '):''):(w.length>k?w.slice(0,-k).join(' ')+' ':'')+group.join('\u00a0')};
+     for(const k of [2,3]){choices.push(bindFlat(flat,k),bindFlat(flat,k,true));for(const j of [2,3])choices.push(bindFlat(bindFlat(flat,k,true),j))}
+
      for(let j=1;j<words.length;j++){
       const a=words.slice(0,j).join(' '),b=words.slice(j).join(' ');
       if(a.length>48||b.length>48||j<2||words.length-j<2||/(?:^| )[aikosuvz]$/i.test(a))continue;
       choices.push(a+'\n'+b);
-      const bind=(line,k)=>{const w=line.split(' ');if(w.length<k+1||w.slice(-k).join(' ').length>24)return line;return w.slice(0,-k).join(' ')+' '+w.slice(-k).join('\u00a0')};
+      const bind=(line,k)=>{const w=line.split(' ');if(w.length<k||w.slice(-k).join(' ').length>32)return line;return w.slice(0,-k).join(' ')+' '+w.slice(-k).join('\u00a0')};
       for(const k of [2,3])choices.push(bind(a,k)+'\n'+bind(b,k));
      }
      return [...new Set(choices)];
@@ -140,11 +143,12 @@ try{
      if(node.scrollWidth>node.clientWidth+1)result.push({cue:i+1,lang,scale,kind:'horizontal-overflow'});
     }
     if(propose&&mode!=='reader')for(const lang of ['cs','sk'])for(const scale of [1,1.3])for(let i=0;i<cues.length;i++){
+     window.__captionTest.language(lang);node.lang=lang;
      const value=cues[i].text[lang],flat=value.replace(/\s+/g,' ');node.style.fontSize=(base*scale)+'px';node.textContent=flat;
      const naturalOrphan=lines().some(l=>l.length===1);
      for(const candidate of options(value)){
       node.textContent=candidate;const rendered=lines();
-      candidates.push({cue:i+1,lang,text:candidate,fail:(node.scrollWidth>node.clientWidth+1||(!naturalOrphan&&rendered.length>1&&rendered.some(l=>l.length===1)))?1:0});
+      candidates.push({cue:i+1,lang,text:candidate,fail:(node.scrollWidth>node.clientWidth+1||(rendered.length>1&&rendered.some(l=>l.length===1)))?1:0});
      }
     }
     node.style.fontSize='';return {result,candidates,naturalOrphans};
@@ -165,12 +169,12 @@ try{
   }
  }
  const totals=new Map();for(const c of candidateChecks){const key=c.cue+':'+c.lang+':'+c.text,old=totals.get(key)||{...c,fail:0};old.fail+=c.fail;totals.set(key,old)}
- const keys=[...new Set(findings.filter(f=>f.cue).map(f=>f.cue+':'+f.lang))];
+ const keys=[...new Set((process.env.VEDATOR_LAYOUT_PROPOSE==='1'?naturalWrapReview.filter(f=>f.mode!=='reader'):findings).filter(f=>f.cue).map(f=>f.cue+':'+f.lang))];
  const layoutCost=c=>{const rows=c.text.split('\n');return Math.abs(rows[0].length-(rows[1]?.length||0))+2*(c.text.match(/\u00a0/g)||[]).length};
  const proposals=keys.map(key=>[...totals.values()].filter(c=>c.cue+':'+c.lang===key).sort((a,b)=>a.fail-b.fail||layoutCost(a)-layoutCost(b))[0]);
  const font=await page.evaluate(()=>getComputedStyle(document.getElementById('player-caption-text-v2')).fontFamily);
  const browserVersion=await browser.version();
- await new Promise(resolve=>process.stdout.write(JSON.stringify({episode:12,status:reviewedSegments?'manually-resegmented-text-layout-not-final-aligned-captions':workingDraft?'working-source-groups-not-final-caption-layout':unregisteredFinal?'final-aligned-caption-layout-before-registration':'final-caption-layout',sourceGroupsReviewed:reviewedSegments?.sourceGroupsReviewed,browser:browserVersion,font,captionSha256:workingDraft?undefined:crypto.createHash('sha256').update(fs.readFileSync('captions/episode-12.json')).digest('hex'),pageErrors:errors,checkedCues:layoutCues.length,widths:[360,390],languages:['cs','sk'],scales:[1,1.3],modes:['mp3','video','reader'],naturalWrapReview,findings,proposals},null,2)+'\n',resolve));
+ await new Promise(resolve=>process.stdout.write(JSON.stringify({episode:12,status:process.env.VEDATOR_LAYOUT_PROPOSE==='1'?'unapproved-layout-candidates':reviewedSegments?'manually-resegmented-text-layout-not-final-aligned-captions':workingDraft?'working-source-groups-not-final-caption-layout':unregisteredFinal?'final-aligned-caption-layout-before-registration':'final-caption-layout',sourceGroupsReviewed:reviewedSegments?.sourceGroupsReviewed,browser:browserVersion,font,captionSha256:workingDraft?undefined:crypto.createHash('sha256').update(fs.readFileSync('captions/episode-12.json')).digest('hex'),pageErrors:errors,checkedCues:layoutCues.length,widths:[360,390],languages:['cs','sk'],scales:[1,1.3],modes:['mp3','video','reader'],naturalWrapReview,findings,proposals},null,2)+'\n',resolve));
 assert.equal(findings.length,0,'Mobile caption overflow or avoidable fixed-break orphan');
 assert.equal(errors.length,0,'Caption page JavaScript errors');
 }finally{await browser.close();server.close()}
