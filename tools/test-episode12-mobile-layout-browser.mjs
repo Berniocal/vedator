@@ -88,7 +88,7 @@ await page.evaluateOnNewDocument(()=>{
   }}});
   class Player{
     constructor(frame,{events}){this.events=events;this.frame=frame;this.time=0;window.__yt=this;queueMicrotask(()=>events.onReady({target:this}))}
-    seekTo(t){this.time=t}getCurrentTime(){return this.time}getDuration(){return 1800}setPlaybackRate(){}
+    seekTo(t){this.time=t}getCurrentTime(){return this.time}getDuration(){return 2912}setPlaybackRate(){}
     playVideo(){this.events.onStateChange({data:1})}pauseVideo(){this.events.onStateChange({data:2})}destroy(){this.frame.remove()}
   }
   window.YT={Player};
@@ -157,7 +157,7 @@ try{
       else document.getElementById(mode==='mp3'?'player-caption-text-v2':'player-video-caption-v2').textContent=value;
      },{value:captions[12].cues[2].text[lang],mode,lang,time:captions[12].cues[2].start+.15});
      await wait(100);
-     await page.screenshot({path:path.join(process.env.VEDATOR_LAYOUT_SCREENSHOTS,'episode-12-working-'+mode+'-'+lang+'.png')});
+     await page.screenshot({path:path.join(process.env.VEDATOR_LAYOUT_SCREENSHOTS,(workingDraft?'episode-12-working-':'episode-12-final-')+mode+'-'+lang+'.png')});
     }
    }
    if(mode==='reader')await page.evaluate(()=>window.__captionTest.exitReader());

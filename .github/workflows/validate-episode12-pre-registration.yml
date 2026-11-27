@@ -48,6 +48,8 @@ jobs:
           done
           echo "ready=$ready" >> "$GITHUB_OUTPUT"
           echo "Actual aligned output present: $ready"
+      - name: Expose exact acoustic boundaries and independent evidence for review
+        run: python tools/review-episode12-acoustics.py
       - uses: actions/cache@v4
         if: steps.output.outputs.ready == 'true'
         with:
@@ -91,7 +93,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for path in captions/source/episode-12-prereg-validation.json captions/source/episode-12-prereg-layout.json captions/episode-12.review.json; do
+          for path in captions/source/episode-12-acoustic-boundary-review.json captions/source/episode-12-prereg-validation.json captions/source/episode-12-prereg-layout.json captions/episode-12.review.json; do
             if test -s "$path"; then git add "$path"; fi
           done
           if test -d captions/source/episode-12-mobile-screenshots; then git add captions/source/episode-12-mobile-screenshots; fi
