@@ -1,0 +1,54 @@
+name: Prepare explicitly reviewed episode 12 semantic segments
+on:
+  push:
+    branches: [captions/episode-12-precise-20261126]
+    paths:
+      - tools/prepare-episode12-segmented-captions.py
+      - tools/review-episode12-segmentation.py
+      - captions/source/episode-12-segmentation-review.tsv
+      - captions/source/episode-12-final-text-review.json
+      - .github/workflows/prepare-episode12-segments.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: episode12-reviewed-segment-preparation
+  cancel-in-progress: false
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check complete reviewed text and source-word attribution
+        run: |
+          python tools/review-episode12-segmentation.py
+          python tools/prepare-episode12-segmented-captions.py
+      - name: Preserve exact preparation results without registering captions
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add captions/source/episode-12-segmentation-review.json
+          if test -s captions/episode-12.edited.json; then git add captions/episode-12.edited.json; fi
+          if ! git diff --cached --quiet; then
+            git commit -m "Preserve checked episode 12 semantic segments and source attribution"
+            saved=0
+            for attempt in 1 2 3; do
+              git pull --rebase origin "${GITHUB_REF_NAME}"
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then saved=1; break; fi
+            done
+            test "$saved" = 1
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: episode12-segment-preparation
+          path: |
+            captions/episode-12.edited.json
+            captions/source/episode-12-segmentation-review.json

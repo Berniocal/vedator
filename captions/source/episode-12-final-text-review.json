@@ -1,0 +1,102 @@
+{
+  "episode": 12,
+  "segmentationTsvGitBlobSha": "16db714fc1d32f1af43a5b124ea91c2aa35b70b7",
+  "sourceTranscriptSha256": "0c1dbd2210c07a2edec585f18d2aadcae677ee2ed97d817be0887e9ddffc6d13",
+  "completeSlovakEditorialReview": true,
+  "completeCzechEditorialReview": true,
+  "reviewer": "assistant-model-assisted-editorial-review",
+  "humanListeningVerified": false,
+  "youtubeAudioCompared": false,
+  "sourceGroupsRead": 658,
+  "sourceWordsAttributed": 6790,
+  "cueCount": 1271,
+  "unintelligibleSourceGroups": [
+    1,
+    130,
+    192,
+    253,
+    276,
+    282,
+    349,
+    376,
+    441,
+    518
+  ],
+  "independentLargeV3Windows": 63,
+  "specificTextDecisions": [
+    {
+      "group": "23-25",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Natural Czech word order for strašně vysoká and jen within the same clause; all words and meaning retained."
+    },
+    {
+      "group": "38-41",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Restore the full tentative Slovak aby bol taký, že aj tak bude construction instead of isolating aktuální as a standalone fragment."
+    },
+    {
+      "group": "293-298",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Standard genitive plural epidémií after modelovaním; no factual change."
+    },
+    {
+      "group": "349",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "The guessed noun odhad is not established by independent ASRs or unforced CTC. Include that part in the existing marked overlapping speech; keep independently recognized Áno through 1518 s."
+    },
+    {
+      "group": "349",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Same explicit uncertainty as Slovak; do not assert the guessed noun odhad."
+    },
+    {
+      "group": "350-354",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Standard locative koronavíruse for ASR koronavírusie, same lexical word."
+    },
+    {
+      "group": "417-419",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Standard spelling pôvod, same lexical word."
+    },
+    {
+      "group": "513-520",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Keep the acoustically confirmed Ja by som si and mark the interrupted word; new large-v3 omits it, neutral CTC gives different phones from typu."
+    },
+    {
+      "group": "513-520",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Translate only known Ja by som si as Já bych si; preserve uncertainty instead of inventing a completed guessing verb."
+    },
+    {
+      "group": "601-604",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Complete natural equivalent of očkovateľná choroba: proti spalničkám už lze očkovat, same full claim."
+    },
+    {
+      "group": "626-629",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Explicit not-all quantifier preserves Nie na všetky and avoids ambiguous universal negation."
+    },
+    {
+      "group": "657-658",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Keep the spoken colloquial víroch supported by both ASRs; do not add an unspoken extra syllable in vírusoch."
+    }
+  ],
+  "note": "All original Slovak and own Czech translation read and manually resegmented, preserving content, historical claims, numbers, negations, repetitions, repairs and postscript. Unintelligible fragments are explicitly marked with actual ASR/CTC evidence. This text review does not approve final acoustic boundaries, mobile layout or publication.",
+  "publicationApproved": false
+}
