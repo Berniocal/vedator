@@ -4630,6 +4630,106 @@
       ]
     },
     {
+      "start": 1155.5,
+      "end": 1163,
+      "groups": [
+        156
+      ],
+      "language": "sk",
+      "reason": "Final gate: verify a very short Uhm response with low CTC average; no new speech is inferred.",
+      "model": "large-v3",
+      "segments": [
+        {
+          "start": 1161.4,
+          "end": 1162.84,
+          "text": "Máme o nej viacero epizód?",
+          "avgLogprob": -0.19621313083916903,
+          "words": [
+            {
+              "start": 1161.4,
+              "end": 1161.88,
+              "text": " Máme",
+              "probability": 0.8238274852434794
+            },
+            {
+              "start": 1161.88,
+              "end": 1162.0,
+              "text": " o",
+              "probability": 0.8657998442649841
+            },
+            {
+              "start": 1162.0,
+              "end": 1162.08,
+              "text": " nej",
+              "probability": 0.9672746956348419
+            },
+            {
+              "start": 1162.08,
+              "end": 1162.48,
+              "text": " viacero",
+              "probability": 0.963094433148702
+            },
+            {
+              "start": 1162.48,
+              "end": 1162.84,
+              "text": " epizód?",
+              "probability": 0.9340744217236837
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 1155.5,
+      "end": 1163,
+      "groups": [
+        156
+      ],
+      "language": "sk",
+      "reason": "Final gate: verify a very short Uhm response with low CTC average; no new speech is inferred.",
+      "model": "large-v3-turbo",
+      "segments": [
+        {
+          "start": 1161.44,
+          "end": 1162.94,
+          "text": "Mamy o niej viacero epizod?",
+          "avgLogprob": -0.4248430848121643,
+          "words": [
+            {
+              "start": 1161.44,
+              "end": 1161.94,
+              "text": " Mamy",
+              "probability": 0.48482121527194977
+            },
+            {
+              "start": 1161.94,
+              "end": 1162.02,
+              "text": " o",
+              "probability": 0.7702156901359558
+            },
+            {
+              "start": 1162.02,
+              "end": 1162.2,
+              "text": " niej",
+              "probability": 0.7046354711055756
+            },
+            {
+              "start": 1162.2,
+              "end": 1162.52,
+              "text": " viacero",
+              "probability": 0.6860458751519521
+            },
+            {
+              "start": 1162.52,
+              "end": 1162.94,
+              "text": " epizod?",
+              "probability": 0.9739324649175009
+            }
+          ]
+        }
+      ]
+    },
+    {
       "start": 1176.803,
       "end": 1189.703,
       "groups": [
