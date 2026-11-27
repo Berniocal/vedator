@@ -2,7 +2,7 @@
   "episode": 365,
   "audioSha256": "6fbdbfabb4bf74bb2061e093722d3e59b969570cf86f50658c874fff29b24961",
   "independentReviewSha256": "51f38c2d542735a1a6f7257d6fa30e186620b49c7b5bc6641aa080a791f3df31",
-  "followupReviewSha256": "e9aa2b286d4f19a4b08fce94b7f45955599afd281e1f0e302f288e3066056395",
+  "followupReviewSha256": "cf04c4a794dda674b0eca548cb491df5dfe0fe1df428db1278e394acd1a80394",
   "contrastReviewSha256": "7aad961fe0680964221bdc68c49e83eb78679561af650c48e4f9c8f446188a08",
   "status": "all-audio-questions-resolved",
   "groups": {
@@ -792,5 +792,12 @@
       "reason": "Quoted English line independently recognized after rýmovačka; it is absent from native YouTube cues. Word times 2394.217–2396.8 in the original MP3 evidence."
     }
   ],
-  "lowScoreAcceptance": {}
+  "lowScoreAcceptance": {
+    "156": {
+      "textSk": "Uhm.",
+      "independentCtcDecode": "že tote hlastne opistmovejch motynmámoo ne viaceroje pizoc mamerokon ca užej dvojku robenu episoda sto štyridsaťpäťapoto ame tmovhnuta dvah",
+      "evidenceFile": "captions/source/episode-365-youtube-followup-audio.json",
+      "reason": "Explicit low-confidence exception for the native-caption nonlexical Uhm acknowledgement. The CTC mean is only 0.0006; neither large-v3 nor turbo reproduces a lexical word in the no-VAD 1155.5–1163 s window, both recognize only the following sentence. Retain the native acknowledgement without inventing replacement speech. Its CTC boundary is uncertain, not independently confirmed timing. Source and sampled timeline are authenticated; this exception is not a claim of full human listening."
+    }
+  }
 }
