@@ -109,6 +109,18 @@ def main():
             rows,decode=align_block(list(range(lo,hi)),a,b)
             audits[lo:hi]=rows
             rechecks.append({'cues':list(range(lo+1,hi+1)),'window':[max(0,a),min(duration,b)],'previousBoundaries':[[r['start'],r['end']] for r in old],'newBoundaries':[[r['start'],r['end']] for r in rows],'independentCtcDecode':decode,'reason':'Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift.'})
+    # Both independent large-v3 windows place the isolated Wow after 1635 s.
+    # Re-align its actual phones within that independently evidenced utterance,
+    # avoiding a forced v phoneme attaching to preceding speech at 1634 s.
+    old=audits[727]
+    rows,decode=align_block([727],1635.1,1636.1)
+    audits[727]=rows[0]
+    rechecks.append({'cues':[728],'window':[1635.1,1636.1],
+        'previousBoundaries':[[old['start'],old['end']]],
+        'newBoundaries':[[rows[0]['start'],rows[0]['end']]],
+        'independentCtcDecode':decode,
+        'evidence':['captions/source/episode-12-extra-checks.sk.json','captions/source/episode-12-followup-1-checks.sk.json'],
+        'reason':'Two independent large-v3 windows confirm isolated Wow around 1635.34–1635.78; a new CTC path is calculated on the original audio, without clamping or an inferred global shift.'})
     write(S/'episode-12-boundary-rechecks.json',{'episode':12,'model':MODEL,'audioSha256':SHA,'rechecks':rechecks})
     assert all(audits[i]['start']>=audits[i-1]['end'] for i in range(1,len(audits))),[(i+1,audits[i-1]['end'],audits[i]['start']) for i in range(1,len(audits)) if audits[i]['start']<audits[i-1]['end']]
     cues=[]

@@ -8,7 +8,7 @@ out={'episode':12,'audioSha256':d['source']['audioSha256'],'humanListeningVerifi
 'sourceWordsAroundDisputedFiller':[w for w in d['words'] if 2149<=w['start']<=2152]}
 f=R/'captions/episode-12.json';a=S/'episode-12-alignment.json'
 if f.exists() and a.exists():
- c=read(f)['cues']; rows=read(a)['cues']
+ c=read(f)['cues']; rows=read(a)['cues']; groups=read(S/'episode-12-group-alignment.json')['groups']
  evidence=[]
  for p in sorted(S.glob('episode-12-*checks.sk.json')):
   v=read(p)
@@ -18,6 +18,8 @@ if f.exists() and a.exists():
   z=rows[i]; v=c[i]
   return {'cue':i+1,**{k:z[k] for k in ['start','end','meanCharacterScore','alignmentText']},
    'text':v['text'],'asrWordRange':v['asrWordRange'],
+   'groupCtcDecode':[g['independentCtcDecode'] for g in groups if any(x['cue']==i+1 for x in g['cues'])],
+   **({'characters':z['characters']} if z['meanCharacterScore']<.35 else {}),
    'independentAsr':[e for e in evidence if e['start']<=z['end'] and e['end']>=z['start']]}
  out.update(status='actual-final-boundaries-awaiting-specific-editorial-decisions',
   cueCount=len(c),lowScores=[context(i) for i,z in enumerate(rows) if z['meanCharacterScore']<.35],

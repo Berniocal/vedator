@@ -1,10 +1,30 @@
 {
   "episode": 12,
-  "reason": "Verify short takže / Áno fragment and the neighboring utterance where narrow pair-only CTC windows oscillated; no inferred timing shift.",
+  "reason": "Focused independent verification of low CTC scores, conflicting overlapping speech and two uncovered near-low-score phrases; no repeated full-episode ASR.",
   "windows": [
     [
-      2143,
-      2158
+      1247,
+      1255
+    ],
+    [
+      1475,
+      1482
+    ],
+    [
+      2149.9,
+      2152.5
+    ],
+    [
+      2205.5,
+      2209
+    ],
+    [
+      2489,
+      2497
+    ],
+    [
+      2782,
+      2789
     ]
   ]
 }
