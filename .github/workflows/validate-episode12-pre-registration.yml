@@ -72,6 +72,15 @@ jobs:
           mkdir -p captions/source/episode-12-mobile-screenshots
           VEDATOR_LAYOUT_SCREENSHOTS=captions/source/episode-12-mobile-screenshots VEDATOR_LAYOUT_UNREGISTERED_FINAL=1 node tools/test-episode12-mobile-layout-browser.mjs > captions/source/episode-12-prereg-layout.json
           cat captions/source/episode-12-prereg-layout.json
+      - name: Expose actual saved screenshots for visual review
+        if: steps.output.outputs.ready == 'true'
+        run: |
+          python - <<'PY'
+          import base64
+          from pathlib import Path
+          for p in sorted(Path('captions/source/episode-12-mobile-screenshots').glob('*.png')):
+              print('EP12_SCREENSHOT::'+p.name+'::'+base64.b64encode(p.read_bytes()).decode())
+          PY
       - name: Record actual successful data and layout verification
         if: steps.output.outputs.ready == 'true'
         run: |

@@ -19,10 +19,11 @@ if f.exists() and a.exists():
   return {'cue':i+1,**{k:z[k] for k in ['start','end','asrStart','asrEnd','meanCharacterScore','alignmentText']},
    'text':v['text'],'asrWordRange':v['asrWordRange'],
    'groupCtcDecode':[g['independentCtcDecode'] for g in groups if any(x['cue']==i+1 for x in g['cues'])],
-   **({'characters':z['characters']} if z['meanCharacterScore']<.35 else {}),
+   **({'characters':z['characters']} if z['meanCharacterScore']<.35 or v.get('recoveredSpeech') or i==44 else {}),
    'independentAsr':[e for e in evidence if e['start']<=z['end'] and e['end']>=z['start']]}
  out.update(status='actual-final-boundaries-awaiting-specific-editorial-decisions',
   cueCount=len(c),lowScores=[context(i) for i,z in enumerate(rows) if z['meanCharacterScore']<.35],
+  recoveredSpeechCues=[context(i) for i,z in enumerate(c) if z.get('recoveredSpeech')],
   largeStartChanges=[context(i) for i,z in enumerate(rows) if abs(z['start']-z['asrStart'])>1.0],
   nearLowScores=[context(i) for i,z in enumerate(rows) if .35<=z['meanCharacterScore']<.45],
   distributedAnchors=[context(min(range(len(c)),key=lambda i:abs(c[i]['start']-t))) for t in range(0,2912,180)],

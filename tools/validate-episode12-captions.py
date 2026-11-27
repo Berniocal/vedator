@@ -83,7 +83,7 @@ def main():
     check(sha == "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
           "Source differs from authenticated episode 12 original RSS MP3")
     for name in ("episode-12-extra-checks.sk.json", "episode-12-followup-1-checks.sk.json",
-                 "episode-12-followup-2-checks.sk.json", "episode-12-followup-3-checks.sk.json", "episode-12-followup-4-checks.sk.json", "episode-12-followup-5-checks.sk.json", "episode-12-followup-6-checks.sk.json", "episode-12-followup-checks.sk.json",
+                 "episode-12-followup-2-checks.sk.json", "episode-12-followup-3-checks.sk.json", "episode-12-followup-4-checks.sk.json", "episode-12-followup-5-checks.sk.json", "episode-12-followup-6-checks.sk.json", "episode-12-followup-7-checks.sk.json", "episode-12-followup-checks.sk.json",
                  "episode-12-ctc-checks.sk.json"):
         evidence_path = CAP / "source" / name
         check(evidence_path.is_file(), f"Missing independent audio evidence: {name}")

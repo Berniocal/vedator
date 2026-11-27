@@ -49,6 +49,10 @@ def main():
             proxies.append({'sourceCue':n,'archivedWorkingText':display,'phoneticProxy':spoken,'reason':'Primary-ASR filler/interjection is not established by repeated independent large-v3 and neutral CTC; displayed speech is explicitly marked uncertain while the archived phonetic string is retained only to time its source-word span.'})
         if n==518:
             proxies.append({'sourceCue':n,'archivedWorkingText':display,'phoneticProxy':spoken,'reason':'Latest large-v3 omits the interrupted word and neutral CTC gives fihlé. Keep known Ja by som si plus a marker; typu is only the archived phonetic timing proxy.'})
+        if n==87:spoken='A '+spoken
+        if n==212:spoken='po po '+spoken
+        if n==317:spoken='ktorý '+spoken
+        if n==583:spoken=spoken.replace('A bolo to','A bolo to bolo to',1)
         assert spoken and not re.search(r'\d',spoken),(n,spoken)
         for old,new in spelling.items():spoken=re.sub(r'(?<!\w)'+re.escape(old)+r'(?!\w)',new,spoken)
         expanded.append(spoken)
@@ -82,6 +86,8 @@ def main():
                 recovered={'evidence':'captions/source/episode-12-followup-1-checks.sk.json','reason':'Independent large-v3 restores actual multiplication speech replaced by the turbo dvakrát loop.'}
             if a==349:
                 recovered={'evidence':'captions/source/episode-12-followup-1-checks.sk.json','reason':'Independent large-v3 preserves overlapping 1516–1518 s speech and Áno; unintelligible content remains marked.'}
+            if (a==87 and pi==0) or (a==207 and pi==len(g['parts'])-1) or (a==316 and pi==1) or (a==579 and part['sk'].startswith('A bolo to,')):
+                recovered={'evidence':'captions/source/episode-12-followup-7-checks.sk.json','ctcEvidence':'captions/source/episode-12-gap-ctc-checks.sk.json','reason':'Short onset/restart verified against independent large-v3 with context and the unforced whole-context/gap CTC traces; full wording and acoustic characters retained for final review.'}
             assert word_end>word_cursor or recovered,(gi,pi,'empty source range without recovered-speech evidence',part)
             words=draft['words'][word_cursor:word_end]
             start=words[0]['start'] if words else draft['words'][word_cursor-1]['end']
@@ -92,6 +98,7 @@ def main():
             word_cursor=word_end;offset=end;phone_offset=phone_end
         assert offset==len(reviewed) and phone_offset==len(spoken)
         start=rows[0]['sourceStart'];finish=rows[-1]['sourceEnd']
+        if a==87:start=min(start,373.5)
         if a==349:finish=1518.0
         if a<=282<=b:finish=max(finish,1247.41)
         groups.append({'group':gi,'sourceCueRange':[a,b],'asrWordRange':[lo,hi],'start':start,'end':finish,'cues':indices})

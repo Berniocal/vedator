@@ -128,6 +128,17 @@ def main():
         'independentCtcDecode':decode,
         'evidence':['captions/source/episode-12-extra-checks.sk.json','captions/source/episode-12-followup-1-checks.sk.json'],
         'reason':'Two independent large-v3 windows confirm isolated Wow around 1635.34–1635.78; a new CTC path is calculated on the original audio, without clamping or an inferred global shift.'})
+    # Independent large-v3 separates an early a at 121.12–121.72 from
+    # aj ta... after 122.48. Align that actual first conjunction separately.
+    full_target=prepared[44]['alignmentText'];prepared[44]['alignmentText']='a'
+    prefix,decode=align_block([44],121.0,121.95)
+    prepared[44]['alignmentText']=full_target
+    old=audits[44];chars=[dict(c) for c in old['characters']]
+    assert chars[0]['char']=='a' and prefix[0]['characters'][0]['end']<chars[1]['start']
+    chars[0]=prefix[0]['characters'][0]
+    spoken=[c for c in chars if c['char']!=delimiter]
+    audits[44]={**old,'start':chars[0]['start'],'characters':chars,'meanCharacterScore':round(sum(c['score'] for c in spoken)/len(spoken),4)}
+    rechecks.append({'cues':[45],'window':[121.0,121.95],'previousBoundaries':[[old['start'],old['end']]],'newBoundaries':[[audits[44]['start'],audits[44]['end']]],'prefixCharacterAudit':prefix[0],'independentCtcDecode':decode,'evidence':['captions/source/episode-12-followup-2-checks.sk.json'],'reason':'Independent large-v3 explicitly separates a at 121.12–121.72 and aj ta... after 122.48. Preserve that first conjunction with its separately measured character onset, followed by the existing remaining character path. No clamping or global shift.'})
     write(S/'episode-12-boundary-rechecks.json',{'episode':12,'model':MODEL,'audioSha256':SHA,'rechecks':rechecks})
     assert all(audits[i]['start']>=audits[i-1]['end'] for i in range(1,len(audits))),[(i+1,audits[i-1]['end'],audits[i]['start']) for i in range(1,len(audits)) if audits[i]['start']<audits[i-1]['end']]
     cues=[]

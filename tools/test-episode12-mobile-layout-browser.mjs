@@ -99,7 +99,7 @@ try{
  await page.evaluate(()=>window.__captionTest.open(12));
  await page.waitForFunction(()=>document.getElementById('audio-v2').readyState>=2);
  await page.evaluate(()=>document.getElementById('audio-v2').pause());
- const findings=[],candidateChecks=[];
+ const findings=[],candidateChecks=[],naturalWrapReview=[];
  for(const width of [360,390]){
   await page.setViewport({width,height:844,isMobile:true,hasTouch:true});
   await page.evaluate(()=>window.__captionTest.open(12));
@@ -113,7 +113,7 @@ try{
     function lines(){const words=[];const walker=document.createTreeWalker(node,NodeFilter.SHOW_TEXT);let child;while(child=walker.nextNode()){const re=/\S+/g;let m;while(m=re.exec(child.textContent)){const r=document.createRange();r.setStart(child,m.index);r.setEnd(child,m.index+m[0].length);const b=r.getBoundingClientRect();words.push({text:m[0],y:Math.round(b.top)})}}const groups=[];for(const w of words){let g=groups.find(g=>Math.abs(g.y-w.y)<3);if(!g)groups.push(g={y:w.y,words:[]});g.words.push(w.text)}return groups.map(g=>g.words)}
     if(mode==='reader')window.__captionTest.renderReader('Kontrola mobilního vykreslení titulků.',1);else node.textContent='Kontrola mobilního vykreslení titulků.';
     if(node.clientWidth<20||!node.getBoundingClientRect().height)return [{kind:'caption-surface-not-visible'}];
-    const result=[],candidates=[];
+    const result=[],candidates=[],naturalOrphans=[];
     function options(value){
      const flat=value.replace(/\s+/g,' '),choices=[value],words=flat.split(' ');
      if(flat.length<=48)choices.push(flat);
@@ -133,6 +133,7 @@ try{
      if(mode==='reader')window.__captionTest.renderReader(value,scale);else{node.style.fontSize=(base*scale)+'px';node.textContent=value}
      const wrapped=lines();
      if(wrapped.length>1&&wrapped.some(l=>l.length===1)){
+      naturalOrphans.push({cue:i+1,lang,scale,wrapped,text:value,textWrap:getComputedStyle(node).textWrap});
       if(mode==='reader')window.__captionTest.renderReader(value.replace(/\s+/g,' '),scale);else node.textContent=value.replace(/\s+/g,' ');
       const natural=lines();if(!natural.some(l=>l.length===1))result.push({cue:i+1,lang,scale,wrapped,natural,kind:'fixed-break-orphan'});
      }
@@ -146,9 +147,9 @@ try{
       candidates.push({cue:i+1,lang,text:candidate,fail:(node.scrollWidth>node.clientWidth+1||(!naturalOrphan&&rendered.length>1&&rendered.some(l=>l.length===1)))?1:0});
      }
     }
-    node.style.fontSize='';return {result,candidates};
+    node.style.fontSize='';return {result,candidates,naturalOrphans};
    },{cues:layoutCues,mode,propose:process.env.VEDATOR_LAYOUT_PROPOSE==='1'});
-   if(Array.isArray(rows))findings.push(...rows.map(row=>({width,mode,...row})));else{findings.push(...rows.result.map(row=>({width,mode,...row})));candidateChecks.push(...rows.candidates)}
+   if(Array.isArray(rows))findings.push(...rows.map(row=>({width,mode,...row})));else{findings.push(...rows.result.map(row=>({width,mode,...row})));candidateChecks.push(...rows.candidates);naturalWrapReview.push(...rows.naturalOrphans.map(row=>({width,mode,...row})))}
    if(process.env.VEDATOR_LAYOUT_SCREENSHOTS&&width===360){
     for(const lang of ['cs','sk']){
      await page.evaluate(({value,mode,lang,time})=>{
@@ -169,7 +170,7 @@ try{
  const proposals=keys.map(key=>[...totals.values()].filter(c=>c.cue+':'+c.lang===key).sort((a,b)=>a.fail-b.fail||layoutCost(a)-layoutCost(b))[0]);
  const font=await page.evaluate(()=>getComputedStyle(document.getElementById('player-caption-text-v2')).fontFamily);
  const browserVersion=await browser.version();
- await new Promise(resolve=>process.stdout.write(JSON.stringify({episode:12,status:reviewedSegments?'manually-resegmented-text-layout-not-final-aligned-captions':workingDraft?'working-source-groups-not-final-caption-layout':unregisteredFinal?'final-aligned-caption-layout-before-registration':'final-caption-layout',sourceGroupsReviewed:reviewedSegments?.sourceGroupsReviewed,browser:browserVersion,font,captionSha256:workingDraft?undefined:crypto.createHash('sha256').update(fs.readFileSync('captions/episode-12.json')).digest('hex'),pageErrors:errors,checkedCues:layoutCues.length,widths:[360,390],languages:['cs','sk'],scales:[1,1.3],modes:['mp3','video','reader'],findings,proposals},null,2)+'\n',resolve));
+ await new Promise(resolve=>process.stdout.write(JSON.stringify({episode:12,status:reviewedSegments?'manually-resegmented-text-layout-not-final-aligned-captions':workingDraft?'working-source-groups-not-final-caption-layout':unregisteredFinal?'final-aligned-caption-layout-before-registration':'final-caption-layout',sourceGroupsReviewed:reviewedSegments?.sourceGroupsReviewed,browser:browserVersion,font,captionSha256:workingDraft?undefined:crypto.createHash('sha256').update(fs.readFileSync('captions/episode-12.json')).digest('hex'),pageErrors:errors,checkedCues:layoutCues.length,widths:[360,390],languages:['cs','sk'],scales:[1,1.3],modes:['mp3','video','reader'],naturalWrapReview,findings,proposals},null,2)+'\n',resolve));
 assert.equal(findings.length,0,'Mobile caption overflow or avoidable fixed-break orphan');
 assert.equal(errors.length,0,'Caption page JavaScript errors');
 }finally{await browser.close();server.close()}

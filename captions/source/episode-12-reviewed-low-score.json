@@ -13,13 +13,23 @@
       "reason": "Focused independent large-v3 explicitly confirms Niekto by mohol povedať in 1250.42–1252.96, followed by the same next clause. Neutral CTC yields reduced nekdo joml phones; several rapidly reduced function-word consonants score poorly. Preserve the fully cross-ASR-confirmed phrase and actual character path; no time clamping or blanket score waiver."
     },
     {
+      "cue": 728,
+      "start": 1635.271,
+      "end": 1635.643,
+      "score": 0.2074,
+      "text": "Wow.",
+      "evidence": "captions/source/episode-12-followup-1-checks.sk.json",
+      "timingUncertaintySeconds": 0.15,
+      "reason": "Both independent large-v3 windows recognize Wow (extra: ends 1635.78; pass 1: 1635.34–1635.74). A separately constrained original-audio CTC path gives 1635.271–1635.643. The Slovak model is weak on this short foreign interjection: spelling comparisons do not establish all phones, and the higher-scoring uau variant ends at the probe edge with a zero-score final phone. Keep canonical displayed Wow and explicit approximately 0.15 s boundary uncertainty rather than selecting a spelling merely to suppress the low score."
+    },
+    {
       "cue": 952,
       "start": 2150.38,
       "end": 2151.462,
       "score": 0.1341,
       "text": "[Nezrozumiteľné.] Áno.",
       "evidence": "captions/source/episode-12-followup-6-checks.sk.json",
-      "reason": "Primary turbo assigns takže and Áno here, but broad independent large-v3 (archived pass 5) and a focused 2149.9–2152.5 window omit the filler. Neutral CTC does not establish takže, so its content is explicitly marked unintelligible. Primary-ASR Áno and the audible nasal anchor are retained. Low score describes only the separately documented archived phonetic timing proxy, not an asserted translation of the uncertain speech."
+      "reason": "Primary turbo assigns takže and Áno here, but broad independent large-v3 (archived pass 5) and a focused 2149.9–2152.5 window omit the filler. Neutral CTC does not establish takže, so its content is explicitly marked unintelligible. Primary-ASR Áno and the high-scoring nasal CTC anchor are retained. Low score describes only the separately documented archived phonetic timing proxy, not an asserted translation of the uncertain speech."
     },
     {
       "cue": 979,
