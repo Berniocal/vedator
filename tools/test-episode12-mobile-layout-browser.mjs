@@ -10,6 +10,7 @@ const puppeteer=require('puppeteer-core'),{default:chromium}=await import(pathTo
 const source=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const numbers=[12];
 const workingDraft=process.env.VEDATOR_LAYOUT_WORKING_DRAFT==='1';
+const unregisteredFinal=process.env.VEDATOR_LAYOUT_UNREGISTERED_FINAL==='1';
 function workingWrap(text){
  if(text.length<=48)return text;
  const choices=[...text.matchAll(/ /g)].map(m=>m.index).filter(i=>i<=48&&text.length-i-1<=48&&!/(?:^| )[aikosuvz]$/i.test(text.slice(0,i))&&text.slice(0,i).split(' ').length>1&&text.slice(i+1).split(' ').length>1);
@@ -33,7 +34,7 @@ const server=http.createServer((req,res)=>{
     res.setHeader('Content-Type','application/json');res.end(JSON.stringify(captions[12]));return;
   }
   if(name==='/content-v2.json'){
-    const data={...source,episodes:source.episodes.filter(e=>numbers.includes(e.number)).map(e=>({...e,enclosure:base+'/episode-'+e.number+'.mp3',...(workingDraft?{captionFile:'captions/episode-'+e.number+'.json'}:{})})),series:[],questions:[]};
+    const data={...source,episodes:source.episodes.filter(e=>numbers.includes(e.number)).map(e=>({...e,enclosure:base+'/episode-'+e.number+'.mp3',...((workingDraft||unregisteredFinal)?{captionFile:'captions/episode-'+e.number+'.json'}:{})})),series:[],questions:[]};
     res.setHeader('Content-Type','application/json');res.end(JSON.stringify(data));return;
   }
   if(name==='/audio-seek-index.json'){
@@ -168,6 +169,7 @@ try{
  const proposals=keys.map(key=>[...totals.values()].filter(c=>c.cue+':'+c.lang===key).sort((a,b)=>a.fail-b.fail||layoutCost(a)-layoutCost(b))[0]);
  const font=await page.evaluate(()=>getComputedStyle(document.getElementById('player-caption-text-v2')).fontFamily);
  const browserVersion=await browser.version();
- await new Promise(resolve=>process.stdout.write(JSON.stringify({episode:12,status:reviewedSegments?'manually-resegmented-text-layout-not-final-aligned-captions':workingDraft?'working-source-groups-not-final-caption-layout':'final-caption-layout',sourceGroupsReviewed:reviewedSegments?.sourceGroupsReviewed,browser:browserVersion,font,checkedCues:layoutCues.length,widths:[360,390],languages:['cs','sk'],scales:[1,1.3],modes:['mp3','video','reader'],findings,proposals},null,2)+'\n',resolve));
+ await new Promise(resolve=>process.stdout.write(JSON.stringify({episode:12,status:reviewedSegments?'manually-resegmented-text-layout-not-final-aligned-captions':workingDraft?'working-source-groups-not-final-caption-layout':unregisteredFinal?'final-aligned-caption-layout-before-registration':'final-caption-layout',sourceGroupsReviewed:reviewedSegments?.sourceGroupsReviewed,browser:browserVersion,font,captionSha256:workingDraft?undefined:crypto.createHash('sha256').update(fs.readFileSync('captions/episode-12.json')).digest('hex'),pageErrors:errors,checkedCues:layoutCues.length,widths:[360,390],languages:['cs','sk'],scales:[1,1.3],modes:['mp3','video','reader'],findings,proposals},null,2)+'\n',resolve));
 assert.equal(findings.length,0,'Mobile caption overflow or avoidable fixed-break orphan');
+assert.equal(errors.length,0,'Caption page JavaScript errors');
 }finally{await browser.close();server.close()}

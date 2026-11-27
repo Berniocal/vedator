@@ -40,6 +40,7 @@ def parse_srt(path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--audio", type=Path, help="Actual episode 12 MP3, if available")
+    parser.add_argument("--allow-unregistered", action="store_true", help="Check source/caption data before registration; never reports release readiness")
     args = parser.parse_args()
     issues, warnings = [], []
     def check(condition, message):
@@ -72,13 +73,17 @@ def main():
     check(final["episode"] == N == draft["episode"], "Episode number mismatch")
     check(final["guid"] == video.get("guid") == draft["guid"], "Podcast GUID mismatch")
     check(final["youtubeId"] == video.get("youtubeId"), "YouTube ID mismatch")
-    check(video.get("captionFile") == f"captions/episode-{N}.json", "Caption mapping not published")
+    registered = video.get("captionFile") == f"captions/episode-{N}.json"
+    check(registered or (args.allow_unregistered and not video.get("captionFile")), "Caption mapping not published or points to an unexpected file")
+    check(hashlib.sha256((CAP/"source"/"episode-12-segmentation-review.tsv").read_bytes()).hexdigest()==edited["review"].get("segmentationTsvSha256"), "Reviewed segmentation hash mismatch")
+    check(edited["review"].get("cueCount")==len(cues), "Final count differs from explicitly reviewed segmentation")
     check(final.get("quality") == "editorial-corrected-forced-aligned",
           "Caption quality/provenance flag must not imply unreviewed ASR is final")
     sha = draft["source"].get("audioSha256")
     check(sha == "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
           "Source differs from authenticated episode 12 original RSS MP3")
-    for name in ("episode-12-extra-checks.sk.json", "episode-12-followup-checks.sk.json",
+    for name in ("episode-12-extra-checks.sk.json", "episode-12-followup-1-checks.sk.json",
+                 "episode-12-followup-2-checks.sk.json", "episode-12-followup-3-checks.sk.json", "episode-12-followup-checks.sk.json",
                  "episode-12-ctc-checks.sk.json"):
         evidence_path = CAP / "source" / name
         check(evidence_path.is_file(), f"Missing independent audio evidence: {name}")
@@ -130,6 +135,15 @@ def main():
         check(audit.get("alignmentText") == edited["cues"][i - 1].get("alignmentText", edited["cues"][i - 1]["text"]["sk"]),
               f"Cue {i}: alignment does not describe the reviewed Slovak text")
         check(bool(audit.get("characters")), f"Cue {i}: missing character alignment evidence")
+        spoken_chars=[c for c in audit.get("characters",[]) if c.get("char")!="|"]
+        check(bool(spoken_chars) and all("char" in c for c in spoken_chars), f"Cue {i}: missing explicit acoustic characters")
+        if spoken_chars:
+            measured=sum(c["score"] for c in spoken_chars)/len(spoken_chars)
+            check(abs(measured-audit["meanCharacterScore"])<.0002, f"Cue {i}: CTC score differs from preserved character scores")
+            check(all(a-.0011<=c["start"]<c["end"]<=b+.0011 for c in spoken_chars), f"Cue {i}: character boundary lies outside its subtitle")
+        for left,right in zip(audit.get("characters",[]),audit.get("characters",[])[1:]):
+            check(left["end"]<=right["start"]+.0011, f"Cue {i}: acoustic characters overlap")
+
         check(not re.search(r"\d", audit.get("alignmentText", "")),
               f"Cue {i}: printed numerals were silently omitted from acoustic alignment")
         for language in ("cs", "sk"):
@@ -188,6 +202,9 @@ def main():
             check(actual == sha, "Source MP3 SHA-256 does not match subtitles")
 
     result = {"ok": not issues, "episode": N, "cueCount": len(cues),
+              "registered": registered, "releaseReady": not issues and registered and not args.allow_unregistered,
+              "captionSha256": hashlib.sha256((CAP/f"episode-{N}.json").read_bytes()).hexdigest(),
+              "editedSha256": hashlib.sha256((CAP/f"episode-{N}.edited.json").read_bytes()).hexdigest(),
               "asrWordsCovered": word_end, "asrWordCount": word_count,
               "duration": duration, "audioSha256": sha,
               "lowCtcScoreCount": sum(v < .35 for v in scores),
