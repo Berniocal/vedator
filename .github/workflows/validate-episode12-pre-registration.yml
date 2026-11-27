@@ -20,7 +20,7 @@ jobs:
     env:
       VEDATOR_EP12_AUDIO: /tmp/vedator-ep12-audio
       VEDATOR_CAPTION_AUDIO: /tmp/vedator-ep12-audio
-      VEDATOR_TEST_DEPS: ${{ runner.temp }}/episode12-layout-deps
+      VEDATOR_TEST_DEPS: /tmp/episode12-layout-deps
     steps:
       - uses: actions/checkout@v4
         with:
@@ -67,7 +67,8 @@ jobs:
       - name: Check every final CZ/SK cue on MP3 video and reader surfaces
         if: steps.output.outputs.ready == 'true'
         run: |
-          VEDATOR_LAYOUT_UNREGISTERED_FINAL=1 node tools/test-episode12-mobile-layout-browser.mjs > captions/source/episode-12-prereg-layout.json
+          mkdir -p captions/source/episode-12-mobile-screenshots
+          VEDATOR_LAYOUT_SCREENSHOTS=captions/source/episode-12-mobile-screenshots VEDATOR_LAYOUT_UNREGISTERED_FINAL=1 node tools/test-episode12-mobile-layout-browser.mjs > captions/source/episode-12-prereg-layout.json
           cat captions/source/episode-12-prereg-layout.json
       - name: Record actual successful data and layout verification
         if: steps.output.outputs.ready == 'true'
@@ -93,6 +94,7 @@ jobs:
           for path in captions/source/episode-12-prereg-validation.json captions/source/episode-12-prereg-layout.json captions/episode-12.review.json; do
             if test -s "$path"; then git add "$path"; fi
           done
+          if test -d captions/source/episode-12-mobile-screenshots; then git add captions/source/episode-12-mobile-screenshots; fi
           if ! git diff --cached --quiet; then
             git commit -m "Preserve actual episode 12 pre-registration validation results"
             saved=0

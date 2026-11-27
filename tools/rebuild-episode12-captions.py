@@ -86,7 +86,8 @@ def main():
     rechecks=[]
     # Align connected overlap clusters with neighboring full utterances.
     # Pair-only windows can steal each other's edge phonemes and oscillate.
-    for attempt in range(5):
+    touched=[]
+    for attempt in range(8):
         bad=[i for i in range(1,len(audits)) if audits[i]['start']<audits[i-1]['end']]
         if not bad:break
         clusters=[]
@@ -94,6 +95,14 @@ def main():
             lo=max(0,i-3);hi=min(len(audits),i+3)
             if clusters and lo<=clusters[-1][1]:clusters[-1][1]=max(hi,clusters[-1][1])
             else:clusters.append([lo,hi])
+        # Keep earlier clusters connected when an updated edge reaches a neighbor.
+        # Otherwise alternating local windows can move the same phoneme back and forth.
+        expanded=sorted(clusters+touched)
+        clusters=[]
+        for lo,hi in expanded:
+            if clusters and lo<=clusters[-1][1]:clusters[-1][1]=max(hi,clusters[-1][1])
+            else:clusters.append([lo,hi])
+        touched=[x[:] for x in clusters]
         for lo,hi in clusters:
             old=audits[lo:hi]
             a=min(r['start'] for r in old)-.35;b=max(r['end'] for r in old)+.35
