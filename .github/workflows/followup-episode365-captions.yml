@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        part: [followup-0, followup-1, followup-2]
+        part: [followup-2]
     env:
       VEDATOR_BATCH_AUDIO: /tmp/vedator-youtube-batch-audio
       HF_HUB_DISABLE_TELEMETRY: '1'
@@ -90,3 +90,4 @@ jobs:
           git commit -m 'Preserve two-model no-VAD evidence for episode 365 editorial decisions'
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
+# Reuse cached checks; only the final low-confidence short response is new.

@@ -218,6 +218,15 @@
       "groups": [],
       "language": "en",
       "reason": "Verify missing English sentence in a source-caption gap."
+    },
+    {
+      "start": 1155.5,
+      "end": 1163,
+      "groups": [
+        156
+      ],
+      "language": "sk",
+      "reason": "Final gate: verify a very short Uhm response with low CTC average; no new speech is inferred."
     }
   ]
 }
