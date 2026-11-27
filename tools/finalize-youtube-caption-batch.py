@@ -124,7 +124,7 @@ def bilingual_parts(sk_words, cs_words, word_times):
 def reviewed_groups(number):
     review, groups = audio.editorial(number)
     cs = batch.read(SOURCE/f'episode-{number}-youtube-czech-editorial-review.json')
-    draft_path = SOURCE/f'episode-{number}-youtube-czech-multislav-draft.json'
+    draft_path = ROOT/cs['sourceDraftFile'] if cs.get('sourceDraftFile') else SOURCE/f'episode-{number}-youtube-czech-multislav-draft.json'
     draft = batch.read(draft_path)
     assert cs['sourceDraftSha256'] == batch.digest(draft_path)
     assert cs['reviewedGroupRanges'] == [[0,len(groups)]]
