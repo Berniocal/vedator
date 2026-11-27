@@ -45,6 +45,8 @@ def main():
         if n==349:
             spoken='Toto bol teda zatiaľ najlepší odná my za to nemôžeme urobiť Áno.'
             proxies.append({'sourceCue':n,'archivedWorkingText':display,'phoneticProxy':spoken,'reason':'Overlapping speech stays marked, including the unconfirmed noun. Endpoint and Áno are evidenced by independent large-v3 through 1518 s.'})
+        if n in (488,501):
+            proxies.append({'sourceCue':n,'archivedWorkingText':display,'phoneticProxy':spoken,'reason':'Primary-ASR filler/interjection is not established by repeated independent large-v3 and neutral CTC; displayed speech is explicitly marked uncertain while the archived phonetic string is retained only to time its source-word span.'})
         if n==518:
             proxies.append({'sourceCue':n,'archivedWorkingText':display,'phoneticProxy':spoken,'reason':'Latest large-v3 omits the interrupted word and neutral CTC gives fihlé. Keep known Ja by som si plus a marker; typu is only the archived phonetic timing proxy.'})
         assert spoken and not re.search(r'\d',spoken),(n,spoken)

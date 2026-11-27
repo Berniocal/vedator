@@ -131,6 +131,24 @@ def main():
     write(OUT/'episode-12.json',result)
     write(S/'episode-12-alignment.json',{'episode':12,'model':MODEL,'audioSha256':SHA,'groupAuditFile':'captions/source/episode-12-group-alignment.json','cues':audits})
     write(S/'episode-12-ctc-checks.sk.json',{'episode':12,'model':MODEL,'audioSha256':SHA,'forcedTranscript':False,'passages':[{'start':g['windowStart'],'end':g['windowEnd'],'text':g['independentCtcDecode']} for g in groups]})
+    # Probe actual subtitle gaps without a forced transcript, including the
+    # pre-roll and final tail. These decodes are acoustic evidence to review,
+    # never invented caption content.
+    gap_file=S/'episode-12-gap-ctc-checks.sk.json'
+    caption_hash=hashlib.sha256((OUT/'episode-12.json').read_bytes()).hexdigest()
+    old_gaps=read(gap_file) if gap_file.exists() else {}
+    if old_gaps.get('captionSha256')!=caption_hash or old_gaps.get('audioSha256')!=SHA:
+        windows=[(0,cues[0]['start'],'pre-roll')]
+        windows += [(cues[i-1]['end'],cues[i]['start'],'between-'+str(i)+'-'+str(i+1)) for i in range(1,len(cues)) if cues[i]['start']-cues[i-1]['end']>1.5]
+        windows.append((cues[-1]['end'],duration,'final-tail'))
+        probes=[]
+        for a,b,label in windows:
+            inp=p(wave[int(a*16000):int(b*16000)],sampling_rate=16000,return_tensors='pt',padding=True)
+            with torch.inference_mode():logits=m(**inp).logits
+            decode=p.batch_decode(logits.argmax(-1))[0]
+            probes.append({'start':round(a,3),'end':round(b,3),'label':label,'text':decode})
+            print('GAP',label,round(a,3),round(b,3),repr(decode),flush=True)
+        write(gap_file,{'episode':12,'model':MODEL,'audioSha256':SHA,'captionSha256':caption_hash,'forcedTranscript':False,'status':'unforced-gap-probes-awaiting-editorial-audit','passages':probes})
     for lang in ['sk','cs']:
         (OUT/f'episode-12.{lang}.srt').write_text('\n\n'.join(f"{i}\n{srt_time(c['start'])} --> {srt_time(c['end'])}\n{c['text'][lang]}" for i,c in enumerate(cues,1))+'\n')
     low=[{k:v for k,v in a.items() if k!='characters'} for a in audits if a['meanCharacterScore']<.35]

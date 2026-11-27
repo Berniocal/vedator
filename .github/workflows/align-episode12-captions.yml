@@ -49,6 +49,8 @@ jobs:
         run: python tools/check-episode12-ctc-endpoints.py
       - name: Align only a completely reviewed bilingual text
         run: |
+          python tools/review-episode12-segmentation.py
+          python tools/prepare-episode12-segmented-captions.py
           test -s captions/episode-12.edited.json
           python tools/rebuild-episode12-captions.py
       - name: Save actual acoustic results without registering unfinished captions
