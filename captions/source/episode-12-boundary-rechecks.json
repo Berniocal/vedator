@@ -1,0 +1,391 @@
+{
+  "episode": 12,
+  "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
+  "audioSha256": "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
+  "rechecks": [
+    {
+      "cues": [
+        278,
+        279
+      ],
+      "window": [
+        637.297,
+        644.143
+      ],
+      "previousBoundaries": [
+        [
+          637.647,
+          640.95
+        ],
+        [
+          640.77,
+          643.793
+        ]
+      ],
+      "newBoundaries": [
+        [
+          637.637,
+          640.7
+        ],
+        [
+          640.76,
+          643.923
+        ]
+      ],
+      "independentCtcDecode": "ovorymžem  podlemna potoje tieža takám pre uditakáma vedčom",
+      "reason": "Resolve a cross-group phonetic boundary with one shared original-audio CTC path."
+    },
+    {
+      "cues": [
+        551,
+        552
+      ],
+      "window": [
+        1242.076,
+        1250.3129999999999
+      ],
+      "previousBoundaries": [
+        [
+          1242.426,
+          1247.83
+        ],
+        [
+          1247.501,
+          1249.963
+        ]
+      ],
+      "newBoundaries": [
+        [
+          1242.437,
+          1246.084
+        ],
+        [
+          1247.507,
+          1249.992
+        ]
+      ],
+      "independentCtcDecode": "axsa rozšírna hotžnal rusuje zalo an de noho úrado ostrane anoplus každá kažbe ďalším množe nie ždy",
+      "reason": "Resolve a cross-group phonetic boundary with one shared original-audio CTC path."
+    },
+    {
+      "cues": [
+        882,
+        883
+      ],
+      "window": [
+        1993.3690000000001,
+        1998.5919999999999
+      ],
+      "previousBoundaries": [
+        [
+          1993.719,
+          1994.94
+        ],
+        [
+          1994.46,
+          1998.242
+        ]
+      ],
+      "newBoundaries": [
+        [
+          1993.711,
+          1994.494
+        ],
+        [
+          1995.177,
+          1998.25
+        ]
+      ],
+      "independentCtcDecode": "idomňov nošej history  v prtna som storoči bol bol hanpavýrus ktor",
+      "reason": "Resolve a cross-group phonetic boundary with one shared original-audio CTC path."
+    },
+    {
+      "cues": [
+        952,
+        953
+      ],
+      "window": [
+        2150.029,
+        2152.911
+      ],
+      "previousBoundaries": [
+        [
+          2150.379,
+          2151.62
+        ],
+        [
+          2151.54,
+          2152.561
+        ]
+      ],
+      "newBoundaries": [
+        [
+          2150.049,
+          2151.48
+        ],
+        [
+          2151.561,
+          2152.911
+        ]
+      ],
+      "independentCtcDecode": "chrtiana dobre k čo ma medďalšo mysmi",
+      "reason": "Resolve a cross-group phonetic boundary with one shared original-audio CTC path."
+    },
+    {
+      "cues": [
+        1161,
+        1162
+      ],
+      "window": [
+        2649.2490000000003,
+        2652.892
+      ],
+      "previousBoundaries": [
+        [
+          2649.599,
+          2651.08
+        ],
+        [
+          2650.8,
+          2652.542
+        ]
+      ],
+      "newBoundaries": [
+        [
+          2649.591,
+          2651.06
+        ],
+        [
+          2651.081,
+          2652.55
+        ]
+      ],
+      "independentCtcDecode": "novrodem cou blo zaočkonaných priebov prlich paroku života",
+      "reason": "Resolve a cross-group phonetic boundary with one shared original-audio CTC path."
+    },
+    {
+      "cues": [
+        279,
+        280
+      ],
+      "window": [
+        640.41,
+        645.524
+      ],
+      "previousBoundaries": [
+        [
+          640.76,
+          643.923
+        ],
+        [
+          643.893,
+          645.174
+        ]
+      ],
+      "newBoundaries": [
+        [
+          640.771,
+          643.819
+        ],
+        [
+          643.9,
+          645.203
+        ]
+      ],
+      "independentCtcDecode": "tiežo takáam pre uditakám vedz čoin polomňovo pomahaa",
+      "reason": "Resolve a cross-group phonetic boundary with one shared original-audio CTC path."
+    },
+    {
+      "cues": [
+        951,
+        952
+      ],
+      "window": [
+        2147.987,
+        2151.83
+      ],
+      "previousBoundaries": [
+        [
+          2148.337,
+          2150.319
+        ],
+        [
+          2150.049,
+          2151.48
+        ]
+      ],
+      "newBoundaries": [
+        [
+          2148.309,
+          2150.321
+        ],
+        [
+          2150.381,
+          2151.629
+        ]
+      ],
+      "independentCtcDecode": "ricky to so si užmohli všímimna sibal súcha či an dobre",
+      "reason": "Resolve a cross-group phonetic boundary with one shared original-audio CTC path."
+    },
+    {
+      "cues": [
+        953,
+        954
+      ],
+      "window": [
+        2151.2110000000002,
+        2154.4719999999998
+      ],
+      "previousBoundaries": [
+        [
+          2151.561,
+          2152.911
+        ],
+        [
+          2152.621,
+          2154.122
+        ]
+      ],
+      "newBoundaries": [
+        [
+          2151.533,
+          2152.58
+        ],
+        [
+          2152.62,
+          2154.15
+        ]
+      ],
+      "independentCtcDecode": "an dobre k čo má medďalšo mysom siže toto je taká bud",
+      "reason": "Resolve a cross-group phonetic boundary with one shared original-audio CTC path."
+    },
+    {
+      "cues": [
+        952,
+        953
+      ],
+      "window": [
+        2150.031,
+        2152.93
+      ],
+      "previousBoundaries": [
+        [
+          2150.381,
+          2151.629
+        ],
+        [
+          2151.533,
+          2152.58
+        ]
+      ],
+      "newBoundaries": [
+        [
+          2150.051,
+          2151.48
+        ],
+        [
+          2151.541,
+          2152.89
+        ]
+      ],
+      "independentCtcDecode": "chrčiana dobre k čo ma medďalšo mysom s",
+      "reason": "Resolve a cross-group phonetic boundary with one shared original-audio CTC path."
+    },
+    {
+      "cues": [
+        951,
+        952
+      ],
+      "window": [
+        2147.9590000000003,
+        2151.83
+      ],
+      "previousBoundaries": [
+        [
+          2148.309,
+          2150.321
+        ],
+        [
+          2150.051,
+          2151.48
+        ]
+      ],
+      "newBoundaries": [
+        [
+          2148.32,
+          2150.326
+        ],
+        [
+          2150.386,
+          2151.609
+        ]
+      ],
+      "independentCtcDecode": "ricky to so si užmohli všímimna sipolo súchači ana dobre",
+      "reason": "Resolve a cross-group phonetic boundary with one shared original-audio CTC path."
+    },
+    {
+      "cues": [
+        953,
+        954
+      ],
+      "window": [
+        2151.1910000000003,
+        2154.5
+      ],
+      "previousBoundaries": [
+        [
+          2151.541,
+          2152.89
+        ],
+        [
+          2152.62,
+          2154.15
+        ]
+      ],
+      "newBoundaries": [
+        [
+          2151.532,
+          2152.575
+        ],
+        [
+          2152.615,
+          2154.139
+        ]
+      ],
+      "independentCtcDecode": "an dobre k čo má medďalšo mysom siže toto je taká budn",
+      "reason": "Resolve a cross-group phonetic boundary with one shared original-audio CTC path."
+    },
+    {
+      "cues": [
+        952,
+        953
+      ],
+      "window": [
+        2150.036,
+        2152.9249999999997
+      ],
+      "previousBoundaries": [
+        [
+          2150.386,
+          2151.609
+        ],
+        [
+          2151.532,
+          2152.575
+        ]
+      ],
+      "newBoundaries": [
+        [
+          2150.036,
+          2151.48
+        ],
+        [
+          2151.541,
+          2152.744
+        ]
+      ],
+      "independentCtcDecode": "chači ana dobre k čo ma medďalšo mysms",
+      "reason": "Resolve a cross-group phonetic boundary with one shared original-audio CTC path."
+    }
+  ]
+}
