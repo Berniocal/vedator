@@ -1,11 +1,5 @@
 name: Review episode 365 disputed source speech
 on:
-  push:
-    branches: [content/episode-365-20261127]
-    paths:
-      - tools/review-youtube-caption-batch-audio.py
-      - .github/workflows/review-episode365-captions.yml
-      - captions/source/episode-36*-youtube-editorial-review.json
   workflow_dispatch:
 permissions:
   contents: write
