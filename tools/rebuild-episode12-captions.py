@@ -79,21 +79,27 @@ def main():
             item={**g,'windowStart':a,'windowEnd':b,'signature':signature,'independentCtcDecode':decode,'cues':rows}
         for row in item['cues']:audits[row['cue']-1]=row
         groups.append(item)
-        write(cache_file,{'episode':12,'model':MODEL,'audioSha256':SHA,'status':'actual-group-character-alignment-before-boundary-review','groups':groups})
+        if signature not in cache:write(cache_file,{'episode':12,'model':MODEL,'audioSha256':SHA,'status':'actual-group-character-alignment-before-boundary-review','groups':groups})
         print('GROUP',g['group'],'/',len(edited['alignmentGroups']),round(a,2),round(b,2),'lowest',min(x['meanCharacterScore'] for x in item['cues']),flush=True)
     assert all(audits)
+    write(cache_file,{'episode':12,'model':MODEL,'audioSha256':SHA,'status':'actual-group-character-alignment-before-boundary-review','groups':groups})
     rechecks=[]
-    # One shared acoustic path resolves overlaps across separately decoded groups.
-    # No global offset, fabricated timestamps or silent monotonic clamping.
+    # Align connected overlap clusters with neighboring full utterances.
+    # Pair-only windows can steal each other's edge phonemes and oscillate.
     for attempt in range(5):
         bad=[i for i in range(1,len(audits)) if audits[i]['start']<audits[i-1]['end']]
         if not bad:break
+        clusters=[]
         for i in bad:
-            old=[audits[i-1],audits[i]]
+            lo=max(0,i-3);hi=min(len(audits),i+3)
+            if clusters and lo<=clusters[-1][1]:clusters[-1][1]=max(hi,clusters[-1][1])
+            else:clusters.append([lo,hi])
+        for lo,hi in clusters:
+            old=audits[lo:hi]
             a=min(r['start'] for r in old)-.35;b=max(r['end'] for r in old)+.35
-            rows,decode=align_block([i-1,i],a,b)
-            audits[i-1],audits[i]=rows
-            rechecks.append({'cues':[i,i+1],'window':[max(0,a),min(duration,b)],'previousBoundaries':[[r['start'],r['end']] for r in old],'newBoundaries':[[r['start'],r['end']] for r in rows],'independentCtcDecode':decode,'reason':'Resolve a cross-group phonetic boundary with one shared original-audio CTC path.'})
+            rows,decode=align_block(list(range(lo,hi)),a,b)
+            audits[lo:hi]=rows
+            rechecks.append({'cues':list(range(lo+1,hi+1)),'window':[max(0,a),min(duration,b)],'previousBoundaries':[[r['start'],r['end']] for r in old],'newBoundaries':[[r['start'],r['end']] for r in rows],'independentCtcDecode':decode,'reason':'Resolve a connected cross-group boundary cluster with neighboring full utterances on one shared original-audio CTC path; no time clamping or global shift.'})
     write(S/'episode-12-boundary-rechecks.json',{'episode':12,'model':MODEL,'audioSha256':SHA,'rechecks':rechecks})
     assert all(audits[i]['start']>=audits[i-1]['end'] for i in range(1,len(audits))),[(i+1,audits[i-1]['end'],audits[i]['start']) for i in range(1,len(audits)) if audits[i]['start']<audits[i-1]['end']]
     cues=[]
