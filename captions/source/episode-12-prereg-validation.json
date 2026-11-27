@@ -1,26 +1,22 @@
 {
-  "ok": false,
+  "ok": true,
   "episode": 12,
   "cueCount": 1271,
   "registered": false,
   "releaseReady": false,
-  "captionSha256": "732ebbff51fd79f856be352f2c97fab9f076a8ae7c74ba31b8ba26b03dcd7ff5",
-  "editedSha256": "1dbaefe559005fd9022e7ec316ead0510e8384ec7d36b3aae66f30090089926f",
+  "captionSha256": "3f2ef940f4bd0cba8551e4baf8660fd8cebeb9998f16d9aa68ccf7c6cfae1310",
+  "editedSha256": "a7f7878a0a5f7b5abc3753999d9d1cbd367ff09714074806059bf40452803bc4",
   "asrWordsCovered": 6790,
   "asrWordCount": 6790,
   "duration": 2911.5298125,
   "audioSha256": "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
-  "lowCtcScoreCount": 5,
-  "documentedLowScoreExceptions": 5,
+  "lowCtcScoreCount": 4,
+  "documentedLowScoreExceptions": 4,
+  "fastCueLanguageVariants": 152,
+  "fastCueCount": 102,
   "warnings": [
-    "154 cues exceed 25 characters per second"
+    "152 cue/language variants across 102 cues exceed 25 characters per second"
   ],
-  "issues": [
-    "Cue 553: unresolved low CTC score",
-    "Cue 728: unresolved low CTC score",
-    "Cue 952: unresolved low CTC score",
-    "Cue 979: unresolved low CTC score",
-    "Cue 1102: unresolved low CTC score"
-  ],
+  "issues": [],
   "caution": "Automated structure checks do not prove accuracy of spoken text or YouTube/MP3 acoustic sync."
 }

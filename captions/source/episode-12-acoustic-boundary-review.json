@@ -59,6 +59,8 @@
       "cue": 553,
       "start": 1250.663,
       "end": 1251.264,
+      "asrStart": 1249.98,
+      "asrEnd": 1251.24,
       "meanCharacterScore": 0.3317,
       "alignmentText": "Niekto by mohol povedať,",
       "text": {
@@ -235,94 +237,52 @@
           "score": 0.0
         }
       ],
-      "independentAsr": []
-    },
-    {
-      "cue": 728,
-      "start": 1634.369,
-      "end": 1636.052,
-      "meanCharacterScore": 0.343,
-      "alignmentText": "vau.",
-      "text": {
-        "sk": "Wow.",
-        "cs": "Wow."
-      },
-      "asrWordRange": [
-        3928,
-        3929
-      ],
-      "groupCtcDecode": [
-        "noakto bov nauzoj n výciak dolneznamochhtúachečítusu"
-      ],
-      "characters": [
-        {
-          "token": 22,
-          "char": "v",
-          "start": 1634.369,
-          "end": 1634.389,
-          "score": 0.0077
-        },
-        {
-          "token": 1,
-          "char": "a",
-          "start": 1635.832,
-          "end": 1635.852,
-          "score": 0.9716
-        },
-        {
-          "token": 21,
-          "char": "u",
-          "start": 1636.032,
-          "end": 1636.052,
-          "score": 0.0498
-        }
-      ],
       "independentAsr": [
         {
-          "file": "captions/source/episode-12-extra-checks.sk.json",
-          "start": 1634.94,
-          "end": 1639.1,
-          "reason": "speech-in-ASR-gap",
-          "priority": 2.1599999999998545,
-          "segments": [
-            {
-              "start": 1634.94,
-              "end": 1635.78,
-              "text": "Wow."
-            }
-          ]
-        },
-        {
-          "file": "captions/source/episode-12-followup-1-checks.sk.json",
-          "start": 1634.0,
-          "end": 1643.0,
+          "file": "captions/source/episode-12-followup-6-checks.sk.json",
+          "start": 1247.0,
+          "end": 1255.0,
           "reason": "editorial-review",
           "priority": 1,
           "segments": [
             {
-              "start": 1634.0,
-              "end": 1634.3,
-              "text": "s náma."
+              "start": 1247.0,
+              "end": 1249.96,
+              "text": "plus každé ďalšie množenie."
             },
             {
-              "start": 1635.34,
-              "end": 1635.74,
-              "text": "Wow."
+              "start": 1250.42,
+              "end": 1252.96,
+              "text": "Niekto by mohol povedať, že nechajme nech ten vírus zostanú všetci,"
             },
             {
-              "start": 1637.76,
-              "end": 1638.98,
-              "text": "Či tu sú?"
+              "start": 1253.02,
+              "end": 1254.86,
+              "text": "tá umrtnosť nie je taká veľká, vyliečime sa."
+            }
+          ]
+        },
+        {
+          "file": "captions/source/episode-12-followup-checks.sk.json",
+          "start": 1247.0,
+          "end": 1255.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 1247.0,
+              "end": 1249.96,
+              "text": "plus každé ďalšie množenie."
             },
             {
-              "start": 1639.42,
-              "end": 1641.46,
-              "text": "Dobre, aby sme"
+              "start": 1250.42,
+              "end": 1252.96,
+              "text": "Niekto by mohol povedať, že nechajme nech ten vírus zostanú všetci,"
             },
             {
-              "start": 1641.46,
-              "end": 1642.98,
-              "text": "sa posunuli..."
+              "start": 1253.02,
+              "end": 1254.86,
+              "text": "tá umrtnosť nie je taká veľká, vyliečime sa."
             }
           ]
         }
@@ -332,11 +292,13 @@
       "cue": 952,
       "start": 2150.38,
       "end": 2151.462,
+      "asrStart": 2150.4,
+      "asrEnd": 2151.42,
       "meanCharacterScore": 0.1341,
       "alignmentText": "takže... Áno.",
       "text": {
-        "sk": "takže… Áno.",
-        "cs": "takže… Ano."
+        "sk": "[Nezrozumiteľné.] Áno.",
+        "cs": "[Nesrozumitelné.] Ano."
       },
       "asrWordRange": [
         5119,
@@ -441,31 +403,30 @@
           ]
         },
         {
-          "file": "captions/source/episode-12-followup-checks.sk.json",
-          "start": 2143.0,
-          "end": 2158.0,
+          "file": "captions/source/episode-12-followup-6-checks.sk.json",
+          "start": 2149.9,
+          "end": 2152.5,
           "reason": "editorial-review",
           "priority": 1,
           "segments": [
             {
-              "start": 2143.0,
-              "end": 2145.56,
-              "text": "Akože tak bledne to v porovnaní trošku."
-            },
+              "start": 2149.9,
+              "end": 2152.48,
+              "text": "snuchači. Čo máme ďalšie?"
+            }
+          ]
+        },
+        {
+          "file": "captions/source/episode-12-followup-checks.sk.json",
+          "start": 2149.9,
+          "end": 2152.5,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
             {
-              "start": 2146.18,
-              "end": 2150.24,
-              "text": "Áno. A nejdeme chronologicky, to ste si už mohli všimnúť na svojho slúchači."
-            },
-            {
-              "start": 2151.48,
-              "end": 2154.18,
-              "text": "Čo máme ďalšie? Myslím si, že toto je taká"
-            },
-            {
-              "start": 2154.18,
-              "end": 2156.66,
-              "text": "buď najznamejšia alebo druhá najznamejšia epidémia."
+              "start": 2149.9,
+              "end": 2152.48,
+              "text": "snuchači. Čo máme ďalšie?"
             }
           ]
         }
@@ -475,11 +436,13 @@
       "cue": 979,
       "start": 2207.162,
       "end": 2208.144,
+      "asrStart": 2206.76,
+      "asrEnd": 2208.22,
       "meanCharacterScore": 0.3252,
       "alignmentText": "Áno, negatívny marketing.",
       "text": {
-        "sk": "Áno, negatívny marketing.",
-        "cs": "Ano, negativní marketing."
+        "sk": "Áno, [nezrozumiteľné].",
+        "cs": "Ano, [nesrozumitelné]."
       },
       "asrWordRange": [
         5235,
@@ -724,6 +687,34 @@
               "text": "španielskú."
             }
           ]
+        },
+        {
+          "file": "captions/source/episode-12-followup-6-checks.sk.json",
+          "start": 2205.5,
+          "end": 2209.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 2205.5,
+              "end": 2208.78,
+              "text": "Ano, a začala..."
+            }
+          ]
+        },
+        {
+          "file": "captions/source/episode-12-followup-checks.sk.json",
+          "start": 2205.5,
+          "end": 2209.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 2205.5,
+              "end": 2208.78,
+              "text": "Ano, a začala..."
+            }
+          ]
         }
       ]
     },
@@ -731,6 +722,8 @@
       "cue": 1102,
       "start": 2491.867,
       "end": 2492.808,
+      "asrStart": 2491.37,
+      "asrEnd": 2492.83,
       "meanCharacterScore": 0.3423,
       "alignmentText": "Ďalšia zlá vec,",
       "text": {
@@ -844,7 +837,1386 @@
           "score": 0.0041
         }
       ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-6-checks.sk.json",
+          "start": 2489.0,
+          "end": 2497.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 2489.0,
+              "end": 2495.72,
+              "text": "Afriky ďalšia zlá vec čo spôsobila kolonizácia Afriky neveriteľné"
+            }
+          ]
+        },
+        {
+          "file": "captions/source/episode-12-followup-checks.sk.json",
+          "start": 2489.0,
+          "end": 2497.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 2489.0,
+              "end": 2495.72,
+              "text": "Afriky ďalšia zlá vec čo spôsobila kolonizácia Afriky neveriteľné"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "largeStartChanges": [
+    {
+      "cue": 35,
+      "start": 98.121,
+      "end": 100.206,
+      "asrStart": 96.59,
+      "asrEnd": 100.21,
+      "meanCharacterScore": 0.7375,
+      "alignmentText": "Z toho asi tri % nakazených ľudí",
+      "text": {
+        "sk": "Z toho asi 3 % nakazených ľudí",
+        "cs": "Z toho asi 3 % nakažených lidí"
+      },
+      "asrWordRange": [
+        184,
+        191
+      ],
+      "groupCtcDecode": [
+        "a nešnidemi akazemých okolo dvadsaťticíc ľudí pocelom svätestoho a si tri percenta m akazemi h ľudí pej tochorobe podlahly"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-extra-checks.sk.json",
+          "start": 94.59,
+          "end": 99.71,
+          "reason": "low-ASR-confidence",
+          "priority": 0.957,
+          "segments": [
+            {
+              "start": 94.59,
+              "end": 99.69,
+              "text": "okolo 20 tisíc ľudí po celom svete, z toho asi 3% nakazujú."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cue": 45,
+      "start": 122.926,
+      "end": 124.827,
+      "asrStart": 120.3,
+      "asrEnd": 124.89,
+      "meanCharacterScore": 0.6259,
+      "alignmentText": "a aj tá smrteľnosť je strašne vysoká",
+      "text": {
+        "sk": "a aj tá smrteľnosť je strašne vysoká",
+        "cs": "a i ta smrtnost je strašně vysoká"
+      },
+      "asrWordRange": [
+        236,
+        243
+      ],
+      "groupCtcDecode": [
+        "ano makzemi chryku sú vmýlionuch  la o ajta smrťomno zejstrašn výsokaho pri jjí chrypke kecot pak pozrej máte číslav len"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-2-checks.sk.json",
+          "start": 101.0,
+          "end": 128.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 101.0,
+              "end": 101.36,
+              "text": "podláhli."
+            },
+            {
+              "start": 102.28,
+              "end": 104.44,
+              "text": "Vo svete to vyvolalo obrovskú paniku,"
+            },
+            {
+              "start": 104.48,
+              "end": 106.84,
+              "text": "aj napriek tomu, že stále to dá"
+            },
+            {
+              "start": 106.84,
+              "end": 108.04,
+              "text": "ako bledne v porovnaní"
+            },
+            {
+              "start": 108.04,
+              "end": 110.26,
+              "text": "napríklad aj s bežnou sezonou chrípkov,"
+            },
+            {
+              "start": 110.28,
+              "end": 112.74,
+              "text": "ktorá si ročne nakazí viace ľudí"
+            },
+            {
+              "start": 112.74,
+              "end": 114.18,
+              "text": "a zároveň má aj vyššiu"
+            },
+            {
+              "start": 114.18,
+              "end": 115.52,
+              "text": "alebo podobnú smrteľnosť."
+            },
+            {
+              "start": 117.58,
+              "end": 118.78,
+              "text": "Áno, nakazených"
+            },
+            {
+              "start": 118.78,
+              "end": 120.2,
+              "text": "chrípkov sú v miliónoch"
+            },
+            {
+              "start": 121.12,
+              "end": 121.72,
+              "text": "a"
+            },
+            {
+              "start": 122.48,
+              "end": 124.82,
+              "text": "aj tá smrteľnosť je strašne vysoká"
+            },
+            {
+              "start": 124.82,
+              "end": 126.82,
+              "text": "pri chrípke, keď sa tak pozrie"
+            },
+            {
+              "start": 126.82,
+              "end": 127.78,
+              "text": "na tie čísla len."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cue": 149,
+      "start": 364.529,
+      "end": 365.651,
+      "asrStart": 363.2,
+      "asrEnd": 365.6,
+      "meanCharacterScore": 0.894,
+      "alignmentText": "kvapôčková infekcia,",
+      "text": {
+        "sk": "kvapôčková infekcia,",
+        "cs": "kapénkové infekce,"
+      },
+      "asrWordRange": [
+        811,
+        813
+      ],
+      "groupCtcDecode": [
+        "d aforma sa ližšši odvyrusú výrusu nale napr tu byva častotrazol formém  kvapočková infekcia čiže akem malé mikroslinky ktore čloek výkýchne a v nich sa šíria jednotliverýrusy"
+      ],
       "independentAsr": []
+    },
+    {
+      "cue": 163,
+      "start": 394.879,
+      "end": 396.981,
+      "asrStart": 393.77,
+      "asrEnd": 396.95,
+      "meanCharacterScore": 0.7999,
+      "alignmentText": "a napríklad, že či preskakuje",
+      "text": {
+        "sk": "a napríklad, že či preskakuje",
+        "cs": "A například to, jestli přeskakuje"
+      },
+      "asrWordRange": [
+        887,
+        892
+      ],
+      "groupCtcDecode": [
+        "lebo tože sú jednoduché znae že keť bo de len k veľmi malýmutáci tak sa veľmi výrazne môže zmeniť ako vyru sfunguje a napríkladž číi pre sko kuj len medzi zvira tami alebo môže preskočiťej načloveka mierne sa zmeního fungovanie a týmže jednoduchi tah seteto zmeniťu pomerne často"
+      ],
+      "independentAsr": []
+    },
+    {
+      "cue": 167,
+      "start": 402.167,
+      "end": 403.027,
+      "asrStart": 400.87,
+      "asrEnd": 403.03,
+      "meanCharacterScore": 0.7735,
+      "alignmentText": "a tým, že je jednoduchý,",
+      "text": {
+        "sk": "a tým, že je jednoduchý,",
+        "cs": "a protože je jednoduchý,"
+      },
+      "asrWordRange": [
+        906,
+        911
+      ],
+      "groupCtcDecode": [
+        "lebo tože sú jednoduché znae že keť bo de len k veľmi malýmutáci tak sa veľmi výrazne môže zmeniť ako vyru sfunguje a napríkladž číi pre sko kuj len medzi zvira tami alebo môže preskočiťej načloveka mierne sa zmeního fungovanie a týmže jednoduchi tah seteto zmeniťu pomerne často"
+      ],
+      "independentAsr": []
+    },
+    {
+      "cue": 226,
+      "start": 532.372,
+      "end": 535.593,
+      "asrStart": 534.65,
+      "asrEnd": 535.65,
+      "meanCharacterScore": 0.8942,
+      "alignmentText": "Napríklad koronavírusy,",
+      "text": {
+        "sk": "Napríklad koronavírusy,",
+        "cs": "Například koronaviry,"
+      },
+      "asrWordRange": [
+        1207,
+        1209
+      ],
+      "groupCtcDecode": [
+        "a mimochod mimochodom eše podalizmeže sú strašne male napríklad koronavyrusi mezi ktoré platry te movy činsky koronavýrus ale naprdaj sárs alebo mers ktoré v milom desať roči behali posvetetak u nimajú rozmer rádo vo že stolky nano mrou č sú uplneže malinké takmrks ažby so plože neprestaviteľne male vci"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-extra-checks.sk.json",
+          "start": 530.81,
+          "end": 535.65,
+          "reason": "speech-in-ASR-gap",
+          "priority": 1.5020000000000664,
+          "segments": [
+            {
+              "start": 530.81,
+              "end": 535.59,
+              "text": "sú strašne malé, napríklad koronavírusy."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cue": 393,
+      "start": 896.783,
+      "end": 898.685,
+      "asrStart": 894.35,
+      "asrEnd": 894.49,
+      "meanCharacterScore": 0.8551,
+      "alignmentText": "Až na posledné políčko pôjde dvakrát dva,",
+      "text": {
+        "sk": "Až na posledné políčko pôjde dvakrát dva,",
+        "cs": "Až na poslední políčko půjde dvakrát dva,"
+      },
+      "asrWordRange": [
+        2092,
+        2094
+      ],
+      "groupCtcDecode": [
+        "na druhé dve na tretie tva krá dva krádva čiž dva na tretiu na štvrte poličko dva kradva kradva kráva čiž dva na štvrtu  až na posledné poličku pode dva krádva šej siatč štyri krátvi na sobe na dvojka sa ma zosebuuta"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-1-checks.sk.json",
+          "start": 880.0,
+          "end": 922.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 880.0,
+              "end": 882.04,
+              "text": "zdanlivo úplne nesúvisiacú otázku,"
+            },
+            {
+              "start": 882.14,
+              "end": 884.46,
+              "text": "že na prvé políčko"
+            },
+            {
+              "start": 884.46,
+              "end": 886.44,
+              "text": "šachovnice položím jedno zrniečko rýže,"
+            },
+            {
+              "start": 887.2,
+              "end": 887.88,
+              "text": "na druhé dve,"
+            },
+            {
+              "start": 887.98,
+              "end": 890.38,
+              "text": "na tretie dvakrát, dvakrát, dva,"
+            },
+            {
+              "start": 891.14,
+              "end": 892.12,
+              "text": "čiže dva na tretiu,"
+            },
+            {
+              "start": 892.14,
+              "end": 894.46,
+              "text": "na štvrté políčko dvakrát, dvakrát, dvakrát, dva,"
+            },
+            {
+              "start": 894.46,
+              "end": 895.52,
+              "text": "čiže dva na štvrtú."
+            },
+            {
+              "start": 896.12,
+              "end": 897.74,
+              "text": "Až na posledné políčko"
+            },
+            {
+              "start": 897.74,
+              "end": 899.84,
+              "text": "pôjde dvakrát, dva, 64 krát"
+            },
+            {
+              "start": 899.84,
+              "end": 901.5,
+              "text": "vynásobená dvojka sama so sebou."
+            },
+            {
+              "start": 902.18,
+              "end": 903.46,
+              "text": "Takže koľko"
+            },
+            {
+              "start": 903.46,
+              "end": 905.8,
+              "text": "zrniečok rýže bude na tom poslednom"
+            },
+            {
+              "start": 905.8,
+              "end": 907.64,
+              "text": "políčku? No toľko"
+            },
+            {
+              "start": 907.64,
+              "end": 909.68,
+              "text": "zrniečok, že ani ich neexistuje"
+            },
+            {
+              "start": 909.68,
+              "end": 910.9,
+              "text": "na celej planete Zem."
+            },
+            {
+              "start": 910.94,
+              "end": 912.64,
+              "text": "To bude, že"
+            },
+            {
+              "start": 912.64,
+              "end": 915.16,
+              "text": "ja som si to rýchlo hodil teraz do kalkulačky,"
+            },
+            {
+              "start": 915.22,
+              "end": 917.68,
+              "text": "vyhodilo mi to, že to bude zhruba 20-ciferné"
+            },
+            {
+              "start": 917.68,
+              "end": 919.52,
+              "text": "číslo. Čiže"
+            },
+            {
+              "start": 919.52,
+              "end": 921.66,
+              "text": "100 miliardy"
+            },
+            {
+              "start": 921.66,
+              "end": 921.98,
+              "text": "mili..."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cue": 394,
+      "start": 898.925,
+      "end": 901.589,
+      "asrStart": 894.49,
+      "asrEnd": 902.19,
+      "meanCharacterScore": 0.7481,
+      "alignmentText": "šesťdesiatštyri-krát vynásobená dvojka sama so sebou.",
+      "text": {
+        "sk": "64-krát vynásobená dvojka sama so sebou.",
+        "cs": "64krát vynásobená dvojka sama sebou."
+      },
+      "asrWordRange": [
+        2094,
+        2099
+      ],
+      "groupCtcDecode": [
+        "na druhé dve na tretie tva krá dva krádva čiž dva na tretiu na štvrte poličko dva kradva kradva kráva čiž dva na štvrtu  až na posledné poličku pode dva krádva šej siatč štyri krátvi na sobe na dvojka sa ma zosebuuta"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-1-checks.sk.json",
+          "start": 880.0,
+          "end": 922.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 880.0,
+              "end": 882.04,
+              "text": "zdanlivo úplne nesúvisiacú otázku,"
+            },
+            {
+              "start": 882.14,
+              "end": 884.46,
+              "text": "že na prvé políčko"
+            },
+            {
+              "start": 884.46,
+              "end": 886.44,
+              "text": "šachovnice položím jedno zrniečko rýže,"
+            },
+            {
+              "start": 887.2,
+              "end": 887.88,
+              "text": "na druhé dve,"
+            },
+            {
+              "start": 887.98,
+              "end": 890.38,
+              "text": "na tretie dvakrát, dvakrát, dva,"
+            },
+            {
+              "start": 891.14,
+              "end": 892.12,
+              "text": "čiže dva na tretiu,"
+            },
+            {
+              "start": 892.14,
+              "end": 894.46,
+              "text": "na štvrté políčko dvakrát, dvakrát, dvakrát, dva,"
+            },
+            {
+              "start": 894.46,
+              "end": 895.52,
+              "text": "čiže dva na štvrtú."
+            },
+            {
+              "start": 896.12,
+              "end": 897.74,
+              "text": "Až na posledné políčko"
+            },
+            {
+              "start": 897.74,
+              "end": 899.84,
+              "text": "pôjde dvakrát, dva, 64 krát"
+            },
+            {
+              "start": 899.84,
+              "end": 901.5,
+              "text": "vynásobená dvojka sama so sebou."
+            },
+            {
+              "start": 902.18,
+              "end": 903.46,
+              "text": "Takže koľko"
+            },
+            {
+              "start": 903.46,
+              "end": 905.8,
+              "text": "zrniečok rýže bude na tom poslednom"
+            },
+            {
+              "start": 905.8,
+              "end": 907.64,
+              "text": "políčku? No toľko"
+            },
+            {
+              "start": 907.64,
+              "end": 909.68,
+              "text": "zrniečok, že ani ich neexistuje"
+            },
+            {
+              "start": 909.68,
+              "end": 910.9,
+              "text": "na celej planete Zem."
+            },
+            {
+              "start": 910.94,
+              "end": 912.64,
+              "text": "To bude, že"
+            },
+            {
+              "start": 912.64,
+              "end": 915.16,
+              "text": "ja som si to rýchlo hodil teraz do kalkulačky,"
+            },
+            {
+              "start": 915.22,
+              "end": 917.68,
+              "text": "vyhodilo mi to, že to bude zhruba 20-ciferné"
+            },
+            {
+              "start": 917.68,
+              "end": 919.52,
+              "text": "číslo. Čiže"
+            },
+            {
+              "start": 919.52,
+              "end": 921.66,
+              "text": "100 miliardy"
+            },
+            {
+              "start": 921.66,
+              "end": 921.98,
+              "text": "mili..."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cue": 419,
+      "start": 957.641,
+      "end": 960.182,
+      "asrStart": 956.64,
+      "asrEnd": 960.2,
+      "meanCharacterScore": 0.9581,
+      "alignmentText": "a strašne prudko, strašne prudko",
+      "text": {
+        "sk": "a strašne prudko, strašne prudko",
+        "cs": "a strašně prudce, strašně prudce"
+      },
+      "asrWordRange": [
+        2234,
+        2239
+      ],
+      "groupCtcDecode": [
+        "kaži tva sadnuúcato znásoby a strašne prudko strašne prúdko to prebene dov miliar d stamiliard koli to môže začetku sí za dačetkuto nabyhlo veľmi pomalínkiždy sa to len úm ako ke by umocnil len ždi že krádva krádva kradva a kete čísla začli byť veľmi veľke tak dvojnasobene zrazočne byť vel obrovsky prírastok"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-1-checks.sk.json",
+          "start": 937.0,
+          "end": 959.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 937.0,
+              "end": 937.74,
+              "text": "vývoj."
+            },
+            {
+              "start": 939.48,
+              "end": 940.58,
+              "text": "Napríklad, vysvetlím to"
+            },
+            {
+              "start": 940.58,
+              "end": 942.68,
+              "text": "napríklad baktérii, ale podobne to platí aj pre"
+            },
+            {
+              "start": 942.68,
+              "end": 944.34,
+              "text": "vírusy alebo celkovo pre nákazy,"
+            },
+            {
+              "start": 945.02,
+              "end": 946.54,
+              "text": "je, že ak sa baktéria každých"
+            },
+            {
+              "start": 946.54,
+              "end": 948.24,
+              "text": "napríklad 20 minút rozdvojí,"
+            },
+            {
+              "start": 948.88,
+              "end": 950.42,
+              "text": "tak na začiatku máš jednu baktériu,"
+            },
+            {
+              "start": 950.42,
+              "end": 951.72,
+              "text": "za 20 minút dve,"
+            },
+            {
+              "start": 952.46,
+              "end": 954.2,
+              "text": "za 40 minút osem,"
+            },
+            {
+              "start": 955.28,
+              "end": 956.6,
+              "text": "každých 20 minút sa to zná sobi"
+            },
+            {
+              "start": 956.6,
+              "end": 958.66,
+              "text": "a strašne prudko"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cue": 532,
+      "start": 1200.355,
+      "end": 1202.637,
+      "asrStart": 1199.2,
+      "asrEnd": 1202.6,
+      "meanCharacterScore": 0.8515,
+      "alignmentText": "a vznikajú také miestne epidémie,",
+      "text": {
+        "sk": "a vznikajú také miestne epidémie,",
+        "cs": "a vznikají takové místní epidemie,"
+      },
+      "asrWordRange": [
+        2849,
+        2854
+      ],
+      "groupCtcDecode": [
+        "av lastne ke sa výru s rozširy pocilom svetečiže pribeneta pandemiam tak ejkej sa chtedyr spodary potlačiť tako pravde podobne nevýmítiž uplne všate na zemy o nostaňe v dakých mal ložiska h roztruseny a potom zosetantak pomaliky maby a že dvaštyri osem šestná stridsať dva a v znikeu také miestné epidémie pri padňa a ž pandémi ake to doscilný výrus"
+      ],
+      "independentAsr": []
+    },
+    {
+      "cue": 538,
+      "start": 1213.09,
+      "end": 1215.053,
+      "asrStart": 1212.0,
+      "asrEnd": 1215.02,
+      "meanCharacterScore": 0.7553,
+      "alignmentText": "a prežíva postupne v takých malých ložiskách",
+      "text": {
+        "sk": "a prežíva postupne v takých malých ložiskách",
+        "cs": "a postupně přežívá v takových malých ložiscích"
+      },
+      "asrWordRange": [
+        2878,
+        2885
+      ],
+      "groupCtcDecode": [
+        "tže endemický výruske taki vyru story sa v posete usaďuuž na trvalo na zemi a prežíva postupňu v taký majú ložiská h raza párokou alebo každu sezonualebo každých desaťroko sa pripomene"
+      ],
+      "independentAsr": []
+    },
+    {
+      "cue": 620,
+      "start": 1397.345,
+      "end": 1399.286,
+      "asrStart": 1395.93,
+      "asrEnd": 1399.27,
+      "meanCharacterScore": 0.7523,
+      "alignmentText": "že také bacília, že také drobné veci,",
+      "text": {
+        "sk": "že také bacília, že také drobné veci,",
+        "cs": "že takové bacily, že takové drobné věci,"
+      },
+      "asrWordRange": [
+        3323,
+        3330
+      ],
+      "groupCtcDecode": [
+        "a un vtedi urobil matematický model ktorí ktory se za obera al kyahňamiže smišnelebo vtedi rudejšieň vla si nevedeliže že  že dake ba sili aže dak drobné vaci k trena zabiajú ala aj takuž cokom dobré analizoutým ako sa šíria smrťou dív tom začovede daky systém"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-1-checks.sk.json",
+          "start": 1388.0,
+          "end": 1434.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 1389.2,
+              "end": 1390.92,
+              "text": "ktorý sa zaoberal"
+            },
+            {
+              "start": 1390.92,
+              "end": 1391.88,
+              "text": "kiahňami."
+            },
+            {
+              "start": 1393.08,
+              "end": 1395.04,
+              "text": "Čo je smiešné, lebo vtedy ľudia ešte ani"
+            },
+            {
+              "start": 1395.04,
+              "end": 1396.3,
+              "text": "vlastne nevedeli, že"
+            },
+            {
+              "start": 1397.08,
+              "end": 1399.24,
+              "text": "také bacilia, že také drobné veci,"
+            },
+            {
+              "start": 1399.28,
+              "end": 1401.08,
+              "text": "ktoré nás zabijajú, ale aj tak"
+            },
+            {
+              "start": 1401.08,
+              "end": 1402.76,
+              "text": "už celkom dobre analyzoval tým,"
+            },
+            {
+              "start": 1402.86,
+              "end": 1404.54,
+              "text": "ako sa šíria smrte ľudí."
+            },
+            {
+              "start": 1405.8,
+              "end": 1407.06,
+              "text": "V tom začal vidieť aký systém."
+            },
+            {
+              "start": 1408.76,
+              "end": 1411.4,
+              "text": "No a to bolo rok 1766"
+            },
+            {
+              "start": 1411.4,
+              "end": 1413.12,
+              "text": "a potom zase dlho, dlho nič"
+            },
+            {
+              "start": 1413.12,
+              "end": 1415.48,
+              "text": "a začiatkom 20. storočia"
+            },
+            {
+              "start": 1415.48,
+              "end": 1417.04,
+              "text": "už bola vybudovaná solidná"
+            },
+            {
+              "start": 1417.04,
+              "end": 1420.08,
+              "text": "matematika, ľudia vedeli robiť s diferenciálnymi rovnicami"
+            },
+            {
+              "start": 1420.88,
+              "end": 1422.96,
+              "text": "a poštvali teda na epidémie"
+            },
+            {
+              "start": 1422.96,
+              "end": 1426.14,
+              "text": "solidnú matematiku. Takže existuje niečo ako"
+            },
+            {
+              "start": 1426.14,
+              "end": 1429.06,
+              "text": "Kermeko-McEndrickov epidemický model,"
+            },
+            {
+              "start": 1429.9,
+              "end": 1431.68,
+              "text": "ktorý už presne zachytávali také veci, že"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cue": 636,
+      "start": 1439.185,
+      "end": 1441.586,
+      "asrStart": 1438.13,
+      "asrEnd": 1441.59,
+      "meanCharacterScore": 0.8017,
+      "alignmentText": "ako je choroba nákazlivá, ako veľmi sa šíri.",
+      "text": {
+        "sk": "ako je choroba nákazlivá, ako veľmi sa šíri.",
+        "cs": "jak je nemoc nakažlivá, jak moc se šíří."
+      },
+      "asrWordRange": [
+        3408,
+        3416
+      ],
+      "groupCtcDecode": [
+        "ktorúž presne zachytavali takeveci že faktorý ako ako dlhoje infekčná doba choróby akolomy sa  ako je choroba nákazliva akolomy sa šíry a veľmi dobroopysalý vzniknuté epidemy a teda aj navrhovali v ďakotomu ako sa protiťalšíme pidemiam chraniť"
+      ],
+      "independentAsr": []
+    },
+    {
+      "cue": 757,
+      "start": 1699.366,
+      "end": 1701.388,
+      "asrStart": 1698.34,
+      "asrEnd": 1701.35,
+      "meanCharacterScore": 0.5119,
+      "alignmentText": "To je asi najznámejšia epidémia.",
+      "text": {
+        "sk": "To je asi najznámejšia epidémia.",
+        "cs": "To je asi nejznámější epidemie."
+      },
+      "asrWordRange": [
+        4088,
+        4093
+      ],
+      "groupCtcDecode": [
+        "že a vše všeciou ja budú spokojný potom to takaby so vibrálna prkože štrnstom storočí č je na smrť  e a sí najznamejše a si najznámiliže miaoknajznamejšiči že mor  kktorý má nastrosti baktéria  ch toto jatoučie preštam zla aleto jrsinia pestis nego nam nanaprile maňovane imel ak toblone spravne"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-1-checks.sk.json",
+          "start": 1695.0,
+          "end": 1717.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 1695.0,
+              "end": 1697.04,
+              "text": "tak ja by som vybral napríklad, že v 14. storočí"
+            },
+            {
+              "start": 1697.46,
+              "end": 1698.24,
+              "text": "čierna smrť."
+            },
+            {
+              "start": 1698.96,
+              "end": 1700.98,
+              "text": "To je asi najznamejšia"
+            },
+            {
+              "start": 1700.98,
+              "end": 1701.28,
+              "text": "epidémia."
+            },
+            {
+              "start": 1702.9,
+              "end": 1703.8,
+              "text": "Najznamejší, čiže mor,"
+            },
+            {
+              "start": 1704.7,
+              "end": 1706.32,
+              "text": "ktorý má na starosti baktéria."
+            },
+            {
+              "start": 1708.06,
+              "end": 1709.04,
+              "text": "Ja to určite"
+            },
+            {
+              "start": 1709.04,
+              "end": 1711.12,
+              "text": "prečtám zle, ale je to Yersinia pestis."
+            },
+            {
+              "start": 1711.9,
+              "end": 1712.48,
+              "text": "Niekto nám"
+            },
+            {
+              "start": 1712.48,
+              "end": 1715.02,
+              "text": "napíšte na nevaný e-mail, ak to bolo nesprávne."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cue": 837,
+      "start": 1881.768,
+      "end": 1883.67,
+      "asrStart": 1880.56,
+      "asrEnd": 1883.72,
+      "meanCharacterScore": 0.8341,
+      "alignmentText": "a zabila päť až desať miliónov ľudí,",
+      "text": {
+        "sk": "a zabila 5 až 10 miliónov ľudí,",
+        "cs": "a zabila 5 až 10 milionů lidí,"
+      },
+      "asrWordRange": [
+        4507,
+        4514
+      ],
+      "groupCtcDecode": [
+        "bolto výrus  o spravdlne sovšetky  latinčinarum  vário la maior a za bila päť až de sať milujonuu ľudy čo tie sa nejzda ažštak ve lanna lezdah je je to strašno ve lake co   s zoberiže o slovenskou alebo česka republika by mohla biť ju výhladená"
+      ],
+      "independentAsr": []
+    },
+    {
+      "cue": 852,
+      "start": 1920.473,
+      "end": 1922.313,
+      "asrStart": 1919.42,
+      "asrEnd": 1922.34,
+      "meanCharacterScore": 0.8302,
+      "alignmentText": "a pre Rímsku ríšu, cez ktorá.",
+      "text": {
+        "sk": "a pre Rímsku ríšu, [nezrozumiteľné].",
+        "cs": "a pro Římskou říši, [nesrozumitelné]."
+      },
+      "asrWordRange": [
+        4590,
+        4596
+      ],
+      "groupCtcDecode": [
+        "en ale zoberme si to takže rým bou najväčšo mestu ri volamstaroveku aa aav tenmalo miliom obývateľ t muse by zo mre cely rým a ešt le štyrimiujúl ldy k tďe na  naj ešte pár navrcherý mou bym celi postaviťaž cele výzobiat taďže  to buloa obrúska  katastrofo pre amivlasneto drue sto ručiem  a pre rým sku rišu ce sktora aohlavnňoj tam pomahalourčite tže  rým skaryšo bola am o previazeno čo sa týkalu obchodú lacestovaňa aa vlas zširil širila sata epi demia rýchlišie ako kery covech pretym"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-1-checks.sk.json",
+          "start": 1908.0,
+          "end": 1926.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 1909.24,
+              "end": 1913.42,
+              "text": "Ešte pár návrch Rímov by museli postaviť až celé vyzabíjať."
+            },
+            {
+              "start": 1913.6,
+              "end": 1919.34,
+              "text": "Takže to bola obrovská katastrofa pre vlastne to druhé storočie"
+            },
+            {
+              "start": 1919.34,
+              "end": 1922.32,
+              "text": "a pre rímsku ríšu, cez ktorá..."
+            },
+            {
+              "start": 1922.32,
+              "end": 1925.98,
+              "text": "A hlavne aj tam pomáhalo určite to, že rímska ríša bola..."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cue": 856,
+      "start": 1931.078,
+      "end": 1933.459,
+      "asrStart": 1929.9,
+      "asrEnd": 1933.42,
+      "meanCharacterScore": 0.8264,
+      "alignmentText": "a šírila sa tá epidémia",
+      "text": {
+        "sk": "a šírila sa tá epidémia",
+        "cs": "a ta epidemie se šířila"
+      },
+      "asrWordRange": [
+        4614,
+        4619
+      ],
+      "groupCtcDecode": [
+        "en ale zoberme si to takže rým bou najväčšo mestu ri volamstaroveku aa aav tenmalo miliom obývateľ t muse by zo mre cely rým a ešt le štyrimiujúl ldy k tďe na  naj ešte pár navrcherý mou bym celi postaviťaž cele výzobiat taďže  to buloa obrúska  katastrofo pre amivlasneto drue sto ručiem  a pre rým sku rišu ce sktora aohlavnňoj tam pomahalourčite tže  rým skaryšo bola am o previazeno čo sa týkalu obchodú lacestovaňa aa vlas zširil širila sata epi demia rýchlišie ako kery covech pretym"
+      ],
+      "independentAsr": []
+    },
+    {
+      "cue": 893,
+      "start": 2017.995,
+      "end": 2019.676,
+      "asrStart": 2016.58,
+      "asrEnd": 2019.7,
+      "meanCharacterScore": 0.8517,
+      "alignmentText": "a vlastne táto choroba sa prejavovala",
+      "text": {
+        "sk": "a vlastne táto choroba sa prejavovala",
+        "cs": "A vlastně tahle nemoc se projevovala"
+      },
+      "asrWordRange": [
+        4819,
+        4825
+      ],
+      "groupCtcDecode": [
+        "ktorí  v pätne stom storočí bol bol l hantavýru s ktory nemal aš tať vela obetí al choroba ktoru spôso bovala ktorou za bi alij t zvlaštaže sa to dostalovje k to to poto nažo rebrička al spôsobolneč v sa traso značuj že anglicke potenie naebo tro taky dosobne preklad dz sú etink sikne sa albo inkly ingliš sú eink si knes a vlastne tato choroba sa preovala strašne prudky nástupsým to mou bol ajdenstých sym tomou bolo uplneže brutálne potenie a pomerne rýchlo plňo nastale smrť"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-1-checks.sk.json",
+          "start": 1993.0,
+          "end": 2018.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 1993.0,
+              "end": 1994.4,
+              "text": "epidémiu v našej histórii."
+            },
+            {
+              "start": 1994.48,
+              "end": 1996.28,
+              "text": "V 15. storočí bol"
+            },
+            {
+              "start": 1997.5,
+              "end": 1998.96,
+              "text": "hantavírus, ktorý nemal"
+            },
+            {
+              "start": 1998.96,
+              "end": 2000.34,
+              "text": "až tak veľa obetí, ale"
+            },
+            {
+              "start": 2000.34,
+              "end": 2003.0,
+              "text": "choroba, ktorú spôsoboval a ktorou zabíjali"
+            },
+            {
+              "start": 2003.0,
+              "end": 2004.8,
+              "text": "tak zvláštne, že sa to dostalo"
+            },
+            {
+              "start": 2004.8,
+              "end": 2006.5,
+              "text": "aj do tohto nášho rebríčka"
+            },
+            {
+              "start": 2006.5,
+              "end": 2009.0,
+              "text": "a on spôsoboval niečo, čo sa teraz označuje"
+            },
+            {
+              "start": 2009.0,
+              "end": 2010.8,
+              "text": "že anglické potenie, alebo"
+            },
+            {
+              "start": 2010.8,
+              "end": 2012.1,
+              "text": "taký doslovný preklad"
+            },
+            {
+              "start": 2012.1,
+              "end": 2014.32,
+              "text": "z sweating sickness"
+            },
+            {
+              "start": 2014.32,
+              "end": 2016.36,
+              "text": "alebo English sweating sickness"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cue": 992,
+      "start": 2228.949,
+      "end": 2232.652,
+      "asrStart": 2230.06,
+      "asrEnd": 2232.64,
+      "meanCharacterScore": 0.9149,
+      "alignmentText": "lebo nedostatok potravín,",
+      "text": {
+        "sk": "lebo nedostatok potravín,",
+        "cs": "protože nedostatek potravin,"
+      },
+      "asrWordRange": [
+        5297,
+        5300
+      ],
+      "groupCtcDecode": [
+        "idem bola zasežedačlení je v azy je optom svone čo francu sku ah aku chodila dopredu dozadu posvete veľakro mtovala a škým do stale to to smrtelne štádium ale prade provne tomu volokom pomohlae to prosvetal voj na lebo nedostatokpotravím zlehygiíenické podmienky prehuste ne vne ktorých čo siahto sú presne vecy ktoré aj veľka migráciom a ij o prejreslužeňujú hranic  roste vudam namlým pred epidemiem"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-2-checks.sk.json",
+          "start": 2228.0,
+          "end": 2245.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 2228.0,
+              "end": 2229.14,
+              "text": "tá prvá svetová vojna, lebo"
+            },
+            {
+              "start": 2231.46,
+              "end": 2232.46,
+              "text": "nedostatok potravín,"
+            },
+            {
+              "start": 2233.22,
+              "end": 2234.04,
+              "text": "zle hygienické"
+            },
+            {
+              "start": 2234.04,
+              "end": 2235.98,
+              "text": "podmienky, prehústenie"
+            },
+            {
+              "start": 2235.98,
+              "end": 2238.38,
+              "text": "v niektorých častiach, to sú presne veci, ktoré..."
+            },
+            {
+              "start": 2238.38,
+              "end": 2239.48,
+              "text": "A aj veľká migrácia,"
+            },
+            {
+              "start": 2240.46,
+              "end": 2241.46,
+              "text": "prekresľovanie hraníc."
+            },
+            {
+              "start": 2241.62,
+              "end": 2243.72,
+              "text": "To je proste voda na mlyn pre epidémie."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cue": 1041,
+      "start": 2349.497,
+      "end": 2350.777,
+      "asrStart": 2348.2,
+      "asrEnd": 2350.76,
+      "meanCharacterScore": 0.6469,
+      "alignmentText": "aj keď nevidíš symptómy.",
+      "text": {
+        "sk": "aj keď nevidíš symptómy.",
+        "cs": "i když nevidíš příznaky."
+      },
+      "asrWordRange": [
+        5555,
+        5559
+      ],
+      "groupCtcDecode": [
+        "ale somo im jej správne hovoriť o epidemi na kolko to straše dl hy času štrvá au už sa mi zdá aky by sú ľudia svykli na tohai wj aležiť stýma tkďalej a si pandeme o možnosťpravnežšie slokeže to celsvetovo rozširene a sieto stale spravne a stým že ako že nepodaril sa unami potlačiť al ta to d choroba je zakerna sni kokých dôdou za prveje a sym ptomatická znana že sa šírii a ich keď nevyďiš sim tomi kedsnež chrypku a bydižemaš  soplika teplotu takostenež domalsi v povode d slenež kedstnež haivé tak o tom dlhone rieš a mojžšto širiť ďalejže pru  voky problém"
+      ],
+      "independentAsr": []
+    },
+    {
+      "cue": 1123,
+      "start": 2547.057,
+      "end": 2547.577,
+      "asrStart": 2545.76,
+      "asrEnd": 2547.56,
+      "meanCharacterScore": 0.7328,
+      "alignmentText": "a tak ďalej.",
+      "text": {
+        "sk": "a tak ďalej.",
+        "cs": "a tak dále."
+      },
+      "asrWordRange": [
+        5986,
+        5989
+      ],
+      "groupCtcDecode": [
+        "čítalsum j jednu správuže sa dokon caj jedenčlo vek nasväte vyhliečou z haivé a sije to možné ale ak tenlix za fungovalna jednočloveka tak neznamnečtobude patije na ostatnýchlebo kojto ten vý ruspo rychlomutuje pre se to to som so povedže dokoncane lekárichtorého uše tru vali nerozumeli tomu pre čo so výliču ale lany vyličen znemá v sebe už al tu nakazli  s ložku na tk zalej tže  budeme držet palceaby  so podaruov totom m vyličiť s ho tento výrus dobre demenaďav ďa lše rok dvať tisíc de väť"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-2-checks.sk.json",
+          "start": 2522.0,
+          "end": 2553.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 2524.06,
+              "end": 2525.24,
+              "text": "Asi je to možné"
+            },
+            {
+              "start": 2525.24,
+              "end": 2526.56,
+              "text": "ale ak ten lík"
+            },
+            {
+              "start": 2526.56,
+              "end": 2528.18,
+              "text": "zafungoval na jednoho človeka"
+            },
+            {
+              "start": 2528.18,
+              "end": 2530.14,
+              "text": "tak neznamená, že to bude platiť aj na ostatných"
+            },
+            {
+              "start": 2530.14,
+              "end": 2533.18,
+              "text": "lebo kvôli tomu, že ten vírus rýchlo mutuje"
+            },
+            {
+              "start": 2533.18,
+              "end": 2535.08,
+              "text": "Presne, toto som chcel povedať"
+            },
+            {
+              "start": 2535.08,
+              "end": 2537.6,
+              "text": "že dokonca ani lekári, ktorí ho ošetrovali"
+            },
+            {
+              "start": 2537.6,
+              "end": 2538.98,
+              "text": "nerozumeli tomu"
+            },
+            {
+              "start": 2538.98,
+              "end": 2539.92,
+              "text": "prečo sa vyliečil"
+            },
+            {
+              "start": 2539.92,
+              "end": 2541.92,
+              "text": "ale len je vyliečen"
+            },
+            {
+              "start": 2541.92,
+              "end": 2545.72,
+              "text": "nemá v sebe už tú nákazlivú zložku"
+            },
+            {
+              "start": 2546.42,
+              "end": 2547.5,
+              "text": "a tak ďalej"
+            },
+            {
+              "start": 2547.5,
+              "end": 2549.6,
+              "text": "takže budeme držať palce"
+            },
+            {
+              "start": 2549.6,
+              "end": 2551.4,
+              "text": "aby sa podarilo"
+            },
+            {
+              "start": 2551.4,
+              "end": 2551.74,
+              "text": "o tom."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cue": 1139,
+      "start": 2591.889,
+      "end": 2592.669,
+      "asrStart": 2590.85,
+      "asrEnd": 2592.67,
+      "meanCharacterScore": 0.3903,
+      "alignmentText": "A môžeme byť radi,",
+      "text": {
+        "sk": "A môžeme byť radi,",
+        "cs": "A můžeme být rádi,"
+      },
+      "asrWordRange": [
+        6069,
+        6073
+      ],
+      "groupCtcDecode": [
+        "de väď prasica chríbka vyruz ha je dna en jedno totiež veľmi plmňa známe a touž sa dostaveme do tých novinárskych čiaske  sme boli bom bardovaný ha je dnajnjednoto si vaľlmi do bre pamätoma boloto boloto o pravnené akože naho na podlo to podla odha dou de saťaždvadsať prsenť svetovej populácie pričom zom roli statisíceče v porovne zlím čosateľ predvádzal čin si koronavyru stoje uplneže gigant ale muužní vyýraďde sa stým podrov dakový sporiadať"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-2-checks.sk.json",
+          "start": 2580.0,
+          "end": 2614.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 2580.0,
+              "end": 2585.58,
+              "text": "Padlo to podľa odhadov 10 až 20% svetovej populácie, pričom zomreli 100 tisíce."
+            },
+            {
+              "start": 2586.2,
+              "end": 2590.76,
+              "text": "Čiže v porovnaní s tým, čo zatiaľ predvádza čínsky koronavírus, to je úplne, že gigant."
+            },
+            {
+              "start": 2591.38,
+              "end": 2594.28,
+              "text": "A môžeme byť radi, že sa s tým podarilo tako vysporiadať."
+            },
+            {
+              "start": 2596.3,
+              "end": 2601.58,
+              "text": "10 až 20% populácie, v 2009. myslím, že 6 miliard bolo ľudí,"
+            },
+            {
+              "start": 2601.58,
+              "end": 2607.5,
+              "text": "takže sa bavíme o buď 600 miliónoch alebo 1,2 miliardy ľudí,"
+            },
+            {
+              "start": 2607.5,
+              "end": 2613.42,
+              "text": "čo je obrovské číslo a presne ako hovorí sám o 100 tisíce umrti."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cue": 1262,
+      "start": 2883.478,
+      "end": 2885.139,
+      "asrStart": 2882.21,
+      "asrEnd": 2885.17,
+      "meanCharacterScore": 0.7024,
+      "alignmentText": "a všade, kde nájdete dobré podcasty.",
+      "text": {
+        "sk": "a všade, kde nájdete dobré podcasty.",
+        "cs": "a všude, kde najdete dobré podcasty."
+      },
+      "asrWordRange": [
+        6738,
+        6744
+      ],
+      "groupCtcDecode": [
+        "al vydme sám alebo dhočujeme sa pri ťalšom vydaníi v edatorskehu podkasu najdecená zna ju thubeú spolpyfa aj epopločace miá a všadek de najdessiať o pre podkazty močuaj  pozratenmáš  wwedatorebodga space aalebo na š facebokovu výskupinu a budeme radiken na sat podporite cs patrom eknidentmate sa"
+      ],
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-extra-checks.sk.json",
+          "start": 2884.17,
+          "end": 2887.65,
+          "reason": "speech-in-ASR-gap",
+          "priority": 1.0639999999998508,
+          "segments": [
+            {
+              "start": 2884.17,
+              "end": 2887.23,
+              "text": "Ďakujem za pozornosť."
+            }
+          ]
+        }
+      ]
     }
   ],
   "nearLowScores": [
@@ -852,6 +2224,8 @@
       "cue": 1,
       "start": 12.026,
       "end": 13.256,
+      "asrStart": 11.7,
+      "asrEnd": 13.28,
       "meanCharacterScore": 0.406,
       "alignmentText": "tri, štyri. pozoríka",
       "text": {
@@ -916,6 +2290,8 @@
       "cue": 233,
       "start": 550.899,
       "end": 551.339,
+      "asrStart": 550.48,
+      "asrEnd": 551.36,
       "meanCharacterScore": 0.4432,
       "alignmentText": "až by som povedal,",
       "text": {
@@ -960,6 +2336,8 @@
       "cue": 371,
       "start": 844.061,
       "end": 844.281,
+      "asrStart": 843.78,
+      "asrEnd": 844.28,
       "meanCharacterScore": 0.3999,
       "alignmentText": "Jasné.",
       "text": {
@@ -1029,6 +2407,8 @@
       "cue": 373,
       "start": 847.445,
       "end": 848.967,
+      "asrStart": 847.3,
+      "asrEnd": 849.0,
       "meanCharacterScore": 0.416,
       "alignmentText": "A samozrejme nejakým vedeckým…",
       "text": {
@@ -1098,6 +2478,8 @@
       "cue": 399,
       "start": 911.368,
       "end": 912.548,
+      "asrStart": 911.38,
+      "asrEnd": 912.52,
       "meanCharacterScore": 0.3901,
       "alignmentText": "To viem. Presne tak, že to bude,",
       "text": {
@@ -1237,6 +2619,8 @@
       "cue": 653,
       "start": 1478.629,
       "end": 1479.45,
+      "asrStart": 1478.61,
+      "asrEnd": 1479.33,
       "meanCharacterScore": 0.41,
       "alignmentText": "kde sa budú šíriť.",
       "text": {
@@ -1250,12 +2634,73 @@
       "groupCtcDecode": [
         "ali žo vlase ne je tolom vyadrejnej že ako so bude šíriťš ta epidemiáú ču vlastne  malebo vlastné expolsto alm by sme mnáli povedať ale je to vlastne aji  prostriedo nato ako predchádza týmäpidémiomniako zabraniť presňa abo un uneli potomedia poveda ženotak tomto modoli vydimeže týmto miestom sa ta chorobo bude šiyri tak skusme i keď má menne kde ni v je uzavri dake cestytak uzavrime to toubo toto vyzeraby také mestoly sa brušili ná"
       ],
-      "independentAsr": []
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-6-checks.sk.json",
+          "start": 1475.0,
+          "end": 1482.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 1475.0,
+              "end": 1476.64,
+              "text": "také cesty, tak uzavrime tuto,"
+            },
+            {
+              "start": 1476.64,
+              "end": 1478.56,
+              "text": "lebo toto vyzerá byť také miesto,"
+            },
+            {
+              "start": 1478.56,
+              "end": 1479.52,
+              "text": "kde sa budú šíriť na..."
+            },
+            {
+              "start": 1480.06,
+              "end": 1481.68,
+              "text": "Alebo letecké úzly."
+            }
+          ]
+        },
+        {
+          "file": "captions/source/episode-12-followup-checks.sk.json",
+          "start": 1475.0,
+          "end": 1482.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 1475.0,
+              "end": 1476.64,
+              "text": "také cesty, tak uzavrime tuto,"
+            },
+            {
+              "start": 1476.64,
+              "end": 1478.56,
+              "text": "lebo toto vyzerá byť také miesto,"
+            },
+            {
+              "start": 1478.56,
+              "end": 1479.52,
+              "text": "kde sa budú šíriť na..."
+            },
+            {
+              "start": 1480.06,
+              "end": 1481.68,
+              "text": "Alebo letecké úzly."
+            }
+          ]
+        }
+      ]
     },
     {
       "cue": 975,
       "start": 2201.177,
       "end": 2202.218,
+      "asrStart": 2201.14,
+      "asrEnd": 2201.98,
       "meanCharacterScore": 0.4472,
       "alignmentText": "keď si správne spomínam.",
       "text": {
@@ -1335,6 +2780,8 @@
       "cue": 1139,
       "start": 2591.889,
       "end": 2592.669,
+      "asrStart": 2590.85,
+      "asrEnd": 2592.67,
       "meanCharacterScore": 0.3903,
       "alignmentText": "A môžeme byť radi,",
       "text": {
@@ -1394,6 +2841,8 @@
       "cue": 1220,
       "start": 2785.662,
       "end": 2786.782,
+      "asrStart": 2785.56,
+      "asrEnd": 2786.8,
       "meanCharacterScore": 0.424,
       "alignmentText": "kvôli, nechcem povedať,",
       "text": {
@@ -1407,7 +2856,36 @@
       "groupCtcDecode": [
         "prvadleštavec  druadleštavädzie že vela týchto chorôbsa prenáša kuli nej sem pla že nedostatočným hydenickým návykom ale tahloj väci taklo bre tak kôli to muchí uch že ľudomne kedý chybajú bežnýchydienické návyky ako ja nevem zakrývaci u sta prikýchaní keďe človej k chorý alebo keďe v yeho okorník do chorý taki trebaj desaťťkrazden umiť ruky lebo robiľa sa taka študia že ako čaťsto saťčlovek podvedome chiti za tvar aziste ju že v primer dvadsaťťkrát za hodinu sa chyti za tvar ani sitlňov domiš"
       ],
-      "independentAsr": []
+      "independentAsr": [
+        {
+          "file": "captions/source/episode-12-followup-6-checks.sk.json",
+          "start": 2782.0,
+          "end": 2789.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 2782.0,
+              "end": 2788.98,
+              "text": "Veľa týchto chorób sa prenáša kvôli nedostatečným hygienickým návykom."
+            }
+          ]
+        },
+        {
+          "file": "captions/source/episode-12-followup-checks.sk.json",
+          "start": 2782.0,
+          "end": 2789.0,
+          "reason": "editorial-review",
+          "priority": 1,
+          "segments": [
+            {
+              "start": 2782.0,
+              "end": 2788.98,
+              "text": "Veľa týchto chorób sa prenáša kvôli nedostatečným hygienickým návykom."
+            }
+          ]
+        }
+      ]
     }
   ],
   "distributedAnchors": [
@@ -1415,6 +2893,8 @@
       "cue": 1,
       "start": 12.026,
       "end": 13.256,
+      "asrStart": 11.7,
+      "asrEnd": 13.28,
       "meanCharacterScore": 0.406,
       "alignmentText": "tri, štyri. pozoríka",
       "text": {
@@ -1479,6 +2959,8 @@
       "cue": 66,
       "start": 180.909,
       "end": 182.13,
+      "asrStart": 180.81,
+      "asrEnd": 182.11,
       "meanCharacterScore": 0.6693,
       "alignmentText": "zo zvierat?",
       "text": {
@@ -1498,6 +2980,8 @@
       "cue": 147,
       "start": 358.681,
       "end": 360.884,
+      "asrStart": 358.6,
+      "asrEnd": 360.96,
       "meanCharacterScore": 0.7591,
       "alignmentText": "Tá forma sa líši od vírusu k vírusu.",
       "text": {
@@ -1517,6 +3001,8 @@
       "cue": 229,
       "start": 540.455,
       "end": 542.536,
+      "asrStart": 540.51,
+      "asrEnd": 542.49,
       "meanCharacterScore": 0.9098,
       "alignmentText": "ktoré v minulom desaťročí behali po svete,",
       "text": {
@@ -1536,6 +3022,8 @@
       "cue": 313,
       "start": 719.184,
       "end": 721.229,
+      "asrStart": 718.99,
+      "asrEnd": 721.25,
       "meanCharacterScore": 0.9123,
       "alignmentText": "a potom do tej bunky dokážu preniknúť.",
       "text": {
@@ -1590,6 +3078,8 @@
       "cue": 394,
       "start": 898.925,
       "end": 901.589,
+      "asrStart": 894.49,
+      "asrEnd": 902.19,
       "meanCharacterScore": 0.7481,
       "alignmentText": "šesťdesiatštyri-krát vynásobená dvojka sama so sebou.",
       "text": {
@@ -1729,6 +3219,8 @@
       "cue": 473,
       "start": 1081.348,
       "end": 1082.709,
+      "asrStart": 1080.91,
+      "asrEnd": 1082.71,
       "meanCharacterScore": 0.9489,
       "alignmentText": "počtu nakazených osôb.",
       "text": {
@@ -1748,6 +3240,8 @@
       "cue": 558,
       "start": 1258.89,
       "end": 1260.892,
+      "asrStart": 1258.22,
+      "asrEnd": 1260.86,
       "meanCharacterScore": 0.9276,
       "alignmentText": "je priestor pre ten vírus, aby zmutoval.",
       "text": {
@@ -1767,6 +3261,8 @@
       "cue": 636,
       "start": 1439.185,
       "end": 1441.586,
+      "asrStart": 1438.13,
+      "asrEnd": 1441.59,
       "meanCharacterScore": 0.8017,
       "alignmentText": "ako je choroba nákazlivá, ako veľmi sa šíri.",
       "text": {
@@ -1786,6 +3282,8 @@
       "cue": 722,
       "start": 1620.186,
       "end": 1621.787,
+      "asrStart": 1620.2,
+      "asrEnd": 1621.78,
       "meanCharacterScore": 0.8147,
       "alignmentText": "ako proste tá matematika ukazuje.",
       "text": {
@@ -1805,6 +3303,8 @@
       "cue": 803,
       "start": 1798.105,
       "end": 1801.407,
+      "asrStart": 1797.83,
+      "asrEnd": 1801.51,
       "meanCharacterScore": 0.7847,
       "alignmentText": "a to je, že ľudia vyháňali mačky z obydlí,",
       "text": {
@@ -1824,6 +3324,8 @@
       "cue": 877,
       "start": 1979.811,
       "end": 1981.912,
+      "asrStart": 1979.84,
+      "asrEnd": 1981.94,
       "meanCharacterScore": 0.8552,
       "alignmentText": "tak je to väčší problém,",
       "text": {
@@ -1843,6 +3345,8 @@
       "cue": 958,
       "start": 2159.873,
       "end": 2161.135,
+      "asrStart": 2159.61,
+      "asrEnd": 2161.17,
       "meanCharacterScore": 0.7349,
       "alignmentText": "a to je španielska chrípka,",
       "text": {
@@ -1862,6 +3366,8 @@
       "cue": 1038,
       "start": 2340.495,
       "end": 2343.416,
+      "asrStart": 2339.62,
+      "asrEnd": 2343.4,
       "meanCharacterScore": 0.7683,
       "alignmentText": "A táto choroba je zákerná z niekoľkých dôvodov.",
       "text": {
@@ -1896,6 +3402,8 @@
       "cue": 1112,
       "start": 2520.351,
       "end": 2521.312,
+      "asrStart": 2520.23,
+      "asrEnd": 2521.25,
       "meanCharacterScore": 0.8217,
       "alignmentText": "vyliečil z hiv.",
       "text": {
@@ -1915,6 +3423,8 @@
       "cue": 1178,
       "start": 2699.442,
       "end": 2701.244,
+      "asrStart": 2699.38,
+      "asrEnd": 2701.28,
       "meanCharacterScore": 0.8469,
       "alignmentText": "znova očkovať svoje deti.",
       "text": {
@@ -1934,6 +3444,8 @@
       "cue": 1261,
       "start": 2878.854,
       "end": 2882.277,
+      "asrStart": 2878.79,
+      "asrEnd": 2882.21,
       "meanCharacterScore": 0.5572,
       "alignmentText": "Nájdete nás na YouTube, Spotify, Apple Podcasts",
       "text": {
@@ -1957,6 +3469,8 @@
         "cue": 1,
         "start": 12.026,
         "end": 13.256,
+        "asrStart": 11.7,
+        "asrEnd": 13.28,
         "meanCharacterScore": 0.406,
         "alignmentText": "tri, štyri. pozoríka",
         "text": {
@@ -2021,6 +3535,8 @@
         "cue": 2,
         "start": 15.382,
         "end": 18.025,
+        "asrStart": 14.74,
+        "asrEnd": 18.1,
         "meanCharacterScore": 0.8622,
         "alignmentText": "Od vertexov, cez veveričky až po vírusy.",
         "text": {
@@ -2088,6 +3604,8 @@
         "cue": 7,
         "start": 26.316,
         "end": 28.599,
+        "asrStart": 26.26,
+        "asrEnd": 28.5,
         "meanCharacterScore": 0.8313,
         "alignmentText": "Moje meno je Jozef. A ja som Samuel.",
         "text": {
@@ -2152,6 +3670,8 @@
         "cue": 8,
         "start": 30.13,
         "end": 30.731,
+        "asrStart": 29.77,
+        "asrEnd": 30.65,
         "meanCharacterScore": 0.6376,
         "alignmentText": "Ahoj, Samuel,",
         "text": {
@@ -2174,6 +3694,8 @@
         "cue": 23,
         "start": 66.375,
         "end": 69.399,
+        "asrStart": 65.76,
+        "asrEnd": 69.4,
         "meanCharacterScore": 0.7367,
         "alignmentText": "Tak začneme asi takým úplne najzákladnejším.",
         "text": {
@@ -2193,6 +3715,8 @@
         "cue": 24,
         "start": 71.261,
         "end": 73.063,
+        "asrStart": 70.94,
+        "asrEnd": 73.1,
         "meanCharacterScore": 0.8023,
         "alignmentText": "Takže, čo je to ten koronavírus?",
         "text": {
@@ -2215,6 +3739,8 @@
         "cue": 26,
         "start": 76.328,
         "end": 77.649,
+        "asrStart": 76.35,
+        "asrEnd": 77.65,
         "meanCharacterScore": 0.9092,
         "alignmentText": "A prečo je hlavne v správach?",
         "text": {
@@ -2234,6 +3760,8 @@
         "cue": 27,
         "start": 79.901,
         "end": 81.784,
+        "asrStart": 79.84,
+        "asrEnd": 81.78,
         "meanCharacterScore": 0.5676,
         "alignmentText": "Tak koronavírus aktuálne vyvolal",
         "text": {
@@ -2256,6 +3784,8 @@
         "cue": 43,
         "start": 114.287,
         "end": 115.629,
+        "asrStart": 114.23,
+        "asrEnd": 115.61,
         "meanCharacterScore": 0.7404,
         "alignmentText": "alebo podobnú smrteľnosť.",
         "text": {
@@ -2355,6 +3885,8 @@
         "cue": 44,
         "start": 117.541,
         "end": 120.303,
+        "asrStart": 116.64,
+        "asrEnd": 120.3,
         "meanCharacterScore": 0.6172,
         "alignmentText": "Áno, nakazených chrípkou sú v miliónoch",
         "text": {
@@ -2457,6 +3989,8 @@
         "cue": 44,
         "start": 117.541,
         "end": 120.303,
+        "asrStart": 116.64,
+        "asrEnd": 120.3,
         "meanCharacterScore": 0.6172,
         "alignmentText": "Áno, nakazených chrípkou sú v miliónoch",
         "text": {
@@ -2556,6 +4090,8 @@
         "cue": 45,
         "start": 122.926,
         "end": 124.827,
+        "asrStart": 120.3,
+        "asrEnd": 124.89,
         "meanCharacterScore": 0.6259,
         "alignmentText": "a aj tá smrteľnosť je strašne vysoká",
         "text": {
@@ -2658,6 +4194,8 @@
         "cue": 59,
         "start": 156.558,
         "end": 157.459,
+        "asrStart": 156.52,
+        "asrEnd": 157.48,
         "meanCharacterScore": 0.9266,
         "alignmentText": "čo sa má používať",
         "text": {
@@ -2741,6 +4279,8 @@
         "cue": 60,
         "start": 159.739,
         "end": 161.12,
+        "asrStart": 159.46,
+        "asrEnd": 161.16,
         "meanCharacterScore": 0.8355,
         "alignmentText": "alebo vedecké označenie.",
         "text": {
@@ -2827,6 +4367,8 @@
         "cue": 63,
         "start": 168.743,
         "end": 172.145,
+        "asrStart": 168.64,
+        "asrEnd": 172.16,
         "meanCharacterScore": 0.7951,
         "alignmentText": "a asi prešiel z netopierov na ľudí.",
         "text": {
@@ -2891,6 +4433,8 @@
         "cue": 64,
         "start": 173.806,
         "end": 174.906,
+        "asrStart": 173.37,
+        "asrEnd": 174.89,
         "meanCharacterScore": 0.7602,
         "alignmentText": "Ale povedzme si o tom viacej.",
         "text": {
@@ -2958,6 +4502,8 @@
         "cue": 74,
         "start": 194.177,
         "end": 195.339,
+        "asrStart": 194.46,
+        "asrEnd": 195.36,
         "meanCharacterScore": 0.729,
         "alignmentText": "teda pandémia.",
         "text": {
@@ -2977,6 +4523,8 @@
         "cue": 75,
         "start": 196.901,
         "end": 198.865,
+        "asrStart": 196.62,
+        "asrEnd": 198.86,
         "meanCharacterScore": 0.746,
         "alignmentText": "Takže skúsme sa sústrediť na také aspekty,",
         "text": {
@@ -2999,6 +4547,8 @@
         "cue": 90,
         "start": 230.543,
         "end": 231.804,
+        "asrStart": 230.52,
+        "asrEnd": 231.82,
         "meanCharacterScore": 0.9291,
         "alignmentText": "proste malé príšerky.",
         "text": {
@@ -3018,6 +4568,8 @@
         "cue": 91,
         "start": 233.767,
         "end": 235.489,
+        "asrStart": 233.35,
+        "asrEnd": 235.47,
         "meanCharacterScore": 0.9043,
         "alignmentText": "Ale je medzi nimi kľúčový rozdiel.",
         "text": {
@@ -3040,6 +4592,8 @@
         "cue": 131,
         "start": 319.923,
         "end": 322.229,
+        "asrStart": 319.31,
+        "asrEnd": 322.23,
         "meanCharacterScore": 0.8641,
         "alignmentText": "a tie rozmnožené jeho kópie pokračujú ďalej.",
         "text": {
@@ -3059,6 +4613,8 @@
         "cue": 132,
         "start": 324.501,
         "end": 326.363,
+        "asrStart": 324.4,
+        "asrEnd": 326.46,
         "meanCharacterScore": 0.8688,
         "alignmentText": "Pokračujú ďalej, to myslíš",
         "text": {
@@ -3081,6 +4637,8 @@
         "cue": 138,
         "start": 338.738,
         "end": 340.099,
+        "asrStart": 338.64,
+        "asrEnd": 340.12,
         "meanCharacterScore": 0.6882,
         "alignmentText": "a infikujú niekoho ďalšieho.",
         "text": {
@@ -3100,6 +4658,8 @@
         "cue": 139,
         "start": 341.642,
         "end": 342.786,
+        "asrStart": 341.36,
+        "asrEnd": 342.76,
         "meanCharacterScore": 0.8161,
         "alignmentText": "Dobre, tak tu sa dostávame",
         "text": {
@@ -3122,6 +4682,8 @@
         "cue": 152,
         "start": 368.875,
         "end": 371.839,
+        "asrStart": 368.78,
+        "asrEnd": 371.88,
         "meanCharacterScore": 0.8888,
         "alignmentText": "a v nich sa šíria jednotlivé vírusy.",
         "text": {
@@ -3141,6 +4703,8 @@
         "cue": 153,
         "start": 374.841,
         "end": 376.985,
+        "asrStart": 374.58,
+        "asrEnd": 376.98,
         "meanCharacterScore": 0.6843,
         "alignmentText": "Niečo, čo by sme v úvodzovkách mohli nazvať,",
         "text": {
@@ -3163,6 +4727,8 @@
         "cue": 214,
         "start": 501.344,
         "end": 504.209,
+        "asrStart": 501.29,
+        "asrEnd": 504.19,
         "meanCharacterScore": 0.8729,
         "alignmentText": "až do tých úplne najsilnejších antibiotík.",
         "text": {
@@ -3182,6 +4748,8 @@
         "cue": 215,
         "start": 506.201,
         "end": 510.124,
+        "asrStart": 505.76,
+        "asrEnd": 510.14,
         "meanCharacterScore": 0.9703,
         "alignmentText": "Čiže aj baktérie vedia mutovať pomerne rýchlo,",
         "text": {
@@ -3204,6 +4772,8 @@
         "cue": 223,
         "start": 525.178,
         "end": 527.019,
+        "asrStart": 525.12,
+        "asrEnd": 527.1,
         "meanCharacterScore": 0.5814,
         "alignmentText": "nejaké prispôsobovanie u tých baktérií.",
         "text": {
@@ -3223,6 +4793,8 @@
         "cue": 224,
         "start": 528.79,
         "end": 529.991,
+        "asrStart": 529.19,
+        "asrEnd": 529.99,
         "meanCharacterScore": 0.9235,
         "alignmentText": "Mimochodom ešte,",
         "text": {
@@ -3245,6 +4817,8 @@
         "cue": 229,
         "start": 540.455,
         "end": 542.536,
+        "asrStart": 540.51,
+        "asrEnd": 542.49,
         "meanCharacterScore": 0.9098,
         "alignmentText": "ktoré v minulom desaťročí behali po svete,",
         "text": {
@@ -3264,6 +4838,8 @@
         "cue": 230,
         "start": 544.356,
         "end": 546.097,
+        "asrStart": 544.33,
+        "asrEnd": 546.11,
         "meanCharacterScore": 0.9079,
         "alignmentText": "tak oni majú rozmer rádovo,",
         "text": {
@@ -3286,6 +4862,8 @@
         "cue": 232,
         "start": 547.978,
         "end": 549.298,
+        "asrStart": 547.91,
+        "asrEnd": 549.37,
         "meanCharacterScore": 0.8817,
         "alignmentText": "čo sú úplne malinké,",
         "text": {
@@ -3330,6 +4908,8 @@
         "cue": 233,
         "start": 550.899,
         "end": 551.339,
+        "asrStart": 550.48,
+        "asrEnd": 551.36,
         "meanCharacterScore": 0.4432,
         "alignmentText": "až by som povedal,",
         "text": {
@@ -3377,6 +4957,8 @@
         "cue": 268,
         "start": 616.508,
         "end": 617.829,
+        "asrStart": 616.51,
+        "asrEnd": 617.83,
         "meanCharacterScore": 0.8688,
         "alignmentText": "že môže sa rozširovať aj",
         "text": {
@@ -3396,6 +4978,8 @@
         "cue": 269,
         "start": 619.591,
         "end": 621.613,
+        "asrStart": 619.21,
+        "asrEnd": 621.65,
         "meanCharacterScore": 0.7704,
         "alignmentText": "to, že niekto sa dotkne len napríklad",
         "text": {
@@ -3418,6 +5002,8 @@
         "cue": 308,
         "start": 710.528,
         "end": 711.63,
+        "asrStart": 710.47,
+        "asrEnd": 711.59,
         "meanCharacterScore": 0.9158,
         "alignmentText": "s takými chapadielkami.",
         "text": {
@@ -3437,6 +5023,8 @@
         "cue": 309,
         "start": 713.272,
         "end": 714.414,
+        "asrStart": 712.93,
+        "asrEnd": 714.39,
         "meanCharacterScore": 0.7043,
         "alignmentText": "Úlohou tých chápadielok je,",
         "text": {
@@ -3459,6 +5047,8 @@
         "cue": 314,
         "start": 721.95,
         "end": 724.852,
+        "asrStart": 722.33,
+        "asrEnd": 725.06,
         "meanCharacterScore": 0.9013,
         "alignmentText": "A mutácie vlastne spôsobujú,",
         "text": {
@@ -3513,6 +5103,8 @@
         "cue": 315,
         "start": 726.913,
         "end": 728.774,
+        "asrStart": 726.65,
+        "asrEnd": 728.77,
         "meanCharacterScore": 0.8171,
         "alignmentText": "mutácie spôsobuje zmenu genetického kódu",
         "text": {
@@ -3570,6 +5162,8 @@
         "cue": 316,
         "start": 729.034,
         "end": 731.836,
+        "asrStart": 728.77,
+        "asrEnd": 731.81,
         "meanCharacterScore": 0.8565,
         "alignmentText": "a tie gény kódujú formovanie proteínu.",
         "text": {
@@ -3624,6 +5218,8 @@
         "cue": 317,
         "start": 733.377,
         "end": 736.058,
+        "asrStart": 733.1,
+        "asrEnd": 736.04,
         "meanCharacterScore": 0.8553,
         "alignmentText": "A proteíny slúžia vírom okrem iného na to,",
         "text": {
@@ -3681,6 +5277,8 @@
         "cue": 319,
         "start": 737.879,
         "end": 738.92,
+        "asrStart": 737.82,
+        "asrEnd": 738.9,
         "meanCharacterScore": 0.9857,
         "alignmentText": "na rôzne druhy buniek.",
         "text": {
@@ -3700,6 +5298,8 @@
         "cue": 320,
         "start": 740.462,
         "end": 741.887,
+        "asrStart": 740.22,
+        "asrEnd": 741.9,
         "meanCharacterScore": 0.5708,
         "alignmentText": "A teda, keď dôjde k takej mutácii,",
         "text": {
@@ -3722,6 +5322,8 @@
         "cue": 322,
         "start": 743.512,
         "end": 745.318,
+        "asrStart": 743.46,
+        "asrEnd": 745.32,
         "meanCharacterScore": 0.9067,
         "alignmentText": "nové možnosti, kam dokáže preniknúť.",
         "text": {
@@ -3741,6 +5343,8 @@
         "cue": 323,
         "start": 746.932,
         "end": 748.356,
+        "asrStart": 746.53,
+        "asrEnd": 748.37,
         "meanCharacterScore": 0.9195,
         "alignmentText": "Ako v tele svojho hostiteľa,",
         "text": {
@@ -3763,6 +5367,8 @@
         "cue": 380,
         "start": 864.862,
         "end": 867.763,
+        "asrStart": 864.92,
+        "asrEnd": 867.88,
         "meanCharacterScore": 0.8766,
         "alignmentText": "apokalypsy a tak ďalej, čo je skorej také",
         "text": {
@@ -3841,6 +5447,8 @@
         "cue": 381,
         "start": 870.264,
         "end": 873.765,
+        "asrStart": 869.8,
+        "asrEnd": 873.74,
         "meanCharacterScore": 0.7996,
         "alignmentText": "také laické pre ľudí, aby nejako zaujali,",
         "text": {
@@ -3922,6 +5530,8 @@
         "cue": 404,
         "start": 919.274,
         "end": 923.297,
+        "asrStart": 919.27,
+        "asrEnd": 923.25,
         "meanCharacterScore": 0.8492,
         "alignmentText": "Čiže stamiliardy miliárd zrniečok ryže",
         "text": {
@@ -4061,6 +5671,8 @@
         "cue": 405,
         "start": 925.519,
         "end": 926.64,
+        "asrStart": 925.06,
+        "asrEnd": 926.62,
         "meanCharacterScore": 0.9532,
         "alignmentText": "na tom poslednom poličku.",
         "text": {
@@ -4083,6 +5695,8 @@
         "cue": 410,
         "start": 935.776,
         "end": 937.739,
+        "asrStart": 935.38,
+        "asrEnd": 937.74,
         "meanCharacterScore": 0.9096,
         "alignmentText": "čo sa volá, že exponenciálny vývoj.",
         "text": {
@@ -4167,6 +5781,8 @@
         "cue": 411,
         "start": 939.781,
         "end": 941.623,
+        "asrStart": 939.52,
+        "asrEnd": 941.64,
         "meanCharacterScore": 0.7566,
         "alignmentText": "Napríklad, vysvetlím to na príklade baktérií,",
         "text": {
@@ -4254,6 +5870,8 @@
         "cue": 441,
         "start": 1007.75,
         "end": 1008.31,
+        "asrStart": 1007.65,
+        "asrEnd": 1008.31,
         "meanCharacterScore": 0.7617,
         "alignmentText": "Áno, presne.",
         "text": {
@@ -4303,6 +5921,8 @@
         "cue": 442,
         "start": 1011.302,
         "end": 1013.624,
+        "asrStart": 1010.6,
+        "asrEnd": 1013.6,
         "meanCharacterScore": 0.8329,
         "alignmentText": "A toto platí pre niečo,",
         "text": {
@@ -4325,6 +5945,8 @@
         "cue": 465,
         "start": 1060.137,
         "end": 1062.479,
+        "asrStart": 1059.74,
+        "asrEnd": 1062.62,
         "meanCharacterScore": 0.7237,
         "alignmentText": "a z tisícov do desatisícov alebo aj státisícov.",
         "text": {
@@ -4344,6 +5966,8 @@
         "cue": 466,
         "start": 1064.151,
         "end": 1066.813,
+        "asrStart": 1063.91,
+        "asrEnd": 1066.85,
         "meanCharacterScore": 0.6924,
         "alignmentText": "Preto aj to šírenie tých vírusov je zrazu,",
         "text": {
@@ -4366,6 +5990,8 @@
         "cue": 473,
         "start": 1081.348,
         "end": 1082.709,
+        "asrStart": 1080.91,
+        "asrEnd": 1082.71,
         "meanCharacterScore": 0.9489,
         "alignmentText": "počtu nakazených osôb.",
         "text": {
@@ -4385,6 +6011,8 @@
         "cue": 474,
         "start": 1085.141,
         "end": 1085.862,
+        "asrStart": 1084.66,
+        "asrEnd": 1085.88,
         "meanCharacterScore": 0.7731,
         "alignmentText": "A presne je za tým",
         "text": {
@@ -4407,6 +6035,8 @@
         "cue": 483,
         "start": 1099.457,
         "end": 1101.919,
+        "asrStart": 1099.46,
+        "asrEnd": 1101.92,
         "meanCharacterScore": 0.8449,
         "alignmentText": "tak to začne rásť strašne rýchlo.",
         "text": {
@@ -4521,6 +6151,8 @@
         "cue": 484,
         "start": 1103.74,
         "end": 1105.282,
+        "asrStart": 1103.76,
+        "asrEnd": 1105.32,
         "meanCharacterScore": 0.9146,
         "alignmentText": "No a epidémia je teda",
         "text": {
@@ -4638,6 +6270,8 @@
         "cue": 513,
         "start": 1160.758,
         "end": 1161.86,
+        "asrStart": 1160.62,
+        "asrEnd": 1161.82,
         "meanCharacterScore": 0.7546,
         "alignmentText": "asi vo viacerých krajinách.",
         "text": {
@@ -4682,6 +6316,8 @@
         "cue": 514,
         "start": 1163.75,
         "end": 1165.411,
+        "asrStart": 1163.69,
+        "asrEnd": 1165.39,
         "meanCharacterScore": 0.565,
         "alignmentText": "Určite. A predstav si,",
         "text": {
@@ -4729,6 +6365,8 @@
         "cue": 534,
         "start": 1204.059,
         "end": 1205.28,
+        "asrStart": 1204.08,
+        "asrEnd": 1205.3,
         "meanCharacterScore": 0.7857,
         "alignmentText": "ak je to dosť silný vírus.",
         "text": {
@@ -4748,6 +6386,8 @@
         "cue": 535,
         "start": 1207.121,
         "end": 1209.925,
+        "asrStart": 1207.12,
+        "asrEnd": 1209.94,
         "meanCharacterScore": 0.7372,
         "alignmentText": "Takže endemický vírus je taký vírus,",
         "text": {
@@ -4770,6 +6410,8 @@
         "cue": 562,
         "start": 1268.818,
         "end": 1270.66,
+        "asrStart": 1268.82,
+        "asrEnd": 1270.7,
         "meanCharacterScore": 0.7981,
         "alignmentText": "niečo, kopa možností.",
         "text": {
@@ -4789,6 +6431,8 @@
         "cue": 563,
         "start": 1272.321,
         "end": 1273.823,
+        "asrStart": 1272.08,
+        "asrEnd": 1273.58,
         "meanCharacterScore": 0.7509,
         "alignmentText": "Ktoré nechceme, aby sa stalo.",
         "text": {
@@ -4861,6 +6505,8 @@
         "cue": 572,
         "start": 1286.598,
         "end": 1288.259,
+        "asrStart": 1286.44,
+        "asrEnd": 1288.22,
         "meanCharacterScore": 0.8026,
         "alignmentText": "a zároveň aj rozšírenie epidémie,",
         "text": {
@@ -4930,6 +6576,8 @@
         "cue": 573,
         "start": 1289.94,
         "end": 1291.881,
+        "asrStart": 1289.84,
+        "asrEnd": 1291.9,
         "meanCharacterScore": 0.8594,
         "alignmentText": "ono sa za tým skrýva ešte iná matematika",
         "text": {
@@ -5002,6 +6650,8 @@
         "cue": 577,
         "start": 1301.405,
         "end": 1303.565,
+        "asrStart": 1301.36,
+        "asrEnd": 1303.6,
         "meanCharacterScore": 0.7903,
         "alignmentText": "si odsimuluješ, ako veľmi sa šíri choroba,",
         "text": {
@@ -5021,6 +6671,8 @@
         "cue": 578,
         "start": 1305.446,
         "end": 1307.027,
+        "asrStart": 1305.33,
+        "asrEnd": 1307.07,
         "meanCharacterScore": 0.7639,
         "alignmentText": "odhaduješ, aká je nákazlivosť,",
         "text": {
@@ -5043,6 +6695,8 @@
         "cue": 583,
         "start": 1314.67,
         "end": 1315.49,
+        "asrStart": 1314.19,
+        "asrEnd": 1315.49,
         "meanCharacterScore": 0.707,
         "alignmentText": "rozvoju tej choroby.",
         "text": {
@@ -5062,6 +6716,8 @@
         "cue": 584,
         "start": 1317.07,
         "end": 1318.451,
+        "asrStart": 1316.71,
+        "asrEnd": 1318.49,
         "meanCharacterScore": 0.7032,
         "alignmentText": "A toto má celkom peknú históriu,",
         "text": {
@@ -5169,6 +6825,8 @@
         "cue": 598,
         "start": 1344.915,
         "end": 1346.459,
+        "asrStart": 1344.86,
+        "asrEnd": 1346.42,
         "meanCharacterScore": 0.7026,
         "alignmentText": "a snažil sa v tom nájsť taký systém.",
         "text": {
@@ -5273,6 +6931,8 @@
         "cue": 599,
         "start": 1348.071,
         "end": 1349.893,
+        "asrStart": 1347.73,
+        "asrEnd": 1349.89,
         "meanCharacterScore": 0.9606,
         "alignmentText": "A to boli úplne, že také prapočiatky toho,",
         "text": {
@@ -5295,6 +6955,8 @@
         "cue": 603,
         "start": 1356.122,
         "end": 1357.603,
+        "asrStart": 1355.91,
+        "asrEnd": 1357.77,
         "meanCharacterScore": 0.7906,
         "alignmentText": "Ale že taký, taký,",
         "text": {
@@ -5379,6 +7041,8 @@
         "cue": 604,
         "start": 1359.486,
         "end": 1361.088,
+        "asrStart": 1359.37,
+        "asrEnd": 1361.05,
         "meanCharacterScore": 0.8332,
         "alignmentText": "že je za tým proste niečo prirodzené,",
         "text": {
@@ -5466,6 +7130,8 @@
         "cue": 616,
         "start": 1385.9,
         "end": 1388.121,
+        "asrStart": 1385.48,
+        "asrEnd": 1388.04,
         "meanCharacterScore": 0.9185,
         "alignmentText": "A on vtedy urobil matematický model,",
         "text": {
@@ -5585,6 +7251,8 @@
         "cue": 617,
         "start": 1390.102,
         "end": 1391.963,
+        "asrStart": 1389.33,
+        "asrEnd": 1391.99,
         "meanCharacterScore": 0.8824,
         "alignmentText": "ktorý sa zaoberal kiahňami.",
         "text": {
@@ -5707,6 +7375,8 @@
         "cue": 617,
         "start": 1390.102,
         "end": 1391.963,
+        "asrStart": 1389.33,
+        "asrEnd": 1391.99,
         "meanCharacterScore": 0.8824,
         "alignmentText": "ktorý sa zaoberal kiahňami.",
         "text": {
@@ -5826,6 +7496,8 @@
         "cue": 618,
         "start": 1393.544,
         "end": 1394.124,
+        "asrStart": 1393.17,
+        "asrEnd": 1394.13,
         "meanCharacterScore": 0.6591,
         "alignmentText": "Čo je smiešne,",
         "text": {
@@ -5948,6 +7620,8 @@
         "cue": 619,
         "start": 1394.184,
         "end": 1395.805,
+        "asrStart": 1394.21,
+        "asrEnd": 1395.77,
         "meanCharacterScore": 0.6392,
         "alignmentText": "lebo vtedy ľudia ešte ani vlastne nevedeli,",
         "text": {
@@ -6067,6 +7741,8 @@
         "cue": 620,
         "start": 1397.345,
         "end": 1399.286,
+        "asrStart": 1395.93,
+        "asrEnd": 1399.27,
         "meanCharacterScore": 0.7523,
         "alignmentText": "že také bacília, že také drobné veci,",
         "text": {
@@ -6189,6 +7865,8 @@
         "cue": 624,
         "start": 1405.789,
         "end": 1407.15,
+        "asrStart": 1405.77,
+        "asrEnd": 1407.13,
         "meanCharacterScore": 0.7287,
         "alignmentText": "v tom začal vidieť taký systém.",
         "text": {
@@ -6308,6 +7986,8 @@
         "cue": 625,
         "start": 1409.341,
         "end": 1411.863,
+        "asrStart": 1409.14,
+        "asrEnd": 1411.62,
         "meanCharacterScore": 0.6501,
         "alignmentText": "No a to bolo rok tisíc sedemsto šesťdesiatšesť",
         "text": {
@@ -6430,6 +8110,8 @@
         "cue": 659,
         "start": 1489.888,
         "end": 1490.749,
+        "asrStart": 1489.79,
+        "asrEnd": 1490.75,
         "meanCharacterScore": 0.9999,
         "alignmentText": "bude dvesto tisíc.",
         "text": {
@@ -6449,6 +8131,8 @@
         "cue": 660,
         "start": 1494.1,
         "end": 1495.962,
+        "asrStart": 1494.2,
+        "asrEnd": 1495.98,
         "meanCharacterScore": 0.8492,
         "alignmentText": "Správne vedecky by si človek mal počkať",
         "text": {
@@ -6471,6 +8155,8 @@
         "cue": 672,
         "start": 1515.869,
         "end": 1518.078,
+        "asrStart": 1515.8,
+        "asrEnd": 1516.02,
         "meanCharacterScore": 0.627,
         "alignmentText": "odná my za to nemôžeme urobiť Áno.",
         "text": {
@@ -6564,6 +8250,8 @@
         "cue": 673,
         "start": 1519.88,
         "end": 1520.781,
+        "asrStart": 1519.22,
+        "asrEnd": 1520.74,
         "meanCharacterScore": 0.6682,
         "alignmentText": "nie je to naša chyba.",
         "text": {
@@ -6660,6 +8348,8 @@
         "cue": 696,
         "start": 1566.979,
         "end": 1568.8,
+        "asrStart": 1566.9,
+        "asrEnd": 1568.82,
         "meanCharacterScore": 0.9375,
         "alignmentText": "a keď má viac, tak exponenciálne rastú.",
         "text": {
@@ -6679,6 +8369,8 @@
         "cue": 697,
         "start": 1570.741,
         "end": 1571.723,
+        "asrStart": 1570.7,
+        "asrEnd": 1571.74,
         "meanCharacterScore": 0.9149,
         "alignmentText": "No ale problém je,",
         "text": {
@@ -6701,6 +8393,8 @@
         "cue": 701,
         "start": 1578.775,
         "end": 1581.399,
+        "asrStart": 1578.78,
+        "asrEnd": 1581.4,
         "meanCharacterScore": 0.9475,
         "alignmentText": "že niekto je ako keby taký superšíriteľ.",
         "text": {
@@ -6720,6 +8414,8 @@
         "cue": 702,
         "start": 1582.92,
         "end": 1585.662,
+        "asrStart": 1582.5,
+        "asrEnd": 1585.62,
         "meanCharacterScore": 0.9093,
         "alignmentText": "A v prípade sars-u to bol taký doktor,",
         "text": {
@@ -6742,6 +8438,8 @@
         "cue": 726,
         "start": 1628.75,
         "end": 1629.43,
+        "asrStart": 1628.53,
+        "asrEnd": 1629.39,
         "meanCharacterScore": 0.7055,
         "alignmentText": "No, presne tak.",
         "text": {
@@ -6761,6 +8459,8 @@
         "cue": 727,
         "start": 1631.342,
         "end": 1634.289,
+        "asrStart": 1630.82,
+        "asrEnd": 1634.3,
         "meanCharacterScore": 0.7062,
         "alignmentText": "Tak to bol naozaj výťah do neznáma.",
         "text": {
@@ -6813,12 +8513,14 @@
       }
     },
     {
-      "seconds": 2.526,
+      "seconds": 2.58,
       "previous": {
         "cue": 728,
-        "start": 1634.369,
-        "end": 1636.052,
-        "meanCharacterScore": 0.343,
+        "start": 1635.773,
+        "end": 1635.998,
+        "asrStart": 1635.32,
+        "asrEnd": 1635.94,
+        "meanCharacterScore": 0.569,
         "alignmentText": "vau.",
         "text": {
           "sk": "Wow.",
@@ -6830,29 +8532,6 @@
         ],
         "groupCtcDecode": [
           "noakto bov nauzoj n výciak dolneznamochhtúachečítusu"
-        ],
-        "characters": [
-          {
-            "token": 22,
-            "char": "v",
-            "start": 1634.369,
-            "end": 1634.389,
-            "score": 0.0077
-          },
-          {
-            "token": 1,
-            "char": "a",
-            "start": 1635.832,
-            "end": 1635.852,
-            "score": 0.9716
-          },
-          {
-            "token": 21,
-            "char": "u",
-            "start": 1636.032,
-            "end": 1636.052,
-            "score": 0.0498
-          }
         ],
         "independentAsr": [
           {
@@ -6909,11 +8588,13 @@
         "cue": 729,
         "start": 1638.578,
         "end": 1639.079,
+        "asrStart": 1638.1,
+        "asrEnd": 1639.06,
         "meanCharacterScore": 0.6606,
         "alignmentText": "či tu sú",
         "text": {
-          "sk": "[Nezrozumiteľná krátka reakcia.]",
-          "cs": "[Nesrozumitelná krátká reakce.]"
+          "sk": "[Nezrozumiteľné.]",
+          "cs": "[Nesrozumitelné.]"
         },
         "asrWordRange": [
           3929,
@@ -6980,6 +8661,8 @@
         "cue": 742,
         "start": 1666.906,
         "end": 1669.228,
+        "asrStart": 1666.78,
+        "asrEnd": 1669.18,
         "meanCharacterScore": 0.6939,
         "alignmentText": "aj epidémie, ktoré mali na starosti baktérie.",
         "text": {
@@ -6999,6 +8682,8 @@
         "cue": 743,
         "start": 1671.15,
         "end": 1672.811,
+        "asrStart": 1670.82,
+        "asrEnd": 1672.76,
         "meanCharacterScore": 0.7474,
         "alignmentText": "Áno. A budú sa tam nachádzať z toho dôvodu,",
         "text": {
@@ -7021,6 +8706,8 @@
         "cue": 760,
         "start": 1704.951,
         "end": 1706.432,
+        "asrStart": 1704.73,
+        "asrEnd": 1706.43,
         "meanCharacterScore": 0.9261,
         "alignmentText": "ktorý má na starosti baktéria.",
         "text": {
@@ -7100,6 +8787,8 @@
         "cue": 761,
         "start": 1708.234,
         "end": 1709.655,
+        "asrStart": 1708.24,
+        "asrEnd": 1709.64,
         "meanCharacterScore": 0.6269,
         "alignmentText": "Ja to určite prečítam zle,",
         "text": {
@@ -7182,6 +8871,8 @@
         "cue": 764,
         "start": 1714.239,
         "end": 1715.1,
+        "asrStart": 1714.2,
+        "asrEnd": 1715.08,
         "meanCharacterScore": 0.8751,
         "alignmentText": "ak to bolo nesprávne.",
         "text": {
@@ -7285,6 +8976,8 @@
         "cue": 765,
         "start": 1717.761,
         "end": 1718.401,
+        "asrStart": 1717.6,
+        "asrEnd": 1718.4,
         "meanCharacterScore": 0.7364,
         "alignmentText": "Ťažko sa odhaduje,",
         "text": {
@@ -7332,6 +9025,8 @@
         "cue": 770,
         "start": 1727.448,
         "end": 1729.47,
+        "asrStart": 1727.39,
+        "asrEnd": 1729.47,
         "meanCharacterScore": 0.9268,
         "alignmentText": "Úplne, že niečo neskutočné.",
         "text": {
@@ -7351,6 +9046,8 @@
         "cue": 771,
         "start": 1731.061,
         "end": 1732.663,
+        "asrStart": 1730.8,
+        "asrEnd": 1732.66,
         "meanCharacterScore": 0.928,
         "alignmentText": "Tento mor sa potom opakoval často,",
         "text": {
@@ -7373,6 +9070,8 @@
         "cue": 832,
         "start": 1868.385,
         "end": 1869.426,
+        "asrStart": 1868.4,
+        "asrEnd": 1869.44,
         "meanCharacterScore": 0.7714,
         "alignmentText": "Samko, vieš, ktorá to bola?",
         "text": {
@@ -7392,6 +9091,8 @@
         "cue": 833,
         "start": 1871.588,
         "end": 1872.67,
+        "asrStart": 1871.51,
+        "asrEnd": 1872.69,
         "meanCharacterScore": 0.6872,
         "alignmentText": "Kiahne, ale neviem aké.",
         "text": {
@@ -7414,6 +9115,8 @@
         "cue": 834,
         "start": 1874.121,
         "end": 1874.922,
+        "asrStart": 1873.78,
+        "asrEnd": 1874.98,
         "meanCharacterScore": 0.8829,
         "alignmentText": "Bol to vírus,",
         "text": {
@@ -7433,6 +9136,8 @@
         "cue": 835,
         "start": 1876.423,
         "end": 1878.825,
+        "asrStart": 1876.36,
+        "asrEnd": 1878.84,
         "meanCharacterScore": 0.6708,
         "alignmentText": "ospravedlňujem sa všetkým latinčinárom,",
         "text": {
@@ -7455,6 +9160,8 @@
         "cue": 941,
         "start": 2121.107,
         "end": 2123.828,
+        "asrStart": 2121.1,
+        "asrEnd": 2123.8,
         "meanCharacterScore": 0.7759,
         "alignmentText": "Takže vlastne sa spojili dve epidémie,",
         "text": {
@@ -7474,6 +9181,8 @@
         "cue": 942,
         "start": 2125.409,
         "end": 2129.39,
+        "asrStart": 2125.22,
+        "asrEnd": 2129.45,
         "meanCharacterScore": 0.7328,
         "alignmentText": "ktoré mali výsledok dvoch miliónov obetí.",
         "text": {
@@ -7496,6 +9205,8 @@
         "cue": 1022,
         "start": 2293.588,
         "end": 2295.99,
+        "asrStart": 2293.63,
+        "asrEnd": 2295.99,
         "meanCharacterScore": 0.9141,
         "alignmentText": "ktoré neboli zasiahnuté alebo boli menej.",
         "text": {
@@ -7560,6 +9271,8 @@
         "cue": 1023,
         "start": 2299.361,
         "end": 2301.682,
+        "asrStart": 2298.78,
+        "asrEnd": 2301.72,
         "meanCharacterScore": 0.8362,
         "alignmentText": "Dobre. Ďalšia epidémia,",
         "text": {
@@ -7582,6 +9295,8 @@
         "cue": 1025,
         "start": 2304.543,
         "end": 2306.624,
+        "asrStart": 2304.56,
+        "asrEnd": 2306.56,
         "meanCharacterScore": 0.8397,
         "alignmentText": "Je to epidémia vírusu hiv.",
         "text": {
@@ -7601,6 +9316,8 @@
         "cue": 1026,
         "start": 2308.786,
         "end": 2312.368,
+        "asrStart": 2309.05,
+        "asrEnd": 2312.41,
         "meanCharacterScore": 0.7792,
         "alignmentText": "Tá začala až v dvadsiatom storočí",
         "text": {
@@ -7623,6 +9340,8 @@
         "cue": 1050,
         "start": 2370.364,
         "end": 2371.465,
+        "asrStart": 2369.6,
+        "asrEnd": 2371.46,
         "meanCharacterScore": 0.988,
         "alignmentText": "a veľmi prudko mutuje.",
         "text": {
@@ -7642,6 +9361,8 @@
         "cue": 1051,
         "start": 2373.186,
         "end": 2374.387,
+        "asrStart": 2373.09,
+        "asrEnd": 2374.37,
         "meanCharacterScore": 0.9478,
         "alignmentText": "Čítal som v jednom článku,",
         "text": {
@@ -7664,6 +9385,8 @@
         "cue": 1068,
         "start": 2402.887,
         "end": 2404.149,
+        "asrStart": 2402.79,
+        "asrEnd": 2404.15,
         "meanCharacterScore": 0.6275,
         "alignmentText": "a zase ten tvoj liek nefunguje.",
         "text": {
@@ -7748,6 +9471,8 @@
         "cue": 1069,
         "start": 2406.63,
         "end": 2410.712,
+        "asrStart": 2406.57,
+        "asrEnd": 2410.62,
         "meanCharacterScore": 0.7933,
         "alignmentText": "A hiv, háčko v tom znamená, že human.",
         "text": {
@@ -7815,6 +9540,8 @@
         "cue": 1078,
         "start": 2433.219,
         "end": 2434.42,
+        "asrStart": 2432.54,
+        "asrEnd": 2434.46,
         "meanCharacterScore": 0.8968,
         "alignmentText": "a pochádza to z Konga.",
         "text": {
@@ -7879,6 +9606,8 @@
         "cue": 1079,
         "start": 2436.211,
         "end": 2437.732,
+        "asrStart": 2435.77,
+        "asrEnd": 2437.69,
         "meanCharacterScore": 0.9148,
         "alignmentText": "A prelína sa to s obdobím,",
         "text": {
@@ -7901,6 +9630,8 @@
         "cue": 1081,
         "start": 2439.853,
         "end": 2442.915,
+        "asrStart": 2439.53,
+        "asrEnd": 2442.96,
         "meanCharacterScore": 0.8081,
         "alignmentText": "A nie je to náhoda, lebo vlastne",
         "text": {
@@ -7920,6 +9651,8 @@
         "cue": 1082,
         "start": 2445.257,
         "end": 2445.817,
+        "asrStart": 2444.83,
+        "asrEnd": 2445.85,
         "meanCharacterScore": 0.5578,
         "alignmentText": "teória je taká,",
         "text": {
@@ -7942,6 +9675,8 @@
         "cue": 1084,
         "start": 2448.039,
         "end": 2449.06,
+        "asrStart": 2447.99,
+        "asrEnd": 2449.07,
         "meanCharacterScore": 0.657,
         "alignmentText": "už veľakrát z opic.",
         "text": {
@@ -7961,6 +9696,8 @@
         "cue": 1085,
         "start": 2450.981,
         "end": 2453.543,
+        "asrStart": 2450.09,
+        "asrEnd": 2453.49,
         "meanCharacterScore": 0.863,
         "alignmentText": "kvôli tomu, že tam ľudia opice lovia,",
         "text": {
@@ -7983,6 +9720,8 @@
         "cue": 1101,
         "start": 2488.805,
         "end": 2489.906,
+        "asrStart": 2488.52,
+        "asrEnd": 2489.9,
         "meanCharacterScore": 0.9412,
         "alignmentText": "kolonizáciou Afriky.",
         "text": {
@@ -7996,12 +9735,43 @@
         "groupCtcDecode": [
           "ale zmenu životneu šty lutým žeľudia sa na hromadeli v mestách a žili promiskutnejšie tak ten výru spreskakvali zhostiteľ naho stiteľa a z razumal vela priležitosti zmutovať až stoho ez ivé zmutualná formuha ive tak ako j pozname do dne zalbo teba daka ta uplne sprôtných verzičiže v podstate aha ivé bolol nepriamo vyvolané kolonizáciu a frikyťaže zlam bed čo spô svila kolony zo ceofriky neverite"
         ],
-        "independentAsr": []
+        "independentAsr": [
+          {
+            "file": "captions/source/episode-12-followup-6-checks.sk.json",
+            "start": 2489.0,
+            "end": 2497.0,
+            "reason": "editorial-review",
+            "priority": 1,
+            "segments": [
+              {
+                "start": 2489.0,
+                "end": 2495.72,
+                "text": "Afriky ďalšia zlá vec čo spôsobila kolonizácia Afriky neveriteľné"
+              }
+            ]
+          },
+          {
+            "file": "captions/source/episode-12-followup-checks.sk.json",
+            "start": 2489.0,
+            "end": 2497.0,
+            "reason": "editorial-review",
+            "priority": 1,
+            "segments": [
+              {
+                "start": 2489.0,
+                "end": 2495.72,
+                "text": "Afriky ďalšia zlá vec čo spôsobila kolonizácia Afriky neveriteľné"
+              }
+            ]
+          }
+        ]
       },
       "following": {
         "cue": 1102,
         "start": 2491.867,
         "end": 2492.808,
+        "asrStart": 2491.37,
+        "asrEnd": 2492.83,
         "meanCharacterScore": 0.3423,
         "alignmentText": "Ďalšia zlá vec,",
         "text": {
@@ -8115,7 +9885,36 @@
             "score": 0.0041
           }
         ],
-        "independentAsr": []
+        "independentAsr": [
+          {
+            "file": "captions/source/episode-12-followup-6-checks.sk.json",
+            "start": 2489.0,
+            "end": 2497.0,
+            "reason": "editorial-review",
+            "priority": 1,
+            "segments": [
+              {
+                "start": 2489.0,
+                "end": 2495.72,
+                "text": "Afriky ďalšia zlá vec čo spôsobila kolonizácia Afriky neveriteľné"
+              }
+            ]
+          },
+          {
+            "file": "captions/source/episode-12-followup-checks.sk.json",
+            "start": 2489.0,
+            "end": 2497.0,
+            "reason": "editorial-review",
+            "priority": 1,
+            "segments": [
+              {
+                "start": 2489.0,
+                "end": 2495.72,
+                "text": "Afriky ďalšia zlá vec čo spôsobila kolonizácia Afriky neveriteľné"
+              }
+            ]
+          }
+        ]
       }
     },
     {
@@ -8124,6 +9923,8 @@
         "cue": 1104,
         "start": 2495.169,
         "end": 2495.73,
+        "asrStart": 2495.17,
+        "asrEnd": 2495.73,
         "meanCharacterScore": 0.6736,
         "alignmentText": "Neuveriteľné.",
         "text": {
@@ -8137,12 +9938,43 @@
         "groupCtcDecode": [
           "ale zmenu životneu šty lutým žeľudia sa na hromadeli v mestách a žili promiskutnejšie tak ten výru spreskakvali zhostiteľ naho stiteľa a z razumal vela priležitosti zmutovať až stoho ez ivé zmutualná formuha ive tak ako j pozname do dne zalbo teba daka ta uplne sprôtných verzičiže v podstate aha ivé bolol nepriamo vyvolané kolonizáciu a frikyťaže zlam bed čo spô svila kolony zo ceofriky neverite"
         ],
-        "independentAsr": []
+        "independentAsr": [
+          {
+            "file": "captions/source/episode-12-followup-6-checks.sk.json",
+            "start": 2489.0,
+            "end": 2497.0,
+            "reason": "editorial-review",
+            "priority": 1,
+            "segments": [
+              {
+                "start": 2489.0,
+                "end": 2495.72,
+                "text": "Afriky ďalšia zlá vec čo spôsobila kolonizácia Afriky neveriteľné"
+              }
+            ]
+          },
+          {
+            "file": "captions/source/episode-12-followup-checks.sk.json",
+            "start": 2489.0,
+            "end": 2497.0,
+            "reason": "editorial-review",
+            "priority": 1,
+            "segments": [
+              {
+                "start": 2489.0,
+                "end": 2495.72,
+                "text": "Afriky ďalšia zlá vec čo spôsobila kolonizácia Afriky neveriteľné"
+              }
+            ]
+          }
+        ]
       },
       "following": {
         "cue": 1105,
         "start": 2497.551,
         "end": 2501.436,
+        "asrStart": 2497.09,
+        "asrEnd": 2501.53,
         "meanCharacterScore": 0.9233,
         "alignmentText": "Počet hiv vo svete klesá,",
         "text": {
@@ -8165,6 +9997,8 @@
         "cue": 1106,
         "start": 2502.357,
         "end": 2504.179,
+        "asrStart": 2502.33,
+        "asrEnd": 2504.19,
         "meanCharacterScore": 0.8433,
         "alignmentText": "avšak v Afrike stále rastie,",
         "text": {
@@ -8184,6 +10018,8 @@
         "cue": 1107,
         "start": 2505.721,
         "end": 2507.683,
+        "asrStart": 2505.49,
+        "asrEnd": 2507.77,
         "meanCharacterScore": 0.7224,
         "alignmentText": "čo je presne ako ty hovoríš,",
         "text": {
@@ -8206,6 +10042,8 @@
         "cue": 1109,
         "start": 2509.786,
         "end": 2512.609,
+        "asrStart": 2509.75,
+        "asrEnd": 2512.63,
         "meanCharacterScore": 0.761,
         "alignmentText": "o tej epidémií alebo pandémii.",
         "text": {
@@ -8245,6 +10083,8 @@
         "cue": 1110,
         "start": 2515.07,
         "end": 2517.491,
+        "asrStart": 2514.89,
+        "asrEnd": 2517.55,
         "meanCharacterScore": 0.9311,
         "alignmentText": "Čítal som jednu správu,",
         "text": {
@@ -8287,6 +10127,8 @@
         "cue": 1112,
         "start": 2520.351,
         "end": 2521.312,
+        "asrStart": 2520.23,
+        "asrEnd": 2521.25,
         "meanCharacterScore": 0.8217,
         "alignmentText": "vyliečil z hiv.",
         "text": {
@@ -8306,6 +10148,8 @@
         "cue": 1113,
         "start": 2524.552,
         "end": 2525.272,
+        "asrStart": 2524.24,
+        "asrEnd": 2525.28,
         "meanCharacterScore": 0.9558,
         "alignmentText": "Asi je to možné,",
         "text": {
@@ -8413,6 +10257,8 @@
         "cue": 1131,
         "start": 2572.724,
         "end": 2573.944,
+        "asrStart": 2572.7,
+        "asrEnd": 2573.94,
         "meanCharacterScore": 0.857,
         "alignmentText": "to si veľmi dobre pamätám.",
         "text": {
@@ -8432,6 +10278,8 @@
         "cue": 1132,
         "start": 2577.225,
         "end": 2579.086,
+        "asrStart": 2576.3,
+        "asrEnd": 2579.1,
         "meanCharacterScore": 0.8523,
         "alignmentText": "A bolo to oprávnené, akože",
         "text": {
@@ -8454,6 +10302,8 @@
         "cue": 1140,
         "start": 2592.709,
         "end": 2594.29,
+        "asrStart": 2592.75,
+        "asrEnd": 2594.31,
         "meanCharacterScore": 0.7499,
         "alignmentText": "že sa s tým podarilo dáko vysporiadať.",
         "text": {
@@ -8527,6 +10377,8 @@
         "cue": 1141,
         "start": 2597.001,
         "end": 2598.583,
+        "asrStart": 2596.54,
+        "asrEnd": 2598.56,
         "meanCharacterScore": 0.7222,
         "alignmentText": "desať až dvadsať percent populácie",
         "text": {
@@ -8603,6 +10455,8 @@
         "cue": 1152,
         "start": 2627.71,
         "end": 2629.011,
+        "asrStart": 2627.25,
+        "asrEnd": 2629.19,
         "meanCharacterScore": 0.7812,
         "alignmentText": "Aj zvláštnosťou je, že",
         "text": {
@@ -8622,6 +10476,8 @@
         "cue": 1153,
         "start": 2631.072,
         "end": 2631.872,
+        "asrStart": 2630.62,
+        "asrEnd": 2631.88,
         "meanCharacterScore": 0.4578,
         "alignmentText": "nechcem povedať, že nepriamo,",
         "text": {
@@ -8644,6 +10500,8 @@
         "cue": 1168,
         "start": 2667.655,
         "end": 2672.26,
+        "asrStart": 2667.3,
+        "asrEnd": 2672.28,
         "meanCharacterScore": 0.9318,
         "alignmentText": "osemdesiatjeden zomrelo, nanešťastie prevažne detí.",
         "text": {
@@ -8683,6 +10541,8 @@
         "cue": 1169,
         "start": 2673.941,
         "end": 2676.323,
+        "asrStart": 2673.56,
+        "asrEnd": 2676.34,
         "meanCharacterScore": 0.8486,
         "alignmentText": "Áno, toto je veľmi smutná realita",
         "text": {
@@ -8705,6 +10565,8 @@
         "cue": 1172,
         "start": 2681.967,
         "end": 2683.889,
+        "asrStart": 2682.0,
+        "asrEnd": 2683.92,
         "meanCharacterScore": 0.8686,
         "alignmentText": "čo bola celkom pozitívna,",
         "text": {
@@ -8744,6 +10606,8 @@
         "cue": 1173,
         "start": 2685.77,
         "end": 2690.274,
+        "asrStart": 2685.32,
+        "asrEnd": 2690.3,
         "meanCharacterScore": 0.745,
         "alignmentText": "toho nejakého hlavného tých antivaxerov,",
         "text": {
@@ -8786,6 +10650,8 @@
         "cue": 1242,
         "start": 2833.638,
         "end": 2835.04,
+        "asrStart": 2833.62,
+        "asrEnd": 2835.06,
         "meanCharacterScore": 0.8237,
         "alignmentText": "tak ti nepomôže umývať si ruky.",
         "text": {
@@ -8840,6 +10706,8 @@
         "cue": 1243,
         "start": 2836.961,
         "end": 2838.362,
+        "asrStart": 2836.54,
+        "asrEnd": 2838.44,
         "meanCharacterScore": 0.4623,
         "alignmentText": "A zároveň, keď je niekto chorý,",
         "text": {
@@ -8862,6 +10730,8 @@
         "cue": 1254,
         "start": 2863.845,
         "end": 2864.885,
+        "asrStart": 2863.14,
+        "asrEnd": 2864.92,
         "meanCharacterScore": 0.8023,
         "alignmentText": "a za tento výber témy.",
         "text": {
@@ -8881,6 +10751,8 @@
         "cue": 1255,
         "start": 2866.506,
         "end": 2868.247,
+        "asrStart": 2866.01,
+        "asrEnd": 2868.25,
         "meanCharacterScore": 0.9155,
         "alignmentText": "Áno, bolo to veľmi aktuálne,",
         "text": {
@@ -8903,6 +10775,8 @@
         "cue": 1262,
         "start": 2883.478,
         "end": 2885.139,
+        "asrStart": 2882.21,
+        "asrEnd": 2885.17,
         "meanCharacterScore": 0.7024,
         "alignmentText": "a všade, kde nájdete dobré podcasty.",
         "text": {
@@ -8937,6 +10811,8 @@
         "cue": 1263,
         "start": 2886.861,
         "end": 2890.223,
+        "asrStart": 2886.65,
+        "asrEnd": 2890.07,
         "meanCharacterScore": 0.7791,
         "alignmentText": "Pozerajte náš web vedator.space",
         "text": {
@@ -8974,6 +10850,8 @@
         "cue": 1267,
         "start": 2896.148,
         "end": 2897.67,
+        "asrStart": 2896.03,
+        "asrEnd": 2897.65,
         "meanCharacterScore": 0.7312,
         "alignmentText": "Pekný deň. Majte sa.",
         "text": {
@@ -8993,6 +10871,8 @@
         "cue": 1268,
         "start": 2901.161,
         "end": 2903.265,
+        "asrStart": 2900.92,
+        "asrEnd": 2903.32,
         "meanCharacterScore": 0.4982,
         "alignmentText": "Hej, hej, ale dobre to bolo podľa mňa.",
         "text": {
@@ -9015,6 +10895,8 @@
         "cue": 1268,
         "start": 2901.161,
         "end": 2903.265,
+        "asrStart": 2900.92,
+        "asrEnd": 2903.32,
         "meanCharacterScore": 0.4982,
         "alignmentText": "Hej, hej, ale dobre to bolo podľa mňa.",
         "text": {
@@ -9034,6 +10916,8 @@
         "cue": 1269,
         "start": 2905.59,
         "end": 2906.752,
+        "asrStart": 2905.46,
+        "asrEnd": 2906.74,
         "meanCharacterScore": 0.6565,
         "alignmentText": "Toto je taká téma,",
         "text": {
@@ -9055,6 +10939,8 @@
     "cue": 1,
     "start": 12.026,
     "end": 13.256,
+    "asrStart": 11.7,
+    "asrEnd": 13.28,
     "meanCharacterScore": 0.406,
     "alignmentText": "tri, štyri. pozoríka",
     "text": {
@@ -9119,6 +11005,8 @@
     "cue": 1271,
     "start": 2909.036,
     "end": 2910.679,
+    "asrStart": 2908.78,
+    "asrEnd": 2910.68,
     "meanCharacterScore": 0.6245,
     "alignmentText": "aj celý podcast len o víroch.",
     "text": {
