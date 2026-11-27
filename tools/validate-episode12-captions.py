@@ -178,7 +178,7 @@ def main():
     check(not long_lines, f"Lines exceed 48 characters: {long_lines}")
     check(not three_lines, f"Cues exceed two lines: {three_lines}")
     if fast:
-        warnings.append(f"{len(fast)} cues exceed 25 characters per second")
+        warnings.append(f"{len(fast)} cue/language variants across {len({i for i,language in fast})} cues exceed 25 characters per second")
 
     for language in ("cs", "sk"):
         srt = parse_srt(CAP / f"episode-{N}.{language}.srt")
@@ -209,6 +209,7 @@ def main():
               "duration": duration, "audioSha256": sha,
               "lowCtcScoreCount": sum(v < .35 for v in scores),
               "documentedLowScoreExceptions": len(exceptions),
+              "fastCueLanguageVariants": len(fast), "fastCueCount": len({i for i,language in fast}),
               "warnings": warnings, "issues": issues,
               "caution": "Automated structure checks do not prove accuracy of spoken text or YouTube/MP3 acoustic sync."}
     print(json.dumps(result, ensure_ascii=False, indent=2))

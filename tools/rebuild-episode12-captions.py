@@ -113,9 +113,16 @@ def main():
     # Re-align its actual phones within that independently evidenced utterance,
     # avoiding a forced v phoneme attaching to preceding speech at 1634 s.
     old=audits[727]
-    rows,decode=align_block([727],1635.1,1636.1)
+    wow_original=prepared[727]['alignmentText'];variants=[]
+    for pronunciation in ('vau.','wau.','uau.','vov.','wow.'):
+        prepared[727]['alignmentText']=pronunciation
+        probe,free_decode=align_block([727],1635.25,1635.85)
+        variants.append({'pronunciation':pronunciation,'independentCtcDecode':free_decode,**probe[0]})
+    prepared[727]['alignmentText']=wow_original
+    write(S/'episode-12-wow-ctc-comparison.json',{'episode':12,'audioSha256':SHA,'model':MODEL,'window':[1635.25,1635.85],'vocabularyContainsW':'w' in vocab,'reason':'Compare ordinary phonetic spellings of independently recognized Wow inside the 1635.34–1635.78 independent-ASR anchor; no automatic selection or caption content change.','variants':variants})
+    rows,decode=align_block([727],1635.25,1635.85)
     audits[727]=rows[0]
-    rechecks.append({'cues':[728],'window':[1635.1,1636.1],
+    rechecks.append({'cues':[728],'window':[1635.25,1635.85],
         'previousBoundaries':[[old['start'],old['end']]],
         'newBoundaries':[[rows[0]['start'],rows[0]['end']]],
         'independentCtcDecode':decode,

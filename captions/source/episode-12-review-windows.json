@@ -1,30 +1,46 @@
 {
   "episode": 12,
-  "reason": "Focused independent verification of low CTC scores, conflicting overlapping speech and two uncovered near-low-score phrases; no repeated full-episode ASR.",
+  "reason": "Verify all longest remaining gaps and recognizable unforced-CTC gap fragments with context, without assuming that gaps are silent.",
   "windows": [
     [
-      1247,
-      1255
+      369,
+      378
     ],
     [
-      1475,
-      1482
+      920,
+      928
     ],
     [
-      2149.9,
-      2152.5
+      1080,
+      1088
     ],
     [
-      2205.5,
-      2209
+      1385,
+      1394
     ],
     [
-      2489,
-      2497
+      1488,
+      1497
     ],
     [
-      2782,
-      2789
+      2293,
+      2303
+    ],
+    [
+      2571,
+      2581
+    ],
+    [
+      2626,
+      2635
+    ],
+    [
+      2882,
+      2891
+    ],
+    [
+      2895,
+      2907
     ]
   ]
 }
