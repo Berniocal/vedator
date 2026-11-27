@@ -1,151 +1,113 @@
 #!/usr/bin/env python3
-"""Transcribe episode 12, then align reviewed bilingual captions to its source MP3."""
-import argparse, hashlib, json, os, re, subprocess, textwrap
+"""Align reviewed episode 12 semantic utterances to authenticated original MP3."""
+import hashlib,importlib.util,json,os,re,subprocess
 from pathlib import Path
-ROOT=Path(__file__).resolve().parent.parent
-OUT=ROOT/"captions"
-SOURCE=OUT/"source"
-AUDIO=Path(os.environ.get("VEDATOR_EP12_AUDIO","/tmp/vedator-ep12-audio"))/"episode-12.mp3"
-DRAFT=SOURCE/"episode-12-draft.sk.json"
-EDITED=OUT/"episode-12.edited.json"
-MODEL="large-v3-turbo"
-ALIGN_MODEL="comodoro/wav2vec2-xls-r-300m-sk-cv8"
-def read(p): return json.loads(p.read_text(encoding="utf-8"))
-def write(p,v): p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-def source():
-    e=next(e for e in read(ROOT/"content-v2.json")["episodes"] if e["number"]==12)
-    assert e["id"] == "vedatorskypodcast.podbean.com/60169ece-e211-5ce3-8308-2ee114cd585b"
-    assert e["enclosure"] == "https://mcdn.podbean.com/mf/web/ks6p8t/podcast_ep12.mp3"
-    assert e["title"] == "Vedátorský podcast 12 – Ľudstvo vs. epidémie"
-    AUDIO.parent.mkdir(parents=True,exist_ok=True)
-    if not AUDIO.exists():
-        subprocess.run(["curl","--fail","--location","--retry","3","--max-time","180",e["enclosure"],"-o",str(AUDIO)],check=True)
-    assert AUDIO.stat().st_size>1_000_000
-    digest=hashlib.sha256(AUDIO.read_bytes()).hexdigest()
-    return e,{"audio":e["enclosure"],"audioSha256":digest,"audioBytes":AUDIO.stat().st_size}
-def wrap(text):
-    layout_path = SOURCE / "episode-12-layout-overrides.json"
-    if layout_path.exists():
-        flat = re.sub(r"\s+", " ", text)
-        for choice in read(layout_path)["overrides"]:
-            if choice["flatText"] == flat:
-                assert re.sub(r"\s+", " ", choice["text"]) == flat
-                return choice["text"]
-    if len(text) <= 48:
-        return text
-    choices = [i for i, ch in enumerate(text) if ch == ' ' and i <= 48 and len(text)-i-1 <= 48]
-    if not choices:
-        return None
-    preferred = [i for i in choices if not re.search(r'(?:^| )[aikosuvz]$', text[:i], re.I) and len(text[:i].split()) > 1 and len(text[i+1:].split()) > 1]
-    i = min(preferred or choices, key=lambda i: abs(i-(len(text)-1)/2))
-    return text[:i]+'\n'+text[i+1:]
-
+ROOT=Path(__file__).resolve().parent.parent;OUT=ROOT/'captions';S=OUT/'source'
+AUDIO=Path(os.environ.get('VEDATOR_EP12_AUDIO','/tmp/vedator-ep12-audio'))/'episode-12.mp3'
+MODEL='comodoro/wav2vec2-xls-r-300m-sk-cv8'
+SHA='798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5'
+def read(p):return json.loads(p.read_text())
+def write(p,v):p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
 def srt_time(t):
     ms=round(t*1000);h,ms=divmod(ms,3600000);m,ms=divmod(ms,60000);s,ms=divmod(ms,1000)
-    return f"{h:02}:{m:02}:{s:02},{ms:03}"
-def align():
+    return f'{h:02}:{m:02}:{s:02},{ms:03}'
+def main():
     import numpy as np,torch,torchaudio
     from transformers import Wav2Vec2Processor,Wav2Vec2ForCTC
     torch.set_num_threads(4)
-    e,meta=source();draft=read(DRAFT);edited=read(EDITED)
-    assert edited["review"]["completeSlovakEditorialReview"] and edited["review"]["completeCzechEditorialReview"]
-    assert meta["audioSha256"]==draft["source"]["audioSha256"]
-    processor=Wav2Vec2Processor.from_pretrained(ALIGN_MODEL)
-    model=Wav2Vec2ForCTC.from_pretrained(ALIGN_MODEL);model.eval()
-    pcm=subprocess.check_output(["ffmpeg","-v","error","-i",str(AUDIO),"-f","f32le","-ac","1","-ar","16000","-"])
-    wave=np.frombuffer(pcm,dtype=np.float32).copy()
-    vocab=processor.tokenizer.get_vocab();blank=processor.tokenizer.pad_token_id
-    upper=sum(ch.isupper() for ch in vocab)>sum(ch.islower() for ch in vocab)
-    print("Alignment vocabulary:",sorted(vocab),flush=True)
-    # Keep independent CTC decodes of disputed identifiers and the negation.
-    checks_file=SOURCE/"episode-12-ctc-checks.sk.json"
-    prior_checks=read(checks_file) if checks_file.exists() else {}
-    cached_checks={(c["start"],c["end"]):c for c in prior_checks.get("passages",[])} if prior_checks.get("audioSha256")==meta["audioSha256"] and prior_checks.get("model")==ALIGN_MODEL else {}
-    acoustic_checks=[]
-    for a,b in edited.get("checkWindows",[]):
-        if (a,b) in cached_checks:
-            acoustic_checks.append(cached_checks[(a,b)]);continue
-        inputs=processor(wave[int(a*16000):int(b*16000)],sampling_rate=16000,return_tensors="pt",padding=True)
-        with torch.inference_mode(): logits=model(**inputs).logits
-        text=processor.batch_decode(logits.argmax(-1))[0]
-        acoustic_checks.append({"start":a,"end":b,"text":text})
-        print("Independent CTC decode:",a,b,text,flush=True)
-    write(SOURCE/"episode-12-ctc-checks.sk.json",{"model":ALIGN_MODEL,"audioSha256":meta["audioSha256"],"passages":acoustic_checks})
-    old_result=read(OUT/"episode-12.json") if (OUT/"episode-12.json").exists() else None
-    old_alignment=read(SOURCE/"episode-12-alignment.json") if (SOURCE/"episode-12-alignment.json").exists() else None
-    if not old_result or old_result["source"]["audioSha256"]!=meta["audioSha256"]:
-        old_result=old_alignment=None
-    cached={(tuple(c["asrWordRange"])):(c,a) for c,a in zip(old_result["cues"],old_alignment["cues"])} if old_result and old_alignment else {}
-    cues=[];alignment=[];previous=0;word_cursor=0
-    for i,cue in enumerate(edited["cues"]):
-        lo,hi=cue["asrWordRange"]
-        assert lo==word_cursor and hi>=lo and (hi>lo or cue.get("recoveredSpeech"));word_cursor=hi
-        assert all(cue["text"][lang].strip() for lang in ("cs","sk"))
-        wrapped={lang:wrap(cue["text"][lang]) for lang in ("sk","cs")}
-        if (lo,hi) in cached:
-            old,audit=cached[(lo,hi)]
-            if audit["asrStart"]==cue["start"] and audit["asrEnd"]==cue["end"] and audit.get("alignmentText")==cue.get("alignmentText",cue["text"]["sk"]) and old["start"]>=previous:
-                cues.append({**old,"text":wrapped});alignment.append({**audit,"cue":i+1});previous=old["end"];continue
-        start=max(0,float(cue["start"])-.5);end=min(len(wave)/16000,float(cue["end"])+.5)
-        inputs=processor(wave[int(start*16000):int(end*16000)],sampling_rate=16000,return_tensors="pt",padding=True)
-        with torch.inference_mode(): logits=model(**inputs).logits.log_softmax(-1)
-        # Printed numerals are expanded only in the acoustic input; captions retain digits.
-        # Where years have several spoken forms, choose among explicit pronunciations
-        # using the same acoustic emissions and retain the winner in the edited source.
-        candidates=cue.get("alignmentVariants",[cue.get("alignmentText",cue["text"]["sk"])])
-        aligned=[]
-        for candidate in candidates:
-            text=candidate.replace("\n"," ")
-            assert not re.search(r"\d",text),(i,"Unexpanded numeral",text)
-            text=text.upper() if upper else text.lower()
-            chars="".join(ch if ch in vocab else " " for ch in text.replace(" ",processor.tokenizer.word_delimiter_token))
-            chars=re.sub(r"\s+","",chars)
-            tokens=[vocab[ch] for ch in chars if ch in vocab and vocab[ch]!=blank]
-            # A valid short reply can contain only one or two letters.
-            assert tokens,(i,text)
-            paths,scores=torchaudio.functional.forced_align(logits,torch.tensor([tokens],dtype=torch.int32),blank=blank)
-            spans=torchaudio.functional.merge_tokens(paths[0],scores[0].exp(),blank=blank)
-            assert len(spans)==len(tokens),(i,len(spans),len(tokens))
-            speech=[s for s in spans if s.token!=vocab.get(processor.tokenizer.word_delimiter_token)]
-            confidence=float(sum(s.score for s in speech)/len(speech))
-            aligned.append((confidence,candidate,spans,speech))
-        confidence,chosen,spans,speech=max(aligned,key=lambda x:x[0])
-        cue["alignmentText"]=chosen
-        if len(aligned)>1:print("Numeral pronunciation:",i+1,chosen,round(confidence,4),flush=True)
-        ratio=(end-start)/logits.shape[1]
-        a=start+speech[0].start*ratio;b=start+speech[-1].end*ratio
-        confidence=float(sum(s.score for s in speech)/len(speech))
-        a=max(previous,round(a,3));b=max(a+.15,round(b,3))
-        assert a>=previous and b<=len(wave)/16000+.1,(i,a,b)
-        cues.append({"start":a,"end":b,"kind":"speech",**({"recoveredSpeech":cue["recoveredSpeech"]} if cue.get("recoveredSpeech") else {}),"text":{lang:wrap(cue["text"][lang]) for lang in ("sk","cs")},"asrWordRange":[lo,hi]})
-        alignment.append({"cue":i+1,"start":a,"end":b,"meanCharacterScore":round(confidence,4),"asrStart":cue["start"],"asrEnd":cue["end"],"alignmentText":cue.get("alignmentText",cue["text"]["sk"]),
-            "characters":[{"token":int(s.token),"start":round(start+s.start*ratio,3),"end":round(start+s.end*ratio,3),"score":round(float(s.score),4)} for s in spans]})
-        previous=b
-        if i%25==0:print(f"ALIGN {i+1}/{len(edited['cues'])}; {a:.2f}–{b:.2f}, score={confidence:.3f}",flush=True)
-    assert word_cursor==len(draft["words"])
-    mapping=read(ROOT/"episode-videos.json");record=next(x for x in mapping if x["episode"]==12)
-    assert record["guid"]==e["id"]
-    result={"version":1,"episode":12,"guid":e["id"],"youtubeId":record["youtubeId"],"languages":["cs","sk"],
-        "quality":"editorial-corrected-forced-aligned",
-        "source":{**draft["source"],"type":"original-MP3-ASR-and-CTC-forced-alignment","alignmentModel":ALIGN_MODEL,
-            "transcriptFile":"captions/source/episode-12-draft.sk.json","alignmentFile":"captions/source/episode-12-alignment.json",
-            "review":"Complete Slovak editorial review and Czech translation; acoustic character alignment and review of flagged passages. Not a full independent human listening verification."},
-        "cues":cues}
-    for i,c in enumerate(cues):
-        assert c["end"]>c["start"] and (not i or c["start"]>=cues[i-1]["end"])
-        assert all(len(c["text"][lang])<=240 for lang in ("cs","sk"))
-    write(EDITED,edited)
-    write(OUT/"episode-12.json",result)
-    write(SOURCE/"episode-12-alignment.json",{"model":ALIGN_MODEL,"audioSha256":meta["audioSha256"],"cues":alignment})
-    for lang in ("cs","sk"):
-        (OUT/f"episode-12.{lang}.srt").write_text("\n\n".join(f"{i}\n{srt_time(c['start'])} --> {srt_time(c['end'])}\n{c['text'][lang]}" for i,c in enumerate(cues,1))+"\n",encoding="utf-8")
-    write(OUT/"episode-12.review.json",{"episode":12,"cueCount":len(cues),"asrWordCount":len(draft["words"]),"audioSha256":meta["audioSha256"],
-        "lowScoreCues":[{k:v for k,v in a.items() if k!="characters"} for a in alignment if a["meanCharacterScore"]<.35],
-        "maxBoundaryChange":max(abs(a["start"]-a["asrStart"]) for a in alignment),
-        "status":"review-further-if-low-score-cues-otherwise-needs-independent-listening" if any(a["meanCharacterScore"]<.35 for a in alignment) else "editorially-reviewed-acoustically-aligned-needs-independent-listening"})
-
-    subprocess.run(["node","tools/build-mp3-seek-index.mjs",str(AUDIO),e["enclosure"]],cwd=ROOT,check=True)
-    print(f"ALIGNED {len(cues)} bilingual cues",flush=True)
-
-if __name__=="__main__":
-    align()
+    edited=read(OUT/'episode-12.edited.json');draft=read(S/'episode-12-draft.sk.json')
+    assert edited['review']['completeSlovakEditorialReview'] and edited['review']['completeCzechEditorialReview']
+    assert hashlib.sha256((S/'episode-12-draft.sk.json').read_bytes()).hexdigest()=='0c1dbd2210c07a2edec585f18d2aadcae677ee2ed97d817be0887e9ddffc6d13'
+    assert draft['source']['audioSha256']==edited['source']['audioSha256']==SHA
+    episode=next(e for e in read(ROOT/'content-v2.json')['episodes'] if e['number']==12)
+    video=next(v for v in read(ROOT/'episode-videos.json') if v['episode']==12)
+    assert episode['id']==draft['guid']==video['guid']=='vedatorskypodcast.podbean.com/60169ece-e211-5ce3-8308-2ee114cd585b'
+    assert episode['enclosure']==draft['source']['audio']=='https://mcdn.podbean.com/mf/web/ks6p8t/podcast_ep12.mp3'
+    assert video['youtubeId']=='ERy-fP-pcQw'
+    spec=importlib.util.spec_from_file_location('reference',ROOT/'tools/download-caption-reference.py')
+    ref=importlib.util.module_from_spec(spec);spec.loader.exec_module(ref)
+    ref.download(episode['enclosure'],AUDIO,95916894,SHA)
+    assert hashlib.sha256(AUDIO.read_bytes()).hexdigest()==SHA
+    p=Wav2Vec2Processor.from_pretrained(MODEL);m=Wav2Vec2ForCTC.from_pretrained(MODEL);m.eval()
+    vocab=p.tokenizer.get_vocab();blank=p.tokenizer.pad_token_id;delimiter=p.tokenizer.word_delimiter_token
+    pcm=subprocess.check_output(['ffmpeg','-v','error','-i',str(AUDIO),'-f','f32le','-ac','1','-ar','16000','-'])
+    wave=np.frombuffer(pcm,dtype=np.float32).copy();duration=len(wave)/16000
+    prepared=edited['cues'];cursor=0
+    for c in prepared:
+        lo,hi=c['asrWordRange'];assert lo==cursor and hi>=lo and (hi>lo or c.get('recoveredSpeech'));cursor=hi
+        assert all(t.strip() and len(t)<=48 and '\n' not in t for t in c['text'].values())
+        assert not re.search(r'\d',c['alignmentText'])
+    assert cursor==len(draft['words'])==6790
+    def align_block(indices,a,b):
+        a=max(0,a);b=min(duration,b)
+        chars=[];ranges=[]
+        for idx in indices:
+            text=prepared[idx]['alignmentText']
+            part=[c for c in text.lower().replace(' ',delimiter) if c in vocab and vocab[c]!=blank]
+            assert part,(idx,text)
+            if chars:chars.append(delimiter)
+            begin=len(chars);chars.extend(part);ranges.append((begin,len(chars)))
+        ids=[vocab[c] for c in chars]
+        inputs=p(wave[int(a*16000):int(b*16000)],sampling_rate=16000,return_tensors='pt',padding=True)
+        with torch.inference_mode():y=m(**inputs).logits.log_softmax(-1)
+        paths,scores=torchaudio.functional.forced_align(y,torch.tensor([ids],dtype=torch.int32),blank=blank)
+        spans=torchaudio.functional.merge_tokens(paths[0],scores[0].exp(),blank=blank)
+        assert len(spans)==len(ids),(len(spans),len(ids),indices)
+        ratio=(b-a)/y.shape[1];results=[]
+        for idx,(lo,hi) in zip(indices,ranges):
+            pairs=list(zip(chars[lo:hi],spans[lo:hi]))
+            speech=[span for ch,span in pairs if ch!=delimiter]
+            start=round(a+speech[0].start*ratio,3);end=round(a+speech[-1].end*ratio,3)
+            assert 0<start<end<=duration+.01,(idx,start,end)
+            results.append({'cue':idx+1,'start':start,'end':end,
+                'meanCharacterScore':round(sum(float(s.score) for s in speech)/len(speech),4),
+                'asrStart':prepared[idx]['start'],'asrEnd':prepared[idx]['end'],
+                'alignmentText':prepared[idx]['alignmentText'],
+                'characters':[{'token':vocab[ch],'char':ch,'start':round(a+span.start*ratio,3),'end':round(a+span.end*ratio,3),'score':round(float(span.score),4)} for ch,span in pairs]})
+        return results,p.batch_decode(y.argmax(-1))[0]
+    cache_file=S/'episode-12-group-alignment.json'
+    previous=read(cache_file) if cache_file.exists() else {}
+    cache={g['signature']:g for g in previous.get('groups',[])} if previous.get('audioSha256')==SHA and previous.get('model')==MODEL else {}
+    groups=[];audits=[None]*len(prepared)
+    for g in edited['alignmentGroups']:
+        a=max(0,g['start']-.5);b=min(duration,g['end']+.5)
+        signature=hashlib.sha256(json.dumps({'version':'semantic-group-v1','model':MODEL,'audio':SHA,'start':a,'end':b,'indices':g['cues'],'targets':[prepared[i]['alignmentText'] for i in g['cues']]},ensure_ascii=False,sort_keys=True).encode()).hexdigest()
+        if signature in cache:
+            item=cache[signature]
+        else:
+            rows,decode=align_block(g['cues'],a,b)
+            item={**g,'windowStart':a,'windowEnd':b,'signature':signature,'independentCtcDecode':decode,'cues':rows}
+        for row in item['cues']:audits[row['cue']-1]=row
+        groups.append(item)
+        write(cache_file,{'episode':12,'model':MODEL,'audioSha256':SHA,'status':'actual-group-character-alignment-before-boundary-review','groups':groups})
+        print('GROUP',g['group'],'/',len(edited['alignmentGroups']),round(a,2),round(b,2),'lowest',min(x['meanCharacterScore'] for x in item['cues']),flush=True)
+    assert all(audits)
+    rechecks=[]
+    # One shared acoustic path resolves overlaps across separately decoded groups.
+    # No global offset, fabricated timestamps or silent monotonic clamping.
+    for attempt in range(5):
+        bad=[i for i in range(1,len(audits)) if audits[i]['start']<audits[i-1]['end']]
+        if not bad:break
+        for i in bad:
+            old=[audits[i-1],audits[i]]
+            a=min(r['start'] for r in old)-.35;b=max(r['end'] for r in old)+.35
+            rows,decode=align_block([i-1,i],a,b)
+            audits[i-1],audits[i]=rows
+            rechecks.append({'cues':[i,i+1],'window':[max(0,a),min(duration,b)],'previousBoundaries':[[r['start'],r['end']] for r in old],'newBoundaries':[[r['start'],r['end']] for r in rows],'independentCtcDecode':decode,'reason':'Resolve a cross-group phonetic boundary with one shared original-audio CTC path.'})
+    write(S/'episode-12-boundary-rechecks.json',{'episode':12,'model':MODEL,'audioSha256':SHA,'rechecks':rechecks})
+    assert all(audits[i]['start']>=audits[i-1]['end'] for i in range(1,len(audits))),[(i+1,audits[i-1]['end'],audits[i]['start']) for i in range(1,len(audits)) if audits[i]['start']<audits[i-1]['end']]
+    cues=[]
+    for c,a in zip(prepared,audits):
+        cues.append({'start':a['start'],'end':a['end'],'kind':'speech','text':c['text'],'asrWordRange':c['asrWordRange'],**({'recoveredSpeech':c['recoveredSpeech']} if c.get('recoveredSpeech') else {})})
+    result={'version':1,'episode':12,'guid':episode['id'],'youtubeId':video['youtubeId'],'languages':['cs','sk'],'quality':'editorial-corrected-forced-aligned',
+        'source':{**draft['source'],'type':'original-MP3-ASR-and-CTC-forced-alignment','alignmentModel':MODEL,'transcriptFile':'captions/source/episode-12-draft.sk.json','alignmentFile':'captions/source/episode-12-alignment.json','review':'Complete model-assisted Slovak editorial review and own Czech translation; original-audio character alignment. Explicitly marked unintelligible fragments remain. No claim of independent human listening or direct YouTube audio comparison.'},'cues':cues}
+    write(OUT/'episode-12.json',result)
+    write(S/'episode-12-alignment.json',{'episode':12,'model':MODEL,'audioSha256':SHA,'groupAuditFile':'captions/source/episode-12-group-alignment.json','cues':audits})
+    write(S/'episode-12-ctc-checks.sk.json',{'episode':12,'model':MODEL,'audioSha256':SHA,'forcedTranscript':False,'passages':[{'start':g['windowStart'],'end':g['windowEnd'],'text':g['independentCtcDecode']} for g in groups]})
+    for lang in ['sk','cs']:
+        (OUT/f'episode-12.{lang}.srt').write_text('\n\n'.join(f"{i}\n{srt_time(c['start'])} --> {srt_time(c['end'])}\n{c['text'][lang]}" for i,c in enumerate(cues,1))+'\n')
+    low=[{k:v for k,v in a.items() if k!='characters'} for a in audits if a['meanCharacterScore']<.35]
+    write(OUT/'episode-12.review.json',{'episode':12,'cueCount':len(cues),'asrWordCount':6790,'audioSha256':SHA,'lowScoreCues':low,'maxBoundaryChange':max(abs(a['start']-a['asrStart']) for a in audits),'unintelligibleSourceGroups':edited['review']['unintelligibleSourceGroups'],'status':'review-further-if-low-score-cues-otherwise-needs-independent-listening','publicationApproved':False})
+    subprocess.run(['node','tools/build-mp3-seek-index.mjs',str(AUDIO),episode['enclosure']],cwd=ROOT,check=True)
+    print('ALIGNED',len(cues),'cues;',len(low),'unresolved low scores;',len(rechecks),'actual boundary rechecks. Not registered or release-approved.',flush=True)
+if __name__=='__main__':main()
