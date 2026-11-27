@@ -18,6 +18,9 @@ function workingWrap(text){
  return text.slice(0,choices[0])+'\n'+text.slice(choices[0]+1);
 }
 const captions=Object.fromEntries(numbers.map(n=>[n,workingDraft?{version:1,episode:n,guid:source.episodes.find(e=>e.number===n).id,youtubeId:source.episodes.find(e=>e.number===n).youtubeId,cues:JSON.parse(fs.readFileSync('captions/source/episode-'+n+'-manual-bilingual-draft.json','utf8')).cues.map(c=>({start:c.sourceStart,end:c.sourceEnd,text:Object.fromEntries(Object.entries(c.text).map(([lang,text])=>[lang,workingWrap(text)]))}))}:JSON.parse(fs.readFileSync('captions/episode-'+n+'.json','utf8'))]));
+const reviewedSegments=process.env.VEDATOR_LAYOUT_REVIEWED_SEGMENTS==='1'?JSON.parse(fs.readFileSync('captions/source/episode-12-segmentation-review.json','utf8')):null;
+if(reviewedSegments)assert(workingDraft,'Text-only reviewed-segment preview requires the explicit working fixture');
+const layoutCues=reviewedSegments?reviewedSegments.groups.flatMap(g=>g.parts.map(text=>({text}))):captions[12].cues;
 const audio=Object.fromEntries(numbers.map(n=>[n,fs.readFileSync(path.join(process.env.VEDATOR_CAPTION_AUDIO,'episode-'+n+'.mp3'))]));
 const diagnostics=process.env.VEDATOR_CAPTION_DIAGNOSTIC==='1';
 let base;
@@ -143,7 +146,7 @@ try{
      }
     }
     node.style.fontSize='';return {result,candidates};
-   },{cues:captions[12].cues,mode,propose:process.env.VEDATOR_LAYOUT_PROPOSE==='1'});
+   },{cues:layoutCues,mode,propose:process.env.VEDATOR_LAYOUT_PROPOSE==='1'});
    if(Array.isArray(rows))findings.push(...rows.map(row=>({width,mode,...row})));else{findings.push(...rows.result.map(row=>({width,mode,...row})));candidateChecks.push(...rows.candidates)}
    if(process.env.VEDATOR_LAYOUT_SCREENSHOTS&&width===360){
     for(const lang of ['cs','sk']){
@@ -165,6 +168,6 @@ try{
  const proposals=keys.map(key=>[...totals.values()].filter(c=>c.cue+':'+c.lang===key).sort((a,b)=>a.fail-b.fail||layoutCost(a)-layoutCost(b))[0]);
  const font=await page.evaluate(()=>getComputedStyle(document.getElementById('player-caption-text-v2')).fontFamily);
  const browserVersion=await browser.version();
- await new Promise(resolve=>process.stdout.write(JSON.stringify({episode:12,status:workingDraft?'working-source-groups-not-final-caption-layout':'final-caption-layout',browser:browserVersion,font,checkedCues:captions[12].cues.length,widths:[360,390],languages:['cs','sk'],scales:[1,1.3],modes:['mp3','video','reader'],findings,proposals},null,2)+'\n',resolve));
+ await new Promise(resolve=>process.stdout.write(JSON.stringify({episode:12,status:reviewedSegments?'manually-resegmented-text-layout-not-final-aligned-captions':workingDraft?'working-source-groups-not-final-caption-layout':'final-caption-layout',sourceGroupsReviewed:reviewedSegments?.sourceGroupsReviewed,browser:browserVersion,font,checkedCues:layoutCues.length,widths:[360,390],languages:['cs','sk'],scales:[1,1.3],modes:['mp3','video','reader'],findings,proposals},null,2)+'\n',resolve));
 assert.equal(findings.length,0,'Mobile caption overflow or avoidable fixed-break orphan');
 }finally{await browser.close();server.close()}
