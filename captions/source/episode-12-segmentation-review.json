@@ -4082,8 +4082,8 @@
           "cs": "Wow."
         },
         {
-          "sk": "[Nezrozumiteľná krátka reakcia.]",
-          "cs": "[Nesrozumitelná krátká reakce.]"
+          "sk": "[Nezrozumiteľné.]",
+          "cs": "[Nesrozumitelné.]"
         }
       ]
     },
@@ -5250,8 +5250,8 @@
           "cs": "toho jste si už asi mohli všimnout, posluchači,"
         },
         {
-          "sk": "takže… Áno.",
-          "cs": "takže… Ano."
+          "sk": "[Nezrozumiteľné.] Áno.",
+          "cs": "[Nesrozumitelné.] Ano."
         }
       ]
     },
@@ -5394,8 +5394,8 @@
       ],
       "parts": [
         {
-          "sk": "Áno, negatívny marketing.",
-          "cs": "Ano, negativní marketing."
+          "sk": "Áno, [nezrozumiteľné].",
+          "cs": "Ano, [nesrozumitelné]."
         },
         {
           "sk": "A začala, začala viem,",
@@ -7026,6 +7026,28 @@
       ]
     },
     {
+      "group": "374-376",
+      "language": "sk",
+      "differences": [
+        [
+          "replace",
+          "nezrozumiteľná krátka reakcia",
+          "nezrozumiteľné"
+        ]
+      ]
+    },
+    {
+      "group": "374-376",
+      "language": "cs",
+      "differences": [
+        [
+          "replace",
+          "nesrozumitelná krátká reakce",
+          "nesrozumitelné"
+        ]
+      ]
+    },
+    {
       "group": "417-419",
       "language": "sk",
       "differences": [
@@ -7033,6 +7055,50 @@
           "replace",
           "povod",
           "pôvod"
+        ]
+      ]
+    },
+    {
+      "group": "485-488",
+      "language": "sk",
+      "differences": [
+        [
+          "replace",
+          "takže",
+          "nezrozumiteľné"
+        ]
+      ]
+    },
+    {
+      "group": "485-488",
+      "language": "cs",
+      "differences": [
+        [
+          "replace",
+          "takže",
+          "nesrozumitelné"
+        ]
+      ]
+    },
+    {
+      "group": "501-503",
+      "language": "sk",
+      "differences": [
+        [
+          "replace",
+          "negatívny marketing",
+          "nezrozumiteľné"
+        ]
+      ]
+    },
+    {
+      "group": "501-503",
+      "language": "cs",
+      "differences": [
+        [
+          "replace",
+          "negativní marketing",
+          "nesrozumitelné"
         ]
       ]
     },

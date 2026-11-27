@@ -14,7 +14,7 @@
   },
   "review": {
     "episode": 12,
-    "segmentationTsvGitBlobSha": "16db714fc1d32f1af43a5b124ea91c2aa35b70b7",
+    "segmentationTsvGitBlobSha": "fb796eadd1b2ba087b1a6360cdc6fa5058a4252b",
     "sourceTranscriptSha256": "0c1dbd2210c07a2edec585f18d2aadcae677ee2ed97d817be0887e9ddffc6d13",
     "completeSlovakEditorialReview": true,
     "completeCzechEditorialReview": true,
@@ -34,9 +34,11 @@
       349,
       376,
       441,
+      488,
+      501,
       518
     ],
-    "independentLargeV3Windows": 63,
+    "independentLargeV3Windows": 70,
     "specificTextDecisions": [
       {
         "group": "23-25",
@@ -109,11 +111,47 @@
         "language": "sk",
         "decision": "approved-specific-editorial-change",
         "reason": "Keep the spoken colloquial víroch supported by both ASRs; do not add an unspoken extra syllable in vírusoch."
+      },
+      {
+        "group": "374-376",
+        "language": "sk",
+        "decision": "approved-specific-editorial-change",
+        "reason": "Shorten the existing uncertainty label to the standard concise marker. No spoken content is removed; the original phonetic timing proxy remains separately documented."
+      },
+      {
+        "group": "485-488",
+        "language": "sk",
+        "decision": "approved-specific-editorial-change",
+        "reason": "The primary ASR proposes takže but both broad and focused independent large-v3 omit this filler; neutral CTC provides no reliable word. Mark that short uncertain portion, retain primary-ASR Áno, and preserve original word IDs and the archived phonetic timing proxy."
+      },
+      {
+        "group": "501-503",
+        "language": "sk",
+        "decision": "approved-specific-editorial-change",
+        "reason": "Three independent large-v3 windows omit the primary-ASR negative-marketing interjection; neutral CTC establishes only partial nega phones amid the next speaker. Preserve confirmed Áno and explicitly mark the rest instead of asserting an unverified phrase."
+      },
+      {
+        "group": "374-376",
+        "language": "cs",
+        "decision": "approved-specific-editorial-change",
+        "reason": "Shorten the existing uncertainty label to the standard concise marker. No spoken content is removed; the original phonetic timing proxy remains separately documented."
+      },
+      {
+        "group": "485-488",
+        "language": "cs",
+        "decision": "approved-specific-editorial-change",
+        "reason": "The primary ASR proposes takže but both broad and focused independent large-v3 omit this filler; neutral CTC provides no reliable word. Mark that short uncertain portion, retain primary-ASR Áno, and preserve original word IDs and the archived phonetic timing proxy."
+      },
+      {
+        "group": "501-503",
+        "language": "cs",
+        "decision": "approved-specific-editorial-change",
+        "reason": "Three independent large-v3 windows omit the primary-ASR negative-marketing interjection; neutral CTC establishes only partial nega phones amid the next speaker. Preserve confirmed Áno and explicitly mark the rest instead of asserting an unverified phrase."
       }
     ],
     "note": "All original Slovak and own Czech translation read and manually resegmented, preserving content, historical claims, numbers, negations, repetitions, repairs and postscript. Unintelligible fragments are explicitly marked with actual ASR/CTC evidence. This text review does not approve final acoustic boundaries, mobile layout or publication.",
     "publicationApproved": false,
-    "segmentationTsvSha256": "1b797afc8ebfcbf535759ceb841d7069f689ec69abb375790f7e32612e46ff0b",
+    "segmentationTsvSha256": "ac374bdc098433db0065c3fd410028da22abea5aed4bee324edb1668ee1cf130",
     "status": "complete-model-assisted-bilingual-text-review-awaiting-final-acoustic-validation",
     "phoneticProxies": [
       {
@@ -169,6 +207,18 @@
         "archivedWorkingText": "a pre Rímsku ríšu, [nezrozumiteľné]. A hlavne aj tam pomáhalo určite to,",
         "phoneticProxy": "a pre Rímsku ríšu, cez ktorá. A hlavne aj tam pomáhalo určite to,",
         "reason": "Preserved ASR phonetic anchor for explicitly marked uncertain speech, not asserted subtitle words."
+      },
+      {
+        "sourceCue": 488,
+        "archivedWorkingText": "Áno. A nejdeme chronologicky, to ste si už mohli všimnúť asi poslucháči, takže... Áno.",
+        "phoneticProxy": "Áno. A nejdeme chronologicky, to ste si už mohli všimnúť asi poslucháči, takže... Áno.",
+        "reason": "Primary-ASR filler/interjection is not established by repeated independent large-v3 and neutral CTC; displayed speech is explicitly marked uncertain while the archived phonetic string is retained only to time its source-word span."
+      },
+      {
+        "sourceCue": 501,
+        "archivedWorkingText": "Áno, negatívny marketing. A začala, začala viem, že úplne niekde inde, že nemá",
+        "phoneticProxy": "Áno, negatívny marketing. A začala, začala viem, že úplne niekde inde, že nemá",
+        "reason": "Primary-ASR filler/interjection is not established by repeated independent large-v3 and neutral CTC; displayed speech is explicitly marked uncertain while the archived phonetic string is retained only to time its source-word span."
       },
       {
         "sourceCue": 518,
@@ -16883,8 +16933,8 @@
         376
       ],
       "text": {
-        "sk": "[Nezrozumiteľná krátka reakcia.]",
-        "cs": "[Nesrozumitelná krátká reakce.]"
+        "sk": "[Nezrozumiteľné.]",
+        "cs": "[Nesrozumitelné.]"
       },
       "alignmentText": "či tu sú",
       "alignmentGroup": 97
@@ -20897,8 +20947,8 @@
         488
       ],
       "text": {
-        "sk": "takže… Áno.",
-        "cs": "takže… Ano."
+        "sk": "[Nezrozumiteľné.] Áno.",
+        "cs": "[Nesrozumitelné.] Ano."
       },
       "alignmentText": "takže... Áno.",
       "alignmentGroup": 120
@@ -21383,8 +21433,8 @@
         503
       ],
       "text": {
-        "sk": "Áno, negatívny marketing.",
-        "cs": "Ano, negativní marketing."
+        "sk": "Áno, [nezrozumiteľné].",
+        "cs": "Ano, [nesrozumitelné]."
       },
       "alignmentText": "Áno, negatívny marketing.",
       "alignmentGroup": 123
