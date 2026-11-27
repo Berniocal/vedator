@@ -73,7 +73,7 @@ def main():
         a=max(0,g['start']-.5);b=min(duration,g['end']+.5)
         signature=hashlib.sha256(json.dumps({'version':'semantic-group-v1','model':MODEL,'audio':SHA,'start':a,'end':b,'indices':g['cues'],'targets':[prepared[i]['alignmentText'] for i in g['cues']]},ensure_ascii=False,sort_keys=True).encode()).hexdigest()
         if signature in cache:
-            item=cache[signature]
+            item={**cache[signature],**g,'windowStart':a,'windowEnd':b,'signature':signature,'cues':cache[signature]['cues']}
         else:
             rows,decode=align_block(g['cues'],a,b)
             item={**g,'windowStart':a,'windowEnd':b,'signature':signature,'independentCtcDecode':decode,'cues':rows}
