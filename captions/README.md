@@ -121,3 +121,15 @@ Validátor kontroluje zdrojový hash, všechna ASR slova, doložení obnovené �
 Rozsah ověření: nejde o úplný nezávislý lidský poslech celé nahrávky. Oficiální video `po2qYjYHEEE` je identifikováno metadaty oEmbed; přímá stránka YouTube při ověřování vrátila HTTP 429. Zvuk YouTube nebyl přímo akusticky porovnán s MP3. Browser test s řízeným YouTube přehrávačem ověřuje zobrazení a použití časové osy, nikoli shodu obou skutečných zvukových stop.
 
 Mobilní redakce dílu 11 (22. 11. 2026) měří každou CZ/SK variantu na skutečných prvcích přehrávače při 360/390 px a 100/130 % písma. Konkrétní vybrané zlomy jsou v `source/episode-11-layout-overrides.json`; krátké nezalomitelné dvojice slov na koncích řádků zabraňují vzniku osamoceného slova při dalším přelomení na mobilu. Mění se pouze bílé znaky, všechna slova, význam, návaznost zdroje a akustické hranice zůstávají stejné. Test se neomezuje na počty znaků v SRT.
+
+## Díl 365 – Šedé díry (27. 11. 2026)
+
+Výsledkem je **515 českých a slovenských titulků** z úplných archivovaných YouTube titulků `8Sr2R_DcH9k`: 1 159 původních cue, 325 redakčně přečtených skupin a tři obnovené řečové pasáže. Zahrnutý je mluvený úvod i závěr a veřejná upoutávka. Čistě neřečové anotace zůstávají ve zdrojovém auditu. Celý český překlad byl opraven po strojovém návrhu; skutečné výroky, čísla a vlastní opravy mluvčích se nepřepisují podle věcných očekávání.
+
+Původní RSS MP3 má SHA-256 `6fbdbfabb4bf74bb2061e093722d3e59b969570cf86f50658c874fff29b24961`, 77 121 514 bajtů a délku 2 407,706 s. Sedm rozmístěných kotev má 14–24 shodných slov a podporuje společnou časovou osu s nativními YouTube titulky; žádný jednotný ruční posun není přidán. Slovenské znění je zarovnané CTC modelem `comodoro/wav2vec2-xls-r-300m-sk-cv8`, dvě obnovené anglické věty modelem `facebook/wav2vec2-base-960h`. Čeština sdílí odpovídající hranice. JSON a obě SRT mají stejné texty a časy, nejvýše dva řádky po 48 znacích. Je připojen přesný snímkový index původní MP3.
+
+Sporná řeč byla prověřena v 65 oknech nezávislým large-v3, ve 48 kontrolních rozpoznáních bez VAD oběma modely a ve třech porovnáních konkrétních alternativ. Ze zvuku je obnovená chybějící věta kolem 30:46, anglické „And that is pretty cool“ a citace „Three quarks for Master Mark“. Doplňují se i prokazatelně vynechané části dialogu v existujících skupinách. Sedm krátkých nesrozumitelných fragmentů je výslovně označeno.
+
+**Omezení:** krátké zdrojové „Uhm“ ve skupině 156 má CTC skóre pouze 0,0006 a oba kontrolní rozpoznávače zachytily až následující větu. Je ponecháno jako nejistá nelexikální reakce podle nativních titulků; jeho hranice nejsou vydávány za nezávisle potvrzené. Konkrétní výjimku dokládá `source/episode-365-youtube-audio-resolutions.json`. Nejde o úplný nezávislý lidský poslech ani přímé akustické porovnání zvukové stopy YouTube s MP3.
+
+Validace je v `.github/workflows/validate-episode365-captions.yml`; browser kontrola zahrnuje původní MP3, seek, přepínání jazyků, video, čtečku, fullscreen a offline cache. Sedm výroků ve Slibech má zpřesněný čas podle slovních hranic MP3. Produkční kontrola porovnává skutečně nasazené JSON a oba SRT podle SHA-256.
