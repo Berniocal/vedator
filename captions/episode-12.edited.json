@@ -14,7 +14,7 @@
   },
   "review": {
     "episode": 12,
-    "segmentationTsvGitBlobSha": "fb796eadd1b2ba087b1a6360cdc6fa5058a4252b",
+    "segmentationTsvGitBlobSha": "cc838c8cdc83ab4911a8b4f6ef9aacbfaa3de025",
     "sourceTranscriptSha256": "0c1dbd2210c07a2edec585f18d2aadcae677ee2ed97d817be0887e9ddffc6d13",
     "completeSlovakEditorialReview": true,
     "completeCzechEditorialReview": true,
@@ -38,7 +38,7 @@
       501,
       518
     ],
-    "independentLargeV3Windows": 70,
+    "independentLargeV3Windows": 80,
     "specificTextDecisions": [
       {
         "group": "23-25",
@@ -147,11 +147,59 @@
         "language": "cs",
         "decision": "approved-specific-editorial-change",
         "reason": "Three independent large-v3 windows omit the primary-ASR negative-marketing interjection; neutral CTC establishes only partial nega phones amid the next speaker. Preserve confirmed Áno and explicitly mark the rest instead of asserting an unverified phrase."
+      },
+      {
+        "group": "87-89",
+        "language": "sk",
+        "decision": "approved-specific-editorial-change",
+        "reason": "Focused independent large-v3 at 369–378 restores A before niečo. The alignment window is extended to include its proposed onset, and actual recovered character scores must be checked before approval."
+      },
+      {
+        "group": "87-89",
+        "language": "cs",
+        "decision": "approved-specific-editorial-change",
+        "reason": "Focused independent large-v3 at 369–378 restores A before niečo. The alignment window is extended to include its proposed onset, and actual recovered character scores must be checked before approval."
+      },
+      {
+        "group": "207-212",
+        "language": "sk",
+        "decision": "approved-specific-editorial-change",
+        "reason": "Unforced whole-context CTC explicitly gives ryže popo na to poslednom poličku and the isolated original-audio gap gives pól pól. Preserve only the interrupted po… po… syllables, without guessing completed words. Independent large-v3 confirms the surrounding complete clause but normalizes the restart."
+      },
+      {
+        "group": "207-212",
+        "language": "cs",
+        "decision": "approved-specific-editorial-change",
+        "reason": "Unforced whole-context CTC explicitly gives ryže popo na to poslednom poličku and the isolated original-audio gap gives pól pól. Preserve only the interrupted po… po… syllables, without guessing completed words. Independent large-v3 confirms the surrounding complete clause but normalizes the restart."
+      },
+      {
+        "group": "316-321",
+        "language": "sk",
+        "decision": "approved-specific-editorial-change",
+        "reason": "Whole-context free CTC gives model ktorí ktory se zaoberal and the isolated gap contains ktorý. Restore the repeated ktorý, which independent large-v3 normalizes to one occurrence; verify both copies by the new full character path."
+      },
+      {
+        "group": "316-321",
+        "language": "cs",
+        "decision": "approved-specific-editorial-change",
+        "reason": "Whole-context free CTC gives model ktorí ktory se zaoberal and the isolated gap contains ktorý. Restore the repeated ktorý, which independent large-v3 normalizes to one occurrence; verify both copies by the new full character path."
+      },
+      {
+        "group": "579-586",
+        "language": "sk",
+        "decision": "approved-specific-editorial-change",
+        "reason": "Whole-context free CTC gives pamätom a boloto boloto opravnené, and isolated gap gives a bol. Restore the actual A bolo to, bolo to restart. Focused independent large-v3 confirms the following clause and begins before the previous second-copy alignment."
+      },
+      {
+        "group": "579-586",
+        "language": "cs",
+        "decision": "approved-specific-editorial-change",
+        "reason": "Whole-context free CTC gives pamätom a boloto boloto opravnené, and isolated gap gives a bol. Restore the actual A bolo to, bolo to restart. Focused independent large-v3 confirms the following clause and begins before the previous second-copy alignment."
       }
     ],
     "note": "All original Slovak and own Czech translation read and manually resegmented, preserving content, historical claims, numbers, negations, repetitions, repairs and postscript. Unintelligible fragments are explicitly marked with actual ASR/CTC evidence. This text review does not approve final acoustic boundaries, mobile layout or publication.",
     "publicationApproved": false,
-    "segmentationTsvSha256": "ac374bdc098433db0065c3fd410028da22abea5aed4bee324edb1668ee1cf130",
+    "segmentationTsvSha256": "172ee5a75732ae26d3b05ed975c9a6acf1598e951e643c05d5dc994b45993266",
     "status": "complete-model-assisted-bilingual-text-review-awaiting-final-acoustic-validation",
     "phoneticProxies": [
       {
@@ -811,7 +859,7 @@
         827,
         864
       ],
-      "start": 374.58,
+      "start": 373.5,
       "end": 385.78,
       "cues": [
         152,
@@ -6545,11 +6593,16 @@
         89
       ],
       "text": {
-        "sk": "Niečo, čo by sme v úvodzovkách mohli nazvať,",
-        "cs": "Něco, co bychom mohli v uvozovkách nazvat"
+        "sk": "A niečo, čo by sme v úvodzovkách mohli nazvať,",
+        "cs": "A něco, co bychom mohli v uvozovkách nazvat"
       },
-      "alignmentText": "Niečo, čo by sme v úvodzovkách mohli nazvať,",
-      "alignmentGroup": 29
+      "alignmentText": "A Niečo, čo by sme v úvodzovkách mohli nazvať,",
+      "alignmentGroup": 29,
+      "recoveredSpeech": {
+        "evidence": "captions/source/episode-12-followup-7-checks.sk.json",
+        "ctcEvidence": "captions/source/episode-12-gap-ctc-checks.sk.json",
+        "reason": "Short onset/restart verified against independent large-v3 with context and the unforced whole-context/gap CTC traces; full wording and acoustic characters retained for final review."
+      }
     },
     {
       "start": 377.0,
@@ -11093,11 +11146,16 @@
         212
       ],
       "text": {
-        "sk": "na tom poslednom poličku.",
-        "cs": "na tom posledním políčku."
+        "sk": "po… po… na tom poslednom poličku.",
+        "cs": "po… po… na tom posledním políčku."
       },
-      "alignmentText": "na tom poslednom poličku.",
-      "alignmentGroup": 59
+      "alignmentText": "po po na tom poslednom poličku.",
+      "alignmentGroup": 59,
+      "recoveredSpeech": {
+        "evidence": "captions/source/episode-12-followup-7-checks.sk.json",
+        "ctcEvidence": "captions/source/episode-12-gap-ctc-checks.sk.json",
+        "reason": "Short onset/restart verified against independent large-v3 with context and the unforced whole-context/gap CTC traces; full wording and acoustic characters retained for final review."
+      }
     },
     {
       "start": 927.66,
@@ -14909,11 +14967,16 @@
         321
       ],
       "text": {
-        "sk": "ktorý sa zaoberal kiahňami.",
-        "cs": "který se zabýval neštovicemi."
+        "sk": "ktorý, ktorý sa zaoberal kiahňami.",
+        "cs": "který, který se zabýval neštovicemi."
       },
-      "alignmentText": "ktorý sa zaoberal kiahňami.",
-      "alignmentGroup": 85
+      "alignmentText": "ktorý ktorý sa zaoberal kiahňami.",
+      "alignmentGroup": 85,
+      "recoveredSpeech": {
+        "evidence": "captions/source/episode-12-followup-7-checks.sk.json",
+        "ctcEvidence": "captions/source/episode-12-gap-ctc-checks.sk.json",
+        "reason": "Short onset/restart verified against independent large-v3 with context and the unforced whole-context/gap CTC traces; full wording and acoustic characters retained for final review."
+      }
     },
     {
       "start": 1393.17,
@@ -24187,11 +24250,16 @@
         586
       ],
       "text": {
-        "sk": "A bolo to oprávnené, akože",
-        "cs": "A bylo to oprávněné, jako"
+        "sk": "A bolo to, bolo to oprávnené, akože",
+        "cs": "A bylo to, bylo to oprávněné, jako"
       },
-      "alignmentText": "A bolo to oprávnené, akože",
-      "alignmentGroup": 137
+      "alignmentText": "A bolo to bolo to oprávnené, akože",
+      "alignmentGroup": 137,
+      "recoveredSpeech": {
+        "evidence": "captions/source/episode-12-followup-7-checks.sk.json",
+        "ctcEvidence": "captions/source/episode-12-gap-ctc-checks.sk.json",
+        "reason": "Short onset/restart verified against independent large-v3 with context and the unforced whole-context/gap CTC traces; full wording and acoustic characters retained for final review."
+      }
     },
     {
       "start": 2579.1,
