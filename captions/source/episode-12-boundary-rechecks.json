@@ -1767,6 +1767,50 @@
         "captions/source/episode-12-followup-1-checks.sk.json"
       ],
       "reason": "Two independent large-v3 windows confirm isolated Wow around 1635.34–1635.78; a new CTC path is calculated on the original audio, without clamping or an inferred global shift."
+    },
+    {
+      "cues": [
+        45
+      ],
+      "window": [
+        121.0,
+        121.95
+      ],
+      "previousBoundaries": [
+        [
+          122.926,
+          124.827
+        ]
+      ],
+      "newBoundaries": [
+        [
+          121.222,
+          124.827
+        ]
+      ],
+      "prefixCharacterAudit": {
+        "cue": 45,
+        "start": 121.222,
+        "end": 121.243,
+        "meanCharacterScore": 0.0,
+        "asrStart": 120.3,
+        "asrEnd": 124.89,
+        "alignmentText": "a",
+        "characters": [
+          {
+            "token": 1,
+            "char": "a",
+            "start": 121.222,
+            "end": 121.243,
+            "score": 0.0
+          }
+        ]
+      },
+      "independentCtcDecode": "oliw",
+      "evidence": [
+        "captions/source/episode-12-followup-2-checks.sk.json"
+      ],
+      "reason": "Independent large-v3 explicitly separates a at 121.12–121.72 and aj ta... after 122.48. Preserve that first conjunction with its separately measured character onset, followed by the existing remaining character path. No clamping or global shift."
     }
   ]
 }

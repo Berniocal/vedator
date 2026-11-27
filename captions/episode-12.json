@@ -599,7 +599,7 @@
       ]
     },
     {
-      "start": 122.926,
+      "start": 121.222,
       "end": 124.827,
       "kind": "speech",
       "text": {
@@ -2003,21 +2003,26 @@
       ]
     },
     {
-      "start": 374.841,
-      "end": 376.985,
+      "start": 373.841,
+      "end": 376.986,
       "kind": "speech",
       "text": {
-        "sk": "Niečo, čo by sme v úvodzovkách mohli nazvať,",
-        "cs": "Něco, co bychom mohli v uvozovkách nazvat"
+        "sk": "A niečo, čo by sme v úvodzovkách mohli nazvať,",
+        "cs": "A něco, co bychom mohli v uvozovkách nazvat"
       },
       "asrWordRange": [
         827,
         835
-      ]
+      ],
+      "recoveredSpeech": {
+        "evidence": "captions/source/episode-12-followup-7-checks.sk.json",
+        "ctcEvidence": "captions/source/episode-12-gap-ctc-checks.sk.json",
+        "reason": "Short onset/restart verified against independent large-v3 with context and the unforced whole-context/gap CTC traces; full wording and acoustic characters retained for final review."
+      }
     },
     {
-      "start": 377.025,
-      "end": 377.886,
+      "start": 377.026,
+      "end": 377.887,
       "kind": "speech",
       "text": {
         "sk": "že slabinou vírov,",
@@ -2029,8 +2034,8 @@
       ]
     },
     {
-      "start": 377.906,
-      "end": 379.329,
+      "start": 377.907,
+      "end": 379.33,
       "kind": "speech",
       "text": {
         "sk": "je, že je to ich jednoduchosť,",
@@ -2042,8 +2047,8 @@
       ]
     },
     {
-      "start": 379.649,
-      "end": 380.711,
+      "start": 379.65,
+      "end": 380.712,
       "kind": "speech",
       "text": {
         "sk": "že to sú v podstate len také",
@@ -2055,8 +2060,8 @@
       ]
     },
     {
-      "start": 381.011,
-      "end": 382.694,
+      "start": 381.012,
+      "end": 382.695,
       "kind": "speech",
       "text": {
         "sk": "relatívne krátke kúsky DNA,",
@@ -5291,17 +5296,22 @@
       ]
     },
     {
-      "start": 925.519,
+      "start": 923.437,
       "end": 926.64,
       "kind": "speech",
       "text": {
-        "sk": "na tom poslednom poličku.",
-        "cs": "na tom posledním políčku."
+        "sk": "po… po… na tom poslednom poličku.",
+        "cs": "po… po… na tom posledním políčku."
       },
       "asrWordRange": [
         2152,
         2156
-      ]
+      ],
+      "recoveredSpeech": {
+        "evidence": "captions/source/episode-12-followup-7-checks.sk.json",
+        "ctcEvidence": "captions/source/episode-12-gap-ctc-checks.sk.json",
+        "reason": "Short onset/restart verified against independent large-v3 with context and the unforced whole-context/gap CTC traces; full wording and acoustic characters retained for final review."
+      }
     },
     {
       "start": 928.002,
@@ -8047,17 +8057,22 @@
       ]
     },
     {
-      "start": 1390.102,
+      "start": 1389.222,
       "end": 1391.963,
       "kind": "speech",
       "text": {
-        "sk": "ktorý sa zaoberal kiahňami.",
-        "cs": "který se zabýval neštovicemi."
+        "sk": "ktorý, ktorý sa zaoberal kiahňami.",
+        "cs": "který, který se zabýval neštovicemi."
       },
       "asrWordRange": [
         3308,
         3313
-      ]
+      ],
+      "recoveredSpeech": {
+        "evidence": "captions/source/episode-12-followup-7-checks.sk.json",
+        "ctcEvidence": "captions/source/episode-12-gap-ctc-checks.sk.json",
+        "reason": "Short onset/restart verified against independent large-v3 with context and the unforced whole-context/gap CTC traces; full wording and acoustic characters retained for final review."
+      }
     },
     {
       "start": 1393.544,
@@ -14750,17 +14765,22 @@
       ]
     },
     {
-      "start": 2577.225,
+      "start": 2576.845,
       "end": 2579.086,
       "kind": "speech",
       "text": {
-        "sk": "A bolo to oprávnené, akože",
-        "cs": "A bylo to oprávněné, jako"
+        "sk": "A bolo to, bolo to oprávnené, akože",
+        "cs": "A bylo to, bylo to oprávněné, jako"
       },
       "asrWordRange": [
         6035,
         6040
-      ]
+      ],
+      "recoveredSpeech": {
+        "evidence": "captions/source/episode-12-followup-7-checks.sk.json",
+        "ctcEvidence": "captions/source/episode-12-gap-ctc-checks.sk.json",
+        "reason": "Short onset/restart verified against independent large-v3 with context and the unforced whole-context/gap CTC traces; full wording and acoustic characters retained for final review."
+      }
     },
     {
       "start": 2579.826,

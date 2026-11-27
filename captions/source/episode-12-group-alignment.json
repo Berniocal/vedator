@@ -33382,319 +33382,333 @@
         827,
         864
       ],
-      "start": 374.58,
+      "start": 373.5,
       "end": 385.78,
       "cues": [
         {
           "cue": 153,
-          "start": 374.841,
-          "end": 376.985,
-          "meanCharacterScore": 0.6843,
+          "start": 373.841,
+          "end": 376.986,
+          "meanCharacterScore": 0.6813,
           "asrStart": 374.58,
           "asrEnd": 376.98,
-          "alignmentText": "Niečo, čo by sme v úvodzovkách mohli nazvať,",
+          "alignmentText": "A Niečo, čo by sme v úvodzovkách mohli nazvať,",
           "characters": [
+            {
+              "token": 1,
+              "char": "a",
+              "start": 373.841,
+              "end": 373.881,
+              "score": 0.9929
+            },
+            {
+              "token": 0,
+              "char": "|",
+              "start": 374.002,
+              "end": 374.022,
+              "score": 0.9126
+            },
             {
               "token": 14,
               "char": "n",
-              "start": 374.841,
-              "end": 374.861,
-              "score": 0.9999
+              "start": 374.843,
+              "end": 374.863,
+              "score": 1.0
             },
             {
               "token": 9,
               "char": "i",
-              "start": 374.861,
-              "end": 374.901,
-              "score": 0.7555
+              "start": 374.883,
+              "end": 374.903,
+              "score": 0.9991
             },
             {
               "token": 5,
               "char": "e",
-              "start": 374.901,
-              "end": 374.921,
-              "score": 0.9992
+              "start": 374.903,
+              "end": 374.923,
+              "score": 0.9972
             },
             {
               "token": 35,
               "char": "č",
-              "start": 374.981,
-              "end": 375.002,
-              "score": 0.9996
+              "start": 374.983,
+              "end": 375.003,
+              "score": 0.9997
             },
             {
               "token": 15,
               "char": "o",
-              "start": 375.022,
-              "end": 375.042,
-              "score": 0.9996
+              "start": 375.023,
+              "end": 375.043,
+              "score": 0.9998
             },
             {
               "token": 0,
               "char": "|",
-              "start": 375.042,
-              "end": 375.062,
-              "score": 0.9967
+              "start": 375.043,
+              "end": 375.063,
+              "score": 0.9984
             },
             {
               "token": 35,
               "char": "č",
-              "start": 375.102,
-              "end": 375.122,
+              "start": 375.103,
+              "end": 375.123,
               "score": 1.0
             },
             {
               "token": 15,
               "char": "o",
-              "start": 375.142,
-              "end": 375.162,
+              "start": 375.143,
+              "end": 375.163,
               "score": 1.0
             },
             {
               "token": 0,
               "char": "|",
-              "start": 375.182,
-              "end": 375.202,
-              "score": 0.9993
+              "start": 375.183,
+              "end": 375.203,
+              "score": 0.9972
             },
             {
               "token": 2,
               "char": "b",
-              "start": 375.222,
-              "end": 375.242,
-              "score": 0.9996
+              "start": 375.223,
+              "end": 375.243,
+              "score": 0.9995
             },
             {
               "token": 25,
               "char": "y",
-              "start": 375.242,
-              "end": 375.262,
-              "score": 0.9239
+              "start": 375.243,
+              "end": 375.263,
+              "score": 0.2958
             },
             {
               "token": 0,
               "char": "|",
-              "start": 375.262,
-              "end": 375.282,
-              "score": 0.047
+              "start": 375.263,
+              "end": 375.283,
+              "score": 0.0074
             },
             {
               "token": 19,
               "char": "s",
-              "start": 375.302,
-              "end": 375.322,
+              "start": 375.303,
+              "end": 375.323,
               "score": 0.0
             },
             {
               "token": 13,
               "char": "m",
-              "start": 375.402,
-              "end": 375.422,
+              "start": 375.404,
+              "end": 375.424,
               "score": 1.0
             },
             {
               "token": 5,
               "char": "e",
-              "start": 375.462,
-              "end": 375.482,
+              "start": 375.464,
+              "end": 375.484,
               "score": 1.0
             },
             {
               "token": 0,
               "char": "|",
-              "start": 375.542,
-              "end": 375.582,
-              "score": 0.9999
+              "start": 375.544,
+              "end": 375.584,
+              "score": 1.0
             },
             {
               "token": 22,
               "char": "v",
-              "start": 375.943,
-              "end": 375.963,
-              "score": 0.9914
+              "start": 375.944,
+              "end": 375.964,
+              "score": 0.9839
             },
             {
               "token": 0,
               "char": "|",
-              "start": 375.963,
-              "end": 375.983,
-              "score": 0.2153
+              "start": 375.964,
+              "end": 375.984,
+              "score": 0.0774
             },
             {
               "token": 33,
               "char": "ú",
-              "start": 375.983,
-              "end": 376.003,
+              "start": 375.984,
+              "end": 376.005,
               "score": 0.0
             },
             {
               "token": 22,
               "char": "v",
-              "start": 376.003,
-              "end": 376.043,
-              "score": 0.8419
+              "start": 376.005,
+              "end": 376.045,
+              "score": 0.8015
             },
             {
               "token": 15,
               "char": "o",
-              "start": 376.063,
-              "end": 376.083,
-              "score": 0.0141
+              "start": 376.065,
+              "end": 376.085,
+              "score": 0.0078
             },
             {
               "token": 4,
               "char": "d",
-              "start": 376.203,
-              "end": 376.224,
-              "score": 0.0722
+              "start": 376.205,
+              "end": 376.225,
+              "score": 0.0589
             },
             {
               "token": 26,
               "char": "z",
-              "start": 376.224,
-              "end": 376.244,
+              "start": 376.225,
+              "end": 376.245,
               "score": 1.0
             },
             {
               "token": 15,
               "char": "o",
-              "start": 376.264,
-              "end": 376.284,
-              "score": 0.6825
+              "start": 376.265,
+              "end": 376.285,
+              "score": 0.6499
             },
             {
               "token": 22,
               "char": "v",
-              "start": 376.284,
-              "end": 376.304,
+              "start": 376.285,
+              "end": 376.305,
               "score": 0.0
             },
             {
               "token": 11,
               "char": "k",
-              "start": 376.364,
-              "end": 376.384,
+              "start": 376.365,
+              "end": 376.385,
               "score": 1.0
             },
             {
               "token": 27,
               "char": "á",
-              "start": 376.384,
-              "end": 376.404,
+              "start": 376.385,
+              "end": 376.405,
               "score": 0.0
             },
             {
               "token": 3,
               "char": "c",
-              "start": 376.404,
-              "end": 376.424,
+              "start": 376.405,
+              "end": 376.425,
               "score": 0.0
             },
             {
               "token": 8,
               "char": "h",
-              "start": 376.424,
-              "end": 376.444,
+              "start": 376.425,
+              "end": 376.445,
               "score": 0.0
             },
             {
               "token": 0,
               "char": "|",
-              "start": 376.444,
-              "end": 376.484,
-              "score": 0.9859
+              "start": 376.445,
+              "end": 376.485,
+              "score": 0.9798
             },
             {
               "token": 13,
               "char": "m",
-              "start": 376.504,
-              "end": 376.524,
+              "start": 376.505,
+              "end": 376.525,
               "score": 1.0
             },
             {
               "token": 15,
               "char": "o",
-              "start": 376.544,
-              "end": 376.564,
+              "start": 376.545,
+              "end": 376.565,
               "score": 0.0
             },
             {
               "token": 8,
               "char": "h",
-              "start": 376.564,
-              "end": 376.584,
+              "start": 376.565,
+              "end": 376.585,
               "score": 0.0
             },
             {
               "token": 12,
               "char": "l",
-              "start": 376.604,
-              "end": 376.624,
+              "start": 376.605,
+              "end": 376.625,
               "score": 1.0
             },
             {
               "token": 9,
               "char": "i",
-              "start": 376.624,
-              "end": 376.644,
+              "start": 376.625,
+              "end": 376.645,
               "score": 1.0
             },
             {
               "token": 0,
               "char": "|",
-              "start": 376.664,
-              "end": 376.704,
-              "score": 0.9666
+              "start": 376.666,
+              "end": 376.706,
+              "score": 0.9452
             },
             {
               "token": 14,
               "char": "n",
-              "start": 376.704,
-              "end": 376.724,
+              "start": 376.706,
+              "end": 376.726,
               "score": 0.9997
             },
             {
               "token": 1,
               "char": "a",
-              "start": 376.724,
-              "end": 376.764,
-              "score": 0.8876
+              "start": 376.726,
+              "end": 376.766,
+              "score": 0.8673
             },
             {
               "token": 26,
               "char": "z",
-              "start": 376.784,
-              "end": 376.824,
-              "score": 0.9508
+              "start": 376.786,
+              "end": 376.826,
+              "score": 0.9538
             },
             {
               "token": 22,
               "char": "v",
-              "start": 376.845,
-              "end": 376.865,
+              "start": 376.846,
+              "end": 376.866,
               "score": 0.9999
             },
             {
               "token": 1,
               "char": "a",
-              "start": 376.885,
-              "end": 376.905,
+              "start": 376.886,
+              "end": 376.906,
               "score": 1.0
             },
             {
               "token": 42,
               "char": "ť",
-              "start": 376.945,
-              "end": 376.985,
-              "score": 0.8335
+              "start": 376.946,
+              "end": 376.986,
+              "score": 0.9212
             }
           ]
         },
         {
           "cue": 154,
-          "start": 377.025,
-          "end": 377.886,
-          "meanCharacterScore": 0.8318,
+          "start": 377.026,
+          "end": 377.887,
+          "meanCharacterScore": 0.8413,
           "asrStart": 377.0,
           "asrEnd": 377.86,
           "alignmentText": "že slabinou vírov,",
@@ -33702,129 +33716,129 @@
             {
               "token": 43,
               "char": "ž",
-              "start": 377.025,
-              "end": 377.045,
+              "start": 377.026,
+              "end": 377.046,
               "score": 1.0
             },
             {
               "token": 5,
               "char": "e",
-              "start": 377.085,
-              "end": 377.105,
+              "start": 377.086,
+              "end": 377.106,
               "score": 1.0
             },
             {
               "token": 0,
               "char": "|",
-              "start": 377.105,
-              "end": 377.145,
+              "start": 377.106,
+              "end": 377.146,
               "score": 1.0
             },
             {
               "token": 19,
               "char": "s",
-              "start": 377.145,
-              "end": 377.185,
-              "score": 0.9961
+              "start": 377.146,
+              "end": 377.186,
+              "score": 0.9958
             },
             {
               "token": 12,
               "char": "l",
-              "start": 377.265,
-              "end": 377.305,
+              "start": 377.266,
+              "end": 377.306,
               "score": 1.0
             },
             {
               "token": 1,
               "char": "a",
-              "start": 377.305,
-              "end": 377.345,
-              "score": 0.8632
+              "start": 377.306,
+              "end": 377.347,
+              "score": 0.8767
             },
             {
               "token": 2,
               "char": "b",
-              "start": 377.405,
-              "end": 377.425,
+              "start": 377.407,
+              "end": 377.427,
               "score": 1.0
             },
             {
               "token": 9,
               "char": "i",
-              "start": 377.446,
-              "end": 377.466,
-              "score": 0.6303
+              "start": 377.447,
+              "end": 377.467,
+              "score": 0.7599
             },
             {
               "token": 14,
               "char": "n",
-              "start": 377.506,
-              "end": 377.526,
+              "start": 377.507,
+              "end": 377.527,
               "score": 1.0
             },
             {
               "token": 15,
               "char": "o",
-              "start": 377.546,
-              "end": 377.566,
-              "score": 0.9998
+              "start": 377.547,
+              "end": 377.567,
+              "score": 0.9996
             },
             {
               "token": 21,
               "char": "u",
-              "start": 377.566,
-              "end": 377.606,
-              "score": 0.9902
+              "start": 377.567,
+              "end": 377.607,
+              "score": 0.9893
             },
             {
               "token": 0,
               "char": "|",
-              "start": 377.606,
-              "end": 377.646,
+              "start": 377.607,
+              "end": 377.647,
               "score": 0.9999
             },
             {
               "token": 22,
               "char": "v",
-              "start": 377.646,
-              "end": 377.666,
+              "start": 377.647,
+              "end": 377.667,
               "score": 1.0
             },
             {
               "token": 30,
               "char": "í",
-              "start": 377.706,
-              "end": 377.726,
+              "start": 377.707,
+              "end": 377.727,
               "score": 0.0
             },
             {
               "token": 18,
               "char": "r",
-              "start": 377.766,
-              "end": 377.786,
+              "start": 377.767,
+              "end": 377.787,
               "score": 1.0
             },
             {
               "token": 15,
               "char": "o",
-              "start": 377.806,
-              "end": 377.846,
-              "score": 0.9975
+              "start": 377.807,
+              "end": 377.847,
+              "score": 0.9979
             },
             {
               "token": 22,
               "char": "v",
-              "start": 377.866,
-              "end": 377.886,
+              "start": 377.867,
+              "end": 377.887,
               "score": 0.0
             }
           ]
         },
         {
           "cue": 155,
-          "start": 377.906,
-          "end": 379.329,
-          "meanCharacterScore": 0.8835,
+          "start": 377.907,
+          "end": 379.33,
+          "meanCharacterScore": 0.8855,
           "asrStart": 377.92,
           "asrEnd": 379.34,
           "alignmentText": "je, že je to ich jednoduchosť,",
@@ -33832,206 +33846,206 @@
             {
               "token": 10,
               "char": "j",
-              "start": 377.906,
-              "end": 377.946,
-              "score": 0.922
+              "start": 377.907,
+              "end": 377.947,
+              "score": 0.9342
             },
             {
               "token": 5,
               "char": "e",
-              "start": 377.946,
-              "end": 377.986,
-              "score": 0.9996
+              "start": 377.947,
+              "end": 377.988,
+              "score": 0.9997
             },
             {
               "token": 0,
               "char": "|",
-              "start": 377.986,
-              "end": 378.006,
-              "score": 0.4388
+              "start": 377.988,
+              "end": 378.008,
+              "score": 0.5087
             },
             {
               "token": 43,
               "char": "ž",
-              "start": 378.026,
-              "end": 378.047,
+              "start": 378.028,
+              "end": 378.048,
               "score": 1.0
             },
             {
               "token": 5,
               "char": "e",
-              "start": 378.087,
-              "end": 378.107,
+              "start": 378.088,
+              "end": 378.108,
               "score": 1.0
             },
             {
               "token": 0,
               "char": "|",
-              "start": 378.127,
-              "end": 378.187,
+              "start": 378.128,
+              "end": 378.188,
               "score": 1.0
             },
             {
               "token": 10,
               "char": "j",
-              "start": 378.247,
-              "end": 378.267,
+              "start": 378.248,
+              "end": 378.268,
               "score": 1.0
             },
             {
               "token": 5,
               "char": "e",
-              "start": 378.287,
-              "end": 378.307,
+              "start": 378.288,
+              "end": 378.308,
               "score": 1.0
             },
             {
               "token": 0,
               "char": "|",
-              "start": 378.307,
-              "end": 378.347,
+              "start": 378.308,
+              "end": 378.348,
               "score": 0.9996
             },
             {
               "token": 20,
               "char": "t",
-              "start": 378.387,
-              "end": 378.407,
+              "start": 378.388,
+              "end": 378.408,
               "score": 0.0
             },
             {
               "token": 15,
               "char": "o",
-              "start": 378.427,
-              "end": 378.447,
+              "start": 378.428,
+              "end": 378.448,
               "score": 0.0
             },
             {
               "token": 0,
               "char": "|",
-              "start": 378.467,
-              "end": 378.487,
-              "score": 0.5455
+              "start": 378.468,
+              "end": 378.488,
+              "score": 0.5872
             },
             {
               "token": 9,
               "char": "i",
-              "start": 378.487,
-              "end": 378.507,
+              "start": 378.488,
+              "end": 378.508,
               "score": 1.0
             },
             {
               "token": 3,
               "char": "c",
-              "start": 378.507,
-              "end": 378.527,
-              "score": 0.9989
+              "start": 378.508,
+              "end": 378.528,
+              "score": 0.9988
             },
             {
               "token": 8,
               "char": "h",
-              "start": 378.527,
-              "end": 378.547,
-              "score": 0.9982
+              "start": 378.528,
+              "end": 378.548,
+              "score": 0.9988
             },
             {
               "token": 0,
               "char": "|",
-              "start": 378.547,
-              "end": 378.587,
-              "score": 0.9664
+              "start": 378.548,
+              "end": 378.588,
+              "score": 0.9834
             },
             {
               "token": 10,
               "char": "j",
-              "start": 378.587,
-              "end": 378.607,
+              "start": 378.588,
+              "end": 378.608,
               "score": 1.0
             },
             {
               "token": 5,
               "char": "e",
-              "start": 378.627,
-              "end": 378.668,
-              "score": 0.7594
+              "start": 378.628,
+              "end": 378.669,
+              "score": 0.7667
             },
             {
               "token": 4,
               "char": "d",
-              "start": 378.708,
-              "end": 378.728,
+              "start": 378.709,
+              "end": 378.729,
               "score": 1.0
             },
             {
               "token": 14,
               "char": "n",
-              "start": 378.728,
-              "end": 378.768,
-              "score": 0.9596
+              "start": 378.729,
+              "end": 378.769,
+              "score": 0.961
             },
             {
               "token": 15,
               "char": "o",
-              "start": 378.788,
-              "end": 378.808,
+              "start": 378.789,
+              "end": 378.809,
               "score": 1.0
             },
             {
               "token": 4,
               "char": "d",
-              "start": 378.848,
-              "end": 378.888,
-              "score": 0.9974
+              "start": 378.849,
+              "end": 378.889,
+              "score": 0.9977
             },
             {
               "token": 21,
               "char": "u",
-              "start": 378.888,
-              "end": 378.928,
+              "start": 378.889,
+              "end": 378.929,
               "score": 0.9999
             },
             {
               "token": 3,
               "char": "c",
-              "start": 378.948,
-              "end": 378.988,
-              "score": 0.9983
+              "start": 378.949,
+              "end": 378.989,
+              "score": 0.998
             },
             {
               "token": 8,
               "char": "h",
-              "start": 378.988,
-              "end": 379.028,
+              "start": 378.989,
+              "end": 379.029,
               "score": 0.9891
             },
             {
               "token": 15,
               "char": "o",
-              "start": 379.048,
-              "end": 379.108,
-              "score": 0.9058
+              "start": 379.049,
+              "end": 379.109,
+              "score": 0.9112
             },
             {
               "token": 19,
               "char": "s",
-              "start": 379.148,
-              "end": 379.188,
-              "score": 0.7917
+              "start": 379.149,
+              "end": 379.189,
+              "score": 0.8118
             },
             {
               "token": 42,
               "char": "ť",
-              "start": 379.309,
-              "end": 379.329,
+              "start": 379.31,
+              "end": 379.33,
               "score": 1.0
             }
           ]
         },
         {
           "cue": 156,
-          "start": 379.649,
-          "end": 380.711,
-          "meanCharacterScore": 0.5125,
+          "start": 379.65,
+          "end": 380.712,
+          "meanCharacterScore": 0.5194,
           "asrStart": 379.58,
           "asrEnd": 380.74,
           "alignmentText": "že to sú v podstate len také",
@@ -34039,30 +34053,30 @@
             {
               "token": 43,
               "char": "ž",
-              "start": 379.649,
-              "end": 379.669,
+              "start": 379.65,
+              "end": 379.67,
               "score": 1.0
             },
             {
               "token": 5,
               "char": "e",
-              "start": 379.709,
-              "end": 379.729,
+              "start": 379.71,
+              "end": 379.73,
               "score": 1.0
             },
             {
               "token": 0,
               "char": "|",
-              "start": 379.749,
-              "end": 379.809,
-              "score": 0.9986
+              "start": 379.75,
+              "end": 379.81,
+              "score": 0.9989
             },
             {
               "token": 20,
               "char": "t",
               "start": 379.89,
               "end": 379.91,
-              "score": 0.9999
+              "score": 0.9998
             },
             {
               "token": 15,
@@ -34082,111 +34096,111 @@
               "token": 19,
               "char": "s",
               "start": 379.97,
-              "end": 379.99,
+              "end": 379.991,
               "score": 1.0
             },
             {
               "token": 33,
               "char": "ú",
-              "start": 380.03,
-              "end": 380.05,
-              "score": 0.0551
+              "start": 380.031,
+              "end": 380.051,
+              "score": 0.0597
             },
             {
               "token": 0,
               "char": "|",
-              "start": 380.05,
-              "end": 380.09,
+              "start": 380.051,
+              "end": 380.091,
               "score": 0.9995
             },
             {
               "token": 22,
               "char": "v",
-              "start": 380.09,
-              "end": 380.11,
-              "score": 0.008
+              "start": 380.091,
+              "end": 380.111,
+              "score": 0.0058
             },
             {
               "token": 0,
               "char": "|",
-              "start": 380.11,
-              "end": 380.13,
-              "score": 0.0003
+              "start": 380.111,
+              "end": 380.131,
+              "score": 0.0002
             },
             {
               "token": 16,
               "char": "p",
-              "start": 380.13,
-              "end": 380.15,
-              "score": 0.0105
+              "start": 380.131,
+              "end": 380.151,
+              "score": 0.0071
             },
             {
               "token": 15,
               "char": "o",
-              "start": 380.17,
-              "end": 380.19,
-              "score": 0.6909
+              "start": 380.171,
+              "end": 380.191,
+              "score": 0.7154
             },
             {
               "token": 4,
               "char": "d",
-              "start": 380.21,
-              "end": 380.23,
-              "score": 0.0003
+              "start": 380.211,
+              "end": 380.231,
+              "score": 0.0004
             },
             {
               "token": 19,
               "char": "s",
-              "start": 380.23,
-              "end": 380.25,
-              "score": 0.2558
+              "start": 380.231,
+              "end": 380.251,
+              "score": 0.1757
             },
             {
               "token": 20,
               "char": "t",
-              "start": 380.27,
-              "end": 380.29,
-              "score": 0.0003
+              "start": 380.271,
+              "end": 380.291,
+              "score": 0.0002
             },
             {
               "token": 1,
               "char": "a",
-              "start": 380.29,
-              "end": 380.31,
-              "score": 0.9999
+              "start": 380.291,
+              "end": 380.311,
+              "score": 0.9998
             },
             {
               "token": 20,
               "char": "t",
-              "start": 380.37,
-              "end": 380.39,
+              "start": 380.371,
+              "end": 380.391,
               "score": 1.0
             },
             {
               "token": 5,
               "char": "e",
-              "start": 380.39,
-              "end": 380.41,
-              "score": 0.4162
+              "start": 380.391,
+              "end": 380.411,
+              "score": 0.6114
             },
             {
               "token": 0,
               "char": "|",
-              "start": 380.41,
-              "end": 380.43,
+              "start": 380.411,
+              "end": 380.431,
               "score": 0.0
             },
             {
               "token": 12,
               "char": "l",
-              "start": 380.45,
-              "end": 380.47,
+              "start": 380.451,
+              "end": 380.471,
               "score": 0.0003
             },
             {
               "token": 5,
               "char": "e",
-              "start": 380.47,
+              "start": 380.471,
               "end": 380.491,
               "score": 0.0
             },
@@ -34195,50 +34209,50 @@
               "char": "n",
               "start": 380.491,
               "end": 380.511,
-              "score": 0.0051
+              "score": 0.0049
             },
             {
               "token": 0,
               "char": "|",
               "start": 380.511,
               "end": 380.531,
-              "score": 0.9888
+              "score": 0.9844
             },
             {
               "token": 20,
               "char": "t",
               "start": 380.551,
               "end": 380.571,
-              "score": 1.0
+              "score": 0.9999
             },
             {
               "token": 1,
               "char": "a",
               "start": 380.571,
               "end": 380.611,
-              "score": 0.9945
+              "score": 0.9939
             },
             {
               "token": 11,
               "char": "k",
-              "start": 380.651,
-              "end": 380.691,
-              "score": 0.8373
+              "start": 380.652,
+              "end": 380.692,
+              "score": 0.8524
             },
             {
               "token": 29,
               "char": "é",
-              "start": 380.691,
-              "end": 380.711,
+              "start": 380.692,
+              "end": 380.712,
               "score": 0.0003
             }
           ]
         },
         {
           "cue": 157,
-          "start": 381.011,
-          "end": 382.694,
-          "meanCharacterScore": 0.9164,
+          "start": 381.012,
+          "end": 382.695,
+          "meanCharacterScore": 0.9088,
           "asrStart": 380.74,
           "asrEnd": 382.56,
           "alignmentText": "relatívne krátke kúsky DNA,",
@@ -34246,16 +34260,16 @@
             {
               "token": 18,
               "char": "r",
-              "start": 381.011,
-              "end": 381.051,
-              "score": 0.9693
+              "start": 381.012,
+              "end": 381.052,
+              "score": 0.971
             },
             {
               "token": 5,
               "char": "e",
-              "start": 381.051,
-              "end": 381.091,
-              "score": 0.9996
+              "start": 381.052,
+              "end": 381.092,
+              "score": 0.9997
             },
             {
               "token": 12,
@@ -34268,70 +34282,70 @@
               "token": 1,
               "char": "a",
               "start": 381.172,
-              "end": 381.192,
-              "score": 1.0
+              "end": 381.212,
+              "score": 0.7701
             },
             {
               "token": 20,
               "char": "t",
               "start": 381.272,
-              "end": 381.312,
-              "score": 0.9822
+              "end": 381.313,
+              "score": 0.9863
             },
             {
               "token": 30,
               "char": "í",
-              "start": 381.332,
-              "end": 381.352,
+              "start": 381.333,
+              "end": 381.353,
               "score": 1.0
             },
             {
               "token": 22,
               "char": "v",
-              "start": 381.392,
-              "end": 381.412,
+              "start": 381.393,
+              "end": 381.413,
               "score": 1.0
             },
             {
               "token": 14,
               "char": "n",
-              "start": 381.452,
-              "end": 381.472,
+              "start": 381.453,
+              "end": 381.473,
               "score": 1.0
             },
             {
               "token": 5,
               "char": "e",
-              "start": 381.472,
-              "end": 381.512,
-              "score": 0.9952
+              "start": 381.473,
+              "end": 381.513,
+              "score": 0.9789
             },
             {
               "token": 0,
               "char": "|",
-              "start": 381.512,
-              "end": 381.552,
+              "start": 381.513,
+              "end": 381.553,
               "score": 0.9999
             },
             {
               "token": 11,
               "char": "k",
-              "start": 381.572,
-              "end": 381.592,
+              "start": 381.573,
+              "end": 381.593,
               "score": 1.0
             },
             {
               "token": 18,
               "char": "r",
-              "start": 381.612,
-              "end": 381.652,
-              "score": 0.9613
+              "start": 381.613,
+              "end": 381.653,
+              "score": 0.9485
             },
             {
               "token": 27,
               "char": "á",
-              "start": 381.652,
-              "end": 381.672,
+              "start": 381.653,
+              "end": 381.673,
               "score": 0.0
             },
             {
@@ -34339,7 +34353,7 @@
               "char": "t",
               "start": 381.733,
               "end": 381.753,
-              "score": 0.9987
+              "score": 0.9985
             },
             {
               "token": 11,
@@ -34360,56 +34374,56 @@
               "char": "|",
               "start": 381.853,
               "end": 381.893,
-              "score": 0.9425
+              "score": 0.9334
             },
             {
               "token": 11,
               "char": "k",
               "start": 381.933,
-              "end": 381.973,
-              "score": 0.8213
+              "end": 381.974,
+              "score": 0.7675
             },
             {
               "token": 33,
               "char": "ú",
-              "start": 381.973,
-              "end": 381.993,
-              "score": 0.5073
+              "start": 381.974,
+              "end": 381.994,
+              "score": 0.5542
             },
             {
               "token": 19,
               "char": "s",
-              "start": 382.053,
-              "end": 382.073,
+              "start": 382.054,
+              "end": 382.074,
               "score": 0.9999
             },
             {
               "token": 11,
               "char": "k",
-              "start": 382.153,
-              "end": 382.173,
-              "score": 0.9998
+              "start": 382.154,
+              "end": 382.174,
+              "score": 0.9999
             },
             {
               "token": 25,
               "char": "y",
-              "start": 382.193,
-              "end": 382.213,
-              "score": 0.9993
+              "start": 382.194,
+              "end": 382.214,
+              "score": 0.9992
             },
             {
               "token": 0,
               "char": "|",
-              "start": 382.233,
-              "end": 382.273,
-              "score": 0.9782
+              "start": 382.234,
+              "end": 382.274,
+              "score": 0.9867
             },
             {
               "token": 4,
               "char": "d",
-              "start": 382.293,
-              "end": 382.313,
-              "score": 0.9995
+              "start": 382.294,
+              "end": 382.314,
+              "score": 0.9996
             },
             {
               "token": 14,
@@ -34421,9 +34435,9 @@
             {
               "token": 1,
               "char": "a",
-              "start": 382.654,
-              "end": 382.694,
-              "score": 0.8433
+              "start": 382.655,
+              "end": 382.695,
+              "score": 0.9289
             }
           ]
         },
@@ -34431,7 +34445,7 @@
           "cue": 158,
           "start": 383.656,
           "end": 385.779,
-          "meanCharacterScore": 0.8753,
+          "meanCharacterScore": 0.8716,
           "asrStart": 383.3,
           "asrEnd": 385.78,
           "alignmentText": "ale v skutočnosti toto je tá ich silná stránka.",
@@ -34441,7 +34455,7 @@
               "char": "a",
               "start": 383.656,
               "end": 383.696,
-              "score": 0.9968
+              "score": 0.9938
             },
             {
               "token": 12,
@@ -34462,7 +34476,7 @@
               "char": "|",
               "start": 383.776,
               "end": 383.796,
-              "score": 1.0
+              "score": 0.9999
             },
             {
               "token": 22,
@@ -34489,34 +34503,34 @@
               "token": 11,
               "char": "k",
               "start": 383.916,
-              "end": 383.956,
-              "score": 0.9738
+              "end": 383.957,
+              "score": 0.9741
             },
             {
               "token": 21,
               "char": "u",
-              "start": 383.956,
-              "end": 383.976,
+              "start": 383.957,
+              "end": 383.977,
               "score": 1.0
             },
             {
               "token": 20,
               "char": "t",
-              "start": 384.036,
-              "end": 384.056,
+              "start": 384.037,
+              "end": 384.057,
               "score": 1.0
             },
             {
               "token": 15,
               "char": "o",
-              "start": 384.076,
-              "end": 384.096,
-              "score": 1.0
+              "start": 384.057,
+              "end": 384.097,
+              "score": 0.759
             },
             {
               "token": 35,
               "char": "č",
-              "start": 384.136,
+              "start": 384.137,
               "end": 384.157,
               "score": 1.0
             },
@@ -34546,7 +34560,7 @@
               "char": "t",
               "start": 384.357,
               "end": 384.397,
-              "score": 0.7616
+              "score": 0.8029
             },
             {
               "token": 9,
@@ -34560,7 +34574,7 @@
               "char": "|",
               "start": 384.417,
               "end": 384.457,
-              "score": 0.9933
+              "score": 0.9961
             },
             {
               "token": 20,
@@ -34574,54 +34588,54 @@
               "char": "o",
               "start": 384.497,
               "end": 384.537,
-              "score": 0.9997
+              "score": 0.9996
             },
             {
               "token": 20,
               "char": "t",
               "start": 384.577,
               "end": 384.597,
-              "score": 0.994
+              "score": 0.9974
             },
             {
               "token": 15,
               "char": "o",
               "start": 384.597,
               "end": 384.617,
-              "score": 0.0083
+              "score": 0.0088
             },
             {
               "token": 0,
               "char": "|",
               "start": 384.617,
-              "end": 384.637,
+              "end": 384.638,
               "score": 0.0005
             },
             {
               "token": 10,
               "char": "j",
-              "start": 384.637,
-              "end": 384.657,
+              "start": 384.638,
+              "end": 384.658,
               "score": 0.0
             },
             {
               "token": 5,
               "char": "e",
-              "start": 384.657,
-              "end": 384.677,
-              "score": 0.015
+              "start": 384.658,
+              "end": 384.678,
+              "score": 0.0145
             },
             {
               "token": 0,
               "char": "|",
-              "start": 384.677,
-              "end": 384.697,
+              "start": 384.678,
+              "end": 384.698,
               "score": 0.0
             },
             {
               "token": 20,
               "char": "t",
-              "start": 384.737,
+              "start": 384.738,
               "end": 384.758,
               "score": 1.0
             },
@@ -34637,7 +34651,7 @@
               "char": "|",
               "start": 384.818,
               "end": 384.858,
-              "score": 0.9914
+              "score": 0.9901
             },
             {
               "token": 9,
@@ -34658,7 +34672,7 @@
               "char": "h",
               "start": 384.898,
               "end": 384.938,
-              "score": 0.9984
+              "score": 0.9983
             },
             {
               "token": 0,
@@ -34679,7 +34693,7 @@
               "char": "i",
               "start": 385.078,
               "end": 385.098,
-              "score": 0.9993
+              "score": 0.9991
             },
             {
               "token": 12,
@@ -34700,20 +34714,20 @@
               "char": "á",
               "start": 385.238,
               "end": 385.258,
-              "score": 0.9003
+              "score": 0.9239
             },
             {
               "token": 0,
               "char": "|",
               "start": 385.278,
-              "end": 385.318,
-              "score": 0.999
+              "end": 385.319,
+              "score": 0.9991
             },
             {
               "token": 19,
               "char": "s",
-              "start": 385.318,
-              "end": 385.338,
+              "start": 385.319,
+              "end": 385.339,
               "score": 1.0
             },
             {
@@ -34728,21 +34742,21 @@
               "char": "r",
               "start": 385.459,
               "end": 385.499,
-              "score": 0.8359
+              "score": 0.8635
             },
             {
               "token": 27,
               "char": "á",
               "start": 385.519,
               "end": 385.539,
-              "score": 0.9539
+              "score": 0.9184
             },
             {
               "token": 14,
               "char": "n",
               "start": 385.599,
               "end": 385.639,
-              "score": 0.8257
+              "score": 0.8693
             },
             {
               "token": 11,
@@ -34761,10 +34775,10 @@
           ]
         }
       ],
-      "windowStart": 374.08,
+      "windowStart": 373.0,
       "windowEnd": 386.28,
-      "signature": "452c7334f31417f2df54769b0ac7649bde62c4b91d6d811de1216594f0673512",
-      "independentCtcDecode": "niečo čo byzme vôzouka muli nazvať že slabinou vyrou ježe je pä ich jednodu chosť že to su fozateľ take  relatívne kratke kú sky dén a ale v skutočnosti to toeta ich silná stránka"
+      "signature": "5a5d776598d471e0584e18c50cb68854d45a11060f16256eecbd935833a5cc0f",
+      "independentCtcDecode": "a niečo čo bizme vôzouka muli nazvať že slabinou vyrou je že je pä ich jednodu chosť že to su fozateľ take  relatívne kratke kú sky déen a ale v skutočnosti to toeta ich silná stránka"
     },
     {
       "group": 30,
@@ -87252,7 +87266,7 @@
               "char": "b",
               "start": 916.792,
               "end": 916.832,
-              "score": 0.7807
+              "score": 0.7806
             },
             {
               "token": 1,
@@ -87689,13 +87703,55 @@
         },
         {
           "cue": 405,
-          "start": 925.519,
+          "start": 923.437,
           "end": 926.64,
-          "meanCharacterScore": 0.9532,
+          "meanCharacterScore": 0.9412,
           "asrStart": 925.06,
           "asrEnd": 926.62,
-          "alignmentText": "na tom poslednom poličku.",
+          "alignmentText": "po po na tom poslednom poličku.",
           "characters": [
+            {
+              "token": 16,
+              "char": "p",
+              "start": 923.437,
+              "end": 923.477,
+              "score": 0.9772
+            },
+            {
+              "token": 15,
+              "char": "o",
+              "start": 923.517,
+              "end": 923.537,
+              "score": 0.9999
+            },
+            {
+              "token": 0,
+              "char": "|",
+              "start": 923.657,
+              "end": 923.677,
+              "score": 0.0
+            },
+            {
+              "token": 16,
+              "char": "p",
+              "start": 924.818,
+              "end": 924.838,
+              "score": 0.5419
+            },
+            {
+              "token": 15,
+              "char": "o",
+              "start": 924.878,
+              "end": 924.898,
+              "score": 0.995
+            },
+            {
+              "token": 0,
+              "char": "|",
+              "start": 925.218,
+              "end": 925.279,
+              "score": 0.9997
+            },
             {
               "token": 14,
               "char": "n",
@@ -87869,7 +87925,7 @@
       ],
       "windowStart": 901.88,
       "windowEnd": 927.12,
-      "signature": "b7deaa34a7ee486395fe4028594d546e84dbd4a9724171fa5cb3d7c95d88b2b7",
+      "signature": "406a633fadc0dc88364426be06924053ecd5285fdfd4d21cf8a8220ba45440b6",
       "independentCtcDecode": "te colko zrne čok riže bude na tom poslednom poličku no tolkoju z zrnečok ž a niich ne ik istuje nacelajuúj plametezem t n tže tobudeže a ja som storýcholhod otra s dokalkulački vyhodilomi tože to bude srubať dvadsať ciferne číslo či že stá miliardy miliard zrnečok riže popo na to poslednom poličku"
     },
     {
@@ -134447,13 +134503,55 @@
         },
         {
           "cue": 617,
-          "start": 1390.102,
+          "start": 1389.222,
           "end": 1391.963,
-          "meanCharacterScore": 0.8824,
+          "meanCharacterScore": 0.8799,
           "asrStart": 1389.33,
           "asrEnd": 1391.99,
-          "alignmentText": "ktorý sa zaoberal kiahňami.",
+          "alignmentText": "ktorý ktorý sa zaoberal kiahňami.",
           "characters": [
+            {
+              "token": 11,
+              "char": "k",
+              "start": 1389.222,
+              "end": 1389.242,
+              "score": 1.0
+            },
+            {
+              "token": 20,
+              "char": "t",
+              "start": 1389.342,
+              "end": 1389.362,
+              "score": 0.9999
+            },
+            {
+              "token": 15,
+              "char": "o",
+              "start": 1389.402,
+              "end": 1389.422,
+              "score": 0.9997
+            },
+            {
+              "token": 18,
+              "char": "r",
+              "start": 1389.522,
+              "end": 1389.542,
+              "score": 1.0
+            },
+            {
+              "token": 34,
+              "char": "ý",
+              "start": 1389.582,
+              "end": 1389.602,
+              "score": 0.3431
+            },
+            {
+              "token": 0,
+              "char": "|",
+              "start": 1390.002,
+              "end": 1390.062,
+              "score": 0.8373
+            },
             {
               "token": 11,
               "char": "k",
@@ -135862,7 +135960,7 @@
               "char": "|",
               "start": 1404.249,
               "end": 1404.269,
-              "score": 0.0791
+              "score": 0.079
             },
             {
               "token": 38,
@@ -136118,7 +136216,7 @@
       ],
       "windowStart": 1384.98,
       "windowEnd": 1407.63,
-      "signature": "3ca1c88de8e6b20ae8ffdbd01c693eb6719d928f3885fb0b75753a623ddc592f",
+      "signature": "a19fc116c6a53392c3b2d9787e62fe7fc3d5aab44d1c794544b1c29daff0dbad",
       "independentCtcDecode": "a un vtedi urobil matematický model ktorí ktory se za obera al kyahňamiže smišnelebo vtedi rudejšieň vla si nevedeliže že  že dake ba sili aže dak drobné vaci k trena zabiajú ala aj takuž cokom dobré analizoutým ako sa šíria smrťou dív tom začovede daky systém"
     },
     {
@@ -245512,19 +245610,75 @@
         },
         {
           "cue": 1132,
-          "start": 2577.225,
+          "start": 2576.845,
           "end": 2579.086,
-          "meanCharacterScore": 0.8523,
+          "meanCharacterScore": 0.908,
           "asrStart": 2576.3,
           "asrEnd": 2579.1,
-          "alignmentText": "A bolo to oprávnené, akože",
+          "alignmentText": "A bolo to bolo to oprávnené, akože",
           "characters": [
             {
               "token": 1,
               "char": "a",
+              "start": 2576.845,
+              "end": 2576.865,
+              "score": 1.0
+            },
+            {
+              "token": 0,
+              "char": "|",
+              "start": 2576.925,
+              "end": 2576.985,
+              "score": 0.9991
+            },
+            {
+              "token": 2,
+              "char": "b",
+              "start": 2577.105,
+              "end": 2577.145,
+              "score": 0.8625
+            },
+            {
+              "token": 15,
+              "char": "o",
+              "start": 2577.145,
+              "end": 2577.185,
+              "score": 0.7638
+            },
+            {
+              "token": 12,
+              "char": "l",
+              "start": 2577.185,
+              "end": 2577.205,
+              "score": 0.9998
+            },
+            {
+              "token": 15,
+              "char": "o",
               "start": 2577.225,
               "end": 2577.245,
-              "score": 0.0006
+              "score": 0.9924
+            },
+            {
+              "token": 0,
+              "char": "|",
+              "start": 2577.245,
+              "end": 2577.265,
+              "score": 0.0003
+            },
+            {
+              "token": 20,
+              "char": "t",
+              "start": 2577.325,
+              "end": 2577.345,
+              "score": 1.0
+            },
+            {
+              "token": 15,
+              "char": "o",
+              "start": 2577.365,
+              "end": 2577.385,
+              "score": 0.9999
             },
             {
               "token": 0,
@@ -246436,7 +246590,7 @@
               "char": "o",
               "start": 2586.888,
               "end": 2586.928,
-              "score": 0.7613
+              "score": 0.7612
             },
             {
               "token": 18,
@@ -247369,7 +247523,7 @@
       ],
       "windowStart": 2558.42,
       "windowEnd": 2594.81,
-      "signature": "cfc5443fb9f9d894838d50424e94f1902c53759680b8c169dcce494607be8fb3",
+      "signature": "d4c012f6c70da99af590c0a0aec7133af975824ad5b7eb52ceaf6d5ca3d11e7e",
       "independentCtcDecode": "de väď prasica chríbka vyruz ha je dna en jedno totiež veľmi plmňa známe a touž sa dostaveme do tých novinárskych čiaske  sme boli bom bardovaný ha je dnajnjednoto si vaľlmi do bre pamätoma boloto boloto o pravnené akože naho na podlo to podla odha dou de saťaždvadsať prsenť svetovej populácie pričom zom roli statisíceče v porovne zlím čosateľ predvádzal čin si koronavyru stoje uplneže gigant ale muužní vyýraďde sa stým podrov dakový sporiadať"
     },
     {
