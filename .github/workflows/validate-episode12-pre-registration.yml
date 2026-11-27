@@ -71,7 +71,7 @@ jobs:
         run: |
           mkdir -p captions/source/episode-12-mobile-screenshots
           VEDATOR_LAYOUT_SCREENSHOTS=captions/source/episode-12-mobile-screenshots VEDATOR_LAYOUT_UNREGISTERED_FINAL=1 node tools/test-episode12-mobile-layout-browser.mjs > captions/source/episode-12-prereg-layout.json
-          cat captions/source/episode-12-prereg-layout.json
+          node --input-type=module -e "import fs from 'node:fs';const d=JSON.parse(fs.readFileSync('captions/source/episode-12-prereg-layout.json','utf8'));const {naturalWrapReview,...summary}=d;console.log(JSON.stringify({...summary,naturalWrapCandidateCount:naturalWrapReview.length},null,2));"
       - name: Expose actual saved screenshots for visual review
         if: steps.output.outputs.ready == 'true'
         run: |

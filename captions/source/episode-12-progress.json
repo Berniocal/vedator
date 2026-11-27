@@ -4,7 +4,7 @@
   "guid": "vedatorskypodcast.podbean.com/60169ece-e211-5ce3-8308-2ee114cd585b",
   "audio": "https://mcdn.podbean.com/mf/web/ks6p8t/podcast_ep12.mp3",
   "baseMainSha": "18999441fb876d3df8607e807981b3fbe52ff55b",
-  "status": "complete-bilingual-editorial-text-final-acoustic-review-before-registration",
+  "status": "final-acoustic-path-complete-specific-uncertainties-documented-final-mobile-review-pending",
   "registered": false,
   "deployed": false,
   "editorialReviewComplete": true,
@@ -23,8 +23,8 @@
   "finalSlovakCueCount": 1271,
   "sourceTranscriptSha256": "0c1dbd2210c07a2edec585f18d2aadcae677ee2ed97d817be0887e9ddffc6d13",
   "allSourceWordsContiguouslyCovered": true,
-  "independentLargeV3Windows": 70,
-  "independentLargeV3WindowsRead": 70,
+  "independentLargeV3Windows": 80,
+  "independentLargeV3WindowsRead": 80,
   "unresolvedMarkedSourceGroups": [
     1,
     130,
@@ -41,7 +41,7 @@
   ],
   "editorialReview": "All 658 original Slovak groups and complete own Czech translation read; all 1271 semantic segments manually reviewed. Final markers replace only unestablished filler/overlap speech. Historical claims, numbers, units, negations, repairs and postscript retained.",
   "sourceWorkflowRun": "https://github.com/Berniocal/vedator/actions/runs/45746494844",
-  "finalAlignmentRun": "https://github.com/Berniocal/vedator/actions/runs/45938430091",
+  "finalAlignmentRun": "https://github.com/Berniocal/vedator/actions/runs/45939839989",
   "sourceReview": "captions/source/episode-12-final-text-review.json",
   "acousticReview": "captions/source/episode-12-acoustic-boundary-review.json",
   "priorWorkingLayout": {

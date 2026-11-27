@@ -90,6 +90,22 @@ def main():
         if evidence_path.is_file():
             check(load(evidence_path).get("audioSha256") == sha,
                   f"Independent audio evidence hash mismatch: {name}")
+    gap_path=CAP/"source"/"episode-12-gap-ctc-checks.sk.json"
+    check(gap_path.is_file(), "Missing actual unforced gap probes")
+    gaps=load(gap_path) if gap_path.is_file() else {}
+    caption_hash=hashlib.sha256((CAP/f"episode-{N}.json").read_bytes()).hexdigest()
+    gap_hash=hashlib.sha256(gap_path.read_bytes()).hexdigest() if gap_path.is_file() else None
+    check(gaps.get("audioSha256")==sha and gaps.get("captionSha256")==caption_hash and gaps.get("forcedTranscript") is False, "Gap probes refer to different caption/audio bytes or a forced transcript")
+    expected_gaps=[(0,round(cues[0]["start"],3),"pre-roll")]
+    expected_gaps += [(round(cues[i-1]["end"],3),round(cues[i]["start"],3),"between-"+str(i)+"-"+str(i+1)) for i in range(1,len(cues)) if cues[i]["start"]-cues[i-1]["end"]>1.5]
+    expected_gaps += [(round(cues[-1]["end"],3),round(float(draft["source"]["duration"]),3),"final-tail")]
+    check([(p["start"],p["end"],p["label"]) for p in gaps.get("passages",[])]==expected_gaps, "Actual gap probes omit or change a current gap/endpoint")
+    if not args.allow_unregistered:
+        approval_path=CAP/"source"/"episode-12-acoustic-review-approved.json"
+        check(approval_path.is_file(), "Missing final acoustic editorial approval")
+        if approval_path.is_file():
+            approval=load(approval_path)
+            check(approval.get("completeFinalAcousticReview") is True and approval.get("captionSha256")==caption_hash and approval.get("gapProbeSha256")==gap_hash and approval.get("reviewedGapProbeCount")==len(expected_gaps), "Final acoustic editorial approval does not match actual captions or complete gap probes")
     rss=load(CAP/"source"/"episode-12-source-identity.json")
     check(rss["guid"]==final["guid"] and rss["audio"]==draft["source"]["audio"] and rss["audioSha256"]==sha and rss.get("originalRssVerified") is True, "Caption source differs from authenticated original RSS identity")
     check(bool(sha) and sha == final["source"].get("audioSha256") == alignment.get("audioSha256"),
@@ -175,6 +191,22 @@ def main():
                 acoustic=load(path)
                 check(acoustic.get("audioSha256")==sha and acoustic.get("model")=="large-v3", f"Cue {i}: low-score evidence must use independent large-v3 on identical original audio")
                 check(any(p["start"]<=audit["start"] and p["end"]>=audit["end"] for p in acoustic.get("passages",[])), f"Cue {i}: low-score evidence does not cover actual speech")
+    # A separately aligned low-confidence prefix must have its own explicit
+    # decision; a high whole-cue mean must not hide an unreliable first word.
+    boundary_checks=load(CAP/"source"/"episode-12-boundary-rechecks.json")
+    character_choices=load(exceptions_file).get("characterExceptions",[]) if exceptions_file.exists() else []
+    for item in boundary_checks.get("rechecks",[]):
+        prefix=item.get("prefixCharacterAudit")
+        if prefix and prefix["meanCharacterScore"]<.35:
+            n=prefix["cue"]; ch=alignment["cues"][n-1]["characters"][0]
+            e=next((e for e in character_choices if e["cue"]==n and e["characterIndex"]==0),None)
+            check(bool(e), f"Cue {n}: unresolved low-confidence separately aligned prefix")
+            if e:
+                evidence_path=ROOT/e.get("evidence","missing")
+                check(e.get("character")==ch["char"] and abs(e.get("start",-1)-ch["start"])<.0011 and abs(e.get("end",-1)-ch["end"])<.0011 and abs(e.get("score",-1)-ch["score"])<.0001 and bool(e.get("reason")) and evidence_path.is_file(), f"Cue {n}: prefix decision does not match actual character evidence")
+                if evidence_path.is_file():
+                    ev=load(evidence_path)
+                    check(ev.get("audioSha256")==sha and ev.get("model")=="large-v3" and any(p["start"]<=ch["start"] and p["end"]>=ch["end"] for p in ev.get("passages",[])), f"Cue {n}: prefix uncertainty lacks original-audio independent large-v3 coverage")
     check(not long_lines, f"Lines exceed 48 characters: {long_lines}")
     check(not three_lines, f"Cues exceed two lines: {three_lines}")
     if fast:
@@ -203,7 +235,7 @@ def main():
 
     result = {"ok": not issues, "episode": N, "cueCount": len(cues),
               "registered": registered, "releaseReady": not issues and registered and not args.allow_unregistered,
-              "captionSha256": hashlib.sha256((CAP/f"episode-{N}.json").read_bytes()).hexdigest(),
+              "captionSha256": caption_hash, "gapProbeSha256": gap_hash, "gapProbeCount": len(expected_gaps),
               "editedSha256": hashlib.sha256((CAP/f"episode-{N}.edited.json").read_bytes()).hexdigest(),
               "asrWordsCovered": word_end, "asrWordCount": word_count,
               "duration": duration, "audioSha256": sha,

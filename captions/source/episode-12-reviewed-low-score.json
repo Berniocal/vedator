@@ -49,5 +49,18 @@
       "evidence": "captions/source/episode-12-followup-6-checks.sk.json",
       "reason": "Focused independent large-v3 confirms Afriky ďalšia zlá vec čo spôsobila kolonizácia Afriky neveriteľné in 2489–2497. Neutral CTC yields reduced ťaže zlam bed and strongly matches a, z, l, e within the same short phrase. Retain the confirmed fast/slurred reaction with its actual character path; no invented wording or timing shift."
     }
+  ],
+  "characterExceptions": [
+    {
+      "cue": 45,
+      "characterIndex": 0,
+      "character": "a",
+      "start": 121.222,
+      "end": 121.243,
+      "score": 0,
+      "evidence": "captions/source/episode-12-followup-2-checks.sk.json",
+      "timingUncertaintySeconds": 0.5,
+      "reason": "Primary turbo includes the conjunction and independent large-v3 separately recognizes a at 121.12–121.72 before aj ta... after 122.48. The Slovak CTC cannot reliably resolve this extremely short isolated vowel: its bounded first-character path has zero score. Preserve the cross-ASR-supported conjunction and explicitly mark its approximate onset uncertainty (about 0.5 s within the documented 121.0–121.95 probe), rather than hiding it behind the higher mean of the following clause or asserting millisecond precision. No independent human listening is claimed."
+    }
   ]
 }
