@@ -124,7 +124,7 @@ def bilingual_parts(sk_words, cs_words, word_times):
 def reviewed_groups(number):
     review, groups = audio.editorial(number)
     cs = batch.read(SOURCE/f'episode-{number}-youtube-czech-editorial-review.json')
-    draft_path = SOURCE/f'episode-{number}-youtube-czech-multislav-draft.json'
+    draft_path = ROOT/cs['sourceDraftFile'] if cs.get('sourceDraftFile') else SOURCE/f'episode-{number}-youtube-czech-multislav-draft.json'
     draft = batch.read(draft_path)
     assert cs['sourceDraftSha256'] == batch.digest(draft_path)
     assert cs['reviewedGroupRanges'] == [[0,len(groups)]]
@@ -146,7 +146,7 @@ def reviewed_groups(number):
     result=[]
     for i,g in enumerate(groups):
         fixed = resolutions['groups'].get(str(i), {})
-        result.append({**g,'group':i,'text':{
+        result.append({**g,'start':fixed.get('start',g['start']),'end':fixed.get('end',g['end']),'group':i,'text':{
             'sk':fixed.get('textSk', review['corrections'].get(str(i),g['originalSk'])),
             'cs':fixed.get('textCs', cs['corrections'].get(str(i), draft['cues'][i]['draftCs']))},
             'acousticOverrides':fixed.get('acousticOverrides',{})})

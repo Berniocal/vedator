@@ -23,7 +23,7 @@ for(const entry of review.entries){
   assert(entry.resources.every(resource=>['description','found','related'].includes(resource.origin)));
 }
 assert.deepEqual(Array.from(data.sections.options,s=>s.id),['episodes','links','other']);
-assert.deepEqual(Array.from(data.sections.options,s=>s.count),[272,71,558]);
+assert.deepEqual(Array.from(data.sections.options,s=>s.count),[272,71,563]);
 assert.equal(data.findings.filter(r=>r.section==='links'&&r.stav==='Nesplněno').length,30);
 assert.equal(data.findings.filter(r=>r.section==='links'&&r.stav!=='Nesplněno').length,41);
 assert.notEqual(data.findings.find(r=>r.candidate===1366).section,'links','Privately sending a book link is not a description promise');

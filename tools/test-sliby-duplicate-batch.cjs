@@ -13,8 +13,8 @@ const groupSizes=new Map([
   [271,4],[396,2],[1061,2],[1035,2],[1037,3],[210,2],
   [1295,4],[1405,4],[1507,2]
 ]);
-assert.equal(data.consolidation.originalFindings,1052);
-assert.equal(active.length,901);
+assert.equal(data.consolidation.originalFindings,1059);
+assert.equal(active.length,906);
 assert.equal(data.sections.options.find(s=>s.id==='episodes').count,272);
 assert.equal(data.consolidation.latestBatch.groups,3);
 assert.deepEqual(active.map(r=>[r.candidate,r.tema]),archive.map(r=>[r.candidate,r.tema]));
@@ -42,5 +42,5 @@ for(const ex of exclusions){
   });
   assert(!contains,'Accidental merge of different promises '+a+' and '+b);
 }
-assert.equal(new Set(active.flatMap(originalKeys)).size,1052-27+9,'All public source statements must survive the paid-content removal');
-console.log('PASS: nine conservative groups, all 1,034 retained public source statements, playback places, source statuses, and deliberate non-merges.');
+assert.equal(new Set(active.flatMap(originalKeys)).size,1059-27+9,'All public source statements must survive the paid-content removal');
+console.log('PASS: nine conservative groups, all 1,041 retained public source statements, playback places, source statuses, and deliberate non-merges.');

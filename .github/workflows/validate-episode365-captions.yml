@@ -1,0 +1,45 @@
+name: Validate complete episode 365 captions
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'captions/episode-365.*'
+      - 'captions/source/episode-365-*'
+      - episode-videos.json
+      - audio-seek-index.json
+      - tools/finalize-youtube-caption-batch.py
+      - tools/validate-youtube-caption-batch.py
+      - .github/workflows/validate-episode365-captions.yml
+  push:
+    branches: [main]
+    paths: ['captions/episode-365.*', 'captions/source/episode-365-*', .github/workflows/validate-episode365-captions.yml]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Install audio fixture dependency
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+      - name: Check complete bilingual text, acoustic evidence, source identity and registration
+        run: |
+          node tools/build-content-v2.mjs
+          python tools/test-youtube-caption-layout.py
+          python tools/validate-youtube-caption-batch.py --registered 365
+          node tools/test-video-catalog.mjs
+          node tools/augment-v2-extra-nonquestions.mjs
+          node tools/augment-v2-episode-descriptions.mjs
+          node tools/augment-v2-full-descriptions.mjs
+          node tools/augment-v2-parity-content.mjs
+          node tools/test-content-v2.mjs
+          node tools/test-v2-series-topics.mjs
+          node tools/prepare-production-index.mjs
+          node tools/build-production-sw.mjs
+          node tools/test-production-pwa.mjs
