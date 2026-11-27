@@ -181,14 +181,18 @@
       "language": "cs",
       "decision": "approved-specific-editorial-change",
       "reason": "Whole-context free CTC gives pamätom a boloto boloto opravnené, and isolated gap gives a bol. Restore the actual A bolo to, bolo to restart. Focused independent large-v3 confirms the following clause and begins before the previous second-copy alignment."
-    },
-    {
-      "group": "140-148",
-      "language": "cs",
-      "decision": "approved-specific-editorial-change",
-      "reason": "Move the trailing i and corresponding spoken Slovak aj to the following continuation of the same clause; join the two source alignment groups to preserve exact word lineage. Lowercase Tím after the transferred conjunction. No lexical content is changed; both boundaries are recalculated acoustically."
     }
   ],
   "note": "All original Slovak and own Czech translation read and manually resegmented, preserving content, historical claims, numbers, negations, repetitions, repairs and postscript. Unintelligible fragments are explicitly marked with actual ASR/CTC evidence. This text review does not approve final acoustic boundaries, mobile layout or publication.",
-  "publicationApproved": false
+  "publicationApproved": false,
+  "segmentationBoundaryDecisions": [
+    {
+      "group": "20-22",
+      "reason": "Move spoken aj and Czech i to the following prepositional phrase so the conjunction stays with its clause. Full bilingual words remain identical; recompute the actual shared boundary."
+    },
+    {
+      "group": "140-148",
+      "reason": "Join the two neighboring acoustic source groups and move aj / i to the continuation to, že / tím, že. This preserves every word and its lineage; the Czech capital is normalized after the conjunction. Recompute actual character boundaries; no content approval exception is required."
+    }
+  ]
 }

@@ -6,6 +6,9 @@ on:
       - tools/check-episode12-ctc-endpoints.py
       - tools/rebuild-episode12-captions.py
       - captions/episode-12.edited.json
+      - captions/source/episode-12-segmentation-review.tsv
+      - captions/source/episode-12-final-text-review.json
+      - tools/prepare-episode12-segmented-captions.py
       - .github/workflows/align-episode12-captions.yml
   workflow_dispatch:
 permissions:
