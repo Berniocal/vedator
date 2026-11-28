@@ -1,0 +1,103 @@
+{
+  "episode": 12,
+  "videoId": "ERy-fP-pcQw",
+  "humanListeningVerified": false,
+  "acousticComparisonPerformed": false,
+  "checks": [
+    {
+      "kind": "official-page",
+      "url": "https://vedator.space/vedatorsky-podcast-12-ludstvo-vs-epidemie/",
+      "error": "HTTP Error 466: Unknown"
+    },
+    {
+      "kind": "oembed",
+      "url": "https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=ERy-fP-pcQw&format=json",
+      "status": 200,
+      "sha256": "62725b7089664aed1d5427187550d878833b6600e0f023da6093b58f60873afe",
+      "metadata": {
+        "title": "Vedátorský podcast 12 – Ľudstvo vs epidémie",
+        "author_name": "Vedátor SK",
+        "author_url": "https://www.youtube.com/@vedator_sk",
+        "type": "video",
+        "height": 113,
+        "width": 200,
+        "version": "1.0",
+        "provider_name": "YouTube",
+        "provider_url": "https://www.youtube.com/",
+        "thumbnail_height": 360,
+        "thumbnail_width": 480,
+        "thumbnail_url": "https://i.ytimg.com/vi/ERy-fP-pcQw/hqdefault.jpg",
+        "html": "<iframe width=\"200\" height=\"113\" src=\"https://www.youtube.com/embed/ERy-fP-pcQw?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"Vedátorský podcast 12 – Ľudstvo vs epidémie\"></iframe>"
+      }
+    },
+    {
+      "kind": "watch",
+      "url": "https://www.youtube.com/watch?v=ERy-fP-pcQw",
+      "status": 200,
+      "sha256": "2582ec07c2b64cf0912c4870678ea42ca4891c4ad82f4db20f8061f715ae2e8e",
+      "videoDetails": {
+        "videoId": "ERy-fP-pcQw",
+        "title": "Vedátorský podcast 12 – Ľudstvo vs epidémie",
+        "lengthSeconds": "2912",
+        "channelId": "UCMryZl6xsxq4s54FvTgdtbA",
+        "isOwnerViewing": false,
+        "shortDescription": "DOPLNENIE: Podcast bol nahrávaný počas prvej vlny pandémie a odvtedy sa o koronavíruse dozvedeli oveľa viac. Napríklad, že sa primárne šíri kvapôčkami a že rúška síce neposkytujú dokonalú, ale aj tak efektívnu ochranu.\n\nAký je rozdiel medzi vírom a baktériou a odkiaľ má koronavírus svoje meno? Ako proti epidémiam bojovali matematici a ktoré epidémie potrápili ľudstvo najviac. Čo v boji proti nim robia vedci a čo môžete spraviť aj vy? O tom všetkom diskutujú Jozef a Samuel.",
+        "isCrawlable": true,
+        "thumbnail": {
+          "thumbnails": [
+            {
+              "url": "https://i.ytimg.com/vi/ERy-fP-pcQw/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDRF6MqRo2YjBDOH4tng8z92BS6GQ",
+              "width": 168,
+              "height": 94
+            },
+            {
+              "url": "https://i.ytimg.com/vi/ERy-fP-pcQw/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCr2Q0uSEzqFeFxrqY_5Rses7tF_A",
+              "width": 196,
+              "height": 110
+            },
+            {
+              "url": "https://i.ytimg.com/vi/ERy-fP-pcQw/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCC34eNlSiz3MfEEa0iEblTuz595A",
+              "width": 246,
+              "height": 138
+            },
+            {
+              "url": "https://i.ytimg.com/vi/ERy-fP-pcQw/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCqM4XpMHd2Mpl1P-pHS0tjrgpsZQ",
+              "width": 336,
+              "height": 188
+            },
+            {
+              "url": "https://i.ytimg.com/vi/ERy-fP-pcQw/maxresdefault.jpg",
+              "width": 1920,
+              "height": 1080
+            }
+          ]
+        },
+        "allowRatings": true,
+        "viewCount": "4589",
+        "author": "Vedátor SK",
+        "isPrivate": false,
+        "isUnpluggedCorpus": false,
+        "isLiveContent": false,
+        "isTvfilmVideo": false
+      },
+      "playabilityStatus": {
+        "status": "OK",
+        "playableInEmbed": true,
+        "miniplayer": {
+          "miniplayerRenderer": {
+            "playbackMode": "PLAYBACK_MODE_ALLOW"
+          }
+        },
+        "contextParams": "Q0FFU0FnZ0M="
+      }
+    }
+  ],
+  "fullVideoIdentityVerified": true,
+  "durationMatchesWithinOneSecond": true,
+  "note": "Full official video metadata and duration verified. Equal duration alone does not prove audio identity or absence of edits.",
+  "directAudioAccess": {
+    "audioFormatsFound": 2,
+    "directAudioUrls": 0,
+    "note": "Both listed adaptive audio formats require signature deciphering; no YouTube audio bytes were downloaded or compared."
+  }
+}

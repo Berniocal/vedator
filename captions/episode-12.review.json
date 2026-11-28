@@ -1,0 +1,77 @@
+{
+  "episode": 12,
+  "cueCount": 1271,
+  "asrWordCount": 6790,
+  "audioSha256": "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
+  "lowScoreCues": [
+    {
+      "cue": 553,
+      "start": 1250.663,
+      "end": 1251.264,
+      "meanCharacterScore": 0.3317,
+      "asrStart": 1249.98,
+      "asrEnd": 1251.24,
+      "alignmentText": "Niekto by mohol povedať,"
+    },
+    {
+      "cue": 728,
+      "start": 1635.271,
+      "end": 1635.643,
+      "meanCharacterScore": 0.2074,
+      "asrStart": 1635.32,
+      "asrEnd": 1635.94,
+      "alignmentText": "vau."
+    },
+    {
+      "cue": 952,
+      "start": 2150.38,
+      "end": 2151.462,
+      "meanCharacterScore": 0.1341,
+      "asrStart": 2150.4,
+      "asrEnd": 2151.42,
+      "alignmentText": "takže... Áno."
+    },
+    {
+      "cue": 979,
+      "start": 2207.162,
+      "end": 2208.144,
+      "meanCharacterScore": 0.3252,
+      "asrStart": 2206.76,
+      "asrEnd": 2208.22,
+      "alignmentText": "Áno, negatívny marketing."
+    },
+    {
+      "cue": 1102,
+      "start": 2491.867,
+      "end": 2492.808,
+      "meanCharacterScore": 0.3423,
+      "asrStart": 2491.37,
+      "asrEnd": 2492.83,
+      "alignmentText": "Ďalšia zlá vec,"
+    }
+  ],
+  "maxBoundaryChange": 4.434999999999945,
+  "unintelligibleSourceGroups": [
+    1,
+    130,
+    192,
+    253,
+    276,
+    282,
+    349,
+    376,
+    441,
+    488,
+    501,
+    518
+  ],
+  "status": "editorially-reviewed-acoustically-aligned-with-documented-uncertainty",
+  "validatedForRegistration": true,
+  "layoutOverrides": 1550,
+  "registrationChecks": {
+    "captionSha256": "49ff731b272d74e1fd68310ff3b9f0b4b8a6abdef127b534060248049ce2c0d2",
+    "editedSha256": "6cbb617908e575650913b30ba0b7e6daff01cc1acf04f77c936ef1e302fd5bd7",
+    "structure": "captions/source/episode-12-prereg-validation.json",
+    "layout": "captions/source/episode-12-prereg-layout.json"
+  }
+}

@@ -1,0 +1,272 @@
+{
+  "episode": 12,
+  "audioSha256": "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
+  "windows": [
+    [
+      10,
+      30
+    ],
+    [
+      143,
+      174
+    ],
+    [
+      408,
+      424
+    ],
+    [
+      432,
+      447
+    ],
+    [
+      548,
+      560
+    ],
+    [
+      628,
+      642
+    ],
+    [
+      839,
+      855
+    ],
+    [
+      864,
+      877
+    ],
+    [
+      880,
+      922
+    ],
+    [
+      937,
+      959
+    ],
+    [
+      988,
+      1008
+    ],
+    [
+      1101,
+      1137
+    ],
+    [
+      1218,
+      1249
+    ],
+    [
+      1318,
+      1348
+    ],
+    [
+      1355,
+      1377
+    ],
+    [
+      1388,
+      1434
+    ],
+    [
+      1508,
+      1526
+    ],
+    [
+      1634,
+      1643
+    ],
+    [
+      1695,
+      1717
+    ],
+    [
+      1908,
+      1926
+    ],
+    [
+      1993,
+      2018
+    ],
+    [
+      2406,
+      2435
+    ],
+    [
+      2752,
+      2776
+    ],
+    [
+      2821,
+      2836
+    ]
+  ],
+  "editorialReasons": [
+    {
+      "window": [
+        10,
+        30
+      ],
+      "reason": "Off-script count and introductory words; avoid treating no-VAD music hallucination as speech."
+    },
+    {
+      "window": [
+        143,
+        174
+      ],
+      "reason": "2019-nCoV spoken abbreviation and zoonotic term."
+    },
+    {
+      "window": [
+        408,
+        424
+      ],
+      "reason": "Hesitation and claim about mutation; retain uncertainty."
+    },
+    {
+      "window": [
+        432,
+        447
+      ],
+      "reason": "Incomplete sentence about bacterial components and nucleus; retain spoken claim."
+    },
+    {
+      "window": [
+        548,
+        560
+      ],
+      "reason": "Incomplete phrase introducing masks; preserve historical statements."
+    },
+    {
+      "window": [
+        628,
+        642
+      ],
+      "reason": "Repeated elevator aside and unfinished conversational turn."
+    },
+    {
+      "window": [
+        839,
+        855
+      ],
+      "reason": "Occam razor and unfinished qualification."
+    },
+    {
+      "window": [
+        864,
+        877
+      ],
+      "reason": "Recover the independently detected light in the source gap."
+    },
+    {
+      "window": [
+        880,
+        922
+      ],
+      "reason": "Repeated multiplication in chessboard example may be an ASR loop; verify every spoken number."
+    },
+    {
+      "window": [
+        937,
+        959
+      ],
+      "reason": "Verify whether the speaker actually says eight after forty minutes; do not fix mathematics by assumption."
+    },
+    {
+      "window": [
+        988,
+        1008
+      ],
+      "reason": "Garbled exponential-growth aside."
+    },
+    {
+      "window": [
+        1101,
+        1137
+      ],
+      "reason": "Pandemic definition, unfinished aside and speaker correction."
+    },
+    {
+      "window": [
+        1218,
+        1249
+      ],
+      "reason": "Garbled endemic-stage dialogue; compare existing conflicting independent window."
+    },
+    {
+      "window": [
+        1318,
+        1348
+      ],
+      "reason": "John Graunt and 1662."
+    },
+    {
+      "window": [
+        1355,
+        1377
+      ],
+      "reason": "Garbled phrase about gods and vis maior or a different phrase; do not invent."
+    },
+    {
+      "window": [
+        1388,
+        1434
+      ],
+      "reason": "Smallpox, 1766 and Kermack-McKendrick names."
+    },
+    {
+      "window": [
+        1508,
+        1526
+      ],
+      "reason": "Restore omitted joke about not being responsible for model predictions."
+    },
+    {
+      "window": [
+        1634,
+        1643
+      ],
+      "reason": "Short unclear reaction after elevator joke."
+    },
+    {
+      "window": [
+        1695,
+        1717
+      ],
+      "reason": "Yersinia pestis and request for angry email."
+    },
+    {
+      "window": [
+        1908,
+        1926
+      ],
+      "reason": "Unclear phrase about several new Romes."
+    },
+    {
+      "window": [
+        1993,
+        2018
+      ],
+      "reason": "Hantavirus and English sweating-sickness terminology; preserve historical assertion."
+    },
+    {
+      "window": [
+        2406,
+        2435
+      ],
+      "reason": "HIV/SIV, human, simian and ludoop."
+    },
+    {
+      "window": [
+        2752,
+        2776
+      ],
+      "reason": "Question to Samo and scientists; ASR misrecognizes vedci."
+    },
+    {
+      "window": [
+        2821,
+        2836
+      ],
+      "reason": "Door-handle joke and short missing interjections."
+    }
+  ]
+}

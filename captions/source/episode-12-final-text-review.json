@@ -1,0 +1,198 @@
+{
+  "episode": 12,
+  "segmentationTsvGitBlobSha": "951b1da79716434d907108a135e8c33c860f3d00",
+  "sourceTranscriptSha256": "0c1dbd2210c07a2edec585f18d2aadcae677ee2ed97d817be0887e9ddffc6d13",
+  "completeSlovakEditorialReview": true,
+  "completeCzechEditorialReview": true,
+  "reviewer": "assistant-model-assisted-editorial-review",
+  "humanListeningVerified": false,
+  "youtubeAudioCompared": false,
+  "sourceGroupsRead": 658,
+  "sourceWordsAttributed": 6790,
+  "cueCount": 1271,
+  "unintelligibleSourceGroups": [
+    1,
+    130,
+    192,
+    253,
+    276,
+    282,
+    349,
+    376,
+    441,
+    488,
+    501,
+    518
+  ],
+  "independentLargeV3Windows": 80,
+  "specificTextDecisions": [
+    {
+      "group": "23-25",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Natural Czech word order for strašně vysoká and jen within the same clause; all words and meaning retained."
+    },
+    {
+      "group": "38-41",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Restore the full tentative Slovak aby bol taký, že aj tak bude construction instead of isolating aktuální as a standalone fragment."
+    },
+    {
+      "group": "293-298",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Standard genitive plural epidémií after modelovaním; no factual change."
+    },
+    {
+      "group": "349",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "The guessed noun odhad is not established by independent ASRs or unforced CTC. Include that part in the existing marked overlapping speech; keep independently recognized Áno through 1518 s."
+    },
+    {
+      "group": "349",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Same explicit uncertainty as Slovak; do not assert the guessed noun odhad."
+    },
+    {
+      "group": "350-354",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Standard locative koronavíruse for ASR koronavírusie, same lexical word."
+    },
+    {
+      "group": "417-419",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Standard spelling pôvod, same lexical word."
+    },
+    {
+      "group": "513-520",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Keep the acoustically confirmed Ja by som si and mark the interrupted word; new large-v3 omits it, neutral CTC gives different phones from typu."
+    },
+    {
+      "group": "513-520",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Translate only known Ja by som si as Já bych si; preserve uncertainty instead of inventing a completed guessing verb."
+    },
+    {
+      "group": "601-604",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Complete natural equivalent of očkovateľná choroba: proti spalničkám už lze očkovat, same full claim."
+    },
+    {
+      "group": "626-629",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Explicit not-all quantifier preserves Nie na všetky and avoids ambiguous universal negation."
+    },
+    {
+      "group": "657-658",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Keep the spoken colloquial víroch supported by both ASRs; do not add an unspoken extra syllable in vírusoch."
+    },
+    {
+      "group": "374-376",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Shorten the existing uncertainty label to the standard concise marker. No spoken content is removed; the original phonetic timing proxy remains separately documented."
+    },
+    {
+      "group": "485-488",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "The primary ASR proposes takže but both broad and focused independent large-v3 omit this filler; neutral CTC provides no reliable word. Mark that short uncertain portion, retain primary-ASR Áno, and preserve original word IDs and the archived phonetic timing proxy."
+    },
+    {
+      "group": "501-503",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Three independent large-v3 windows omit the primary-ASR negative-marketing interjection; neutral CTC establishes only partial nega phones amid the next speaker. Preserve confirmed Áno and explicitly mark the rest instead of asserting an unverified phrase."
+    },
+    {
+      "group": "374-376",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Shorten the existing uncertainty label to the standard concise marker. No spoken content is removed; the original phonetic timing proxy remains separately documented."
+    },
+    {
+      "group": "485-488",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "The primary ASR proposes takže but both broad and focused independent large-v3 omit this filler; neutral CTC provides no reliable word. Mark that short uncertain portion, retain primary-ASR Áno, and preserve original word IDs and the archived phonetic timing proxy."
+    },
+    {
+      "group": "501-503",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Three independent large-v3 windows omit the primary-ASR negative-marketing interjection; neutral CTC establishes only partial nega phones amid the next speaker. Preserve confirmed Áno and explicitly mark the rest instead of asserting an unverified phrase."
+    },
+    {
+      "group": "87-89",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Focused independent large-v3 at 369–378 restores A before niečo. The alignment window is extended to include its proposed onset, and actual recovered character scores must be checked before approval."
+    },
+    {
+      "group": "87-89",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Focused independent large-v3 at 369–378 restores A before niečo. The alignment window is extended to include its proposed onset, and actual recovered character scores must be checked before approval."
+    },
+    {
+      "group": "207-212",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Unforced whole-context CTC explicitly gives ryže popo na to poslednom poličku and the isolated original-audio gap gives pól pól. Preserve only the interrupted po… po… syllables, without guessing completed words. Independent large-v3 confirms the surrounding complete clause but normalizes the restart."
+    },
+    {
+      "group": "207-212",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Unforced whole-context CTC explicitly gives ryže popo na to poslednom poličku and the isolated original-audio gap gives pól pól. Preserve only the interrupted po… po… syllables, without guessing completed words. Independent large-v3 confirms the surrounding complete clause but normalizes the restart."
+    },
+    {
+      "group": "316-321",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Whole-context free CTC gives model ktorí ktory se zaoberal and the isolated gap contains ktorý. Restore the repeated ktorý, which independent large-v3 normalizes to one occurrence; verify both copies by the new full character path."
+    },
+    {
+      "group": "316-321",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Whole-context free CTC gives model ktorí ktory se zaoberal and the isolated gap contains ktorý. Restore the repeated ktorý, which independent large-v3 normalizes to one occurrence; verify both copies by the new full character path."
+    },
+    {
+      "group": "579-586",
+      "language": "sk",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Whole-context free CTC gives pamätom a boloto boloto opravnené, and isolated gap gives a bol. Restore the actual A bolo to, bolo to restart. Focused independent large-v3 confirms the following clause and begins before the previous second-copy alignment."
+    },
+    {
+      "group": "579-586",
+      "language": "cs",
+      "decision": "approved-specific-editorial-change",
+      "reason": "Whole-context free CTC gives pamätom a boloto boloto opravnené, and isolated gap gives a bol. Restore the actual A bolo to, bolo to restart. Focused independent large-v3 confirms the following clause and begins before the previous second-copy alignment."
+    }
+  ],
+  "note": "All original Slovak and own Czech translation read and manually resegmented, preserving content, historical claims, numbers, negations, repetitions, repairs and postscript. Unintelligible fragments are explicitly marked with actual ASR/CTC evidence. This text review does not approve final acoustic boundaries, mobile layout or publication.",
+  "publicationApproved": false,
+  "segmentationBoundaryDecisions": [
+    {
+      "group": "20-22",
+      "reason": "Move spoken aj and Czech i to the following prepositional phrase so the conjunction stays with its clause. Full bilingual words remain identical; recompute the actual shared boundary."
+    },
+    {
+      "group": "140-148",
+      "reason": "Join the two neighboring acoustic source groups and move aj / i to the continuation to, že / tím, že. This preserves every word and its lineage; the Czech capital is normalized after the conjunction. Recompute actual character boundaries; no content approval exception is required."
+    }
+  ]
+}

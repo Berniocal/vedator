@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "episode": 12,
+  "sourceWordCount": 6790,
+  "sourceGroups": 658,
+  "manualCzechGroups": 658,
+  "bothWorkingTextsPresent": true,
+  "frozenTranscriptHashVerified": true,
+  "allSourceWordsContiguouslyCovered": true,
+  "workingSkAndBilingualTextMatch": true,
+  "unresolvedMarkedGroups": [
+    1,
+    130,
+    192,
+    253,
+    276,
+    282,
+    349,
+    376,
+    441
+  ],
+  "registered": false,
+  "finalCaptions": false,
+  "publicationApproved": false,
+  "note": "Checks were actually run locally before the executor became unavailable. This checkpoint validates source/draft integrity only, not editorial accuracy, final timing or release readiness."
+}

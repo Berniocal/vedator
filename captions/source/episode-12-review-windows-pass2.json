@@ -1,0 +1,145 @@
+{
+  "episode": 12,
+  "status": "focused-second-editorial-review-request",
+  "audioSha256": "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
+  "windows": [
+    [
+      101,
+      128
+    ],
+    [
+      558,
+      575
+    ],
+    [
+      829,
+      842
+    ],
+    [
+      1271,
+      1290
+    ],
+    [
+      2194,
+      2215
+    ],
+    [
+      2228,
+      2245
+    ],
+    [
+      2383,
+      2405
+    ],
+    [
+      2522,
+      2553
+    ],
+    [
+      2580,
+      2614
+    ],
+    [
+      2740,
+      2753
+    ],
+    [
+      2843,
+      2856
+    ]
+  ],
+  "reasons": [
+    "Unclear influenza-sentence connector; preserve uncertainty and mortality comparison.",
+    "Pharmacist sentence, gender and exact statement; do not infer from grammar.",
+    "Potential neprohovoril versus najprv hovoril; verify negation.",
+    "Unclear spoken self-correction before saying one versus two further things.",
+    "Boundary between neoprávnene and nedostali affects negation.",
+    "Unclear migration noun or aside during World War I explanation.",
+    "Potential missing aby and exact steps in virus life cycle.",
+    "Exact cure-of-one-person dialogue and pronouns; preserve the historical claim.",
+    "H1N1 percentages, death count and Samo reference; preserve stated numbers.",
+    "Unclear voluntary-decision wording before vaccination statement.",
+    "Potential podceňujú word affects meaning; verify rather than guessing."
+  ],
+  "firstPassEvidence": "captions/source/episode-12-followup-1-checks.sk.json",
+  "reviewPass": 2,
+  "editorialReasons": [
+    {
+      "window": [
+        101,
+        128
+      ],
+      "reason": "Unclear influenza-sentence connector; preserve uncertainty and mortality comparison."
+    },
+    {
+      "window": [
+        558,
+        575
+      ],
+      "reason": "Pharmacist sentence, gender and exact statement; do not infer from grammar."
+    },
+    {
+      "window": [
+        829,
+        842
+      ],
+      "reason": "Potential neprohovoril versus najprv hovoril; verify negation."
+    },
+    {
+      "window": [
+        1271,
+        1290
+      ],
+      "reason": "Unclear spoken self-correction before saying one versus two further things."
+    },
+    {
+      "window": [
+        2194,
+        2215
+      ],
+      "reason": "Boundary between neoprávnene and nedostali affects negation."
+    },
+    {
+      "window": [
+        2228,
+        2245
+      ],
+      "reason": "Unclear migration noun or aside during World War I explanation."
+    },
+    {
+      "window": [
+        2383,
+        2405
+      ],
+      "reason": "Potential missing aby and exact steps in virus life cycle."
+    },
+    {
+      "window": [
+        2522,
+        2553
+      ],
+      "reason": "Exact cure-of-one-person dialogue and pronouns; preserve the historical claim."
+    },
+    {
+      "window": [
+        2580,
+        2614
+      ],
+      "reason": "H1N1 percentages, death count and Samo reference; preserve stated numbers."
+    },
+    {
+      "window": [
+        2740,
+        2753
+      ],
+      "reason": "Unclear voluntary-decision wording before vaccination statement."
+    },
+    {
+      "window": [
+        2843,
+        2856
+      ],
+      "reason": "Potential podceňujú word affects meaning; verify rather than guessing."
+    }
+  ]
+}

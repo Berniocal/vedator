@@ -1,0 +1,66 @@
+{
+  "episode": 12,
+  "audioSha256": "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
+  "humanListeningVerified": false,
+  "exceptions": [
+    {
+      "cue": 553,
+      "start": 1250.663,
+      "end": 1251.264,
+      "score": 0.3317,
+      "text": "Niekto by mohol povedať,",
+      "evidence": "captions/source/episode-12-followup-6-checks.sk.json",
+      "reason": "Focused independent large-v3 explicitly confirms Niekto by mohol povedať in 1250.42–1252.96, followed by the same next clause. Neutral CTC yields reduced nekdo joml phones; several rapidly reduced function-word consonants score poorly. Preserve the fully cross-ASR-confirmed phrase and actual character path; no time clamping or blanket score waiver."
+    },
+    {
+      "cue": 728,
+      "start": 1635.271,
+      "end": 1635.643,
+      "score": 0.2074,
+      "text": "Wow.",
+      "evidence": "captions/source/episode-12-followup-1-checks.sk.json",
+      "timingUncertaintySeconds": 0.15,
+      "reason": "Both independent large-v3 windows recognize Wow (extra: ends 1635.78; pass 1: 1635.34–1635.74). A separately constrained original-audio CTC path gives 1635.271–1635.643. The Slovak model is weak on this short foreign interjection: spelling comparisons do not establish all phones, and the higher-scoring uau variant ends at the probe edge with a zero-score final phone. Keep canonical displayed Wow and explicit approximately 0.15 s boundary uncertainty rather than selecting a spelling merely to suppress the low score."
+    },
+    {
+      "cue": 952,
+      "start": 2150.38,
+      "end": 2151.462,
+      "score": 0.1341,
+      "text": "[Nezrozumiteľné.] Áno.",
+      "evidence": "captions/source/episode-12-followup-6-checks.sk.json",
+      "reason": "Primary turbo assigns takže and Áno here, but broad independent large-v3 (archived pass 5) and a focused 2149.9–2152.5 window omit the filler. Neutral CTC does not establish takže, so its content is explicitly marked unintelligible. Primary-ASR Áno and the high-scoring nasal CTC anchor are retained. Low score describes only the separately documented archived phonetic timing proxy, not an asserted translation of the uncertain speech."
+    },
+    {
+      "cue": 979,
+      "start": 2207.162,
+      "end": 2208.144,
+      "score": 0.3252,
+      "text": "Áno, [nezrozumiteľné].",
+      "evidence": "captions/source/episode-12-followup-6-checks.sk.json",
+      "reason": "Primary turbo suggests negatívny marketing during the next speaker's A začala. Three independent large-v3 windows (extra, pass 2, focused pass 6) instead return Áno, a začala; neutral CTC establishes only partial nega phones. Retain confirmed Áno and mark the unestablished overlapping interjection. The archived phonetic string is solely a timing proxy for the original source-word span, with uncertainty explicitly displayed."
+    },
+    {
+      "cue": 1102,
+      "start": 2491.867,
+      "end": 2492.808,
+      "score": 0.3423,
+      "text": "Ďalšia zlá vec,",
+      "evidence": "captions/source/episode-12-followup-6-checks.sk.json",
+      "reason": "Focused independent large-v3 confirms Afriky ďalšia zlá vec čo spôsobila kolonizácia Afriky neveriteľné in 2489–2497. Neutral CTC yields reduced ťaže zlam bed and strongly matches a, z, l, e within the same short phrase. Retain the confirmed fast/slurred reaction with its actual character path; no invented wording or timing shift."
+    }
+  ],
+  "characterExceptions": [
+    {
+      "cue": 45,
+      "characterIndex": 0,
+      "character": "a",
+      "start": 121.222,
+      "end": 121.243,
+      "score": 0,
+      "evidence": "captions/source/episode-12-followup-2-checks.sk.json",
+      "timingUncertaintySeconds": 0.5,
+      "reason": "Primary turbo includes the conjunction and independent large-v3 separately recognizes a at 121.12–121.72 before aj ta... after 122.48. The Slovak CTC cannot reliably resolve this extremely short isolated vowel: its bounded first-character path has zero score. Preserve the cross-ASR-supported conjunction and explicitly mark its approximate onset uncertainty (about 0.5 s within the documented 121.0–121.95 probe), rather than hiding it behind the higher mean of the following clause or asserting millisecond precision. No independent human listening is claimed."
+    }
+  ]
+}

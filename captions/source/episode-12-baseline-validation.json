@@ -1,0 +1,114 @@
+{
+  "baseMainSha": "9cd596066246d385cf63c078a44e39d24ae99aa5",
+  "existingSeekIndexesUnchanged": 15,
+  "previousCaptionsUnchanged": [
+    {
+      "path": "captions/episode-5.json",
+      "sha256": "d5caea62c0a1c3b3f1a15d3c9176fe6cdd04f58b69e8b69978809a5ba23292a5"
+    },
+    {
+      "path": "captions/episode-5.cs.srt",
+      "sha256": "8eb930ba5a31e8b722c1566e87df3956be334a4ee3519936c9f37c72fa3a4b74"
+    },
+    {
+      "path": "captions/episode-5.sk.srt",
+      "sha256": "72bebd80890e79e176a8c6773dfd8cccfdf5e949747d8b3b75fc5d9aea88efac"
+    },
+    {
+      "path": "captions/episode-6.json",
+      "sha256": "44629869d01ad245fab4712bafa6cd7f113eb6dea85d05e138a008e680d9e1a1"
+    },
+    {
+      "path": "captions/episode-6.cs.srt",
+      "sha256": "7baadbe11e0e8c4a08dd45fa924c3a055892abc66908df901e32a85395054cf7"
+    },
+    {
+      "path": "captions/episode-6.sk.srt",
+      "sha256": "7e739c91bd6079719efa8024d755a0e718c8962d8993ea0cb322c0572b3ac947"
+    },
+    {
+      "path": "captions/episode-7.json",
+      "sha256": "af400c657937c4dafa9c8f81f7941cb93df9e3203ddbf268099b38f77792922f"
+    },
+    {
+      "path": "captions/episode-7.cs.srt",
+      "sha256": "e618959ec290405ebd876c5aab9ef2b2e5750ac45875cec3ac665790490eecdd"
+    },
+    {
+      "path": "captions/episode-7.sk.srt",
+      "sha256": "fd2df9d18fd23dff675fa04a4308e2c8689b478307601b3a02e1f05589719f4d"
+    },
+    {
+      "path": "captions/episode-8.json",
+      "sha256": "e1d97ea1c51ea7ff4b376a2fe4f2acde04443a9af7da085594de29ce95745c12"
+    },
+    {
+      "path": "captions/episode-8.cs.srt",
+      "sha256": "130f3097e2f16a13cf174e779ae49e158aec9d48c8e7b1ac87d5b0b54e70cb10"
+    },
+    {
+      "path": "captions/episode-8.sk.srt",
+      "sha256": "bb234a43d97f35b60c7fbe94c4bc7440102b0872d980274cd24b78f14f205bf1"
+    },
+    {
+      "path": "captions/episode-9.json",
+      "sha256": "15750094136c53ef5b4957478a494d64efed0bb8ec4dba9da0db2470545e06c5"
+    },
+    {
+      "path": "captions/episode-9.cs.srt",
+      "sha256": "162cad7380dc075a55bdaea4696206098da2aa1c1ce2fb78193bf80eeed68722"
+    },
+    {
+      "path": "captions/episode-9.sk.srt",
+      "sha256": "4fa8521b89ea72357dcf9d8cf1d2a3717b0799fa316ba5d119897af7d2ab646c"
+    },
+    {
+      "path": "captions/episode-10.json",
+      "sha256": "f92d28f7f5eabf8458a1361b58218411c4bb16dbc2aec05c4c59aeb0a006a421"
+    },
+    {
+      "path": "captions/episode-10.cs.srt",
+      "sha256": "a00b4bdc3e89fb7d8d49f7be62328da02a96c4a55136c9ed0510133e13d9863f"
+    },
+    {
+      "path": "captions/episode-10.sk.srt",
+      "sha256": "0a27cf3f2f536fbf396bade7df7800b28a5b398dcf8a56ac42f254e55070a5eb"
+    },
+    {
+      "path": "captions/episode-11.json",
+      "sha256": "b9c910b09ccca43914dd91688e748c5d170b2daf71569dd2633255121f0f11df"
+    },
+    {
+      "path": "captions/episode-11.cs.srt",
+      "sha256": "826ac3905d6a637dbfc7474c62aaacc17b0706154e78079f2da0a0ce084794ec"
+    },
+    {
+      "path": "captions/episode-11.sk.srt",
+      "sha256": "5dd0fcb698f41752685d03e4ea3a5d06bbfef5c6fd9fe975ed16bf8ebb991ffb"
+    }
+  ],
+  "episode11ProductionJsonAndBothSrtsSha256Verified": true,
+  "checkedOn": "2026-11-26",
+  "localReferenceMobileRun": {
+    "episode": 11,
+    "browser": "serverless Chromium 153; local font set",
+    "findings": 27,
+    "affectedCueLanguages": [
+      "100:cs",
+      "10:sk",
+      "110:sk",
+      "118:cs",
+      "128:cs",
+      "154:cs",
+      "162:cs",
+      "174:sk",
+      "192:sk",
+      "22:sk",
+      "42:cs",
+      "42:sk",
+      "54:cs",
+      "64:cs"
+    ],
+    "note": "Reference fonts differ from the successful Google Chrome CI environment. No completed episode was changed; episode 12 must be checked in both environments."
+  }
+}

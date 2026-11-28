@@ -1,0 +1,42 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
+const hash=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const captions=read('captions/episode-12.json');
+const acoustic=read('captions/source/episode-12-acoustic-review-approved.json');
+assert(acoustic.completeFinalAcousticReview===true&&acoustic.captionSha256===hash('captions/episode-12.json'),'Final acoustic editorial approval refers to different caption bytes or is incomplete');
+assert(acoustic.completeMobileVisualReview===true,'Actual final mobile screenshots have not been reviewed');
+assert(acoustic.gapProbeSha256===hash('captions/source/episode-12-gap-ctc-checks.sk.json'),'Actual gap-probe review does not match the current acoustic evidence');
+const structural=read('captions/source/episode-12-prereg-validation.json');
+const layout=read('captions/source/episode-12-prereg-layout.json');
+assert(structural.ok&&layout.findings.length===0&&layout.pageErrors.length===0);
+assert(structural.captionSha256===hash('captions/episode-12.json')&&layout.captionSha256===structural.captionSha256,'Pre-registration checks refer to different caption bytes');
+assert(structural.editedSha256===hash('captions/episode-12.edited.json'));
+assert(layout.checkedCues===captions.cues.length&&layout.languages.includes('cs')&&layout.languages.includes('sk'));
+assert.deepEqual(layout.widths,[360,390]);assert.deepEqual(layout.scales,[1,1.3]);assert.deepEqual(layout.modes,['mp3','video','reader']);
+assert(structural.audioSha256==='798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5');
+const videos=read('episode-videos.json'),beforeVideos=structuredClone(videos);
+const v=videos.find(v=>v.episode===12);
+assert(v&&v.guid===captions.guid&&v.youtubeId===captions.youtubeId);
+assert(!v.captionFile||v.captionFile==='captions/episode-12.json');
+v.captionFile='captions/episode-12.json';
+assert.deepEqual(videos.filter(v=>v.episode!==12),beforeVideos.filter(v=>v.episode!==12));
+const before=read('content-v2.json');
+fs.writeFileSync('episode-videos.json',JSON.stringify(videos,null,2)+'\n');
+for(const script of ['build-content-v2.mjs','augment-v2-extra-nonquestions.mjs','augment-v2-episode-descriptions.mjs','augment-v2-full-descriptions.mjs','augment-v2-parity-content.mjs']){
+ execFileSync('node',['tools/'+script],{stdio:'inherit'});
+}
+const after=read('content-v2.json');
+const withoutCaption=doc=>{
+ const copy=structuredClone(doc);delete copy.generatedAt;
+ for(const e of copy.episodes)if(e.number===12)delete e.captionFile;
+ return copy;
+};
+assert.deepEqual(withoutCaption(before),withoutCaption(after),'Registration changed unrelated catalog content');
+assert(after.episodes.find(e=>e.number===12).captionFile==='captions/episode-12.json');
+execFileSync('node',['tools/test-content-v2.mjs'],{stdio:'inherit'});
+execFileSync('node',['tools/test-v2-faq-integrity.mjs'],{stdio:'inherit'});
+execFileSync('git',['diff','--exit-code','--','index.html','app-v2.js'],{stdio:'inherit'});
+console.log(JSON.stringify({registeredEpisode:12,cues:captions.cues.length,captionSha256:hash('captions/episode-12.json'),onlyTargetCaptionPointerChanged:true}));

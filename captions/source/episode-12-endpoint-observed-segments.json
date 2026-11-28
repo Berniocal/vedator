@@ -1,0 +1,104 @@
+{
+  "episode": 12,
+  "model": "large-v3",
+  "audioSha256": "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
+  "vadFilter": false,
+  "computeType": "int8",
+  "beamSize": 5,
+  "status": "observed-ASR-segments-for-review-not-caption-text",
+  "humanListeningVerified": false,
+  "capture": "Segment text and boundaries copied exactly from the observed local recognizer output. The ephemeral environment was lost before its original word-level JSON could be committed; those supplementary word timings have not been reconstructed.",
+  "warnings": [
+    "The isolated first sentence may be an ASR hallucination over the introduction. Verify against full-source ASR and independent unforced CTC before retaining or removing it.",
+    "End-of-recording word forms such as výroch are unreviewed recognition output. Do not silently replace them without source evidence."
+  ],
+  "passages": [
+    {
+      "start": 0,
+      "end": 40,
+      "segments": [
+        {
+          "start": 26.96,
+          "end": 29.88,
+          "text": "Ďakujem za pozornosť."
+        },
+        {
+          "start": 30,
+          "end": 34.18,
+          "text": "Ahoj Samuel, pri vydaní nášho podcastu, ďalšom."
+        },
+        {
+          "start": 34.58,
+          "end": 35.52,
+          "text": "Ako sa máš?"
+        },
+        {
+          "start": 36.3,
+          "end": 37.66,
+          "text": "Mám sa celkom dobré."
+        },
+        {
+          "start": 38.02,
+          "end": 38.8,
+          "text": "Úprimne dúfam, že..."
+        }
+      ]
+    },
+    {
+      "start": 2870,
+      "end": 2911.5298125,
+      "segments": [
+        {
+          "start": 2870,
+          "end": 2873.2,
+          "text": "Ja vám, naši poslucháči, veľmi pekne ďakujem za počúvanie."
+        },
+        {
+          "start": 2874.1,
+          "end": 2878.32,
+          "text": "Vidíme sa, alebo počujeme sa pri ďalšom vydaní Vedatorského podcastu."
+        },
+        {
+          "start": 2878.48,
+          "end": 2882.1,
+          "text": "Nájdete nás na YouTube, Spotify, Apple podcaste"
+        },
+        {
+          "start": 2882.1,
+          "end": 2885.1,
+          "text": "a všade, kde nájdete dobré podcasty."
+        },
+        {
+          "start": 2886.52,
+          "end": 2889.86,
+          "text": "Pozerajte náš web vedator.space"
+        },
+        {
+          "start": 2889.86,
+          "end": 2892.48,
+          "text": "alebo našu facebookovú skupinu."
+        },
+        {
+          "start": 2892.52,
+          "end": 2895.3,
+          "text": "A budeme radi, keď nás aj podporíte cez Patreon."
+        },
+        {
+          "start": 2895.66,
+          "end": 2897.54,
+          "text": "Pekný deň. Majte sa."
+        },
+        {
+          "start": 2900.66,
+          "end": 2903.26,
+          "text": "Hej, hej, ale dobre to bolo podľa mňa."
+        },
+        {
+          "start": 2905.14,
+          "end": 2910.6,
+          "text": "Toto je taká téma, že môžeš robiť podľa mňa dlho aj celý podcast len o výroch."
+        }
+      ]
+    }
+  ]
+}
