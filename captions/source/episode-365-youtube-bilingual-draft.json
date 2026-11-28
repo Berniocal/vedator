@@ -1,0 +1,4163 @@
+{
+  "episode": 365,
+  "guid": "vedatorskypodcast.podbean.com/7b47e801-d65b-304d-bd5a-d3fb9f9f949d",
+  "youtubeId": "8Sr2R_DcH9k",
+  "youtubeSource": {
+    "episode": 365,
+    "guid": "vedatorskypodcast.podbean.com/7b47e801-d65b-304d-bd5a-d3fb9f9f949d",
+    "youtubeId": "8Sr2R_DcH9k",
+    "upstreamRepository": "Berniocal/vedator-test",
+    "upstreamPath": "titulky/vedatorsky-podcast-365-sede-diery.srt",
+    "upstreamSourceCommit": "f80655bbb37109c757a0e3e3f5d61359dac831e2",
+    "upstreamGitBlobSha": "3ac915a3df094dcd1077537c9be572d3884fc006",
+    "archiveNormalization": "Exact archived UTF-8 SRT; JSON3 text events and source timestamps preserved.",
+    "archivedSha256": "9ecc4801ca191fca7a12401d8f64d1b77ea85eb8a343aa781e6b1ce93931257a"
+  },
+  "sourceSrt": "captions/source/episode-365-youtube-original.sk.srt",
+  "sourceSha256": "9ecc4801ca191fca7a12401d8f64d1b77ea85eb8a343aa781e6b1ce93931257a",
+  "translationModel": "facebook/nllb-200-distilled-600M",
+  "status": "unreviewed-machine-draft-do-not-publish",
+  "completedGroups": 325,
+  "totalGroups": 325,
+  "cues": [
+    {
+      "start": 1.309,
+      "end": 3.329,
+      "sourceCues": [
+        1
+      ],
+      "originalSk": "[hudba]",
+      "draftCs": "[Hudba]",
+      "reviewFlags": []
+    },
+    {
+      "start": 8.515,
+      "end": 10.535,
+      "sourceCues": [
+        2
+      ],
+      "originalSk": "[hudba]",
+      "draftCs": "[Hudba]",
+      "reviewFlags": []
+    },
+    {
+      "start": 12.8,
+      "end": 20.7,
+      "sourceCues": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "originalSk": "Od čiernych cez biele až po šedé. Veda nás obklopuje na každom kroku. Vitajte pri vedátorskom podcaste, v ktorom sa budeme rozprávať o vede a prírode okolo",
+      "draftCs": "Od černých po bílé až po šedé. Věda nás obklopuje na každém kroku. Vítejte v podcastě, kde budeme mluvit o vědě a přírodě kolem nás.",
+      "reviewFlags": []
+    },
+    {
+      "start": 20.7,
+      "end": 30.5,
+      "sourceCues": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "originalSk": "nás. Moje meno je Jozef. Ja som Samuel. Tento podcast vychádza vo spolupráci so Samko, vieš na čo je dobrá kyselina hyalurónová? Dúfam, že som to dobre povedal.",
+      "draftCs": "Jmenuji se Joseph. Jmenuji se Samuel. Tento podcast je založen ve spolupráci s Samko. Víte, co je hyaluronská kyselina dobrá? Doufám, že jsem to řekl správně.",
+      "reviewFlags": []
+    },
+    {
+      "start": 30.5,
+      "end": 36.68,
+      "sourceCues": [
+        13,
+        14,
+        15
+      ],
+      "originalSk": "Marí sa mi, že niečo s pokožkou. Ako enzým Q10? Čo ja viem, nejaká vesmírna loď.",
+      "draftCs": "Myslím, že je to něco s kůží, jako je enzym Q10?",
+      "reviewFlags": []
+    },
+    {
+      "start": 36.68,
+      "end": 37.3,
+      "sourceCues": [
+        16
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 37.3,
+      "end": 47.2,
+      "sourceCues": [
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "originalSk": "A čo takto niacynamid? Myslíš niacínamid? Eh niacínamid. Tiež som to prečítal, ale znie to dosť vymyslene, nie?",
+      "draftCs": "A co třeba niacinamid? Myslíte niacinamid? Eh, niacinamid. Taky jsem to četl, ale zní to dost vymysleně, že?",
+      "reviewFlags": []
+    },
+    {
+      "start": 47.2,
+      "end": 54.2,
+      "sourceCues": [
+        22,
+        23,
+        24,
+        25
+      ],
+      "originalSk": "No a nebolo by super sa konečne v tom zorientovať? Bolo, ale úprimne eh pri malom dieťati na to nemám úplne kapacitu.",
+      "draftCs": "Bylo to, ale upřímně, s malým dítětem na to nemám plnou kapacitu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 54.2,
+      "end": 63.5,
+      "sourceCues": [
+        26,
+        27,
+        28,
+        29
+      ],
+      "originalSk": "No a presne preto je tu Lucilabs, slovenská kozmetika, ktorú možno poznáš pod názvom Dulcia natural, dokonca z Rače a od 20. októbra prichádzajú s",
+      "draftCs": "A právě proto je tady Lucilabs, slovenská kosmetika, kterou možná znáte pod názvem Dulcia natural, dokonce i z Rače a od 20. října přicházejí s",
+      "reviewFlags": []
+    },
+    {
+      "start": 63.5,
+      "end": 67.7,
+      "sourceCues": [
+        30,
+        31
+      ],
+      "originalSk": "novým menom a úplne novým prístupom k starostlivosti o pleť.",
+      "draftCs": "nové jméno a úplně nový přístup k péči o pleť.",
+      "reviewFlags": []
+    },
+    {
+      "start": 67.7,
+      "end": 71.6,
+      "sourceCues": [
+        32,
+        33
+      ],
+      "originalSk": "Áno, áno, poznám. Parkrát som tam bol a na tomto je teraz niečo špeciálne?",
+      "draftCs": "Jo, já vím, byl jsem tam párkrát a je to něco zvláštního?",
+      "reviewFlags": []
+    },
+    {
+      "start": 71.6,
+      "end": 79.8,
+      "sourceCues": [
+        34,
+        35,
+        36,
+        37
+      ],
+      "originalSk": "No pomôžu ti zistiť, čo tvoja pleť naozaj potrebuje. Majú hotové kvalitné produkty, odborné poradenstvo a pri vybraných produktoch, čo som ešte",
+      "draftCs": "Ale pomohou vám zjistit, co vaše pokožka opravdu potřebuje.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 79.8,
+      "end": 86.7,
+      "sourceCues": [
+        38,
+        39,
+        40
+      ],
+      "originalSk": "nezažil, aj možnosť personalizácie. Čiže niečo pre aj ľudí ako som ja, čo o kozmetike nevedia vôbec nič.",
+      "draftCs": "Takže něco pro lidi jako já, kteří o kosmetických látkách nevědí vůbec nic.",
+      "reviewFlags": []
+    },
+    {
+      "start": 86.7,
+      "end": 91.8,
+      "sourceCues": [
+        41,
+        42,
+        43
+      ],
+      "originalSk": "Presne tak. Či si úplný amatér alebo kozmetický profík, chceš predsa dobre vyzerať, nie?",
+      "draftCs": "Přesně tak, ať už jsi amatér nebo kosmetolog, chceš vypadat dobře, že?",
+      "reviewFlags": []
+    },
+    {
+      "start": 91.8,
+      "end": 93.666,
+      "sourceCues": [
+        44
+      ],
+      "originalSk": "Akože áno, nezaškodí to.",
+      "draftCs": "Jako kdyby ano, to by neublížilo.",
+      "reviewFlags": []
+    },
+    {
+      "start": 93.666,
+      "end": 94.1,
+      "sourceCues": [
+        45
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 94.1,
+      "end": 100.4,
+      "sourceCues": [
+        46,
+        47,
+        48
+      ],
+      "originalSk": "Áno, už keď robíme aj video podcast, tak nezaškodí to. Tak so všetkým týmto ti vedia pomôcť.",
+      "draftCs": "Jo, když děláme video podcastu, tak to neublíží, takže ti s tím vším můžou pomoct.",
+      "reviewFlags": []
+    },
+    {
+      "start": 100.4,
+      "end": 104.6,
+      "sourceCues": [
+        49,
+        50
+      ],
+      "originalSk": "Stačí, keď pôjdeš na lucila.sk, pozri sa, čo všetko pre teba majú.",
+      "draftCs": "Stačí, když půjdeš na lucila.sk, podívej se, co pro tebe mají.",
+      "reviewFlags": []
+    },
+    {
+      "start": 104.6,
+      "end": 112.3,
+      "sourceCues": [
+        51,
+        52,
+        53,
+        54,
+        55
+      ],
+      "originalSk": "Pozriem. Dobre. A ešte niečo. Pri prvej objednávke na lucila.sk dostaneš ako darček kolagénové sérum.",
+      "draftCs": "Dobře, a ještě něco, při prvním objednání na lucila.sk dostanete jako dar kolagenový sérum.",
+      "reviewFlags": []
+    },
+    {
+      "start": 112.3,
+      "end": 115.9,
+      "sourceCues": [
+        56,
+        57
+      ],
+      "originalSk": "To je napriek tomu, že stále neviem správne prečítať niacínamid.",
+      "draftCs": "A to i přes to, že pořád neumím číst niacinamidy správně.",
+      "reviewFlags": []
+    },
+    {
+      "start": 115.9,
+      "end": 126.292,
+      "sourceCues": [
+        58,
+        59,
+        60,
+        61
+      ],
+      "originalSk": "Ani ja ho stále neviem prečítať, ale pri objednávke eh ťa nebudú. A ešte dobrá správa. Počas Black Friday majú v Lucylabu zľavu 25% na",
+      "draftCs": "Ani já si to nemůžu přečíst, ale když si objednáte, tak vás nebudou mít. A ještě dobrá zpráva.",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 126.292,
+      "end": 131.692,
+      "sourceCues": [
+        62,
+        63,
+        64
+      ],
+      "originalSk": "všetky produkty. OK, toto si idem otvoriť hneď v novom okne.",
+      "draftCs": "OK, otevřu to hned v novém okně.",
+      "reviewFlags": []
+    },
+    {
+      "start": 131.692,
+      "end": 141.792,
+      "sourceCues": [
+        65,
+        66,
+        67,
+        68,
+        69
+      ],
+      "originalSk": "Samko, počul som o čiernych dierach, počul som o bielych dierach, čo sú vlastne antipólom, ale o šedých dierach, to je to je čo?",
+      "draftCs": "Malá, slyšela jsem o černých děrách, slyšela jsem o bílých děrách, které jsou vlastně antipoly, ale o šedých děrách, to je co?",
+      "reviewFlags": []
+    },
+    {
+      "start": 141.792,
+      "end": 146.721,
+      "sourceCues": [
+        70,
+        71,
+        72
+      ],
+      "originalSk": "Hneď sa k tomu dostaneme, ale ja chcem, aby sa pochválil, aký si mal zážitok na strednej škole, lebo",
+      "draftCs": "Do toho se dostaneme hned, ale já chci, aby pochválil tvůj zážitek ve střední škole, protože",
+      "reviewFlags": []
+    },
+    {
+      "start": 146.721,
+      "end": 148.192,
+      "sourceCues": [
+        73
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 148.192,
+      "end": 158.692,
+      "sourceCues": [
+        74,
+        75,
+        76,
+        77
+      ],
+      "originalSk": "Jaj, pozdravujem strednú školu hosť na Pionierskej ulici, kde som bol prednášať eh za advokátskej komory o demokracii.",
+      "draftCs": "Ahoj, přivítám střední host na Pioneer Street, kde jsem přednášel před advokátní komorou o demokracii.",
+      "reviewFlags": []
+    },
+    {
+      "start": 158.692,
+      "end": 167.59199999999998,
+      "sourceCues": [
+        78,
+        79,
+        80
+      ],
+      "originalSk": "Skončil si vyhulákaný? Vieš čo, boli super. Akože pozdravujem všetkých, eh ale 45 minút sa sústrediť",
+      "draftCs": "Jako bych pozdravil všechny, ale 45 minut se soustředit.",
+      "reviewFlags": []
+    },
+    {
+      "start": 167.59199999999998,
+      "end": 174.192,
+      "sourceCues": [
+        81,
+        82,
+        83
+      ],
+      "originalSk": "je asi už eh nad ľudské medze, ale to som asi ani ja nedokázal, keď som mal 16 17 rokov.",
+      "draftCs": "Je to asi už nad lidskou hranicí, ale to jsem asi nemohl udělat ani já, když mi bylo 16 a 17 let.",
+      "reviewFlags": []
+    },
+    {
+      "start": 174.192,
+      "end": 180.392,
+      "sourceCues": [
+        84,
+        85
+      ],
+      "originalSk": "Eh ale bola zaujímavá debata aj veľa sa pýtali hm mladí ľudia, takže super.",
+      "draftCs": "Ale byla to zajímavá debata a hodně se ptal mládež, takže super.",
+      "reviewFlags": []
+    },
+    {
+      "start": 180.392,
+      "end": 189.092,
+      "sourceCues": [
+        86,
+        87,
+        88,
+        89
+      ],
+      "originalSk": "No to je presne, že podľa mňa že aj my, čo sme absolvovali vysokú školu, tak to berieš tak, že však jasné, občas bývali aj trojhodinovky.",
+      "draftCs": "Ale to je přesně to, co si myslím, že i my, kteří jsme byli na vysoké škole, jsme si to mohli vzít tak, že jsme měli občas tři hodiny.",
+      "reviewFlags": []
+    },
+    {
+      "start": 189.092,
+      "end": 194.392,
+      "sourceCues": [
+        90,
+        91,
+        92
+      ],
+      "originalSk": "A potom začneš robiť prednášku pre laickú verejnosť a zistíš, že 30 minút už je pushovanie.",
+      "draftCs": "A pak začnete přednášet veřejnosti a zjistíte, že už je to 30 minut.",
+      "reviewFlags": []
+    },
+    {
+      "start": 194.392,
+      "end": 203.707,
+      "sourceCues": [
+        93,
+        94,
+        95,
+        96,
+        97
+      ],
+      "originalSk": "Hej hej hej. Ale vieš čo, neviem ako ty z tých trojhodinoviek, ale ja som z nich moc nemal na vysokej škole, akože ja som bol, viem, že po nejakej hodine vždy vypnutý a",
+      "draftCs": "Ale víš co, nevím, jak ty tříhodinové, ale já jsem toho moc neměl na vysoké škole, jako jsem byl já, vím, že po nějaké hodině je vždy vypnutý a",
+      "reviewFlags": []
+    },
+    {
+      "start": 203.707,
+      "end": 204.292,
+      "sourceCues": [
+        98
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 204.292,
+      "end": 213.792,
+      "sourceCues": [
+        99,
+        100,
+        101,
+        102
+      ],
+      "originalSk": "Vieš čo, u nás sa to dá stiahnuť z toho dôvodu, že eh u nás to beží pomaly, že u nás často ľudia píšu na tabuľu a to niekedy fakt píšeš dve minúty jeden",
+      "draftCs": "Víte co, je možné to stáhnout, protože uh, je to pomalu, že lidé často píšou na tabulce a někdy opravdu píšeš dvě minuty jeden.",
+      "reviewFlags": []
+    },
+    {
+      "start": 213.792,
+      "end": 221.392,
+      "sourceCues": [
+        103,
+        104,
+        105,
+        106
+      ],
+      "originalSk": "vzorček celý. Takže ty máš čas sa trošku vydýchať a potom ti ho začne opisovať a potom ide urobiť jednu úpravu, takže zasa musí celý prepísať",
+      "draftCs": "Takže máte čas si trochu vydechnout a pak vám to popíše a pak vám udělá jednu úpravu, takže bude muset přepsat celé.",
+      "reviewFlags": []
+    },
+    {
+      "start": 221.392,
+      "end": 231.59199999999998,
+      "sourceCues": [
+        107,
+        108,
+        109,
+        110,
+        111
+      ],
+      "originalSk": "a má to také veľmi pozvoľné tempo vďaka tomu. Juro Tekel má o tom taký článok niekde napísaný, že aké sú super vlastne eh písané prezentácie. Okrem iného aj kvôli tomu,",
+      "draftCs": "Juro Tekel napsal článek o tom, jak skvělé jsou napsané prezentace.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 231.59199999999998,
+      "end": 240.992,
+      "sourceCues": [
+        112,
+        113,
+        114,
+        115,
+        116
+      ],
+      "originalSk": "že presne spomalíš pri nich tempo a vysokoškolské prezentácie, ktoré sú robené pomocou slidov, sú podľa mňa strašne nebezpečné.",
+      "draftCs": "že je to velmi zpomalené, a vysokoškolské prezentace, které jsou prováděny pomocí slidů, jsou pro mě strašně nebezpečné.",
+      "reviewFlags": []
+    },
+    {
+      "start": 240.992,
+      "end": 250.194,
+      "sourceCues": [
+        117,
+        118,
+        119,
+        120,
+        121
+      ],
+      "originalSk": "Lebo zrazu začneš ako určite mať pocit, že nestíhaš, tak začneš proste preklikávať a neviem čo a už vtedy unaveným študentom totálne zavaríš hlavu, takže",
+      "draftCs": "Protože najednou začnete mít pocit, že nejste v pořádku, začnete jen kliknout a já nevím co, a už tehdy jste úplně vyčerpaným studentům zmatli hlavu, takže...",
+      "reviewFlags": []
+    },
+    {
+      "start": 250.194,
+      "end": 260.294,
+      "sourceCues": [
+        122,
+        123,
+        124,
+        125
+      ],
+      "originalSk": "ono sa to dalo podľa mňa celkom. Asi trošku troška iný spôsob v tej výučby toho práva a tej asi teoretickej fyziky alebo fyziky celkovo, ale bol to",
+      "draftCs": "Myslím, že je to trochu odlišný způsob učení práva a teoretické fyziky nebo fyziky obecně, ale byl to",
+      "reviewFlags": []
+    },
+    {
+      "start": 260.294,
+      "end": 270.694,
+      "sourceCues": [
+        126,
+        127,
+        128,
+        129
+      ],
+      "originalSk": "ako že záhul za mňa to ako že hej. Ale ja som chodil poctivo, takže Hej ja som tiež mal pocit, že vždy keď neprídem, tak akurát zaznie niečo mega",
+      "draftCs": "Ale já jsem chodil poctivě, takže jsem si taky myslel, že když nepřijdu, něco mega zvoní.",
+      "reviewFlags": []
+    },
+    {
+      "start": 270.694,
+      "end": 279.994,
+      "sourceCues": [
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "originalSk": "dôležité a bude mi to chýbať. Toto toto presne som ja mal, že nepôjdem teraz a potom, že a čo keď tam to povedali to presne vďaka čo by som prešiel.",
+      "draftCs": "To je přesně to, co jsem měl, že nepůjdu teď a pak, a co když mi to řeknou, to je přesně to, čím bych prošel.",
+      "reviewFlags": []
+    },
+    {
+      "start": 279.994,
+      "end": 288.294,
+      "sourceCues": [
+        135,
+        136,
+        137,
+        138,
+        139
+      ],
+      "originalSk": "rokov možno budem robiť výskum a budem presne túto vec potreba a áno ja som si hovoril, že že prehrám prehrám nejaký spor kvôli tomu alebo",
+      "draftCs": "Možná budu dělat výzkum a budu přesně to, co potřebuji a ano, já jsem říkal, že prohrávám prohrávám nějaký spor kvůli tomu nebo",
+      "reviewFlags": []
+    },
+    {
+      "start": 288.294,
+      "end": 291.478,
+      "sourceCues": [
+        140,
+        141
+      ],
+      "originalSk": "nebudem to vedieť a všetci sa mi budú smiať.",
+      "draftCs": "Já to nebudu vědět a všichni se mi budou smát.",
+      "reviewFlags": []
+    },
+    {
+      "start": 291.478,
+      "end": 292.494,
+      "sourceCues": [
+        142
+      ],
+      "originalSk": "[vzdychanie]",
+      "draftCs": "[výdech]",
+      "reviewFlags": []
+    },
+    {
+      "start": 292.494,
+      "end": 296.694,
+      "sourceCues": [
+        143,
+        144
+      ],
+      "originalSk": "Dobre tak podobný podobný strach na nás funguje, sa mi to páči.",
+      "draftCs": "Tak dobře, tak podobný strach na nás funguje, to se mi líbí.",
+      "reviewFlags": []
+    },
+    {
+      "start": 296.694,
+      "end": 305.994,
+      "sourceCues": [
+        145,
+        146,
+        147,
+        148
+      ],
+      "originalSk": "Eh rozprávali sme sa prednedávnom o čiernych dierach znova, sme si spravili [odkašľanie] taký update a sme sa dozvedeli, že tie stredné čierne diery",
+      "draftCs": "Ehm, mluvili jsme nedávno o černých dírách znovu, udělali jsme takovou aktualizaci a zjistili jsme, že střední černé díry",
+      "reviewFlags": []
+    },
+    {
+      "start": 305.994,
+      "end": 312.794,
+      "sourceCues": [
+        149,
+        150,
+        151,
+        152
+      ],
+      "originalSk": "dokonca ešte nemáme ani potvrdené teoreticky nejako existujú alebo znaky povedzme to tak, aby nám niekto nenadával, že sme nenapísali hej hej.",
+      "draftCs": "Dokonce ani nemáme teoreticky potvrzenou existenci, nebo řekněme to tak, aby nás někdo nenapadlo, že jsme nepsali \"hej, hej\".",
+      "reviewFlags": []
+    },
+    {
+      "start": 312.794,
+      "end": 320.694,
+      "sourceCues": [
+        153,
+        154,
+        155,
+        156
+      ],
+      "originalSk": "Dobre tak môžete mi napísať nahnevaný ohľadom tohto. Nahnevaný astronóm.",
+      "draftCs": "Dobře, můžete mi napsat, že jste naštvaný na to, že jste naštvaný astronom.",
+      "reviewFlags": []
+    },
+    {
+      "start": 321.594,
+      "end": 331.894,
+      "sourceCues": [
+        157,
+        158,
+        159,
+        160
+      ],
+      "originalSk": "A rozprávali sme sa aj takých teoretických bielych dierach, to sú také objekty, ktoré by mali vyvršovať veľa eh veľa hmoty do vesmíru.",
+      "draftCs": "A mluvili jsme také o teoretických bílých dírech, což jsou objekty, které by měly vypustit do vesmíru hodně hmoty.",
+      "reviewFlags": []
+    },
+    {
+      "start": 331.894,
+      "end": 341.994,
+      "sourceCues": [
+        161,
+        162,
+        163,
+        164
+      ],
+      "originalSk": "padnúť. Tak tak tak. A teraz eh keď si navrhol túto epizódu, že šedé čierne diery šedé šedé čierne diery, vidíš ako to mám šedé",
+      "draftCs": "A teď, když jste navrhli tento epizod, že šedé černé díry šedé černé díry šedé černé díry, vidíte, jak to mám šedé",
+      "reviewFlags": []
+    },
+    {
+      "start": 341.994,
+      "end": 349.994,
+      "sourceCues": [
+        165,
+        166,
+        167
+      ],
+      "originalSk": "diery to mi príde skôr, že eh niečo za gaučom, vieš, že kde padá všetok prach alebo niečo také.",
+      "draftCs": "Dívky to přijde dřív než něco za pohovkou, víš, kde padá celý prach nebo něco takového.",
+      "reviewFlags": []
+    },
+    {
+      "start": 349.994,
+      "end": 357.094,
+      "sourceCues": [
+        168,
+        169,
+        170
+      ],
+      "originalSk": "Šedé diery. Eh ono je to vec, ktorá v podstate je trošku vymyslený názov, že málokto používa tento názov, ale",
+      "draftCs": "Šedé díry. Uh, to je věc, která je vlastně trochu vymyslené jméno, které málokdo používá, ale",
+      "reviewFlags": []
+    },
+    {
+      "start": 357.094,
+      "end": 366.795,
+      "sourceCues": [
+        171,
+        172,
+        173,
+        174
+      ],
+      "originalSk": "vychádza to z dvoch rôznych označení a jedna veľkosť čiernych dier, ktoré sme vynechali v tej predošlej epizóde, sú malé čierne diery, dokonca až",
+      "draftCs": "To vychází z dvou různých označení a jedna velikost černé díry, které jsme vynechali v předchozí epizodě, jsou malé černé díry, dokonce až",
+      "reviewFlags": []
+    },
+    {
+      "start": 366.795,
+      "end": 377.195,
+      "sourceCues": [
+        175,
+        176,
+        177,
+        178,
+        179
+      ],
+      "originalSk": "mikroskopické čierne diery. Takže najprv poviem, že čo sú šedé čierne diery, potom trošku o tých mikroskopických a potom prečo u nich tá šedosť je práve dôležitá.",
+      "draftCs": "Takže nejdříve vám řeknu, co jsou ty šedé černé díry, pak něco o těch mikroskopických a pak proč je právě tato šedá záležitost.",
+      "reviewFlags": []
+    },
+    {
+      "start": 377.195,
+      "end": 387.795,
+      "sourceCues": [
+        180,
+        181,
+        182,
+        183,
+        184
+      ],
+      "originalSk": "Uhm. A keď máš čiernu dieru, tak ona dokáže vyžarovať žiarenie. Máme o tom epizódu, volá sa Hawkingovo žiarenie.",
+      "draftCs": "A když máte černou díru, může vyzařovat záření.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 387.795,
+      "end": 392.795,
+      "sourceCues": [
+        185,
+        186
+      ],
+      "originalSk": "Čo to bude epizóda, že 160 alebo tak? Hodíme rýchlo do kalkulačky.",
+      "draftCs": "Co je to za epizoda, že 160 nebo tak?",
+      "reviewFlags": []
+    },
+    {
+      "start": 392.795,
+      "end": 400.095,
+      "sourceCues": [
+        187,
+        188
+      ],
+      "originalSk": "Hawkingovo žiarenie podcast. No a 122 to bol ty kokso, dosť dobrý odhad.",
+      "draftCs": "A 122 to byl ten kokso, to je docela dobrý odhad.",
+      "reviewFlags": []
+    },
+    {
+      "start": 400.095,
+      "end": 408.995,
+      "sourceCues": [
+        189,
+        190,
+        191,
+        192
+      ],
+      "originalSk": "Vau. To OK. Ja si len pamätám, že už to bolo mega dávno. Eh to, čo zistil Hawking, za čo nedostal Nobelovu cenu z dvoch",
+      "draftCs": "To je v pořádku. Jen si pamatuji, že to bylo dávno. Co Hawking zjistil, za co nedostal Nobelovu cenu ze dvou",
+      "reviewFlags": []
+    },
+    {
+      "start": 408.995,
+      "end": 417.995,
+      "sourceCues": [
+        193,
+        194,
+        195,
+        196
+      ],
+      "originalSk": "dôvodov. Po prvé zomrel a po druhé toto je jeho že asi najväčší objav, ktorý je ale stále nepotvrdený, ale takmer všetci si myslia aj úplne, že",
+      "draftCs": "První je, že zemřel a druhá je, že je to asi největší objev, který je stále nepotvrzen, ale téměř všichni si myslí, že",
+      "reviewFlags": []
+    },
+    {
+      "start": 417.995,
+      "end": 421.295,
+      "sourceCues": [
+        197,
+        198
+      ],
+      "originalSk": "hejteri a skeptici, že že trafil klinec po hlavičke, že to platí.",
+      "draftCs": "Heiterové a skeptici, že se dostal k klenbu po hlavě, že to platí.",
+      "reviewFlags": []
+    },
+    {
+      "start": 421.295,
+      "end": 425.895,
+      "sourceCues": [
+        199,
+        200,
+        201
+      ],
+      "originalSk": "Počkaj, Hawkingovo žiarenie nie je potvrdené? hej. Nikdy sme ho nezachytili.",
+      "draftCs": "Počkat, Hawkingovo záření není potvrzeno?",
+      "reviewFlags": []
+    },
+    {
+      "start": 425.895,
+      "end": 430.595,
+      "sourceCues": [
+        202,
+        203,
+        204
+      ],
+      "originalSk": "Aha. sa o tom dočítaš, ako toto je pravda je taká, že sme ho nezachytili.",
+      "draftCs": "Když zjistíš, jak je to pravda, tak jsme ho nezachytili.",
+      "reviewFlags": []
+    },
+    {
+      "start": 430.595,
+      "end": 440.095,
+      "sourceCues": [
+        205,
+        206,
+        207,
+        208,
+        209
+      ],
+      "originalSk": "Eh som to pochopil, že to je tuto, že to A presne, že toto je že teoreticky tak pod zdokumentovaná a podložená vec odôvodnená rôznymi spôsobmi, že by sme",
+      "draftCs": "Uh jsem pochopil, že je to tady, že je to a přesně, že je to, že teoreticky tak pod zdokumentovanou a podloženou věc odůvodněna různými způsoby, že bychom",
+      "reviewFlags": []
+    },
+    {
+      "start": 440.095,
+      "end": 449.495,
+      "sourceCues": [
+        210,
+        211,
+        212,
+        213
+      ],
+      "originalSk": "boli extrémne prekvapení, keby neexistoval. Skratke eh keď sa pozrieš na čiernu dieru z diaľky,",
+      "draftCs": "Když se podíváte na černou díru z dálky,",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 449.495,
+      "end": 457.195,
+      "sourceCues": [
+        214,
+        215,
+        216,
+        217
+      ],
+      "originalSk": "tak máš pocit, ako keby vyžarovala žiarenie pri veľmi nízkej teplote. Tá teplota je nepriamoúmerná hmotnosti a typicky sú čierne diery veľmi hmotné,",
+      "draftCs": "Většina z nich je velmi nízkou teplotou. Je to nepřiměřená hmotnost a typicky jsou černé díry velmi hmotné.",
+      "reviewFlags": []
+    },
+    {
+      "start": 457.195,
+      "end": 465.195,
+      "sourceCues": [
+        218,
+        219,
+        220,
+        221
+      ],
+      "originalSk": "takže to žiarenie je veľmi slabučké. A tu sa stretávajú dva významy slova čierna.",
+      "draftCs": "Takže tato záření je velmi slabá. A tady se setkávají dva významy slova černá.",
+      "reviewFlags": []
+    },
+    {
+      "start": 465.195,
+      "end": 471.095,
+      "sourceCues": [
+        222,
+        223,
+        224
+      ],
+      "originalSk": "Čierna diera je čierna kvôli tomu, že zachytáva svetlo a nič ju nedokáže opustiť.",
+      "draftCs": "Černá díra je černá, protože zachytí světlo a nic nemůže odejít.",
+      "reviewFlags": []
+    },
+    {
+      "start": 471.095,
+      "end": 477.395,
+      "sourceCues": [
+        225,
+        226,
+        227,
+        228
+      ],
+      "originalSk": "Áno. A potom máme vo fyzike také, že žiarenie byť dokonalý čierny objekt, nie? Že lebo Tak.",
+      "draftCs": "A pak máme v fyzikě, že záření je dokonalý černý objekt, že?",
+      "reviewFlags": []
+    },
+    {
+      "start": 477.395,
+      "end": 481.995,
+      "sourceCues": [
+        229,
+        230
+      ],
+      "originalSk": "A potom máme vo fyzike taký odborný pojem, že žiarenie čierneho telesa.",
+      "draftCs": "A pak máme v fyzikě takový odborný pojem, jako je záření černého těla.",
+      "reviewFlags": []
+    },
+    {
+      "start": 481.995,
+      "end": 490.697,
+      "sourceCues": [
+        231,
+        232,
+        233,
+        234
+      ],
+      "originalSk": "A tým sa chce povedať, že keď nejakú vec zo zohreješ na istú teplotu, tak to začne žiariť samé od seba. Čiže tam bude nielen svetlo, ktoré to",
+      "draftCs": "A to znamená, že když se něco zahřeje na určitou teplotu, začne se svítit samo o sobě.",
+      "reviewFlags": []
+    },
+    {
+      "start": 490.697,
+      "end": 497.797,
+      "sourceCues": [
+        235,
+        236,
+        237,
+        238,
+        239
+      ],
+      "originalSk": "odrazilo, tým, že je to čierne, nič to neodráža, Uhm. ale pribudne tam svetlo, ktoré získaš kvôli tej teplote.",
+      "draftCs": "Odráží se tím, že je černá, nic to neodráží, ale přidá světlo, které získáte díky té teplotě.",
+      "reviewFlags": []
+    },
+    {
+      "start": 497.797,
+      "end": 506.697,
+      "sourceCues": [
+        240,
+        241,
+        242,
+        243
+      ],
+      "originalSk": "Takže keď sa rozpráva o čiernej diere, železo, keď robí kováč, že ho zahreje na takú teplotu, že sa môže Tá teplota je nejakých 560 stupňov",
+      "draftCs": "Takže když se mluví o černé díře, železo, když dělá hřeben, že ho zahřeje na teplotu, že může být teplota je asi 560 stupňů",
+      "reviewFlags": []
+    },
+    {
+      "start": 506.697,
+      "end": 515.697,
+      "sourceCues": [
+        244,
+        245,
+        246,
+        247
+      ],
+      "originalSk": "Drapnerobot sa to myslím si, že volá. Eh aj to je strašne cool, lebo pani manželka je keramička a tú keramickú pec, čo máš v mysli, keď",
+      "draftCs": "A to je fakt cool, protože vaše žena je keramická a ta keramická pece, kterou máte na mysli, když",
+      "reviewFlags": []
+    },
+    {
+      "start": 515.697,
+      "end": 524.897,
+      "sourceCues": [
+        248,
+        249,
+        250,
+        251
+      ],
+      "originalSk": "budeme mať u nej nahrávanie, tak tá pec má takú malú dierku a cez tú dierku môžeš pozerať dnu a ty robíš eh výpek až na vyše 1000 stupňoch.",
+      "draftCs": "Budeme mít na něm nahrávku, takže ta pece má takovou malou díru, a přes tu díru se můžete podívat dovnitř a vy jste na to, uh, vystupovat na přes 1000 stupňů.",
+      "reviewFlags": []
+    },
+    {
+      "start": 524.897,
+      "end": 532.797,
+      "sourceCues": [
+        252,
+        253,
+        254,
+        255
+      ],
+      "originalSk": "A normálne mňa to strašne baví a je to totálna nuda, ale mňa to strašne baví, že pozrieť sa cez tú dierku, keď je tam 400 stupňov a nevidíš nič",
+      "draftCs": "A normálně se mi to baví a je to naprosto nudné, ale mně se to baví, když se podívám přes díru, když je tam 400 stupňů a nic nevidím.",
+      "reviewFlags": []
+    },
+    {
+      "start": 532.797,
+      "end": 537.497,
+      "sourceCues": [
+        256,
+        257,
+        258
+      ],
+      "originalSk": "a pozrieť sa, keď tam je 600 stupňov a už vidíš také jemné červené žiarenie z vnútra.",
+      "draftCs": "a podívejte se, když je tam 600 stupňů a už vidíte tak jemné červené záření uvnitř.",
+      "reviewFlags": []
+    },
+    {
+      "start": 537.497,
+      "end": 544.097,
+      "sourceCues": [
+        259,
+        260,
+        261,
+        262
+      ],
+      "originalSk": "Normálne proste, že tou teplotou to vo vnútri začne žiariť a samozrejme, keď je tam 1000 stupňov, tak už to žiari pomerne intenzívne. A toto je žiarenie",
+      "draftCs": "Většinou je to jen teplota, ve které se objevuje uvnitř, a samozřejmě, když je tam 1000 stupňů, je to velmi intenzivní. A to je záření.",
+      "reviewFlags": []
+    },
+    {
+      "start": 544.097,
+      "end": 553.097,
+      "sourceCues": [
+        263,
+        264,
+        265,
+        266
+      ],
+      "originalSk": "čierneho telesa presne. Ako si povedal, horúce železo, keď kováčkuje, červené žeravé uhlíky. Poznáme taký známy príklad?",
+      "draftCs": "Přesně tak. Jak jste řekl, horké železo, když se žehlí, červené uhly, které se žerou. Znáte známý příklad?",
+      "reviewFlags": []
+    },
+    {
+      "start": 553.097,
+      "end": 557.597,
+      "sourceCues": [
+        267,
+        268,
+        269
+      ],
+      "originalSk": "Áno. Ale napríklad žiarenie slnka je žiarenie čierneho telesa.",
+      "draftCs": "Ale například sluneční záření je zářením černého těla.",
+      "reviewFlags": []
+    },
+    {
+      "start": 557.597,
+      "end": 562.697,
+      "sourceCues": [
+        270,
+        271,
+        272
+      ],
+      "originalSk": "Dokonca ten odvodený teoretický profil pre čierne teleso veľmi presne sedí na slnko.",
+      "draftCs": "Dokonce i tento odvozený teoretický profil černého těla se velmi přesně nachází ve slunci.",
+      "reviewFlags": []
+    },
+    {
+      "start": 562.697,
+      "end": 570.097,
+      "sourceCues": [
+        273,
+        274,
+        275,
+        276
+      ],
+      "originalSk": "My dvaja žiarime ako čierne teleso, ale pri teplote 30 stupňov Celzia a vtedy vyžarujeme v infračervených vlnových dĺžkach.",
+      "draftCs": "My dva záříme jako černé tělo, ale při teplotě 30 stupňů Celsia, a pak vyzařujeme v infračervených vlnových délkách.",
+      "reviewFlags": []
+    },
+    {
+      "start": 570.097,
+      "end": 577.097,
+      "sourceCues": [
+        277,
+        278,
+        279
+      ],
+      "originalSk": "A takže preto nás predátor videl Preto nás predátor videl, preto nás vidia rôzne termálne kamery.",
+      "draftCs": "Proto nás viděl predátor. Proto nás vidí různé tepelné kamery.",
+      "reviewFlags": []
+    },
+    {
+      "start": 577.097,
+      "end": 584.397,
+      "sourceCues": [
+        280,
+        281,
+        282,
+        283
+      ],
+      "originalSk": "Eh všetko, čo má nenulovú teplotu, žiari. A to, čo Hawking zistil, že čierne diery žiaria.",
+      "draftCs": "Všechno, co má necelostní teplotu, září a to, co Hawking zjistil, že černé díry září.",
+      "reviewFlags": []
+    },
+    {
+      "start": 584.397,
+      "end": 589.397,
+      "sourceCues": [
+        284,
+        285
+      ],
+      "originalSk": "sa rozprávame 0 stupňov Celzia alebo 0 stupňov Kelvina ako Kelvin?",
+      "draftCs": "Mluvíme si o 0 stupňů Celsia nebo o 0 stupňů Kelvina jako Kelvin?",
+      "reviewFlags": []
+    },
+    {
+      "start": 589.397,
+      "end": 595.997,
+      "sourceCues": [
+        286,
+        287,
+        288,
+        289
+      ],
+      "originalSk": "Kelvina, áno, áno. Že hocičo má väčšiu ako nula. Všetko, čo má absolútne eh viac ako absolútnu nulu, nejako žiari.",
+      "draftCs": "Kelvina, ano, ano, že všechno, co je větší než nula, všechno, co je absolutně větší než absolutní nula, nějak září.",
+      "reviewFlags": []
+    },
+    {
+      "start": 595.997,
+      "end": 600.797,
+      "sourceCues": [
+        290,
+        291
+      ],
+      "originalSk": "Tak čiže stačí, keď máš jeden stupeň nad absolútnou nulou a trošilinku žiariš.",
+      "draftCs": "Takže stačí, když je jeden stupeň nad absolutní nulou a třpytí se třpytí.",
+      "reviewFlags": []
+    },
+    {
+      "start": 600.797,
+      "end": 609.898,
+      "sourceCues": [
+        292,
+        293,
+        294,
+        295
+      ],
+      "originalSk": "Veľmi slabo, vo veľmi dlhých vlnových dĺžkach, ale žiariš. A Hawking prišiel na to, že keď máš čiernu dieru, tak ona tiež žiari, akoby",
+      "draftCs": "Velmi slabě, ve velmi dlouhých vlnových délkách, ale záříš. A Hawking zjistil, že když máš černou díru, tak září i ona.",
+      "reviewFlags": []
+    },
+    {
+      "start": 609.898,
+      "end": 619.298,
+      "sourceCues": [
+        296,
+        297,
+        298,
+        299,
+        300
+      ],
+      "originalSk": "bola horúcim telesom pri istej teplote. Hm. Ona nemá teplotu v tom slova zmysle, ako poznáme, že energia pohybujúcich sa častíc. Ona má",
+      "draftCs": "Nemá teplotu ve smyslu slova \"energie pohybujících se částic\".",
+      "reviewFlags": []
+    },
+    {
+      "start": 619.298,
+      "end": 625.098,
+      "sourceCues": [
+        301,
+        302
+      ],
+      "originalSk": "teplotu danú svojou hmotnosťou alebo svojou krivosťou na horizonte.",
+      "draftCs": "teplotu danou hmotností nebo křivkou na horizontu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 625.098,
+      "end": 628.798,
+      "sourceCues": [
+        303,
+        304
+      ],
+      "originalSk": "Eh, nie na horizonte, eh svojou povrchovou gravitáciou na horizonte.",
+      "draftCs": "Eh, ne na obzoru, eh, jeho povrchová gravitace na obzoru.",
+      "reviewFlags": []
+    },
+    {
+      "start": 628.798,
+      "end": 638.598,
+      "sourceCues": [
+        305,
+        306,
+        307,
+        308
+      ],
+      "originalSk": "Čiže nejako to súvisí s jej hmotnosťou. Toto zistil Hawking a ten dôvod, prečo to funguje, je taký, že vákuum nie je úplne prázdne, v vákuu je",
+      "draftCs": "Takže to souvisí s hmotností, což Hawking zjistil, a důvod, proč to funguje, je, že vákuum není úplně prázdné.",
+      "reviewFlags": []
+    },
+    {
+      "start": 638.598,
+      "end": 648.698,
+      "sourceCues": [
+        309,
+        310,
+        311,
+        312,
+        313
+      ],
+      "originalSk": "neustále také vyskakovanie a miznutie častíc. A Hawking vlastne zistil, že keď napíšeš tú teóriu pre interagujúce častice alebo teda pre kvantové častice v blízkosti",
+      "draftCs": "A Hawking skutečně zjistil, že když napíšete tuto teorii o interagujících částicích, tedy o kvantových částicích v blízkosti",
+      "reviewFlags": []
+    },
+    {
+      "start": 648.698,
+      "end": 659.398,
+      "sourceCues": [
+        314,
+        315,
+        316,
+        317,
+        318,
+        319
+      ],
+      "originalSk": "horizontu, tak to bude mať efekt pri pohľadu z diaľky, ako keby odtiaľ tie častice vyskakovali a leteli až k tebe. Veľmi zjednodušene povedané, však máme o tom celú epizódu.",
+      "draftCs": "Když se objevíme na obzoru, bude to vypadat tak, jako by tyto částice z dálky skáčely a letěly až k vám.",
+      "reviewFlags": []
+    },
+    {
+      "start": 659.398,
+      "end": 670.198,
+      "sourceCues": [
+        320,
+        321,
+        322,
+        323
+      ],
+      "originalSk": "A a to toto si myslíme, že platí, ale tie teploty sú brutálne nízke. Eh, také, že keď sa pozrieš na bežnú čiernu",
+      "draftCs": "A to je to, co si myslíme, že platí, ale tyto teploty jsou brutálně nízké.",
+      "reviewFlags": []
+    },
+    {
+      "start": 670.198,
+      "end": 679.498,
+      "sourceCues": [
+        324,
+        325,
+        326,
+        327,
+        328
+      ],
+      "originalSk": "dieru, tak neuvidíš nič. Eh, jednoducho kvôli tomu, že je to nepriamo úmerné ich veľkosti a oni sú typicky veľmi veľké, veľmi ťažké, takže z toho",
+      "draftCs": "Protože je nepřímě v poměru k jejich velikosti, a typy jsou velmi velké, velmi těžké, takže z toho",
+      "reviewFlags": []
+    },
+    {
+      "start": 679.498,
+      "end": 689.498,
+      "sourceCues": [
+        329,
+        330,
+        331,
+        332
+      ],
+      "originalSk": "neuvidíš prakticky nič. A dostaneme sa potom k tomu, že kde by sa možno niečo vidieť dalo, ale najprv poviem takú vec, eh",
+      "draftCs": "A pak se dostaneme k tomu, že tam, kde by se něco mohlo vidět, ale nejdřív řeknu něco jako:",
+      "reviewFlags": []
+    },
+    {
+      "start": 689.498,
+      "end": 691.032,
+      "sourceCues": [
+        333
+      ],
+      "originalSk": "k tej šedej dosti.",
+      "draftCs": "k té šedé lodi.",
+      "reviewFlags": []
+    },
+    {
+      "start": 691.032,
+      "end": 692.098,
+      "sourceCues": [
+        334
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 692.098,
+      "end": 697.798,
+      "sourceCues": [
+        335,
+        336,
+        337
+      ],
+      "originalSk": "Keď sa pozrieš na slnko, tak slnko nežiari úplne ako dokonalé čierne teleso, že sú tam nejaké nedokonalosti.",
+      "draftCs": "Když se podíváte na slunce, slunce nežije úplně jako dokonalé černé tělo, že tam jsou nějaké nedokonalosti.",
+      "reviewFlags": []
+    },
+    {
+      "start": 697.798,
+      "end": 706.298,
+      "sourceCues": [
+        338,
+        339,
+        340,
+        341
+      ],
+      "originalSk": "Sú napríklad vlnové dĺžky, ktoré slnko nedokážu opustiť a tak ďalej a tomuto hovoríme, že eh šedé teleso.",
+      "draftCs": "Existují vlnové délky, které slunce nedokáže opustit a tak dále a tomu říkáme šedé tělo.",
+      "reviewFlags": []
+    },
+    {
+      "start": 706.298,
+      "end": 712.498,
+      "sourceCues": [
+        342,
+        343,
+        344
+      ],
+      "originalSk": "Že nie je úplne čierne kvôli tomu, že niektoré vlnové dĺžky sú modifikované, sú zachytené.",
+      "draftCs": "Že není úplně černé, protože některé vlnové délky jsou modifikovány, jsou zachyceny.",
+      "reviewFlags": []
+    },
+    {
+      "start": 712.498,
+      "end": 718.098,
+      "sourceCues": [
+        345,
+        346,
+        347
+      ],
+      "originalSk": "Takže pozrieš sa, akoby to malo byť dokonalé podľa výpočtu a potom niečo z toho zoberieš preč.",
+      "draftCs": "Takže se podíváš, jako by to mělo být perfektní podle výpočtů, a pak si něco z toho vezmeš.",
+      "reviewFlags": []
+    },
+    {
+      "start": 718.098,
+      "end": 728.498,
+      "sourceCues": [
+        348,
+        349,
+        350,
+        351
+      ],
+      "originalSk": "A tomu sa hovorí, že eh faktor šedého telesa. Proste za nedokonalosť žiarenia tam máš istý efekt.",
+      "draftCs": "A to se nazývá faktorem šedého těla.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 728.498,
+      "end": 737.799,
+      "sourceCues": [
+        352,
+        353,
+        354,
+        355,
+        356
+      ],
+      "originalSk": "A čo si ľudia uvedomili, je, že čierne diery vlastne nevyžarujú ako čierne teleso, ale vyžarujú ako šedé teleso. Že tiež majú nejaké svoje nedokonalosti,",
+      "draftCs": "A lidé si uvědomili, že černé díry nežijí jako černé tělo, ale jako šedé tělo.",
+      "reviewFlags": []
+    },
+    {
+      "start": 737.799,
+      "end": 740.158,
+      "sourceCues": [
+        357
+      ],
+      "originalSk": "ktoré modifikujú to ich žiarenie.",
+      "draftCs": "které modifikují jejich záření.",
+      "reviewFlags": []
+    },
+    {
+      "start": 740.158,
+      "end": 740.699,
+      "sourceCues": [
+        358
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 740.699,
+      "end": 750.399,
+      "sourceCues": [
+        359,
+        360,
+        361,
+        362,
+        363,
+        364
+      ],
+      "originalSk": "Takže keď chce niekto znieť veľmi múdro, tak môže potom povedať, že čierne diery nežiaria ako čierne teleso, ale žiaria ako šedé teleso, lebo teleso?",
+      "draftCs": "Takže když někdo chce znít velmi chytře, tak může říct, že černé díry nežijí jako černé tělo, ale jako šedé tělo, protože tělo?",
+      "reviewFlags": []
+    },
+    {
+      "start": 750.399,
+      "end": 758.599,
+      "sourceCues": [
+        365,
+        366,
+        367,
+        368,
+        369
+      ],
+      "originalSk": "tá ich gravitácia v jeho okolí trošku to poopraví, že nie to úplne tak, ako ti povie výpočet tú dokonalú eh dokonalé Hawkingovo spektrum. Je nejako modifikované.",
+      "draftCs": "Gravitace v jeho okolí to trochu upravuje, že to není úplně tak, jak vám řekne výpočet perfektního, eh, perfektního Hawkingova spektra.",
+      "reviewFlags": []
+    },
+    {
+      "start": 758.599,
+      "end": 765.499,
+      "sourceCues": [
+        370,
+        371,
+        372
+      ],
+      "originalSk": "A je otázka, viem, takže žiadna čierna diera nie reálne čierne teleso, ale šedé teleso?",
+      "draftCs": "A otázka je, já vím, takže žádná černá díra není skutečně černá těla, ale šedá těla?",
+      "reviewFlags": []
+    },
+    {
+      "start": 765.499,
+      "end": 775.599,
+      "sourceCues": [
+        373,
+        374,
+        375,
+        376
+      ],
+      "originalSk": "Tak tak. A existuje môže existovať čierna diera, ktorá bude naozaj čierna diera? Alebo hovoríme o zákonitostiach iným?",
+      "draftCs": "A existuje-li nějaká černá díra, která bude skutečně černá díra?",
+      "reviewFlags": []
+    },
+    {
+      "start": 775.899,
+      "end": 782.499,
+      "sourceCues": [
+        377,
+        378,
+        379
+      ],
+      "originalSk": "Aha, ha ha. Teraz si ma nachytal. Eh musím Pardon, nechcel som.",
+      "draftCs": "Teď jsi mě chytil.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 782.499,
+      "end": 792.799,
+      "sourceCues": [
+        380,
+        381,
+        382,
+        383,
+        384
+      ],
+      "originalSk": "Len ma to zaujalo, že Hm áno, to je to výborná otázka. Rozmýšľam, že či extrémne v limite nekonečne veľkej čiernej diery, či sa nekonečne správa dokonale.",
+      "draftCs": "Jen mě zajímalo, že jo, to je skvělá otázka, jestli je extrémně na hranici nekonečně velké černé díry, nebo je nekonečně perfektní.",
+      "reviewFlags": []
+    },
+    {
+      "start": 792.799,
+      "end": 803.299,
+      "sourceCues": [
+        385,
+        386,
+        387,
+        388,
+        389
+      ],
+      "originalSk": "Hm hm. Že tam tam ti začnú vychádzať eh nejaké faktory a teraz nemám nemám nemám nemám pred sebou ten výpočet, aby som to vedel potvrdiť alebo vyvrátiť,",
+      "draftCs": "Že tam začnou vycházet nějaké faktory a teď nemám nemám nemám nemám před sebou výpočet, abych to mohl potvrdit nebo odmítnout,",
+      "reviewFlags": []
+    },
+    {
+      "start": 803.299,
+      "end": 812.499,
+      "sourceCues": [
+        390,
+        391,
+        392,
+        393,
+        394
+      ],
+      "originalSk": "ale ono to môže závisieť od tej veľkosti a že tá veľkosť ti tieto efekty vyhladí a žiadna vlnová dĺžka nebude mať problém preniknúť do čiernej diery.",
+      "draftCs": "Ale to může záviset na velikosti a na tom, že tato velikost tyto efekty vyhladí a žádná vlnová délka nebude mít problém proniknout do černé díry.",
+      "reviewFlags": []
+    },
+    {
+      "start": 812.499,
+      "end": 821.799,
+      "sourceCues": [
+        395,
+        396,
+        397,
+        398,
+        399
+      ],
+      "originalSk": "To by bol môj naivný tip, ktorý by bolo treba overiť výpočtom, keď v nejakom bode tohto podcastu sa začneš veľa vykecávať, tak ja budem mať čo z často niekde",
+      "draftCs": "To by byl můj naivní tip, který by měl být ověřen výpočtem, kdybyste v některém bodě tohoto podcastu začal hodně zvratovat, takže budu mít hodně často někde jinde.",
+      "reviewFlags": []
+    },
+    {
+      "start": 821.799,
+      "end": 828.299,
+      "sourceCues": [
+        400,
+        401,
+        402,
+        403
+      ],
+      "originalSk": "otvoriť a a pozrieť, že či k tomu existuje nejaký jednoduchý faktor eh alebo nie.",
+      "draftCs": "otevřít a podívat se, jestli existuje nějaký jednoduchý faktor, eh, nebo ne.",
+      "reviewFlags": []
+    },
+    {
+      "start": 828.299,
+      "end": 838.699,
+      "sourceCues": [
+        404,
+        405,
+        406,
+        407
+      ],
+      "originalSk": "Dobre, ale poďme ďalej, veď eh rozprávali sme sa o supermasívnych čiernych dierach, stredných, stelárnych dokonca. Viem aj o mikroskopických.",
+      "draftCs": "Dobře, ale pojďme dál, protože jsme mluvili o supermasivních černých dírách, středních, hvězdných dokonce i mikroskopických.",
+      "reviewFlags": []
+    },
+    {
+      "start": 838.699,
+      "end": 848.199,
+      "sourceCues": [
+        408,
+        409,
+        410,
+        411
+      ],
+      "originalSk": "Viem, že aj tvoj výskum sa tomu troška venoval po mikroskopickým. Eh poznáme ešte nejaké čierne diery, že môže existovať okrem týchto kategórií",
+      "draftCs": "Vím, že vaše výzkumy byly trochu mikroskopické.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 848.199,
+      "end": 858.501,
+      "sourceCues": [
+        412,
+        413,
+        414,
+        415,
+        416
+      ],
+      "originalSk": "niečo iné? No eh Hawking napísal taký krásny článok o o čiernych dierach, ktoré vznikli priamym kolapsom tesne po veľkom tresku.",
+      "draftCs": "Hawking napsal tak krásný článek o černých dírech, které vznikly z přímého kolapsu těsně po velkém tresku.",
+      "reviewFlags": []
+    },
+    {
+      "start": 858.501,
+      "end": 868.201,
+      "sourceCues": [
+        417,
+        418,
+        419,
+        420,
+        421
+      ],
+      "originalSk": "Teda oni presnejšie nemusia byť úplne malé, ale nevznikli tým klasickým spôsobom, že vybuchla hviezda a začala žrať veci okolo seba ako všetky ostatné alebo že sa dve zrazili.",
+      "draftCs": "Takže nemusí být úplně malé, ale nevyvinuly se klasickým způsobem, když vybuchla hvězda a začala sežrat věci kolem sebe jako všechny ostatní, nebo když se dvě střetaly.",
+      "reviewFlags": []
+    },
+    {
+      "start": 868.201,
+      "end": 875.301,
+      "sourceCues": [
+        422,
+        423,
+        424,
+        425
+      ],
+      "originalSk": "On si uvedomil, že v ranom vesmíre boli miestami lokálne prehustenia, kde spontánne mohli vzniknúť čierne diery.",
+      "draftCs": "Uvědomil si, že v raném vesmíru byly místa lokální ztužení, kde se spontánně mohly vytvořit černé díry.",
+      "reviewFlags": []
+    },
+    {
+      "start": 875.301,
+      "end": 884.701,
+      "sourceCues": [
+        426,
+        427,
+        428,
+        429,
+        430
+      ],
+      "originalSk": "Teraz keď Webbov vesmírny teleskop hlási, že vidí veľmi veľké supermasívne čierne diery vo veľmi ranom vesmíre, tak tiež si myslíme, že tie mohli vzniknúť priamym kolapsom, že",
+      "draftCs": "Teď, když Webbův kosmický dalekohled hlásí, že vidí velmi velké supermasivní černé díry ve velmi raném vesmíru, také si myslíme, že mohly vzniknout z přímého kolapsu,",
+      "reviewFlags": []
+    },
+    {
+      "start": 884.701,
+      "end": 894.701,
+      "sourceCues": [
+        431,
+        432,
+        433,
+        434,
+        435,
+        436
+      ],
+      "originalSk": "preskočili tie štádiá a rovno sa prostredie uh skolabovali na na čiernu dieru, lebo veľmi veľmi rýchlo to všetko vzniklo.",
+      "draftCs": "Přeskočili tyto stupně a prostředí uh, narazilo na černou díru, protože to všechno vzniklo velmi rychle.",
+      "reviewFlags": []
+    },
+    {
+      "start": 894.701,
+      "end": 904.401,
+      "sourceCues": [
+        437,
+        438,
+        439,
+        440
+      ],
+      "originalSk": "Hawking si uvedomil, že túto v podstate nemáš žiaden limit, že oni mohli že byť ľubovočne malé, že keď sa ti to zahustí vo veľkosti hrášku,",
+      "draftCs": "Hawking si uvědomil, že to v podstatě nemá žádný limit, že by mohly být laskavě malé, že když se ztuhne ve velikosti hrášku,",
+      "reviewFlags": []
+    },
+    {
+      "start": 904.401,
+      "end": 911.601,
+      "sourceCues": [
+        441,
+        442,
+        443
+      ],
+      "originalSk": "tak ti vznikne veľmi malá čierna diera. Hrášková čierna diera by mala hmotnosť zemegule napríklad.",
+      "draftCs": "Takže vytvoříte velmi malou černou díru.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 911.601,
+      "end": 918.901,
+      "sourceCues": [
+        444,
+        445,
+        446
+      ],
+      "originalSk": "Dokonca môžeš zbrať ešte menšie hmotnosti. Uh 100 kg čierna diera by mala veľkosť červenej krvinky približne.",
+      "draftCs": "100 kg černé díry by měly velikost červených krvinek.",
+      "reviewFlags": []
+    },
+    {
+      "start": 918.901,
+      "end": 928.101,
+      "sourceCues": [
+        447,
+        448,
+        449,
+        450,
+        451
+      ],
+      "originalSk": "Takže on si uvedomil, že keď ti vzniknú takéto lokálne zahustenia, tak vytvoríš ľubovočne malé čierne diery až mikroskopické a potom si uvedomil druhú vec, že oni",
+      "draftCs": "Takže on si uvědomil, že když se objeví taková lokální ztělesnění, vytvoříte volně malé černé díry až do mikroskopických, a pak si uvědomil druhou věc, že",
+      "reviewFlags": []
+    },
+    {
+      "start": 928.101,
+      "end": 936.701,
+      "sourceCues": [
+        452,
+        453,
+        454,
+        455,
+        456
+      ],
+      "originalSk": "vlastne prestanú existovať, lebo sa vyparia. To Hawkingovo vyparovanie, ktoré pomalé pre veľké čierne diery je nepriamo úmerné hmotnosti a tým pádom je rýchle",
+      "draftCs": "Hawkingovo vypařování, které je pomalu pro velké černé díry, je nepřímě poměrné hmotnosti, a proto je rychlé.",
+      "reviewFlags": []
+    },
+    {
+      "start": 936.701,
+      "end": 941.701,
+      "sourceCues": [
+        457,
+        458,
+        459
+      ],
+      "originalSk": "pre malé čierne diery. Aha, že sa oni tak také záblesky, že sú z nich.",
+      "draftCs": "Oh, oni jsou tak zářiví, že jsou z nich.",
+      "reviewFlags": []
+    },
+    {
+      "start": 941.701,
+      "end": 952.101,
+      "sourceCues": [
+        460,
+        461,
+        462,
+        463
+      ],
+      "originalSk": "Presne. Áno áno, že vznikne a najprv tlie tlie tlie a potom typicky keď sa niečomu míňa energia, tak to žiarenie začína slabnúť a oni majú",
+      "draftCs": "Ano, ano, vzniká, a nejprve se ztlumí, ztlumí, a pak se typicky, když něco ztratí energii, začíná se ztlumit a oni mají",
+      "reviewFlags": []
+    },
+    {
+      "start": 952.101,
+      "end": 959.601,
+      "sourceCues": [
+        464,
+        465,
+        466,
+        467
+      ],
+      "originalSk": "opačné správanie. Keď sa im začne míňať energia, tak oni dupnú na plyn ako černobyľský reaktor a prostredie vybuchnú zábleskom.",
+      "draftCs": "Když začnou ztrácet energii, tak se střídají do plynu jako černobylský reaktor a životní prostředí exploduje.",
+      "reviewFlags": []
+    },
+    {
+      "start": 959.601,
+      "end": 967.001,
+      "sourceCues": [
+        468,
+        469,
+        470,
+        471
+      ],
+      "originalSk": "Uhm. A Znie to jednoducho na pozorovanie, ale asi to nebude také jednoduché.",
+      "draftCs": "A to zní snadno pozorovatelně, ale asi to nebude tak jednoduché.",
+      "reviewFlags": []
+    },
+    {
+      "start": 967.001,
+      "end": 974.101,
+      "sourceCues": [
+        472,
+        473,
+        474,
+        475
+      ],
+      "originalSk": "Normálne sa spočítalo, že aké veľké by museli byť tie čierne diery, aby vybuchovali práve teraz, lebo keď sú veľmi malé, vybuchnú hneď, keď sú veľmi",
+      "draftCs": "Normálně se počítalo, jak velké by tyto černé díry měly být, aby vybuchly právě teď, protože když jsou velmi malé, vybuchnou hned, když jsou velmi malé.",
+      "reviewFlags": []
+    },
+    {
+      "start": 974.101,
+      "end": 984.102,
+      "sourceCues": [
+        476,
+        477,
+        478,
+        479
+      ],
+      "originalSk": "veľké, nevybuchujú skoro vôbec a niekde medzi tým by mala byť taká zlatovlásková hmotnosť čiernych dier, ktoré začnú búchať práve teraz.",
+      "draftCs": "Velké, nevybuchají téměř vůbec a někde mezi nimi by měla být taková zlatá váha černých dír, které začnou blbnout právě teď.",
+      "reviewFlags": []
+    },
+    {
+      "start": 984.102,
+      "end": 994.802,
+      "sourceCues": [
+        480,
+        481,
+        482,
+        483,
+        484,
+        485
+      ],
+      "originalSk": "A spočítaná hmotnosť 13 miliárd rokov či po 13 miliardách rokov Áno, áno, presne. Že vie si spočítať, že urobiť si nejaké modely k tomu, koľko",
+      "draftCs": "A vypočítaná hmotnost 13 miliard let nebo 13 miliard let Ano, ano, přesně.",
+      "reviewFlags": []
+    },
+    {
+      "start": 994.802,
+      "end": 997.802,
+      "sourceCues": [
+        486,
+        487
+      ],
+      "originalSk": "hmotnosti ešte keďtak mohli zachytiť a tak ďalej, aby sedelo všetko správne.",
+      "draftCs": "a tak dále, aby všechno sedělo správně.",
+      "reviewFlags": []
+    },
+    {
+      "start": 997.802,
+      "end": 1008.702,
+      "sourceCues": [
+        488,
+        489,
+        490,
+        491,
+        492
+      ],
+      "originalSk": "Uhm. A vychádza to tak, že ak pôvodne vážili zhruba pol miliardy ton, tak teraz by sa akurát mali do vyparovať",
+      "draftCs": "A výsledkem je, že když původně vážili asi půl miliardy tun, teď by se měly vypařovat.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1008.702,
+      "end": 1018.902,
+      "sourceCues": [
+        493,
+        494,
+        495,
+        496
+      ],
+      "originalSk": "veľkým zábleskom. A veľmi veľa výskumu hľadá záblesky z takýchto práve sa do vyparujúcich",
+      "draftCs": "Velké množství výzkumů hledá záblesky z těchto typů právě do vypařujících",
+      "reviewFlags": []
+    },
+    {
+      "start": 1018.902,
+      "end": 1025.702,
+      "sourceCues": [
+        497,
+        498,
+        499
+      ],
+      "originalSk": "mikroskopických čiernych dier a nenašli sme absolútne nič. Hm.",
+      "draftCs": "mikroskopické černé díry a nic jsme nenašli.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1025.702,
+      "end": 1034.702,
+      "sourceCues": [
+        500,
+        501,
+        502,
+        503
+      ],
+      "originalSk": "Že teoreticky to znie dobre, ale prakticky sme nenašli nič. Tak, presne. A Ale predpokladám, že to fyzikov",
+      "draftCs": "To zní dobře teoreticky, ale prakticky jsme nic nenašli. Přesně tak. Ale předpokládám, že to byli fyzikové.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1034.702,
+      "end": 1045.702,
+      "sourceCues": [
+        504,
+        505,
+        506,
+        507,
+        508
+      ],
+      "originalSk": "neodradilo, lebo si viem predstaviť, že to niekde sedíte tie mikroskopické čierne diery do nejakej rovnice a si povedia, že dobre, ale keď sme ich neobjavili týmto",
+      "draftCs": "Ne, protože si dokážu představit, že někde sedíte ty mikroskopické černé díry v nějaké rovnici a oni řeknou, že ano, ale když jsme je nenašli tímto způsobem,",
+      "reviewFlags": []
+    },
+    {
+      "start": 1045.702,
+      "end": 1051.602,
+      "sourceCues": [
+        509,
+        510,
+        511
+      ],
+      "originalSk": "spôsobom, hľadáme iné. Či alebo sa na to vykašľalo, že keď už sme ich neobjavili?",
+      "draftCs": "Nebo se to vyhnalo, když jsme je už nenašli?",
+      "reviewFlags": []
+    },
+    {
+      "start": 1051.602,
+      "end": 1060.702,
+      "sourceCues": [
+        512,
+        513,
+        514,
+        515,
+        516
+      ],
+      "originalSk": "No, eh boli sme si vedomí, že Einstein, keď budoval svoju teóriu, tak ju robil z istých predpokladov a jeden z tých predpokladov je, že priestor je",
+      "draftCs": "Věděli jsme, že Einstein, když si vytvořil svou teorii, vytvořil ji z určitých předpokladů a jedním z těchto předpokladů je, že prostor je",
+      "reviewFlags": []
+    },
+    {
+      "start": 1060.702,
+      "end": 1071.502,
+      "sourceCues": [
+        517,
+        518,
+        519,
+        520,
+        521,
+        522
+      ],
+      "originalSk": "dokonale hladký, spojitý a nič sa v ňom v ňom nedeje. A potom si ľudia začali uvedomovať, že keď zakomponuješ predstavu, že priestor má nejakú",
+      "draftCs": "A pak si lidé začali uvědomovat, že když si vytvoříte představu, že prostor má nějakou",
+      "reviewFlags": []
+    },
+    {
+      "start": 1071.502,
+      "end": 1076.302,
+      "sourceCues": [
+        523,
+        524,
+        525
+      ],
+      "originalSk": "štruktúru, podobne ako sa hmota skladá z atómov, tak priestor sa môže skladá z niečoho.",
+      "draftCs": "struktury, stejně jako je hmotnost tvořena atomy, tak může být prostor tvořen něčím.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1076.302,
+      "end": 1086.202,
+      "sourceCues": [
+        526,
+        527,
+        528,
+        529,
+        530
+      ],
+      "originalSk": "A keď zakomponuješ túto predstavu do tohoto obrazu vyparovania, tak zrazu zistíš, že ten obraz sa brutálne zmení práve v tých najturbulentnejších obdobiach.",
+      "draftCs": "A když se tento představa zahrnuje do tohoto obrazu vypařování, najednou zjistíte, že tento obraz se brutálně změní právě v těch nejtrudnějších obdobích.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1086.202,
+      "end": 1092.802,
+      "sourceCues": [
+        531,
+        532,
+        533,
+        534
+      ],
+      "originalSk": "Práve keď sa začneš blížiť do toho štádia, že už sa to ide teraz celé do vyparovať, Uhm.",
+      "draftCs": "Právě když se blížíte k tomu, že se to teď všechno vypaří, uhm.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1092.802,
+      "end": 1098.402,
+      "sourceCues": [
+        535,
+        536,
+        537
+      ],
+      "originalSk": "tak tá teplota nevystrelí do nekonečna, ako tvrdí Hawking, ale zrazu padne do nuly.",
+      "draftCs": "Takže teplota nevyletí do nekonečna, jak říká Hawking, ale najednou klesne na nulu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1098.402,
+      "end": 1107.003,
+      "sourceCues": [
+        538,
+        539,
+        540,
+        541
+      ],
+      "originalSk": "A zostane ti ako také zamrznuté čudo judo. OK. To čudo judo podľa teoretických odhadov",
+      "draftCs": "A zůstane to jako zmrzlé zázrak judo.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 1107.003,
+      "end": 1117.003,
+      "sourceCues": [
+        542,
+        543,
+        544,
+        545
+      ],
+      "originalSk": "váži asi ako zrnko pelu. To je nejaká milióntina kilogramu alebo gramu.",
+      "draftCs": "Je to asi asi milión kilogramů nebo gramů.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1117.003,
+      "end": 1125.103,
+      "sourceCues": [
+        546,
+        547,
+        548
+      ],
+      "originalSk": "o dosť menšie ako červená krvinka. Je to je to je to že mega ľahké a Uhm.",
+      "draftCs": "Je to je to je to je to mega lehké a uhm.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1125.103,
+      "end": 1132.703,
+      "sourceCues": [
+        549,
+        550,
+        551
+      ],
+      "originalSk": "má to polomer 10 na -35 m. Že to je že neviditeľne malý objekt.",
+      "draftCs": "Má polymér 10 na -35 m. To je tak neviditelně malý objekt.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1132.703,
+      "end": 1142.703,
+      "sourceCues": [
+        552,
+        553,
+        554,
+        555,
+        556
+      ],
+      "originalSk": "Uhm. A teraz keď si uvedomíš, že táto táto hypotéza vedie k záveru, že by mali existovať objekty, ktoré sú neviditeľné, ale pomerne ťažké,",
+      "draftCs": "A když si uvědomíte, že tato hypotéza vede k závěru, že by měly existovat objekty, které jsou neviditelné, ale poměrně těžké,",
+      "reviewFlags": []
+    },
+    {
+      "start": 1142.703,
+      "end": 1148.503,
+      "sourceCues": [
+        557,
+        558
+      ],
+      "originalSk": "tak sa potom rozpamätáš, hm, epizóda Vedátorského podcastu číslo štyri.",
+      "draftCs": "Pak si vzpomeneš na, hm, epizodu Podcast číslo čtyři.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1148.503,
+      "end": 1151.403,
+      "sourceCues": [
+        559
+      ],
+      "originalSk": "Počkaj, idem overiť.",
+      "draftCs": "Počkejte, půjdu to ověřit.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1153.503,
+      "end": 1157.403,
+      "sourceCues": [
+        560
+      ],
+      "originalSk": "Že toto je vlastne opis tmavej hmoty.",
+      "draftCs": "Že to je vlastně popis temné hmoty.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1158.303,
+      "end": 1160.503,
+      "sourceCues": [
+        561
+      ],
+      "originalSk": "Uhm.",
+      "draftCs": "- Jo, to je ono.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 1161.703,
+      "end": 1167.403,
+      "sourceCues": [
+        562,
+        563
+      ],
+      "originalSk": "Máme o nej viacero epizód. Máme dokonca už aj dvojku urobenú, epizóda 145.",
+      "draftCs": "Máme o ní několik epizod, máme dokonce dva, epizodu 145.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1167.403,
+      "end": 1169.188,
+      "sourceCues": [
+        564
+      ],
+      "originalSk": "A potom máme Tmavá hmota dva",
+      "draftCs": "A pak máme Temnou hmotu dva.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1169.188,
+      "end": 1170.203,
+      "sourceCues": [
+        565
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 1170.203,
+      "end": 1177.8029999999999,
+      "sourceCues": [
+        566,
+        567,
+        568,
+        569
+      ],
+      "originalSk": "210, ale aj nejaká rana to bola stopercentne. Áno, epizóda epizóda dva. Vau.",
+      "draftCs": "210, ale nějaká zranění byla 100%.",
+      "reviewFlags": [
+        "translation-length",
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 1177.8029999999999,
+      "end": 1188.703,
+      "sourceCues": [
+        570,
+        571,
+        572,
+        573,
+        574
+      ],
+      "originalSk": "Epizóda dva, vau. Takže je hypotéza, že tieto mikroskopické zamrznuté červené diery, ktoré kľúčovo zákonoch",
+      "draftCs": "Takže hypotéza je, že tyto mikroskopické mrazené červené díry, které jsou klíčovými zákony",
+      "reviewFlags": []
+    },
+    {
+      "start": 1188.703,
+      "end": 1195.8029999999999,
+      "sourceCues": [
+        575,
+        576,
+        577,
+        578
+      ],
+      "originalSk": "sa nevyparili tak, ako tvrdil Hawking, ale zostali zamrznuté zrazu, že to je výborný kandidát na tmavú hmotu.",
+      "draftCs": "Nevypařily se tak, jak tvrdil Hawking, ale najednou se zmrzačily, že je to skvělý kandidát na temnou hmotu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1195.8029999999999,
+      "end": 1206.103,
+      "sourceCues": [
+        579,
+        580,
+        581,
+        582
+      ],
+      "originalSk": "Sú neviditeľné, sú pomerne ťažké. Skús tipnúť, ako nahusto by si ich musel roztrúsiť po vesmíre, aby tvorili takú takú hustotu, ako vyžaduje tmavá hmota.",
+      "draftCs": "Jsou neviditelné, jsou poměrně těžké. Zkus odhadnout, jak hluboko byste je museli rozptýlit po vesmíru, aby vytvořili hustotu, kterou vyžaduje tmavá hmotnost.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1206.103,
+      "end": 1215.803,
+      "sourceCues": [
+        583,
+        584,
+        585,
+        586
+      ],
+      "originalSk": "S tým, že jedna váži ako pelové zrnko. Bol uhm veľmi veľa, čo ja viem, 1000 tisícky na meter štvorcový?",
+      "draftCs": "Bylo to hodně, co já vím, 1000 tisíc na metr čtvereční?",
+      "reviewFlags": []
+    },
+    {
+      "start": 1215.803,
+      "end": 1225.605,
+      "sourceCues": [
+        587,
+        588,
+        589,
+        590
+      ],
+      "originalSk": "Jedna na kocku s hranou 1000 km. Na 1000 km, vau. že takto jemne ich roztrúsiš po vesmíre a dokázalo by to vysvetliť tmavú",
+      "draftCs": "Jeden na kočku s okrajem 1000 km. Na 1000 km, wow. že je takhle jemně rozptýlíte po vesmíru a to by mohlo vysvětlit temné",
+      "reviewFlags": []
+    },
+    {
+      "start": 1225.605,
+      "end": 1235.505,
+      "sourceCues": [
+        591,
+        592,
+        593,
+        594,
+        595
+      ],
+      "originalSk": "hmotu. Aha, jasné. táto hypotéza začala zaujímať, lebo to vyzerá ako úplne krásna vec, že jedným z dôsledkov veľkého tresku je, že",
+      "draftCs": "Tato hypotéza se začala zajímat, protože vypadá to jako naprosto krásná věc, že jedním z důsledků velkého trestu je, že",
+      "reviewFlags": []
+    },
+    {
+      "start": 1235.505,
+      "end": 1244.605,
+      "sourceCues": [
+        596,
+        597,
+        598,
+        599
+      ],
+      "originalSk": "tu zostalo veľmi málo takýchto zrniečok, takých nejakých nedokonalostí primordiálnych, ktoré tu proste bez povšimnutia blúdia",
+      "draftCs": "Zůstalo jen velmi málo zrn, takových prvotních nedokonalostí, které se tu bez povšimnutí bloudí.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1244.605,
+      "end": 1254.905,
+      "sourceCues": [
+        600,
+        601,
+        602,
+        603
+      ],
+      "originalSk": "vesmírom a pôsobia ako tmavá hmota. Hm. A prečo ale ako to, že by sme ich necítili tie alebo",
+      "draftCs": "A proč, ale jak to, že jsme je necítili, nebo",
+      "reviewFlags": []
+    },
+    {
+      "start": 1254.905,
+      "end": 1264.605,
+      "sourceCues": [
+        604,
+        605,
+        606,
+        607
+      ],
+      "originalSk": "Tie cítiš. Tie Tie cítiš to gravitačné pôsobenie, že pozrieš sa na galaxiu Áno, to som chcel Áno, áno, lebo veď to vieme, že tmavá hmota je pozorovaná",
+      "draftCs": "Cítíte gravitační působení, když se podíváte na galaxii.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 1264.605,
+      "end": 1274.105,
+      "sourceCues": [
+        608,
+        609,
+        610,
+        611,
+        612
+      ],
+      "originalSk": "gravitačné presne, že pozrieš sa na galaxiu a tie hviezdy by sa mali rozletieť, ako rýchlo sa točia, odstredivá sila by mala vystreliť von a držia pokope niečím.",
+      "draftCs": "Gravitativní přesněji, když se podíváte na galaxii a ty hvězdy by měly rozletět, jak rychle se otáčejí, střední síla by měla vypálit ven a držet je pod kontrolou něčeho.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1274.105,
+      "end": 1284.105,
+      "sourceCues": [
+        613,
+        614,
+        615,
+        616,
+        617,
+        618
+      ],
+      "originalSk": "A tu niečo môže byť tmavé, malé čierne diery. urýchľovaním rozširovania vesmíru, že čoraz viac sa ich vyparuje Oni Oni Oni už sú",
+      "draftCs": "A tady může být něco temných, malých černých děr, které urychlují rozšiřování vesmíru, aby se stále více vypařovaly.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1284.105,
+      "end": 1292.705,
+      "sourceCues": [
+        619,
+        620,
+        621,
+        622,
+        623
+      ],
+      "originalSk": "Akeby potom nedržali ten vesmír pokope, že Ja si myslím, že oni sa do vyparovali tesne po veľkom tresku, že oni už zostali ako také zrniečka. Niekedy sa o",
+      "draftCs": "Přál bych si, aby se vesmír nevzdržel, když jsem si myslel, že vypařili přímo po velkém tresku, že už zůstali jako takové zrno.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1292.705,
+      "end": 1296.905,
+      "sourceCues": [
+        624,
+        625,
+        626
+      ],
+      "originalSk": "tom hovorí, že plankovský remnant, plankovský pozostatok. Aha.",
+      "draftCs": "Tom říká, že to je plankovský zbytek, plankovský zbytek.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1296.905,
+      "end": 1307.105,
+      "sourceCues": [
+        627,
+        628,
+        629,
+        630,
+        631
+      ],
+      "originalSk": "A a je to pekná hypotéza. Táto hypotéza má jeden veľký problém. Ťažko sa potvrdzuje. Ak je to naozaj tak, tak ako",
+      "draftCs": "A je to hezká hypotéza. Tato hypotéza má velký problém. Je těžké ji potvrdit. Pokud je to tak, jako je",
+      "reviewFlags": []
+    },
+    {
+      "start": 1307.105,
+      "end": 1313.305,
+      "sourceCues": [
+        632,
+        633,
+        634
+      ],
+      "originalSk": "by sme to dokázali? Prečo sa to ťažko potvrdzuje? Je také ťažké to Hawkingovo žiarenie?",
+      "draftCs": "Proč je to tak obtížné potvrdit? Je Hawkingovo záření tak obtížné?",
+      "reviewFlags": []
+    },
+    {
+      "start": 1313.305,
+      "end": 1321.705,
+      "sourceCues": [
+        635,
+        636,
+        637,
+        638,
+        639
+      ],
+      "originalSk": "Áno, áno, áno. Keby sme mali potvrdené Hawkingovo žiarenie, tak tomu veríme o kúsok viac, ale problém je, že tá predpoveď je trošku ako keď Pauli",
+      "draftCs": "Kdybychom měli potvrzené Hawkingovo záření, věřili bychom tomu o něco víc, ale problém je v tom, že to je něco jako",
+      "reviewFlags": []
+    },
+    {
+      "start": 1321.705,
+      "end": 1328.305,
+      "sourceCues": [
+        640,
+        641,
+        642
+      ],
+      "originalSk": "postuloval neutrína, že existuje taká neviditeľná častica, ktorá zaláta tie chyby vo fyzike, ktoré tu máme.",
+      "draftCs": "Neutrinně tvrdil, že existuje neviditelná částice, která by mohla napravit chyby v fyzikě, které máme.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1328.305,
+      "end": 1330.975,
+      "sourceCues": [
+        643,
+        644
+      ],
+      "originalSk": "A teraz sme vlastne zopakovali úplne to isté.",
+      "draftCs": "A teď jsme vlastně zopakovali totéž.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1330.975,
+      "end": 1331.305,
+      "sourceCues": [
+        645
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 1331.305,
+      "end": 1336.105,
+      "sourceCues": [
+        646,
+        647,
+        648
+      ],
+      "originalSk": "To je ako anjel, že existuje nejaký anjel, [smrkanie] ktorý všetko vyrieši v podstate.",
+      "draftCs": "Je to jako anděl, že existuje nějaký anděl, [smyk] který všechno vyřeší v podstatě.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1336.105,
+      "end": 1346.606,
+      "sourceCues": [
+        649,
+        650,
+        651,
+        652,
+        653
+      ],
+      "originalSk": "a to vidíš, že také toto riešenie veľa ľudí nenadchne. Existuje šanca z opačného konca, že získame presný model toho alebo",
+      "draftCs": "A vidíte, že takovéto řešení moc lidí nenapadne. Je šance, že na opačném konci dostaneme přesný model toho, nebo",
+      "reviewFlags": []
+    },
+    {
+      "start": 1346.606,
+      "end": 1352.806,
+      "sourceCues": [
+        654,
+        655,
+        656
+      ],
+      "originalSk": "hodnoverný podrobný, detailný model toho, ako prebiehal veľký tresk.",
+      "draftCs": "Hodně detailní, detailní model toho, jak velká trasa probíhala.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1352.806,
+      "end": 1358.906,
+      "sourceCues": [
+        657,
+        658,
+        659,
+        660
+      ],
+      "originalSk": "A z toho modelu veľmi prirodzene vyjde, že tie vznikne veľa mikroskopických čiernych dier.",
+      "draftCs": "A z tohoto modelu vyplývá velmi přirozeně, že vzniká mnoho mikroskopických černých děr.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1358.906,
+      "end": 1368.006,
+      "sourceCues": [
+        661,
+        662,
+        663
+      ],
+      "originalSk": "Tak to by bol istý náznak tomu veriť. Takže",
+      "draftCs": "To by bylo jisté znamení, že tomu věříme.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1368.106,
+      "end": 1378.106,
+      "sourceCues": [
+        664,
+        665,
+        666,
+        667,
+        668
+      ],
+      "originalSk": "je to hypotéza a teraz sranda na tom je taká, že na to, aby si dostal z teórie tento záver, že",
+      "draftCs": "Je to hypotéza, a teď je to vtipné, že pokud chcete z teorie přijít na to, že",
+      "reviewFlags": []
+    },
+    {
+      "start": 1378.106,
+      "end": 1387.006,
+      "sourceCues": [
+        669,
+        670,
+        671,
+        672
+      ],
+      "originalSk": "čierna diera zamrzne svoje vyparovanie a zostane ako taká malá granulka, tak na toto nepotrebuješ robiť veľmi špecifické predpoklady. Občas sa stane,",
+      "draftCs": "Černá díra zmrazí své evaporace a zůstane jako malá zrnko, takže nemusíte dělat žádné specifické předpoklady.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1387.006,
+      "end": 1397.306,
+      "sourceCues": [
+        673,
+        674,
+        675,
+        676,
+        677
+      ],
+      "originalSk": "že ty zostrojíš fyzikálnu teóriu, ale je to strašne komplexná zlatanina, veľmi veľa predpokladov a kde všetko musí pasovať dokopy, aby to fungovalo a keď zmeníš",
+      "draftCs": "že vytváříte fyzikální teorii, ale je to hrozně složitá zlata, spousta předpokladů, kde se všechno musí dát dohromady, aby to fungovalo.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1397.306,
+      "end": 1403.706,
+      "sourceCues": [
+        678,
+        679,
+        680,
+        681
+      ],
+      "originalSk": "jeden malý dielik, tak to sa to rozpadne. Tomuto sa vo fyzike hovorí, že fine tuning a nemáme to radi.",
+      "draftCs": "V fyzikě tomu říkáme \"fin tuning\" a my to nemáme rádi.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1403.706,
+      "end": 1410.006,
+      "sourceCues": [
+        682,
+        683,
+        684
+      ],
+      "originalSk": "Že keď máš fyzikálnu teóriu, ktorá sedí len pre veľmi presne nastavené parametre a ináč nesedí, tak sa ti nepáči.",
+      "draftCs": "Že když máte fyzikální teorii, která se hodí jen na velmi přesně nastavené parametry a jinak se neshodí, tak se vám to nelíbí.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1410.006,
+      "end": 1419.606,
+      "sourceCues": [
+        685,
+        686,
+        687,
+        688,
+        689
+      ],
+      "originalSk": "A teraz je otázka, že či táto teória mikroskopických čiernych dier ako častíc tmavej hmoty, či si vyžaduje fine tuning alebo nie a odpoveď je, že",
+      "draftCs": "A nyní je otázka, zda tato teorie mikroskopických černých děr jako částic temné hmoty vyžaduje jemné tunování nebo ne a odpověď je, že",
+      "reviewFlags": []
+    },
+    {
+      "start": 1419.606,
+      "end": 1429.806,
+      "sourceCues": [
+        690,
+        691,
+        692,
+        693
+      ],
+      "originalSk": "absolútne nie. Dokonca sa dajú dokázať veľmi všeobecné tvrdenia, že zoberáš takmer hocijakú modifikáciu,",
+      "draftCs": "Dokonce dokážou být dokázány velmi všeobecné tvrzení, že přijímáte téměř všechny modifikace,",
+      "reviewFlags": []
+    },
+    {
+      "start": 1429.806,
+      "end": 1439.906,
+      "sourceCues": [
+        694,
+        695,
+        696,
+        697
+      ],
+      "originalSk": "kde priestor dostane štruktúru a automaticky máš z toho garantované, že toto všetko bude platiť, že tá nulová teplota zamrznutia a tak ďalej.",
+      "draftCs": "kde prostor dostane strukturu a automaticky máte záruku, že to všechno platí, že nulová teplota zmrazení a tak dále.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1439.906,
+      "end": 1450.106,
+      "sourceCues": [
+        698,
+        699,
+        700
+      ],
+      "originalSk": "Čiže takmer každá teória, ktorá hľadá fyziku za Einsteinom, v sebe obsahuje nejakú kvantovú",
+      "draftCs": "Takže téměř každá teorie, která hledá Einsteinovu fyziku, obsahuje kvantovou",
+      "reviewFlags": []
+    },
+    {
+      "start": 1450.106,
+      "end": 1456.806,
+      "sourceCues": [
+        701,
+        702,
+        703,
+        704
+      ],
+      "originalSk": "štruktúru priestoru alebo nejaký iný podobný efekt, ktorý zabráni tomu, aby sa čierne diery vyparili a zostanú ako také malé bobky.",
+      "draftCs": "struktury prostoru nebo jiného podobného účinku, který zabrání, aby se černé díry vypařily a zůstaly jako malé bobky.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1456.806,
+      "end": 1466.106,
+      "sourceCues": [
+        705,
+        706,
+        707,
+        708,
+        709,
+        710
+      ],
+      "originalSk": "Preto si myslíme, že toto veľmi robustný predpoklad a otázka nie je, že či môžu vzniknúť, čím to dovoľuje teória. Teória si to priam vyžaduje, Hm.",
+      "draftCs": "Proto si myslíme, že je to velmi silné předpoklad, a otázka není, zda mohou vzniknout, což teorie umožňuje. Teorie to přímo vyžaduje, hm.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1466.106,
+      "end": 1475.107,
+      "sourceCues": [
+        711,
+        712,
+        713,
+        714,
+        715
+      ],
+      "originalSk": "lebo je to veľmi robustná predpoveď. Otázka je, či v rannom vesmíre boli vhodné podmienky na to, aby vznikli malé čierne diery. A keď áno, tak z nich zostali tieto zrniečka.",
+      "draftCs": "Otázkou je, zda v raném vesmíru byly vhodné podmínky pro vznik malých černých děr. A pokud ano, tak z nich zůstaly tyto zrniny.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1475.107,
+      "end": 1483.207,
+      "sourceCues": [
+        716,
+        717,
+        718,
+        719
+      ],
+      "originalSk": "Hm. A toto je v niečom zrazu veľmi smutné. Predstav si, že nevieme nájsť.",
+      "draftCs": "A tohle je v něčem najednou velmi smutné. Představte si, že to nemůžeme najít.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1483.207,
+      "end": 1492.707,
+      "sourceCues": [
+        720,
+        721,
+        722,
+        723,
+        724
+      ],
+      "originalSk": "áno, že nevieme ich nájsť a dokonca predstav si, že by sa nám ich podarilo potvrdiť. Že o 35 rokov by sme prišli na to, že naozaj existujú a dokonca by sme mali šťastie, že",
+      "draftCs": "Ano, nemůžeme je najít, a dokonce si představte, že bychom je dokázali potvrdit. Že za 35 let bychom zjistili, že opravdu existují, a dokonce bychom měli štěstí, že",
+      "reviewFlags": []
+    },
+    {
+      "start": 1492.707,
+      "end": 1502.507,
+      "sourceCues": [
+        725,
+        726,
+        727,
+        728,
+        729
+      ],
+      "originalSk": "nájdeme záblesk nejakej tej opozdenej, ktorá sa ešte nestihla vypariť alebo sa čerstvo sformuje nejaká, zistíme, ako jej vyrobiť a budeme pozorovať tie záblesky.",
+      "draftCs": "najdeme záblesk nějaké zpožděné, která ještě nevypařila, nebo čerstvě vzniká, zjistíme, jak ji vyrobit a pozorujeme ty záblesky.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1502.707,
+      "end": 1510.908,
+      "sourceCues": [
+        730,
+        731,
+        732,
+        733
+      ],
+      "originalSk": "A blbé je to v tom, že ty by si strašne rád povedal, že 20 rôznych teórií má tú istú predpoveď. Neviem vlastne naprosto ukázať 20, tak poviem iba 10 rôznych",
+      "draftCs": "A co je na tom nejhorší, je, že byste se tak rád domníval, že 20 různých teorií má stejnou předpověď.",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 1510.908,
+      "end": 1520.707,
+      "sourceCues": [
+        734,
+        735,
+        736,
+        737,
+        738
+      ],
+      "originalSk": "teórií má tú istú predpoveď, že čierne diery majú zamrznúť, zistíš, že čierne diery zamrznú a teraz nevieš povedať, ktorá z tých 10 teórií je správna.",
+      "draftCs": "teorie má stejnou předpověď, že černé díry zmrazují, zjistíte, že černé díry zmrazují, a teď nemůžete říct, která z těchto deseti teorií je správná.",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 1520.707,
+      "end": 1529.207,
+      "sourceCues": [
+        739,
+        740,
+        741,
+        742,
+        743
+      ],
+      "originalSk": "Lebo jedna je kvantová teória priestoru, druhá môže byť nejaká slučková gravitácia, potom nejaká teória gravitačných polarizácií, bla bla bla.",
+      "draftCs": "Protože jedna je kvantová teorie prostoru, druhá může být nějaká sloupková gravitace, pak nějaká teorie gravitační polarizace, bla bla.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1529.207,
+      "end": 1537.007,
+      "sourceCues": [
+        744,
+        745,
+        746,
+        747
+      ],
+      "originalSk": "Máš 10 rôznych teórií, ktoré vedú na tú istú predpoveď a tým pádom, keď sa tá predpoveď potvrdí, tak nevieš, ktorá z tých teórií k tomu viedla.",
+      "draftCs": "Máte 10 různých teorií, které vedou k stejné předpovědi, a když se tato předpověď potvrdí, tak nevíte, která z těchto teorií vedla k tomu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1537.807,
+      "end": 1547.307,
+      "sourceCues": [
+        748,
+        749,
+        750,
+        751,
+        752
+      ],
+      "originalSk": "A výskumná otázka, do ktorej som bol donútený, je, že či predsa len neexistuje nejaká vlastnosť čiernych dier, ktorá ti umožní rozlíšiť medzi týmito,",
+      "draftCs": "A výzkumná otázka, kterou jsem byl donucen k tomu, je, zda neexistuje nějaká vlastnost černých děr, která by vám umožnila rozeznat mezi nimi,",
+      "reviewFlags": []
+    },
+    {
+      "start": 1547.307,
+      "end": 1549.747,
+      "sourceCues": [
+        753
+      ],
+      "originalSk": "dajme tomu, 10 možnosťami.",
+      "draftCs": "Dáme tomu deset možností.",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 1549.747,
+      "end": 1550.707,
+      "sourceCues": [
+        754
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 1550.707,
+      "end": 1559.908,
+      "sourceCues": [
+        755,
+        756,
+        757,
+        758
+      ],
+      "originalSk": "A poviem k tomu taký malý smutný príbeh. Napísal som článok o tom, že čo keď tá fundamentálna škála, na ktorej vznikajú tie malé čierne diery alebo na ktorej",
+      "draftCs": "Napsal jsem článek o tom, že co když se základní měřítko, na kterém vznikají malé černé díry, nebo",
+      "reviewFlags": []
+    },
+    {
+      "start": 1559.908,
+      "end": 1565.408,
+      "sourceCues": [
+        759,
+        760
+      ],
+      "originalSk": "zamrznú, že keď to nie tých 10 na -35 m, ale bolo by to niečo oveľa väčšie.",
+      "draftCs": "Zmrazí, že když to není 10 na -35 m, ale bude to něco mnohem většího.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1565.408,
+      "end": 1570.707,
+      "sourceCues": [
+        761,
+        762,
+        763
+      ],
+      "originalSk": "My vieme povedať, že je to najmenej, že je to najviac 10 na -20 m, lebo tam dovidí CERN.",
+      "draftCs": "Můžeme říct, že je to nejméně, že je to nejvíce než 10 na -20 m, protože tam vidí CERN.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1570.707,
+      "end": 1577.408,
+      "sourceCues": [
+        764,
+        765,
+        766
+      ],
+      "originalSk": "A CERN nič také nevidel. Takže to môže byť hocikde medzi CERNom a tou minimálnou škálou v prírode.",
+      "draftCs": "A CERN nic takového neviděl. Takže to může být kdekoliv mezi CERN a minimální škálou v přírodě.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1577.408,
+      "end": 1586.207,
+      "sourceCues": [
+        767,
+        768,
+        769,
+        770
+      ],
+      "originalSk": "A začal som písať taký článok, že čo keby to bolo niekde na polceste medzi, či by či by sme ich predsa len nevideli kvôli tomu, že sem-tam niečo pohltia a",
+      "draftCs": "A tak jsem začal psát článek, že kdyby to bylo někde mezi námi, nebo bychom je vůbec neměli vidět, protože tam a tam něco pohlcují a",
+      "reviewFlags": []
+    },
+    {
+      "start": 1586.207,
+      "end": 1596.908,
+      "sourceCues": [
+        771,
+        772,
+        773,
+        774,
+        775
+      ],
+      "originalSk": "odgrgnú si. Čiže na chvíľku za urobia taký krátky záblesk a že či by sme krátke záblesky nevedeli eh Napísal som o tom článok, ktorý",
+      "draftCs": "Takže za chvilku budou dělat tak krátké záblesky, a jestli bychom nevěděli, že krátké záblesky, eh, napsala jsem o tom článek, který",
+      "reviewFlags": []
+    },
+    {
+      "start": 1596.908,
+      "end": 1597.509,
+      "sourceCues": [
+        776
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 1597.509,
+      "end": 1605.909,
+      "sourceCues": [
+        777,
+        778,
+        779
+      ],
+      "originalSk": "som poslal do časopisu celkom dobrého rok dozadu. Trošku sa hanbím za toto.",
+      "draftCs": "Poslal jsem to do časopisu před rokem.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1605.909,
+      "end": 1615.809,
+      "sourceCues": [
+        780,
+        781,
+        782,
+        783,
+        784
+      ],
+      "originalSk": "Napísali mi recenzenti odpoveď asi dva mesiace na to, že celkom zaujímavý článok, ale chýba tu vyjasnená nejaká fundamentálna vec a bez toho to nemôže ísť ďalej.",
+      "draftCs": "Přibližně dva měsíce mi recenzenti napsali odpověď, že je to velmi zajímavý článek, ale chybí mi něco základního, a bez toho to nemůže pokračovat.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1615.809,
+      "end": 1622.309,
+      "sourceCues": [
+        785,
+        786,
+        787,
+        788
+      ],
+      "originalSk": "A ja som mal vtedy rozrobené tri iné veci. Úplne som sa na to vydlabal a slušná odpoveď je, že do šiestich týždňov im dať nejakú odpoveď.",
+      "draftCs": "A já jsem měl tři další věci na práci, a já jsem se na to úplně zaměřil, a slušnou odpovědí je dát jim nějakou odpověď do šesti týdnů.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1622.309,
+      "end": 1623.763,
+      "sourceCues": [
+        789
+      ],
+      "originalSk": "A rok som na nich dlabal.",
+      "draftCs": "A rok jsem na nich hrál.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1623.763,
+      "end": 1624.409,
+      "sourceCues": [
+        790
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 1624.409,
+      "end": 1634.109,
+      "sourceCues": [
+        791,
+        792,
+        793,
+        794,
+        795
+      ],
+      "originalSk": "Lebo boli iné veci. Ojoj. A potom dokonca nechcem sa vyhovárať na Matildu, lebo však ona si prešla rôznymi štádiami embryogenézy, kým ja som mal",
+      "draftCs": "A pak ani nechci mluvit o Matilde, protože ona prošla různými fázemi embryogénézy, když jsem měla",
+      "reviewFlags": []
+    },
+    {
+      "start": 1634.109,
+      "end": 1644.309,
+      "sourceCues": [
+        796,
+        797,
+        798,
+        799
+      ],
+      "originalSk": "čas odpovedať na tento článok a dlabal som na to. Ale úplne si pamätám moment, kedy sme už boli v pôrodnici",
+      "draftCs": "Ale přesně si pamatuji moment, kdy jsme byli v pôrodním sále.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1644.309,
+      "end": 1648.909,
+      "sourceCues": [
+        800,
+        801
+      ],
+      "originalSk": "a ja som si povedal, že musím rýchlo odpísať, že dobre, budem na tom robiť.",
+      "draftCs": "A já jsem si řekl, že musím rychle napsat, že jo, budu na tom pracovat.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1648.909,
+      "end": 1656.709,
+      "sourceCues": [
+        802,
+        803,
+        804,
+        805
+      ],
+      "originalSk": "Prosím vás, rodí sa nám dcéra, dajte mi chvíľku času, aby som to A oni, že dobre, máš predĺžený deadline po tom roku, čo už sa na mňa mohli vydlabnúť.",
+      "draftCs": "Prosím vás, naše dcera se narodí, dejte mi chvilku času, abych to udělal a oni, že dobře, máte prodlouženou lhůtu po tom roce, že už se na mě mohli dostat.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1656.709,
+      "end": 1662.409,
+      "sourceCues": [
+        806,
+        807
+      ],
+      "originalSk": "To je milé od nich. To je od nich milé. Oni sú radi, keď tam niekto publikuje.",
+      "draftCs": "To je milé od nich. To je milé od nich.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1663.509,
+      "end": 1673.309,
+      "sourceCues": [
+        808,
+        809,
+        810,
+        811,
+        812
+      ],
+      "originalSk": "A začal som na tom robiť. A tá otázka, ktorú ktorá mi tam chýbala, je vlastne, že či tie malé čierne diery nemajú nejaký významný faktor tej",
+      "draftCs": "Začal jsem na tom pracovat. A otázka, která mi tam chyběla, byla, zda tyto malé černé díry nemají nějaký významný faktor v tom,",
+      "reviewFlags": []
+    },
+    {
+      "start": 1673.309,
+      "end": 1682.809,
+      "sourceCues": [
+        813,
+        814,
+        815,
+        816
+      ],
+      "originalSk": "šedosti. Že či tie malé čierne diery nie sú vlastne významne šedé a nepotláčajú nejakú formu žiarenia v sebe.",
+      "draftCs": "Pokud malé černé díry nejsou ve skutečnosti významně šedé a nevylučují nějakou formu záření uvnitř.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1685.309,
+      "end": 1690.209,
+      "sourceCues": [
+        817,
+        818
+      ],
+      "originalSk": "Tak som sa do tohto pustil čisto, aby som ukojil pána recenzenta.",
+      "draftCs": "Tak jsem se do toho dostal čistě, abych uspokojil pana recenzenta.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1690.209,
+      "end": 1695.009,
+      "sourceCues": [
+        819,
+        820
+      ],
+      "originalSk": "Pôvodne som to ne nepovažoval za niečo, čo čo by som tam mal dávať.",
+      "draftCs": "Původně jsem si nemyslel, že je to něco, co bych tam měl dát.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1695.009,
+      "end": 1704.209,
+      "sourceCues": [
+        821,
+        822,
+        823,
+        824,
+        825
+      ],
+      "originalSk": "A keď som to začal robiť, tak som zistil niečo strašne zaujímavé, že ono ti to umožní rozlíšiť medzi tými desiatimi rôznymi teóriami, ktoré vedú na ten istý záver.",
+      "draftCs": "A když jsem to začal dělat, objevil jsem něco velmi zajímavého, že vám to umožní rozeznat 10 různých teorií, které vedou k stejnému závěru.",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 1704.209,
+      "end": 1714.31,
+      "sourceCues": [
+        826,
+        827,
+        828,
+        829
+      ],
+      "originalSk": "Že máš 10 rôznych teórií a každá vedie na ty vole že by som to nazval 50 odtieňov",
+      "draftCs": "Že máš deset různých teorií a každá vede k tobě, že bych to nazval 50 odstínů.",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 1714.31,
+      "end": 1716.119,
+      "sourceCues": [
+        830
+      ],
+      "originalSk": "To by bol dosť kontroverzný názov.",
+      "draftCs": "To by bylo dost kontroverzní jméno.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1716.119,
+      "end": 1716.71,
+      "sourceCues": [
+        831
+      ],
+      "originalSk": "[lapanie po dychu]",
+      "draftCs": "[Dýchání]",
+      "reviewFlags": []
+    },
+    {
+      "start": 1716.71,
+      "end": 1721.01,
+      "sourceCues": [
+        832,
+        833
+      ],
+      "originalSk": "Inak ale to je dobrý názov. [smrkanie] To je fakt dobrý názov.",
+      "draftCs": "Ale jinak je to dobrý název. (Smích) Je to opravdu dobrý název.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1721.01,
+      "end": 1727.254,
+      "sourceCues": [
+        834,
+        835,
+        836,
+        837
+      ],
+      "originalSk": "Tak sa trošku dobrý názov. Každá tá teória vedie na trošku inú formu",
+      "draftCs": "Každá z těchto teorií vede k trochu jinému tvaru.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1727.254,
+      "end": 1727.91,
+      "sourceCues": [
+        838
+      ],
+      "originalSk": "[smiech]",
+      "draftCs": "(Smích)",
+      "reviewFlags": []
+    },
+    {
+      "start": 1727.91,
+      "end": 1737.71,
+      "sourceCues": [
+        839,
+        840,
+        841,
+        842
+      ],
+      "originalSk": "vedie na trochu inú formu šedosti. To je cool názov. Doba že toto tam musím dať. Eh neviem, či mi to prejde, [smiech] ale celkom sa mi to páči.",
+      "draftCs": "To je skvělé jméno, ale musím to tam dát. Nevím, jestli to zvládnu, ale mám to rád.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1737.71,
+      "end": 1745.21,
+      "sourceCues": [
+        843,
+        844,
+        845,
+        846
+      ],
+      "originalSk": "Eh všetci toho svedkov, že sama musí dať eh tento názov, takže je pod to podpísaný aj môj doktorand.",
+      "draftCs": "Všechny ty svědky, že musí dát toto jméno sama, takže je podepsané i mým doktorátem.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1745.21,
+      "end": 1748.91,
+      "sourceCues": [
+        847,
+        848
+      ],
+      "originalSk": "Neviem, či to cez neho prejde, ale dúfam, že hej. Toto je dosť cool.",
+      "draftCs": "Nevím, jestli to přežije, ale doufám, že ano.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1748.91,
+      "end": 1757.91,
+      "sourceCues": [
+        849,
+        850,
+        851,
+        852
+      ],
+      "originalSk": "Eh o čo ide? Ide o to, že alebo dobre, takto. Počíta sa to takto. Normálne modeluješ žiarenie, ktoré priletí k čiernej diere",
+      "draftCs": "Co je to? Je to, že, nebo dobře, takhle. Počítá se takto. Normálně modelujete záření, které přiletí k černé díře.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1757.91,
+      "end": 1760.31,
+      "sourceCues": [
+        853
+      ],
+      "originalSk": "a",
+      "draftCs": "a",
+      "reviewFlags": []
+    },
+    {
+      "start": 1761.31,
+      "end": 1771.11,
+      "sourceCues": [
+        854,
+        855,
+        856,
+        857,
+        858
+      ],
+      "originalSk": "porovnávaš ho so žiarením, ktoré z čiernej diery vychádza a pozeráš sa, že aká časť sa v tom zachytila a je to mega otravný výpočet, kde robíš rôzne limity.",
+      "draftCs": "porovnáte ho s zářením, které vychází z černé díry a zjistíte, jaká část je v něm zachycena, a je to velmi otravný výpočet, kde děláte různé limity.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1771.11,
+      "end": 1777.71,
+      "sourceCues": [
+        859,
+        860,
+        861,
+        862
+      ],
+      "originalSk": "Musíš si to nakrájať na veľa oblastí, kde v každých platí trošku iné priblíženie a potom to všetko zošíva dokopy.",
+      "draftCs": "Musíte to vyřezat do mnoha oblastí, kde každý má trochu odlišné přiblížení a pak se to všechno shromažďuje.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1777.71,
+      "end": 1787.51,
+      "sourceCues": [
+        863,
+        864,
+        865,
+        866,
+        867
+      ],
+      "originalSk": "Ak si ma videl unaveného, utrápeného a tak ďalej za posledný mesiac, tak za to nemohla Matilda, ale mohli za to tieto počty, lebo",
+      "draftCs": "Pokud jsi mě viděl v posledním měsíci unaveného, trpícího a tak dále, Matilda to nemohla udělat, ale mohli to udělat tito čísla, protože",
+      "reviewFlags": []
+    },
+    {
+      "start": 1787.51,
+      "end": 1798.01,
+      "sourceCues": [
+        868,
+        869,
+        870,
+        871,
+        872,
+        873
+      ],
+      "originalSk": "eh [vzdychanie] Musím z toho robiť srandu, že výpočet sa zmestí na jednu stranu, ale ja mám v tom remarke boli nekonečne dlhé strany, takže ja na tú jednu stranu toho",
+      "draftCs": "uh [výdech] Musím si dělat srandu, že výpočet se umístí na jedné straně, ale já mám v tom poznámce byly nekonečně dlouhé strany, takže jsem na jedné straně toho",
+      "reviewFlags": []
+    },
+    {
+      "start": 1798.01,
+      "end": 1808.11,
+      "sourceCues": [
+        874,
+        875,
+        876,
+        877,
+        878
+      ],
+      "originalSk": "viem viem naplácať úplne, že že ľubovoľne veľa. Ale konečne sa mi to minulý týždeň podarilo dokončiť, overiť numerickými",
+      "draftCs": "Já vím, že můžu plně ovládat, že, že, že, že hodně. Ale konečně jsem to konečně dokončil minulý týden, ověřit to číselnými čísly.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1808.11,
+      "end": 1813.51,
+      "sourceCues": [
+        879,
+        880,
+        881
+      ],
+      "originalSk": "výpočtami a mám pocit, že to naozaj, že celé funguje dokopy.",
+      "draftCs": "a mám pocit, že to opravdu funguje.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1813.51,
+      "end": 1824.21,
+      "sourceCues": [
+        882,
+        883,
+        884,
+        885,
+        886
+      ],
+      "originalSk": "Že sa mi podarilo spočítať tie faktory šedosti pre mikroskopické čierne diery a jedna vec, ktorú si doteraz nikto neuvedomil, že tá vlastnosť mikroskopických čiernych",
+      "draftCs": "že jsem se podařilo vypočítat ty faktory šedivosti pro mikroskopické černé díry a jedna věc, o které zatím nikdo nevěděl, je, že tato vlastnost mikroskopických černých děr",
+      "reviewFlags": []
+    },
+    {
+      "start": 1824.21,
+      "end": 1830.81,
+      "sourceCues": [
+        887,
+        888,
+        889
+      ],
+      "originalSk": "dier tam práve pridáva jeden kľúčový aspekt, ktorý ti poodhalí, aká konkrétna šedosť to je.",
+      "draftCs": "Dívka tam právě přidává jeden klíčový aspekt, který vám ukáže, jak konkrétní je to šedý.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1830.91,
+      "end": 1839.612,
+      "sourceCues": [
+        890,
+        891,
+        892,
+        893
+      ],
+      "originalSk": "Nehovorím, že to je teraz vďaka tomu ľahko pozorovateľný efekt, ale zrazu sa z niečoho prakticky nemožného stalo niečo iba veľmi ťažké.",
+      "draftCs": "Neříkám, že je to teď snadno viditelný efekt, ale najednou se z něčeho prakticky nemožného stalo něco velmi těžkého.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1839.612,
+      "end": 1846.012,
+      "sourceCues": [
+        894,
+        895
+      ],
+      "originalSk": "A to je typicky vo fyzike dobrý krok, lebo to zrazu znamená, že",
+      "draftCs": "A to je typicky dobrý krok ve fyzice, protože to znamená, že",
+      "reviewFlags": []
+    },
+    {
+      "start": 1853.612,
+      "end": 1862.812,
+      "sourceCues": [
+        896,
+        897,
+        898,
+        899,
+        900
+      ],
+      "originalSk": "sa dalo vlastne urobiť takúto limitu a tak ďalej. A všetky tie veci ti potom začnú pekne dokopy dokopy zapadať. Ja som túto čisto, aby ľudia, ktorí nás sledujú na",
+      "draftCs": "A všechny tyto věci se pak začnou pěkně shromažďovat. Já jsem tu čistou, aby lidé, kteří nás sledují,",
+      "reviewFlags": []
+    },
+    {
+      "start": 1862.812,
+      "end": 1871.112,
+      "sourceCues": [
+        901,
+        902,
+        903,
+        904
+      ],
+      "originalSk": "YouTube, mali mali možnosť nahliadnuť trošku pod pokličku, ako sa to otvára.",
+      "draftCs": "YouTube, měli možnost sledovat, jak se to otevřelo.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1871.112,
+      "end": 1876.412,
+      "sourceCues": [
+        905,
+        906
+      ],
+      "originalSk": "Ukážem, že ako vlastne vyzerá. ako sa nazývajú veci vo fyzike.",
+      "draftCs": "Ukážu vám, jak to vlastně vypadá. Jak se věci jmenují ve fyzice.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1876.412,
+      "end": 1879.212,
+      "sourceCues": [
+        907
+      ],
+      "originalSk": "Toto je prvá strana",
+      "draftCs": "Tohle je první stránka.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1880.212,
+      "end": 1885.012,
+      "sourceCues": [
+        908,
+        909,
+        910
+      ],
+      "originalSk": "toho výpočtu. No nie je to reálne prvá strana, je to x strán dokopy.",
+      "draftCs": "Ale není to skutečná první strana, je to x strany dohromady.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1885.012,
+      "end": 1890.351,
+      "sourceCues": [
+        911,
+        912
+      ],
+      "originalSk": "som povedal, že že takýchto mám za sebou takýchto mám za sebou deväť.",
+      "draftCs": "Řekla jsem, že mám za sebou devět takových.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1890.351,
+      "end": 1895.312,
+      "sourceCues": [
+        913,
+        914,
+        915
+      ],
+      "originalSk": "[smiech] A každá nie každá je takáto dlhá humusárna, niektoré sú trošku kratšie.",
+      "draftCs": "(Smích) A ne všechny jsou tak dlouhé a zábavné, některé jsou o něco kratší.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1895.312,
+      "end": 1904.912,
+      "sourceCues": [
+        916,
+        917,
+        918,
+        919,
+        920
+      ],
+      "originalSk": "Ale že takto vyzerá remeslo teoretického fyzika. Ak vás toto trošku naplo, tak to možno nie je úplne pre vás, ale som strašne rád, že som si cestu konečne prešiel.",
+      "draftCs": "Pokud vás to trochu překvapilo, možná to není zrovna pro vás, ale jsem opravdu rád, že jsem konečně prošel svou cestou.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1904.912,
+      "end": 1913.512,
+      "sourceCues": [
+        921,
+        922,
+        923
+      ],
+      "originalSk": "A výsledok je pekný. Výsledok naozaj dáva nádej, že v nejakej budúcnosti budeme vedieť rozlíšiť",
+      "draftCs": "A výsledek je krásný. Výsledek opravdu dává naději, že v budoucnu budeme schopni rozeznat",
+      "reviewFlags": []
+    },
+    {
+      "start": 1913.512,
+      "end": 1919.412,
+      "sourceCues": [
+        924,
+        925,
+        926
+      ],
+      "originalSk": "medzi rozdielnymi teóriami, ktoré vedú na existenciu mikroskopických čiernych dier.",
+      "draftCs": "mezi různými teoriemi, které vedou k existenci mikroskopických černých děr.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1919.412,
+      "end": 1927.912,
+      "sourceCues": [
+        927,
+        928,
+        929,
+        930
+      ],
+      "originalSk": "Takže preto sme sa vlastne rozprávali o šedých čiernych dierach, lebo tá ich šedosť vie niesť odtlačok",
+      "draftCs": "Takže to je důvod, proč jsme mluvili o šedých černých dírech, protože jejich šedost může nosit otisky.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1928.412,
+      "end": 1932.912,
+      "sourceCues": [
+        931,
+        932
+      ],
+      "originalSk": "niečoho oveľa hlbšieho, napríklad v mojom prípade štruktúry priestoru.",
+      "draftCs": "Něco mnohem hlubšího, jako je v mém případě struktura prostoru.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1932.912,
+      "end": 1939.712,
+      "sourceCues": [
+        933,
+        934,
+        935
+      ],
+      "originalSk": "A čierne diery sa vlastne zrazu stanú takou lupou alebo takým kukátkom na niečo, čo by ináč bolo neviditeľné.",
+      "draftCs": "A černé díry se staly náhle skřínou nebo kouskem na něco, co by bylo jinak neviditelné.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1943.712,
+      "end": 1953.312,
+      "sourceCues": [
+        936,
+        937,
+        938,
+        939,
+        940
+      ],
+      "originalSk": "Hej, to znie to znie dosť cool. Šedé šedé diery, takže wow. Uvidíme, či ten názov prejde, ale páči",
+      "draftCs": "Hej, to zní dobře. Šedé šedé díry, takže wow.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1953.312,
+      "end": 1955.612,
+      "sourceCues": [
+        941
+      ],
+      "originalSk": "sa mi.",
+      "draftCs": "To je moje.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1956.512,
+      "end": 1962.313,
+      "sourceCues": [
+        942,
+        943,
+        944,
+        945
+      ],
+      "originalSk": "Je je Myslíš si, že keď niekto potvrdí Hawkingove žiarenie, že to bude Nobelovka?",
+      "draftCs": "Myslíte si, že když někdo potvrdí Hawkingovu záření, bude to Nobelova cena?",
+      "reviewFlags": []
+    },
+    {
+      "start": 1962.313,
+      "end": 1971.613,
+      "sourceCues": [
+        946,
+        947,
+        948,
+        949
+      ],
+      "originalSk": "to ono by sa to malo potom že ako čierne diery. Áno, áno. To už začína vyzerať fakt dosť drzo.",
+      "draftCs": "To by mělo vypadat jako černá díra.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 1971.613,
+      "end": 1976.113,
+      "sourceCues": [
+        950,
+        951
+      ],
+      "originalSk": "Uh, ustrašene drzo to vyzerá, ale je to super. Choď do toho určite.",
+      "draftCs": "Uh, vypadá to strašně drsně, ale je to skvělé.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1976.113,
+      "end": 1981.113,
+      "sourceCues": [
+        952,
+        953,
+        954,
+        955
+      ],
+      "originalSk": "Neviem, teraz rovno hodím do nášho zdieľaného dokumentu to, nech na to nezabudnem. No a čo sa chcel opýtať?",
+      "draftCs": "Nevím, teď to hodím přímo do našeho sdíleného dokumentu, abych si to nezapomněl.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1981.113,
+      "end": 1986.713,
+      "sourceCues": [
+        956,
+        957,
+        958
+      ],
+      "originalSk": "Eh, že či potvrdenie Hawkingovho žiarenia je podľa teba na Nobelovku alebo nie?",
+      "draftCs": "Uh, že potvrzení Hawkingova záření je podle tebe na Nobelově ceně nebo ne?",
+      "reviewFlags": []
+    },
+    {
+      "start": 1986.713,
+      "end": 1994.813,
+      "sourceCues": [
+        959,
+        960,
+        961,
+        962,
+        963
+      ],
+      "originalSk": "Podľa mňa áno. Uhm. Eh, ale neviem si predstaviť, ako by to niekto dokázal. Ehm.",
+      "draftCs": "Myslím, že ano, ale nemůžu si představit, jak by to někdo mohl udělat.",
+      "reviewFlags": []
+    },
+    {
+      "start": 1994.813,
+      "end": 2004.013,
+      "sourceCues": [
+        964,
+        965,
+        966,
+        967
+      ],
+      "originalSk": "To je gravitačné vlny pred eh, rokmi neviem neboli Vieš čo, keby sme mali to šťastie, že zachytíme ten záblesk eh,",
+      "draftCs": "To jsou gravitační vlny před ehm, roky nevím nebyly víte co, kdybychom měli štěstí zachytit ten záblesk ehm,",
+      "reviewFlags": []
+    },
+    {
+      "start": 2004.013,
+      "end": 2014.913,
+      "sourceCues": [
+        968,
+        969,
+        970,
+        971,
+        972
+      ],
+      "originalSk": "Dobre, vieš čo by bolo na Nobelovku? Na to, aby fungovalo Hawkingovo žiarenie, tak ono je to v podstate ekvivalentné inej forme žiarenia, ktoré sa volá že Unruhovo žiarenie.",
+      "draftCs": "Dobře, víte, co by bylo na Nobelovém laureátě? Aby Hawkingovo záření fungovalo, je to v podstatě ekvivalentní jiné formě záření, které se nazývá Unruhovo záření.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2014.913,
+      "end": 2020.613,
+      "sourceCues": [
+        973,
+        974
+      ],
+      "originalSk": "Unruhovo žiarenie je žiarenie, ktoré vidí vo vákuu zrýchľujúci jedinec.",
+      "draftCs": "Radiace je záření, které vidí v vakuu individuální zrýchlovatel.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2020.613,
+      "end": 2031.013,
+      "sourceCues": [
+        975,
+        976,
+        977,
+        978,
+        979,
+        980
+      ],
+      "originalSk": "Čiže ty keby si išiel v rakete, ktorá zrýchľuje voči vákuu v nejakom rozumnom spôsobe sa to dá zadefinovať, tak ty by si videl, že to vákuum žiari.",
+      "draftCs": "Takže kdybychom šli na raketě, která se zrýchluje vůči váku v nějakém rozumném směru, který je možné definovat, viděli bychom, že tento vákuum září.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2031.013,
+      "end": 2037.513,
+      "sourceCues": [
+        981,
+        982,
+        983
+      ],
+      "originalSk": "A v podstate to okolie čiernych dier sa správa ako keby si v ňom akceleroval. No a",
+      "draftCs": "A v podstatě se to kolem černé díry chová, jako byste se v něm zrychloval.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2039.013,
+      "end": 2047.913,
+      "sourceCues": [
+        984,
+        985,
+        986,
+        987,
+        988
+      ],
+      "originalSk": "to ponaučenie teda také, že nemusíme dokázať Hawkingovo žiarenie na Nobelovku, to Unruhovo žiarenie, keby niekto dokázal, tak už toto by mohlo byť na Nobelovku.",
+      "draftCs": "Takže ta lekce, že nemusíme dokázat Hawkingovu záření na Nobelovu cenu, ta Unruhova záření, kdyby to někdo mohl dokázat, mohlo by to být na Nobelovu cenu.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2047.913,
+      "end": 2055.613,
+      "sourceCues": [
+        989,
+        990,
+        991,
+        992,
+        993
+      ],
+      "originalSk": "A toto už ide dokázať s časticami v labáku. Zoberieš elektrón, necháš ho sedieť na mieste a potom do neho pleskneš. Ale nie bejzbalovou",
+      "draftCs": "A to se dá dokázat s částicemi v laboratoři. Vezmete elektron, necháte ho sedět na místě a pak se do něho vrhnete. Ale ne baseballovou.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2055.613,
+      "end": 2065.413,
+      "sourceCues": [
+        994,
+        995,
+        996,
+        997,
+        998,
+        999
+      ],
+      "originalSk": "palicou, ale nejakým laserom, niečím, čo bude brutálny kopanec a potom sa sofistikovanými metódami sa snažíš zistiť nabitých častíc niečím niečím niečím urobíš strašný",
+      "draftCs": "Ale s nějakým laserem, s něčím, co bude brutální kopečkem, a pak se snažíte najít nabité částice s něčím, s něčím, s něčím děsivým.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2065.413,
+      "end": 2076.113,
+      "sourceCues": [
+        1000,
+        1001,
+        1002,
+        1003,
+        1004
+      ],
+      "originalSk": "kopanec a potom sa snažíš zistiť, či ten elektrón videl to Unruhovo tepelné žiarenie, či sa na ňom nejako prejavilo.",
+      "draftCs": "A pak se snažíte zjistit, jestli ten elektron viděl ten Unruhův tepelný záření, jestli se na něm nějak projevil.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2076.113,
+      "end": 2085.014,
+      "sourceCues": [
+        1005,
+        1006,
+        1007,
+        1008,
+        1009
+      ],
+      "originalSk": "A 2001 alebo 2011 nejaký japonský profesor písal, už viem ako na to,",
+      "draftCs": "A v roce 2001 nebo 2011 napsal nějaký japonský profesor, já vím, jak to udělat.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2085.014,
+      "end": 2089.473,
+      "sourceCues": [
+        1010,
+        1011
+      ],
+      "originalSk": "spúšťame veľký experiment a nič sa vtedy nepublikovalo, takže",
+      "draftCs": "Vytáhneme velký experiment a nic nebylo zveřejněno.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2089.473,
+      "end": 2091.314,
+      "sourceCues": [
+        1012
+      ],
+      "originalSk": "[vzdychanie][lapanie po dychu]",
+      "draftCs": "[výdech] [výdech]",
+      "reviewFlags": []
+    },
+    {
+      "start": 2091.314,
+      "end": 2099.914,
+      "sourceCues": [
+        1013,
+        1014,
+        1015,
+        1016
+      ],
+      "originalSk": "niekde sa to zaseklo, ale toto by bolo na Nobelovku podľa mňa a keby sa dokázalo Unruhovo žiarenie, tak Hawkingovo už je, nechcem povedať,",
+      "draftCs": "Někde je to uvízlé, ale tohle by bylo na Nobelově ceně, a pokud by se ukázalo, že Unruhův záření, Hawkingův záření, už je, nechci říct,",
+      "reviewFlags": []
+    },
+    {
+      "start": 2099.914,
+      "end": 2108.314,
+      "sourceCues": [
+        1017,
+        1018,
+        1019
+      ],
+      "originalSk": "že až triviálny dôsledok, ale už by bolo tak priamo čiare, že už by sa dalo veľmi ťažko spochybniť.",
+      "draftCs": "To by bylo tak triviální, ale bylo by to tak přímé, že by to bylo velmi těžké zpochybnit.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2108.314,
+      "end": 2117.514,
+      "sourceCues": [
+        1020,
+        1021,
+        1022,
+        1023,
+        1024,
+        1025
+      ],
+      "originalSk": "Uhm, rozumiem. Dobre. Tak ďakujem ti veľmi pekne, že si nám vysvetlil, o čom sú šedé diery a aj Unruhovo žiarenie a skočím ti do toho, lebo som si spomenul",
+      "draftCs": "Dobře, tak moc vám děkuji, že jste nám vysvětlili, co jsou šedé díry, a také, co je Unruhovo záření, a já vám to řeknu, protože jsem si vzpomněl.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2117.514,
+      "end": 2125.914,
+      "sourceCues": [
+        1026,
+        1027,
+        1028,
+        1029
+      ],
+      "originalSk": "na jednu vec, ktorú som chcel povedať už ne ne vedeckú, ale niekto nám písal a a písal nám na atypické miesto.",
+      "draftCs": "Na jednu věc, o které jsem chtěl říct, která už není vědecká, ale někdo nám napsal a napsal nám na atypickém místě.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2125.914,
+      "end": 2133.114,
+      "sourceCues": [
+        1030,
+        1031,
+        1032
+      ],
+      "originalSk": "Aha, áno, ale teraz to bolo na atypické miesto. Len si to teda rýchlo otváram, kde sme. Eh, je 18.",
+      "draftCs": "Jo, ano, ale teď to bylo v atypickém místě, takže to rychle otevřu, kde jsme.",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 2133.114,
+      "end": 2142.214,
+      "sourceCues": [
+        1033,
+        1034,
+        1035
+      ],
+      "originalSk": "V nedeľu sme spolu boli bežať cez Svätý Jur do na Biely Kríž a potom späť dole",
+      "draftCs": "V neděli jsme spolu běžely přes Svatý Jur na Bílý kříž a pak zpátky dolů.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2142.214,
+      "end": 2148.714,
+      "sourceCues": [
+        1036,
+        1037,
+        1038,
+        1039
+      ],
+      "originalSk": "smerom k Vajnorom. A to len teraz sa tak rýchlo vykecávam, lebo sa snažím na Strave otvoriť tú správu.",
+      "draftCs": "A právě teď se tak rychle odkládám, protože se snažím otevřít zprávu ve Stravě.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2148.714,
+      "end": 2156.314,
+      "sourceCues": [
+        1040,
+        1041,
+        1042
+      ],
+      "originalSk": "Dúfam, že zlé sa to otvára. bol to krásny beh aj eh chalani mi nám pekne utiekli.",
+      "draftCs": "Doufám, že se to špatně otevírá. Byl to krásný závod a ehm, kluci nám utekli pěkně.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2156.314,
+      "end": 2165.014,
+      "sourceCues": [
+        1043,
+        1044,
+        1045,
+        1046,
+        1047
+      ],
+      "originalSk": "A Martina sme neodbočili. Ale všetko z všetko bol to krásne. Toto počasie bolo výborné. Pekne sme to všetci zvládli. 16 km s kopčekmi",
+      "draftCs": "A Martina jsme nezabalili, ale všechno bylo skvělé, počasí bylo skvělé, všichni jsme to zvládli.",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 2165.014,
+      "end": 2174.214,
+      "sourceCues": [
+        1048,
+        1049,
+        1050,
+        1051
+      ],
+      "originalSk": "a stretli sme pri zbehu jednu babu, ktorá potom písala na Strave, keď ste zbiehali kúsok nad Vajnorskou dolinou, sme vás stretli. Ja som kráčala",
+      "draftCs": "A potkali jsme se u středu, když jedna žena napsala na střechu, že když jste utekli přes Vajnorské údolí, potkali jsme vás.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2174.214,
+      "end": 2179.914,
+      "sourceCues": [
+        1052,
+        1053
+      ],
+      "originalSk": "hore. V ušiach som počúvala práve váš podcast o Enricom Fermim.",
+      "draftCs": "Právě jsem poslouchala podcast o Enricku Fermi.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2179.914,
+      "end": 2186.714,
+      "sourceCues": [
+        1054,
+        1055,
+        1056
+      ],
+      "originalSk": "A veľmi si vyčítam, že som vám to nepovedala. Takže obchádzali sme niekoho, kto akurát počúval náš podcast.",
+      "draftCs": "A je mi líto, že jsem vám to neřekla, takže jsme se obcházeli někoho, kdo právě poslouchal náš podcast.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2186.714,
+      "end": 2192.914,
+      "sourceCues": [
+        1057,
+        1058,
+        1059
+      ],
+      "originalSk": "OK, OK. Tak to je dosť OK, to je dosť cool. Martinu Martinu pozdravujeme.",
+      "draftCs": "OK, OK. Tak to je dost dobře, to je dost cool.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2192.914,
+      "end": 2200.014,
+      "sourceCues": [
+        1060,
+        1061,
+        1062
+      ],
+      "originalSk": "Tak Martinu pozdravujeme. Keď budeš na našej nejakej akcii, tak tak sa prihovor a dáme ti ponožky.",
+      "draftCs": "Když budeš na naší akci, promluv se a dáme ti ponožky.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2200.014,
+      "end": 2207.516,
+      "sourceCues": [
+        1063,
+        1064,
+        1065,
+        1066
+      ],
+      "originalSk": "Tak dáme ti ponožky, nech máš čo čo v bežať. A áno, áno. Pozerám, že má na Strave túto aktivitu.",
+      "draftCs": "Tak ti dáme ponožky, ať máš co běhat.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 2207.516,
+      "end": 2211.716,
+      "sourceCues": [
+        1067,
+        1068
+      ],
+      "originalSk": "Že sa bola poprechádzať, presnejšie Takže toto je, toto je super.",
+      "draftCs": "Že to bylo přesné, přesněji tak to je, to je skvělé.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2211.716,
+      "end": 2217.816,
+      "sourceCues": [
+        1069,
+        1070,
+        1071
+      ],
+      "originalSk": "Ja som bol taký zničený na tom behu, že som si najprv bol [smiech] OK, aj keby sa prihovorila, čo?",
+      "draftCs": "Byla jsem tak zničená v tom běhu, že jsem byla (smích) v pohodě, i kdyby se to stalo, co?",
+      "reviewFlags": []
+    },
+    {
+      "start": 2217.816,
+      "end": 2223.516,
+      "sourceCues": [
+        1072,
+        1073,
+        1074
+      ],
+      "originalSk": "To by bolo Ďakujem veľmi [smiech] To, to by si musel ty obkecať. Dobré.",
+      "draftCs": "To by bylo. Děkuji moc. (Smích) To, to bys měl otočit. Dobře.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2223.516,
+      "end": 2231.316,
+      "sourceCues": [
+        1075,
+        1076,
+        1077,
+        1078
+      ],
+      "originalSk": "Ďakujem veľmi pekne, že nás počúvate. Nájdete nás na všetkých dobrých a troška horších podcastových aplikáciách. Samko má novú knihu Vesmír na kolieska. Mne",
+      "draftCs": "Děkujeme vám, že nás posloucháte. Najdete nás na všech dobrých a poněkud horších podcastových aplikacích. Samička má novou knihu Vesmír na kolech.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2231.316,
+      "end": 2241.416,
+      "sourceCues": [
+        1079,
+        1080,
+        1081
+      ],
+      "originalSk": "chýba posledných 15 strán. Úžasná knižka naozaj. Je to taký ktorý pekne spája s vedou a so svojimi",
+      "draftCs": "Posledních 15 stránek chybí. Je to opravdu úžasná kniha.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2241.416,
+      "end": 2250.216,
+      "sourceCues": [
+        1082,
+        1083,
+        1084,
+        1085
+      ],
+      "originalSk": "myšlienkami. Takže úplne nádherne a vysvetľuje tam známe veci, ale iným pohľadom, čo sa mi veľmi páči.",
+      "draftCs": "Takže to je skvělé a vysvětluje věci, které známe, ale s jiným pohledem, což se mi velmi líbí.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2250.216,
+      "end": 2259.516,
+      "sourceCues": [
+        1086,
+        1087,
+        1088
+      ],
+      "originalSk": "Potom Samko bude mať prednášku 7. 12. do konca 2. Ale neviem, ako sú na tom lístky Hľadanie mimozemského života v KC",
+      "draftCs": "Pak Samka bude mít přednášku od 7. do 12. do 2.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 2259.516,
+      "end": 2269.116,
+      "sourceCues": [
+        1089,
+        1090,
+        1091,
+        1092
+      ],
+      "originalSk": "Dunaj. Takže určite bude link tu dole. A tak. Majte sa veľmi pekne. A môžete nás podporiť na A máte zadarmo týždenčí dva. Takže",
+      "draftCs": "Dunaj, takže tady dole určitě bude linka, takže buďte hezký a můžete nás podporovat na A a máte dva týdny zdarma.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2269.116,
+      "end": 2276.516,
+      "sourceCues": [
+        1093,
+        1094,
+        1095
+      ],
+      "originalSk": "nemáte sa na čo vyhovoriť. Takže aj vďaka vám tento podcast čo skoro špeciálna o",
+      "draftCs": "Takže díky vám za tento podcast, který je téměř speciální o",
+      "reviewFlags": []
+    },
+    {
+      "start": 2277.416,
+      "end": 2286.316,
+      "sourceCues": [
+        1096,
+        1097,
+        1098,
+        1099,
+        1100
+      ],
+      "originalSk": "Nechajte sa. Vlastne tak som to o známom sci-fi príbehu Kontakt. Hovorím príbeh, lebo je to zároveň kniha aj film.",
+      "draftCs": "Vlastně jsem to řekl o známém sci-fi příběhu Kontakt.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2286.316,
+      "end": 2293.616,
+      "sourceCues": [
+        1101,
+        1102,
+        1103
+      ],
+      "originalSk": "Áno. A vlastne to je mostík z naším špeciálom o Karlovi Saganovi, ktorý sme robili v Boheme.",
+      "draftCs": "A to je vlastně most s naším speciálem o Karlu Saganovi, který jsme dělali v Bohemi.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2293.616,
+      "end": 2300.616,
+      "sourceCues": [
+        1104,
+        1105,
+        1106,
+        1107
+      ],
+      "originalSk": "Majte sa veľmi pekne. že my sme na tom Saganovi sľúbili, že spravíme špeciálnu epizódu o keďže bude vzdialený jeden svetelný deň",
+      "draftCs": "Vezměte si velmi pěkný čas. Saganovi jsme slíbili, že uděláme speciální epizodu o tom, že bude jeden světelný den daleko.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2300.616,
+      "end": 2306.916,
+      "sourceCues": [
+        1108,
+        1109,
+        1110
+      ],
+      "originalSk": "a ono sa to stalo v stredu 18. novembra. Takže v deň, kedy naraz vyšiel tento podcast.",
+      "draftCs": "A to se stalo ve středu 18. listopadu. Takže v den, kdy se tento podcast objevil.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2306.916,
+      "end": 2317.916,
+      "sourceCues": [
+        1111,
+        1112,
+        1113,
+        1114,
+        1115,
+        1116,
+        1117
+      ],
+      "originalSk": "Jožo 20 Tuto, tuto. 25 Aha. akurát nám to vychádzalo. Takže sorry No dobre, tak bude, dobre, tak bude jeden deň a 7 sekúnd proste vzdialený do",
+      "draftCs": "Dobře, tak to bude, dobře, tak to bude jeden den a sedm vteřin jen vzdálenost",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 2317.916,
+      "end": 2327.116,
+      "sourceCues": [
+        1118,
+        1119,
+        1120,
+        1121
+      ],
+      "originalSk": "tak dobre. No tak Tak Voyager v deň je až tak rýchlo. Aspoň takéto kudo dávame vo Voyageru Saganovi a Kontaktu.",
+      "draftCs": "Takže Voyager během dne je tak rychlý.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 2327.116,
+      "end": 2332.917,
+      "sourceCues": [
+        1122,
+        1123,
+        1124,
+        1125,
+        1126
+      ],
+      "originalSk": "Ty kokos. Vieš predstaviť aké je to tam tiché? Uhm. A prázdne.",
+      "draftCs": "Ty kokos, umíš si představit, jak je tam tiché a prázdné?",
+      "reviewFlags": []
+    },
+    {
+      "start": 2332.917,
+      "end": 2343.617,
+      "sourceCues": [
+        1127,
+        1128,
+        1129,
+        1130,
+        1131
+      ],
+      "originalSk": "Už je ináč v medzihviezdnom priestore. Normálne, že eh šesť rokov dozadu ale nie 10 rokov. Počkaj, 2012 Ježiš, 14 rokov dozadu zaznamenal prechod z",
+      "draftCs": "Je už jiná v mezinárodním vesmíru. Normálně je to šest let zpátky, ale ne deset. Počkat, v roce 2012 Ježíš, 14 let zpátky zaznamenal přechod z",
+      "reviewFlags": [
+        "translation-numerals"
+      ]
+    },
+    {
+      "start": 2343.617,
+      "end": 2350.417,
+      "sourceCues": [
+        1132,
+        1133,
+        1134,
+        1135
+      ],
+      "originalSk": "oblasti vesmíru, ktorá je dominovaná slnečným žiarením do oblasti, ktorá je dominovaná už kozmickým žiarením a vesmírnym kozmickým moment.",
+      "draftCs": "oblast vesmíru, která je ovládaná slunečním zářením, do oblasti, která je již ovládaná kosmickou zářením a kosmickým kosmickým momentem.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2350.417,
+      "end": 2356.717,
+      "sourceCues": [
+        1136,
+        1137,
+        1138,
+        1139
+      ],
+      "originalSk": "Hej, takže takže už to prešlo. Už je už je to už mu držíme mu palce.",
+      "draftCs": "Jo, takže už je to pryč, už je to pryč, už mu držíme palce.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2356.717,
+      "end": 2360.217,
+      "sourceCues": [
+        1140,
+        1141
+      ],
+      "originalSk": "Je to je to fakt Voyager. Dobre, majte sa veľmi pekne. Ahojte.",
+      "draftCs": "Je to opravdu Voyager.",
+      "reviewFlags": [
+        "translation-length"
+      ]
+    },
+    {
+      "start": 2360.217,
+      "end": 2362.617,
+      "sourceCues": [
+        1142
+      ],
+      "originalSk": "Majte sa.",
+      "draftCs": "Dělejte.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2363.267,
+      "end": 2365.287,
+      "sourceCues": [
+        1143
+      ],
+      "originalSk": "[hudba]",
+      "draftCs": "[Hudba]",
+      "reviewFlags": []
+    },
+    {
+      "start": 2366.617,
+      "end": 2377.617,
+      "sourceCues": [
+        1144,
+        1145,
+        1146,
+        1147,
+        1148
+      ],
+      "originalSk": "No a tu ešte na záver taká krátka ochutnávka z Labáku. Finnegans Wake sa nepriamo stali veľmi silnou inšpiráciou pre štruktúru Hviezdnych vojen.",
+      "draftCs": "A na závěr, tak krátká ochutnávka z Labaku, Finnegans Wake, nepřímě, se stala velmi silnou inspirací pro strukturu Hvězdných válek.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2377.617,
+      "end": 2387.317,
+      "sourceCues": [
+        1149,
+        1150,
+        1151,
+        1152
+      ],
+      "originalSk": "Názov Quark vymyslel eh Murray Gell-Mann, teoretický fyzik, nobelista,",
+      "draftCs": "Jméno Quark vynalezl Murray Gell-Mann, teoretický fyzik, Nobelovalec,",
+      "reviewFlags": []
+    },
+    {
+      "start": 2387.317,
+      "end": 2396.317,
+      "sourceCues": [
+        1153,
+        1154,
+        1155
+      ],
+      "originalSk": "ktorý si čítal Jamesa Joyca. A v Jamesovi Joyceovi vo Finnegans Wake je taká rýmovička.",
+      "draftCs": "A v Jamesovi Joyceovi v Finnegans Wake je taková pomluva.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2397.917,
+      "end": 2404.417,
+      "sourceCues": [
+        1156,
+        1157,
+        1158
+      ],
+      "originalSk": "Nemá to žiaden hlboký význam. A odtiaľ zobrali ten názov? Aj toto nájdete v Labáku v epizóde.",
+      "draftCs": "A odkud se ten název vzal? Tohle najdete také v Labaku v epizodě.",
+      "reviewFlags": []
+    },
+    {
+      "start": 2404.417,
+      "end": 2407.617,
+      "sourceCues": [
+        1159
+      ],
+      "originalSk": "Ďakujeme za vašu podporu.",
+      "draftCs": "Děkujeme za vaši podporu.",
+      "reviewFlags": []
+    }
+  ]
+}

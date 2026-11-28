@@ -51,13 +51,17 @@ def windows_for_review(review,groups,duration):
         else:merged.append(window)
     return merged
 
-def check(number):
+def check(number, shard_index=None, shard_count=1):
     import torch
     from faster_whisper import WhisperModel
     torch.set_num_threads(4)
     review,groups=editorial(number);proof,wave=source_audio(number)
     windows=windows_for_review(review,groups,proof['audioDuration'])
     output=SOURCE/f'episode-{number}-youtube-independent-audio-review.json'
+    if shard_index is not None:
+        assert 0<=shard_index<shard_count
+        windows=[w for i,w in enumerate(windows) if i%shard_count==shard_index]
+        output=SOURCE/f'episode-{number}-youtube-independent-audio-review-shard-{shard_index}.json'
     cached=batch.read(output) if output.exists() else {}
     cache={(c['start'],c['end'],c['language']):c for c in cached.get('passages',[])} if cached.get('audioSha256')==proof['audioSha256'] else {}
     result={'episode':number,'model':CHECK_MODEL,'audioSha256':proof['audioSha256'],'editorialReviewSha256':batch.digest(SOURCE/f'episode-{number}-youtube-editorial-review.json'),'status':'independent-ASR-evidence-needs-editorial-resolution-not-published','passages':[]}
@@ -130,5 +134,5 @@ def align(number):
     result['overlaps']=[{'previous':a['group'],'next':b['group'],'seconds':round(a['end']-b['start'],3)} for a,b in zip(result['groups'],result['groups'][1:]) if a['end']>b['start']]
     batch.write(output,result);print('CTC DRAFT COMPLETE',number,'low-score',result['lowScoreGroups'],'overlaps',len(result['overlaps']),flush=True)
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('episode',type=int);parser.add_argument('phase',choices=['check','align']);args=parser.parse_args()
-    check(args.episode) if args.phase=='check' else align(args.episode)
+    parser=argparse.ArgumentParser();parser.add_argument('episode',type=int);parser.add_argument('phase',choices=['check','align']);parser.add_argument('--shard-index',type=int);parser.add_argument('--shard-count',type=int,default=1);args=parser.parse_args()
+    check(args.episode,args.shard_index,args.shard_count) if args.phase=='check' else align(args.episode)

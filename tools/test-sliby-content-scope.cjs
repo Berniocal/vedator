@@ -13,8 +13,8 @@ for(const catalog of [d,d.archive]){
  for(const row of rows)for(const member of [row,...(row.mergedFrom||[])]){
   assert(!excluded.has(member.candidate),'Paid promise retained: '+member.candidate);
  }
- assert.equal(rows.length,901);
- assert.equal(new Set(rows.flatMap(r=>(r.mergedFrom||[r]).map(m=>JSON.stringify([m.candidate,m.tema])))).size,1034);
+ assert.equal(rows.length,906);
+ assert.equal(new Set(rows.flatMap(r=>(r.mergedFrom||[r]).map(m=>JSON.stringify([m.candidate,m.tema])))).size,1041);
  for(const section of catalog.sections.options)assert.equal(section.count,rows.filter(r=>r.section===section.id).length);
  for(const [label,count] of Object.entries(catalog.classification.categoryCounts))assert.equal(count,rows.filter(r=>r.kategorie===label).length);
  for(const [label,count] of Object.entries(catalog.classification.statusCounts))assert.equal(count,rows.filter(r=>r.stav===label).length);
