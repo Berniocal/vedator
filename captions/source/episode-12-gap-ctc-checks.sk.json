@@ -2,7 +2,7 @@
   "episode": 12,
   "model": "comodoro/wav2vec2-xls-r-300m-sk-cv8",
   "audioSha256": "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
-  "captionSha256": "f8018c54fb1081ae57a008bedf866acaf105bba29dd17d6379dee31044fd55bd",
+  "captionSha256": "49ff731b272d74e1fd68310ff3b9f0b4b8a6abdef127b534060248049ce2c0d2",
   "forcedTranscript": false,
   "status": "unforced-gap-probes-awaiting-editorial-audit",
   "passages": [
@@ -456,5 +456,10 @@
       "label": "final-tail",
       "text": ""
     }
-  ]
+  ],
+  "preLayoutCaptionSha256": "f8018c54fb1081ae57a008bedf866acaf105bba29dd17d6379dee31044fd55bd",
+  "layoutOnlyChange": {
+    "file": "captions/source/episode-12-layout-overrides.json",
+    "speechTextAndTimingUnchanged": true
+  }
 }

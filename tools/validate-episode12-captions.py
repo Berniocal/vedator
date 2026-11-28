@@ -105,7 +105,7 @@ def main():
         check(approval_path.is_file(), "Missing final acoustic editorial approval")
         if approval_path.is_file():
             approval=load(approval_path)
-            check(approval.get("completeFinalAcousticReview") is True and approval.get("captionSha256")==caption_hash and approval.get("gapProbeSha256")==gap_hash and approval.get("reviewedGapProbeCount")==len(expected_gaps), "Final acoustic editorial approval does not match actual captions or complete gap probes")
+            check(approval.get("completeFinalAcousticReview") is True and approval.get("completeMobileVisualReview") is True and approval.get("captionSha256")==caption_hash and approval.get("gapProbeSha256")==gap_hash and approval.get("reviewedGapProbeCount")==len(expected_gaps), "Final acoustic editorial approval does not match actual captions or complete gap probes")
     rss=load(CAP/"source"/"episode-12-source-identity.json")
     check(rss["guid"]==final["guid"] and rss["audio"]==draft["source"]["audio"] and rss["audioSha256"]==sha and rss.get("originalRssVerified") is True, "Caption source differs from authenticated original RSS identity")
     check(bool(sha) and sha == final["source"].get("audioSha256") == alignment.get("audioSha256"),
@@ -121,6 +121,12 @@ def main():
         cue = cues[choice["cue"] - 1]
         check(cue["text"][choice["language"]] == choice["text"], "Final caption differs from selected mobile layout")
         check(re.sub(r"\s+", " ", choice["text"]) == choice["flatText"], "Mobile layout changed spoken words")
+    if layout.get("inherentNaturalWraps"):
+        measured=load(CAP/"source"/"episode-12-layout-candidates.json")
+        for choice in layout["inherentNaturalWraps"]:
+            text=cues[choice["cue"]-1]["text"][choice["language"]]
+            prior=next((p for p in measured["proposals"] if p["cue"]==choice["cue"] and p["lang"]==choice["language"]),None)
+            check("\n" not in text and len(re.sub(r"\s+"," ",text).split())==3 and re.sub(r"\s+"," ",text).strip()==choice["flatText"] and bool(choice.get("reason")) and prior and prior["fail"]==choice["measuredMinimumFailureCount"]>0, "Natural-wrap review must match an exact measured three-word phrase; no fixed-break or overflow exemption")
 
     last_end, word_end = 0, 0
     duration = float(draft["source"]["duration"])

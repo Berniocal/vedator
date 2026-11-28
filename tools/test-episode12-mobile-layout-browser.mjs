@@ -11,6 +11,8 @@ const source=JSON.parse(fs.readFileSync('content-v2.json','utf8'));
 const numbers=[12];
 const workingDraft=process.env.VEDATOR_LAYOUT_WORKING_DRAFT==='1';
 const unregisteredFinal=process.env.VEDATOR_LAYOUT_UNREGISTERED_FINAL==='1';
+const layoutReviewPath='captions/source/episode-12-layout-overrides.json';
+const inherentWraps=fs.existsSync(layoutReviewPath)?JSON.parse(fs.readFileSync(layoutReviewPath,'utf8')).inherentNaturalWraps||[]:[];
 function workingWrap(text){
  if(text.length<=48)return text;
  const choices=[...text.matchAll(/ /g)].map(m=>m.index).filter(i=>i<=48&&text.length-i-1<=48&&!/(?:^| )[aikosuvz]$/i.test(text.slice(0,i))&&text.slice(0,i).split(' ').length>1&&text.slice(i+1).split(' ').length>1);
@@ -108,7 +110,7 @@ try{
   for(const mode of ['mp3','video','reader']){
    if(mode==='video'){await page.evaluate(()=>window.__captionTest.video());await page.waitForFunction(()=>window.__yt)}
    if(mode==='reader'){await page.evaluate(()=>window.__captionTest.reader());await wait(100)}
-   const rows=await page.evaluate(({cues,mode,propose})=>{
+   const rows=await page.evaluate(({cues,mode,propose,inherentWraps})=>{
     const node=document.getElementById(mode==='mp3'?'player-caption-text-v2':mode==='video'?'player-video-caption-v2':'player-caption-reader-text-v2');
     function lines(){const words=[];const walker=document.createTreeWalker(node,NodeFilter.SHOW_TEXT);let child;while(child=walker.nextNode()){const re=/\S+/g;let m;while(m=re.exec(child.textContent)){const r=document.createRange();r.setStart(child,m.index);r.setEnd(child,m.index+m[0].length);const b=r.getBoundingClientRect();words.push({text:m[0],y:Math.round(b.top)})}}const groups=[];for(const w of words){let g=groups.find(g=>Math.abs(g.y-w.y)<3);if(!g)groups.push(g={y:w.y,words:[]});g.words.push(w.text)}return groups.map(g=>g.words)}
     if(mode==='reader')window.__captionTest.renderReader('Kontrola mobilního vykreslení titulků.',1);else node.textContent='Kontrola mobilního vykreslení titulků.';
@@ -137,6 +139,9 @@ try{
      const wrapped=lines();
      if(wrapped.length>1&&wrapped.some(l=>l.length===1)){
       naturalOrphans.push({cue:i+1,lang,scale,wrapped,text:value,textWrap:getComputedStyle(node).textWrap});
+      const flat=value.replace(/\s+/g,' ').trim();
+      const inherent=!value.includes('\n')&&flat.split(' ').length===3&&inherentWraps.some(e=>e.cue===i+1&&e.language===lang&&e.flatText===flat&&e.measuredMinimumFailureCount>0&&e.reason);
+      if(mode!=='reader'&&!propose&&!inherent)result.push({cue:i+1,lang,scale,wrapped,kind:'unreviewed-natural-orphan'});
       if(mode==='reader')window.__captionTest.renderReader(value.replace(/\s+/g,' '),scale);else node.textContent=value.replace(/\s+/g,' ');
       const natural=lines();if(!natural.some(l=>l.length===1))result.push({cue:i+1,lang,scale,wrapped,natural,kind:'fixed-break-orphan'});
      }
@@ -152,7 +157,7 @@ try{
      }
     }
     node.style.fontSize='';return {result,candidates,naturalOrphans};
-   },{cues:layoutCues,mode,propose:process.env.VEDATOR_LAYOUT_PROPOSE==='1'});
+   },{cues:layoutCues,mode,propose:process.env.VEDATOR_LAYOUT_PROPOSE==='1',inherentWraps});
    if(Array.isArray(rows))findings.push(...rows.map(row=>({width,mode,...row})));else{findings.push(...rows.result.map(row=>({width,mode,...row})));candidateChecks.push(...rows.candidates);naturalWrapReview.push(...rows.naturalOrphans.map(row=>({width,mode,...row})))}
    if(process.env.VEDATOR_LAYOUT_SCREENSHOTS&&width===360){
     for(const lang of ['cs','sk']){

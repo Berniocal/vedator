@@ -7,6 +7,7 @@ const hash=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex
 const captions=read('captions/episode-12.json');
 const acoustic=read('captions/source/episode-12-acoustic-review-approved.json');
 assert(acoustic.completeFinalAcousticReview===true&&acoustic.captionSha256===hash('captions/episode-12.json'),'Final acoustic editorial approval refers to different caption bytes or is incomplete');
+assert(acoustic.completeMobileVisualReview===true,'Actual final mobile screenshots have not been reviewed');
 assert(acoustic.gapProbeSha256===hash('captions/source/episode-12-gap-ctc-checks.sk.json'),'Actual gap-probe review does not match the current acoustic evidence');
 const structural=read('captions/source/episode-12-prereg-validation.json');
 const layout=read('captions/source/episode-12-prereg-layout.json');

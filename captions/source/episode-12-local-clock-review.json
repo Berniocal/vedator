@@ -1,0 +1,52 @@
+{
+  "episode": 12,
+  "captionSha256": "49ff731b272d74e1fd68310ff3b9f0b4b8a6abdef127b534060248049ce2c0d2",
+  "test": "tools/test-caption-clock-browser.mjs",
+  "registeredEpisodes": 17,
+  "failures": [],
+  "errors": [],
+  "sourceAudio": "Authenticated original RSS MP3s incl episode12 and365; actual Chromium test.",
+  "pwa": "Production preparation, versioned service worker build and test-production-pwa passed; generated index/app/sw restored after check.",
+  "localV2Checks": [
+    {
+      "test": "test-app-v2.mjs",
+      "exit": 0
+    },
+    {
+      "test": "test-v2-question-experience.mjs",
+      "exit": 0
+    },
+    {
+      "test": "test-v2-episode-experience.mjs",
+      "exit": 0
+    },
+    {
+      "test": "test-v2-full-parity.mjs",
+      "exit": 0
+    },
+    {
+      "test": "test-v2-playlist-parity.mjs",
+      "exit": 0
+    },
+    {
+      "test": "test-v2-mobile-deep-polish.mjs",
+      "exit": 0
+    },
+    {
+      "test": "test-v2-mobile-browser.mjs",
+      "exit": 0
+    },
+    {
+      "test": "test-v2-mobile-browser-playlist.mjs",
+      "exit": 0
+    },
+    {
+      "test": "test-v2-real-readmore-browser.mjs",
+      "exit": 0
+    },
+    {
+      "test": "test-v2-youtube-player.mjs",
+      "exit": 0
+    }
+  ]
+}

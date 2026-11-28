@@ -97,14 +97,22 @@ jobs:
           r.registrationChecks={captionSha256:a.captionSha256,editedSha256:a.editedSha256,structure:'captions/source/episode-12-prereg-validation.json',layout:'captions/source/episode-12-prereg-layout.json'};
           fs.writeFileSync(p,JSON.stringify(r,null,2)+'\n');
           JS
-      - name: Save actual evidence without registering or publishing captions
+      - name: Apply explicitly approved episode 12 registration after actual checks
+        if: steps.output.outputs.ready == 'true'
+        run: |
+          if test -s captions/source/episode-12-acoustic-review-approved.json; then
+            node tools/register-episode12-captions.mjs
+            python tools/validate-episode12-captions.py --audio /tmp/vedator-ep12-audio/episode-12.mp3 > captions/source/episode-12-release-validation.json
+          fi
+      - name: Save actual checked evidence and approved registration
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for path in captions/source/episode-12-acoustic-boundary-review.json captions/source/episode-12-prereg-validation.json captions/source/episode-12-prereg-layout.json captions/episode-12.review.json; do
+          for path in captions/source/episode-12-acoustic-boundary-review.json captions/source/episode-12-prereg-validation.json captions/source/episode-12-prereg-layout.json captions/episode-12.review.json captions/source/episode-12-release-validation.json; do
             if test -s "$path"; then git add "$path"; fi
           done
+          if test -s captions/source/episode-12-acoustic-review-approved.json; then git add episode-videos.json content-v2.json; fi
           if test -d captions/source/episode-12-mobile-screenshots; then git add captions/source/episode-12-mobile-screenshots; fi
           if ! git diff --cached --quiet; then
             git commit -m "Preserve actual episode 12 pre-registration validation results"

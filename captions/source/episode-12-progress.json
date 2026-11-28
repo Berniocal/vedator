@@ -3,14 +3,14 @@
   "title": "Vedátorský podcast 12 – Ľudstvo vs. epidémie",
   "guid": "vedatorskypodcast.podbean.com/60169ece-e211-5ce3-8308-2ee114cd585b",
   "audio": "https://mcdn.podbean.com/mf/web/ks6p8t/podcast_ep12.mp3",
-  "baseMainSha": "18999441fb876d3df8607e807981b3fbe52ff55b",
-  "status": "final-acoustic-path-complete-specific-uncertainties-documented-final-mobile-review-pending",
-  "registered": false,
+  "baseMainSha": "47a6943aa80a235d9628b65fe50bd800592accab",
+  "status": "registered-locally-editorial-acoustic-mobile-verified-awaiting-exact-head-ci-and-production",
+  "registered": true,
   "deployed": false,
   "editorialReviewComplete": true,
   "completeCzechEditorialReview": true,
   "acousticAlignmentPerformed": true,
-  "mobileLayoutVerified": false,
+  "mobileLayoutVerified": true,
   "humanListeningVerified": false,
   "youtubeAudioCompared": false,
   "audioSha256": "798e5179d073756e4f1c5bb83bf144973e343aa9f4137823a1c70b28b27199b5",
@@ -41,7 +41,7 @@
   ],
   "editorialReview": "All 658 original Slovak groups and complete own Czech translation read; all 1271 semantic segments manually reviewed. Final markers replace only unestablished filler/overlap speech. Historical claims, numbers, units, negations, repairs and postscript retained.",
   "sourceWorkflowRun": "https://github.com/Berniocal/vedator/actions/runs/45746494844",
-  "finalAlignmentRun": "https://github.com/Berniocal/vedator/actions/runs/45939839989",
+  "finalAlignmentRun": "https://github.com/Berniocal/vedator/actions/runs/45941508201",
   "sourceReview": "captions/source/episode-12-final-text-review.json",
   "acousticReview": "captions/source/episode-12-acoustic-boundary-review.json",
   "priorWorkingLayout": {
@@ -83,13 +83,31 @@
     "11": "already deployed; JSON and both SRT hashes verified before selecting episode 12",
     "5to10": "actual captions, audits, tools and schema inspected; unchanged"
   },
-  "environment": "Local executor became unavailable after complete text curation; all text, source, acoustic evidence and scoped QA preserved in PR 352. Acoustic and browser checks continue on repository runners.",
+  "environment": "Local executor restored; original MP3 authenticated, all-cue actual Chromium layout and screenshots verified. Production publication still requires exact-head CI and Pages checks.",
   "nextSteps": [
-    "Stay on episode 12 / PR 352. Do not start episode 13 or repeat full ASR/manual translation.",
-    "Inspect actual final gap probes and distributed anchors; resolve any detected missing speech or bad boundary.",
-    "Verify four specific low-score decisions against exact final text, times, scores and immutable independent large-v3 evidence.",
-    "Run strict pre-registration source/character/JSON/SRT validation and actual final CZ/SK MP3/video/reader layout at 360/390 px and 100/130% fonts; inspect six actual screenshots.",
-    "Register only byte-identical checked captions, rebuild catalog/versioned PWA cache, run exact-head episode 12/clock/V2/PWA CI.",
-    "Merge only after successful relevant exact-head checks with expected SHA; verify Pages build/deploy and live JSON plus both SRT hashes."
-  ]
+    "Stay on episode 12 / PR 352 until live JSON and both SRT hashes are verified; do not start episode 13.",
+    "Require successful final head CI: strict episode12/audio/layout validation, shared caption clock, V2 integration and versioned production PWA.",
+    "Merge with expected head SHA after all relevant checks succeed; verify Pages build/deploy and actual production caption JSON plus both SRT hashes."
+  ],
+  "finalCaptionSha256": "49ff731b272d74e1fd68310ff3b9f0b4b8a6abdef127b534060248049ce2c0d2",
+  "finalMobileLayout": {
+    "checkedCues": 1271,
+    "findings": 0,
+    "widths": [
+      360,
+      390
+    ],
+    "scales": [
+      1,
+      1.3
+    ],
+    "modes": [
+      "mp3",
+      "video",
+      "reader"
+    ],
+    "specificInherentNaturalWraps": 6,
+    "screenshotsVisuallyReviewed": 14,
+    "report": "captions/source/episode-12-prereg-layout.json"
+  }
 }
